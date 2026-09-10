@@ -1,0 +1,8 @@
+*.py text eol=lf
+*.md text eol=lf
+*.toml text eol=lf
+lean/*.lean text eol=lf
+lean/lean-toolchain text eol=lf
+SOURCE_MANIFEST.json -text
+STAGE3_SOURCE_MANIFEST.json -text
+evidence/** -text

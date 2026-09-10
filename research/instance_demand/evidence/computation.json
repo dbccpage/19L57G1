@@ -1,0 +1,114 @@
+{
+  "authority_effect": "None",
+  "next_stage": "Attempt uniform closure materialization with its admission law explicit",
+  "outcome": "OPEN",
+  "samples": [
+    {
+      "already_separable": true,
+      "contains_impose": false,
+      "data_count": 2,
+      "history_event_types": [
+        "AdmitDatum",
+        "AdmitDatum",
+        "AdmitForm",
+        "AdmitInst"
+      ],
+      "instance_event_present": true,
+      "instance_stored": true,
+      "pair": [
+        0,
+        1
+      ],
+      "reading": "L",
+      "requirements": [],
+      "rule_covered": false,
+      "separating_context": [
+        0,
+        [
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "already_separable": false,
+      "contains_impose": false,
+      "data_count": 2,
+      "history_event_types": [
+        "AdmitDatum",
+        "AdmitDatum",
+        "AdmitForm",
+        "AdmitInst",
+        "AdmitRuleAll"
+      ],
+      "instance_event_present": true,
+      "instance_stored": true,
+      "pair": [
+        0,
+        1
+      ],
+      "reading": "L",
+      "requirements": [],
+      "rule_covered": true,
+      "separating_context": null
+    },
+    {
+      "already_separable": true,
+      "contains_impose": false,
+      "data_count": 3,
+      "history_event_types": [
+        "AdmitDatum",
+        "AdmitDatum",
+        "AdmitDatum",
+        "AdmitForm",
+        "AdmitInst"
+      ],
+      "instance_event_present": true,
+      "instance_stored": true,
+      "pair": [
+        1,
+        2
+      ],
+      "reading": "F",
+      "requirements": [],
+      "rule_covered": false,
+      "separating_context": [
+        0,
+        [
+          null,
+          2
+        ]
+      ]
+    },
+    {
+      "already_separable": false,
+      "contains_impose": false,
+      "data_count": 3,
+      "history_event_types": [
+        "AdmitDatum",
+        "AdmitDatum",
+        "AdmitDatum",
+        "AdmitForm",
+        "AdmitInst",
+        "AdmitRuleAll"
+      ],
+      "instance_event_present": true,
+      "instance_stored": true,
+      "pair": [
+        1,
+        2
+      ],
+      "reading": "F",
+      "requirements": [],
+      "rule_covered": true,
+      "separating_context": null
+    }
+  ],
+  "scope": "Native instance provenance and finite controls, not event authorship",
+  "stage": 1,
+  "sweep": {
+    "fresh_derivable_instances": 2337,
+    "states": 1062,
+    "successful_transitions": 17762
+  }
+}

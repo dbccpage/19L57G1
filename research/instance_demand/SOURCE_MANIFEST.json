@@ -1,0 +1,15 @@
+{
+  "base": "4cab03e9e1f9056492c33bd12298459b2f84958c",
+  "sources": {
+    "code/derivation/__init__.py": "0fabcb53dc46712447a727f6ceb661e5aab3267a3e8b50bdea11044b64f853af",
+    "code/derivation/model.py": "6a7fd2ba9688d47e9291514c623a811cde3c6b9e8fda1d12a608dc9bb0b1f3c2",
+    "code/derivation/observe.py": "78443d67e613d9cc9924538fe2e0a5acaf81f4654440bfe8586e16652f0317ba",
+    "lean4/Derivation/Basic.lean": "1520b392f4061af568e00ca4fd235feb03facf6d3612c030c1d60018539e3eed",
+    "lean4/Derivation/Inertia.lean": "c62615cb3757474d20348f6507b8dea4e2de3e3a02268909194a2d0736bbe5ce",
+    "lean4/lakefile.toml": "e75cbde5829dc2efbb5612fbfdba9301c20ccbf2d21ab80bc87db52f4ead0f3c",
+    "lean4/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "research/endogenous_demand/CLAIMS.md": "6d8cb02dc29b0adae099ff1734b34928b0301dfc9b663f211e7c10a3114de302",
+    "research/endogenous_demand/reader.py": "6a387175af8f3bc419d8165e4b58feb15b618f9efdbcaf8b76c2b754b9bfd112",
+    "research/represented_execution/lean/Execution.lean": "94b668b2d32715918d6d2dcf14def04583ac200a0493fc8e695d8ecb95b029ac"
+  }
+}

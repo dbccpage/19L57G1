@@ -1,0 +1,143 @@
+{
+  "E1": "OPEN: admission procedure and obligation reading remain host operations",
+  "E2_literal": "NOT_SATISFIED: requirements are unchanged",
+  "E2_owed_separation": "Conditional witness under the declared instance reading",
+  "E3": "Fresh stored pairs remain unseparated in the two reachable samples",
+  "E4": "Existing admissions separate all pairs in both replayed samples",
+  "authority_effect": "None",
+  "next_stage": "Represent the emitter and prove its semantic bridge",
+  "outcome": "OPEN",
+  "result": "Uniform materialization is conservative, finite, and idempotent",
+  "samples": [
+    {
+      "all_read_pairs_were_unmet": true,
+      "data_count": 2,
+      "fresh_instances": 4,
+      "read_pairs": [
+        [
+          0,
+          1
+        ]
+      ],
+      "read_pairs_after_answer": [
+        [
+          0,
+          1
+        ]
+      ],
+      "reading": "L",
+      "requirements_after": [],
+      "response_events": [
+        [
+          "AdmitForm",
+          1
+        ],
+        [
+          "AdmitInst",
+          1,
+          [
+            0
+          ]
+        ]
+      ],
+      "separating_contexts": [
+        [
+          1,
+          [
+            null
+          ]
+        ]
+      ],
+      "whole_history_replayed": true
+    },
+    {
+      "all_read_pairs_were_unmet": true,
+      "data_count": 3,
+      "fresh_instances": 9,
+      "read_pairs": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "read_pairs_after_answer": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "reading": "F",
+      "requirements_after": [],
+      "response_events": [
+        [
+          "AdmitForm",
+          1
+        ],
+        [
+          "AdmitInst",
+          1,
+          [
+            0
+          ]
+        ],
+        [
+          "AdmitForm",
+          1
+        ],
+        [
+          "AdmitInst",
+          2,
+          [
+            1
+          ]
+        ]
+      ],
+      "separating_contexts": [
+        [
+          1,
+          [
+            null
+          ]
+        ],
+        [
+          1,
+          [
+            null
+          ]
+        ],
+        [
+          2,
+          [
+            null
+          ]
+        ]
+      ],
+      "whole_history_replayed": true
+    }
+  ],
+  "stage": 2,
+  "sweep": {
+    "binary_forms": 1,
+    "data_bound": 3,
+    "new_admissions": 2337,
+    "requirements_per_state": 0,
+    "states": 1062,
+    "verified_fixed_points": 1062
+  }
+}

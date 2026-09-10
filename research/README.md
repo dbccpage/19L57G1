@@ -37,6 +37,7 @@ research Lean builds are invoked separately. The table names their entry points.
 | `grammar_fit` | local receipt only | none | test_*.py | none |
 | `identification_dual` | local receipt only | `verify_pins.py` | test_*.py | none |
 | `ignition` | local receipt only | `verify.py`, `verify_lean.py`, `verify_sources.py` | tests/ | manual receipt (`verify_lean.py`) |
+| `instance_demand` | local receipt only | `verify.py` | tests/ | local build and complete theorem census (`verify.py`) |
 | `iso_sound` | local receipt only | `verify.py`, `verify_lean.py`, `verify_sources.py` | tests/ | manual receipt (`verify_lean.py`) |
 | `limit_and_observer` | workflow (gate 11) | `verify_lean.py`, `verify_pins.py`, `verify_prose.py` | tests/ | manual receipt (`verify_lean.py`) |
 | `local_reuse` | local receipt only | `verify_lean.py`, `verify_sources.py` | tests/ | manual receipt (`verify_lean.py`) |
@@ -67,7 +68,7 @@ research Lean builds are invoked separately. The table names their entry points.
 | `two_sided_commitment` | local receipt only | `verify_pins.py` | test_*.py | none |
 | `typed_translation` | workflow (gate 11) | `verify_lean.py`, `verify_pins.py`, `verify_prose.py` | tests/ | manual receipt (`verify_lean.py`) |
 
-13 trees are wired; 35 are local receipts only.
+13 trees are wired; 36 are local receipts only.
 
 ## Hand copies
 

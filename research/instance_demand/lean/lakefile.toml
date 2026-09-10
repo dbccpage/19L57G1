@@ -1,0 +1,26 @@
+name = "instance_demand"
+version = "0.1.0"
+defaultTargets = ["InstanceDemand", "ClosureMaterialization", "RepresentedEmitter", "EmissionDynamics", "Inventory"]
+
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+[[lean_lib]]
+name = "InstanceDemand"
+
+[[lean_lib]]
+name = "Inventory"
+
+[[lean_lib]]
+name = "ClosureMaterialization"
+
+[[require]]
+name = "represented_execution"
+path = "../../represented_execution/lean"
+
+[[lean_lib]]
+name = "RepresentedEmitter"
+
+[[lean_lib]]
+name = "EmissionDynamics"
