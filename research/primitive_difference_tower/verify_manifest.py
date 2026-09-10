@@ -414,9 +414,28 @@ def verify_protected_paths() -> list[str]:
         "log", "--full-history", "--format=%H", f"{snapshot_commit}..HEAD",
         "--", *PROTECTED_PREFIXES,
     )
-    if touching:
+    real_touches: list[str] = []
+    for sha in touching.splitlines():
+        if not sha:
+            continue
+        # GitHub's pull/N/merge commit restates protected-path bytes already
+        # present at the snapshot. Skip commits whose protected tree matches
+        # the snapshot; keep any commit that actually moves those bytes
+        # (including a change later reverted).
+        moved = _git(
+            "diff",
+            "--name-only",
+            snapshot_commit,
+            sha,
+            "--",
+            *PROTECTED_PREFIXES,
+        )
+        if moved:
+            real_touches.append(sha)
+    if real_touches:
         raise ValueError(
-            "commits since the source snapshot touched a protected path:\n" + touching
+            "commits since the source snapshot touched a protected path:\n"
+            + "\n".join(real_touches)
         )
     changed = _git("diff", "--name-only", "HEAD", "--", *PROTECTED_PREFIXES)
     if changed:

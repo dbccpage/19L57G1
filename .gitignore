@@ -5,6 +5,7 @@ __pycache__/
 coverage.xml
 htmlcov/
 lean4/.lake/
+**/.lake/
 artifacts2/
 lake_build_*.log
 .claude/worktrees/

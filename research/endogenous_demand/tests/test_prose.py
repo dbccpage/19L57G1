@@ -31,6 +31,14 @@ class Prose(unittest.TestCase):
                      "G10", "G11", "G12"):
             self.assertIn(gate, status)
 
+    def test_termination_script_does_not_confirm_ob1(self) -> None:
+        text = (ROOT / "verify_termination.py").read_text(encoding="utf-8")
+        self.assertNotIn("OB-1 Obstruction Theorem Confirmed", text)
+        self.assertIn("OB-1 demand generator on C_reqs remains OPEN", text)
+        lean = (ROOT / "lean" / "EndogenousDemandObstruction.lean").read_text(encoding="utf-8")
+        self.assertIn("does not close OB-1", lean)
+        self.assertNotIn("Theorem (OB-1)", lean)
+
 
 if __name__ == "__main__":
     unittest.main()

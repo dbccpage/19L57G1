@@ -8,7 +8,15 @@ import sys
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from verify_lean import ALLOWED_AXIOMS, FORBIDDEN, MATHLIB, RECORD, parse_reports  # noqa: E402
+from verify_lean import (  # noqa: E402
+    ALLOWED_AXIOMS,
+    EXPECTED_FILES,
+    FORBIDDEN,
+    LEAN,
+    MATHLIB,
+    RECORD,
+    parse_reports,
+)
 
 CENSUS = "ENDOGENOUS_DEMAND_THEOREM: EndogenousDemand.cut"
 
@@ -57,6 +65,19 @@ class ReportParser(unittest.TestCase):
             with self.subTest(reason=reason):
                 with self.assertRaisesRegex(ValueError, reason):
                     parse_reports(log, census)
+
+
+class ObstructionPackaging(unittest.TestCase):
+    def test_obstruction_lean_is_in_the_lake_package(self) -> None:
+        actual = {
+            p.relative_to(LEAN).as_posix()
+            for p in LEAN.rglob("*.lean")
+            if ".lake" not in p.relative_to(LEAN).parts
+        }
+        self.assertEqual(actual, EXPECTED_FILES)
+        self.assertIn("EndogenousDemandObstruction.lean", EXPECTED_FILES)
+        lakefile = (LEAN / "lakefile.toml").read_text(encoding="utf-8")
+        self.assertIn('name = "EndogenousDemandObstruction"', lakefile)
 
 
 class ForbiddenTokens(unittest.TestCase):

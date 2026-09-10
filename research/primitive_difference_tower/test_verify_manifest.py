@@ -179,6 +179,8 @@ class VerifyManifestTests(unittest.TestCase):
             if args[0] == "log":
                 # The endpoint trees agree, so only a per-commit walk sees these.
                 return "deadbeef\ncafebabe"
+            if args[0] == "diff" and args[1] == "--name-only":
+                return "artifacts/completion_dependency_graph.json"
             self.fail(f"unexpected git call: {args}")
 
         with patch.object(verify_manifest, "_git", side_effect=fake_git), patch.object(
@@ -192,6 +194,31 @@ class VerifyManifestTests(unittest.TestCase):
         self.assertIn("--full-history", log_call)
         self.assertIn(f"{SNAPSHOT}..HEAD", log_call)
         self.assertEqual(log_call[log_call.index("--") + 1 :], verify_manifest.PROTECTED_PREFIXES)
+
+    def test_merge_commit_that_restates_snapshot_protected_tree_is_allowed(self) -> None:
+        def fake_git(*args: str) -> str:
+            if args == ("rev-parse", f"{SNAPSHOT}^{{tree}}"):
+                return SNAPSHOT_TREE
+            if args[0] == "log":
+                return "aa11merge"
+            if args[0] == "diff" and args[1] == "--name-only":
+                if args[2] == "HEAD":
+                    return ""
+                self.assertEqual(args[2], SNAPSHOT)
+                self.assertEqual(args[3], "aa11merge")
+                return ""
+            if args[0] == "ls-files":
+                return ""
+            self.fail(f"unexpected git call: {args}")
+
+        with patch.object(verify_manifest, "_git", side_effect=fake_git), patch.object(
+            verify_manifest, "_is_ancestor", return_value=True
+        ):
+            lines = verify_manifest.verify_protected_paths()
+        self.assertEqual(
+            lines[0],
+            "protected history since source snapshot: no commit touched a protected path",
+        )
 
     def test_snapshot_that_is_not_an_ancestor_is_refused(self) -> None:
         def fake_git(*args: str) -> str:

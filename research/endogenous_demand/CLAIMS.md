@@ -143,6 +143,15 @@ is `E2OnCReqs`.
   together with a Lean E1 proof.
 - **Obligation**: not discharged here.
 
+### CL-ED-BOUND
+
+- **Statement**: Endogenous traces without external data growth terminate in at most binom(N,2) steps. This bound is a corollary of `closedRun_round_bound` from sealed `Derivation.Rounds`. This does NOT close OB-1 — it shows a termination bound, not a demand generator. The Lean file is a Lake target (`EndogenousDemandObstruction`).
+- **Class**: proved theorem (termination bound on closed runs).
+- **Lean**: `EndogenousDemandObstruction.endogenous_termination_bound` (`exact closedRun_round_bound`).
+- **Python**: `verify_termination.py`.
+- **Falsifier**: a trace satisfying endogenous constraints that exceeds binom(N,2) steps without external growth.
+- **Obligation**: OB-1 (demand generator on C_reqs) remains OPEN.
+
 ### CL-ED-DYNAMICS
 
 - **Statement**: Sustained vs terminating does not apply inside
@@ -151,4 +160,4 @@ is `E2OnCReqs`.
   plus a host condition.
 - **Class**: declared scope.
 - **Evidence**: `candidates.json` `dynamics`; `SC-18`; `CL-IG-02`.
-- **Falsifier**: a C_reqs generator, which this tree proves there is not.
+- **Falsifier**: a C_reqs generator, which this tree shows there is not.

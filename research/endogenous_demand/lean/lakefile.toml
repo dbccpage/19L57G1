@@ -1,6 +1,6 @@
 name = "endogenous_demand"
 version = "0.1.0"
-defaultTargets = ["EndogenousDemand", "Inventory"]
+defaultTargets = ["EndogenousDemand", "Inventory", "EndogenousDemandObstruction"]
 
 # The sealed derivation package, consumed read-only.
 [[require]]
@@ -12,3 +12,6 @@ name = "EndogenousDemand"
 
 [[lean_lib]]
 name = "Inventory"
+
+[[lean_lib]]
+name = "EndogenousDemandObstruction"

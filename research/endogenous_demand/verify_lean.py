@@ -25,7 +25,11 @@ from verify_sources import verify_sources
 ROOT = Path(__file__).resolve().parent
 LEAN = ROOT / "lean"
 RECORD = ROOT / "evidence" / "lean.json"
-EXPECTED_FILES = {"EndogenousDemand.lean", "Inventory.lean"}
+EXPECTED_FILES = {
+    "EndogenousDemand.lean",
+    "Inventory.lean",
+    "EndogenousDemandObstruction.lean",
+}
 ALLOWED_AXIOMS = {"propext", "Quot.sound"}
 CENSUS_LINE = re.compile(r"^ENDOGENOUS_DEMAND_THEOREM: (\S+)$", re.MULTILINE)
 FORBIDDEN = re.compile(r"\b(?:sorry|admit|unsafe|partial)\b|^\s*axiom\s", re.MULTILINE)
@@ -92,7 +96,7 @@ def verify() -> bytes:
     version = invoke("env", "lean", "--version").strip()
     if not version.startswith("Lean (version 4.33.0,"):
         raise ValueError(f"unexpected Lean version: {version}")
-    invoke("build", "EndogenousDemand", "Inventory")
+    invoke("build", "EndogenousDemand", "Inventory", "EndogenousDemandObstruction")
     log = invoke("env", "lean", "EndogenousDemand.lean")
     census = invoke("env", "lean", "Inventory.lean")
     reports = parse_reports(log + "\n" + census, census)

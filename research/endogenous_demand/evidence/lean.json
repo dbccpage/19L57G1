@@ -6,8 +6,9 @@
   "classification": "Lean proof compilation",
   "local_sources_sha256": {
     "EndogenousDemand.lean": "818ea99adf8467682e6b7142ab90b00f1cec5ad888ccd356fbd7745c1f76fc9d",
+    "EndogenousDemandObstruction.lean": "376148e990e8c627f6caa7c4199549cb76ef12001bfcc462566b10d5c6441788",
     "Inventory.lean": "4626fc1eb26a6ca641decf3430a586a5f4b1a8ac767c8e0855ebbc35aef24584",
-    "lakefile.toml": "30b14bfd1fa71badfb6352d8c26a3e6e4a4956dd5b473d8262ff488ae0c3a959",
+    "lakefile.toml": "f68bcd45b16bda9acc7d2071dbbbcdf265408d59c9f9f55ed55f809eda311b50",
     "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
   },
   "outcome": "B",

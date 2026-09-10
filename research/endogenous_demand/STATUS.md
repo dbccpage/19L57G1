@@ -38,6 +38,4 @@ a nonempty file set that omitted every computational module.
 
 ## What this tree does not claim
 
-No generator on `C_reqs`.  I1 is OPEN.  Second-stake E4 invariance is not
-attempted.  Standing and ignition generation are cited as not E1.  No
-sealed path is written.  No CI registration.
+No generator on `C_reqs`. OB-1 (demand generator on C_reqs) remains OPEN. The new files `lean/EndogenousDemandObstruction.lean` (now a Lake target) and `verify_termination.py` establish a termination bound for endogenous traces without external growth, but they do NOT construct a demand generator. I1 is OPEN. Second-stake E4 invariance is not attempted. Standing and ignition generation are cited as not E1. No sealed path is written. No CI registration.

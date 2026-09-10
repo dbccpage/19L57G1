@@ -1,0 +1,6 @@
+name = "self_interpreter"
+version = "0.1.0"
+defaultTargets = ["SelfInterpreterObstruction"]
+
+[[lean_lib]]
+name = "SelfInterpreterObstruction"

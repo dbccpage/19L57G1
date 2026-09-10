@@ -1,8 +1,8 @@
 {
   "authority_effect": "None",
   "rung": "two, track one: no first demand",
-  "snapshot_commit": "3f44571240a0830a2fa8de639281670f4e50a511",
-  "snapshot_note": "main at launch.  Pull request 133 had NOT merged at this snapshot, so research/second_stream is recorded absent; see STATUS.md.",
+  "snapshot_commit": "233621725ea7b3281a12604f63a0345ac85f9f39",
+  "snapshot_note": "Repinned 2026-09-10 because paper/paper.md moved on main after launch (PR 164 merge bar). Pull request 133 has merged, so research/second_stream is present at this snapshot; see STATUS.md.",
   "sources": [
     {
       "path": "code/derivation/engine.py",
@@ -31,7 +31,7 @@
     },
     {
       "path": "paper/paper.md",
-      "sha256": "5DCA1E8E5D53562E90896FBD762AB347849C02451A81E274B90FE5DB30C04DE3",
+      "sha256": "6C657F4FC5D0613C13FD62E4071C846E51596663BF98EC97EE866BCE92E982BA",
       "note": "the sealed paper carrying the obstruction span"
     },
     {
@@ -85,8 +85,8 @@
     },
     {
       "path": "paper/paper.md",
-      "first_line": 488,
-      "last_line": 494,
+      "first_line": 531,
+      "last_line": 537,
       "sha256": "bfb9e4e0d74602110a2636b0944a75cce4075972aa75c00db503547b98daba6a",
       "note": "the sealed obstruction this rung reads the other way; quoted verbatim in CLAIM_LEDGER.md and never edited"
     },
@@ -143,7 +143,7 @@
   "absent_at_snapshot": [
     {
       "path": "research/second_stream",
-      "present_at_snapshot": false,
+      "present_at_snapshot": true,
       "pull_request": 133
     }
   ],
