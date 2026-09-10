@@ -1,0 +1,498 @@
+⚠ [8/25] Replayed Derivation.Apartness
+warning: pinned/Derivation/Apartness.lean:172:16: Variable name `x` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _x
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: pinned/Derivation/Apartness.lean:172:18: Variable name `y` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _y
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [16/25] Replayed ExchangeCoefficients
+warning: ExchangeCoefficients.lean:72:42: This simp argument is unused:
+  Prod.fst
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [transportCoeff, hopB, flipB, Prod.snd, Bool.or_eq_true, Bool.and_eq_true, Nat.beq_eq_true_eq]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ExchangeCoefficients.lean:72:52: This simp argument is unused:
+  Prod.snd
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [transportCoeff, hopB, flipB, Prod.fst, Bool.or_eq_true, Bool.and_eq_true, Nat.beq_eq_true_eq]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [20/25] Replayed NaturalSections.PhaseReceiver
+warning: pinned/NaturalSections/PhaseReceiver.lean:97:30: This simp argument is unused:
+  Int.natCast_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [den, Int.natCast_add, Int.natCast_one, Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm,
+    Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:97:47: This simp argument is unused:
+  Int.natCast_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [den, Int.natCast_add, Int.natCast_mul, Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm,
+    Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:133:18: This simp argument is unused:
+  rawNeg
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_sub, Int.sub_mul,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:133:26: This simp argument is unused:
+  den_rawAdd
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_sub, Int.sub_mul,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:134:6: This simp argument is unused:
+  Int.natCast_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.mul_sub, Int.sub_mul,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:134:23: This simp argument is unused:
+  Int.mul_sub
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.sub_mul,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:137:16: This simp argument is unused:
+  rawNeg
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_sub, Int.sub_mul,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:137:24: This simp argument is unused:
+  den_rawAdd
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_sub, Int.sub_mul,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:138:6: This simp argument is unused:
+  Int.natCast_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.mul_sub, Int.sub_mul,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:138:23: This simp argument is unused:
+  Int.mul_sub
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.sub_mul,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:138:36: This simp argument is unused:
+  Int.sub_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_sub,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:151:18: This simp argument is unused:
+  rawNeg
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_sub, Int.sub_mul,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:151:26: This simp argument is unused:
+  den_rawAdd
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_sub, Int.sub_mul,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:152:6: This simp argument is unused:
+  Int.natCast_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.mul_sub, Int.sub_mul,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:152:36: This simp argument is unused:
+  Int.sub_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_sub,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:155:16: This simp argument is unused:
+  rawNeg
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_sub, Int.sub_mul,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:155:24: This simp argument is unused:
+  den_rawAdd
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_sub, Int.sub_mul,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:156:6: This simp argument is unused:
+  Int.natCast_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.mul_sub, Int.sub_mul,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:156:23: This simp argument is unused:
+  Int.mul_sub
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.sub_mul,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:156:36: This simp argument is unused:
+  Int.sub_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_sub,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:181:41: This simp argument is unused:
+  Nat.mul_left_comm
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, den, Nat.mul_comm, Nat.add_comm, Nat.add_left_comm]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:196:42: This simp argument is unused:
+  Nat.add_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, den, Nat.mul_add, Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:197:31: This simp argument is unused:
+  Nat.mul_assoc
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, den, Nat.mul_add, Nat.add_mul, Nat.mul_comm, Nat.mul_left_comm]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:220:10: This simp argument is unused:
+  rawAdd
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawNeg, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_sub, Int.sub_mul,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:220:26: This simp argument is unused:
+  den_rawAdd
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_sub, Int.sub_mul,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:221:6: This simp argument is unused:
+  Int.natCast_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.mul_sub, Int.sub_mul,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:221:23: This simp argument is unused:
+  Int.mul_sub
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.sub_mul,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:221:62: This simp argument is unused:
+  Int.add_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_sub,
+    Int.sub_mul, Int.mul_add, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:224:8: This simp argument is unused:
+  rawAdd
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawNeg, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_sub, Int.sub_mul,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:224:24: This simp argument is unused:
+  den_rawAdd
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_sub, Int.sub_mul,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:224:58: This simp argument is unused:
+  Int.natCast_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den_rawAdd, den, Int.natCast_add, Int.natCast_one, Int.mul_sub, Int.sub_mul,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:225:6: This simp argument is unused:
+  Int.natCast_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.mul_sub, Int.sub_mul,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:225:23: This simp argument is unused:
+  Int.mul_sub
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.sub_mul,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:225:62: This simp argument is unused:
+  Int.add_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_sub,
+    Int.sub_mul, Int.mul_add, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:226:20: This simp argument is unused:
+  Int.mul_left_comm
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_sub,
+    Int.sub_mul, Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:226:39: This simp argument is unused:
+  Int.mul_assoc
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_sub,
+    Int.sub_mul, Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:240:26: This simp argument is unused:
+  den_rawAdd
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_sub, Int.sub_mul,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:241:6: This simp argument is unused:
+  Int.natCast_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.mul_sub, Int.sub_mul,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:241:23: This simp argument is unused:
+  Int.mul_sub
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.sub_mul,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:241:36: This simp argument is unused:
+  Int.sub_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_sub,
+    Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:241:62: This simp argument is unused:
+  Int.add_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_sub,
+    Int.sub_mul, Int.mul_add, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:242:39: This simp argument is unused:
+  Int.mul_assoc
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, rawNeg, den_rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_sub,
+    Int.sub_mul, Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:254:47: This simp argument is unused:
+  Int.natCast_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [den, Int.natCast_add, Int.natCast_mul, Int.mul_add, Int.add_mul, Int.mul_comm, Int.mul_left_comm,
+    Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:255:44: This simp argument is unused:
+  Int.mul_left_comm
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_add, Int.add_mul, Int.mul_comm,
+    Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:273:57: This simp argument is unused:
+  Int.natCast_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.mul_add, Int.add_mul, Int.mul_sub, Int.sub_mul,
+    Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:274:32: This simp argument is unused:
+  Int.mul_sub
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_add, Int.add_mul, Int.sub_mul,
+    Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:274:45: This simp argument is unused:
+  Int.sub_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_add, Int.add_mul, Int.mul_sub,
+    Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:275:6: This simp argument is unused:
+  Int.mul_left_comm
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_add, Int.add_mul, Int.mul_sub,
+    Int.sub_mul, Int.mul_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:284:57: This simp argument is unused:
+  Int.natCast_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.mul_add, Int.add_mul, Int.mul_sub, Int.sub_mul,
+    Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:285:45: This simp argument is unused:
+  Int.sub_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_add, Int.add_mul, Int.mul_sub,
+    Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:286:6: This simp argument is unused:
+  Int.mul_left_comm
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [rawAdd, den, Int.natCast_add, Int.natCast_mul, Int.natCast_one, Int.mul_add, Int.add_mul, Int.mul_sub,
+    Int.sub_mul, Int.mul_comm, Int.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:303:25: This simp argument is unused:
+  Nat.add_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Nat.mul_add, Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] at e ⊢
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:304:8: This simp argument is unused:
+  Nat.mul_assoc
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Nat.mul_add, Nat.add_mul, Nat.mul_comm, Nat.mul_left_comm] at e ⊢
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:312:23: This simp argument is unused:
+  Int.mul_neg
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Int.neg_mul, Int.mul_comm, Int.mul_left_comm, Int.mul_assoc] at hInt ⊢
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:312:36: This simp argument is unused:
+  Int.mul_comm
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Int.neg_mul, Int.mul_neg, Int.mul_left_comm, Int.mul_assoc] at hInt ⊢
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:312:50: This simp argument is unused:
+  Int.mul_left_comm
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Int.neg_mul, Int.mul_neg, Int.mul_comm, Int.mul_assoc] at hInt ⊢
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: pinned/NaturalSections/PhaseReceiver.lean:313:6: This simp argument is unused:
+  Int.mul_assoc
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Int.neg_mul, Int.mul_neg, Int.mul_comm, Int.mul_left_comm] at hInt ⊢
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+ℹ [24/25] Replayed ExamplesAudit
+info: ExamplesAudit.lean:7:0: 'ExchangeCoefficients.insert_left' depends on axioms: [propext]
+info: ExamplesAudit.lean:8:0: 'ExchangeCoefficients.insert_right' depends on axioms: [propext]
+info: ExamplesAudit.lean:9:0: 'ExchangeCoefficients.insert_zero_off_target' depends on axioms: [propext]
+info: ExamplesAudit.lean:10:0: 'ExchangeCoefficients.ordered_eq_transport' depends on axioms: [propext, Quot.sound]
+info: ExamplesAudit.lean:11:0: 'ExchangeCoefficients.scaled_eq' depends on axioms: [propext, Quot.sound]
+info: ExamplesAudit.lean:12:0: 'ExchangeCoefficients.finite_matrix_eq' depends on axioms: [propext, Quot.sound]
+info: ExamplesAudit.lean:13:0: 'ExchangeCoefficients.three_fixtures' does not depend on any axioms
+info: ExamplesAudit.lean:14:0: 'ExchangeCoefficients.insertion_exclusion' depends on axioms: [propext]
+info: ExamplesAudit.lean:15:0: 'ExchangeCoefficients.path_gauge' does not depend on any axioms
+info: ExamplesAudit.lean:16:0: 'ExchangeCoefficients.closed_odd_gauge' does not depend on any axioms
+info: ExamplesAudit.lean:17:0: 'ExchangeCoefficients.star_odd' does not depend on any axioms
+info: ExamplesAudit.lean:18:0: 'ExchangeCoefficients.square_odd' does not depend on any axioms
+info: ExamplesAudit.lean:19:0: 'ClaimExample.certified_has_proof' depends on axioms: [propext]
+info: ExamplesAudit.lean:20:0: 'ClaimExample.false_refused' depends on axioms: [propext]
+info: ExamplesAudit.lean:21:0: 'ClaimExample.true_certified' depends on axioms: [propext]
+info: ExamplesAudit.lean:22:0: 'ClaimExample.conjecture_not_certified' depends on axioms: [propext]
+info: ExamplesAudit.lean:23:0: 'NaturalSections.SlotEx.oddW_diag_zero' depends on axioms: [propext, Quot.sound]
+info: ExamplesAudit.lean:24:0: 'NaturalSections.Receiver.half_add_half' depends on axioms: [propext, Quot.sound]
+info: ExamplesAudit.lean:25:0: 'NaturalSections.Receiver.half_ne_zero' depends on axioms: [propext, Quot.sound]
+info: ExamplesAudit.lean:26:0: 'BoundaryCancellation.d2_zero_unrestricted' depends on axioms: [propext, Quot.sound]
+Build completed successfully (25 jobs).

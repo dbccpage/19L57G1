@@ -1,0 +1,91 @@
+{
+  "source_commit": "cea346d7f3603fd8da374947e76c9b3cd426d122",
+  "roots": [
+    "NaturalSections.HopFixture",
+    "NaturalSections.SlotExchange",
+    "NaturalSections.PhaseReceiver",
+    "Derivation.BoundaryCancellation"
+  ],
+  "modules": {
+    "Derivation.Apartness": {
+      "path": "lean4/Derivation/Apartness.lean",
+      "sha256": "e9af3393bbcff170ce220145182b704da34881054fd7beb97691ef04b288d684"
+    },
+    "Derivation.BoundaryCancellation": {
+      "path": "lean4/Derivation/BoundaryCancellation.lean",
+      "sha256": "669de56247a20536c17ae6ca4dd5674f9a098c3ec4c2d5973c443ecaa400f0e5"
+    },
+    "Derivation.Compression": {
+      "path": "lean4/Derivation/Compression.lean",
+      "sha256": "61dae37d53399ef40159648dd65d644ecfc666b6c324e72e7386a71377859e95"
+    },
+    "Derivation.ContactBridge": {
+      "path": "lean4/Derivation/ContactBridge.lean",
+      "sha256": "1b23a9e7f1b730ab41f6c55bd9f82fb43ef8eefdcebeded9888a507ae2ecc54c"
+    },
+    "Derivation.ContactKernel": {
+      "path": "lean4/Derivation/ContactKernel.lean",
+      "sha256": "ccd296f84f091ef7f9ba6a4de589a04feaf8e13db583f262ee1112a2c13ee2d7"
+    },
+    "Derivation.DiffInterface": {
+      "path": "lean4/Derivation/DiffInterface.lean",
+      "sha256": "1548ab6eaf991e4df5f2e6fd8bb8abc9a6c17c249b18ba73522bce59d6240469"
+    },
+    "Derivation.HigherStructure": {
+      "path": "lean4/Derivation/HigherStructure.lean",
+      "sha256": "5a14d7c157e19680580cfa2d4d5dc91258273a1a2c78309e2bc071e1bec4cd51"
+    },
+    "Derivation.LadderGeneral": {
+      "path": "lean4/Derivation/LadderGeneral.lean",
+      "sha256": "04d5ea0690ff6c5ba3145a9565de3856d9b69e306b1e50c94735765e7c856aa1"
+    },
+    "Derivation.ObsDescent": {
+      "path": "lean4/Derivation/ObsDescent.lean",
+      "sha256": "33b0ec0df9e7fe5ace93972802b6d23e83ad829e24e4e05af91a0806fe1bde03"
+    },
+    "Derivation.PresentationNaturality": {
+      "path": "lean4/Derivation/PresentationNaturality.lean",
+      "sha256": "9ceaf49adcd21ca01fbf52c06b39e9816f00a505dc4ac63277bc9cded6d28ca7"
+    },
+    "Derivation.PrimDiff": {
+      "path": "lean4/Derivation/PrimDiff.lean",
+      "sha256": "f46c3bc439b7361bf19586e322bf95452b7e316844ae05815f27fcf42552dbea"
+    },
+    "Derivation.PrimitiveCats": {
+      "path": "lean4/Derivation/PrimitiveCats.lean",
+      "sha256": "a6ec08d67334d89008ce5f631ee698336c0f0fc322124702a35ccc3e0be6e5b1"
+    },
+    "Derivation.PrimitiveContact": {
+      "path": "lean4/Derivation/PrimitiveContact.lean",
+      "sha256": "448bd29d6e5db6b3a615aa02b28d704f8604c0163e611cebe50860ee87acc23f"
+    },
+    "Derivation.PrimitiveCore": {
+      "path": "lean4/Derivation/PrimitiveCore.lean",
+      "sha256": "013507abbe2be33b5e3049a086d8566a3c0ec615645bcbeec260db08421fcc56"
+    },
+    "Derivation.PrimitivePassage": {
+      "path": "lean4/Derivation/PrimitivePassage.lean",
+      "sha256": "e14ca1a035e90e2d28cce2aca46f92425bf6e9304c8d274fbd2a21add09bd8a8"
+    },
+    "NaturalSections": {
+      "path": "research/natural_sections/lean/NaturalSections.lean",
+      "sha256": "e6c31748577eafcb892c1a8148880ae29cf9d51a517fdeaca71eeae1b3d7d7a3"
+    },
+    "NaturalSections.HopFixture": {
+      "path": "research/natural_sections/lean/NaturalSections/HopFixture.lean",
+      "sha256": "31de7a9532efe90a5f73a599d70d1eef025ed71c563ef537a25342e96eae3a64"
+    },
+    "NaturalSections.PhaseReceiver": {
+      "path": "research/natural_sections/lean/NaturalSections/PhaseReceiver.lean",
+      "sha256": "2c024862696ed79490d986aaa30411a9e0d1f2ed6561b0afb074b65b7da8f683"
+    },
+    "NaturalSections.SlotExchange": {
+      "path": "research/natural_sections/lean/NaturalSections/SlotExchange.lean",
+      "sha256": "a3f176eca67561af85119f55d38263b28357ba084e5d7538282c97e99bda99e3"
+    },
+    "NaturalSections.WeightedLayer": {
+      "path": "research/natural_sections/lean/NaturalSections/WeightedLayer.lean",
+      "sha256": "1d5b06167c38f33146448a32a831bf00ebf0e5235ae0db79e7d7ab5f1ac999e2"
+    }
+  }
+}

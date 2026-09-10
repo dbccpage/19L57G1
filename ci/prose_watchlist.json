@@ -7,6 +7,9 @@
     "Class tags: 'physics-shaped common noun' (counted, never refused; several are house words in research/), 'outside proper name', and 'outside program phrase (two words)'."
   ],
   "baseline": {
+    "research/exchange_coefficients/lean/ExchangeCoefficients.lean": {
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 1
+    },
     ".claude/skills/pin/SKILL.md": {
       "dccc5d01dabcd1c0b9fa89c91e7f4bde603121ee0172b4ff394e6bb30d295e41": 1
     },
