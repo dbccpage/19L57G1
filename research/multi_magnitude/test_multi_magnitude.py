@@ -89,6 +89,39 @@ class TestMultiMagnitude(unittest.TestCase):
             "CHANNELS_SEPARATED",
         )
 
+    def test_channel_a_is_computed_from_transport_count(self) -> None:
+        """Channel A cannot be dual-labeled: verdict follows distinct transports."""
+        from slice_set import members
+
+        base = dict(members())
+        occ2 = base["square_2x2_occ2"]
+        occ3 = base["square_2x2_occ3"]
+        self.assertEqual(cr.compute_channel_a(occ2)[0], "CURABLE_WITHIN_BOUND")
+        self.assertEqual(cr.compute_channel_a(occ3)[0], "NOT_CURABLE_WITHIN_BOUND")
+        cyc3 = cyc.row_family_v6(3)
+        occ2_cyc = cr.cyclotomic_arrow_variant(occ2, cyc3)
+        self.assertEqual(
+            cr.compute_channel_a(occ2)[0],
+            cr.compute_channel_a(occ2_cyc)[0],
+            "weighting must not flip Channel A (transports only)",
+        )
+
+    def test_census_rows_match_compute_channel_a_and_are_uniquely_named(self) -> None:
+        rows = cr.build_multi_magnitude_census()
+        names = [str(r["name"]) for r in rows]
+        self.assertEqual(len(names), len(set(names)))
+        for r in rows:
+            count = int(r["channel_a_transport_count"])
+            expected = (
+                "CURABLE_WITHIN_BOUND" if count <= 2 else "NOT_CURABLE_WITHIN_BOUND"
+            )
+            self.assertEqual(r["channel_a"]["verdict"], expected, r["name"])
+            self.assertNotIn(
+                "uncurable",
+                str(r["name"]),
+                "dual-labeled uncurable copy of a curable member must not exist",
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

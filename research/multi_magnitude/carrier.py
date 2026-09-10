@@ -51,11 +51,16 @@ def closed_walk_weights(p: GenPres, bound: int = WALK_BOUND) -> list[int]:
 def channel_row(
     name: str,
     p: GenPres,
-    channel_a_verdict: str,
-    channel_a_source: str,
     walk_bound: int = WALK_BOUND,
+    slot_bound: int = 2,
 ) -> dict[str, object]:
-    """Evaluate both repair channels on presentation p."""
+    """Evaluate both repair channels on presentation p.
+
+    Channel A is computed from the presentation's distinct transport
+    labels versus ``slot_bound`` (a slot-count proxy, not convention_price
+    phase-2/3 exhaustion). Callers cannot pass a verdict.
+    """
+    channel_a_verdict, channel_a_source = compute_channel_a(p, slot_bound)
     w = closed_walk_weights(p, bound=walk_bound)
     cert = certificate_by_counting(w)
     a_decided = channel_a_verdict != "NOT_COVERED_BY_BOUND"
@@ -82,6 +87,7 @@ def channel_row(
         "walk_magnitudes": cert["magnitudes"],
         "distinct_magnitudes": len(cert["magnitudes"]),
         "channel_a": {"verdict": channel_a_verdict, "source": channel_a_source},
+        "channel_a_transport_count": len({a.transport for a in p.arrows}),
         "channel_b": cert,
         "cell": cell,
     }
@@ -149,18 +155,14 @@ def build_multi_magnitude_census() -> list[dict[str, object]]:
         if name in base_members:
             p_base = base_members[name]
             p_cyc = cyclotomic_arrow_variant(p_base, cyc3)
-            verdict, source = compute_channel_a(p_cyc)
-            rows.append(channel_row(f"{name}_cyc3", p_cyc, verdict, source))
+            rows.append(channel_row(f"{name}_cyc3", p_cyc))
 
     if "square_2x2_occ2" in base_members:
         p_sq = base_members["square_2x2_occ2"]
         p_sq_cyc = cyclotomic_arrow_variant(p_sq, cyc3)
-        verdict, source = compute_channel_a(p_sq_cyc)
-        rows.append(channel_row("square_2x2_occ2_cyc3", p_sq_cyc, verdict, source))
+        rows.append(channel_row("square_2x2_occ2_cyc3", p_sq_cyc))
 
-    # 2. "b_only": single-signed occ2 (2 transports but all amps=+1 → no relabeling needed,
-    #    channel_a is curable but B dominates → need a presentation where A fails but B passes)
-    #    Use occ3 with single-signed weights: 3 transports → NOT curable, but unit amps → B cert
+    # 2. "b_only": occ3 with unit amps (3 transports → A fails; unit amps → B cert)
     if "square_2x2_occ3" in base_members:
         p_occ3 = base_members["square_2x2_occ3"]
         p_occ3_single = GenPres(
@@ -169,20 +171,17 @@ def build_multi_magnitude_census() -> list[dict[str, object]]:
             p_occ3.fibre,
             p_occ3.generators,
         )
-        verdict, source = compute_channel_a(p_occ3_single)
-        rows.append(channel_row("square_2x2_occ3_single_signed", p_occ3_single, verdict, source))
+        rows.append(channel_row("square_2x2_occ3_single_signed", p_occ3_single))
 
     # 3. "both": unit-weight occ2 (2 transports → curable, unit amps → B cert)
     if "signed_square_pos" in base_members:
         p_base = base_members["signed_square_pos"]
-        verdict, source = compute_channel_a(p_base)
-        rows.append(channel_row("signed_square_pos_unit", p_base, verdict, source))
+        rows.append(channel_row("signed_square_pos_unit", p_base))
 
-    # 4. "neither": cyclotomic-weighted occ3 (3 transports → NOT curable, multi-mag → no B cert)
+    # 4. "neither": cyclotomic-weighted occ3 (3 transports → A fails, multi-mag → no B cert)
     if "square_2x2_occ3" in base_members:
         p_occ3 = base_members["square_2x2_occ3"]
         p_occ3_cyc = cyclotomic_arrow_variant(p_occ3, cyc3)
-        verdict, source = compute_channel_a(p_occ3_cyc)
-        rows.append(channel_row("square_2x2_occ3_cyc3", p_occ3_cyc, verdict, source))
+        rows.append(channel_row("square_2x2_occ3_cyc3", p_occ3_cyc))
 
     return rows

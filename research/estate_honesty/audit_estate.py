@@ -163,6 +163,31 @@ def audit_trees(repo_root: Path = REPO_ROOT) -> list[TreeAuditRecord]:
     return records
 
 
+_NODE_ID = re.compile(r"^(tests/\S+?)::")
+_FILE_COUNT = re.compile(r"^(tests/\S+): (\d+)$")
+
+
+def parse_pytest_collect_output(stdout: str) -> dict[str, int]:
+    """Parse pytest --collect-only -q stdout into per-file counts.
+
+    Accepts historical ``tests/foo.py: N`` lines and pytest 9 nodeids
+    ``tests/foo.py::test_bar``. The old ``": "``-only parser returned 0
+    on pytest 9 output.
+    """
+    counts_by_file: dict[str, int] = {}
+    for raw in stdout.splitlines():
+        line = raw.strip()
+        node = _NODE_ID.match(line)
+        if node:
+            path = node.group(1)
+            counts_by_file[path] = counts_by_file.get(path, 0) + 1
+            continue
+        file_count = _FILE_COUNT.match(line)
+        if file_count:
+            counts_by_file[file_count.group(1)] = int(file_count.group(2))
+    return counts_by_file
+
+
 def audit_test_counts(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
     """Audit pytest collection counts in root tests/ and gate-11 hardcoded counts."""
     # 1. Root pytest collection
@@ -172,25 +197,7 @@ def audit_test_counts(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
         capture_output=True,
         text=True,
     )
-    counts_by_file: dict[str, int] = {}
-    for line in res.stdout.splitlines():
-        line = line.strip()
-        # pytest --collect-only -q format varies by version:
-        #   older/some: "tests/test_foo.py: 10"
-        #   newer/some: "tests/test_foo.py::test_bar"
-        if line.startswith("tests/"):
-            if ": " in line and not "::" in line:
-                # "tests/test_foo.py: 10" format
-                parts = line.split(": ")
-                try:
-                    counts_by_file[parts[0]] = int(parts[1])
-                except (ValueError, IndexError):
-                    pass
-            elif "::" in line:
-                # "tests/test_foo.py::test_bar" format
-                test_file = line.split("::")[0]
-                counts_by_file[test_file] = counts_by_file.get(test_file, 0) + 1
-
+    counts_by_file = parse_pytest_collect_output(res.stdout)
     current_collected = sum(counts_by_file.values())
     current_files = len(counts_by_file)
 

@@ -68,10 +68,42 @@ class TestEstateHonesty(unittest.TestCase):
         """Root test suite collects 523 tests across 41 files; drift is exactly +42."""
         root = self.test_audit["root_suite"]
         self.assertEqual(root["readme_collected"], 481)
+        self.assertGreater(
+            root["current_collected"],
+            0,
+            "parser must not report 0 on pytest 9 nodeid collect output",
+        )
         self.assertEqual(root["current_collected"], 523)
         self.assertEqual(root["drift_collected"], 42)
         self.assertEqual(root["current_files"], 41)
         self.assertEqual(root["readme_files"], 41)
+
+    def test_pytest_collect_parser_handles_nodeids_and_file_counts(self) -> None:
+        nodeids = (
+            "tests/a.py::test_one\n"
+            "tests/a.py::TestC::test_two\n"
+            "tests/b.py::test_x\n"
+            "3 tests collected in 0.01s\n"
+        )
+        node_counts = ae.parse_pytest_collect_output(nodeids)
+        self.assertEqual(node_counts, {"tests/a.py": 2, "tests/b.py": 1})
+        self.assertEqual(sum(node_counts.values()), 3)
+        old = "tests/a.py: 10\ntests/b.py: 2\n"
+        self.assertEqual(
+            ae.parse_pytest_collect_output(old),
+            {"tests/a.py": 10, "tests/b.py": 2},
+        )
+
+    def test_mirror_refinement_was_withdrawn(self) -> None:
+        self.assertFalse(
+            (ROOT / "research" / "mirror_refinement").exists(),
+            "Target 5 was withdrawn; MirrorRefinement.lean must not ship",
+        )
+
+    def test_reading_f_iso_does_not_claim_to_advance_distinctness(self) -> None:
+        status = (ROOT / "research" / "reading_f_iso" / "STATUS.md").read_text(encoding="utf-8")
+        self.assertIn("does not add a new distinctness result", status)
+        self.assertIn("f_class_distinctness", status)
 
     def test_gate11_literal_pins_exist(self) -> None:
         """Gate 11 pinned literal test counts are present in verify.yml."""

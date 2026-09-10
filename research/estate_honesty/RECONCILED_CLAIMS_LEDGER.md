@@ -32,7 +32,7 @@ Broad claims of unproven universality are strictly excluded.
 | `grammar_fit` | Grammar fitting analysis | Python | Local receipt | Grammar fits sample transitions | Unbounded trace coverage |
 | `identification_dual` | Dual identification operators | Python | Local receipt | Dual operators commute on declared pairs | Exact duality gap theorem |
 | `ignition` | Ignition demand sequence | Lean + Python | Local receipt | Hand-scheduled block executes lawfully | Driver liveness without schedule |
-| `iso_sound` | CL-ISO-SOUND partition check | Lean + Python | Local receipt | Partition agreement across 56,020 regimes (5,698 classes) | General soundness bridge (OPEN) |
+| `iso_sound` | CL-ISO-SOUND partition check | Lean + Python | Local receipt | Baseline 56,020 / 5,698; deepened census 338,650 / 57,266 (both OPEN) | General soundness bridge (OPEN) |
 | `limit_and_observer` | Second observer pricing | Lean + Python | Gate 11 CI (Py) | Prices bound to verified receipt | Axiom audit in CI |
 | `local_reuse` | Local reuse optimization | Lean + Python | Local receipt | Reuse verified on sample graphs | General reuse soundness |
 | `magnification` | Magnification relation & cut | Lean + Python | Local receipt | Cut results hold on exported fans | Full transport in Lean |

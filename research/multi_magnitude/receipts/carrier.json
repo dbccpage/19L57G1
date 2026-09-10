@@ -30,6 +30,7 @@
           "source": "2_label_slots",
           "verdict": "CURABLE_WITHIN_BOUND"
         },
+        "channel_a_transport_count": 2,
         "channel_b": {
           "certificate": false,
           "magnitudes": [
@@ -62,6 +63,7 @@
           "source": "2_label_slots",
           "verdict": "CURABLE_WITHIN_BOUND"
         },
+        "channel_a_transport_count": 2,
         "channel_b": {
           "certificate": false,
           "magnitudes": [
@@ -94,6 +96,7 @@
           "source": "2_label_slots",
           "verdict": "CURABLE_WITHIN_BOUND"
         },
+        "channel_a_transport_count": 2,
         "channel_b": {
           "certificate": false,
           "magnitudes": [
@@ -126,6 +129,7 @@
           "source": "3_labels_exceed_bound_2",
           "verdict": "NOT_CURABLE_WITHIN_BOUND"
         },
+        "channel_a_transport_count": 3,
         "channel_b": {
           "certificate": true,
           "magnitudes": [
@@ -150,6 +154,7 @@
           "source": "2_label_slots",
           "verdict": "CURABLE_WITHIN_BOUND"
         },
+        "channel_a_transport_count": 2,
         "channel_b": {
           "certificate": true,
           "magnitudes": [
@@ -174,6 +179,7 @@
           "source": "3_labels_exceed_bound_2",
           "verdict": "NOT_CURABLE_WITHIN_BOUND"
         },
+        "channel_a_transport_count": 3,
         "channel_b": {
           "certificate": false,
           "magnitudes": [

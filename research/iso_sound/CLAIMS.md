@@ -38,6 +38,19 @@ negation.
 - **Obligation**: this is not `CL-ISO-SOUND`.  `general_soundness` is
   OPEN.
 
+### CL-IS-HUNT-DEEP
+
+- **Statement**: On the enlarged bound `n_data ≤ 3`, `n_forms ≤ 1`,
+  arity `≤ 3`, `|insts| ≤ 4`, refined-key equality agrees with
+  brute-force-key equality.  338,650 regimes, 57,266 classes, zero
+  falsifiers.  General soundness remains OPEN.
+- **Class**: finite computation.
+- **Evidence**: `hunt_cl_iso.py`; `space.count_space(3, 1, 3, 4)`;
+  `evidence/hunt_deep.json`.
+- **Falsifier**: enumeration length ≠ 338650, or a pair in the space
+  whose refined-equality bit differs from its brute-equality bit.
+- **Obligation**: this is not `CL-ISO-SOUND`.
+
 ### CL-IS-CORPUS
 
 - **Statement**: The seven mixed regimes from the sealed iso tests sit

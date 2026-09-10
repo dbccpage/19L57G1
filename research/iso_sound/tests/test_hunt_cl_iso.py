@@ -113,8 +113,27 @@ class TestHuntClIso(unittest.TestCase):
         json_str = json.dumps(encoded)
         self.assertIsInstance(json_str, str)
 
+    def test_deep_runner_is_collected_inside_iso_sound(self) -> None:
+        here = Path(__file__).resolve()
+        self.assertEqual(here.parent.name, "tests")
+        self.assertTrue((ISO_SOUND_DIR / "hunt_cl_iso.py").is_file())
+        self.assertTrue((ISO_SOUND_DIR / "stress_adversarial_iso.py").is_file())
+        self.assertFalse((RESEARCH_DIR / "hunt_cl_iso.py").exists())
+        self.assertFalse((RESEARCH_DIR / "stress_adversarial_iso.py").exists())
+        self.assertFalse((ISO_SOUND_DIR / "test_hunt_cl_iso.py").exists())
+
+    def test_committed_deep_receipt_matches_declared_bounds(self) -> None:
+        receipt = json.loads((ISO_SOUND_DIR / "evidence" / "hunt_deep.json").read_text(encoding="utf-8"))
+        self.assertEqual(count_space(3, 1, 3, 4), 338650)
+        self.assertEqual(receipt["regime_count"], 338650)
+        self.assertEqual(receipt["refined_class_count"], 57266)
+        self.assertEqual(receipt["brute_class_count"], 57266)
+        self.assertEqual(receipt["falsifier_count"], 0)
+        self.assertEqual(receipt["general_soundness"], "OPEN")
+        self.assertEqual(hci.verify_receipt_honesty(receipt), [])
+
     def test_full_census_reproducibility(self) -> None:
-        """The full census evaluates exactly 56,020 regimes into 5,698 classes with 0 falsifiers."""
+        """The baseline census evaluates exactly 56,020 regimes into 5,698 classes with 0 falsifiers."""
         self.assertEqual(count_space(), 56020)
         receipt = hci.run_census(check_corpus=True)
         self.assertEqual(receipt["regime_count"], 56020)

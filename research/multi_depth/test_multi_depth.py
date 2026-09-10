@@ -7,9 +7,12 @@ AuthorityEffect: None.
 
 from __future__ import annotations
 
+import json
 import pathlib
 import sys
+import tempfile
 import unittest
+from unittest import mock
 
 sys.dont_write_bytecode = True
 
@@ -74,10 +77,29 @@ class TestMultiDepthLadder(unittest.TestCase):
             )
 
     def test_renaming_invariance_1152_runs(self) -> None:
+        """1,152 is the depth-1 renaming sweep, not the ladder check."""
         sweep = md.run_sweep_verification()
         self.assertEqual(sweep["sweep_runs_checked"], 1152)
         self.assertEqual(sweep["invariance_failures"], 0)
         self.assertTrue(sweep["invariance_verified"])
+
+    def test_runner_exits_nonzero_when_lean_fails(self) -> None:
+        import run_multi_depth as runner
+
+        with tempfile.TemporaryDirectory() as tmp:
+            argv = ["run_multi_depth.py", "--out", tmp]
+            with mock.patch.object(sys, "argv", argv), mock.patch.object(
+                runner.verify_lean, "main", return_value=1
+            ), mock.patch.object(
+                runner.md,
+                "run_sweep_verification",
+                return_value={"sweep_runs_checked": 0, "invariance_failures": 0},
+            ):
+                rc = runner.main()
+            self.assertEqual(rc, 1)
+            receipt = json.loads((pathlib.Path(tmp) / "multi_depth.json").read_text(encoding="utf-8"))
+            self.assertFalse(receipt["lean_verification"]["audit_passed"])
+            self.assertEqual(receipt["lean_verification"]["axioms"], "BUILD_FAILED")
 
     def test_lean_audit_clean(self) -> None:
         rc = verify_lean.main()

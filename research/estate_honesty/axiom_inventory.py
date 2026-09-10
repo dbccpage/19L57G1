@@ -28,8 +28,14 @@ def inspect_tree_axiom_scripts(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
     allowed_re = re.compile(r"(?:ALLOWED_AXIOMS|WHITELIST|AXIOM_WHITELIST)\s*=\s*(\{[^}]+\})")
     doc_whitelist_re = re.compile(r"\{propext,\s*Quot\.sound\}")
 
-    for p in sorted(research_dir.glob("*/verify_lean.py")):
+    scripts = sorted(
+        set(research_dir.glob("*/verify_lean.py"))
+        | set(research_dir.glob("*/verify.py"))
+    )
+    for p in scripts:
         tree_name = p.parent.name
+        if tree_name in tree_inventories:
+            continue
         content = p.read_text(encoding="utf-8")
 
         match = allowed_re.search(content)

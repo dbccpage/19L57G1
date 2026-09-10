@@ -3,6 +3,7 @@
 AuthorityEffect: None.
 
 ### CL-READING-F-ISO
-- **Statement**: Shows 5 concrete F-reading regimes are pairwise non-isomorphic.
-- **Evidence**: Lean formal proof.
+- **Statement**: Restates pairwise non-isomorphism of the five Challenge-3 F representatives already proved in `f_class_distinctness`. Same sealed `Iso`, same literals under different names.
+- **Evidence**: Lean formal proof (`ReadingFIso.lean`); compare `FClassDistinctness.lean`.
 - **Falsifier**: finding an isomorphism between any pair of the 5 regimes.
+- **Obligation**: this tree does not advance the distinctness claim.

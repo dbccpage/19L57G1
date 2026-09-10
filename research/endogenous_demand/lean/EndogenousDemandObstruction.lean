@@ -4,10 +4,11 @@ import Derivation.Counting
 import Derivation.Rounds
 
 /-!
-# Target 8: Constructive Finite Termination Obstruction Theorem (OB-1)
+# Target 8: Endogenous termination bound
 
-This module formalizes the constructive finite termination obstruction theorem
-for endogenous demand generation in the object language.
+Corollary of sealed `closedRun_round_bound` (`Derivation.Rounds`).
+This is not a demand generator and does not close OB-1 (instance-channel
+E1 on `C_reqs` remains OPEN).
 
 Under minimum-response selection with no external driving (`Item.newDatum ∉ response`):
 1. The carrier size is invariant: `s.data = r.data = N`.
@@ -19,9 +20,8 @@ Under minimum-response selection with no external driving (`Item.newDatum ∉ re
    `2 * (r.reqs.length + k) ≤ N * (N - 1)`.
 5. In particular, from an empty requirement store, `2 * k ≤ N * (N - 1)`, which means
    `k ≤ Nat.choose N 2 = N * (N - 1) / 2`.
-6. Obstruction: no infinite endogenous demand execution without external data growth
-   is possible on any finite carrier $N$. Every endogenous trace must terminate
-   in at most `binom(N, 2)` steps.
+6. Bound: every endogenous trace on a finite carrier `N` has length
+   at most `binom(N, 2)`. Existence of a generator is a different claim (OB-1, OPEN).
 
 Axioms are strictly audited to be contained in `{propext, Quot.sound}`.
 AuthorityEffect: None.
@@ -142,7 +142,7 @@ theorem trace_reqs_subset_carrierPairs {r t : Regime} {k : Nat}
   rw [mem_carrierPairs_iff]
   exact ⟨htwf.1, htdata ▸ htwf.2⟩
 
-/-! ## 4. The Constructive Finite Termination Obstruction Theorem (OB-1) -/
+/-! ## 4. Termination bound (corollary of `closedRun_round_bound`) -/
 
 /-- **Theorem (Constructive Finite Termination Bound)**:
     Under minimum-response selection with no external data growth, any endogenous trace
@@ -174,9 +174,10 @@ theorem endogenous_trace_le_binom2 {r t : Regime} {k : Nat}
   unfold binom2
   omega
 
-/-- **Theorem (Obstruction to Infinite Generation / OB-1)**:
-    No endogenous demand execution without external data growth can exceed
-    `binom(N, 2)` steps. Any trace of length `k > binom(N, 2)` is excluded. -/
+/-- **Theorem (no excess endogenous length)**:
+    No endogenous run without external data growth can exceed `binom(N, 2)`
+    steps. This is the binomial form of `closedRun_round_bound`, not a
+    generator. OB-1 remains OPEN. -/
 theorem endogenous_obstruction_no_excess {r t : Regime} {k : Nat}
     (he : r.reqs = []) (h_excess : binom2 r.data < k) :
     ¬ EndogenousTrace r k t := by

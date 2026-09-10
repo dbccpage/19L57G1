@@ -13,7 +13,7 @@ explicit_package_bases = true
 [tool.coverage.run]
 branch = true
 source = ["."]
-omit = ["tests/*", "lean/*", ".lake/*", "verify.py", "verify_lean.py", "verify_sources.py", "run.py", "test_hunt_cl_iso.py"]
+omit = ["tests/*", "lean/*", ".lake/*", "verify.py", "verify_lean.py", "verify_sources.py", "run.py"]
 
 [tool.coverage.report]
 # fail_under is not used: coverage.py's percent_covered mixes statements

@@ -34,6 +34,14 @@ class TestGraphCycles(unittest.TestCase):
     def test_nonself_fundamental_cycles_count(self) -> None:
         self.assertEqual(len(self.graph.nonself_cycles), 146)
 
+    def test_no_numpy_float_rank_module(self) -> None:
+        self.assertFalse((HERE / "cohomology.py").exists())
+        self.assertEqual(
+            sorted(p.name for p in HERE.glob("*.py")),
+            ["test_cost_cohomology.py"],
+        )
+        self.assertEqual(self.graph.rank, mg.build().rank)
+
 
 if __name__ == "__main__":
     unittest.main()
