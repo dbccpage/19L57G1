@@ -1,10 +1,12 @@
 # Instance-channel claims: Stages 1 through 4
 
-AuthorityEffect: None. Outcome **OPEN** for OB-1. The existing `C_reqs`
-result is unchanged. A uniform materializer and a stored-instruction composition
-emitter are exhibited as host operations. The latter has a graph-computation
-bridge and a proved terminating iteration, but endogenous admission and
-obligation semantics under E1 are unproved.
+AuthorityEffect: None. Outcome **OPEN** for OB-1 outside `NoGo.InClass`.
+The existing `C_reqs` result is unchanged. A uniform materializer and a
+stored-instruction composition emitter are exhibited as host operations.
+`NoGo.e1_impossible` is native store without that tuple's `admitInst`,
+unsatisfiable on the sealed grammar; `InClass` is the nonempty
+conclusion-free cover of every Enabled instruction, so that unsat is the
+scoped negative for this class, not a class-specific new obstruction.
 
 | ID | Classification and statement | Evidence | Falsifier or remaining obligation |
 |---|---|---|---|
@@ -15,7 +17,7 @@ obligation semantics under E1 are unproved.
 | CL-ID-05 | Proved theorem: the rule-covered control remains collapsed, despite storing the same instance. | `covered_pair_collapsed`; `probe.sample` for both readings | A well-formed separating context in that control. This prevents overgeneralizing CL-ID-04. |
 | CL-ID-06 | Proved theorem: all four samples are well-formed and the two requirement-free reading histories, with and without uniform coverage, replay exactly. | `samples_well_formed`, `both_readings_replay`, `both_readings_covered_replay` | Replay or well-formedness failure. These are not replays of the requirement-bearing Challenge-3 endpoints. |
 | CL-ID-07 | Deterministic computation: exhaustive one-binary-form sweep on 0..3 data, with every instance/rule subset and empty initial requirements. | `probe.sweep`, `evidence/computation.json` | 1,062 states, 17,762 successful extensions, or 2,337 uniform-conclusion cases fail to reproduce. No unbounded Python claim. |
-| CL-ID-08 | Open obstruction: existence of an admitted program whose interpreter emits a fresh demand-instance satisfying E1, owed-separation E2, E3, E4 and a dynamics theorem. | Stages 3–4 in README; prior `endogenous_demand/CLAIMS.md` CL-ED-OPEN | A construction with those proofs, or a justified class-specific impossibility. Not resolved by occurrence being recorded as `AdmitInst`. |
+| CL-ID-08 | Open obstruction: existence of an admitted program *outside* `NoGo.InClass` whose interpreter emits a fresh demand-instance satisfying E1, owed-separation E2, E3, E4 and a dynamics theorem. The two-edge instruction class is closed negatively by CL-ID-37. | Stages 3–4 in README; CL-ID-37; prior `endogenous_demand/CLAIMS.md` CL-ED-OPEN | A construction with those proofs on a class other than stored form-0 ternary instructions. Not resolved by occurrence being recorded as `AdmitInst`. |
 | CL-ID-09 | Proved theorem: the tuple enumeration contains exactly the lists with the declared length and admitted arguments; uniform entries are exactly well-formed instances whose form is ruled; pending entries additionally are not stored. | `Closure.tuples_mem`, `uniformEntries_mem`, `pending_mem`, `pending_bound` | Missing or extra member under those definitions. The proved numerical bound is pending length at most uniform-entry length, not an asymptotic efficiency claim. |
 | CL-ID-10 | Proved theorem: storing any list of well-formed instances replays through the existing instance admissions; materialization is such a replay and emits no requirement event. | `Closure.addMany_mem`, `storeMany_replay`, `materialize_replay`, `events_no_impose` | Failed replay under the well-formedness premise. A replay theorem does not identify who produces events. |
 | CL-ID-11 | Proved theorem: materialization preserves data, forms, rules, requirements and well-formedness; final membership is old membership or a well-formed uniform conclusion. | `Closure.materialize_fields`, `materialize_wf`, `materialize_mem` | A changed field or failure of the membership equivalence. Literal E2 is not satisfied. |
@@ -44,6 +46,7 @@ obligation semantics under E1 are unproved.
 | CL-ID-34 | Proved theorem: the chain's initial form-3 graph is functional, but is not functional after its first emission. | `Dynamics.chain_functionality_boundary`; `test_chain_needs_two_rounds_and_retains_duplicate_path_events` | Functionality survives in that exact example. The Stage 3 graph-execution bridge remains conditional and cannot be applied at later rounds without its premises. |
 | CL-ID-35 | Proved theorem: every pair in the covered chain remains collapsed at every round. Terminal pair `(0,3)` has a valid response using fresh unary form 4, the whole response history replays, and its stored payload remains afterward. | `Dynamics.chain_covered_collapsed`, `chain_response_valid`, `chain_response_replay`, `chain_answered_pair_retained` | Failed collapse, response, or replay. The covered output was already derivable; its obligation role is not proved. |
 | CL-ID-36 | Deterministic computation: the 2,124-configuration repeated-emission census has 1,772 initial fixed points and 352 one-round cases, with 384 admission events/new instances. The separate four-data chain has two rounds, 4 events, and 3 new instances. | `dynamics.sweep`, `chain_sample`, `evidence/dynamics.json`; `tests/test_dynamics.py` | Counts, least-store comparison, or whole replay fail. The bounded census itself has no multiple-round example and is not all programs or data sizes. |
+| CL-ID-37 | Proved theorem, scoped: E1 as native store (a sealed step writes a new instance without being that instance's `admitInst`) is unsatisfiable. `InClass` is stored form-0 ternary instructions: nonempty, independent of output coverage, and every `Enabled` output names a member as its instruction. The endogenous triple therefore fails on this class because E1 fails on every sealed step, including those of class members; the class is not a hypothesis of the unsat. In-class shapes: unruled Enabled output is not derivable; `impose` is not an E2′ origin; after unruled emission the endpoints separate, so E3 fails. | `NoGo.class_nonempty`, `class_independent_of_coverage`, `class_covers_enabled`, `e1_impossible`, `shape_imposed_fails_E2p`, `shape_unruled_emission_fails_E3`; `Emitter.native_closure_counterexample`; `tests/test_nogo.py` | A sealed step that stores a new instance without that `admitInst`. Does not close OB-1 outside this class. Literal `reqs` E2 is not used. The Stage-1 I1 singleton is not a member of `InClass`. |
 
 CL-ID-01/02 and the preservation part of CL-ID-03 use `propext`; the uniform
 conclusion theorem is axiom-free. CL-ID-04/05 and sample well-formedness use
@@ -54,7 +57,10 @@ generated reports, is listed in `evidence/lean.json`. Stage 3 adds 36 authored
 and 30 generated reports, also within that budget, for 146 reports through
 Stage 3. Stage 4 adds 45 authored theorems and 14 generated reports, including
 the newly materialized `Emitter.codes.eq_1` equation in the earlier namespace.
-All 205 reports pass the complete census and the unchanged dependency budget.
+All 205 Stage-4 reports pass the complete census and the unchanged dependency
+budget. The scoped no-go adds authored reports under `InstanceDemand.NoGo`;
+the live census is the `theorem_count_including_generated` field in
+`evidence/lean.json`.
 Unrestricted simplification initially introduced disallowed dependence in
 the construction; the final direct proofs pass the unchanged dependency gate.
 
@@ -78,16 +84,19 @@ the construction; the final direct proofs pass the unchanged dependency gate.
   data; their operation-code interpretation is declared metatheory apparatus.
 - Proved theorems and computations: exactly the rows above and their scopes.
 - Open obstruction: event generation and obligation semantics for a represented
-  emitter. The host materializer keeps every well-formed uniform conclusion;
-  its operation is not proved to be required by the admitted structure.
+  emitter outside `InClass`. The host materializer keeps every well-formed
+  uniform conclusion; its operation is not proved to be required by the
+  admitted structure. Native store without `admitInst` is unsatisfiable on
+  the sealed grammar for every class, including this one.
 
 ## Clause assessment after Stage 4
 
 The repeated-emission candidate has a proved dynamics result: under its declared
 host law, on fixed data/forms and with no intervening events, it reaches its
 least closed extension within the missing-slot budget. This closes the scoped
-dynamics obligation for that procedure. It does not supply the native admission
-or obligation interpretation missing from E1. E1 and OB-1 remain OPEN.
+dynamics obligation for that procedure. Native store without `admitInst` is
+unsatisfiable (`NoGo.e1_impossible`); that is the scoped negative for
+`InClass`. E1 and OB-1 remain OPEN outside that class.
 
 Literal E2 remains unsatisfied at every round, because `reqs` is unchanged.
 Under owed-separation E2, the covered chain has a fresh stored payload, stays
@@ -174,6 +183,10 @@ Stage 3 suite had 39 tests. Stage 4 adds controls for premature termination,
 wrong round populations/endpoints, changed instructions, failed budget decrease,
 exceeded bounds, nonleast terminal stores, and failed trace/response replay.
 The verifier also enforces coverage thresholds per measured module, so a strong
-aggregate cannot hide a deficient new module. All 52 tests pass; all four
-research modules have 100% statement and branch coverage, excluding verification
+aggregate cannot hide a deficient new module. The live test count is the
+`python_tests` field in `evidence/verification.json`; all four research
+modules have 100% statement and branch coverage, excluding verification
 apparatus. No Python-to-Lean equivalence theorem is claimed.
+The scoped no-go suite reconstructs class membership, the E1 non-store
+control, the in-class E3 failure after unruled emission, and a cheating
+class that would drop the Enabled instruction.

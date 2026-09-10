@@ -157,5 +157,6 @@ If no native event-production semantics or obligation interpretation can be
 obtained inside the current constitution, identify the missing operation and
 prove the obstruction for the justified class. Adding that operation by hand
 would produce a conditional extension of the grammar; it would not close OB-1
-as a derivation in the sealed grammar. Until a joined positive witness or such
-a scoped negative theorem exists, **OB-1 remains OPEN**.
+as a derivation in the sealed grammar. `NoGo.lean` is that scoped negative
+for stored form-0 ternary instructions: native store without `admitInst` is
+unsatisfiable on the sealed grammar. **OB-1 remains OPEN outside that class.**

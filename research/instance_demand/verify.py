@@ -117,9 +117,17 @@ def command(argv: list[str], cwd: Path = ROOT) -> str:
     return result.stdout + result.stderr
 
 
+def coverage_file_path(name: str) -> Path:
+    """Resolve a coverage.json path against this package, not process cwd."""
+    path = Path(name)
+    if path.is_absolute():
+        return path.resolve()
+    return (ROOT / path.name).resolve()
+
+
 def check_coverage(payload: Any) -> tuple[float, float]:
     files = payload["files"]
-    if {Path(name).resolve() for name in files} != {
+    if {coverage_file_path(name) for name in files} != {
             (ROOT / "probe.py").resolve(), (ROOT / "materialize.py").resolve(),
             (ROOT / "emitter.py").resolve(), (ROOT / "dynamics.py").resolve()}:
         raise ValueError("COVERAGE_POPULATION")
@@ -152,7 +160,7 @@ def verify(lake: str, write: bool) -> None:
     before = input_hashes()
     lean_files = {p.name for p in (ROOT / "lean").glob("*.lean")}
     if lean_files != {"InstanceDemand.lean", "ClosureMaterialization.lean", "RepresentedEmitter.lean",
-                      "EmissionDynamics.lean", "Inventory.lean"}:
+                      "EmissionDynamics.lean", "NoGo.lean", "Inventory.lean"}:
         raise ValueError("LEAN_FILE_CENSUS")
     for name in lean_files:
         text = (ROOT / "lean" / name).read_text(encoding="utf-8")
@@ -175,6 +183,7 @@ def verify(lake: str, write: bool) -> None:
     proof_log += command([lake, "env", "lean", "ClosureMaterialization.lean"], ROOT / "lean")
     proof_log += command([lake, "env", "lean", "RepresentedEmitter.lean"], ROOT / "lean")
     proof_log += command([lake, "env", "lean", "EmissionDynamics.lean"], ROOT / "lean")
+    proof_log += command([lake, "env", "lean", "NoGo.lean"], ROOT / "lean")
     inventory_log = command([lake, "env", "lean", "Inventory.lean"], ROOT / "lean")
     reports = parse_reports(proof_log + inventory_log, inventory_log)
     import probe
@@ -208,7 +217,7 @@ def verify(lake: str, write: bool) -> None:
         elif not path.is_file() or path.read_bytes() != raw:
             raise ValueError("EVIDENCE_DIFFERS: " + name)
     print(f"PASS Stages 1-4: {count[1]} tests; {line:.2f}% statements, {branch:.2f}% branches; "
-          f"{len(reports)} theorem reports. OB-1 remains OPEN.")
+          f"{len(reports)} theorem reports. OB-1 remains OPEN outside InClass.")
 
 
 def main() -> int:

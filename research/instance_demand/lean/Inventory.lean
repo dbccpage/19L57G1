@@ -3,6 +3,7 @@ import InstanceDemand
 import ClosureMaterialization
 import RepresentedEmitter
 import EmissionDynamics
+import NoGo
 
 open Lean Elab Command in
 run_cmd do
