@@ -33,11 +33,10 @@ def receipt_bytes() -> dict[str, bytes]:
     failures = verify_sources()
     if failures:
         raise RuntimeError("source verification failed: " + "; ".join(failures))
-    payloads = {"grammar": grammar_bytes(), "candidates": candidates_bytes()}
-    failures = verify_sources()
-    if failures:
-        raise RuntimeError("source verification failed after replay: " + "; ".join(failures))
-    return payloads
+    # The record computations import and replay only; they write no files, so a
+    # second full custody scan here (dozens of git calls over the sealed tree)
+    # would re-verify unchanged inputs for nothing.
+    return {"grammar": grammar_bytes(), "candidates": candidates_bytes()}
 
 
 def main() -> int:

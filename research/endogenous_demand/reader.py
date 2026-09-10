@@ -71,10 +71,20 @@ def read_pairs_of_regime(regime: Regime, form: int) -> tuple[Pair, ...]:
     return read_pairs(regime.insts, form)
 
 
-def reader_source_violations(source: str | None = None) -> tuple[str, ...]:
-    """Names in this module's function bodies that the never-selects guard forbids.
+# Dynamic-attribute accessors: a forbidden field reached through one of these
+# with a literal name is the same host choice as a direct attribute access, and
+# must be named too (a bare string constant elsewhere is not, or the denylist
+# literal above would flag itself).
+ATTR_ACCESSORS: FrozenSet[str] = frozenset({"getattr", "setattr", "hasattr", "delattr"})
 
-    The scan is an AST walk of this file.  It does not execute the reader.
+
+def reader_source_violations(source: str | None = None) -> tuple[str, ...]:
+    """Forbidden names anywhere in this module that the never-selects guard bars.
+
+    The scan is an AST walk of the whole module (not only function bodies): it
+    names direct references (``reqs``), attribute access (``regime.reqs``), and
+    ``getattr``-family calls with a literal forbidden name
+    (``getattr(regime, "reqs")``).  It does not execute the reader.
     """
     text = READER_SOURCE.read_text(encoding="utf-8") if source is None else source
     tree = ast.parse(text)
@@ -84,4 +94,14 @@ def reader_source_violations(source: str | None = None) -> tuple[str, ...]:
             hits.append(f"{node.lineno}:{node.id}")
         if isinstance(node, ast.Attribute) and node.attr in FORBIDDEN_READER_NAMES:
             hits.append(f"{node.lineno}:{node.attr}")
+        if (
+            isinstance(node, ast.Call)
+            and isinstance(node.func, ast.Name)
+            and node.func.id in ATTR_ACCESSORS
+            and len(node.args) >= 2
+            and isinstance(node.args[1], ast.Constant)
+            and isinstance(node.args[1].value, str)
+            and node.args[1].value in FORBIDDEN_READER_NAMES
+        ):
+            hits.append(f"{node.lineno}:{node.args[1].value}")
     return tuple(hits)

@@ -96,6 +96,23 @@ class CoverageGate(unittest.TestCase):
         })
         self.assertTrue(any(e.startswith("COVERAGE_LEAK:") for e in errors), errors)
 
+    def test_omit_dirs_are_matched_as_components_not_substrings(self) -> None:
+        # 'clean/' and 'subtests/' contain 'lean/'/'tests/' as substrings but are
+        # not the omitted directories; a component match must not flag them.
+        for good in ("clean/util.py", "subtests/util.py"):
+            errors = check_coverage.report_errors({
+                "totals": _ok_totals(),
+                "files": {**_required_files(), good: {}},
+            })
+            self.assertFalse(any(e.startswith("COVERAGE_LEAK:") for e in errors),
+                             (good, errors))
+        # the real omitted component still leaks
+        errors = check_coverage.report_errors({
+            "totals": _ok_totals(),
+            "files": {**_required_files(), "tests/test_x.py": {}},
+        })
+        self.assertTrue(any(e.startswith("COVERAGE_LEAK:") for e in errors), errors)
+
     def test_missing_totals_fails(self) -> None:
         errors = check_coverage.report_errors({"files": _required_files()})
         self.assertTrue(any(e.startswith("COVERAGE_TOTALS:") for e in errors), errors)

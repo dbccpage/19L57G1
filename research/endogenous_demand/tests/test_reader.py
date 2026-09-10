@@ -64,6 +64,18 @@ class NeverSelects(unittest.TestCase):
         hits = reader.reader_source_violations(source)
         self.assertEqual(hits, ("1:collapsed",))
 
+    def test_getattr_on_forbidden_field_is_named(self) -> None:
+        # a dynamic accessor with a literal forbidden name is the same host
+        # choice as a direct attribute access and must be named too.
+        for src in (
+            "def bad(regime):\n    return getattr(regime, 'reqs')\n",
+            "def bad(regime):\n    return hasattr(regime, 'collapsed_pairs')\n",
+        ):
+            hits = reader.reader_source_violations(src)
+            self.assertTrue(hits, src)
+        # a bare string constant that is not an accessor argument is not a hit
+        self.assertEqual(reader.reader_source_violations("note = 'reqs'\n"), ())
+
 
 if __name__ == "__main__":
     unittest.main()

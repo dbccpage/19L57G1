@@ -82,7 +82,9 @@ class CensusGuards(unittest.TestCase):
         self.assertTrue(any("extra" in e for e in errors), errors)
 
     def test_i1_must_stay_open_and_c10_outside(self) -> None:
-        closed = cd.mutated_endogenous(cd.CENSUS, "I1")
+        # labelling the OPEN remainder endogenous is named by the E1 guard
+        labelled = cd.census_errors(cd.mutated_endogenous(cd.CENSUS, "I1"))
+        self.assertIn("E1_GUARD: I1 labelled endogenous", labelled)
         # flip status rather than endogenous
         rows = []
         for row in cd.CENSUS:
@@ -95,7 +97,6 @@ class CensusGuards(unittest.TestCase):
         errors = cd.census_errors(tuple(rows))
         self.assertTrue(any("OPEN_BOUNDARY:" in e for e in errors), errors)
         self.assertTrue(any("OUTSIDE_CLASS:" in e for e in errors), errors)
-        self.assertIsNotNone(closed)
 
 
 class Witnesses(unittest.TestCase):
