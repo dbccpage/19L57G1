@@ -178,6 +178,14 @@ class TestDataProcessingInequality:
         assert math.isclose(cert.i_xz, 1.0)  # log2(2) = 1 bit
         assert cert.delta_i >= 0.999999
 
+    def test_dpi_pure_dyadic_records_exact_fraction_delta(self) -> None:
+        px = DiscreteDistribution.uniform([0, 1])
+        identity = Channel.identity([0, 1])
+        cert = verify_data_processing_inequality(px, identity, identity)
+        assert cert.passed
+        assert isinstance(cert.exact_rational_diff, Fraction)
+        assert cert.exact_rational_diff == Fraction(0)
+
     def test_dpi_invertible_processing_sufficient_statistic(self) -> None:
         # Invertible bijection Z = 1 - Y retains all mutual information
         px = DiscreteDistribution({0: Fraction(2, 3), 1: Fraction(1, 3)})

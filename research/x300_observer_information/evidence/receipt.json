@@ -43,7 +43,7 @@
   },
   "pytest": {
     "exit_code": 0,
-    "passed": 17,
+    "passed": 18,
     "status": "PASS"
   },
   "schema_version": 1,
@@ -51,7 +51,7 @@
     "information.py": "ad567fef8612c01a88bd2ae34be88057fcc44bb86e7c3d14f881e9a2c5a07faf",
     "lean/Inventory.lean": "478ad866490a645b594e522167732b64afea4f772f563ad9a56b990faae6853e",
     "lean/ObserverInformation.lean": "0a24686f0197b71335b82d0e4a9dd8cc8bb3f0ab2f3160b9076a6e83c94e9240",
-    "tests/test_information.py": "65a665f09fa57e11337a69fa147b246379564352132f8d4713d540899a497eb3",
+    "tests/test_information.py": "6446569c18aee03f8e308221789080dd117b7adab8aab1400f3cd86254ad67d9",
     "verify.py": "8a0b775375173a84aac148204e0266b115ffd069b265e384276e16445a72429c"
   },
   "status": "PASS",

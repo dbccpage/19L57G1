@@ -16,6 +16,7 @@ Comprehensive test coverage:
 from __future__ import annotations
 
 import itertools
+from pathlib import Path
 import pytest
 from typing import Any, Dict, List, Tuple
 
@@ -43,6 +44,19 @@ from algebra import (
     quotient_factorization,
     verify_quotient_factorization_uniqueness,
 )
+
+
+def test_algebra_kernel_modules_stay_under_one_thousand_lines() -> None:
+    root = Path(__file__).resolve().parent.parent
+    for name in (
+        "algebra.py",
+        "arithmetic.py",
+        "structures.py",
+        "free.py",
+        "quotients.py",
+    ):
+        n = sum(1 for _ in (root / name).open(encoding="utf-8"))
+        assert n < 1000, f"{name} has {n} lines"
 
 
 # ==============================================================================

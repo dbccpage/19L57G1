@@ -40,8 +40,8 @@ FractionMatrix = list[list[Fraction]]
 # Exact Rational Linear Algebra
 # ---------------------------------------------------------------------------
 
-def to_fraction(val: int | float | Fraction | str) -> Fraction:
-    """Convert scalar to exact Fraction."""
+def to_fraction(val: int | Fraction | str) -> Fraction:
+    """Convert a scalar to exact Fraction. Floats are refused."""
     if isinstance(val, Fraction):
         return val
     if isinstance(val, int):
@@ -49,11 +49,11 @@ def to_fraction(val: int | float | Fraction | str) -> Fraction:
     if isinstance(val, str):
         return Fraction(val)
     if isinstance(val, float):
-        return Fraction(val).limit_denominator(10**9)
+        raise TypeError("float is not exact Q; pass Fraction or int")
     raise TypeError(f"Cannot convert {type(val)} to Fraction")
 
 
-def to_fraction_matrix(matrix: Sequence[Sequence[int | float | Fraction]]) -> FractionMatrix:
+def to_fraction_matrix(matrix: Sequence[Sequence[int | Fraction | str]]) -> FractionMatrix:
     """Convert 2D sequence to exact FractionMatrix."""
     return [[to_fraction(val) for val in row] for row in matrix]
 
@@ -310,7 +310,7 @@ class GradedChainComplex:
         self,
         max_grade: int,
         dimensions: dict[int, int],
-        boundary_matrices: dict[int, Sequence[Sequence[int | float | Fraction]]],
+        boundary_matrices: dict[int, Sequence[Sequence[int | Fraction | str]]],
         cell_names: dict[int, list[str]] | None = None,
     ) -> None:
         self.max_grade = max_grade
