@@ -1,0 +1,108 @@
+{
+  "authority_effect": "None",
+  "claim_hygiene": {
+    "axioms_within_propext_quot_sound": true,
+    "bipartite_cut_non_signaling_proved": true,
+    "duplicate_observer_agreement_proved": true,
+    "graph_automorphism_invariance_verified": true,
+    "leaky_footprint_negative_control_verified": true,
+    "mediated_signaling_negative_control_verified": true,
+    "prespatial_interaction_graphs_derived": true,
+    "scope": "Multi-locus composite networks, pre-spatial interaction graphs from footprints, strict operational non-signaling across bipartite cuts, negative controls, duplicate observer agreement, and graph automorphism invariance",
+    "subsystem_projection_preservation_proved": true,
+    "tensor_composition_associativity_proved": true,
+    "zero_classical_choice": true,
+    "zero_mathlib": true
+  },
+  "lean": {
+    "allowed_axioms": [
+      "Quot.sound",
+      "propext"
+    ],
+    "axiom_free_count": 56,
+    "reports": {
+      "P203CompositeSystems.Carrier3State.ext": [],
+      "P203CompositeSystems.Carrier3State.ext_iff": [],
+      "P203CompositeSystems.Carrier3State.mk.inj": [],
+      "P203CompositeSystems.Carrier3State.mk.injEq": [
+        "propext"
+      ],
+      "P203CompositeSystems.Carrier3State.mk.sizeOf_spec": [],
+      "P203CompositeSystems.Iso.left_inv": [],
+      "P203CompositeSystems.Iso.mk.inj": [],
+      "P203CompositeSystems.Iso.mk.injEq": [
+        "propext"
+      ],
+      "P203CompositeSystems.Iso.mk.sizeOf_spec": [],
+      "P203CompositeSystems.Iso.right_inv": [],
+      "P203CompositeSystems.NetworkState.ext": [],
+      "P203CompositeSystems.NetworkState.ext_iff": [],
+      "P203CompositeSystems.NetworkState.mk.inj": [],
+      "P203CompositeSystems.NetworkState.mk.injEq": [
+        "propext"
+      ],
+      "P203CompositeSystems.NetworkState.mk.sizeOf_spec": [],
+      "P203CompositeSystems.assoc_carrier_commute": [],
+      "P203CompositeSystems.assoc_carrier_inv_commute": [],
+      "P203CompositeSystems.assoc_inv_preserves_projA": [],
+      "P203CompositeSystems.assoc_inv_preserves_projB": [],
+      "P203CompositeSystems.assoc_inv_preserves_projC": [],
+      "P203CompositeSystems.assoc_preserves_projA": [],
+      "P203CompositeSystems.assoc_preserves_projB": [],
+      "P203CompositeSystems.assoc_preserves_projC": [],
+      "P203CompositeSystems.asymmetric_observer_divergence": [],
+      "P203CompositeSystems.connected_cut_with_bridge": [],
+      "P203CompositeSystems.disconnected_cut_no_bridge": [],
+      "P203CompositeSystems.duplicate_observer_agreement": [],
+      "P203CompositeSystems.fromLeft_toLeft": [],
+      "P203CompositeSystems.fromProduct_toProduct": [],
+      "P203CompositeSystems.fromRight_toRight": [],
+      "P203CompositeSystems.instDecidableEqCarrier3State.decEq._proof_1": [],
+      "P203CompositeSystems.instDecidableEqCarrier3State.decEq._proof_2": [],
+      "P203CompositeSystems.instDecidableEqCarrier3State.decEq._proof_3": [],
+      "P203CompositeSystems.instDecidableEqCarrier3State.decEq._proof_4": [],
+      "P203CompositeSystems.instDecidableEqNetworkState.decEq._proof_1": [],
+      "P203CompositeSystems.instDecidableEqNetworkState.decEq._proof_2": [],
+      "P203CompositeSystems.instDecidableEqNetworkState.decEq._proof_3": [],
+      "P203CompositeSystems.instDecidableEqNetworkState.decEq._proof_4": [],
+      "P203CompositeSystems.instDecidableEqNetworkState.decEq._proof_5": [],
+      "P203CompositeSystems.leaky_footprint_divergence": [],
+      "P203CompositeSystems.mediated_signaling_divergence": [],
+      "P203CompositeSystems.non_signaling_a1_b1": [],
+      "P203CompositeSystems.non_signaling_a1_b2": [],
+      "P203CompositeSystems.non_signaling_a2_b1": [],
+      "P203CompositeSystems.non_signaling_a2_b2": [],
+      "P203CompositeSystems.non_signaling_bipartite": [],
+      "P203CompositeSystems.non_signaling_projB": [],
+      "P203CompositeSystems.non_signaling_sequenceA": [],
+      "P203CompositeSystems.readout_swap_equivariance_A1": [],
+      "P203CompositeSystems.readout_swap_equivariance_B1": [],
+      "P203CompositeSystems.swap_involutive": [],
+      "P203CompositeSystems.swap_symmetric_eq": [],
+      "P203CompositeSystems.tensor_assoc._proof_1": [],
+      "P203CompositeSystems.tensor_assoc._proof_2": [],
+      "P203CompositeSystems.tensor_assoc_left_inv": [],
+      "P203CompositeSystems.tensor_assoc_right_inv": [],
+      "P203CompositeSystems.toLeft_fromLeft": [],
+      "P203CompositeSystems.toProduct_fromProduct": [],
+      "P203CompositeSystems.toRight_fromRight": []
+    },
+    "theorem_count": 59
+  },
+  "pytest": {
+    "exit_code": 0,
+    "passed": 13,
+    "status": "PASS"
+  },
+  "schema_version": 1,
+  "source_hashes": {
+    "composite_systems.py": "8e15fd8c7ea9a1ecb6f6947d1dd84f8364d1d7c64d216fe4ed1229a94fe72816",
+    "lean/CompositeSystems.lean": "c7a7ab50698a5d8dce0477b7853b32cdd7a0b3089655f67c03f9bbe396c9c2d2",
+    "lean/Inventory.lean": "847b9593af070b7e00ed3dc1b0ef6992274d9f66915256f83deec169470e02ca",
+    "tests/test_composite_systems.py": "fc555799396daef8d37a520c1bf1683fdc598b6f7d16804265d3db47a9198b66",
+    "verify.py": "bd5b2fc184ab16eb8582c46d7faec6835ca87b773454db1d02be2c1c66438aff"
+  },
+  "status": "PASS",
+  "target": "Target P203: Composite Systems & Pre-Spatial Locality",
+  "toolchain": "leanprover/lean4:v4.33.0"
+}

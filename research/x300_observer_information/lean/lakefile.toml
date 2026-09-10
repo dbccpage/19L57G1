@@ -1,0 +1,13 @@
+name = "x300_observer_information"
+version = "0.1.0"
+defaultTargets = ["ObserverInformation", "Inventory"]
+
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+[[lean_lib]]
+name = "ObserverInformation"
+
+[[lean_lib]]
+name = "Inventory"

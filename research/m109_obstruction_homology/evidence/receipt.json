@@ -1,0 +1,61 @@
+{
+  "target": "M109 Higher Chain Complexes & Obstruction Homology",
+  "source_hashes": {
+    "lean/Inventory.lean": "eb9de0c3cce15c443887aa305feca7876109ea55fbb8615fc755b86736b966c6",
+    "lean/ObstructionHomology.lean": "0cf4c7eb4d3221b35155b6da023a6d4e63b4c32dd5ff460be62ccf96fbd6ea41",
+    "homology.py": "7f315238be294656ab2da5e90577abebefe684b68c6cc78043d40665712fc832",
+    "verify.py": "c5001d2f1945436b345b262c4e5a9805548208de3d6080de6b78b5be0d044d0b",
+    "tests/test_homology.py": "53c4425bb93d00e8f11cbdb0244df8779d78bb0ba3dd0979acccbc2ebb5a7b62"
+  },
+  "pytest": {
+    "exit_code": 0,
+    "passed": 14,
+    "status": "PASS"
+  },
+  "lean": {
+    "build_status": "PASS",
+    "theorems_audited": 12,
+    "theorem_details": {
+      "M109ObstructionHomology.telescope_identity": [
+        "propext",
+        "Quot.sound"
+      ],
+      "M109ObstructionHomology.move_boundary_nilpotent": [
+        "propext",
+        "Quot.sound"
+      ],
+      "M109ObstructionHomology.move_coboundary_nilpotent": [
+        "propext",
+        "Quot.sound"
+      ],
+      "M109ObstructionHomology.stokes_coboundary_square": [
+        "propext",
+        "Quot.sound"
+      ],
+      "M109ObstructionHomology.boundary_is_cycle": [
+        "propext",
+        "Quot.sound"
+      ],
+      "M109ObstructionHomology.coboundary_is_cocycle": [
+        "propext",
+        "Quot.sound"
+      ],
+      "M109ObstructionHomology.obstruction_criterion": [
+        "propext",
+        "Quot.sound"
+      ],
+      "M109ObstructionHomology.native_rule_span_not_exact": [
+        "propext",
+        "Quot.sound"
+      ],
+      "M109ObstructionHomology.native_boundary_is_cycle": [
+        "propext",
+        "Quot.sound"
+      ],
+      "M109ObstructionHomology.abstract_chain_nilpotency": [],
+      "M109ObstructionHomology.abstract_coboundary_nilpotency": [],
+      "M109ObstructionHomology.native_rule_span_circulation": []
+    }
+  },
+  "verification_status": "VERIFIED_SOUND"
+}

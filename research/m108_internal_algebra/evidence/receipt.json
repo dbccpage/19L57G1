@@ -1,0 +1,55 @@
+{
+  "target": "Target M108 General Internal Universal Algebra",
+  "source_hashes": {
+    "lean/InternalAlgebra.lean": "deab3eccde662f895cd6d7f6080692d438e2c44e6fab8990e3284317b7f50080",
+    "lean/Inventory.lean": "9c5ec74b7f8000fe7050518f4058ddfa5033ad278ca61d22377b3ff6b5768aaf",
+    "algebra.py": "d160991e0e415d18a756793ae0980f9a66e75002a7cfffb177cc82ec99fc89ca",
+    "verify.py": "e7dd3bb6312661d0961f43358ed3bf65ab6dc554798164902dc331e987bf83e2",
+    "tests/test_algebra.py": "42d8edba99100ca9ad08ac3c690acc68f484078cd7bbd740a5dee94ed2dcd9e2"
+  },
+  "pytest": {
+    "exit_code": 0,
+    "passed": 20,
+    "status": "PASS"
+  },
+  "lean": {
+    "build_status": "PASS",
+    "theorems_audited": 14,
+    "theorems_with_zero_axioms": 6,
+    "theorems_with_permitted_axioms": 8,
+    "theorems_with_disallowed_axioms": 0,
+    "theorem_details": {
+      "InternalAlgebra.eval_subst": [
+        "Quot.sound"
+      ],
+      "InternalAlgebra.freeMonoid_universal_arrow_unique": [
+        "propext"
+      ],
+      "InternalAlgebra.quot_mul_assoc": [
+        "Quot.sound"
+      ],
+      "InternalAlgebra.quot_one_mul": [
+        "Quot.sound"
+      ],
+      "InternalAlgebra.quot_mul_one": [
+        "Quot.sound"
+      ],
+      "InternalAlgebra.quot_representative_independence": [
+        "Quot.sound"
+      ],
+      "InternalAlgebra.factorMap_map_mul": [
+        "Quot.sound"
+      ],
+      "InternalAlgebra.factorHom_unique": [
+        "Quot.sound"
+      ],
+      "InternalAlgebra.freeMonoidLift_eta": [],
+      "InternalAlgebra.freeMonoidLift_append": [],
+      "InternalAlgebra.evalSum_eta": [],
+      "InternalAlgebra.evalSum_append": [],
+      "InternalAlgebra.lift2_mk": [],
+      "InternalAlgebra.factorMap_commutes": []
+    }
+  },
+  "verification_status": "VERIFIED_SOUND"
+}

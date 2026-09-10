@@ -1,0 +1,13 @@
+name = "m109_obstruction_homology"
+version = "0.1.0"
+defaultTargets = ["ObstructionHomology", "Inventory"]
+
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+[[lean_lib]]
+name = "ObstructionHomology"
+
+[[lean_lib]]
+name = "Inventory"

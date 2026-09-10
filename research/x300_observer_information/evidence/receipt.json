@@ -1,0 +1,60 @@
+{
+  "authority_effect": "None",
+  "claim_hygiene": {
+    "axioms_within_propext_quot_sound": true,
+    "data_processing_inequality_proved": true,
+    "exact_dyadic_entropy_derived": true,
+    "landauer_erasure_non_reversibility_proved": true,
+    "memory_retention_monotonicity_proved": true,
+    "operational_channels_modeled": true,
+    "scope": "Observer-relative information theory, operational communication channels, Markov compositions, data processing inequalities, dyadic Shannon entropy in Q, Hartley capacities, memory degradation limits, and Landauer operational erasure accounting.",
+    "zero_classical_choice": true,
+    "zero_mathlib": true
+  },
+  "lean": {
+    "allowed_axioms": [
+      "Quot.sound",
+      "propext"
+    ],
+    "axiom_free_count": 16,
+    "build_status": "PASS",
+    "theorem_count": 17,
+    "theorem_details": {
+      "X300ObserverInformation.channel_compose_assoc": [],
+      "X300ObserverInformation.channel_compose_id_left": [],
+      "X300ObserverInformation.channel_compose_id_right": [],
+      "X300ObserverInformation.coarse_graining_capacity_monotonic": [],
+      "X300ObserverInformation.dpi_decodability": [],
+      "X300ObserverInformation.dpi_distinguishability": [],
+      "X300ObserverInformation.dpi_mutual_distinction": [],
+      "X300ObserverInformation.erasure_collapses_states": [],
+      "X300ObserverInformation.erasure_image_singleton": [],
+      "X300ObserverInformation.erasure_strictly_non_reversible": [],
+      "X300ObserverInformation.hartley_capacity_additive": [],
+      "X300ObserverInformation.invertible_postprocessing_preserves_distinctions": [],
+      "X300ObserverInformation.memory_retention_monotone": [],
+      "X300ObserverInformation.post_processing_coarse_graining": [],
+      "X300ObserverInformation.state_space_multiplicative": [
+        "propext"
+      ],
+      "X300ObserverInformation.uniform_1bit_scaled_entropy": [],
+      "X300ObserverInformation.uniform_2bit_scaled_entropy": []
+    }
+  },
+  "pytest": {
+    "exit_code": 0,
+    "passed": 17,
+    "status": "PASS"
+  },
+  "schema_version": 1,
+  "source_hashes": {
+    "information.py": "ad567fef8612c01a88bd2ae34be88057fcc44bb86e7c3d14f881e9a2c5a07faf",
+    "lean/Inventory.lean": "478ad866490a645b594e522167732b64afea4f772f563ad9a56b990faae6853e",
+    "lean/ObserverInformation.lean": "0a24686f0197b71335b82d0e4a9dd8cc8bb3f0ab2f3160b9076a6e83c94e9240",
+    "tests/test_information.py": "65a665f09fa57e11337a69fa147b246379564352132f8d4713d540899a497eb3",
+    "verify.py": "8a0b775375173a84aac148204e0266b115ffd069b265e384276e16445a72429c"
+  },
+  "status": "PASS",
+  "target": "Target X300: Observer-Relative Information, Channels & Loss",
+  "toolchain": "leanprover/lean4:v4.33.0"
+}
