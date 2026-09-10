@@ -5,6 +5,7 @@
 **Target:** Target 10 (Estate Honesty Pass)  
 **AuthorityEffect:** None.  
 
+*Scope Note:* This audit covers the 48 research trees present at the time of analysis. Trees added by this PR (cost_cohomology, estate_honesty, multi_depth, multi_magnitude, reading_f_iso, redheffer, self_interpreter) are not included in the census count.
 ## 1. Executive Summary & Epistemic Boundaries
 
 This audit reconciles the estate-wide governance, Gate 11 CI integration, test count drift,

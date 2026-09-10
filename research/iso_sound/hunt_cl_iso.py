@@ -27,7 +27,7 @@ import sys
 from typing import Any, Iterable, Mapping, Sequence
 
 # Ensure code/ and research/iso_sound/ are importable regardless of invocation cwd
-REPO_ROOT = Path(__file__).resolve().parent.parent
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 CODE_DIR = REPO_ROOT / "code"
 ISO_SOUND_DIR = REPO_ROOT / "research" / "iso_sound"
 

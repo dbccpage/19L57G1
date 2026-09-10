@@ -2,8 +2,9 @@
 # Redheffer Matrix Determinant and Bounded Obstruction in Lean 4
 
 Target 3 formalization: The Redheffer matrix determinant identity
-`det(R_n) = M(n)` (where `M(n)` is the running balance function), isolating
-the $O(n!)$ computational horizon and pricing the column-reduction equivalence.
+`det(R_n) = M(n)` (where `M(n)` is the running balance function).
+This establishes a finite kernel check for `n ≤ 6` via `decide +kernel`,
+plus a conditional identity that requires `ColumnReductionEquivalence` as a hypothesis.
 
 Mathematical Content:
 1. Constructive Redheffer Matrix:
@@ -21,6 +22,9 @@ Mathematical Content:
      column-reduction equivalence principle that eliminates column 1 via inversion sign weights.
    - Part C (Verified Instances): For `n ≤ 6`, direct computation verifies `detL(R_n) = M(n)`
      unconditionally.
+
+Note: The unrestricted identity is a conditional theorem, not an unconditional proof.
+The $O(n)$ induction step is a structural observation about what `ColumnReductionEquivalence` would give.
 
 Axioms used: strictly contained in `{propext, Quot.sound}`.
 -/
@@ -394,40 +398,30 @@ theorem column_reduction_equivalence_witness (n : Nat)
    h_balance⟩
 
 set_option maxRecDepth 200000 in
-/-- Unconditional resolution of ColumnReductionEquivalence for n = 1. -/
-theorem column_reduction_equivalence_1 : ColumnReductionEquivalence 1 :=
-  ⟨redhefferReduced 1, redhefferReduced_upper 1, redhefferReduced_diag_one 1,
-   fun i h2 _ => redhefferReduced_diag_tail 1 i h2, by decide +kernel, by decide +kernel⟩
+/-- Unconditional resolution of ColumnReductionEquivalence for n = 1 to 6.
+    The six finite witnesses evaluate unconditionally. -/
+theorem column_reduction_equivalence_witness_1 : ColumnReductionEquivalence 1 :=
+  ⟨redhefferReduced 1, redhefferReduced_upper 1, redhefferReduced_diag_one 1, fun i h2 _ => redhefferReduced_diag_tail 1 i h2, by decide +kernel, by decide +kernel⟩
 
 set_option maxRecDepth 200000 in
-/-- Unconditional resolution of ColumnReductionEquivalence for n = 2. -/
-theorem column_reduction_equivalence_2 : ColumnReductionEquivalence 2 :=
-  ⟨redhefferReduced 2, redhefferReduced_upper 2, redhefferReduced_diag_one 2,
-   fun i h2 _ => redhefferReduced_diag_tail 2 i h2, by decide +kernel, by decide +kernel⟩
+theorem column_reduction_equivalence_witness_2 : ColumnReductionEquivalence 2 :=
+  ⟨redhefferReduced 2, redhefferReduced_upper 2, redhefferReduced_diag_one 2, fun i h2 _ => redhefferReduced_diag_tail 2 i h2, by decide +kernel, by decide +kernel⟩
 
 set_option maxRecDepth 200000 in
-/-- Unconditional resolution of ColumnReductionEquivalence for n = 3. -/
-theorem column_reduction_equivalence_3 : ColumnReductionEquivalence 3 :=
-  ⟨redhefferReduced 3, redhefferReduced_upper 3, redhefferReduced_diag_one 3,
-   fun i h2 _ => redhefferReduced_diag_tail 3 i h2, by decide +kernel, by decide +kernel⟩
+theorem column_reduction_equivalence_witness_3 : ColumnReductionEquivalence 3 :=
+  ⟨redhefferReduced 3, redhefferReduced_upper 3, redhefferReduced_diag_one 3, fun i h2 _ => redhefferReduced_diag_tail 3 i h2, by decide +kernel, by decide +kernel⟩
 
 set_option maxRecDepth 200000 in
-/-- Unconditional resolution of ColumnReductionEquivalence for n = 4. -/
-theorem column_reduction_equivalence_4 : ColumnReductionEquivalence 4 :=
-  ⟨redhefferReduced 4, redhefferReduced_upper 4, redhefferReduced_diag_one 4,
-   fun i h2 _ => redhefferReduced_diag_tail 4 i h2, by decide +kernel, by decide +kernel⟩
+theorem column_reduction_equivalence_witness_4 : ColumnReductionEquivalence 4 :=
+  ⟨redhefferReduced 4, redhefferReduced_upper 4, redhefferReduced_diag_one 4, fun i h2 _ => redhefferReduced_diag_tail 4 i h2, by decide +kernel, by decide +kernel⟩
 
 set_option maxRecDepth 200000 in
-/-- Unconditional resolution of ColumnReductionEquivalence for n = 5. -/
-theorem column_reduction_equivalence_5 : ColumnReductionEquivalence 5 :=
-  ⟨redhefferReduced 5, redhefferReduced_upper 5, redhefferReduced_diag_one 5,
-   fun i h2 _ => redhefferReduced_diag_tail 5 i h2, by decide +kernel, by decide +kernel⟩
+theorem column_reduction_equivalence_witness_5 : ColumnReductionEquivalence 5 :=
+  ⟨redhefferReduced 5, redhefferReduced_upper 5, redhefferReduced_diag_one 5, fun i h2 _ => redhefferReduced_diag_tail 5 i h2, by decide +kernel, by decide +kernel⟩
 
 set_option maxRecDepth 200000 in
-/-- Unconditional resolution of ColumnReductionEquivalence for n = 6. -/
-theorem column_reduction_equivalence_6 : ColumnReductionEquivalence 6 :=
-  ⟨redhefferReduced 6, redhefferReduced_upper 6, redhefferReduced_diag_one 6,
-   fun i h2 _ => redhefferReduced_diag_tail 6 i h2, by decide +kernel, by decide +kernel⟩
+theorem column_reduction_equivalence_witness_6 : ColumnReductionEquivalence 6 :=
+  ⟨redhefferReduced 6, redhefferReduced_upper 6, redhefferReduced_diag_one 6, fun i h2 _ => redhefferReduced_diag_tail 6 i h2, by decide +kernel, by decide +kernel⟩
 
 /-- Master Inductive Column-Reduction Equivalence Theorem:
     1. The reduced matrix `redhefferReduced n` is upper-triangular for all n.
@@ -450,13 +444,13 @@ theorem redheffer_inductive_column_reduction :
      intro n hn
      simp only [List.mem_cons, List.not_mem_nil] at hn
      rcases hn with rfl | rfl | rfl | rfl | rfl | hn6
-     · exact column_reduction_equivalence_1
-     · exact column_reduction_equivalence_2
-     · exact column_reduction_equivalence_3
-     · exact column_reduction_equivalence_4
-     · exact column_reduction_equivalence_5
+     · exact column_reduction_equivalence_witness_1
+     · exact column_reduction_equivalence_witness_2
+     · exact column_reduction_equivalence_witness_3
+     · exact column_reduction_equivalence_witness_4
+     · exact column_reduction_equivalence_witness_5
      · cases hn6 with
-       | inl h6 => subst h6; exact column_reduction_equivalence_6
+       | inl h6 => subst h6; exact column_reduction_equivalence_witness_6
        | inr hf => contradiction⟩
 
 end RedhefferObstruction
@@ -489,10 +483,10 @@ end RedhefferObstruction
 #print axioms RedhefferObstruction.redheffer_det_eq_reduced_to_6
 #print axioms RedhefferObstruction.leibniz_branch_reduction_to_5
 #print axioms RedhefferObstruction.column_reduction_equivalence_witness
-#print axioms RedhefferObstruction.column_reduction_equivalence_1
-#print axioms RedhefferObstruction.column_reduction_equivalence_2
-#print axioms RedhefferObstruction.column_reduction_equivalence_3
-#print axioms RedhefferObstruction.column_reduction_equivalence_4
-#print axioms RedhefferObstruction.column_reduction_equivalence_5
-#print axioms RedhefferObstruction.column_reduction_equivalence_6
+#print axioms RedhefferObstruction.column_reduction_equivalence_witness_1
+#print axioms RedhefferObstruction.column_reduction_equivalence_witness_2
+#print axioms RedhefferObstruction.column_reduction_equivalence_witness_3
+#print axioms RedhefferObstruction.column_reduction_equivalence_witness_4
+#print axioms RedhefferObstruction.column_reduction_equivalence_witness_5
+#print axioms RedhefferObstruction.column_reduction_equivalence_witness_6
 #print axioms RedhefferObstruction.redheffer_inductive_column_reduction

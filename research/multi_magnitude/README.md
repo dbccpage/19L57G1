@@ -32,4 +32,4 @@ Across previous research trees:
      - `terminal = "CHANNELS_SEPARATED"`
      - `single_magnitude_degeneracy = False`
 
-LP4 is formally and programmatically resolved and unblocked.
+LP4 is programmatically resolved in this setting: the cyclotomic row toy exhibits channel separation. No Lean formalization exists for this result.

@@ -92,12 +92,12 @@ def verify_axioms(output: str) -> None:
         "RedhefferObstruction.redheffer_det_eq_reduced_to_6",
         "RedhefferObstruction.leibniz_branch_reduction_to_5",
         "RedhefferObstruction.column_reduction_equivalence_witness",
-        "RedhefferObstruction.column_reduction_equivalence_1",
-        "RedhefferObstruction.column_reduction_equivalence_2",
-        "RedhefferObstruction.column_reduction_equivalence_3",
-        "RedhefferObstruction.column_reduction_equivalence_4",
-        "RedhefferObstruction.column_reduction_equivalence_5",
-        "RedhefferObstruction.column_reduction_equivalence_6",
+        "RedhefferObstruction.column_reduction_equivalence_witness_1",
+        "RedhefferObstruction.column_reduction_equivalence_witness_2",
+        "RedhefferObstruction.column_reduction_equivalence_witness_3",
+        "RedhefferObstruction.column_reduction_equivalence_witness_4",
+        "RedhefferObstruction.column_reduction_equivalence_witness_5",
+        "RedhefferObstruction.column_reduction_equivalence_witness_6",
         "RedhefferObstruction.redheffer_inductive_column_reduction",
     }
 

@@ -24,6 +24,12 @@ Mathematical Content:
    - The stratification boundary between represented evaluator and guest programs
      is mathematically irreducible for static graph representations.
 
+Limitations:
+- This is a pigeonhole argument on Fin k vs a cyclic guest of size k+1.
+- Does NOT import Derivation.
+- Does NOT reference or touch the 64-description interpreter boundary.
+- The obstruction is generic over any finite-state machine with fewer states than the guest's cycle length.
+
 Axioms used: strictly contained in `{propext, Quot.sound}`.
 -/
 

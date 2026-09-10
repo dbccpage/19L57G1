@@ -4,13 +4,15 @@ import Derivation.MinimalityF
 /-!
 # Reading-F Challenge-3 Class Distinctness in Lean 4
 
-Target 2 formalization: Pairwise non-isomorphism of the five F-reading classes
+Target 2 formalization: Pairwise non-isomorphism of five F-reading classes
 at Challenge 3 under reading F ($R_{2F}$):
 - `U0F`: Unary mark on required datum 1
 - `BD_F`: Binary self-loop on required datum 1
 - `BL_F`: Binary link between required data (1, 2)
 - `FOUT_F`: Binary link from required datum 1 to genesis datum 0
 - `FIN_F`: Binary link from genesis datum 0 to required datum 1
+
+These five concrete F-reading regime literals are pairwise non-isomorphic under the sealed Iso definition. Their coverage of the full Challenge-3 F class space is verified separately by the enumerator, not by this module.
 
 All 10 pairwise non-isomorphisms are established constructively without external
 classification axioms:

@@ -25,7 +25,7 @@ from typing import Sequence
 
 # Setup import paths
 from pathlib import Path
-REPO_ROOT = Path(__file__).resolve().parent.parent
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(REPO_ROOT / "code"))
 sys.path.insert(0, str(REPO_ROOT / "research" / "iso_sound"))
 

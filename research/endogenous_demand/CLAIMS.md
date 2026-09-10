@@ -143,6 +143,15 @@ is `E2OnCReqs`.
   together with a Lean E1 proof.
 - **Obligation**: not discharged here.
 
+### CL-ED-BOUND
+
+- **Statement**: Endogenous traces without external data growth terminate in at most binom(N,2) steps. This bound is a corollary of `closedRun_round_bound` from sealed `Derivation.Rounds`. This does NOT close OB-1 — it shows a termination bound, not a demand generator.
+- **Class**: proved theorem (termination bound on closed runs).
+- **Lean**: `run_length_bound_from_closedRun`.
+- **Python**: `verify_termination.py`.
+- **Falsifier**: a trace satisfying endogenous constraints that exceeds binom(N,2) steps without external growth.
+- **Obligation**: OB-1 (demand generator on C_reqs) remains OPEN.
+
 ### CL-ED-DYNAMICS
 
 - **Statement**: Sustained vs terminating does not apply inside

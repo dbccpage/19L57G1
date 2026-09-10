@@ -23,12 +23,14 @@ research Lean builds are invoked separately. The table names their entry points.
 | `balance_carrier` | local receipt only | `verify_lean.py`, `verify_pins.py` | test_*.py | manual receipt (`verify_lean.py`) |
 | `blind_restart` | workflow (gate 11) | `verify_pins.py` | test_*.py | none |
 | `boundary_seed` | workflow (gate 11) | `verify_freeze.py`, `verify_lean.py`, `verify_pins.py` | tests/ | manual receipt (`verify_lean.py`) |
-| `coherent_process_limits` | local receipt only | `verify.py`, `verify_lean.py`, `verify_sources.py` | tests/ | manual receipt (`verify_lean.py`) |
 | `closed_family` | local receipt only | `verify_lean.py`, `verify_pins.py` | test_*.py | manual receipt (`verify_lean.py`) |
+| `coherent_process_limits` | local receipt only | `verify.py`, `verify_lean.py`, `verify_sources.py` | tests/ | manual receipt (`verify_lean.py`) |
 | `convention_price` | local receipt only | `verify_lean.py`, `verify_pins.py` | test_*.py | manual receipt (`verify_lean.py`) |
+| `cost_cohomology` | local receipt only | none | test_*.py | none |
 | `described_replay` | local receipt only | `verify_lean.py`, `verify_pins.py` | test_*.py | manual receipt (`verify_lean.py`) |
 | `dynamics_step` | local receipt only | none | test_*.py | none |
 | `endogenous_demand` | local receipt only | `verify.py`, `verify_lean.py`, `verify_sources.py` | tests/ | manual receipt (`verify_lean.py`) |
+| `estate_honesty` | local receipt only | none | test_*.py | none |
 | `exchange_coefficients` | local receipt only | `verify.py` | `test_examples.py` | local build and axiom report (`verify.py`) |
 | `family_embedding` | local receipt only | `verify_lean.py`, `verify_pins.py` | test_*.py | manual receipt (`verify_lean.py`) |
 | `fresh_characters` | local receipt only | `verify_lean.py`, `verify_pins.py` | test_*.py | manual receipt (`verify_lean.py`) |
@@ -42,10 +44,11 @@ research Lean builds are invoked separately. The table names their entry points.
 | `limit_and_observer` | workflow (gate 11) | `verify_lean.py`, `verify_pins.py`, `verify_prose.py` | tests/ | manual receipt (`verify_lean.py`) |
 | `local_reuse` | local receipt only | `verify_lean.py`, `verify_sources.py` | tests/ | manual receipt (`verify_lean.py`) |
 | `magnification` | local receipt only | `verify.py`, `verify_lean.py`, `verify_sources.py` | tests/ | manual receipt (`verify_lean.py`) |
+| `multi_depth` | local receipt only | `verify_lean.py` | test_*.py | manual receipt (`verify_lean.py`) |
+| `multi_magnitude` | local receipt only | none | test_*.py | none |
 | `natural_sections` | local receipt only | `verify_lean.py`, `verify_pins.py` | test_*.py | manual receipt (`verify_lean.py`) |
 | `observer_visibility` | local receipt only | `verify_lean.py`, `verify_pins.py` | test_*.py | manual receipt (`verify_lean.py`) |
 | `partial_decide` | workflow (gate 11) | `verify_pins.py` | test_*.py | none |
-| `record_reading` | local receipt only | `verify.py`, `verify_lean.py`, `verify_sources.py` | tests/ | manual receipt (`verify_lean.py`) |
 | `path_dependent_cost` | local receipt only | `verify_lean.py`, `verify_pins.py` | test_*.py | manual receipt (`verify_lean.py`) |
 | `portable_interface` | workflow (gate 11) | `verify_pins.py` | test_*.py | none |
 | `priced_admissions` | local receipt only | none | test_*.py | none |
@@ -53,6 +56,9 @@ research Lean builds are invoked separately. The table names their entry points.
 | `reach_additivity` | local receipt only | `verify_lean.py`, `verify_pins.py` | test_*.py | manual receipt (`verify_lean.py`) |
 | `reach_measure` | local receipt only | `verify_lean.py`, `verify_pins.py` | test_*.py | manual receipt (`verify_lean.py`) |
 | `reachable` | local receipt only | `verify.py`, `verify_lean.py`, `verify_sources.py` | tests/ | manual receipt (`verify_lean.py`) |
+| `reading_f_iso` | local receipt only | `verify.py` | none | manual receipt (`verify.py`) |
+| `record_reading` | local receipt only | `verify.py`, `verify_lean.py`, `verify_sources.py` | tests/ | manual receipt (`verify_lean.py`) |
+| `redheffer` | local receipt only | `verify.py` | test_*.py | manual receipt (`verify.py`) |
 | `represented_execution` | local receipt only | `verify.py`, `verify_lean.py`, `verify_sources.py` | tests/ | manual receipt (`verify_lean.py`) |
 | `s9_obligations` | local receipt only | `verify_lean.py`, `verify_pins.py` | test_*.py | manual receipt (`verify_lean.py`) |
 | `second` | workflow (gate 11) | none | none | none |
@@ -60,6 +66,7 @@ research Lean builds are invoked separately. The table names their entry points.
 | `second_nofirst` | workflow (gate 11) | `verify_lean.py`, `verify_pins.py` | test_*.py | manual receipt (`verify_lean.py`) |
 | `second_stake` | workflow (gate 11) | `verify_pins.py` | test_*.py | none |
 | `second_stream` | workflow (gate 11) | `verify_pins.py` | test_*.py | none |
+| `self_interpreter` | local receipt only | `verify.py` | none | manual receipt (`verify.py`) |
 | `setting_translation` | local receipt only | `verify.py`, `verify_lean.py`, `verify_sources.py` | tests/ | manual receipt (`verify_lean.py`) |
 | `side_free` | workflow (gate 11) | `verify_lean.py`, `verify_pins.py` | tests/ | manual receipt (`verify_lean.py`) |
 | `sign_slice` | local receipt only | `verify_pins.py` | test_*.py | none |
@@ -68,7 +75,7 @@ research Lean builds are invoked separately. The table names their entry points.
 | `two_sided_commitment` | local receipt only | `verify_pins.py` | test_*.py | none |
 | `typed_translation` | workflow (gate 11) | `verify_lean.py`, `verify_pins.py`, `verify_prose.py` | tests/ | manual receipt (`verify_lean.py`) |
 
-13 trees are wired; 36 are local receipts only.
+13 trees are wired; 43 are local receipts only.
 
 ## Hand copies
 

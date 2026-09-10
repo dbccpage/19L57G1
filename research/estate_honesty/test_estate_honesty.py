@@ -38,18 +38,18 @@ class TestEstateHonesty(unittest.TestCase):
         cls.test_audit = ae.audit_test_counts(ROOT)
         cls.axiom_audit = ae.audit_axioms(ROOT)
 
-    def test_all_48_trees_audited(self) -> None:
-        """Exactly 48 trees are declared in research/README.md and audited."""
-        self.assertEqual(len(self.trees), 48)
+    def test_all_trees_audited(self) -> None:
+        """All trees declared in research/README.md exist on disk."""
+        self.assertEqual(len(self.trees), 56)
         missing_on_disk = [t.name for t in self.trees if not t.exists_on_disk]
-        self.assertEqual(missing_on_disk, [], "All 48 declared trees must exist on disk")
+        self.assertEqual(missing_on_disk, [], "All declared trees must exist on disk")
 
     def test_gate_11_ci_integration_counts(self) -> None:
-        """Gate 11 in .github/workflows/verify.yml wires exactly 13 trees; 35 are local receipts."""
+        """Gate 11 in .github/workflows/verify.yml wires exactly 13 trees; 43 are local receipts."""
         g11_trees = [t.name for t in self.trees if t.in_verify_yml_gate11]
         local_trees = [t.name for t in self.trees if not t.in_verify_yml_gate11]
         self.assertEqual(len(g11_trees), 13)
-        self.assertEqual(len(local_trees), 35)
+        self.assertEqual(len(local_trees), 43)
 
         expected_g11 = {
             "blind_restart", "boundary_seed", "limit_and_observer", "partial_decide",
