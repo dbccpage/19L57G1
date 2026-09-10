@@ -1,0 +1,99 @@
+{
+ "authority_effect": "None",
+ "class": "C_reqs",
+ "constructor_cases": {
+  "AdmitDatum": {
+   "changed": false,
+   "is_impose": false,
+   "reqs_after": [],
+   "reqs_before": []
+  },
+  "AdmitForm": {
+   "changed": false,
+   "is_impose": false,
+   "reqs_after": [],
+   "reqs_before": []
+  },
+  "AdmitInst": {
+   "changed": false,
+   "is_impose": false,
+   "reqs_after": [],
+   "reqs_before": []
+  },
+  "AdmitRuleAll": {
+   "changed": false,
+   "is_impose": false,
+   "reqs_after": [],
+   "reqs_before": []
+  },
+  "Impose": {
+   "changed": true,
+   "is_impose": true,
+   "reqs_after": [
+    [
+     0,
+     1
+    ]
+   ],
+   "reqs_before": []
+  },
+  "Supply": {
+   "changed": false,
+   "is_impose": false,
+   "reqs_after": [],
+   "reqs_before": []
+  }
+ },
+ "empty_is_empty": true,
+ "outcome": "B",
+ "prefix_without_impose": {
+  "empty_reqs": true,
+  "impose_events": [],
+  "reading": "L",
+  "reqs": []
+ },
+ "reading_replays": {
+  "F": {
+   "e2_violation": null,
+   "history_length": 8,
+   "impose_events": [
+    [
+     1,
+     2
+    ]
+   ],
+   "last_is_impose": true,
+   "reqs": [
+    [
+     1,
+     2
+    ]
+   ]
+  },
+  "L": {
+   "e2_violation": null,
+   "history_length": 7,
+   "impose_events": [
+    [
+     0,
+     1
+    ]
+   ],
+   "last_is_impose": true,
+   "reqs": [
+    [
+     0,
+     1
+    ]
+   ]
+  }
+ },
+ "readings": [
+  "L",
+  "F"
+ ],
+ "reqs_writers": [
+  "Impose"
+ ],
+ "schema": "endogenous-demand-grammar-v1"
+}

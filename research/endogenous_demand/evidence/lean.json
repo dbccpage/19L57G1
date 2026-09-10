@@ -1,0 +1,83 @@
+{
+  "authority_effect": "None",
+  "axiom_free_count": 2,
+  "census": "compiled environment theorem declarations in the EndogenousDemand namespace",
+  "class": "C_reqs",
+  "classification": "Lean proof compilation",
+  "local_sources_sha256": {
+    "EndogenousDemand.lean": "818ea99adf8467682e6b7142ab90b00f1cec5ad888ccd356fbd7745c1f76fc9d",
+    "Inventory.lean": "4626fc1eb26a6ca641decf3430a586a5f4b1a8ac767c8e0855ebbc35aef24584",
+    "lakefile.toml": "30b14bfd1fa71badfb6352d8c26a3e6e4a4956dd5b473d8262ff488ae0c3a959",
+    "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
+  },
+  "outcome": "B",
+  "python_driver_refinement": "NOT_PROVED",
+  "reports": {
+    "EndogenousDemand.applyDelta_cons": [
+      "propext"
+    ],
+    "EndogenousDemand.applyDelta_nil": [
+      "propext"
+    ],
+    "EndogenousDemand.applyDelta_reqs": [
+      "propext"
+    ],
+    "EndogenousDemand.applyItem_reqs": [
+      "propext"
+    ],
+    "EndogenousDemand.e2_on_C_reqs_unsat": [
+      "propext"
+    ],
+    "EndogenousDemand.event_constructors": [],
+    "EndogenousDemand.genesis_reqs": [],
+    "EndogenousDemand.historyF_reqs_from_impose": [
+      "propext"
+    ],
+    "EndogenousDemand.historyL_reqs_from_impose": [
+      "propext"
+    ],
+    "EndogenousDemand.no_reqs_extension_without_impose": [
+      "propext"
+    ],
+    "EndogenousDemand.replayE_cons": [
+      "propext"
+    ],
+    "EndogenousDemand.replayE_nil": [
+      "propext"
+    ],
+    "EndogenousDemand.replayE_reqs_mem": [
+      "propext"
+    ],
+    "EndogenousDemand.replay_reqs_iff_impose": [
+      "propext"
+    ],
+    "EndogenousDemand.stepE_admitDatum": [
+      "propext"
+    ],
+    "EndogenousDemand.stepE_reqs_admitDatum": [
+      "propext"
+    ],
+    "EndogenousDemand.stepE_reqs_admitForm": [
+      "propext"
+    ],
+    "EndogenousDemand.stepE_reqs_admitInst": [
+      "propext"
+    ],
+    "EndogenousDemand.stepE_reqs_admitRuleAll": [
+      "propext"
+    ],
+    "EndogenousDemand.stepE_reqs_impose": [
+      "propext"
+    ],
+    "EndogenousDemand.stepE_reqs_mem": [
+      "propext"
+    ],
+    "EndogenousDemand.stepE_reqs_supply": [
+      "propext"
+    ]
+  },
+  "schema_version": 1,
+  "scope": "E2 on the sealed reqs channel is unsatisfiable; the instance channel is not formalized here and remains OPEN",
+  "theorem_count_including_generated": 22,
+  "toolchain": "leanprover/lean4:v4.33.0"
+}
