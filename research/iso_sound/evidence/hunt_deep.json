@@ -1,0 +1,42 @@
+{
+ "agreement": true,
+ "authority_effect": "None",
+ "bounds": {
+  "max_arity": 3,
+  "max_data": 3,
+  "max_forms": 1,
+  "max_insts": 4
+ },
+ "brute_class_count": 57266,
+ "falsifier_count": 0,
+ "falsifiers": [],
+ "general_soundness": "OPEN",
+ "perm_budget": 100000,
+ "refined_class_count": 57266,
+ "regime_count": 338650,
+ "sample_sweep": {
+  "agreement": true,
+  "bounds": {
+   "max_arity": 3,
+   "max_data": 3,
+   "max_forms": 2,
+   "max_insts": 4
+  },
+  "brute_class_count": 4218,
+  "falsifier_count": 0,
+  "falsifiers": [],
+  "refined_class_count": 4218,
+  "require_ternary": true,
+  "sample_count": 10000,
+  "seed": 42
+ },
+ "schema": "iso-sound-hunt-v1",
+ "scope": "exhaustive over well-formed regimes with n_data \u2264 3, n_forms \u2264 1, arity \u2264 3, |insts| \u2264 4; tokens dummy; agreement is not a proof of CL-ISO-SOUND",
+ "seed_corpus": {
+  "agreement": true,
+  "disagreements": 0,
+  "in_bounds": true,
+  "pair_checks": 28,
+  "size": 7
+ }
+}

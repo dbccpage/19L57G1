@@ -1,0 +1,63 @@
+{
+  "commuting_squares_2complex": {
+    "all_commuting_squares": 770,
+    "dim_H1_cellular_2complex": 54,
+    "homology_group_statement": "H_1(X; R) = Z_1 / im(d_2) = R^54, supported on uncancelled self-loops",
+    "pure_commuting_squares": 146,
+    "pure_squares_span_order_subspace": true,
+    "rank_d2_boundary_all_squares": 324,
+    "rank_pure_squares": 146
+  },
+  "move_graph": {
+    "components": 2,
+    "dim_B1_exact": 260,
+    "dim_C1": 638,
+    "dim_H1_quotient": 378,
+    "dim_Z1_cycles": 378,
+    "edges": 638,
+    "order_subspace_dim": 146,
+    "quotient_decomposition": "R^378 = R^232_waste + R^146_order",
+    "vertices": 262,
+    "waste_subspace_dim": 232
+  },
+  "native_candidates": {
+    "order_cocycles_rank": 4,
+    "pure_square_discrepancies": {
+      "arity_debt": 0,
+      "context_opening": 0,
+      "empty_admission": 22,
+      "item_count": 0,
+      "mention_deficit": 18,
+      "reach": 0,
+      "redundancy": 0,
+      "rule_span": 4,
+      "width_at_admission": 16
+    },
+    "rule_span_commitment_growth_witness": {
+      "end": "L0.00.11.23",
+      "route_one": [
+        [
+          "datum",
+          0
+        ],
+        [
+          "rule",
+          3
+        ]
+      ],
+      "route_one_total": 3,
+      "route_two": [
+        [
+          "rule",
+          2
+        ],
+        [
+          "datum",
+          0
+        ]
+      ],
+      "route_two_total": 2,
+      "start": "L0.01"
+    }
+  }
+}

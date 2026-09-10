@@ -1,0 +1,278 @@
+{
+  "multi_magnitude_resolution": {
+    "carrier_construction": "GenPres with arrow weights from V6 cyclotomic row [2, -1, -1]",
+    "channel_table": {
+      "cells": {
+        "a_only": 3,
+        "b_only": 1,
+        "both": 1,
+        "neither": 1
+      },
+      "has_a_only": true,
+      "has_b_only": true,
+      "separated": true,
+      "terminal": "CHANNELS_SEPARATED",
+      "total_rows": 6
+    },
+    "magnitude_count": 5,
+    "operational_magnitudes_carried": [
+      1,
+      2,
+      4,
+      8,
+      16
+    ],
+    "rows": [
+      {
+        "arrow_count": 16,
+        "cell": "a_only",
+        "channel_a": {
+          "source": "two_label_slots",
+          "verdict": "CURABLE_WITHIN_BOUND"
+        },
+        "channel_b": {
+          "certificate": false,
+          "magnitudes": [
+            1,
+            2,
+            4,
+            8,
+            16
+          ],
+          "neg_dominated": false,
+          "pos_dominated": false
+        },
+        "distinct_magnitudes": 5,
+        "fibre": 2,
+        "name": "signed_square_pos_cyc3",
+        "walk_bound": 4,
+        "walk_count": 265,
+        "walk_magnitudes": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ]
+      },
+      {
+        "arrow_count": 16,
+        "cell": "a_only",
+        "channel_a": {
+          "source": "two_label_slots",
+          "verdict": "CURABLE_WITHIN_BOUND"
+        },
+        "channel_b": {
+          "certificate": false,
+          "magnitudes": [
+            1,
+            2,
+            4,
+            8,
+            16
+          ],
+          "neg_dominated": false,
+          "pos_dominated": false
+        },
+        "distinct_magnitudes": 5,
+        "fibre": 2,
+        "name": "signed_square_neg_cyc3",
+        "walk_bound": 4,
+        "walk_count": 265,
+        "walk_magnitudes": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ]
+      },
+      {
+        "arrow_count": 16,
+        "cell": "a_only",
+        "channel_a": {
+          "source": "two_label_slots",
+          "verdict": "CURABLE_WITHIN_BOUND"
+        },
+        "channel_b": {
+          "certificate": false,
+          "magnitudes": [
+            1,
+            2,
+            4,
+            8,
+            16
+          ],
+          "neg_dominated": false,
+          "pos_dominated": false
+        },
+        "distinct_magnitudes": 5,
+        "fibre": 2,
+        "name": "square_2x2_occ2_cyc3",
+        "walk_bound": 4,
+        "walk_count": 265,
+        "walk_magnitudes": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ]
+      },
+      {
+        "arrow_count": 16,
+        "cell": "b_only",
+        "channel_a": {
+          "source": "phase_2",
+          "verdict": "NOT_CURABLE_WITHIN_BOUND"
+        },
+        "channel_b": {
+          "certificate": true,
+          "magnitudes": [
+            1
+          ],
+          "neg_dominated": true,
+          "pos_dominated": false
+        },
+        "distinct_magnitudes": 1,
+        "fibre": 2,
+        "name": "square_2x2_occ2_uncurable_b_cert",
+        "walk_bound": 4,
+        "walk_count": 265,
+        "walk_magnitudes": [
+          1
+        ]
+      },
+      {
+        "arrow_count": 16,
+        "cell": "both",
+        "channel_a": {
+          "source": "two_label_slots",
+          "verdict": "CURABLE_WITHIN_BOUND"
+        },
+        "channel_b": {
+          "certificate": true,
+          "magnitudes": [
+            1
+          ],
+          "neg_dominated": true,
+          "pos_dominated": false
+        },
+        "distinct_magnitudes": 1,
+        "fibre": 2,
+        "name": "signed_square_pos_unit",
+        "walk_bound": 4,
+        "walk_count": 265,
+        "walk_magnitudes": [
+          1
+        ]
+      },
+      {
+        "arrow_count": 16,
+        "cell": "neither",
+        "channel_a": {
+          "source": "phase_2",
+          "verdict": "NOT_CURABLE_WITHIN_BOUND"
+        },
+        "channel_b": {
+          "certificate": false,
+          "magnitudes": [
+            1,
+            2,
+            4,
+            8,
+            16
+          ],
+          "neg_dominated": false,
+          "pos_dominated": false
+        },
+        "distinct_magnitudes": 5,
+        "fibre": 2,
+        "name": "square_2x2_occ2_uncurable_cyc3",
+        "walk_bound": 4,
+        "walk_count": 265,
+        "walk_magnitudes": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ]
+      }
+    ],
+    "single_magnitude_degeneracy_broken": true
+  },
+  "preceding_trees": {
+    "balance_carrier": {
+      "obstruction": "All three hits at N in {6, 7, 12} carry magnitude 1 only",
+      "separated": false,
+      "single_magnitude_degeneracy": true,
+      "terminal": "DEGENERACY_PERSISTS",
+      "walk_magnitudes": [
+        1
+      ]
+    },
+    "convention_price": {
+      "cells": {
+        "both": 10
+      },
+      "obstruction": "Channel (b) cannot refuse under single magnitude 1; all decided rows evaluate to 'both'",
+      "separated": false,
+      "single_magnitude_degeneracy": true,
+      "terminal": "CHANNELS_AGREE_ON_DECIDED_ROWS",
+      "walk_magnitudes": [
+        1
+      ]
+    },
+    "fresh_characters": {
+      "carrier": "V6 (cyclotomic reduction modulo Phi_n(x))",
+      "certificate_refusals": 29,
+      "distinct_magnitudes_count": 25,
+      "distinct_magnitudes_seen": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        16,
+        18,
+        20,
+        22,
+        24,
+        28,
+        30,
+        32,
+        36,
+        40,
+        42,
+        46,
+        52,
+        58
+      ],
+      "diverse_families": 54,
+      "smallest_refusal_witness": {
+        "certificate_exists": false,
+        "magnitudes": [
+          1,
+          2
+        ],
+        "neg_dominated": false,
+        "part_count": 3,
+        "pos_dominated": false,
+        "row": [
+          2,
+          -1,
+          -1
+        ]
+      },
+      "total_families": 60
+    }
+  },
+  "status": "LP4_RESOLVED_AND_UNBLOCKED"
+}
