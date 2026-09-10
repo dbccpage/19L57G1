@@ -130,30 +130,17 @@ def get_cfg_transitions(graph: Graph, pc: int, data: int) -> tuple[tuple[int, in
     """
     transitions: set[tuple[int, int]] = set()
 
-    # 1. Unconditional steps
     for form, args in graph:
         if form == FORM_CFG_STEP and len(args) == 2 and args[0] == pc:
             transitions.add((args[1], data))
-
-    # 2. Matching conditional branches
-    for form, args in graph:
-        if form == FORM_CFG_BRANCH and len(args) == 3 and args[0] == pc and args[1] == data:
+        elif form == FORM_CFG_BRANCH and len(args) == 3 and args[0] == pc and args[1] == data:
             transitions.add((args[2], data))
-
-    # 3. Indirect jump tables
-    for form, args in graph:
-        if form == FORM_CFG_INDIRECT and len(args) == 2 and args[0] == pc:
-            table_id = args[1]
-            resolved = resolve_jump_table_target(graph, table_id, data)
+        elif form == FORM_CFG_INDIRECT and len(args) == 2 and args[0] == pc:
+            resolved = resolve_jump_table_target(graph, args[1], data)
             if resolved is not None:
                 transitions.add((resolved, data))
-
-    # 4. Data assignments
-    for form, args in graph:
-        if form == FORM_CFG_ASSIGN and len(args) == 3 and args[0] == pc:
-            new_data = args[1]
-            target_pc = args[2]
-            transitions.add((target_pc, new_data))
+        elif form == FORM_CFG_ASSIGN and len(args) == 3 and args[0] == pc:
+            transitions.add((args[2], args[1]))
 
     return tuple(sorted(transitions))
 

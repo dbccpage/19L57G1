@@ -1,7 +1,7 @@
 """Target-Class Charter (G001) for Theory of Everything (TOE) candidate systems.
 
 Pre-registers 9 independent adequacy criteria frozen before candidate evaluation:
-1. Computational universality criteria (standard machine simulation, bounded overhead).
+1. Computational capacity criteria (standard machine simulation, bounded overhead).
 2. Reasoning adequacy (proof objects, deduction, refusal vs falsehood).
 3. Representational & operational completeness (state, action, memory, observation).
 4. Mathematical foundation recovery (constructive arithmetic, number towers, topology).

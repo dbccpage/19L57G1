@@ -55,7 +55,7 @@ from harness import (
 )
 
 
-def test_pairwise_target_a_execution_driving_g010_capability_removal():
+def test_pairwise_target_a_execution_driving_g010_capability_removal() -> None:
     """Target A execution driving G010 capability removal across a fixed observation interface."""
     prog = make_program(
         nops=2,
@@ -75,7 +75,7 @@ def test_pairwise_target_a_execution_driving_g010_capability_removal():
     assert res_restr.output == ()
 
 
-def test_pairwise_g011_finitary_ordinals_addressing_target_a_instruction_memory():
+def test_pairwise_g011_finitary_ordinals_addressing_target_a_instruction_memory() -> None:
     """G011 finitary ordinals addressing Target A instruction memory."""
     # Build transition table using ordinal values as node addresses
     o0 = Ordinal.zero()
@@ -96,7 +96,7 @@ def test_pairwise_g011_finitary_ordinals_addressing_target_a_instruction_memory(
     assert s2.active == o2.val
 
 
-def test_pairwise_target_b_prefix_observation_of_target_a_traces():
+def test_pairwise_target_b_prefix_observation_of_target_a_traces() -> None:
     """Target B prefix scale observation observing Target A execution traces."""
     # 3-cycle in Target A
     prog = make_program(
@@ -116,7 +116,7 @@ def test_pairwise_target_b_prefix_observation_of_target_a_traces():
     assert stages[5] == (0, 1, 2, 0, 1, 2)
 
 
-def test_pairwise_g001_adequacy_verification_of_target_a_and_target_b():
+def test_pairwise_g001_adequacy_verification_of_target_a_and_target_b() -> None:
     """G001 adequacy charter evaluating Target A execution and Target B dynamics."""
     # Target A satisfies computational and representational completeness
     sys_a = TargetSystem(
@@ -147,7 +147,7 @@ def test_pairwise_g001_adequacy_verification_of_target_a_and_target_b():
     assert morph.preserves_adequacy is True
 
 
-def test_pairwise_multi_locus_product_with_g011_tree_addressing():
+def test_pairwise_multi_locus_product_with_g011_tree_addressing() -> None:
     """Two-locus product pairing mapped to G011 hierarchical tree addresses."""
     m = 5
     gen = FreshnessGenerator()
@@ -164,7 +164,7 @@ def test_pairwise_multi_locus_product_with_g011_tree_addressing():
     assert rec_b == addr.path[1]
 
 
-def test_pairwise_target_a_memory_growth_with_target_b_chain_functionality():
+def test_pairwise_target_a_memory_growth_with_target_b_chain_functionality() -> None:
     """Target A depth-2 memory records verified against Target B chain functionality."""
     prog = make_program(
         nops=1,
@@ -186,7 +186,7 @@ def test_pairwise_target_a_memory_growth_with_target_b_chain_functionality():
     assert len(depth2_records) == 5
 
 
-def test_pairwise_g010_restricted_execution_with_g011_finitary_recursion():
+def test_pairwise_g010_restricted_execution_with_g011_finitary_recursion() -> None:
     """Fuel-bounded endogenous recursion executing under restricted capability environments."""
     depth = Ordinal(4)
     allowed_caps = frozenset([Capability.DIRECT_LOOKUP])
@@ -201,7 +201,7 @@ def test_pairwise_g010_restricted_execution_with_g011_finitary_recursion():
     assert val == 4
 
 
-def test_pairwise_target_b_rational_bounds_as_g001_empirical_evidence():
+def test_pairwise_target_b_rational_bounds_as_g001_empirical_evidence() -> None:
     """Quantitative rational limiting bounds evaluated as empirical adequacy evidence under G001."""
     L = 30
     zeros_count = 10  # For 3-cycle

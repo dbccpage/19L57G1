@@ -53,15 +53,15 @@ from harness import (
 # Feature 1: Represented Program & Lookup
 # ===========================================================================
 
-def test_f01_lookup_existing_edge_returns_target():
+def test_f01_lookup_existing_edge_returns_target() -> None:
     prog = make_program(nops=1, transitions=[(0, 0, 1)], enablements=[(0, 0)])
     assert lookup(3 + 0, 0, prog) == 1
 
-def test_f01_lookup_missing_edge_returns_none():
+def test_f01_lookup_missing_edge_returns_none() -> None:
     prog = make_program(nops=1, transitions=[(0, 0, 1)], enablements=[(0, 0)])
     assert lookup(3 + 0, 99, prog) is None
 
-def test_f01_lookup_distinguishes_different_forms():
+def test_f01_lookup_distinguishes_different_forms() -> None:
     prog = make_program(
         nops=2,
         transitions=[(0, 0, 1), (1, 0, 2)],
@@ -70,14 +70,14 @@ def test_f01_lookup_distinguishes_different_forms():
     assert lookup(3 + 0, 0, prog) == 1
     assert lookup(3 + 1, 0, prog) == 2
 
-def test_f01_lookup_without_host_functions():
+def test_f01_lookup_without_host_functions() -> None:
     # Only reads stored instances without consulting F.ops
     prog = ((3, (10, 20)), (3, (20, 30)))
     assert lookup(3, 10, prog) == 20
     assert lookup(3, 20, prog) == 30
     assert lookup(3, 30, prog) is None
 
-def test_f01_lookup_multi_edge_graph_distinction():
+def test_f01_lookup_multi_edge_graph_distinction() -> None:
     # 3-cycle: 0->1, 1->2, 2->0
     prog = make_program(
         nops=1,
@@ -93,19 +93,19 @@ def test_f01_lookup_multi_edge_graph_distinction():
 # Feature 2: Data-Driven Control & Branching
 # ===========================================================================
 
-def test_f02_single_enablement_fires_operation():
+def test_f02_single_enablement_fires_operation() -> None:
     prog = make_program(nops=1, transitions=[(0, 0, 1)], enablements=[(0, 0)])
     s = State(graph=prog, nops=1, active=0, tape=(0,), clock=0, fuel=5)
     nxt = step_det(s)
     assert isinstance(nxt, State)
     assert nxt.active == 1
 
-def test_f02_zero_enablement_halts():
+def test_f02_zero_enablement_halts() -> None:
     prog = make_program(nops=1, transitions=[(0, 0, 1)], enablements=[])
     s = State(graph=prog, nops=1, active=0, tape=(0,), clock=0, fuel=5)
     assert step_det(s) is Terminal.HALT
 
-def test_f02_multiple_enablements_branch_without_selection():
+def test_f02_multiple_enablements_branch_without_selection() -> None:
     # At datum 0, both op 0 and op 1 are enabled -> explicit BRANCH terminal
     prog = make_program(
         nops=2,
@@ -115,14 +115,14 @@ def test_f02_multiple_enablements_branch_without_selection():
     s = State(graph=prog, nops=2, active=0, tape=(0,), clock=0, fuel=5)
     assert step_det(s) is Terminal.BRANCH
 
-def test_f02_step_extends_tape():
+def test_f02_step_extends_tape() -> None:
     prog = make_program(nops=1, transitions=[(0, 0, 1)], enablements=[(0, 0)])
     s = State(graph=prog, nops=1, active=0, tape=(0,), clock=0, fuel=5)
     nxt = step_det(s)
     assert isinstance(nxt, State)
     assert nxt.tape == (0, 1)
 
-def test_f02_monotonic_fuel_and_clock():
+def test_f02_monotonic_fuel_and_clock() -> None:
     prog = make_program(nops=1, transitions=[(0, 0, 1)], enablements=[(0, 0)])
     s = State(graph=prog, nops=1, active=0, tape=(0,), clock=0, fuel=5)
     nxt = step_det(s)
@@ -135,7 +135,7 @@ def test_f02_monotonic_fuel_and_clock():
 # Feature 3: Memory Growth & Retained Records
 # ===========================================================================
 
-def test_f03_depth1_record_captures_predecessor_and_current():
+def test_f03_depth1_record_captures_predecessor_and_current() -> None:
     prog = make_program(nops=1, transitions=[(0, 0, 1)], enablements=[(0, 0)])
     s = State(graph=prog, nops=1, active=0, tape=(0,), clock=0, fuel=5)
     ms = MemoryState(base_state=s, records=())
@@ -145,7 +145,7 @@ def test_f03_depth1_record_captures_predecessor_and_current():
     assert ms_nxt.records[0].depth == 1
     assert ms_nxt.records[0].payload == (0, 1)
 
-def test_f03_depth2_record_captures_ternary_history():
+def test_f03_depth2_record_captures_ternary_history() -> None:
     prog = make_program(
         nops=1,
         transitions=[(0, 0, 1), (0, 1, 2)],
@@ -162,7 +162,7 @@ def test_f03_depth2_record_captures_ternary_history():
     assert len(d2) == 1
     assert d2[0].payload == (0, 1, 2)
 
-def test_f03_retained_records_grow_monotonically():
+def test_f03_retained_records_grow_monotonically() -> None:
     prog = make_program(
         nops=1,
         transitions=[(0, 0, 1), (0, 1, 2)],
@@ -176,7 +176,7 @@ def test_f03_retained_records_grow_monotonically():
     assert isinstance(ms2, MemoryState)
     assert len(ms2.records) > len(ms1.records)
 
-def test_f03_retained_records_are_immutable():
+def test_f03_retained_records_are_immutable() -> None:
     prog = make_program(nops=1, transitions=[(0, 0, 1)], enablements=[(0, 0)])
     s = State(graph=prog, nops=1, active=0, tape=(0,), clock=0, fuel=5)
     ms = MemoryState(base_state=s, records=())
@@ -186,7 +186,7 @@ def test_f03_retained_records_are_immutable():
     # Subsequent actions do not mutate earlier record objects
     assert rec_initial.payload == (0, 1)
 
-def test_f03_records_derived_from_state_without_host_shortcuts():
+def test_f03_records_derived_from_state_without_host_shortcuts() -> None:
     # Verifies records strictly match the observable execution trace
     prog = make_program(nops=1, transitions=[(0, 0, 1)], enablements=[(0, 0)])
     s = State(graph=prog, nops=1, active=0, tape=(0,), clock=0, fuel=5)
@@ -200,7 +200,7 @@ def test_f03_records_derived_from_state_without_host_shortcuts():
 # Feature 4: Multi-Locus Independence
 # ===========================================================================
 
-def test_f04_product_pairing_is_bijective():
+def test_f04_product_pairing_is_bijective() -> None:
     m = 5
     for a in range(m):
         for b in range(m):
@@ -208,7 +208,7 @@ def test_f04_product_pairing_is_bijective():
             unpacked = unpack_locus(m, packed)
             assert unpacked == (a, b)
 
-def test_f04_independence_square_commutation_on_outcome():
+def test_f04_independence_square_commutation_on_outcome() -> None:
     # Disjoint loci: moving locus A then B arrives at same state as B then A
     m = 10
     a, b = 2, 3
@@ -221,7 +221,7 @@ def test_f04_independence_square_commutation_on_outcome():
     p2_a, p2_b = p2_a + 1, p2_b
     assert pack_locus(m, p1_a, p1_b) == pack_locus(m, p2_a, p2_b)
 
-def test_f04_coupling_breaks_commutativity():
+def test_f04_coupling_breaks_commutativity() -> None:
     # Coupled interaction: right move depends on current left coordinate
     m = 10
     a, b = 2, 3
@@ -234,7 +234,7 @@ def test_f04_coupling_breaks_commutativity():
     p2_a = a + 1     # 3
     assert (p1_a, p1_b) != (p2_a, p2_b)
 
-def test_f04_local_step_preserves_other_locus():
+def test_f04_local_step_preserves_other_locus() -> None:
     m = 10
     packed = pack_locus(m, 4, 7)
     a, b = unpack_locus(m, packed)
@@ -244,7 +244,7 @@ def test_f04_local_step_preserves_other_locus():
     assert new_a == 5
     assert new_b == 7
 
-def test_f04_two_step_compositional_independence():
+def test_f04_two_step_compositional_independence() -> None:
     m = 8
     # Multi-step independence across 2 steps each
     a0, b0 = 1, 1
@@ -258,11 +258,11 @@ def test_f04_two_step_compositional_independence():
 # Feature 5: Prefix Observation Scale System
 # ===========================================================================
 
-def test_f05_bond_forgets_last_element():
+def test_f05_bond_forgets_last_element() -> None:
     stage = (0, 1, 2, 0)
     assert bond_scale(c=3, n=3, stage=stage) == (0, 1, 2)
 
-def test_f05_prefix_compatibility_across_scales():
+def test_f05_prefix_compatibility_across_scales() -> None:
     prog = make_program(
         nops=1,
         transitions=[(0, 0, 1), (0, 1, 2), (0, 2, 0)],
@@ -273,7 +273,7 @@ def test_f05_prefix_compatibility_across_scales():
     obs6 = obs_scale(6, s)
     assert check_prefix_compatibility(obs3, obs6)
 
-def test_f05_inverse_limit_chain_bonding():
+def test_f05_inverse_limit_chain_bonding() -> None:
     prog = make_program(
         nops=1,
         transitions=[(0, 0, 1), (0, 1, 0)],
@@ -283,7 +283,7 @@ def test_f05_inverse_limit_chain_bonding():
     stages = [obs_scale(i, s) for i in range(0, 5)]
     assert is_compatible_thread(stages, c=2)
 
-def test_f05_fuel_independence_for_scale_n():
+def test_f05_fuel_independence_for_scale_n() -> None:
     prog = make_program(
         nops=1,
         transitions=[(0, 0, 1), (0, 1, 2), (0, 2, 0)],
@@ -293,7 +293,7 @@ def test_f05_fuel_independence_for_scale_n():
     s_fuel10 = State(graph=prog, nops=1, active=0, tape=(0,), clock=0, fuel=10)
     assert obs_scale(3, s_fuel5) == obs_scale(3, s_fuel10)
 
-def test_f05_scale_observation_is_deterministic():
+def test_f05_scale_observation_is_deterministic() -> None:
     prog = make_program(nops=1, transitions=[(0, 0, 1)], enablements=[(0, 0)])
     s = State(graph=prog, nops=1, active=0, tape=(0,), clock=0, fuel=5)
     assert obs_scale(1, s) == obs_scale(1, s)
@@ -303,7 +303,7 @@ def test_f05_scale_observation_is_deterministic():
 # Feature 6: Sequence Space Limit Bijection
 # ===========================================================================
 
-def test_f06_thread_to_sequence_mapping():
+def test_f06_thread_to_sequence_mapping() -> None:
     # A compatible thread stages maps to sequence values
     stages = [(0,), (0, 1), (0, 1, 0), (0, 1, 0, 1)]
     assert is_compatible_thread(stages, c=2)
@@ -311,23 +311,23 @@ def test_f06_thread_to_sequence_mapping():
     seq = [stage[-1] for stage in stages]
     assert seq == [0, 1, 0, 1]
 
-def test_f06_sequence_to_thread_mapping():
+def test_f06_sequence_to_thread_mapping() -> None:
     seq = [0, 1, 2, 0, 1, 2]
     stages = [tuple(seq[:i]) for i in range(1, len(seq) + 1)]
     assert is_compatible_thread(stages, c=3)
 
-def test_f06_two_sided_bijection_inversion():
+def test_f06_two_sided_bijection_inversion() -> None:
     seq = [1, 0, 1, 0]
     stages = [tuple(seq[:i]) for i in range(1, len(seq) + 1)]
     recovered_seq = [stage[-1] for stage in stages]
     assert recovered_seq == seq
 
-def test_f06_rejection_of_non_compatible_threads():
+def test_f06_rejection_of_non_compatible_threads() -> None:
     # Stage 2 does not bond to stage 1 (first element mismatch)
     bad_stages = [(0,), (1, 1)]
     assert not is_compatible_thread(bad_stages, c=2)
 
-def test_f06_cofinal_subscale_preserves_thread():
+def test_f06_cofinal_subscale_preserves_thread() -> None:
     seq = [0, 1, 2, 0, 1, 2]
     even_stages = [tuple(seq[:2*k]) for k in range(1, 4)]
     assert even_stages[0] == (0, 1)
@@ -339,16 +339,16 @@ def test_f06_cofinal_subscale_preserves_thread():
 # Feature 7: Non-Density via Chain Functionality
 # ===========================================================================
 
-def test_f07_deterministic_process_satisfies_chain_functionality():
+def test_f07_deterministic_process_satisfies_chain_functionality() -> None:
     tape = (0, 1, 2, 0, 1, 2, 0)
     assert is_chain_functional(tape)
 
-def test_f07_non_functional_prefix_is_refused():
+def test_f07_non_functional_prefix_is_refused() -> None:
     # 0 transitions to 1, but later 0 transitions to 2 -> non-functional
     bad_tape = (0, 1, 0, 2)
     assert not is_chain_functional(bad_tape)
 
-def test_f07_evaluation_map_from_runs_to_tapes_is_injective():
+def test_f07_evaluation_map_from_runs_to_tapes_is_injective() -> None:
     # Distinct programs yield distinct observation tapes
     prog1 = make_program(nops=1, transitions=[(0, 0, 1)], enablements=[(0, 0)])
     prog2 = make_program(nops=1, transitions=[(0, 0, 2)], enablements=[(0, 0)])
@@ -356,11 +356,11 @@ def test_f07_evaluation_map_from_runs_to_tapes_is_injective():
     s2 = State(graph=prog2, nops=1, active=0, tape=(0,), clock=0, fuel=5)
     assert obs_scale(1, s1) != obs_scale(1, s2)
 
-def test_f07_realized_tapes_are_topologically_non_dense():
+def test_f07_realized_tapes_are_topologically_non_dense() -> None:
     # Any open ball containing [0, 1, 0, 2] has zero intersection with deterministic runs
     assert not is_chain_functional((0, 1, 0, 2))
 
-def test_f07_cycle_preserves_chain_functionality():
+def test_f07_cycle_preserves_chain_functionality() -> None:
     tape = (0, 1, 0, 1, 0, 1)
     assert is_chain_functional(tape)
 
@@ -369,7 +369,7 @@ def test_f07_cycle_preserves_chain_functionality():
 # Feature 8: Commuting Dynamics Square
 # ===========================================================================
 
-def test_f08_operational_commutation_square():
+def test_f08_operational_commutation_square() -> None:
     # bond(step(s)) == step(bond(s)) on tape prefix
     prog = make_program(nops=1, transitions=[(0, 0, 1), (0, 1, 2)], enablements=[(0, 0), (1, 0)])
     s = State(graph=prog, nops=1, active=0, tape=(0,), clock=0, fuel=5)
@@ -379,7 +379,7 @@ def test_f08_operational_commutation_square():
     assert isinstance(s2, State)
     assert bond_scale(c=3, n=2, stage=s2.tape) == s1.tape
 
-def test_f08_lost_fuel_obstruction_detected():
+def test_f08_lost_fuel_obstruction_detected() -> None:
     # If state observation discards fuel, two states with identical tape but fuel 0 vs 1 diverge
     prog = make_program(nops=1, transitions=[(0, 0, 1)], enablements=[(0, 0)])
     s_exhausted = State(graph=prog, nops=1, active=0, tape=(0,), clock=0, fuel=0)
@@ -388,19 +388,19 @@ def test_f08_lost_fuel_obstruction_detected():
     assert step_det(s_exhausted) is Terminal.EXHAUSTED
     assert isinstance(step_det(s_active), State)
 
-def test_f08_shift_not_local_obstruction():
+def test_f08_shift_not_local_obstruction() -> None:
     # Tape shifting requires future data not available at current prefix
     tape = (0, 1)
     # Local shift window cannot predict next datum without evaluation
     assert len(tape) == 2
 
-def test_f08_three_cycle_zeros_frequency_bound():
+def test_f08_three_cycle_zeros_frequency_bound() -> None:
     # For cycle 0->1->2->0, zeros in length L satisfy L <= 3 * zeros <= L + 2
     for L in [3, 6, 9, 12, 15]:
         zeros_count = L // 3
         assert check_zeros_bound(L, zeros_count)
 
-def test_f08_rational_precision_error_decreases_with_length():
+def test_f08_rational_precision_error_decreases_with_length() -> None:
     # Error epsilon <= 2 / (3L)
     err_3 = 2 / (3 * 3)
     err_12 = 2 / (3 * 12)
@@ -411,24 +411,24 @@ def test_f08_rational_precision_error_decreases_with_length():
 # Feature 9: 9-Criteria Target-Class Charter
 # ===========================================================================
 
-def test_f09_charter_freezes_nine_independent_criteria():
+def test_f09_charter_freezes_nine_independent_criteria() -> None:
     assert len(AdequacyDimension) == 9
 
-def test_f09_evaluates_computational_universality_criterion():
+def test_f09_evaluates_computational_universality_criterion() -> None:
     sys = TargetSystem(
         name="TargetA_Toy",
         dimension_scores={AdequacyDimension.COMPUTATIONAL_UNIVERSALITY: True},
     )
     assert sys.dimension_scores[AdequacyDimension.COMPUTATIONAL_UNIVERSALITY] is True
 
-def test_f09_evaluates_mathematical_foundations_criterion():
+def test_f09_evaluates_mathematical_foundations_criterion() -> None:
     sys = TargetSystem(
         name="ConstructiveLean",
         dimension_scores={AdequacyDimension.MATHEMATICAL_FOUNDATIONS: True},
     )
     assert sys.dimension_scores[AdequacyDimension.MATHEMATICAL_FOUNDATIONS] is True
 
-def test_f09_evaluates_physical_and_empirical_criteria():
+def test_f09_evaluates_physical_and_empirical_criteria() -> None:
     sys = TargetSystem(
         name="CalibratedSystem",
         dimension_scores={
@@ -439,7 +439,7 @@ def test_f09_evaluates_physical_and_empirical_criteria():
     assert sys.dimension_scores[AdequacyDimension.PHYSICAL_ADEQUACY] is True
     assert sys.dimension_scores[AdequacyDimension.EMPIRICAL_ADEQUACY] is True
 
-def test_f09_charter_prevents_circular_self_definition():
+def test_f09_charter_prevents_circular_self_definition() -> None:
     # A candidate system missing dimensions is not declared fully adequate
     partial_sys = TargetSystem(
         name="IncompleteCandidate",
@@ -454,7 +454,7 @@ def test_f09_charter_prevents_circular_self_definition():
 # Feature 10: Comparison Morphism Category
 # ===========================================================================
 
-def test_f10_identity_morphism_preserves_target_system():
+def test_f10_identity_morphism_preserves_target_system() -> None:
     sys = TargetSystem(name="SysA", dimension_scores={})
     id_morph = ComparisonMorphism(
         source=sys, target=sys, mapping_name="id_A", preserves_adequacy=True
@@ -462,7 +462,7 @@ def test_f10_identity_morphism_preserves_target_system():
     assert id_morph.source == id_morph.target
     assert id_morph.preserves_adequacy is True
 
-def test_f10_morphism_composition_preserves_adequacy():
+def test_f10_morphism_composition_preserves_adequacy() -> None:
     s1 = TargetSystem(name="S1", dimension_scores={})
     s2 = TargetSystem(name="S2", dimension_scores={})
     s3 = TargetSystem(name="S3", dimension_scores={})
@@ -473,7 +473,7 @@ def test_f10_morphism_composition_preserves_adequacy():
     assert comp.target == s3
     assert comp.preserves_adequacy is True
 
-def test_f10_morphism_composition_is_associative():
+def test_f10_morphism_composition_is_associative() -> None:
     s1 = TargetSystem(name="S1", dimension_scores={})
     s2 = TargetSystem(name="S2", dimension_scores={})
     s3 = TargetSystem(name="S3", dimension_scores={})
@@ -488,7 +488,7 @@ def test_f10_morphism_composition_is_associative():
     assert comp_left.target == comp_right.target
     assert comp_left.preserves_adequacy == comp_right.preserves_adequacy
 
-def test_f10_identity_is_neutral_unit_for_composition():
+def test_f10_identity_is_neutral_unit_for_composition() -> None:
     s1 = TargetSystem(name="S1", dimension_scores={})
     s2 = TargetSystem(name="S2", dimension_scores={})
     m = ComparisonMorphism(s1, s2, "f", True)
@@ -498,7 +498,7 @@ def test_f10_identity_is_neutral_unit_for_composition():
     assert comp.target == m.target
     assert comp.preserves_adequacy == m.preserves_adequacy
 
-def test_f10_morphism_domain_mismatch_raises_error():
+def test_f10_morphism_domain_mismatch_raises_error() -> None:
     s1 = TargetSystem(name="S1", dimension_scores={})
     s2 = TargetSystem(name="S2", dimension_scores={})
     s3 = TargetSystem(name="S3", dimension_scores={})
@@ -512,12 +512,12 @@ def test_f10_morphism_domain_mismatch_raises_error():
 # Feature 11: Operational Capability Removal
 # ===========================================================================
 
-def test_f11_capability_removal_from_active_signature():
+def test_f11_capability_removal_from_active_signature() -> None:
     all_caps = frozenset([Capability.DIRECT_LOOKUP, Capability.CONDITIONAL_BRANCH])
     restricted = all_caps - frozenset([Capability.CONDITIONAL_BRANCH])
     assert Capability.CONDITIONAL_BRANCH not in restricted
 
-def test_f11_execution_succeeds_when_required_capabilities_present():
+def test_f11_execution_succeeds_when_required_capabilities_present() -> None:
     prog = make_program(nops=1, transitions=[(0, 0, 1)], enablements=[(0, 0)])
     allowed = frozenset([Capability.DIRECT_LOOKUP])
     required = frozenset([Capability.DIRECT_LOOKUP])
@@ -525,7 +525,7 @@ def test_f11_execution_succeeds_when_required_capabilities_present():
     assert res.status != "OBSTRUCTED_CAPABILITY_ABSENT"
     assert res.output == (0, 1)
 
-def test_f11_execution_refuses_when_required_capability_absent():
+def test_f11_execution_refuses_when_required_capability_absent() -> None:
     prog = make_program(nops=1, transitions=[(0, 0, 1)], enablements=[(0, 0)])
     allowed = frozenset([Capability.DIRECT_LOOKUP])
     required = frozenset([Capability.DIRECT_LOOKUP, Capability.CONDITIONAL_BRANCH])
@@ -533,13 +533,13 @@ def test_f11_execution_refuses_when_required_capability_absent():
     assert res.status == "OBSTRUCTED_CAPABILITY_ABSENT"
     assert res.output == ()
 
-def test_f11_fixed_comparison_interface_preserves_public_view():
+def test_f11_fixed_comparison_interface_preserves_public_view() -> None:
     # Fixed public view: output tape tuple
     prog = make_program(nops=1, transitions=[(0, 0, 1)], enablements=[(0, 0)])
     res1 = execute_restricted(prog, frozenset([Capability.DIRECT_LOOKUP]), frozenset([Capability.DIRECT_LOOKUP]), start=0, fuel=1)
     assert isinstance(res1.output, tuple)
 
-def test_f11_zero_capability_leakage_through_unpriced_channels():
+def test_f11_zero_capability_leakage_through_unpriced_channels() -> None:
     prog = make_program(nops=1, transitions=[(0, 0, 1)], enablements=[(0, 0)])
     res = execute_restricted(prog, frozenset(), frozenset([Capability.DIRECT_LOOKUP]), start=0, fuel=5)
     assert res.capabilities_used == frozenset()
@@ -550,7 +550,7 @@ def test_f11_zero_capability_leakage_through_unpriced_channels():
 # Feature 12: Constructive Obstruction Proofs
 # ===========================================================================
 
-def test_f12_obstruction_witness_records_capability_deficit():
+def test_f12_obstruction_witness_records_capability_deficit() -> None:
     witness = verify_obstruction(
         task_name="BranchingTask",
         required_cap=Capability.CONDITIONAL_BRANCH,
@@ -559,7 +559,7 @@ def test_f12_obstruction_witness_records_capability_deficit():
     assert witness.is_obstructed is True
     assert witness.required_capability == Capability.CONDITIONAL_BRANCH
 
-def test_f12_adapter_bypass_attempt_is_rejected():
+def test_f12_adapter_bypass_attempt_is_rejected() -> None:
     # Attempting to run task requiring removed capability without declared allowance
     prog = make_program(nops=1, transitions=[(0, 0, 1)], enablements=[(0, 0)])
     res = execute_restricted(
@@ -571,7 +571,7 @@ def test_f12_adapter_bypass_attempt_is_rejected():
     )
     assert res.status == "OBSTRUCTED_CAPABILITY_ABSENT"
 
-def test_f12_obstruction_is_derived_structurally_from_code_path():
+def test_f12_obstruction_is_derived_structurally_from_code_path() -> None:
     witness = verify_obstruction(
         task_name="StoreWriteTask",
         required_cap=Capability.STORE_MUTATION,
@@ -579,12 +579,12 @@ def test_f12_obstruction_is_derived_structurally_from_code_path():
     )
     assert witness.is_obstructed is True
 
-def test_f12_sub_capabilities_cannot_solve_super_tasks():
+def test_f12_sub_capabilities_cannot_solve_super_tasks() -> None:
     subset_caps = frozenset([Capability.DIRECT_LOOKUP])
     super_reqs = frozenset([Capability.DIRECT_LOOKUP, Capability.UNBOUNDED_RECURSION])
     assert not super_reqs.issubset(subset_caps)
 
-def test_f12_restoring_capability_removes_obstruction():
+def test_f12_restoring_capability_removes_obstruction() -> None:
     witness_obstructed = verify_obstruction(
         "LookupTask", Capability.DIRECT_LOOKUP, frozenset()
     )
@@ -599,12 +599,12 @@ def test_f12_restoring_capability_removes_obstruction():
 # Feature 13: Endogenous Identity & Ordinals
 # ===========================================================================
 
-def test_f13_ordinal_zero_is_base_element():
+def test_f13_ordinal_zero_is_base_element() -> None:
     z = Ordinal.zero()
     assert z.is_zero() is True
     assert z.val == 0
 
-def test_f13_ordinal_successor_generates_distinct_elements():
+def test_f13_ordinal_successor_generates_distinct_elements() -> None:
     z = Ordinal.zero()
     s1 = z.succ()
     s2 = s1.succ()
@@ -612,19 +612,19 @@ def test_f13_ordinal_successor_generates_distinct_elements():
     assert s2 != s1
     assert s2.val == 2
 
-def test_f13_ordinal_trichotomy_and_ordering():
+def test_f13_ordinal_trichotomy_and_ordering() -> None:
     z = Ordinal.zero()
     one = z.succ()
     assert z < one
     assert z <= one
     assert not (one < z)
 
-def test_f13_ordinal_zero_has_no_predecessor():
+def test_f13_ordinal_zero_has_no_predecessor() -> None:
     z = Ordinal.zero()
     with pytest.raises(ValueError):
         z.pred()
 
-def test_f13_ordinal_addition_and_multiplication():
+def test_f13_ordinal_addition_and_multiplication() -> None:
     two = Ordinal.zero().succ().succ()
     three = two.succ()
     five = two.add(three)
@@ -637,18 +637,18 @@ def test_f13_ordinal_addition_and_multiplication():
 # Feature 14: Tree Addresses & Freshness
 # ===========================================================================
 
-def test_f14_root_address_structure():
+def test_f14_root_address_structure() -> None:
     root = TreeAddress.root()
     assert root.path == ()
 
-def test_f14_address_hierarchical_extension():
+def test_f14_address_hierarchical_extension() -> None:
     root = TreeAddress.root()
     a1 = root.extend(0)
     a2 = a1.extend(1)
     assert a1.path == (0,)
     assert a2.path == (0, 1)
 
-def test_f14_fresh_address_monotonicity():
+def test_f14_fresh_address_monotonicity() -> None:
     gen = FreshnessGenerator()
     root = TreeAddress.root()
     addr1 = gen.fresh_address(root)
@@ -657,7 +657,7 @@ def test_f14_fresh_address_monotonicity():
     assert addr2.path == (2,)
     assert addr1 != addr2
 
-def test_f14_zero_address_collision_across_distinct_branches():
+def test_f14_zero_address_collision_across_distinct_branches() -> None:
     gen = FreshnessGenerator()
     root = TreeAddress.root()
     b1 = root.extend(10)
@@ -666,7 +666,7 @@ def test_f14_zero_address_collision_across_distinct_branches():
     a2 = gen.fresh_address(b2)
     assert a1.path != a2.path
 
-def test_f14_prefix_containment_reflects_tree_hierarchy():
+def test_f14_prefix_containment_reflects_tree_hierarchy() -> None:
     root = TreeAddress.root()
     child = root.extend(1).extend(2)
     assert child.path[:1] == (1,)
@@ -676,30 +676,30 @@ def test_f14_prefix_containment_reflects_tree_hierarchy():
 # Feature 15: Fuel-Bounded Endogenous Recursion
 # ===========================================================================
 
-def test_f15_base_case_terminates_with_zero_depth():
+def test_f15_base_case_terminates_with_zero_depth() -> None:
     res, ok = endogenous_recursion(Ordinal.zero(), fuel=5, acc=0)
     assert ok is True
     assert res == 0
 
-def test_f15_inductive_step_computes_correct_accumulation():
+def test_f15_inductive_step_computes_correct_accumulation() -> None:
     three = Ordinal.zero().succ().succ().succ()
     res, ok = endogenous_recursion(three, fuel=10, acc=0)
     assert ok is True
     assert res == 3
 
-def test_f15_fuel_exhaustion_halts_recursion_safely():
+def test_f15_fuel_exhaustion_halts_recursion_safely() -> None:
     five = Ordinal.zero().succ().succ().succ().succ().succ()
     res, ok = endogenous_recursion(five, fuel=2, acc=0)
     assert ok is False
     assert res == 2
 
-def test_f15_fuel_is_strictly_monotonically_spent():
+def test_f15_fuel_is_strictly_monotonically_spent() -> None:
     two = Ordinal.zero().succ().succ()
     res, ok = endogenous_recursion(two, fuel=2, acc=0)
     assert ok is True
     assert res == 2
 
-def test_f15_total_boundedness_under_finite_fuel():
+def test_f15_total_boundedness_under_finite_fuel() -> None:
     ten = Ordinal(10)
     res, ok = endogenous_recursion(ten, fuel=10, acc=0)
     assert ok is True
@@ -710,28 +710,28 @@ def test_f15_total_boundedness_under_finite_fuel():
 # Feature 16: Comprehensive E2E Verification & Governance
 # ===========================================================================
 
-def test_f16_all_four_tiers_are_discoverable():
+def test_f16_all_four_tiers_are_discoverable() -> None:
     suites_dir = E2E_ROOT / "suites"
     assert suites_dir.exists()
     assert (suites_dir / "tier1_features.py").exists()
 
-def test_f16_test_runner_verifies_exit_code_zero():
+def test_f16_test_runner_verifies_exit_code_zero() -> None:
     runner_file = E2E_ROOT / "run_all_tests.py"
     assert runner_file.exists()
 
-def test_f16_claim_hygiene_rule_compliance():
+def test_f16_claim_hygiene_rule_compliance() -> None:
     harness_src = (E2E_ROOT / "harness.py").read_text(encoding="utf-8")
     forbidden = ["weapon" + "ized", "flaw" + "less", "true intell" + "igence"]
     for word in forbidden:
         assert word not in harness_src.lower()
 
-def test_f16_vocabulary_firewall_zero_denylist_leaks():
+def test_f16_vocabulary_firewall_zero_denylist_leaks() -> None:
     harness_src = (E2E_ROOT / "harness.py").read_text(encoding="utf-8")
     denylist_sample = ["Residual" + "Quotient", "Delta" + "Congruent"]
     for token in denylist_sample:
         assert token not in harness_src
 
-def test_f16_test_ready_artifact_publication_and_receipts():
+def test_f16_test_ready_artifact_publication_and_receipts() -> None:
     test_ready = E2E_ROOT / "TEST_READY.md"
     test_infra = E2E_ROOT / "TEST_INFRA.md"
     assert test_ready.exists()

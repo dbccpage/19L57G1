@@ -1,4 +1,4 @@
-"""Quantitative rational frequency bounds on cycle programs and chain functionality proving topological non-density.
+"""Quantitative rational frequency bounds on cycle programs and chain functionality showing topological non-density in this setting.
 
 AuthorityEffect: None.
 Mirrors Lean 4 constructive formalization in RationalBounds.lean.
@@ -17,7 +17,7 @@ Key concepts:
     Every deterministic tape is a chain where each entry's successor is a function of the datum.
     TWIST_TAPE = (0, 1, 0, 2) contains pairs (0, 1) and (0, 2). Since 1 != 2, it is not functional.
     No deterministic program can realize TWIST_TAPE.
-    The open cylinder U_{[0, 1, 0, 2]} contains zero realized process tapes, proving topological non-density.
+    The open cylinder U_{[0, 1, 0, 2]} contains zero realized process tapes, showing topological non-density in this setting.
 - Refusal of Unconstructed Completions:
     Explicit refusal to identify discrete thread spaces with R or circle S^1 without explicit construction.
 """

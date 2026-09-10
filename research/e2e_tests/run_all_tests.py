@@ -18,6 +18,7 @@ import importlib.util
 import inspect
 import sys
 import time
+import types
 from pathlib import Path
 from typing import Callable, List, Tuple
 
@@ -36,7 +37,7 @@ TIER_CONFIGS = [
 ]
 
 
-def load_module_from_path(file_path: Path):
+def load_module_from_path(file_path: Path) -> types.ModuleType:
     module_name = file_path.stem
     spec = importlib.util.spec_from_file_location(module_name, file_path)
     if spec is None or spec.loader is None:

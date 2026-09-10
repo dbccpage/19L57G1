@@ -42,7 +42,7 @@ from harness import (
 )
 
 
-def test_w01_complete_autonomous_program_loop():
+def test_w01_complete_autonomous_program_loop() -> None:
     """Complete autonomous program loop with memory recording and terminal resolution."""
     # Program: 0 -> 1 -> 2 -> 3 -> 4 (halt)
     transitions = [(0, i, i + 1) for i in range(4)]
@@ -75,7 +75,7 @@ def test_w01_complete_autonomous_program_loop():
     assert depth2_records[-1].payload == (2, 3, 4)
 
 
-def test_w02_cyclic_process_limiting_frequency_convergence():
+def test_w02_cyclic_process_limiting_frequency_convergence() -> None:
     """Cyclic process limiting frequency convergence across geometric observation scales."""
     # 3-cycle: 0 -> 1 -> 2 -> 0
     prog = make_program(
@@ -111,7 +111,7 @@ def test_w02_cyclic_process_limiting_frequency_convergence():
         previous_error = max_error
 
 
-def test_w03_full_nine_criteria_charter_evaluation():
+def test_w03_full_nine_criteria_charter_evaluation() -> None:
     """Full 9-criteria charter evaluation of an admitted substrate candidate."""
     # Candidate substrate providing formal constructive evidence objects
     substrate = TargetSystem(
@@ -158,7 +158,7 @@ def test_w03_full_nine_criteria_charter_evaluation():
     assert morphism.target.name == "ReferenceStandardModel"
 
 
-def test_w04_endogenous_synthesis_and_execution_pipeline():
+def test_w04_endogenous_synthesis_and_execution_pipeline() -> None:
     """Endogenous address allocation, program synthesis, and capability-restricted execution."""
     gen = FreshnessGenerator()
     root = TreeAddress.root()
