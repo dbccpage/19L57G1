@@ -80,7 +80,7 @@ The feature coverage tier (Tier 1) partitions the input and state space for each
 
 ### Feature 9: 9-Criteria Target-Class Charter
 - **P9.1 (Frozen Charter Dimensions)**: The 9 adequacy criteria are pre-registered and invariant.
-- **P9.2 (Computational Universality Evaluation)**: Target system evaluates computational adequacy dimension.
+- **P9.2 (Computational Capacity Evaluation)**: Target system evaluates computational adequacy dimension.
 - **P9.3 (Mathematical Foundation Evaluation)**: Target system evaluates constructive mathematical adequacy.
 - **P9.4 (Physical & Empirical Evaluation)**: Target system evaluates observational and calibration criteria.
 - **P9.5 (Non-Circular Verification)**: Pre-registration prevents post-hoc self-definition.

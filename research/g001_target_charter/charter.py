@@ -70,7 +70,7 @@ def default_criteria() -> dict[CriterionID, AdequacyCriterion]:
     return {
         CriterionID.COMPUTATIONAL: AdequacyCriterion(
             criterion_id=CriterionID.COMPUTATIONAL,
-            name="Computational Universality Criteria",
+            name="Computational Capacity Criteria",
             dimension="Computational",
             description="Simulation of standard discrete state transition systems with bounded space and step overhead.",
             required_capabilities=(

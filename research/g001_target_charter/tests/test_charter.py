@@ -165,7 +165,7 @@ def test_partially_adequate_candidate_system() -> None:
     charter.freeze()
     engine = AdequacyEngine(charter)
 
-    # Only provide capabilities for computational universality
+    # Only provide capabilities for computational capacity
     comp_caps = set(charter.get_criterion(CriterionID.COMPUTATIONAL).required_capabilities)
     system = make_mock_system("PartialSys", capabilities=comp_caps)
     report = engine.evaluate(system)

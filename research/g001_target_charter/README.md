@@ -16,7 +16,7 @@ composition laws.
 The 9 independent criteria are pre-registered and frozen under status
 `TOE_TARGET_CLASS_FROZEN` prior to candidate evaluation:
 
-1. **Computational universality criteria**: discrete state transition simulation, fuel and step accounting, and termination or progress detection.
+1. **Computational capacity criteria**: discrete state transition simulation, fuel and step accounting, and termination or progress detection.
 2. **Reasoning adequacy**: explicit deduction tracking with separation between operational refusal and logical falsehood.
 3. **Representational and operational completeness**: operations driven by stored carrier representations without unencoded host function calls or silent scheduler selection.
 4. **Mathematical foundation recovery**: constructive recovery of discrete mathematical structures without non-constructive shortcuts.
