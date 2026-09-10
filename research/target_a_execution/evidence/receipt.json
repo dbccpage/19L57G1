@@ -14,7 +14,7 @@
       "Quot.sound",
       "propext"
     ],
-    "axiom_free_count": 17,
+    "axiom_free_count": 30,
     "reports": {
       "Branch.CFGState.mk.inj": [],
       "Branch.CFGState.mk.injEq": [
@@ -60,6 +60,16 @@
         "propext"
       ],
       "Execution.Fired.ok.sizeOf_spec": [],
+      "Execution.Fired.protectionViolation.sizeOf_spec": [],
+      "Execution.ProtectionKind.collapsed.sizeOf_spec": [],
+      "Execution.ProtectionKind.ofNat_ctorIdx": [],
+      "Execution.ProtectionKind.reflexive.sizeOf_spec": [],
+      "Execution.ProtectionKind.separated.sizeOf_spec": [],
+      "Execution.ProtectionObligation.mk.inj": [],
+      "Execution.ProtectionObligation.mk.injEq": [
+        "propext"
+      ],
+      "Execution.ProtectionObligation.mk.sizeOf_spec": [],
       "Execution.State.mk.inj": [],
       "Execution.State.mk.injEq": [
         "propext"
@@ -82,12 +92,21 @@
       "Execution.fire_ok": [
         "propext"
       ],
+      "Execution.fire_protection_preserved": [
+        "propext"
+      ],
       "Execution.fire_succ": [
         "propext"
       ],
       "Execution.fire_tape": [
         "propext"
       ],
+      "Execution.instDecidableEqProtectionKind._proof_1": [],
+      "Execution.instDecidableEqProtectionKind._proof_2": [],
+      "Execution.instDecidableEqProtectionObligation.decEq._proof_1": [],
+      "Execution.instDecidableEqProtectionObligation.decEq._proof_2": [],
+      "Execution.instDecidableEqProtectionObligation.decEq._proof_3": [],
+      "Execution.instDecidableEqProtectionObligation.decEq._proof_4": [],
       "Execution.instDecidableEqTerminal._proof_1": [],
       "Execution.instDecidableEqTerminal._proof_2": [],
       "Execution.isEdge_self": [
@@ -112,6 +131,9 @@
       "Execution.nextOf_tape": [
         "propext"
       ],
+      "Execution.refusal_preserves_state": [
+        "propext"
+      ],
       "Execution.run_evalWord": [
         "propext"
       ],
@@ -125,6 +147,12 @@
         "propext"
       ],
       "Execution.stepDetOf_inr": [
+        "propext"
+      ],
+      "Execution.stepDetOf_refuse_noEdge": [
+        "propext"
+      ],
+      "Execution.stepDetOf_refuse_protectionViolation": [
         "propext"
       ],
       "Execution.step_nil": [
@@ -162,26 +190,27 @@
         "propext"
       ]
     },
-    "theorem_count": 58
+    "theorem_count": 76
   },
   "pytest": {
     "exit_code": 0,
-    "passed": 30,
+    "passed": 46,
     "status": "PASS"
   },
   "schema_version": 1,
   "source_hashes": {
     "branch.py": "a192cce1b569eae049ae73a19dd5b0009ee3820ae2cc199a074f0bf0cf59065b",
-    "control.py": "8f3fb28d5e8c3e135e9710cb104c330e17068c4e196e235bf4a00a72a3ae1c28",
+    "control.py": "64d6c6baa3babe0bc3eedc8ba6fb992dfe0d25d691f5b1118291294565b8d113",
     "lean/Branch.lean": "3e647a5bd98e60e14105216f623ac77f3febc30a7f51edc1ccdd3a09fd784bbd",
-    "lean/Execution.lean": "24fa6689e7c478f8ae3bad9f850942c587a1375e6de0170895cfeb2f139343bd",
-    "lean/Inventory.lean": "8bd679573e0f27838867712f8e33804e03d2038a14ac1915455d2e40095e82f4",
+    "lean/Execution.lean": "284ad54d75cf740817a2d826d5a26b02bf11a3b7ca2681ca7af578bb352891e1",
+    "lean/Inventory.lean": "c3128ff9709164542a693ca07adaf7e7c0916fb6b66664333419d4da1bbe45e5",
     "lean/Memory.lean": "b70de73420f7dc3679b656d35cb0811a72aeeec52e3a1706301b368c156916bf",
     "memory.py": "1f36e243ca62758de2cf262b23d0acaa84f56238095c7a35407e0af5772b6f7b",
-    "runner.py": "5f9165b38994f2b365983aa66a63b65f5e3f6ca1e206a2622f23ae6003d13b88",
+    "runner.py": "4e63dd96436ec0e0e90a0c8aa1ab358ef0efd2643fc4d089d541e8612a7e1f10",
     "tests/test_branching.py": "ab3ff378d62f39e1aafd6fcb98d7ea2d7eb05168637ebc3af699d3d7bf3749f9",
     "tests/test_control.py": "d3791799b4f9d0267a27cf98915939b2eec183c6a25cbafec96ea062f1134e51",
     "tests/test_memory.py": "a510624829f6db736e9a4f0462bba7a341b299bfb5138fa5ccad82311081decf",
+    "tests/test_protection.py": "a984af741b15b6506383076dcaa3f6b12c221eedcacec88bbf355bddb9c542fc",
     "tests/test_runner.py": "59b3a04e1a49995acfa5b93d3bb6315835e9541ceb8b7b49e94693f5985f21a7",
     "verify.py": "105b28196b8069eb8521333bc561dba12f6daf7f596b5c694e3568e7ad0909c4"
   },

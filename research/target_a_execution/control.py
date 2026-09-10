@@ -26,8 +26,12 @@ from typing import Sequence
 from runner import (
     ExecutionError,
     Graph,
+    ProtectionKind,
+    ProtectionObligation,
     Refusal,
     Terminal,
+    check_designated_pair,
+    check_obligation,
     check_word,
     lookup,
     run_det_of,
@@ -50,7 +54,7 @@ class State:
     tape: tuple[int, ...]
     clock: int
     fuel: int
-    protection_obligations: tuple[int, ...] = ()
+    protection_obligations: tuple[ProtectionObligation, ...] = ()
     designated_pair: tuple[int, int] | None = None
 
     def __post_init__(self) -> None:
@@ -138,7 +142,10 @@ def fire(s: State, k: int) -> State | Refusal:
     - With fuel > 0, reads edge 3 + k from active datum.
     - If edge is missing: returns Refusal.NO_EDGE.
     - If fuel <= 0: returns Refusal.EXHAUSTED.
-    - Otherwise: moves to target y, appends y to tape, increments clock, decrements fuel.
+    - Validates designated pair if present: returns Refusal on failure.
+    - Validates all protection obligations: returns Refusal on failure.
+    - Otherwise: moves to target y, appends y to tape, increments clock, decrements fuel,
+      advances designated pair and obligations.
     """
     check_word((k,))
     if s.fuel <= 0:
@@ -146,6 +153,21 @@ def fire(s: State, k: int) -> State | Refusal:
     y = lookup(3 + k, s.active, s.graph)
     if y is None:
         return Refusal.NO_EDGE
+
+    new_dp = s.designated_pair
+    if s.designated_pair is not None:
+        dp_res = check_designated_pair(s.graph, k, s.designated_pair)
+        if isinstance(dp_res, Refusal):
+            return dp_res
+        new_dp = dp_res
+
+    new_obls: list[ProtectionObligation] = []
+    for obl in s.protection_obligations:
+        obl_res = check_obligation(s.graph, k, obl)
+        if isinstance(obl_res, Refusal):
+            return obl_res
+        new_obls.append(obl_res)
+
     return State(
         graph=s.graph,
         nops=s.nops,
@@ -153,8 +175,8 @@ def fire(s: State, k: int) -> State | Refusal:
         tape=s.tape + (y,),
         clock=s.clock + 1,
         fuel=s.fuel - 1,
-        protection_obligations=s.protection_obligations,
-        designated_pair=s.designated_pair,
+        protection_obligations=tuple(new_obls),
+        designated_pair=new_dp,
     )
 
 
@@ -198,7 +220,7 @@ def init(
     C: Controlled,
     x: int,
     fuel: int,
-    protection_obligations: tuple[int, ...] = (),
+    protection_obligations: Sequence[ProtectionObligation] = (),
     designated_pair: tuple[int, int] | None = None,
 ) -> State:
     """Initialize state from a Controlled setting with given start datum and fuel."""
@@ -206,6 +228,17 @@ def init(
         raise ExecutionError(f"start datum {x} lies outside carrier {C.n}")
     if fuel < 0:
         raise ExecutionError("fuel must be non-negative")
+    if designated_pair is not None:
+        if not (isinstance(designated_pair, tuple) and len(designated_pair) == 2):
+            raise ExecutionError("designated pair must be a 2-tuple")
+        a, b = designated_pair
+        if not (isinstance(a, int) and isinstance(b, int) and 0 <= a < C.n and 0 <= b < C.n):
+            raise ExecutionError(f"designated pair ({a}, {b}) outside carrier {C.n}")
+    for obl in protection_obligations:
+        if not isinstance(obl, ProtectionObligation):
+            raise ExecutionError(f"invalid obligation {obl}")
+        if not (0 <= obl.u < C.n and 0 <= obl.v < C.n):
+            raise ExecutionError(f"obligation endpoints ({obl.u}, {obl.v}) outside carrier {C.n}")
     return State(
         graph=encode_c(C),
         nops=nops(C),
@@ -213,7 +246,7 @@ def init(
         tape=(x,),
         clock=0,
         fuel=fuel,
-        protection_obligations=protection_obligations,
+        protection_obligations=tuple(protection_obligations),
         designated_pair=designated_pair,
     )
 

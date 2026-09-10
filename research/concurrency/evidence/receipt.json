@@ -1,0 +1,142 @@
+{
+  "authority_effect": "None",
+  "claim_hygiene": {
+    "access_derived_interaction_graph_without_spatial_metric": true,
+    "axioms_within_propext_quot_sound": true,
+    "disjoint_updates_commute_proved": true,
+    "interfering_updates_fail_commute_proved": true,
+    "negative_control_information_isolation_proved": true,
+    "observer_message_decision_divergence_proved": true,
+    "observer_symmetry_agreement_proved": true,
+    "scope": "Multi-locus product carrier, access-derived interaction dependency graph, commuting squares, and two-observer record exchange",
+    "zero_classical_choice": true,
+    "zero_mathlib": true
+  },
+  "lean": {
+    "allowed_axioms": [
+      "Quot.sound",
+      "propext"
+    ],
+    "axiom_free_count": 70,
+    "reports": {
+      "Concurrency.Footprint.mk.inj": [],
+      "Concurrency.Footprint.mk.injEq": [
+        "propext"
+      ],
+      "Concurrency.Footprint.mk.sizeOf_spec": [],
+      "Concurrency.Locus.L1.sizeOf_spec": [],
+      "Concurrency.Locus.L2.sizeOf_spec": [],
+      "Concurrency.Locus.M.sizeOf_spec": [],
+      "Concurrency.Locus.ofNat_ctorIdx": [],
+      "Concurrency.Respects.preserves": [],
+      "Concurrency.Respects.readsOnly": [],
+      "Concurrency.State3.ext": [],
+      "Concurrency.State3.ext_iff": [],
+      "Concurrency.State3.mk.inj": [],
+      "Concurrency.State3.mk.injEq": [
+        "propext"
+      ],
+      "Concurrency.State3.mk.sizeOf_spec": [],
+      "Concurrency.agrees_on_reads_step": [],
+      "Concurrency.decision_agreement": [],
+      "Concurrency.decision_divergence": [],
+      "Concurrency.disjoint_comm_l1": [],
+      "Concurrency.disjoint_comm_l2": [],
+      "Concurrency.disjoint_comm_m": [],
+      "Concurrency.disjoint_commutes": [],
+      "Concurrency.fpL1_fpL2_disjoint": [],
+      "Concurrency.fpL1_fpM_disjoint": [],
+      "Concurrency.fpL1_read_write_conflict": [],
+      "Concurrency.fpL1_write_conflict": [],
+      "Concurrency.fpL2_fpM_disjoint": [],
+      "Concurrency.instDecidableEqFootprint.decEq._proof_1": [],
+      "Concurrency.instDecidableEqFootprint.decEq._proof_2": [],
+      "Concurrency.instDecidableEqFootprint.decEq._proof_3": [],
+      "Concurrency.instDecidableEqFootprint.decEq._proof_4": [],
+      "Concurrency.instDecidableEqFootprint.decEq._proof_5": [],
+      "Concurrency.instDecidableEqFootprint.decEq._proof_6": [],
+      "Concurrency.instDecidableEqFootprint.decEq._proof_7": [],
+      "Concurrency.instDecidableEqLocus._proof_1": [],
+      "Concurrency.instDecidableEqLocus._proof_2": [],
+      "Concurrency.instDecidableEqState3.decEq._proof_1": [],
+      "Concurrency.instDecidableEqState3.decEq._proof_2": [],
+      "Concurrency.instDecidableEqState3.decEq._proof_3": [],
+      "Concurrency.instDecidableEqState3.decEq._proof_4": [],
+      "Concurrency.interferes_symm": [],
+      "Concurrency.isDisjoint_symm": [],
+      "Concurrency.locusInterferes_symm": [],
+      "Concurrency.not_both_w1_disjoint": [],
+      "Concurrency.not_both_w2_disjoint": [],
+      "Concurrency.not_both_wm_disjoint": [],
+      "Concurrency.not_w1_of_r1_disjoint": [],
+      "Concurrency.not_w2_of_r2_disjoint": [],
+      "Concurrency.not_wm_of_rm_disjoint": [],
+      "Concurrency.pack3_lt": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Concurrency.pack3_lt._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Concurrency.pack3_lt._proof_1_2": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Concurrency.proj1_swap_eq_proj2": [],
+      "Concurrency.proj2_swap_eq_proj1": [],
+      "Concurrency.read_write_conflict_fails_commute": [],
+      "Concurrency.swap_involutive": [],
+      "Concurrency.swap_preserves_m": [],
+      "Concurrency.swap_symmetric_eq": [],
+      "Concurrency.symmetry_agreement": [],
+      "Concurrency.uncoupled_preserves_receiver": [],
+      "Concurrency.unpack3_pack3": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Concurrency.updateL1_preserves_l2": [],
+      "Concurrency.updateL1_preserves_m": [],
+      "Concurrency.updateL1_respects": [],
+      "Concurrency.updateL1_updateL2_comm": [],
+      "Concurrency.updateL1_updateL2_commutes": [],
+      "Concurrency.updateL1_updateM_comm": [],
+      "Concurrency.updateL1_updateM_commutes": [],
+      "Concurrency.updateL2_preserves_l1": [],
+      "Concurrency.updateL2_preserves_m": [],
+      "Concurrency.updateL2_respects": [],
+      "Concurrency.updateL2_updateM_comm": [],
+      "Concurrency.updateL2_updateM_commutes": [],
+      "Concurrency.updateM_preserves_l1": [],
+      "Concurrency.updateM_preserves_l2": [],
+      "Concurrency.updateM_respects": [],
+      "Concurrency.write_write_conflict_fails_commute": []
+    },
+    "theorem_count": 76
+  },
+  "pytest": {
+    "exit_code": 0,
+    "passed": 32,
+    "status": "PASS"
+  },
+  "schema_version": 1,
+  "source_hashes": {
+    "carrier.py": "1f7b60b4293b46d6f3fbf7b2464896e85d955cb3f69a3770b281493115f4386c",
+    "commute.py": "3e7c3048a922c87e12a60b59076e7d445e1fc5a00810bb62b8c1bfab576d5f2c",
+    "footprint.py": "2ab5cb2baa0eb35d17c492e9e74d0575ed046554e7318ff9ace89be9e4698558",
+    "lean/Carrier.lean": "18d6ffa10c6f810990a6df97746ad1c9e4a2ee564c45190db1a0c7e92d49cce4",
+    "lean/CommuteSquare.lean": "3445d879333b0e304f8617782fc5306509f17596884c1b070ff7cacaccbcfb9e",
+    "lean/Footprint.lean": "02e3c154b92393c765e15327291c9fc25b3025cd0ef85c60e79c8a5195d36e5e",
+    "lean/Inventory.lean": "437976070d6193dc3ea47888f40fbde3ab2be61b5cebc214e9c58fd64ed40b9c",
+    "lean/ObserverExchange.lean": "cc578c34b20b030ec2cf31e982ff27273cf8bb17becc2c43e07d67df4024e518",
+    "observer.py": "72ea1b35ddff4e2e42613abae2edc8cc7c078889fd82c5a8813ca9a91c246200",
+    "tests/test_carrier.py": "1fa5b30ef7e1ef977ef3182f1303454a551f9378ce47381fed5597ecf76ac007",
+    "tests/test_commute_squares.py": "f8aadd90fb488a63cc07484715f352465fe4cbf68a4b914233a7f51e250f8a05",
+    "tests/test_footprint.py": "d5ff44ec79f8edd4241d5b2899b16ca987ef48cf110ed6e97ed01077cc2a0d55",
+    "tests/test_observer_exchange.py": "fba1683c689a70e71142587c30d08512107e0d78b615adaf3a507870df7e3789",
+    "verify.py": "e2ec2d3b6671be067b205d4e57061034bf562984afec86f9e9221bc0a7309631"
+  },
+  "status": "PASS",
+  "target": "Requirement R2: Concurrency & Observers (W06, W07)",
+  "toolchain": "leanprover/lean4:v4.33.0"
+}

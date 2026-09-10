@@ -1,0 +1,29 @@
+{
+  "timestamp_utc": "2026-09-10T21:01:00Z",
+  "verdict": "APPROVE",
+  "total_checks": 24152,
+  "elapsed_seconds": 0.2327,
+  "target_a_execution": {
+    "refusal_non_mutation_checks": 18,
+    "reflexive_vs_separated_checks": 6
+  },
+  "concurrency": {
+    "disjoint_commute_states_tested": 4048,
+    "shared_interference_states_tested": 1024,
+    "observer_bit_transmission_checks": 2,
+    "observer_uncoupled_invariance_checks": 500
+  },
+  "internal_syntax_logic": {
+    "deep_substitution_checks": 6,
+    "shadowing_capture_avoidance_checks": 2,
+    "substitution_laws_tested": 1503,
+    "refusal_vs_bot_checks": 12
+  },
+  "number_tower": {
+    "unsimplified_intz_checks": 6,
+    "unsimplified_ratq_checks": 20,
+    "randomized_arithmetic_parity_checks": 7000,
+    "zero_division_and_bad_denominator_checks": 5,
+    "cross_multiplication_invariant_checks": 10000
+  }
+}

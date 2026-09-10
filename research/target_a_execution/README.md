@@ -43,15 +43,15 @@ The implementation consists of four primary modules, a comprehensive test batter
 
 ### Lean 4 Constructive Package (`lean/`)
 - `lakefile.toml` & `lean-toolchain`: configured for `leanprover/lean4:v4.33.0`, consuming sealed `derivation` at `../../../lean4` read-only.
-- `Execution.lean`: formal proofs of edge lookup (`lookup_mem`), word machine unit laws (`run_nil`), fold agreement (`run_evalWord`), and parameterized runner determinism (`stepDetOf_inr`, `stepDetOf_branch`).
+- `Execution.lean`: formal proofs of edge lookup (`lookup_mem`), word machine unit laws (`run_nil`), fold agreement (`run_evalWord`), parameterized runner determinism (`stepDetOf_inr`, `stepDetOf_branch`), protection preservation (`fire_protection_preserved`), and refusal state preservation (`refusal_preserves_state`).
 - `Branch.lean`: formal proofs of CFG branch non-selection (`branch_non_selection`), deterministic jump table lookup (`jump_table_lookup`), and state step accounting (`stepCFG_clock`, `stepCFG_fuel`).
 - `Memory.lean`: formal proofs of retained record stepping (`previous_fire_synced`), ladder monotonicity (`functional2_of_functional1`), and ceiling refutations (`twist_not_functional1`, `twist_functional2`, `twist2_not_functional2`).
-- `Inventory.lean`: metaprogrammed environment census auditing all 58 compiled theorem declarations and verifying their reliance within `{propext, Quot.sound}`.
+- `Inventory.lean`: metaprogrammed environment census auditing all 76 compiled theorem declarations and verifying their reliance within `{propext, Quot.sound}`.
 
 ### Verification Harness (`verify.py`)
-- Executes pytest test suite across `tests/`.
+- Executes pytest test suite across `tests/` (including negative control protection matrices).
 - Builds the Lean 4 package with `lake build`.
-- Audits compiled theorem census and axiom dependence.
+- Audits compiled theorem census and axiom dependence (76 theorems, 30 axiom-free, zero choice).
 - Generates reproducible verification artifact `evidence/receipt.json`.
 
 ## 3. Claim Hygiene Summary

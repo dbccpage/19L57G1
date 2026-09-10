@@ -137,7 +137,19 @@ theorem run_evalWord (g : List Inst) (w : List Nat) (a : Nat) (out : List Nat) :
     (run ⟨g, w, a, out⟩).map Config.active = evalWord g w a :=
   iterate_evalWord g w a out
 
-/-! ## 3. Data-driven Control and State -/
+/-! ## 3. Data-driven Control, State, and Protection Obligations -/
+
+inductive ProtectionKind
+  | separated
+  | collapsed
+  | reflexive
+deriving DecidableEq, Repr
+
+structure ProtectionObligation where
+  kind : ProtectionKind
+  u : Nat
+  v : Nat
+deriving DecidableEq, Repr
 
 structure State where
   graph : List Inst
@@ -146,11 +158,14 @@ structure State where
   tape : List Nat
   clock : Nat
   fuel : Nat
+  obligations : List ProtectionObligation := []
+  designatedPair : Option (Nat × Nat) := none
 
 inductive Fired
   | ok (s : State)
   | exhausted
   | noEdge
+  | protectionViolation
 
 inductive Terminal
   | halt
@@ -167,14 +182,52 @@ def enabled (g : List Inst) (nops x k : Nat) : Bool :=
 def enabledAt (g : List Inst) (nops x : Nat) : List Nat :=
   (List.range nops).filter (fun k => enabled g nops x k)
 
-/-- Fire operation k at the active datum. -/
+def checkObligation (g : List Inst) (k : Nat) (obl : ProtectionObligation) : Option ProtectionObligation :=
+  match obl.kind with
+  | .separated =>
+    if obl.u == obl.v then none
+    else
+      match lookup (3 + k) obl.u g, lookup (3 + k) obl.v g with
+      | some u', some v' => if u' != v' then some ⟨.separated, u', v'⟩ else none
+      | _, _ => none
+  | .collapsed => none
+  | .reflexive =>
+    if obl.u != obl.v then none
+    else
+      match lookup (3 + k) obl.u g with
+      | some u' => if u' == obl.u then some ⟨.reflexive, obl.u, obl.u⟩ else none
+      | none => none
+
+def checkDesignatedPair (g : List Inst) (k : Nat) : Option (Nat × Nat) → Option (Option (Nat × Nat))
+  | none => some none
+  | some (a, b) =>
+    if a == b then none
+    else
+      match lookup (3 + k) a g, lookup (3 + k) b g with
+      | some a', some b' => if a' != b' then some (some (a', b')) else none
+      | _, _ => none
+
+def checkAllObligations (g : List Inst) (k : Nat) :
+    List ProtectionObligation → Option (List ProtectionObligation)
+  | [] => some []
+  | obl :: rest =>
+    match checkObligation g k obl, checkAllObligations g k rest with
+    | some obl', some rest' => some (obl' :: rest')
+    | _, _ => none
+
+/-- Fire operation k at the active datum, evaluating protection obligations and designated pair. -/
 def fire (s : State) (k : Nat) : Fired :=
   match s.fuel with
   | 0 => .exhausted
   | f + 1 =>
     match lookup (3 + k) s.active s.graph with
     | none => .noEdge
-    | some y => .ok ⟨s.graph, s.nops, y, s.tape ++ [y], s.clock + 1, f⟩
+    | some y =>
+      match checkDesignatedPair s.graph k s.designatedPair,
+            checkAllObligations s.graph k s.obligations with
+      | some dp', some obls' =>
+        .ok ⟨s.graph, s.nops, y, s.tape ++ [y], s.clock + 1, f, obls', dp'⟩
+      | _, _ => .protectionViolation
 
 theorem fire_exhausted {s : State} {k : Nat} (h : s.fuel = 0) : fire s k = .exhausted := by
   show (match s.fuel with
@@ -182,24 +235,43 @@ theorem fire_exhausted {s : State} {k : Nat} (h : s.fuel = 0) : fire s k = .exha
         | f + 1 =>
           match lookup (3 + k) s.active s.graph with
           | none => Fired.noEdge
-          | some y => Fired.ok ⟨s.graph, s.nops, y, s.tape ++ [y], s.clock + 1, f⟩) = .exhausted
+          | some y =>
+            match checkDesignatedPair s.graph k s.designatedPair,
+                  checkAllObligations s.graph k s.obligations with
+            | some dp', some obls' =>
+              Fired.ok ⟨s.graph, s.nops, y, s.tape ++ [y], s.clock + 1, f, obls', dp'⟩
+            | _, _ => Fired.protectionViolation) = .exhausted
   rw [h]
 
 theorem fire_succ (s : State) (k f : Nat) (hf : s.fuel = f + 1) :
     fire s k = (match lookup (3 + k) s.active s.graph with
                 | none => Fired.noEdge
-                | some y => Fired.ok ⟨s.graph, s.nops, y, s.tape ++ [y], s.clock + 1, f⟩) := by
+                | some y =>
+                  match checkDesignatedPair s.graph k s.designatedPair,
+                        checkAllObligations s.graph k s.obligations with
+                  | some dp', some obls' =>
+                    Fired.ok ⟨s.graph, s.nops, y, s.tape ++ [y], s.clock + 1, f, obls', dp'⟩
+                  | _, _ => Fired.protectionViolation) := by
   show (match s.fuel with
         | 0 => Fired.exhausted
         | f' + 1 =>
           match lookup (3 + k) s.active s.graph with
           | none => Fired.noEdge
-          | some y => Fired.ok ⟨s.graph, s.nops, y, s.tape ++ [y], s.clock + 1, f'⟩) = _
+          | some y =>
+            match checkDesignatedPair s.graph k s.designatedPair,
+                  checkAllObligations s.graph k s.obligations with
+            | some dp', some obls' =>
+              Fired.ok ⟨s.graph, s.nops, y, s.tape ++ [y], s.clock + 1, f', obls', dp'⟩
+            | _, _ => Fired.protectionViolation) = _
   rw [hf]
 
 theorem fire_ok {s s' : State} {k : Nat} (h : fire s k = .ok s') :
     lookup (3 + k) s.active s.graph = some s'.active ∧ s'.tape = s.tape ++ [s'.active] ∧
-      s'.clock = s.clock + 1 ∧ s.fuel = s'.fuel + 1 ∧ s'.graph = s.graph ∧ s'.nops = s.nops := by
+      s'.clock = s.clock + 1 ∧ s.fuel = s'.fuel + 1 ∧ s'.graph = s.graph ∧ s'.nops = s.nops ∧
+      ∃ dp' obls',
+        checkDesignatedPair s.graph k s.designatedPair = some dp' ∧
+        checkAllObligations s.graph k s.obligations = some obls' ∧
+        s'.designatedPair = dp' ∧ s'.obligations = obls' := by
   obtain ⟨f, hf⟩ : ∃ f, s.fuel = f + 1 := by
     cases hfu : s.fuel with
     | zero =>
@@ -213,9 +285,21 @@ theorem fire_ok {s s' : State} {k : Nat} (h : fire s k = .ok s') :
       cases h
   | some y =>
       rw [hl] at h
-      have h'' : Fired.ok ⟨s.graph, s.nops, y, s.tape ++ [y], s.clock + 1, f⟩ = Fired.ok s' := h
-      cases h''
-      exact ⟨rfl, rfl, rfl, hf, rfl, rfl⟩
+      cases hdp : checkDesignatedPair s.graph k s.designatedPair with
+      | none =>
+          rw [hdp] at h
+          cases h
+      | some dp' =>
+          rw [hdp] at h
+          cases hobl : checkAllObligations s.graph k s.obligations with
+          | none =>
+              rw [hobl] at h
+              cases h
+          | some obls' =>
+              rw [hobl] at h
+              have h'' : Fired.ok ⟨s.graph, s.nops, y, s.tape ++ [y], s.clock + 1, f, obls', dp'⟩ = Fired.ok s' := h
+              cases h''
+              exact ⟨rfl, rfl, rfl, hf, rfl, rfl, ⟨dp', obls', rfl, rfl, rfl, rfl⟩⟩
 
 theorem fire_clock {s s' : State} {k : Nat} (h : fire s k = .ok s') : s'.clock = s.clock + 1 :=
   (fire_ok h).2.2.1
@@ -225,6 +309,13 @@ theorem fire_fuel {s s' : State} {k : Nat} (h : fire s k = .ok s') : s.fuel = s'
 
 theorem fire_tape {s s' : State} {k : Nat} (h : fire s k = .ok s') : s'.tape = s.tape ++ [s'.active] :=
   (fire_ok h).2.1
+
+theorem fire_protection_preserved {s s' : State} {k : Nat} (h : fire s k = .ok s') :
+    ∃ dp' obls',
+      checkDesignatedPair s.graph k s.designatedPair = some dp' ∧
+      checkAllObligations s.graph k s.obligations = some obls' ∧
+      s'.designatedPair = dp' ∧ s'.obligations = obls' :=
+  (fire_ok h).2.2.2.2.2.2
 
 /-! ## 4. The Parameterized Deterministic Runner -/
 
@@ -244,6 +335,7 @@ def stepDetOf (read : Reader) (s : State) : Terminal ⊕ State :=
     | .ok s' => .inr s'
     | .exhausted => .inl .exhausted
     | .noEdge => .inl .refuse
+    | .protectionViolation => .inl .refuse
   | _ :: _ :: _ => .inl .branch
 
 def stepDet (s : State) : Terminal ⊕ State := stepDetOf ctrlReader s
@@ -281,6 +373,7 @@ theorem stepDetOf_inr {read : Reader} {s s' : State} (h : stepDetOf read s = .in
           | .ok t => Sum.inr t
           | .exhausted => Sum.inl Terminal.exhausted
           | .noEdge => Sum.inl Terminal.refuse
+          | .protectionViolation => Sum.inl Terminal.refuse
         | _ :: _ :: _ => Sum.inl Terminal.branch) = Sum.inr s' → _
   cases hr : read s with
   | nil =>
@@ -292,7 +385,8 @@ theorem stepDetOf_inr {read : Reader} {s s' : State} (h : stepDetOf read s = .in
           show (match fire s k with
                 | .ok t => Sum.inr t
                 | .exhausted => Sum.inl Terminal.exhausted
-                | .noEdge => Sum.inl Terminal.refuse) = Sum.inr s' → _
+                | .noEdge => Sum.inl Terminal.refuse
+                | .protectionViolation => Sum.inl Terminal.refuse) = Sum.inr s' → _
           cases hf : fire s k with
           | ok t =>
               intro h
@@ -303,6 +397,9 @@ theorem stepDetOf_inr {read : Reader} {s s' : State} (h : stepDetOf read s = .in
               intro h
               cases h
           | noEdge =>
+              intro h
+              cases h
+          | protectionViolation =>
               intro h
               cases h
       | cons k' rest' =>
@@ -319,6 +416,7 @@ theorem stepDetOf_branch {read : Reader} {s : State} {k1 k2 : Nat} {rest : List 
         | .ok s' => .inr s'
         | .exhausted => .inl .exhausted
         | .noEdge => .inl .refuse
+        | .protectionViolation => .inl .refuse
       | _ :: _ :: _ => .inl .branch) := rfl
   rw [hstep, h]
 
@@ -332,8 +430,48 @@ theorem stepDetOf_halt {read : Reader} {s : State} (h : read s = []) :
         | .ok s' => .inr s'
         | .exhausted => .inl .exhausted
         | .noEdge => .inl .refuse
+        | .protectionViolation => .inl .refuse
       | _ :: _ :: _ => .inl .branch) := rfl
   rw [hstep, h]
+
+theorem refusal_preserves_state {read : Reader} {s : State} {t : Terminal}
+    (h : stepDetOf read s = .inl t) : nextOf read s = s := by
+  unfold nextOf
+  rw [h]
+
+theorem stepDetOf_refuse_protectionViolation {read : Reader} {s : State} {k : Nat}
+    (hr : read s = [k]) (hf : fire s k = .protectionViolation) :
+    stepDetOf read s = .inl .refuse := by
+  have hstep : stepDetOf read s =
+      (match read s with
+      | [] => .inl .halt
+      | [k] =>
+        match fire s k with
+        | .ok s' => .inr s'
+        | .exhausted => .inl .exhausted
+        | .noEdge => .inl .refuse
+        | .protectionViolation => .inl .refuse
+      | _ :: _ :: _ => .inl .branch) := rfl
+  rw [hstep, hr]
+  dsimp
+  rw [hf]
+
+theorem stepDetOf_refuse_noEdge {read : Reader} {s : State} {k : Nat}
+    (hr : read s = [k]) (hf : fire s k = .noEdge) :
+    stepDetOf read s = .inl .refuse := by
+  have hstep : stepDetOf read s =
+      (match read s with
+      | [] => .inl .halt
+      | [k] =>
+        match fire s k with
+        | .ok s' => .inr s'
+        | .exhausted => .inl .exhausted
+        | .noEdge => .inl .refuse
+        | .protectionViolation => .inl .refuse
+      | _ :: _ :: _ => .inl .branch) := rfl
+  rw [hstep, hr]
+  dsimp
+  rw [hf]
 
 theorem nextOf_tape {read : Reader} {s : State} :
     s.tape <+: (nextOf read s).tape := by
