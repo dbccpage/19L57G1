@@ -1,0 +1,21 @@
+{
+  "target": "P201/P202 Relational Dimensions, Calibration & Causal Relational Clocks",
+  "source_hashes": {
+    "lean/Inventory.lean": "0ff11e1d68ec1fbc34eff3c7cb22ba92b95a84fd80e7d2c182f119d5ad3f7d6b",
+    "lean/RelationalSpacetime.lean": "e0b726d562b6307b722dac6bad5031b3242ecb4271f1bf7e51f2732b955ccccb",
+    "relational_spacetime.py": "066e9c11280e260255634f745399fd6ad9350efd37620a15114cb601d486acf8",
+    "verify.py": "4bcd6616bb83ac1aed148043112d5bb872c74900cb77272df04644fa4be3b739",
+    "tests/test_relational_spacetime.py": "04a43ad22397183d7146de18b8dab10c90a5c87eb9e8b3fc3e91ccf661540a2c"
+  },
+  "pytest": {
+    "exit_code": 0,
+    "passed": 6,
+    "status": "PASS"
+  },
+  "lean": {
+    "build_status": "PASS",
+    "theorems_audited": 0,
+    "theorem_details": {}
+  },
+  "verification_status": "VERIFIED_SOUND"
+}
