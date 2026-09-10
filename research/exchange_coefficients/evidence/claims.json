@@ -1,0 +1,240 @@
+{
+  "limit": "The Python example is not a formally verified implementation of the Lean State type. Neither checker certifies prose or the meaning of an unspecified interpretation.",
+  "requests": {
+    "false_promotion": {
+      "claimed_status": "CERTIFIED",
+      "kind": "integer_matrix_equality",
+      "left": [
+        [
+          0,
+          0,
+          0,
+          -1,
+          -1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          -1,
+          0,
+          -1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          -1,
+          -1
+        ],
+        [
+          -1,
+          -1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          -1,
+          0,
+          -1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          -1,
+          -1,
+          0,
+          0,
+          0
+        ]
+      ],
+      "right": [
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          -1,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          -1,
+          -1
+        ],
+        [
+          1,
+          -1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          -1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          -1,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "labelled_uncertainty": {
+      "kind": "conjecture",
+      "text": "A broader bridge may exist."
+    },
+    "true_finite_claim": {
+      "kind": "integer_matrix_equality",
+      "left": [
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          -1,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          -1,
+          -1
+        ],
+        [
+          1,
+          -1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          -1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          -1,
+          0,
+          0,
+          0
+        ]
+      ],
+      "right": [
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          -1,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          -1,
+          -1
+        ],
+        [
+          1,
+          -1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          -1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          -1,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "unsupported_claim": {
+      "claimed_status": "CERTIFIED",
+      "kind": "all_requests_settled"
+    }
+  },
+  "results": {
+    "false_promotion": {
+      "artifact_sha256": "a6905b61ebc756cebcd7dc8f43e8a172593e82812b9cba2df6ee16e4de80cff8",
+      "reason": "Matrices differ.",
+      "status": "REFUSED"
+    },
+    "labelled_uncertainty": {
+      "reason": "No certification requested or inferred.",
+      "status": "CONJECTURE"
+    },
+    "true_finite_claim": {
+      "artifact_sha256": "79f78e7e7fbfa2fa8d9b62482d2abb3a36acc5e51198f94daa7062abd5ecf8c3",
+      "scope": "Equality of these two submitted finite integer matrices only.",
+      "status": "CERTIFIED"
+    },
+    "unsupported_claim": {
+      "reason": "No checker for this claim schema.",
+      "status": "REFUSED"
+    }
+  }
+}

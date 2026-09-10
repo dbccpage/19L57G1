@@ -1,20 +1,20 @@
 # Research trees: what runs where
 
 AuthorityEffect: None.  This file states, once, which research trees the
-hosted workflow enumerates and which are local receipts only, and which
+written workflow enumerates and which are local receipts only, and which
 verifier files are hand copies of one another.  It is a map, not a gate:
 nothing reads it.  Regenerate it by hand when a tree is added or wired.
 
-Hosted CI is dormant (the Actions billing lapsed), so at present every
-receipt in every tree is local, including the wired ones; "workflow" below
-means the tree is enumerated by `.github/workflows/verify.yml` and would run
-under gate 11 if the workflow ran.  The 2026-08-21 incident recorded in
+Hosted CI is permanently disabled by author decision. Every receipt is local;
+"workflow" below means the tree is enumerated by the written contract in
+`.github/workflows/verify.yml`, whose gate-11 commands are run locally.
+The 2026-08-21 incident recorded in
 `CLAUDE.md` — five failing research tests under a green rollup — is why the
 distinction is written down.
 
-Every tree's Lean package is a manual receipt: no gate builds the research
-Lake packages (`CLAUDE.md`, gate 11).  A tree marked "manual receipt" carries
-`verify_lean.py` and an `evidence/lean.json` written by hand-run compilation.
+The Lean receipts are produced by local compilation. The written Lean contract
+explicitly includes `second_nofirst` and `typed_translation`; the other listed
+research Lean builds are invoked separately. The table names their entry points.
 
 | tree | gate 11 | check entry points | tests | Lean axioms |
 |---|---|---|---|---|
@@ -28,6 +28,8 @@ Lake packages (`CLAUDE.md`, gate 11).  A tree marked "manual receipt" carries
 | `convention_price` | local receipt only | `verify_lean.py`, `verify_pins.py` | test_*.py | manual receipt (`verify_lean.py`) |
 | `described_replay` | local receipt only | `verify_lean.py`, `verify_pins.py` | test_*.py | manual receipt (`verify_lean.py`) |
 | `dynamics_step` | local receipt only | none | test_*.py | none |
+| `endogenous_demand` | local receipt only | `verify.py`, `verify_lean.py`, `verify_sources.py` | tests/ | manual receipt (`verify_lean.py`) |
+| `exchange_coefficients` | local receipt only | `verify.py` | `test_examples.py` | local build and axiom report (`verify.py`) |
 | `family_embedding` | local receipt only | `verify_lean.py`, `verify_pins.py` | test_*.py | manual receipt (`verify_lean.py`) |
 | `fresh_characters` | local receipt only | `verify_lean.py`, `verify_pins.py` | test_*.py | manual receipt (`verify_lean.py`) |
 | `g1_local_class` | local receipt only | none | none | none |
@@ -35,6 +37,7 @@ Lake packages (`CLAUDE.md`, gate 11).  A tree marked "manual receipt" carries
 | `grammar_fit` | local receipt only | none | test_*.py | none |
 | `identification_dual` | local receipt only | `verify_pins.py` | test_*.py | none |
 | `ignition` | local receipt only | `verify.py`, `verify_lean.py`, `verify_sources.py` | tests/ | manual receipt (`verify_lean.py`) |
+| `iso_sound` | local receipt only | `verify.py`, `verify_lean.py`, `verify_sources.py` | tests/ | manual receipt (`verify_lean.py`) |
 | `limit_and_observer` | workflow (gate 11) | `verify_lean.py`, `verify_pins.py`, `verify_prose.py` | tests/ | manual receipt (`verify_lean.py`) |
 | `local_reuse` | local receipt only | `verify_lean.py`, `verify_sources.py` | tests/ | manual receipt (`verify_lean.py`) |
 | `magnification` | local receipt only | `verify.py`, `verify_lean.py`, `verify_sources.py` | tests/ | manual receipt (`verify_lean.py`) |
@@ -64,7 +67,7 @@ Lake packages (`CLAUDE.md`, gate 11).  A tree marked "manual receipt" carries
 | `two_sided_commitment` | local receipt only | `verify_pins.py` | test_*.py | none |
 | `typed_translation` | workflow (gate 11) | `verify_lean.py`, `verify_pins.py`, `verify_prose.py` | tests/ | manual receipt (`verify_lean.py`) |
 
-13 trees are wired; 32 are local receipts only.
+13 trees are wired; 35 are local receipts only.
 
 ## Hand copies
 

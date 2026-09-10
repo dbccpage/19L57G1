@@ -1,0 +1,20 @@
+'ExchangeCoefficients.insert_left' depends on axioms: [propext]
+'ExchangeCoefficients.insert_right' depends on axioms: [propext]
+'ExchangeCoefficients.insert_zero_off_target' depends on axioms: [propext]
+'ExchangeCoefficients.ordered_eq_transport' depends on axioms: [propext, Quot.sound]
+'ExchangeCoefficients.scaled_eq' depends on axioms: [propext, Quot.sound]
+'ExchangeCoefficients.finite_matrix_eq' depends on axioms: [propext, Quot.sound]
+'ExchangeCoefficients.three_fixtures' does not depend on any axioms
+'ExchangeCoefficients.insertion_exclusion' depends on axioms: [propext]
+'ExchangeCoefficients.path_gauge' does not depend on any axioms
+'ExchangeCoefficients.closed_odd_gauge' does not depend on any axioms
+'ExchangeCoefficients.star_odd' does not depend on any axioms
+'ExchangeCoefficients.square_odd' does not depend on any axioms
+'ClaimExample.certified_has_proof' depends on axioms: [propext]
+'ClaimExample.false_refused' depends on axioms: [propext]
+'ClaimExample.true_certified' depends on axioms: [propext]
+'ClaimExample.conjecture_not_certified' depends on axioms: [propext]
+'NaturalSections.SlotEx.oddW_diag_zero' depends on axioms: [propext, Quot.sound]
+'NaturalSections.Receiver.half_add_half' depends on axioms: [propext, Quot.sound]
+'NaturalSections.Receiver.half_ne_zero' depends on axioms: [propext, Quot.sound]
+'BoundaryCancellation.d2_zero_unrestricted' depends on axioms: [propext, Quot.sound]

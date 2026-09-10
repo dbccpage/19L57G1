@@ -1,0 +1,4 @@
+lean/.lake/
+lean/pinned/
+__pycache__/
+.pytest_cache/

@@ -1,0 +1,96 @@
+{
+  "axioms": {
+    "BoundaryCancellation.d2_zero_unrestricted": [
+      "propext",
+      "Quot.sound"
+    ],
+    "ClaimExample.certified_has_proof": [
+      "propext"
+    ],
+    "ClaimExample.conjecture_not_certified": [
+      "propext"
+    ],
+    "ClaimExample.false_refused": [
+      "propext"
+    ],
+    "ClaimExample.true_certified": [
+      "propext"
+    ],
+    "ExchangeCoefficients.closed_odd_gauge": [],
+    "ExchangeCoefficients.finite_matrix_eq": [
+      "propext",
+      "Quot.sound"
+    ],
+    "ExchangeCoefficients.insert_left": [
+      "propext"
+    ],
+    "ExchangeCoefficients.insert_right": [
+      "propext"
+    ],
+    "ExchangeCoefficients.insert_zero_off_target": [
+      "propext"
+    ],
+    "ExchangeCoefficients.insertion_exclusion": [
+      "propext"
+    ],
+    "ExchangeCoefficients.ordered_eq_transport": [
+      "propext",
+      "Quot.sound"
+    ],
+    "ExchangeCoefficients.path_gauge": [],
+    "ExchangeCoefficients.scaled_eq": [
+      "propext",
+      "Quot.sound"
+    ],
+    "ExchangeCoefficients.square_odd": [],
+    "ExchangeCoefficients.star_odd": [],
+    "ExchangeCoefficients.three_fixtures": [],
+    "NaturalSections.Receiver.half_add_half": [
+      "propext",
+      "Quot.sound"
+    ],
+    "NaturalSections.Receiver.half_ne_zero": [
+      "propext",
+      "Quot.sound"
+    ],
+    "NaturalSections.SlotEx.oddW_diag_zero": [
+      "propext",
+      "Quot.sound"
+    ]
+  },
+  "input_sha256": {
+    ".gitignore": "234a857ad0061b3dbc53115ce344a08b3f0ffcdccfed9299c9e9225e5603c3d6",
+    "AXIOM_DECLARATIONS.json": "aeefee5ea3213b36c649f783d363f1e304838eb402ef6a16594f21398adde406",
+    "README.md": "1f91bfa874c88409a90db8d0aa9d658dc40fe12a277bf6064b6f5ab789323eca",
+    "SOURCE_MANIFEST.json": "7327827e77032b5ba3ded461e6296acefeb7e023807a82b45d5d4782285c1d79",
+    "claim_example.py": "8a69e2f8e015112c5c94ef5563782422953505165961c42fe6edf5a22948d782",
+    "examples.py": "d9e514539e0b7443c6dacdd7747c95ee3cd87947b2b614e1577d6fff49250750",
+    "lean/ClaimExample.lean": "522a7049e4d6b2968c7f3ec902dc7c72bff040c7cedd380794d668a08aaa34fd",
+    "lean/ExamplesAudit.lean": "8d92031b42d498fd990ca5c7c148fedd46749493631350f26e3229c9fd1a86da",
+    "lean/ExchangeCoefficients.lean": "23f953f0ac3b022f2c6d2b75a3fd9acba5ecea47ec14de5610e2b5699004c640",
+    "lean/lake-manifest.json": "54ba14941b93f28b01edfb224aca7d835abd517240740feb60e22d95fc36312e",
+    "lean/lakefile.lean": "48f87a0b870f57004432f4ad6a077096b686cc35812453be46d76a3eb010205c",
+    "lean/lean-toolchain": "b2b5068d5a4835675e651ce83b29c0ddb308d28b80076e7c007aef4630af0477",
+    "test_examples.py": "5d5cfd84d437cabda91b7650d7f5a69f98e305e607349ab777ff6c976ccc3c48",
+    "verify.py": "b01c951fcbc252d9e5ef128911285cfab128224cac6f4371562c8441caa335d0"
+  },
+  "lean": "PASS",
+  "python_tests": [
+    "test_exchange_bridge_all_graphs_and_operator_identities",
+    "test_gauge_preserves_star_charpoly",
+    "test_false_claims_are_not_promoted",
+    "test_boundary_cancellation_and_signless_control",
+    "test_rational_phase_and_odd_amplitude_examples",
+    "test_axiom_parser_rejects_missing_duplicate_and_extra_dependencies",
+    "test_matrix_checker_rejects_malformed_shapes",
+    "test_custom_containers_cannot_override_equality"
+  ],
+  "python_version": "3.14.2",
+  "result_sha256": {
+    "claims.json": "5add2118cc044f7c7e90c034043bbd8cb2c1c9849144b313d7a01764dc51c88e",
+    "examples.json": "4c86f4861bc8a2bd8d1845d673241ec8a7860396b1345961f08594c08f25b3a3"
+  },
+  "source_commit": "cea346d7f3603fd8da374947e76c9b3cd426d122",
+  "source_modules": 20,
+  "status": "PASS"
+}
