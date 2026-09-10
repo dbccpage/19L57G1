@@ -57,8 +57,8 @@ def channel_row(
     """Evaluate both repair channels on presentation p.
 
     Channel A is computed from the presentation's distinct transport
-    labels versus ``slot_bound`` (a slot-count proxy, not convention_price
-    phase-2/3 exhaustion). Callers cannot pass a verdict.
+    labels versus ``slot_bound`` (a slot-count proxy, not the
+    convention_price exhaust receipts). Callers cannot pass a verdict.
     """
     channel_a_verdict, channel_a_source = compute_channel_a(p, slot_bound)
     w = closed_walk_weights(p, bound=walk_bound)
