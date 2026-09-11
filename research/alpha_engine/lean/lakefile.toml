@@ -1,0 +1,14 @@
+name = "harness"
+version = "0.1.0"
+defaultTargets = ["Harness", "Inventory"]
+
+# The sealed derivation package, consumed read-only.
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+[[lean_lib]]
+name = "Harness"
+
+[[lean_lib]]
+name = "Inventory"

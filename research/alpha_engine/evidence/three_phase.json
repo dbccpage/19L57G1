@@ -1,0 +1,294 @@
+{
+ "authority_effect": "None",
+ "auto_apply_unique_delta": false,
+ "demand_generation": "OPEN",
+ "driver_b": "OPEN",
+ "field_layout_is_not_temporal_proof": true,
+ "folds": [
+  {
+   "authorization": {
+    "authorized_count": 1,
+    "granter": "declared-first-key-explored",
+    "scope": "C3-L-mu1",
+    "score_is_not_license": true,
+    "sole_class_license_is_apply": false
+   },
+   "auto_apply_unique_delta": false,
+   "base_history_length": 6,
+   "census": {
+    "explored_count": 1,
+    "open_count": 2,
+    "pruned_count": 0,
+    "sum_equals_tie_set": true,
+    "tie_set_size": 3
+   },
+   "child_history_lengths": [
+    9
+   ],
+   "compute_order": [
+    "evaluate",
+    "wrap_raw_minima_as_proposal",
+    "present",
+    "license",
+    "explore"
+   ],
+   "evaluation": {
+    "class_keys": [
+     [
+      2,
+      [
+       1
+      ],
+      [
+       [
+        0,
+        [
+         0
+        ]
+       ]
+      ],
+      [],
+      [
+       [
+        0,
+        1
+       ]
+      ]
+     ],
+     [
+      2,
+      [
+       2
+      ],
+      [
+       [
+        0,
+        [
+         0,
+         0
+        ]
+       ]
+      ],
+      [],
+      [
+       [
+        0,
+        1
+       ]
+      ]
+     ],
+     [
+      2,
+      [
+       2
+      ],
+      [
+       [
+        0,
+        [
+         0,
+         1
+        ]
+       ]
+      ],
+      [],
+      [
+       [
+        0,
+        1
+       ]
+      ]
+     ]
+    ],
+    "cost": [
+     2,
+     -1
+    ],
+    "grades_as_license": false,
+    "measure": "mu1",
+    "mutated_declared_base": false,
+    "raw_minima_count": 6,
+    "retained_class_count": 3
+   },
+   "expansion": {
+    "leftover_pair_counts": [
+     0
+    ],
+    "leftover_pairs_are_observations": true,
+    "new_node_count": 1
+   },
+   "proposal": {
+    "changes_admitted_state": false,
+    "offering_count": 6,
+    "token": "sealed-minima-offerings"
+   },
+   "reading": "L"
+  },
+  {
+   "authorization": {
+    "authorized_count": 1,
+    "granter": "declared-first-key-explored",
+    "scope": "C3-F-mu1",
+    "score_is_not_license": true,
+    "sole_class_license_is_apply": false
+   },
+   "auto_apply_unique_delta": false,
+   "base_history_length": 7,
+   "census": {
+    "explored_count": 1,
+    "open_count": 4,
+    "pruned_count": 0,
+    "sum_equals_tie_set": true,
+    "tie_set_size": 5
+   },
+   "child_history_lengths": [
+    10
+   ],
+   "compute_order": [
+    "evaluate",
+    "wrap_raw_minima_as_proposal",
+    "present",
+    "license",
+    "explore"
+   ],
+   "evaluation": {
+    "class_keys": [
+     [
+      3,
+      [
+       1
+      ],
+      [
+       [
+        0,
+        [
+         0
+        ]
+       ]
+      ],
+      [],
+      [
+       [
+        0,
+        2
+       ]
+      ]
+     ],
+     [
+      3,
+      [
+       2
+      ],
+      [
+       [
+        0,
+        [
+         0,
+         0
+        ]
+       ]
+      ],
+      [],
+      [
+       [
+        0,
+        2
+       ]
+      ]
+     ],
+     [
+      3,
+      [
+       2
+      ],
+      [
+       [
+        0,
+        [
+         0,
+         1
+        ]
+       ]
+      ],
+      [],
+      [
+       [
+        0,
+        1
+       ]
+      ]
+     ],
+     [
+      3,
+      [
+       2
+      ],
+      [
+       [
+        0,
+        [
+         0,
+         1
+        ]
+       ]
+      ],
+      [],
+      [
+       [
+        0,
+        2
+       ]
+      ]
+     ],
+     [
+      3,
+      [
+       2
+      ],
+      [
+       [
+        0,
+        [
+         0,
+         1
+        ]
+       ]
+      ],
+      [],
+      [
+       [
+        1,
+        2
+       ]
+      ]
+     ]
+    ],
+    "cost": [
+     2,
+     -1
+    ],
+    "grades_as_license": false,
+    "measure": "mu1",
+    "mutated_declared_base": false,
+    "raw_minima_count": 10,
+    "retained_class_count": 5
+   },
+   "expansion": {
+    "leftover_pair_counts": [
+     1
+    ],
+    "leftover_pairs_are_observations": true,
+    "new_node_count": 1
+   },
+   "proposal": {
+    "changes_admitted_state": false,
+    "offering_count": 10,
+    "token": "sealed-minima-offerings"
+   },
+   "reading": "F"
+  }
+ ],
+ "ob_1": "OPEN",
+ "receipt_is_not_proof": true,
+ "schema": "alpha-engine-pea-v1"
+}
