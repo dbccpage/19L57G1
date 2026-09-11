@@ -1,0 +1,141 @@
+{
+  "authority_effect": "None",
+  "claim_hygiene": {
+    "axioms_within_propext_quot_sound": true,
+    "gross_covariance_proved": true,
+    "magic_state_eigenstate_proved": true,
+    "parity_involution_proved": true,
+    "scope": "Discrete Wigner phase_spaces on odd_prime dimensions 3 and 5, Gross phase_point operators, stabilizer non-negativity, magic state point negativity witness, translation order p, and Gross covariance",
+    "stabilizer_eigenstate_proved": true,
+    "strict_negativity_witness_proved": true,
+    "translation_order_proved": true,
+    "zero_classical_choice": true,
+    "zero_mathlib": true
+  },
+  "lean": {
+    "allowed_axioms": [
+      "Quot.sound",
+      "propext"
+    ],
+    "axiom_free_count": 12,
+    "reports": {
+      "P209aWignerPhaseSpace.Cyclo3Ring.mk.inj": [],
+      "P209aWignerPhaseSpace.Cyclo3Ring.mk.injEq": [
+        "propext"
+      ],
+      "P209aWignerPhaseSpace.Cyclo3Ring.mk.sizeOf_spec": [],
+      "P209aWignerPhaseSpace.P3_gross_covariance_X": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209aWignerPhaseSpace.P3_gross_covariance_Z": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209aWignerPhaseSpace.P3_involution": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209aWignerPhaseSpace.P3_magic_state_eigenstate": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209aWignerPhaseSpace.P3_stabilizer_ket0_eigenstate": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209aWignerPhaseSpace.P3_stabilizer_ket_plus_eigenstate": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209aWignerPhaseSpace.P3_trace_one": [
+        "propext"
+      ],
+      "P209aWignerPhaseSpace.P5_gross_covariance_X": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209aWignerPhaseSpace.P5_involution": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209aWignerPhaseSpace.P5_magic_state_eigenstate": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209aWignerPhaseSpace.P5_stabilizer_ket0_eigenstate": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209aWignerPhaseSpace.P5_stabilizer_ket_plus_eigenstate": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209aWignerPhaseSpace.P5_trace_one": [
+        "propext"
+      ],
+      "P209aWignerPhaseSpace.QRat.mk.inj": [],
+      "P209aWignerPhaseSpace.QRat.mk.injEq": [
+        "propext"
+      ],
+      "P209aWignerPhaseSpace.QRat.mk.sizeOf_spec": [],
+      "P209aWignerPhaseSpace.X3_translation_order": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209aWignerPhaseSpace.X5_translation_order": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209aWignerPhaseSpace.Z3_clock_order": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209aWignerPhaseSpace.instDecidableEqCyclo3Ring.decEq._proof_1": [],
+      "P209aWignerPhaseSpace.instDecidableEqCyclo3Ring.decEq._proof_2": [],
+      "P209aWignerPhaseSpace.instDecidableEqCyclo3Ring.decEq._proof_3": [],
+      "P209aWignerPhaseSpace.instDecidableEqQRat.decEq._proof_1": [],
+      "P209aWignerPhaseSpace.instDecidableEqQRat.decEq._proof_2": [],
+      "P209aWignerPhaseSpace.instDecidableEqQRat.decEq._proof_3": [],
+      "P209aWignerPhaseSpace.magic_state_negativity_witness_3": [],
+      "P209aWignerPhaseSpace.magic_state_negativity_witness_5": [],
+      "P209aWignerPhaseSpace.magic_state_norm_sq_3": [
+        "propext"
+      ],
+      "P209aWignerPhaseSpace.magic_state_norm_sq_5": [
+        "propext"
+      ],
+      "P209aWignerPhaseSpace.magic_state_parity_expectation_3": [
+        "propext"
+      ],
+      "P209aWignerPhaseSpace.magic_state_parity_expectation_5": [
+        "propext"
+      ],
+      "P209aWignerPhaseSpace.matVecMul3._proof_1": [
+        "propext"
+      ],
+      "P209aWignerPhaseSpace.matVecMul5._proof_1": [
+        "propext"
+      ]
+    },
+    "theorem_count": 36
+  },
+  "pytest": {
+    "exit_code": 0,
+    "passed": 39,
+    "status": "PASS"
+  },
+  "schema_version": 1,
+  "source_hashes": {
+    "CLAIMS.md": "e5300cb35ee9ac0867d38f7680558766c985bb04b695c0fb8824b34f6140cbb9",
+    "README.md": "d719db90b7e71cf0db795b28086562b456eaeddf3e86a42b644d4be7a46a6f90",
+    "lean/Inventory.lean": "9a91bf18ee92f127e9a0dd9e93e0dae4ad36dc4d6a6308722f940bd105d17825",
+    "lean/WignerPhaseSpace.lean": "35a688c3ee2d4f5fe18edc1cde503df19e86a7ae470b4895a0152da13a6e32cf",
+    "tests/test_wigner.py": "9edb1bd0c1fde00938641fb6db5222f9ff58067f7277bf63a14cb2ef13a2c96f",
+    "verify.py": "60acebc3edf1ad3a652ad70a40d7be4ade3d21d04a7b7316a5f5f31db7dbc6ac",
+    "wigner_phase_space.py": "41a894e9f1ef70f07b3189cd054036c8294097e00852d5aca77c2ab936c85f78"
+  },
+  "status": "PASS",
+  "target": "Target P209a: Discrete Wigner Phase_Spaces",
+  "toolchain": "leanprover/lean4:v4.33.0"
+}

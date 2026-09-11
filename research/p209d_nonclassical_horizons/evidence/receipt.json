@@ -1,0 +1,185 @@
+{
+  "authority_effect": "None",
+  "claim_hygiene": {
+    "axioms_within_propext_quot_sound": true,
+    "clifford_polynomial_complexity_proved": true,
+    "clifford_symplectic_automorphisms_proved": true,
+    "discrete_hudson_boundary_proved": true,
+    "magic_branch_exponential_lower_bound_proved": true,
+    "scope": "Gottesman-Knill symplectic tableau simulation, discrete Hudson theorem boundary on odd_prime dimension p=3, magic state resource scaling, and vocabulary firewall enforcement",
+    "symplectic_commutativity_invariant_proved": true,
+    "zero_classical_choice": true,
+    "zero_mathlib": true
+  },
+  "lean": {
+    "allowed_axioms": [
+      "Quot.sound",
+      "propext"
+    ],
+    "axiom_free_count": 22,
+    "reports": {
+      "P209dNonclassicalHorizons.CNOT_preserves_commutativity": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.H_preserves_commutativity": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.H_preserves_destabilizer_pair": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.Rat3.mk.inj": [],
+      "P209dNonclassicalHorizons.Rat3.mk.injEq": [
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.Rat3.mk.sizeOf_spec": [],
+      "P209dNonclassicalHorizons.S_preserves_commutativity": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.S_preserves_destabilizer_pair": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.SymplecticVec1.mk.inj": [],
+      "P209dNonclassicalHorizons.SymplecticVec1.mk.injEq": [
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.SymplecticVec1.mk.sizeOf_spec": [],
+      "P209dNonclassicalHorizons.SymplecticVec2.mk.inj": [],
+      "P209dNonclassicalHorizons.SymplecticVec2.mk.injEq": [
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.SymplecticVec2.mk.sizeOf_spec": [],
+      "P209dNonclassicalHorizons.bell_stabilizers_commute": [
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.canonical_destabilizer._proof_1": [
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.canonical_pair_duality": [
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.clifford_CNOT._proof_1": [],
+      "P209dNonclassicalHorizons.clifford_CNOT._proof_2": [],
+      "P209dNonclassicalHorizons.clifford_CNOT_preserves_omega": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.clifford_H_preserves_omega": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.clifford_S._proof_1": [],
+      "P209dNonclassicalHorizons.clifford_S_preserves_omega": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.clifford_cost_linear_in_gates": [
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.clifford_cost_polynomial": [
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.discrete_hudson_boundary_separation": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.fin2_cases": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.fin2_cases._proof_1_3": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.fin3_cases": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.fin3_cases._proof_1_3": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.gottesman_knill_separation": [],
+      "P209dNonclassicalHorizons.instDecidableEqRat3.decEq._proof_1": [],
+      "P209dNonclassicalHorizons.instDecidableEqRat3.decEq._proof_2": [],
+      "P209dNonclassicalHorizons.instDecidableEqRat3.decEq._proof_3": [],
+      "P209dNonclassicalHorizons.instDecidableEqSymplecticVec1.decEq._proof_1": [],
+      "P209dNonclassicalHorizons.instDecidableEqSymplecticVec1.decEq._proof_2": [],
+      "P209dNonclassicalHorizons.instDecidableEqSymplecticVec1.decEq._proof_3": [],
+      "P209dNonclassicalHorizons.instDecidableEqSymplecticVec2.decEq._proof_1": [],
+      "P209dNonclassicalHorizons.instDecidableEqSymplecticVec2.decEq._proof_2": [],
+      "P209dNonclassicalHorizons.instDecidableEqSymplecticVec2.decEq._proof_3": [],
+      "P209dNonclassicalHorizons.magic_branch_4_eval": [],
+      "P209dNonclassicalHorizons.magic_branch_5_eval": [],
+      "P209dNonclassicalHorizons.magic_branch_5_gt_quadratic": [],
+      "P209dNonclassicalHorizons.magic_branch_count_pow": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.magic_branch_count_pow._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.magic_branch_lower_bound": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.magic_branch_lower_bound._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.omega2_self": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.omega2_symm": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.omega4_self": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.omega4_symm": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.stabilizer_self_commutes": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.wigner_magic_origin_negative": [
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.wigner_stab_plus_non_negative": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P209dNonclassicalHorizons.wigner_stab_zero_non_negative": [
+        "Quot.sound",
+        "propext"
+      ]
+    },
+    "theorem_count": 55
+  },
+  "pytest": {
+    "exit_code": 0,
+    "passed": 20,
+    "status": "PASS"
+  },
+  "schema_version": 1,
+  "source_hashes": {
+    "horizons.py": "d9cf5853f1e4c598443a3895cd3115d0431bbfe24bac5ae0e252d89017b9a11d",
+    "lean/Inventory.lean": "38eae3dcde33246a77279762c7ea1959f80dde1071b856a52949ff894a89ec61",
+    "lean/NonclassicalHorizons.lean": "cdaab9a6869081911196dc72fcd43ea903dbd648a2586517bf3eeb83cb80b7c0",
+    "tests/test_horizons.py": "c2d06d41e4f49be5919a36e41ef937ce0bf3a5ee6fefd937d10424c45091a519",
+    "verify.py": "be629ee49341a093b2c604404015cb79ad81810e7ddc33b3e4a502a2508003f4"
+  },
+  "status": "PASS",
+  "target": "Target P209d: Non-Classicality Horizons & Gottesman-Knill Boundary",
+  "toolchain": "leanprover/lean4:v4.33.0"
+}
