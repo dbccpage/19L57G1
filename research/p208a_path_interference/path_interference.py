@@ -26,18 +26,20 @@ class GaussianRational:
 
     def __init__(
         self,
-        re: Union[int, Fraction, float, Tuple[int, int]] = 0,
-        im: Union[int, Fraction, float, Tuple[int, int]] = 0,
+        re: Union[int, Fraction, Tuple[int, int]] = 0,
+        im: Union[int, Fraction, Tuple[int, int]] = 0,
     ) -> None:
-        def _to_frac(val: Union[int, Fraction, float, Tuple[int, int]]) -> Fraction:
+        def _to_frac(val: Union[int, Fraction, Tuple[int, int]]) -> Fraction:
+            if isinstance(val, float):
+                raise TypeError("float is not exact Q(i); pass Fraction or int")
             if isinstance(val, Fraction):
                 return val
             if isinstance(val, int):
                 return Fraction(val, 1)
             if isinstance(val, tuple) and len(val) == 2:
+                if isinstance(val[0], float) or isinstance(val[1], float):
+                    raise TypeError("float is not exact Q(i); pass Fraction or int")
                 return Fraction(val[0], val[1])
-            if isinstance(val, float):
-                return Fraction(str(val))
             raise TypeError(f"Unsupported scalar conversion: {type(val)}")
 
         object.__setattr__(self, "re", _to_frac(re))
@@ -176,7 +178,11 @@ class CyclotomicRational:
         self.phi = [Fraction(c, 1) for c in self._PHI[n]]
         self.degree_phi = len(self.phi) - 1
 
-        raw_coeffs = [Fraction(c) if not isinstance(c, Fraction) else c for c in coeffs]
+        raw_coeffs: List[Fraction] = []
+        for c in coeffs:
+            if isinstance(c, float):
+                raise TypeError("float is not exact Q; pass Fraction or int")
+            raw_coeffs.append(c if isinstance(c, Fraction) else Fraction(c))
         reduced = self._reduce(raw_coeffs)
         self.coeffs: Tuple[Fraction, ...] = tuple(reduced)
 

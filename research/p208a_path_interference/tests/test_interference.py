@@ -26,6 +26,20 @@ verify_constructive_nonzero_i2 = _mod.verify_constructive_nonzero_i2
 # 1. GaussianRational Arithmetic Tests
 # =============================================================================
 
+def test_gaussian_rational_refuses_float() -> None:
+    with pytest.raises(TypeError, match="float is not exact"):
+        GaussianRational(0.5, 0)  # type: ignore[arg-type]
+    with pytest.raises(TypeError, match="float is not exact"):
+        GaussianRational(0, 0.5)  # type: ignore[arg-type]
+    with pytest.raises(TypeError, match="float is not exact"):
+        GaussianRational((1, 2.0), 0)  # type: ignore[arg-type]
+
+
+def test_cyclotomic_rational_refuses_float() -> None:
+    with pytest.raises(TypeError, match="float is not exact"):
+        CyclotomicRational(4, [0.5, 0])  # type: ignore[list-item]
+
+
 def test_gaussian_rational_basics() -> None:
     z0 = GaussianRational.zero()
     assert z0.re == 0 and z0.im == 0

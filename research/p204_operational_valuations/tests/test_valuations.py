@@ -97,6 +97,13 @@ class TestOperationalState:
         with pytest.raises(ValueError, match="Negative probability"):
             OperationalState(space, {"a": Fraction(-1, 4), "b": Fraction(5, 4)})
 
+    def test_refuses_float_as_exact_q(self) -> None:
+        space = OutcomeSpace(("a", "b"))
+        with pytest.raises(TypeError, match="float is not exact"):
+            OperationalState(space, {"a": 0.5, "b": 0.5})  # type: ignore[dict-item]
+        with pytest.raises(TypeError, match="float is not exact"):
+            OperationalEffect(space, {"a": 0.25, "b": 0.5})  # type: ignore[dict-item]
+
     def test_deterministic_state(self) -> None:
         space = OutcomeSpace((0, 1, 2))
         d0 = deterministic_state(space, 0)

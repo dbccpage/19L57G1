@@ -88,7 +88,7 @@
   },
   "pytest": {
     "exit_code": 0,
-    "passed": 15,
+    "passed": 17,
     "status": "PASS"
   },
   "schema_version": 1,
@@ -97,8 +97,8 @@
     "README.md": "0ceca9a13af60513183b6a65608aa04e65e23ca7ab662d2752949454ff207003",
     "lean/Inventory.lean": "ae24a192d8049b7ae22becbc74bf187b5a47ad13cbdce87a668266567c5c72cc",
     "lean/PathInterference.lean": "0c78208d3cdc74f90ca706f9849d71314353e50cad1f3997246a1f33dfc6df41",
-    "path_interference.py": "cd7e52fc16124003b3c7316badbb9a1ec37b05e17bd116d7f943504348726c62",
-    "tests/test_interference.py": "cc976dedb0f4ee14ce3969bbda88dafe91faf5dd75128952ab9d7c7fb77eb09d",
+    "path_interference.py": "2d29f85c195eb0a5cca7012c021b302a56a4167273ffdcb70ec8684433bf8b9d",
+    "tests/test_interference.py": "4c27dcad8ca83371717eabef3fcfd9e3f4b0c12df82aa0525f706b96de87c8d6",
     "verify.py": "8e372ac4b971638fa0aee735c9b70dc7eea3c1fbea32952017ec1df64664f070"
   },
   "status": "PASS",

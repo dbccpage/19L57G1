@@ -28,7 +28,7 @@ import homology as m109
 import information as x300
 
 def test_x300_adversarial_observer_information() -> int:
-    """Fuzz X300 operational channels, Data Processing Inequality, dyadic entropy, and Landauer erasure."""
+    """Fuzz X300 operational channels, Data Processing Inequality, dyadic uncertainty, and Landauer erasure."""
     print(">>> Fuzzing Target X300: Observer-Relative Information, Channels & Loss...")
     checks = 0
     rng = random.Random(300300)
@@ -87,7 +87,7 @@ def test_x300_adversarial_observer_information() -> int:
         assert math.isclose(cert_inv.delta_i, 0.0, abs_tol=1e-12)
         checks += 3
 
-    # 3. Exact dyadic rational entropy & relative entropy non-negativity in Q
+    # 3. Exact dyadic rational uncertainty & relative divergence non-negativity in Q
     for trial in range(30):
         # Lengths summing to Kraft equality sum 2^-l = 1
         lengths_p = {"a": 1, "b": 2, "c": 3, "d": 3}  # 1/2 + 1/4 + 1/8 + 1/8 = 1
@@ -97,17 +97,17 @@ def test_x300_adversarial_observer_information() -> int:
         assert dist_p.exact_dyadic_shannon_entropy() == Fraction(7, 4)
         checks += 2
 
-        # Relative entropy identity: D(P || P) = 0 in Q
+        # Relative divergence identity: D(P || P) = 0 in Q
         assert x300.exact_dyadic_divergence(dist_p, dist_p) == Fraction(0, 1)
         checks += 1
 
-        # Relative entropy non-negativity: D(P || Q) > 0 for Q != P
+        # Relative divergence non-negativity: D(P || Q) > 0 for Q != P
         lengths_q = {"a": 2, "b": 2, "c": 2, "d": 2}  # Uniform 1/4 each
         dist_q = x300.DiscreteDistribution.pure_dyadic(lengths_q)
         div_pq = x300.exact_dyadic_divergence(dist_p, dist_q)
         assert div_pq == Fraction(1, 4)
         assert div_pq > Fraction(0, 1)
-        # Cross-entropy formula: H(P, Q) = H(P) + D(P || Q)
+        # Cross-uncertainty formula: H(P, Q) = H(P) + D(P || Q)
         assert x300.exact_dyadic_cross_entropy(dist_p, dist_q) == dist_p.exact_dyadic_shannon_entropy() + div_pq
         checks += 3
 

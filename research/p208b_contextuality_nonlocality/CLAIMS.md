@@ -9,7 +9,7 @@ AuthorityEffect: None.
 - Supports the realization of an exact rational non-signaling probability distribution derived from Pythagorean unit coordinates in $\mathbb{Q}^2$ that achieves $S = 14/5 = 2.8$, strictly exceeding the local bound $2$ while respecting the algebraic no-signaling limit $4$.
 - Supports the formal specification of the Cabello 18-ray configuration in $\mathbb{Q}^4$ with coordinates in $\{-1, 0, 1\}$ partitioned into 9 orthogonal contexts of 4 mutually orthogonal rays each.
 - Supports the exact 2-incidence property ($9 \times 4 = 18 \times 2 = 36$) and the resulting parity obstruction showing that no non-contextual binary valuation $v: \text{Fin } 18 \to \{0, 1\}$ can satisfy $\sum_{r \in C_k} v(r) = 1$ for all contexts, because $2 \sum v(r_i) = 9$ has no integer solution.
-- Supports the formal Lean 4 verification of these results within the metatheoretic apparatus $\{propext, Quot.sound\}$ with zero use of external axioms or choice.
+- Supports the formal Lean 4 verification of these results: the Lake census records 33 theorems with axioms in `{propext, Quot.sound}` (13 axiom-free), zero `Classical.choice`, zero mathlib.
 
 ### 2. What it does not support
 - Does not support assertions regarding continuous manifolds or non-rational geometries.

@@ -147,15 +147,15 @@
   },
   "pytest": {
     "exit_code": 0,
-    "passed": 26,
+    "passed": 27,
     "status": "PASS"
   },
   "schema_version": 1,
   "source_hashes": {
     "lean/Inventory.lean": "141684dc0244b735cf108ebd69739982125907fb079d4b130dae81f1dbf7d6f5",
     "lean/OperationalValuations.lean": "db5035c5eca898e483468b20c45270a7fc6a92c85b4d6eba3a881b7efab3b777",
-    "tests/test_valuations.py": "e6cefdec5f4b4e6c71950f5131054522c890b1a2819a3b38e080202905405c48",
-    "valuations.py": "9f9eaaa68324244906468b2cc401061876067439cdbf24098f954dc9939679ef",
+    "tests/test_valuations.py": "40747b0feb35e6f8a00c96d4dc2e638876517b7f2099ceff73a7541e94fabb3e",
+    "valuations.py": "f1932dcb9dd7f0400e4d291c24bd4cd10b2956e34d546b4b30d0e515c96c2f6e",
     "verify.py": "b7b772eae5329c7f564adcc9e03cb58c1acb1378eaea49990f3892e8c928c9e7"
   },
   "status": "PASS",

@@ -47,7 +47,7 @@ In addition, the two-axis code review (Standards & Spec) was completed across al
 - **Pythagorean Non-Local Model**: Constructed rational correlation model from Pythagorean unit vectors in $\mathbb{Q}^2$, achieving $S = 14/5 = 2.8 > 2$ with valid probabilities and strict operational no-signaling.
 - **Cabello 18-Ray Geometry & 2-Incidence**: Verified 18 rays in $\mathbb{Q}^4$ across 9 orthogonal contexts of 4 mutually orthogonal rays each, with exact degree-2 incidence regularity.
 - **Parity Obstruction & Čech Cohomology**: Verified that non-contextual valuations require $2M = 9$, which has no integer solution in $\mathbb{Z}$, and confirmed that the Čech 1-cochain obstruction evaluates to $1 \neq 0$ in $H^1(\mathbb{Z}_2)$.
-- **Verification Receipts**: 767 adversarial checks verified in `adversarial_challenge_cohort7.py`; 14 formal theorems verified in `ContextualityNonlocality.lean` with axioms strictly within `{propext, Quot.sound}` (5 axiom-free).
+- **Verification Receipts**: 767 adversarial checks verified in `adversarial_challenge_cohort7.py`; 33 formal theorems verified in `ContextualityNonlocality.lean` with axioms strictly within `{propext, Quot.sound}` (13 axiom-free).
 
 ### 5. Target P208c: Commutator Obstruction & Discrete MUB Tomography
 - **Commutator Trace Obstruction**: Verified $\operatorname{Tr}([A, B]) = 0$ for arbitrary $N \times N$ matrices ($N = 2$ to $6$), confirming that the canonical commutation relation $[Q, P] = c I_N$ has an obstruction gap $-N \cdot c \neq 0$ and cannot be represented on any finite-dimensional carrier.
@@ -68,7 +68,7 @@ In addition, the two-axis code review (Standards & Spec) was completed across al
   - Typing cleanliness: full type annotations in Python, no unhandled exceptions.
   - Zero Fowler code smells: modular decomposition, pure functions, clean data structures.
   - Claim Hygiene: strictly compliant across all docstrings, READMEs, and CLAIMS files.
-- **Axiom Discipline**: All 202+ Lean 4 theorems across the four Cohort 7 packages audited via `Inventory.lean` and confirmed strictly within `{propext, Quot.sound}` (zero `Classical.choice`, zero `mathlib`).
+- **Axiom Discipline**: All 221 Lean 4 theorems across the four Cohort 7 packages (85+30+33+73) audited via `Inventory.lean` and confirmed strictly within `{propext, Quot.sound}` (zero `Classical.choice`, zero `mathlib`).
 - **Vocabulary Firewall**: `tests/test_primitive_contact.py` verified 100% clean (15 passed, 1 skipped).
 - **Repository Blind Seal**: Zero touches to sealed directories (`prompt/`, `paper/`, `code/`, `lean4/Derivation/`, `artifacts/`, `CLAUDE.md`).
 
@@ -142,7 +142,7 @@ In addition, the two-axis code review (Standards & Spec) was completed across al
 - **Strict Operational Non-Signaling**: Executed 30 random bipartite cut configurations and carrier ensembles, verifying exact $TVD = 0.0$ on Part B observables under localized Part A interventions.
 - **Negative Controls & Perturbation Attacks**: Verified that cut-crossing leaky interventions produce $TVD > 0$, and that causal mediating coupling across the cut enables detectable signaling ($TVD > 0$).
 - **Duplicate Observer Agreement & Automorphisms**: Verified that identical local probes at automorphism-related loci achieve 100% agreement on symmetric states, while asymmetric states produce divergent marks without external spatial coordinates.
-- **Verification Receipts**: 299 adversarial checks verified in `adversarial_challenge_cohort6.py`; 59 formal theorems verified in `CompositeSystems.lean` with zero external axioms.
+- **Verification Receipts**: 299 adversarial checks verified in `adversarial_challenge_cohort6.py`; 59 formal theorems verified in `CompositeSystems.lean` with axioms in `{propext, Quot.sound}`.
 
 #### 3. Target M108: General Internal Universal Algebra
 - **Free Monoids & Categorical Uniqueness**: Validated free monoid constructions over arbitrary finite alphabets, universal mapping property (UMP) into target monoids, and verified that only the canonical arrow satisfies the homomorphism laws, with defective candidates rejected.

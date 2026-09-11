@@ -43,6 +43,20 @@ from tomography import (
 # 1. Exact Field Arithmetic Tests
 # =============================================================================
 
+def test_gaussian_rational_refuses_float() -> None:
+    with pytest.raises(TypeError, match="float is not exact"):
+        GaussianRational(0.5, 0)  # type: ignore[arg-type]
+    with pytest.raises(TypeError, match="float is not exact"):
+        GaussianRational(0, 0.5)  # type: ignore[arg-type]
+
+
+def test_cyclotomic3_refuses_float() -> None:
+    with pytest.raises(TypeError, match="float is not exact"):
+        Cyclotomic3(0.5, 0)  # type: ignore[arg-type]
+    with pytest.raises(TypeError, match="float is not exact"):
+        Cyclotomic3(0, 0.5)  # type: ignore[arg-type]
+
+
 def test_cyclotomic3_arithmetic() -> None:
     """Tests exact arithmetic in cyclotomic rationals Q(w)."""
     w0 = Cyclotomic3.root_power(0)
@@ -111,6 +125,7 @@ def test_commutator_trace_identically_zero() -> None:
         B = [[Fraction((i + 1) * (j + 2)) for j in range(dim)] for i in range(dim)]
 
         tr_comm = commutator_trace(A, B)
+        assert tr_comm == Fraction(0)
         assert tr_comm == 0
 
 

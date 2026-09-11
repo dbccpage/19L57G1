@@ -24,6 +24,17 @@ from typing import Any, TypeVar
 T = TypeVar("T")
 
 
+def _exact_q(val: object) -> Fraction:
+    """Convert int/Fraction to Q. Refuse float stand-ins for claimed exact rationals."""
+    if isinstance(val, float):
+        raise TypeError("float is not exact Q; pass Fraction or int")
+    if isinstance(val, Fraction):
+        return val
+    if isinstance(val, int):
+        return Fraction(val, 1)
+    raise TypeError(f"Unsupported exact-Q conversion: {type(val)}")
+
+
 class OutcomeSpace:
     """Finite discrete outcome space Omega."""
 
@@ -84,7 +95,7 @@ class OperationalState:
 
         for out in space.outcomes:
             val = distribution.get(out, 0)
-            frac = Fraction(val)
+            frac = _exact_q(val)
             if frac < Fraction(0, 1):
                 raise ValueError(f"Negative probability {frac} on outcome {out!r}.")
             if frac > Fraction(1, 1):
@@ -140,7 +151,7 @@ class OperationalEffect:
 
         for out in space.outcomes:
             val = weights.get(out, 0)
-            frac = Fraction(val)
+            frac = _exact_q(val)
             if frac < Fraction(0, 1) or frac > Fraction(1, 1):
                 raise ValueError(
                     f"Effect weight {frac} on outcome {out!r} outside [0, 1]."
@@ -222,7 +233,7 @@ def convex_combination_states(
         raise ValueError("Cannot form empty mixture.")
 
     space = states[0].space
-    frac_weights = [Fraction(w) for w in weights]
+    frac_weights = [_exact_q(w) for w in weights]
 
     total_w = Fraction(0, 1)
     for w in frac_weights:
@@ -255,7 +266,7 @@ def convex_combination_effects(
         raise ValueError("Cannot form empty effect mixture.")
 
     space = effects[0].space
-    frac_weights = [Fraction(w) for w in weights]
+    frac_weights = [_exact_q(w) for w in weights]
 
     total_w = Fraction(0, 1)
     for w in frac_weights:
@@ -294,9 +305,9 @@ def verify_bilinearity(
 
     right_eval = Fraction(0, 1)
     for q, e in zip(effect_weights, effects):
-        fq = Fraction(q)
+        fq = _exact_q(q)
         for p, s in zip(state_weights, states):
-            fp = Fraction(p)
+            fp = _exact_q(p)
             right_eval += fq * fp * evaluate(e, s)
 
     return left_eval == right_eval
@@ -345,7 +356,7 @@ class ClassicalSimplex:
         """Check if candidate convex weights over extreme states match canonical decomposition."""
         if len(candidate_weights) != len(self._extreme_states):
             return False
-        candidate = [Fraction(w) for w in candidate_weights]
+        candidate = [_exact_q(w) for w in candidate_weights]
         if sum(candidate) != Fraction(1, 1) or any(w < Fraction(0, 1) for w in candidate):
             return False
         canonical = [state.probability(out) for out in self._space.outcomes]
