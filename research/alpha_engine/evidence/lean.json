@@ -1,0 +1,76 @@
+{
+  "authority_effect": "None",
+  "axiom_free_count": 35,
+  "census": "compiled environment theorem declarations in the Harness namespace",
+  "classification": "Lean proof compilation",
+  "local_sources_sha256": {
+    "Harness.lean": "e38559eb0029076622c4e2d93e50fb81100d256859c71a1751ac50a681c110b5",
+    "Inventory.lean": "e0f467ebe61aab9cccc040477fea92f76327846dc016dd0f256bf114111b1d02",
+    "lakefile.toml": "13ec2c4e5cd8ab1951178624ab2510795067c107943c551d76d9e2dd1f1597a4",
+    "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
+  },
+  "python_driver_refinement": "NOT_PROVED",
+  "receipt_is_not_proof": true,
+  "reports": {
+    "Harness.EvalResult.mk.inj": [],
+    "Harness.EvalResult.mk.injEq": [
+      "propext"
+    ],
+    "Harness.EvalResult.mk.sizeOf_spec": [],
+    "Harness.ExtraCtor.mk.inj": [],
+    "Harness.ExtraCtor.mk.injEq": [
+      "propext"
+    ],
+    "Harness.ExtraCtor.mk.sizeOf_spec": [],
+    "Harness.GradeStamp.noneStamp.sizeOf_spec": [],
+    "Harness.GradeStamp.tie.sizeOf_spec": [],
+    "Harness.GradeStamp.uniqueClass.sizeOf_spec": [],
+    "Harness.GradeStamp.uniqueDelta.sizeOf_spec": [],
+    "Harness.License.mk.inj": [],
+    "Harness.License.mk.injEq": [
+      "propext"
+    ],
+    "Harness.License.mk.sizeOf_spec": [],
+    "Harness.Node.mk.inj": [],
+    "Harness.Node.mk.injEq": [
+      "propext"
+    ],
+    "Harness.Node.mk.sizeOf_spec": [],
+    "Harness.Proposal.mk.inj": [],
+    "Harness.Proposal.mk.injEq": [
+      "propext"
+    ],
+    "Harness.Proposal.mk.sizeOf_spec": [],
+    "Harness.RetainedClass.mk.inj": [],
+    "Harness.RetainedClass.mk.injEq": [
+      "propext"
+    ],
+    "Harness.RetainedClass.mk.sizeOf_spec": [],
+    "Harness.SearchPolicy.mk.inj": [],
+    "Harness.SearchPolicy.mk.injEq": [
+      "propext"
+    ],
+    "Harness.SearchPolicy.mk.sizeOf_spec": [],
+    "Harness.declaredExploreFirst_censusOk": [],
+    "Harness.declared_first_length": [],
+    "Harness.denied_license_eq_none": [],
+    "Harness.eval_carries_no_events": [],
+    "Harness.evaluation_does_not_admit": [],
+    "Harness.extra_ctor_refused": [],
+    "Harness.fabricated_not_explored": [],
+    "Harness.grade_stamp_is_not_license": [],
+    "Harness.keyByIndex_refused": [],
+    "Harness.leftover_is_not_demand": [],
+    "Harness.license_is_not_event": [],
+    "Harness.mem_of_mem_drop": [],
+    "Harness.mem_of_mem_take": [],
+    "Harness.policy_explored_subset": [],
+    "Harness.present_leaves_regime": [],
+    "Harness.proposal_is_not_admit": [],
+    "Harness.uniqueness_does_not_apply": []
+  },
+  "schema_version": 1,
+  "scope": "local harness: License is not Event; SearchPolicy output is a subset of retained keys; uniqueness does not apply; evaluation does not admit. Not a sealed object-language theorem and not a proved equivalence to code/derivation",
+  "theorem_count_including_generated": 42,
+  "toolchain": "leanprover/lean4:v4.33.0"
+}
