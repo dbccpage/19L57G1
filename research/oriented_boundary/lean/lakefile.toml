@@ -1,0 +1,6 @@
+name = "orientedboundary"
+version = "0.1.0"
+defaultTargets = ["OrientedBoundary"]
+
+[[lean_lib]]
+name = "OrientedBoundary"
