@@ -414,7 +414,7 @@ def commutator_obstruction_gap(Q: Matrix, P: Matrix, c: Any) -> Any:
 
 
 def verify_canonical_commutation_obstruction(N: int, c: Any) -> bool:
-    """Algebraic verification that [Q, P] = c * I is impossible on dimension N.
+    """Algebraic verification that [Q, P] = c * I is algebraically obstructed on dimension N.
 
     Theorem: For any finite N x N matrices Q, P over a field of characteristic 0:
       Tr([Q, P]) = Tr(QP - PQ) = 0.

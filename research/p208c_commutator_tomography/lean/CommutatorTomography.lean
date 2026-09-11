@@ -7,7 +7,7 @@ Formalizes:
    Tr([A, B]) = 0 for all finite N x N matrices.
 3. Finite Commutator Trace Obstruction Theorem:
    The continuous canonical commutation relation [Q, P] = c * I with c ≠ 0 is
-   algebraically impossible on any finite carrier of dimension N ≥ 1.
+   algebraically obstructed on any finite carrier of dimension N ≥ 1.
 4. Multi-locus microcausality on composite carrier networks:
    Observables localized on disjoint loci commute: [A ⊗ I_B, I_A ⊗ B] = 0.
 5. Discrete Mutually Unbiased Bases (MUBs):
@@ -189,7 +189,7 @@ theorem trace_scalar_identity (n : Nat) (c : Int) :
 
 /-- **Finite Commutator Trace Obstruction Theorem.**
     On any finite carrier of dimension n ≥ 1, the canonical commutation relation
-    [Q, P] = c * I is algebraically impossible for any non-zero scalar c. -/
+    [Q, P] = c * I is algebraically obstructed for any non-zero scalar c. -/
 theorem commutator_trace_obstruction (n : Nat) (hn : n ≥ 1) (c : Int) (hc : c ≠ 0)
     (Q P : Matrix n) :
     commutator n Q P ≠ scalarMul n c (identity n) := by
