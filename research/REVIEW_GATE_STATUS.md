@@ -1,3 +1,146 @@
+# Cohort 9 Review Gate Status
+
+**Session**: Genesis Paper 1 / Alpha Engine / Cohort 9 Review Gate  
+**Timestamp**: 2026-09-11T21:05:00Z  
+**Lead Architect Verdict**: APPROVE  
+**Adversarial Critic Verdict**: APPROVE  
+**Forensic Integrity Auditor Verdict**: CLEAN  
+**Combined Gate Verdict**: APPROVE (UNANIMOUS PASS)  
+**Scope**:
+- R1: `research/alpha_engine/PAPER1_ALIGNMENT_AUDIT.md` (Paper 1 & PEA receipt alignment audit)
+- R2: `research/x302_operational_reasoning/` (Target X302: Operational Reasoning & Belief Revision)
+- R3: `research/m114_solver_adapter/` (Target M114 / SP-03: Solver Adapter & Bounded Search)
+- R4: `research/alpha_engine/search_policy.py` & tests (Bounded search policy build-out extension)
+
+---
+
+## Executive Summary (Cohort 9)
+
+The Lead Architect and Adversarial Critic have conducted an exhaustive, multi-dimensional review across all four completed increments of the Genesis Paper 1 / Alpha Engine / Cohort 9 research milestone. All automated verification pipelines, static typing checks, coverage gates, constructive core Lean 4 axiom audits, vocabulary firewalls, and sealed directory boundary checks have passed cleanly with zero regressions, zero unhandled errors, and zero integrity violations.
+
+### Verification Summary Across Cohort 9:
+1. **Alpha Engine Verifier (`research/alpha_engine/verify.py`)**:
+   - Source Custody: Consumed derivation sources match baseline pin `a4dcddff1a8f8029beb9ec538d26150766dbbcd2`.
+   - Unit Tests: 130 tests passed (0 failures, 0 errors).
+   - Coverage: Statement coverage **98.37%**, branch coverage **96.75%** (threshold $\ge 95.0\%$).
+   - Static Type Checking: Strict `mypy` passed across 26 source files with 0 issues.
+   - Formal Proof Census: 42 theorems in `lean/Harness.lean` verified in core Lean 4 `v4.33.0` under `{propext, Quot.sound}` (zero `Classical.choice`, zero `mathlib`).
+   - Deterministic Receipt: `evidence/three_phase.json` verified byte-for-byte with zero duplicate keys and zero CR bytes.
+
+2. **Target X302 Verifier (`research/x302_operational_reasoning/verify.py`)**:
+   - Unit Tests: 34 pytest tests passed in 0.30s across deduction, contradiction detection, and AGM belief revision.
+   - Formal Proof Census: 18 theorems in `lean/OperationalReasoning.lean` verified via `lake build` under `{propext, Quot.sound}` (17 axiom-free, 1 using `propext`, zero `Classical.choice`, zero `mathlib`).
+   - Evidence Receipt: Verified and written to `research/x302_operational_reasoning/evidence/receipt.json`.
+
+3. **Target M114 / SP-03 Verifier (`research/m114_solver_adapter/verify.py`)**:
+   - Unit Tests: 43 pytest tests passed across exact rational linear feasibility, Farkas dual receipts, bounded SMT, SAT CNF, integer feasibility, and negative control matrices.
+   - Formal Proof Census: 6 theorems in `lean/SolverAdapter.lean` verified via `lake build` under `{propext, Quot.sound}` (3 axiom-free, 3 using `propext`, zero `Classical.choice`, zero `mathlib`).
+   - Evidence Receipt: Verified and written to `research/m114_solver_adapter/evidence/receipt.json`.
+
+4. **Repository Prose Watchlist (`ci/check_prose_watchlist.py`)**:
+   - Exit code 0. Scanned all tracked files across the workspace: 49 watched terms, 131 files with pinned hits, 1827 hits, census matches its pin with 0 unpinned hits.
+
+5. **Repository Blind Seal (`git status`)**:
+   - Zero modifications to sealed directories (`prompt/`, `paper/`, `code/`, `lean4/Derivation/`, `artifacts/`, `CLAUDE.md`). All new code, proofs, and receipts reside strictly under `research/`.
+
+---
+
+## Detailed Review Findings by Increment
+
+### R1: Paper 1 & Alpha Engine PEA Alignment Audit (`PAPER1_ALIGNMENT_AUDIT.md`)
+- **Type Separation**: Faithfully establishes strict type boundaries between `Proposal` (supply-shaped, modifying zero state), `EvalResult` (pure quotient enumeration payload carrying no events), and `License` (metatheoretic authorization record, strictly not an event). Catches narrative blurring in Paper 1 lines 104–114 (framing proposals as declarative English assertions) and Table 5.1 (inventing an ungrounded 7-layer taxonomy with `Decision` outcomes borrowed from a toy script).
+- **Temporal vs. Layout Honesty**: Confirms that while serialized JSON presents `proposal` before `evaluation`, the actual executable compute order in `driver_a.py` is strictly `evaluate` $\to$ `wrap` $\to$ `present` $\to$ `license` $\to$ `explore`. Identifies Paper 1's narrative inversion in lines 104–114.
+- **Refusal Semantics**: Audits G1–G12 defect injection gates and documents the formal retraction in `STATUS.md` lines 9–11 (withdrawing the claim that every guard was proved by live injection). Disambiguates repository verification families from engine defect injection gates.
+- **Open Boundaries**: Explicitly articulates that endogenous demand generation (OB-1) and Driver B (the seventh `Event` constructor) remain strictly OPEN. Corrects Paper 1's neglect of Driver B.
+- **Claim Hygiene**: Pinpoints exact occurrences of forbidden hype words (`proves`, `universal`, `merely`), commit hash discrepancies (`893c6239` vs `a4dcddff`), and provides exact line-by-line replacement text for Paper 1.
+
+### R2: Target X302 (Operational Reasoning & Belief Revision)
+- **Commitment Separation**: Strictly separates firm structural axioms from speculative contingent hypotheses via typed constructors and empty hypothesis support sets.
+- **Endogenous TMS**: Successfully tracks justification dependencies in a DAG, detecting cycles via `_check_cycle` and isolating minimal conflict sets endogenously without host oracles.
+- **Contradiction Detection & Minimal Retraction**: Endogenously detects direct contradictions ($\phi \wedge \neg \phi$) and operational valuation conflicts ($x = v_1 \wedge x = v_2$). Implements minimum hitting set computation over active conflict sets, with deterministic tie-breaking via epistemic entrenchment orders and lexicographical ordering. Propagates deactivation down the DAG and emits an immutable `RevisionReceipt` with SHA-256 justification hashes.
+- **Constructive Lean 4 Proofs**: 18 theorems formalized in `OperationalReasoning.lean` including derivation soundness under valuations and consistency restoration, with zero `Classical.choice` and axioms strictly in `{propext, Quot.sound}`.
+
+### R3: Target M114 / SP-03 (Solver Adapter & Bounded Search)
+- **Operational Solver Interface**: Maps constraint problems (SAT in CNF, bounded SMT, integer and rational linear feasibility) into an endogenous demand-and-refusal lifecycle without host oracles.
+- **Exact Rational Duality Receipts in $\mathbb{Q}$**: Generates and independently verifies exact rational primal witnesses ($A x \le b$) and exact rational Farkas separating hyperplanes ($y \ge 0, y^T A = 0, y^T b < 0$), guaranteeing that an empty separation demand certifies task completion under declared bounds.
+- **Refusal on Bounded Exhaustion**: Emits typed refusal `StepResult.refusal` on fuel exhaustion, preserving the underlying problem representation and search state without mutation.
+- **Constructive Lean 4 Proofs**: 6 theorems in `SolverAdapter.lean` formalizing primal soundness, Farkas dual soundness, fuel decrement monotonicity, and refusal state preservation in `{propext}`.
+
+### R4: Alpha Engine Search Policy Extensions (`search_policy.py`)
+- **Declared Policies**: Extends Alpha Engine beyond `declared_explore_first` with `declared_bounded_priority` (ranking by score with canonical tie-breaking), `declared_constraint_pruned` (pruning by predicate), and `declared_cost_budgeted` (exact rational arithmetic via `Fraction`).
+- **Strict Census Invariance**: Enforces `record_census(retained, explored, pruned, open_keys)`, strictly validating that `explored + pruned + open_keys == tie_set_size`, raising `FabricatedClassError` on forged keys and `CensusError` on silent drops or overlaps.
+- **Driver A Integration**: Confirms multi-key licensed exploration through Driver A with zero state mutations prior to authorized license replay, verified across 130 tests and 98.37% statement coverage.
+
+### Forensic Integrity Audit & Authenticity Verification
+
+The Forensic Integrity Auditor (`auditor_forensic_integrity`) conducted an independent, empirical forensic audit across all four Cohort 9 deliverables, enforcing the General Project integrity profile under development mode:
+
+1. **Static Code Authenticity (Zero Hardcoding, Zero Facades)**:
+   - `research/x302_operational_reasoning/reasoning.py`: Inspected the shipped kernel. Verified genuine AST propositional syntax, dynamic justification DAG construction with exact hypothesis support tracking, cycle detection queue, dual direct/operational contradiction scanners, and minimum hitting set combinatorial search with entrenchment weighting. Axiom retraction unconditionally raises `ImmutableAxiomError`. Zero hardcoded outputs, zero facade methods.
+   - `research/m114_solver_adapter/solver_adapter.py`: Inspected the shipped kernel. Verified genuine exact Fourier-Motzkin variable elimination with rational positive linear combination multiplier tracking, back-substitution for primal rational witnesses in $\mathbb{Q}^n$, Farkas hyperplane duality verification, and bounded branch-and-bound for SAT/integer problems. Zero hardcoding, zero facade methods.
+   - `research/alpha_engine/search_policy.py`: Inspected the shipped kernel. Verified genuine deterministic comparator ranking (`_PriorityScoreKey`), predicate-guided pruning, and exact `Fraction` greedy budget exploration. In every policy constructor, `record_census` is invoked to strictly verify disjoint cover. Zero hardcoding, zero facade methods.
+
+2. **Lean 4 Constructive Axiom Verification**:
+   - Built both Lean 4 packages via `lake build` and executed independent `#print axioms` census audits via `lake env lean Inventory.lean`:
+     - `research/x302_operational_reasoning/lean/`: 18 theorems verified. 17 theorems are completely axiom-free; 1 theorem (`conj_intro_support_mem`) depends solely on `propext`. Zero `Classical.choice`, zero `mathlib`, zero `sorry`, zero `admit`.
+     - `research/m114_solver_adapter/lean/`: 6 theorems verified. 3 theorems are completely axiom-free (`primal_soundness`, `fuel_monotonicity`, `refusal_preserves_state`); 3 theorems depend solely on `propext` (`int_nat_mul_le_mul`, `dual_combination_le`, `farkas_dual_soundness`). Zero `Classical.choice`, zero `mathlib`, zero `sorry`, zero `admit`.
+     - Pre-existing `research/alpha_engine/lean/`: 42 theorems verified strictly in `{propext, Quot.sound}` with zero `Classical.choice`.
+   - Total constructive theorems audited across Cohort 9: **66 theorems**, all 100% constructive within `{propext, Quot.sound}`.
+
+3. **Repository Blind Seal & Boundary Integrity**:
+   - Empirically verified via `git status`:
+     - `prompt/`: UNTOUCHED (0 changes)
+     - `paper/`: UNTOUCHED (0 changes)
+     - `code/`: UNTOUCHED (0 changes)
+     - `lean4/Derivation/`: UNTOUCHED (0 changes)
+     - `artifacts/`: UNTOUCHED (0 changes)
+     - `CLAUDE.md`: UNTOUCHED (0 changes)
+   - All modifications and new artifacts reside strictly under `research/` (`research/alpha_engine/`, `research/x302_operational_reasoning/`, `research/m114_solver_adapter/`, `research/REVIEW_GATE_STATUS.md`).
+
+4. **Test Authenticity & Non-Vacuousness**:
+   - Verified that test suites run against actual production implementations rather than mocks of the system under test.
+   - Verified comprehensive negative control matrices:
+     - X302: Corrupted entrenchment, duplicate IDs, cyclic justifications, unknown/inactive nodes, foundational contradictions with empty support, and tamper detection on `RevisionReceipt` SHA-256 hashes.
+     - M114: Corrupted primal witnesses (violating constraints, bounds, integrality, boolean domain), corrupted dual Farkas hyperplanes (negative multipliers, non-cancelling LHS, non-negative RHS, mismatched lengths), and zero/exhausted fuel bounds.
+     - Alpha Engine: Forged/fabricated keys (`FabricatedClassError`), silent drops/overlaps (`CensusError`), and unlicensed exploration attempts (`UnlicensedExploreError`).
+   - All 207 tests across the three test suites (34 X302 + 43 M114 + 130 Alpha Engine) execute genuine assertions and pass 100% locally.
+
+---
+
+## Claim Hygiene Statement (Cohort 9)
+
+1. **What it supports**:
+   - Supports the line-by-line narrative alignment audit of Paper 1 against Alpha Engine local receipts, providing exact textual remediations.
+   - Supports endogenous Truth Maintenance and AGM belief revision with minimal hitting set retraction and immutable receipts over finitary operational syntax.
+   - Supports certified exact rational primal and Farkas dual certificates for bounded linear, SAT, SMT, and integer feasibility problems with typed refusal on fuel exhaustion.
+   - Supports bounded priority, constraint-pruned, and cost-budgeted search policy extensions under strict disjoint census partitioning.
+   - Supports constructive formalization across 66 theorems in core Lean 4 under `{propext, Quot.sound}` without `Classical.choice` or `mathlib`.
+
+2. **What it does not support**:
+   - Does not support universal fault tolerance beyond declared unit test defect injections.
+   - Does not support infinite-domain first-order quantification or non-finitary theories in X302.
+   - Does not support non-linear transcendental constraints or unbounded search horizons without fuel in M114.
+   - Does not support autonomous demand generation (OB-1) or seventh `Event` constructors (Driver B), both of which remain strictly open.
+
+3. **Narrowest defensible claim**:
+   Under declared finite bounds and exact rational arithmetic, Cohort 9 establishes machine-checked constructive operational reasoning with minimal belief revision, certified exact rational solver duality receipts with state-preserving typed refusal, and bounded search policies satisfying strict census disjointness.
+
+4. **Next test needed**:
+   Author review and merge of Cohort 9 into `main`, followed by integrating the X302 belief revision and M114 solver adapter directly into the Alpha Engine multi-policy exploration loop.
+
+---
+
+## Sign-Off (Cohort 9)
+
+- **Lead Architect**: APPROVED (Verification Receipts: `evidence/receipt.json` in X302 and M114; `evidence/three_phase.json` in Alpha Engine)
+- **Adversarial Critic**: APPROVED (Comprehensive stress-testing, negative control matrices, and edge cases verified passing)
+- **Forensic Integrity Auditor**: CLEAN (Static code authenticity, Lean 4 constructive axioms, sealed boundaries, and test non-vacuousness empirically verified)
+- **Status**: READY FOR AUTHOR MERGE
+
+---
+
+# Previous Cohort History
+
 # Cohort 8 Review Gate Status
 
 **Session**: Genesis Cohort 8 Review Gate  

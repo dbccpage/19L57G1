@@ -1,0 +1,61 @@
+{
+  "authority_effect": "None",
+  "claim_hygiene": {
+    "axioms_within_propext_quot_sound": true,
+    "dependency_directed_tms_modeled": true,
+    "direct_and_operational_contradictions_detected": true,
+    "judgments_vs_hypotheses_modeled": true,
+    "minimal_retraction_agm_revision_modeled": true,
+    "revision_receipts_emitted": true,
+    "scope": "Operational reasoning with syntactic distinction between firm commitments (axioms) and speculative hypotheses, endogenous justification DAG tracking, direct and valuation contradiction detection, minimal hitting set AGM belief revision, and constructive soundness proofs.",
+    "zero_classical_choice": true,
+    "zero_mathlib": true
+  },
+  "lean": {
+    "allowed_axioms": [
+      "Quot.sound",
+      "propext"
+    ],
+    "axiom_free_count": 17,
+    "build_status": "PASS",
+    "theorem_count": 18,
+    "theorem_details": {
+      "X302OperationalReasoning.axiom_immutability": [],
+      "X302OperationalReasoning.axiom_leaf_support_empty": [],
+      "X302OperationalReasoning.conj_elim_support_eq": [],
+      "X302OperationalReasoning.conj_intro_support_mem": [
+        "propext"
+      ],
+      "X302OperationalReasoning.derivation_soundness": [],
+      "X302OperationalReasoning.direct_contradiction_conflict_set": [],
+      "X302OperationalReasoning.empty_support_disjoint": [],
+      "X302OperationalReasoning.foundational_contradiction_no_hypothesis": [],
+      "X302OperationalReasoning.hitting_set_invalidates_conflict": [],
+      "X302OperationalReasoning.hyp_leaf_support_singleton": [],
+      "X302OperationalReasoning.mp_support_mem_left": [],
+      "X302OperationalReasoning.mp_support_mem_right": [],
+      "X302OperationalReasoning.retraction_deactivates_conflict": [],
+      "X302OperationalReasoning.retraction_restores_consistency": [],
+      "X302OperationalReasoning.support_monotonicity": [],
+      "X302OperationalReasoning.vacuous_revision_empty_hitting_set": [],
+      "X302OperationalReasoning.vacuous_revision_preserves_support": [],
+      "X302OperationalReasoning.valuation_contradiction_conflict_set": []
+    }
+  },
+  "pytest": {
+    "exit_code": 0,
+    "passed": 34,
+    "status": "PASS"
+  },
+  "schema_version": 1,
+  "source_hashes": {
+    "lean/Inventory.lean": "8c8c371008cb0facb711bfbd615872c5d25ec69b1fe089cd6ae62ffbb6ccdad2",
+    "lean/OperationalReasoning.lean": "c2812394b581e2c8b58c508536dd6ace98d739b94aea4f6b7348dd8ef2c07fb9",
+    "reasoning.py": "7e01da8f522c9a30a24009bb73c5868169e0cdb2b8008349e1b0bdee802bb651",
+    "tests/test_reasoning.py": "0602384b315e28ca5fce2cd3b22c29a4646228421aa82d7c062c54b74086b2ab",
+    "verify.py": "e5f0ea07219396a76a7ffcde663ee438f15ce4321583739965a6b3df708218a9"
+  },
+  "status": "PASS",
+  "target": "Target X302: Operational Reasoning & Belief Revision",
+  "toolchain": "leanprover/lean4:v4.33.0"
+}
