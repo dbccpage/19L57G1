@@ -160,6 +160,25 @@ def build_sp2_f3_elements() -> list[Matrix2]:
     return elements
 
 
+def get_sp2_f3_multiplication_table() -> list[list[int]]:
+    """Generate the full 24x24 Cayley multiplication table for Sp(2, F_3) =~ SL(2, F_3).
+
+    Returns a 24x24 table where table[i][j] is the index of element_i * element_j.
+    """
+    elements = build_sp2_f3_elements()
+    rev = {m: idx for idx, m in enumerate(elements)}
+    table: list[list[int]] = []
+    for m1 in elements:
+        row: list[int] = []
+        for m2 in elements:
+            prod = m1.matmul(m2)
+            if prod not in rev:
+                raise RuntimeError(f"Multiplication closure failed for Sp(2, F_3): {m1} * {m2}")
+            row.append(rev[prod])
+        table.append(row)
+    return table
+
+
 def get_sp2_f3_generators() -> tuple[Matrix2, Matrix2]:
     """Generators H_3 and S_3 for Sp(2, F_3)."""
     h3 = Matrix2(0, 2, 1, 0, 3)

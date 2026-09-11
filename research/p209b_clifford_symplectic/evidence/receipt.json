@@ -100,15 +100,15 @@
   },
   "pytest": {
     "exit_code": 0,
-    "passed": 17,
+    "passed": 18,
     "status": "PASS"
   },
   "schema_version": 1,
   "source_hashes": {
-    "clifford_symplectic.py": "81c58b93fc1980106f5318a80ecf867799840e764637edd44449b27fb433db42",
+    "clifford_symplectic.py": "f242650b1c14b0d0c75a57d2584c2018d5efa62b79387baa53d51031097798e4",
     "lean/CliffordSymplectic.lean": "c8d1052f1bd08abdf9b0bf62e503a1c079015311e795208b4a96e27ed30b8c20",
     "lean/Inventory.lean": "a814ac33053a4f035c2aa0fa2b002387d5f92f64439137c27d15792de11f5dbc",
-    "tests/test_clifford.py": "add37693a1fa2a70c9977808155cea633b691cf227bfed29a7c01e0c4c64bbb4",
+    "tests/test_clifford.py": "745fcc202057a52ec426dcf1a89cd79304ab0f6cc3aea411617b315f8d000d46",
     "verify.py": "4d84cd80561560b96eed90bd8089415116a864f81c48e8bbd066981f41a66eb4"
   },
   "status": "PASS",

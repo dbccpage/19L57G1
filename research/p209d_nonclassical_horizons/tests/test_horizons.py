@@ -11,11 +11,25 @@ Tests:
 
 from __future__ import annotations
 
+import math
 import time
+from typing import Sequence
 import pytest
-import numpy as np
 
-from horizons import SymplecticTableau, PhaseSpaceCarrier, StabilizerMixture
+from horizons import (
+    MagicStateType,
+    PhaseSpaceCarrier,
+    StabilizerMixture,
+    SymplecticTableau,
+    mat_adjoint,
+    mat_mul,
+    outer_product,
+)
+
+
+def inner_product(u: Sequence[complex], v: Sequence[complex]) -> complex:
+    """Compute inner product <u|v> = sum u_i* v_i."""
+    return sum(u[i].conjugate() * v[i] for i in range(len(u)))
 
 
 def test_tableau_initialization() -> None:
@@ -63,8 +77,8 @@ def test_cnot_gate_update() -> None:
     tab.h(0)
     tab.cnot(0, 1)
     # Stabilizers should be X0 X1 and Z0 Z1
-    assert np.array_equal(tab.x[2], [1, 1]) and np.array_equal(tab.z[2], [0, 0])
-    assert np.array_equal(tab.x[3], [0, 0]) and np.array_equal(tab.z[3], [1, 1])
+    assert tab.x[2] == [1, 1] and tab.z[2] == [0, 0]
+    assert tab.x[3] == [0, 0] and tab.z[3] == [1, 1]
     assert tab.check_tableau_invariants()
 
 
@@ -95,10 +109,9 @@ def test_bell_pair_creation() -> None:
     tab.create_bell_pair(0, 1)
     assert tab.check_tableau_invariants()
     vec = tab.state_vector()
-    expected = np.array([1, 0, 0, 1], dtype=complex) / np.sqrt(2)
-    # Global sign factor allowed
-    overlap = np.abs(np.vdot(vec, expected))
-    assert np.isclose(overlap, 1.0)
+    expected = [1.0 / math.sqrt(2), 0.0, 0.0, 1.0 / math.sqrt(2)]
+    overlap = abs(inner_product(expected, vec))
+    assert math.isclose(overlap, 1.0, abs_tol=1e-8)
 
 
 def test_ghz_state_creation() -> None:
@@ -106,19 +119,17 @@ def test_ghz_state_creation() -> None:
     tab3.create_ghz()
     assert tab3.check_tableau_invariants()
     vec3 = tab3.state_vector()
-    expected3 = np.zeros(8, dtype=complex)
-    expected3[0] = 1.0 / np.sqrt(2)
-    expected3[7] = 1.0 / np.sqrt(2)
-    assert np.isclose(np.abs(np.vdot(vec3, expected3)), 1.0)
+    expected3 = [1.0 / math.sqrt(2) if i in (0, 7) else 0.0 for i in range(8)]
+    overlap3 = abs(inner_product(expected3, vec3))
+    assert math.isclose(overlap3, 1.0, abs_tol=1e-8)
 
     tab4 = SymplecticTableau(4)
     tab4.create_ghz()
     assert tab4.check_tableau_invariants()
     vec4 = tab4.state_vector()
-    expected4 = np.zeros(16, dtype=complex)
-    expected4[0] = 1.0 / np.sqrt(2)
-    expected4[15] = 1.0 / np.sqrt(2)
-    assert np.isclose(np.abs(np.vdot(vec4, expected4)), 1.0)
+    expected4 = [1.0 / math.sqrt(2) if i in (0, 15) else 0.0 for i in range(16)]
+    overlap4 = abs(inner_product(expected4, vec4))
+    assert math.isclose(overlap4, 1.0, abs_tol=1e-8)
 
 
 def test_deterministic_z_measurement() -> None:
@@ -225,46 +236,46 @@ def test_discrete_hudson_stabilizer_states() -> None:
     states = psc.stabilizer_states()
     assert len(states) == 12  # p * (p + 1) = 3 * 4 = 12 MUB states
     for idx, psi in enumerate(states):
-        rho = np.outer(psi, psi.conj())
+        rho = outer_product(psi, psi)
         assert psc.is_wigner_non_negative(rho), f"Stabilizer state {idx} failed non-negativity."
-        assert np.isclose(psc.wigner_negativity(rho), 0.0)
-        assert np.isclose(psc.mana(rho), 0.0)
+        assert math.isclose(psc.wigner_negativity(rho), 0.0, abs_tol=1e-8)
+        assert math.isclose(psc.mana(rho), 0.0, abs_tol=1e-8)
 
 
 def test_discrete_hudson_magic_states() -> None:
     psc = PhaseSpaceCarrier(p=3)
     # Norrell magic state |N> = (|1> - |2>) / sqrt(2)
     norrell = psc.norrell_magic_state()
-    rho_n = np.outer(norrell, norrell.conj())
+    rho_n = outer_product(norrell, norrell)
     assert not psc.is_wigner_non_negative(rho_n)
     w_n = psc.wigner_distribution(rho_n)
-    assert np.isclose(w_n[0, 0], -1.0 / 3.0)
+    assert math.isclose(w_n[0][0], -1.0 / 3.0, abs_tol=1e-8)
     assert psc.wigner_negativity(rho_n) > 0.3
     assert psc.mana(rho_n) > 0.5
 
     # Strange magic state |S> = (|1> + |2>) / sqrt(2)
     strange = psc.strange_magic_state()
-    rho_s = np.outer(strange, strange.conj())
+    rho_s = outer_product(strange, strange)
     assert not psc.is_wigner_non_negative(rho_s)
     w_s = psc.wigner_distribution(rho_s)
-    assert np.min(w_s) < -0.15
-    assert np.isclose(w_s[0, 1], -1.0 / 6.0)
+    assert min(min(row) for row in w_s) < -0.15
+    assert math.isclose(w_s[0][1], -1.0 / 6.0, abs_tol=1e-8)
 
 
 def test_wigner_clifford_orbit_covariance() -> None:
     psc = PhaseSpaceCarrier(p=3)
     # Carrier in |0>
-    vec0 = np.array([1, 0, 0], dtype=complex)
-    rho = np.outer(vec0, vec0.conj())
+    vec0 = [1.0 + 0.0j, 0.0 + 0.0j, 0.0 + 0.0j]
+    rho = outer_product(vec0, vec0)
     assert psc.is_wigner_non_negative(rho)
 
     # Apply displacement operators D(1, 0) and D(0, 1)
     d10 = psc.weyl(1, 0)
-    rho_d10 = d10 @ rho @ d10.conj().T
+    rho_d10 = mat_mul(mat_mul(d10, rho), mat_adjoint(d10))
     assert psc.is_wigner_non_negative(rho_d10)
 
     d01 = psc.weyl(0, 1)
-    rho_d01 = d01 @ rho @ d01.conj().T
+    rho_d01 = mat_mul(mat_mul(d01, rho), mat_adjoint(d01))
     assert psc.is_wigner_non_negative(rho_d01)
 
 
@@ -279,7 +290,7 @@ def test_magic_mixture_branch_scaling() -> None:
 
 def test_magic_mixture_clifford_parallel() -> None:
     mix = StabilizerMixture(n_carriers=2)
-    mix.inject_magic_state(0, magic_type="T")
+    mix.inject_magic_state(0, magic_type=MagicStateType.T)
     assert mix.branch_count == 2
     mix.apply_h(1)
     mix.apply_cnot(0, 1)
@@ -319,7 +330,7 @@ def test_pauli_representation_and_copy() -> None:
     assert cloned.check_tableau_invariants()
     cloned.h(0)
     # Original should remain unaffected
-    assert not np.array_equal(tab.x, cloned.x)
+    assert tab.x != cloned.x
 
     with pytest.raises(IndexError):
         tab.h(5)

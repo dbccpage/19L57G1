@@ -12,9 +12,9 @@
 
 ## Executive Summary
 
-The Lead Architect and Adversarial Critic have constructed, executed, and audited the Cohort 8 Master Empirical Adversarial Stress Suite (`research/adversarial_challenge_cohort8.py`). All 1998 stress checks across Targets P209a, P209b, P209c, and P209d, the Cohort 8 Cross-Target Integration Bridges, the repository blind seal audit, and the constructive core Lean 4 axiom audit passed cleanly with zero unhandled exceptions, zero regressions, zero seal violations, and 100% constructive core Lean 4 axioms strictly within `{propext, Quot.sound}` (zero `Classical.choice`, zero `mathlib`). Across all four packages, 264 Lean 4 theorems were audited and verified.
+The Lead Architect and Adversarial Critic have constructed, executed, and audited the Cohort 8 Master Empirical Adversarial Stress Suite (`research/adversarial_challenge_cohort8.py`). All 2004 stress checks across Targets P209a, P209b, P209c, and P209d, the Cohort 8 Cross-Target Integration Bridges, the repository blind seal audit, and the constructive core Lean 4 axiom audit passed cleanly with zero unhandled exceptions, zero regressions, zero seal violations, and 100% constructive core Lean 4 axioms strictly within `{propext, Quot.sound}` (zero `Classical.choice`, zero `mathlib`). Across all four packages, 264 Lean 4 theorems were audited and verified.
 
-In addition, the two-axis code review (Standards & Spec) was completed across all four targets. The vocabulary firewall (`ci/check_prose_watchlist.py`) verified 100% clean (49 watched terms, 131 files with pinned hits, 0 unpinned hits), and the repository blind seal verified zero modifications to sealed directories (`prompt/`, `paper/`, `code/`, `lean4/Derivation/`, `artifacts/`, `CLAUDE.md`).
+In addition, the two-axis code review (Standards & Spec) was completed across all four targets. Standards review findings (elimination of unpinned `numpy` dependency in favor of pure standard library, elimination of Fowler code smells via typed `MagicStateType(Enum)` and refactored `y_gate`) and Spec review findings (materialization of the full 24x24 Cayley multiplication table for $\operatorname{Sp}(2, \mathbb{F}_3)$) were fully remediated. The vocabulary firewall (`ci/check_prose_watchlist.py`) verified 100% clean (49 watched terms, 131 files with pinned hits, 0 unpinned hits), and the repository blind seal verified zero modifications to sealed directories (`prompt/`, `paper/`, `code/`, `lean4/Derivation/`, `artifacts/`, `CLAUDE.md`).
 
 ---
 
@@ -36,9 +36,9 @@ In addition, the two-axis code review (Standards & Spec) was completed across al
 ### 3. Target P209b: Discrete Clifford Group Quotients & Finite Symplectic Geometry
 - **Canonical Symplectic Form**: Validated alternating, antisymmetric, and bilinear properties of $\omega(u, v) = u_x v_z - u_z v_x \pmod p$ across $\mathbb{F}_p^2$ ($p \in \{2, 3, 5, 7\}$).
 - **Symplectic Invariance**: Verified that $M \in \operatorname{Mat}_2(\mathbb{F}_p)$ preserves the symplectic form if and only if $\det(M) \equiv 1 \pmod p$.
-- **Group Quotients $\operatorname{Sp}(2, \mathbb{F}_2) \cong S_3$ and $\operatorname{Sp}(2, \mathbb{F}_3) \cong \operatorname{SL}(2, \mathbb{F}_3)$**: Verified full Cayley multiplication table closure, generator sets $\{H, S\}$, and order spectra: $\{1: 1, 2: 3, 3: 2\}$ for order 6, and $\{1: 1, 2: 1, 3: 8, 4: 6, 6: 8\}$ for order 24.
+- **Group Quotients $\operatorname{Sp}(2, \mathbb{F}_2) \cong S_3$ and $\operatorname{Sp}(2, \mathbb{F}_3) \cong \operatorname{SL}(2, \mathbb{F}_3)$**: Verified full Cayley multiplication table closure (6x6 for $S_3$ and 24x24 for $\operatorname{SL}(2, \mathbb{F}_3)$), generator sets $\{H, S\}$, and order spectra: $\{1: 1, 2: 3, 3: 2\}$ for order 6, and $\{1: 1, 2: 1, 3: 8, 4: 6, 6: 8\}$ for order 24.
 - **Eastin-Knill Finite Quotient Obstruction**: Formally verified that transversal gate subgroups quotient to strictly finite groups of order $p(p^2 - 1)$, establishing an algebraic obstruction to dense covering of continuous Lie groups $\operatorname{SU}(p)$.
-- **Verification Receipts**: 633 checks in `adversarial_challenge_cohort8.py`; 17/17 pytest tests passing; 73 formal theorems in `CliffordSymplectic.lean` within `{propext, Quot.sound}` (71 axiom-free).
+- **Verification Receipts**: 639 checks in `adversarial_challenge_cohort8.py`; 18/18 pytest tests passing; 73 formal theorems in `CliffordSymplectic.lean` within `{propext, Quot.sound}` (71 axiom-free).
 
 ### 4. Target P209c: Exact Integer & Pauli String Stabilizer Error-Correcting Codes
 - **Pauli String Algebra**: Validated exact commutation/anticommutation dichotomy, Gaussian rational representations, and multi-carrier tensor products.
@@ -54,18 +54,15 @@ In addition, the two-axis code review (Standards & Spec) was completed across al
 - **Magic State Resource Scaling**: Verified that tracking $k$ injected magic states breaks single-tableau closure and mandates maintaining $2^k$ stabilizer branches, separating polynomial Clifford simulation from non-stabilizer contextuality.
 - **Verification Receipts**: 228 checks in `adversarial_challenge_cohort8.py`; 20/20 pytest tests passing; 55 formal theorems in `NonclassicalHorizons.lean` within `{propext, Quot.sound}` (22 axiom-free).
 
-### 6. Two-Axis Review Loop (Standards & Spec - Cohort 8)
-- **Spec Review**:
-  - R1 (P209a): Complete; 0 spec gaps, 0 scope creep.
-  - R2 (P209b): Complete; 0 spec gaps, 0 scope creep.
-  - R3 (P209c): Complete; 0 spec gaps, 0 scope creep.
-  - R4 (P209d): Complete; 0 spec gaps, 0 scope creep.
-  - R5 (Repository Seal & Axiom Cleanliness): Complete; 0 seal violations, 0 unapproved axioms.
-- **Standards Review**:
-  - Code layout: designated directories under `research/`, co-located tests, standard pyproject.toml / lakefile.toml configurations.
-  - Typing cleanliness: full type annotations in Python, no unhandled exceptions.
-  - Zero Fowler code smells: modular decomposition, pure functions, clean data structures.
-  - Claim Hygiene: strictly compliant across all docstrings, READMEs, and CLAIMS files.
+### 6. Two-Axis Review Loop & Remediations (Standards & Spec - Cohort 8)
+- **Spec Review & Remediation**:
+  - Spec Review identified partial Cayley table coverage for $\operatorname{Sp}(2, \mathbb{F}_3)$ (order 24).
+  - *Remediation*: Implemented `get_sp2_f3_multiplication_table()` generating the full $24 \times 24$ Cayley multiplication table, verifying Latin square permutations and identity row/col preservation in `test_clifford.py` and `adversarial_challenge_cohort8.py`.
+  - All requirements across R1 (P209a), R2 (P209b), R3 (P209c), R4 (P209d), and R5 (Repository Seal) fully satisfied: 0 spec gaps, 0 scope creep.
+- **Standards Review & Remediation**:
+  - Standards Review identified unpinned external dependency `numpy` in P209d (`horizons.py`, `test_horizons.py`, `adversarial_challenge_cohort8.py`) violating pure standard library rule, and Fowler smells in `horizons.py` (speculative generality in `inject_magic_state` and duplicated code in `y_gate`).
+  - *Remediation*: Replaced `numpy` entirely with 100% pure standard library implementations (`BitMatrix`, `mat_mul`, `mat_adjoint`, `outer_product`, `vec_norm`, spectral projection formula for 3x3 MUB state extraction). Refactored `inject_magic_state` with typed `MagicStateType(Enum)` removing speculative dead branches, and refactored `y_gate` loop.
+  - Zero Fowler code smells: 0 violations of documented repo standards.
 - **Axiom Discipline**: All 264 Lean 4 theorems across the four Cohort 8 packages audited via `Inventory.lean` and confirmed strictly within `{propext, Quot.sound}` (zero `Classical.choice`, zero `mathlib`).
 - **Vocabulary Firewall**: `ci/check_prose_watchlist.py` verified 100% clean (49 watched terms, 131 files with pinned hits, 0 unpinned hits).
 - **Repository Blind Seal**: Zero touches to sealed directories (`prompt/`, `paper/`, `code/`, `lean4/Derivation/`, `artifacts/`, `CLAUDE.md`).

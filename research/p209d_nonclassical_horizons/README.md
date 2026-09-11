@@ -21,8 +21,8 @@ On an $n$-carrier discrete substrate over the binary field $\\mathbb{F}_2$:
 - **Measurement and Reduction**: Pauli $Z$-measurements execute in $O(n^2)$ steps, distinguishing deterministic outcomes (stabilizer subspace projection) from random outcomes (generating state collapse and updating the tableau basis).
 
 ### 2. The Non-Classicality Horizon & Discrete Hudson Boundary
-On discrete carrier phase_space $\\mathbb{F}_p \\times \\mathbb{F}_p$ for odd_prime dimension $p = 3$:
-- **Discrete Wigner Quasiprobability**: Constructed via Gross phase point operators $A(q, p)$ derived from Weyl-Heisenberg displacement operators $D(u, v) = \\omega^{2 u v} X^u Z^v$.
+On discrete carrier phase_space $\mathbb{F}_p \times \mathbb{F}_p$ for odd_prime dimension $p = 3$:
+- **Discrete Wigner Quasiprobability**: Constructed via Gross phase_point operators $A(q, p)$ derived from Weyl-Heisenberg displacement operators $D(u, v) = \omega^{2 u v} X^u Z^v$.
 - **Stabilizer States**: Inhabit the non-negative Wigner cone ($W \\ge 0$) everywhere across the $p \\times p$ grid.
 - **Magic States**: Break non-negativity, attaining strictly negative Wigner quasiprobability values ($W(0, 0) = -1/3 < 0$), establishing contextuality as the operational resource boundary.
 

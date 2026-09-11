@@ -24,6 +24,7 @@ from clifford_symplectic import (
     get_sp2_f2_generators,
     get_sp2_f2_multiplication_table,
     get_sp2_f3_generators,
+    get_sp2_f3_multiplication_table,
     omega,
 )
 
@@ -208,3 +209,25 @@ def test_matrix_non_symplectic_detection() -> None:
     m_det2 = Matrix2(2, 0, 0, 1, 3)
     assert m_det2.det == 2
     assert not m_det2.preserves_symplectic_form()
+
+
+def test_sp2_f3_multiplication_table_properties() -> None:
+    """Validate full 24x24 Cayley multiplication table for Sp(2, F_3)."""
+    table = get_sp2_f3_multiplication_table()
+    assert len(table) == 24
+    elements = build_sp2_f3_elements()
+    identity = Matrix2(1, 0, 0, 1, 3)
+    id_idx = elements.index(identity)
+
+    # Check each row and column is of length 24 and forms a Latin square permutation
+    for i in range(24):
+        assert len(table[i]) == 24
+        assert len(set(table[i])) == 24
+        # Identity row and column
+        assert table[id_idx][i] == i
+        assert table[i][id_idx] == i
+
+    for col in range(24):
+        col_vals = [table[r][col] for r in range(24)]
+        assert len(set(col_vals)) == 24
+

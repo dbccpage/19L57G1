@@ -71,15 +71,15 @@ Axiom Scope: Strictly within `{propext, Quot.sound}`; zero `Classical.choice`; z
   - `research/p209d_nonclassical_horizons/tests/test_horizons.py`
 - **Claim Discipline**:
   1. *What it supports*: Demonstrates in odd_prime dimension $p = 3$ that stabilizer states remain within the non-negative Wigner cone while magic states cross into Wigner negativity.
-  2. *What it does not support*: Does not imply that even-dimensional carriers admit identical phase point definitions without contextual extensions.
-  3. *Narrowest defensible claim*: For the explicit states evaluated in dimension 3, $|0\\rangle$ and $|+\\rangle$ have non-negative Wigner values everywhere, while $|N\\rangle$ attains value $-1/3$ at $(0, 0)$.
+  2. *What it does not support*: Does not imply that even-dimensional carriers admit identical phase_point definitions without contextual extensions.
+  3. *Narrowest defensible claim*: For the explicit states evaluated in dimension 3, $|0\rangle$ and $|+\rangle$ have non-negative Wigner values everywhere, while $|N\rangle$ attains value $-1/3$ at $(0, 0)$.
   4. *Next test needed*: Characterize the full convex hull of Wigner non-negative states in dimension $p = 5$.
 
 ---
 
 ## CL-P209D-04: Exponential Resource Scaling for Injected Magic States
 
-- **Statement**: Pure Clifford operations on $n$ carriers simulate in polynomial time $O(m \\cdot n^2)$ via tableau updates. Injecting $k$ non-stabilizer magic states breaks single-tableau closure, requiring tracking a superposition mixture over $2^k$ stabilizer branches, establishing the Gottesman-Knill computational boundary.
+- **Statement**: Pure Clifford operations on $n$ carriers simulate in polynomial time $O(m \cdot n^2)$ via tableau updates. Injecting $k$ non-stabilizer magic states breaks single-tableau closure, requiring tracking a superposition mixture over $2^k$ stabilizer branches, establishing the Gottesman-Knill computational boundary.
 - **Formal Theorems**:
   - `P209dNonclassicalHorizons.clifford_cost_polynomial`
   - `P209dNonclassicalHorizons.clifford_cost_linear_in_gates`
@@ -95,19 +95,19 @@ Axiom Scope: Strictly within `{propext, Quot.sound}`; zero `Classical.choice`; z
 - **Claim Discipline**:
   1. *What it supports*: Shows that tracking $k$ independent magic states in the standard stabilizer basis mandates $2^k$ simultaneous tableau components.
   2. *What it does not support*: Does not exclude approximate classical heuristic sampling algorithms.
-  3. *Narrowest defensible claim*: The exact branch count for $k$ tensor-product magic state injections under the declared superposition representation grows as $2^k$, strictly exceeding $k^2$ for $k \\ge 5$.
+  3. *Narrowest defensible claim*: The exact branch count for $k$ tensor-product magic state injections under the declared superposition representation grows as $2^k$, strictly exceeding $k^2$ for $k \ge 5$.
   4. *Next test needed*: Benchmark stabilizer rank decomposition approximations using low-rank gadget expansions.
 
 ---
 
 ## CL-P209D-05: Teleportation and Dense Coding via Symplectic Tableaux
 
-- **Statement**: Bipartite entanglement protocols (teleportation across all 4 measurement outcome branches and dense coding of 2 classical bits per Bell carrier) are faithfully simulated and verified via polynomial-time symplectic tableau updates and Pauli measurements.
+- **Statement**: Bipartite carrier correlation protocols (teleportation across all 4 measurement outcome branches and dense coding of 2 classical bits per Bell carrier) are faithfully simulated and verified via polynomial-time symplectic tableau updates and Pauli measurements.
 - **Evidence Paths**:
   - `research/p209d_nonclassical_horizons/horizons.py`
   - `research/p209d_nonclassical_horizons/tests/test_horizons.py`
 - **Claim Discipline**:
   1. *What it supports*: Confirms that stabilizer tableau tracking and Pauli measurement reductions execute teleportation and dense coding with exact state recovery.
-  2. *What it does not support*: Does not model continuous channel noise or imperfect detector efficiency.
+  2. *What it does not support*: Does not model continuous channel noise or imperfect measurement readout.
   3. *Narrowest defensible claim*: Across all 4 classical measurement branches in the 3-carrier protocol, Pauli corrections applied to carrier 2 reconstruct the injected input state.
-  4. *Next test needed*: Simulation of multi-hop entanglement swapping over distributed network nodes.
+  4. *Next test needed*: Simulation of multi-step carrier correlation transfer over distributed network nodes.

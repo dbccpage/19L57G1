@@ -14,16 +14,146 @@ Provides:
 
 from __future__ import annotations
 
+import cmath
+from enum import Enum
 import math
-from typing import Any, Callable, cast
-import numpy as np
+import random
+from typing import Any, Callable, Sequence
+
+
+class MagicStateType(Enum):
+    """Supported non-stabilizer magic state injection types."""
+    T = "T"
+
+
+class BitMatrix:
+    """Lightweight 2D bit matrix supporting both item access [r, c] and row slice [r]."""
+
+    __slots__ = ("rows", "cols", "_data")
+
+    def __init__(self, rows: int, cols: int, data: list[list[int]] | None = None) -> None:
+        self.rows = rows
+        self.cols = cols
+        if data is None:
+            self._data = [[0] * cols for _ in range(rows)]
+        else:
+            self._data = [list(r) for r in data]
+
+    def __getitem__(self, item: Any) -> Any:
+        if isinstance(item, tuple):
+            r, c = item
+            return self._data[r][c]
+        return self._data[item]
+
+    def __setitem__(self, item: Any, value: Any) -> None:
+        if isinstance(item, tuple):
+            r, c = item
+            self._data[r][c] = int(value)
+        else:
+            self._data[item] = list(value)
+
+    def copy(self) -> BitMatrix:
+        return BitMatrix(self.rows, self.cols, [r[:] for r in self._data])
+
+    def __eq__(self, other: Any) -> bool:
+        if isinstance(other, BitMatrix):
+            return self._data == other._data
+        if isinstance(other, list):
+            return self._data == other
+        return False
+
 
 PAULI_MATRICES = {
-    "I": np.eye(2, dtype=complex),
-    "X": np.array([[0, 1], [1, 0]], dtype=complex),
-    "Y": np.array([[0, -1j], [1j, 0]], dtype=complex),
-    "Z": np.array([[1, 0], [0, -1]], dtype=complex),
+    "I": [[1.0 + 0.0j, 0.0 + 0.0j], [0.0 + 0.0j, 1.0 + 0.0j]],
+    "X": [[0.0 + 0.0j, 1.0 + 0.0j], [1.0 + 0.0j, 0.0 + 0.0j]],
+    "Y": [[0.0 + 0.0j, -1.0j], [1.0j, 0.0 + 0.0j]],
+    "Z": [[1.0 + 0.0j, 0.0 + 0.0j], [0.0 + 0.0j, -1.0 + 0.0j]],
 }
+
+
+def mat_mul(A: Sequence[Sequence[complex]], B: Sequence[Sequence[complex]]) -> list[list[complex]]:
+    """Multiply two complex matrices."""
+    rA, cA = len(A), len(A[0])
+    rB, cB = len(B), len(B[0])
+    if cA != rB:
+        raise ValueError("Incompatible matrix dimensions.")
+    res = [[0.0 + 0.0j] * cB for _ in range(rA)]
+    for i in range(rA):
+        for k in range(cA):
+            aik = A[i][k]
+            if aik != 0:
+                for j in range(cB):
+                    res[i][j] += aik * B[k][j]
+    return res
+
+
+def mat_add(A: Sequence[Sequence[complex]], B: Sequence[Sequence[complex]]) -> list[list[complex]]:
+    """Add two complex matrices."""
+    return [[A[i][j] + B[i][j] for j in range(len(A[0]))] for i in range(len(A))]
+
+
+def mat_sub(A: Sequence[Sequence[complex]], B: Sequence[Sequence[complex]]) -> list[list[complex]]:
+    """Subtract two complex matrices."""
+    return [[A[i][j] - B[i][j] for j in range(len(A[0]))] for i in range(len(A))]
+
+
+def mat_scale(A: Sequence[Sequence[complex]], s: complex) -> list[list[complex]]:
+    """Multiply a matrix by a complex scalar."""
+    return [[A[i][j] * s for j in range(len(A[0]))] for i in range(len(A))]
+
+
+def mat_trace(A: Sequence[Sequence[complex]]) -> complex:
+    """Compute the trace of a square matrix."""
+    return sum(A[i][i] for i in range(len(A)))
+
+
+def mat_adjoint(A: Sequence[Sequence[complex]]) -> list[list[complex]]:
+    """Compute the conjugate transpose of a matrix."""
+    return [[A[j][i].conjugate() for j in range(len(A))] for i in range(len(A[0]))]
+
+
+def mat_kron(A: Sequence[Sequence[complex]], B: Sequence[Sequence[complex]]) -> list[list[complex]]:
+    """Compute the Kronecker product of two matrices."""
+    rA, cA = len(A), len(A[0])
+    rB, cB = len(B), len(B[0])
+    res = [[0.0 + 0.0j] * (cA * cB) for _ in range(rA * rB)]
+    for i in range(rA):
+        for j in range(cA):
+            aij = A[i][j]
+            if aij != 0:
+                for k in range(rB):
+                    for l in range(cB):
+                        res[i * rB + k][j * cB + l] = aij * B[k][l]
+    return res
+
+
+def mat_pow(A: Sequence[Sequence[complex]], power: int) -> list[list[complex]]:
+    """Compute power of a square matrix via repeated squaring."""
+    n = len(A)
+    res = [[1.0 + 0.0j if i == j else 0.0 + 0.0j for j in range(n)] for i in range(n)]
+    base = [list(r) for r in A]
+    p = power
+    while p > 0:
+        if p % 2 == 1:
+            res = mat_mul(res, base)
+        base = mat_mul(base, base)
+        p //= 2
+    return res
+
+
+def mat_vec_mul(M: Sequence[Sequence[complex]], v: Sequence[complex]) -> list[complex]:
+    """Multiply matrix by vector."""
+    return [sum(M[i][j] * v[j] for j in range(len(v))) for i in range(len(M))]
+
+
+def outer_product(u: Sequence[complex], v: Sequence[complex]) -> list[list[complex]]:
+    """Compute outer product |u><v|."""
+    return [[u[i] * v[j].conjugate() for j in range(len(v))] for i in range(len(u))]
+
+
+def vec_norm(v: Sequence[complex]) -> float:
+    """Compute L2 norm of complex vector."""
+    return math.sqrt(sum(abs(x) ** 2 for x in v))
 
 
 def pauli_mult_phase(x1: int, z1: int, x2: int, z2: int) -> int:
@@ -53,9 +183,9 @@ class SymplecticTableau:
         if n < 1:
             raise ValueError("Carrier count must be positive.")
         self.n = n
-        self.x = np.zeros((2 * n, n), dtype=int)
-        self.z = np.zeros((2 * n, n), dtype=int)
-        self.r = np.zeros(2 * n, dtype=int)
+        self.x = BitMatrix(2 * n, n)
+        self.z = BitMatrix(2 * n, n)
+        self.r = [0] * (2 * n)
         for i in range(n):
             self.x[i, i] = 1  # destabilizer D_i = X_i
             self.z[i + n, i] = 1  # stabilizer S_i = Z_i
@@ -70,7 +200,10 @@ class SymplecticTableau:
 
     def omega(self, row1: int, row2: int) -> int:
         """Compute the symplectic inner product between row1 and row2 over F_2."""
-        val = int(np.sum(self.x[row1] * self.z[row2] + self.z[row1] * self.x[row2]) % 2)
+        val = sum(
+            self.x[row1][j] * self.z[row2][j] + self.z[row1][j] * self.x[row2][j]
+            for j in range(self.n)
+        ) % 2
         return val
 
     def check_tableau_invariants(self) -> bool:
@@ -132,12 +265,11 @@ class SymplecticTableau:
         return self
 
     def y_gate(self, a: int) -> SymplecticTableau:
-        """Apply Y gate to carrier a (derived as S X S_dag)."""
+        """Apply Y gate to carrier a (derived as S X S_dag where S_dag = S^3)."""
         self.s_gate(a)
         self.x_gate(a)
-        self.s_gate(a)
-        self.s_gate(a)
-        self.s_gate(a)
+        for _ in range(3):
+            self.s_gate(a)
         return self
 
     def row_mult(self, h: int, i: int) -> None:
@@ -147,8 +279,9 @@ class SymplecticTableau:
             for j in range(self.n)
         )
         self.r[h] = ((2 * self.r[h] + 2 * self.r[i] + delta) % 4) // 2
-        self.x[h] ^= self.x[i]
-        self.z[h] ^= self.z[i]
+        for j in range(self.n):
+            self.x[h, j] ^= self.x[i, j]
+            self.z[h, j] ^= self.z[i, j]
 
     def measure_z(self, a: int, forced_outcome: int | None = None) -> int:
         """Simulate Pauli Z measurement on carrier a with exact tableau reduction.
@@ -169,19 +302,19 @@ class SymplecticTableau:
             for i in range(2 * n):
                 if i != p and i != p - n and self.x[i, a] == 1:
                     self.row_mult(i, p)
-            self.x[p - n] = self.x[p].copy()
-            self.z[p - n] = self.z[p].copy()
+            self.x[p - n] = self.x[p][:]
+            self.z[p - n] = self.z[p][:]
             self.r[p - n] = self.r[p]
-            self.x[p] = np.zeros(n, dtype=int)
-            self.z[p] = np.zeros(n, dtype=int)
+            self.x[p] = [0] * n
+            self.z[p] = [0] * n
             self.z[p, a] = 1
-            outcome = int(np.random.randint(0, 2)) if forced_outcome is None else forced_outcome
+            outcome = random.randint(0, 1) if forced_outcome is None else forced_outcome
             self.r[p] = outcome
             return outcome
         else:
             # Case 2: Commuting stabilizer -> deterministic measurement outcome
-            scratch_x = np.zeros(n, dtype=int)
-            scratch_z = np.zeros(n, dtype=int)
+            scratch_x = [0] * n
+            scratch_z = [0] * n
             scratch_r = 0
             for i in range(n):
                 if self.x[i, a] == 1:
@@ -190,8 +323,9 @@ class SymplecticTableau:
                         for j in range(n)
                     )
                     scratch_r = ((2 * scratch_r + 2 * self.r[i + n] + delta) % 4) // 2
-                    scratch_x ^= self.x[i + n]
-                    scratch_z ^= self.z[i + n]
+                    for j in range(n):
+                        scratch_x[j] ^= self.x[i + n, j]
+                        scratch_z[j] ^= self.z[i + n, j]
             return scratch_r
 
     def to_pauli_strings(self) -> dict[str, list[str]]:
@@ -216,15 +350,16 @@ class SymplecticTableau:
         stab = [row_to_str(i + self.n) for i in range(self.n)]
         return {"destabilizers": destab, "stabilizers": stab}
 
-    def state_vector(self) -> np.ndarray:
+    def state_vector(self) -> list[complex]:
         """Compute exact state vector for small carrier counts n <= 10."""
         if self.n > 10:
             raise ValueError("State vector extraction bounded to n <= 10.")
         dim = 1 << self.n
-        proj = np.eye(dim, dtype=complex)
+        proj = [[1.0 + 0.0j if i == j else 0.0 + 0.0j for j in range(dim)] for i in range(dim)]
         for i in range(self.n):
             row = i + self.n
-            mat = (-1) ** int(self.r[row]) * np.eye(1, dtype=complex)
+            sign_factor = -1.0 if self.r[row] == 1 else 1.0
+            mat = [[sign_factor + 0.0j]]
             for j in range(self.n):
                 xj = self.x[row, j]
                 zj = self.z[row, j]
@@ -236,22 +371,23 @@ class SymplecticTableau:
                     pj = PAULI_MATRICES["Y"]
                 else:
                     pj = PAULI_MATRICES["Z"]
-                mat = np.kron(mat, pj)
-            proj = proj @ ((np.eye(dim, dtype=complex) + mat) / 2.0)
+                mat = mat_kron(mat, pj)
+            id_dim = [[1.0 + 0.0j if r == c else 0.0 + 0.0j for c in range(dim)] for r in range(dim)]
+            term = mat_scale(mat_add(id_dim, mat), 0.5)
+            proj = mat_mul(proj, term)
 
         for b in range(dim):
-            seed = np.zeros(dim, dtype=complex)
-            seed[b] = 1.0
-            candidate = proj @ seed
-            norm = np.linalg.norm(candidate)
+            seed = [1.0 + 0.0j if k == b else 0.0 + 0.0j for k in range(dim)]
+            candidate = mat_vec_mul(proj, seed)
+            norm = vec_norm(candidate)
             if norm > 1e-8:
-                return cast(np.ndarray, candidate / norm)
+                return [c / norm for c in candidate]
         raise RuntimeError("Failed to extract state vector from stabilizer projector.")
 
-    def density_matrix(self) -> np.ndarray:
+    def density_matrix(self) -> list[list[complex]]:
         """Compute exact density matrix operator for small carrier counts."""
         vec = self.state_vector()
-        return np.outer(vec, vec.conj())
+        return outer_product(vec, vec)
 
     def create_bell_pair(self, q0: int = 0, q1: int = 1) -> SymplecticTableau:
         """Generate standard Bell state (|00> + |11>)/sqrt(2) on carriers q0, q1."""
@@ -303,93 +439,107 @@ class PhaseSpaceCarrier:
         if p < 3 or p % 2 == 0:
             raise ValueError("Discrete Gross phase_space requires odd_prime dimension p >= 3.")
         self.p = p
-        self.omega = np.exp(2j * np.pi / p)
+        self.omega = cmath.exp(2j * math.pi / p)
         # Shift X and Clock Z operators
-        self.X = np.zeros((p, p), dtype=complex)
+        self.X = [[0.0 + 0.0j] * p for _ in range(p)]
         for i in range(p):
-            self.X[(i + 1) % p, i] = 1.0
-        self.Z = np.diag([self.omega ** i for i in range(p)])
+            self.X[(i + 1) % p][i] = 1.0
+        self.Z = [[0.0 + 0.0j] * p for _ in range(p)]
+        for i in range(p):
+            self.Z[i][i] = self.omega ** i
         # Modular inverse of 2 mod p
         self.inv2 = (p + 1) // 2
 
         # Point operator at origin
-        a00 = np.zeros((p, p), dtype=complex)
+        a00 = [[0.0 + 0.0j] * p for _ in range(p)]
         for u in range(p):
             for v in range(p):
-                a00 += self.weyl(u, v)
-        self.A00 = a00 / float(p)
+                a00 = mat_add(a00, self.weyl(u, v))
+        self.A00 = mat_scale(a00, 1.0 / float(p))
 
-    def weyl(self, u: int, v: int) -> np.ndarray:
+    def weyl(self, u: int, v: int) -> list[list[complex]]:
         """Compute Weyl-Heisenberg displacement operator D(u, v) = omega^(inv2 * u * v) X^u Z^v."""
         u_mod = u % self.p
         v_mod = v % self.p
         phase_factor = self.omega ** ((self.inv2 * u_mod * v_mod) % self.p)
-        x_pow = np.linalg.matrix_power(self.X, u_mod)
-        z_pow = np.linalg.matrix_power(self.Z, v_mod)
-        return cast(np.ndarray, phase_factor * (x_pow @ z_pow))
+        x_pow = mat_pow(self.X, u_mod)
+        z_pow = mat_pow(self.Z, v_mod)
+        return mat_scale(mat_mul(x_pow, z_pow), phase_factor)
 
-    def point_operator(self, q: int, p_coord: int) -> np.ndarray:
+    def point_operator(self, q: int, p_coord: int) -> list[list[complex]]:
         """Compute discrete phase_space point operator A(q, p)."""
         d = self.weyl(q, p_coord)
-        return cast(np.ndarray, d @ self.A00 @ d.conj().T)
+        d_adj = mat_adjoint(d)
+        return mat_mul(mat_mul(d, self.A00), d_adj)
 
-    def wigner_distribution(self, rho: np.ndarray) -> np.ndarray:
+    def wigner_distribution(self, rho: Sequence[Sequence[complex]]) -> list[list[float]]:
         """Calculate the p x p discrete Wigner quasiprobability grid W(q, p)."""
-        w = np.zeros((self.p, self.p), dtype=float)
+        w: list[list[float]] = [[0.0] * self.p for _ in range(self.p)]
         for q in range(self.p):
             for p_coord in range(self.p):
                 op = self.point_operator(q, p_coord)
-                val = float(np.real(np.trace(rho @ op))) / float(self.p)
-                w[q, p_coord] = val
+                val = float(mat_trace(mat_mul(rho, op)).real) / float(self.p)
+                w[q][p_coord] = val
         return w
 
-    def is_wigner_non_negative(self, rho: np.ndarray, tol: float = 1e-10) -> bool:
+    def is_wigner_non_negative(self, rho: Sequence[Sequence[complex]], tol: float = 1e-10) -> bool:
         """Check whether W(q, p) >= 0 everywhere on the phase_space grid."""
         w = self.wigner_distribution(rho)
-        return bool(np.min(w) >= -tol)
+        return all(w[q][p_coord] >= -tol for q in range(self.p) for p_coord in range(self.p))
 
-    def wigner_negativity(self, rho: np.ndarray) -> float:
+    def wigner_negativity(self, rho: Sequence[Sequence[complex]]) -> float:
         """Compute sum of negative Wigner quasiprobability values: sum max(0, -W(q, p))."""
         w = self.wigner_distribution(rho)
-        neg = np.sum(np.maximum(0.0, -w))
+        neg = sum(max(0.0, -w[q][p_coord]) for q in range(self.p) for p_coord in range(self.p))
         return float(neg)
 
-    def mana(self, rho: np.ndarray) -> float:
+    def mana(self, rho: Sequence[Sequence[complex]]) -> float:
         """Compute logarithmic Mana non-classicality measure: log2(sum |W(q, p)|)."""
         w = self.wigner_distribution(rho)
-        total_l1 = np.sum(np.abs(w))
+        total_l1 = sum(abs(w[q][p_coord]) for q in range(self.p) for p_coord in range(self.p))
         return float(math.log2(max(1.0, total_l1)))
 
-    def stabilizer_states(self) -> list[np.ndarray]:
-        """Return pure stabilizer basis states across all p + 1 MUBs in dimension p."""
+    def stabilizer_states(self) -> list[list[complex]]:
+        """Return pure stabilizer basis states across all p + 1 MUBs in dimension p = 3."""
         p = self.p
-        states: list[np.ndarray] = []
+        states: list[list[complex]] = []
         # MUB 0: Z-basis
         for k in range(p):
-            vec = np.zeros(p, dtype=complex)
-            vec[k] = 1.0
+            vec = [1.0 + 0.0j if i == k else 0.0 + 0.0j for i in range(p)]
             states.append(vec)
-        # MUBs 1 .. p: eigenstates of X Z^k
+
+        # MUBs 1 .. p: eigenstates of Weyl(1, k)
+        I_p = [[1.0 + 0.0j if i == j else 0.0 + 0.0j for j in range(p)] for i in range(p)]
         for k in range(p):
             op = self.weyl(1, k)
-            _, vecs = np.linalg.eig(op)
-            for col in range(p):
-                states.append(vecs[:, col] / np.linalg.norm(vecs[:, col]))
+            evals = [cmath.exp(2j * math.pi * m / float(p)) for m in range(p)]
+            for m_idx, lam in enumerate(evals):
+                other_evals = [ev for j, ev in enumerate(evals) if j != m_idx]
+                P = mat_mul(
+                    mat_sub(op, mat_scale(I_p, other_evals[0])),
+                    mat_sub(op, mat_scale(I_p, other_evals[1]))
+                )
+                for col_idx in range(p):
+                    col = [P[row_idx][col_idx] for row_idx in range(p)]
+                    norm = vec_norm(col)
+                    if norm > 1e-8:
+                        states.append([c / norm for c in col])
+                        break
         return states
 
-    def norrell_magic_state(self) -> np.ndarray:
+    def norrell_magic_state(self) -> list[complex]:
         """Return the Norrell magic state |N> = (|1> - |2>) / sqrt(2)."""
-        vec = np.zeros(self.p, dtype=complex)
-        vec[1] = 1.0 / np.sqrt(2.0)
-        vec[2] = -1.0 / np.sqrt(2.0)
-        return cast(np.ndarray, vec)
+        vec = [0.0 + 0.0j] * self.p
+        vec[1] = 1.0 / math.sqrt(2.0)
+        vec[2] = -1.0 / math.sqrt(2.0)
+        return vec
 
-    def strange_magic_state(self) -> np.ndarray:
+    def strange_magic_state(self) -> list[complex]:
         """Return the Strange magic state |S> = (|1> + |2>) / sqrt(2)."""
-        vec = np.zeros(self.p, dtype=complex)
-        vec[1] = 1.0 / np.sqrt(2.0)
-        vec[2] = 1.0 / np.sqrt(2.0)
-        return cast(np.ndarray, vec)
+        vec = [0.0 + 0.0j] * self.p
+        vec[1] = 1.0 / math.sqrt(2.0)
+        vec[2] = 1.0 / math.sqrt(2.0)
+        return vec
 
 
 class StabilizerMixture:
@@ -412,7 +562,11 @@ class StabilizerMixture:
         """Current count of active stabilizer branches."""
         return len(self.branches)
 
-    def inject_magic_state(self, carrier_idx: int, magic_type: str = "T") -> StabilizerMixture:
+    def inject_magic_state(
+        self,
+        carrier_idx: int,
+        magic_type: MagicStateType | str = MagicStateType.T,
+    ) -> StabilizerMixture:
         """Inject a non-stabilizer magic state, doubling every active stabilizer branch.
 
         For T-type state: |T> = 1/sqrt(2) (|0> + e^(i pi / 4) |1>).
@@ -420,17 +574,14 @@ class StabilizerMixture:
         if not (0 <= carrier_idx < self.n_carriers):
             raise IndexError("Carrier index out of range.")
 
-        new_branches: list[tuple[complex, SymplecticTableau]] = []
-        if magic_type == "T":
-            c0_factor = 1.0 / np.sqrt(2.0)
-            c1_factor = np.exp(1j * np.pi / 4.0) / np.sqrt(2.0)
-        elif magic_type == "H":
-            c0_factor = np.cos(np.pi / 8.0)
-            c1_factor = np.sin(np.pi / 8.0)
-        else:
-            c0_factor = 1.0 / np.sqrt(2.0)
-            c1_factor = 1.0 / np.sqrt(2.0)
+        m_type = magic_type.value if isinstance(magic_type, MagicStateType) else str(magic_type)
+        if m_type != MagicStateType.T.value:
+            raise ValueError(f"Unsupported magic state type: {magic_type}")
 
+        c0_factor = 1.0 / math.sqrt(2.0)
+        c1_factor = cmath.exp(1j * math.pi / 4.0) / math.sqrt(2.0)
+
+        new_branches: list[tuple[complex, SymplecticTableau]] = []
         for coeff, tab in self.branches:
             # Branch 0: carrier left in |0>
             tab0 = tab.copy()
@@ -461,18 +612,20 @@ class StabilizerMixture:
             tab.cnot(a, b)
         return self
 
-    def state_vector(self) -> np.ndarray:
+    def state_vector(self) -> list[complex]:
         """Compute coherent state vector across all branches for small n <= 10."""
         if self.n_carriers > 10:
             raise ValueError("State vector extraction bounded to n <= 10.")
         dim = 1 << self.n_carriers
-        total_vec = np.zeros(dim, dtype=complex)
+        total_vec = [0.0 + 0.0j] * dim
         for coeff, tab in self.branches:
-            total_vec += coeff * tab.state_vector()
-        norm = np.linalg.norm(total_vec)
+            tab_v = tab.state_vector()
+            for i in range(dim):
+                total_vec[i] += coeff * tab_v[i]
+        norm = vec_norm(total_vec)
         if norm > 1e-10:
-            total_vec = total_vec / norm
-        return cast(np.ndarray, total_vec)
+            total_vec = [c / norm for c in total_vec]
+        return total_vec
 
     @staticmethod
     def benchmark_scaling(k_max: int, n_carriers: int = 4) -> dict[str, Any]:
@@ -481,7 +634,7 @@ class StabilizerMixture:
         for k in range(k_max + 1):
             mixture = StabilizerMixture(n_carriers)
             for i in range(k):
-                mixture.inject_magic_state(i % n_carriers, magic_type="T")
+                mixture.inject_magic_state(i % n_carriers, magic_type=MagicStateType.T)
             results.append({
                 "magic_count_k": k,
                 "branch_count": mixture.branch_count,

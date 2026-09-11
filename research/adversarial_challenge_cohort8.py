@@ -27,7 +27,10 @@ import sys
 import time
 from typing import Any, Callable, Dict, List, Mapping, Sequence, Set, Tuple, Union
 
-import numpy as np
+def outer_product(u: Sequence[complex], v: Sequence[complex]) -> list[list[complex]]:
+    """Compute outer product matrix |u><v| without external libraries."""
+    return [[u[i] * v[j].conjugate() for j in range(len(v))] for i in range(len(u))]
+
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
@@ -274,6 +277,18 @@ def test_p209b_adversarial_clifford_symplectic() -> int:
     spectrum_f3 = p209b.compute_order_spectrum(elements_f3)
     assert spectrum_f3 == {1: 1, 2: 1, 3: 8, 4: 6, 6: 8}
     checks += 2
+
+    # Full 24x24 Cayley multiplication table
+    table_f3 = p209b.get_sp2_f3_multiplication_table()
+    assert len(table_f3) == 24
+    id_mat3 = p209b.Matrix2(1, 0, 0, 1, 3)
+    id3_idx = elements_f3.index(id_mat3)
+    for i in range(24):
+        assert len(table_f3[i]) == 24
+        assert len(set(table_f3[i])) == 24
+        assert table_f3[id3_idx][i] == i
+        assert table_f3[i][id3_idx] == i
+    checks += 6
 
     # 5. Eastin-Knill finite quotient obstruction analysis
     ek2 = p209b.eastin_knill_obstruction_analysis(2)
@@ -524,7 +539,7 @@ def test_p209d_adversarial_nonclassical_horizons() -> int:
     assert len(stab_states) == 12  # (3 + 1) * 3 = 12 states
     checks += 1
     for psi in stab_states:
-        rho = np.outer(psi, psi.conj())
+        rho = outer_product(psi, psi)
         assert psc.is_wigner_non_negative(rho) is True
         assert math.isclose(psc.wigner_negativity(rho), 0.0, abs_tol=1e-10)
         assert math.isclose(psc.mana(rho), 0.0, abs_tol=1e-10)
@@ -532,14 +547,14 @@ def test_p209d_adversarial_nonclassical_horizons() -> int:
 
     # Check magic states (Norrell and Strange) exhibit negative Wigner points
     norrell = psc.norrell_magic_state()
-    rho_norrell = np.outer(norrell, norrell.conj())
+    rho_norrell = outer_product(norrell, norrell)
     assert psc.is_wigner_non_negative(rho_norrell) is False
     assert psc.wigner_negativity(rho_norrell) > 0.1
     assert psc.mana(rho_norrell) > 0.1
     checks += 3
 
     strange = psc.strange_magic_state()
-    rho_strange = np.outer(strange, strange.conj())
+    rho_strange = outer_product(strange, strange)
     assert psc.is_wigner_non_negative(rho_strange) is False
     assert psc.wigner_negativity(rho_strange) > 0.1
     assert psc.mana(rho_strange) > 0.1
@@ -579,9 +594,9 @@ def test_cohort8_cross_target_integration() -> int:
 
     psc_d = p209d.PhaseSpaceCarrier(3)
     norrell_d = psc_d.norrell_magic_state()
-    rho_magic_d = np.outer(norrell_d, norrell_d.conj())
+    rho_magic_d = outer_product(norrell_d, norrell_d)
     w_magic_d = psc_d.wigner_distribution(rho_magic_d)
-    assert math.isclose(w_magic_d[0, 0], -1.0 / 3.0, abs_tol=1e-10)
+    assert math.isclose(w_magic_d[0][0], -1.0 / 3.0, abs_tol=1e-10)
     checks += 2
 
     # Bridge 2: P209b Symplectic Form & P209c Pauli Commutation
