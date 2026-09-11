@@ -1,4 +1,111 @@
-# Cohort 7 Review Gate Status
+# Cohort 8 Review Gate Status
+
+**Session**: Genesis Cohort 8 Review Gate  
+**Timestamp**: 2026-09-11T01:35:00Z  
+**Lead Architect Verdict**: APPROVE  
+**Adversarial Critic Verdict**: APPROVE  
+**Combined Gate Verdict**: APPROVE  
+**Receipt Location**: `research/evidence_cohort8_adversarial.json`  
+**Total Adversarial Checks Verified**: 1998  
+
+---
+
+## Executive Summary
+
+The Lead Architect and Adversarial Critic have constructed, executed, and audited the Cohort 8 Master Empirical Adversarial Stress Suite (`research/adversarial_challenge_cohort8.py`). All 1998 stress checks across Targets P209a, P209b, P209c, and P209d, the Cohort 8 Cross-Target Integration Bridges, the repository blind seal audit, and the constructive core Lean 4 axiom audit passed cleanly with zero unhandled exceptions, zero regressions, zero seal violations, and 100% constructive core Lean 4 axioms strictly within `{propext, Quot.sound}` (zero `Classical.choice`, zero `mathlib`). Across all four packages, 264 Lean 4 theorems were audited and verified.
+
+In addition, the two-axis code review (Standards & Spec) was completed across all four targets. The vocabulary firewall (`ci/check_prose_watchlist.py`) verified 100% clean (49 watched terms, 131 files with pinned hits, 0 unpinned hits), and the repository blind seal verified zero modifications to sealed directories (`prompt/`, `paper/`, `code/`, `lean4/Derivation/`, `artifacts/`, `CLAUDE.md`).
+
+---
+
+## Acceptance Criteria Audit & Evidence Summary
+
+### 1. Cohort 8 Cross-Target Integration Bridges
+- **End-to-End Integration**: Successfully connected all four Cohort 8 pillars into an algebraically and operationally unified framework (43 checks):
+  1. **Bridge 1 (P209a & P209d)**: Cross-package discrete Wigner distribution consistency in dimension $p=3$. Verified that `wigner_phase_space.py` and `horizons.py` evaluate the magic state point negativity witness at the origin $(0, 0)$ with exact agreement: $W(0, 0) = -1/3 < 0$.
+  2. **Bridge 2 (P209b & P209c)**: Symplectic form and Pauli string commutation equivalence. Verified that single-carrier Pauli operators in `stabilizer_codes.py` commute if and only if their symplectic coordinates evaluate to $\omega(u, v) \equiv 0 \pmod 2$ in `clifford_symplectic.py`.
+  3. **Bridge 3 (P209b & P209d)**: Clifford generator action equivalence. Verified that single-carrier column updates in `SymplecticTableau` under $H$ and $S$ match matrix multiplication by the $\operatorname{Sp}(2, \mathbb{F}_2)$ generators $H$ and $S$.
+
+### 2. Target P209a: Discrete Wigner Phase_Spaces on Odd_Prime Dimensions
+- **Exact Cyclotomic Arithmetic**: Validated field axioms in $\mathbb{Q}(w_p)$ over minimal polynomial quotient $\Phi_p(w) = 1 + w + \dots + w^{p-1} = 0$ for odd_prime dimensions $p \in \{3, 5\}$.
+- **Parity Reflection & Gross Covariance**: Verified $P^2 = I$, $\operatorname{Tr}(P) = 1$, and Gross covariance $P X P = X^{-1}$, $P Z P = Z^{-1}$.
+- **Completeness & Orthogonality**: Verified $\sum_{q, p} A(q, p) = p \cdot I_p$ and $\operatorname{Tr}(A(q, p) A(q', p')) = p \cdot \delta_{q q'} \delta_{p p'}$.
+- **Discrete Wigner Distribution & State Reconstruction**: Verified $\sum_{q, p} W(q, p) = 1$, stabilizer non-negativity $W \ge 0$ for $|0\rangle$ and $|+\rangle$, magic state point negativity witness $W_{|M\rangle}(0, 0) = -1/p < 0$, and exact dual frame reconstruction $\sum_{q, p} W(q, p) A(q, p) = \rho$.
+- **Verification Receipts**: 536 checks in `adversarial_challenge_cohort8.py`; 38/38 pytest tests passing; 36 formal theorems in `WignerPhaseSpace.lean` within `{propext, Quot.sound}` (12 axiom-free).
+
+### 3. Target P209b: Discrete Clifford Group Quotients & Finite Symplectic Geometry
+- **Canonical Symplectic Form**: Validated alternating, antisymmetric, and bilinear properties of $\omega(u, v) = u_x v_z - u_z v_x \pmod p$ across $\mathbb{F}_p^2$ ($p \in \{2, 3, 5, 7\}$).
+- **Symplectic Invariance**: Verified that $M \in \operatorname{Mat}_2(\mathbb{F}_p)$ preserves the symplectic form if and only if $\det(M) \equiv 1 \pmod p$.
+- **Group Quotients $\operatorname{Sp}(2, \mathbb{F}_2) \cong S_3$ and $\operatorname{Sp}(2, \mathbb{F}_3) \cong \operatorname{SL}(2, \mathbb{F}_3)$**: Verified full Cayley multiplication table closure, generator sets $\{H, S\}$, and order spectra: $\{1: 1, 2: 3, 3: 2\}$ for order 6, and $\{1: 1, 2: 1, 3: 8, 4: 6, 6: 8\}$ for order 24.
+- **Eastin-Knill Finite Quotient Obstruction**: Formally verified that transversal gate subgroups quotient to strictly finite groups of order $p(p^2 - 1)$, establishing an algebraic obstruction to dense covering of continuous Lie groups $\operatorname{SU}(p)$.
+- **Verification Receipts**: 633 checks in `adversarial_challenge_cohort8.py`; 17/17 pytest tests passing; 73 formal theorems in `CliffordSymplectic.lean` within `{propext, Quot.sound}` (71 axiom-free).
+
+### 4. Target P209c: Exact Integer & Pauli String Stabilizer Error-Correcting Codes
+- **Pauli String Algebra**: Validated exact commutation/anticommutation dichotomy, Gaussian rational representations, and multi-carrier tensor products.
+- **Codespace Projector Idempotence**: Verified $\Pi_{\mathcal{S}}^2 = \Pi_{\mathcal{S}}$ and $\operatorname{Tr}(\Pi_{\mathcal{S}}) = 2^{n-m}$.
+- **[[3, 1, 1]] Bit-Flip Code**: Verified stabilizers $S_1 = ZZI, S_2 = IZZ$, logicals $Z_L = ZZZ, X_L = XXX$, and single bit-flip syndrome diagnosis and recovery.
+- **[[4, 2, 2]] Torus CSS Code**: Verified stabilizers $S_Z = ZZZZ, S_X = XXXX$, two independent logical pairs, and distance-2 error detection across all 12 single-carrier Pauli errors.
+- **Steane [[7, 1, 3]] CSS Code**: Verified dual Fano line intersections $|H_i \cap H_j| = 2 \equiv 0 \pmod 2$, 6 commuting generators, logicals $X_L, Z_L$, transversal Hadamard symmetry, and deterministic correction of all 21 single-carrier Pauli errors.
+- **Verification Receipts**: 368 checks in `adversarial_challenge_cohort8.py`; 23/23 pytest tests passing; 100 formal theorems in `StabilizerCodes.lean` within `{propext, Quot.sound}` (21 axiom-free).
+
+### 5. Target P209d: Non-Classicality Horizons & Gottesman-Knill Boundary
+- **Symplectic Tableau Simulator**: Validated canonical $O(n^2)$ Aaronson-Gottesman tableau simulation, Clifford gate updates ($H, S, CNOT$), invariant preservation under random Clifford circuits, Bell/GHZ state preparation, and 3-carrier teleportation.
+- **Discrete Hudson Boundary**: Verified that all 12 pure stabilizer states across all 4 MUBs in dimension $p=3$ have non-negative Wigner distributions ($W \ge 0$, Mana $= 0$), whereas magic states exhibit negative quasiprobability points ($W < 0$, Mana $> 0$).
+- **Magic State Resource Scaling**: Verified that tracking $k$ injected magic states breaks single-tableau closure and mandates maintaining $2^k$ stabilizer branches, separating polynomial Clifford simulation from non-stabilizer contextuality.
+- **Verification Receipts**: 228 checks in `adversarial_challenge_cohort8.py`; 20/20 pytest tests passing; 55 formal theorems in `NonclassicalHorizons.lean` within `{propext, Quot.sound}` (22 axiom-free).
+
+### 6. Two-Axis Review Loop (Standards & Spec - Cohort 8)
+- **Spec Review**:
+  - R1 (P209a): Complete; 0 spec gaps, 0 scope creep.
+  - R2 (P209b): Complete; 0 spec gaps, 0 scope creep.
+  - R3 (P209c): Complete; 0 spec gaps, 0 scope creep.
+  - R4 (P209d): Complete; 0 spec gaps, 0 scope creep.
+  - R5 (Repository Seal & Axiom Cleanliness): Complete; 0 seal violations, 0 unapproved axioms.
+- **Standards Review**:
+  - Code layout: designated directories under `research/`, co-located tests, standard pyproject.toml / lakefile.toml configurations.
+  - Typing cleanliness: full type annotations in Python, no unhandled exceptions.
+  - Zero Fowler code smells: modular decomposition, pure functions, clean data structures.
+  - Claim Hygiene: strictly compliant across all docstrings, READMEs, and CLAIMS files.
+- **Axiom Discipline**: All 264 Lean 4 theorems across the four Cohort 8 packages audited via `Inventory.lean` and confirmed strictly within `{propext, Quot.sound}` (zero `Classical.choice`, zero `mathlib`).
+- **Vocabulary Firewall**: `ci/check_prose_watchlist.py` verified 100% clean (49 watched terms, 131 files with pinned hits, 0 unpinned hits).
+- **Repository Blind Seal**: Zero touches to sealed directories (`prompt/`, `paper/`, `code/`, `lean4/Derivation/`, `artifacts/`, `CLAUDE.md`).
+
+---
+
+## Claim Hygiene Statement
+
+1. **What it supports**:
+   - Supports the constructive formulation of Gross phase_point operators and discrete Wigner distributions over odd_prime dimensions $p \in \{3, 5\}$ with exact stabilizer non-negativity and magic state point negativity.
+   - Supports the discrete symplectic group quotients $\operatorname{Sp}(2, \mathbb{F}_2) \cong S_3$ and $\operatorname{Sp}(2, \mathbb{F}_3) \cong \operatorname{SL}(2, \mathbb{F}_3)$ and the Eastin-Knill finite quotient obstruction.
+   - Supports multi-carrier stabilizer codes ([[3, 1, 1]], [[4, 2, 2]], Steane [[7, 1, 3]]) with exact projector idempotence $\Pi_{\mathcal{S}}^2 = \Pi_{\mathcal{S}}$, transversal Hadamard symmetry, and deterministic single-carrier error correction.
+   - Supports the Gottesman-Knill $O(n^2)$ polynomial simulation boundary and the discrete Hudson theorem separating stabilizer states ($W \ge 0$) from magic states requiring $2^k$ simulation branches.
+   - Supports the algebraic and operational cross-target integration linking all four Cohort 8 targets.
+
+2. **What it does not support**:
+   - Does not support continuous phase_spaces, infinite-dimensional carrier spaces, or continuous Lie groups without finite quotients.
+   - Does not support universal discrete computation with transversal gates alone (formally obstructed by Eastin-Knill).
+   - Does not support polynomial-time classical simulation of circuits with unbounded magic state injection.
+   - Does not support physical laboratory claims beyond declared finite discrete operational models.
+
+3. **Narrowest defensible claim**:
+   Under the declared finite discrete carrier substrate and exact cyclotomic/rational arithmetic, Cohort 8 establishes constructive, machine-checked discrete Wigner phase_spaces with stabilizer non-negativity and magic state negativity, discrete symplectic Clifford group quotients with Eastin-Knill obstruction, exact stabilizer error-correcting codes with projector idempotence, and the Gottesman-Knill simulation horizon separating polynomial stabilizer tracking from $2^k$ magic state scaling.
+
+4. **Next test needed**:
+   Author review and merge of Cohort 8 into `main`, followed by higher-level foundational synthesis connecting Cohorts 1–8.
+
+---
+
+## Sign-Off
+
+- **Lead Architect**: APPROVED (Formal Receipt: `research/evidence_cohort8_adversarial.json`)
+- **Adversarial Critic**: APPROVED (Formal Receipt: `research/evidence_cohort8_adversarial.json`)
+- **Status**: READY FOR AUTHOR MERGE
+
+---
+
+# Previous Cohort History
+
+## Cohort 7 Review Gate Status
 
 **Session**: Genesis Cohort 7 Review Gate  
 **Timestamp**: 2026-09-11T00:20:00Z  
