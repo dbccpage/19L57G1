@@ -1,8 +1,8 @@
 """Tests for Target X300: Observer-Relative Information, Channels & Loss.
 
 Verifies:
-1. Exact rational arithmetic for dyadic distributions and exact Shannon entropy in Q.
-2. Exact dyadic relative entropy (Kullback-Leibler divergence) non-negativity and identity.
+1. Exact rational arithmetic for dyadic distributions and exact Shannon uncertainty in Q.
+2. Exact dyadic relative divergence (Kullback-Leibler divergence) non-negativity and identity.
 3. Hartley capacity metric additivity on product alphabets.
 4. Operational channel composition, associativity, and fidelity.
 5. Data processing inequality (DPI) across diverse operational channels and sufficient statistics.
@@ -38,7 +38,7 @@ from information import (
 
 
 class TestDiscreteDistributionAndEntropy:
-    """Test exact rational probability and operational entropy metrics."""
+    """Test exact rational probability and operational uncertainty metrics."""
 
     def test_uniform_distribution(self) -> None:
         dist = DiscreteDistribution.uniform(["a", "b", "c", "d"])
@@ -296,7 +296,7 @@ class TestMemoryRetentionAndErasure:
         assert math.isclose(receipt.minimal_heat_dissipated_joules, expected_q)
 
     def test_landauer_already_erased(self) -> None:
-        # Deterministic state has 0 initial entropy -> 0 erasure cost
+        # Deterministic state has 0 initial uncertainty -> 0 erasure cost
         init = DiscreteDistribution.point_mass(0)
         accounting = LandauerAccounting(init, reset_state=0)
         receipt = accounting.compute_erasure_cost()

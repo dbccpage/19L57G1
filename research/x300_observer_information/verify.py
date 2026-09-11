@@ -149,7 +149,7 @@ def verify() -> dict[str, Any]:
         "pytest": pytest_res,
         "lean": lean_res,
         "claim_hygiene": {
-            "scope": "Observer-relative information theory, operational communication channels, Markov compositions, data processing inequalities, dyadic Shannon entropy in Q, Hartley capacities, memory degradation limits, and Landauer operational erasure accounting.",
+            "scope": "Observer-relative information theory, operational communication channels, Markov compositions, data processing inequalities, dyadic Shannon uncertainty in Q, Hartley capacities, memory degradation limits, and Landauer operational erasure accounting.",
             "operational_channels_modeled": True,
             "data_processing_inequality_proved": True,
             "exact_dyadic_entropy_derived": True,

@@ -5,7 +5,7 @@ Constructive formalization of:
 1. Operational communication channels and Markov composition.
 2. Data Processing Inequality (DPI) for distinguishability and decodability.
 3. Invertible post-processing and sufficient statistic preservation.
-4. Additive Hartley capacity and exact dyadic entropy scaling.
+4. Additive Hartley capacity and exact dyadic uncertainty scaling.
 5. Sequential memory retention monotonicity under iterated operational noise.
 6. Lossy coarse-graining and Landauer operational erasure non-reversibility.
 
@@ -126,7 +126,7 @@ theorem invertible_postprocessing_preserves_distinctions {Ω β γ : Type}
 
 
 -- ============================================================================
--- 3. Exact Additive Hartley Capacity & Entropy Monotonicity
+-- 3. Exact Additive Hartley Capacity & Uncertainty Monotonicity
 -- ============================================================================
 
 /-- Hartley capacity metric for discrete observation alphabets with 2^k states. -/
@@ -152,23 +152,23 @@ theorem coarse_graining_capacity_monotonic (k m : Nat) (h : m ≤ k) :
     hartleyCapacity m ≤ hartleyCapacity k :=
   h
 
-/-- Scaled dyadic Shannon entropy for leaf bit-lengths D at maximum depth K:
+/-- Scaled dyadic Shannon uncertainty for leaf bit-lengths D at maximum depth K:
     E(D, K) = sum_{d in D} d * 2^(K - d).
-    For a pure dyadic distribution where P(i) = 2^(-d_i), E(D, K) / 2^K is the exact Shannon entropy in Q. -/
+    For a pure dyadic distribution where P(i) = 2^(-d_i), E(D, K) / 2^K is the exact Shannon uncertainty in Q. -/
 def scaledEntropy : List Nat → Nat → Nat
   | [], _ => 0
   | d :: ds, K => d * 2 ^ (K - d) + scaledEntropy ds K
 
-/-- Theorem 12 (1-Bit Memory Entropy):
+/-- Theorem 12 (1-Bit Memory Uncertainty):
     A 1-bit memory cell with uniform distribution (two states, each length 1)
-    has scaled entropy equal to 2 at scale 1, corresponding to exactly 2 / 2^1 = 1 bit. -/
+    has scaled uncertainty equal to 2 at scale 1, corresponding to exactly 2 / 2^1 = 1 bit. -/
 theorem uniform_1bit_scaled_entropy :
     scaledEntropy [1, 1] 1 = 2 :=
   rfl
 
-/-- Theorem 13 (2-Bit Memory Entropy):
+/-- Theorem 13 (2-Bit Memory Uncertainty):
     A 2-bit memory cell with uniform distribution (four states, each length 2)
-    has scaled entropy equal to 8 at scale 2, corresponding to exactly 8 / 2^2 = 2 bits. -/
+    has scaled uncertainty equal to 8 at scale 2, corresponding to exactly 8 / 2^2 = 2 bits. -/
 theorem uniform_2bit_scaled_entropy :
     scaledEntropy [2, 2, 2, 2] 2 = 8 :=
   rfl
@@ -237,7 +237,7 @@ theorem erasure_strictly_non_reversible {k : Nat} :
   have h_val : (0 : Nat) = 1 := congrArg Fin.val h_eq
   nomatch h_val
 
-/-- Theorem 17 (Phase Space Contraction):
+/-- Theorem 17 (State Space Contraction):
     Operational erasure compresses the entire state space into a single singleton image. -/
 theorem erasure_image_singleton {k : Nat} (s1 s2 : Fin (k + 1)) :
     eraseToZero s1 = eraseToZero s2 :=

@@ -7,7 +7,7 @@
     "landauer_erasure_non_reversibility_proved": true,
     "memory_retention_monotonicity_proved": true,
     "operational_channels_modeled": true,
-    "scope": "Observer-relative information theory, operational communication channels, Markov compositions, data processing inequalities, dyadic Shannon entropy in Q, Hartley capacities, memory degradation limits, and Landauer operational erasure accounting.",
+    "scope": "Observer-relative information theory, operational communication channels, Markov compositions, data processing inequalities, dyadic Shannon uncertainty in Q, Hartley capacities, memory degradation limits, and Landauer operational erasure accounting.",
     "zero_classical_choice": true,
     "zero_mathlib": true
   },

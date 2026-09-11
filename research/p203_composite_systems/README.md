@@ -7,7 +7,7 @@ This research package formalizes multi-locus composite carrier networks, relatio
 1. **Multi-Locus Composite Networks & Associativity**: Multi-locus carrier networks equipped with associative tensor-like composition:
    $$(A \otimes B) \otimes C \cong A \otimes (B \otimes C)$$
    along with preservation of subsystem coordinate projections.
-2. **Pre-Spatial Interaction Graphs**: Relational topologies derived directly from represented read/write footprints without background geometric metrics. Distance between loci is defined relationally as shortest path hop count in the interaction graph.
+2. **Pre-Spatial Interaction Graphs**: Relational topologies derived directly from represented read/write footprints without background geometric metrics. Distance between loci is defined relationally as shortest path edge step count in the interaction graph.
 3. **Strict Operational Non-Signaling Across Bipartite Cuts**: For an arbitrary bipartite cut $L = L_A \sqcup L_B$, any local intervention $T_A$ with footprint strictly contained in $L_A$ yields exact Total Variation Distance $TVD = 0.0$ on all observables in $L_B$ prior to mediating coupling transitions.
 4. **Negative Controls**:
    - When an intervention footprint leaks across the cut to modify a locus in $L_B$, the marginal readout distribution shifts, yielding $TVD > 0$.
@@ -32,7 +32,7 @@ A carrier network state maps each discrete locus identifier to a discrete value:
 
 Every operational transition $T$ carries an explicit footprint:
 $$\text{fp}(T) = (\text{reads}(T), \text{writes}(T))$$
-An undirected interaction edge $\{u, v\}$ is induced whenever an elementary transition couples $u$ and $v$ (e.g. $u \in \text{reads}$ and $v \in \text{writes}$). Relational distance $d_G(u, v)$ is the shortest path hop count in $G$:
+An undirected interaction edge $\{u, v\}$ is induced whenever an elementary transition couples $u$ and $v$ (e.g. $u \in \text{reads}$ and $v \in \text{writes}$). Relational distance $d_G(u, v)$ is the shortest path edge step count in $G$:
 - When two subsystems are disconnected (no mediating transitions crossing the cut), $d_G(u, v) = \infty$ (unreachable).
 - When a mediating transition is introduced, relational paths form dynamically from operational couplings.
 

@@ -111,7 +111,7 @@ Axiom Scope: Strictly within `{propext, Quot.sound}`; zero `Classical.choice`; z
    - Supports duplicate observer agreement on symmetric states and symmetry invariance under graph automorphisms.
    - Supports detection of leaky footprints and mediated signaling via non-zero total variation distance.
 2. **What it does not support**:
-   - Does not support continuum spatial manifolds, differential geometry, or infinite-dimensional Hilbert spaces.
+   - Does not support continuum spatial manifolds, differential geometry, or infinite-dimensional state carrier spaces.
    - Does not support superluminal signaling across mediating channels.
    - Does not support physical claims outside the declared finite discrete carrier substrate.
 3. **Narrowest Defensible Claim**:
