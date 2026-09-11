@@ -1,0 +1,13 @@
+name = "m114_solver_adapter"
+version = "0.1.0"
+defaultTargets = ["SolverAdapter", "Inventory"]
+
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+[[lean_lib]]
+name = "SolverAdapter"
+
+[[lean_lib]]
+name = "Inventory"

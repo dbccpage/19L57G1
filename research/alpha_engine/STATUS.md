@@ -30,6 +30,13 @@ reversal, is **WITHDRAWN**.  G4, G13, and G14 were not that.
   `min_responses` / `canonical` via `fresh_retained_keys`.  A forged
   `EvalResult` that claims a key absent from that re-quotient is
   refused.
+- Search policy constructors beyond `declared_explore_first` comprise
+  `declared_bounded_priority` (bounded key subset in declared rank
+  order), `declared_constraint_pruned` (partitioning via a constraint
+  predicate), and `declared_cost_budgeted` (exact rational arithmetic
+  in Q via `fractions.Fraction`). Each constructor executes
+  `record_census` to confirm partition disjointness and completeness
+  over the sealed retained keys.
 - `apply_unique_delta` always raises.  Uniqueness is not itself a
   `License`.  `explore` has no uniqueness guard: a `License` that names
   the sole retained class still applies it (C3 L/mu2).  The C3 L/mu1

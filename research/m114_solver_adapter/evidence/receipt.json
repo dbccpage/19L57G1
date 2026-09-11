@@ -1,0 +1,53 @@
+{
+  "authority_effect": "None",
+  "claim_hygiene": {
+    "axioms_within_propext_quot_sound": true,
+    "farkas_dual_receipts_in_q_certified": true,
+    "operational_adapter_implemented": true,
+    "primal_witnesses_in_q_certified": true,
+    "scope": "Operational solver boundary adapter mapping SAT, bounded SMT, and linear feasibility to demand-and-refusal lifecycle without host oracles; exact rational duality receipts; typed refusal on bounded exhaustion; constructive Lean 4 formalization.",
+    "state_preservation_without_mutation_verified": true,
+    "typed_refusal_on_exhaustion_verified": true,
+    "zero_classical_choice": true,
+    "zero_mathlib": true
+  },
+  "lean": {
+    "allowed_axioms": [
+      "Quot.sound",
+      "propext"
+    ],
+    "axiom_free_count": 3,
+    "build_status": "PASS",
+    "theorem_count": 6,
+    "theorem_details": {
+      "SolverAdapter.dual_combination_le": [
+        "propext"
+      ],
+      "SolverAdapter.farkas_dual_soundness": [
+        "propext"
+      ],
+      "SolverAdapter.fuel_monotonicity": [],
+      "SolverAdapter.int_nat_mul_le_mul": [
+        "propext"
+      ],
+      "SolverAdapter.primal_soundness": [],
+      "SolverAdapter.refusal_preserves_state": []
+    }
+  },
+  "pytest": {
+    "exit_code": 0,
+    "passed": 42,
+    "status": "PASS"
+  },
+  "schema_version": 1,
+  "source_hashes": {
+    "lean/Inventory.lean": "5358b6c5d9b4ab98ddb0caa863f20caec1cfeafedd8adec96bc06579e879aabb",
+    "lean/SolverAdapter.lean": "9cff3bfe343f988ccb54de144d65544b43a640833bc669ae32b34ceed34467cf",
+    "solver_adapter.py": "6094a9d44c74fd74e12c5e085ad4a42ee81f62b391a8d280cc00c7d8d20dc922",
+    "tests/test_solver_adapter.py": "781b2b92c7d9d553bd813ae54dc870d4defcaace4ff31cf4e2a2f4a2db85b941",
+    "verify.py": "d9ee43b33f48ea8aca9e86e585b5b0494284caa0040c7d9846472607c0afa951"
+  },
+  "status": "PASS",
+  "target": "Target M114 / SP-03: Solver Adapter & Bounded Search",
+  "toolchain": "leanprover/lean4:v4.33.0"
+}
