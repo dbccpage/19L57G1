@@ -1,10 +1,9 @@
 # Instance demand: four-stage construction and its open boundary
 
-AuthorityEffect: None. OB-1 remains **OPEN** outside the two-edge
-instruction class. `NoGo.lean` closes the instance channel **negatively for
-that class only** (`InClass`: stored form-0 ternary instructions): channel
-E1 may store a class member's output by `admitInst`, and no member
-satisfies E1 ∧ E2′ ∧ E3 (`no_member_is_endogenous`). Native store without
+AuthorityEffect: None. OB-1 remains **OPEN** outside two named classes.
+`NoGo.lean` closes the instance channel negatively for `InClass`
+(stored form-0 ternary instructions) and for `I1Class` (stored binary
+form-0 pair instances with distinct endpoints). Native store without
 that tuple's `admitInst` is separately unsatisfiable. This is a staged
 construction attempt with supplied targets and prior exposure, outside the
 sealed derivation.
@@ -15,7 +14,9 @@ instance membership on unchanged data and forms. A reachable four-data chain
 needs two nonempty rounds, refuting one-pass idempotence for this emitter.
 The output-admission operation and obligation meaning remain host conventions.
 Channel E1 on `InClass` allows an `admitInst` store; the triple with E2′
-and E3 is unsatisfiable on that class. E1 and OB-1 remain OPEN outside it.
+and E3 is unsatisfiable on that class. The I1 pair-instance encoding is
+likewise unsatisfiable for I1E1 ∧ E2′ ∧ E3. E1 and OB-1 remain OPEN
+outside those two classes.
 Neither Outcome A nor full instance-channel impossibility is claimed. Earlier proof and computation payloads remain intact.
 `OBLIGATIONS.md` states the remaining proof targets and distinguishes the literal
 requirement-store condition from the broader instance-channel question.
@@ -82,13 +83,13 @@ chain; this is not a new unmet-demand witness. Both controls remain scoped.
 
 | Clause | Stage 4 assessment |
 |---|---|
-| E1 | Channel E1 on `InClass` may store by `admitInst`; the triple E1 ∧ E2′ ∧ E3 is unsatisfiable (`no_member_is_endogenous`). OPEN outside that class: host emitters and other encodings remain. |
+| E1 | Channel E1 on `InClass` may store by `admitInst`; the triple E1 ∧ E2′ ∧ E3 is unsatisfiable (`no_member_is_endogenous`). I1 pair-instances are unsatisfiable for I1E1 ∧ E2′ ∧ E3 (`no_i1_member_is_endogenous`). OPEN outside those two classes: host emitters and other encodings remain. |
 | Literal E2 | Not satisfied: `reqs` is unchanged at every round. |
 | Owed-separation E2 | Conditional covered payloads; their obligation role is declared. |
 | E3 | The earlier unruled singleton fails after emission. The covered chain stays collapsed; its payload was already derivable. |
 | E4 | Covered terminal chain and earlier reading samples have proved valid responses and whole-history replay. |
 | Dynamics | Termination proved for repeated emission on fixed data/forms with no intervening events. |
-| Outcome | OB-1 OPEN outside `InClass`. This candidate does not establish Outcome A or a general impossibility. |
+| Outcome | OB-1 OPEN outside `InClass` and `I1Class`. This candidate does not establish Outcome A or a general impossibility. |
 
 ## Stage 3 construction and result
 

@@ -1,6 +1,7 @@
 # instance_demand: status
 
-AuthorityEffect: None. OB-1 remains **OPEN** outside `NoGo.InClass`.
+AuthorityEffect: None. OB-1 remains **OPEN** outside `NoGo.InClass` and
+`NoGo.I1Class`.
 
 ## Scoped no-go for the two-edge instruction class
 
@@ -48,12 +49,19 @@ Per-shape, inside this class:
 - host `emit` is channel E1 (an `AdmitInst` write) and not `NativeStore`.
 
 The Stage-1 I1 singleton `(0,[x,y])` is a different encoding and is not a
-member of `InClass` (form 0 is binary there, ternary here).
+member of `InClass` (form 0 is binary there, ternary here). It is the
+sibling class `I1Class`: nonempty on the lone and covered samples,
+disjoint from `InClass`. Channel E1 for that encoding stores the pair
+instance itself. Shared E2′ requires `Enabled` firing; those payloads
+are not Enabled outputs (`i1_reads_not_enabled`). Unruled samples
+separate their endpoints (`i1_lone_not_owed`). `no_i1_member_is_endogenous`
+is the scoped negative for that class.
 
-Scope: this class only — represented two-edge programs with form-0
-instructions, including the functional-graph reading of those programs.
-Host emitters as extra grammar, other encodings, and a seventh constructor
-are outside `C`. OB-1 remains OPEN outside this class.
+Scope: these two classes — represented two-edge programs with form-0
+instructions, including the functional-graph reading of those programs,
+and Stage-1 binary pair-instances. Host emitters as extra grammar, other
+encodings, and a seventh constructor are outside both. OB-1 remains OPEN
+outside `InClass` and `I1Class`.
 
 Injection: a class that required `c.2.getD 0 0 = 9` would exclude the
 seed instruction that every Enabled output on this seed names;

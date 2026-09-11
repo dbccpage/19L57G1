@@ -1,14 +1,14 @@
 # Instance-channel claims: Stages 1 through 4
 
-AuthorityEffect: None. Outcome **OPEN** for OB-1 outside `NoGo.InClass`.
+AuthorityEffect: None. Outcome **OPEN** for OB-1 outside `NoGo.InClass`
+and `NoGo.I1Class`.
 The existing `C_reqs` result is unchanged. A uniform materializer and a
 stored-instruction composition emitter are exhibited as host operations.
 Channel E1 allows an `admitInst` store of a class member's read output.
 `NativeStore` (a store that is not that tuple's `admitInst`) is
 unsatisfiable on the sealed grammar. `no_member_is_endogenous` is the
-scoped negative for `InClass`: E1 ∧ E2′ ∧ E3 fails because a storing
-step of a class member's output is `admitInst` of that output, and E3
-requires a ruled form whose store cannot freshly owe the pair.
+scoped negative for `InClass`. `no_i1_member_is_endogenous` is the
+scoped negative for the Stage-1 pair-instance encoding.
 
 | ID | Classification and statement | Evidence | Falsifier or remaining obligation |
 |---|---|---|---|
@@ -19,7 +19,7 @@ requires a ruled form whose store cannot freshly owe the pair.
 | CL-ID-05 | Proved theorem: the rule-covered control remains collapsed, despite storing the same instance. | `covered_pair_collapsed`; `probe.sample` for both readings | A well-formed separating context in that control. This prevents overgeneralizing CL-ID-04. |
 | CL-ID-06 | Proved theorem: all four samples are well-formed and the two requirement-free reading histories, with and without uniform coverage, replay exactly. | `samples_well_formed`, `both_readings_replay`, `both_readings_covered_replay` | Replay or well-formedness failure. These are not replays of the requirement-bearing Challenge-3 endpoints. |
 | CL-ID-07 | Deterministic computation: exhaustive one-binary-form sweep on 0..3 data, with every instance/rule subset and empty initial requirements. | `probe.sweep`, `evidence/computation.json` | 1,062 states, 17,762 successful extensions, or 2,337 uniform-conclusion cases fail to reproduce. No unbounded Python claim. |
-| CL-ID-08 | Open obstruction: existence of an admitted program *outside* `NoGo.InClass` whose interpreter emits a fresh demand-instance satisfying E1, owed-separation E2, E3, E4 and a dynamics theorem. The two-edge instruction class is closed negatively by CL-ID-37. | Stages 3–4 in README; CL-ID-37; prior `endogenous_demand/CLAIMS.md` CL-ED-OPEN | A construction with those proofs on a class other than stored form-0 ternary instructions. Not resolved by occurrence being recorded as `AdmitInst`. |
+| CL-ID-08 | Open obstruction: existence of an admitted program *outside* `NoGo.InClass` and `NoGo.I1Class` whose interpreter emits a fresh demand-instance satisfying E1, owed-separation E2, E3, E4 and a dynamics theorem. The two-edge instruction class is closed negatively by CL-ID-37. The Stage-1 pair-instance encoding is closed negatively by CL-ID-38. | Stages 3–4 in README; CL-ID-37; CL-ID-38; prior `endogenous_demand/CLAIMS.md` CL-ED-OPEN | A construction with those proofs on a class other than stored form-0 ternary instructions and stored binary form-0 pair instances. Not resolved by occurrence being recorded as `AdmitInst`. |
 | CL-ID-09 | Proved theorem: the tuple enumeration contains exactly the lists with the declared length and admitted arguments; uniform entries are exactly well-formed instances whose form is ruled; pending entries additionally are not stored. | `Closure.tuples_mem`, `uniformEntries_mem`, `pending_mem`, `pending_bound` | Missing or extra member under those definitions. The proved numerical bound is pending length at most uniform-entry length, not an asymptotic efficiency claim. |
 | CL-ID-10 | Proved theorem: storing any list of well-formed instances replays through the existing instance admissions; materialization is such a replay and emits no requirement event. | `Closure.addMany_mem`, `storeMany_replay`, `materialize_replay`, `events_no_impose` | Failed replay under the well-formedness premise. A replay theorem does not identify who produces events. |
 | CL-ID-11 | Proved theorem: materialization preserves data, forms, rules, requirements and well-formedness; final membership is old membership or a well-formed uniform conclusion. | `Closure.materialize_fields`, `materialize_wf`, `materialize_mem` | A changed field or failure of the membership equivalence. Literal E2 is not satisfied. |
@@ -48,7 +48,8 @@ requires a ruled form whose store cannot freshly owe the pair.
 | CL-ID-34 | Proved theorem: the chain's initial form-3 graph is functional, but is not functional after its first emission. | `Dynamics.chain_functionality_boundary`; `test_chain_needs_two_rounds_and_retains_duplicate_path_events` | Functionality survives in that exact example. The Stage 3 graph-execution bridge remains conditional and cannot be applied at later rounds without its premises. |
 | CL-ID-35 | Proved theorem: every pair in the covered chain remains collapsed at every round. Terminal pair `(0,3)` has a valid response using fresh unary form 4, the whole response history replays, and its stored payload remains afterward. | `Dynamics.chain_covered_collapsed`, `chain_response_valid`, `chain_response_replay`, `chain_answered_pair_retained` | Failed collapse, response, or replay. The covered output was already derivable; its obligation role is not proved. |
 | CL-ID-36 | Deterministic computation: the 2,124-configuration repeated-emission census has 1,772 initial fixed points and 352 one-round cases, with 384 admission events/new instances. The separate four-data chain has two rounds, 4 events, and 3 new instances. | `dynamics.sweep`, `chain_sample`, `evidence/dynamics.json`; `tests/test_dynamics.py` | Counts, least-store comparison, or whole replay fail. The bounded census itself has no multiple-round example and is not all programs or data sizes. |
-| CL-ID-37 | Proved theorem, scoped: `InClass` is stored form-0 ternary instructions: nonempty, independent of output coverage, covering every `Enabled` output and every successful functional-graph run of a stored instruction. Channel E1 is a reading of a class member plus a sealed step that stores the output; that step may be `admitInst`. `NativeStore` (store without that tuple's `admitInst`) is unsatisfiable. E2′ is an owed pair at the post-state, not an `impose`, produced by `Enabled` firing, not `reqs` membership. E3 is a freshly owed pair whose payload is rule-produced. `no_member_is_endogenous`: no class member satisfies E1 ∧ E2′ ∧ E3. Per-shape: unruled output fails E3 as admitted-not-rule-produced and is separable after emission; ruled store fails E3 because separability is unchanged; `impose` is not an E2′ origin. | `NoGo.class_nonempty`, `class_independent_of_coverage`, `class_covers_enabled`, `class_covers_functional`, `native_store_impossible`, `missing_operation_is_extension`, `no_member_is_endogenous`, `shape_imposed_fails_E2p`, `shape_unruled_fails_E3`, `shape_ruled_fails_E3`, `shape_unruled_emission_fails_owed`; `Emitter.native_closure_counterexample`; `tests/test_nogo.py` | A class member with a storing step whose payload is both freshly owed and rule-produced. Does not close OB-1 outside this class. Literal `reqs` E2 is not used. The Stage-1 I1 singleton is not a member of `InClass`. |
+| CL-ID-38 | Proved theorem, scoped: `I1Class` is stored binary form-0 instances with distinct endpoints: nonempty on the Stage-1 lone and covered samples, and disjoint from `InClass`. Channel E1 for this encoding is the step that stores that pair instance. Shared E2′ requires `Enabled` firing; a pair-instance payload is not an Enabled output (`enabled_output_form`, `i1_reads_not_enabled`). Unruled samples separate their endpoints (`i1_lone_not_owed`). `no_i1_member_is_endogenous`: no member satisfies I1E1 ∧ E2′ ∧ E3. | `NoGo.i1_class_nonempty`, `i1_class_lone`, `i1_class_covered`, `i1_class_covers_reading_L`, `i1_class_disjoint_instruction`, `no_i1_member_is_endogenous`, `i1_lone_not_owed`; `tests/test_i1_nogo.py` | An Enabled pair-instance payload, or a storing step whose payload is both freshly owed and rule-produced. Does not close OB-1 outside `InClass` and `I1Class`. Literal `reqs` E2 is not used. |
+| CL-ID-37 | Proved theorem, scoped: `InClass` is stored form-0 ternary instructions: nonempty, independent of output coverage, covering every `Enabled` output and every successful functional-graph run of a stored instruction. Channel E1 is a reading of a class member plus a sealed step that stores the output; that step may be `admitInst`. `NativeStore` (store without that tuple's `admitInst`) is unsatisfiable. E2′ is an owed pair at the post-state, not an `impose`, produced by `Enabled` firing, not `reqs` membership. E3 is a freshly owed pair whose payload is rule-produced. `no_member_is_endogenous`: no class member satisfies E1 ∧ E2′ ∧ E3. Per-shape: unruled output fails E3 as admitted-not-rule-produced and is separable after emission; ruled store fails E3 because separability is unchanged; `impose` is not an E2′ origin. | `NoGo.class_nonempty`, `class_independent_of_coverage`, `class_covers_enabled`, `class_covers_functional`, `native_store_impossible`, `missing_operation_is_extension`, `no_member_is_endogenous`, `shape_imposed_fails_E2p`, `shape_unruled_fails_E3`, `shape_ruled_fails_E3`, `shape_unruled_emission_fails_owed`; `Emitter.native_closure_counterexample`; `tests/test_nogo.py` | A class member with a storing step whose payload is both freshly owed and rule-produced. Does not close OB-1 outside this class. Literal `reqs` E2 is not used. The Stage-1 I1 singleton is not a member of `InClass`; it is `I1Class`, closed negatively by CL-ID-38. |
 
 CL-ID-01/02 and the preservation part of CL-ID-03 use `propext`; the uniform
 conclusion theorem is axiom-free. CL-ID-04/05 and sample well-formedness use
@@ -86,7 +87,7 @@ the construction; the final direct proofs pass the unchanged dependency gate.
   data; their operation-code interpretation is declared metatheory apparatus.
 - Proved theorems and computations: exactly the rows above and their scopes.
 - Open obstruction: event generation and obligation semantics for a represented
-  emitter outside `InClass`. The host materializer keeps every well-formed
+  emitter outside `InClass` and `I1Class`. The host materializer keeps every well-formed
   uniform conclusion; its operation is not proved to be required by the
   admitted structure. Channel E1 on `InClass` may use `admitInst`; the
   conjunction with E2′ and E3 still fails. `NativeStore` is unsatisfiable
@@ -100,7 +101,7 @@ least closed extension within the missing-slot budget. This closes the scoped
 dynamics obligation for that procedure. Channel E1 on `InClass` allows an
 `admitInst` store of a read output; `no_member_is_endogenous` is the scoped
 negative for the triple E1 ∧ E2′ ∧ E3. `NativeStore` remains unsatisfiable.
-E1 and OB-1 remain OPEN outside that class.
+E1 and OB-1 remain OPEN outside `InClass` and `I1Class`.
 
 Literal E2 remains unsatisfied at every round, because `reqs` is unchanged.
 Under owed-separation E2, the covered chain has a fresh stored payload, stays

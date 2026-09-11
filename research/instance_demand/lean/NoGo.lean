@@ -24,8 +24,14 @@ unchanged, so the pair cannot be freshly owed.
 
 `no_member_is_endogenous` uses class membership: the reading names the
 stored instruction. This closes OB-1 negatively for this class only.
-Literal `reqs` E2 is not used. The Stage-1 I1 singleton is a different
-encoding and is not a member of this class.
+
+A sibling class `I1Class` is the Stage-1 pair-instance encoding: a
+stored binary form-0 instance with distinct endpoints. It is disjoint
+from `InClass`. Channel E1 for that encoding is the step that stores
+the pair instance itself. Shared E2′ requires `Enabled` firing, which
+those pair instances are not. Unruled I1 samples separate their
+endpoints. Literal `reqs` E2 is not used. OB-1 remains OPEN outside
+these two classes.
 
 AuthorityEffect: None.
 -/
@@ -261,6 +267,86 @@ theorem no_member_is_endogenous
   have _pin := hpin
   exact shape_ruled_fails_E3 hstep' hrule hE3
 
+/-! ## Sibling class: Stage-1 pair-instance encoding -/
+
+/-- Stored binary form-0 instance with distinct endpoints.
+Membership does not mention E1, owed-separation, or separability. -/
+def I1Class (r : Regime) (c : Inst) : Prop :=
+  ∃ x y, c = (0, [x, y]) ∧ x ≠ y ∧ c ∈ r.insts
+
+/-- The construct is the pair instance; reading it yields itself. -/
+def I1Reads (c out : Inst) : Prop :=
+  out = c ∧ ∃ x y, c = (0, [x, y]) ∧ x ≠ y
+
+/-- Channel E1 for I1: a sealed step stores that pair instance. -/
+def I1E1 (r s : Regime) (e : Event) (c out : Inst) : Prop :=
+  I1Reads c out ∧ stepE r e = some s ∧
+    out ∈ s.insts ∧ out ∉ r.insts
+
+theorem i1_class_lone :
+    I1Class (lone 2 0 1) (0, [0, 1]) :=
+  ⟨0, 1, rfl, by decide, by simp [lone]⟩
+
+theorem i1_class_nonempty : ∃ r c, I1Class r c :=
+  ⟨lone 2 0 1, (0, [0, 1]), i1_class_lone⟩
+
+theorem i1_class_covered :
+    I1Class (covered 2 0 1) (0, [0, 1]) :=
+  ⟨0, 1, rfl, by decide, by simp [covered]⟩
+
+theorem i1_class_covers_reading_L :
+    I1Class (lone 2 0 1) (0, [0, 1]) ∧
+    I1Class (lone 3 1 2) (0, [1, 2]) :=
+  ⟨i1_class_lone, ⟨1, 2, rfl, by decide, by simp [lone]⟩⟩
+
+theorem enabled_output_form {s : List Inst} {i : Inst}
+    (h : Enabled s i) : ∃ o, i.1 = 3 + o := by
+  rcases h with ⟨_k, _l, o, _x, _z, _y, _, _, _, _, hi⟩
+  exact ⟨o, congrArg Prod.fst hi⟩
+
+theorem i1_class_disjoint_instruction {r : Regime} {c : Inst}
+    (h : I1Class r c) : ¬ InClass r c := by
+  rcases h with ⟨x, y, rfl, _, _⟩
+  intro hi
+  rcases hi with ⟨k, l, o, hceq, _⟩
+  have hlen := congrArg (fun p : Inst => p.2.length) hceq
+  simp at hlen
+
+theorem instruction_disjoint_i1 {r : Regime} {c : Inst}
+    (h : InClass r c) : ¬ I1Class r c :=
+  fun hi => i1_class_disjoint_instruction hi h
+
+theorem i1_reads_not_enabled {s : List Inst} {c out : Inst}
+    (h : I1Reads c out) (he : Enabled s out) : False := by
+  rcases h with ⟨rfl, _x, _y, hc, _⟩
+  rcases enabled_output_form he with ⟨o, hf⟩
+  have h0 : out.1 = 0 := congrArg Prod.fst hc
+  omega
+
+theorem i1_lone_not_owed {n x y : Nat} (hxy : x < y) (hy : y < n) :
+    ¬ OwedSeparation (lone n x y) x y := by
+  intro h
+  have hne : x ≠ y := Nat.ne_of_lt hxy
+  exact h.2.2 (lone_pair_separates n x y hne hy)
+
+theorem i1_e1_is_admitInst {r s : Regime} {e : Event} {c out : Inst}
+    (h : I1E1 r s e c out) : e = Event.admitInst out.1 out.2 :=
+  new_stored_instance_needs_event h.2.1 h.2.2.1 h.2.2.2
+
+/-- No I1-class member satisfies I1E1 ∧ E2′ ∧ E3. Shared E2′ requires
+Enabled firing; a pair-instance payload is not an Enabled output. -/
+theorem no_i1_member_is_endogenous
+    {r s : Regime} {c out : Inst} {e : Event} {i j : Nat}
+    (hc : I1Class s c)
+    (h : I1E1 r s e c out ∧ E2prime r s e out i j ∧ E3 r s out i j) : False := by
+  rcases hc with ⟨x, y, rfl, hne, hmem⟩
+  rcases h with ⟨hE1, hE2, _hE3⟩
+  rcases hE1 with ⟨hread, hstep, hstored, hfresh⟩
+  have _stored := And.intro hmem (And.intro hstored hfresh)
+  have he := i1_e1_is_admitInst ⟨hread, hstep, hstored, hfresh⟩
+  have _he := he
+  exact i1_reads_not_enabled hread hE2.2.2.2
+
 end InstanceDemand.NoGo
 
 #print axioms InstanceDemand.NoGo.class_independent_of_coverage
@@ -281,3 +367,15 @@ end InstanceDemand.NoGo
 #print axioms InstanceDemand.NoGo.shape_unruled_emission_fails_owed
 #print axioms InstanceDemand.NoGo.e1_step_is_admitInst
 #print axioms InstanceDemand.NoGo.no_member_is_endogenous
+#print axioms InstanceDemand.NoGo.i1_class_lone
+#print axioms InstanceDemand.NoGo.i1_class_nonempty
+#print axioms InstanceDemand.NoGo.i1_class_covered
+#print axioms InstanceDemand.NoGo.i1_class_covers_reading_L
+#print axioms InstanceDemand.NoGo.enabled_output_form
+#print axioms InstanceDemand.NoGo.i1_class_disjoint_instruction
+#print axioms InstanceDemand.NoGo.instruction_disjoint_i1
+#print axioms InstanceDemand.NoGo.i1_reads_not_enabled
+#print axioms InstanceDemand.NoGo.i1_reads_not_enabled._proof_1_1
+#print axioms InstanceDemand.NoGo.i1_lone_not_owed
+#print axioms InstanceDemand.NoGo.i1_e1_is_admitInst
+#print axioms InstanceDemand.NoGo.no_i1_member_is_endogenous

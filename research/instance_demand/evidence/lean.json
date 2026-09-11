@@ -677,10 +677,48 @@
     "InstanceDemand.NoGo.e1_step_is_admitInst": [
       "propext"
     ],
+    "InstanceDemand.NoGo.enabled_output_form": [],
+    "InstanceDemand.NoGo.i1_class_covered": [
+      "propext"
+    ],
+    "InstanceDemand.NoGo.i1_class_covers_reading_L": [
+      "propext"
+    ],
+    "InstanceDemand.NoGo.i1_class_disjoint_instruction": [
+      "propext"
+    ],
+    "InstanceDemand.NoGo.i1_class_lone": [
+      "propext"
+    ],
+    "InstanceDemand.NoGo.i1_class_nonempty": [
+      "propext"
+    ],
+    "InstanceDemand.NoGo.i1_e1_is_admitInst": [
+      "propext"
+    ],
+    "InstanceDemand.NoGo.i1_lone_not_owed": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.NoGo.i1_reads_not_enabled": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.NoGo.i1_reads_not_enabled._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.NoGo.instruction_disjoint_i1": [
+      "propext"
+    ],
     "InstanceDemand.NoGo.missing_operation_is_extension": [
       "propext"
     ],
     "InstanceDemand.NoGo.native_store_impossible": [
+      "propext"
+    ],
+    "InstanceDemand.NoGo.no_i1_member_is_endogenous": [
+      "Quot.sound",
       "propext"
     ],
     "InstanceDemand.NoGo.no_member_is_endogenous": [
@@ -785,5 +823,5 @@
     ]
   },
   "stage": 4,
-  "theorem_count_including_generated": 223
+  "theorem_count_including_generated": 235
 }
