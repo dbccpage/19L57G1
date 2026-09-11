@@ -1,0 +1,8 @@
+import OrientedBoundary.Basic
+
+#print axioms OrientedBoundary.swap_iff
+#print axioms OrientedBoundary.b_is_empty
+#print axioms OrientedBoundary.not_in_aut_needs_witness
+#print axioms OrientedBoundary.s2u_swap_is_automorphism
+#print axioms OrientedBoundary.s2o_swap_is_not_automorphism
+#print axioms OrientedBoundary.s2o_breaks_at_one_witness
