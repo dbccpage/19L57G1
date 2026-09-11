@@ -43,8 +43,8 @@
   "source_hashes": {
     "lean/Inventory.lean": "5358b6c5d9b4ab98ddb0caa863f20caec1cfeafedd8adec96bc06579e879aabb",
     "lean/SolverAdapter.lean": "9cff3bfe343f988ccb54de144d65544b43a640833bc669ae32b34ceed34467cf",
-    "solver_adapter.py": "9fd2bfa2980c8b43c3db4ec46c4fac0d5d0078d435ffee4fa97f3ef3f63d6d83",
-    "tests/test_solver_adapter.py": "34d5392fde9e8b78080540c2adbc4ed647ef1082499a10ff75b6ac82dd14991d",
+    "solver_adapter.py": "45890f7adc50cdb2791ae7d8d3b74d2d945bcb84b5659079828a162b6b307b3a",
+    "tests/test_solver_adapter.py": "adfa9b8da9f50fac5c2b162a0b1beb2abdd4212529f0d220a2f063be43edd898",
     "verify.py": "d9ee43b33f48ea8aca9e86e585b5b0494284caa0040c7d9846472607c0afa951"
   },
   "status": "PASS",

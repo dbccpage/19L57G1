@@ -8,7 +8,9 @@ deterministic demand-and-refusal lifecycle without host oracles.
 
 Produces certified exact rational duality receipts in Q (fractions.Fraction):
 - Feasibility: PrimalReceipt witnessing exact rational vector x* in Q^n.
-- Infeasibility: DualReceipt witnessing Farkas separating hyperplane multipliers y in Q_>=0^m.
+- Linear infeasibility: DualReceipt witnessing Farkas multipliers y in Q_>=0^m of the problem passed to solve().
+- Integer infeasibility of an LP-feasible instance: IntegerInfeasibilityReceipt, a split whose
+  both children independently verify on the original problem plus the integer cut.
 - Bounded exhaustion: Explicit typed refusal StepResult.refusal preserving state without mutation.
 """
 
@@ -363,6 +365,63 @@ class DualReceipt:
         return True
 
 
+def _problem_with_bounds(problem: ConstraintProblem, bounds: Mapping[str, VariableBound]) -> ConstraintProblem:
+    """Copy a problem, replacing the bound map (used to reconstruct integer-split children)."""
+    return ConstraintProblem(
+        problem_type=problem.problem_type,
+        variables=problem.variables,
+        constraints=problem.constraints,
+        bounds=dict(bounds),
+        boolean_vars=problem.boolean_vars,
+        integer_vars=problem.integer_vars,
+    )
+
+
+@dataclass(frozen=True)
+class IntegerInfeasibilityReceipt:
+    """Integer split: both branches of a fractional LP witness are infeasible.
+
+    A linear Farkas certificate of Ax <= b cannot exist when the LP relaxation
+    is feasible. This receipt stores the split variable, the fractional LP value,
+    and child certificates that verify on the original problem plus the integer cut.
+    """
+
+    variable: str
+    lp_value: Fraction
+    left_bounds: Mapping[str, VariableBound]
+    right_bounds: Mapping[str, VariableBound]
+    left_certificate: DualReceipt | IntegerInfeasibilityReceipt
+    right_certificate: DualReceipt | IntegerInfeasibilityReceipt
+    status: str = "INFEASIBLE"
+
+    def verify(self, problem: ConstraintProblem) -> bool:
+        if self.variable not in problem.integer_vars and self.variable not in problem.boolean_vars:
+            raise InvalidDualCertificateError(
+                f"Split variable {self.variable!r} is not integer or boolean on the original problem"
+            )
+        if self.lp_value.denominator == 1:
+            raise InvalidDualCertificateError(
+                f"Split value {self.lp_value} is already integral"
+            )
+        floor_val = self.lp_value.numerator // self.lp_value.denominator
+        ceil_val = floor_val + 1
+        left_bnd = self.left_bounds.get(self.variable)
+        right_bnd = self.right_bounds.get(self.variable)
+        if left_bnd is None or left_bnd.upper != Fraction(floor_val):
+            raise InvalidDualCertificateError(
+                f"Left split bound on {self.variable!r} must have upper={floor_val}, got {left_bnd}"
+            )
+        if right_bnd is None or right_bnd.lower != Fraction(ceil_val):
+            raise InvalidDualCertificateError(
+                f"Right split bound on {self.variable!r} must have lower={ceil_val}, got {right_bnd}"
+            )
+        left_problem = _problem_with_bounds(problem, self.left_bounds)
+        right_problem = _problem_with_bounds(problem, self.right_bounds)
+        self.left_certificate.verify(left_problem)
+        self.right_certificate.verify(right_problem)
+        return True
+
+
 @dataclass(frozen=True)
 class SolverState:
     """Immutable snapshot of the solver state at any point during search."""
@@ -388,12 +447,16 @@ class StepResult:
 
     is_success: bool
     is_refusal: bool
-    receipt: Optional[PrimalReceipt | DualReceipt] = None
+    receipt: Optional[PrimalReceipt | DualReceipt | IntegerInfeasibilityReceipt] = None
     refusal: Optional[SolverRefusal] = None
     fuel_remaining: int = 0
 
     @classmethod
-    def success(cls, receipt: PrimalReceipt | DualReceipt, fuel_remaining: int) -> StepResult:
+    def success(
+        cls,
+        receipt: PrimalReceipt | DualReceipt | IntegerInfeasibilityReceipt,
+        fuel_remaining: int,
+    ) -> StepResult:
         return cls(is_success=True, is_refusal=False, receipt=receipt, fuel_remaining=fuel_remaining)
 
     @classmethod
@@ -747,8 +810,23 @@ class SolverAdapter:
         if right_res.is_refusal:
             return right_res
 
-        # Both branches are infeasible. Return DualReceipt from relaxation or left branch
-        return right_res
+        # Both integer branches infeasible. Linear Farkas of the original Ax<=b
+        # cannot exist (the LP relaxation was feasible); return a split certificate
+        # whose children verify on the original problem plus the integer cut.
+        if not isinstance(left_res.receipt, (DualReceipt, IntegerInfeasibilityReceipt)):
+            raise InvalidDualCertificateError("Left integer branch did not yield an infeasibility certificate")
+        if not isinstance(right_res.receipt, (DualReceipt, IntegerInfeasibilityReceipt)):
+            raise InvalidDualCertificateError("Right integer branch did not yield an infeasibility certificate")
+        split = IntegerInfeasibilityReceipt(
+            variable=fractional_var,
+            lp_value=val,
+            left_bounds=left_bounds,
+            right_bounds=right_bounds,
+            left_certificate=left_res.receipt,
+            right_certificate=right_res.receipt,
+        )
+        split.verify(problem)
+        return StepResult.success(split, fuel_remaining=right_res.fuel_remaining)
 
     def _back_substitute(
         self,

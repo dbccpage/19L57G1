@@ -7,7 +7,7 @@
 2. **Exact Rational Primal Witnesses in $\mathbb{Q}$**:
    Supports generation and independent $O(m \cdot n)$ verification of exact rational witness vectors $x^* \in \mathbb{Q}^n$ represented via `fractions.Fraction`, certifying primal feasibility against linear constraints, variable bounds, and boolean/integer restrictions.
 3. **Certified Exact Rational Farkas Dual Receipts**:
-   Supports generation and independent verification of exact non-negative dual multiplier vectors $y \in \mathbb{Q}_{\ge 0}^m$ satisfying $\sum_{i=1}^m y_i A_{ij} = 0$ for all variables $j$ and $\sum_{i=1}^m y_i b_i = c < 0$, constructively witnessing infeasibility via the separating hyperplane certificate $0 \le c < 0$.
+   Supports generation and independent verification of exact non-negative dual multiplier vectors $y \in \mathbb{Q}_{\ge 0}^m$ satisfying $\sum_{i=1}^m y_i A_{ij} = 0$ for all variables $j$ and $\sum_{i=1}^m y_i b_i = c < 0$, constructively witnessing *linear* infeasibility via the separating hyperplane certificate $0 \le c < 0$. When the LP relaxation is feasible but no integer point exists, `solve()` emits `IntegerInfeasibilityReceipt`: both integer branches of the fractional witness carry child certificates that `verify()` against the original problem plus the integer cut. A child `DualReceipt` does not verify on the uncut original (linear Farkas of $Ax \le b$ cannot exist in that case).
 4. **Typed Refusal & State Preservation Under Bounded Exhaustion**:
    Demonstrates explicit typed refusal (`StepResult.refusal`) when the finite search fuel budget is exhausted, preserving the original problem representation and intermediate state without mutation or default boolean hallucination.
 5. **Constructive Formalization**:

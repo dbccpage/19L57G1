@@ -19,6 +19,7 @@ from solver_adapter import (
     ConstraintProblem,
     ConstraintSense,
     DualReceipt,
+    IntegerInfeasibilityReceipt,
     InvalidDualCertificateError,
     InvalidPrimalCertificateError,
     PrimalReceipt,
@@ -317,8 +318,15 @@ class TestIntegerLinearFeasibility:
         )
         res = adapter.solve(problem, fuel=10)
         assert res.is_success
-        assert isinstance(res.receipt, DualReceipt)
+        assert isinstance(res.receipt, IntegerInfeasibilityReceipt)
         assert res.receipt.status == "INFEASIBLE"
+        assert res.receipt.variable == "x"
+        assert res.receipt.lp_value == Fraction(1, 2)
+        assert res.receipt.verify(problem)
+        left = res.receipt.left_certificate
+        assert isinstance(left, DualReceipt)
+        with pytest.raises(InvalidDualCertificateError):
+            left.verify(problem)
 
 
 class TestRefusalSemantics:
@@ -657,7 +665,8 @@ class TestBranchAndBoundVariants:
         )
         res = adapter.solve(problem, fuel=30)
         assert res.is_success
-        assert isinstance(res.receipt, DualReceipt)
+        assert isinstance(res.receipt, (DualReceipt, IntegerInfeasibilityReceipt))
+        assert res.receipt.verify(problem)
 
     def test_variable_bound_int_conversion(self) -> None:
         bnd = VariableBound(lower=1, upper=5)  # type: ignore
