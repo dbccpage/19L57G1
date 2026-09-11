@@ -18,6 +18,12 @@ import homology as hom  # noqa: E402
 class TestExactRationalLinearAlgebra(unittest.TestCase):
     """Test exact rational linear algebra primitives over Q."""
 
+    def test_to_fraction_refuses_float(self) -> None:
+        with self.assertRaises(TypeError):
+            hom.to_fraction(0.5)  # type: ignore[arg-type]
+        self.assertEqual(hom.to_fraction(1), Fraction(1, 1))
+        self.assertEqual(hom.to_fraction(Fraction(2, 3)), Fraction(2, 3))
+
     def test_rref_and_rank(self) -> None:
         # A 3x3 matrix of rank 2
         m = hom.to_fraction_matrix([

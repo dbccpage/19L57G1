@@ -3,13 +3,17 @@
   "source_hashes": {
     "lean/InternalAlgebra.lean": "deab3eccde662f895cd6d7f6080692d438e2c44e6fab8990e3284317b7f50080",
     "lean/Inventory.lean": "9c5ec74b7f8000fe7050518f4058ddfa5033ad278ca61d22377b3ff6b5768aaf",
-    "algebra.py": "d160991e0e415d18a756793ae0980f9a66e75002a7cfffb177cc82ec99fc89ca",
+    "algebra.py": "d54642808b90a63bf78aca798e47946b5703faca20efba3472b525ee7ea61563",
+    "arithmetic.py": "51d2dec721484b476cfffdfc1280d7f54152a28b0d0c3dcbf8b05f7f64754edd",
+    "free.py": "dc14c570e9fb1989aa6875afeaa9869a5576d844a4fb82d72879875cc853a22c",
+    "quotients.py": "16d541869fb7e64ccc8cbb57c53a1e2cd5971b00fc15d6d1e201373e57f2a484",
+    "structures.py": "06cd09a45934e4a773eea5e53a77b9f2ce464855986aeb9f345d7140f753b68a",
     "verify.py": "e7dd3bb6312661d0961f43358ed3bf65ab6dc554798164902dc331e987bf83e2",
-    "tests/test_algebra.py": "42d8edba99100ca9ad08ac3c690acc68f484078cd7bbd740a5dee94ed2dcd9e2"
+    "tests/test_algebra.py": "cb22190fb13e401ebf6bada5c154366491d02d64f47b4f6a0800944f0962e9b8"
   },
   "pytest": {
     "exit_code": 0,
-    "passed": 20,
+    "passed": 21,
     "status": "PASS"
   },
   "lean": {
