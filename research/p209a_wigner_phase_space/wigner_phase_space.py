@@ -19,6 +19,17 @@ from fractions import Fraction
 from typing import Any, Dict, List, Sequence, Tuple, Union
 
 
+def _exact_q(val: object) -> Fraction:
+    """Convert int/Fraction to Q. Refuse float stand-ins for claimed exact rationals."""
+    if isinstance(val, float):
+        raise TypeError("float is not exact Q; pass Fraction or int")
+    if isinstance(val, Fraction):
+        return val
+    if isinstance(val, int):
+        return Fraction(val, 1)
+    raise TypeError(f"Unsupported exact-Q conversion: {type(val)}")
+
+
 # =============================================================================
 # 1. Exact Cyclotomic Arithmetic over Q(zeta_p)
 # =============================================================================
@@ -42,7 +53,7 @@ class CyclotomicPrime:
         if len(coeffs) != p - 1:
             raise ValueError(f"Expected {p - 1} coefficients for dimension {p}, got {len(coeffs)}")
         self._p = p
-        self._coeffs = tuple(Fraction(c) for c in coeffs)
+        self._coeffs = tuple(_exact_q(c) for c in coeffs)
 
     @property
     def p(self) -> int:
@@ -53,11 +64,8 @@ class CyclotomicPrime:
         return self._coeffs
 
     @classmethod
-    def from_rational(cls, p: int, val: Union[int, Fraction, float]) -> CyclotomicPrime:
-        if isinstance(val, float):
-            f = Fraction(str(val))
-        else:
-            f = Fraction(val)
+    def from_rational(cls, p: int, val: Union[int, Fraction]) -> CyclotomicPrime:
+        f = _exact_q(val)
         return cls(p, (f,) + (Fraction(0),) * (p - 2))
 
     @classmethod

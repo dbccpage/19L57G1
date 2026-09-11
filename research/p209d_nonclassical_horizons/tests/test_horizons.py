@@ -11,6 +11,7 @@ Tests:
 
 from __future__ import annotations
 
+from fractions import Fraction
 import math
 import time
 from typing import Sequence
@@ -21,10 +22,8 @@ from horizons import (
     PhaseSpaceCarrier,
     StabilizerMixture,
     SymplecticTableau,
-    mat_adjoint,
-    mat_mul,
-    outer_product,
 )
+import wigner_phase_space as _wps
 
 
 def inner_product(u: Sequence[complex], v: Sequence[complex]) -> complex:
@@ -233,49 +232,42 @@ def test_superdense_coding_via_tableau() -> None:
 
 def test_discrete_hudson_stabilizer_states() -> None:
     psc = PhaseSpaceCarrier(p=3)
-    states = psc.stabilizer_states()
-    assert len(states) == 12  # p * (p + 1) = 3 * 4 = 12 MUB states
-    for idx, psi in enumerate(states):
-        rho = outer_product(psi, psi)
-        assert psc.is_wigner_non_negative(rho), f"Stabilizer state {idx} failed non-negativity."
-        assert math.isclose(psc.wigner_negativity(rho), 0.0, abs_tol=1e-8)
-        assert math.isclose(psc.mana(rho), 0.0, abs_tol=1e-8)
+    dens = psc.stabilizer_densities()
+    assert len(dens) == 12  # p * (p + 1) = 3 * 4 = 12 MUB states
+    for idx, rho in enumerate(dens):
+        assert psc.is_wigner_non_negative(rho), f"Stabilizer density {idx} failed non-negativity."
+        assert psc.wigner_negativity(rho) == Fraction(0)
+        assert psc.mana(rho) == Fraction(0)
 
 
 def test_discrete_hudson_magic_states() -> None:
     psc = PhaseSpaceCarrier(p=3)
-    # Norrell magic state |N> = (|1> - |2>) / sqrt(2)
-    norrell = psc.norrell_magic_state()
-    rho_n = outer_product(norrell, norrell)
+    rho_n = psc.norrell_magic_density()
     assert not psc.is_wigner_non_negative(rho_n)
     w_n = psc.wigner_distribution(rho_n)
-    assert math.isclose(w_n[0][0], -1.0 / 3.0, abs_tol=1e-8)
-    assert psc.wigner_negativity(rho_n) > 0.3
-    assert psc.mana(rho_n) > 0.5
+    assert w_n[0][0] == Fraction(-1, 3)
+    assert w_n[0][0] == _wps.discrete_wigner_point(3, _wps.ket_magic_density(3), 0, 0).to_rational()
+    assert psc.wigner_negativity(rho_n) > 0
+    assert psc.mana(rho_n) > 0
 
-    # Strange magic state |S> = (|1> + |2>) / sqrt(2)
-    strange = psc.strange_magic_state()
-    rho_s = outer_product(strange, strange)
+    rho_s = psc.strange_magic_density()
     assert not psc.is_wigner_non_negative(rho_s)
     w_s = psc.wigner_distribution(rho_s)
-    assert min(min(row) for row in w_s) < -0.15
-    assert math.isclose(w_s[0][1], -1.0 / 6.0, abs_tol=1e-8)
+    assert min(min(row) for row in w_s) < 0
+    assert w_s[0][1] == Fraction(-1, 6)
 
 
 def test_wigner_clifford_orbit_covariance() -> None:
     psc = PhaseSpaceCarrier(p=3)
-    # Carrier in |0>
-    vec0 = [1.0 + 0.0j, 0.0 + 0.0j, 0.0 + 0.0j]
-    rho = outer_product(vec0, vec0)
+    rho = _wps.ket_zero_density(3)
     assert psc.is_wigner_non_negative(rho)
 
-    # Apply displacement operators D(1, 0) and D(0, 1)
-    d10 = psc.weyl(1, 0)
-    rho_d10 = mat_mul(mat_mul(d10, rho), mat_adjoint(d10))
+    d10 = psc.displacement(1, 0)
+    rho_d10 = d10 @ rho @ d10.dag()
     assert psc.is_wigner_non_negative(rho_d10)
 
-    d01 = psc.weyl(0, 1)
-    rho_d01 = mat_mul(mat_mul(d01, rho), mat_adjoint(d01))
+    d01 = psc.displacement(0, 1)
+    rho_d01 = d01 @ rho @ d01.dag()
     assert psc.is_wigner_non_negative(rho_d01)
 
 

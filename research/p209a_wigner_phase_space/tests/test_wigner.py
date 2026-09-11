@@ -46,6 +46,13 @@ from wigner_phase_space import (
 # 1. Cyclotomic Field Invariants
 # =============================================================================
 
+def test_cyclotomic_refuses_float() -> None:
+    with pytest.raises(TypeError, match="float is not exact"):
+        CyclotomicPrime.from_rational(3, 0.5)  # type: ignore[arg-type]
+    with pytest.raises(TypeError, match="float is not exact"):
+        CyclotomicPrime(3, (0.5, 0))  # type: ignore[arg-type]
+
+
 def test_cyclotomic_field_invariants_dim3() -> None:
     """Cyclotomic arithmetic in dimension 3 over Q(w_3)."""
     p = 3

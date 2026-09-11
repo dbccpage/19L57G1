@@ -49,6 +49,13 @@ from stabilizer_codes import (
 # =============================================================================
 
 
+def test_gaussian_rational_refuses_float() -> None:
+    with pytest.raises(TypeError, match="float is not exact"):
+        GaussianRational(0.5, 0)  # type: ignore[arg-type]
+    with pytest.raises(TypeError, match="float is not exact"):
+        GaussianRational(0, 0.5)  # type: ignore[arg-type]
+
+
 def test_single_pauli_products_and_powers() -> None:
     """Verifies single-carrier Pauli multiplication table and self-inverse property."""
     p_i = PauliString("I")

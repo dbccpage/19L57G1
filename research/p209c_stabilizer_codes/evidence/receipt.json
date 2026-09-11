@@ -282,15 +282,15 @@
   },
   "pytest": {
     "exit_code": 0,
-    "passed": 23,
+    "passed": 24,
     "status": "PASS"
   },
   "schema_version": 1,
   "source_hashes": {
     "lean/Inventory.lean": "55d0b08639a5a7e2d0e11d9e869231ad94cee28cb2eda9a8b11cc43a424c7eb6",
     "lean/StabilizerCodes.lean": "431c7f238eafe11f33d9ddbc67b4459be9b448372f1f14e2d436f5bbca81608e",
-    "stabilizer_codes.py": "3a70d7d12c9c4b777000d590f7fd2b756b2ab8e587051ddefda47a7ca5d6dc50",
-    "tests/test_stabilizer.py": "3c885cce50c95f425535ce5900a489447e164cdee720370dfaff68e3b7727ad1",
+    "stabilizer_codes.py": "4afd3b74dd39cc87e06b55044e510db9020fb96dab8014cc8a1e35300d7571dd",
+    "tests/test_stabilizer.py": "69d4d08f4966362791832c1e4f0b7674da7c6260bfdd0bd7ccb99dfde0c2381a",
     "verify.py": "77ddc1c5a18949b87277c1e82ae12bdcfc189fcc14d996a1267b8faa3710d56f"
   },
   "status": "PASS",

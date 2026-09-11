@@ -16,9 +16,18 @@ from __future__ import annotations
 
 import cmath
 from enum import Enum
+from fractions import Fraction
 import math
+from pathlib import Path
 import random
+import sys
 from typing import Any, Callable, Sequence
+
+_P209A = Path(__file__).resolve().parent.parent / "p209a_wigner_phase_space"
+_p209a_str = str(_P209A)
+if _p209a_str not in sys.path:
+    sys.path.insert(0, _p209a_str)
+import wigner_phase_space as _wps
 
 
 class MagicStateType(Enum):
@@ -428,118 +437,80 @@ class SymplecticTableau:
 
 
 class PhaseSpaceCarrier:
-    """Discrete phase_space operator formalism on F_p x F_p for odd_prime dimension p.
+    """Discrete Gross Wigner on F_p x F_p via P209a exact cyclotomic arithmetic.
 
-    Delineates the Discrete Hudson boundary:
-    Stabilizer states inhabit the non-negative Wigner cone (W >= 0),
-    whereas non-stabilizer magic states possess negative Wigner quasiprobability (W < 0).
+    Delineates the Discrete Hudson boundary in Q: stabilizer densities have
+    W >= 0 and mana L1-excess 0; magic densities have a negative W point.
     """
 
     def __init__(self, p: int = 3) -> None:
-        if p < 3 or p % 2 == 0:
-            raise ValueError("Discrete Gross phase_space requires odd_prime dimension p >= 3.")
+        if p not in (3, 5):
+            raise ValueError("Exact Gross phase_space is implemented for odd_prime p in {3, 5}.")
         self.p = p
-        self.omega = cmath.exp(2j * math.pi / p)
-        # Shift X and Clock Z operators
-        self.X = [[0.0 + 0.0j] * p for _ in range(p)]
-        for i in range(p):
-            self.X[(i + 1) % p][i] = 1.0
-        self.Z = [[0.0 + 0.0j] * p for _ in range(p)]
-        for i in range(p):
-            self.Z[i][i] = self.omega ** i
-        # Modular inverse of 2 mod p
-        self.inv2 = (p + 1) // 2
 
-        # Point operator at origin
-        a00 = [[0.0 + 0.0j] * p for _ in range(p)]
-        for u in range(p):
-            for v in range(p):
-                a00 = mat_add(a00, self.weyl(u, v))
-        self.A00 = mat_scale(a00, 1.0 / float(p))
+    def displacement(self, q: int, p_coord: int) -> _wps.ExactMatrix:
+        return _wps.displacement_operator(self.p, q, p_coord)
 
-    def weyl(self, u: int, v: int) -> list[list[complex]]:
-        """Compute Weyl-Heisenberg displacement operator D(u, v) = omega^(inv2 * u * v) X^u Z^v."""
-        u_mod = u % self.p
-        v_mod = v % self.p
-        phase_factor = self.omega ** ((self.inv2 * u_mod * v_mod) % self.p)
-        x_pow = mat_pow(self.X, u_mod)
-        z_pow = mat_pow(self.Z, v_mod)
-        return mat_scale(mat_mul(x_pow, z_pow), phase_factor)
+    def wigner_distribution(self, rho: _wps.ExactMatrix) -> list[list[Fraction]]:
+        """p x p discrete Wigner grid with exact rational entries."""
+        dist = _wps.discrete_wigner_distribution(self.p, rho)
+        grid = [[Fraction(0) for _ in range(self.p)] for _ in range(self.p)]
+        for (q, p_coord), val in dist.items():
+            grid[q][p_coord] = val.to_rational()
+        return grid
 
-    def point_operator(self, q: int, p_coord: int) -> list[list[complex]]:
-        """Compute discrete phase_space point operator A(q, p)."""
-        d = self.weyl(q, p_coord)
-        d_adj = mat_adjoint(d)
-        return mat_mul(mat_mul(d, self.A00), d_adj)
+    def is_wigner_non_negative(self, rho: _wps.ExactMatrix) -> bool:
+        w = self.wigner_distribution(rho)
+        return all(w[q][p_coord] >= 0 for q in range(self.p) for p_coord in range(self.p))
 
-    def wigner_distribution(self, rho: Sequence[Sequence[complex]]) -> list[list[float]]:
-        """Calculate the p x p discrete Wigner quasiprobability grid W(q, p)."""
-        w: list[list[float]] = [[0.0] * self.p for _ in range(self.p)]
+    def wigner_negativity(self, rho: _wps.ExactMatrix) -> Fraction:
+        w = self.wigner_distribution(rho)
+        neg = Fraction(0)
         for q in range(self.p):
             for p_coord in range(self.p):
-                op = self.point_operator(q, p_coord)
-                val = float(mat_trace(mat_mul(rho, op)).real) / float(self.p)
-                w[q][p_coord] = val
-        return w
+                if w[q][p_coord] < 0:
+                    neg += -w[q][p_coord]
+        return neg
 
-    def is_wigner_non_negative(self, rho: Sequence[Sequence[complex]], tol: float = 1e-10) -> bool:
-        """Check whether W(q, p) >= 0 everywhere on the phase_space grid."""
+    def mana(self, rho: _wps.ExactMatrix) -> Fraction:
+        """Exact mana witness in Q: sum |W| - 1. Zero iff W is a probability."""
         w = self.wigner_distribution(rho)
-        return all(w[q][p_coord] >= -tol for q in range(self.p) for p_coord in range(self.p))
+        total = sum((abs(w[q][p_coord]) for q in range(self.p) for p_coord in range(self.p)), Fraction(0))
+        return total - Fraction(1)
 
-    def wigner_negativity(self, rho: Sequence[Sequence[complex]]) -> float:
-        """Compute sum of negative Wigner quasiprobability values: sum max(0, -W(q, p))."""
-        w = self.wigner_distribution(rho)
-        neg = sum(max(0.0, -w[q][p_coord]) for q in range(self.p) for p_coord in range(self.p))
-        return float(neg)
+    def _weyl_eigen_density(self, q: int, p_coord: int, m: int) -> _wps.ExactMatrix:
+        """Exact spectral projector (1/p) sum_k ω^{-m k} D(q, p)^k."""
+        W = self.displacement(q, p_coord)
+        acc = _wps.ExactMatrix.zeros(self.p, self.p)
+        for k in range(self.p):
+            root_k = _wps.CyclotomicPrime.root_unity(self.p, (-m * k) % self.p)
+            acc = acc + (_wps.matrix_power(W, k) * root_k)
+        return acc * Fraction(1, self.p)
 
-    def mana(self, rho: Sequence[Sequence[complex]]) -> float:
-        """Compute logarithmic Mana non-classicality measure: log2(sum |W(q, p)|)."""
-        w = self.wigner_distribution(rho)
-        total_l1 = sum(abs(w[q][p_coord]) for q in range(self.p) for p_coord in range(self.p))
-        return float(math.log2(max(1.0, total_l1)))
+    def stabilizer_densities(self) -> list[_wps.ExactMatrix]:
+        """Exact densities of the p(p+1) MUB stabilizer states (p=3 => 12)."""
+        if self.p != 3:
+            raise ValueError("Full MUB stabilizer census is implemented for p=3.")
+        dens: list[_wps.ExactMatrix] = []
+        for m in range(self.p):
+            dens.append(self._weyl_eigen_density(0, 1, m))
+        for b in range(self.p):
+            for m in range(self.p):
+                dens.append(self._weyl_eigen_density(1, b, m))
+        return dens
 
-    def stabilizer_states(self) -> list[list[complex]]:
-        """Return pure stabilizer basis states across all p + 1 MUBs in dimension p = 3."""
-        p = self.p
-        states: list[list[complex]] = []
-        # MUB 0: Z-basis
-        for k in range(p):
-            vec = [1.0 + 0.0j if i == k else 0.0 + 0.0j for i in range(p)]
-            states.append(vec)
+    def norrell_magic_density(self) -> _wps.ExactMatrix:
+        return _wps.ket_magic_density(self.p)
 
-        # MUBs 1 .. p: eigenstates of Weyl(1, k)
-        I_p = [[1.0 + 0.0j if i == j else 0.0 + 0.0j for j in range(p)] for i in range(p)]
-        for k in range(p):
-            op = self.weyl(1, k)
-            evals = [cmath.exp(2j * math.pi * m / float(p)) for m in range(p)]
-            for m_idx, lam in enumerate(evals):
-                other_evals = [ev for j, ev in enumerate(evals) if j != m_idx]
-                P = mat_mul(
-                    mat_sub(op, mat_scale(I_p, other_evals[0])),
-                    mat_sub(op, mat_scale(I_p, other_evals[1]))
-                )
-                for col_idx in range(p):
-                    col = [P[row_idx][col_idx] for row_idx in range(p)]
-                    norm = vec_norm(col)
-                    if norm > 1e-8:
-                        states.append([c / norm for c in col])
-                        break
-        return states
-
-    def norrell_magic_state(self) -> list[complex]:
-        """Return the Norrell magic state |N> = (|1> - |2>) / sqrt(2)."""
-        vec = [0.0 + 0.0j] * self.p
-        vec[1] = 1.0 / math.sqrt(2.0)
-        vec[2] = -1.0 / math.sqrt(2.0)
-        return vec
-
-    def strange_magic_state(self) -> list[complex]:
-        """Return the Strange magic state |S> = (|1> + |2>) / sqrt(2)."""
-        vec = [0.0 + 0.0j] * self.p
-        vec[1] = 1.0 / math.sqrt(2.0)
-        vec[2] = 1.0 / math.sqrt(2.0)
-        return vec
+    def strange_magic_density(self) -> _wps.ExactMatrix:
+        half = Fraction(1, 2)
+        last = self.p - 1
+        rows: list[list[Fraction | int]] = [[0 for _ in range(self.p)] for _ in range(self.p)]
+        rows[1][1] = half
+        rows[1][last] = half
+        rows[last][1] = half
+        rows[last][last] = half
+        return _wps.ExactMatrix(self.p, rows)
 
 
 class StabilizerMixture:

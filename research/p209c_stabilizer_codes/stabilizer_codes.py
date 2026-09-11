@@ -47,6 +47,8 @@ class GaussianRational:
     def __init__(
         self, a: int | Fraction | GaussianRational = 0, b: int | Fraction = 0
     ) -> None:
+        if isinstance(a, float) or isinstance(b, float):
+            raise TypeError("float is not exact Q(i); pass Fraction or int")
         if isinstance(a, GaussianRational):
             self._a = a._a
             self._b = a._b

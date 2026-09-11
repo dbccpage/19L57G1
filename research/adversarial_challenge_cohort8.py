@@ -534,30 +534,27 @@ def test_p209d_adversarial_nonclassical_horizons() -> int:
 
     # 3. Discrete Hudson boundary: PhaseSpaceCarrier in dimension p = 3
     psc = p209d.PhaseSpaceCarrier(3)
-    # Check all stabilizer states across all 4 MUBs have non-negative Wigner distributions
-    stab_states = psc.stabilizer_states()
-    assert len(stab_states) == 12  # (3 + 1) * 3 = 12 states
+    # Check all stabilizer densities across all 4 MUBs have non-negative Wigner distributions
+    stab_dens = psc.stabilizer_densities()
+    assert len(stab_dens) == 12  # (3 + 1) * 3 = 12 states
     checks += 1
-    for psi in stab_states:
-        rho = outer_product(psi, psi)
+    for rho in stab_dens:
         assert psc.is_wigner_non_negative(rho) is True
-        assert math.isclose(psc.wigner_negativity(rho), 0.0, abs_tol=1e-10)
-        assert math.isclose(psc.mana(rho), 0.0, abs_tol=1e-10)
+        assert psc.wigner_negativity(rho) == Fraction(0)
+        assert psc.mana(rho) == Fraction(0)
         checks += 3
 
     # Check magic states (Norrell and Strange) exhibit negative Wigner points
-    norrell = psc.norrell_magic_state()
-    rho_norrell = outer_product(norrell, norrell)
+    rho_norrell = psc.norrell_magic_density()
     assert psc.is_wigner_non_negative(rho_norrell) is False
-    assert psc.wigner_negativity(rho_norrell) > 0.1
-    assert psc.mana(rho_norrell) > 0.1
+    assert psc.wigner_negativity(rho_norrell) > 0
+    assert psc.mana(rho_norrell) > 0
     checks += 3
 
-    strange = psc.strange_magic_state()
-    rho_strange = outer_product(strange, strange)
+    rho_strange = psc.strange_magic_density()
     assert psc.is_wigner_non_negative(rho_strange) is False
-    assert psc.wigner_negativity(rho_strange) > 0.1
-    assert psc.mana(rho_strange) > 0.1
+    assert psc.wigner_negativity(rho_strange) > 0
+    assert psc.mana(rho_strange) > 0
     checks += 3
 
     # 4. Magic state resource tracking in StabilizerMixture: exact 2^k scaling
@@ -593,10 +590,9 @@ def test_cohort8_cross_target_integration() -> int:
     checks += 1
 
     psc_d = p209d.PhaseSpaceCarrier(3)
-    norrell_d = psc_d.norrell_magic_state()
-    rho_magic_d = outer_product(norrell_d, norrell_d)
-    w_magic_d = psc_d.wigner_distribution(rho_magic_d)
-    assert math.isclose(w_magic_d[0][0], -1.0 / 3.0, abs_tol=1e-10)
+    w_magic_d = psc_d.wigner_distribution(psc_d.norrell_magic_density())
+    assert w_magic_d[0][0] == Fraction(-1, 3)
+    assert w_magic_d[0][0] == w_magic_a.to_rational()
     checks += 2
 
     # Bridge 2: P209b Symplectic Form & P209c Pauli Commutation

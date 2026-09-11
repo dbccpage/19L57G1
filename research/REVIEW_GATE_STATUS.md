@@ -6,7 +6,7 @@
 **Adversarial Critic Verdict**: APPROVE  
 **Combined Gate Verdict**: APPROVE  
 **Receipt Location**: `research/evidence_cohort8_adversarial.json`  
-**Total Adversarial Checks Verified**: 1998  
+**Total Adversarial Checks Verified**: 2004  
 
 ---
 
@@ -31,7 +31,7 @@ In addition, the two-axis code review (Standards & Spec) was completed across al
 - **Parity Reflection & Gross Covariance**: Verified $P^2 = I$, $\operatorname{Tr}(P) = 1$, and Gross covariance $P X P = X^{-1}$, $P Z P = Z^{-1}$.
 - **Completeness & Orthogonality**: Verified $\sum_{q, p} A(q, p) = p \cdot I_p$ and $\operatorname{Tr}(A(q, p) A(q', p')) = p \cdot \delta_{q q'} \delta_{p p'}$.
 - **Discrete Wigner Distribution & State Reconstruction**: Verified $\sum_{q, p} W(q, p) = 1$, stabilizer non-negativity $W \ge 0$ for $|0\rangle$ and $|+\rangle$, magic state point negativity witness $W_{|M\rangle}(0, 0) = -1/p < 0$, and exact dual frame reconstruction $\sum_{q, p} W(q, p) A(q, p) = \rho$.
-- **Verification Receipts**: 536 checks in `adversarial_challenge_cohort8.py`; 38/38 pytest tests passing; 36 formal theorems in `WignerPhaseSpace.lean` within `{propext, Quot.sound}` (12 axiom-free).
+- **Verification Receipts**: 536 checks in `adversarial_challenge_cohort8.py`; 39/39 pytest tests passing; 36 formal theorems in `WignerPhaseSpace.lean` within `{propext, Quot.sound}` (12 axiom-free).
 
 ### 3. Target P209b: Discrete Clifford Group Quotients & Finite Symplectic Geometry
 - **Canonical Symplectic Form**: Validated alternating, antisymmetric, and bilinear properties of $\omega(u, v) = u_x v_z - u_z v_x \pmod p$ across $\mathbb{F}_p^2$ ($p \in \{2, 3, 5, 7\}$).
@@ -46,7 +46,7 @@ In addition, the two-axis code review (Standards & Spec) was completed across al
 - **[[3, 1, 1]] Bit-Flip Code**: Verified stabilizers $S_1 = ZZI, S_2 = IZZ$, logicals $Z_L = ZZZ, X_L = XXX$, and single bit-flip syndrome diagnosis and recovery.
 - **[[4, 2, 2]] Torus CSS Code**: Verified stabilizers $S_Z = ZZZZ, S_X = XXXX$, two independent logical pairs, and distance-2 error detection across all 12 single-carrier Pauli errors.
 - **Steane [[7, 1, 3]] CSS Code**: Verified dual Fano line intersections $|H_i \cap H_j| = 2 \equiv 0 \pmod 2$, 6 commuting generators, logicals $X_L, Z_L$, transversal Hadamard symmetry, and deterministic correction of all 21 single-carrier Pauli errors.
-- **Verification Receipts**: 368 checks in `adversarial_challenge_cohort8.py`; 23/23 pytest tests passing; 100 formal theorems in `StabilizerCodes.lean` within `{propext, Quot.sound}` (21 axiom-free).
+- **Verification Receipts**: 368 checks in `adversarial_challenge_cohort8.py`; 24/24 pytest tests passing; 100 formal theorems in `StabilizerCodes.lean` within `{propext, Quot.sound}` (21 axiom-free).
 
 ### 5. Target P209d: Non-Classicality Horizons & Gottesman-Knill Boundary
 - **Symplectic Tableau Simulator**: Validated canonical $O(n^2)$ Aaronson-Gottesman tableau simulation, Clifford gate updates ($H, S, CNOT$), invariant preservation under random Clifford circuits, Bell/GHZ state preparation, and 3-carrier teleportation.

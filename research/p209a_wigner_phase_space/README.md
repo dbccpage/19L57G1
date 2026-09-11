@@ -60,7 +60,7 @@ python verify.py --check
 ```
 This harness executes:
 1. Source hygiene audit (enforcing absence of `sorry`, `admit`, `unsafe`, `partial`, `axiom`, watched vocabulary terms, and forbidden claim words).
-2. Pytest suite across `tests/test_wigner.py` (38 test cases covering dimension sweeps on 3 and 5).
+2. Pytest suite across `tests/test_wigner.py` (39 test cases covering dimension sweeps on 3 and 5).
 3. Lean 4 package build via `lake build`.
 4. Theorem census and axiom verification in `Inventory.lean` (36 theorems verified within `{propext, Quot.sound}`).
 5. Validates `evidence/receipt.json`.
