@@ -34,6 +34,20 @@ from solver_adapter import (
 class TestLinearFeasibility:
     """Tests for exact rational linear feasibility."""
 
+    def test_constraint_and_bounds_refuse_float(self) -> None:
+        with pytest.raises(TypeError, match="float is not exact"):
+            Constraint(name="c", coefficients={"x": 0.5}, rhs=1)  # type: ignore[dict-item]
+        with pytest.raises(TypeError, match="float is not exact"):
+            Constraint(name="c", coefficients={"x": 1}, rhs=0.5)  # type: ignore[arg-type]
+        with pytest.raises(TypeError, match="float is not exact"):
+            VariableBound(lower=0.5, upper=1)  # type: ignore[arg-type]
+        with pytest.raises(TypeError, match="float is not exact"):
+            ConstraintProblem.from_linear_system(
+                variables=["x"],
+                a_matrix=[[0.5]],  # type: ignore[list-item]
+                b_vector=[1],
+            )
+
     def test_single_variable_bounded(self) -> None:
         adapter = SolverAdapter()
         # 2 <= x <= 5
@@ -128,7 +142,10 @@ class TestInfeasibilityFarkasReceipts:
         assert res.receipt.combined_rhs < 0
         # Multipliers must be non-negative and cancel x
         assert res.receipt.multipliers == (Fraction(1), Fraction(1))
+        assert all(y >= Fraction(0) for y in res.receipt.multipliers)
+        assert all(v == Fraction(0) for v in res.receipt.combined_lhs.values())
         assert res.receipt.combined_rhs == Fraction(-3)
+        assert res.receipt.combined_rhs < Fraction(0)
         assert res.receipt.verify(problem)
 
     def test_degenerate_contradiction(self) -> None:

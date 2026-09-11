@@ -17,6 +17,19 @@ from dataclasses import dataclass
 from fractions import Fraction
 from typing import Any
 
+
+def _exact_q(val: object) -> Fraction:
+    """Convert int/Fraction/rational-str to Q. Refuse float stand-ins."""
+    if isinstance(val, float):
+        raise TypeError("float is not exact Q; pass Fraction, int, or rational str")
+    if isinstance(val, Fraction):
+        return val
+    if isinstance(val, int):
+        return Fraction(val, 1)
+    if isinstance(val, str):
+        return Fraction(val)
+    raise TypeError(f"Unsupported exact-Q conversion: {type(val)}")
+
 from derivation.iso import CanonKey
 
 from harness import HarnessError
@@ -275,14 +288,14 @@ def declared_cost_budgeted(
     Funded keys are recorded as explored; unfunded keys are recorded as open; none pruned.
     Census invariance is verified via record_census.
     """
-    exact_budget = Fraction(budget)
+    exact_budget = _exact_q(budget)
     if exact_budget < 0:
         raise ValueError("budget cannot be negative")
     ordered = tuple(sorted(retained))
 
     def _get_cost(k: CanonKey) -> Fraction:
         raw = cost_fn[k] if isinstance(cost_fn, Mapping) else cost_fn(k)
-        c = Fraction(raw)
+        c = _exact_q(raw)
         if c < 0:
             raise ValueError("cost cannot be negative")
         return c

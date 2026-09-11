@@ -20,6 +20,17 @@ from fractions import Fraction
 from typing import Any, Dict, FrozenSet, List, Mapping, Optional, Sequence, Tuple
 
 
+def _exact_q(val: object) -> Fraction:
+    """Convert int/Fraction to Q. Refuse float stand-ins for claimed exact rationals."""
+    if isinstance(val, float):
+        raise TypeError("float is not exact Q; pass Fraction or int")
+    if isinstance(val, Fraction):
+        return val
+    if isinstance(val, int):
+        return Fraction(val, 1)
+    raise TypeError(f"Unsupported exact-Q conversion: {type(val)}")
+
+
 class ProblemType(str, Enum):
     LINEAR_FEASIBILITY = "LINEAR_FEASIBILITY"
     BOUNDED_SMT = "BOUNDED_SMT"
@@ -69,9 +80,9 @@ class VariableBound:
 
     def __post_init__(self) -> None:
         if self.lower is not None and not isinstance(self.lower, Fraction):
-            object.__setattr__(self, "lower", Fraction(self.lower))
+            object.__setattr__(self, "lower", _exact_q(self.lower))
         if self.upper is not None and not isinstance(self.upper, Fraction):
-            object.__setattr__(self, "upper", Fraction(self.upper))
+            object.__setattr__(self, "upper", _exact_q(self.upper))
         if self.lower is not None and self.upper is not None and self.lower > self.upper:
             # Note: contradictory bound is allowed as input; solver will detect infeasibility.
             pass
@@ -95,13 +106,13 @@ class Constraint:
     ) -> None:
         norm_coeffs: Dict[str, Fraction] = {}
         for k, v in coefficients.items():
-            fr = v if isinstance(v, Fraction) else Fraction(v)
+            fr = v if isinstance(v, Fraction) else _exact_q(v)
             if fr != 0:
                 norm_coeffs[k] = fr
         object.__setattr__(self, "name", name)
         object.__setattr__(self, "coefficients", dict(sorted(norm_coeffs.items())))
         object.__setattr__(self, "sense", sense)
-        object.__setattr__(self, "rhs", rhs if isinstance(rhs, Fraction) else Fraction(rhs))
+        object.__setattr__(self, "rhs", rhs if isinstance(rhs, Fraction) else _exact_q(rhs))
 
     def to_le_constraints(self) -> Tuple[Constraint, ...]:
         """Convert any constraint sense into one or two <= constraints."""
@@ -141,15 +152,15 @@ class ConstraintProblem:
         var_tuple = tuple(variables)
         c_list: List[Constraint] = []
         for i, (row, rhs_val) in enumerate(zip(a_matrix, b_vector)):
-            coeffs = {var_tuple[j]: Fraction(val) for j, val in enumerate(row) if val != 0}
-            c_list.append(Constraint(name=f"row_{i}", coefficients=coeffs, sense=ConstraintSense.LE, rhs=Fraction(rhs_val)))
+            coeffs = {var_tuple[j]: _exact_q(val) for j, val in enumerate(row) if val != 0}
+            c_list.append(Constraint(name=f"row_{i}", coefficients=coeffs, sense=ConstraintSense.LE, rhs=_exact_q(rhs_val)))
 
         v_bounds: Dict[str, VariableBound] = {}
         if bounds:
             for k, (lb, ub) in bounds.items():
                 v_bounds[k] = VariableBound(
-                    lower=Fraction(lb) if lb is not None else None,
-                    upper=Fraction(ub) if ub is not None else None,
+                    lower=_exact_q(lb) if lb is not None else None,
+                    upper=_exact_q(ub) if ub is not None else None,
                 )
 
         return cls(

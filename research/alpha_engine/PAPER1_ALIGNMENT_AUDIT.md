@@ -43,7 +43,7 @@ In accordance with the repository's Claim Hygiene Rule, this audit enforces rigo
 
 ## 2. Type Separation Audit: Proposal vs EvalResult vs License
 
-The executable harness in `research/alpha_engine/harness.py`, `driver_a.py`, `evaluate.py`, and `lean/Harness.lean` establishes rigid isolation between three distinct operational phases.
+The executable harness in `research/alpha_engine/harness.py`, `driver_a.py`, `evaluate.py`, and `lean/Harness.lean` establishes rigid isolation between three distinct operational stages.
 
 ```
 +-----------------------------------------------------------------------------------+
@@ -184,7 +184,7 @@ Paper 1 introduces two significant semantic distortions regarding these types:
    - `Memory`: Defined as "Event history, claim ledger...".
    - `Demand`: Defined as "The externally supplied challenges...".
 
-   *Audit Finding:* This 7-layer structure conflates the strict 3-phase PEA engine (`Proposal`, `EvalResult`, `License`) with an ad-hoc taxonomy. It conflates `Proposal` with submitted epistemological claims, introduces an extraneous `Decision` layer that exists only in a toy matrix script (`claim_gate_example.py`), and obscures `SearchPolicy` census partitioning. Table 5.1 must explicitly distinguish general conceptual research layers from the executable PEA harness contracts.
+   *Audit Finding:* This 7-layer structure conflates the strict 3-stage PEA engine (`Proposal`, `EvalResult`, `License`) with an ad-hoc taxonomy. It conflates `Proposal` with submitted epistemological claims, introduces an extraneous `Decision` layer that exists only in a toy matrix script (`claim_gate_example.py`), and obscures `SearchPolicy` census partitioning. Table 5.1 must explicitly distinguish general conceptual research layers from the executable PEA harness contracts.
 
 ---
 
@@ -363,7 +363,7 @@ The following table provides the complete inventory of narrative defects, classi
 | **251** | *"The universal lower bound is `cost1_insufficient_general`..."* | **Claim Hygiene Word:** Contains forbidden adjective `"universal"`. | *Replace with:* "The general lower bound under the declared grammar is `cost1_insufficient_general`..." |
 | **254** | *"...The achievability half is a Lean proof, not merely an engine observation."* | **Claim Hygiene Word:** Uses forbidden adverb `"merely"`. | *Replace with:* "...The achievability half is a Lean proof, not an unchecked engine observation." |
 | **379** | *"...Merely lacking a commutation rule in one presentation would not prove that distinction."* | **Claim Hygiene Words:** Uses forbidden words `"Merely"` and `"prove"`. | *Replace with:* "...The absence of a commutation rule in one presentation alone does not establish that distinction." |
-| **578–588** | **Table 5.1 (7 Layers):** Lists `Proposal`, `Representation`, `Evaluation`, `Decision`, `Authorization`, `Memory`, `Demand`. | **Taxonomic Conflation:** Conflates the 3-phase PEA engine (`Proposal`, `EvalResult`, `License`) with an invented 7-layer structure. Blurs `Proposal` with submitted claims, introduces `Decision` returning `CERTIFIED/CONJECTURE/REFUSED` from toy script `claim_gate_example.py`, and omits search policy census partitioning. | *Add clarification below Table 5.1:* "Note on engine contracts: Table 5.1 outlines a conceptual layered research architecture. The executable Alpha Engine PEA harness implements a strict three-phase contract: `Proposal` (supply-shaped offering), `EvalResult` (quotient enumeration payload), and `License` (metatheoretic authorization), coupled with `SearchPolicy` census partitioning. The `CERTIFIED/CONJECTURE/REFUSED` outcomes belong to the toy matrix script `claim_gate_example.py` and are not returned by the engine's evaluator." |
+| **578–588** | **Table 5.1 (7 Layers):** Lists `Proposal`, `Representation`, `Evaluation`, `Decision`, `Authorization`, `Memory`, `Demand`. | **Taxonomic Conflation:** Conflates the 3-stage PEA engine (`Proposal`, `EvalResult`, `License`) with an invented 7-layer structure. Blurs `Proposal` with submitted claims, introduces `Decision` returning `CERTIFIED/CONJECTURE/REFUSED` from toy script `claim_gate_example.py`, and omits search policy census partitioning. | *Add clarification below Table 5.1:* "Note on engine contracts: Table 5.1 outlines a conceptual layered research architecture. The executable Alpha Engine PEA harness implements a strict three-stage contract: `Proposal` (supply-shaped offering), `EvalResult` (quotient enumeration payload), and `License` (metatheoretic authorization), coupled with `SearchPolicy` census partitioning. The `CERTIFIED/CONJECTURE/REFUSED` outcomes belong to the toy matrix script `claim_gate_example.py` and are not returned by the engine's evaluator." |
 | **596–600** | *"The repository lists twelve local verification families in its written contract... This supplement runs its own local checks..."* | **Gate Family Ambiguity:** Risks confusing whole-repository CI gate families (Gates 1–12 in `.github/workflows/verify.yml`) with the 12 live-injection defect gates (G1–G12 in `STATUS.md`). | *Add clarifying sentence:* "These twelve repository verification families are distinct from the Alpha Engine's internal G1–G12 defect injection gates documented in `research/alpha_engine/STATUS.md`." |
 | **605** | *"...it proves neither complete fault coverage nor the truth of arbitrary prose."* | **Claim Hygiene Word:** Uses forbidden verb `"proves"`. | *Replace with:* "...it demonstrates neither complete fault coverage nor the truth of arbitrary prose." |
 | **633** | *"...without acquiring certification merely through a label."* | **Claim Hygiene Word:** Uses forbidden adverb `"merely"`. | *Replace with:* "...without acquiring certification solely through a label." |
@@ -515,7 +515,7 @@ This audit provides complete evidence and line-by-line remediations to bring Pap
 
 By adopting the exact textual remediations in Section 6:
 1. Paper 1 will accurately communicate the executable compute order (evaluate $\to$ wrap $\to$ present $\to$ license $\to$ explore), resolving the narrative inversion.
-2. The strict 3-phase type separation (`Proposal`, `EvalResult`, `License`) will be defended without blurring into conceptual prose claims or ungrounded 7-layer taxonomies.
+2. The strict 3-stage type separation (`Proposal`, `EvalResult`, `License`) will be defended without blurring into conceptual prose claims or ungrounded 7-layer taxonomies.
 3. The G1–G12 defect injection gates will be framed accurately as narrow local regression checks under unit tests, noting the formal withdrawal in `STATUS.md`.
 4. Driver B will be explicitly defined alongside OB-1 as a dual open boundary preserving the closed six-constructor `Event` set.
 5. All forbidden hype words (`proves`, `universal`, `merely`) and commit hash discrepancies will be eliminated.

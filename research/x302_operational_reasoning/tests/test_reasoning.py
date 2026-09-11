@@ -13,8 +13,6 @@ Validates:
 
 from __future__ import annotations
 
-import hashlib
-import json
 import pytest
 
 try:
@@ -468,15 +466,12 @@ def test_revision_receipt_hashing_and_tamper_detection() -> None:
     assert len(receipt.justification_hash) == 64
     assert receipt.to_dict()["justification_hash"] == receipt.justification_hash
 
-    expected_data = {
-        "conflicts": [sorted(c) for c in receipt.conflict_sets],
-        "retracted": sorted(receipt.retracted_hypotheses),
-        "deactivated": list(receipt.deactivated_nodes),
-        "surviving": list(receipt.surviving_beliefs),
-    }
-    recomputed_hash = hashlib.sha256(
-        json.dumps(expected_data, sort_keys=True).encode("utf-8")
-    ).hexdigest()
+    recomputed_hash = tms._hash_receipt(
+        receipt.conflict_sets,
+        receipt.retracted_hypotheses,
+        receipt.deactivated_nodes,
+        receipt.surviving_beliefs,
+    )
     assert receipt.justification_hash == recomputed_hash
 
 

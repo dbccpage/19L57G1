@@ -322,6 +322,19 @@ class TestCostBudgetedPolicy(unittest.TestCase):
         self.assertEqual(policy.subset(), (self.ordered[0], self.ordered[1]))
         self.assertEqual(policy.census().open_keys, (self.ordered[2],))
 
+    def test_cost_budgeted_refuses_float(self) -> None:
+        costs = {k: Fraction(1, 2) for k in self.ordered}
+        with self.assertRaises(TypeError) as ctx:
+            declared_cost_budgeted(self.retained, costs, budget=0.5)  # type: ignore[arg-type]
+        self.assertIn("float is not exact", str(ctx.exception))
+        with self.assertRaises(TypeError) as ctx2:
+            declared_cost_budgeted(
+                self.retained,
+                {self.ordered[0]: 0.25, self.ordered[1]: 1, self.ordered[2]: 1},  # type: ignore[dict-item]
+                budget=1,
+            )
+        self.assertIn("float is not exact", str(ctx2.exception))
+
     def test_cost_budgeted_negative_budget_raises(self) -> None:
         costs = {k: 1 for k in self.ordered}
         with self.assertRaises(ValueError) as ctx:

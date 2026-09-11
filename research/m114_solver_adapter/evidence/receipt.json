@@ -36,15 +36,15 @@
   },
   "pytest": {
     "exit_code": 0,
-    "passed": 42,
+    "passed": 43,
     "status": "PASS"
   },
   "schema_version": 1,
   "source_hashes": {
     "lean/Inventory.lean": "5358b6c5d9b4ab98ddb0caa863f20caec1cfeafedd8adec96bc06579e879aabb",
     "lean/SolverAdapter.lean": "9cff3bfe343f988ccb54de144d65544b43a640833bc669ae32b34ceed34467cf",
-    "solver_adapter.py": "6094a9d44c74fd74e12c5e085ad4a42ee81f62b391a8d280cc00c7d8d20dc922",
-    "tests/test_solver_adapter.py": "781b2b92c7d9d553bd813ae54dc870d4defcaace4ff31cf4e2a2f4a2db85b941",
+    "solver_adapter.py": "9fd2bfa2980c8b43c3db4ec46c4fac0d5d0078d435ffee4fa97f3ef3f63d6d83",
+    "tests/test_solver_adapter.py": "34d5392fde9e8b78080540c2adbc4ed647ef1082499a10ff75b6ac82dd14991d",
     "verify.py": "d9ee43b33f48ea8aca9e86e585b5b0494284caa0040c7d9846472607c0afa951"
   },
   "status": "PASS",
