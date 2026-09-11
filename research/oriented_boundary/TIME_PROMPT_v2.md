@@ -16,7 +16,7 @@ fourth glyph and then pretend it was derived.
 
 Treat each whole as opaque except for one declared exception per seed, stated
 below. Do not inherit ordinary meanings for < > | a b. Do not assume the
-object language can see strings, pairs, sets, clocks, spacetime, particles,
+object language can see strings, pairs, sets, clocks, fused containers, corpuscles,
 inside/outside, left/right, before/after, or concatenation unless that is
 exactly the admitted exception of that seed.
 
@@ -170,7 +170,7 @@ Q6.  Can S0's admission-append (the list) distinguish first from second
      internally without (A) or (B)? If only the metatheory sees the list
      order, that is not internal (fact 3).
 
-Q7.  TIME: which of T1–T7. Proof, using L1, L2, and the reduction lattice.
+Q7.  TIME: which of T1–T7. Proof, using L1, L2, and the reduction order.
      No new host nouns.
 
 Q8.  If TIME is orientation, show it is σ∉Aut and nothing else. Then say
@@ -194,7 +194,7 @@ FORBIDDEN
 ══════════════════════════════════════════════════════════════════
 
 - Renaming | to , or → or ~ and calling that a TIME seed.
-- Importing clocks, spacetime, lattices, particles, vacua, or any named
+- Importing clocks, fused containers, discrete grids, corpuscles, vacua, or any named
   physical calculus.
 - Using "container" as a derived sort.
 - Treating supply as admission.

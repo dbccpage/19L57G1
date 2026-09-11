@@ -2,7 +2,7 @@
   "schema": "oriented-boundary-source-pin/v1",
   "authority_effect": "None",
   "repository": "https://github.com/dbccpage/19L57G1",
-  "baseline_commit": "9b1395904259e38fe3cfb48489f396b00d406ff0",
+  "baseline_commit": "1ab151a201acfc3c5e0ff9d72bb19d32981b0b2d",
   "kind": "open, analytic (not blind) object-language result",
   "discharges": "SF-OPEN-A (research/side_free/CLAIM_LEDGER.md)",
   "consumes_sealed_files": false,

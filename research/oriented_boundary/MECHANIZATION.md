@@ -45,10 +45,8 @@ The derivation is the author's (Jeremy Carroll). Grades: `OB-B-EMPTY` Derivation
 (Lean); the exhaustive check Representation (Python); `OB-KIND` and the SF-OPEN-A
 discharge Representation (analytic + one independent clean-model confirmation).
 
-Remaining (needs a main 19L57G1 worktree — this session is an isolated worktree
-that cannot write the sealed repo): register a `research/oriented_boundary/`
-tree (or fold this in) with source pins into gate 11, and add a one-line
-"Correction, recorded" discharge pointer to `research/side_free/CLAIM_LEDGER.md`'s
-SF-OPEN-A entry (its verifier does not read the ledger, so a note keeps it
-green). The blind `oriented_boundary` `SEED.md` stays parked for an independent
-fresh-session confirmation.
+This tree lives at `research/oriented_boundary/` with a light `SOURCE_PIN.json`
+(no sealed consume, so no gate-11 pin). `research/side_free/CLAIM_LEDGER.md`
+records a "Correction, recorded" discharge under SF-OPEN-A (the verifier does
+not read the ledger, so a note keeps it green). The blind `SEED.md` stays
+parked for an independent fresh-session confirmation.

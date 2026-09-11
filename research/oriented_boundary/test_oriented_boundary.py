@@ -55,7 +55,8 @@ class TestBEmpty(unittest.TestCase):
         self.assertTrue(r["S2_U_swap_is_automorphism"])
         self.assertFalse(r["S2_O_swap_is_automorphism"])
         self.assertEqual(r["S2_O_breaking_witness_count"], 1)
-        self.assertEqual(r["n_admitted_sets_checked"], 16)
+        self.assertEqual(r["n_admitted_sets_checked"], len(_all_admitted_sets()))
+        self.assertEqual(r["S2_O_breaking_witness_count"], len(breaking_witnesses(S2_O)))
 
 
 if __name__ == "__main__":

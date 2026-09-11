@@ -18,7 +18,7 @@ The seed speaks only of a boundary and its orientation. Our reading of the piece
 | **C3** same kind or two kinds | are space and time one primitive or two? |
 | **C4** where the direction lives (internal witness vs external stance) | is the arrow *internally real*, or an "observer from nowhere" clock? — this is `SF-OPEN-A` |
 | **C2** the capability the orientation costs | the *toll* that turns a container into an oriented one — the "arrow" as a price, not a substance |
-| **C5** the collapse test, run both ways | does *spacetime* start as two and fuse, or start as one and split? |
+| **C5** the collapse test, run both ways | does the fused container start as two and fuse, or start as one and split? |
 
 The thesis we are trying to unplug: physics *hands us* "space and time are
 different things." We refuse to import that. The seed derives whether the
@@ -50,7 +50,7 @@ two capability levels.
 
 ## If the predictions hold (the interpretation we would then be entitled to)
 
-"Spacetime" is one container primitive. *Space* is the unpaid (unoriented)
+The fused container is one primitive. *Space* is the unpaid (unoriented)
 reading; *time* is the paid (oriented) reading; the "flow/arrow" is the
 `SF-OPEN-A` residue — an internal witness that costs one capability, versus an
 external clock that is refused. The imported "two substances" assumption is

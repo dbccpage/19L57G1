@@ -63,9 +63,8 @@ def has_A_witness(admitted: Sequence[Judgment]) -> bool:
 def b_is_empty(admitted: Sequence[Judgment]) -> bool:
     """The (B)-empty lemma on one admitted set: if ``sigma not in Aut`` then a
     mechanism-(A) witness is present. There is no witnessless route (B)."""
-    if swap_in_aut(admitted):
-        return True  # sigma in Aut: (B) does not even arise
-    return has_A_witness(admitted)
+    # (B) is "sigma not in Aut and no (A) witness". Empty iff that pair never holds.
+    return swap_in_aut(admitted) or has_A_witness(admitted)
 
 
 def _all_admitted_sets() -> list[tuple[Judgment, ...]]:

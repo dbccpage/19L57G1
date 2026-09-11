@@ -601,8 +601,7 @@ is.  **OPEN OBSTRUCTION.**
   contents, an order only with them (different existence conditions, different
   kinds).  Load-bearing lemma: route (B) is empty — `σ ∉ Aut` forces an admitted
   distinguishing witness, so the witnessless withdrawal does not exist —
-  mechanized in Lean and Python (`research/oriented_boundary/`;
-  `genesis/seeds/oriented_boundary/{CLOSURE.md, MECHANIZATION.md}`), and
+  mechanized in Lean and Python (`research/oriented_boundary/`), and
   corroborated by one independent clean-model run at VERDICT T7.  The
   **OPEN OBSTRUCTION** label above is superseded, not rewritten.  Object-language
   result; the space/time reading stays a deferred, refused functor.
