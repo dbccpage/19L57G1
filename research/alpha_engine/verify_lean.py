@@ -161,7 +161,7 @@ def main() -> int:
             RECORD.parent.mkdir(parents=True, exist_ok=True)
             RECORD.write_bytes(fresh)
             print("WROTE: freshly compiled theorem and reliance record")
-        elif not RECORD.is_file() or RECORD.read_bytes() != fresh:
+        elif not RECORD.is_file() or RECORD.read_bytes().replace(b"\r\n", b"\n").replace(b"\r", b"\n") != fresh:
             print("FAIL: evidence/lean.json differs from fresh compilation")
             return 1
         else:

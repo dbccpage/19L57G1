@@ -76,7 +76,8 @@ def main() -> int:
         RECORD.write_bytes(fresh)
         print("WROTE: deterministic PEA record")
         return 0
-    if not RECORD.is_file() or RECORD.read_bytes() != fresh:
+    on_disk = RECORD.read_bytes().replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    if not RECORD.is_file() or on_disk != fresh:
         print("FAIL: evidence/three_phase.json differs from fresh computation")
         return 1
     print("PASS: source pins and PEA record bytes")

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import subprocess
 import sys
 import unittest
 
@@ -40,9 +41,9 @@ class Receipt(unittest.TestCase):
         self.assertIn("duplicate JSON key", str(ctx.exception))
 
     def test_committed_record_has_no_cr(self) -> None:
-        if not run.RECORD.is_file():
-            self.skipTest("run python run.py --write first")
-        raw = run.RECORD.read_bytes()
+        repo = Path(__file__).resolve().parents[3]
+        rel = "research/alpha_engine/evidence/three_phase.json"
+        raw = subprocess.check_output(["git", "show", f"HEAD:{rel}"], cwd=repo)
         self.assertNotIn(b"\r", raw)
         payload = run.load_receipt(raw)
         self.assertEqual(payload.get("authority_effect"), "None")

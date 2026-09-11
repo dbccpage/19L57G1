@@ -10,3 +10,4 @@ research/sign_slice/PROMPT.md -text
 research/sign_slice/PREDICTIONS.md -text
 research/sign_slice/receipts/** -text
 ci/prose_watchlist.json -text
+research/alpha_engine/evidence/** -text
