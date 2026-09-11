@@ -1,7 +1,7 @@
 """Target X300: Observer-Relative Information, Channels & Loss.
 
 This module formalizes:
-1. Exact additive operational entropy and information divergence metrics in Q
+1. Exact additive operational uncertainty and information divergence metrics in Q
    over discrete dyadic observation alphabets, as well as exact Hartley capacity metrics.
 2. Operational communication channels between distributed observers, Markov compositions,
    encoding/decoding schemes, and transmission fidelity.
@@ -135,12 +135,12 @@ class DiscreteDistribution(Generic[T]):
         return math.log2(len(self._probs))
 
     def exact_dyadic_shannon_entropy(self) -> Fraction:
-        """Return exact rational Shannon entropy H in Q for pure dyadic distribution.
+        """Return exact rational Shannon uncertainty H in Q for pure dyadic distribution.
 
         H(P) = sum_x P(x) * (-log2(P(x))) = sum_x l_x * 2^{-l_x} in Q.
         """
         if not self.is_pure_dyadic():
-            raise ValueError("Exact rational Shannon entropy requires a pure dyadic distribution")
+            raise ValueError("Exact rational Shannon uncertainty requires a pure dyadic distribution")
         h = Fraction(0)
         for p in self._probs.values():
             l_x = _int_log2(p.denominator)
@@ -148,7 +148,7 @@ class DiscreteDistribution(Generic[T]):
         return h
 
     def shannon_entropy(self, base: float = 2.0) -> float:
-        """Compute general Shannon entropy: - sum p log(p)."""
+        """Compute general Shannon uncertainty: - sum p log(p)."""
         ent = 0.0
         for p in self._probs.values():
             if p > 0:
@@ -167,11 +167,11 @@ class DiscreteDistribution(Generic[T]):
 
 
 # -----------------------------------------------------------------------------
-# 2. Exact Operational Divergence, Cross-Entropy & Joint Measures
+# 2. Exact Operational Divergence, Cross-Divergence & Joint Measures
 # -----------------------------------------------------------------------------
 
 def exact_dyadic_divergence(p: DiscreteDistribution[T], q: DiscreteDistribution[T]) -> Fraction:
-    """Exact relative entropy (KL divergence) D(P || Q) in Q for pure dyadic distributions.
+    """Exact relative divergence (KL divergence) D(P || Q) in Q for pure dyadic distributions.
 
     D(P || Q) = sum_{x in supp(P)} P(x) * log2(P(x) / Q(x))
               = sum_{x in supp(P)} 2^{-l_x} * (m_x - l_x) in Q.
@@ -191,7 +191,7 @@ def exact_dyadic_divergence(p: DiscreteDistribution[T], q: DiscreteDistribution[
 
 
 def exact_dyadic_cross_entropy(p: DiscreteDistribution[T], q: DiscreteDistribution[T]) -> Fraction:
-    """Exact cross-entropy H(P, Q) in Q for pure dyadic distributions."""
+    """Exact cross-divergence H(P, Q) in Q for pure dyadic distributions."""
     return p.exact_dyadic_shannon_entropy() + exact_dyadic_divergence(p, q)
 
 

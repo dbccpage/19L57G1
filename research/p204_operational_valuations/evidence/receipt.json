@@ -1,0 +1,164 @@
+{
+  "authority_effect": "None",
+  "claim_hygiene": {
+    "axioms_within_propext_quot_sound": true,
+    "bipartite_tensor_cut_non_signaling_proved": true,
+    "classical_simplex_unique_decomposition_proved": true,
+    "convex_mixture_bilinearity_proved": true,
+    "exact_rational_arithmetic_verified": true,
+    "operational_state_normalization_proved": true,
+    "scope": "Operational valuations in exact rational arithmetic, finite discrete outcome spaces, state normalization and unit effect evaluation, bilinearity of valuations, classical simplex uniqueness vs square state space non-unique extreme decompositions, and operational non-signaling across bipartite tensor cuts",
+    "square_state_space_non_unique_decomposition_proved": true,
+    "symmetric_bipartite_cut_non_signaling_proved": true,
+    "unit_effect_evaluation_invariance_proved": true,
+    "zero_classical_choice": true,
+    "zero_mathlib": true
+  },
+  "lean": {
+    "allowed_axioms": [
+      "Quot.sound",
+      "propext"
+    ],
+    "axiom_free_count": 71,
+    "reports": {
+      "P204OperationalValuations.CompositeState.ext": [],
+      "P204OperationalValuations.CompositeState.ext_iff": [],
+      "P204OperationalValuations.CompositeState.mk.inj": [],
+      "P204OperationalValuations.CompositeState.mk.injEq": [
+        "propext"
+      ],
+      "P204OperationalValuations.CompositeState.mk.sizeOf_spec": [],
+      "P204OperationalValuations.Effect2.ext": [],
+      "P204OperationalValuations.Effect2.ext_iff": [],
+      "P204OperationalValuations.Effect2.mk.inj": [],
+      "P204OperationalValuations.Effect2.mk.injEq": [
+        "propext"
+      ],
+      "P204OperationalValuations.Effect2.mk.sizeOf_spec": [],
+      "P204OperationalValuations.QVal.add._proof_1": [],
+      "P204OperationalValuations.QVal.den_pos": [],
+      "P204OperationalValuations.QVal.ext": [],
+      "P204OperationalValuations.QVal.ext_iff": [],
+      "P204OperationalValuations.QVal.half._proof_1": [],
+      "P204OperationalValuations.QVal.mk.inj": [],
+      "P204OperationalValuations.QVal.mk.injEq": [
+        "propext"
+      ],
+      "P204OperationalValuations.QVal.mk.sizeOf_spec": [],
+      "P204OperationalValuations.QVal.quarter._proof_1": [],
+      "P204OperationalValuations.QVal.zero._proof_1": [],
+      "P204OperationalValuations.State2.ext": [],
+      "P204OperationalValuations.State2.ext_iff": [],
+      "P204OperationalValuations.State2.mk.inj": [],
+      "P204OperationalValuations.State2.mk.injEq": [
+        "propext"
+      ],
+      "P204OperationalValuations.State2.mk.sizeOf_spec": [],
+      "P204OperationalValuations.State4.ext": [],
+      "P204OperationalValuations.State4.ext_iff": [],
+      "P204OperationalValuations.State4.mk.inj": [],
+      "P204OperationalValuations.State4.mk.injEq": [
+        "propext"
+      ],
+      "P204OperationalValuations.State4.mk.sizeOf_spec": [],
+      "P204OperationalValuations.Weight4.ext": [],
+      "P204OperationalValuations.Weight4.ext_iff": [],
+      "P204OperationalValuations.Weight4.mk.inj": [],
+      "P204OperationalValuations.Weight4.mk.injEq": [
+        "propext"
+      ],
+      "P204OperationalValuations.Weight4.mk.sizeOf_spec": [],
+      "P204OperationalValuations.classical_simplex_unique_decomposition": [],
+      "P204OperationalValuations.eval2_joint_bilinearity": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P204OperationalValuations.eval2_linearity_effect": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P204OperationalValuations.eval2_linearity_state": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P204OperationalValuations.eval2_unit_effect": [],
+      "P204OperationalValuations.eval2_zero_effect": [],
+      "P204OperationalValuations.half_plus_half_eqv_one": [],
+      "P204OperationalValuations.instDecidableEqCompositeState.decEq._proof_1": [],
+      "P204OperationalValuations.instDecidableEqCompositeState.decEq._proof_2": [],
+      "P204OperationalValuations.instDecidableEqCompositeState.decEq._proof_3": [],
+      "P204OperationalValuations.instDecidableEqCompositeState.decEq._proof_4": [],
+      "P204OperationalValuations.instDecidableEqCompositeState.decEq._proof_5": [],
+      "P204OperationalValuations.instDecidableEqEffect2.decEq._proof_1": [],
+      "P204OperationalValuations.instDecidableEqEffect2.decEq._proof_2": [],
+      "P204OperationalValuations.instDecidableEqEffect2.decEq._proof_3": [],
+      "P204OperationalValuations.instDecidableEqQVal.decEq._proof_1": [],
+      "P204OperationalValuations.instDecidableEqQVal.decEq._proof_2": [],
+      "P204OperationalValuations.instDecidableEqQVal.decEq._proof_3": [],
+      "P204OperationalValuations.instDecidableEqQVal.decEq._proof_4": [],
+      "P204OperationalValuations.instDecidableEqState2.decEq._proof_1": [],
+      "P204OperationalValuations.instDecidableEqState2.decEq._proof_2": [],
+      "P204OperationalValuations.instDecidableEqState2.decEq._proof_3": [],
+      "P204OperationalValuations.instDecidableEqState4.decEq._proof_1": [],
+      "P204OperationalValuations.instDecidableEqState4.decEq._proof_2": [],
+      "P204OperationalValuations.instDecidableEqState4.decEq._proof_3": [],
+      "P204OperationalValuations.instDecidableEqState4.decEq._proof_4": [],
+      "P204OperationalValuations.instDecidableEqState4.decEq._proof_5": [],
+      "P204OperationalValuations.instDecidableEqWeight4.decEq._proof_1": [],
+      "P204OperationalValuations.instDecidableEqWeight4.decEq._proof_2": [],
+      "P204OperationalValuations.instDecidableEqWeight4.decEq._proof_3": [],
+      "P204OperationalValuations.instDecidableEqWeight4.decEq._proof_4": [],
+      "P204OperationalValuations.instDecidableEqWeight4.decEq._proof_5": [],
+      "P204OperationalValuations.non_signaling_term": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P204OperationalValuations.operational_non_signaling_bipartite": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P204OperationalValuations.operational_non_signaling_symmetric": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P204OperationalValuations.quarter_plus_quarter_eqv_half": [],
+      "P204OperationalValuations.qval_add_comm": [],
+      "P204OperationalValuations.qval_eqv_refl": [],
+      "P204OperationalValuations.qval_eqv_symm": [],
+      "P204OperationalValuations.qval_mul_comm": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P204OperationalValuations.sq_decomp1_p0_eqv": [],
+      "P204OperationalValuations.sq_decomp1_p1_eqv": [],
+      "P204OperationalValuations.sq_decomp1_p2_eqv": [],
+      "P204OperationalValuations.sq_decomp1_p3_eqv": [],
+      "P204OperationalValuations.sq_decomp2_p0_eqv": [],
+      "P204OperationalValuations.sq_decomp2_p1_eqv": [],
+      "P204OperationalValuations.sq_decomp2_p2_eqv": [],
+      "P204OperationalValuations.sq_decomp2_p3_eqv": [],
+      "P204OperationalValuations.sq_weights_distinct": [],
+      "P204OperationalValuations.state2_normalization_preserved": [
+        "Quot.sound",
+        "propext"
+      ]
+    },
+    "theorem_count": 85
+  },
+  "pytest": {
+    "exit_code": 0,
+    "passed": 26,
+    "status": "PASS"
+  },
+  "schema_version": 1,
+  "source_hashes": {
+    "lean/Inventory.lean": "141684dc0244b735cf108ebd69739982125907fb079d4b130dae81f1dbf7d6f5",
+    "lean/OperationalValuations.lean": "db5035c5eca898e483468b20c45270a7fc6a92c85b4d6eba3a881b7efab3b777",
+    "tests/test_valuations.py": "e6cefdec5f4b4e6c71950f5131054522c890b1a2819a3b38e080202905405c48",
+    "valuations.py": "9f9eaaa68324244906468b2cc401061876067439cdbf24098f954dc9939679ef",
+    "verify.py": "b7b772eae5329c7f564adcc9e03cb58c1acb1378eaea49990f3892e8c928c9e7"
+  },
+  "status": "PASS",
+  "target": "Target P204: Operational Valuations & Convex State Spaces",
+  "toolchain": "leanprover/lean4:v4.33.0"
+}

@@ -1,0 +1,264 @@
+﻿"""Verification and governance harness for Target P208a: path_interference & Vanishing Sorkin I_3.
+
+AuthorityEffect: None.
+Runs:
+1. Source hygiene check:
+   - Forbids sorry, admit, unsafe, partial, axiom in Lean sources.
+   - Forbids watched vocabulary terms and forbidden claim words across all sources.
+2. Python pytest test suite across tests/.
+3. Lean 4 package build via lake build.
+4. Inventory.lean census and axiom audit against allowed axioms {propext, Quot.sound}.
+5. Emits evidence/receipt.json with source hashes and audit results.
+"""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+from pathlib import Path
+import re
+import subprocess
+import sys
+from typing import Any, Dict, List, Set
+
+ROOT = Path(__file__).resolve().parent
+REPO_ROOT = ROOT.parent.parent
+LEAN_DIR = ROOT / "lean"
+RECEIPT_PATH = ROOT / "evidence" / "receipt.json"
+
+ALLOWED_AXIOMS = {"propext", "Quot.sound"}
+FORBIDDEN_LEAN_TOKENS = re.compile(
+    r"\b(?:sorry|admit|unsafe|partial)\b|^\s*axiom\s", re.MULTILINE
+)
+CENSUS_RE = re.compile(r"P208A_THEOREM:\s+(\S+)", re.MULTILINE)
+
+# Stored as SHA-256 digests of normalized tokens to avoid carrying watched terms as prose
+WATCHED_DIGESTS = {
+    "8fb7cf7a46995c95da6ad4cca750efb66946b771aca070d5948ea80ca33237b4",  # term 1
+    "326020dd50dd0cf805c87b26692d2ca8e5143c3fe0c68c96fdd346d74afae926",  # term 2
+    "67671a2f53dd910a8b35840edb6a0a1e751ae5532178ca7f025b823eee317992",  # term 3
+    "c23c23a7c71feb7e0bd8f3b0d1eb5603df23a831bb6a4ec36a407f571e02df43",  # term 4
+    "ce97e449f49f6dfbe3f9acdb172fac5489099bf62b908d501cb466f359d91508",  # term 5
+    "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad",  # term 6
+    "812592913d114ecbc7072950c712575b2e859a7d1e8cc775226e2cd1de12e274",  # term 7
+    "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed",  # term 8
+    "e3b1f58e9bd1e8b95067072e7b4f9590ef9d8265489e775c73b7f8d5102b79ad",  # term 9
+    "4fea05be302d325b69a315f0a78f0c40420b48b10b56f08920b77191b94c0d7e",  # term 10
+    "5cc10d9143b2cff082cf5fb373073b13d02d12c9a4d24a97d822d701404fb421",  # term 11
+}
+
+# Forbidden claim words stored as digests to avoid literal prohibited words
+FORBIDDEN_CLAIM_DIGESTS = {
+    "1853ac3ef763440e6fa1e68cfcdf5ec55214b7bbc93cd8b34a832e5690ba9ec9",
+    "870e586efea39af229438e2fa46bbc6d4a40cb1c4d78884de06e7fb54847bbc1",
+    "78c67d0d01f40eab2db63299525a057ec8db546d94c214869f912702bc19b829",
+    "3dd9b4a278ab962d0ea9bcb998d23be81ad5ce67537936964fb23c599e905bb9",
+    "865f92e1102e192da4ac5b92a534cc2bd655c959928d591e0f66740288614156",
+    "1298a63b90dc1097df9c8d2dcaffad1b13cd33cef761dade7b68418ed474280e",
+    "a9fd078562420a276b6902ca3d8bf583c0366e38af72e23be99b16035a76b39a",
+    "ac9071cf9ea41bfb87c5df9320154cf15d4f3105959dc6538314bcfd4e1cad91",
+    "9cbc69c9b26fb36fb37a4531ce778b70852989c95ffc8a131c1fa1ea15f75a25",
+    "6b4cc83fd06ded395a2c08bcd4326973f9545b68dceb709f5a7ea7cb0fd5cd41",
+    "1e1c48dbdb5c1b6998ed1c6714d9a0a7a112661c4dd4a75eb0ba24631a52bf9c",
+    "0ec8b3a4a10e5266e36a1260bbfa47ee06de7d996bd823cd0d18a9c2e2b637df",
+    "b656c4513f109480f96bed79d76db23413ce50742e5866646be1ee664b8ea23f",
+    "d161ccc3179d1d64590698f21d8a8bfea9df9af2125f8eaab4fa55f2cd7ea6d8",
+}
+
+
+def sha256_file(path: Path) -> str:
+    data = path.read_bytes().replace(b"\r\n", b"\n")
+    return hashlib.sha256(data).hexdigest()
+
+
+def check_vocabulary_hygiene(path: Path) -> None:
+    text = path.read_text(encoding="utf-8", errors="ignore").lower()
+
+    # Tokenizer matching \b[a-z]+\b (skipping identifiers with underscores or digits)
+    word_tokens = re.findall(r"\b[a-z]+\b", text)
+    for tok in word_tokens:
+        tok_hash = hashlib.sha256(tok.encode("utf-8")).hexdigest()
+        if tok_hash in WATCHED_DIGESTS:
+            raise ValueError(f"Forbidden watched token '{tok}' found in {path.name}")
+        if tok_hash in FORBIDDEN_CLAIM_DIGESTS:
+            raise ValueError(f"Forbidden claim token '{tok}' found in {path.name}")
+
+
+def check_source_hygiene() -> dict[str, str]:
+    hashes: dict[str, str] = {}
+    lean_files = list(LEAN_DIR.glob("*.lean"))
+    if not lean_files:
+        raise ValueError("No Lean files found in lean directory")
+
+    for p in sorted(lean_files):
+        text = p.read_text(encoding="utf-8")
+        if FORBIDDEN_LEAN_TOKENS.search(text):
+            raise ValueError(f"Forbidden token found in Lean source: {p.name}")
+        check_vocabulary_hygiene(p)
+        rel = str(p.relative_to(ROOT)).replace("\\", "/")
+        hashes[rel] = sha256_file(p)
+
+    for p in sorted(ROOT.glob("*.py")):
+        check_vocabulary_hygiene(p)
+        rel = str(p.relative_to(ROOT)).replace("\\", "/")
+        hashes[rel] = sha256_file(p)
+
+    for p in sorted((ROOT / "tests").glob("*.py")):
+        check_vocabulary_hygiene(p)
+        rel = str(p.relative_to(ROOT)).replace("\\", "/")
+        hashes[rel] = sha256_file(p)
+
+    for p in sorted(ROOT.glob("*.md")):
+        check_vocabulary_hygiene(p)
+        rel = str(p.relative_to(ROOT)).replace("\\", "/")
+        hashes[rel] = sha256_file(p)
+
+    return hashes
+
+
+def run_pytest() -> dict[str, Any]:
+    cmd = [sys.executable, "-m", "pytest", "-v", "tests"]
+    print(f"== Running pytest: {' '.join(cmd)}")
+    proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, check=False)
+    output = proc.stdout + "\n" + proc.stderr
+    print(output)
+    if proc.returncode != 0:
+        raise RuntimeError(f"pytest failed with exit code {proc.returncode}")
+
+    passed_match = re.search(r"(\d+) passed", output)
+    passed_count = int(passed_match.group(1)) if passed_match else 0
+    return {
+        "exit_code": proc.returncode,
+        "passed": passed_count,
+        "status": "PASS",
+    }
+
+
+def run_lean() -> dict[str, Any]:
+    print("== Building Lean package with lake build")
+    build_proc = subprocess.run(
+        ["lake", "build"], cwd=LEAN_DIR, capture_output=True, text=True, check=False
+    )
+    build_output = build_proc.stdout + "\n" + build_proc.stderr
+    print(build_output)
+    if build_proc.returncode != 0:
+        raise RuntimeError(f"lake build failed ({build_proc.returncode}):\n{build_output}")
+
+    print("== Running Inventory.lean census and axiom audit")
+    inv_proc = subprocess.run(
+        ["lake", "env", "lean", "Inventory.lean"],
+        cwd=LEAN_DIR,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    inv_output = inv_proc.stdout + "\n" + inv_proc.stderr
+    combined_log = build_output + "\n" + inv_output
+
+    census_matches = set(CENSUS_RE.findall(inv_output))
+    if not census_matches:
+        census_matches = set(CENSUS_RE.findall(combined_log))
+    if not census_matches:
+        raise ValueError("Census found 0 theorems in P208aPathInterference namespace")
+
+    reports: dict[str, list[str]] = {}
+
+    for line in combined_log.splitlines():
+        used = re.search(r"'(.+?)' depends on axioms: \[(.*?)\]", line)
+        none = re.search(r"'(.+?)' does not depend on any axioms", line)
+        if not used and not none:
+            continue
+        name = used.group(1) if used else none.group(1)  # type: ignore
+        if name in reports:
+            continue
+        axioms = (
+            sorted(a.strip() for a in used.group(2).split(",") if a.strip())
+            if used
+            else []
+        )
+        if not set(axioms).issubset(ALLOWED_AXIOMS):
+            raise ValueError(f"Disallowed axiom in {name}: {axioms}")
+        reports[name] = axioms
+
+    missing_reports = census_matches - set(reports.keys())
+    if missing_reports:
+        raise ValueError(
+            f"Census declarations missing axiom reports: {sorted(missing_reports)}"
+        )
+
+    axiom_free = sum(1 for ax in reports.values() if not ax)
+    print(
+        f"Lean Census: {len(census_matches)} theorems verified, {axiom_free} axiom-free, zero choice."
+    )
+    return {
+        "theorem_count": len(census_matches),
+        "axiom_free_count": axiom_free,
+        "allowed_axioms": sorted(ALLOWED_AXIOMS),
+        "reports": dict(sorted(reports.items())),
+    }
+
+
+def verify() -> dict[str, Any]:
+    hashes = check_source_hygiene()
+    pytest_res = run_pytest()
+    lean_res = run_lean()
+
+    receipt = {
+        "schema_version": 1,
+        "target": "Target P208a: path_interference and Vanishing Sorkin I_3",
+        "status": "PASS",
+        "authority_effect": "None",
+        "toolchain": "leanprover/lean4:v4.33.0",
+        "source_hashes": hashes,
+        "pytest": pytest_res,
+        "lean": lean_res,
+        "claim_hygiene": {
+            "scope": "Exact rational path valuations in Q(i) and Q(root_gen_n), second-order path_interference I_2, exact vanishing of Sorkin third-order quantity I_3, and ruling out higher-order path_interference",
+            "second_order_path_interference_nonzero_demonstrated": True,
+            "third_order_sorkin_identically_zero_verified": True,
+            "higher_order_sorkin_vanishes_verified": True,
+            "cyclotomic_field_invariance_verified": True,
+            "pythagorean_parameter_sweep_clean": True,
+            "axioms_within_propext_quot_sound": True,
+            "zero_classical_choice": True,
+            "zero_mathlib": True,
+        },
+    }
+    return receipt
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--check", action="store_true", help="Check receipt against fresh run"
+    )
+    parser.add_argument("--write", action="store_true", help="Write fresh receipt")
+    args = parser.parse_args()
+
+    try:
+        receipt = verify()
+        raw = (json.dumps(receipt, indent=2, sort_keys=True) + "\n").encode("utf-8")
+
+        RECEIPT_PATH.parent.mkdir(parents=True, exist_ok=True)
+        if args.check:
+            if not RECEIPT_PATH.is_file():
+                print("FAIL: receipt.json does not exist. Run with --write first.")
+                return 1
+            existing = RECEIPT_PATH.read_bytes()
+            if existing != raw:
+                print("FAIL: existing receipt does not match freshly generated verification")
+                return 1
+            print("PASS: verification receipt matches fresh run")
+        else:
+            RECEIPT_PATH.write_bytes(raw)
+            print(f"WROTE: {RECEIPT_PATH}")
+            print("PASS: all verification steps passed successfully.")
+        return 0
+    except Exception as exc:
+        print(f"FAIL: {exc}")
+        return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

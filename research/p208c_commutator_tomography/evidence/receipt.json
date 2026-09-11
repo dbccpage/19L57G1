@@ -1,0 +1,268 @@
+{
+  "authority_effect": "None",
+  "claim_hygiene": {
+    "axioms_within_propext_quot_sound": true,
+    "commutator_trace_vanishing_proved": true,
+    "continuous_commutation_obstruction_proved": true,
+    "mub_pairwise_unbiasedness_proved": true,
+    "multi_locus_microcausality_proved": true,
+    "operational_state_tomography_verified": true,
+    "scope": "Finite commutator trace obstruction theorem, multi-locus microcausality on composite carrier networks, discrete mutually unbiased bases in dimensions 3 and 4, complete operational state tomography with exact dual frame reconstruction, and vocabulary firewall enforcement",
+    "zero_classical_choice": true,
+    "zero_mathlib": true
+  },
+  "lean": {
+    "allowed_axioms": [
+      "Quot.sound",
+      "propext"
+    ],
+    "axiom_free_count": 10,
+    "reports": {
+      "P208cCommutatorTomography.Cyclo3.dot3._proof_1": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.Cyclo3.mk.inj": [],
+      "P208cCommutatorTomography.Cyclo3.mk.injEq": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.Cyclo3.mk.sizeOf_spec": [],
+      "P208cCommutatorTomography.Cyclo3.mub0_mub1_unbiased": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.Cyclo3.mub0_mub2_unbiased": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.Cyclo3.mub0_mub3_unbiased": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.Cyclo3.mub0_orthonormal": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.Cyclo3.mub1_mub2_unbiased": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.Cyclo3.mub1_mub3_unbiased": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.Cyclo3.mub1_orthonormal": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.Cyclo3.mub2_mub3_unbiased": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.Cyclo3.mub2_orthonormal": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.Cyclo3.mub3_orthonormal": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.GaussInt.dot4._proof_1": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.GaussInt.mk.inj": [],
+      "P208cCommutatorTomography.GaussInt.mk.injEq": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.GaussInt.mk.sizeOf_spec": [],
+      "P208cCommutatorTomography.GaussInt.mub4_0_1_unbiased": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.GaussInt.mub4_0_2_unbiased": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.GaussInt.mub4_0_3_unbiased": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.GaussInt.mub4_0_4_unbiased": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.GaussInt.mub4_0_orthonormal": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.GaussInt.mub4_1_2_unbiased": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.GaussInt.mub4_1_3_unbiased": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.GaussInt.mub4_1_4_unbiased": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.GaussInt.mub4_1_orthonormal": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.GaussInt.mub4_2_3_unbiased": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.GaussInt.mub4_2_4_unbiased": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.GaussInt.mub4_2_orthonormal": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.GaussInt.mub4_3_4_unbiased": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.GaussInt.mub4_3_orthonormal": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.GaussInt.mub4_4_orthonormal": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.commutator_trace_obstruction": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.commutator_trace_obstruction._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.const_mul_sum": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.fin2_cases": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.fin2_cases._proof_1_3": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.finRange_two": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.identity_matMul_2": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.identity_matMul_2._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.identity_matMul_2._proof_1_2": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.identity_matMul_2._proof_1_3": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.identity_matMul_2._proof_1_4": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.instDecidableEqCyclo3.decEq._proof_1": [],
+      "P208cCommutatorTomography.instDecidableEqCyclo3.decEq._proof_2": [],
+      "P208cCommutatorTomography.instDecidableEqCyclo3.decEq._proof_3": [],
+      "P208cCommutatorTomography.instDecidableEqGaussInt.decEq._proof_1": [],
+      "P208cCommutatorTomography.instDecidableEqGaussInt.decEq._proof_2": [],
+      "P208cCommutatorTomography.instDecidableEqGaussInt.decEq._proof_3": [],
+      "P208cCommutatorTomography.matMul_identity_2": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.matMul_identity_2._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.matMul_identity_2._proof_1_2": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.matMul_identity_2._proof_1_3": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.matMul_identity_2._proof_1_4": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.multi_locus_microcausality_2x2": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.multi_locus_microcausality_2x2._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.sum_add": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.sum_add._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.sum_congr": [
+        "Quot.sound"
+      ],
+      "P208cCommutatorTomography.sum_const": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.sum_mul_const": [
+        "propext"
+      ],
+      "P208cCommutatorTomography.sum_prod": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.sum_sub": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.sum_sub._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.sum_swap": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.sum_zero": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.sum_zero._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.tensor_mixed_product": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.trace_commutator_zero": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.trace_commutator_zero._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.trace_matMul_comm": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208cCommutatorTomography.trace_scalar_identity": [
+        "Quot.sound",
+        "propext"
+      ]
+    },
+    "theorem_count": 73
+  },
+  "pytest": {
+    "exit_code": 0,
+    "passed": 10,
+    "status": "PASS"
+  },
+  "schema_version": 1,
+  "source_hashes": {
+    "lean/CommutatorTomography.lean": "935ba059ae7b77c6b20e3fae56d50ed76b1d2dba28a115c944f6e51332efed11",
+    "lean/Inventory.lean": "3e644d0d319bc2be53860799c371bd7915b916156f1a31c077d4ed8762ab3bd0",
+    "tests/test_tomography.py": "80250fe79c20042ffc9f02ce5a716973f865cb32cf1e6907db67a75cc067ca8a",
+    "tomography.py": "c70335288916fdd8550424b9b5cfb19538f6a2893e2e4222940779a2c5cb992f",
+    "verify.py": "849c4a7da0dcc687f2dd233b4f9025409ee6d64405331a17c394dd70af7de67f"
+  },
+  "status": "PASS",
+  "target": "Target P208c: Finite Commutator Obstruction & Discrete MUB Tomography",
+  "toolchain": "leanprover/lean4:v4.33.0"
+}

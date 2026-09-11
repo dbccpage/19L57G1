@@ -1,0 +1,107 @@
+{
+  "authority_effect": "None",
+  "claim_hygiene": {
+    "axioms_within_propext_quot_sound": true,
+    "cyclotomic_field_invariance_verified": true,
+    "higher_order_sorkin_vanishes_verified": true,
+    "pythagorean_parameter_sweep_clean": true,
+    "scope": "Exact rational path valuations in Q(i) and Q(root_gen_n), second-order path_interference I_2, exact vanishing of Sorkin third-order quantity I_3, and ruling out higher-order path_interference",
+    "second_order_path_interference_nonzero_demonstrated": true,
+    "third_order_sorkin_identically_zero_verified": true,
+    "zero_classical_choice": true,
+    "zero_mathlib": true
+  },
+  "lean": {
+    "allowed_axioms": [
+      "Quot.sound",
+      "propext"
+    ],
+    "axiom_free_count": 17,
+    "reports": {
+      "P208aPathInterference.GaussInt.I2_constructive_nonzero": [],
+      "P208aPathInterference.GaussInt.I2_constructive_nonzero_ne_zero": [],
+      "P208aPathInterference.GaussInt.I2_destructive_shift": [],
+      "P208aPathInterference.GaussInt.I2_eq_cross": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208aPathInterference.GaussInt.I2_eq_cross._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208aPathInterference.GaussInt.I2_orthogonal_delay": [],
+      "P208aPathInterference.GaussInt.I2_pythagorean_shift": [],
+      "P208aPathInterference.GaussInt.P_add_three": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208aPathInterference.GaussInt.P_add_three._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208aPathInterference.GaussInt.P_add_two": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208aPathInterference.GaussInt.P_add_two._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208aPathInterference.GaussInt.P_mul_star_eq": [
+        "propext"
+      ],
+      "P208aPathInterference.GaussInt.ext": [],
+      "P208aPathInterference.GaussInt.ext_iff": [],
+      "P208aPathInterference.GaussInt.mk.inj": [],
+      "P208aPathInterference.GaussInt.mk.injEq": [
+        "propext"
+      ],
+      "P208aPathInterference.GaussInt.mk.sizeOf_spec": [],
+      "P208aPathInterference.GaussInt.sorkin_I3_identically_zero": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208aPathInterference.GaussInt.sorkin_I3_identically_zero._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208aPathInterference.QuadraticValuation.P_three": [],
+      "P208aPathInterference.QuadraticValuation.P_two": [],
+      "P208aPathInterference.QuadraticValuation.cross_symm": [],
+      "P208aPathInterference.QuadraticValuation.mk.inj": [],
+      "P208aPathInterference.QuadraticValuation.mk.injEq": [
+        "propext"
+      ],
+      "P208aPathInterference.QuadraticValuation.mk.sizeOf_spec": [],
+      "P208aPathInterference.gauss_quadratic_valuation._proof_1": [
+        "propext"
+      ],
+      "P208aPathInterference.gauss_quadratic_valuation_I3_zero": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P208aPathInterference.instDecidableEqGaussInt.decEq._proof_1": [],
+      "P208aPathInterference.instDecidableEqGaussInt.decEq._proof_2": [],
+      "P208aPathInterference.instDecidableEqGaussInt.decEq._proof_3": []
+    },
+    "theorem_count": 30
+  },
+  "pytest": {
+    "exit_code": 0,
+    "passed": 15,
+    "status": "PASS"
+  },
+  "schema_version": 1,
+  "source_hashes": {
+    "CLAIMS.md": "84a6dccce32576da0630f1869f3a2306b3abe187a8cdd961a7df814719a18cb5",
+    "README.md": "0ceca9a13af60513183b6a65608aa04e65e23ca7ab662d2752949454ff207003",
+    "lean/Inventory.lean": "ae24a192d8049b7ae22becbc74bf187b5a47ad13cbdce87a668266567c5c72cc",
+    "lean/PathInterference.lean": "0c78208d3cdc74f90ca706f9849d71314353e50cad1f3997246a1f33dfc6df41",
+    "path_interference.py": "cd7e52fc16124003b3c7316badbb9a1ec37b05e17bd116d7f943504348726c62",
+    "tests/test_interference.py": "cc976dedb0f4ee14ce3969bbda88dafe91faf5dd75128952ab9d7c7fb77eb09d",
+    "verify.py": "8e372ac4b971638fa0aee735c9b70dc7eea3c1fbea32952017ec1df64664f070"
+  },
+  "status": "PASS",
+  "target": "Target P208a: path_interference and Vanishing Sorkin I_3",
+  "toolchain": "leanprover/lean4:v4.33.0"
+}

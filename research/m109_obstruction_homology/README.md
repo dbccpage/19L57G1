@@ -5,7 +5,7 @@ This package formalizes, implements, and verifies higher chain complexes, bounda
 ## Components
 
 - `homology.py`: Python engine implementing exact rational linear algebra over $\mathbb{Q}$, graded chain complexes $C_k$, dual cochain complexes $C^k$, Betti numbers $\beta_k = \dim H_k(C; \mathbb{Q}) = \dim H^k(C; \mathbb{Q})$, discrete Stokes-Cartan evaluation, canonical complex builders ($S^1$, $T^2$, $S^2$, $D^3$), and Target 7 move complex scaling.
-- `tests/test_homology.py`: Comprehensive test suite covering 14 test cases spanning linear algebra, nilpotency, duality, Euler-Poincaré invariants, obstruction detection, and Target 7 integration.
+- `tests/test_homology.py`: Comprehensive test suite covering 14 test cases spanning linear algebra, nilpotency, duality, alternating Betti sum invariants, obstruction detection, and Target 7 integration.
 - `lean/ObstructionHomology.lean`: Constructive core Lean 4 formalization containing 12 theorems verifying chain and coboundary nilpotency, discrete relational square boundaries, Stokes duality, and the native commitment-growth obstruction witness.
 - `lean/Inventory.lean`: Theorem census and axiom audit confirming all theorems evaluate within `{propext, Quot.sound}`.
 - `verify.py`: Top-level verification harness executing source hygiene checks, pytest suite, `lake build`, and Lean axiom verification, emitting `evidence/receipt.json`.

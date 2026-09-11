@@ -1,0 +1,129 @@
+{
+  "authority_effect": "None",
+  "claim_hygiene": {
+    "axioms_within_propext_quot_sound": true,
+    "bell_chsh_lhv_bound_constructively_checked": true,
+    "cabello_18ray_incidence_checked": true,
+    "cabello_valuation_obstruction_proved": true,
+    "cech_cochain_parity_obstruction_evaluated": true,
+    "exact_rational_arithmetic": true,
+    "pythagorean_correlator_exceeds_lhv": true,
+    "vocabulary_firewall_clean": true,
+    "zero_classical_choice": true,
+    "zero_mathlib": true
+  },
+  "lean": {
+    "allowed_axioms": [
+      "Quot.sound",
+      "propext"
+    ],
+    "axiom_free_count": 13,
+    "reports": {
+      "ContextualityNonlocality.C0._proof_1": [
+        "propext"
+      ],
+      "ContextualityNonlocality.Q.mk.inj": [],
+      "ContextualityNonlocality.Q.mk.injEq": [
+        "propext"
+      ],
+      "ContextualityNonlocality.Q.mk.sizeOf_spec": [],
+      "ContextualityNonlocality.S._proof_1": [
+        "propext"
+      ],
+      "ContextualityNonlocality.Vec4.mk.inj": [],
+      "ContextualityNonlocality.Vec4.mk.injEq": [
+        "propext"
+      ],
+      "ContextualityNonlocality.Vec4.mk.sizeOf_spec": [],
+      "ContextualityNonlocality.all_contexts_orthogonal": [
+        "propext"
+      ],
+      "ContextualityNonlocality.all_rays_degree_two": [],
+      "ContextualityNonlocality.bell_chsh_lhv_bound": [
+        "propext"
+      ],
+      "ContextualityNonlocality.bell_chsh_lhv_values": [
+        "propext"
+      ],
+      "ContextualityNonlocality.cabello_valuation_obstruction": [
+        "Quot.sound",
+        "propext"
+      ],
+      "ContextualityNonlocality.cabello_valuation_obstruction._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "ContextualityNonlocality.cech_cochain_obstruction_nonzero": [
+        "Quot.sound",
+        "propext"
+      ],
+      "ContextualityNonlocality.instDecidableEqVec4.decEq._proof_1": [],
+      "ContextualityNonlocality.instDecidableEqVec4.decEq._proof_2": [],
+      "ContextualityNonlocality.instDecidableEqVec4.decEq._proof_3": [],
+      "ContextualityNonlocality.instDecidableEqVec4.decEq._proof_4": [],
+      "ContextualityNonlocality.instDecidableEqVec4.decEq._proof_5": [],
+      "ContextualityNonlocality.mod2_context_parity": [],
+      "ContextualityNonlocality.mod2_incidence_parity": [
+        "Quot.sound",
+        "propext"
+      ],
+      "ContextualityNonlocality.mod2_incidence_parity._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "ContextualityNonlocality.no_even_equals_nine": [
+        "Quot.sound",
+        "propext"
+      ],
+      "ContextualityNonlocality.no_even_equals_nine._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "ContextualityNonlocality.pythagorean_correlator_den": [],
+      "ContextualityNonlocality.pythagorean_correlator_num": [],
+      "ContextualityNonlocality.pythagorean_exceeds_lhv": [
+        "Quot.sound",
+        "propext"
+      ],
+      "ContextualityNonlocality.pythagorean_exceeds_lhv._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "ContextualityNonlocality.pythagorean_respects_algebraic_bound": [
+        "Quot.sound",
+        "propext"
+      ],
+      "ContextualityNonlocality.pythagorean_respects_algebraic_bound._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "ContextualityNonlocality.total_eq_twice_ray_sum": [
+        "Quot.sound",
+        "propext"
+      ],
+      "ContextualityNonlocality.total_eq_twice_ray_sum._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ]
+    },
+    "theorem_count": 33
+  },
+  "pytest": {
+    "exit_code": 0,
+    "passed": 21,
+    "status": "PASS"
+  },
+  "schema_version": 1,
+  "source_hashes": {
+    "CLAIMS.md": "0220130b3d2a6bd61ded207a2222ea052d923f9d9458c0ef3355b9eae1e73b9f",
+    "README.md": "a5662098f35a7ff8614802f637ec6d5f1a52f808a11e23df7a57cf02ca134e1f",
+    "correlations.py": "589c70654a92a9efdefd4a90ae8c8f827f9deb309b720124cb217d955e3838ac",
+    "lean/ContextualityNonlocality.lean": "6d67bc8dcf2bc5b845fc75351ef73f8250e86d2d3f673e8853fab912d769fffd",
+    "lean/Inventory.lean": "cfeaa234c075aad63805dbfc1dd99f1972d8b0e7ff0bc854cc9701af079745a0",
+    "tests/test_correlations.py": "62df7f3715e4a024f8dc604c57c4fe2086a9dc0780a1d7ae0744cf97649cdd7e",
+    "verify.py": "5b078343a9e2bf6e83084b6fc9fae603c94dddb582a6c1104ce58ba25923dcd2"
+  },
+  "status": "PASS",
+  "target": "Target P208b: Rational Bell-CHSH Nonlocality & Cabello 18-Ray Contextuality",
+  "toolchain": "leanprover/lean4:v4.33.0"
+}

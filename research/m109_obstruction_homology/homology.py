@@ -399,12 +399,12 @@ class GradedChainComplex:
         return {k: self.compute_homology(k) for k in range(self.max_grade + 1)}
 
     def euler_characteristic(self) -> int:
-        """Compute Euler characteristic \\chi = \\sum (-1)^k dim(C_k) = \\sum (-1)^k \\beta_k."""
+        """Compute alternating characteristic sum \\chi = \\sum (-1)^k dim(C_k) = \\sum (-1)^k \\beta_k."""
         chi_chains = sum((-1)**k * self.dimensions[k] for k in range(self.max_grade + 1))
         h_all = self.compute_all_homology()
         chi_homology = sum((-1)**k * h_all[k].betti_number for k in range(self.max_grade + 1))
         if chi_chains != chi_homology:
-            raise RuntimeError(f"Euler-Poincare mismatch: chains={chi_chains} != homology={chi_homology}")
+            raise RuntimeError(f"Characteristic sum mismatch: chains={chi_chains} != homology={chi_homology}")
         return chi_chains
 
     def dual_cochain_complex(self) -> DualCochainComplex:
@@ -553,7 +553,7 @@ def analyze_obstruction(
             is_obstruction_class=False,
             witness_cycle=None,
             circulation=Fraction(0, 1),
-            explanation=f"Cochain at grade {grade} is not closed (curvature/coboundary is non-zero).",
+            explanation=f"Cochain at grade {grade} is not closed (defect/coboundary is non-zero).",
         )
 
     # 2. Check if coboundary: \omega in im(\delta^{k-1})

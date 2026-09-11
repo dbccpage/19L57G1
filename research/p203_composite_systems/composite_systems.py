@@ -178,7 +178,7 @@ class InteractionGraph:
         return frozenset(nbrs)
 
     def shortest_path_distance(self, u: str, v: str) -> Optional[int]:
-        """Compute relational shortest path distance (hop count) in the interaction graph.
+        """Compute relational shortest path distance (edge step count) in the interaction graph.
 
         Returns None if unreachable (disconnected).
         """

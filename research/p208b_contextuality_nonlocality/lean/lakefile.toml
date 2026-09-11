@@ -1,0 +1,14 @@
+name = "p208b_contextuality_nonlocality"
+version = "0.1.0"
+defaultTargets = ["ContextualityNonlocality", "Inventory"]
+
+# The sealed derivation package, consumed read-only.
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+[[lean_lib]]
+name = "ContextualityNonlocality"
+
+[[lean_lib]]
+name = "Inventory"
