@@ -60,15 +60,11 @@ class I1NoGoClass(unittest.TestCase):
         self.assertTrue(in_class(seed, instruction))
         self.assertFalse(i1_class(seed, instruction))
 
-    def test_cheating_i1_class_that_requires_equal_endpoints_is_rejected(self) -> None:
-        lone = i1_lone()
-        pair = (0, (0, 1))
-
-        def cheating(regime: Regime, c: tuple[int, tuple[int, ...]]) -> bool:
-            return i1_class(regime, c) and c[1][0] == c[1][1]
-
-        self.assertTrue(i1_class(lone, pair))
-        self.assertFalse(cheating(lone, pair))
+    def test_i1_rejects_equal_endpoints_even_when_stored(self) -> None:
+        r = replay((AdmitDatum("0"), AdmitDatum("1"), AdmitForm(2), AdmitInst(0, (0, 0))))
+        loop = (0, (0, 0))
+        self.assertIn(loop, r.insts)
+        self.assertFalse(i1_class(r, loop))
 
     def test_unruled_i1_separates_so_owed_fails(self) -> None:
         r = i1_lone()

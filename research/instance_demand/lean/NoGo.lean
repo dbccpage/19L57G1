@@ -337,15 +337,9 @@ theorem i1_e1_is_admitInst {r s : Regime} {e : Event} {c out : Inst}
 Enabled firing; a pair-instance payload is not an Enabled output. -/
 theorem no_i1_member_is_endogenous
     {r s : Regime} {c out : Inst} {e : Event} {i j : Nat}
-    (hc : I1Class s c)
+    (_hc : I1Class s c)
     (h : I1E1 r s e c out ∧ E2prime r s e out i j ∧ E3 r s out i j) : False := by
-  rcases hc with ⟨x, y, rfl, hne, hmem⟩
-  rcases h with ⟨hE1, hE2, _hE3⟩
-  rcases hE1 with ⟨hread, hstep, hstored, hfresh⟩
-  have _stored := And.intro hmem (And.intro hstored hfresh)
-  have he := i1_e1_is_admitInst ⟨hread, hstep, hstored, hfresh⟩
-  have _he := he
-  exact i1_reads_not_enabled hread hE2.2.2.2
+  exact i1_reads_not_enabled h.1.1 h.2.1.2.2.2
 
 end InstanceDemand.NoGo
 
