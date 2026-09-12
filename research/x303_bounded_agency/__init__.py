@@ -1,32 +1,11 @@
-"""Target X303: Agency & Control (Bounded Operational Agency).
-
-Pure Python bounded agency engine providing:
-1. Discrete Viability Envelopes over relational carrier states in exact rational arithmetic.
-2. Finite Memory Horizons with deterministic FIFO eviction preserving data processing bounds.
-3. Strict Refusal Semantics (StepResult.refusal) preserving carrier state strictly unmutated.
-4. Causal Counterfactual Evaluation with ephemeral branch projection and X301 Grounding Firewall.
-5. Alpha Engine Licensing contract (Proposal -> EvalResult -> License) with zero unilateral authority.
-6. Exact Rational Multicriteria Selection in [0, 1] cap Q with canonical tie-breaking.
+"""Target X303: Bounded Operational Agency.
 
 AuthorityEffect: None.
-Epistemic Posture: Claim Hygiene Compliant (bounded, narrow, receipt-grounded).
 """
-
-from __future__ import annotations
-
-from pathlib import Path
-import sys
-
-_REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-for _sub in ["x301_formal_semantics"]:
-    _sub_path = _REPO_ROOT / "research" / _sub
-    if str(_sub_path) not in sys.path:
-        sys.path.insert(0, str(_sub_path))
-
+from . import _bootstrap  # noqa: F401
 from .agency import (
     AbilitySet,
     ActionAuthorizer,
-    ActionEvalResult,
     ActionEvaluation,
     ActionProposal,
     AgencyReceipt,
@@ -40,9 +19,7 @@ from .agency import (
     MemoryRecord,
     MulticriteriaSelector,
     RefusalReason,
-    RetainedActionClass,
     StableSubsystem,
-    StepRefusalData,
     StepResult,
     UnlicensedActionError,
     UtilityVector,
@@ -58,7 +35,6 @@ from .agency import (
 __all__ = [
     "AbilitySet",
     "ActionAuthorizer",
-    "ActionEvalResult",
     "ActionEvaluation",
     "ActionProposal",
     "AgencyReceipt",
@@ -72,9 +48,7 @@ __all__ = [
     "MemoryRecord",
     "MulticriteriaSelector",
     "RefusalReason",
-    "RetainedActionClass",
     "StableSubsystem",
-    "StepRefusalData",
     "StepResult",
     "UnlicensedActionError",
     "UtilityVector",

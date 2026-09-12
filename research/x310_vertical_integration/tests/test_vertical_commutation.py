@@ -77,7 +77,7 @@ from research.x310_vertical_integration.pipeline import (
     CommutationResidual,
     audit_codec_roundtrip_commutation,
     audit_commutation_residuals,
-    audit_composite_pipeline_commutation,
+    audit_pipeline_run_determinism,
     audit_readout_step_commutation,
     audit_refusal_state_preservation,
     audit_sheaf_descent_commutation,
@@ -199,7 +199,7 @@ def test_comprehensive_commutation_audit():
     assert audit["codec_roundtrip_identity"]
     assert audit["sheaf_descent_commutation"]
     assert audit["refusal_state_preservation"]
-    assert audit["composite_pipeline_commutation"]
+    assert audit["pipeline_run_determinism"]
     assert "residuals" in audit
     for key, res_dict in audit["residuals"].items():
         assert res_dict["commutes"] is True
@@ -240,9 +240,9 @@ def test_priced_commutation_residuals():
     assert disturbed_residual.residual_price_q > Fraction(0, 1)
 
 
-def test_composite_pipeline_commutation():
-    """Verify composite end-to-end pipeline commutation under state translation."""
-    comp_res = audit_composite_pipeline_commutation()
+def test_pipeline_run_determinism():
+    """Two runs of the same config share a terminal digest."""
+    comp_res = audit_pipeline_run_determinism()
     assert comp_res.commutes
     assert comp_res.residual_price_q == Fraction(0, 1)
-    assert comp_res.diagram_id == "composite_pipeline_commutation"
+    assert comp_res.diagram_id == "pipeline_run_determinism"

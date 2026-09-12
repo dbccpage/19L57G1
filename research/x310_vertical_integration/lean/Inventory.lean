@@ -19,7 +19,7 @@ open X310VerticalIntegration
 -- Companion Preservation & Soundness Theorems
 #print axioms pipeline_result_state_on_refusal
 #print axioms grounding_firewall_soundness
-#print axioms farkas_duality_soundness
+#print axioms positive_rhs_is_not_le_zero
 #print axioms tms_retract_preserves_axioms
 #print axioms agency_viability_preservation
 
@@ -37,6 +37,6 @@ def main : IO Unit := do
   IO.println "  - readout1_readout2_comm"
   IO.println "  - pipeline_result_state_on_refusal"
   IO.println "  - grounding_firewall_soundness"
-  IO.println "  - farkas_duality_soundness"
+  IO.println "  - positive_rhs_is_not_le_zero"
   IO.println "  - tms_retract_preserves_axioms"
   IO.println "  - agency_viability_preservation"

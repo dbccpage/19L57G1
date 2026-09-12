@@ -1,7 +1,9 @@
 /-!
-# Target X310: Vertical Integration Chain
+# Target X310: Nat-field carrier toy
 
-Pure constructive Core Lean 4 formalization of the 6-stage operational pipeline:
+`SubstrateState` here is a record of Nats. Readout and step write disjoint
+fields, so commutation theorems are definitional. This module does not
+prove the Python harness. Remaining advertised layers:
 1. Substrate: finitary relational carrier state and well-formedness invariants.
 2. Multi-Observer Projections: spacelike non-signaling and distributed observation.
 3. Grounded Semantics: Heyting truth posets, counterfactual grounding, and Grounding Firewall consensus override.
@@ -593,8 +595,7 @@ theorem readout_replay_commutation (probe : Nat → Nat) (fs : List (Nat → Nat
     rw [← h_comm]
     exact ih (stepL1 f s)
 
-/-- Theorem 1e (codec_roundtrip_identity):
-    Signature codec translation followed by decoding is the identity on valid carrier states. -/
+/-- Identity embedding of this Nat record. Not the Python substrate codec. -/
 def encodeSignature (s : SubstrateState) : SubstrateState := s
 def decodeSignature (s : SubstrateState) : SubstrateState := s
 
@@ -748,9 +749,8 @@ theorem grounding_firewall_soundness
   rw [h_consensus, h_ground_refuted]
   rfl
 
-/-- Farkas duality infeasibility soundness:
-    A linear constraint with negative RHS and zero coefficients admits no non-negative solution. -/
-theorem farkas_duality_soundness (rhs : Nat) (h_pos : 0 < rhs) :
+/-- A positive natural is not ≤ 0. Not a Farkas certificate. -/
+theorem positive_rhs_is_not_le_zero (rhs : Nat) (h_pos : 0 < rhs) :
     ¬ (0 ≥ rhs) := by
   omega
 

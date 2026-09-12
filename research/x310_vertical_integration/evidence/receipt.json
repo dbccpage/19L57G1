@@ -4,27 +4,27 @@
     "epistemic_posture": "Claim Hygiene Compliant (bounded, narrow, receipt-grounded)",
     "exact_rational_arithmetic_only": true,
     "refusal_state_preservation": true,
-    "scope": "End-to-end vertical integration chain across 6 estate layers: finitary graph substrate (Target A / G011), distributed multi-observer measurement with exact rational spacelike non-signaling TVD == 0/1 in Q (P200 / G014), formal relational semantics with Grounding Firewall consensus override (X301), exact rational linear/integer constraint solvers with Farkas duality certificates in Q (M114), DAG truth maintenance with minimal hitting set retraction satisfying 5 AGM postulates (X302), and bounded operational agency under viability envelopes and committee licensing (X303). All refusal transitions strictly preserve carrier states unmutated. Zero float arithmetic.",
+    "scope": "Harness that calls six sibling research packages under a fixed timestamp. Stages 1, 2, 3, and 6 share the encoded carrier. Stages 4 and 5 are sibling solver and TMS demos under the same receipt. Codec recovers clock/fuel/nops/tape from custom_domains. Lean is a Nat-field toy. See CLAIMS.md.",
     "zero_floating_point": true
   },
   "commutation_audit": {
     "commutation_relations": {
       "codec_roundtrip_identity": true,
-      "composite_pipeline_commutation": true,
+      "pipeline_run_determinism": true,
       "readout_step_commutation": true,
       "refusal_state_preservation": true,
       "residuals": {
         "codec_roundtrip_identity": {
           "commutes": true,
-          "description": "Signature codec round-trip inversion (T^-1 o T = id)",
+          "description": "Partial codec round-trip on graph/active/clock/fuel/nops; tape is declared metadata",
           "diagram_id": "codec_roundtrip_identity",
           "metric_name": "reconstruction_distance",
           "residual_price_q": "0/1"
         },
-        "composite_pipeline_commutation": {
+        "pipeline_run_determinism": {
           "commutes": true,
-          "description": "Composite vertical pipeline commutation under operational state translation",
-          "diagram_id": "composite_pipeline_commutation",
+          "description": "Repeated pipeline runs under a fixed config yield the same terminal digest",
+          "diagram_id": "pipeline_run_determinism",
           "metric_name": "terminal_carrier_digest_dist",
           "residual_price_q": "0/1"
         },
@@ -54,7 +54,7 @@
     },
     "status": "PASS"
   },
-  "grand_receipt_sha256": "200199a67f44f3e1dedeecafab6e9b4563b7e2a972d570d9610404a5742a0280",
+  "grand_receipt_sha256": "0206c97dd378522c828cf708e78d88e6b4978a94279a41b37916142930e83556",
   "lean": {
     "allowed_axioms": [
       "Quot.sound",
@@ -67,10 +67,6 @@
       "X310VerticalIntegration.agency_viability_preservation": [],
       "X310VerticalIntegration.codec_roundtrip_identity": [],
       "X310VerticalIntegration.end_to_end_commutation": [],
-      "X310VerticalIntegration.farkas_duality_soundness": [
-        "propext",
-        "Quot.sound"
-      ],
       "X310VerticalIntegration.grounding_firewall_soundness": [
         "propext",
         "Quot.sound"
@@ -80,6 +76,10 @@
         "Quot.sound"
       ],
       "X310VerticalIntegration.pipeline_result_state_on_refusal": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X310VerticalIntegration.positive_rhs_is_not_le_zero": [
         "propext",
         "Quot.sound"
       ],
@@ -105,8 +105,8 @@
     }
   },
   "pipeline_execution": {
-    "final_carrier_hash": "f7da4cca93827addd2f115ed8b79b6ca27985b8a4166462acb4a4a263a1eb169",
-    "initial_carrier_hash": "8a2f603c6f345c78893bc218532f78b3da9f7a004d1bf68fbc68f47d6ecacf16",
+    "final_carrier_hash": "654b25e30fd6902e7704140a91c2b48b4532b884cd6ee23daea27e5e7b142db1",
+    "initial_carrier_hash": "b80bdf42a43cd7d19f4e381c6a58991dde54affd46573e7b239efbcac1eac57c",
     "is_refusal": false,
     "is_success": true,
     "refusal_reason": null,
@@ -114,14 +114,14 @@
     "stage_receipts": {
       "stage_1_substrate": {
         "active_datum": 0,
-        "carrier_data_count": 21,
-        "carrier_instances_count": 9,
+        "carrier_data_count": 2,
+        "carrier_instances_count": 7,
         "clock": 0,
         "fuel_remaining": 20,
         "is_refusal": false,
         "refusal_reason": null,
         "stage": "stage_1_substrate",
-        "state_sha256": "8a2f603c6f345c78893bc218532f78b3da9f7a004d1bf68fbc68f47d6ecacf16",
+        "state_sha256": "b80bdf42a43cd7d19f4e381c6a58991dde54affd46573e7b239efbcac1eac57c",
         "tape": [
           0
         ],
@@ -130,7 +130,7 @@
       "stage_2_measurement": {
         "channel_dpi_verified": true,
         "channel_fidelity_q": "1/1",
-        "commutation_verified": true,
+        "commutation_verified": false,
         "gluing_consistent": true,
         "is_refusal": false,
         "measurement_sha256": "0ce35d906a9a26afbe0f33996fac5fbf81aac7192a267fd71a21b42b34989d38",
@@ -176,10 +176,10 @@
         "stage": "stage_5_reasoning"
       },
       "stage_6_agency": {
-        "agency_sha256": "d2a240aa1e44bb80c9f8ba08f308fdf6476a470990feba582b255467d1e50cc6",
+        "agency_sha256": "0460f9faafdf44713d91dbf3540b8a78bb88d0ddd7fc0181a9616e5e987cb5fe",
         "authorized_license_scope": "step_authorization",
         "candidate_actions_count": 1,
-        "exact_utility_q": "937/1380",
+        "exact_utility_q": "3/4",
         "is_refusal": false,
         "refusal_reason": null,
         "selected_action": "action_alpha",
@@ -197,16 +197,22 @@
   "receipt_version": "1.0.0",
   "schema": "x310-vertical-integration-v1",
   "source_hashes": {
-    "__init__.py": "911ca3f0bc0fc9b3520c89b87b3f48be1883a3f33f0e757ed45eafbe1edc7e2c",
-    "lean/Inventory.lean": "8dbf0b0e8db3fda1a9a54a07971c83eec45ae4c9a54ade8c40499456801fd484",
-    "lean/VerticalIntegration.lean": "fb76547be4c78c7f626c85b61ddf3adc446c4bc45433dcb5c667797ae30419ca",
-    "pipeline.py": "dd4d129abb5895b43e64c1e82551ff76df6742023acb5ae18a7ac3cac121e44b",
+    "__init__.py": "8226d6f42af8f8363a1465bf81da342a5319dae083904c02ef3ce767cfed2ada",
+    "_bootstrap.py": "b34da70341bc87cc07ffb886a01166b4457e1485c6489714d6cc0808726be072",
+    "codec.py": "880b1898d1f54268269f2517ed5514d3de037e7cbe1e40b877c439e02c3323d2",
+    "commutation.py": "a8b18b7e19df3bb8d9c2c8a4bd6d769aa0d1797276fcab5e0f03e55f8873a060",
+    "lean/Inventory.lean": "3bd8fb5b555d7a8f9069e18911cf6f5e41843d00221755eb82de9ecdf43206f0",
+    "lean/VerticalIntegration.lean": "b8dd527e10332fca431ee568279e57990e8ed2781ed0828a09fd2ebce9f34919",
+    "pipeline.py": "20fa629ee827060aa83bedc9ec355849005f8f583fdd574cd7a4e08af5da3709",
+    "receipts.py": "f1a47f636cb0bbd9ee2dc0a9affc5f007ea4318bf767efba36fc388c09aadcbd",
+    "stages.py": "881b3f6b6a698d67fa75f808b1c7bd539004e6b48eeb80271671d679b8445e07",
     "tests/__init__.py": "ec2719e512f364c4be4ee49df4ed5684ab6911243a6678fee035fef1dc58c3ff",
     "tests/test_end_to_end_lifecycle.py": "969b2e4b6728a5da20aee400060814720824a1c6a72f0d2347e4802eeedcb3fe",
     "tests/test_pipeline_stages.py": "4ec495231ef6d8ec03e9ff9f273b61e6a5a4c7917541ce650d03452cf52aa5d1",
     "tests/test_receipt_determinism.py": "e43d9cb930e982359e56f4bd0a6f17fa8844a72f55fa874f5309f949235cb450",
-    "tests/test_vertical_commutation.py": "10a5f8e5a0556a2f13db862e78e04e1689511e185665ce6429ab4637d80fc7d4",
-    "verify.py": "6a5f98c60a25d03eee5374b9ad887cd4d3c81fdfc92747a2eb9cc410e58dac5d"
+    "tests/test_vertical_commutation.py": "1b55add1b40ab0f757ce1c336eb48c3245f28685f9aa7a5c9e5024e8e91ab494",
+    "types.py": "90768efa3cd0c16949125e4e33c7ac09adcf2f47abbdd4fc015ccbd71ee7ad98",
+    "verify.py": "8e83e68825b98b76f20fffc597bca23b66b480fae1506a520c1c5af0b7d98718"
   },
   "status": "PASS",
   "target": "Target X310: Vertical Integration Chain",

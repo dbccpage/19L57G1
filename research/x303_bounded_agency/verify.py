@@ -292,13 +292,10 @@ def verify() -> dict[str, Any]:
         "lean": lean_res,
         "claim_hygiene": {
             "scope": (
-                "Bounded operational agency without teleological ungrounded categories, "
-                "discrete viability envelopes over relational carrier states in exact rational arithmetic, "
-                "monotonic preservation of separation pairs, finite memory horizons with deterministic "
-                "FIFO eviction, strict refusal semantics preserving carrier state strictly unmutated, "
-                "counterfactual causal evaluation with ephemeral branch projection, Grounding Firewall "
-                "consensus override of illusory multi-observer committees, Alpha Engine licensing with "
-                "zero unilateral authority, and exact rational multicriteria Pareto action selection."
+                "Bounded agency over x301 RelationalModel with exact Fraction margins, "
+                "FIFO memory, object-identity refusal, and licensed apply of projected CanonKeys. "
+                "Default authorizer allows viable non-firewall evaluations. "
+                "Does not import research.alpha_engine. Lean is a Nat-carrier toy. See CLAIMS.md."
             ),
             "discrete_viability_envelope_modeled": True,
             "finite_memory_horizon_modeled": True,

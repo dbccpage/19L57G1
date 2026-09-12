@@ -182,6 +182,8 @@ def run_commutation_audit_section() -> dict[str, Any]:
     print("== Running programmatic vertical commutation audit")
     audit_dict = run_commutation_audit()
     for rel_name, passed in audit_dict.items():
+        if not isinstance(passed, bool):
+            continue
         print(f"   - {rel_name}: {'PASS' if passed else 'FAIL'}")
         if not passed:
             raise RuntimeError(f"Commutation audit failed on relation: {rel_name}")
@@ -293,14 +295,10 @@ def verify(write_receipt: bool = True, check_only: bool = False) -> dict[str, An
         "lean": lean_res,
         "claim_hygiene": {
             "scope": (
-                "End-to-end vertical integration chain across 6 estate layers: "
-                "finitary graph substrate (Target A / G011), distributed multi-observer measurement "
-                "with exact rational spacelike non-signaling TVD == 0/1 in Q (P200 / G014), "
-                "formal relational semantics with Grounding Firewall consensus override (X301), "
-                "exact rational linear/integer constraint solvers with Farkas duality certificates in Q (M114), "
-                "DAG truth maintenance with minimal hitting set retraction satisfying 5 AGM postulates (X302), "
-                "and bounded operational agency under viability envelopes and committee licensing (X303). "
-                "All refusal transitions strictly preserve carrier states unmutated. Zero float arithmetic."
+                "Harness that calls six sibling research packages under a fixed timestamp. "
+                "Stages 1, 2, 3, and 6 share the encoded carrier. Stages 4 and 5 are sibling "
+                "solver and TMS demos under the same receipt. Codec recovers clock/fuel/nops/tape "
+                "from custom_domains. Lean is a Nat-field toy. See CLAIMS.md."
             ),
             "epistemic_posture": "Claim Hygiene Compliant (bounded, narrow, receipt-grounded)",
             "exact_rational_arithmetic_only": True,
@@ -317,16 +315,14 @@ def verify(write_receipt: bool = True, check_only: bool = False) -> dict[str, An
     if check_only:
         if not RECEIPT_PATH.is_file():
             raise FileNotFoundError(f"Receipt file does not exist for --check: {RECEIPT_PATH}")
-        existing = json.loads(RECEIPT_PATH.read_text(encoding="utf-8"))
-        if existing.get("grand_receipt_sha256") != combined_receipt["grand_receipt_sha256"]:
-            raise ValueError(
-                f"Receipt mismatch: existing {existing.get('grand_receipt_sha256')} != "
-                f"current {combined_receipt['grand_receipt_sha256']}"
-            )
+        existing = RECEIPT_PATH.read_bytes()
+        fresh = (json.dumps(combined_receipt, indent=2, sort_keys=True) + "\n").encode("utf-8")
+        if existing != fresh:
+            raise ValueError("evidence/receipt.json differs from the freshly generated receipt")
         print(f"Receipt verified against: {RECEIPT_PATH}")
     elif write_receipt:
-        canonical_str = json.dumps(combined_receipt, indent=2, sort_keys=True)
-        RECEIPT_PATH.write_text(canonical_str + "\n", encoding="utf-8")
+        raw = (json.dumps(combined_receipt, indent=2, sort_keys=True) + "\n").encode("utf-8")
+        RECEIPT_PATH.write_bytes(raw)
         print(f"Wrote canonical receipt to: {RECEIPT_PATH}")
 
     print("=== Target X310 Verification: ALL GATES PASS ===")

@@ -1,17 +1,13 @@
 /-!
-# Target X303: Bounded Operational Agency & Discrete Viability Envelopes
+# Target X303: Nat-carrier viability and licensed step (toy model)
 
-Pure constructive Core Lean 4 formalization of:
-1. Discrete Relational Carrier States & Hard Boundary Viability Envelopes.
-2. Operational Action Proposals & Ephemeral Counterfactual Projections.
-3. Empirical Grounding & Committee Authorization Licensing (Alpha Engine Contract).
-4. Finite Memory Horizons & Bounded State Retention.
-5. Strict Refusal Semantics & Exact Carrier State Preservation on Refusal.
-6. Monotonic Operational Fuel Consumption.
-7. Exact Multicriteria Rational Utility Scoring & Pareto Dominance.
+This module is a finite Nat-indexed carrier with a closed Action inductive.
+It does not import or transport the Python RelationalModel controller.
+Licensing here is `authorizedAction : Action`, not a projected CanonKey.
+Theorems about `stepExecution` are properties of that definition.
 
 AuthorityEffect: None.
-Axiom Baseline: strictly contained in {propext, Quot.sound} (zero Classical.choice, zero mathlib).
+Axiom Baseline: `{propext, Quot.sound}`.
 -/
 
 namespace X303BoundedAgency
@@ -150,8 +146,7 @@ instance (s : CarrierState) (a : Action) : Decidable (isEmpiricallyGrounded s a)
 -- 5. Authorization Licensing & The Alpha Engine Contract
 -- ============================================================================
 
-/-- Metatheoretic authorization license issued by the authorization committee.
-    Adheres to the Alpha Engine Proposal -> EvalResult -> License contract. -/
+/-- License for a single Action constructor. Not the Python CanonKey license. -/
 structure License where
   granter : String
   scope : String
