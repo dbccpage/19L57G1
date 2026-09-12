@@ -20,25 +20,25 @@ from unboundedness import (
 
 
 class TestUnboundedness(unittest.TestCase):
-    def test_trajectory_unbounded_reading_l(self):
-        res = run_driver_trajectory(READING_L, "mu2", target_depth=30)
+    def _assert_trajectory_unbounded(self, res):
+        """Shared assertions for unbounded trajectory tests."""
         self.assertEqual(res["final_depth"], 30)
         self.assertGreaterEqual(res["final_data"], 10)
         self.assertTrue(res["all_states_distinct"])
         self.assertFalse(res["terminal_no_response_encountered"])
-
         # Check data monotonicity
         traj = res["trajectory"]
         data_seq = [step["data"] for step in traj]
         for i in range(len(data_seq) - 1):
             self.assertLessEqual(data_seq[i], data_seq[i + 1])
 
+    def test_trajectory_unbounded_reading_l(self):
+        res = run_driver_trajectory(READING_L, "mu2", target_depth=30)
+        self._assert_trajectory_unbounded(res)
+
     def test_trajectory_unbounded_reading_f(self):
         res = run_driver_trajectory(READING_F, "mu2", target_depth=30)
-        self.assertEqual(res["final_depth"], 30)
-        self.assertGreaterEqual(res["final_data"], 10)
-        self.assertTrue(res["all_states_distinct"])
-        self.assertFalse(res["terminal_no_response_encountered"])
+        self._assert_trajectory_unbounded(res)
 
     def test_xstep_driver_gap(self):
         gap = verify_xstep_gap()
