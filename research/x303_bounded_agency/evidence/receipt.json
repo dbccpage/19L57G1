@@ -1,0 +1,120 @@
+{
+  "authority_effect": "None",
+  "claim_hygiene": {
+    "carrier_state_preserved_unmutated_on_refusal": true,
+    "counterfactual_causal_evaluation_modeled": true,
+    "discrete_viability_envelope_modeled": true,
+    "exact_rational_multicriteria_pareto_selection_modeled": true,
+    "finite_memory_horizon_modeled": true,
+    "grounding_firewall_consensus_override_modeled": true,
+    "scope": "Bounded operational agency without teleological ungrounded categories, discrete viability envelopes over relational carrier states in exact rational arithmetic, monotonic preservation of separation pairs, finite memory horizons with deterministic FIFO eviction, strict refusal semantics preserving carrier state strictly unmutated, counterfactual causal evaluation with ephemeral branch projection, Grounding Firewall consensus override of illusory multi-observer committees, Alpha Engine licensing with zero unilateral authority, and exact rational multicriteria Pareto action selection.",
+    "strict_refusal_semantics_modeled": true,
+    "zero_floating_point_arithmetic": true,
+    "zero_unilateral_mutation_authority_enforced": true
+  },
+  "invariant_audit": {
+    "audits": {
+      "causal_projection_non_mutation": true,
+      "exact_rational_multicriteria_selection": true,
+      "grounding_firewall_consensus_override": true,
+      "refusal_preserves_state_unmutated": true,
+      "viability_envelope_ceilings_enforced": true,
+      "zero_unilateral_mutation_authority": true
+    },
+    "status": "PASS"
+  },
+  "lean": {
+    "allowed_axioms": [
+      "Quot.sound",
+      "propext"
+    ],
+    "axiom_free_count": 0,
+    "build_status": "PASS",
+    "theorem_count": 16,
+    "theorem_details": {
+      "X303BoundedAgency.causal_action_selection_soundness": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X303BoundedAgency.fuel_exhaustion_refusal": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X303BoundedAgency.fuel_monotonicity": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X303BoundedAgency.fuel_monotonicity_action": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X303BoundedAgency.fuel_monotonicity_le": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X303BoundedAgency.fuel_monotonicity_refusal": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X303BoundedAgency.licensed_action_preserves_viability": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X303BoundedAgency.memory_bounded": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X303BoundedAgency.pareto_dominance_asymmetric": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X303BoundedAgency.pareto_dominance_irreflexive": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X303BoundedAgency.pareto_dominance_transitive": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X303BoundedAgency.state_preservation_on_refusal": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X303BoundedAgency.state_preservation_on_refusal_state": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X303BoundedAgency.step_causal_action_selection_soundness": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X303BoundedAgency.viability_preservation": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X303BoundedAgency.zero_unilateral_authority": [
+        "propext",
+        "Quot.sound"
+      ]
+    }
+  },
+  "pytest": {
+    "exit_code": 0,
+    "passed": 28,
+    "status": "PASS"
+  },
+  "schema_version": 1,
+  "source_hashes": {
+    "__init__.py": "246d66dafb3a3c9511b05d87abe25e1bdea3cf21e5595258b9d12b7f3d86bf70",
+    "agency.py": "f496142a3d57e815343e0eda569986c70ed4667d0bd581c6cba81808dbf69eef",
+    "lean/BoundedAgency.lean": "44dc57105d8f6ef1c3867378a86879b078dcbce69e0250700a9fd6cbeecbf7c1",
+    "lean/Inventory.lean": "b9a7bdc09d8eff070855c2d3d7dad5d207c95b5f7d3027843ba7ac64a90eb675",
+    "tests/__init__.py": "f6b9481c9d017a79fb912a45277558e80757a33626ec412d52cf1d11197878ae",
+    "tests/test_causal_evaluation.py": "c2a158a6f131cb77e4c6661b56d27d99ad49a6d898e3e991c7685b21bdf46b8e",
+    "tests/test_licensing_firewall.py": "067e1a6934a6a866b3523dffc82d9f1b12e68bc6b9eedc5fc41226f34ae15051",
+    "tests/test_viability_envelope.py": "cf77ec21d9ca9286ac1fd2e1899b2ff6f53a2363d8e15cd0ab25b8f47163ebbb",
+    "verify.py": "f5ee0946950fd258b2f19f7c0128eb5267e5ed9371b961258a98df1b6e9a15a6"
+  },
+  "status": "PASS",
+  "target": "Target X303: Agency & Control (Bounded Operational Agency)"
+}

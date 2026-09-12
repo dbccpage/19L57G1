@@ -1,0 +1,174 @@
+{
+  "authority_effect": "None",
+  "claim_hygiene": {
+    "epistemic_posture": "Claim Hygiene Compliant (bounded, narrow, receipt-grounded)",
+    "exact_rational_arithmetic_only": true,
+    "refusal_state_preservation": true,
+    "scope": "End-to-end vertical integration chain across 6 estate layers: finitary graph substrate (Target A / G011), distributed multi-observer measurement with exact rational spacelike non-signaling TVD == 0/1 in Q (P200 / G014), formal relational semantics with Grounding Firewall consensus override (X301), exact rational linear/integer constraint solvers with Farkas duality certificates in Q (M114), DAG truth maintenance with minimal hitting set retraction satisfying 5 AGM postulates (X302), and bounded operational agency under viability envelopes and committee licensing (X303). All refusal transitions strictly preserve carrier states unmutated. Zero float arithmetic.",
+    "zero_floating_point": true
+  },
+  "commutation_audit": {
+    "commutation_relations": {
+      "codec_roundtrip_identity": true,
+      "readout_step_commutation": true,
+      "refusal_state_preservation": true,
+      "sheaf_descent_commutation": true
+    },
+    "status": "PASS"
+  },
+  "grand_receipt_sha256": "ce1de087da17a2b2b9c2185d8a269f085787b77b598bc94ec23a72bbabac1279",
+  "lean": {
+    "allowed_axioms": [
+      "Quot.sound",
+      "propext"
+    ],
+    "axiom_free_count": 7,
+    "build_status": "PASS",
+    "theorem_count": 15,
+    "theorems": {
+      "X310VerticalIntegration.agency_viability_preservation": [],
+      "X310VerticalIntegration.codec_roundtrip_identity": [],
+      "X310VerticalIntegration.end_to_end_commutation": [],
+      "X310VerticalIntegration.farkas_duality_soundness": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X310VerticalIntegration.grounding_firewall_soundness": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X310VerticalIntegration.pipeline_preservation": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X310VerticalIntegration.pipeline_result_state_on_refusal": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X310VerticalIntegration.readout1_readout2_comm": [],
+      "X310VerticalIntegration.readout1_stepL2_commutation": [],
+      "X310VerticalIntegration.readout_replay_commutation": [],
+      "X310VerticalIntegration.readout_stepM_commutation": [],
+      "X310VerticalIntegration.refusal_pipeline_preservation": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X310VerticalIntegration.spacelike_non_signaling_preservation": [
+        "propext"
+      ],
+      "X310VerticalIntegration.tms_retract_preserves_axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X310VerticalIntegration.tvd_non_signaling_exact_zero": [
+        "propext",
+        "Quot.sound"
+      ]
+    }
+  },
+  "pipeline_execution": {
+    "final_carrier_hash": "f7da4cca93827addd2f115ed8b79b6ca27985b8a4166462acb4a4a263a1eb169",
+    "initial_carrier_hash": "8a2f603c6f345c78893bc218532f78b3da9f7a004d1bf68fbc68f47d6ecacf16",
+    "is_refusal": false,
+    "is_success": true,
+    "refusal_reason": null,
+    "refusal_stage": null,
+    "stage_receipts": {
+      "stage_1_substrate": {
+        "active_datum": 0,
+        "carrier_data_count": 21,
+        "carrier_instances_count": 9,
+        "clock": 0,
+        "fuel_remaining": 20,
+        "is_refusal": false,
+        "refusal_reason": null,
+        "stage": "stage_1_substrate",
+        "state_sha256": "8a2f603c6f345c78893bc218532f78b3da9f7a004d1bf68fbc68f47d6ecacf16",
+        "tape": [
+          0
+        ],
+        "terminal": "FINITARY_SUBSTRATE_INTERNAL"
+      },
+      "stage_2_measurement": {
+        "commutation_verified": true,
+        "gluing_consistent": true,
+        "is_refusal": false,
+        "measurement_sha256": "c69cd7b6c51d272aecc6d0b2af7f79ac58727c543b7e2982fc8e93dd91291154",
+        "non_signaling_tvd": "0/1",
+        "observer_count": 3,
+        "refusal_reason": null,
+        "stage": "stage_2_measurement"
+      },
+      "stage_3_grounding": {
+        "evaluated_formulas_count": 2,
+        "firewall_action": "PASSED",
+        "grounding_sha256": "51fb4cf455dbe30133607c7975ee1e90d632e4715ed9abe13fe8a383d8531506",
+        "illusion_receipt_sha256": null,
+        "is_refusal": false,
+        "panel_consensus": true,
+        "refusal_reason": null,
+        "stage": "stage_3_grounding"
+      },
+      "stage_4_solver": {
+        "certificate_type": "PrimalReceipt",
+        "constraints_checked": 1,
+        "is_refusal": false,
+        "problem_type": "LINEAR_FEASIBILITY",
+        "refusal_reason": null,
+        "solver_sha256": "898a16bde1c63a32f210867a0635307a46e4eeb5b1748c05b8fe3e7c56ad20b1",
+        "stage": "stage_4_solver",
+        "status": "FEASIBLE"
+      },
+      "stage_5_reasoning": {
+        "agm_postulates_satisfied": {
+          "axiom_invariance": true,
+          "consistency": true,
+          "inclusion": true,
+          "success": true,
+          "vacuity": true
+        },
+        "contradictions_detected": 0,
+        "deactivated_nodes": [],
+        "is_refusal": false,
+        "justification_hash": "ca5d8a09b7587b0901818e9e2b15df3cab183e05ec2009240cee5d1c9a9bc777",
+        "refusal_reason": null,
+        "retracted_hypotheses": [],
+        "stage": "stage_5_reasoning"
+      },
+      "stage_6_agency": {
+        "agency_sha256": "d2a240aa1e44bb80c9f8ba08f308fdf6476a470990feba582b255467d1e50cc6",
+        "authorized_license_scope": "step_authorization",
+        "candidate_actions_count": 1,
+        "exact_utility_q": "1/1",
+        "is_refusal": false,
+        "refusal_reason": null,
+        "selected_action": "action_alpha",
+        "stage": "stage_6_agency",
+        "viability_envelope_checked": true
+      }
+    }
+  },
+  "pipeline_run_id": "X310-VERIFY-CANONICAL",
+  "pytest": {
+    "exit_code": 0,
+    "passed": 25,
+    "status": "PASS"
+  },
+  "receipt_version": "1.0.0",
+  "schema": "x310-vertical-integration-v1",
+  "source_hashes": {
+    "__init__.py": "bef87078490bf8f3f1a8b508bb2bb901a49833074c33528d07631c90b7c7f4cb",
+    "lean/Inventory.lean": "8dbf0b0e8db3fda1a9a54a07971c83eec45ae4c9a54ade8c40499456801fd484",
+    "lean/VerticalIntegration.lean": "fb76547be4c78c7f626c85b61ddf3adc446c4bc45433dcb5c667797ae30419ca",
+    "pipeline.py": "bfd5434f799df9fbac75a6e7f5fe58285e6ae7bb91abc56ca520a7e7e25dc78f",
+    "tests/__init__.py": "ec2719e512f364c4be4ee49df4ed5684ab6911243a6678fee035fef1dc58c3ff",
+    "tests/test_end_to_end_lifecycle.py": "969b2e4b6728a5da20aee400060814720824a1c6a72f0d2347e4802eeedcb3fe",
+    "tests/test_pipeline_stages.py": "009c0ba3cfd84500cdf89a53ccd9ee80b7c716090e4874788c9fac5bc880254f",
+    "tests/test_receipt_determinism.py": "e43d9cb930e982359e56f4bd0a6f17fa8844a72f55fa874f5309f949235cb450",
+    "tests/test_vertical_commutation.py": "9905b36483359cf204a7eb592517b89f9ce9e4cf3e0a02b5499d1b7a59acc7f0",
+    "verify.py": "6a5f98c60a25d03eee5374b9ad887cd4d3c81fdfc92747a2eb9cc410e58dac5d"
+  },
+  "status": "PASS",
+  "target": "Target X310: Vertical Integration Chain",
+  "timestamp_utc": "2026-09-12T00:00:00Z"
+}
