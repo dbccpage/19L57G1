@@ -10,13 +10,51 @@
   "commutation_audit": {
     "commutation_relations": {
       "codec_roundtrip_identity": true,
+      "composite_pipeline_commutation": true,
       "readout_step_commutation": true,
       "refusal_state_preservation": true,
+      "residuals": {
+        "codec_roundtrip_identity": {
+          "commutes": true,
+          "description": "Signature codec round-trip inversion (T^-1 o T = id)",
+          "diagram_id": "codec_roundtrip_identity",
+          "metric_name": "reconstruction_distance",
+          "residual_price_q": "0/1"
+        },
+        "composite_pipeline_commutation": {
+          "commutes": true,
+          "description": "Composite vertical pipeline commutation under operational state translation",
+          "diagram_id": "composite_pipeline_commutation",
+          "metric_name": "terminal_carrier_digest_dist",
+          "residual_price_q": "0/1"
+        },
+        "readout_step_commutation": {
+          "commutes": true,
+          "description": "Readout-to-step commutation on disjoint footprints (R o S = S o R)",
+          "diagram_id": "readout_step_commutation",
+          "metric_name": "readout_difference",
+          "residual_price_q": "0/1"
+        },
+        "refusal_state_preservation": {
+          "commutes": true,
+          "description": "Operational refusal state preservation (S_refusal(M) = M)",
+          "diagram_id": "refusal_state_preservation",
+          "metric_name": "state_mutation_distance",
+          "residual_price_q": "0/1"
+        },
+        "sheaf_descent_commutation": {
+          "commutes": true,
+          "description": "Multi-observer sheaf descent commutation (pi_i o U = u_i o pi_i)",
+          "diagram_id": "sheaf_descent_commutation",
+          "metric_name": "gluing_defect",
+          "residual_price_q": "0/1"
+        }
+      },
       "sheaf_descent_commutation": true
     },
     "status": "PASS"
   },
-  "grand_receipt_sha256": "ce1de087da17a2b2b9c2185d8a269f085787b77b598bc94ec23a72bbabac1279",
+  "grand_receipt_sha256": "200199a67f44f3e1dedeecafab6e9b4563b7e2a972d570d9610404a5742a0280",
   "lean": {
     "allowed_axioms": [
       "Quot.sound",
@@ -90,10 +128,12 @@
         "terminal": "FINITARY_SUBSTRATE_INTERNAL"
       },
       "stage_2_measurement": {
+        "channel_dpi_verified": true,
+        "channel_fidelity_q": "1/1",
         "commutation_verified": true,
         "gluing_consistent": true,
         "is_refusal": false,
-        "measurement_sha256": "c69cd7b6c51d272aecc6d0b2af7f79ac58727c543b7e2982fc8e93dd91291154",
+        "measurement_sha256": "0ce35d906a9a26afbe0f33996fac5fbf81aac7192a267fd71a21b42b34989d38",
         "non_signaling_tvd": "0/1",
         "observer_count": 3,
         "refusal_reason": null,
@@ -139,7 +179,7 @@
         "agency_sha256": "d2a240aa1e44bb80c9f8ba08f308fdf6476a470990feba582b255467d1e50cc6",
         "authorized_license_scope": "step_authorization",
         "candidate_actions_count": 1,
-        "exact_utility_q": "1/1",
+        "exact_utility_q": "937/1380",
         "is_refusal": false,
         "refusal_reason": null,
         "selected_action": "action_alpha",
@@ -151,21 +191,21 @@
   "pipeline_run_id": "X310-VERIFY-CANONICAL",
   "pytest": {
     "exit_code": 0,
-    "passed": 25,
+    "passed": 27,
     "status": "PASS"
   },
   "receipt_version": "1.0.0",
   "schema": "x310-vertical-integration-v1",
   "source_hashes": {
-    "__init__.py": "bef87078490bf8f3f1a8b508bb2bb901a49833074c33528d07631c90b7c7f4cb",
+    "__init__.py": "911ca3f0bc0fc9b3520c89b87b3f48be1883a3f33f0e757ed45eafbe1edc7e2c",
     "lean/Inventory.lean": "8dbf0b0e8db3fda1a9a54a07971c83eec45ae4c9a54ade8c40499456801fd484",
     "lean/VerticalIntegration.lean": "fb76547be4c78c7f626c85b61ddf3adc446c4bc45433dcb5c667797ae30419ca",
-    "pipeline.py": "bfd5434f799df9fbac75a6e7f5fe58285e6ae7bb91abc56ca520a7e7e25dc78f",
+    "pipeline.py": "dd4d129abb5895b43e64c1e82551ff76df6742023acb5ae18a7ac3cac121e44b",
     "tests/__init__.py": "ec2719e512f364c4be4ee49df4ed5684ab6911243a6678fee035fef1dc58c3ff",
     "tests/test_end_to_end_lifecycle.py": "969b2e4b6728a5da20aee400060814720824a1c6a72f0d2347e4802eeedcb3fe",
-    "tests/test_pipeline_stages.py": "009c0ba3cfd84500cdf89a53ccd9ee80b7c716090e4874788c9fac5bc880254f",
+    "tests/test_pipeline_stages.py": "4ec495231ef6d8ec03e9ff9f273b61e6a5a4c7917541ce650d03452cf52aa5d1",
     "tests/test_receipt_determinism.py": "e43d9cb930e982359e56f4bd0a6f17fa8844a72f55fa874f5309f949235cb450",
-    "tests/test_vertical_commutation.py": "9905b36483359cf204a7eb592517b89f9ce9e4cf3e0a02b5499d1b7a59acc7f0",
+    "tests/test_vertical_commutation.py": "10a5f8e5a0556a2f13db862e78e04e1689511e185665ce6429ab4637d80fc7d4",
     "verify.py": "6a5f98c60a25d03eee5374b9ad887cd4d3c81fdfc92747a2eb9cc410e58dac5d"
   },
   "status": "PASS",

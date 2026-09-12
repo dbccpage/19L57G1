@@ -24,12 +24,14 @@ for _sub in ["x301_formal_semantics"]:
         sys.path.insert(0, str(_sub_path))
 
 from .agency import (
+    AbilitySet,
     ActionAuthorizer,
     ActionEvalResult,
     ActionEvaluation,
     ActionProposal,
     AgencyReceipt,
     AgentController,
+    AgentStepResult,
     BoundedMemory,
     CandidateAction,
     CausalEvaluator,
@@ -39,9 +41,11 @@ from .agency import (
     MulticriteriaSelector,
     RefusalReason,
     RetainedActionClass,
+    StableSubsystem,
     StepRefusalData,
     StepResult,
     UnlicensedActionError,
+    UtilityVector,
     ViabilityEnvelope,
     add_instance_action,
     add_requirement_action,
@@ -52,12 +56,14 @@ from .agency import (
 )
 
 __all__ = [
+    "AbilitySet",
     "ActionAuthorizer",
     "ActionEvalResult",
     "ActionEvaluation",
     "ActionProposal",
     "AgencyReceipt",
     "AgentController",
+    "AgentStepResult",
     "BoundedMemory",
     "CandidateAction",
     "CausalEvaluator",
@@ -67,9 +73,11 @@ __all__ = [
     "MulticriteriaSelector",
     "RefusalReason",
     "RetainedActionClass",
+    "StableSubsystem",
     "StepRefusalData",
     "StepResult",
     "UnlicensedActionError",
+    "UtilityVector",
     "ViabilityEnvelope",
     "add_instance_action",
     "add_requirement_action",

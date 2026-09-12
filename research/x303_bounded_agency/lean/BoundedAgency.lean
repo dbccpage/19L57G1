@@ -276,7 +276,7 @@ def stepExecution
 -- ============================================================================
 
 /-- Theorem 1 (viability_preservation):
-    A licensed state transition guarantees preservation of the discrete viability envelope. -/
+    A licensed state transition preserves the discrete viability envelope under declared assumptions. -/
 theorem viability_preservation
     (env : ViabilityEnvelope) (s : CarrierState) (agent : AgentState)
     (a : Action) (lic : Option License) (idx : Nat)

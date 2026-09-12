@@ -189,7 +189,11 @@ def test_stage_2_multi_observer_non_signaling():
     assert not res.is_refusal
     assert res.non_signaling_tvd == Fraction(0, 1)
     assert res.gluing_consistent
+    assert res.channel_dpi_verified is True
+    assert res.channel_fidelity_q == Fraction(1, 1)
     assert res.receipt["non_signaling_tvd"] == "0/1"
+    assert res.receipt["channel_dpi_verified"] is True
+    assert res.receipt["channel_fidelity_q"] == "1/1"
     assert len(res.observer_projections) == 3
 
 

@@ -45,14 +45,18 @@ from research.x301_formal_semantics.semantics import (
     RelationalModel,
 )
 from research.x303_bounded_agency.agency import (
+    AbilitySet,
     ActionAuthorizer,
     AgencyReceipt,
     AgentController,
+    AgentStepResult,
     CandidateAction,
     LicensedDriver,
     RefusalReason,
+    StableSubsystem,
     StepResult,
     UnlicensedActionError,
+    UtilityVector,
     ViabilityEnvelope,
     add_instance_action,
     canonical_model_digest,
@@ -173,7 +177,7 @@ def test_grounding_firewall_overrides_illusory_committee_consensus() -> None:
 
 
 # ---------------------------------------------------------------------------
-# Invariant Class 1: Universal State Immutability on Refusal
+# Invariant Class 1: Operational State Immutability on Refusal
 # ---------------------------------------------------------------------------
 
 @pytest.mark.parametrize(
@@ -310,3 +314,107 @@ def test_deterministic_agency_receipt_digest() -> None:
         receipt_sha256=r1.receipt_sha256,
     )
     assert r_tampered.compute_sha256() != r1.receipt_sha256
+
+
+def test_independent_authorizer_policy_denial() -> None:
+    """Invariant: An independent authorizer policy can deny licensing even when
+    candidate actions are viable, returning AUTHORIZATION_DENIED and preserving state.
+    """
+    model = _make_model()
+    env = ViabilityEnvelope(max_data=10, max_forms=5, max_arity=3, max_insts=10)
+    action = add_instance_action(form=0, args=(1,), fuel_cost=1)
+
+    # Authorizer with a strict policy denying all actions
+    strict_authorizer = ActionAuthorizer(policy=lambda eval: False)
+    controller = AgentController(
+        state=model,
+        envelope=env,
+        total_fuel=10,
+        authorizer=strict_authorizer,
+    )
+
+    res = controller.step([action])
+    assert res.is_refusal
+    assert res.reason == RefusalReason.AUTHORIZATION_DENIED
+    assert res.state is model
+
+
+def test_ability_set_boundary_filtering() -> None:
+    """Invariant: AbilitySet defines the physical capability boundary, filtering proposals
+    prior to evaluation and refusing when no candidate action is within ability.
+    """
+    model = _make_model()
+    env = ViabilityEnvelope(max_data=10, max_forms=5, max_arity=3, max_insts=10)
+    act_allowed = add_instance_action(form=0, args=(1,), fuel_cost=1, name="allowed_action")
+    act_forbidden = add_instance_action(form=0, args=(2,), fuel_cost=1, name="forbidden_action")
+
+    ability = AbilitySet(admissible_actions=(act_allowed,))
+    controller = AgentController(
+        state=model,
+        envelope=env,
+        total_fuel=10,
+        abilities=ability,
+    )
+
+    # Only forbidden action proposed -> refused with NO_CANDIDATE_ACTIONS
+    res1 = controller.step([act_forbidden])
+    assert res1.is_refusal
+    assert res1.reason == RefusalReason.NO_CANDIDATE_ACTIONS
+    assert res1.state is model
+
+    # Allowed action proposed -> succeeds
+    res2 = controller.step([act_allowed])
+    assert res2.is_success
+    assert res2.selected_action.name == "allowed_action"
+
+
+def test_stable_subsystem_preservation() -> None:
+    """Invariant: StableSubsystem defines protected carrier loci that cannot be mutated
+    without violating the viability envelope.
+    """
+    subsystem = StableSubsystem(
+        protected_data=frozenset({0}),
+        protected_forms=frozenset({1}),
+    )
+    env = ViabilityEnvelope(
+        max_data=10,
+        max_forms=5,
+        max_arity=3,
+        max_insts=10,
+        subsystem=subsystem,
+    )
+
+    # Valid model containing protected loci
+    model = RelationalModel(
+        data=(0, 1, 2),
+        forms=(1, 2),
+        insts=frozenset({(0, (0,))}),
+    )
+    viable, _ = env.check_viability(model)
+    assert viable
+
+    # Model missing protected data locus 0
+    bad_model_data = RelationalModel(
+        data=(1, 2),
+        forms=(1, 2),
+        insts=frozenset(),
+    )
+    viable_data, reason_data = env.check_viability(bad_model_data)
+    assert not viable_data
+    assert "Subsystem stability violation" in reason_data
+    assert "Stable subsystem data sort element missing: 0" in reason_data
+
+
+def test_utility_vector_pareto_dominance() -> None:
+    """Invariant: UtilityVector exact rational algebra correctly determines Pareto dominance."""
+    u1 = UtilityVector(Fraction(3, 4), Fraction(3, 4), Fraction(1, 1))
+    u2 = UtilityVector(Fraction(1, 2), Fraction(1, 2), Fraction(1, 1))
+    u3 = UtilityVector(Fraction(3, 4), Fraction(3, 4), Fraction(1, 1))
+    u4 = UtilityVector(Fraction(1, 1), Fraction(1, 4), Fraction(1, 1))
+
+    assert u1.dominates(u2)
+    assert not u2.dominates(u1)
+    assert not u1.dominates(u3)
+    assert not u1.dominates(u4)
+    assert not u4.dominates(u1)
+    assert u1.as_tuple() == (Fraction(3, 4), Fraction(3, 4), Fraction(1, 1))

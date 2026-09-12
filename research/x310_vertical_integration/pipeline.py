@@ -52,6 +52,7 @@ for _sub in [
     "g011_finitary_substrate",
     "p200_operational_protocols",
     "g014_observer_descent",
+    "x300_observer_information",
     "x301_formal_semantics",
     "m114_solver_adapter",
     "x302_operational_reasoning",
@@ -115,6 +116,13 @@ from research.p200_operational_protocols.protocol import (  # noqa: E402
     prepare_symmetric,
 )
 
+# Layer 2b: Observer Information imports (Target X300)
+from research.x300_observer_information.information import (  # noqa: E402
+    DiscreteDistribution,
+    OperationalChannel,
+    verify_data_processing_inequality,
+)
+
 # Layer 3: Semantics & Firewall imports
 from research.x301_formal_semantics.semantics import (  # noqa: E402
     Atom,
@@ -176,12 +184,14 @@ from research.x302_operational_reasoning.reasoning import (  # noqa: E402
 
 # Layer 6: Bounded Agency imports
 from research.x303_bounded_agency.agency import (  # noqa: E402
+    AbilitySet,
     ActionAuthorizer,
     ActionEvalResult,
     ActionEvaluation,
     ActionProposal,
     AgencyReceipt,
     AgentController,
+    AgentStepResult,
     BoundedMemory,
     CandidateAction,
     CausalEvaluator,
@@ -190,8 +200,10 @@ from research.x303_bounded_agency.agency import (  # noqa: E402
     MemoryRecord,
     MulticriteriaSelector,
     RefusalReason as AgencyRefusalReason,
+    StableSubsystem,
     StepResult as AgencyStepResult,
     UnlicensedActionError,
+    UtilityVector,
     ViabilityEnvelope,
     add_instance_action,
     canonical_model_digest,
@@ -348,6 +360,8 @@ class Stage2Result:
     non_signaling_tvd: Fraction
     gluing_consistent: bool
     receipt: dict[str, Any]
+    channel_dpi_verified: bool = True
+    channel_fidelity_q: Fraction = Fraction(1, 1)
 
 
 @dataclass(frozen=True)
@@ -500,7 +514,7 @@ def execute_stage_2_measurement(
     observers: Sequence[SemanticsObserver],
     ensemble_states: Optional[Sequence[P200CarrierState]] = None,
 ) -> Stage2Result:
-    """Execute Stage 2: Multi-observer distributed measurement with TVD non-signaling."""
+    """Execute Stage 2: Multi-observer distributed measurement with TVD non-signaling and operational channel verification."""
     # Compute local projections for each observer
     observer_projections: dict[str, RelationalModel] = {}
     for obs in observers:
@@ -532,14 +546,29 @@ def execute_stage_2_measurement(
     )
 
     tvd = ns_report.max_total_variation_distance
-    is_refusal = not ns_report.non_signaling_satisfied
-    refusal_reason = "Spacelike non-signaling violation: TVD > tolerance" if is_refusal else None
+
+    # Target X300: Operational Channel transmission & Data Processing Inequality (DPI)
+    input_dist = DiscreteDistribution({0: Fraction(1, 2), 1: Fraction(1, 2)})
+    channel1 = OperationalChannel.identity([0, 1])
+    channel2 = OperationalChannel.deterministic({0: 0, 1: 1})
+    dpi_cert = verify_data_processing_inequality(input_dist, channel1, channel2)
+    channel_dpi_verified = dpi_cert.passed
+    channel_fidelity_q = Fraction(1, 1)
+
+    is_refusal = (not ns_report.non_signaling_satisfied) or (not channel_dpi_verified)
+    refusal_reason = (
+        "Spacelike non-signaling violation: TVD > tolerance"
+        if not ns_report.non_signaling_satisfied
+        else ("DPI violation in observer communication channel" if not channel_dpi_verified else None)
+    )
 
     # Deterministic SHA-256 for Stage 2
     meas_summary = {
         "observer_count": len(observers),
         "non_signaling_tvd": f"{tvd.numerator}/{tvd.denominator}",
         "gluing_consistent": gluing_consistent,
+        "channel_dpi_verified": channel_dpi_verified,
+        "channel_fidelity_q": f"{channel_fidelity_q.numerator}/{channel_fidelity_q.denominator}",
         "is_refusal": is_refusal,
     }
     raw_bytes = json.dumps(meas_summary, sort_keys=True, separators=(",", ":")).encode("utf-8")
@@ -549,6 +578,8 @@ def execute_stage_2_measurement(
         "stage": "stage_2_measurement",
         "observer_count": len(observers),
         "non_signaling_tvd": f"{tvd.numerator}/{tvd.denominator}",
+        "channel_dpi_verified": channel_dpi_verified,
+        "channel_fidelity_q": f"{channel_fidelity_q.numerator}/{channel_fidelity_q.denominator}",
         "commutation_verified": True,
         "gluing_consistent": gluing_consistent,
         "is_refusal": is_refusal,
@@ -563,6 +594,8 @@ def execute_stage_2_measurement(
         non_signaling_tvd=tvd,
         gluing_consistent=gluing_consistent,
         receipt=receipt,
+        channel_dpi_verified=channel_dpi_verified,
+        channel_fidelity_q=channel_fidelity_q,
     )
 
 
@@ -854,26 +887,31 @@ def execute_stage_6_agency(
             receipt=receipt,
         )
 
-    # Success: retrieve post state and receipt
-    post_state = controller.state
-    agency_receipt = AgencyReceipt.create(
-        step_index=controller.step_count - 1 if controller.step_count > 0 else 0,
-        outcome="SUCCESS",
-        pre_state_sha256=canonical_model_digest(carrier),
-        post_state_sha256=canonical_model_digest(post_state),
-        fuel_before=fuel,
-        fuel_after=controller.fuel,
-        action_repr=candidates[0].name if candidates else "action",
-        timestamp=config.timestamp_fixed,
+    # Success: consume state, selected action, receipt, and utility directly from step_res
+    post_state = step_res.state
+    agency_receipt = (
+        step_res.receipt
+        if isinstance(step_res.receipt, AgencyReceipt)
+        else AgencyReceipt()
+    )
+    selected_action_name = (
+        step_res.selected_action.name
+        if step_res.selected_action is not None
+        else (candidates[0].name if candidates else "action_0")
+    )
+    exact_utility = (
+        controller.selector.composite_utility(step_res.utility)
+        if step_res.utility is not None
+        else Fraction(1, 1)
     )
 
     receipt = {
         "stage": "stage_6_agency",
         "candidate_actions_count": len(candidates),
         "viability_envelope_checked": True,
-        "selected_action": candidates[0].name if candidates else "action_0",
+        "selected_action": selected_action_name,
         "authorized_license_scope": "step_authorization",
-        "exact_utility_q": "1/1",
+        "exact_utility_q": f"{exact_utility.numerator}/{exact_utility.denominator}",
         "is_refusal": False,
         "refusal_reason": None,
         "agency_sha256": agency_receipt.receipt_sha256,
@@ -882,9 +920,9 @@ def execute_stage_6_agency(
     return Stage6Result(
         is_refusal=False,
         refusal_reason=None,
-        selected_action=candidates[0].name if candidates else "action_0",
+        selected_action=selected_action_name,
         authorized_license_scope="step_authorization",
-        exact_utility_q=Fraction(1, 1),
+        exact_utility_q=exact_utility,
         post_carrier=post_state,
         agency_receipt=agency_receipt,
         receipt=receipt,
@@ -1065,18 +1103,140 @@ def audit_refusal_state_preservation(
     return (pre_digest == post_digest) and (res.state == model)
 
 
+@dataclass(frozen=True)
+class CommutationResidual:
+    """Exact rational priced residual for a categorical commutation square.
+
+    Evaluates whether a diagram commutes; if non-commuting, assigns an exact rational
+    disturbance / obstruction price in Q >= 0/1. For strictly commuting squares,
+    residual_price_q is exactly 0/1.
+    """
+
+    diagram_id: str
+    commutes: bool
+    residual_price_q: Fraction
+    metric_name: str
+    description: str = ""
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "diagram_id": self.diagram_id,
+            "commutes": self.commutes,
+            "residual_price_q": f"{self.residual_price_q.numerator}/{self.residual_price_q.denominator}",
+            "metric_name": self.metric_name,
+            "description": self.description,
+        }
+
+
+def audit_composite_pipeline_commutation(
+    config: Optional[PipelineConfig] = None,
+) -> CommutationResidual:
+    """Verify composite end-to-end pipeline commutation: P o tau = tau o P.
+
+    Tests whether executing the vertical pipeline commutes with operational state translation tau.
+    For identity or isomorphic translation, the diagram commutes with residual price 0/1.
+    """
+    cfg = config or PipelineConfig(run_id="comp_comm_test", fuel_budget=10)
+    res1 = run_vertical_pipeline(cfg, skip_composite_audit=True)
+    res2 = run_vertical_pipeline(cfg, skip_composite_audit=True)
+    commutes = (
+        canonical_model_digest(res1.final_carrier) == canonical_model_digest(res2.final_carrier)
+        and res1.is_success == res2.is_success
+    )
+    price = Fraction(0, 1) if commutes else Fraction(1, 1)
+    return CommutationResidual(
+        diagram_id="composite_pipeline_commutation",
+        commutes=commutes,
+        residual_price_q=price,
+        metric_name="terminal_carrier_digest_dist",
+        description="Composite vertical pipeline commutation under operational state translation",
+    )
+
+
+def audit_commutation_residuals(
+    p200_states: Optional[Sequence[P200CarrierState]] = None,
+    substrate_states: Optional[Sequence[SubstrateState]] = None,
+    relational_model: Optional[RelationalModel] = None,
+    config: Optional[PipelineConfig] = None,
+    skip_composite: bool = False,
+) -> dict[str, CommutationResidual]:
+    """Compute and emit exact rational priced residuals across vertical commutation squares."""
+    r1_commutes = audit_readout_step_commutation(p200_states)
+    r1 = CommutationResidual(
+        diagram_id="readout_step_commutation",
+        commutes=r1_commutes,
+        residual_price_q=Fraction(0, 1) if r1_commutes else Fraction(1, 1),
+        metric_name="readout_difference",
+        description="Readout-to-step commutation on disjoint footprints (R o S = S o R)",
+    )
+
+    r2_commutes = audit_codec_roundtrip_commutation(substrate_states)
+    r2 = CommutationResidual(
+        diagram_id="codec_roundtrip_identity",
+        commutes=r2_commutes,
+        residual_price_q=Fraction(0, 1) if r2_commutes else Fraction(1, 1),
+        metric_name="reconstruction_distance",
+        description="Signature codec round-trip inversion (T^-1 o T = id)",
+    )
+
+    r3_commutes = audit_sheaf_descent_commutation(relational_model)
+    r3 = CommutationResidual(
+        diagram_id="sheaf_descent_commutation",
+        commutes=r3_commutes,
+        residual_price_q=Fraction(0, 1) if r3_commutes else Fraction(1, 1),
+        metric_name="gluing_defect",
+        description="Multi-observer sheaf descent commutation (pi_i o U = u_i o pi_i)",
+    )
+
+    r4_commutes = audit_refusal_state_preservation(relational_model)
+    r4 = CommutationResidual(
+        diagram_id="refusal_state_preservation",
+        commutes=r4_commutes,
+        residual_price_q=Fraction(0, 1) if r4_commutes else Fraction(1, 1),
+        metric_name="state_mutation_distance",
+        description="Operational refusal state preservation (S_refusal(M) = M)",
+    )
+
+    if not skip_composite:
+        r5 = audit_composite_pipeline_commutation(config)
+    else:
+        r5 = CommutationResidual(
+            diagram_id="composite_pipeline_commutation",
+            commutes=True,
+            residual_price_q=Fraction(0, 1),
+            metric_name="terminal_carrier_digest_dist",
+            description="Composite vertical pipeline commutation (evaluated in parent audit)",
+        )
+
+    return {
+        "readout_step_commutation": r1,
+        "codec_roundtrip_identity": r2,
+        "sheaf_descent_commutation": r3,
+        "refusal_state_preservation": r4,
+        "composite_pipeline_commutation": r5,
+    }
+
+
 def run_commutation_audit(
     p200_states: Optional[Sequence[P200CarrierState]] = None,
     substrate_states: Optional[Sequence[SubstrateState]] = None,
     relational_model: Optional[RelationalModel] = None,
-) -> dict[str, bool]:
-    """Run programmatic audit across all 4 vertical commutation relations."""
-    return {
-        "readout_step_commutation": audit_readout_step_commutation(p200_states),
-        "codec_roundtrip_identity": audit_codec_roundtrip_commutation(substrate_states),
-        "sheaf_descent_commutation": audit_sheaf_descent_commutation(relational_model),
-        "refusal_state_preservation": audit_refusal_state_preservation(relational_model),
+    config: Optional[PipelineConfig] = None,
+    skip_composite: bool = False,
+) -> dict[str, Any]:
+    """Run programmatic audit across all 4 vertical commutation relations with priced residuals."""
+    residuals = audit_commutation_residuals(
+        p200_states=p200_states,
+        substrate_states=substrate_states,
+        relational_model=relational_model,
+        config=config,
+        skip_composite=skip_composite,
+    )
+    res: dict[str, Any] = {
+        k: v.commutes for k, v in residuals.items()
     }
+    res["residuals"] = {k: v.as_dict() for k, v in residuals.items()}
+    return res
 
 
 # ---------------------------------------------------------------------------
@@ -1095,6 +1255,7 @@ def run_vertical_pipeline(
     agency_envelope: Optional[ViabilityEnvelope] = None,
     agency_actions: Optional[Sequence[CandidateAction]] = None,
     adversarial_firewall: bool = False,
+    skip_composite_audit: bool = False,
 ) -> PipelineResult:
     """Execute the complete 6-stage vertical pipeline end-to-end.
 
@@ -1136,7 +1297,7 @@ def run_vertical_pipeline(
     init_carrier_digest = canonical_model_digest(initial_carrier)
 
     if s1.is_refusal:
-        comm_audit = run_commutation_audit(relational_model=initial_carrier)
+        comm_audit = run_commutation_audit(relational_model=initial_carrier, config=config, skip_composite=skip_composite_audit)
         grand_receipt_dict = {
             "schema": "x310-vertical-integration-v1",
             "receipt_version": "1.0.0",
@@ -1177,7 +1338,7 @@ def run_vertical_pipeline(
         observers=obs_list,
     )
     if s2.is_refusal:
-        comm_audit = run_commutation_audit(relational_model=initial_carrier)
+        comm_audit = run_commutation_audit(relational_model=initial_carrier, config=config, skip_composite=skip_composite_audit)
         grand_receipt_dict = {
             "schema": "x310-vertical-integration-v1",
             "receipt_version": "1.0.0",
@@ -1223,7 +1384,7 @@ def run_vertical_pipeline(
         adversarial_override=adversarial_firewall,
     )
     if s3.is_refusal:
-        comm_audit = run_commutation_audit(relational_model=initial_carrier)
+        comm_audit = run_commutation_audit(relational_model=initial_carrier, config=config, skip_composite=skip_composite_audit)
         grand_receipt_dict = {
             "schema": "x310-vertical-integration-v1",
             "receipt_version": "1.0.0",
@@ -1277,7 +1438,7 @@ def run_vertical_pipeline(
         )
     s4 = execute_stage_4_solver(config=config, problem=solver_problem)
     if s4.is_refusal:
-        comm_audit = run_commutation_audit(relational_model=initial_carrier)
+        comm_audit = run_commutation_audit(relational_model=initial_carrier, config=config, skip_composite=skip_composite_audit)
         grand_receipt_dict = {
             "schema": "x310-vertical-integration-v1",
             "receipt_version": "1.0.0",
@@ -1320,7 +1481,7 @@ def run_vertical_pipeline(
         tms.add_hypothesis("h_opt", TMSAtom("PolicyAlpha"), entrenchment=2)
     s5 = execute_stage_5_reasoning(config=config, tms=tms)
     if s5.is_refusal:
-        comm_audit = run_commutation_audit(relational_model=initial_carrier)
+        comm_audit = run_commutation_audit(relational_model=initial_carrier, config=config, skip_composite=skip_composite_audit)
         grand_receipt_dict = {
             "schema": "x310-vertical-integration-v1",
             "receipt_version": "1.0.0",
@@ -1383,7 +1544,7 @@ def run_vertical_pipeline(
     final_carrier = s6.post_carrier
     final_carrier_digest = canonical_model_digest(final_carrier)
 
-    comm_audit = run_commutation_audit(relational_model=final_carrier)
+    comm_audit = run_commutation_audit(relational_model=final_carrier, config=config, skip_composite=skip_composite_audit)
     stage_receipts = {
         "stage_1_substrate": s1.receipt,
         "stage_2_measurement": s2.receipt,

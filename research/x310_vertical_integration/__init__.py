@@ -29,6 +29,7 @@ for _sub in [
         sys.path.insert(0, str(_sub_path))
 
 from research.x310_vertical_integration.pipeline import (
+    CommutationResidual,
     PipelineConfig,
     PipelineResult,
     Stage1Result,
@@ -38,6 +39,8 @@ from research.x310_vertical_integration.pipeline import (
     Stage5Result,
     Stage6Result,
     audit_codec_roundtrip_commutation,
+    audit_commutation_residuals,
+    audit_composite_pipeline_commutation,
     audit_readout_step_commutation,
     audit_refusal_state_preservation,
     audit_sheaf_descent_commutation,
@@ -56,6 +59,7 @@ from research.x310_vertical_integration.pipeline import (
 )
 
 __all__ = [
+    "CommutationResidual",
     "PipelineConfig",
     "PipelineResult",
     "Stage1Result",
@@ -65,6 +69,8 @@ __all__ = [
     "Stage5Result",
     "Stage6Result",
     "audit_codec_roundtrip_commutation",
+    "audit_commutation_residuals",
+    "audit_composite_pipeline_commutation",
     "audit_readout_step_commutation",
     "audit_refusal_state_preservation",
     "audit_sheaf_descent_commutation",

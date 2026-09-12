@@ -100,18 +100,18 @@
   },
   "pytest": {
     "exit_code": 0,
-    "passed": 28,
+    "passed": 32,
     "status": "PASS"
   },
   "schema_version": 1,
   "source_hashes": {
-    "__init__.py": "246d66dafb3a3c9511b05d87abe25e1bdea3cf21e5595258b9d12b7f3d86bf70",
-    "agency.py": "f496142a3d57e815343e0eda569986c70ed4667d0bd581c6cba81808dbf69eef",
-    "lean/BoundedAgency.lean": "44dc57105d8f6ef1c3867378a86879b078dcbce69e0250700a9fd6cbeecbf7c1",
+    "__init__.py": "2f53f1cdaac34ea8b4903995d3e144ff8e6dbcfb9e0ec1fbd5d83a426b2880ac",
+    "agency.py": "dd8598a30779bcdfc4d2c7fa0807d5b91c9b0bd51d962555493967571acdfdcc",
+    "lean/BoundedAgency.lean": "a65a154ec453b9224505185ce43144c84c3627223ab4daab2888bbcd2333a05c",
     "lean/Inventory.lean": "b9a7bdc09d8eff070855c2d3d7dad5d207c95b5f7d3027843ba7ac64a90eb675",
     "tests/__init__.py": "f6b9481c9d017a79fb912a45277558e80757a33626ec412d52cf1d11197878ae",
     "tests/test_causal_evaluation.py": "c2a158a6f131cb77e4c6661b56d27d99ad49a6d898e3e991c7685b21bdf46b8e",
-    "tests/test_licensing_firewall.py": "067e1a6934a6a866b3523dffc82d9f1b12e68bc6b9eedc5fc41226f34ae15051",
+    "tests/test_licensing_firewall.py": "e5f85675dd566ab2925b63d2820f970b4fc1ca68b5aeeba8aeeac15a204530da",
     "tests/test_viability_envelope.py": "cf77ec21d9ca9286ac1fd2e1899b2ff6f53a2363d8e15cd0ab25b8f47163ebbb",
     "verify.py": "f5ee0946950fd258b2f19f7c0128eb5267e5ed9371b961258a98df1b6e9a15a6"
   },

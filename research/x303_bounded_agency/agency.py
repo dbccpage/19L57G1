@@ -104,8 +104,35 @@ def compute_canon_key(model: RelationalModel) -> CanonKey:
 
 
 # ---------------------------------------------------------------------------
-# 1. Discrete Viability Envelope
+# 1. Discrete Viability Envelope & Stable Subsystem Boundary
 # ---------------------------------------------------------------------------
+
+@dataclass(frozen=True)
+class StableSubsystem:
+    """Explicit model of an agent's stable subsystem distinct from its environment.
+
+    Tracks protected core sorts/tokens and stability conditions that must remain
+    intact across environmental transitions.
+    """
+
+    protected_data: frozenset[str] = frozenset()
+    protected_forms: frozenset[int] = frozenset()
+    stability_invariants: tuple[Formula, ...] = ()
+
+    def is_subsystem_stable(self, model: RelationalModel) -> tuple[bool, Optional[str]]:
+        """Verify that the subsystem's core data and form elements persist and invariants hold."""
+        for d in self.protected_data:
+            if d not in model.data:
+                return False, f"Stable subsystem data sort element missing: {d}"
+        for f in self.protected_forms:
+            if f not in model.forms:
+                return False, f"Stable subsystem form declaration missing: {f}"
+        for inv in self.stability_invariants:
+            val = evaluate(model, inv)
+            if not val.is_true:
+                return False, f"Subsystem stability invariant violated: {inv} -> {val}"
+        return True, None
+
 
 @dataclass(frozen=True)
 class ViabilityEnvelope:
@@ -114,6 +141,7 @@ class ViabilityEnvelope:
     Enforces:
     - Resource ceilings on data, forms, arities, instances.
     - Non-empty core sort requirements.
+    - Stable subsystem boundary persistence.
     - Monotonic preservation of separation pairs: profile(i) != profile(j).
     - Monotonic preservation of cumulative requirement pairs.
     - Firm structural invariants evaluated under exact rational Heyting semantics.
@@ -129,6 +157,7 @@ class ViabilityEnvelope:
     min_forms: int = 1
     required_reqs: frozenset[tuple[int, int]] = frozenset()
     firm_invariants: tuple[Formula, ...] = ()
+    subsystem: Optional[StableSubsystem] = None
 
     def __post_init__(self) -> None:
         if self.max_data < self.min_data:
@@ -181,6 +210,12 @@ class ViabilityEnvelope:
             val = evaluate(model, inv)
             if not val.is_true:
                 return False, f"Firm invariant violated: {inv} evaluated to {val}"
+
+        # 6. Stable subsystem boundary preservation
+        if self.subsystem is not None:
+            sub_ok, sub_reason = self.subsystem.is_subsystem_stable(model)
+            if not sub_ok:
+                return False, f"Subsystem stability violation: {sub_reason}"
 
         return True, None
 
@@ -311,19 +346,29 @@ class CandidateAction:
         return f"CandidateAction({self.name}, cost={self.fuel_cost})"
 
 
+def _clone_model(
+    m: RelationalModel,
+    *,
+    insts: Optional[frozenset[tuple[int, tuple[int, ...]]]] = None,
+    rules: Optional[frozenset[int]] = None,
+    reqs: Optional[frozenset[tuple[int, int]]] = None,
+) -> RelationalModel:
+    """Helper to update relational model components without boilerplate duplication."""
+    return RelationalModel(
+        data=m.data,
+        forms=m.forms,
+        insts=m.insts if insts is None else insts,
+        rules=m.rules if rules is None else rules,
+        reqs=m.reqs if reqs is None else reqs,
+        custom_relations=m.custom_relations,
+        custom_domains=m.custom_domains,
+    )
+
+
 def add_instance_action(form: int, args: tuple[int, ...], fuel_cost: int = 1, name: str = "") -> CandidateAction:
     """Create action adding a relational instance."""
     def _apply(m: RelationalModel) -> RelationalModel:
-        new_insts = m.insts | {(form, args)}
-        return RelationalModel(
-            data=m.data,
-            forms=m.forms,
-            insts=new_insts,
-            rules=m.rules,
-            reqs=m.reqs,
-            custom_relations=m.custom_relations,
-            custom_domains=m.custom_domains,
-        )
+        return _clone_model(m, insts=m.insts | {(form, args)})
     lbl = name or f"add_inst({form}, {args})"
     return CandidateAction(name=lbl, fuel_cost=fuel_cost, delta_fn=_apply, description=f"Add instance ({form}, {args})")
 
@@ -331,16 +376,7 @@ def add_instance_action(form: int, args: tuple[int, ...], fuel_cost: int = 1, na
 def remove_instance_action(form: int, args: tuple[int, ...], fuel_cost: int = 1, name: str = "") -> CandidateAction:
     """Create action removing a relational instance."""
     def _apply(m: RelationalModel) -> RelationalModel:
-        new_insts = m.insts - {(form, args)}
-        return RelationalModel(
-            data=m.data,
-            forms=m.forms,
-            insts=new_insts,
-            rules=m.rules,
-            reqs=m.reqs,
-            custom_relations=m.custom_relations,
-            custom_domains=m.custom_domains,
-        )
+        return _clone_model(m, insts=m.insts - {(form, args)})
     lbl = name or f"rem_inst({form}, {args})"
     return CandidateAction(name=lbl, fuel_cost=fuel_cost, delta_fn=_apply, description=f"Remove instance ({form}, {args})")
 
@@ -349,15 +385,7 @@ def toggle_rule_action(form: int, fuel_cost: int = 1, name: str = "") -> Candida
     """Create action toggling uniform all-tuples rule for a form."""
     def _apply(m: RelationalModel) -> RelationalModel:
         new_rules = m.rules - {form} if form in m.rules else m.rules | {form}
-        return RelationalModel(
-            data=m.data,
-            forms=m.forms,
-            insts=m.insts,
-            rules=new_rules,
-            reqs=m.reqs,
-            custom_relations=m.custom_relations,
-            custom_domains=m.custom_domains,
-        )
+        return _clone_model(m, rules=new_rules)
     lbl = name or f"toggle_rule({form})"
     return CandidateAction(name=lbl, fuel_cost=fuel_cost, delta_fn=_apply, description=f"Toggle rule for form {form}")
 
@@ -366,18 +394,35 @@ def add_requirement_action(i: int, j: int, fuel_cost: int = 1, name: str = "") -
     """Create action imposing a separation requirement pair."""
     pair = (min(i, j), max(i, j))
     def _apply(m: RelationalModel) -> RelationalModel:
-        new_reqs = m.reqs | {pair}
-        return RelationalModel(
-            data=m.data,
-            forms=m.forms,
-            insts=m.insts,
-            rules=m.rules,
-            reqs=new_reqs,
-            custom_relations=m.custom_relations,
-            custom_domains=m.custom_domains,
-        )
+        return _clone_model(m, reqs=m.reqs | {pair})
     lbl = name or f"add_req({pair[0]}, {pair[1]})"
     return CandidateAction(name=lbl, fuel_cost=fuel_cost, delta_fn=_apply, description=f"Impose separation pair {pair}")
+
+
+@dataclass(frozen=True)
+class UtilityVector:
+    """Exact rational utility vector in [0, 1] cap Q across (u_margin, u_fuel, u_goal)."""
+
+    u_margin: Fraction = Fraction(0, 1)
+    u_fuel: Fraction = Fraction(0, 1)
+    u_goal: Fraction = Fraction(0, 1)
+
+    def as_tuple(self) -> tuple[Fraction, Fraction, Fraction]:
+        return (self.u_margin, self.u_fuel, self.u_goal)
+
+    def dominates(self, other: UtilityVector) -> bool:
+        """Pareto dominance: >= in all criteria and > in at least one."""
+        ge = (
+            self.u_margin >= other.u_margin
+            and self.u_fuel >= other.u_fuel
+            and self.u_goal >= other.u_goal
+        )
+        gt = (
+            self.u_margin > other.u_margin
+            or self.u_fuel > other.u_fuel
+            or self.u_goal > other.u_goal
+        )
+        return ge and gt
 
 
 @dataclass(frozen=True)
@@ -388,23 +433,56 @@ class ActionEvaluation:
     viable: bool
     reason: Optional[str] = None
     projected_state: Optional[RelationalModel] = None
-    utilities: tuple[Fraction, Fraction, Fraction] = (Fraction(0, 1), Fraction(0, 1), Fraction(0, 1))
+    utility: UtilityVector = field(default_factory=UtilityVector)
     canon_key: Optional[CanonKey] = None
     has_empirical_reference: bool = True
     firewall_refuted: bool = False
     firewall_receipt: Optional[PanelIllusionReceipt] = None
 
+    def __init__(
+        self,
+        action: CandidateAction,
+        viable: bool,
+        reason: Optional[str] = None,
+        projected_state: Optional[RelationalModel] = None,
+        utility: Optional[UtilityVector] = None,
+        utilities: Optional[tuple[Fraction, Fraction, Fraction]] = None,
+        canon_key: Optional[CanonKey] = None,
+        has_empirical_reference: bool = True,
+        firewall_refuted: bool = False,
+        firewall_receipt: Optional[PanelIllusionReceipt] = None,
+    ):
+        object.__setattr__(self, "action", action)
+        object.__setattr__(self, "viable", viable)
+        object.__setattr__(self, "reason", reason)
+        object.__setattr__(self, "projected_state", projected_state)
+        if utility is not None:
+            util_obj = utility
+        elif utilities is not None:
+            util_obj = UtilityVector(*utilities)
+        else:
+            util_obj = UtilityVector()
+        object.__setattr__(self, "utility", util_obj)
+        object.__setattr__(self, "canon_key", canon_key)
+        object.__setattr__(self, "has_empirical_reference", has_empirical_reference)
+        object.__setattr__(self, "firewall_refuted", firewall_refuted)
+        object.__setattr__(self, "firewall_receipt", firewall_receipt)
+
+    @property
+    def utilities(self) -> tuple[Fraction, Fraction, Fraction]:
+        return self.utility.as_tuple()
+
     @property
     def u_margin(self) -> Fraction:
-        return self.utilities[0]
+        return self.utility.u_margin
 
     @property
     def u_fuel(self) -> Fraction:
-        return self.utilities[1]
+        return self.utility.u_fuel
 
     @property
     def u_goal(self) -> Fraction:
-        return self.utilities[2]
+        return self.utility.u_goal
 
 
 class CausalEvaluator:
@@ -416,6 +494,8 @@ class CausalEvaluator:
 
     def project(self, model: RelationalModel, action: CandidateAction) -> RelationalModel:
         """Ephemeral projection: returns prospective state without mutating base state."""
+        if action.fuel_cost < 0:
+            raise ValueError(f"Negative fuel cost: {action.fuel_cost}")
         return action.apply(model)
 
     def check_empirical_reference(self, model: RelationalModel, action: CandidateAction) -> bool:
@@ -501,7 +581,7 @@ class CausalEvaluator:
             viable=not firewall_refuted,
             reason="Firewall consensus override" if firewall_refuted else None,
             projected_state=projected,
-            utilities=(u_margin, u_fuel, u_goal),
+            utility=UtilityVector(u_margin, u_fuel, u_goal),
             canon_key=canon_k,
             has_empirical_reference=has_ref,
             firewall_refuted=firewall_refuted,
@@ -510,8 +590,28 @@ class CausalEvaluator:
 
 
 # ---------------------------------------------------------------------------
-# 5. Alpha Engine Licensing & Authorization
+# 5. Alpha Engine Licensing, Ability & Authorization
 # ---------------------------------------------------------------------------
+
+@dataclass(frozen=True)
+class AbilitySet:
+    """The capability boundary: physically admissible actions executable by carrier.
+
+    Distinguishes underlying ability from prospective proposals, preference, and authority.
+    """
+
+    admissible_actions: tuple[CandidateAction, ...] = ()
+
+    def is_able(self, action: CandidateAction) -> bool:
+        """Check if an action is within the subsystem's ability set."""
+        if not self.admissible_actions:
+            return True
+        return any(a.name == action.name for a in self.admissible_actions)
+
+    def filter_proposals(self, proposals: Sequence[CandidateAction]) -> list[CandidateAction]:
+        """Filter proposals down to actions the agent is able to execute."""
+        return [a for a in proposals if self.is_able(a)]
+
 
 @dataclass(frozen=True)
 class ActionProposal:
@@ -569,11 +669,33 @@ class License:
 
 
 class ActionAuthorizer:
-    """Authorizes actions based on viability evaluations and firewall checks."""
+    """Authorizes actions based on viability evaluations, policies, and firewall checks.
 
-    def __init__(self, granter: str = "x303_authorizer", scope: str = "step_authorization"):
+    Acts as an independent authority gate separating proposal from authorization.
+    """
+
+    def __init__(
+        self,
+        granter: str = "x303_authorizer",
+        scope: str = "step_authorization",
+        policy: Optional[Callable[[ActionEvaluation], bool]] = None,
+    ):
         self.granter = granter
         self.scope = scope
+        self.policy = policy
+
+    def authorize_evaluation(self, evaluation: ActionEvaluation) -> Optional[License]:
+        """Authorize a prospective evaluation if it satisfies authorizer policy."""
+        if not evaluation.viable:
+            return None
+        if evaluation.firewall_refuted:
+            return None
+        if self.policy is not None and not self.policy(evaluation):
+            return None
+        canon_key = evaluation.canon_key or evaluation.action.get_canon_key(
+            evaluation.projected_state or RelationalModel()
+        )
+        return self.issue_license([canon_key])
 
     def issue_license(self, authorized_keys: Sequence[CanonKey]) -> License:
         """Issue an immutable authorization license."""
@@ -636,12 +758,14 @@ class MulticriteriaSelector:
 
     @staticmethod
     def dominates(
-        u: tuple[Fraction, Fraction, Fraction],
-        v: tuple[Fraction, Fraction, Fraction],
+        u: Union[UtilityVector, tuple[Fraction, Fraction, Fraction]],
+        v: Union[UtilityVector, tuple[Fraction, Fraction, Fraction]],
     ) -> bool:
         """Check if utility vector u Pareto-dominates v."""
-        weakly_better = all(u_i >= v_i for u_i, v_i in zip(u, v))
-        strictly_better = any(u_i > v_i for u_i, v_i in zip(u, v))
+        u_tup = u.as_tuple() if isinstance(u, UtilityVector) else u
+        v_tup = v.as_tuple() if isinstance(v, UtilityVector) else v
+        weakly_better = all(u_i >= v_i for u_i, v_i in zip(u_tup, v_tup))
+        strictly_better = any(u_i > v_i for u_i, v_i in zip(u_tup, v_tup))
         return weakly_better and strictly_better
 
     def pareto_frontier(
@@ -657,16 +781,35 @@ class MulticriteriaSelector:
         for cand in viable_evals:
             dominated = False
             for other in viable_evals:
-                if other is not cand and self.dominates(other.utilities, cand.utilities):
+                if other is not cand and self.dominates(other.utility, cand.utility):
                     dominated = True
                     break
             if not dominated:
                 frontier.append(cand)
         return frontier
 
-    def composite_utility(self, utilities: tuple[Fraction, Fraction, Fraction]) -> Fraction:
+    def composite_utility(self, utilities: Union[UtilityVector, tuple[Fraction, Fraction, Fraction]]) -> Fraction:
         """Compute composite utility using exact rational weights."""
-        return sum(w * u for w, u in zip(self.weights, utilities))
+        u_tup = utilities.as_tuple() if isinstance(utilities, UtilityVector) else utilities
+        return sum(w * u for w, u in zip(self.weights, u_tup))
+
+    def rank_preferences(
+        self,
+        evaluations: Sequence[ActionEvaluation],
+    ) -> list[ActionEvaluation]:
+        """Rank viable candidate evaluations according to multicriteria preference order.
+
+        Establishes distinct Preference ranking over proposed alternatives.
+        """
+        frontier = self.pareto_frontier(evaluations)
+        return sorted(
+            frontier,
+            key=lambda e: (
+                -self.composite_utility(e.utility),
+                str(e.canon_key) if e.canon_key is not None else "",
+                e.action.name,
+            ),
+        )
 
     def select(
         self,
@@ -779,8 +922,64 @@ class AgencyReceipt:
 
 
 # ---------------------------------------------------------------------------
-# 8. Bounded Operational Agent Controller
+# 8. Bounded Operational Agent Controller & Step Result
 # ---------------------------------------------------------------------------
+
+@dataclass(frozen=True)
+class AgentStepResult:
+    """Strongly typed result of an operational agency step.
+
+    Distinguishes success from refusal, encapsulating state, selected action,
+    audit receipt, utility vector, and refusal reason.
+    """
+
+    is_success: bool
+    state: RelationalModel
+    selected_action: Optional[CandidateAction] = None
+    receipt: Optional[Union[AgencyReceipt, PanelIllusionReceipt]] = None
+    utility: Optional[UtilityVector] = None
+    reason: Optional[str] = None
+
+    @property
+    def is_refusal(self) -> bool:
+        return not self.is_success
+
+    @classmethod
+    def success(
+        cls,
+        state: RelationalModel,
+        selected_action: Optional[CandidateAction] = None,
+        receipt: Optional[Union[AgencyReceipt, PanelIllusionReceipt]] = None,
+        utility: Optional[UtilityVector] = None,
+    ) -> AgentStepResult:
+        return cls(
+            is_success=True,
+            state=state,
+            selected_action=selected_action,
+            receipt=receipt,
+            utility=utility,
+            reason=None,
+        )
+
+    @classmethod
+    def refusal(
+        cls,
+        retained_state: RelationalModel,
+        reason: str,
+        receipt: Optional[Union[AgencyReceipt, PanelIllusionReceipt]] = None,
+    ) -> AgentStepResult:
+        return cls(
+            is_success=False,
+            state=retained_state,
+            selected_action=None,
+            receipt=receipt,
+            utility=None,
+            reason=reason,
+        )
+
+
+StepResult = AgentStepResult
+
 
 class AgentController:
     """Stateful bounded operational agent controller.
@@ -810,6 +1009,8 @@ class AgentController:
         ),
         goal_formula: Optional[Formula] = None,
         timestamp_fixed: Optional[str] = None,
+        abilities: Optional[AbilitySet] = None,
+        authorizer: Optional[ActionAuthorizer] = None,
     ):
         if total_fuel < 0:
             raise ValueError(f"total_fuel cannot be negative: {total_fuel}")
@@ -826,17 +1027,18 @@ class AgentController:
         self.goal_formula = goal_formula
         self.step_count = 0
         self.timestamp_fixed = timestamp_fixed
+        self.abilities = abilities or AbilitySet()
 
         self.evaluator = CausalEvaluator()
         self.selector = MulticriteriaSelector(weights=weights)
-        self.authorizer = ActionAuthorizer()
+        self.authorizer = authorizer or ActionAuthorizer()
         self.driver = LicensedDriver()
 
     def step(
         self,
         candidates: Sequence[CandidateAction],
         panel: Optional[Panel] = None,
-    ) -> StepResult:
+    ) -> AgentStepResult:
         """Execute one operational agency step under strict refusal semantics.
 
         In all refusal cases, preserves carrier state strictly unmutated:
@@ -857,14 +1059,18 @@ class AgentController:
                 fuel_after=self.fuel,
                 timestamp=self.timestamp_fixed,
             )
-            return StepResult.refusal(
+            return AgentStepResult.refusal(
                 retained_state=current_state,
                 reason=RefusalReason.FUEL_EXHAUSTED,
                 receipt=receipt,
             )
 
-        # Gate 2: Check for candidate actions
-        if not candidates:
+        # Gate 2: Check for candidate actions and filter by ability boundary
+        candidate_pool = list(candidates)
+        if self.abilities.admissible_actions:
+            candidate_pool = self.abilities.filter_proposals(candidate_pool)
+
+        if not candidate_pool:
             receipt = AgencyReceipt.create(
                 step_index=self.step_count,
                 outcome="REFUSAL",
@@ -875,7 +1081,7 @@ class AgentController:
                 fuel_after=self.fuel,
                 timestamp=self.timestamp_fixed,
             )
-            return StepResult.refusal(
+            return AgentStepResult.refusal(
                 retained_state=current_state,
                 reason=RefusalReason.NO_CANDIDATE_ACTIONS,
                 receipt=receipt,
@@ -883,7 +1089,7 @@ class AgentController:
 
         # Gate 3: Ephemeral causal evaluation of candidates
         evaluations: list[ActionEvaluation] = []
-        for cand in candidates:
+        for cand in candidate_pool:
             eval_res = self.evaluator.evaluate_candidate(
                 model=current_state,
                 action=cand,
@@ -920,7 +1126,7 @@ class AgentController:
                 fuel_after=self.fuel,
                 timestamp=self.timestamp_fixed,
             )
-            return StepResult.refusal(
+            return AgentStepResult.refusal(
                 retained_state=current_state,
                 reason=reason,
                 receipt=firewall_receipt or receipt,
@@ -939,19 +1145,32 @@ class AgentController:
                 fuel_after=self.fuel,
                 timestamp=self.timestamp_fixed,
             )
-            return StepResult.refusal(
+            return AgentStepResult.refusal(
                 retained_state=current_state,
                 reason=RefusalReason.VIABILITY_BOUNDARY_EXCEEDED,
                 receipt=receipt,
             )
 
         selected_action = selected_eval.action
-        canon_key = selected_eval.canon_key or selected_action.get_canon_key(
-            selected_eval.projected_state or current_state
-        )
 
-        # Gate 6: Licensing & Committee Authorization
-        license = self.authorizer.issue_license([canon_key])
+        # Gate 6: Licensing & Independent Authorization Gate (proposal != authority)
+        license = self.authorizer.authorize_evaluation(selected_eval)
+        if license is None:
+            receipt = AgencyReceipt.create(
+                step_index=self.step_count,
+                outcome="REFUSAL",
+                refusal_reason=RefusalReason.AUTHORIZATION_DENIED,
+                pre_state_sha256=pre_digest,
+                post_state_sha256=pre_digest,
+                fuel_before=self.fuel,
+                fuel_after=self.fuel,
+                timestamp=self.timestamp_fixed,
+            )
+            return AgentStepResult.refusal(
+                retained_state=current_state,
+                reason=RefusalReason.AUTHORIZATION_DENIED,
+                receipt=receipt,
+            )
 
         # Gate 7: Execution via LicensedDriver (zero unilateral authority)
         try:
@@ -971,7 +1190,7 @@ class AgentController:
                 fuel_after=self.fuel,
                 timestamp=self.timestamp_fixed,
             )
-            return StepResult.refusal(
+            return AgentStepResult.refusal(
                 retained_state=current_state,
                 reason=str(exc),
                 receipt=receipt,
@@ -1007,4 +1226,9 @@ class AgentController:
             fuel_after=self.fuel,
             timestamp=self.timestamp_fixed,
         )
-        return StepResult.success(state=new_state)
+        return AgentStepResult.success(
+            state=new_state,
+            selected_action=selected_action,
+            receipt=receipt,
+            utility=selected_eval.utility,
+        )

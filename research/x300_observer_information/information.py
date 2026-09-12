@@ -376,6 +376,9 @@ class Channel(Generic[T, U]):
         return Channel({x: DiscreteDistribution.point_mass(reset_val) for x in input_alphabet})
 
 
+OperationalChannel = Channel
+
+
 # -----------------------------------------------------------------------------
 # 4. Data Processing Inequality (DPI)
 # -----------------------------------------------------------------------------

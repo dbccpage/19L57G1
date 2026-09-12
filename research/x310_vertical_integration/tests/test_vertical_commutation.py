@@ -74,7 +74,10 @@ from research.x303_bounded_agency.agency import (
 )
 
 from research.x310_vertical_integration.pipeline import (
+    CommutationResidual,
     audit_codec_roundtrip_commutation,
+    audit_commutation_residuals,
+    audit_composite_pipeline_commutation,
     audit_readout_step_commutation,
     audit_refusal_state_preservation,
     audit_sheaf_descent_commutation,
@@ -190,9 +193,56 @@ def test_diagram_4_refusal_state_preservation():
 
 
 def test_comprehensive_commutation_audit():
-    """Verify run_commutation_audit returns True for all four relations simultaneously."""
+    """Verify run_commutation_audit returns True for all relations and records priced residuals."""
     audit = run_commutation_audit()
     assert audit["readout_step_commutation"]
     assert audit["codec_roundtrip_identity"]
     assert audit["sheaf_descent_commutation"]
     assert audit["refusal_state_preservation"]
+    assert audit["composite_pipeline_commutation"]
+    assert "residuals" in audit
+    for key, res_dict in audit["residuals"].items():
+        assert res_dict["commutes"] is True
+        assert res_dict["residual_price_q"] == "0/1"
+
+
+def test_priced_commutation_residuals():
+    """Verify that all commuting squares emit exact rational price 0/1,
+    while disturbed/obstructed squares emit strictly positive disturbance prices > 0/1.
+    """
+    residuals = audit_commutation_residuals()
+    for d_id, res in residuals.items():
+        assert isinstance(res, CommutationResidual)
+        assert res.commutes
+        assert res.residual_price_q == Fraction(0, 1)
+
+    # Disturbed square test: disturbing intervention on same locus
+    states = [
+        P200CarrierState(l1=0, l2=0, m=0, r1=0, r2=0, dist=0),
+        P200CarrierState(l1=1, l2=0, m=0, r1=0, r2=0, dist=0),
+    ]
+    readout_inst = create_non_disturbing_readout(Locus.L2, Locus.R2)
+    disturbing_step = lambda s: P200CarrierState(
+        l1=s.l1, l2=1 - s.l2, m=s.m, r1=s.r1, r2=s.r2, dist=s.dist
+    )
+    dist_res = sweep_commutation(states, readout_inst.readout, disturbing_step)
+    commutes = bool(dist_res["all_commute"])
+    price = Fraction(0, 1) if commutes else Fraction(1, 1)
+    disturbed_residual = CommutationResidual(
+        diagram_id="disturbed_readout_intervention",
+        commutes=commutes,
+        residual_price_q=price,
+        metric_name="readout_divergence",
+        description="Disturbed noncommuting square with strictly positive disturbance price",
+    )
+    assert not disturbed_residual.commutes
+    assert disturbed_residual.residual_price_q == Fraction(1, 1)
+    assert disturbed_residual.residual_price_q > Fraction(0, 1)
+
+
+def test_composite_pipeline_commutation():
+    """Verify composite end-to-end pipeline commutation under state translation."""
+    comp_res = audit_composite_pipeline_commutation()
+    assert comp_res.commutes
+    assert comp_res.residual_price_q == Fraction(0, 1)
+    assert comp_res.diagram_id == "composite_pipeline_commutation"
