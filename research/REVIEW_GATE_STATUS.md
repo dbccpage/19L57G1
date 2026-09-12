@@ -459,3 +459,139 @@ In addition, the two-axis code review (Standards & Spec) was completed across al
 - **Lead Architect**: APPROVED (Formal Receipt: `research/evidence_cohort6_adversarial.json`)
 - **Adversarial Critic**: APPROVED (Formal Receipt: `research/evidence_cohort6_adversarial.json`)
 - **Status**: READY FOR AUTHOR MERGE
+
+---
+
+## Target X301 Review Gate: Formal Semantics, Empirical Reference & Intervention Grounding ("Panel agreement is not truth")
+
+**Session**: Target X301 Review Gate  
+**Date & Epistemic Posture**: 2026-09-11, Claim Hygiene Compliant, AuthorityEffect: None  
+**Lead Architect Verdict**: APPROVE  
+**Adversarial Critic Verdict**: APPROVE  
+**Forensic Integrity Auditor Verdict**: CLEAN  
+**Combined Gate Verdict**: APPROVE (UNANIMOUS PASS)  
+**Receipt Location**: `research/x301_formal_semantics/evidence/receipt.json`  
+
+---
+
+### Executive Summary (Target X301)
+
+The Lead Architect, Adversarial Critic, and Forensic Integrity Auditor have completed an independent, multi-dimensional review and adversarial stress verification of Target X301: Formal Semantics, Empirical Reference & Intervention Grounding ("Panel agreement is not truth").
+
+All declared requirements R1–R5 and acceptance criteria are completely fulfilled:
+1. **R1 (Compositional Semantics & Truth Invariance)**: Formulated an internal compositional semantics for represented operational formulas over a 5-partition relational carrier with an exact rational Heyting valuation poset $[0, 1] \cap \mathbb{Q}$. Verified semantic truth invariance under signature transport and canonical isomorphism (G012 translation commutation) across all 8 Challenge-3 canonical classes (Reading L: $U_0, BL, BD$; Reading F: $\text{MarkF}, \text{DiagF}, \text{LinkF}, \text{OutF}, \text{InF}$).
+2. **R2 (Intervention Grounding & Empirical Reference)**: Established rigorous operational empirical reference grounded in executable carrier interventions ($I: S \to S$). An assertion possesses empirical reference if and only if an admissible intervention sequence discriminates its observable readout. Formalized behavioral observational congruence ($\phi \equiv_{\text{obs}} \psi$), rejecting ungrounded decorative distinctions that lack an intervention witness.
+3. **R3 ("Panel Agreement Is Not Truth" & Grounding Firewall)**: Established the multi-observer panel protocol ($N \ge 3$) and demonstrated constructively that panel agreement does not constitute empirical truth. Implemented the Grounding Firewall: when unanimous panel agreement is refuted by ground carrier reality or counterfactual intervention, the engine overrides panel consensus, emits an immutable SHA-256 byte-pinned `PanelIllusionReceipt`, and triggers typed refusal `StepResult.refusal`, preserving the carrier state strictly unmutated.
+4. **R4 (Constructive Lean 4 Core & Executable Python Engine)**: Formalized 39 constructive theorems in core Lean 4 (`FormalSemantics.lean`, `Inventory.lean`) with zero `Classical.choice` and zero `mathlib`. Implemented the executable Python engine (`semantics.py`) with 47 unit, property, and regression tests passing with a 100% pass rate.
+5. **R5 (Blind Seal, Axioms & Claim Discipline)**: Preserved the repository blind seal with zero modifications to sealed directories (`prompt/`, `paper/`, `code/`, `lean4/Derivation/`, `artifacts/`, `CLAUDE.md`). Adhered strictly to the Claim Hygiene Rule and Vocabulary Firewall with zero watched terms in `research/x301_formal_semantics/`.
+
+---
+
+### Verification Summary Across Target X301:
+
+1. **Master Verification Script (`verify.py --check`)**:
+   - Exit code: 0.
+   - Status: PASSED with zero defects.
+   - Evidence receipt `research/x301_formal_semantics/evidence/receipt.json` verified byte-for-byte against a fresh run.
+
+2. **Python Test Suite (`pytest`)**:
+   - Command: `python -m pytest -v research/x301_formal_semantics/tests`
+   - Result: 47 passed in 0.28s (100% pass rate).
+   - Test suites:
+     - `test_satisfaction.py` (16 tests): Exact rational valuations in $[0, 1] \cap \mathbb{Q}$, Heyting poset laws, constructive failure of excluded middle, atomic evaluation, connectives, and bounded quantifiers.
+     - `test_isomorphism.py` (14 tests): Translation commutation across all 8 Challenge-3 canonical classes, involution, sort-aware formula renaming, bijectivity checks, and negative controls.
+     - `test_grounding.py` (11 tests): Executable interventions, empirical reference witnesses, behavioral observational congruence, and rejection of decorative distinctions.
+     - `test_panel_firewall.py` (6 tests): Panel size validation ($N \ge 3$), Grounding Firewall override of false consensus ($N=3, 5$), SHA-256 receipt verification, anti-tamper detection, and state preservation.
+
+3. **Constructive Core Lean 4 Formalization (`lake build` & `Inventory.lean`)**:
+   - Command: `lake build; lake env lean Inventory.lean`
+   - Exit code: 0 (5 build jobs completed).
+   - Theorem Census: 39 formal theorems verified in `FormalSemantics.lean`:
+     - 26 theorems are completely axiom-free.
+     - 13 theorems depend strictly on axioms within `{propext, Quot.sound}` (zero `Classical.choice`, zero `mathlib`, zero `sorry`, zero `admit`).
+
+4. **Repository Blind Seal (`git status`)**:
+   - Zero modifications to sealed directories (`prompt/`, `paper/`, `code/`, `lean4/Derivation/`, `artifacts/`, `CLAUDE.md`). All code, tests, proofs, and receipts reside strictly under `research/x301_formal_semantics/` and `.agents/`.
+
+5. **Prose Watchlist and Vocabulary Firewall (`ci/check_prose_watchlist.py`)**:
+   - Exit code: 0 (49 watched terms, 131 files with pinned hits, 1827 hits, census matches its pin with 0 unpinned hits).
+   - All files under `research/x301_formal_semantics/` contain 0 hits for any watched terms.
+
+---
+
+### Detailed Increment Findings (R1–R5)
+
+#### R1: Compositional Semantic Interpretation & Truth Invariance
+- **Heyting Valuation Poset**: Implemented exact rational valuations in $[0, 1] \cap \mathbb{Q}$ using `fractions.Fraction` in Python and a 3-valued truth structure in Lean 4. Poset operations satisfy meet ($\min$), join ($\max$), relative pseudo-complement / implication ($a \to b = 1$ if $a \le b$ else $b$), and operational refusal / negation ($a \to 0$). Constructive non-contradiction holds ($a \wedge \neg a = 0$), while the law of excluded middle constructively fails ($a \vee \neg a < 1$ for intermediate evidence $0 < a < 1$).
+- **Compositional Satisfaction**: Modeled represented operational formulas (`Atom`, `Identity`, `Conj`, `Disj`, `Imp`, `Neg`, `BoundedForall`, `BoundedExists`) over carrier states with 5 disjoint sorts (`data`, `forms`, `insts`, `rules`, `reqs`). Bounded quantifiers evaluate via infimum and supremum over finite sort domains.
+- **Canonical Isomorphism Transport (G012 Commutation)**: Formally verified in Lean 4 (`translation_commutes_satisfaction`) and verified in Python (`test_isomorphism.py`) that for any model isomorphism $\tau: M \cong N$ and formula $\phi$, satisfaction commutes: $M \models \phi \iff N \models \tau(\phi)$. Verified across all 8 Challenge-3 canonical classes:
+  - Reading L (3 classes): $U_0$, $BL$, $BD$.
+  - Reading F (5 classes): $\text{MarkF}$, $\text{DiagF}$, $\text{LinkF}$, $\text{OutF}$, $\text{InF}$.
+  - Sort-aware argument renaming correctly dispatches form indices via $\phi \in S_{nf}$ and data tokens via $\pi \in S_n$. Bijectivity checks strictly reject non-bijective, negative, or out-of-bounds maps.
+
+#### R2: Intervention-Linked Grounding & Counterfactual Witnesses
+- **Executable State Interventions**: Defined discrete perturbation operators on carrier states: `add_inst`, `rem_inst`, `toggle_rule`, `impose_req`, and custom deltas ($I: S \to S$).
+- **Operational Empirical Reference**: An assertion $\phi$ possesses empirical reference if and only if there exists a test pair of states or an admissible intervention sequence whose observable readout discriminates $\phi$. Tautologies and contradictions evaluate uniformly across all perturbed states, demonstrating an absence of empirical reference.
+- **Behavioral Observational Congruence**: If no admissible intervention sequence discriminates $\phi$ from $\psi$, then $\phi \equiv_{\text{obs}} \psi$. Lean 4 theorems (`behavioral_congruence_refl`, `behavioral_congruence_symm`, `behavioral_congruence_trans`, `decorative_distinction_rejected`) confirm that behavioral congruence is an equivalence relation and that purely decorative distinctions lacking an intervention witness are rejected.
+
+#### R3: "Panel Agreement Is Not Truth" & Grounding Firewall
+- **Multi-Observer Panel Protocol**: Formalized panels of $N \ge 3$ independent observers evaluating partial or distorted state projections.
+- **Consensus Does Not Imply Truth**: Proved constructively in Lean 4 (`panel_agreement_not_truth`) that unanimous panel agreement on coarse projections does not establish empirical truth on the underlying carrier.
+- **Grounding Firewall Override**: In `GroundingFirewall.evaluate_and_step`, when a panel reaches unanimous agreement on an assertion that is refuted by carrier reality or by an executable counterfactual intervention:
+  - The engine overrides the consensus and refutes the assertion.
+  - The engine emits a canonical, byte-pinned `PanelIllusionReceipt` computing a SHA-256 digest over 11 structured payload fields.
+  - The engine returns a typed refusal `StepResult.refusal`, discarding proposed state mutations and preserving the carrier state strictly unmutated across all 5 partitions.
+  - Verified across hostile panel sizes ($N = 3, 5, 7, 11, 25, 51, 100, 250$) with 100% override, 100% state preservation, and 100% tamper detection.
+
+#### R4: Constructive Lean 4 Formalization & Python Test Suite
+- **Lean 4 Proofs (`FormalSemantics.lean`, `Inventory.lean`)**: 39 theorems verified under core Lean 4 `v4.33.0`. Axioms are audited via `#print axioms` to be strictly within `{propext, Quot.sound}` (26 completely axiom-free, 13 utilizing `propext` and `Quot.sound`, zero `Classical.choice`, zero `mathlib`).
+- **Python Engine & Test Suite (`semantics.py`, tests)**: 47 unit and regression tests passing in 0.28s. Features exact rational arithmetic via `fractions.Fraction`, genuine recursive AST evaluation, sort-separated formula transport, permutation bijectivity enforcement, and anti-tamper receipt hashing.
+
+#### R5: Blind Seal, Axiom Cleanliness & Claim Discipline
+- **Boundary Isolation**: All artifacts reside strictly under `research/x301_formal_semantics/` and `.agents/`. Zero modifications to sealed directories.
+- **Vocabulary Firewall**: Scanned all files against `ci/prose_watchlist.json`. Zero hits for watched terms in Target X301. The term "poset", "Heyting truth structure", or "valuation domain" is consistently used.
+- **Claim Discipline**: Strict adherence to the Claim Hygiene Rule across all documentation, tests, and code comments.
+
+---
+
+### Forensic Integrity Audit & Authenticity Verification
+
+The Forensic Integrity Auditor (Auditor 1) conducted an independent forensic audit of `research/x301_formal_semantics/`:
+1. **Static Code Authenticity**: Inspected the split X301 kernels (`valuation.py`, `formulas.py`, `model.py`, `isomorphism.py`, `intervention.py`, `panel.py`, thin `semantics.py` re-export). Verified genuine AST propositional syntax, exact rational Heyting poset operations, genuine recursive evaluation without hardcoded shortcuts, authentic sort-aware signature transport, and SHA-256 cryptographic receipt computation.
+2. **Lean 4 Constructive Axiom Verification**: Audited all 39 declarations in `FormalSemantics.lean` via `Inventory.lean`. Confirmed 26 declarations are axiom-free, 13 depend strictly on `{propext, Quot.sound}`, with zero occurrences of `Classical.choice`, zero `mathlib`, and zero `sorry`/`admit`.
+3. **Repository Blind Seal**: Confirmed via `git status` that sealed directories (`prompt/`, `paper/`, `code/`, `lean4/Derivation/`, `artifacts/`, `CLAUDE.md`) remain 100% untouched.
+4. **Test Authenticity & Negative Controls**: Verified 47 tests executing genuine assertions against the real implementation, including adversarial tampering of receipt payloads, dimension mismatches, non-bijective permutations, empty intervention pools, and false consensus mutations.
+5. **Verdict**: **CLEAN**.
+
+---
+
+### Claim Hygiene Statement (Target X301)
+
+1. **What it supports**:
+   - Supports an internal compositional semantics for represented operational formulas over a 5-partition relational carrier with an exact rational Heyting valuation poset.
+   - Supports semantic truth invariance under signature transport and canonical isomorphism across all 8 Challenge-3 canonical classes (Reading L: $U_0, BL, BD$; Reading F: $\text{MarkF}, \text{DiagF}, \text{LinkF}, \text{OutF}, \text{InF}$).
+   - Supports executable intervention grounding of empirical reference and behavioral observational congruence ($\phi \equiv_{\text{obs}} \psi$).
+   - Supports the Grounding Firewall override of unanimous false observer panel consensus ($N \ge 3$) when refuted by ground carrier reality or counterfactual interventions.
+   - Supports emission of tamper-evident SHA-256 `PanelIllusionReceipt` records and typed refusal `StepResult.refusal` preserving carrier state strictly unmutated.
+   - Supports 39 constructive theorems in core Lean 4 under `{propext, Quot.sound}` without `Classical.choice` or `mathlib`.
+
+2. **What it does not support**:
+   - Does not support unbounded first-order quantification over infinite domains or continuous manifolds.
+   - Does not support non-constructive classical principles requiring unrestricted choice or classical excluded middle.
+   - Does not describe empirical findings regarding real-world human committees or external multi-agent LLM systems beyond the declared operational relational model.
+   - Does not support arbitrary ungrounded distinctions lacking an admissible intervention witness.
+
+3. **Narrowest defensible claim**:
+   Under the declared finite relational carrier model and exact rational Heyting valuation poset, Target X301 demonstrates constructive semantic truth invariance under canonical isomorphisms, establishes that unanimous consensus among $N \ge 3$ panel observers evaluating coarse projections does not equal empirical truth, and shows that executable counterfactual interventions override false consensus, emitting an immutable SHA-256 receipt and preserving carrier state unmutated.
+
+4. **Next test needed**:
+   Author review and merge of Target X301 into `main`, followed by integrating the Grounding Firewall and compositional semantics into higher-order agent belief revision loops (Target X302) and solver adapters (Target M114).
+
+---
+
+### Sign-Off (Target X301)
+
+- **Lead Architect**: APPROVED (Formal Receipt: `research/x301_formal_semantics/evidence/receipt.json`)
+- **Adversarial Critic**: APPROVED (Formal Receipt: `research/x301_formal_semantics/evidence/receipt.json`)
+- **Forensic Integrity Auditor**: CLEAN (Report: `.agents/auditor_1_integrity/handoff.md`)
+- **Status**: READY FOR AUTHOR MERGE

@@ -1,0 +1,131 @@
+{
+  "authority_effect": "None",
+  "claim_hygiene": {
+    "axioms_within_propext_quot_sound": true,
+    "behavioral_observational_congruence_proved": true,
+    "carrier_state_preserved_unmutated_on_refusal": true,
+    "compositional_satisfaction_modeled": true,
+    "exact_rational_heyting_poset_modeled": true,
+    "grounding_firewall_panel_illusion_override_modeled": true,
+    "intervention_grounded_empirical_reference_modeled": true,
+    "panel_illusion_receipts_emitted_with_sha256": true,
+    "reading_f_isomorphism_classes_verified": true,
+    "reading_l_isomorphism_classes_verified": true,
+    "scope": "Compositional internal semantics over relational carrier states, exact rational Heyting valuation domain, G012 canonical isomorphism translation invariance across Challenge-3 readings L and F, executable state intervention grounding of empirical reference, behavioral observational congruence, and Grounding Firewall override of multi-observer panel illusions with typed refusal and strict state preservation.",
+    "translation_invariance_proved": true,
+    "zero_classical_choice": true,
+    "zero_mathlib": true
+  },
+  "lean": {
+    "allowed_axioms": [
+      "Quot.sound",
+      "propext"
+    ],
+    "axiom_free_count": 26,
+    "build_status": "PASS",
+    "theorem_count": 39,
+    "theorem_details": {
+      "X301FormalSemantics.behavioral_congruence_refl": [],
+      "X301FormalSemantics.behavioral_congruence_symm": [],
+      "X301FormalSemantics.behavioral_congruence_trans": [],
+      "X301FormalSemantics.checkPanelUnanimousOne_eq": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X301FormalSemantics.constructive_lem_fails": [],
+      "X301FormalSemantics.constructive_non_contradiction": [],
+      "X301FormalSemantics.decorative_distinction_rejected": [],
+      "X301FormalSemantics.empty_intervention_cannot_discriminate": [],
+      "X301FormalSemantics.extendAssign_comm_transport": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X301FormalSemantics.foldJoinDom_comm_transport": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X301FormalSemantics.foldMeetDom_comm_transport": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X301FormalSemantics.grounding_firewall_refuses_panel_illusion": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X301FormalSemantics.heyting_imp_self": [],
+      "X301FormalSemantics.heyting_modus_ponens": [
+        "propext"
+      ],
+      "X301FormalSemantics.heyting_neg_refusal": [],
+      "X301FormalSemantics.intervention_apply_empty": [],
+      "X301FormalSemantics.intervention_discriminates_reference": [],
+      "X301FormalSemantics.iso_data_inj": [],
+      "X301FormalSemantics.join_eq_one_of_left": [],
+      "X301FormalSemantics.join_eq_one_of_right": [],
+      "X301FormalSemantics.meet_eq_one_iff": [],
+      "X301FormalSemantics.neg_eq_one_iff": [],
+      "X301FormalSemantics.panel_agreement_not_truth": [],
+      "X301FormalSemantics.refusal_preserves_state": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X301FormalSemantics.satisfaction_compositional_conj": [],
+      "X301FormalSemantics.satisfaction_compositional_disj": [],
+      "X301FormalSemantics.satisfaction_compositional_neg": [],
+      "X301FormalSemantics.satisfaction_modus_ponens": [],
+      "X301FormalSemantics.satisfaction_refuses_contradiction": [
+        "propext"
+      ],
+      "X301FormalSemantics.translation_commutes_formula": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X301FormalSemantics.translation_commutes_satisfaction": [
+        "propext",
+        "Quot.sound"
+      ],
+      "X301FormalSemantics.translation_commutes_term": [],
+      "X301FormalSemantics.truth_val_join_assoc": [],
+      "X301FormalSemantics.truth_val_join_comm": [],
+      "X301FormalSemantics.truth_val_le_antisymm": [
+        "propext"
+      ],
+      "X301FormalSemantics.truth_val_le_refl": [
+        "propext"
+      ],
+      "X301FormalSemantics.truth_val_le_trans": [
+        "propext"
+      ],
+      "X301FormalSemantics.truth_val_meet_assoc": [],
+      "X301FormalSemantics.truth_val_meet_comm": []
+    }
+  },
+  "pytest": {
+    "exit_code": 0,
+    "passed": 47,
+    "status": "PASS"
+  },
+  "schema_version": 1,
+  "source_hashes": {
+    "CLAIMS.md": "a6be5a7951726ecb5ff26d761f33ae61deed08d80fe30ff0a785376c7fc5379a",
+    "README.md": "dbe2395a75e2c49dce989bc5050cb542863433d461df6aa11417af36615ca2b4",
+    "formulas.py": "91fdfb76e38e29f828168768003e80f0b24cd48cfd73c6b18caad0e05f2f2e03",
+    "intervention.py": "cf972dec57e8a0884c5ddb35063dd7914b5760b3c818cd6cdd9b0bfc224bb84f",
+    "isomorphism.py": "b3596bc160b8bd68f5fca0de36f59c052dca9fd0aa3f75e4aadecdee6422a836",
+    "lean/FormalSemantics.lean": "d6156aa1c0187251617095017970cf4d92d92f13d485190dd63bbfa133d1e9e4",
+    "lean/Inventory.lean": "17941444ef4b77c23bdad84f6c536d6bf6f1985f66bfb03a4fd8628dd4b6dc50",
+    "model.py": "8d45aeb46ede1a7f9504a887b45812b5771d8b27d45ccc22d54f8fd38c3957f2",
+    "panel.py": "5a290962b3a5fbdefe965b1cfb7ca0dfd0787d7fbac1669a25a9b1dc3dc1ebf3",
+    "semantics.py": "92e4302e97881a98b8bde55588d2dde5a13f3c90a2cd0b79c73dc7b53ddb4a61",
+    "tests/__init__.py": "54b5613a3781142bbfca7673eb3e290d1e778f7fc0b7140db2c732388792b6d5",
+    "tests/test_grounding.py": "723c7f0baf44365b43f97fd6233ddb84dff3a65d5c6f0b07c860c9cbc1cbdfeb",
+    "tests/test_isomorphism.py": "66d23bc891c54fea22e94f9307e6941e8ebf3ff0a1cbb3d0a59b25132dc3b6f5",
+    "tests/test_panel_firewall.py": "e0993d4cad3ec603b56561d706e2ba25a392e5c90d79d834d5a254131fbf9862",
+    "tests/test_satisfaction.py": "c431a66ffce6d639c450da640054e5607befe9b4ebebada40df7626c51c4eabd",
+    "valuation.py": "154e9c74ef834e8db7caf5faf1ef2ac291190ecdc91570162a954d27efac1de8",
+    "verify.py": "763cd0da1dacb92cfd574c21e5514981f80668d5d106395757a9c682691f7c3f"
+  },
+  "status": "PASS",
+  "target": "Target X301: Formal Semantics, Empirical Reference & Intervention Grounding",
+  "toolchain": "leanprover/lean4:v4.33.0"
+}
