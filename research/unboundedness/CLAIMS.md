@@ -12,6 +12,10 @@ AuthorityEffect: None.
 | `CL-UNBOUND-06` | Single-instance responses strictly beat `markDelta` under `mu2` once a form exists | Lean 4: `single_inst_beats_fresh_mark`; Python: `verify_xstep_gap` | Measure `mu2` in context with arity-1 form |
 | `CL-UNBOUND-07` | Engine driver trajectories under `mu2` extend to depth >= 50 with data >= 17 without dead ends | Python: `unboundedness.py`, `test_unboundedness.py` | Readings L and F, `mu2` |
 | `CL-UNBOUND-08` | Closed runs (`supply=False`) terminate at finite fixpoints (L at depth 1, F at depth 3) | Python: `verify_closed_system_termination` | Sealed closed exports baseline |
+| `CL-UNBOUND-09` | Stratified separation cost floor: cost >= 2 at genesis (empty forms), cost >= 1 post-genesis | Lean 4: `CostFloor.separation_cost_floor`, `valid_response_len_ge_two_at_genesis` | All valid responses to collapsed pairs |
+| `CL-UNBOUND-10` | Separation cost floor sharpness: mark cost 2 at genesis, single instance cost 1 post-genesis | Lean 4: `CostFloor.genesis_mark_cost`, `post_genesis_inst_cost` | Measures `mu1` and `mu2` |
+| `CL-UNBOUND-11` | Under `supply = false`, every engine driver step is an engine fire step | Lean 4: `ClosedFixpoint.closed_driver_is_fire` | Closed system (`supply = false`) |
+| `CL-UNBOUND-12` | Closed runs terminate at quiet fixpoints in bounded rounds (L <= 1, F <= 3) | Lean 4: `ClosedFixpoint.reading_L_max_rounds`, `reading_F_max_rounds`, `closed_quiet_terminates` | Reading L and Reading F roots |
 
 ## Four-Point Claim Evaluation
 

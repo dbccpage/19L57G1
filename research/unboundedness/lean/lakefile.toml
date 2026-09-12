@@ -1,6 +1,6 @@
 name = "unboundedness"
 version = "0.1.0"
-defaultTargets = ["Unboundedness"]
+defaultTargets = ["Unboundedness", "CostFloor", "ClosedFixpoint"]
 
 [[require]]
 name = "derivation"
@@ -20,3 +20,9 @@ path = "../../magnification/lean"
 
 [[lean_lib]]
 name = "Unboundedness"
+
+[[lean_lib]]
+name = "CostFloor"
+
+[[lean_lib]]
+name = "ClosedFixpoint"

@@ -67,6 +67,21 @@ Under measure `mu2`, `markDelta r` has cost `(2, 1)`.
    terminates at depth 3 (3 data), confirming that external supply is what sustains
    carrier expansion.
 
+### (d) Stratified Separation Cost Floor (Lean 4: CostFloor.lean)
+The cost to separate a collapsed pair is stratified:
+- `CostFloor.valid_response_len_pos_of_collapsed`: Length >= 1 for every valid response.
+- `CostFloor.valid_response_len_ge_two_at_genesis`: Length >= 2 at genesis when forms, instances, and rules are empty.
+- `CostFloor.separation_cost_floor`: Under both `mu1` and `mu2`, `(cost m δ).1` is >= 2 at genesis and >= 1 post-genesis.
+- `CostFloor.genesis_mark_cost`, `CostFloor.post_genesis_inst_cost`: The bounds are attained.
+
+### (e) Closed-System Quiet Fixpoint Theorem (Lean 4: ClosedFixpoint.lean)
+Without external supply (`supply = false`), the driver cannot grow and terminates in bounded depth:
+- `ClosedFixpoint.closed_driver_is_fire`: Every transition is an engine fire step; growth is refused.
+- `ClosedFixpoint.fire_demand_not_in_reqs`, `ClosedFixpoint.fire_reqs_length_succ`: Each step consumes an unseparated pair without replacement.
+- `ClosedFixpoint.closed_round_bound`: Closed runs on carrier d satisfy `2 * (r.reqs.length + rds.length) <= d * (d - 1)`.
+- `ClosedFixpoint.reading_L_max_rounds`, `ClosedFixpoint.reading_F_max_rounds`: Reading L terminates in <= 1 round; Reading F terminates in <= 3 rounds.
+- `ClosedFixpoint.closed_quiet_terminates`: Quiet states admit no further transitions under `supply = false`.
+
 ## 3. Four-Point Claim Evaluation
 
 1. **What it supports**:

@@ -44,6 +44,20 @@ Formal Lean 4 derivations in `research/unboundedness/lean/Unboundedness.lean` an
    - `terminal_no_response` is absent across all tested depths.
    - `verify_closed_system_termination`: Without external supply (`supply=False`), the driver terminates at finite pair-separation closure fixpoints (Reading L at depth 1 with 2 data, Reading F at depth 3 with 3 data).
 
+8. **Stratified separation cost floor (Lean 4)**:
+   - `CostFloor.valid_response_len_pos_of_collapsed`: Every valid response separating a collapsed pair has length at least 1.
+   - `CostFloor.valid_response_len_ge_two_at_genesis`: At genesis, when forms, instances, and rules are empty, any valid response requires length at least 2.
+   - `CostFloor.separation_cost_floor`: Under both `mu1` and `mu2`, the primary cost component `(cost m δ).1` is bounded below by 2 at genesis and 1 post-genesis.
+   - `CostFloor.genesis_mark_cost`, `CostFloor.post_genesis_inst_cost`: Cost bounds are sharp.
+
+9. **Closed system quiet fixpoint theorem (Lean 4)**:
+   - `ClosedFixpoint.closed_driver_is_fire`: Under `supply = false`, every engine driver transition is a fire step; growth is refused.
+   - `ClosedFixpoint.fire_demand_not_in_reqs`: In a good regime, the demand pair is not already in the requirement store.
+   - `ClosedFixpoint.fire_reqs_length_succ`: Each fire step increments the requirement store length by exactly one.
+   - `ClosedFixpoint.closed_round_bound`, `closed_round_bound_from_empty`: Closed runs without external data growth satisfy the quadratic round bound.
+   - `ClosedFixpoint.reading_L_max_rounds`, `ClosedFixpoint.reading_F_max_rounds`: Reading L terminates in at most 1 round; Reading F terminates in at most 3 rounds.
+   - `ClosedFixpoint.closed_quiet_terminates`: At a quiet state with supply disabled, no engine driver transition exists.
+
 ## What remains open
 
 1. **Whole-tree quotient topology**:
