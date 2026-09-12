@@ -20,7 +20,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parent
 REPO = ROOT.parents[1]
-BASE = "4cab03e9e1f9056492c33bd12298459b2f84958c"
+BASE = "6bc3cded8d6dc329a4d9618261406a54d294cfb1"
 SOURCE_PATHS = (
     "code/derivation/__init__.py", "code/derivation/model.py", "code/derivation/observe.py",
     "lean4/Derivation/Basic.lean", "lean4/Derivation/Inertia.lean",
@@ -217,7 +217,7 @@ def verify(lake: str, write: bool) -> None:
         elif not path.is_file() or path.read_bytes() != raw:
             raise ValueError("EVIDENCE_DIFFERS: " + name)
     print(f"PASS Stages 1-4: {count[1]} tests; {line:.2f}% statements, {branch:.2f}% branches; "
-          f"{len(reports)} theorem reports. OB-1 remains OPEN outside InClass.")
+          f"{len(reports)} theorem reports. OB-1 remains OPEN outside InClass and I1Class.")
 
 
 def main() -> int:
