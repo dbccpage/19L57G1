@@ -16,6 +16,7 @@ AuthorityEffect: None.
 | `CL-UNBOUND-10` | Separation cost floor sharpness: mark cost 2 at genesis, single instance cost 1 post-genesis | Lean 4: `CostFloor.genesis_mark_cost`, `post_genesis_inst_cost` | Measures `mu1` and `mu2` |
 | `CL-UNBOUND-11` | Under `supply = false`, every engine driver step is an engine fire step | Lean 4: `ClosedFixpoint.closed_driver_is_fire` | Closed system (`supply = false`) |
 | `CL-UNBOUND-12` | Closed runs terminate at quiet fixpoints in bounded rounds (L <= 1, F <= 3) | Lean 4: `ClosedFixpoint.reading_L_max_rounds`, `reading_F_max_rounds`, `closed_quiet_terminates` | Reading L and Reading F roots |
+| `CL-UNBOUND-13` | Branching thread space is uncountable (cardinality 2^ℵ₀) and Cauchy-complete | Lean 4: `Limits.thread_uncountable`, `Limits.not_surjective_nat_to_thread`, `Metric.limit_converges` | Branching systems (c >= 2) |
 
 ## Four-Point Claim Evaluation
 
@@ -25,15 +26,16 @@ AuthorityEffect: None.
    - Supports that every `EngineDriver` transition refines `XStep`.
    - Supports that `(data, len(reqs))` is strictly monotonic, ruling out state repetition.
    - Supports that `markDelta` is non-minimal under `mu2` once an arity-1 form exists.
+   - Supports that separation costs satisfy a stratified floor: >= 2 at genesis, >= 1 post-genesis (Rung 1).
+   - Supports that closed driver trajectories without supply reach quiet fixpoints in <= binomial(d_0, 2) steps (Rung 2).
+   - Supports that under persistent branching (c >= 2), the Cauchy-complete limit path boundary is uncountable (2^ℵ₀) (Rung 3).
 2. **What it does not support**:
-   - Does not establish whole-tree infinite quotient topology or continuum limits.
-   - Does not establish behavior under alternative continuation policies or
-     unbounded item bounds (> 2).
+   - Does not establish real connected interval [0, 1] or circle S^1 manifold geometry (refused without explicit quotients).
+   - Does not establish endogenous carrier unboundedness in closed systems without external supply.
    - Does not eliminate the reading underdetermination between L and F.
 3. **Narrowest defensible claim**:
-   Under the declared bounds and measure mu2 with external supply enabled, the engine
-   driver admits infinite non-cycling trajectories along which data count and quotient
-   tree depth increase without bound; no collapse depth exists for the supply-enabled tree.
+   Under measure mu2 with external supply enabled, the engine driver admits infinite non-cycling trajectories along which data count and quotient depth increase without bound; in closed systems without supply, trajectories fixpoint in <= binomial(d_0, 2) rounds; and the resulting branching path limit is an uncountable Cantor-like complete ultrametric space of cardinality 2^ℵ₀.
 4. **Next test needed**:
    Evaluate whether quotient branch fan widths remain uniformly bounded or grow with
    carrier size across deeper layers.
+

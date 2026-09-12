@@ -58,10 +58,17 @@ Formal Lean 4 derivations in `research/unboundedness/lean/Unboundedness.lean` an
    - `ClosedFixpoint.reading_L_max_rounds`, `ClosedFixpoint.reading_F_max_rounds`: Reading L terminates in at most 1 round; Reading F terminates in at most 3 rounds.
    - `ClosedFixpoint.closed_quiet_terminates`: At a quiet state with supply disabled, no engine driver transition exists.
 
+10. **Limit path space uncountability and continuum cardinality (Lean 4)**:
+    - `Limits.cantor_diagonal_bool`: Proves constructive diagonalization on binary sequences.
+    - `Limits.seq_uncountable`: Proves no sequence covers `Nat → Fin c` for any branching alphabet `c ≥ 2`.
+    - `Limits.thread_uncountable`: Proves `Thread c` is uncountable ($2^{\aleph_0}$), precluding countable coverage.
+    - `Limits.not_surjective_nat_to_thread`: Proves no map `Nat → Thread c` is surjective.
+    - `Limits.thread_not_agrees_diagonal`: Establishes metric separation at scale $n + 1$ from candidate enumeration thread $T(n)$.
+
 ## What remains open
 
-1. **Whole-tree quotient topology**:
-   The existence of infinite non-cycling paths does not resolve the global topology or continuum limits of the entire mu2 quotient tree across branching alternatives.
+1. **Continuous interval embedding / quotients**:
+   The thread space is totally disconnected (Cantor-like); obtaining real interval $[0, 1]$ or circle $S^1$ geometry requires explicit quotienting of boundary twins (which are currently separated at scale 1).
 2. **Branch fan widths**:
    Whether the branch fan width (number of quotient equivalence classes of valid minimum responses) remains uniformly bounded or grows with carrier size at deep layers remains uncalculated.
 3. **Continuation policies and higher bounds**:

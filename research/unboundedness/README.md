@@ -82,6 +82,15 @@ Without external supply (`supply = false`), the driver cannot grow and terminate
 - `ClosedFixpoint.reading_L_max_rounds`, `ClosedFixpoint.reading_F_max_rounds`: Reading L terminates in <= 1 round; Reading F terminates in <= 3 rounds.
 - `ClosedFixpoint.closed_quiet_terminates`: Quiet states admit no further transitions under `supply = false`.
 
+### (f) Limit Path Space Uncountability and Continuum Cardinality (Lean 4: Continuum.lean)
+Rung 3 of the finite-to-continuum convergence ladder is mechanized in `research/coherent_process_limits/lean/Continuum.lean`:
+- `Limits.cantor_diagonal_bool`: Constructive diagonal argument on binary sequences.
+- `Limits.seq_uncountable`: For any branching alphabet $c \ge 2$, no sequence covers `Nat → Fin c`.
+- `Limits.thread_uncountable`: No sequence covers `Thread c`; the limit space has cardinality $2^{\aleph_0}$.
+- `Limits.not_surjective_nat_to_thread`: No function from `Nat` to `Thread c` is surjective.
+- `Limits.thread_not_agrees_diagonal`: The diagonal thread differs from candidate thread $T(n)$ at scale $n + 1$.
+Coupled with `Metric.limit_converges` (Cauchy completeness) and `Limits.twins_are_two_threads` (refusal of interval identification), the limit path boundary of the branching tree is a complete, totally disconnected Cantor-like metric space of continuum cardinality $2^{\aleph_0}$.
+
 ## 3. Four-Point Claim Evaluation
 
 1. **What it supports**:
@@ -90,15 +99,15 @@ Without external supply (`supply = false`), the driver cannot grow and terminate
    - Supports that every `EngineDriver` transition refines `XStep`.
    - Supports that `(data, len(reqs))` is strictly monotonic, ruling out state repetition.
    - Supports that `markDelta` is non-minimal under `mu2` once an arity-1 form exists.
+   - Supports that separation costs satisfy a stratified floor: $\ge 2$ at genesis, $\ge 1$ post-genesis (Rung 1).
+   - Supports that closed driver trajectories without supply reach quiet fixpoints in $\le \binom{d_0}{2}$ steps (Rung 2).
+   - Supports that under persistent branching ($c \ge 2$), the Cauchy-complete limit path boundary is uncountable ($2^{\aleph_0}$) (Rung 3).
 2. **What it does not support**:
-   - Does not establish whole-tree infinite quotient topology or continuum limits.
-   - Does not establish behavior under alternative continuation policies or
-     unbounded item bounds (> 2).
+   - Does not establish real connected interval $[0, 1]$ or circle $S^1$ manifold geometry (refused without explicit quotients).
+   - Does not establish endogenous carrier unboundedness in closed systems without external supply.
    - Does not eliminate the reading underdetermination between L and F.
 3. **Narrowest defensible claim**:
-   Under the declared bounds and measure mu2 with external supply enabled, the engine
-   driver admits infinite non-cycling trajectories along which data count and quotient
-   tree depth increase without bound; no collapse depth exists for the supply-enabled tree.
+   Under measure mu2 with external supply enabled, the engine driver admits infinite non-cycling trajectories along which data count and quotient depth increase without bound; in closed systems without supply, trajectories fixpoint in $\le \binom{d_0}{2}$ rounds; and the resulting branching path limit is an uncountable Cantor-like complete ultrametric space of cardinality $2^{\aleph_0}$.
 4. **Next test needed**:
    Evaluate whether quotient branch fan widths remain uniformly bounded or grow with
    carrier size across deeper layers.
