@@ -1,6 +1,6 @@
 name = "coherent_process_limits"
 version = "0.1.0"
-defaultTargets = ["Limits", "Steps", "Chain", "TwoLoci", "Cycle", "Periodic", "Fork", "Observe", "Inventory"]
+defaultTargets = ["Limits", "Steps", "Chain", "TwoLoci", "Cycle", "Periodic", "Fork", "Observe", "Metric", "TwoLociSystem", "Inventory"]
 
 # The sealed derivation package, consumed read-only.
 [[require]]
@@ -37,6 +37,12 @@ name = "Fork"
 
 [[lean_lib]]
 name = "Observe"
+
+[[lean_lib]]
+name = "Metric"
+
+[[lean_lib]]
+name = "TwoLociSystem"
 
 [[lean_lib]]
 name = "Inventory"

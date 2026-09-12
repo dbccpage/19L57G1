@@ -1,0 +1,22 @@
+name = "unboundedness"
+version = "0.1.0"
+defaultTargets = ["Unboundedness"]
+
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+[[require]]
+name = "local_reuse"
+path = "../../local_reuse/lean"
+
+[[require]]
+name = "ignition"
+path = "../../ignition/lean"
+
+[[require]]
+name = "magnification"
+path = "../../magnification/lean"
+
+[[lean_lib]]
+name = "Unboundedness"
