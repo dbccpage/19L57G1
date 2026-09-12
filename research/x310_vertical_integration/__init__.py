@@ -1,0 +1,66 @@
+"""Target X310: Vertical Integration Chain.
+
+AuthorityEffect: None.
+Epistemic Posture: Claim Hygiene Compliant (bounded, narrow, receipt-grounded).
+"""
+
+from . import _bootstrap  # noqa: F401
+from research.x310_vertical_integration.pipeline import (
+    CommutationResidual,
+    PipelineConfig,
+    PipelineResult,
+    Stage1Result,
+    Stage2Result,
+    Stage3Result,
+    Stage4Result,
+    Stage5Result,
+    Stage6Result,
+    audit_codec_roundtrip_commutation,
+    audit_commutation_residuals,
+    audit_pipeline_run_determinism,
+    audit_readout_step_commutation,
+    audit_refusal_state_preservation,
+    audit_sheaf_descent_commutation,
+    canonical_grand_receipt_digest,
+    canonical_json_dumps,
+    decode_relational_to_substrate,
+    encode_substrate_to_relational,
+    execute_stage_1_substrate,
+    execute_stage_2_measurement,
+    execute_stage_3_grounding,
+    execute_stage_4_solver,
+    execute_stage_5_reasoning,
+    execute_stage_6_agency,
+    run_commutation_audit,
+    run_vertical_pipeline,
+)
+
+__all__ = [
+    "CommutationResidual",
+    "PipelineConfig",
+    "PipelineResult",
+    "Stage1Result",
+    "Stage2Result",
+    "Stage3Result",
+    "Stage4Result",
+    "Stage5Result",
+    "Stage6Result",
+    "audit_codec_roundtrip_commutation",
+    "audit_commutation_residuals",
+    "audit_pipeline_run_determinism",
+    "audit_readout_step_commutation",
+    "audit_refusal_state_preservation",
+    "audit_sheaf_descent_commutation",
+    "canonical_grand_receipt_digest",
+    "canonical_json_dumps",
+    "decode_relational_to_substrate",
+    "encode_substrate_to_relational",
+    "execute_stage_1_substrate",
+    "execute_stage_2_measurement",
+    "execute_stage_3_grounding",
+    "execute_stage_4_solver",
+    "execute_stage_5_reasoning",
+    "execute_stage_6_agency",
+    "run_commutation_audit",
+    "run_vertical_pipeline",
+]

@@ -1,3 +1,27 @@
+# Genesis Cohort 11: Target X303 & Target X310 Review Gate Status
+
+This page is operator prose. It is not a gate. No family in
+`.github/workflows/verify.yml` reads it.
+
+**Cohort Scope**:
+- Target X303: Bounded Operational Agency (`research/x303_bounded_agency/`)
+- Target X310: Vertical Integration Harness (`research/x310_vertical_integration/`)
+
+Local receipts: `python research/x303_bounded_agency/verify.py --check` and
+`python research/x310_vertical_integration/verify.py --check`. Neither tree
+is enumerated by gate 11. Lean packages are Nat toys; they do not transport
+the Python harness. There is no 105-check stress harness in this tree.
+
+---
+
+Live claims for this cohort are in `research/x303_bounded_agency/CLAIMS.md`
+and `research/x310_vertical_integration/CLAIMS.md`. The remainder of this
+file is prior-cohort history.
+
+---
+
+# Previous Review Gate History
+
 # Cohort 9 Review Gate Status
 
 **Session**: Genesis Paper 1 / Alpha Engine / Cohort 9 Review Gate  

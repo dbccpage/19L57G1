@@ -74,8 +74,10 @@ research Lean builds are invoked separately. The table names their entry points.
 | `thinghood` | local receipt only | none | test_*.py | none |
 | `two_sided_commitment` | local receipt only | `verify_pins.py` | test_*.py | none |
 | `typed_translation` | workflow (gate 11) | `verify_lean.py`, `verify_pins.py`, `verify_prose.py` | tests/ | manual receipt (`verify_lean.py`) |
+| `x303_bounded_agency` | local receipt only | `verify.py` | tests/ | manual receipt (`verify.py`) |
+| `x310_vertical_integration` | local receipt only | `verify.py` | tests/ | manual receipt (`verify.py`) |
 
-13 trees are wired; 43 are local receipts only.
+13 trees are wired; 45 are local receipts only.
 
 ## Hand copies
 
