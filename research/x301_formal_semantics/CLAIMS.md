@@ -33,4 +33,4 @@ Within the declared finitary relational carrier and candidate intervention space
 
 ## 4. The next test needed
 
-Constructively link the Python semantics engine's Grounding Firewall with the Lean 4 formalization in `research/x301_formal_semantics/lean/FormalSemantics.lean`, verifying that the Lean theorem `panel_illusion_refuted_by_ground_intervention` holds under axioms strictly within `{propext, Quot.sound}`.
+Constructively link the Python semantics engine's Grounding Firewall with the Lean 4 formalization in `research/x301_formal_semantics/lean/FormalSemantics.lean`, verifying that the Lean theorem `grounding_firewall_refuses_panel_illusion` holds under axioms strictly within `{propext, Quot.sound}`.

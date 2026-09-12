@@ -18,7 +18,8 @@ research/x301_formal_semantics/
 ├── README.md               # Architecture, specification, and usage documentation
 ├── CLAIMS.md               # Reconciled claims ledger (Claim Hygiene compliant)
 ├── pyproject.toml          # Package configuration and pytest settings
-├── semantics.py            # Pure Python operational semantics engine
+├── valuation.py / formulas.py / model.py / isomorphism.py / intervention.py / panel.py
+├── semantics.py            # Thin re-export of the split kernels
 ├── tests/                  # Verification test suite (satisfaction, invariance, firewall)
 ├── lean/                   # Constructive Core Lean 4 formalization
 │   ├── lakefile.toml       # Lake package configuration
@@ -28,7 +29,7 @@ research/x301_formal_semantics/
 └── evidence/               # Signed cryptographic verification receipts
 ```
 
-## Key Components in `semantics.py`
+## Key Components
 
 1. **Exact Rational Heyting Truth Structure**:
    - Valuations in $[0, 1] \cap \mathbb{Q}$ using exact rational arithmetic (`Fraction`), eliminating floating point imprecision.

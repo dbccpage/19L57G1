@@ -71,7 +71,9 @@ def test_rational_valuation_construction_and_bounds():
         RationalValuation(Fraction(11, 10))
     with pytest.raises(ValueError):
         RationalValuation("2/1")
-    with pytest.raises(ValueError):
+    with pytest.raises(TypeError, match="float is not exact"):
+        RationalValuation(0.5)
+    with pytest.raises(TypeError, match="float is not exact"):
         RationalValuation(1.5)
 
 

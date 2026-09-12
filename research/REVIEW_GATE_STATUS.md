@@ -557,7 +557,7 @@ All declared requirements R1–R5 and acceptance criteria are completely fulfill
 ### Forensic Integrity Audit & Authenticity Verification
 
 The Forensic Integrity Auditor (Auditor 1) conducted an independent forensic audit of `research/x301_formal_semantics/`:
-1. **Static Code Authenticity**: Inspected all 1329 lines of `semantics.py`. Verified genuine AST propositional syntax, exact rational Heyting poset operations, genuine recursive evaluation without hardcoded shortcuts, authentic sort-aware signature transport, and SHA-256 cryptographic receipt computation.
+1. **Static Code Authenticity**: Inspected the split X301 kernels (`valuation.py`, `formulas.py`, `model.py`, `isomorphism.py`, `intervention.py`, `panel.py`, thin `semantics.py` re-export). Verified genuine AST propositional syntax, exact rational Heyting poset operations, genuine recursive evaluation without hardcoded shortcuts, authentic sort-aware signature transport, and SHA-256 cryptographic receipt computation.
 2. **Lean 4 Constructive Axiom Verification**: Audited all 39 declarations in `FormalSemantics.lean` via `Inventory.lean`. Confirmed 26 declarations are axiom-free, 13 depend strictly on `{propext, Quot.sound}`, with zero occurrences of `Classical.choice`, zero `mathlib`, and zero `sorry`/`admit`.
 3. **Repository Blind Seal**: Confirmed via `git status` that sealed directories (`prompt/`, `paper/`, `code/`, `lean4/Derivation/`, `artifacts/`, `CLAUDE.md`) remain 100% untouched.
 4. **Test Authenticity & Negative Controls**: Verified 47 tests executing genuine assertions against the real implementation, including adversarial tampering of receipt payloads, dimension mismatches, non-bijective permutations, empty intervention pools, and false consensus mutations.
