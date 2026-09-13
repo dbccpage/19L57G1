@@ -1,0 +1,26 @@
+{
+  "schema": "diagonal_identity_source_manifest/v1",
+  "source_snapshot": {
+    "commit": "0ab0e67037900606159ec2babb2e7cf5b7854f20",
+    "tree": "49609507b2a0e5b2b83ec20e6ca92adf53d16b98"
+  },
+  "hash_basis": "SHA-256 of canonical Git blobs, checked at the source snapshot AND at the verification HEAD; independent of checkout line endings",
+  "source_policy": "read-only inputs; PrimDiff is sealed; Limits and Continuum are research files restated or compared here; the snapshot commit must resolve, must be an ancestor of HEAD, and must carry the recorded tree; nothing under a sealed prefix may differ between the snapshot and HEAD",
+  "sources": [
+    {
+      "path": "lean4/Derivation/PrimDiff.lean",
+      "sha256": "F46C3BC439B7361BF19586E322BF95452B7E316844AE05815F27FCF42552DBEA",
+      "role": "sealed input"
+    },
+    {
+      "path": "research/coherent_process_limits/lean/Limits.lean",
+      "sha256": "B53B5327E478C4983AF7F2F8DBAA7236F2D0989E821236D90325ECEFEDCABE0E",
+      "role": "research input"
+    },
+    {
+      "path": "research/unboundedness/lean/Continuum.lean",
+      "sha256": "E12E7B4933C4A4B50E9FFE6E1A79419D6609ED310669660034AA49E915294C8D",
+      "role": "research input"
+    }
+  ]
+}

@@ -28,6 +28,7 @@ research Lean builds are invoked separately. The table names their entry points.
 | `convention_price` | local receipt only | `verify_lean.py`, `verify_pins.py` | test_*.py | manual receipt (`verify_lean.py`) |
 | `cost_cohomology` | local receipt only | none | test_*.py | none |
 | `described_replay` | local receipt only | `verify_lean.py`, `verify_pins.py` | test_*.py | manual receipt (`verify_lean.py`) |
+| `diagonal_identity` | local receipt only | `verify_lean.py`, `verify_pins.py` | tests/ | manual receipt (`verify_lean.py`) |
 | `dynamics_step` | local receipt only | none | test_*.py | none |
 | `endogenous_demand` | local receipt only | `verify.py`, `verify_lean.py`, `verify_sources.py` | tests/ | manual receipt (`verify_lean.py`) |
 | `estate_honesty` | local receipt only | none | test_*.py | none |
@@ -78,7 +79,7 @@ research Lean builds are invoked separately. The table names their entry points.
 | `x303_bounded_agency` | local receipt only | `verify.py` | tests/ | manual receipt (`verify.py`) |
 | `x310_vertical_integration` | local receipt only | `verify.py` | tests/ | manual receipt (`verify.py`) |
 
-13 trees are wired; 46 are local receipts only.
+13 trees are wired; 47 are local receipts only.
 
 ## Hand copies
 

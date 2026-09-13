@@ -11,3 +11,5 @@ research/sign_slice/PREDICTIONS.md -text
 research/sign_slice/receipts/** -text
 ci/prose_watchlist.json -text
 research/alpha_engine/evidence/** -text
+research/diagonal_identity/evidence/** -text
+research/diagonal_identity/SOURCE_MANIFEST.json -text

@@ -1,0 +1,13 @@
+[run]
+branch = true
+source = .
+omit =
+    tests/*
+    lean/*
+    */__pycache__/*
+
+[report]
+omit =
+    tests/*
+    lean/*
+    */__pycache__/*
