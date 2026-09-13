@@ -6,8 +6,23 @@ import Metric
 
 This module establishes Rung 3 of the finite-to-continuum convergence ladder:
 that the Cauchy-complete ultrametric limit space `Thread c` (for any branching
-factor `c ≥ 2`) is uncountable (cardinality 2^ℵ₀), rather than a countable set
-of isolated rays.
+factor `c ≥ 2`) admits no surjection from `Nat`, rather than being a countable
+set of isolated rays.
+
+**Scope, stated once and honoured throughout.** What is proved here is
+non-enumerability: for every family `T : Nat → Thread c` there is a thread no
+`T n` equals. No cardinal arithmetic is carried out, and **no claim that
+`|Thread c| = 2^ℵ₀` is made or proved** — that would require exhibiting an
+injection each way with `Nat → Bool`, which this module does not do.
+
+**What this rung does NOT show.** `Thread c` is *defined* in `Limits.lean` as a
+compatible family over every scale `n : Nat`, and `toSeq_ofSeq` / `ofSeq_toSeq`
+prove it *is* the sequence space `Nat → Fin c` — "a bijection and nothing
+more", in that module's own words. The diagonal below is therefore Cantor's
+argument applied to an object whose infinitary index was supplied by its
+definition. It does not exhibit a finite engine run reaching an uncountable
+boundary, and it does not rule out that the continuum enters here as a
+modelling container rather than as a consequence of the finite system.
 
 ## 1. Diagonal Argument on Sequences
 No sequence of binary sequences can cover `Nat → Bool` (`cantor_diagonal_bool`).
@@ -25,8 +40,8 @@ is separated from the `n`-th thread `T n` at scale `n + 1`:
 
 Together with `Metric.limit_converges` (Cauchy completeness) and
 `Limits.twins_are_two_threads` (refusal of interval identification),
-`Thread c` is established as a complete, totally disconnected Cantor-like metric
-space of continuum cardinality 2^ℵ₀.
+`Thread c` is a complete, totally disconnected, Cantor-like metric space that
+no `Nat`-indexed family exhausts. Its cardinality is not computed here.
 
 AuthorityEffect: None.
 -/
@@ -112,9 +127,11 @@ theorem diagThread_diff_seq (c : Nat) (hc : 2 ≤ c) (T : Nat → Thread c) (n :
   rw [toSeq_ofSeq]
   exact diagSeq_diff_at c hc (fun k => toSeq c (T k)) n
 
-/-- **Uncountability of the thread space (Rung 3).**
+/-- **Non-enumerability of the thread space (Rung 3).**
 No sequence of threads can cover `Thread c` when `2 ≤ c`.
-The limit path boundary has the cardinality of the continuum (2^ℵ₀).
+
+Cite this by its type: it says every `T : Nat → Thread c` misses some thread.
+It does **not** say `|Thread c| = 2^ℵ₀`; no cardinality is established here.
 AuthorityEffect: None. -/
 theorem thread_uncountable (c : Nat) (hc : 2 ≤ c) (T : Nat → Thread c) :
     ∃ (t : Thread c), ∀ n, T n ≠ t := by

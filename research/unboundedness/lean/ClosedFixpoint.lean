@@ -100,6 +100,15 @@ theorem closed_round_bound_from_empty {r t : Regime} {rds : List Round}
 
 /-! ## 3. Finite Fixpoints for Challenge Regimes -/
 
+/-! ### Naming scope
+
+The `reading_L` / `reading_F` names below are **mnemonic only**. Each theorem
+bounds *any* closed run whose start regime satisfies the stated hypotheses
+(`data = 2` resp. `3`, and `reqs = []`). Nothing here proves that the
+derivation's reading L or reading F actually starts from such a regime; that
+binding is not established in this package. Cite these by their hypotheses,
+not by their names. -/
+
 /-- AuthorityEffect: None.
 Reading L (data = 2, reqs = []) admits at most 1 closed round. -/
 theorem reading_L_max_rounds {start finish : Regime} {rds : List Round}
