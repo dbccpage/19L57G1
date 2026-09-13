@@ -3,9 +3,10 @@
 AuthorityEffect: None.
 
 This module provides independent computational verification that:
-1. The engine driver under measure mu2 with supply enabled extends to
-   arbitrary depth n with data count >= n without encountering any dead end
-   (terminal_no_response is absent across all tested depths).
+1. The engine driver under measure mu2 with supply enabled was observed to
+   depth 50 with data 17 on both readings, with no terminal_no_response
+   at the tested depths. That is a finite observed n, not a proof that
+   data count is at least the depth.
 2. The gap between permissive XStep and the engine driver under mu2 is
    empirically verified: once an arity-1 form exists, single-instance
    responses cost (1, 0), strictly lower than the grow-grow-mark delta (2, 1).
@@ -13,7 +14,8 @@ This module provides independent computational verification that:
    excluding cycles.
 4. With supply disabled (closed system), the engine terminates at finite depth
    (pair-separation closure fixpoint). With supply enabled, quiet states
-   admit fresh datum growth, advancing the carrier size without bound.
+   grow by one datum. Lean unboundedness of data is a prescribed XStep
+   block, not this driver.
 """
 
 from __future__ import annotations

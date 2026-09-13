@@ -20,7 +20,7 @@ open Ignition
 open Ignition.Driver
 
 /-!
-# Closed-System Finite Quiet Fixpoint Theorem (Rung 2)
+# Closed-System Finite Quiet Fixpoint Theorem
 
 This module formalizes the closed-system dynamics under the engine driver
 relation `EngineDriver m false`.

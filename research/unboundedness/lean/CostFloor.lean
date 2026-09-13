@@ -20,7 +20,7 @@ open Ignition
 open Ignition.Driver
 
 /-!
-# Stratified Separation Cost Floor Theorem (Rung 1)
+# Stratified Separation Cost Floor Theorem
 
 This module establishes the lower bound on the cost of separating an
 observational collapse in a regime.

@@ -1,15 +1,15 @@
 {
   "authority_effect": "None",
-  "axiom_free_count": 40,
+  "axiom_free_count": 39,
   "census": "compiled environment theorem declarations in this package's namespaces",
   "classification": "Lean proof compilation",
   "local_sources_sha256": {
-    "ClosedFixpoint.lean": "b3ae5d9bb65552c4a9b1cb3461d395ffc8d5d3038b5b2bfa0a8f8236d4b7e596",
-    "Continuum.lean": "e477cbc5fb2ea3b74fdb7e8d506ec2c1a174001c2e69e93a7c7e1f1cce2510a5",
-    "CostFloor.lean": "9cac23495b13c8df5521a1004b9198c897678fa7118d386397fac488efd4f555",
+    "ClosedFixpoint.lean": "9b219f61a431e6bd7b8aef954ce55012154cb7afafc8983158ae54d729ebb1fc",
+    "Continuum.lean": "e12e7b4933c4a4b50e9ffe6e1a79419d6609ed310669660034aa49e915294c8d",
+    "CostFloor.lean": "2b275ff709e7f442cf424aa81413bf6a19f97742446b5684eb6e66201e28c0c1",
     "Driver.lean": "ef75d0b8bbbf50971cbf36cd0ab9e0ebff28f90f1b438eae0914c428dab62fc2",
-    "Inventory.lean": "c9654a6d801d24a9a212fe322e00a5c4430c33ff308f334f23817340e645442c",
-    "Metric.lean": "217784f356a12aadcf7e2a6c1153de4f489765b04ef19cec350ce3e4da63d187",
+    "Inventory.lean": "1145e793572e4a3cf13a5a8db2456463ec0c5506b81f6bda984dfa98823ee509",
+    "Metric.lean": "2a5545fc48bd826e37fd2b94a5058f37b8c18b31025edba6bd8f5f92dcbc2149",
     "Reader.lean": "b529e77ba5c9c21c74bb672ea51d48b52ee91a318602b7d0ed25a67998a272ff",
     "TwoLociSystem.lean": "2ce457bc253c7b638ce082f5fab5e5b04e6456ae1e6a58a56eab0f4c149efbc0",
     "Unboundedness.lean": "b323795293d1ca59ed40dfdff55f61730857dda62c254a6f14396a7d4fd49ebc",
@@ -386,16 +386,15 @@
     ],
     "Metric.proper_subset_three": [],
     "Metric.proper_subset_two": [],
-    "Metric.seqAgrees.eq_1": [],
-    "Metric.seqAgrees.eq_2": [],
-    "Metric.seqAgrees.eq_def": [],
     "Metric.seqAgrees_iff": [
       "Quot.sound",
       "propext"
     ],
-    "Metric.seqAgrees_iff._simp_1_6": [
+    "Metric.seqAgrees_iff._simp_1_3": [
       "propext"
     ],
+    "Metric.seqAgrees_succ": [],
+    "Metric.seqAgrees_zero": [],
     "Metric.threadAgrees.eq_1": [],
     "Metric.threadAgrees_iff": [
       "Quot.sound",
@@ -726,6 +725,6 @@
   },
   "schema_version": 1,
   "scope": "the exact theorem statements and their explicit hypotheses; EngineDriver unboundedness is not a Lean theorem",
-  "theorem_count_including_generated": 219,
+  "theorem_count_including_generated": 218,
   "toolchain": "leanprover/lean4:v4.33.0"
 }

@@ -130,7 +130,7 @@ theorem diagThread_diff_seq (c : Nat) (hc : 2 ≤ c) (T : Nat → Thread c) (n :
   rw [toSeq_ofSeq]
   exact diagSeq_diff_at c hc (fun k => toSeq c (T k)) n
 
-/-- **Non-enumerability of the thread space (Rung 3).**
+/-- **Non-enumerability of the thread space.**
 No sequence of threads can cover `Thread c` when `2 ≤ c`.
 
 Cite this by its type: it says every `T : Nat → Thread c` misses some thread.

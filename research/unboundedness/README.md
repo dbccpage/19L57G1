@@ -69,7 +69,10 @@ The cost to separate a collapsed pair is stratified:
 - `CostFloor.genesis_mark_cost`, `CostFloor.post_genesis_inst_cost`: The bounds are attained.
 
 ### (e) Closed-System Quiet Fixpoint Theorem (Lean 4: ClosedFixpoint.lean)
-Without external supply (`supply = false`), the driver cannot grow and terminates in bounded depth:
+Without external supply (`supply = false`), growth is refused and a quiet
+state has no closed driver step. The quadratic length bound is a `ClosedRun`
+theorem under `Nodup` and ordered in-range pairs; no lemma here shows an
+`EngineDriver` path is a `ClosedRun`:
 - `ClosedFixpoint.closed_driver_is_fire`: Every transition is an engine fire step; growth is refused.
 - `ClosedFixpoint.fire_demand_not_in_reqs`, `ClosedFixpoint.fire_reqs_length_succ`: Each step consumes an unseparated pair without replacement.
 - `ClosedFixpoint.closed_round_bound`: a `ClosedRun` on carrier d satisfies `2 * (r.reqs.length + rds.length) <= d * (d - 1)` under `Nodup` and ordered in-range pairs.
@@ -92,7 +95,7 @@ $2^{\aleph_0}$. Both are WITHDRAWN.
 
 1. **What it supports**:
    - Supports that the Python driver under mu2 with supply enabled was observed
-     to depth >= n with data >= n for the tested n.
+     to depth 50 with data 17 on both readings.
    - Supports that every `EngineDriver` transition refines `XStep`.
    - Supports that `(data, len(reqs))` is strictly monotonic, ruling out state repetition.
    - Supports that `markDelta` is non-minimal under `mu2` once an arity-1 form exists.

@@ -126,18 +126,22 @@ AuthorityEffect: None.
 
 /-- Computable decision for agreement of sequence prefixes.
 AuthorityEffect: None. -/
-def seqAgrees (s t : Nat → Nat) : Nat → Bool
-  | 0 => true
-  | n + 1 => seqAgrees s t n && (s n == t n)
+def seqAgrees (s t : Nat → Nat) : Nat → Bool :=
+  Nat.rec true (fun n rec => rec && (s n == t n))
+
+theorem seqAgrees_zero (s t : Nat → Nat) : seqAgrees s t 0 = true := rfl
+
+theorem seqAgrees_succ (s t : Nat → Nat) (n : Nat) :
+    seqAgrees s t (n + 1) = (seqAgrees s t n && (s n == t n)) := rfl
 
 /-- `seqAgrees` reflects equality on all indices `i < n`.
 AuthorityEffect: None. -/
 theorem seqAgrees_iff (s t : Nat → Nat) :
     ∀ (n : Nat), seqAgrees s t n = true ↔ ∀ (i : Nat), i < n → s i = t i
   | 0 => by
-      simp [seqAgrees]
+      simp [seqAgrees_zero]
   | n + 1 => by
-      simp only [seqAgrees, Bool.and_eq_true, beq_iff_eq]
+      simp only [seqAgrees_succ, Bool.and_eq_true, beq_iff_eq]
       rw [seqAgrees_iff s t n]
       constructor
       · rintro ⟨hrec, hlast⟩ i hi
@@ -587,6 +591,8 @@ end Metric
 #print axioms Metric.agrees_min
 #print axioms Metric.threads_eq_of_agrees_all
 #print axioms Metric.agrees_iff_toSeq
+#print axioms Metric.seqAgrees_zero
+#print axioms Metric.seqAgrees_succ
 #print axioms Metric.seqAgrees_iff
 #print axioms Metric.threadAgrees_iff
 #print axioms Metric.firstDiffBounded_none

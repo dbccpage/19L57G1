@@ -21,9 +21,8 @@ AuthorityEffect: None.
 ## Four-Point Claim Evaluation
 
 1. **What it supports**:
-   - Supports that the Python `EngineDriver` under mu2 with supply enabled admits
-     trajectories extending to depth >= n with data count >= n for the tested n
-     (depth 50 / data 17 on both readings).
+   - Supports that the Python `EngineDriver` under mu2 with supply enabled was
+     observed to depth 50 with data 17 on both readings.
    - Supports that permissive `XStep` admits arbitrarily large data via a
      prescribed grow-grow-mark block (`xstep_unbounded_exists`). That construction
      is not a liveness proof for the minimum-response driver.

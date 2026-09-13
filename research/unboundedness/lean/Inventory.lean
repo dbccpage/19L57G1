@@ -26,8 +26,17 @@ run_cmd do
     fun found name declaration =>
       match declaration with
       | .thmInfo _ =>
-          if inScope name && !isPrivateName name then name.toString :: found else found
+          if inScope name then name.toString :: found else found
       | _ => found
+  let hidden := environment.constants.fold (init := ([] : List String))
+    fun found name declaration =>
+      match declaration with
+      | .thmInfo _ =>
+          if isPrivateName name && ((privateToUserName? name).any inScope)
+          then name.toString :: found else found
+      | _ => found
+  if !hidden.isEmpty then
+    throwError "UNBOUNDEDNESS_PRIVATE_THEOREM_PRESENT: {hidden}"
   let sorted := names.mergeSort (fun left right => left ≤ right)
   if sorted.isEmpty then
     throwError "UNBOUNDEDNESS_THEOREM_CENSUS_EMPTY"
@@ -77,10 +86,7 @@ compared with the independent environment census. -/
 #print axioms Metric.nonfunctional_open_ball._proof_1_2
 #print axioms Metric.nonfunctional_open_ball._proof_1_3
 #print axioms Metric.nonfunctional_open_ball._proof_1_4
-#print axioms Metric.seqAgrees.eq_1
-#print axioms Metric.seqAgrees.eq_2
-#print axioms Metric.seqAgrees.eq_def
-#print axioms Metric.seqAgrees_iff._simp_1_6
+#print axioms Metric.seqAgrees_iff._simp_1_3
 #print axioms Metric.threadAgrees.eq_1
 #print axioms Reader.Recorded.mk.inj
 #print axioms Reader.Recorded.mk.injEq

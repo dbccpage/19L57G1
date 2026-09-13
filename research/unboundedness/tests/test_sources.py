@@ -226,5 +226,13 @@ class CustodyTests(unittest.TestCase):
         self.assertNotEqual(guard.canonical_text(b"a\rb\n"), guard.canonical_text(b"a\nb\n"))
 
 
+class LiveImportTests(unittest.TestCase):
+    """The fixture uses check_runtime=False. The live import census must still run."""
+
+    def test_live_import_census_matches_pinned_runtime(self) -> None:
+        failures = guard.verify_sources(check_runtime=True)
+        self.assertEqual(failures, [])
+
+
 if __name__ == "__main__":
     unittest.main()

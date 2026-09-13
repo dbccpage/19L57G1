@@ -64,7 +64,7 @@ CONFIG_PATHS = (
 RUNTIME_PATHS = {
     "derivation": "code/derivation/__init__.py",
     **{f"derivation.{name}": f"code/derivation/{name}.py" for name in (
-        "model", "observe", "candidates", "iso", "engine"
+        "model", "observe", "candidates", "iso", "engine", "export", "primitive_core"
     )},
     "translation": "research/setting_translation/translation.py",
     "execution": "research/represented_execution/execution.py",
