@@ -48,6 +48,21 @@ AXIOM_REPORT_DECLARATIONS: tuple[str, ...] = (
     "DiagonalIdentity.Collapse.identifying_push_self_loop",
     "DiagonalIdentity.Split.collapse_yes_covering_no",
     "DiagonalIdentity.Split.family_miss_and_identifying_push",
+    "DiagonalIdentity.Dual.rec_roundtrip",
+    "DiagonalIdentity.Dual.cast_injective",
+    "DiagonalIdentity.Dual.bool_ne_nat",
+    "DiagonalIdentity.Dual.unit_ne_seq",
+    "DiagonalIdentity.Dual.covering_family_type_ne_d2Const_type",
+    "DiagonalIdentity.Dual.pair_id_iff_fidelity",
+    "DiagonalIdentity.Dual.d2Const_not_injective",
+    "DiagonalIdentity.Dual.d2Const_pair_id",
+    "DiagonalIdentity.Dual.d2Const_not_as_covering_family",
+    "DiagonalIdentity.Dual.d2Const_push_self_loop",
+    "DiagonalIdentity.Dual.family_miss_diagSeq",
+    "DiagonalIdentity.Dual.family_not_surjective",
+    "DiagonalIdentity.Dual.family_not_as_d2_const",
+    "DiagonalIdentity.Dual.covering_miss_witness_is_diagFlip",
+    "DiagonalIdentity.Dual.dual_on_declared_carriers",
 )
 
 ALLOWED_AXIOMS = frozenset({"propext", "Quot.sound"})

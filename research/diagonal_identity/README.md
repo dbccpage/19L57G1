@@ -9,17 +9,17 @@ from `research/unboundedness/lean/Continuum.lean` one obstruction, or two?
 
 ## Standing
 
-**Typed split recorded. Identity not proved.** Terminal:
-`TYPED_SPLIT_RECORDED_IDENTITY_NOT_PROVED`.
+**Dual shapes on declared carriers. Identity not proved.** Terminal:
+`DUAL_NOT_IDENTITY_ON_DECLARED_CARRIERS`.
 
-Both families of facts hold. They do not share binders:
+- Pair-id: `d2Const : Bool → Unit` is not injective; `Push D2 d2Const`
+  violates `Irrefl`. This map is not a covering family (`Bool ≠ Nat`).
+- Family-miss: no `S : Nat → (Nat → Fin c)` (`c ≥ 2`) is surjective. The
+  missed row is `diagFlip` at `flipFin`. `S` is not the D2 constant map.
 
-- identifying a witnessed pair along a map is `FidelityObstruction Irrefl`;
-- a family `Nat → (Nat → Fin c)` misses a sequence obtained by square
-  evaluation then a pointwise flip.
-
-A combinator `diagFlip` packages the covering side only. A share-bridge that
-would instantiate it at PrimDiff binders `(r, c)` is OPEN.
+They are not instances of each other on those carriers. `diagFlip` packages
+the covering side only. Identity of `obstruction_under_irrefl` with
+`seq_uncountable` is not proved.
 
 ## Layout
 
@@ -29,6 +29,7 @@ would instantiate it at PrimDiff binders `(r, c)` is OPEN.
 | `lean/DiagonalIdentity/Combinator.lean` | `diagFlip`; definitional equations |
 | `lean/DiagonalIdentity/Collapse.lean` | `D2` collapsed to `Unit` |
 | `lean/DiagonalIdentity/Split.lean` | inhabited conjunction, not an `Iff` of types |
+| `lean/DiagonalIdentity/Dual.lean` | dual shapes; not-instance on declared carriers |
 | `SOURCE_MANIFEST.json` | pins `PrimDiff`, `Limits.lean`, `Continuum.lean` |
 
 Sealed staging copies `research/s9_obligations`: `verify_lean.py` writes

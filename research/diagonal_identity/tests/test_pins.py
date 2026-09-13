@@ -94,6 +94,16 @@ class PinTests(unittest.TestCase):
 
 
 class FormulaTests(unittest.TestCase):
+    def test_dual_module_states_not_instance(self) -> None:
+        text = (TREE / "lean" / "DiagonalIdentity" / "Dual.lean").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("theorem dual_on_declared_carriers", text)
+        self.assertIn("theorem d2Const_not_as_covering_family", text)
+        self.assertIn("theorem family_not_as_d2_const", text)
+        self.assertIn("theorem covering_miss_witness_is_diagFlip", text)
+        self.assertNotIn("identity of obstruction_under_irrefl", text.lower())
+
     def test_covering_formulas_match_continuum(self) -> None:
         covering = di.COVERING.read_text(encoding="utf-8")
         continuum = di.CONTINUUM.read_text(encoding="utf-8")
@@ -540,7 +550,7 @@ class RunTests(unittest.TestCase):
         from unittest import mock
 
         fresh = runner.receipt_bytes()
-        self.assertIn(b"TYPED_SPLIT_RECORDED_IDENTITY_NOT_PROVED", fresh)
+        self.assertIn(b"DUAL_NOT_IDENTITY_ON_DECLARED_CARRIERS", fresh)
         with mock.patch.object(runner, "RECORD") as record_path:
             record_path.is_file.return_value = True
             record_path.read_bytes.return_value = fresh

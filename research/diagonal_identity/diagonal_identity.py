@@ -16,7 +16,7 @@ REPO = HERE.parents[1]
 COVERING = HERE / "lean" / "DiagonalIdentity" / "Covering.lean"
 CONTINUUM = REPO / "research" / "unboundedness" / "lean" / "Continuum.lean"
 
-TERMINAL = "TYPED_SPLIT_RECORDED_IDENTITY_NOT_PROVED"
+TERMINAL = "DUAL_NOT_IDENTITY_ON_DECLARED_CARRIERS"
 
 FORMULA_NAMES = (
     "diagBool",
@@ -68,9 +68,14 @@ def record() -> dict[str, object]:
             "DiagonalIdentity.Collapse.d2_constant_obstructs",
             "DiagonalIdentity.Split.collapse_yes_covering_no",
             "DiagonalIdentity.Split.family_miss_and_identifying_push",
+            "DiagonalIdentity.Dual.d2Const_not_injective",
+            "DiagonalIdentity.Dual.d2Const_not_as_covering_family",
+            "DiagonalIdentity.Dual.family_not_surjective",
+            "DiagonalIdentity.Dual.family_not_as_d2_const",
+            "DiagonalIdentity.Dual.covering_miss_witness_is_diagFlip",
+            "DiagonalIdentity.Dual.dual_on_declared_carriers",
         ],
         "open": [
-            "share-bridge instantiating diagFlip at PrimDiff binders (r, c)",
             "a relation on Thread whose collapse recodes covering-miss",
         ],
     }
