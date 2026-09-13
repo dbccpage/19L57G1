@@ -1,0 +1,18 @@
+{
+ "formula_mismatches": [],
+ "identity_proved": false,
+ "open": [
+  "share-bridge instantiating diagFlip at PrimDiff binders (r, c)",
+  "a relation on Thread whose collapse recodes covering-miss"
+ ],
+ "terminal": "TYPED_SPLIT_RECORDED_IDENTITY_NOT_PROVED",
+ "theorems": [
+  "DiagonalIdentity.Covering.diagonal_bool",
+  "DiagonalIdentity.Covering.seq_uncountable",
+  "DiagonalIdentity.Covering.thread_uncountable",
+  "DiagonalIdentity.Combinator.diagFlip_ne_row",
+  "DiagonalIdentity.Collapse.d2_constant_obstructs",
+  "DiagonalIdentity.Split.collapse_yes_covering_no",
+  "DiagonalIdentity.Split.family_miss_and_identifying_push"
+ ]
+}
