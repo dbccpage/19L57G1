@@ -43,29 +43,23 @@ Under measure `mu2`, `markDelta r` has cost `(2, 1)`.
   single-instance responses (`cost = (1, 0)`) until all standing pairs are
   separated, then admits a single fresh datum.
 
-### (c) Engine Driver Liveness and Unbounded Trajectories (Python & Lean 4)
-1. **Liveness**: At any `Good` state:
-   - If `Quiet r`, the engine executes `grow r` (`quiet_state_extends_with_supply`).
-   - If a collapsed pair exists, `good_has_inBounds_valid` confirms that an
-     in-bounds valid response exists. The minimum response search over the finite
-     candidate space never returns empty; `terminal_no_response` is absent.
-2. **Cycle Exclusion**: Data count is non-decreasing along every step
-   (`driver_data_mono`, `driver_path_data_mono`). On a fixed data carrier `d`,
-   firings add pairs to `reqs` without duplicates, bounded by `d * (d - 1) / 2`
-   (`closedRun_round_bound`). Once all pairs are separated, the state is quiet,
-   forcing `grow r`, which strictly increases data count (`quiet_grow_data_succ`).
-   Hence `(data, len(reqs))` strictly increases lexicographically, excluding cycles.
-3. **Computational Evidence**:
-   Executing the exact deterministic engine trajectory under `mu2` with `supply=True`
-   on Reading L and Reading F:
-   - Reaches depth 50 with data count 17.
-   - All 51 visited nodes belong to distinct isomorphism classes (`all_states_distinct = True`).
-   - Reaches depth 60 with data count 19.
-   - Zero terminal refusals encountered.
-4. **Closed System Termination**:
-   With `supply=False`, Reading L terminates at depth 1 (2 data) and Reading F
-   terminates at depth 3 (3 data), confirming that external supply is what sustains
-   carrier expansion.
+### (c) Engine driver: Lean refinement, Python trajectories
+1. **Lean, conditional**: At any `Good` state, `quiet_state_extends_with_supply`
+   and `good_has_inBounds_valid` are existence lemmas. `engineDriver_refines_xstep`
+   is subset inclusion into `XStep`. They do not prove arbitrarily long
+   `EngineDriver` paths.
+2. **Cycle exclusion on a step**: Data count is non-decreasing along every driver
+   step (`driver_data_mono`). Quiet growth strictly increases data
+   (`quiet_grow_data_succ`).
+3. **Python trajectories**:
+   The deterministic engine trajectory under `mu2` with `supply=True` on
+   readings L and F was observed to depth 50 with data 17, all distinct classes,
+   no `terminal_no_response`. That is a finite tested n, not a Lean unboundedness
+   theorem for the driver.
+4. **Closed system termination**:
+   With `supply=False`, the Python driver on genesis L terminates at depth 1
+   (2 data) and genesis F at depth 3 (3 data). External supply is what sustains
+   carrier expansion. Lean `ClosedRun` bounds are a different carrier.
 
 ### (d) Stratified Separation Cost Floor (Lean 4: CostFloor.lean)
 The cost to separate a collapsed pair is stratified:
@@ -78,36 +72,45 @@ The cost to separate a collapsed pair is stratified:
 Without external supply (`supply = false`), the driver cannot grow and terminates in bounded depth:
 - `ClosedFixpoint.closed_driver_is_fire`: Every transition is an engine fire step; growth is refused.
 - `ClosedFixpoint.fire_demand_not_in_reqs`, `ClosedFixpoint.fire_reqs_length_succ`: Each step consumes an unseparated pair without replacement.
-- `ClosedFixpoint.closed_round_bound`: Closed runs on carrier d satisfy `2 * (r.reqs.length + rds.length) <= d * (d - 1)`.
-- `ClosedFixpoint.reading_L_max_rounds`, `ClosedFixpoint.reading_F_max_rounds`: Reading L terminates in <= 1 round; Reading F terminates in <= 3 rounds.
+- `ClosedFixpoint.closed_round_bound`: a `ClosedRun` on carrier d satisfies `2 * (r.reqs.length + rds.length) <= d * (d - 1)` under `Nodup` and ordered in-range pairs.
+- `ClosedFixpoint.reading_L_max_rounds`, `ClosedFixpoint.reading_F_max_rounds`: any `ClosedRun` with `data = 2` and `reqs = []` has length <= 1; with `data = 3` and `reqs = []` has length <= 3. Cite by hypotheses.
 - `ClosedFixpoint.closed_quiet_terminates`: Quiet states admit no further transitions under `supply = false`.
 
-### (f) Limit Path Space Uncountability and Continuum Cardinality (Lean 4: Continuum.lean)
-Rung 3 of the finite-to-continuum convergence ladder is mechanized in `research/coherent_process_limits/lean/Continuum.lean`:
-- `Limits.cantor_diagonal_bool`: Constructive diagonal argument on binary sequences.
-- `Limits.seq_uncountable`: For any branching alphabet $c \ge 2$, no sequence covers `Nat → Fin c`.
-- `Limits.thread_uncountable`: No sequence covers `Thread c`; the limit space has cardinality $2^{\aleph_0}$.
-- `Limits.not_surjective_nat_to_thread`: No function from `Nat` to `Thread c` is surjective.
-- `Limits.thread_not_agrees_diagonal`: The diagonal thread differs from candidate thread $T(n)$ at scale $n + 1$.
-Coupled with `Metric.limit_converges` (Cauchy completeness) and `Limits.twins_are_two_threads` (refusal of interval identification), the limit path boundary of the branching tree is a complete, totally disconnected Cantor-like metric space of continuum cardinality $2^{\aleph_0}$.
+### (f) Non-enumerability of the already-infinitary thread space (Lean 4: Continuum.lean)
+`research/unboundedness/lean/Continuum.lean` proves that `Thread c` for `c ≥ 2`
+is not `Nat`-enumerable. `Thread c` is defined as a compatible family over every
+scale `n : Nat` and is `Nat → Fin c`. An earlier paragraph called this
+"Rung 3 of the finite-to-continuum convergence ladder" and asserted cardinality
+$2^{\aleph_0}$. Both are WITHDRAWN.
+- `Continuum.diagonal_bool`: diagonal argument on binary sequences.
+- `Continuum.seq_uncountable`: for $c \ge 2$, no sequence covers `Nat → Fin c`.
+- `Continuum.thread_uncountable`: no sequence covers `Thread c`.
+- `Continuum.not_surjective_nat_to_thread`: no function `Nat → Thread c` is surjective.
+- `Continuum.thread_not_agrees_diagonal`: the diagonal thread differs from `T(n)` at scale $n + 1`.
 
 ## 3. Four-Point Claim Evaluation
 
 1. **What it supports**:
-   - Supports that the mu2 quotient tree admits trajectories extending to depth >= n
-     with data count >= n for arbitrary tested n under external supply.
+   - Supports that the Python driver under mu2 with supply enabled was observed
+     to depth >= n with data >= n for the tested n.
    - Supports that every `EngineDriver` transition refines `XStep`.
    - Supports that `(data, len(reqs))` is strictly monotonic, ruling out state repetition.
    - Supports that `markDelta` is non-minimal under `mu2` once an arity-1 form exists.
-   - Supports that separation costs satisfy a stratified floor: $\ge 2$ at genesis, $\ge 1$ post-genesis (Rung 1).
-   - Supports that closed driver trajectories without supply reach quiet fixpoints in $\le \binom{d_0}{2}$ steps (Rung 2).
-   - Supports that under persistent branching ($c \ge 2$), the Cauchy-complete limit path boundary is uncountable ($2^{\aleph_0}$) (Rung 3).
+   - Supports that separation costs satisfy a stratified floor: $\ge 2$ at genesis, $\ge 1$ post-genesis.
+   - Supports that a `ClosedRun` without supply is bounded under stated side conditions.
+   - Supports that `Thread c` for $c \ge 2$ is not `Nat`-enumerable.
 2. **What it does not support**:
    - Does not establish real connected interval $[0, 1]$ or circle $S^1$ manifold geometry (refused without explicit quotients).
    - Does not establish endogenous carrier unboundedness in closed systems without external supply.
    - Does not eliminate the reading underdetermination between L and F.
+   - Does not prove a Lean theorem that `EngineDriver` paths are unbounded, nor cardinality $2^{\aleph_0}$.
 3. **Narrowest defensible claim**:
-   Under measure mu2 with external supply enabled, the engine driver admits infinite non-cycling trajectories along which data count and quotient depth increase without bound; in closed systems without supply, trajectories fixpoint in $\le \binom{d_0}{2}$ rounds; and the resulting branching path limit is an uncountable Cantor-like complete ultrametric space of cardinality $2^{\aleph_0}$.
+   Closed runs without supply halt. With `supply = true` handed in from
+   outside, the Python driver under mu2 was observed to a finite tested depth;
+   Lean proves unbounded data only for a prescribed `XStep` block. `Thread c`
+   is non-enumerable because it is defined as `Nat → Fin c`. An earlier
+   sentence here claimed infinite driver trajectories and a complete
+   ultrametric space of cardinality $2^{\aleph_0}$. That is WITHDRAWN.
 4. **Next test needed**:
    Evaluate whether quotient branch fan widths remain uniformly bounded or grow with
    carrier size across deeper layers.

@@ -5,14 +5,15 @@ AuthorityEffect: None. Configuration status: DECLARED_HOST_CONFIG.
 Mirrors lean/Reader.lean. The machine reads the previous datum from the
 tape beside the active one. Enablement is represented as a binary form with
 instances (3 + nops + k, (p, x)), where p is the previous datum from the
-tape and x is the active datum. When the tape has at least one previous entry,
-the machine reads [previous, active] from the tape; on a record of length 1,
-it reads [active, active], matching the self-instance.
+tape and x is the active datum. When the tape has length at least 2, the machine reads [previous, active]
+from the tape; on a record of length 1, it reads [active, active], matching
+the self-instance start convention. History-dependence claims are inhabited
+only for `len(tape) >= 2`.
 """
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 import control as ct
 import translation as tr
@@ -31,9 +32,11 @@ class Recorded:
 
     F: tr.FiniteSetting
     hctrl: RecordEnablement
+    _nops: int = field(init=False, repr=False, compare=False)
 
     def __post_init__(self) -> None:
-        count = nops(self)
+        object.__setattr__(self, "_nops", len(tr.encode(self.F).forms) - 3)
+        count = self._nops
         for p, x, k in self.hctrl:
             if not (0 <= p < self.F.n and 0 <= x < self.F.n and 0 <= k < count):
                 raise ExecutionError(f"record enablement ({p}, {x}, {k}) lies outside the setting")
@@ -42,9 +45,14 @@ class Recorded:
 def nops(C: Recorded) -> int:
     """The operation count, read as the shape of the merged encoding.
 
+    The Lean uses ``C.F.ops.length`` instead. The two coincide on a faithful
+    encoder; ``tests/test_reader.py`` checks the identity on the settings
+    this tree builds. Cached on the frozen dataclass so encode is not
+    re-run from every call site.
+
     AuthorityEffect: None.
     """
-    return len(tr.encode(C.F).forms) - 3
+    return C._nops
 
 
 def ctrl_form(C: Recorded, k: int) -> int:

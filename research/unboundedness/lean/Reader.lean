@@ -18,8 +18,11 @@ well-formed regime of the sealed grammar (ncodeR_wf).
 
 When the tape has at least one previous entry, the machine reads
 [previous, active] from the tape (previous). The resulting machine has
-history-dependent futures: two states with the same active datum but different
-tapes yield different successors, different enablements, and different futures.
+history-dependent futures, once the tape has length at least 2: two states
+with the same active datum but different predecessors yield different
+successors, different enablements, and different futures. On a tape of
+length 1, `previous` returns the active datum (the self-instance start
+convention), which is not evidence for distinct successors.
 
 Configuration status remains DECLARED_HOST_CONFIG: State is a metatheory
 structure carrying encoded instances.
@@ -389,17 +392,20 @@ theorem different_tapes : s₁.tape ≠ s₂.tape := by decide
 
 theorem different_previous : previous s₁ ≠ previous s₂ := by decide
 
-/-- History dependence in enablements: state 1 enables operation 0, state 2 enables operation 1. -/
+/-- History dependence in enablements, on tapes of length 2: state 1 enables
+operation 0, state 2 enables operation 1. -/
 theorem history_dependent_enablements : recordReader s₁ ≠ recordReader s₂ := by decide
 
-/-- History dependence in successors: state 1 transitions to 1, state 2 transitions to 0. -/
+/-- History dependence in successors, on tapes of length 2: state 1 transitions
+to 1, state 2 transitions to 0. -/
 theorem history_dependent_successors : rsuccessors s₁ ≠ rsuccessors s₂ := by
   intro h
   have h1 : (rsuccessors s₁).map (fun s => s.active) = (rsuccessors s₂).map (fun s => s.active) := by rw [h]
   revert h1
   decide
 
-/-- History dependence in deterministic futures: stepDet yields different next states. -/
+/-- History dependence in deterministic futures, on tapes of length 2:
+stepDet yields different next states. -/
 theorem history_dependent_futures : rstepDet s₁ ≠ rstepDet s₂ := by
   intro h
   have h1 : Sum.map id (fun s : State => s.active) (rstepDet s₁) =
@@ -415,6 +421,8 @@ theorem memoryless_same_enablements {sa sb : State} (hg : sa.graph = sb.graph)
 
 end Reader
 
+#print axioms Reader.demoFlip_lt
+#print axioms Reader.demoOps_closed
 #print axioms Reader.mem_recInsts
 #print axioms Reader.mem_rprogram
 #print axioms Reader.encodeR_forms_length

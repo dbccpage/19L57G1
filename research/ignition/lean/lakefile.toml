@@ -1,6 +1,6 @@
 name = "ignition"
 version = "0.1.0"
-defaultTargets = ["Ignition", "Inventory", "Driver"]
+defaultTargets = ["Ignition", "Inventory"]
 
 # The sealed derivation package, consumed read-only.
 [[require]]
@@ -19,6 +19,3 @@ name = "Ignition"
 
 [[lean_lib]]
 name = "Inventory"
-
-[[lean_lib]]
-name = "Driver"

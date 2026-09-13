@@ -1,6 +1,16 @@
 name = "unboundedness"
 version = "0.1.0"
-defaultTargets = ["Unboundedness", "CostFloor", "ClosedFixpoint"]
+defaultTargets = [
+  "Driver",
+  "Unboundedness",
+  "CostFloor",
+  "ClosedFixpoint",
+  "Metric",
+  "Continuum",
+  "TwoLociSystem",
+  "Reader",
+  "Inventory",
+]
 
 [[require]]
 name = "derivation"
@@ -15,8 +25,15 @@ name = "ignition"
 path = "../../ignition/lean"
 
 [[require]]
-name = "magnification"
-path = "../../magnification/lean"
+name = "represented_execution"
+path = "../../represented_execution/lean"
+
+[[require]]
+name = "coherent_process_limits"
+path = "../../coherent_process_limits/lean"
+
+[[lean_lib]]
+name = "Driver"
 
 [[lean_lib]]
 name = "Unboundedness"
@@ -26,3 +43,18 @@ name = "CostFloor"
 
 [[lean_lib]]
 name = "ClosedFixpoint"
+
+[[lean_lib]]
+name = "Metric"
+
+[[lean_lib]]
+name = "Continuum"
+
+[[lean_lib]]
+name = "TwoLociSystem"
+
+[[lean_lib]]
+name = "Reader"
+
+[[lean_lib]]
+name = "Inventory"

@@ -1,0 +1,731 @@
+{
+  "authority_effect": "None",
+  "axiom_free_count": 40,
+  "census": "compiled environment theorem declarations in this package's namespaces",
+  "classification": "Lean proof compilation",
+  "local_sources_sha256": {
+    "ClosedFixpoint.lean": "b3ae5d9bb65552c4a9b1cb3461d395ffc8d5d3038b5b2bfa0a8f8236d4b7e596",
+    "Continuum.lean": "e477cbc5fb2ea3b74fdb7e8d506ec2c1a174001c2e69e93a7c7e1f1cce2510a5",
+    "CostFloor.lean": "9cac23495b13c8df5521a1004b9198c897678fa7118d386397fac488efd4f555",
+    "Driver.lean": "ef75d0b8bbbf50971cbf36cd0ab9e0ebff28f90f1b438eae0914c428dab62fc2",
+    "Inventory.lean": "c9654a6d801d24a9a212fe322e00a5c4430c33ff308f334f23817340e645442c",
+    "Metric.lean": "217784f356a12aadcf7e2a6c1153de4f489765b04ef19cec350ce3e4da63d187",
+    "Reader.lean": "b529e77ba5c9c21c74bb672ea51d48b52ee91a318602b7d0ed25a67998a272ff",
+    "TwoLociSystem.lean": "2ce457bc253c7b638ce082f5fab5e5b04e6456ae1e6a58a56eab0f4c149efbc0",
+    "Unboundedness.lean": "b323795293d1ca59ed40dfdff55f61730857dda62c254a6f14396a7d4fd49ebc",
+    "lakefile.toml": "4112ebf8becce1c46bc2ca2dbe1b55be8065a421158eaa7994860ff6cb189155",
+    "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
+  },
+  "reports": {
+    "ClosedFixpoint.closed_driver_is_fire": [
+      "propext"
+    ],
+    "ClosedFixpoint.closed_quiet_terminates": [
+      "propext"
+    ],
+    "ClosedFixpoint.closed_round_bound": [
+      "Quot.sound",
+      "propext"
+    ],
+    "ClosedFixpoint.closed_round_bound_from_empty": [
+      "Quot.sound",
+      "propext"
+    ],
+    "ClosedFixpoint.fire_data_eq": [
+      "propext"
+    ],
+    "ClosedFixpoint.fire_demand_not_in_reqs": [
+      "propext"
+    ],
+    "ClosedFixpoint.fire_reqs_length_succ": [
+      "propext"
+    ],
+    "ClosedFixpoint.no_four_closed_rounds_on_three_data": [
+      "Quot.sound",
+      "propext"
+    ],
+    "ClosedFixpoint.no_four_closed_rounds_on_three_data._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "ClosedFixpoint.no_two_closed_rounds_on_two_data": [
+      "Quot.sound",
+      "propext"
+    ],
+    "ClosedFixpoint.no_two_closed_rounds_on_two_data._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "ClosedFixpoint.reading_F_max_rounds": [
+      "Quot.sound",
+      "propext"
+    ],
+    "ClosedFixpoint.reading_F_max_rounds._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "ClosedFixpoint.reading_L_max_rounds": [
+      "Quot.sound",
+      "propext"
+    ],
+    "ClosedFixpoint.reading_L_max_rounds._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Continuum.diagSeq_diff_at": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Continuum.diagThread_diff_seq": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Continuum.diagonal_bool": [],
+    "Continuum.flipFin._proof_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Continuum.flipFin._proof_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Continuum.flipFin._proof_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Continuum.flipFin._proof_4": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Continuum.flipFin_ne": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Continuum.not_surjective_nat_to_thread": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Continuum.seq_uncountable": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Continuum.thread_diag_dist_pos": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Continuum.thread_not_agrees_diagonal": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Continuum.thread_uncountable": [
+      "Quot.sound",
+      "propext"
+    ],
+    "CostFloor.cost_fst": [
+      "propext"
+    ],
+    "CostFloor.genesis_mark_cost": [
+      "propext"
+    ],
+    "CostFloor.not_separable_of_forms_empty": [
+      "propext"
+    ],
+    "CostFloor.not_separable_of_insts_rules_empty": [
+      "propext"
+    ],
+    "CostFloor.not_wfCtx_of_forms_empty": [
+      "propext"
+    ],
+    "CostFloor.post_genesis_inst_cost": [
+      "propext"
+    ],
+    "CostFloor.separation_cost_floor": [
+      "Quot.sound",
+      "propext"
+    ],
+    "CostFloor.separation_cost_floor_genesis": [
+      "Quot.sound",
+      "propext"
+    ],
+    "CostFloor.separation_cost_floor_post_genesis": [
+      "Quot.sound",
+      "propext"
+    ],
+    "CostFloor.valid_response_len_ge_two_at_genesis": [
+      "Quot.sound",
+      "propext"
+    ],
+    "CostFloor.valid_response_len_ge_two_at_genesis._proof_1_4": [
+      "Quot.sound",
+      "propext"
+    ],
+    "CostFloor.valid_response_len_pos_of_collapsed": [
+      "Quot.sound",
+      "propext"
+    ],
+    "CostFloor.valid_response_len_pos_of_collapsed._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.Driver.DriverPath.brecOn": [
+      "propext"
+    ],
+    "Ignition.Driver.Measure.mu1.sizeOf_spec": [],
+    "Ignition.Driver.Measure.mu2.sizeOf_spec": [],
+    "Ignition.Driver.Measure.ofNat_ctorIdx": [],
+    "Ignition.Driver.datum_adding_fire_good": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.Driver.driver_replays": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.Driver.engineDriver_refines_xstep": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.Driver.fire_driver_extend": [
+      "propext"
+    ],
+    "Ignition.Driver.fire_transStep": [
+      "propext"
+    ],
+    "Ignition.Driver.good_driver": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.Driver.good_path": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.Driver.grow_step_quiet": [
+      "propext"
+    ],
+    "Ignition.Driver.guarded_driver_refuses_at_round_bound": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.Driver.guarded_driver_refuses_at_round_bound._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.Driver.inBounds_dropRules": [
+      "propext"
+    ],
+    "Ignition.Driver.instDecidableEqMeasure._proof_1": [],
+    "Ignition.Driver.instDecidableEqMeasure._proof_2": [],
+    "Ignition.Driver.isMin_no_rule": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.Driver.isMin_no_rule._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.Driver.isMin_valid": [
+      "propext"
+    ],
+    "Ignition.Driver.lexLE_refl": [],
+    "Ignition.Driver.lexLE_trans": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.Driver.lexLE_trans._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.Driver.mark_inBounds": [
+      "propext"
+    ],
+    "Ignition.Driver.mark_response_inBounds": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.Driver.mem_dropRules": [
+      "propext"
+    ],
+    "Ignition.Driver.path_replays": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.Driver.quiet_driver_grow": [
+      "propext"
+    ],
+    "Ignition.Driver.quiet_no_driver_step": [
+      "propext"
+    ],
+    "Metric.agrees_iff_toSeq": [
+      "Quot.sound"
+    ],
+    "Metric.agrees_le": [
+      "Quot.sound"
+    ],
+    "Metric.agrees_min": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Metric.agrees_refl": [],
+    "Metric.agrees_symm": [],
+    "Metric.agrees_trans": [],
+    "Metric.agrees_zero": [
+      "Quot.sound"
+    ],
+    "Metric.ball_point_is_center": [],
+    "Metric.ball_self": [],
+    "Metric.balls_disjoint_or_coincide": [],
+    "Metric.distLe_indiscernibles": [
+      "Quot.sound"
+    ],
+    "Metric.distLe_symm": [],
+    "Metric.distLe_trans": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Metric.distLe_ultrametric": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Metric.distLe_zero": [
+      "Quot.sound"
+    ],
+    "Metric.eventually_periodic_dense": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Metric.eventually_periodic_dense._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Metric.eventually_periodic_dense._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Metric.firstDiffBounded_none": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Metric.firstDiffBounded_some": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Metric.functional_closed_limit": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Metric.functional_closed_limit._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Metric.functional_closed_limit._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Metric.functional_closed_limit._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Metric.functional_closed_limit._proof_1_4": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Metric.functional_thread_is_eventually_periodic": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Metric.functional_thread_is_eventually_periodic._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Metric.functional_thread_is_eventually_periodic._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Metric.functional_thread_is_eventually_periodic._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Metric.functional_thread_is_eventually_periodic._proof_1_4": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Metric.functional_thread_is_eventually_periodic._proof_1_5": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Metric.limit_compatible": [],
+    "Metric.limit_converges": [],
+    "Metric.limit_unique": [
+      "Quot.sound"
+    ],
+    "Metric.nonfuncSeq2._proof_1": [],
+    "Metric.nonfuncSeq2._proof_2": [],
+    "Metric.nonfuncSeq2_not_functional": [],
+    "Metric.nonfuncSeq3._proof_1": [],
+    "Metric.nonfuncSeq3._proof_2": [],
+    "Metric.nonfuncSeq3._proof_3": [],
+    "Metric.nonfunctional_open_ball": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Metric.nonfunctional_open_ball._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Metric.nonfunctional_open_ball._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Metric.nonfunctional_open_ball._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Metric.nonfunctional_open_ball._proof_1_4": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Metric.proper_subset_three": [],
+    "Metric.proper_subset_two": [],
+    "Metric.seqAgrees.eq_1": [],
+    "Metric.seqAgrees.eq_2": [],
+    "Metric.seqAgrees.eq_def": [],
+    "Metric.seqAgrees_iff": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Metric.seqAgrees_iff._simp_1_6": [
+      "propext"
+    ],
+    "Metric.threadAgrees.eq_1": [],
+    "Metric.threadAgrees_iff": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Metric.threads_eq_of_agrees_all": [
+      "Quot.sound"
+    ],
+    "Reader.Recorded.mk.inj": [],
+    "Reader.Recorded.mk.injEq": [
+      "propext"
+    ],
+    "Reader.Recorded.mk.sizeOf_spec": [],
+    "Reader.demoFlip_lt": [],
+    "Reader.demoOps_closed": [
+      "propext"
+    ],
+    "Reader.demoSetting._proof_1": [],
+    "Reader.demoSetting._proof_2": [],
+    "Reader.different_previous": [
+      "propext"
+    ],
+    "Reader.different_tapes": [
+      "propext"
+    ],
+    "Reader.encodeR_forms_getD": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reader.encodeR_forms_length": [
+      "propext"
+    ],
+    "Reader.encodeR_forms_two": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reader.encodeR_wf": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reader.encodeR_wf._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reader.encodeR_wf._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reader.encodeR_wf._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reader.fire_synced": [
+      "propext"
+    ],
+    "Reader.history_dependent_enablements": [
+      "propext"
+    ],
+    "Reader.history_dependent_futures": [
+      "propext"
+    ],
+    "Reader.history_dependent_successors": [
+      "propext"
+    ],
+    "Reader.lookup_rprogram_op": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reader.lookup_rprogram_op._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reader.lookup_rprogram_op._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reader.mem_recInsts": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reader.mem_renabledAt": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reader.mem_rprogram": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reader.mem_rsuccessors": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reader.memoryless_same_enablements": [
+      "propext"
+    ],
+    "Reader.present_iff": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reader.previous_fire": [
+      "propext"
+    ],
+    "Reader.renabled_iff": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reader.renabled_rprogram": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reader.renabled_rprogram._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reader.renabled_rprogram._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reader.rsuccessors_complete": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reader.rsuccessors_complete._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reader.rsuccessors_sound": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reader.same_active_datum": [
+      "propext"
+    ],
+    "TwoLociSystem.bond_factors_two_loci": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwoLociSystem.bond_prodSetting_factors": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwoLociSystem.obs_locus1_prefix": [
+      "propext"
+    ],
+    "TwoLociSystem.obs_locus1_prefix_add": [
+      "propext"
+    ],
+    "TwoLociSystem.obs_locus2_prefix": [
+      "propext"
+    ],
+    "TwoLociSystem.obs_locus2_prefix_add": [
+      "propext"
+    ],
+    "TwoLociSystem.seqFst._proof_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwoLociSystem.seqFst_seqPack": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwoLociSystem.seqPack._proof_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwoLociSystem.seqPack_seqFst_seqSnd": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwoLociSystem.seqSnd._proof_1": [],
+    "TwoLociSystem.seqSnd_seqPack": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwoLociSystem.stageFst._proof_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwoLociSystem.stageFst_bond": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwoLociSystem.stageFst_stagePack": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwoLociSystem.stagePack._proof_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwoLociSystem.stagePack_bond": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwoLociSystem.stagePack_stageFst_stageSnd": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwoLociSystem.stageSnd._proof_1": [],
+    "TwoLociSystem.stageSnd_bond": [],
+    "TwoLociSystem.stageSnd_stagePack": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwoLociSystem.threadFst._proof_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwoLociSystem.threadFst_threadPack": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwoLociSystem.threadPack._proof_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwoLociSystem.threadPack_threadFst_threadSnd": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwoLociSystem.threadProdFst_pack": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwoLociSystem.threadProdPack_proj": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwoLociSystem.threadProdSnd._proof_1": [],
+    "TwoLociSystem.threadProdSnd_pack": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwoLociSystem.threadSnd._proof_1": [],
+    "TwoLociSystem.threadSnd_threadPack": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwoLociSystem.thread_ofSeq_pack": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwoLociSystem.thread_toSeq_pack": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwoLociSystem.two_locus_run_obs_compat_locus1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwoLociSystem.two_locus_run_obs_compat_locus2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Unboundedness.cost_mark_delta_mu2": [
+      "propext"
+    ],
+    "Unboundedness.cost_single_inst_mu2": [
+      "propext"
+    ],
+    "Unboundedness.data_count_injective": [],
+    "Unboundedness.driver_data_mono": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Unboundedness.driver_data_mono._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Unboundedness.driver_path_data_mono": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Unboundedness.driver_step_good": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Unboundedness.driver_step_refines_xstep": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Unboundedness.fire_data_mono": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Unboundedness.good_has_inBounds_valid": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Unboundedness.quiet_grow_data_succ": [],
+    "Unboundedness.quiet_state_extends_with_supply": [
+      "propext"
+    ],
+    "Unboundedness.respond_data_mono": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Unboundedness.respond_data_mono._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Unboundedness.single_inst_beats_fresh_mark": [
+      "propext"
+    ],
+    "Unboundedness.stepE_impose_data": [
+      "propext"
+    ],
+    "Unboundedness.xstep_runHist_replays": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Unboundedness.xstep_runState_data": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Unboundedness.xstep_runState_good": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Unboundedness.xstep_unbounded_exists": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Unboundedness.xstep_unbounded_exists._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "schema_version": 1,
+  "scope": "the exact theorem statements and their explicit hypotheses; EngineDriver unboundedness is not a Lean theorem",
+  "theorem_count_including_generated": 219,
+  "toolchain": "leanprover/lean4:v4.33.0"
+}

@@ -30,7 +30,9 @@ Three properties characterize this structure:
 AuthorityEffect: None.
 -/
 
-namespace Limits
+namespace Metric
+
+open Limits
 
 /-!
 ## 1. Prefix agreement and ultrametric structure
@@ -575,36 +577,36 @@ theorem eventually_periodic_dense (c : Nat) (t : Thread c) (n : Nat) :
     have h2 : ¬ (n + m < n) := by omega
     rw [if_neg h1, if_neg h2]
 
-end Limits
+end Metric
 
-#print axioms Limits.agrees_refl
-#print axioms Limits.agrees_symm
-#print axioms Limits.agrees_trans
-#print axioms Limits.agrees_zero
-#print axioms Limits.agrees_le
-#print axioms Limits.agrees_min
-#print axioms Limits.threads_eq_of_agrees_all
-#print axioms Limits.agrees_iff_toSeq
-#print axioms Limits.seqAgrees_iff
-#print axioms Limits.threadAgrees_iff
-#print axioms Limits.firstDiffBounded_none
-#print axioms Limits.firstDiffBounded_some
-#print axioms Limits.distLe_zero
-#print axioms Limits.distLe_symm
-#print axioms Limits.distLe_indiscernibles
-#print axioms Limits.distLe_ultrametric
-#print axioms Limits.distLe_trans
-#print axioms Limits.ball_self
-#print axioms Limits.ball_point_is_center
-#print axioms Limits.balls_disjoint_or_coincide
-#print axioms Limits.limit_compatible
-#print axioms Limits.limit_converges
-#print axioms Limits.limit_unique
-#print axioms Limits.nonfunctional_open_ball
-#print axioms Limits.functional_closed_limit
-#print axioms Limits.nonfuncSeq2_not_functional
-#print axioms Limits.proper_subset_two
-#print axioms Limits.proper_subset_three
-#print axioms Limits.functional_thread_is_eventually_periodic
-#print axioms Limits.eventually_periodic_dense
+#print axioms Metric.agrees_refl
+#print axioms Metric.agrees_symm
+#print axioms Metric.agrees_trans
+#print axioms Metric.agrees_zero
+#print axioms Metric.agrees_le
+#print axioms Metric.agrees_min
+#print axioms Metric.threads_eq_of_agrees_all
+#print axioms Metric.agrees_iff_toSeq
+#print axioms Metric.seqAgrees_iff
+#print axioms Metric.threadAgrees_iff
+#print axioms Metric.firstDiffBounded_none
+#print axioms Metric.firstDiffBounded_some
+#print axioms Metric.distLe_zero
+#print axioms Metric.distLe_symm
+#print axioms Metric.distLe_indiscernibles
+#print axioms Metric.distLe_ultrametric
+#print axioms Metric.distLe_trans
+#print axioms Metric.ball_self
+#print axioms Metric.ball_point_is_center
+#print axioms Metric.balls_disjoint_or_coincide
+#print axioms Metric.limit_compatible
+#print axioms Metric.limit_converges
+#print axioms Metric.limit_unique
+#print axioms Metric.nonfunctional_open_ball
+#print axioms Metric.functional_closed_limit
+#print axioms Metric.nonfuncSeq2_not_functional
+#print axioms Metric.proper_subset_two
+#print axioms Metric.proper_subset_three
+#print axioms Metric.functional_thread_is_eventually_periodic
+#print axioms Metric.eventually_periodic_dense
 

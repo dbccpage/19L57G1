@@ -2,11 +2,12 @@ import Limits
 import TwoLoci
 
 /-!
-# TwoLociSystem: two-locus thread space as an inverse system
+# TwoLociSystem: product of thread spaces and bonding factorization
 
-The observation space of the sealed system is initially formulated over a
-single carrier. Extending to two independent loci equips the observation
-space with a product inverse system.
+This module proves a product bijection `Thread (c₁ * c₂) ≅ Thread c₁ × Thread c₂`
+and that bonding maps factor coordinate-wise. It does not construct a thread
+from a two-locus *run*, and it does not prove a universal property of an
+inverse limit. That residual stays with CL-CP-11.
 
 This module establishes three core structures:
 1. **Factorization of bonding maps.** An observation at scale `n` over two
@@ -18,7 +19,8 @@ This module establishes three core structures:
    explicit mutual inverses `threadPack` and `⟨threadFst, threadSnd⟩`.
 3. **Locus-wise observation compatibility of runs.** For any two-locus run,
    the observed tapes at finite scales satisfy prefix compatibility when
-   projected to each locus.
+   projected to each locus. The observation is taken; the limit over a run
+   is not.
 
 AuthorityEffect: None.
 -/
@@ -113,7 +115,7 @@ theorem bond_prodSetting_factors (F G : FiniteSetting) (n : Nat)
         (bond G.n n (stageSnd F.n G.n (n + 1) (Nat.lt_of_le_of_lt (Nat.zero_le _) G.a_lt) t)) :=
   bond_factors_two_loci F.n G.n n (Nat.lt_of_le_of_lt (Nat.zero_le _) G.a_lt) t
 
-/-! ## 3. Two-locus thread space as a product inverse system -/
+/-! ## 3. Two-locus thread space as a product -/
 
 /-- A two-locus thread projects to a compatible family (thread) at the first locus.
 AuthorityEffect: None. -/

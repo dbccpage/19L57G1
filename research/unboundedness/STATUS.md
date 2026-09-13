@@ -4,9 +4,14 @@ AuthorityEffect: None. Outside the sealed derivation; consumes it read-only.
 
 ## Terminal verdict
 
-`UNBOUNDEDNESS_TRAJECTORIES_PROVED`
+`XSTEP_UNBOUNDED_LEAN; ENGINE_DRIVER_TRAJECTORIES_PYTHON`
 
-Formal Lean 4 derivations in `research/unboundedness/lean/Unboundedness.lean` and deterministic engine simulations in `unboundedness.py` confirm that the mu2 quotient tree admits trajectories extending to depth >= n with data count >= n under external supply. Every transition of `EngineDriver` refines the permissive extension relation `XStep`. State cycling is ruled out by strict lexicographic monotonicity of `(data, len(reqs))`. Whole-tree quotient topology and branch fan width asymptotics remain open.
+An earlier status `UNBOUNDEDNESS_TRAJECTORIES_PROVED` treated Lean and Python as one result. That is WITHDRAWN.
+
+Split:
+- Lean: `xstep_unbounded_exists` is a wrapper of ignition's prescribed grow-grow-mark `runState`. Ignition already records that this construction is not a liveness proof for the Python minimum-response, fire-before-growth driver. `engineDriver_refines_xstep` is subset inclusion; unboundedness does not transfer along it, and under `mu2` the driver refuses `markDelta` once a form exists.
+- Python: `run_driver_trajectory` under `mu2` with supply enabled was observed to depth 50 with data 17 on both readings, all distinct classes. There is no Lean theorem that `EngineDriver` paths are unbounded.
+- Closed: `ClosedRun` bounds sit on `Nodup` and pair-wf; `closed_quiet_terminates` is about `EngineDriver m false` at a quiet state. Every infinite object here is handed in through `supply = true`.
 
 ## What is proved
 
@@ -26,9 +31,9 @@ Formal Lean 4 derivations in `research/unboundedness/lean/Unboundedness.lean` an
    - `good_has_inBounds_valid`: For any pair of distinct admitted data in a `Good` regime, the fresh-mark construction provides an in-bounds valid response within declared bounds (`max_items=2, max_arity=2`).
    - `quiet_state_extends_with_supply`: When external supply is enabled, every quiet regime admits extension by growth.
 
-4. **Permissive XStep unboundedness**:
+4. **Permissive XStep unboundedness** (prescribed block, not the driver):
    - `xstep_runState_data`, `xstep_runState_good`, `xstep_runHist_replays`: The permissive grow-grow-mark sequence `runState r k` reaches data count `r.data + 2 * k` while preserving the `Good` invariant and replaying through sealed steps.
-   - `xstep_unbounded_exists`: For each natural number `n`, there exists a regime reachable by replay from any good root with data count at least `r.data + n`.
+   - `xstep_unbounded_exists`: For each natural number `n`, there exists a regime reachable by replay from any good root with data count at least `r.data + n`. This is not a theorem about `EngineDriver`.
 
 5. **Carrier distinction**:
    - `data_count_injective`: Regimes with distinct data counts have non-isomorphic carrier sizes.
@@ -54,21 +59,21 @@ Formal Lean 4 derivations in `research/unboundedness/lean/Unboundedness.lean` an
    - `ClosedFixpoint.closed_driver_is_fire`: Under `supply = false`, every engine driver transition is a fire step; growth is refused.
    - `ClosedFixpoint.fire_demand_not_in_reqs`: In a good regime, the demand pair is not already in the requirement store.
    - `ClosedFixpoint.fire_reqs_length_succ`: Each fire step increments the requirement store length by exactly one.
-   - `ClosedFixpoint.closed_round_bound`, `closed_round_bound_from_empty`: Closed runs without external data growth satisfy the quadratic round bound.
-   - `ClosedFixpoint.reading_L_max_rounds`, `ClosedFixpoint.reading_F_max_rounds`: Reading L terminates in at most 1 round; Reading F terminates in at most 3 rounds.
+   - `ClosedFixpoint.closed_round_bound`, `closed_round_bound_from_empty`: A `ClosedRun` without external data growth satisfies the quadratic round bound under `Nodup` and ordered in-range pairs. No lemma here shows an `EngineDriver` path is a `ClosedRun`.
+   - `ClosedFixpoint.reading_L_max_rounds`, `ClosedFixpoint.reading_F_max_rounds`: any `ClosedRun` with `data = 2` and `reqs = []` has length <= 1; with `data = 3` and `reqs = []` has length <= 3. Names are mnemonic; cite by hypotheses.
    - `ClosedFixpoint.closed_quiet_terminates`: At a quiet state with supply disabled, no engine driver transition exists.
 
-10. **Limit path space uncountability and continuum cardinality (Lean 4)**:
-    - `Limits.cantor_diagonal_bool`: Proves constructive diagonalization on binary sequences.
-    - `Limits.seq_uncountable`: Proves no sequence covers `Nat → Fin c` for any branching alphabet `c ≥ 2`.
-    - `Limits.thread_uncountable`: Proves `Thread c` is uncountable ($2^{\aleph_0}$), precluding countable coverage.
-    - `Limits.not_surjective_nat_to_thread`: Proves no map `Nat → Thread c` is surjective.
-    - `Limits.thread_not_agrees_diagonal`: Establishes metric separation at scale $n + 1$ from candidate enumeration thread $T(n)$.
+10. **Non-enumerability of the already-infinitary thread space (Lean 4)**:
+    - `Continuum.diagonal_bool`: constructive diagonalization on binary sequences.
+    - `Continuum.seq_uncountable`: no sequence covers `Nat → Fin c` for any branching alphabet `c ≥ 2`.
+    - `Continuum.thread_uncountable`: no `Nat`-indexed family covers `Thread c`. An earlier line said this proved cardinality $2^{\aleph_0}$. That is WITHDRAWN.
+    - `Continuum.not_surjective_nat_to_thread`: no map `Nat → Thread c` is surjective.
+    - `Continuum.thread_not_agrees_diagonal`: the diagonal thread differs from `T n` at scale $n + 1`.
 
 ## What remains open
 
 1. **Continuous interval embedding / quotients**:
-   The thread space is totally disconnected (Cantor-like); obtaining real interval $[0, 1]$ or circle $S^1$ geometry requires explicit quotienting of boundary twins (which are currently separated at scale 1).
+   `twins_are_two_threads` refuses one identification. Obtaining real interval $[0, 1]$ or circle $S^1$ geometry requires explicit quotienting of boundary twins (which are currently separated at scale 1).
 2. **Branch fan widths**:
    Whether the branch fan width (number of quotient equivalence classes of valid minimum responses) remains uniformly bounded or grows with carrier size at deep layers remains uncalculated.
 3. **Continuation policies and higher bounds**:

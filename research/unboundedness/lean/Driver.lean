@@ -32,7 +32,7 @@ The formalization covers:
 5. **Driver paths**: sequences of driver transitions from an initial state
    (`DriverPath`, `good_path`, `path_replays`).
 6. **Liveness and prefix extension analysis**:
-   - Closed-system termination: when supply is disabled, quiet prefixes admit
+   - Closed-system termination: when supply is disabled, quiet prefixes have
      no transition (`quiet_no_driver_step`).
    - Fire-before-growth constraint: growth requires quiet states
      (`grow_step_quiet`).

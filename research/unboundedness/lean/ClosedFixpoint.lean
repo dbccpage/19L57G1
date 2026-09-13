@@ -34,14 +34,20 @@ We prove:
    requirement count by exactly one (`fire_reqs_length_succ`).
 4. **Carrier invariance**: Firing a response without a fresh datum preserves
    the carrier size (`fire_data_eq`).
-5. **Fixed-carrier round bound**: A closed run without external data growth
-   satisfies `2 * (r.reqs.length + rds.length) ≤ r.data * (r.data - 1)`
-   (`closed_round_bound`).
+5. **Fixed-carrier round bound**: A `ClosedRun` (not an `EngineDriver`
+   path) without external data growth satisfies
+   `2 * (r.reqs.length + rds.length) ≤ r.data * (r.data - 1)` under the
+   side conditions `r.reqs.Nodup` and `∀ q ∈ r.reqs, q.1 < q.2 ∧ q.2 < r.data`
+   (`closed_round_bound`). Those hypotheses are not discharged for an
+   engine-reachable regime in this package.
 6. **From empty requirements**: When the initial requirement store is empty,
    `2 * rds.length ≤ r.data * (r.data - 1)` (`closed_round_bound_from_empty`).
-7. **Finite fixpoint depths for Challenge regimes**:
-   - Reading L ($d_0 = 2$): at most 1 round (`reading_L_max_rounds`).
-   - Reading F ($d_0 = 3$): at most 3 rounds (`reading_F_max_rounds`).
+7. **Finite fixpoint depths under stated start hypotheses** (mnemonic names
+   only; cite by hypotheses, not by reading L/F):
+   - any `ClosedRun` with `data = 2` and `reqs = []` has length at most 1
+     (`reading_L_max_rounds`);
+   - any `ClosedRun` with `data = 3` and `reqs = []` has length at most 3
+     (`reading_F_max_rounds`).
 8. **Quiet fixpoint**: At a quiet state with supply disabled, no driver
    step exists (`closed_quiet_terminates`).
 
@@ -84,7 +90,9 @@ theorem fire_data_eq {m : Measure} {r t : Regime} {i j : Nat} {δ : List Item}
 /-! ## 2. Round Bounds on Closed Runs -/
 
 /-- AuthorityEffect: None.
-A closed run on a fixed carrier satisfies the quadratic round bound. -/
+A `ClosedRun` on a fixed carrier satisfies the quadratic round bound under
+`Nodup` and ordered in-range pairs. This is not a theorem about
+`EngineDriver m false`. -/
 theorem closed_round_bound {r t : Regime} {rds : List Round}
     (h : ClosedRun r rds t) (hn : r.reqs.Nodup)
     (hwf : ∀ q ∈ r.reqs, q.1 < q.2 ∧ q.2 < r.data) :
@@ -110,7 +118,8 @@ binding is not established in this package. Cite these by their hypotheses,
 not by their names. -/
 
 /-- AuthorityEffect: None.
-Reading L (data = 2, reqs = []) admits at most 1 closed round. -/
+Any closed run with `data = 2` and `reqs = []` has length at most 1.
+The name is mnemonic; nothing here binds the start to reading L. -/
 theorem reading_L_max_rounds {start finish : Regime} {rds : List Round}
     (hdata : start.data = 2) (hreqs : start.reqs = [])
     (h : ClosedRun start rds finish) : rds.length ≤ 1 := by
@@ -128,7 +137,8 @@ theorem no_two_closed_rounds_on_two_data {start finish : Regime}
   omega
 
 /-- AuthorityEffect: None.
-Reading F (data = 3, reqs = []) admits at most 3 closed rounds. -/
+Any closed run with `data = 3` and `reqs = []` has length at most 3.
+The name is mnemonic; nothing here binds the start to reading F. -/
 theorem reading_F_max_rounds {start finish : Regime} {rds : List Round}
     (hdata : start.data = 3) (hreqs : start.reqs = [])
     (h : ClosedRun start rds finish) : rds.length ≤ 3 := by

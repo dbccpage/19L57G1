@@ -388,26 +388,6 @@ the tape after `n` steps (`Observe.obs`).
   of CL-CP-08 would have to be shown to respect it, and that is not done here
   because there is no adapter to respect.
 
-### CL-CP-16 — uncountability of the thread space (Rung 3)
-
-- **Statement**: for any branching factor `c ≥ 2`, no sequence of threads covers
-  `Thread c` (`thread_uncountable`), and no function `Nat → Thread c` is surjective
-  (`not_surjective_nat_to_thread`).  For every candidate sequence `T`, the diagonal
-  thread disagrees with `T n` at scale `n + 1` (`thread_not_agrees_diagonal`,
-  `thread_diag_dist_pos`).  The limit path boundary has the cardinality of the
-  continuum ($2^{\aleph_0}$) and forms a complete, totally disconnected metric space.
-- **Hypotheses**: `2 ≤ c`.
-- **Novelty**: establishes Rung 3 of the finite-to-continuum convergence ladder.
-  Coupled with Cauchy completeness (`Metric.limit_converges`) and total
-  disconnectedness (`Limits.twins_are_two_threads`), the thread space is an
-  uncountable metric completion rather than a countable union of isolated rays.
-- **Evidence**: `Limits.cantor_diagonal_bool`, `Limits.flipFin_ne`,
-  `Limits.diagSeq_diff_at`, `Limits.seq_uncountable`, `Limits.diagThread_diff_seq`,
-  `Limits.thread_uncountable`, `Limits.not_surjective_nat_to_thread`,
-  `Limits.thread_not_agrees_diagonal`, `Limits.thread_diag_dist_pos`.
-- **Falsifier**: a surjective function `Nat → Thread c` for `c ≥ 2`.
-- **Obligation**: connected interval or circle identification is refused (CL-CP-15).
-
 ### CL-CP-11 — declared, and not delivered
 
 - **Topology, declared**: the thread space carries the product of the

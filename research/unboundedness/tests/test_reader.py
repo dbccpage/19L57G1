@@ -12,8 +12,10 @@ import sys
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT.parents[1] / "code"))
+REPO = ROOT.parents[1]
+sys.path.insert(0, str(REPO / "code"))
 sys.path.insert(0, str(ROOT.parent / "setting_translation"))
+sys.path.insert(0, str(ROOT.parent / "represented_execution"))
 sys.path.insert(0, str(ROOT))
 
 import control as ct  # noqa: E402
@@ -48,6 +50,8 @@ class TestReader(unittest.TestCase):
         AuthorityEffect: None.
         """
         C = demo_setting()
+        self.assertEqual(rd.nops(C), len(C.F.ops))
+        self.assertEqual(rd.nops(C), len(tr.encode(C.F).forms) - 3)
         g = rd.rprogram(C)
         s_initial = ct.State(g, 2, 0, (0,), 0, 5)
         # On tape with 1 entry, previous returns active datum
@@ -61,10 +65,10 @@ class TestReader(unittest.TestCase):
         self.assertEqual(rd.previous(s_step2), 1)
 
     def test_history_dependent_futures_exhibit(self) -> None:
-        """Exhibit two states with the same active datum but different tapes
+        """Exhibit two states with the same active datum and tapes of length 2
         yielding different enablements, successors, and futures.
 
-        AuthorityEffect: None.
+        AuthorityEffect: None. Requires ``len(tape) >= 2``.
         """
         C = demo_setting()
         g = rd.rprogram(C)
