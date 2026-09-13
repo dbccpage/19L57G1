@@ -10,6 +10,8 @@ PY_DIR = Path(__file__).resolve().parent.parent
 if str(PY_DIR) not in sys.path:
     sys.path.insert(0, str(PY_DIR))
 
+from carrier import canonical, rename_regime
+from derivation.model import EMPTY, AdmitDatum, AdmitForm, AdmitInst, step
 from obstruction import (
     capability_cost_coboundary_check,
     evaluate_potential_descent,
@@ -19,15 +21,29 @@ from obstruction import (
 
 
 def test_potential_descent_obstruction() -> None:
-    # On coordinate transposition edge, quotient keys coincide: q_after == q_before
-    quotient_pot = lambda k: 42  # Any potential function on quotient states
-    q_key = ("key_alpha", 123)
+    r = step(EMPTY, AdmitDatum("x"))
+    r = step(r, AdmitDatum("y"))
+    r = step(r, AdmitForm(2))
+    r = step(r, AdmitInst(0, (0, 1)))
+    k_before = canonical(r)
+    k_after = canonical(rename_regime(r, [1, 0]))
+    assert k_before == k_after
 
-    res = evaluate_potential_descent(quotient_pot, q_key, q_key, omega_sgn_val=1)
+    def quotient_pot(k: object) -> int:
+        return hash(k) % 97
+
+    res = evaluate_potential_descent(quotient_pot, k_before, k_after, omega_sgn_val=1)
     assert res["quotient_keys_coincide"] is True
     assert res["delta0_pullback"] == 0
     assert res["obstruction_difference"] == 1
     assert res["descent_obstructed"] is True
+
+
+def test_findings_cites_scale_dynamics_for_twins() -> None:
+    findings = Path(__file__).resolve().parents[2] / "FINDINGS.md"
+    body = findings.read_text(encoding="utf-8")
+    assert "ScaleDynamics.twins_differ_at_scale_one" in body
+    assert "twins_differ_at_scale_one` in `Limits.lean`" not in body
 
 
 def test_mod2_coxeter_homology_class() -> None:

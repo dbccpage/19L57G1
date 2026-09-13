@@ -7,7 +7,7 @@ Location: NEITHER (on machine observables) / CARRIER (conditional auxiliary sear
 ### Detailed Verdict Breakdown
 1. **Certified Machine Observables (SIGN-ABSENT / NEITHER):**
    Across the object-level state space quotiented by equivalence in `code/derivation/model.py` and `code/derivation/iso.py`, the derivation machine evaluates to parity-blind:
-   - On the carrier: `canonical(rename(r, pi)) = canonical(r)` holds identically for all coordinate permutations $\pi \in S(n)$ (Theorem 2.1 in `Carrier.lean`). Canonical serialization completely discards presentation tokens and coordinate arrival ordering. Every certified state predicate and transition rule factors through `canonical`, ensuring that every sign-equivariant observable vanishes ($f(r) = -f(r) \implies f(r) = 0$).
+   - On the carrier: `canonical(rename(r, pi)) = canonical(r)` holds on sealed `iso.canonical` for the regimes exercised in `python/tests/test_carrier.py`. Nested Lean `Carrier.canonical_orbit_invariance` is the same identity on a miniature `Regime` whose `canonical` is `structureKey` (proof `rfl`); it is not a transport of sealed `iso.canonical`. Every certified state predicate and transition rule factors through `canonical`, ensuring that every sign-equivariant observable vanishes ($f(r) = -f(r) \implies f(r) = 0$) (`Carrier.carrier_parity_blind`).
    - On the operational history: fresh data admissions generate Young subgroups $W_{\mathrm{data}} \le S(N)$ whose arrival order is erased by canonical replay (`canonical(replay(tau . H)) = canonical(replay(H))`). For general $m \ge 4$ distinct-arity forms, canonical key fibers are 100% parity-balanced ($[+1, -1]$), demonstrating that the machine state space evaluates relational arity profiles rather than permutation parity.
    - All three Charter Kill Conditions fire, confirming the refutation of the thesis on certified machine states.
 
@@ -50,13 +50,13 @@ The obstruction class is the discrete presentation-to-quotient non-descent poten
 Does not exist at the premise level.
 
 1. **Finite Scale Bonding Rectangular Rank Defect:**
-   The scale recursion is the finite bonding projection $\mathrm{bond}_{c, n}: \mathrm{Stage}(c, n+1) \to \mathrm{Stage}(c, n)$ on $\mathrm{Stage}(c, n) = \mathrm{Fin}(n) \to \mathrm{Fin}(c)$ (`Limits.lean`).
+   The scale recursion is the finite bonding projection $\mathrm{bond}_{c, n}: \mathrm{Stage}(c, n+1) \to \mathrm{Stage}(c, n)$ on $\mathrm{Stage}(c, n) = \mathrm{Fin}(n) \to \mathrm{Fin}(c)$ (`ScaleDynamics.lean`; the same bonding shape is the one consumed from `Limits.lean`, not a theorem of this tree).
    For alphabet size $c \ge 2$, finite bonding is an irreversible rectangular projection from dimension $c^{n+1}$ to $c^n$. The rank defect:
    $$\Delta_n = c^{n+1} - c^n = c^n(c - 1) > 0$$
    is strictly positive for all $n \ge 0$. Because the domain and codomain have different dimensions ($c^{n+1} > c^n$), finite bonding is not an endomorphism (square operator). Continuous 1-parameter semigroups $e^{-tH}$ require square operators, precluding infinitesimal generators at the finite premise level (Charter Kill Condition 3 fires).
 
 2. **Cantor Thread Space and Twin Separation:**
-   On projective limit thread space $\mathrm{Thread}(c) = \lim_{\leftarrow} \mathrm{Stage}(c, n)$, the projective limit shift acts on a totally disconnected topological space. Dyadic twin threads remain separated at scale 1 (`twins_differ_at_scale_one` in `Limits.lean`), refusing interval or continuum completions without an explicit adapter quotient. Continuous paths $[0, 1] \to \mathrm{Thread}(c)$ are constant, precluding non-trivial continuous flows on thread space without purchasing the continuum outright.
+   On projective limit thread space $\mathrm{Thread}(c) = \lim_{\leftarrow} \mathrm{Stage}(c, n)$, the projective limit shift acts on a totally disconnected topological space. Dyadic twin threads remain separated at scale 1 (`ScaleDynamics.twins_differ_at_scale_one`), refusing interval or continuum completions without an explicit adapter quotient. Continuous paths $[0, 1] \to \mathrm{Thread}(c)$ are constant, precluding non-trivial continuous flows on thread space without purchasing the continuum outright.
 
 3. **Positivity Equivalence Refutation (Target B5 Structural Gap):**
    Limit measure positivity and admission permutation sign decouple:
