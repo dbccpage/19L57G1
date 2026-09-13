@@ -74,10 +74,11 @@ research Lean builds are invoked separately. The table names their entry points.
 | `thinghood` | local receipt only | none | test_*.py | none |
 | `two_sided_commitment` | local receipt only | `verify_pins.py` | test_*.py | none |
 | `typed_translation` | workflow (gate 11) | `verify_lean.py`, `verify_pins.py`, `verify_prose.py` | tests/ | manual receipt (`verify_lean.py`) |
+| `unboundedness` | local receipt only | `verify_sources.py`, `verify_lean.py` | test_*.py | manual receipt (`verify_lean.py`) |
 | `x303_bounded_agency` | local receipt only | `verify.py` | tests/ | manual receipt (`verify.py`) |
 | `x310_vertical_integration` | local receipt only | `verify.py` | tests/ | manual receipt (`verify.py`) |
 
-13 trees are wired; 45 are local receipts only.
+13 trees are wired; 46 are local receipts only.
 
 ## Hand copies
 
@@ -86,9 +87,9 @@ changed; there is no shared helper, and a defect fixed in one copy stays
 live in the others until carried by hand (the primed-name report parser was
 one such defect).  The copies to touch on a defect:
 
-* `verify_sources.py`: `coherent_process_limits`, `ignition`, `local_reuse`, `magnification`, `reachable`, `record_reading`, `represented_execution`, `setting_translation`
+* `verify_sources.py`: `coherent_process_limits`, `ignition`, `local_reuse`, `magnification`, `reachable`, `record_reading`, `represented_execution`, `setting_translation`, `unboundedness`
 * `verify_pins.py`: `balance_carrier`, `blind_restart`, `boundary_seed`, `closed_family`, `convention_price`, `described_replay`, `family_embedding`, `fresh_characters`, `identification_dual`, `limit_and_observer`, `natural_sections`, `observer_visibility`, `partial_decide`, `path_dependent_cost`, `portable_interface`, `reach_additivity`, `reach_measure`, `s9_obligations`, `second_inheritance`, `second_nofirst`, `second_stake`, `second_stream`, `side_free`, `sign_slice`, `standing_commitment`, `two_sided_commitment`, `typed_translation`
-* `verify_lean.py`: `admission_sign_shadow`, `balance_carrier`, `boundary_seed`, `closed_family`, `coherent_process_limits`, `convention_price`, `described_replay`, `family_embedding`, `fresh_characters`, `ignition`, `limit_and_observer`, `local_reuse`, `magnification`, `natural_sections`, `observer_visibility`, `path_dependent_cost`, `primitive_difference_tower`, `reach_additivity`, `reach_measure`, `reachable`, `record_reading`, `represented_execution`, `s9_obligations`, `second_nofirst`, `setting_translation`, `side_free`, `standing_commitment`, `typed_translation`
+* `verify_lean.py`: `admission_sign_shadow`, `balance_carrier`, `boundary_seed`, `closed_family`, `coherent_process_limits`, `convention_price`, `described_replay`, `family_embedding`, `fresh_characters`, `ignition`, `limit_and_observer`, `local_reuse`, `magnification`, `natural_sections`, `observer_visibility`, `path_dependent_cost`, `primitive_difference_tower`, `reach_additivity`, `reach_measure`, `reachable`, `record_reading`, `represented_execution`, `s9_obligations`, `second_nofirst`, `setting_translation`, `side_free`, `standing_commitment`, `typed_translation`, `unboundedness`
 * `run.py`: `coherent_process_limits`, `ignition`, `local_reuse`, `magnification`, `record_reading`, `represented_execution`, `setting_translation`
 * `verify.py`: `coherent_process_limits`, `ignition`, `magnification`, `reachable`, `record_reading`, `represented_execution`, `setting_translation`
 

@@ -1,0 +1,60 @@
+name = "unboundedness"
+version = "0.1.0"
+defaultTargets = [
+  "Driver",
+  "Unboundedness",
+  "CostFloor",
+  "ClosedFixpoint",
+  "Metric",
+  "Continuum",
+  "TwoLociSystem",
+  "Reader",
+  "Inventory",
+]
+
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+[[require]]
+name = "local_reuse"
+path = "../../local_reuse/lean"
+
+[[require]]
+name = "ignition"
+path = "../../ignition/lean"
+
+[[require]]
+name = "represented_execution"
+path = "../../represented_execution/lean"
+
+[[require]]
+name = "coherent_process_limits"
+path = "../../coherent_process_limits/lean"
+
+[[lean_lib]]
+name = "Driver"
+
+[[lean_lib]]
+name = "Unboundedness"
+
+[[lean_lib]]
+name = "CostFloor"
+
+[[lean_lib]]
+name = "ClosedFixpoint"
+
+[[lean_lib]]
+name = "Metric"
+
+[[lean_lib]]
+name = "Continuum"
+
+[[lean_lib]]
+name = "TwoLociSystem"
+
+[[lean_lib]]
+name = "Reader"
+
+[[lean_lib]]
+name = "Inventory"
