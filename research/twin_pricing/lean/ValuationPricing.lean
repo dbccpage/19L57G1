@@ -12,7 +12,7 @@ Formalization of Requirement R2 (Targets 1 & 2):
 - Closed-form cumulative pricing: `Sigma mu1(N) = 2^N - 1` and `Sigma mu2(N) = (N - 1) * 2^N + 1`
 - Asymptotic divergence: strictly positive growth and unboundedness under both measures
 - Markov cylinder weighted measure: constant weight 1/2 per scale, producing linear divergence
-- Fundamental Theorem: The continuum carries an infinite operational price under mu1 and mu2
+- Tariff Price Divergence: Cumulative cost sequences diverge under the declared per-pair measures mu1 and mu2
 
 Axioms: strictly within {propext, Quot.sound}, zero mathlib, zero unproved claims.
 AuthorityEffect: None.

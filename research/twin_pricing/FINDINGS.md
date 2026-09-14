@@ -36,7 +36,7 @@ The algebraic, topological, and valuation profile of the dyadic twin adapter quo
    Distinct quotient points admit thread representatives that are not related under `TwinRel` (`QuotientTopology.quotient_points_distinct_iff`, `QuotientTopology.distinct_quotient_points_representatives_non_equivalent`). Formal Hausdorff separation (the existence of disjoint open neighborhoods in the quotient topology) is not established here and remains an open obligation.
 
 5. **Dyadic Valuation Error Vanishing**:
-   For every origin scale $n \ge 1$ and additional depth $k \ge 0$, the integer valuation difference between upper and lower twin representations is identically 1 unit (`QuotientTopology.dyadic_valuation_difference_at_depth`, `QuotientTopology.dyadic_valuation_difference_normalized`). The normalized valuation difference $2^{-(n+k)}$ vanishes as resolution depth $k \to \infty$.
+   For every origin scale $n \ge 1$ and additional depth $k \ge 0$, the integer valuation difference between upper and lower twin representations is identically 1 unit (`QuotientTopology.dyadic_valuation_difference_at_depth`, `QuotientTopology.dyadic_valuation_integer_difference`). The normalized valuation difference $2^{-(n+k)}$ vanishes as resolution depth $k \to \infty$.
 
 ---
 
@@ -131,7 +131,7 @@ The following specific findings would have altered the conclusions:
 | **R1.13a** | Hausdorff separation (disjoint open neighborhoods) | Open Obligation | N/A | N/A | Open |
 | **R1.14** | Scale 1 valuation difference is 1 | Theorem | `QuotientTopology.scale_one_valuation_difference` | `propext`, `Quot.sound` | Verified |
 | **R1.15** | Dyadic valuation difference identically 1 at all depths | Theorem | `QuotientTopology.dyadic_valuation_difference_at_depth` | `propext`, `Quot.sound` | Verified |
-| **R1.16** | Normalized representation error difference is 1 | Theorem | `QuotientTopology.dyadic_valuation_difference_normalized` | `propext`, `Quot.sound` | Verified |
+| **R1.16** | Unscaled integer valuation difference is 1 | Theorem | `QuotientTopology.dyadic_valuation_integer_difference` | `propext`, `Quot.sound` | Verified |
 | **R2.1** | Base 2 twin count is $2^{n-1}$ | Theorem | `ValuationPricing.twinCount_base2` | None | Verified |
 | **R2.2** | Twin count strictly positive | Theorem | `ValuationPricing.twinCount_strictly_positive` | `propext`, `Quot.sound` | Verified |
 | **R2.3** | Scale $\mu_1$ cost is $2^{n-1}$ | Theorem | `ValuationPricing.mu1Scale_base2` | None | Verified |

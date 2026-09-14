@@ -1,16 +1,18 @@
 import TwinRelation
 
 /-!
-# QuotientTopology: Connectedness and Hausdorff Separation of the Twin Adapter Quotient
+# QuotientTopology: Predicate Transport and Algebraic Separation of the Twin Adapter Quotient
 
 Formalization of Requirement R1 (Target 2):
 - The adapter quotient space `TwinQuotient c := Quot (TwinRel c)`
 - Collapse of adjacent cylinder boundaries in the quotient: `toQuotient t_lo = toQuotient t_hi`
 - Destruction of clopen partitions: adjacent cylinders glue together at boundary twins
 - Connected chain of cylinders: every finite stage forms a connected line graph in the quotient
-- Topological connectedness theorem: non-existence of non-trivial clopen decompositions
-- Hausdorff quotient separation certificate: distinct quotient fibers have disjoint open neighborhoods
-- Dyadic valuation bridge: representation error between twins vanishes as scale -> infty
+- Predicate transport lemma: properties respecting the relation transport across twin identifications
+  (Note: formal topological connectedness under a quotient topology remains an open obligation)
+- Algebraic separation: distinct quotient points have non-equivalent representatives
+  (Note: formal Hausdorff separation under a quotient topology remains an open obligation)
+- Dyadic valuation bridge: integer representation difference between twins is identically 1 across all scales and depths
 
 Axioms: strictly within {propext, Quot.sound}, zero mathlib, zero unproved claims.
 AuthorityEffect: None.
@@ -126,7 +128,7 @@ theorem adjacent_cylinders_glue (c : Nat) (hc : c ≥ 2) (n : Nat) (hn : n ≥ 1
   · refine ⟨twinHiThread c hc n hn w a ha, twinHi_in_hiPrefix c hc n hn w a ha, ?_⟩
     exact (twin_collapse_in_quotient c hc n hn w a ha).symm
 
-/-! ## 3. Destruction of Clopen Partitions and Connectedness -/
+/-! ## 3. Destruction of Clopen Partitions and Predicate Transport -/
 
 /-- In Cantor thread space, the cylinder set for symbol 0 and its complement partition Thread 2. -/
 def scaleOneCylinder0 : Thread 2 → Prop :=
@@ -298,9 +300,10 @@ theorem dyadic_valuation_difference_at_depth (n : Nat) (hn : n ≥ 1)
       rw [h_hi_sym, h_lo_sym, ih]
       omega
 
-/-- Normalized Dyadic Valuation Error Difference:
-    The integer difference between upper and lower twin representations is exactly 1 at all depths n + k. -/
-theorem dyadic_valuation_difference_normalized (n : Nat) (hn : n ≥ 1)
+/-- Dyadic Valuation Integer Difference:
+    The unscaled integer numerator difference between upper and lower twin representations
+    is identically 1 unit (representing metric difference 2^{-(n+k)}) at all depths n + k. -/
+theorem dyadic_valuation_integer_difference (n : Nat) (hn : n ≥ 1)
     (w : Fin (n - 1) → Fin 2) (a : Fin 2) (ha : a.val + 1 < 2) (k : Nat) :
     dyadicValInt (n + k) (twinHiSeq 2 (by decide) n hn w a ha) -
     dyadicValInt (n + k) (twinLoSeq 2 (by decide) n hn w a) = 1 := by

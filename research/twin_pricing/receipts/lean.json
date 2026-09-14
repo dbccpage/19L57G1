@@ -17,7 +17,7 @@
       "Quot.sound",
       "propext"
     ],
-    "QuotientTopology.dyadic_valuation_difference_normalized": [
+    "QuotientTopology.dyadic_valuation_integer_difference": [
       "Quot.sound",
       "propext"
     ],
@@ -119,10 +119,10 @@
     ]
   },
   "source_hashes": {
-    "Inventory.lean": "42dcbbbd34147279b5df61918935c9770ab9f057038e1d43bd20c542775159e3",
-    "QuotientTopology.lean": "9e646dbcd68a19706e5ec82d43f1dfd8255c91e45a86a679e0ddc4ee68422392",
-    "TwinRelation.lean": "9d872ba58a364d80efe12c126c0da348f4b6132d29b2e9c6d5a4383f94cc89f8",
-    "ValuationPricing.lean": "50f9b5b55b6b3197531be2736503ee4731897f8a688b57b7d76e14150e46768d",
+    "Inventory.lean": "28974833ae4ac625ab5d1681ded665f49b6e49c01b20cf365a95d6cae08c6790",
+    "QuotientTopology.lean": "c35fdd3617231ef82bd2790fb41f4f8eb7fcbc6b0033774127ad8e15d02a9573",
+    "TwinRelation.lean": "6c339677846b12e6ec8f9b90f8f93b33a13d1d9044b8f70fd5dd26451892bf1c",
+    "ValuationPricing.lean": "81673eee5144b0550e2439194a32f34f70f09a4f1d307b6d082633bb4b938b51",
     "lakefile.lean": "a33846179eeeaadba2fe495adfe97ebde7bc2bfa4b95a7e0309cbe96bb23c7a9"
   },
   "terminal": "ENUMERATIVE_TWIN_PRICE_DIVERGENT"

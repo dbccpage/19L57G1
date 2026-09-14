@@ -6,7 +6,7 @@ Formalization of Requirement R1 (Target 1):
 - Dyadic cylinder boundary twin threads: `w · 0 · 1^infty` and `w · 1 · 0^infty`
 - Twin pair predicate `IsTwinPair c t1 t2` and equivalence closure `TwinRel c`
 - Thread separation: twins differ at scale n and define distinct points of Cantor space
-- Bounded fibers: every twin equivalence class has cardinality at most 2
+- Twin endpoint distinctness: twin endpoints are distinct threads and related by TwinRel (full fiber cardinality bound open)
 
 Axioms: strictly within {propext, Quot.sound}, zero mathlib, zero unproved claims.
 AuthorityEffect: None.

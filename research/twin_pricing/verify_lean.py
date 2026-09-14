@@ -24,7 +24,7 @@ THEOREMS = (
     "QuotientTopology.distinct_quotient_points_representatives_non_equivalent",
     "QuotientTopology.scale_one_valuation_difference",
     "QuotientTopology.dyadic_valuation_difference_at_depth",
-    "QuotientTopology.dyadic_valuation_difference_normalized",
+    "QuotientTopology.dyadic_valuation_integer_difference",
     "ValuationPricing.twinCount_base2",
     "ValuationPricing.twinCount_strictly_positive",
     "ValuationPricing.mu1Scale_base2",

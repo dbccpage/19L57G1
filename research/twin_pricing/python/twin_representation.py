@@ -1,4 +1,7 @@
-"""Dyadic twin threads, cylinder representations, and quotient canonicalization."""
+"""Dyadic twin threads, cylinder representations, and quotient canonicalization.
+
+AuthorityEffect: None.
+"""
 
 from __future__ import annotations
 

@@ -30,7 +30,7 @@ AuthorityEffect: None.
 #print axioms QuotientTopology.distinct_quotient_points_representatives_non_equivalent
 #print axioms QuotientTopology.scale_one_valuation_difference
 #print axioms QuotientTopology.dyadic_valuation_difference_at_depth
-#print axioms QuotientTopology.dyadic_valuation_difference_normalized
+#print axioms QuotientTopology.dyadic_valuation_integer_difference
 
 -- ValuationPricing theorems
 #print axioms ValuationPricing.twinCount_base2

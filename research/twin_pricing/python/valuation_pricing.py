@@ -1,4 +1,7 @@
-"""Operational valuation pricing algorithms under capability cost mu1 and history cost mu2."""
+"""Operational valuation pricing algorithms under capability cost mu1 and history cost mu2.
+
+AuthorityEffect: None.
+"""
 
 from __future__ import annotations
 
