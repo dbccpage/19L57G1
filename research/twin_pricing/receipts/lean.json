@@ -1,0 +1,129 @@
+{
+  "allowed_axioms": [
+    "Quot.sound",
+    "propext"
+  ],
+  "authority_effect": null,
+  "axiom_inventory": {
+    "QuotientTopology.adjacent_cylinders_glue": [
+      "Quot.sound",
+      "propext"
+    ],
+    "QuotientTopology.distinct_quotient_points_representatives_non_equivalent": [
+      "Quot.sound",
+      "propext"
+    ],
+    "QuotientTopology.dyadic_valuation_difference_at_depth": [
+      "Quot.sound",
+      "propext"
+    ],
+    "QuotientTopology.dyadic_valuation_integer_difference": [
+      "Quot.sound",
+      "propext"
+    ],
+    "QuotientTopology.locally_constant_chain": [
+      "Quot.sound",
+      "propext"
+    ],
+    "QuotientTopology.quotient_destroys_clopen_separation": [
+      "Quot.sound",
+      "propext"
+    ],
+    "QuotientTopology.quotient_points_distinct_iff": [
+      "Quot.sound",
+      "propext"
+    ],
+    "QuotientTopology.scale_one_valuation_difference": [
+      "Quot.sound",
+      "propext"
+    ],
+    "QuotientTopology.separation_quotient_contrast": [
+      "Quot.sound",
+      "propext"
+    ],
+    "QuotientTopology.twin_collapse_in_quotient": [
+      "Quot.sound",
+      "propext"
+    ],
+    "QuotientTopology.twin_collapse_predicate_transport": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwinRelation.scale_one_twins_differ": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwinRelation.twin_pair_distinct_and_related": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwinRelation.twins_are_distinct": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwinRelation.twins_are_related": [
+      "Quot.sound",
+      "propext"
+    ],
+    "TwinRelation.twins_differ_at_scale": [
+      "Quot.sound",
+      "propext"
+    ],
+    "ValuationPricing.continuum_price_infinite": [
+      "Quot.sound",
+      "propext"
+    ],
+    "ValuationPricing.cumulative_mu1_formula": [
+      "Quot.sound",
+      "propext"
+    ],
+    "ValuationPricing.cumulative_mu1_unbounded": [
+      "Quot.sound",
+      "propext"
+    ],
+    "ValuationPricing.cumulative_mu2_formula": [
+      "Quot.sound",
+      "propext"
+    ],
+    "ValuationPricing.cumulative_mu2_unbounded": [
+      "Quot.sound",
+      "propext"
+    ],
+    "ValuationPricing.finite_stage_price_finite": [
+      "Quot.sound",
+      "propext"
+    ],
+    "ValuationPricing.markov_obstruction_diverges": [],
+    "ValuationPricing.markov_obstruction_unbounded": [
+      "Quot.sound",
+      "propext"
+    ],
+    "ValuationPricing.markov_weighted_scale_identity": [
+      "Quot.sound",
+      "propext"
+    ],
+    "ValuationPricing.mu1Scale_base2": [],
+    "ValuationPricing.mu1_strictly_divergent": [
+      "Quot.sound",
+      "propext"
+    ],
+    "ValuationPricing.mu2Scale_base2": [],
+    "ValuationPricing.mu2_strictly_divergent": [
+      "Quot.sound",
+      "propext"
+    ],
+    "ValuationPricing.twinCount_base2": [],
+    "ValuationPricing.twinCount_strictly_positive": [
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "source_hashes": {
+    "Inventory.lean": "6ff182253c8e3f199a1a717a1d3783403e50d2f691602229e616aed48f0e8b4d",
+    "QuotientTopology.lean": "5f838fe20c0d54e58c3ce0ff949156b29e04e2e69cca09f261db2f2cfbf8187d",
+    "TwinRelation.lean": "3c6ac3cc892bea61bc71b454e0e84272a3a8b805759fb5bf1b05339f2895c4e3",
+    "ValuationPricing.lean": "5113668c59ae0201ed5ddfd90279b4f16d8d1f06cdf3a2927500b62057ef0fd4",
+    "lakefile.lean": "3681bd59ba38f20fb90997086d06e3c82e4730b4baddb140f6e7a22005602001"
+  },
+  "terminal": "ENUMERATIVE_TWIN_PRICE_DIVERGENT"
+}
