@@ -13,6 +13,21 @@ _CODE_DIR = _REPO_ROOT / "code"
 if _CODE_DIR.is_dir() and str(_CODE_DIR) not in sys.path:
     sys.path.insert(0, str(_CODE_DIR))
 
+from .dissipative_cycle import (
+    AttractorClassification,
+    AttractorClassifier,
+    AutonomousStepper,
+    CarrierGraph,
+    Cycle,
+    CycleDetector,
+    PathResult,
+    PruningReport,
+    StateSpacePruner,
+    Transition,
+    canonical_cycle,
+    deterministic_key,
+    find_all_cycles_autonomous,
+)
 from .internal_quotienting import (
     Divergence,
     EquivalenceClass,
@@ -115,5 +130,18 @@ __all__: list[str] = [
     "create_dyadic_movegraph",
     "create_dyadic_projective_system",
     "verify_commutativity",
+    "AttractorClassification",
+    "AttractorClassifier",
+    "AutonomousStepper",
+    "CarrierGraph",
+    "Cycle",
+    "CycleDetector",
+    "PathResult",
+    "PruningReport",
+    "StateSpacePruner",
+    "Transition",
+    "canonical_cycle",
+    "deterministic_key",
+    "find_all_cycles_autonomous",
 ]
 

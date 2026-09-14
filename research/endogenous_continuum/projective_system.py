@@ -819,7 +819,7 @@ class ProjectiveSystem:
                         direct_bound = d_uv + d_vw
                         if d_uw is None:
                             defects.append(
-                                f"Reachability anomaly: path u->v and v->w exist but u->w unreachable: "
+                                f"Reachability defect: path u->v and v->w exist but u->w unreachable: "
                                 f"d({u!r}, {v!r})={d_uv}, d({v!r}, {w!r})={d_vw}"
                             )
                         elif d_uw > direct_bound:

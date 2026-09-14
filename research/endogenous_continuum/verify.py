@@ -207,8 +207,25 @@ def run_lean() -> dict[str, Any]:
     return {"build_status": "PASS"}
 
 
+def run_prose_watchlist() -> None:
+    watchlist_script = REPO_ROOT / "ci" / "check_prose_watchlist.py"
+    if watchlist_script.is_file():
+        print(f"== Running prose watchlist check: {watchlist_script.name}")
+        proc = subprocess.run(
+            [sys.executable, str(watchlist_script)],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if proc.returncode != 0:
+            raise RuntimeError(f"Prose watchlist check failed ({proc.returncode}):\n{proc.stdout}\n{proc.stderr}")
+        print("PASS: prose watchlist clean")
+
+
 def verify() -> dict[str, Any]:
     print("=== Starting Target: Endogenous Continuum Verification ===")
+    run_prose_watchlist()
     hashes = check_source_hygiene()
     custody_res = run_source_verification()
     pytest_res = run_pytest()

@@ -72,7 +72,7 @@ Axioms: strictly within {propext, Quot.sound}.
 -- ============================================================================
 #print axioms InternalQuotienting.local_joinability
 #print axioms InternalQuotienting.normal_form_unique
-#print axioms InternalQuotienting.newman_lemma
+#print axioms InternalQuotienting.local_to_global_confluence
 #print axioms InternalQuotienting.normal_form_unique_of_terminating
 #print axioms InternalQuotienting.endogenous_equivalence_refl
 #print axioms InternalQuotienting.endogenous_equivalence_symm

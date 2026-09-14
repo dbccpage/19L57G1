@@ -7,12 +7,12 @@
 
 This module formalizes an endogenous equivalence relation via local confluent rewrite rules,
 replacing external global canonical orbit minimizers with constructive local confluence,
-Newman's lemma, and joinability arguments.
+local-to-global confluence, and joinability arguments.
 
 Key results:
 1. `local_joinability`: one-step divergences are joinable under local confluence.
 2. `normal_form_unique`: confluent rewrites produce identical normal forms.
-3. `newman_lemma`: local confluence and termination yield global confluence.
+3. `local_to_global_confluence`: local confluence and termination yield global confluence.
 4. `endogenous_equivalence_refl`: Eqv is reflexive.
 5. `endogenous_equivalence_symm`: Eqv is symmetric.
 6. `endogenous_equivalence_trans`: Eqv is transitive.
@@ -96,15 +96,15 @@ theorem normal_form_unique {Carrier : Type} (Step : Carrier → Carrier → Prop
   exact e1.trans e2.symm
 
 -- ============================================================================
--- 3. Termination and Newman's Lemma
+-- 3. Termination and Local-to-Global Confluence
 -- ============================================================================
 
 /-- Termination (strong normalization): accessibility of all states under Step. -/
 def IsTerminating {Carrier : Type} (Step : Carrier → Carrier → Prop) : Prop :=
   ∀ x, Acc (fun y x => Step x y) x
 
-/-- Newman's Lemma: constructive derivation of global confluence from local confluence and termination. -/
-theorem newman_lemma {Carrier : Type} (Step : Carrier → Carrier → Prop)
+/-- Constructive derivation of global confluence from local confluence and termination. -/
+theorem local_to_global_confluence {Carrier : Type} (Step : Carrier → Carrier → Prop)
     (h_term : IsTerminating Step) (h_lc : IsLocallyConfluent Step) :
     IsConfluent Step := by
   intro x
@@ -131,7 +131,7 @@ theorem normal_form_unique_of_terminating {Carrier : Type} (Step : Carrier → C
     (h1 : ReflTransStep Step x n1) (h2 : ReflTransStep Step x n2)
     (hnf1 : IsNormalForm Step n1) (hnf2 : IsNormalForm Step n2) :
     n1 = n2 :=
-  normal_form_unique Step (newman_lemma Step h_term h_lc) h1 h2 hnf1 hnf2
+  normal_form_unique Step (local_to_global_confluence Step h_term h_lc) h1 h2 hnf1 hnf2
 
 -- ============================================================================
 -- 4. Endogenous Equivalence Relation
@@ -251,7 +251,7 @@ theorem external_minimizer_subsumption {Carrier : Type} (Step : Carrier → Carr
 
 #print axioms local_joinability
 #print axioms normal_form_unique
-#print axioms newman_lemma
+#print axioms local_to_global_confluence
 #print axioms normal_form_unique_of_terminating
 #print axioms endogenous_equivalence_refl
 #print axioms endogenous_equivalence_symm

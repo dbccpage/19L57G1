@@ -8,7 +8,7 @@ AuthorityEffect: None.
 2. Track 1 (Endogenous Observer Enclosure): Verification of local observation evaluation without external history prefix inspection, inductive preservation of internal trace invariants, and immutability of earlier records under forward transitions.
 3. Track 2 (Inverse Limit Projective System): Verification of functorial coarsening projections and invariance of operational pricing under arbitrary ambient embeddings, demonstrating operational pricing in discrete transition systems without postulating an ambient metric.
 4. Track 3 (Dissipative Cycle Filtering): Verification that strictly dissipative trajectories are acyclic and terminating, conservative potential cycles satisfy vanishing net potential change along closed loops, and transition activity remains strictly positive.
-5. Track 4 (Confluence-Driven Internal Quotienting): Constructive verification of Newman's lemma and canonical minimizer elimination, demonstrating that internal confluent reduction equivalence partitions states without relying on external global orbit minimizers.
+5. Track 4 (Confluence-Driven Internal Quotienting): Constructive verification of local-to-global confluence and canonical minimizer elimination, demonstrating that internal confluent reduction equivalence partitions states without relying on external global orbit minimizers.
 6. Exact rational and integer Python modeling across all four tracks, supported by 74 property-based and adversarial negative control tests rejecting float inputs, retrocausal tampering, non-commuting projections, broken cycles, and non-confluent systems.
 
 ## What it does not support

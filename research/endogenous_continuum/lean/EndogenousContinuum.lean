@@ -101,7 +101,7 @@ theorem coherent_thread_exists (s0 s1 : ProjectiveStage) (b : BondingMap s1 s0)
 -- 4. Track 3: Dissipative Cycle Filtering
 -- ============================================================================
 
-/-- Discrete transition step with energy/cost dissipation. -/
+/-- Discrete transition step with potential/cost dissipation. -/
 structure DissipativeStep (State : Type) where
   transition : State → State
   potential  : State → Nat

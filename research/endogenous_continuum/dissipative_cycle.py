@@ -207,6 +207,10 @@ class CarrierGraph(Generic[S]):
             raise KeyError(f"State {state} not found in CarrierGraph")
         return self._potentials[state]
 
+    def has_state(self, state: S) -> bool:
+        """Return True if state is registered in the graph."""
+        return state in self._potentials
+
     def states(self) -> tuple[S, ...]:
         """Return all registered states sorted by deterministic key."""
         return tuple(sorted(self._potentials.keys(), key=deterministic_key))
@@ -341,7 +345,7 @@ class AutonomousStepper(Generic[S]):
 
     def run_trajectory(self, initial_state: S, max_steps: int = 1000) -> PathResult[S]:
         """Execute stepping trajectory from initial_state until sink termination or cycle entry."""
-        if initial_state not in self.graph._potentials:
+        if not self.graph.has_state(initial_state):
             raise KeyError(f"Initial state {initial_state} not found in graph")
 
         visited_order: dict[S, int] = {initial_state: 0}
@@ -411,32 +415,34 @@ class AutonomousStepper(Generic[S]):
         )
 
 
+def find_all_cycles_autonomous(
+    graph: CarrierGraph[S],
+    stepper: AutonomousStepper[S] | None = None,
+) -> tuple[Cycle[S], ...]:
+    """Identify all unique cycles reachable under autonomous stepping dynamics."""
+    if stepper is None:
+        stepper = AutonomousStepper(graph)
+
+    detected_map: dict[tuple[S, ...], Cycle[S]] = {}
+    all_states = graph.states()
+    max_bound = len(all_states) + 2
+
+    for s in all_states:
+        res = stepper.run_trajectory(s, max_steps=max_bound)
+        if res.entered_cycle and res.cycle is not None:
+            detected_map[res.cycle.states] = res.cycle
+
+    sorted_cycles = sorted(
+        detected_map.values(),
+        key=lambda c: (c.period, deterministic_key(c.states[0])),
+    )
+    return tuple(sorted_cycles)
+
+
 class CycleDetector(Generic[S]):
     """Detects directed cycles in carrier graphs."""
 
-    @staticmethod
-    def find_all_cycles_autonomous(
-        graph: CarrierGraph[S],
-        stepper: AutonomousStepper[S] | None = None,
-    ) -> tuple[Cycle[S], ...]:
-        """Identify all unique cycles reachable under autonomous stepping dynamics."""
-        if stepper is None:
-            stepper = AutonomousStepper(graph)
-
-        detected_map: dict[tuple[S, ...], Cycle[S]] = {}
-        all_states = graph.states()
-        max_bound = len(all_states) + 2
-
-        for s in all_states:
-            res = stepper.run_trajectory(s, max_steps=max_bound)
-            if res.entered_cycle and res.cycle is not None:
-                detected_map[res.cycle.states] = res.cycle
-
-        sorted_cycles = sorted(
-            detected_map.values(),
-            key=lambda c: (c.period, deterministic_key(c.states[0])),
-        )
-        return tuple(sorted_cycles)
+    find_all_cycles_autonomous = staticmethod(find_all_cycles_autonomous)
 
 
 class AttractorClassifier(Generic[S]):
@@ -504,26 +510,48 @@ class StateSpacePruner(Generic[S]):
     """Iterative pruning engine stripping dead-end sinks and transient branches."""
 
     @staticmethod
+    def _strip_by_predicate(
+        graph: CarrierGraph[S],
+        predicate: Callable[[CarrierGraph[S], S], bool],
+    ) -> tuple[CarrierGraph[S], frozenset[S]]:
+        """Single pass removing states matching the given predicate."""
+        purged = frozenset(s for s in graph.states() if predicate(graph, s))
+        if not purged:
+            return graph, purged
+        retained = [s for s in graph.states() if s not in purged]
+        return graph.induced_subgraph(retained), purged
+
+    @classmethod
     def strip_sinks_single_round(
+        cls,
         graph: CarrierGraph[S],
     ) -> tuple[CarrierGraph[S], frozenset[S]]:
         """Single pass removing states with out_degree == 0."""
-        sinks = frozenset(s for s in graph.states() if graph.is_sink(s))
-        if not sinks:
-            return graph, sinks
-        retained = [s for s in graph.states() if s not in sinks]
-        return graph.induced_subgraph(retained), sinks
+        return cls._strip_by_predicate(graph, lambda g, s: g.is_sink(s))
 
-    @staticmethod
+    @classmethod
     def strip_transient_sources_single_round(
+        cls,
         graph: CarrierGraph[S],
     ) -> tuple[CarrierGraph[S], frozenset[S]]:
         """Single pass removing states with in_degree == 0."""
-        sources = frozenset(s for s in graph.states() if graph.is_source(s))
-        if not sources:
-            return graph, sources
-        retained = [s for s in graph.states() if s not in sources]
-        return graph.induced_subgraph(retained), sources
+        return cls._strip_by_predicate(graph, lambda g, s: g.is_source(s))
+
+    @classmethod
+    def _prune_iterative(
+        cls,
+        graph: CarrierGraph[S],
+        strip_fn: Callable[[CarrierGraph[S]], tuple[CarrierGraph[S], frozenset[S]]],
+    ) -> tuple[CarrierGraph[S], list[frozenset[S]]]:
+        """Iteratively strip states using strip_fn until a fixed point is reached."""
+        current = graph
+        rounds: list[frozenset[S]] = []
+        while True:
+            current, purged = strip_fn(current)
+            if not purged:
+                break
+            rounds.append(purged)
+        return current, rounds
 
     @classmethod
     def prune_dead_ends(
@@ -531,14 +559,7 @@ class StateSpacePruner(Generic[S]):
         graph: CarrierGraph[S],
     ) -> tuple[CarrierGraph[S], list[frozenset[S]]]:
         """Iteratively remove dead-end sinks until all remaining states have out_degree >= 1."""
-        current = graph
-        rounds: list[frozenset[S]] = []
-        while True:
-            current, purged = cls.strip_sinks_single_round(current)
-            if not purged:
-                break
-            rounds.append(purged)
-        return current, rounds
+        return cls._prune_iterative(graph, cls.strip_sinks_single_round)
 
     @classmethod
     def prune_transient_branches(
@@ -546,14 +567,7 @@ class StateSpacePruner(Generic[S]):
         graph: CarrierGraph[S],
     ) -> tuple[CarrierGraph[S], list[frozenset[S]]]:
         """Iteratively remove source states until all remaining states have in_degree >= 1."""
-        current = graph
-        rounds: list[frozenset[S]] = []
-        while True:
-            current, purged = cls.strip_transient_sources_single_round(current)
-            if not purged:
-                break
-            rounds.append(purged)
-        return current, rounds
+        return cls._prune_iterative(graph, cls.strip_transient_sources_single_round)
 
     @classmethod
     def prune_to_attractor_core(
