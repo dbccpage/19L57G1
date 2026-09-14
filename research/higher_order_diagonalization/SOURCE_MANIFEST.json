@@ -1,0 +1,34 @@
+{
+  "schema": "higher_order_diagonalization_source_manifest/v1",
+  "source_snapshot": {
+    "commit": "dfe649445403d7d0326594c918430ae5456b1f6b",
+    "tree": "67f2c6f4b52853cf32b5564a54f9f9ac90269c0d"
+  },
+  "sources": [
+    {
+      "path": "code/derivation/model.py",
+      "role": "sealed input",
+      "sha256": "6A7FD2BA9688D47E9291514C623A811CDE3C6B9E8FDA1D12A608DC9BB0B1F3C2"
+    },
+    {
+      "path": "code/derivation/iso.py",
+      "role": "sealed input",
+      "sha256": "B0F1F3BCF05126111A07706F4388A9FFF5E30455D4B8F127966CF99AB0D0886E"
+    },
+    {
+      "path": "code/derivation/observe.py",
+      "role": "sealed input",
+      "sha256": "78443D67E613D9CC9924538FE2E0A5ACAF81F4654440BFE8586E16652F0317BA"
+    },
+    {
+      "path": "research/diagonal_identity/lean/DiagonalIdentity/Dual.lean",
+      "role": "research input",
+      "sha256": "9F27DB9B6E27E4B807B6E8AED3C322C26E9029D80AF2A7F1C908EAC57FCDD2EA"
+    },
+    {
+      "path": "research/diagonal_identity/diagonal_identity.py",
+      "role": "research input",
+      "sha256": "6BF3C18A7E2623E40D8BB4EEAC09DC5E4948F4FCC547A5B68AEF623ABEF3472A"
+    }
+  ]
+}

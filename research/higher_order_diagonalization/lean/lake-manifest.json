@@ -1,0 +1,6 @@
+{"version": "1.2.0",
+ "packagesDir": ".lake/packages",
+ "packages": [],
+ "name": "higher_order_diagonalization",
+ "lakeDir": ".lake",
+ "fixedToolchain": false}

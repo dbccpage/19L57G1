@@ -1,0 +1,152 @@
+{
+  "allowed_axioms": [
+    "Quot.sound",
+    "propext"
+  ],
+  "authority_effect": null,
+  "axiom_inventory": {
+    "HigherOrderDiagonalization.bitsToNat_natToBits": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.canonSeq_zero_head": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.canon_seq_length": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.capacity_gap_asymptotic": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.capacity_gap_at_k_plus_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.capacity_gap_strictly_positive": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.compose_higher_order_respects_iso": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.diagonal_fiber_non_singleton": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.eval_lt_capacity": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.eval_respects_iso": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.filter_nodup": [
+      "propext"
+    ],
+    "HigherOrderDiagonalization.flip_seq_involutive": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.flip_seq_length": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.flip_token_involutive": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.higher_order_diagonal_duality": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.higher_order_diagonalization": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.iso_equivalence": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.iso_refl": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.iso_symm": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.iso_trans": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.length_filter_split": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.map_nodup_of_inj": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.natToBits_injective": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.natToBits_length": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.nodup_filter_eq_le_one": [
+      "propext"
+    ],
+    "HigherOrderDiagonalization.nodup_length_le": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.observer_equiv_coarsening": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.observer_equiv_equivalence": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.pigeonhole": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.prefixK_canon_respects_iso": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.testRegime_canon": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.testRegime_pairwise_non_isomorphic": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.test_family_size_gt_capacity": [
+      "Quot.sound",
+      "propext"
+    ],
+    "HigherOrderDiagonalization.upto_length": [],
+    "HigherOrderDiagonalization.upto_mem": [
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "source_hashes": {
+    "Diagonalization.lean": "4e3e0369b720ec3a0079d6d18fa0f01765a2013b1224a17f3600825a2dd5347c",
+    "Inventory.lean": "575c42ab041301de0cc236161d85f7f029931fbfd495e27e2ea753ffb92a91cc",
+    "ObserverHierarchy.lean": "ca40109dcc6947b14e3d3e7ea08f415a1071f1a42d61294bd65f386c9344a4c1",
+    "SeparationCapacity.lean": "27181630de260e97716ea0c25496da8e7290fb8739fe910ab132b3f31d856d25",
+    "lakefile.lean": "d98d1eb4e014f70cbbc5be9321c3ee41f59de6f8fdca04b67086cfc8740d8f3a"
+  },
+  "terminal": "HIGHER_ORDER_DIAGONALIZATION_BOUNDED_CAPACITY_AND_FIBER_COLLAPSE"
+}
