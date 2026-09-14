@@ -1,0 +1,16 @@
+{
+  "schema": "p201_relational_spacetime-sources-v1",
+  "authority_effect": null,
+  "sources": [
+    {
+      "path": "code/derivation/iso.py",
+      "git_blob": "f05399fe6bdfbd2311bf34fa6fe927af194f586f",
+      "sha256": "7410288b91463ba20de4bab270a74f610b68780a377953ed7647d274887658c6"
+    },
+    {
+      "path": "code/derivation/model.py",
+      "git_blob": "b6f95a673853d423a0d73b4faa95b2cd22f306a3",
+      "sha256": "cf4d70ee48d4a3eb38ef8c69a7910c7cadec1d491b6c526ec125a32637bb1192"
+    }
+  ]
+}
