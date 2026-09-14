@@ -32,9 +32,15 @@ def verify_sources() -> list[str]:
     if not MANIFEST_PATH.exists():
         return ["SOURCE_MANIFEST.json missing"]
     manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
-    for item in manifest.get("sources", []):
+    sources = manifest.get("sources")
+    if not isinstance(sources, list) or not sources:
+        return ["SOURCE_MANIFEST.json has no sources"]
+    for item in sources:
+        if not isinstance(item, dict) or "path" not in item:
+            errors.append("source entry missing path")
+            continue
         p = REPO_ROOT / item["path"]
-        if not p.exists():
+        if not p.is_file():
             errors.append(f"Missing source file: {item['path']}")
             continue
         data = p.read_bytes()

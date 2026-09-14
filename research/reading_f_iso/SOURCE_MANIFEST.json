@@ -5,12 +5,12 @@
     {
       "path": "lean4/Derivation/Minimality.lean",
       "git_blob": "6cf6c4aafa95d8d3c151f45f37579afcab4d3786",
-      "sha256": "33bdfdeae38076f9f57d9b6f65bab7ed4657108fd4ffe3bd9d93409c926fdc3e"
+      "sha256": "647e56fee0f00f27e60fbe70bc8296083f075c48b40009979064c443744bc778"
     },
     {
       "path": "lean4/Derivation/MinimalityF.lean",
       "git_blob": "7b780c1aa25fcea574450ac67284f5fedd9c3a21",
-      "sha256": "1a6e7f73d20a2e566f5e426cd0eaa6943a53676be5a8716a990604d079ac8123"
+      "sha256": "04ce2ef3fb6b036f885e1595322824ceeaea03123bd29e36817c33af50c05fc6"
     }
   ]
 }
