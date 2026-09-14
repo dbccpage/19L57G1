@@ -3,7 +3,7 @@
 
 Formalization of the symmetric group S(n) on Fin n:
 - Permutation structure with explicit two-sided inverses
-- Extensionality theorem (xt)
+- Extensionality theorem (ext)
 - Group operations: identity (id), composition (comp), inverse (inv)
 - Group laws: associativity, identity laws, and inverse cancellation laws
 

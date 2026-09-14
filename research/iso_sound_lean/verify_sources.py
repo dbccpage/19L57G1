@@ -1,4 +1,7 @@
-"""Source verification for research/iso_sound_lean."""
+"""Source verification for research/iso_sound_lean.
+
+AuthorityEffect: None.
+"""
 
 from __future__ import annotations
 

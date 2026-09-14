@@ -81,11 +81,11 @@
     ]
   },
   "source_hashes": {
-    "CanonicalMinimizer.lean": "ba6c20c113a37636fe9a4b71ce14488ed07e58b4f4cf129099b4e3448e9a1d05",
+    "CanonicalMinimizer.lean": "f755f707ff3b8fe4b73a3bebec84aff17e32a668df05c0800c717b4e46fe0872",
     "Inventory.lean": "c277ffd326765199379715be536b2325316ba33c4b5c2c183015d50b2296d991",
-    "Permutation.lean": "602c973c483d1b93ac7ec4441bfb7b3c186fa5991aed4b6be947570de47ec878",
+    "Permutation.lean": "5f1abc26005d75bde04c11ded0a72f3d6d93f44a643038c28334eea38b6dcbce",
     "RegimeAction.lean": "670e5d7bf241509f68067229ae70545eafdab447338052e084e805a0a1a2064f",
     "lakefile.lean": "008ef5a26f9d334b01069b852d4737bf444245c1ad729a163596d0cdb018538c"
   },
-  "terminal": "CL_ISO_SOUND_PROVED"
+  "terminal": "CL_ISO_SOUND_MECHANIZED"
 }

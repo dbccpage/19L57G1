@@ -16,11 +16,16 @@ for p in (str(REPO_ROOT), str(CODE_DIR)):
     if p not in sys.path:
         sys.path.insert(0, p)
 
-from typing import Optional, Sequence, Tuple
+from typing import NamedTuple, Optional, Sequence, Tuple
 from derivation.model import Regime
 from derivation.iso import canonical_witness, canonical, serialize, rename, _invert
 
-WitnessPair = Tuple[Tuple[int, ...], Tuple[int, ...]]
+
+class WitnessPair(NamedTuple):
+    """Pair of data permutation (pi) and form permutation (phi)."""
+
+    pi: tuple[int, ...]
+    phi: tuple[int, ...]
 
 
 def extract_isomorphism_witness(

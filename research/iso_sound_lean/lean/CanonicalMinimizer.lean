@@ -69,7 +69,7 @@ theorem iso_witness_of_orbit_choice (C : α → α) (r₁ r₂ : α)
 /-! ## 3. General Soundness (`CL-ISO-SOUND`) -/
 
 /-- Theorem 3.1 (General Soundness `CL-ISO-SOUND`):
-Any canonical representative map selecting elements from group orbits guarantees true isomorphism.
+Any canonical representative map selecting elements from group orbits yields structural isomorphism under declared assumptions.
 `C r₁ = C r₂ → Iso n r₁ r₂` -/
 theorem cl_iso_sound (C : α → α) (hC : InOrbitChoice n C) (r₁ r₂ : α)
     (heq : C r₁ = C r₂) : Iso n r₁ r₂ := by
@@ -77,6 +77,14 @@ theorem cl_iso_sound (C : α → α) (hC : InOrbitChoice n C) (r₁ r₂ : α)
   have h2 : Iso n r₂ (C r₂) := hC r₂
   rw [heq] at h1
   exact iso_trans n h1 (iso_symm n h2)
+
+/-- Concrete Corollary (Soundness on Presentation Regimes):
+For presentation regimes under the symmetric group action S(n),
+any orbit-choice canonical selector yields structural isomorphism under declared assumptions. -/
+theorem regime_cl_iso_sound {n : Nat} (C : Regime n → Regime n)
+    (hC : InOrbitChoice n C) (r₁ r₂ : Regime n) (heq : C r₁ = C r₂) :
+    Iso n r₁ r₂ :=
+  cl_iso_sound n C hC r₁ r₂ heq
 
 /-- Completeness: Orbit-invariant canonical maps give identical outputs on isomorphic regimes. -/
 theorem cl_iso_complete {β : Type} (C : α → β) (h_inv : OrbitInvariant n C) (r₁ r₂ : α)
@@ -100,7 +108,7 @@ theorem canonical_classification (C : α → α) (hC : InOrbitChoice n C)
 
 /-- Theorem 4.1 (Soundness of Injective Key Serialization):
 If canonical keys are produced by injectively serializing an orbit representative,
-then key equality guarantees structural isomorphism. -/
+then key equality yields structural isomorphism under declared assumptions. -/
 theorem key_soundness {κ : Type} (C : α → α) (hC : InOrbitChoice n C)
     (enc : α → κ) (henc : ∀ x y, enc x = enc y → x = y)
     (K : α → κ) (hK : ∀ r, K r = enc (C r)) (r₁ r₂ : α)

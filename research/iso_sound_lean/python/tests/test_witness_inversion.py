@@ -1,4 +1,7 @@
-"""Unit tests for constructive isomorphism witness extraction and verification (CL-ISO-SOUND)."""
+"""Unit tests for constructive isomorphism witness extraction and verification (CL-ISO-SOUND).
+
+AuthorityEffect: None.
+"""
 
 from __future__ import annotations
 

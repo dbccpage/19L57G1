@@ -132,7 +132,7 @@ def render() -> tuple[bytes, bytes]:
         "authority_effect": None,
         "axiom_inventory": axioms,
         "source_hashes": source_hashes(lean_root),
-        "terminal": "CL_ISO_SOUND_PROVED",
+        "terminal": "CL_ISO_SOUND_MECHANIZED",
     }
     return text, (json.dumps(payload, indent=2, sort_keys=True) + "\n").encode("utf-8")
 
@@ -162,7 +162,10 @@ def main() -> int:
             return 0
         if is_check:
             for path, value in paths.items():
-                if not path.exists() or path.read_bytes() != value:
+                if not path.exists():
+                    raise ValueError(f"Lean receipt missing: {path.name}")
+                disk_bytes = path.read_bytes().replace(b"\r\n", b"\n")
+                if disk_bytes != value:
                     raise ValueError(f"Lean receipt differs: {path.name}")
             print(f"Lean receipt replay clean: {len(THEOREMS)} theorem reports verified")
             return 0

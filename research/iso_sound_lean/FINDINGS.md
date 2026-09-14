@@ -1,13 +1,15 @@
 # Findings: CL-ISO-SOUND Lean Mechanization
 
+`AuthorityEffect: None.`
+
 ## VERDICT
 CLOSED / MECHANIZED under declared group-action assumptions.
 Location: CARRIER (Orbit Minimization & Constructive Witness Inversion).
 
 ### Summary
-The custody gap `CL-ISO-SOUND` (`canonical(r_1) = canonical(r_2) → r_1 ≅ r_2`), left open as an empirical observation across 338,650 bounded regimes in `research/iso_sound/`, is closed by formal mechanization in Lean 4 without reliance on empirical hunts or external oracles.
+The custody gap `CL-ISO-SOUND` (`canonical(r_1) = canonical(r_2) → r_1 ≅ r_2`), left open as an empirical observation across 338,650 bounded regimes in `research/iso_sound/`, is mechanized in Lean 4 under declared group-action and orbit-choice assumptions without reliance on empirical hunts or external oracles.
 
-The mathematical mechanism: `code/derivation/iso.py` executes an individualization-refinement branch-and-bound search that computes an orbit-invariant lexicographical minimizer $\pi^*(r) \in S(n)$ such that $\text{canonical}(r) = \pi^*(r) \cdot r$. When two regimes produce identical canonical forms, their minimal orbit representatives coincide. Inverting the canonicalizing permutation yields an explicit, constructive isomorphism witness $\pi = \pi_2^{*-1} \circ \pi_1^*$ satisfying $\pi \cdot r_1 = r_2$.
+The mathematical mechanism: the Lean formalization proves that for any canonical selector satisfying `InOrbitChoice`, representative equality yields structural isomorphism via constructive witness extraction. In Python, `witness_inversion.py` implements the constructive composite permutation witness inversion $\pi = \pi_2^{*-1} \circ \pi_1^*$, $\phi = \phi_2^{*-1} \circ \phi_1^*$. (The equivalence of the concrete Python partition refinement search in `code/derivation/iso.py` to `InOrbitChoice` remains an empirical/implementation connection and an open target for end-to-end AST mechanization).
 
 ---
 
