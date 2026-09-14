@@ -75,7 +75,7 @@ The following findings would have altered the verdict:
    If executing an in-place swap had required supplying external presentation tokens or increasing carrier cardinality. Instead, Theorem 1.8 demonstrates that all exchanged components remain strictly within the internal scope of the admitted regime.
 
 2. **Persistent Movegraph Acyclicity**:
-   If the extended movegraph had remained an acyclic DAG with $Z_1 = 0$ after admitting $e_{\mathrm{swap}}$. Instead, Theorems 2.7 and 2.8 exhibit concrete closed 1-cycles and prove that $Z_1(\mathcal{M}_{\mathrm{extended}}) \ne 0$.
+   If the extended movegraph had remained an acyclic DAG with $Z_1 = 0$ after admitting $e_{\mathrm{swap}}$. Instead, Theorems 2.7 and 2.8 exhibit concrete closed 1-cycles and demonstrate in this model that $Z_1(\mathcal{M}_{\mathrm{extended}}) \ne 0$.
 
 3. **Non-Trivial Capability Circulation ($\oint \mu_1 \ne 0$)**:
    If $e_{\mathrm{swap}}$ had accumulated or depleted cardinal capability potential along closed paths. Instead, Theorems 3.2 and 3.4 establish that $\mu_1$ is an exact coboundary with identically vanishing circulation.

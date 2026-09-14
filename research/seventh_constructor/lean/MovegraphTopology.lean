@@ -145,11 +145,12 @@ theorem z1_extended_nontrivial :
 
 /-! ## 4. Presentation-to-Quotient Projection and Non-Descent -/
 
-/-- Isomorphism between MiniRegimes via an index bijection. -/
+/-- Isomorphism between MiniRegimes via an index bijection with inverse. -/
 def Isomorphic (a b : MiniRegime) : Prop :=
   a.nData = b.nData ∧
-  ∃ (pi : Nat → Nat),
-    (∀ x, pi (transposition 0 1 x) = x) ∧
+  ∃ (pi : Nat → Nat) (inv : Nat → Nat),
+    (∀ x, inv (pi x) = x) ∧
+    (∀ x, pi (inv x) = x) ∧
     b.instances = a.instances.map (fun p => (pi p.1, pi p.2))
 
 /-- Theorem 2.9 (Swap Step Preserves Isomorphism Class):
@@ -157,9 +158,11 @@ The swap step generates a regime isomorphic to the initial regime. -/
 theorem swap_step_isomorphic (r : MiniRegime) :
     Isomorphic r (swapStep r 0 1) := by
   dsimp [Isomorphic]
-  refine ⟨rfl, transposition 0 1, ?_, rfl⟩
-  intro x
-  exact transposition_involutive 0 1 x
+  refine ⟨rfl, transposition 0 1, transposition 0 1, ?_, ?_, rfl⟩
+  · intro x
+    exact transposition_involutive 0 1 x
+  · intro x
+    exact transposition_involutive 0 1 x
 
 /-- Theorem 2.10 (Cycle Collapses in Quotient):
 Any state invariant or quotient projection q that respects isomorphism

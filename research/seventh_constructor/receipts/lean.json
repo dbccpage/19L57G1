@@ -75,7 +75,7 @@
   "source_hashes": {
     "ConservativeGrammar.lean": "d71bc9db031c470b5e1fcbd7b37baa9dc42967a3c965720bb0df43eb37382b22",
     "Inventory.lean": "9982985e8a08e9d846df16540c141277f296000fdb41f4648cbf0fed4596717f",
-    "MovegraphTopology.lean": "846467de06a7448194cd36f5c912ba51fc5fc61cedbf2ff21f1a72cb3078a9d4",
+    "MovegraphTopology.lean": "3b791f87a6afa0c63be5db17ff2c2a7395a7f8d5d126928aeee965e28d7d5bbd",
     "OperationalPricing.lean": "d35fca39bcb56f537f006e919a4b1979d44ed6377492600f9ab3744bffa0164a",
     "lakefile.lean": "45181207bc0a06fcad8eb1207eb6cafcc8bd956785ec604276a4b881d0623d0e"
   },

@@ -62,16 +62,44 @@ def verify_coboundary_identity(r: Regime, e: ExtendedEvent) -> bool:
     return capability_cost_mu1(e) == (p_after - p_before)
 
 
-def evaluate_cycle_circulation(cycle_events: Sequence[ExtendedEvent]) -> dict[str, object]:
+def evaluate_cycle_circulation(cycle_events: Sequence[ExtendedEvent]) -> CycleCirculationReport:
     """Compute line integrals oint mu1 and oint mu2 around a closed execution cycle."""
     c_mu1, c_mu2 = evaluate_trajectory_costs(cycle_events)
     k = len(cycle_events)
 
-    return {
-        "cycle_length": k,
-        "oint_mu1": c_mu1,
-        "oint_mu2": c_mu2,
-        "is_mu1_exact_coboundary": (c_mu1 == 0),
-        "is_mu2_circulation_strictly_positive": (c_mu2 > 0),
-        "circulation_cost_contrast": (c_mu1 == 0 and c_mu2 > 0),
-    }
+    return CycleCirculationReport(
+        cycle_length=k,
+        oint_mu1=c_mu1,
+        oint_mu2=c_mu2,
+        is_mu1_exact_coboundary=(c_mu1 == 0),
+        is_mu2_circulation_strictly_positive=(c_mu2 > 0),
+        circulation_cost_contrast=(c_mu1 == 0 and c_mu2 > 0),
+    )
+
+
+class CycleCirculationReport(dict[str, object]):
+    """Report computing line integrals oint mu1 and oint mu2 around a closed cycle."""
+
+    def __init__(
+        self,
+        cycle_length: int,
+        oint_mu1: int,
+        oint_mu2: int,
+        is_mu1_exact_coboundary: bool,
+        is_mu2_circulation_strictly_positive: bool,
+        circulation_cost_contrast: bool,
+    ) -> None:
+        super().__init__(
+            cycle_length=cycle_length,
+            oint_mu1=oint_mu1,
+            oint_mu2=oint_mu2,
+            is_mu1_exact_coboundary=is_mu1_exact_coboundary,
+            is_mu2_circulation_strictly_positive=is_mu2_circulation_strictly_positive,
+            circulation_cost_contrast=circulation_cost_contrast,
+        )
+        self.cycle_length = cycle_length
+        self.oint_mu1 = oint_mu1
+        self.oint_mu2 = oint_mu2
+        self.is_mu1_exact_coboundary = is_mu1_exact_coboundary
+        self.is_mu2_circulation_strictly_positive = is_mu2_circulation_strictly_positive
+        self.circulation_cost_contrast = circulation_cost_contrast

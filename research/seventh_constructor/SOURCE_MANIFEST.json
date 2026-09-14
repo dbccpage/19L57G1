@@ -1,8 +1,8 @@
 {
   "schema": "seventh_constructor_source_manifest/v1",
   "source_snapshot": {
-    "commit": "fa2898c276ed45a4fd4b9363a423de83f09f778d",
-    "tree": "a6b092df8c5352a024e15e960aa9b929157a5ab2"
+    "commit": "dfe649445403d7d0326594c918430ae5456b1f6b",
+    "tree": "67f2c6f4b52853cf32b5564a54f9f9ac90269c0d"
   },
   "sources": [
     {

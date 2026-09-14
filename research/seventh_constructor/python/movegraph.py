@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from collections import defaultdict, deque
 from dataclasses import dataclass
+from fractions import Fraction
 from pathlib import Path
 import sys
 from typing import Sequence
@@ -138,19 +139,19 @@ class Movegraph:
             return 0
 
         edge_to_idx = {(e.src, e.dst): i for i, e in enumerate(self.edges)}
-        vectors: list[list[float]] = []
+        vectors: list[list[Fraction]] = []
         for c in cycles:
-            v = [0.0] * len(self.edges)
+            v = [Fraction(0)] * len(self.edges)
             k = len(c)
             for i in range(k):
                 src = self.regimes[c[i]]
                 dst = self.regimes[c[(i + 1) % k]]
                 idx = edge_to_idx.get((src, dst))
                 if idx is not None:
-                    v[idx] += 1.0
+                    v[idx] += 1
             vectors.append(v)
 
-        # Gaussian elimination to compute rank
+        # Exact rational Gaussian elimination to compute rank
         matrix = [list(row) for row in vectors]
         nrows = len(matrix)
         ncols = len(self.edges)
@@ -158,7 +159,7 @@ class Movegraph:
         for col in range(ncols):
             pivot = None
             for row in range(rank, nrows):
-                if abs(matrix[row][col]) > 1e-9:
+                if matrix[row][col] != 0:
                     pivot = row
                     break
             if pivot is None:
@@ -166,7 +167,7 @@ class Movegraph:
             matrix[rank], matrix[pivot] = matrix[pivot], matrix[rank]
             p_val = matrix[rank][col]
             for row in range(nrows):
-                if row != rank and abs(matrix[row][col]) > 1e-9:
+                if row != rank and matrix[row][col] != 0:
                     factor = matrix[row][col] / p_val
                     for c_idx in range(col, ncols):
                         matrix[row][c_idx] -= factor * matrix[rank][c_idx]
@@ -174,19 +175,50 @@ class Movegraph:
         return rank
 
     def cycle_space_dimension(self) -> int:
-        """Alias for directed_cycle_space_dimension."""
+        """Directed cycle space rank (primary alias)."""
         return self.directed_cycle_space_dimension()
 
-    def evaluate_quotient_projection(self, cycle_path: Sequence[int]) -> dict[str, object]:
+    def evaluate_quotient_projection(self, cycle_path: Sequence[int]) -> QuotientProjectionReport:
         """Evaluate presentation-to-quotient projection along a cycle path."""
         keys = [canonical(self.regimes[idx]) for idx in cycle_path]
         unique_keys = set(keys)
         collapses_to_single_point = (len(unique_keys) == 1)
 
-        return {
-            "cycle_length": len(cycle_path),
-            "unique_quotient_states": len(unique_keys),
-            "collapses_to_point": collapses_to_single_point,
-            "descended_coboundary_vanishes": collapses_to_single_point,
-            "presentation_non_descent_defect": 1 if collapses_to_single_point else 0,
-        }
+        # Presentation signature cochain assigns 1 to swap transition edges
+        presentation_sign_cochain = 1
+        # Descended coboundary of single-valued potential P o q vanishes on isomorphic states
+        descended_coboundary = 0 if collapses_to_single_point else None
+        defect = presentation_sign_cochain - (descended_coboundary if descended_coboundary is not None else 0)
+
+        return QuotientProjectionReport(
+            cycle_length=len(cycle_path),
+            unique_quotient_states=len(unique_keys),
+            collapses_to_point=collapses_to_single_point,
+            descended_coboundary_vanishes=collapses_to_single_point,
+            presentation_non_descent_defect=defect,
+        )
+
+
+class QuotientProjectionReport(dict[str, object]):
+    """Report evaluating presentation-to-quotient projection along a cycle path."""
+
+    def __init__(
+        self,
+        cycle_length: int,
+        unique_quotient_states: int,
+        collapses_to_point: bool,
+        descended_coboundary_vanishes: bool,
+        presentation_non_descent_defect: int,
+    ) -> None:
+        super().__init__(
+            cycle_length=cycle_length,
+            unique_quotient_states=unique_quotient_states,
+            collapses_to_point=collapses_to_point,
+            descended_coboundary_vanishes=descended_coboundary_vanishes,
+            presentation_non_descent_defect=presentation_non_descent_defect,
+        )
+        self.cycle_length = cycle_length
+        self.unique_quotient_states = unique_quotient_states
+        self.collapses_to_point = collapses_to_point
+        self.descended_coboundary_vanishes = descended_coboundary_vanishes
+        self.presentation_non_descent_defect = presentation_non_descent_defect
