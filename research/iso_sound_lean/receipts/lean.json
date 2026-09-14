@@ -87,5 +87,5 @@
     "RegimeAction.lean": "670e5d7bf241509f68067229ae70545eafdab447338052e084e805a0a1a2064f",
     "lakefile.lean": "008ef5a26f9d334b01069b852d4737bf444245c1ad729a163596d0cdb018538c"
   },
-  "terminal": "CL_ISO_SOUND_MECHANIZED"
+  "terminal": "ORBIT_CHOICE_SOUND_CONDITIONAL"
 }

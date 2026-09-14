@@ -1,7 +1,7 @@
 {
   "tree": "iso_sound_lean",
   "status": "PASS",
-  "terminal_status": "CL-ISO-SOUND-MECHANIZED",
+  "terminal_status": "ORBIT_CHOICE_SOUND_CONDITIONAL",
   "passed": 7,
   "theorems": [
     "IsoSoundLean.Perm.ext",

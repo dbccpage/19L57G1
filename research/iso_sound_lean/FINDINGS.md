@@ -3,13 +3,13 @@
 `AuthorityEffect: None.`
 
 ## VERDICT
-CLOSED / MECHANIZED under declared group-action assumptions.
-Location: CARRIER (Orbit Minimization & Constructive Witness Inversion).
+CONDITIONAL-ON-ORBIT-HYPOTHESES / ISO-PY-UNLINKED
+Location: CARRIER (abstract orbit-choice lemmas on a toy $S(n)$ action).
 
 ### Summary
-The custody gap `CL-ISO-SOUND` (`canonical(r_1) = canonical(r_2) → r_1 ≅ r_2`), left open as an empirical observation across 338,650 bounded regimes in `research/iso_sound/`, is mechanized in Lean 4 under declared group-action and orbit-choice assumptions without reliance on empirical hunts or external oracles.
+Lean 4 proves that *if* a map $C$ lands in each orbit (`InOrbitChoice`), then $C(r_1)=C(r_2)$ implies $r_1 \cong r_2$ (`cl_iso_sound`). The converse (`cl_iso_complete`) additionally requires orbit-invariance of $C$. The paper-ledger claim `CL-ISO-SOUND` for `code/derivation/iso.py` remains OPEN: this tree does not show that the individualization-refinement canonical selector inhabits those hypotheses.
 
-The mathematical mechanism: the Lean formalization proves that for any canonical selector satisfying `InOrbitChoice`, representative equality yields structural isomorphism via constructive witness extraction. In Python, `witness_inversion.py` implements the constructive composite permutation witness inversion $\pi = \pi_2^{*-1} \circ \pi_1^*$, $\phi = \phi_2^{*-1} \circ \phi_1^*$. (The equivalence of the concrete Python partition refinement search in `code/derivation/iso.py` to `InOrbitChoice` remains an empirical/implementation connection and an open target for end-to-end AST mechanization).
+Python `witness_inversion.py` extracts $\pi = \pi_2^{*-1} \circ \pi_1^*$ once the canonicalizing permutations are given. That is a group-action identity, not a proof that `iso.py` supplies those permutations.
 
 ---
 
@@ -42,17 +42,17 @@ is extracted and verified directly in `verify_isomorphism(r_1, r_2, \pi, \phi)`.
 ---
 
 ## WHAT WOULD HAVE CHANGED OUR MIND
-- Finding a pair of non-isomorphic regimes $(r_1, r_2)$ that produced identical canonical keys in `iso.py`.
-- Demonstrating that the individualization-refinement search tree terminates at a non-orbit-invariant branch choice.
+- A countermodel to `cl_iso_sound` under `InOrbitChoice` (equal representatives, non-isomorphic regimes).
 - An axiom leakage beyond `{propext, Quot.sound}` in the Lean 4 formalization.
+- A Lean inhabitant showing `iso.py`'s `canonical` satisfies `InOrbitChoice` and `OrbitInvariant` on the sealed carrier — that would be the missing link to `CL-ISO-SOUND`, not a refutation of the lemmas already proved.
 
 ---
 
 ## CLAIM HYGIENE SUMMARY
-1. **What it supports**: It supports the claim that canonical form equality in this individualization-refinement setting is sound and complete for structural isomorphism under finite permutation actions.
-2. **What it does not support**: It does not support polynomial-time isomorphism testing for general graphs, nor does it support claims about systems with unquotiented infinite presentations.
-3. **The narrowest defensible claim**: For finite regimes under finite symmetric group actions $S(n)$, any canonical selector choosing a representative in the group orbit satisfies $C(r_1) = C(r_2) \iff r_1 \cong r_2$, and the witness $\pi_2^{-1} \circ \pi_1$ maps $r_1$ to $r_2$.
-4. **The next test needed**: Formalize the polynomial termination bound of the equitable partition refinement engine in Lean 4.
+1. **What it supports**: Under `InOrbitChoice`, equal representatives imply `Iso`. Under that plus `OrbitInvariant`, representative equality classifies `Iso` on the toy $S(n)$ carrier defined in `RegimeAction.lean`.
+2. **What it does not support**: It does not close `CL-ISO-SOUND` for `code/derivation/iso.py`. It does not prove that individualization-refinement is an `OrbitMinimizer`. $C = \mathrm{id}$ is `InOrbitChoice` and is not complete. The witness $\pi_2^{-1}\circ\pi_1$ needs the concrete canonicalizing permutations, not mere orbit membership.
+3. **The narrowest defensible claim**: On this carrier, `InOrbitChoice` gives $C(r_1)=C(r_2)\implies r_1\cong r_2$; adding `OrbitInvariant` gives the converse. Linking those hypotheses to `iso.py` is OPEN.
+4. **The next test needed**: Exhibit `iso.py`'s `canonical` / `canonical_witness` as an inhabitant of `InOrbitChoice` and `OrbitInvariant` on the sealed regime type, or keep `CL-ISO-SOUND` OPEN.
 
 ---
 

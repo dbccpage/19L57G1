@@ -132,7 +132,7 @@ def render() -> tuple[bytes, bytes]:
         "authority_effect": None,
         "axiom_inventory": axioms,
         "source_hashes": source_hashes(lean_root),
-        "terminal": "CL_ISO_SOUND_MECHANIZED",
+        "terminal": "ORBIT_CHOICE_SOUND_CONDITIONAL",
     }
     return text, (json.dumps(payload, indent=2, sort_keys=True) + "\n").encode("utf-8")
 

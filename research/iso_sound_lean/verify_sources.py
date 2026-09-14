@@ -24,9 +24,14 @@ def verify_sources() -> list[str]:
         if not p.exists():
             errors.append(f"Missing source file: {item['path']}")
             continue
-        h = hashlib.sha256(p.read_bytes()).hexdigest()
-        if h.lower() != item["sha256"].lower():
-            errors.append(f"Hash mismatch for {item['path']}: expected {item['sha256']}, got {h}")
+        raw = p.read_bytes()
+        h_raw = hashlib.sha256(raw).hexdigest().lower()
+        h_lf = hashlib.sha256(raw.replace(b"\r\n", b"\n")).hexdigest().lower()
+        expected = item["sha256"].lower()
+        if expected not in (h_raw, h_lf):
+            errors.append(
+                f"Hash mismatch for {item['path']}: expected {item['sha256']}, got {h_lf}"
+            )
     return errors
 
 
