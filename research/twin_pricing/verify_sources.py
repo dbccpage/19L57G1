@@ -1,10 +1,10 @@
 """Verify this tree's source manifest against the repository.
 
-Usage: python research/twin_pricing/verify_sources.py [--repin]
+Usage: python research/twin_pricing/verify_sources.py
 
-The manifest pins the sealed model and derivation quotient modules,
-along with the ScaleDynamics research module consumed from sign_tower.
-Sealed prefixes must stay clean.
+The manifest pins lineage sources (sealed model/quotient modules and
+sign_tower ScaleDynamics). Nothing in this tree imports those modules;
+a pass says the pinned inputs did not move. Sealed prefixes must stay clean.
 
 A pass says the inputs did not move. AuthorityEffect: None.
 """

@@ -1,3 +1,9 @@
+"""Replay the Lean axiom inventory for research/twin_pricing.
+
+AuthorityEffect: None.
+Hashes are CRLF-normalized so a Windows checkout matches the committed LF blobs.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -80,11 +86,14 @@ def run(command: list[str], cwd: Path) -> str:
 def source_hashes(lean_root: Path) -> dict[str, str]:
     result: dict[str, str] = {}
     for path in sorted(lean_root.rglob("*.lean")):
-        text = path.read_text(encoding="utf-8")
+        if ".lake" in path.parts:
+            continue
+        raw = path.read_bytes().replace(b"\r\n", b"\n")
+        text = raw.decode("utf-8")
         match = FORBIDDEN.search(text)
         if match is not None:
             raise ValueError(f"forbidden Lean token in {path.name}: {match.group(0)}")
-        result[path.relative_to(lean_root).as_posix()] = sha256(path.read_bytes()).hexdigest()
+        result[path.relative_to(lean_root).as_posix()] = sha256(raw).hexdigest()
     return result
 
 

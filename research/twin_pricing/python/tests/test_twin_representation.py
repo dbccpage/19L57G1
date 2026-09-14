@@ -1,7 +1,17 @@
 """Unit tests for dyadic twin representations and quotient canonicalization."""
 
+from __future__ import annotations
+
+import sys
+from pathlib import Path
+
 import pytest
-from research.twin_pricing.python.twin_representation import (
+
+PY_DIR = Path(__file__).resolve().parent.parent
+if str(PY_DIR) not in sys.path:
+    sys.path.insert(0, str(PY_DIR))
+
+from twin_representation import (
     DyadicThread,
     generate_twin_pair,
     generate_scale_twins,

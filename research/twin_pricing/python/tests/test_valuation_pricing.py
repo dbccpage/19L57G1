@@ -1,7 +1,17 @@
 """Unit tests for operational valuation pricing and asymptotic scaling."""
 
+from __future__ import annotations
+
+import sys
+from pathlib import Path
+
 import pytest
-from research.twin_pricing.python.valuation_pricing import (
+
+PY_DIR = Path(__file__).resolve().parent.parent
+if str(PY_DIR) not in sys.path:
+    sys.path.insert(0, str(PY_DIR))
+
+from valuation_pricing import (
     twin_count,
     mu1_scale,
     mu2_scale,
