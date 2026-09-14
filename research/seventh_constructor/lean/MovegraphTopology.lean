@@ -8,7 +8,7 @@ Formalization of Requirement R2:
 - Extended Movegraph with e_swap: explicit 2-cycle and multi-step cycles
 - 1-Chain Complex formalization and proof that Z_1(M_extended) ≠ 0
 - Presentation-to-quotient projection: swap edges map to isomorphic states
-- Cycle collapse in quotient: presentation 1-cycles project to trivial holonomy at a single quotient point
+- Cycle collapse in quotient: presentation 1-cycles project to trivial circulation at a single quotient point
 - Presentation-quotient non-descent obstruction
 
 Axioms: strictly within {propext, Quot.sound}, zero mathlib, zero custom axioms, zero unproven escapes.
@@ -95,7 +95,7 @@ structure DirectedEdge where
 /-- Elementary 1-chain: a list of directed edges with integer weights. -/
 abbrev Chain1 := List (DirectedEdge × Int)
 
-/-- Boundary operator evaluating the net boundary flux at a vertex v. -/
+/-- Boundary operator evaluating the net boundary circulation at a vertex v. -/
 def boundaryAt (c : Chain1) (v : MiniRegime) : Int :=
   c.foldl (fun acc (e, w) =>
     acc + (if v = e.dst then w else 0) - (if v = e.src then w else 0)

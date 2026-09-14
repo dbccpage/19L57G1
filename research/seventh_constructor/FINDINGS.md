@@ -38,7 +38,7 @@ The topological and homological profile of the extended movegraph:
 3. **Explicit 1-Cycle Generation**:
    On asymmetric regime $r_0$ with 2 tokens and directed instance $(0, 1)$, applying $e_{\mathrm{swap}}(0, 1)$ yields $r_1$ with instance $(1, 0)$ (`SeventhConstructor.r1_instances_eval`). Since $(0, 1) \ne (1, 0)$, $r_0 \ne r_1$ (`SeventhConstructor.r0_ne_r1`). Applying $e_{\mathrm{swap}}(0, 1)$ to $r_1$ returns to $r_0$ (`SeventhConstructor.swap_returns_to_r0`), producing a directed 2-cycle $\gamma_2 = (r_0 \to r_1 \to r_0)$. In the 1-chain complex, $\partial \gamma_2 = 0$ everywhere (`SeventhConstructor.gamma2_is_cycle`), demonstrating non-trivial 1-homology $Z_1(\mathcal{M}_{\mathrm{extended}}) \ne 0$ (`SeventhConstructor.z1_extended_nontrivial`).
 
-4. **Quotient Holonomy & Non-Descent Obstruction**:
+4. **Quotient Circulation & Non-Descent Obstruction**:
    Every swap transition preserves isomorphism: $r \cong \mathrm{step}(r, e_{\mathrm{swap}})$ (`SeventhConstructor.swap_step_isomorphic`). Any state invariant or quotient function $q$ factoring through isomorphism evaluates to identical values on $r_0$ and $r_1$ (`SeventhConstructor.quotient_cycle_collapse`). While the presentation signature cochain assigns $\langle \omega_{\mathrm{sgn}}, e \rangle = 1$ to each swap edge, any descended potential coboundary vanishes:
    $$\langle \delta^0(P \circ q), e \rangle = P(q(r_1)) - P(q(r_0)) = 0.$$
    The resulting difference evaluates to an exact unit defect:
