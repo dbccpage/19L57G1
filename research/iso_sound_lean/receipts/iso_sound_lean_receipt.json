@@ -1,0 +1,39 @@
+{
+  "tree": "iso_sound_lean",
+  "status": "PASS",
+  "terminal_status": "ORBIT_CHOICE_SOUND_CONDITIONAL",
+  "passed": 7,
+  "theorems": [
+    "IsoSoundLean.Perm.ext",
+    "IsoSoundLean.Perm.id_comp",
+    "IsoSoundLean.Perm.comp_id",
+    "IsoSoundLean.Perm.comp_assoc",
+    "IsoSoundLean.Perm.comp_left_inv",
+    "IsoSoundLean.Perm.comp_right_inv",
+    "IsoSoundLean.Perm.inv_id",
+    "IsoSoundLean.Perm.inv_inv",
+    "IsoSoundLean.Perm.inv_comp",
+    "IsoSoundLean.inv_act_act",
+    "IsoSoundLean.act_inv_act",
+    "IsoSoundLean.act_inj",
+    "IsoSoundLean.act_eq_iff",
+    "IsoSoundLean.iso_refl",
+    "IsoSoundLean.iso_symm",
+    "IsoSoundLean.iso_trans",
+    "IsoSoundLean.mem_orbit_iff",
+    "IsoSoundLean.iso_iff_same_orbit",
+    "IsoSoundLean.witness_extract",
+    "IsoSoundLean.iso_witness_of_orbit_choice",
+    "IsoSoundLean.cl_iso_sound",
+    "IsoSoundLean.cl_iso_complete",
+    "IsoSoundLean.canonical_classification",
+    "IsoSoundLean.key_soundness",
+    "IsoSoundLean.key_classification",
+    "IsoSoundLean.equivariant_search_same_image",
+    "IsoSoundLean.minimizer_isomorphism_sound"
+  ],
+  "axioms": [
+    "propext",
+    "Quot.sound"
+  ]
+}
