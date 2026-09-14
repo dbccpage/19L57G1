@@ -1,3 +1,8 @@
+"""Verify Lean 4 formalization receipts for research/higher_order_diagonalization.
+
+AuthorityEffect: None.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -91,7 +96,9 @@ def source_hashes(lean_root: Path) -> dict[str, str]:
         match = FORBIDDEN.search(text)
         if match is not None:
             raise ValueError(f"forbidden Lean token in {path.name}: {match.group(0)}")
-        result[path.relative_to(lean_root).as_posix()] = sha256(path.read_bytes()).hexdigest()
+        result[path.relative_to(lean_root).as_posix()] = sha256(
+            text.encode("utf-8")
+        ).hexdigest()
     return result
 
 
@@ -153,7 +160,10 @@ def main() -> None:
         for path, value in paths.items():
             path.write_bytes(value)
     for path, value in paths.items():
-        if not path.exists() or path.read_bytes() != value:
+        if not path.exists():
+            raise ValueError(f"Lean receipt missing: {path.name}")
+        disk_bytes = path.read_bytes().replace(b"\r\n", b"\n")
+        if disk_bytes != value:
             raise ValueError(f"Lean receipt differs: {path.name}")
     print(f"Lean receipt replay clean: {len(THEOREMS)} theorem reports")
 

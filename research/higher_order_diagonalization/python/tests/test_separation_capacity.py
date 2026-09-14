@@ -1,4 +1,7 @@
-"""Tests for separation capacity bounds and scale depth gap."""
+"""Tests for separation capacity bounds and scale depth gap.
+
+AuthorityEffect: None.
+"""
 
 from __future__ import annotations
 

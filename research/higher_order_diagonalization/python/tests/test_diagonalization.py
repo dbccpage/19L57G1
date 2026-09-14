@@ -1,4 +1,7 @@
-"""Tests for higher-order diagonalization theorem and adversarial pair generation."""
+"""Tests for higher-order diagonalization theorem and adversarial pair generation.
+
+AuthorityEffect: None.
+"""
 
 from __future__ import annotations
 

@@ -1,4 +1,7 @@
-"""Tests for observer hierarchy and canonical isomorphism coarsening."""
+"""Tests for observer hierarchy and canonical isomorphism coarsening.
+
+AuthorityEffect: None.
+"""
 
 from __future__ import annotations
 

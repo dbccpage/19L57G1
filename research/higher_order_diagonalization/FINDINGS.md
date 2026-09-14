@@ -58,8 +58,8 @@ The quantitative blind-spot bounds established by the diagonalization theorem:
 
 2. **Adversarial Collision Pair**:
    Evaluating any observer $O \in \mathcal{O}_k$ across the $2^{k+1}$ canonical test regimes forces at least one collision $(p, q)$ with $p \ne q$. The resulting regimes $(r_p, r_q)$ satisfy:
-   - $r_p \not\cong r_q$ (proven via bit-level decoding injectivity, `HigherOrderDiagonalization.natToBits_injective`).
-   - $\mathrm{eval}_k(O, r_p) = \mathrm{eval}_k(O, r_q)$ (proven via the pigeonhole collision).
+   - $r_p \not\cong r_q$ (established in this model via bit-level decoding injectivity, `HigherOrderDiagonalization.natToBits_injective`).
+   - $\mathrm{eval}_k(O, r_p) = \mathrm{eval}_k(O, r_q)$ (established in this model via the pigeonhole collision).
    This establishes Theorem 3.1 (`HigherOrderDiagonalization.higher_order_diagonalization`).
 
 3. **Diagonal Evaluation Fiber Obstruction**:
