@@ -1,0 +1,91 @@
+{
+  "allowed_axioms": [
+    "Quot.sound",
+    "propext"
+  ],
+  "authority_effect": null,
+  "axiom_inventory": {
+    "IsoSoundLean.Perm.comp_assoc": [
+      "Quot.sound"
+    ],
+    "IsoSoundLean.Perm.comp_id": [
+      "Quot.sound"
+    ],
+    "IsoSoundLean.Perm.comp_left_inv": [
+      "Quot.sound"
+    ],
+    "IsoSoundLean.Perm.comp_right_inv": [
+      "Quot.sound"
+    ],
+    "IsoSoundLean.Perm.ext": [
+      "Quot.sound"
+    ],
+    "IsoSoundLean.Perm.id_comp": [
+      "Quot.sound"
+    ],
+    "IsoSoundLean.Perm.inv_comp": [
+      "Quot.sound"
+    ],
+    "IsoSoundLean.Perm.inv_id": [
+      "Quot.sound"
+    ],
+    "IsoSoundLean.Perm.inv_inv": [
+      "Quot.sound"
+    ],
+    "IsoSoundLean.act_eq_iff": [
+      "Quot.sound"
+    ],
+    "IsoSoundLean.act_inj": [
+      "Quot.sound"
+    ],
+    "IsoSoundLean.act_inv_act": [
+      "Quot.sound"
+    ],
+    "IsoSoundLean.canonical_classification": [
+      "Quot.sound"
+    ],
+    "IsoSoundLean.cl_iso_complete": [],
+    "IsoSoundLean.cl_iso_sound": [
+      "Quot.sound"
+    ],
+    "IsoSoundLean.equivariant_search_same_image": [
+      "Quot.sound",
+      "propext"
+    ],
+    "IsoSoundLean.inv_act_act": [
+      "Quot.sound"
+    ],
+    "IsoSoundLean.iso_iff_same_orbit": [
+      "Quot.sound"
+    ],
+    "IsoSoundLean.iso_refl": [],
+    "IsoSoundLean.iso_symm": [
+      "Quot.sound"
+    ],
+    "IsoSoundLean.iso_trans": [],
+    "IsoSoundLean.iso_witness_of_orbit_choice": [
+      "Quot.sound"
+    ],
+    "IsoSoundLean.key_classification": [
+      "Quot.sound"
+    ],
+    "IsoSoundLean.key_soundness": [
+      "Quot.sound"
+    ],
+    "IsoSoundLean.mem_orbit_iff": [],
+    "IsoSoundLean.minimizer_isomorphism_sound": [
+      "Quot.sound"
+    ],
+    "IsoSoundLean.witness_extract": [
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "CanonicalMinimizer.lean": "ba6c20c113a37636fe9a4b71ce14488ed07e58b4f4cf129099b4e3448e9a1d05",
+    "Inventory.lean": "c277ffd326765199379715be536b2325316ba33c4b5c2c183015d50b2296d991",
+    "Permutation.lean": "602c973c483d1b93ac7ec4441bfb7b3c186fa5991aed4b6be947570de47ec878",
+    "RegimeAction.lean": "670e5d7bf241509f68067229ae70545eafdab447338052e084e805a0a1a2064f",
+    "lakefile.lean": "008ef5a26f9d334b01069b852d4737bf444245c1ad729a163596d0cdb018538c"
+  },
+  "terminal": "CL_ISO_SOUND_PROVED"
+}
