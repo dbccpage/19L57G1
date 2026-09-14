@@ -98,7 +98,7 @@ The following findings would have altered the verdict:
    On the declared finite observer hierarchy $\mathcal{O}_k$ over binary scale regimes, observer equivalence coarsens canonical isomorphism, maximum separation capacity is $2^k$, and for every depth-$k$ observer there exists a pair of non-isomorphic regimes at depth $k+2$ with identical observer signatures.
 
 4. **The next test needed**:
-   Extending the hierarchy to non-binary alphabets $c \ge 3$ and arbitrary relational arities to determine whether the asymptotic gap $\mathrm{Gap}_c(k, d)$ exhibits structural phase transitions under group action quotients.
+   Extending the hierarchy to non-binary alphabets $c \ge 3$ and arbitrary relational arities to determine whether the asymptotic gap $\mathrm{Gap}_c(k, d)$ exhibits qualitative changes in its growth rate under group action quotients.
 
 ---
 
