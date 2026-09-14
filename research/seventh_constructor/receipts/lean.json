@@ -1,0 +1,83 @@
+{
+  "allowed_axioms": [
+    "Quot.sound",
+    "propext"
+  ],
+  "authority_effect": null,
+  "axiom_inventory": {
+    "SeventhConstructor.admitting_regime_has_swap": [
+      "Quot.sound",
+      "propext"
+    ],
+    "SeventhConstructor.circulation_cost_contrast": [],
+    "SeventhConstructor.cumulative_mu1_telescopes": [
+      "Quot.sound",
+      "propext"
+    ],
+    "SeventhConstructor.cycle2_mu1_circulation_zero": [],
+    "SeventhConstructor.cycle2_mu2_circulation_strictly_positive": [],
+    "SeventhConstructor.gamma2_boundary_r0": [
+      "Quot.sound",
+      "propext"
+    ],
+    "SeventhConstructor.gamma2_boundary_r1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "SeventhConstructor.gamma2_is_cycle": [
+      "Quot.sound",
+      "propext"
+    ],
+    "SeventhConstructor.mu1_closed_cycle_circulation_vanishes": [
+      "Quot.sound",
+      "propext"
+    ],
+    "SeventhConstructor.mu1_equals_potential_difference": [
+      "Quot.sound",
+      "propext"
+    ],
+    "SeventhConstructor.mu1_swap_zero": [],
+    "SeventhConstructor.mu2_swap_cost_positive": [],
+    "SeventhConstructor.native_movegraph_acyclic": [
+      "Quot.sound",
+      "propext"
+    ],
+    "SeventhConstructor.native_non_supply_increases_potential": [
+      "Quot.sound",
+      "propext"
+    ],
+    "SeventhConstructor.presentation_quotient_obstruction": [
+      "Quot.sound",
+      "propext"
+    ],
+    "SeventhConstructor.quotient_cycle_collapse": [],
+    "SeventhConstructor.r0_ne_r1": [],
+    "SeventhConstructor.r1_instances_eval": [],
+    "SeventhConstructor.supply_is_identity": [],
+    "SeventhConstructor.swap_data_cardinality": [],
+    "SeventhConstructor.swap_instances_cardinality": [
+      "propext"
+    ],
+    "SeventhConstructor.swap_preserves_cardinal_potential": [],
+    "SeventhConstructor.swap_preserves_internal_scope": [
+      "Quot.sound",
+      "propext"
+    ],
+    "SeventhConstructor.swap_regime_involutive": [],
+    "SeventhConstructor.swap_returns_to_r0": [],
+    "SeventhConstructor.swap_step_isomorphic": [],
+    "SeventhConstructor.transposition_involutive": [],
+    "SeventhConstructor.z1_extended_nontrivial": [
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "source_hashes": {
+    "ConservativeGrammar.lean": "d71bc9db031c470b5e1fcbd7b37baa9dc42967a3c965720bb0df43eb37382b22",
+    "Inventory.lean": "9982985e8a08e9d846df16540c141277f296000fdb41f4648cbf0fed4596717f",
+    "MovegraphTopology.lean": "fd8f641eb2fea415a18f2e6bbc30a4e77f144208a38f7cd8171ce759cf0b2862",
+    "OperationalPricing.lean": "d35fca39bcb56f537f006e919a4b1979d44ed6377492600f9ab3744bffa0164a",
+    "lakefile.lean": "45181207bc0a06fcad8eb1207eb6cafcc8bd956785ec604276a4b881d0623d0e"
+  },
+  "terminal": "SEVENTH_CONSTRUCTOR_CARDINALITY_PRESERVED_AND_Z1_NONTRIVIAL"
+}

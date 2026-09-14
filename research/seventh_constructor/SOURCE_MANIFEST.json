@@ -1,0 +1,29 @@
+{
+  "schema": "seventh_constructor_source_manifest/v1",
+  "source_snapshot": {
+    "commit": "fa2898c276ed45a4fd4b9363a423de83f09f778d",
+    "tree": "a6b092df8c5352a024e15e960aa9b929157a5ab2"
+  },
+  "sources": [
+    {
+      "path": "code/derivation/model.py",
+      "role": "sealed input",
+      "sha256": "6A7FD2BA9688D47E9291514C623A811CDE3C6B9E8FDA1D12A608DC9BB0B1F3C2"
+    },
+    {
+      "path": "code/derivation/iso.py",
+      "role": "sealed input",
+      "sha256": "B0F1F3BCF05126111A07706F4388A9FFF5E30455D4B8F127966CF99AB0D0886E"
+    },
+    {
+      "path": "research/sign_tower/lean/Movegraph.lean",
+      "role": "research input",
+      "sha256": "ECCFAFD3BB6A93E70AAA3B8B01CB26109B0E193E9A5A7517D525617A11A894C4"
+    },
+    {
+      "path": "research/sign_tower/python/movegraph.py",
+      "role": "research input",
+      "sha256": "BD9F6C25BE5C74B8F9EB0B48045E5EACB730A03E7D09990FFA789F09E12FEB96"
+    }
+  ]
+}
