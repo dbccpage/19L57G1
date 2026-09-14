@@ -1,0 +1,177 @@
+{
+  "authority_effect": "None",
+  "claim_hygiene": {
+    "scope": "Finitary endogenous continuum pathways over relational carrier models. Covers Track 1 (Observer Enclosure), Track 2 (Projective System), Track 3 (Cycle Filtering), and Track 4 (Internal Quotienting). Initial scaffold pinned to sealed derivation sources with zero axiom leak. See CLAIMS.md.",
+    "sealed_sources_pinned": true,
+    "zero_axiom_pollution": true,
+    "zero_classical_choice": true,
+    "zero_floating_point_arithmetic": true
+  },
+  "lean": {
+    "allowed_axioms": [
+      "Quot.sound",
+      "propext"
+    ],
+    "axiom_free_count": 33,
+    "build_status": "PASS",
+    "theorem_count": 56,
+    "theorem_details": {
+      "DissipativeCycle.acyclic_dissipative_terminates": [
+        "propext",
+        "Quot.sound"
+      ],
+      "DissipativeCycle.attractor_pruning_soundness": [],
+      "DissipativeCycle.attractor_pruning_soundness_cycle": [],
+      "DissipativeCycle.conservative_cycle_activity_strictly_positive": [
+        "propext",
+        "Quot.sound"
+      ],
+      "DissipativeCycle.conservative_cycle_net_potential_zero": [
+        "propext",
+        "Quot.sound"
+      ],
+      "DissipativeCycle.conservative_cycle_preserves_start": [],
+      "DissipativeCycle.cycle_activity_strictly_positive": [
+        "propext",
+        "Quot.sound"
+      ],
+      "DissipativeCycle.cycle_net_potential_zero": [
+        "propext",
+        "Quot.sound"
+      ],
+      "DissipativeCycle.dissipative_trajectory_acyclic": [
+        "propext",
+        "Quot.sound"
+      ],
+      "DissipativeCycle.trajectory_cycle_activity_strictly_positive": [
+        "propext",
+        "Quot.sound"
+      ],
+      "DissipativeCycle.trajectory_cycle_net_potential_zero": [
+        "propext",
+        "Quot.sound"
+      ],
+      "EndogenousContinuum.coherent_thread_exists": [],
+      "EndogenousContinuum.obsEquiv_refl": [],
+      "EndogenousContinuum.obsEquiv_symm": [],
+      "EndogenousContinuum.obsEquiv_trans": [],
+      "EndogenousContinuum.pathwayIndex_pos": [],
+      "EndogenousContinuum.potential_bounded": [],
+      "EndogenousContinuum.reflTrans_refl": [],
+      "InternalQuotienting.canonical_minimizer_elimination": [],
+      "InternalQuotienting.endogenous_equivalence_refl": [],
+      "InternalQuotienting.endogenous_equivalence_symm": [],
+      "InternalQuotienting.endogenous_equivalence_trans": [],
+      "InternalQuotienting.eqv_iff_joinable": [],
+      "InternalQuotienting.eqv_of_joinable": [],
+      "InternalQuotienting.eqv_of_reflTransStep": [],
+      "InternalQuotienting.external_minimizer_subsumption": [],
+      "InternalQuotienting.joinable_of_eqv": [],
+      "InternalQuotienting.local_joinability": [],
+      "InternalQuotienting.newman_lemma": [],
+      "InternalQuotienting.normal_form_unique": [],
+      "InternalQuotienting.normal_form_unique_of_terminating": [],
+      "ObserverEnclosure.init_carrier_invariant": [
+        "propext"
+      ],
+      "ObserverEnclosure.local_evaluation_prefix_independent": [
+        "propext",
+        "Quot.sound"
+      ],
+      "ObserverEnclosure.localized_enclosure_soundness": [
+        "propext",
+        "Quot.sound"
+      ],
+      "ObserverEnclosure.no_retrocausal_mutation": [
+        "propext",
+        "Quot.sound"
+      ],
+      "ObserverEnclosure.no_retrocausal_mutation_multi": [
+        "propext",
+        "Quot.sound"
+      ],
+      "ObserverEnclosure.no_retrocausal_readout_mutation": [
+        "propext",
+        "Quot.sound"
+      ],
+      "ObserverEnclosure.observer_readout_log_soundness": [
+        "propext",
+        "Quot.sound"
+      ],
+      "ObserverEnclosure.observer_readout_soundness": [
+        "propext",
+        "Quot.sound"
+      ],
+      "ObserverEnclosure.trace_multi_step_preserves_invariant": [
+        "propext",
+        "Quot.sound"
+      ],
+      "ObserverEnclosure.trace_step_preserves_invariant": [
+        "propext",
+        "Quot.sound"
+      ],
+      "ProjectiveSystem.embed_operationalPricing": [],
+      "ProjectiveSystem.operationalPricing_append": [],
+      "ProjectiveSystem.operational_pricing_non_euclidean": [],
+      "ProjectiveSystem.project_operationalPricing": [],
+      "ProjectiveSystem.projective_composition": [
+        "Quot.sound"
+      ],
+      "ProjectiveSystem.projective_composition_apply": [],
+      "ProjectiveSystem.projective_composition_fun": [
+        "Quot.sound"
+      ],
+      "ProjectiveSystem.projective_identity": [
+        "Quot.sound"
+      ],
+      "ProjectiveSystem.projective_identity_apply": [
+        "Quot.sound"
+      ],
+      "ProjectiveSystem.stream_thread_coherent": [
+        "Quot.sound"
+      ],
+      "ProjectiveSystem.thread_coherence_preserved": [],
+      "ProjectiveSystem.thread_coherence_preserved_struct": [],
+      "ProjectiveSystem.totalMu1_append": [],
+      "ProjectiveSystem.totalMu2_append": [],
+      "ProjectiveSystem.truncated_coherence_preserved_step": []
+    }
+  },
+  "pytest": {
+    "exit_code": 0,
+    "passed": 74,
+    "status": "PASS"
+  },
+  "schema_version": 1,
+  "source_custody": {
+    "pinned_sources": 3,
+    "status": "PASS"
+  },
+  "source_hashes": {
+    "CLAIMS.md": "604c2f131cbbb2d79f061dc1708c66eb990510c9e1ba31c582e8bdc7f732d54e",
+    "README.md": "8d4623d32e85e9332e1b6555db5faf146e9d190df320a9cca2f04cbcc1ce1ced",
+    "SOURCE_MANIFEST.json": "5814cdddf1dba62886ded8409e094d38467744ea4ff5e9e3f0630a2d9c0a1cc8",
+    "__init__.py": "ec6cde887edd043b648e812be704427b5c5e28e87a63815b0b8b45090f49e7e6",
+    "dissipative_cycle.py": "97cc20c120d903685d359efee5abd4acec32c576b5a7da224bdbe2afe0a2187e",
+    "internal_quotienting.py": "2b813aaa46a0e1a08934221bd726bbf2bfb6ee60a79fd8a059cc447ee0f31045",
+    "lean/DissipativeCycle.lean": "40e16d412ce71bbbe28905ee98f64755608b9138e0e5ebfddf1d443a581fa66d",
+    "lean/EndogenousContinuum.lean": "d1a2ea48fa97538d189927289043fe803b638c554aa9cdc6f48d75b5006b1dd2",
+    "lean/InternalQuotienting.lean": "3bd7ea97c847f2057317a63d394eace0f9256c7bce64ed857f26a6227bdd094e",
+    "lean/Inventory.lean": "34a2186dcefd79b689cd597266dc971b216764d43a90c8af48df30c6b338f831",
+    "lean/ObserverEnclosure.lean": "6a67429aa9172052dbbfc72ebaca5f2ba5fa998411df9013b393275d6ee87422",
+    "lean/ProjectiveSystem.lean": "bb7885cd20635cb19a93684a0fd2ce3413c69bb97e52e10021a3713dcb415ecd",
+    "observer_enclosure.py": "2d47af5e12325021b34916b4a348c64ed1a41e11e022dcc68e128a826ed398eb",
+    "projective_system.py": "b6629fcc751022b8c4b1407d5ba86b2cef858b30a0426a9d2204c7fc6618dad7",
+    "tests/__init__.py": "44b1fc4e79bb35aa69c00ad6a8cbc1a1e68c6a9d8c7c18caee32ade0adcafa9b",
+    "tests/test_adversarial.py": "0691a0b9bcb9e492d0a0704157229c1adcb5da870e93abee4d6a307219681efc",
+    "tests/test_dissipative_cycle.py": "8a0120f8d661c585f8f02c8b165bf55e78b720793bc01bbdb1f92ac0df5cf949",
+    "tests/test_internal_quotienting.py": "54d86d8c1d0cfe3647d19a04358bf668b129d52b63d2af907f1ed8de077e2f49",
+    "tests/test_observer_enclosure.py": "44c55a34d6a1af849bf8da42e013537cfc1ba94fe353e92cbcd6a2f488d26636",
+    "tests/test_projective_system.py": "10435021c7eca0906cee74ae6342ef2b810efaad22dc61923696db20c066b63b",
+    "tests/test_scaffold.py": "4c01c03bc47bc8e22ecfcd6a4f89bea01b338fbaa0fbd74f8c4686a4c95e2e9d",
+    "verify.py": "f680c7daf0be22786f9ad372beb2ef5e6c5bce7d29dc495c9ac64594e634493f",
+    "verify_sources.py": "c958a7a8c1ea41afeb11aa045ddd233f3072b12cb0357d449e2456ffccc2d48a"
+  },
+  "status": "PASS",
+  "target": "Target: Endogenous Continuum"
+}

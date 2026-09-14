@@ -1,0 +1,119 @@
+"""Target Endogenous Continuum: Purely Internal Relational Continuum.
+
+AuthorityEffect: None.
+"""
+
+from __future__ import annotations
+
+import sys
+from pathlib import Path
+
+_REPO_ROOT = Path(__file__).resolve().parent.parent.parent
+_CODE_DIR = _REPO_ROOT / "code"
+if _CODE_DIR.is_dir() and str(_CODE_DIR) not in sys.path:
+    sys.path.insert(0, str(_CODE_DIR))
+
+from .internal_quotienting import (
+    Divergence,
+    EquivalenceClass,
+    JoinProof,
+    LocalConfluenceReport,
+    ReductionResult,
+    ReductionStrategy,
+    RelationalState,
+    RewriteRule,
+    RewriteStep,
+    RewriteSystem,
+    create_relational_state,
+    make_relational_quotient_system,
+    make_sorting_rewrite_system,
+    make_string_rewrite_system,
+    make_string_rule,
+    verify_equivalence_partition,
+)
+from .observer_enclosure import (
+    EnclosedCarrier,
+    InternalTrace,
+    InvariantCheckResult,
+    LocalAdmitDatum,
+    LocalAdmitForm,
+    LocalAdmitInst,
+    LocalAdmitRuleAll,
+    LocalEvalDerivable,
+    LocalImpose,
+    LocalizedTransition,
+    LocalObserveProfile,
+    LocalRegisterAdd,
+    LocalRegisterWrite,
+    LocalSeparabilityCheck,
+    ObserverRecord,
+    TraceInvariantChecker,
+)
+from .projective_system import (
+    CoarseningMap,
+    CommutativityResult,
+    MetricAxiomResult,
+    MorphismCheckResult,
+    MoveEdge,
+    MoveGraph,
+    OperationalPrice,
+    OperationalPriceAtLevel,
+    ProjectiveSystem,
+    ThreadValidationResult,
+    create_discrete_circle_movegraph,
+    create_dyadic_coarsening_map,
+    create_dyadic_movegraph,
+    create_dyadic_projective_system,
+    verify_commutativity,
+)
+
+__all__: list[str] = [
+    "Divergence",
+    "EnclosedCarrier",
+    "EquivalenceClass",
+    "InternalTrace",
+    "InvariantCheckResult",
+    "JoinProof",
+    "LocalAdmitDatum",
+    "LocalAdmitForm",
+    "LocalAdmitInst",
+    "LocalAdmitRuleAll",
+    "LocalConfluenceReport",
+    "LocalEvalDerivable",
+    "LocalImpose",
+    "LocalizedTransition",
+    "LocalObserveProfile",
+    "LocalRegisterAdd",
+    "LocalRegisterWrite",
+    "LocalSeparabilityCheck",
+    "ObserverRecord",
+    "ReductionResult",
+    "ReductionStrategy",
+    "RelationalState",
+    "RewriteRule",
+    "RewriteStep",
+    "RewriteSystem",
+    "TraceInvariantChecker",
+    "create_relational_state",
+    "make_relational_quotient_system",
+    "make_sorting_rewrite_system",
+    "make_string_rewrite_system",
+    "make_string_rule",
+    "verify_equivalence_partition",
+    "CoarseningMap",
+    "CommutativityResult",
+    "MetricAxiomResult",
+    "MorphismCheckResult",
+    "MoveEdge",
+    "MoveGraph",
+    "OperationalPrice",
+    "OperationalPriceAtLevel",
+    "ProjectiveSystem",
+    "ThreadValidationResult",
+    "create_discrete_circle_movegraph",
+    "create_dyadic_coarsening_map",
+    "create_dyadic_movegraph",
+    "create_dyadic_projective_system",
+    "verify_commutativity",
+]
+
