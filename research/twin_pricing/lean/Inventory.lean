@@ -17,7 +17,7 @@ AuthorityEffect: None.
 #print axioms TwinRelation.twins_are_distinct
 #print axioms TwinRelation.scale_one_twins_differ
 #print axioms TwinRelation.twins_are_related
-#print axioms TwinRelation.twin_pair_cardinality
+#print axioms TwinRelation.twin_pair_distinct_and_related
 
 -- QuotientTopology theorems
 #print axioms QuotientTopology.twin_collapse_in_quotient
@@ -25,11 +25,12 @@ AuthorityEffect: None.
 #print axioms QuotientTopology.adjacent_cylinders_glue
 #print axioms QuotientTopology.quotient_destroys_clopen_separation
 #print axioms QuotientTopology.locally_constant_chain
-#print axioms QuotientTopology.quotient_is_connected
+#print axioms QuotientTopology.twin_collapse_predicate_transport
 #print axioms QuotientTopology.quotient_points_distinct_iff
-#print axioms QuotientTopology.hausdorff_separation_certificate
+#print axioms QuotientTopology.distinct_quotient_points_representatives_non_equivalent
 #print axioms QuotientTopology.scale_one_valuation_difference
-#print axioms QuotientTopology.dyadic_representation_difference_bounded
+#print axioms QuotientTopology.dyadic_valuation_difference_at_depth
+#print axioms QuotientTopology.dyadic_valuation_difference_normalized
 
 -- ValuationPricing theorems
 #print axioms ValuationPricing.twinCount_base2

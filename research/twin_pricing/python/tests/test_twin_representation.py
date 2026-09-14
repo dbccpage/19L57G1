@@ -101,3 +101,17 @@ def test_invalid_thread_construction():
         DyadicThread(prefix=(0, 1), discriminating_bit=0, tail_symbol=1, scale=2)
     with pytest.raises(ValueError):
         DyadicThread(prefix=(0,), discriminating_bit=2, tail_symbol=1, scale=2)
+    with pytest.raises(ValueError):
+        DyadicThread(prefix=(0,), discriminating_bit=0, tail_symbol=2, scale=2)
+    # Nonbinary prefix symbols rejected
+    with pytest.raises(ValueError):
+        DyadicThread(prefix=(2,), discriminating_bit=0, tail_symbol=1, scale=2)
+    with pytest.raises(ValueError):
+        DyadicThread(prefix=(-1,), discriminating_bit=0, tail_symbol=1, scale=2)
+    with pytest.raises(ValueError):
+        generate_twin_pair(2, (2,))
+    with pytest.raises(ValueError):
+        generate_twin_pair(2, (-1,))
+    with pytest.raises(ValueError):
+        generate_twin_pair(3, (0, 5))
+

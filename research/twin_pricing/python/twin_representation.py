@@ -28,6 +28,9 @@ class DyadicThread:
             raise ValueError(
                 f"prefix length {len(self.prefix)} != scale - 1 ({self.scale - 1})"
             )
+        for sym in self.prefix:
+            if sym not in (0, 1):
+                raise ValueError(f"prefix element must be 0 or 1, got {sym}")
         if self.discriminating_bit not in (0, 1):
             raise ValueError(f"discriminating_bit must be 0 or 1, got {self.discriminating_bit}")
         if self.tail_symbol not in (0, 1):

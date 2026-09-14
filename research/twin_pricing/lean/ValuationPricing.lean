@@ -233,20 +233,23 @@ theorem markov_obstruction_unbounded (M : Nat) :
   dsimp [markovObstructionScaled]
   omega
 
-/-! ## 6. Fundamental Theorem: The Continuum Price is Infinite -/
+/-! ## 6. Enumerative Price Divergence Under Declared Tariffs -/
 
-/-- Theorem 3.6 (Operational Realizability at Finite Stage):
-    At any finite scale N, the finite-depth twin quotient is operationally realizable with finite capability
-    cost 2^N - 1 and finite history cost (N - 1) * 2^N + 1. -/
+/-- Theorem 3.6 (Closed-Form Enumerative Pricing at Finite Stage):
+    At any finite scale N, the cumulative sums of the declared per-pair capability tariff mu1
+    and transition tariff mu2 evaluate to 2^N - 1 and (N - 1) * 2^N + 1 respectively.
+    Note: This establishes the numerical values of the declared measures; native operational
+    realizability with trace semantics is an open obligation. -/
 theorem finite_stage_price_finite (N : Nat) (hN : N ≥ 1) :
     cumulativeMu1Base2 N = 2 ^ N - 1 ∧
     cumulativeMu2Base2 N = (N - 1) * 2 ^ N + 1 :=
   ⟨cumulative_mu1_formula N, cumulative_mu2_formula N hN⟩
 
-/-- Theorem 3.7 (Infinite Price of the Continuum):
-    The continuum [0, 1] obtained by identifying all dyadic twin boundaries across all scales
-    carries an infinite operational price under both capability cost mu1 and history cost mu2:
-    no finite budget of capability admissions or history transitions can recover the continuum. -/
+/-- Theorem 3.7 (Unboundedness of Declared Enumerative Pricing Sequences):
+    Under the declared per-pair tariffs mu1 and mu2, the cumulative cost sequences
+    diverge without bound as the scale cutoff N grows.
+    Note: Universal operational impossibility over all admissible trace realizations
+    (such as batching, sharing, or reusable identification rules) remains an open obligation. -/
 theorem continuum_price_infinite :
     (∀ B, ∃ N, cumulativeMu1Base2 N > B) ∧
     (∀ B, ∃ N, cumulativeMu2Base2 N > B) ∧

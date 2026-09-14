@@ -105,3 +105,17 @@ def test_negative_controls():
         cumulative_mu2(2, -1)
     with pytest.raises(ValueError):
         markov_weighted_scale_cost(0)
+    with pytest.raises(ValueError):
+        cumulative_markov_obstruction(-1)
+
+
+def test_large_scale_markov_cost_overflow_regression():
+    """Verify that scale >= 1025 does not overflow float conversion."""
+    for n in (1, 10, 1024, 1025, 2048, 10000):
+        assert markov_weighted_scale_cost(n) == 0.5
+
+    assert cumulative_markov_obstruction(1024) == 512.0
+    assert cumulative_markov_obstruction(1025) == 512.5
+    assert cumulative_markov_obstruction(2048) == 1024.0
+    assert cumulative_markov_obstruction(10000) == 5000.0
+

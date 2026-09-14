@@ -9,11 +9,15 @@
       "Quot.sound",
       "propext"
     ],
-    "QuotientTopology.dyadic_representation_difference_bounded": [
+    "QuotientTopology.distinct_quotient_points_representatives_non_equivalent": [
       "Quot.sound",
       "propext"
     ],
-    "QuotientTopology.hausdorff_separation_certificate": [
+    "QuotientTopology.dyadic_valuation_difference_at_depth": [
+      "Quot.sound",
+      "propext"
+    ],
+    "QuotientTopology.dyadic_valuation_difference_normalized": [
       "Quot.sound",
       "propext"
     ],
@@ -22,10 +26,6 @@
       "propext"
     ],
     "QuotientTopology.quotient_destroys_clopen_separation": [
-      "Quot.sound",
-      "propext"
-    ],
-    "QuotientTopology.quotient_is_connected": [
       "Quot.sound",
       "propext"
     ],
@@ -45,11 +45,15 @@
       "Quot.sound",
       "propext"
     ],
+    "QuotientTopology.twin_collapse_predicate_transport": [
+      "Quot.sound",
+      "propext"
+    ],
     "TwinRelation.scale_one_twins_differ": [
       "Quot.sound",
       "propext"
     ],
-    "TwinRelation.twin_pair_cardinality": [
+    "TwinRelation.twin_pair_distinct_and_related": [
       "Quot.sound",
       "propext"
     ],
@@ -115,11 +119,11 @@
     ]
   },
   "source_hashes": {
-    "Inventory.lean": "e350714feae4a3f763b6b0c08042f8f9f428104de7e6eeaf092213d8d7b7e2f8",
-    "QuotientTopology.lean": "61567076c3bc326a3644505e12e832c72e36054d71ad595abf61aa795c362654",
-    "TwinRelation.lean": "692e1c8e1733fd9abb06c948feb0263339fe95cd67fa059a85b49abf949262d9",
-    "ValuationPricing.lean": "2a0514404c8d5eb56942ffd991567f8040a77aa9387a37672b0f2629758fd20d",
-    "lakefile.lean": "3681bd59ba38f20fb90997086d06e3c82e4730b4baddb140f6e7a22005602001"
+    "Inventory.lean": "42dcbbbd34147279b5df61918935c9770ab9f057038e1d43bd20c542775159e3",
+    "QuotientTopology.lean": "9e646dbcd68a19706e5ec82d43f1dfd8255c91e45a86a679e0ddc4ee68422392",
+    "TwinRelation.lean": "9d872ba58a364d80efe12c126c0da348f4b6132d29b2e9c6d5a4383f94cc89f8",
+    "ValuationPricing.lean": "50f9b5b55b6b3197531be2736503ee4731897f8a688b57b7d76e14150e46768d",
+    "lakefile.lean": "a33846179eeeaadba2fe495adfe97ebde7bc2bfa4b95a7e0309cbe96bb23c7a9"
   },
-  "terminal": "CONTINUUM_PRICE_INFINITE_PROVED"
+  "terminal": "ENUMERATIVE_TWIN_PRICE_DIVERGENT"
 }

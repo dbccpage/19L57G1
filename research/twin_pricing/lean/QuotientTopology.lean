@@ -177,9 +177,11 @@ theorem locally_constant_chain (P : TwinQuotient 2 (by decide) → Prop)
   | symm ta tb _ ih => exact ih.symm
   | trans ta tb tc _ _ ih1 ih2 => exact ih1.trans ih2
 
-/-- Theorem 2.4 (Topological Connectedness Certificate):
-    The quotient space cannot be partitioned into non-empty disjoint clopen sets respecting the equivalence. -/
-theorem quotient_is_connected (P : TwinQuotient 2 (by decide) → Prop)
+/-- Theorem 2.4 (Twin Collapse Predicate Transport):
+    A predicate respecting the twin relation transports across the scale-1 twin identification.
+    Note: Formal topological connectedness (the absence of nontrivial clopen decompositions under
+    a formalized quotient topology) is not established here and remains an open obligation. -/
+theorem twin_collapse_predicate_transport (P : TwinQuotient 2 (by decide) → Prop)
     (h_lo : P (toQuotient 2 (by decide) (twinLoThread 2 (by decide) 1 (by omega) (emptyPrefix 2) (zeroSym 2 (by decide)))))
     (h_all_twins : ∀ t1 t2, TwinRel 2 (by decide) t1 t2 → (P (toQuotient 2 (by decide) t1) ↔ P (toQuotient 2 (by decide) t2))) :
     P (toQuotient 2 (by decide) (twinHiThread 2 (by decide) 1 (by omega) (emptyPrefix 2) (zeroSym 2 (by decide)) (zeroSym_succ_lt 2 (by decide)))) := by
@@ -190,18 +192,20 @@ theorem quotient_is_connected (P : TwinQuotient 2 (by decide) → Prop)
   have h_iff := h_all_twins _ _ h_rel
   exact h_iff.mp h_lo
 
-/-! ## 4. Hausdorff Separation Certificate -/
+/-! ## 4. Algebraic Separation of Distinct Quotient Points -/
 
-/-- Theorem 2.5 (Hausdorff Quotient Separation Property):
-    Distinct quotient points have non-equivalent thread representatives. -/
+/-- Theorem 2.5 (Distinct Quotient Points Non-Equivalent):
+    Distinct quotient points have non-equivalent thread representatives under `TwinRel`. -/
 theorem quotient_points_distinct_iff (c : Nat) (hc : c ≥ 2) (t1 t2 : Thread c)
     (h_diff : toQuotient c hc t1 ≠ toQuotient c hc t2) : ¬ TwinRel c hc t1 t2 := by
   intro h_rel
   exact h_diff (Quot.sound h_rel)
 
-/-- Hausdorff Separation Certificate:
-    If two quotient points are distinct, they can be separated by non-equivalent cylinder representatives. -/
-theorem hausdorff_separation_certificate (c : Nat) (hc : c ≥ 2) (p1 p2 : TwinQuotient c hc)
+/-- Distinct Quotient Points Possess Non-Equivalent Representatives:
+    If two quotient points are distinct, they have representatives not related by `TwinRel`.
+    Note: Formal Hausdorff separation (disjoint open neighborhoods in the quotient topology)
+    is not established here and remains an open obligation. -/
+theorem distinct_quotient_points_representatives_non_equivalent (c : Nat) (hc : c ≥ 2) (p1 p2 : TwinQuotient c hc)
     (h_diff : p1 ≠ p2) :
     ∃ (t1 t2 : Thread c), toQuotient c hc t1 = p1 ∧ toQuotient c hc t2 = p2 ∧ ¬ TwinRel c hc t1 t2 := by
   induction p1 using Quot.ind with
@@ -213,7 +217,7 @@ theorem hausdorff_separation_certificate (c : Nat) (hc : c ≥ 2) (p1 p2 : TwinQ
             exact h_diff (Quot.sound h_contra)
           exact ⟨t1, t2, rfl, rfl, h_rel⟩
 
-/-! ## 5. Dyadic Valuation Error Vanishing in the Limit -/
+/-! ## 5. Dyadic Valuation Error Vanishing Across All Scales and Depths -/
 
 /-- Scaled integer dyadic valuation: numerator sum_{i=0}^{n-1} s(i) * 2^(n - 1 - i). -/
 def dyadicValInt (n : Nat) (s : Nat → Fin 2) : Nat :=
@@ -230,12 +234,77 @@ theorem scale_one_valuation_difference :
     dyadicValInt 1 (twinLoSeq 2 (by decide) 1 (by omega) (emptyPrefix 2) (zeroSym 2 (by decide))) = 1 := by
   rfl
 
-/-- Theorem 2.6 (Vanishing Valuation Error Bridge):
-    At scale n + k for elementary twins originating at scale n, the integer representation difference
-    is bounded by 1, so the metric distance 2^{-(n+k)} vanishes as k -> infty.
-    This establishes the topological bridge between Cantor thread space and the unit interval [0, 1]. -/
-theorem dyadic_representation_difference_bounded (d_diff : Nat) (h_bound : d_diff ≤ 1) :
-    d_diff = 0 ∨ d_diff = 1 := by
+theorem dyadicValInt_prefix_eq (n : Nat) (hn : n ≥ 1) (w : Fin (n - 1) → Fin 2) (a : Fin 2)
+    (ha : a.val + 1 < 2) (m : Nat) (hm : m ≤ n - 1) :
+    dyadicValInt m (twinHiSeq 2 (by decide) n hn w a ha) =
+    dyadicValInt m (twinLoSeq 2 (by decide) n hn w a) := by
+  induction m with
+  | zero => rfl
+  | succ m' ih =>
+      have hm'_lt : m' < n - 1 := by omega
+      dsimp [dyadicValInt]
+      have h_hi : twinHiSeq 2 (by decide) n hn w a ha m' = w ⟨m', hm'_lt⟩ := by
+        dsimp [twinHiSeq]
+        rw [dif_pos hm'_lt]
+      have h_lo : twinLoSeq 2 (by decide) n hn w a m' = w ⟨m', hm'_lt⟩ := by
+        dsimp [twinLoSeq]
+        rw [dif_pos hm'_lt]
+      rw [h_hi, h_lo, ih (by omega)]
+
+theorem dyadicValInt_at_scale (n : Nat) (hn : n ≥ 1) (w : Fin (n - 1) → Fin 2) (a : Fin 2)
+    (ha : a.val + 1 < 2) :
+    dyadicValInt n (twinHiSeq 2 (by decide) n hn w a ha) =
+    dyadicValInt n (twinLoSeq 2 (by decide) n hn w a) + 1 := by
+  cases n with
+  | zero => omega
+  | succ n' =>
+      dsimp [dyadicValInt]
+      have h_not_lt : ¬ (n' < n') := Nat.lt_irrefl n'
+      have h_hi_val : (twinHiSeq 2 (by decide) (n' + 1) hn w a ha n').val = a.val + 1 := by
+        dsimp [twinHiSeq]
+        rw [dif_neg h_not_lt, if_pos rfl]
+      have h_lo_val : (twinLoSeq 2 (by decide) (n' + 1) hn w a n').val = a.val := by
+        dsimp [twinLoSeq]
+        rw [dif_neg h_not_lt, if_pos rfl]
+      have h_prev := dyadicValInt_prefix_eq (n' + 1) hn w a ha n' (by omega)
+      rw [h_hi_val, h_lo_val, h_prev]
+      omega
+
+/-- Theorem 2.6: For elementary twins originating at scale n >= 1, the integer representation difference
+    at depth n + k is identically 1 for all additional depths k >= 0. -/
+theorem dyadic_valuation_difference_at_depth (n : Nat) (hn : n ≥ 1)
+    (w : Fin (n - 1) → Fin 2) (a : Fin 2) (ha : a.val + 1 < 2) (k : Nat) :
+    dyadicValInt (n + k) (twinHiSeq 2 (by decide) n hn w a ha) =
+    dyadicValInt (n + k) (twinLoSeq 2 (by decide) n hn w a) + 1 := by
+  induction k with
+  | zero =>
+      have h_zero : n + 0 = n := rfl
+      rw [h_zero]
+      exact dyadicValInt_at_scale n hn w a ha
+  | succ k' ih =>
+      have h_step : n + (k' + 1) = (n + k') + 1 := by omega
+      rw [h_step]
+      dsimp [dyadicValInt]
+      have h_not_lt : ¬ (n + k' < n - 1) := by omega
+      have h_not_eq : ¬ (n + k' = n - 1) := by omega
+      have h_hi_sym : (twinHiSeq 2 (by decide) n hn w a ha (n + k')).val = 0 := by
+        dsimp [twinHiSeq]
+        rw [dif_neg h_not_lt, if_neg h_not_eq]
+        rfl
+      have h_lo_sym : (twinLoSeq 2 (by decide) n hn w a (n + k')).val = 1 := by
+        dsimp [twinLoSeq]
+        rw [dif_neg h_not_lt, if_neg h_not_eq]
+        rfl
+      rw [h_hi_sym, h_lo_sym, ih]
+      omega
+
+/-- Normalized Dyadic Valuation Error Difference:
+    The integer difference between upper and lower twin representations is exactly 1 at all depths n + k. -/
+theorem dyadic_valuation_difference_normalized (n : Nat) (hn : n ≥ 1)
+    (w : Fin (n - 1) → Fin 2) (a : Fin 2) (ha : a.val + 1 < 2) (k : Nat) :
+    dyadicValInt (n + k) (twinHiSeq 2 (by decide) n hn w a ha) -
+    dyadicValInt (n + k) (twinLoSeq 2 (by decide) n hn w a) = 1 := by
+  rw [dyadic_valuation_difference_at_depth n hn w a ha k]
   omega
 
 end QuotientTopology

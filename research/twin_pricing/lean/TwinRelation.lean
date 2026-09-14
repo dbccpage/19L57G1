@@ -146,21 +146,13 @@ theorem twins_are_related (c : Nat) (hc : c ≥ 2) (n : Nat) (hn : n ≥ 1)
   apply TwinRel.twin
   exact ⟨n, hn, w, a, ha, Or.inl ⟨rfl, rfl⟩⟩
 
-/-! ## 5. Bounded Equivalence Fiber Structure -/
+/-! ## 5. Twin Endpoint Distinctness and Relatedness -/
 
-/-- A thread is called a dyadic boundary thread if it belongs to an elementary twin pair. -/
-def IsBoundaryThread (c : Nat) (hc : c ≥ 2) (t : Thread c) : Prop :=
-  ∃ t', IsElementaryTwin c hc t t'
-
-/-- Non-boundary threads have singleton equivalence classes under elementary identification. -/
-theorem non_boundary_class_singleton (c : Nat) (_hc : c ≥ 2) (t1 t2 : Thread c)
-    (h_rel : t1 = t2 ∨ False) : t1 = t2 := by
-  cases h_rel with
-  | inl h => exact h
-  | inr h => contradiction
-
-/-- Theorem 1.4: Every twin pair relates exactly two distinct threads in the limit. -/
-theorem twin_pair_cardinality (c : Nat) (hc : c ≥ 2) (n : Nat) (hn : n ≥ 1)
+/-- Theorem 1.4: The two endpoints of an elementary twin pair are distinct threads in thread space
+    and are related by the twin equivalence relation `TwinRel`.
+    Note: Full equivalence-class cardinality bounds (excluding any third thread from the transitive
+    closure of `TwinRel`) are not established here and remain an open obligation. -/
+theorem twin_pair_distinct_and_related (c : Nat) (hc : c ≥ 2) (n : Nat) (hn : n ≥ 1)
     (w : Fin (n - 1) → Fin c) (a : Fin c) (ha : a.val + 1 < c) :
     twinLoThread c hc n hn w a ≠ twinHiThread c hc n hn w a ha ∧
     TwinRel c hc (twinLoThread c hc n hn w a) (twinHiThread c hc n hn w a ha) :=
