@@ -1,0 +1,16 @@
+{
+  "schema": "p208b_contextuality_nonlocality-sources-v1",
+  "authority_effect": null,
+  "sources": [
+    {
+      "path": "code/derivation/iso.py",
+      "git_blob": "f05399fe6bdfbd2311bf34fa6fe927af194f586f",
+      "sha256": "b0f1f3bcf05126111a07706f4388a9fff5e30455d4b8f127966cf99ab0d0886e"
+    },
+    {
+      "path": "code/derivation/model.py",
+      "git_blob": "b6f95a673853d423a0d73b4faa95b2cd22f306a3",
+      "sha256": "6a7fd2ba9688d47e9291514c623a811cde3c6b9e8fda1d12a608dc9bb0b1f3c2"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "schema": "x301_formal_semantics-sources-v1",
+  "authority_effect": null,
+  "sources": [
+    {
+      "path": "code/derivation/model.py",
+      "git_blob": "b6f95a673853d423a0d73b4faa95b2cd22f306a3",
+      "sha256": "6a7fd2ba9688d47e9291514c623a811cde3c6b9e8fda1d12a608dc9bb0b1f3c2"
+    }
+  ]
+}

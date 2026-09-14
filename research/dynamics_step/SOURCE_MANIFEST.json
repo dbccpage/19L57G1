@@ -1,0 +1,26 @@
+{
+  "schema": "dynamics_step-sources-v1",
+  "authority_effect": null,
+  "sources": [
+    {
+      "path": "code/derivation/candidates.py",
+      "git_blob": "9fa609d8a797f74f1620ce39e377c7dc54ee53b7",
+      "sha256": "856ce42faba2dc2ae1217207ecc8af893eac29b50ae8a374dc06d2ba22c957bb"
+    },
+    {
+      "path": "code/derivation/export.py",
+      "git_blob": "d923c3aa1f5468a101ede2d0c30c66680d1ba6cd",
+      "sha256": "202b2fba9cb99864bae52d2463864c67064bb0f85e27b78c3371d930b5bf7bdd"
+    },
+    {
+      "path": "code/derivation/model.py",
+      "git_blob": "b6f95a673853d423a0d73b4faa95b2cd22f306a3",
+      "sha256": "6a7fd2ba9688d47e9291514c623a811cde3c6b9e8fda1d12a608dc9bb0b1f3c2"
+    },
+    {
+      "path": "code/derivation/observe.py",
+      "git_blob": "2552c0412d472ae9ff5d31f9068684cfa531aad9",
+      "sha256": "78443d67e613d9cc9924538fe2e0a5acaf81f4654440bfe8586e16652f0317ba"
+    }
+  ]
+}

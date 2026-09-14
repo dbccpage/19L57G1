@@ -1,0 +1,16 @@
+{
+  "schema": "target_a_execution-sources-v1",
+  "authority_effect": null,
+  "sources": [
+    {
+      "path": "code/derivation/model.py",
+      "git_blob": "b6f95a673853d423a0d73b4faa95b2cd22f306a3",
+      "sha256": "6a7fd2ba9688d47e9291514c623a811cde3c6b9e8fda1d12a608dc9bb0b1f3c2"
+    },
+    {
+      "path": "lean4/Derivation/Basic.lean",
+      "git_blob": "610d8fc982853807eb892eaaf683fc4eb2959cc1",
+      "sha256": "1520b392f4061af568e00ca4fd235feb03facf6d3612c030c1d60018539e3eed"
+    }
+  ]
+}

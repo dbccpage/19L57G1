@@ -1,0 +1,16 @@
+{
+  "schema": "x303_bounded_agency-sources-v1",
+  "authority_effect": null,
+  "sources": [
+    {
+      "path": "code/derivation/iso.py",
+      "git_blob": "f05399fe6bdfbd2311bf34fa6fe927af194f586f",
+      "sha256": "b0f1f3bcf05126111a07706f4388a9fff5e30455d4b8f127966cf99ab0d0886e"
+    },
+    {
+      "path": "code/derivation/observe.py",
+      "git_blob": "2552c0412d472ae9ff5d31f9068684cfa531aad9",
+      "sha256": "78443d67e613d9cc9924538fe2e0a5acaf81f4654440bfe8586e16652f0317ba"
+    }
+  ]
+}
