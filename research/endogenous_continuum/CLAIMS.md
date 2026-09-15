@@ -4,7 +4,7 @@ AuthorityEffect: None.
 
 ## What it supports
 
-1. The checked Lean inventory reports 107 declarations: 51 axiom-free and the
+1. The checked Lean inventory reports 116 declarations: 54 axiom-free and the
    remainder depending only on `{propext, Quot.sound}`. The source scan rejects
    `sorry`, `admit`, `unsafe`, `partial`, and explicit `axiom` declarations in
    this package. This is an inventory claim, not a declaration-completeness
@@ -60,6 +60,15 @@ AuthorityEffect: None.
 10. Empirical benchmarking across scale depths $k \in \{4, 6, 8\}$ demonstrates 100% fine-scale
     node expansion reduction (zero fine nodes explored) upon certified early refusal under insufficient budget.
 
+11. Track 8 (Adaptive Budget Conservation & Autonomous Reasoning Agent): Lean formalizes
+    exact budget conservation invariants, demonstrating that candidate allocation, budget reclamation
+    upon certified refusal, and unallocated redistribution preserve total budget conservation.
+    Lean establishes that reclaiming refused candidate budget loses no feasible path within that budget,
+    and that operational transitions with cost $\ge 1$ yield finite exploration step bounds.
+    Python implements `AutonomousReasoningAgent` and `BudgetLedger`, demonstrating starvation avoidance
+    by dynamically transferring reclaimed funds from coarse-pruned unreachable targets to high-cost
+    reachable targets with verified exact budget conservation and cryptographic execution receipts.
+
 ## What it does not support
 
 1. It does not construct a point-set topology, establish topological connectedness
@@ -80,11 +89,13 @@ records, complete carrier coarsenings, validated conservative cycles,
 conditional quotient representatives, an overlapping dyadic interval
 domain establishing finite overlap-chain connectedness and confluent rewriting,
 discrete interval movegraph dynamics demonstrating bounded primary traversal costs,
-and dual-certified continuous relaxation with hierarchical coarsening pruning.
+dual-certified continuous relaxation with hierarchical coarsening pruning,
+and an autonomous multi-scale reasoning agent with exact rational adaptive budget conservation.
 Its declared Lean inventory stays within the stated axiom allowlist, and its
 focused Python verifier rejects the recorded negative controls. No classical
 continuous object, Hausdorff dimension, or analytical limit follows.
 
 ## Next test needed
 
-Integration of the dual-certified multi-scale solver into an autonomous end-to-end reasoning engine agent workflow with adaptive budget re-allocation.
+Integration of the autonomous reasoning agent workflow with higher-order belief revision
+(AGM Truth Maintenance System) across branching multi-hypothesis trees.

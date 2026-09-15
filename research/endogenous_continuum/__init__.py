@@ -92,6 +92,14 @@ from .benchmark_hierarchical import (
     run_hierarchical_benchmark,
     run_unrelaxed_search,
 )
+from .reasoning_agent import (
+    AutonomousReasoningAgent,
+    BudgetLedger,
+    CandidateGoal,
+    GoalOutcome,
+    ReasoningActionType,
+    ReasoningAgentReceipt,
+)
 from .projective_system import (
     CoarseningMap,
     CommutativityResult,
@@ -191,5 +199,11 @@ __all__: list[str] = [
     "ScaleBenchmarkResult",
     "run_hierarchical_benchmark",
     "run_unrelaxed_search",
+    "AutonomousReasoningAgent",
+    "BudgetLedger",
+    "CandidateGoal",
+    "GoalOutcome",
+    "ReasoningActionType",
+    "ReasoningAgentReceipt",
 ]
 

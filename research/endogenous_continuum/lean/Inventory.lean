@@ -6,11 +6,12 @@ import InternalQuotienting
 import IntervalDomain
 import IntervalMovegraph
 import DualCertificate
+import AdaptiveBudget
 
 /-!
 # Target: Endogenous Continuum Lean 4 Census & Axiom Audit
 
-Comprehensive constructive census across all 7 endogenous continuum tracks:
+Comprehensive constructive census across all 8 endogenous continuum tracks:
 - Track 1: ObserverEnclosure (10 theorems)
 - Track 2: ProjectiveSystem (15 theorems)
 - Track 3: DissipativeCycle (11 theorems)
@@ -18,9 +19,10 @@ Comprehensive constructive census across all 7 endogenous continuum tracks:
 - Track 5: IntervalDomain (27 theorems)
 - Track 6: IntervalMovegraph (14 theorems)
 - Track 7: DualCertificate (10 theorems)
+- Track 8: AdaptiveBudget (9 theorems)
 - EndogenousContinuum Baseline (7 theorems)
 
-Total: 107 constructive theorems.
+Total: 116 constructive theorems.
 AuthorityEffect: None.
 Axioms: strictly within {propext, Quot.sound}.
 -/
@@ -154,6 +156,19 @@ Axioms: strictly within {propext, Quot.sound}.
 #print axioms DualCertificate.hierarchical_refusal_soundness
 
 -- ============================================================================
+-- Track 8: AdaptiveBudget (9 theorems)
+-- ============================================================================
+#print axioms AdaptiveBudget.sumAllocated_nil
+#print axioms AdaptiveBudget.sumAllocated_cons
+#print axioms AdaptiveBudget.budget_conservation_init
+#print axioms AdaptiveBudget.allocation_preserves_conservation
+#print axioms AdaptiveBudget.reclaim_refused_preserves_conservation
+#print axioms AdaptiveBudget.redistribute_preserves_conservation
+#print axioms AdaptiveBudget.reclaimed_refusal_completeness
+#print axioms AdaptiveBudget.monotone_budget_consumption
+#print axioms AdaptiveBudget.finite_exploration_bound
+
+-- ============================================================================
 -- Baseline: EndogenousContinuum (7 theorems)
 -- ============================================================================
 #print axioms EndogenousContinuum.pathwayIndex_pos
@@ -165,4 +180,4 @@ Axioms: strictly within {propext, Quot.sound}.
 #print axioms EndogenousContinuum.reflTrans_refl
 
 def main : IO Unit := do
-  IO.println "Target Endogenous Continuum Complete Lean 4 Census (107 theorems verified)."
+  IO.println "Target Endogenous Continuum Complete Lean 4 Census (116 theorems verified)."
