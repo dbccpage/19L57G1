@@ -75,6 +75,17 @@ from .interval_domain import (
     create_interval_coarsening_map,
     create_interval_movegraph,
 )
+from .dual_relaxation import (
+    DualPotential,
+    DualRefusalReceipt,
+    DualRelaxationSolver,
+    DualityGapReceipt,
+)
+from .hierarchical_search import (
+    HierarchicalRefusalReceipt,
+    HierarchicalSearchEngine,
+    HierarchicalSearchResult,
+)
 from .projective_system import (
     CoarseningMap,
     CommutativityResult,
@@ -163,5 +174,12 @@ __all__: list[str] = [
     "create_interval_coarsening_map",
     "CrossScaleCapacityAnalysis",
     "analyze_cross_scale_capacity",
+    "DualPotential",
+    "DualRefusalReceipt",
+    "DualRelaxationSolver",
+    "DualityGapReceipt",
+    "HierarchicalRefusalReceipt",
+    "HierarchicalSearchEngine",
+    "HierarchicalSearchResult",
 ]
 

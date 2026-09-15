@@ -5,20 +5,22 @@ import DissipativeCycle
 import InternalQuotienting
 import IntervalDomain
 import IntervalMovegraph
+import DualCertificate
 
 /-!
 # Target: Endogenous Continuum Lean 4 Census & Axiom Audit
 
-Comprehensive constructive census across all 6 endogenous continuum tracks:
+Comprehensive constructive census across all 7 endogenous continuum tracks:
 - Track 1: ObserverEnclosure (10 theorems)
 - Track 2: ProjectiveSystem (15 theorems)
 - Track 3: DissipativeCycle (11 theorems)
 - Track 4: InternalQuotienting (13 theorems)
 - Track 5: IntervalDomain (27 theorems)
 - Track 6: IntervalMovegraph (14 theorems)
+- Track 7: DualCertificate (10 theorems)
 - EndogenousContinuum Baseline (7 theorems)
 
-Total: 97 constructive theorems.
+Total: 107 constructive theorems.
 AuthorityEffect: None.
 Axioms: strictly within {propext, Quot.sound}.
 -/
@@ -138,6 +140,20 @@ Axioms: strictly within {propext, Quot.sound}.
 #print axioms IntervalMovegraph.coveringNumber_growth_bound
 
 -- ============================================================================
+-- Track 7: DualCertificate (10 theorems)
+-- ============================================================================
+#print axioms DualCertificate.dual_step_bound
+#print axioms DualCertificate.dual_path_bound
+#print axioms DualCertificate.dual_refusal_soundness
+#print axioms DualCertificate.duality_gap_nonnegative
+#print axioms DualCertificate.optimal_path_zero_gap
+#print axioms DualCertificate.cycle_dissipation_strictly_positive
+#print axioms DualCertificate.dissipative_length_bounded
+#print axioms DualCertificate.coarsening_preserves_admissibility
+#print axioms DualCertificate.coarsening_collapse_admissibility
+#print axioms DualCertificate.hierarchical_refusal_soundness
+
+-- ============================================================================
 -- Baseline: EndogenousContinuum (7 theorems)
 -- ============================================================================
 #print axioms EndogenousContinuum.pathwayIndex_pos
@@ -149,4 +165,4 @@ Axioms: strictly within {propext, Quot.sound}.
 #print axioms EndogenousContinuum.reflTrans_refl
 
 def main : IO Unit := do
-  IO.println "Target Endogenous Continuum Complete Lean 4 Census (97 theorems verified)."
+  IO.println "Target Endogenous Continuum Complete Lean 4 Census (107 theorems verified)."

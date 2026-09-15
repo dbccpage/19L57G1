@@ -1,6 +1,6 @@
 name = "endogenous_continuum"
 version = "0.1.0"
-defaultTargets = ["EndogenousContinuum", "Inventory", "ObserverEnclosure", "ProjectiveSystem", "DissipativeCycle", "InternalQuotienting", "IntervalDomain", "IntervalMovegraph"]
+defaultTargets = ["EndogenousContinuum", "Inventory", "ObserverEnclosure", "ProjectiveSystem", "DissipativeCycle", "InternalQuotienting", "IntervalDomain", "IntervalMovegraph", "DualCertificate"]
 
 [[require]]
 name = "derivation"
@@ -23,6 +23,9 @@ name = "IntervalDomain"
 
 [[lean_lib]]
 name = "IntervalMovegraph"
+
+[[lean_lib]]
+name = "DualCertificate"
 
 [[lean_lib]]
 name = "EndogenousContinuum"

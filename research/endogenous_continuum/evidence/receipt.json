@@ -12,9 +12,9 @@
       "Quot.sound",
       "propext"
     ],
-    "axiom_free_count": 49,
+    "axiom_free_count": 51,
     "build_status": "PASS",
-    "theorem_count": 97,
+    "theorem_count": 107,
     "theorem_details": {
       "DissipativeCycle.acyclic_dissipative_terminates": [
         "propext",
@@ -48,6 +48,40 @@
         "Quot.sound"
       ],
       "DissipativeCycle.trajectory_cycle_net_potential_zero": [
+        "propext",
+        "Quot.sound"
+      ],
+      "DualCertificate.coarsening_collapse_admissibility": [
+        "propext",
+        "Quot.sound"
+      ],
+      "DualCertificate.coarsening_preserves_admissibility": [],
+      "DualCertificate.cycle_dissipation_strictly_positive": [
+        "propext",
+        "Quot.sound"
+      ],
+      "DualCertificate.dissipative_length_bounded": [
+        "propext",
+        "Quot.sound"
+      ],
+      "DualCertificate.dual_path_bound": [
+        "propext",
+        "Quot.sound"
+      ],
+      "DualCertificate.dual_refusal_soundness": [
+        "propext",
+        "Quot.sound"
+      ],
+      "DualCertificate.dual_step_bound": [],
+      "DualCertificate.duality_gap_nonnegative": [
+        "propext",
+        "Quot.sound"
+      ],
+      "DualCertificate.hierarchical_refusal_soundness": [
+        "propext",
+        "Quot.sound"
+      ],
+      "DualCertificate.optimal_path_zero_gap": [
         "propext",
         "Quot.sound"
       ],
@@ -255,7 +289,7 @@
   },
   "pytest": {
     "exit_code": 0,
-    "passed": 100,
+    "passed": 110,
     "status": "PASS"
   },
   "schema_version": 1,
@@ -265,19 +299,22 @@
   },
   "source_hashes": {
     ".gitattributes": "8d3cbb5c8e466acc37bd53780fb2f2564a6f2d41663b6a0bf22f8ae1dfb02b5d",
-    "CLAIMS.md": "f513d96c535b802917252ac2d004de09b2229a7bdfc9a84d046bafdd518dcc3f",
+    "CLAIMS.md": "de1a641f4e491d05d8a5b2cbe8943d169f95a9a3485b59854a2c9146c8a7134b",
     "README.md": "121f47d650de85c96550070bc9474aea1ffe89d27195effdf86b4570f3c238a2",
     "SOURCE_MANIFEST.json": "5814cdddf1dba62886ded8409e094d38467744ea4ff5e9e3f0630a2d9c0a1cc8",
-    "__init__.py": "3d830868e80fc7bb65a88f9c0b7cafd88a731e08e3898da168c73916b88d3fe7",
+    "__init__.py": "951a489f362cd6aa5187def618c44f6576a7487ff17d5bdd768b198ad5c33846",
     "dissipative_cycle.py": "335d91526080afaf7836833fa2451e2ec720afb20b73bd4e3b8053b0557aa29f",
+    "dual_relaxation.py": "1266a67b3ca65e1973cce748597dead86ca8cc8988c526cd3d32c7751a36592f",
+    "hierarchical_search.py": "21054e66f017c02822f81bc7bb3ed820af088ac4ece8aa5ce2f693c6c8096d71",
     "internal_quotienting.py": "6e49ec433912d59357a941b7c0084c1410be37cdec670a25014a603012f2e26d",
     "interval_domain.py": "a41b054571ce3f084d07ccf8c34f717844c22773094f2eeb3b5ac7f5bd4d6e6e",
     "lean/DissipativeCycle.lean": "40e16d412ce71bbbe28905ee98f64755608b9138e0e5ebfddf1d443a581fa66d",
+    "lean/DualCertificate.lean": "ed71d85f3ff6c61ed26b91996a2972d6aeaac1010a94d3d11cbc707dd18c52a7",
     "lean/EndogenousContinuum.lean": "f40b1408f8b5efbea9aa4d033cba2b6975bdeba044ae7bdf3958e2eb62913574",
     "lean/InternalQuotienting.lean": "c31a30fdbe4a1b77eabbbf5f05343ab040d46ca0103027b7113fffed41b9b0fb",
     "lean/IntervalDomain.lean": "c2ff8c0c57703c0213a5bbaa83a3b3a9e5e3668602472bb782c900c0ecd66c3a",
     "lean/IntervalMovegraph.lean": "95391c844d0ae2e450f4b404b37944e7c0c14bc26ad69c7b25c8a3e2b436df3f",
-    "lean/Inventory.lean": "82454a08e7bb2640da23ce18081c357761d9bab5373471f7c47b8b20d6711f5a",
+    "lean/Inventory.lean": "211c85356d244a0dce47b80fbb89523d516ac2583c617f569b868b2558192533",
     "lean/ObserverEnclosure.lean": "6a67429aa9172052dbbfc72ebaca5f2ba5fa998411df9013b393275d6ee87422",
     "lean/ProjectiveSystem.lean": "d114cebe2bb6985ba306685d72f335eb248d4891ee855623bea483c359b437eb",
     "observer_enclosure.py": "fdba45b53199cd802356c268f10c7db62cf27f10ceac83486c84d9341cf4fd2b",
@@ -285,6 +322,8 @@
     "tests/__init__.py": "44b1fc4e79bb35aa69c00ad6a8cbc1a1e68c6a9d8c7c18caee32ade0adcafa9b",
     "tests/test_adversarial.py": "009b9467334d52aff474c0e3fbf90c5e4ef7d1fcc990d93e8b9a647c08249b65",
     "tests/test_dissipative_cycle.py": "2c1ec93863941fb38442dda746c1073a53732bd23b7b49066a1bb8e004c71968",
+    "tests/test_dual_relaxation.py": "a8df6555fe7d7240a4ffb8c7d73ac51eb765d45a9dcb7e46ecca61a79d5fa0da",
+    "tests/test_hierarchical_search.py": "4a27ba45016c4f741948ef29eec5a9d872cdcab51320f30ced7769379d891c95",
     "tests/test_internal_quotienting.py": "1fbf7156a5fb4aeadb66c1a9a5a778c9d94de9383d12b63c2b77a4f7cb929b82",
     "tests/test_interval_domain.py": "66fd9f5aacace57ad2a2b64edaffdb08cc186fce1eff2616968c27a1b8c35eef",
     "tests/test_observer_enclosure.py": "d84b478ba835f01c19bde73469322c68bc8d16843afe03b26276233d97c964b3",

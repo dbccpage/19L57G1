@@ -4,7 +4,7 @@ AuthorityEffect: None.
 
 ## What it supports
 
-1. The checked Lean inventory reports 97 declarations: 49 axiom-free and the
+1. The checked Lean inventory reports 107 declarations: 51 axiom-free and the
    remainder depending only on `{propext, Quot.sound}`. The source scan rejects
    `sorry`, `admit`, `unsafe`, `partial`, and explicit `axiom` declarations in
    this package. This is an inventory claim, not a declaration-completeness
@@ -42,8 +42,17 @@ AuthorityEffect: None.
    - Traversal dissipation ratio bound: $(2^k - 2) \le 2^k (2^k - 2)$.
    - Dyadic index coarsening $\lfloor i / 2 \rfloor$ preserves adjacent overlapping relations across scales.
    - Discrete metric capacity recurrence $N(k+1) = 2N(k) + 1$, strict capacity monotonicity, and doubling growth bounds.
-8. Exact rational endpoints, integer cover counts, and discrete graph morphisms in the Python model, with
-   explicitly approximate floating logarithmic summaries and
+8. Track 7 (Dual Certificate Verification & Hierarchical Pruning): Lean formalizes
+   exact dual potentials and certificates. Lean demonstrates:
+   - Fundamental Dual Lower Bound: for any admissible path from $u$ to $w$, $y(w) \le y(u) + \text{cost}(p)$.
+   - Certified Farkas Refusal Soundness: if $y(w) > y(u) + \text{budget}$, every admissible path strictly exceeds the budget.
+   - Zero Duality Gap Optimality: paths attaining $\text{cost}(p) + y(u) = y(w)$ are globally minimal-cost.
+   - Dissipative Cycle Boundedness: cumulative representation dissipation lower-bounds path length for positive dissipation steps.
+   - Coarsening Admissibility Lift: valid coarse potentials lift to admissible fine potentials under coarsening graph morphisms.
+   - Master Hierarchical Refusal Soundness: if coarse dual bound exceeds budget, fine-scale search is soundly pruned top-down.
+9. Exact rational endpoints, integer cover counts, and discrete graph morphisms in the Python model, with
+   `DualRelaxationSolver` computing exact rational dual potentials and duality gaps in polynomial time,
+   `HierarchicalSearchEngine` pruning fine subtrees in zero explored fine nodes via coarse dual certificates, and
    focused negative controls for float inputs, trace tampering, incomplete or
    non-commuting projections, malformed cycles, non-confluent rewrites, and
    malformed interval covers and partitions.
@@ -67,13 +76,13 @@ Within the checked finite models, the package supplies append-only observer
 records, complete carrier coarsenings, validated conservative cycles,
 conditional quotient representatives, an overlapping dyadic interval
 domain establishing finite overlap-chain connectedness and confluent rewriting,
-and discrete interval movegraph dynamics demonstrating bounded primary traversal costs,
-vanishing dissipation, and exact discrete metric capacity recurrence.
+discrete interval movegraph dynamics demonstrating bounded primary traversal costs,
+and dual-certified continuous relaxation with hierarchical coarsening pruning.
 Its declared Lean inventory stays within the stated axiom allowlist, and its
 focused Python verifier rejects the recorded negative controls. No classical
 continuous object, Hausdorff dimension, or analytical limit follows.
 
 ## Next test needed
 
-Constructive formalization of coherent projective thread sequences in the interval domain
-satisfying operational cost convergence across infinite projective scales.
+Empirical benchmarking of the hierarchical dual-certified search engine against
+un-relaxed discrete search across increasing scale depths $k \in \{4, 6, 8\}$.
