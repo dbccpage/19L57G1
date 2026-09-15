@@ -35,7 +35,7 @@ def test_transition_exact_integers_enforced() -> None:
         Transition(source="A", target="B", mu1=3, mu2=1.2)  # type: ignore
 
     with pytest.raises(TypeError):
-        Transition(source="A", target="B", mu1=True, mu2=1)  # type: ignore
+        Transition(source="A", target="B", mu1=True, mu2=1)
 
     with pytest.raises(ValueError):
         Transition(source="A", target="B", mu1=3, mu2=0)
@@ -58,6 +58,55 @@ def test_carrier_graph_potential_exact_integers() -> None:
 
     with pytest.raises(ValueError):
         g.add_transition("A", "B", mu2=1, mu1=5)
+
+    g.add_state("A", 10)
+    with pytest.raises(ValueError, match="already has potential"):
+        g.add_state("A", 11)
+
+
+def test_cycle_validates_closed_path_and_aggregate_costs() -> None:
+    ab = Transition(source="A", target="B", mu1=1, mu2=1)
+    ba = Transition(source="B", target="A", mu1=-1, mu2=2)
+
+    with pytest.raises(ValueError, match="closed state path"):
+        Cycle(
+            states=("A", "B"),
+            transitions=(ba, ab),
+            total_mu1=0,
+            total_mu2=3,
+            period=2,
+        )
+
+    with pytest.raises(ValueError, match="total_mu2"):
+        Cycle(
+            states=("A", "B"),
+            transitions=(ab, ba),
+            total_mu1=0,
+            total_mu2=4,
+            period=2,
+        )
+
+
+def test_stepper_rejects_foreign_edges_graphs_and_invalid_bounds() -> None:
+    graph = CarrierGraph[str]()
+    graph.add_state("A", 1)
+    graph.add_state("B", 0)
+    graph.add_transition("A", "B")
+    foreign = Transition(source="A", target="A", mu1=0, mu2=1)
+    bad_stepper = AutonomousStepper(graph, selection_rule=lambda _: foreign)
+    with pytest.raises(ValueError, match="outside the current"):
+        bad_stepper.step("A")
+
+    normal_stepper = AutonomousStepper(graph)
+    with pytest.raises(ValueError, match="positive int"):
+        normal_stepper.run_trajectory("A", max_steps=0)
+
+    other_graph = CarrierGraph[str]()
+    other_graph.add_state("A", 0)
+    with pytest.raises(ValueError, match="different CarrierGraph"):
+        CycleDetector.find_all_cycles_autonomous(other_graph, normal_stepper)
+    with pytest.raises(ValueError, match="different CarrierGraph"):
+        StateSpacePruner.prune_to_attractor_core(other_graph, normal_stepper)
 
 
 def test_acyclic_path_termination_finite_steps() -> None:

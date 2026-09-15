@@ -46,7 +46,17 @@ class RewriteStep(Generic[T]):
 
     rule_name: str
     target: T
-    cost: Fraction = field(default_factory=lambda: Fraction(1, 1))
+    cost: Fraction | int = field(default_factory=lambda: Fraction(1, 1))
+
+    def __post_init__(self) -> None:
+        if isinstance(self.cost, bool) or not isinstance(self.cost, (Fraction, int)):
+            raise TypeError(
+                f"rewrite cost must be an exact Fraction or int, got {type(self.cost).__name__}"
+            )
+        exact_cost = Fraction(self.cost)
+        if exact_cost < 0:
+            raise ValueError(f"rewrite cost must be non-negative, got {exact_cost}")
+        object.__setattr__(self, "cost", exact_cost)
 
 
 @dataclass(frozen=True)
@@ -203,6 +213,8 @@ class RewriteSystem(Generic[T]):
         max_depth: int = 50,
     ) -> JoinProof[T]:
         """Search for a common join state reachable from both branch_a and branch_b."""
+        if not isinstance(max_depth, int) or isinstance(max_depth, bool) or max_depth < 0:
+            raise ValueError(f"max_depth must be a non-negative int, got {max_depth!r}")
         dummy_source = source if source is not None else branch_a
 
         if branch_a == branch_b:
@@ -345,6 +357,14 @@ class RewriteSystem(Generic[T]):
         max_join_depth: int = 50,
     ) -> LocalConfluenceReport[T]:
         """Test local confluence across candidate states by checking all critical divergences."""
+        if (
+            not isinstance(max_join_depth, int)
+            or isinstance(max_join_depth, bool)
+            or max_join_depth < 0
+        ):
+            raise ValueError(
+                f"max_join_depth must be a non-negative int, got {max_join_depth!r}"
+            )
         checked_count = 0
         all_divergences: list[Divergence[T]] = []
         unjoinable: list[Divergence[T]] = []
@@ -365,7 +385,8 @@ class RewriteSystem(Generic[T]):
                 if not proof.joined:
                     unjoinable.append(d)
 
-        is_confluent = len(unjoinable) == 0
+        # An empty census provides no evidence for the bounded claim.
+        is_confluent = checked_count > 0 and len(unjoinable) == 0
         joined_count = len(all_divergences) - len(unjoinable)
 
         return LocalConfluenceReport(
@@ -384,6 +405,18 @@ class RewriteSystem(Generic[T]):
         max_steps: int = 1000,
     ) -> ReductionResult[T]:
         """Reduce a state to an irreducible normal form under the chosen strategy."""
+        if not isinstance(max_steps, int) or isinstance(max_steps, bool) or max_steps < 0:
+            raise ValueError(f"max_steps must be a non-negative int, got {max_steps!r}")
+        if self.is_irreducible(state):
+            return ReductionResult(
+                initial_state=state,
+                normal_form=state,
+                steps_count=0,
+                trajectory=(state,),
+                rules_applied=(),
+                total_cost=Fraction(0, 1),
+                is_normal_form=True,
+            )
         if strategy == ReductionStrategy.SHORTEST_PATH:
             return self._reduce_shortest_path(state, max_steps)
 
@@ -484,8 +517,13 @@ class RewriteSystem(Generic[T]):
         max_depth: int = 50,
         max_paths: int = 500,
     ) -> tuple[ReductionResult[T], ...]:
-        """Explore all maximal reduction sequences from state via DFS backtracking."""
+        """Explore every maximal reduction sequence within declared finite bounds."""
+        if not isinstance(max_depth, int) or isinstance(max_depth, bool) or max_depth < 0:
+            raise ValueError(f"max_depth must be a non-negative int, got {max_depth!r}")
+        if not isinstance(max_paths, int) or isinstance(max_paths, bool) or max_paths <= 0:
+            raise ValueError(f"max_paths must be a positive int, got {max_paths!r}")
         results: list[ReductionResult[T]] = []
+        truncated = False
 
         def dfs(
             curr: T,
@@ -494,7 +532,9 @@ class RewriteSystem(Generic[T]):
             cost: Fraction,
             visited: set[T],
         ) -> None:
+            nonlocal truncated
             if len(results) >= max_paths:
+                truncated = True
                 return
 
             if self.is_irreducible(curr):
@@ -540,6 +580,10 @@ class RewriteSystem(Generic[T]):
                 traj.pop()
 
         dfs(state, [state], [], Fraction(0, 1), {state})
+        if truncated:
+            raise RuntimeError(
+                f"Reduction path census exceeded max_paths={max_paths}; no complete census returned"
+            )
         return tuple(results)
 
     def all_normal_forms(
@@ -603,6 +647,8 @@ class RewriteSystem(Generic[T]):
 
 def make_string_rule(lhs: str, rhs: str, name: str = "") -> RewriteRule[str]:
     """Construct an explicit string rewrite rule lhs -> rhs at all matching positions."""
+    if not lhs:
+        raise ValueError("lhs must be non-empty")
     rule_name = name if name else f"{lhs}->{rhs}"
 
     def apply_fn(s: str) -> tuple[str, ...]:
@@ -664,8 +710,22 @@ class RelationalState:
     relations: frozenset[tuple[str, str, str]]
 
     def __post_init__(self) -> None:
-        """Enforce uniquely sorted presentation order for tokens."""
-        object.__setattr__(self, "tokens", tuple(sorted(set(self.tokens))))
+        """Normalize the finite carrier and reject relations outside it."""
+        if any(not isinstance(token, str) for token in self.tokens):
+            raise TypeError("RelationalState tokens must all be strings")
+        normalized_tokens = tuple(sorted(set(self.tokens)))
+        normalized_relations = frozenset(self.relations)
+        token_set = set(normalized_tokens)
+        for relation in normalized_relations:
+            if len(relation) != 3 or any(not isinstance(part, str) for part in relation):
+                raise TypeError("RelationalState relations must be string triples")
+            _, subject, obj = relation
+            if subject not in token_set or obj not in token_set:
+                raise ValueError(
+                    f"Relation endpoints must belong to tokens: {relation!r}"
+                )
+        object.__setattr__(self, "tokens", normalized_tokens)
+        object.__setattr__(self, "relations", normalized_relations)
 
     def __lt__(self, other: RelationalState) -> bool:
         """Deterministic comparison for sorting."""

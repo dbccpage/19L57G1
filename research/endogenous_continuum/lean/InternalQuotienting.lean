@@ -176,7 +176,7 @@ theorem eqv_of_joinable {Carrier : Type} {Step : Carrier → Carrier → Prop} {
   obtain ⟨z, hxz, hyz⟩ := hj
   exact Eqv.trans (eqv_of_reflTransStep hxz) (Eqv.symm (eqv_of_reflTransStep hyz))
 
-/-- Under confluence, endogenous equivalence implies joinability (Church-Rosser). -/
+/-- Under confluence, endogenous equivalence implies joinability. -/
 theorem joinable_of_eqv {Carrier : Type} (Step : Carrier → Carrier → Prop)
     (h_conf : IsConfluent Step) {x y : Carrier}
     (h : Eqv Step x y) : Joinable Step x y := by

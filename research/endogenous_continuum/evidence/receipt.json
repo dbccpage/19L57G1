@@ -1,10 +1,10 @@
 {
   "authority_effect": "None",
   "claim_hygiene": {
-    "scope": "Finitary endogenous continuum pathways over relational carrier models. Covers Track 1 (Observer Enclosure), Track 2 (Projective System), Track 3 (Cycle Filtering), and Track 4 (Internal Quotienting). Initial scaffold pinned to sealed derivation sources with zero axiom leak. See CLAIMS.md.",
+    "inventory_reports_no_classical_choice": true,
+    "reported_axioms_within_allowlist": true,
+    "scope": "Four finite constructions over relational carrier models: observer records, carrier coarsenings, cycle validation, and conditional rewrite quotients. Three sealed sources are pinned read-only. See CLAIMS.md for hypotheses and nonclaims.",
     "sealed_sources_pinned": true,
-    "zero_axiom_pollution": true,
-    "zero_classical_choice": true,
     "zero_floating_point_arithmetic": true
   },
   "lean": {
@@ -56,7 +56,7 @@
       "EndogenousContinuum.obsEquiv_symm": [],
       "EndogenousContinuum.obsEquiv_trans": [],
       "EndogenousContinuum.pathwayIndex_pos": [],
-      "EndogenousContinuum.potential_bounded": [],
+      "EndogenousContinuum.potential_nonincreasing": [],
       "EndogenousContinuum.reflTrans_refl": [],
       "InternalQuotienting.canonical_minimizer_elimination": [],
       "InternalQuotienting.endogenous_equivalence_refl": [],
@@ -112,7 +112,7 @@
       ],
       "ProjectiveSystem.embed_operationalPricing": [],
       "ProjectiveSystem.operationalPricing_append": [],
-      "ProjectiveSystem.operational_pricing_non_euclidean": [],
+      "ProjectiveSystem.operational_pricing_ambient_independent": [],
       "ProjectiveSystem.project_operationalPricing": [],
       "ProjectiveSystem.projective_composition": [
         "Quot.sound"
@@ -137,9 +137,13 @@
       "ProjectiveSystem.truncated_coherence_preserved_step": []
     }
   },
+  "mypy": {
+    "exit_code": 0,
+    "status": "PASS"
+  },
   "pytest": {
     "exit_code": 0,
-    "passed": 74,
+    "passed": 86,
     "status": "PASS"
   },
   "schema_version": 1,
@@ -148,29 +152,30 @@
     "status": "PASS"
   },
   "source_hashes": {
-    "CLAIMS.md": "57c01b890ea14e41b9f04b39fcd13bf5ad259a98533480a82b0a5ccb052a4799",
-    "README.md": "8d4623d32e85e9332e1b6555db5faf146e9d190df320a9cca2f04cbcc1ce1ced",
+    ".gitattributes": "8d3cbb5c8e466acc37bd53780fb2f2564a6f2d41663b6a0bf22f8ae1dfb02b5d",
+    "CLAIMS.md": "7b27dbe3ddd4c667d401a8137c6b12917020099f52ddcc075f0affacd8e70097",
+    "README.md": "121f47d650de85c96550070bc9474aea1ffe89d27195effdf86b4570f3c238a2",
     "SOURCE_MANIFEST.json": "5814cdddf1dba62886ded8409e094d38467744ea4ff5e9e3f0630a2d9c0a1cc8",
     "__init__.py": "2d8f07c9cf39efa1bfbd7bf6044b828e706e2d5d9f72c2cc5d88bd6d651b6185",
-    "dissipative_cycle.py": "e3b94e8335ebd69352b1c063903776345c9b3e33db7d1032e43afb25320ef5e3",
-    "internal_quotienting.py": "2b813aaa46a0e1a08934221bd726bbf2bfb6ee60a79fd8a059cc447ee0f31045",
+    "dissipative_cycle.py": "335d91526080afaf7836833fa2451e2ec720afb20b73bd4e3b8053b0557aa29f",
+    "internal_quotienting.py": "6e49ec433912d59357a941b7c0084c1410be37cdec670a25014a603012f2e26d",
     "lean/DissipativeCycle.lean": "40e16d412ce71bbbe28905ee98f64755608b9138e0e5ebfddf1d443a581fa66d",
-    "lean/EndogenousContinuum.lean": "d5f7de4bc14679d5722f680ac367dc15fe22e62587ed15d0cc2da487e5cdaaf5",
-    "lean/InternalQuotienting.lean": "1a811d0446c6a541b338fcb920976aee0a4178fcccf1be0e12d0b90947a27a15",
-    "lean/Inventory.lean": "560eebedf747dbdef1beeb8051d94295e594d9c33266c7d6d59e9d4b467e0b9a",
+    "lean/EndogenousContinuum.lean": "f40b1408f8b5efbea9aa4d033cba2b6975bdeba044ae7bdf3958e2eb62913574",
+    "lean/InternalQuotienting.lean": "c31a30fdbe4a1b77eabbbf5f05343ab040d46ca0103027b7113fffed41b9b0fb",
+    "lean/Inventory.lean": "b7c6f2a516d564486f3a8929503c6cacd27d5f95960d4fb2ecb09bd620ab12fe",
     "lean/ObserverEnclosure.lean": "6a67429aa9172052dbbfc72ebaca5f2ba5fa998411df9013b393275d6ee87422",
-    "lean/ProjectiveSystem.lean": "bb7885cd20635cb19a93684a0fd2ce3413c69bb97e52e10021a3713dcb415ecd",
-    "observer_enclosure.py": "2d47af5e12325021b34916b4a348c64ed1a41e11e022dcc68e128a826ed398eb",
-    "projective_system.py": "abdeb2374b78d8284ce185ed1d77567102fbc52cba7a2695b0fe9460b34d7085",
+    "lean/ProjectiveSystem.lean": "d114cebe2bb6985ba306685d72f335eb248d4891ee855623bea483c359b437eb",
+    "observer_enclosure.py": "fdba45b53199cd802356c268f10c7db62cf27f10ceac83486c84d9341cf4fd2b",
+    "projective_system.py": "747f3916b22b5da9b4a8c0f6a078ed170caf705c677e5cef0d5c3c347ab8eb74",
     "tests/__init__.py": "44b1fc4e79bb35aa69c00ad6a8cbc1a1e68c6a9d8c7c18caee32ade0adcafa9b",
-    "tests/test_adversarial.py": "0691a0b9bcb9e492d0a0704157229c1adcb5da870e93abee4d6a307219681efc",
-    "tests/test_dissipative_cycle.py": "8a0120f8d661c585f8f02c8b165bf55e78b720793bc01bbdb1f92ac0df5cf949",
-    "tests/test_internal_quotienting.py": "54d86d8c1d0cfe3647d19a04358bf668b129d52b63d2af907f1ed8de077e2f49",
-    "tests/test_observer_enclosure.py": "44c55a34d6a1af849bf8da42e013537cfc1ba94fe353e92cbcd6a2f488d26636",
-    "tests/test_projective_system.py": "10435021c7eca0906cee74ae6342ef2b810efaad22dc61923696db20c066b63b",
-    "tests/test_scaffold.py": "4c01c03bc47bc8e22ecfcd6a4f89bea01b338fbaa0fbd74f8c4686a4c95e2e9d",
-    "verify.py": "841793248c7dc209457415468b8c6d4eed38005740ffeea6b7af24bb1c3aaca9",
-    "verify_sources.py": "c958a7a8c1ea41afeb11aa045ddd233f3072b12cb0357d449e2456ffccc2d48a"
+    "tests/test_adversarial.py": "009b9467334d52aff474c0e3fbf90c5e4ef7d1fcc990d93e8b9a647c08249b65",
+    "tests/test_dissipative_cycle.py": "2c1ec93863941fb38442dda746c1073a53732bd23b7b49066a1bb8e004c71968",
+    "tests/test_internal_quotienting.py": "1fbf7156a5fb4aeadb66c1a9a5a778c9d94de9383d12b63c2b77a4f7cb929b82",
+    "tests/test_observer_enclosure.py": "d84b478ba835f01c19bde73469322c68bc8d16843afe03b26276233d97c964b3",
+    "tests/test_projective_system.py": "7da04bad7fc914a9f53e6e221f7a9c01e20d4157ea5a8361ddbdadf770e15e10",
+    "tests/test_scaffold.py": "9d4436d4539126bcb686d0f101bd740ec2d20942e1009bb8f9ff46e6b53f957b",
+    "verify.py": "0a05f292fb6e7494a928bb6a712e122c99c87f9beff9f4626fdc3f56f85a3879",
+    "verify_sources.py": "f123e65e95765c9aa93b6b31f1b100be925ab18a69b3accd875d234f70fd4b2b"
   },
   "status": "PASS",
   "target": "Target: Endogenous Continuum"

@@ -10,13 +10,14 @@ import heapq
 from collections import defaultdict, deque
 from dataclasses import dataclass, field
 from fractions import Fraction
+from types import MappingProxyType
 from typing import Any, Callable, Dict, FrozenSet, Iterable, Iterator, List, Mapping, Optional, Sequence, Set, Tuple, Union
 
 
 
 def _to_fraction(val: Any, field_name: str) -> Fraction:
     """Coerce an int or Fraction to exact Fraction; reject float explicitly."""
-    if isinstance(val, float):
+    if isinstance(val, (bool, float)):
         raise TypeError(
             f"{field_name} must be exact rational (Fraction or int), received float: {val!r}"
         )
@@ -70,7 +71,9 @@ class OperationalPrice:
     def __post_init__(self) -> None:
         object.__setattr__(self, "mu1_sum", _to_fraction(self.mu1_sum, "mu1_sum"))
         object.__setattr__(self, "mu2_sum", _to_fraction(self.mu2_sum, "mu2_sum"))
-        if not isinstance(self.step_count, int) or self.step_count < 0:
+        if not isinstance(self.step_count, int) or isinstance(self.step_count, bool):
+            raise TypeError(f"step_count must be a non-negative int, got {self.step_count!r}")
+        if self.step_count < 0:
             raise ValueError(f"step_count must be non-negative int, got {self.step_count!r}")
 
     @classmethod
@@ -113,7 +116,7 @@ class MoveGraph:
     )
 
     def __post_init__(self) -> None:
-        if not isinstance(self.level, int) or self.level < 0:
+        if not isinstance(self.level, int) or isinstance(self.level, bool) or self.level < 0:
             raise ValueError(f"level must be non-negative int, got {self.level!r}")
 
         # Validate that all edge endpoints belong to states
@@ -132,8 +135,12 @@ class MoveGraph:
             out_map[e.source].append(e)
             in_map[e.target].append(e)
 
-        frozen_out = {s: tuple(edges) for s, edges in out_map.items()}
-        frozen_in = {s: tuple(edges) for s, edges in in_map.items()}
+        frozen_out = {
+            s: tuple(sorted(edges, key=repr)) for s, edges in out_map.items()
+        }
+        frozen_in = {
+            s: tuple(sorted(edges, key=repr)) for s, edges in in_map.items()
+        }
 
         object.__setattr__(self, "_outgoing", frozen_out)
         object.__setattr__(self, "_incoming", frozen_in)
@@ -214,19 +221,27 @@ class CoarseningMap:
     edge_map: Optional[Mapping[MoveEdge, Optional[MoveEdge]]] = None
 
     def __post_init__(self) -> None:
-        if not isinstance(self.source_level, int) or self.source_level < 0:
+        if (
+            not isinstance(self.source_level, int)
+            or isinstance(self.source_level, bool)
+            or self.source_level < 0
+        ):
             raise ValueError(f"source_level must be non-negative int, got {self.source_level!r}")
-        if not isinstance(self.target_level, int) or self.target_level < 0:
+        if (
+            not isinstance(self.target_level, int)
+            or isinstance(self.target_level, bool)
+            or self.target_level < 0
+        ):
             raise ValueError(f"target_level must be non-negative int, got {self.target_level!r}")
         if self.target_level > self.source_level:
             raise ValueError(
                 f"Coarsening projection requires target_level <= source_level, "
                 f"got {self.target_level} > {self.source_level}"
             )
-        # Freeze state_map
-        object.__setattr__(self, "state_map", dict(self.state_map))
+        # Keep a defensive, read-only snapshot despite the frozen dataclass wrapper.
+        object.__setattr__(self, "state_map", MappingProxyType(dict(self.state_map)))
         if self.edge_map is not None:
-            object.__setattr__(self, "edge_map", dict(self.edge_map))
+            object.__setattr__(self, "edge_map", MappingProxyType(dict(self.edge_map)))
 
     @classmethod
     def identity(cls, graph: MoveGraph) -> CoarseningMap:
@@ -331,6 +346,12 @@ class CoarseningMap:
             defects.append(
                 f"State map domain incomplete; missing {len(missing_states)} states: {sorted(map(repr, missing_states))[:3]}"
             )
+        extra_states = set(self.state_map.keys()) - source_graph.states
+        if extra_states:
+            defects.append(
+                f"State map domain has {len(extra_states)} extraneous states: "
+                f"{sorted(map(repr, extra_states))[:3]}"
+            )
 
         # Codomain validity
         for s in source_graph.states:
@@ -373,6 +394,13 @@ class CoarseningMap:
                             defects.append(
                                 f"Transition {e.source!r} -> {e.target!r} maps to ({u_img!r}, {v_img!r}) which is not an edge in target graph"
                             )
+
+        if self.edge_map is not None:
+            extra_edges = set(self.edge_map.keys()) - source_graph.edges
+            if extra_edges:
+                defects.append(
+                    f"Edge map domain has {len(extra_edges)} extraneous edges"
+                )
 
         return MorphismCheckResult(
             is_valid=len(defects) == 0,
@@ -449,26 +477,35 @@ def verify_commutativity(
                 f"State {s!r}: composite (pi_{j},{k} o pi_{k},{m})({s!r}) = {comp_img!r} != direct pi_{j},{m}({s!r}) = {dir_img!r}"
             )
 
-    # Edge commutativity if edge maps exist
-    if pi_km.edge_map is not None and pi_jk.edge_map is not None and pi_jm.edge_map is not None:
-        edges_to_check: Iterable[MoveEdge]
-        if domain_graph is not None:
-            edges_to_check = domain_graph.edges
-        else:
-            edges_to_check = set(pi_km.edge_map.keys()) | set(pi_jm.edge_map.keys())
+    # Edge commutativity. `apply_edge` also distinguishes a missing explicit
+    # edge-map key from an explicit collapse to None.
+    edges_to_check: Iterable[MoveEdge]
+    if domain_graph is not None:
+        edges_to_check = domain_graph.edges
+    else:
+        edge_domains: Set[MoveEdge] = set()
+        if pi_km.edge_map is not None:
+            edge_domains.update(pi_km.edge_map)
+        if pi_jm.edge_map is not None:
+            edge_domains.update(pi_jm.edge_map)
+        edges_to_check = edge_domains
 
-        for e in edges_to_check:
-            e_inter = pi_km.edge_map.get(e)
-            if e_inter is None:
-                comp_e = None
-            else:
-                comp_e = pi_jk.edge_map.get(e_inter)
-            dir_e = pi_jm.edge_map.get(e)
-
-            if comp_e != dir_e:
-                discrepancies.append(
-                    f"Edge {e!r}: composite edge {comp_e!r} != direct edge {dir_e!r}"
-                )
+    for e in edges_to_check:
+        try:
+            e_inter = pi_km.apply_edge(e)
+            comp_e = None if e_inter is None else pi_jk.apply_edge(e_inter)
+        except KeyError as exc:
+            discrepancies.append(f"Composite edge projection error for {e!r}: {exc}")
+            continue
+        try:
+            dir_e = pi_jm.apply_edge(e)
+        except KeyError as exc:
+            discrepancies.append(f"Direct edge projection error for {e!r}: {exc}")
+            continue
+        if comp_e != dir_e:
+            discrepancies.append(
+                f"Edge {e!r}: composite edge {comp_e!r} != direct edge {dir_e!r}"
+            )
 
     return CommutativityResult(
         commutes=len(discrepancies) == 0,
@@ -524,9 +561,11 @@ class ProjectiveSystem:
     bonding_maps: Mapping[Tuple[int, int], CoarseningMap]
 
     def __post_init__(self) -> None:
-        # Defensive copy
-        object.__setattr__(self, "graphs", dict(self.graphs))
-        object.__setattr__(self, "bonding_maps", dict(self.bonding_maps))
+        # Defensive, read-only copies.
+        object.__setattr__(self, "graphs", MappingProxyType(dict(self.graphs)))
+        object.__setattr__(
+            self, "bonding_maps", MappingProxyType(dict(self.bonding_maps))
+        )
 
     @classmethod
     def build(
@@ -536,13 +575,18 @@ class ProjectiveSystem:
     ) -> ProjectiveSystem:
         """Construct a ProjectiveSystem, automatically computing identities and compositions if only consecutive maps are given."""
         g_map = {g.level: g for g in graphs}
+        if len(g_map) != len(graphs):
+            raise ValueError("ProjectiveSystem graph levels must be unique")
         sorted_levels = sorted(g_map.keys())
 
         b_map: Dict[Tuple[int, int], CoarseningMap] = {}
 
         # Insert supplied bonding maps
         for bm in bonding_maps:
-            b_map[(bm.target_level, bm.source_level)] = bm
+            key = (bm.target_level, bm.source_level)
+            if key in b_map:
+                raise ValueError(f"Duplicate bonding map for levels {key}")
+            b_map[key] = bm
 
         # Ensure canonical identity map for every level
         for lvl in sorted_levels:
@@ -586,8 +630,18 @@ class ProjectiveSystem:
         defects: List[str] = []
         lvls = self.levels
 
+        if not lvls:
+            defects.append("Projective system has no graph levels")
+
         # 1. Morphism verification for all bonding maps
         for (j, k), bm in self.bonding_maps.items():
+            if j > k:
+                defects.append(f"Bonding map key ({j}, {k}) is not ordered target <= source")
+            if bm.target_level != j or bm.source_level != k:
+                defects.append(
+                    f"Bonding map stored at ({j}, {k}) declares "
+                    f"({bm.target_level}, {bm.source_level})"
+                )
             if j not in self.graphs:
                 defects.append(f"Bonding map target level {j} has no corresponding graph")
                 continue
@@ -608,8 +662,24 @@ class ProjectiveSystem:
                 for s in g_k.states:
                     if id_map.apply_state(s) != s:
                         defects.append(f"Identity map at level {k} mutates state {s!r}")
+                for edge in g_k.edges:
+                    try:
+                        if id_map.apply_edge(edge) != edge:
+                            defects.append(
+                                f"Identity map at level {k} mutates edge {edge!r}"
+                            )
+                    except KeyError:
+                        defects.append(
+                            f"Identity map at level {k} omits edge {edge!r}"
+                        )
 
-        # 3. Functorial commutativity across all triples j <= k <= m
+        # 3. Every ordered level pair must have a bonding map.
+        for i_idx, j in enumerate(lvls):
+            for k in lvls[i_idx:]:
+                if (j, k) not in self.bonding_maps:
+                    defects.append(f"Missing bonding map pi_{j},{k}")
+
+        # 4. Functorial commutativity across all triples j <= k <= m
         for i_idx, j in enumerate(lvls):
             for k_idx in range(i_idx, len(lvls)):
                 k = lvls[k_idx]
@@ -647,6 +717,15 @@ class ProjectiveSystem:
         else:
             thread_dict = dict(thread)
 
+        expected_levels = set(self.levels)
+        supplied_levels = set(thread_dict)
+        missing_levels = expected_levels - supplied_levels
+        extra_levels = supplied_levels - expected_levels
+        if missing_levels:
+            defects.append(f"Thread is missing system levels {sorted(missing_levels)}")
+        if extra_levels:
+            defects.append(f"Thread specifies levels not in the system: {sorted(extra_levels)}")
+
         # Check state presence in corresponding graphs
         for lvl, s in thread_dict.items():
             if lvl not in self.graphs:
@@ -656,21 +735,24 @@ class ProjectiveSystem:
 
         # Check bonding coherence pi_{j, k}(x_k) == x_j
         sorted_thread_lvls = sorted(thread_dict.keys())
-        for i_idx, j in enumerate(sorted_thread_lvls):
-            for k in sorted_thread_lvls[i_idx + 1:]:
-                if (j, k) in self.bonding_maps:
-                    pi_jk = self.bonding_maps[(j, k)]
-                    x_k = thread_dict[k]
-                    x_j = thread_dict[j]
-                    try:
-                        projected = pi_jk.apply_state(x_k)
-                        if projected != x_j:
-                            defects.append(
-                                f"Thread coherence failure at ({j} <= {k}): "
-                                f"pi_{j},{k}({x_k!r}) = {projected!r} != x_{j} = {x_j!r}"
-                            )
-                    except KeyError as exc:
-                        defects.append(f"Bonding projection error: {exc}")
+        present_system_levels = [lvl for lvl in self.levels if lvl in thread_dict]
+        for i_idx, j in enumerate(present_system_levels):
+            for k in present_system_levels[i_idx + 1:]:
+                if (j, k) not in self.bonding_maps:
+                    defects.append(f"Missing bonding map pi_{j},{k} for thread check")
+                    continue
+                pi_jk = self.bonding_maps[(j, k)]
+                x_k = thread_dict[k]
+                x_j = thread_dict[j]
+                try:
+                    projected = pi_jk.apply_state(x_k)
+                    if projected != x_j:
+                        defects.append(
+                            f"Thread coherence failure at ({j} <= {k}): "
+                            f"pi_{j},{k}({x_k!r}) = {projected!r} != x_{j} = {x_j!r}"
+                        )
+                except KeyError as exc:
+                    defects.append(f"Bonding projection error: {exc}")
 
         return ThreadValidationResult(
             is_coherent=len(defects) == 0,
@@ -685,6 +767,13 @@ class ProjectiveSystem:
         target_levels = tuple(levels) if levels is not None else self.levels
         if not target_levels:
             return ()
+        if len(set(target_levels)) != len(target_levels):
+            raise ValueError("Requested thread levels must be unique")
+        missing = set(target_levels) - set(self.levels)
+        if missing:
+            raise ValueError(f"Requested thread levels are absent from system: {sorted(missing)}")
+        if target_levels != tuple(sorted(target_levels)):
+            raise ValueError("Requested thread levels must be strictly increasing")
 
         # Backtracking search from coarse to fine
         results: List[Dict[int, Any]] = []
@@ -724,7 +813,12 @@ class ProjectiveSystem:
     def compute_path_pricing(self, path: Sequence[MoveEdge]) -> OperationalPrice:
         """Calculate exact rational operational price accumulation (Sigma mu1, Sigma mu2) along a transition path."""
         price = OperationalPrice.zero()
-        for edge in path:
+        for index, edge in enumerate(path):
+            if index > 0 and path[index - 1].target != edge.source:
+                raise ValueError(
+                    f"Disconnected path at edge {index}: previous target "
+                    f"{path[index - 1].target!r} != source {edge.source!r}"
+                )
             price = price.add_edge(edge)
         return price
 
@@ -737,7 +831,7 @@ class ProjectiveSystem:
     ) -> Optional[Fraction]:
         """Compute the endogenous operational distance d_k(source, target) = min Sigma mu1.
 
-        Uses exact rational Dijkstra search on M_k without external coordinates.
+        Uses exact rational shortest-path search on M_k without external coordinates.
         Returns None if target is unreachable from source.
         """
         graph = self.graphs[level]
@@ -765,6 +859,8 @@ class ProjectiveSystem:
             for edge in graph.outgoing(u):
                 v = edge.target
                 w = _to_fraction(cost_func(edge), "edge cost")
+                if w < 0:
+                    raise ValueError(f"edge cost must be non-negative, got {w}")
                 new_d = d + w
                 if v not in dist or new_d < dist[v]:
                     dist[v] = new_d
@@ -775,11 +871,12 @@ class ProjectiveSystem:
 
 
     def verify_endogenous_metric(self, level: int) -> MetricAxiomResult:
-        """Verify metric axioms on M_k without external Euclidean space:
+        """Verify finite-valued symmetric path-metric axioms on M_k:
 
         1. Non-negativity: d_k(u, v) >= 0.
-        2. Identity of indiscernibles: d_k(u, u) == 0.
-        3. Triangle inequality: d_k(u, w) <= d_k(u, v) + d_k(v, w) (for all reachable paths).
+        2. Separation: d_k(u, v) == 0 iff u == v.
+        3. Symmetry: d_k(u, v) == d_k(v, u).
+        4. Triangle inequality.
         """
         graph = self.graphs[level]
         states = sorted(graph.states, key=repr)
@@ -798,11 +895,27 @@ class ProjectiveSystem:
             for v in states:
                 d = dist_table[(u, v)]
                 pair_count += 1
-                if u == v:
+                if d is None:
+                    defects.append(f"Unreachable pair: d({u!r}, {v!r}) is undefined")
+                elif d < 0:
+                    defects.append(f"Negative distance: d({u!r}, {v!r}) = {d} < 0")
+                elif u == v:
                     if d != Fraction(0, 1):
                         defects.append(f"Identity failure: d({u!r}, {u!r}) = {d} != 0")
-                elif d is not None and d < 0:
-                    defects.append(f"Negative distance: d({u!r}, {v!r}) = {d} < 0")
+                elif d == Fraction(0, 1):
+                    defects.append(
+                        f"Separation failure: distinct states {u!r}, {v!r} have distance 0"
+                    )
+
+        for u_idx, u in enumerate(states):
+            for v in states[u_idx + 1:]:
+                d_uv = dist_table[(u, v)]
+                d_vu = dist_table[(v, u)]
+                if d_uv != d_vu:
+                    defects.append(
+                        f"Symmetry failure: d({u!r}, {v!r}) = {d_uv} != "
+                        f"d({v!r}, {u!r}) = {d_vu}"
+                    )
 
         # 3. Triangle inequality across all triples
         triple_count = 0
@@ -836,25 +949,59 @@ class ProjectiveSystem:
             defects=tuple(defects),
         )
 
+    def _minimum_operational_price(
+        self, level: int, source: Any, target: Any
+    ) -> Optional[OperationalPrice]:
+        """Return one attainable path price, minimized lexicographically by both costs."""
+        graph = self.graphs[level]
+        if source not in graph.states or target not in graph.states:
+            return None
+        zero = (Fraction(0, 1), Fraction(0, 1), 0)
+        best: Dict[Any, Tuple[Fraction, Fraction, int]] = {source: zero}
+        queue: List[Tuple[Fraction, Fraction, int, int, Any]] = [(*zero, 0, source)]
+        counter = 1
+        while queue:
+            mu1_sum, mu2_sum, step_count, _, state = heapq.heappop(queue)
+            current = (mu1_sum, mu2_sum, step_count)
+            if best.get(state) != current:
+                continue
+            if state == target:
+                return OperationalPrice(mu1_sum, mu2_sum, step_count)
+            for edge in graph.outgoing(state):
+                candidate = (
+                    mu1_sum + edge.mu1,
+                    mu2_sum + edge.mu2,
+                    step_count + 1,
+                )
+                if edge.target not in best or candidate < best[edge.target]:
+                    best[edge.target] = candidate
+                    heapq.heappush(queue, (*candidate, counter, edge.target))
+                    counter += 1
+        return None
+
     def pricing_along_threads(
         self,
         thread_x: Mapping[int, Any],
         thread_y: Mapping[int, Any],
     ) -> Tuple[OperationalPriceAtLevel, ...]:
         """Calculate the operational pricing sequence connecting thread states x_k to y_k across refinement levels."""
-        shared_levels = sorted(set(thread_x.keys()) & set(thread_y.keys()) & set(self.graphs.keys()))
+        validation_x = self.validate_thread(thread_x)
+        validation_y = self.validate_thread(thread_y)
+        if not validation_x.is_coherent:
+            raise ValueError(f"thread_x is not coherent: {validation_x.defects}")
+        if not validation_y.is_coherent:
+            raise ValueError(f"thread_y is not coherent: {validation_y.defects}")
+        shared_levels = list(self.levels)
         sequence: List[OperationalPriceAtLevel] = []
 
         for lvl in shared_levels:
             u = thread_x[lvl]
             v = thread_y[lvl]
-            dist_mu1 = self.operational_distance(lvl, u, v, cost_func=lambda e: e.mu1)
-            dist_mu2 = self.operational_distance(lvl, u, v, cost_func=lambda e: e.mu2)
-
-            if dist_mu1 is not None and dist_mu2 is not None:
-                price = OperationalPrice(mu1_sum=dist_mu1, mu2_sum=dist_mu2, step_count=1)
-            else:
-                price = OperationalPrice.zero()
+            price = self._minimum_operational_price(lvl, u, v)
+            if price is None:
+                raise ValueError(
+                    f"No path connects thread states at level {lvl}: {u!r} -> {v!r}"
+                )
 
             sequence.append(OperationalPriceAtLevel(level=lvl, price=price))
 
@@ -865,24 +1012,31 @@ class ProjectiveSystem:
         paths: Mapping[int, Sequence[MoveEdge]],
     ) -> Tuple[OperationalPriceAtLevel, ...]:
         """Calculate the operational pricing accumulation along a projective sequence of refinement paths."""
+        unknown_levels = set(paths) - set(self.levels)
+        if unknown_levels:
+            raise ValueError(f"Path sequence contains unknown levels: {sorted(unknown_levels)}")
         sequence: List[OperationalPriceAtLevel] = []
         for lvl in sorted(paths.keys()):
-            if lvl in self.graphs:
-                p = paths[lvl]
-                price = self.compute_path_pricing(p)
-                sequence.append(OperationalPriceAtLevel(level=lvl, price=price))
+            p = paths[lvl]
+            extraneous = [edge for edge in p if edge not in self.graphs[lvl].edges]
+            if extraneous:
+                raise ValueError(
+                    f"Path at level {lvl} contains {len(extraneous)} edges outside M_{lvl}"
+                )
+            price = self.compute_path_pricing(p)
+            sequence.append(OperationalPriceAtLevel(level=lvl, price=price))
         return tuple(sequence)
 
     def verify_pricing_stabilization(
         self,
         sequence: Sequence[OperationalPriceAtLevel],
-        tolerance: Optional[Fraction] = None,
+        tolerance: Optional[Union[Fraction, int]] = None,
     ) -> Dict[str, Any]:
-        """Analyze Cauchy variation and stabilization of operational pricing along a refinement sequence."""
+        """Check exact stabilization and bounded consecutive variation."""
         if len(sequence) < 2:
             return {
                 "stabilized": True,
-                "is_cauchy": True,
+                "all_consecutive_within_tolerance": True,
                 "consecutive_deltas": (),
                 "max_delta": Fraction(0, 1),
             }
@@ -898,13 +1052,19 @@ class ProjectiveSystem:
 
 
         max_delta = max(d for _, _, d in deltas)
-        tol = tolerance if tolerance is not None else Fraction(0, 1)
-        is_cauchy = all(d <= tol for _, _, d in deltas[-1:])
+        tol = (
+            _to_fraction(tolerance, "tolerance")
+            if tolerance is not None
+            else Fraction(0, 1)
+        )
+        if tol < 0:
+            raise ValueError(f"tolerance must be non-negative, got {tol}")
+        within_tolerance = all(d <= tol for _, _, d in deltas)
 
 
         return {
             "stabilized": max_delta == Fraction(0, 1),
-            "is_cauchy": is_cauchy,
+            "all_consecutive_within_tolerance": within_tolerance,
             "consecutive_deltas": tuple(deltas),
             "max_delta": max_delta,
         }
@@ -923,9 +1083,9 @@ def create_dyadic_movegraph(level: int, length: int = 1) -> MoveGraph:
       mu1 = 1 / 2^k  (dyadic length unit)
       mu2 = 1 / 4^k  (higher-order quadratic dissipation)
     """
-    if level < 0:
+    if not isinstance(level, int) or isinstance(level, bool) or level < 0:
         raise ValueError(f"level must be non-negative, got {level}")
-    if length <= 0:
+    if not isinstance(length, int) or isinstance(length, bool) or length <= 0:
         raise ValueError(f"length must be positive, got {length}")
 
     n_segments = length * (2**level)
@@ -966,6 +1126,20 @@ def create_dyadic_coarsening_map(
 
     Each micro-state x in M_k projects to floor(x / 2^(k-j)) in M_j.
     """
+    if (
+        not isinstance(coarse_level, int)
+        or isinstance(coarse_level, bool)
+        or coarse_level < 0
+    ):
+        raise ValueError(f"coarse_level must be non-negative, got {coarse_level}")
+    if (
+        not isinstance(fine_level, int)
+        or isinstance(fine_level, bool)
+        or fine_level < 0
+    ):
+        raise ValueError(f"fine_level must be non-negative, got {fine_level}")
+    if not isinstance(length, int) or isinstance(length, bool) or length <= 0:
+        raise ValueError(f"length must be positive, got {length}")
     if coarse_level > fine_level:
         raise ValueError(
             f"coarse_level must be <= fine_level, got {coarse_level} > {fine_level}"
@@ -987,6 +1161,8 @@ def create_dyadic_coarsening_map(
 
 def create_dyadic_projective_system(max_level: int, length: int = 1) -> ProjectiveSystem:
     """Construct an endogenously refined dyadic projective system across levels 0 <= k <= max_level."""
+    if not isinstance(max_level, int) or isinstance(max_level, bool) or max_level < 0:
+        raise ValueError(f"max_level must be non-negative, got {max_level}")
     graphs = [create_dyadic_movegraph(k, length=length) for k in range(max_level + 1)]
     bonding_maps: List[CoarseningMap] = []
 
@@ -998,8 +1174,8 @@ def create_dyadic_projective_system(max_level: int, length: int = 1) -> Projecti
 
 
 def create_discrete_circle_movegraph(level: int) -> MoveGraph:
-    """Create a discrete circle movegraph C_{2^k} with 2^k states in a directed cycle."""
-    if level < 0:
+    """Create a directed cycle with max(3, 2^k) states."""
+    if not isinstance(level, int) or isinstance(level, bool) or level < 0:
         raise ValueError(f"level must be non-negative, got {level}")
 
     num_states = max(3, 2**level) if level > 0 else 3

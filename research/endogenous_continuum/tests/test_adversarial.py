@@ -405,7 +405,7 @@ def test_track3_floating_point_potential_and_cost_rejected() -> None:
 
     # Boolean masquerading as int
     with pytest.raises(TypeError, match="Potential Phi must be an int"):
-        g.add_state("S1", True)  # type: ignore[arg-type]
+        g.add_state("S1", True)
 
     # Transition float mu1
     with pytest.raises(TypeError, match="mu1 must be an int"):

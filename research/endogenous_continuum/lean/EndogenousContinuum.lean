@@ -105,11 +105,11 @@ theorem coherent_thread_exists (s0 s1 : ProjectiveStage) (b : BondingMap s1 s0)
 structure DissipativeStep (State : Type) where
   transition : State → State
   potential  : State → Nat
-  strictlyDecreasing : ∀ s, potential (transition s) ≤ potential s
+  nonincreasing : ∀ s, potential (transition s) ≤ potential s
 
-theorem potential_bounded (State : Type) (step : DissipativeStep State) (s : State) :
+theorem potential_nonincreasing (State : Type) (step : DissipativeStep State) (s : State) :
     step.potential (step.transition s) ≤ step.potential s :=
-  step.strictlyDecreasing s
+  step.nonincreasing s
 
 -- ============================================================================
 -- 5. Track 4: Confluence-Driven Internal Quotienting

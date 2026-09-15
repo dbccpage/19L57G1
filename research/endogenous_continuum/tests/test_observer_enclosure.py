@@ -50,6 +50,29 @@ def test_genesis_carrier_initialization() -> None:
     assert isinstance(digest, str)
     assert len(digest) == 64
 
+    with pytest.raises(ValueError, match="non-negative"):
+        EnclosedCarrier.genesis(num_registers=-1)
+
+
+def test_hash_serialization_is_unambiguous_and_empty_path_fails_closed() -> None:
+    digest = "0" * 64
+    first = compute_record_hash(0, "kind", ("a,b",), (1,), digest, "GENESIS")
+    second = compute_record_hash(0, "kind", ("a", "b"), (1,), digest, "GENESIS")
+    assert first != second
+
+    empty_result = TraceInvariantChecker.check_carrier_path([])
+    assert not empty_result.valid
+    assert empty_result.steps_verified == 0
+
+
+def test_localized_transition_inputs_reject_non_integer_values() -> None:
+    with pytest.raises(TypeError, match="must be an int"):
+        LocalRegisterWrite(register_index=True, value=1)
+    with pytest.raises(TypeError, match="must be an int"):
+        LocalRegisterWrite(register_index=0, value=1.5)  # type: ignore[arg-type]
+    with pytest.raises(TypeError, match="tuple of ints"):
+        LocalAdmitInst(form=0, args=(True,))
+
 
 def test_localized_stepping_updates_carrier_and_appends_record() -> None:
     """Verify localized transitions update carrier and monotonically append internal records."""

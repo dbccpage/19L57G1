@@ -414,6 +414,31 @@ def test_exact_rational_cost_tracking() -> None:
     assert isinstance(res_cba.total_cost, Fraction)
 
 
+def test_rewrite_cost_and_bounded_census_fail_closed() -> None:
+    with pytest.raises(TypeError, match="exact Fraction or int"):
+        RewriteStep(rule_name="bad", target="x", cost=0.5)  # type: ignore[arg-type]
+    with pytest.raises(TypeError, match="exact Fraction or int"):
+        RewriteStep(rule_name="bad", target="x", cost=True)
+    with pytest.raises(ValueError, match="non-negative"):
+        RewriteStep(rule_name="bad", target="x", cost=-1)
+
+    system = make_sorting_rewrite_system()
+    assert not system.check_local_confluence([]).is_locally_confluent
+    with pytest.raises(RuntimeError, match="no complete census"):
+        system.all_reduction_paths("cba", max_paths=1)
+
+
+def test_zero_step_reduction_and_constructor_validation() -> None:
+    system = make_sorting_rewrite_system()
+    result = system.reduce_to_normal_form("abc", max_steps=0)
+    assert result.is_normal_form
+    assert result.normal_form == "abc"
+    with pytest.raises(ValueError, match="lhs must be non-empty"):
+        make_string_rule("", "x")
+    with pytest.raises(ValueError, match="endpoints must belong"):
+        create_relational_state(["a"], [("edge", "a", "missing")])
+
+
 def test_cycle_detection_in_non_terminating_system() -> None:
     """Verify that circular rewrite rules trigger cycle detection rather than hanging."""
     r_ab = make_string_rule("a", "b", name="a_to_b")

@@ -49,7 +49,7 @@ Axioms: strictly within {propext, Quot.sound}.
 #print axioms ProjectiveSystem.totalMu2_append
 #print axioms ProjectiveSystem.operationalPricing_append
 #print axioms ProjectiveSystem.embed_operationalPricing
-#print axioms ProjectiveSystem.operational_pricing_non_euclidean
+#print axioms ProjectiveSystem.operational_pricing_ambient_independent
 #print axioms ProjectiveSystem.project_operationalPricing
 
 -- ============================================================================
@@ -92,7 +92,7 @@ Axioms: strictly within {propext, Quot.sound}.
 #print axioms EndogenousContinuum.obsEquiv_symm
 #print axioms EndogenousContinuum.obsEquiv_trans
 #print axioms EndogenousContinuum.coherent_thread_exists
-#print axioms EndogenousContinuum.potential_bounded
+#print axioms EndogenousContinuum.potential_nonincreasing
 #print axioms EndogenousContinuum.reflTrans_refl
 
 def main : IO Unit := do

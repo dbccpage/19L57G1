@@ -6,9 +6,10 @@ Runs:
 2. Source hygiene checks (prohibits sorry, admit, unsafe, partial, axiom in Lean sources;
    enforces repository vocabulary firewall against watched terms across all sources).
 3. Python pytest test suite across tests/.
-4. Lean 4 constructive package build via lake build.
-5. Environment theorem census check against allowed axioms {propext, Quot.sound}.
-6. Emits deterministic evidence/receipt.json.
+4. Strict static typing across the research package.
+5. Lean 4 constructive package build via lake build.
+6. Environment theorem census check against allowed axioms {propext, Quot.sound}.
+7. Emits deterministic evidence/receipt.json.
 """
 
 from __future__ import annotations
@@ -103,7 +104,7 @@ def check_source_hygiene() -> dict[str, str]:
             hashes[rel] = sha256_file(p)
 
     # Check document and manifest files
-    for doc_name in ["README.md", "CLAIMS.md", "SOURCE_MANIFEST.json"]:
+    for doc_name in ["README.md", "CLAIMS.md", "SOURCE_MANIFEST.json", ".gitattributes"]:
         p = ROOT / doc_name
         if p.is_file():
             text = p.read_text(encoding="utf-8")
@@ -116,13 +117,16 @@ def check_source_hygiene() -> dict[str, str]:
 
 
 def run_source_verification() -> dict[str, Any]:
-    from research.endogenous_continuum.verify_sources import verify_sources
+    from research.endogenous_continuum.verify_sources import (
+        EXPECTED_SOURCE_PATHS,
+        verify_sources,
+    )
     errs = verify_sources()
     if errs:
         raise RuntimeError(f"Source verification failed: {errs}")
     return {
         "status": "PASS",
-        "pinned_sources": 3,
+        "pinned_sources": len(EXPECTED_SOURCE_PATHS),
     }
 
 
@@ -143,6 +147,17 @@ def run_pytest() -> dict[str, Any]:
         "passed": passed_count,
         "status": "PASS",
     }
+
+
+def run_mypy() -> dict[str, Any]:
+    cmd = [sys.executable, "-m", "mypy", "--strict", str(ROOT)]
+    print(f"== Running mypy: {' '.join(cmd)}")
+    proc = subprocess.run(cmd, cwd=REPO_ROOT, capture_output=True, text=True, check=False)
+    output = proc.stdout + "\n" + proc.stderr
+    print(output)
+    if proc.returncode != 0:
+        raise RuntimeError(f"mypy failed with exit code {proc.returncode}")
+    return {"exit_code": proc.returncode, "status": "PASS"}
 
 
 def run_lean() -> dict[str, Any]:
@@ -229,6 +244,7 @@ def verify() -> dict[str, Any]:
     hashes = check_source_hygiene()
     custody_res = run_source_verification()
     pytest_res = run_pytest()
+    mypy_res = run_mypy()
     lean_res = run_lean()
 
     receipt = {
@@ -239,17 +255,18 @@ def verify() -> dict[str, Any]:
         "source_hashes": hashes,
         "source_custody": custody_res,
         "pytest": pytest_res,
+        "mypy": mypy_res,
         "lean": lean_res,
         "claim_hygiene": {
             "scope": (
-                "Finitary endogenous continuum pathways over relational carrier models. "
-                "Covers Track 1 (Observer Enclosure), Track 2 (Projective System), "
-                "Track 3 (Cycle Filtering), and Track 4 (Internal Quotienting). "
-                "Initial scaffold pinned to sealed derivation sources with zero axiom leak. See CLAIMS.md."
+                "Four finite constructions over relational carrier models: observer "
+                "records, carrier coarsenings, cycle validation, and conditional "
+                "rewrite quotients. Three sealed sources are pinned read-only. "
+                "See CLAIMS.md for hypotheses and nonclaims."
             ),
             "sealed_sources_pinned": True,
-            "zero_axiom_pollution": True,
-            "zero_classical_choice": True,
+            "reported_axioms_within_allowlist": True,
+            "inventory_reports_no_classical_choice": True,
             "zero_floating_point_arithmetic": True,
         },
     }

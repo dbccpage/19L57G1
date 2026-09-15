@@ -11,6 +11,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import hashlib
+import json
 from typing import Any, Optional, Sequence
 
 import sys
@@ -26,7 +27,7 @@ if str(_REPO_ROOT) not in sys.path:
 
 from derivation.model import (
     EMPTY,
-    AdmissionError,
+    AdmissionError as AdmissionError,
     AdmitDatum,
     AdmitForm,
     AdmitInst,
@@ -49,6 +50,18 @@ from derivation.observe import (
 )
 
 
+def _require_int(value: object, field_name: str) -> int:
+    if not isinstance(value, int) or isinstance(value, bool):
+        raise TypeError(f"{field_name} must be an int, got {type(value).__name__}")
+    return value
+
+
+def _require_str(value: object, field_name: str) -> str:
+    if not isinstance(value, str):
+        raise TypeError(f"{field_name} must be a str, got {type(value).__name__}")
+    return value
+
+
 def compute_record_hash(
     step: int,
     transition_kind: str,
@@ -58,9 +71,32 @@ def compute_record_hash(
     prev_record_hash: str,
 ) -> str:
     """Compute exact deterministic SHA-256 hash for an observer record."""
-    input_str = ",".join(local_input)
-    readout_str = ",".join(str(x) for x in local_readout)
-    payload = f"{step}|{transition_kind}|{input_str}|{readout_str}|{state_digest}|{prev_record_hash}"
+    _require_int(step, "step")
+    if step < 0:
+        raise ValueError(f"step must be non-negative, got {step}")
+    _require_str(transition_kind, "transition_kind")
+    if any(not isinstance(value, str) for value in local_input):
+        raise TypeError("local_input must contain only strings")
+    if any(
+        not isinstance(value, int) or isinstance(value, bool)
+        for value in local_readout
+    ):
+        raise TypeError("local_readout must contain only ints")
+    _require_str(state_digest, "state_digest")
+    _require_str(prev_record_hash, "prev_record_hash")
+    payload = json.dumps(
+        {
+            "local_input": list(local_input),
+            "local_readout": list(local_readout),
+            "prev_record_hash": prev_record_hash,
+            "state_digest": state_digest,
+            "step": step,
+            "transition_kind": transition_kind,
+        },
+        ensure_ascii=False,
+        separators=(",", ":"),
+        sort_keys=True,
+    )
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
@@ -68,19 +104,27 @@ def compute_carrier_digest(
     r: Regime, registers: tuple[int, ...], step_count: int
 ) -> str:
     """Compute exact deterministic SHA-256 content digest for an enclosed carrier state."""
-    data_str = ",".join(r.data)
-    forms_str = ",".join(str(f) for f in r.forms)
+    _require_int(step_count, "step_count")
+    if step_count < 0:
+        raise ValueError(f"step_count must be non-negative, got {step_count}")
+    if any(
+        not isinstance(value, int) or isinstance(value, bool) for value in registers
+    ):
+        raise TypeError("registers must contain only ints")
     sorted_insts = sorted(r.insts, key=lambda x: (x[0], x[1]))
-    insts_str = ";".join(
-        f"{f}:{','.join(str(a) for a in args)}" for f, args in sorted_insts
-    )
-    rules_str = ",".join(str(x) for x in sorted(r.rules))
-    reqs_str = ";".join(f"{i}:{j}" for i, j in sorted(r.reqs))
-    regs_str = ",".join(str(x) for x in registers)
-
-    payload = (
-        f"DATA={data_str}|FORMS={forms_str}|INSTS={insts_str}|"
-        f"RULES={rules_str}|REQS={reqs_str}|REGS={regs_str}|STEP={step_count}"
+    payload = json.dumps(
+        {
+            "data": list(r.data),
+            "forms": list(r.forms),
+            "insts": [[form, list(args)] for form, args in sorted_insts],
+            "registers": list(registers),
+            "requirements": [list(pair) for pair in sorted(r.reqs)],
+            "rules": sorted(r.rules),
+            "step": step_count,
+        },
+        ensure_ascii=False,
+        separators=(",", ":"),
+        sort_keys=True,
     )
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
@@ -235,7 +279,7 @@ class LocalAdmitDatum(LocalizedTransition):
 
     def __init__(self, token: str) -> None:
         super().__init__(action_type="LOCAL_ADMIT_DATUM")
-        object.__setattr__(self, "token", token)
+        object.__setattr__(self, "token", _require_str(token, "token"))
 
     def parameters_repr(self) -> tuple[str, ...]:
         return (self.token,)
@@ -257,7 +301,7 @@ class LocalAdmitForm(LocalizedTransition):
 
     def __init__(self, arity: int) -> None:
         super().__init__(action_type="LOCAL_ADMIT_FORM")
-        object.__setattr__(self, "arity", arity)
+        object.__setattr__(self, "arity", _require_int(arity, "arity"))
 
     def parameters_repr(self) -> tuple[str, ...]:
         return (str(self.arity),)
@@ -279,7 +323,11 @@ class LocalAdmitInst(LocalizedTransition):
 
     def __init__(self, form: int, args: tuple[int, ...]) -> None:
         super().__init__(action_type="LOCAL_ADMIT_INST")
-        object.__setattr__(self, "form", form)
+        object.__setattr__(self, "form", _require_int(form, "form"))
+        if not isinstance(args, tuple) or any(
+            not isinstance(arg, int) or isinstance(arg, bool) for arg in args
+        ):
+            raise TypeError("args must be a tuple of ints")
         object.__setattr__(self, "args", args)
 
     def parameters_repr(self) -> tuple[str, ...]:
@@ -303,7 +351,7 @@ class LocalAdmitRuleAll(LocalizedTransition):
 
     def __init__(self, form: int) -> None:
         super().__init__(action_type="LOCAL_ADMIT_RULE_ALL")
-        object.__setattr__(self, "form", form)
+        object.__setattr__(self, "form", _require_int(form, "form"))
 
     def parameters_repr(self) -> tuple[str, ...]:
         return (str(self.form),)
@@ -325,8 +373,8 @@ class LocalImpose(LocalizedTransition):
 
     def __init__(self, i: int, j: int) -> None:
         super().__init__(action_type="LOCAL_IMPOSE")
-        object.__setattr__(self, "i", i)
-        object.__setattr__(self, "j", j)
+        object.__setattr__(self, "i", _require_int(i, "i"))
+        object.__setattr__(self, "j", _require_int(j, "j"))
 
     def parameters_repr(self) -> tuple[str, ...]:
         return (str(self.i), str(self.j))
@@ -348,7 +396,11 @@ class LocalEvalDerivable(LocalizedTransition):
 
     def __init__(self, form: int, args: tuple[int, ...]) -> None:
         super().__init__(action_type="LOCAL_EVAL_DERIVABLE")
-        object.__setattr__(self, "form", form)
+        object.__setattr__(self, "form", _require_int(form, "form"))
+        if not isinstance(args, tuple) or any(
+            not isinstance(arg, int) or isinstance(arg, bool) for arg in args
+        ):
+            raise TypeError("args must be a tuple of ints")
         object.__setattr__(self, "args", args)
 
     def parameters_repr(self) -> tuple[str, ...]:
@@ -380,7 +432,7 @@ class LocalObserveProfile(LocalizedTransition):
 
     def __init__(self, datum: int) -> None:
         super().__init__(action_type="LOCAL_OBSERVE_PROFILE")
-        object.__setattr__(self, "datum", datum)
+        object.__setattr__(self, "datum", _require_int(datum, "datum"))
 
     def parameters_repr(self) -> tuple[str, ...]:
         return (str(self.datum),)
@@ -409,8 +461,8 @@ class LocalSeparabilityCheck(LocalizedTransition):
 
     def __init__(self, i: int, j: int) -> None:
         super().__init__(action_type="LOCAL_SEPARABILITY_CHECK")
-        object.__setattr__(self, "i", i)
-        object.__setattr__(self, "j", j)
+        object.__setattr__(self, "i", _require_int(i, "i"))
+        object.__setattr__(self, "j", _require_int(j, "j"))
 
     def parameters_repr(self) -> tuple[str, ...]:
         return (str(self.i), str(self.j))
@@ -435,8 +487,10 @@ class LocalRegisterWrite(LocalizedTransition):
 
     def __init__(self, register_index: int, value: int) -> None:
         super().__init__(action_type="LOCAL_REGISTER_WRITE")
-        object.__setattr__(self, "register_index", register_index)
-        object.__setattr__(self, "value", value)
+        object.__setattr__(
+            self, "register_index", _require_int(register_index, "register_index")
+        )
+        object.__setattr__(self, "value", _require_int(value, "value"))
 
     def parameters_repr(self) -> tuple[str, ...]:
         return (str(self.register_index), str(self.value))
@@ -461,8 +515,12 @@ class LocalRegisterAdd(LocalizedTransition):
 
     def __init__(self, target_index: int, source_index: int) -> None:
         super().__init__(action_type="LOCAL_REGISTER_ADD")
-        object.__setattr__(self, "target_index", target_index)
-        object.__setattr__(self, "source_index", source_index)
+        object.__setattr__(
+            self, "target_index", _require_int(target_index, "target_index")
+        )
+        object.__setattr__(
+            self, "source_index", _require_int(source_index, "source_index")
+        )
 
     def parameters_repr(self) -> tuple[str, ...]:
         return (str(self.target_index), str(self.source_index))
@@ -491,11 +549,24 @@ class EnclosedCarrier:
     local_registers: tuple[int, ...]
     step_count: int
 
+    def __post_init__(self) -> None:
+        _require_int(self.step_count, "step_count")
+        if self.step_count < 0:
+            raise ValueError(f"step_count must be non-negative, got {self.step_count}")
+        if any(
+            not isinstance(value, int) or isinstance(value, bool)
+            for value in self.local_registers
+        ):
+            raise TypeError("local_registers must contain only ints")
+
     @classmethod
     def genesis(
         cls, num_registers: int = 4, base_regime: Regime = EMPTY
     ) -> EnclosedCarrier:
         """Construct genesis carrier state with empty trace and zeroed registers."""
+        _require_int(num_registers, "num_registers")
+        if num_registers < 0:
+            raise ValueError(f"num_registers must be non-negative, got {num_registers}")
         return cls(
             regime=base_regime,
             trace=InternalTrace(),
@@ -514,6 +585,10 @@ class EnclosedCarrier:
 
         State evaluation and record-keeping occur purely within the carrier.
         """
+        if self.trace.length != self.step_count or not self.trace.is_valid_chain():
+            raise ValueError("Carrier trace is not a valid prefix for localized stepping")
+        if self.trace.latest is not None and self.trace.latest.state_digest != self.carrier_digest():
+            raise ValueError("Carrier state does not match its latest trace record")
         next_regime, next_registers, readout = transition.apply(
             self.regime, self.local_registers
         )
@@ -567,6 +642,11 @@ class TraceInvariantChecker:
         """Verify single-step localized transition invariants."""
         violations: list[str] = []
 
+        if not prev.trace.is_valid_chain():
+            violations.append("Previous trace failed internal chain validity check")
+        if not curr.trace.is_valid_chain():
+            violations.append("Current trace failed internal chain validity check")
+
         # 1. Monotonic increment of step count
         if curr.step_count != prev.step_count + 1:
             violations.append(
@@ -605,6 +685,10 @@ class TraceInvariantChecker:
                 violations.append(
                     f"Record step mismatch: expected {prev.step_count}, got {latest.step}"
                 )
+            if latest.transition_kind != transition.action_type:
+                violations.append("Record transition kind does not match transition")
+            if latest.local_input != transition.parameters_repr():
+                violations.append("Record local input does not match transition parameters")
 
             # 5. State correspondence
             if latest.state_digest != curr.carrier_digest():
@@ -653,7 +737,11 @@ class TraceInvariantChecker:
         """Verify invariants across a multi-step sequence of carriers."""
         violations: list[str] = []
         if not path:
-            return InvariantCheckResult(valid=True, violations=(), steps_verified=0)
+            return InvariantCheckResult(
+                valid=False,
+                violations=("Carrier path census is empty",),
+                steps_verified=0,
+            )
 
         # Verify genesis
         first = path[0]
@@ -663,6 +751,8 @@ class TraceInvariantChecker:
             violations.append(
                 f"Genesis trace length must be 0, got {first.trace.length}"
             )
+        if any(value != 0 for value in first.local_registers):
+            violations.append("Genesis registers must all be zero")
 
         if transitions is not None and len(transitions) != len(path) - 1:
             violations.append(

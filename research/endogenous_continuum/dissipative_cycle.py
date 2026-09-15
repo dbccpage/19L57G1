@@ -86,15 +86,41 @@ class Cycle(Generic[S]):
             raise ValueError(f"Cycle period must be >= 1, got {self.period}")
         if len(self.states) != self.period:
             raise ValueError(f"Cycle period {self.period} does not match states length {len(self.states)}")
+        if len(self.transitions) != self.period:
+            raise ValueError(
+                f"Cycle period {self.period} does not match transitions length {len(self.transitions)}"
+            )
+        for index, transition in enumerate(self.transitions):
+            expected_source = self.states[index]
+            expected_target = self.states[(index + 1) % self.period]
+            if transition.source != expected_source or transition.target != expected_target:
+                raise ValueError(
+                    "Cycle transitions do not follow the declared closed state path: "
+                    f"index {index} is {transition.source!r} -> {transition.target!r}, "
+                    f"expected {expected_source!r} -> {expected_target!r}"
+                )
+        actual_mu1 = sum(transition.mu1 for transition in self.transitions)
+        actual_mu2 = sum(transition.mu2 for transition in self.transitions)
+        if self.total_mu1 != actual_mu1:
+            raise ValueError(
+                f"Cycle total_mu1 {self.total_mu1} does not match transition sum {actual_mu1}"
+            )
+        if self.total_mu2 != actual_mu2:
+            raise ValueError(
+                f"Cycle total_mu2 {self.total_mu2} does not match transition sum {actual_mu2}"
+            )
 
     def __hash__(self) -> int:
-        return hash((self.states, self.total_mu1, self.total_mu2, self.period))
+        return hash(
+            (self.states, self.transitions, self.total_mu1, self.total_mu2, self.period)
+        )
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Cycle):
             return False
         return (
             self.states == other.states
+            and self.transitions == other.transitions
             and self.total_mu1 == other.total_mu1
             and self.total_mu2 == other.total_mu2
             and self.period == other.period
@@ -164,6 +190,11 @@ class CarrierGraph(Generic[S]):
         """Register a state with an exact integer potential Phi."""
         if not isinstance(potential, int) or isinstance(potential, bool):
             raise TypeError(f"Potential Phi must be an int, got {type(potential)}")
+        if state in self._potentials and self._potentials[state] != potential:
+            raise ValueError(
+                f"State {state!r} already has potential {self._potentials[state]}, "
+                f"cannot replace it with {potential}"
+            )
         self._potentials[state] = potential
         if state not in self._out_edges:
             self._out_edges[state] = []
@@ -306,8 +337,10 @@ def canonical_cycle(states: Sequence[S], transitions: Sequence[Transition[S]]) -
     keys = [deterministic_key(s) for s in states]
     min_idx = min(range(len(keys)), key=lambda i: keys[i])
 
-    rot_states = tuple(states[min_idx:] + states[:min_idx])
-    rot_trans = tuple(transitions[min_idx:] + transitions[:min_idx])
+    state_tuple = tuple(states)
+    transition_tuple = tuple(transitions)
+    rot_states = state_tuple[min_idx:] + state_tuple[:min_idx]
+    rot_trans = transition_tuple[min_idx:] + transition_tuple[:min_idx]
     total_mu1 = sum(t.mu1 for t in rot_trans)
     total_mu2 = sum(t.mu2 for t in rot_trans)
 
@@ -341,10 +374,18 @@ class AutonomousStepper(Generic[S]):
         edges = self.graph.transitions(state)
         if not edges:
             return None
-        return self.selection_rule(edges)
+        selected = self.selection_rule(edges)
+        if selected not in edges:
+            raise ValueError(
+                "Autonomous selection rule returned a transition outside the current "
+                f"state's outgoing transition census: {selected!r}"
+            )
+        return selected
 
     def run_trajectory(self, initial_state: S, max_steps: int = 1000) -> PathResult[S]:
         """Execute stepping trajectory from initial_state until sink termination or cycle entry."""
+        if not isinstance(max_steps, int) or isinstance(max_steps, bool) or max_steps <= 0:
+            raise ValueError(f"max_steps must be a positive int, got {max_steps!r}")
         if not self.graph.has_state(initial_state):
             raise KeyError(f"Initial state {initial_state} not found in graph")
 
@@ -422,6 +463,8 @@ def find_all_cycles_autonomous(
     """Identify all unique cycles reachable under autonomous stepping dynamics."""
     if stepper is None:
         stepper = AutonomousStepper(graph)
+    elif stepper.graph is not graph:
+        raise ValueError("AutonomousStepper is bound to a different CarrierGraph")
 
     detected_map: dict[tuple[S, ...], Cycle[S]] = {}
     all_states = graph.states()
@@ -456,6 +499,8 @@ class AttractorClassifier(Generic[S]):
         """Classify every state under autonomous stepping dynamics."""
         if stepper is None:
             stepper = AutonomousStepper(graph)
+        elif stepper.graph is not graph:
+            raise ValueError("AutonomousStepper is bound to a different CarrierGraph")
 
         all_states = graph.states()
         max_bound = len(all_states) + 2
@@ -583,12 +628,19 @@ class StateSpacePruner(Generic[S]):
         """
         initial_count = len(graph.states())
 
+        if stepper is not None and stepper.graph is not graph:
+            raise ValueError("AutonomousStepper is bound to a different CarrierGraph")
+
         # Step 1: purge all dead ends
         no_sinks_graph, sink_rounds = cls.prune_dead_ends(graph)
 
         # Step 2: if stepper or autonomous, construct autonomous transition graph
         if stepper is not None or any(no_sinks_graph.out_degree(s) > 1 for s in no_sinks_graph.states()):
-            auto_stepper = stepper or AutonomousStepper(no_sinks_graph)
+            auto_stepper = (
+                AutonomousStepper(no_sinks_graph, selection_rule=stepper.selection_rule)
+                if stepper is not None
+                else AutonomousStepper(no_sinks_graph)
+            )
             auto_graph = CarrierGraph[S]()
             for s in no_sinks_graph.states():
                 auto_graph.add_state(s, no_sinks_graph.get_potential(s))

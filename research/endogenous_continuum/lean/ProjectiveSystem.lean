@@ -24,7 +24,8 @@ structure MoveTransition (V : Type) where
 structure MoveGraph (V : Type) where
   transitions : List (MoveTransition V)
 
-/-- A discrete execution path is a sequence of transitions. -/
+/-- A discrete transition sequence. Endpoint composability is not represented
+    by this type and must not be inferred from the name `MovePath`. -/
 abbrev MovePath (V : Type) := List (MoveTransition V)
 
 /-- Cumulative native capability cost along a transition path: Σ μ1. -/
@@ -75,8 +76,8 @@ theorem operationalPricing_append {V : Type} (p1 p2 : MovePath V) :
 -- 2. Refinement Node Family and Coarsening Projection Maps
 -- ============================================================================
 
-/-- Refinement level node carrier: an assignment of discrete state at k stages. -/
-def Node (k : Nat) : Type := Fin k → Nat
+/-- Refinement level node carrier: a finite binary assignment at k stages. -/
+def Node (k : Nat) : Type := Fin k → Bool
 
 /-- Coarsening projection map π_{k, m} : Node m → Node k for k ≤ m.
     Projects refined state at resolution m down to coarser resolution k. -/
@@ -121,7 +122,9 @@ theorem projective_composition_fun (j k m : Nat) (hjk : j ≤ k) (hkm : k ≤ m)
 -- 3. Abstract Projective Movegraph System
 -- ============================================================================
 
-/-- Abstract projective system of movegraphs indexed by refinement level k : Nat. -/
+/-- Abstract carrier-projection system with movegraphs attached as data.
+    This structure proves identities and composition for carrier maps only; it
+    does not state that those maps preserve the attached transition lists. -/
 structure ProjectiveMovegraphSystem where
   Carrier : Nat → Type
   graph   : (k : Nat) → MoveGraph (Carrier k)
@@ -186,23 +189,23 @@ theorem truncated_coherence_preserved_step {N1 N2 : Nat} (hN : N1 ≤ N2)
   intro k m hkm hm
   exact h k m hkm (Nat.le_trans hm hN)
 
-/-- Canonical infinite stream to thread embedding. -/
-def streamThread (s : Nat → Nat) : (k : Nat) → Node k :=
+/-- Canonical infinite binary stream to thread embedding. -/
+def streamThread (s : Nat → Bool) : (k : Nat) → Node k :=
   fun _ i => s i.val
 
-/-- Inhabitation: Every infinite stream generates a coherent thread. -/
-theorem stream_thread_coherent (s : Nat → Nat) : IsCoherentThread (streamThread s) := by
+/-- Inhabitation: Every infinite binary stream generates a coherent thread. -/
+theorem stream_thread_coherent (s : Nat → Bool) : IsCoherentThread (streamThread s) := by
   intro k m h
   funext ⟨i, hi⟩
   rfl
 
-/-- Canonical point in the inverse limit generated from an infinite stream. -/
-def streamToThread (s : Nat → Nat) : CoherentThread where
+/-- Canonical coherent thread generated from an infinite binary stream. -/
+def streamToThread (s : Nat → Bool) : CoherentThread where
   seq := streamThread s
   coherent := stream_thread_coherent s
 
 -- ============================================================================
--- 5. Operational Pricing and Non-Euclidean Invariance
+-- 5. Operational Pricing and Ambient-Map Invariance
 -- ============================================================================
 
 /-- Embedding of transitions into an ambient space under an arbitrary coordinate mapping. -/
@@ -245,11 +248,10 @@ theorem embed_operationalPricing {V Ambient : Type} (embed : V → Ambient) (p :
   dsimp [operationalPricing]
   rw [embed_totalMu1, embed_totalMu2]
 
-/-- Theorem: Operational Pricing Non-Euclidean.
-    Pricing behavior (Σ μ1, Σ μ2) is fully determined by discrete graph transitions
-    without ambient Euclidean coordinates. For ANY ambient embedding (Euclidean or otherwise),
-    the operational price is invariant. -/
-theorem operational_pricing_non_euclidean {V Ambient : Type} (embed : V → Ambient)
+/-- Operational pricing is unchanged by a map that copies transition costs.
+    This is a structural statement about `embedPath`; it does not construct or
+    compare any ambient distance. -/
+theorem operational_pricing_ambient_independent {V Ambient : Type} (embed : V → Ambient)
     (p : MovePath V) :
     operationalPricing (embedPath embed p) = operationalPricing p :=
   embed_operationalPricing embed p
@@ -311,7 +313,7 @@ theorem project_operationalPricing (k m : Nat) (h : k ≤ m) (p : MovePath (Node
 #print axioms totalMu2_append
 #print axioms operationalPricing_append
 #print axioms embed_operationalPricing
-#print axioms operational_pricing_non_euclidean
+#print axioms operational_pricing_ambient_independent
 #print axioms project_operationalPricing
 
 end ProjectiveSystem

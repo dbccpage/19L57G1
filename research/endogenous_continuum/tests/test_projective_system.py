@@ -55,6 +55,11 @@ def test_move_edge_exact_rational_coercion() -> None:
     with pytest.raises(ValueError, match="non-negative"):
         MoveEdge(source=0, target=1, mu2=Fraction(-1, 2))
 
+    with pytest.raises(TypeError, match="exact rational"):
+        MoveEdge(source=0, target=1, mu1=True)
+    with pytest.raises(TypeError, match="non-negative int"):
+        OperationalPrice(mu1_sum=0, mu2_sum=0, step_count=True)
+
 
 def test_move_graph_construction_and_validation() -> None:
     """MoveGraph validates that all edge endpoints belong to states."""
@@ -168,6 +173,22 @@ def test_functorial_commutativity_detects_mismatch() -> None:
     assert any("State 4" in d for d in res.discrepancies)
 
 
+def test_commutativity_rejects_missing_explicit_edge_keys() -> None:
+    g2 = create_dyadic_movegraph(level=2)
+    pi_01 = create_dyadic_coarsening_map(0, 1)
+    pi_12_states = create_dyadic_coarsening_map(1, 2)
+    pi_12 = CoarseningMap(
+        source_level=2,
+        target_level=1,
+        state_map=pi_12_states.state_map,
+        edge_map={},
+    )
+    pi_02 = create_dyadic_coarsening_map(0, 2)
+    result = verify_commutativity(pi_01, pi_12, pi_02, domain_graph=g2)
+    assert not result.commutes
+    assert any("edge projection error" in defect for defect in result.discrepancies)
+
+
 # =============================================================================
 # 3. ProjectiveSystem System Verification & Coherent Threads
 # =============================================================================
@@ -256,9 +277,23 @@ def test_rejection_of_incoherent_threads() -> None:
     assert not res_bad_lvl.is_coherent
     assert any("not in the system" in d for d in res_bad_lvl.defects)
 
+    incomplete = {0: 0}
+    res_incomplete = sys.validate_thread(incomplete)
+    assert not res_incomplete.is_coherent
+    assert any("missing system levels" in d for d in res_incomplete.defects)
+
+
+def test_projective_system_requires_every_bonding_map() -> None:
+    g0 = MoveGraph.build(level=0, states=[0])
+    g1 = MoveGraph.build(level=1, states=[0])
+    incomplete = ProjectiveSystem.build(graphs=[g0, g1])
+    valid, defects = incomplete.verify_system()
+    assert not valid
+    assert any("Missing bonding map pi_0,1" in defect for defect in defects)
+
 
 # =============================================================================
-# 4. Operational Pricing & Endogenous Metric without Euclidean Coordinates
+# 4. Operational Pricing & Endogenous Metric without Ambient Coordinates
 # =============================================================================
 
 
@@ -274,7 +309,7 @@ def test_operational_distance_and_path_pricing() -> None:
     assert path_price.mu2_sum == Fraction(1, 1)
     assert path_price.step_count == 2
 
-    # Shortest path distance via exact rational Dijkstra
+    # Shortest path distance via exact rational search
     d_ac = sys.operational_distance(0, "A", "C")
     assert d_ac == Fraction(2, 1)
 
@@ -283,8 +318,30 @@ def test_operational_distance_and_path_pricing() -> None:
     sys_disjoint = ProjectiveSystem.build(graphs=[g_disjoint])
     assert sys_disjoint.operational_distance(0, "A", "X") is None
 
+    with pytest.raises(ValueError, match="Disconnected path"):
+        sys.compute_path_pricing([e2, e1])
+    with pytest.raises(ValueError, match="non-negative"):
+        sys.operational_distance(0, "A", "C", cost_func=lambda _: -1)
 
-def test_endogenous_metric_axioms_without_euclidean_coordinates() -> None:
+
+def test_thread_pricing_uses_one_attainable_path() -> None:
+    direct = MoveEdge(source="A", target="B", mu1=2, mu2=0)
+    first = MoveEdge(source="A", target="C", mu1=1, mu2=10)
+    second = MoveEdge(source="C", target="B", mu1=0, mu2=10)
+    graph = MoveGraph.build(
+        level=0, states=["A", "B", "C"], edges=[direct, first, second]
+    )
+    system = ProjectiveSystem.build(graphs=[graph])
+    prices = system.pricing_along_threads({0: "A"}, {0: "B"})
+    assert prices[0].price == OperationalPrice(1, 20, 2)
+
+    disconnected = MoveGraph.build(level=0, states=["A", "B"])
+    disconnected_system = ProjectiveSystem.build(graphs=[disconnected])
+    with pytest.raises(ValueError, match="No path connects"):
+        disconnected_system.pricing_along_threads({0: "A"}, {0: "B"})
+
+
+def test_endogenous_metric_axioms_without_ambient_coordinates() -> None:
     """Discrete movegraph satisfies metric axioms derived solely from path concatenation."""
     # Test on dyadic movegraph at level 2
     sys = create_dyadic_projective_system(max_level=2)
@@ -294,6 +351,16 @@ def test_endogenous_metric_axioms_without_euclidean_coordinates() -> None:
     assert not metric_check.defects
     assert metric_check.tested_pairs > 0
     assert metric_check.tested_triples > 0
+
+
+def test_metric_check_rejects_zero_separation_and_asymmetry() -> None:
+    zero_edge = MoveEdge(source="A", target="B", mu1=0)
+    graph = MoveGraph.build(level=0, states=["A", "B"], edges=[zero_edge])
+    system = ProjectiveSystem.build(graphs=[graph])
+    result = system.verify_endogenous_metric(0)
+    assert not result.satisfies_axioms
+    assert any("Separation failure" in defect for defect in result.defects)
+    assert any("Symmetry failure" in defect for defect in result.defects)
 
 
 def test_pricing_accumulation_along_projective_sequences() -> None:
@@ -327,6 +394,15 @@ def test_pricing_accumulation_along_projective_sequences() -> None:
     stab = sys.verify_pricing_stabilization(sequence)
     assert stab["stabilized"]
     assert stab["max_delta"] == Fraction(0, 1)
+
+    non_stable = (
+        OperationalPriceAtLevel(0, OperationalPrice(0, 0, 0)),
+        OperationalPriceAtLevel(1, OperationalPrice(1, 0, 0)),
+        OperationalPriceAtLevel(2, OperationalPrice(1, 0, 0)),
+    )
+    assert not sys.verify_pricing_stabilization(non_stable)[
+        "all_consecutive_within_tolerance"
+    ]
 
 
 def test_pricing_along_threads_sequence() -> None:
