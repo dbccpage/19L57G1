@@ -289,7 +289,7 @@
   },
   "pytest": {
     "exit_code": 0,
-    "passed": 110,
+    "passed": 112,
     "status": "PASS"
   },
   "schema_version": 1,
@@ -299,10 +299,11 @@
   },
   "source_hashes": {
     ".gitattributes": "8d3cbb5c8e466acc37bd53780fb2f2564a6f2d41663b6a0bf22f8ae1dfb02b5d",
-    "CLAIMS.md": "de1a641f4e491d05d8a5b2cbe8943d169f95a9a3485b59854a2c9146c8a7134b",
+    "CLAIMS.md": "df4bf5f776dce8230d61bd4c3c3a5eab9dc1000f241f1c07f212debe9e23d865",
     "README.md": "121f47d650de85c96550070bc9474aea1ffe89d27195effdf86b4570f3c238a2",
     "SOURCE_MANIFEST.json": "5814cdddf1dba62886ded8409e094d38467744ea4ff5e9e3f0630a2d9c0a1cc8",
-    "__init__.py": "951a489f362cd6aa5187def618c44f6576a7487ff17d5bdd768b198ad5c33846",
+    "__init__.py": "c124b37a5fa9eb87c61fcfda5fe8064ad5c8aadb02dbbd7668e33d7cff6041f6",
+    "benchmark_hierarchical.py": "83229b2ca21cf1da45f541ea5cff52ba4d2292ff6cfa8ea79bf4257ee5d74d33",
     "dissipative_cycle.py": "335d91526080afaf7836833fa2451e2ec720afb20b73bd4e3b8053b0557aa29f",
     "dual_relaxation.py": "1266a67b3ca65e1973cce748597dead86ca8cc8988c526cd3d32c7751a36592f",
     "hierarchical_search.py": "21054e66f017c02822f81bc7bb3ed820af088ac4ece8aa5ce2f693c6c8096d71",
@@ -321,6 +322,7 @@
     "projective_system.py": "747f3916b22b5da9b4a8c0f6a078ed170caf705c677e5cef0d5c3c347ab8eb74",
     "tests/__init__.py": "44b1fc4e79bb35aa69c00ad6a8cbc1a1e68c6a9d8c7c18caee32ade0adcafa9b",
     "tests/test_adversarial.py": "009b9467334d52aff474c0e3fbf90c5e4ef7d1fcc990d93e8b9a647c08249b65",
+    "tests/test_benchmark_hierarchical.py": "bc73df81ad75a2fb26f07a3f88a3faeea5bc51e4bf4a33f659e57b6df8587dd8",
     "tests/test_dissipative_cycle.py": "2c1ec93863941fb38442dda746c1073a53732bd23b7b49066a1bb8e004c71968",
     "tests/test_dual_relaxation.py": "a8df6555fe7d7240a4ffb8c7d73ac51eb765d45a9dcb7e46ecca61a79d5fa0da",
     "tests/test_hierarchical_search.py": "4a27ba45016c4f741948ef29eec5a9d872cdcab51320f30ced7769379d891c95",

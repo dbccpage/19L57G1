@@ -86,6 +86,12 @@ from .hierarchical_search import (
     HierarchicalSearchEngine,
     HierarchicalSearchResult,
 )
+from .benchmark_hierarchical import (
+    BenchmarkReport,
+    ScaleBenchmarkResult,
+    run_hierarchical_benchmark,
+    run_unrelaxed_search,
+)
 from .projective_system import (
     CoarseningMap,
     CommutativityResult,
@@ -181,5 +187,9 @@ __all__: list[str] = [
     "HierarchicalRefusalReceipt",
     "HierarchicalSearchEngine",
     "HierarchicalSearchResult",
+    "BenchmarkReport",
+    "ScaleBenchmarkResult",
+    "run_hierarchical_benchmark",
+    "run_unrelaxed_search",
 ]
 
