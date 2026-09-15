@@ -12,9 +12,9 @@
       "Quot.sound",
       "propext"
     ],
-    "axiom_free_count": 33,
+    "axiom_free_count": 47,
     "build_status": "PASS",
-    "theorem_count": 56,
+    "theorem_count": 83,
     "theorem_details": {
       "DissipativeCycle.acyclic_dissipative_terminates": [
         "propext",
@@ -71,6 +71,71 @@
       "InternalQuotienting.local_to_global_confluence": [],
       "InternalQuotienting.normal_form_unique": [],
       "InternalQuotienting.normal_form_unique_of_terminating": [],
+      "IntervalDomain.adjacent_overlaps": [
+        "propext",
+        "Quot.sound"
+      ],
+      "IntervalDomain.canonical_cover_chain_connected": [
+        "propext",
+        "Quot.sound"
+      ],
+      "IntervalDomain.chain_connected_delta": [
+        "propext",
+        "Quot.sound"
+      ],
+      "IntervalDomain.chain_connected_of_le": [
+        "propext",
+        "Quot.sound"
+      ],
+      "IntervalDomain.contract_step_single": [],
+      "IntervalDomain.contract_to_zero": [],
+      "IntervalDomain.discrete_boundary_witness": [],
+      "IntervalDomain.intermediate_value_property": [
+        "propext",
+        "Quot.sound"
+      ],
+      "IntervalDomain.interval_contract_confluent": [],
+      "IntervalDomain.interval_contract_locally_confluent": [
+        "propext"
+      ],
+      "IntervalDomain.interval_contract_step_scale": [],
+      "IntervalDomain.interval_equivalence_iff_joinable": [],
+      "IntervalDomain.intervals_same_scale_joinable": [],
+      "IntervalDomain.no_clopen_partition": [
+        "propext",
+        "Quot.sound"
+      ],
+      "IntervalDomain.observable_transport_chain": [],
+      "IntervalDomain.overlappingChain_refl": [],
+      "IntervalDomain.overlappingChain_single": [],
+      "IntervalDomain.overlappingChain_symm": [],
+      "IntervalDomain.overlappingChain_trans": [],
+      "IntervalDomain.overlaps_refl": [
+        "propext",
+        "Quot.sound"
+      ],
+      "IntervalDomain.overlaps_same_scale_refl": [
+        "propext",
+        "Quot.sound"
+      ],
+      "IntervalDomain.overlaps_symm": [],
+      "IntervalDomain.refine_child0_overlaps_parent": [
+        "propext",
+        "Quot.sound"
+      ],
+      "IntervalDomain.refine_child1_overlaps_parent": [
+        "propext",
+        "Quot.sound"
+      ],
+      "IntervalDomain.refinement_children_chain_connected": [
+        "propext",
+        "Quot.sound"
+      ],
+      "IntervalDomain.refinement_preserves_connectedness": [
+        "propext",
+        "Quot.sound"
+      ],
+      "IntervalDomain.reflTrans_contract_scale": [],
       "ObserverEnclosure.init_carrier_invariant": [
         "propext"
       ],
@@ -143,7 +208,7 @@
   },
   "pytest": {
     "exit_code": 0,
-    "passed": 86,
+    "passed": 96,
     "status": "PASS"
   },
   "schema_version": 1,
@@ -153,16 +218,18 @@
   },
   "source_hashes": {
     ".gitattributes": "8d3cbb5c8e466acc37bd53780fb2f2564a6f2d41663b6a0bf22f8ae1dfb02b5d",
-    "CLAIMS.md": "7b27dbe3ddd4c667d401a8137c6b12917020099f52ddcc075f0affacd8e70097",
+    "CLAIMS.md": "bc1fbb256379c130aada8c337f16b50fcbcb8b952cabb684979e8cf56fb77401",
     "README.md": "121f47d650de85c96550070bc9474aea1ffe89d27195effdf86b4570f3c238a2",
     "SOURCE_MANIFEST.json": "5814cdddf1dba62886ded8409e094d38467744ea4ff5e9e3f0630a2d9c0a1cc8",
-    "__init__.py": "2d8f07c9cf39efa1bfbd7bf6044b828e706e2d5d9f72c2cc5d88bd6d651b6185",
+    "__init__.py": "6dc219308e6b1e6d69ee5d84c5f1b73f03fc3bbe0524bb7ac729f13d88e41cf2",
     "dissipative_cycle.py": "335d91526080afaf7836833fa2451e2ec720afb20b73bd4e3b8053b0557aa29f",
     "internal_quotienting.py": "6e49ec433912d59357a941b7c0084c1410be37cdec670a25014a603012f2e26d",
+    "interval_domain.py": "ff05c78c1ca12170693972e33b4fa3b418e2d4913bf840a85418ad9f15e18371",
     "lean/DissipativeCycle.lean": "40e16d412ce71bbbe28905ee98f64755608b9138e0e5ebfddf1d443a581fa66d",
     "lean/EndogenousContinuum.lean": "f40b1408f8b5efbea9aa4d033cba2b6975bdeba044ae7bdf3958e2eb62913574",
     "lean/InternalQuotienting.lean": "c31a30fdbe4a1b77eabbbf5f05343ab040d46ca0103027b7113fffed41b9b0fb",
-    "lean/Inventory.lean": "b7c6f2a516d564486f3a8929503c6cacd27d5f95960d4fb2ecb09bd620ab12fe",
+    "lean/IntervalDomain.lean": "379bcae1bac66797f3b18abc593a3264e105bdd41adaf062d5f9e676b2c16c34",
+    "lean/Inventory.lean": "44c34ad6e89eb305cb4109c56c0e1d6814c3a88f110cff337f69e905f7570d2e",
     "lean/ObserverEnclosure.lean": "6a67429aa9172052dbbfc72ebaca5f2ba5fa998411df9013b393275d6ee87422",
     "lean/ProjectiveSystem.lean": "d114cebe2bb6985ba306685d72f335eb248d4891ee855623bea483c359b437eb",
     "observer_enclosure.py": "fdba45b53199cd802356c268f10c7db62cf27f10ceac83486c84d9341cf4fd2b",
@@ -171,6 +238,7 @@
     "tests/test_adversarial.py": "009b9467334d52aff474c0e3fbf90c5e4ef7d1fcc990d93e8b9a647c08249b65",
     "tests/test_dissipative_cycle.py": "2c1ec93863941fb38442dda746c1073a53732bd23b7b49066a1bb8e004c71968",
     "tests/test_internal_quotienting.py": "1fbf7156a5fb4aeadb66c1a9a5a778c9d94de9383d12b63c2b77a4f7cb929b82",
+    "tests/test_interval_domain.py": "03ef815ca80211c42102449bb17482ac517ef053d75977783bfd9c396c60367b",
     "tests/test_observer_enclosure.py": "d84b478ba835f01c19bde73469322c68bc8d16843afe03b26276233d97c964b3",
     "tests/test_projective_system.py": "7da04bad7fc914a9f53e6e221f7a9c01e20d4157ea5a8361ddbdadf770e15e10",
     "tests/test_scaffold.py": "9d4436d4539126bcb686d0f101bd740ec2d20942e1009bb8f9ff46e6b53f957b",

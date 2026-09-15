@@ -64,6 +64,13 @@ from .observer_enclosure import (
     ObserverRecord,
     TraceInvariantChecker,
 )
+from .interval_domain import (
+    DyadicInterval,
+    IntervalCover,
+    IntervalRewriteSystem,
+    MetricCapacityReport,
+    compute_capacity_profile,
+)
 from .projective_system import (
     CoarseningMap,
     CommutativityResult,
@@ -143,5 +150,10 @@ __all__: list[str] = [
     "canonical_cycle",
     "deterministic_key",
     "find_all_cycles_autonomous",
+    "DyadicInterval",
+    "IntervalCover",
+    "IntervalRewriteSystem",
+    "MetricCapacityReport",
+    "compute_capacity_profile",
 ]
 

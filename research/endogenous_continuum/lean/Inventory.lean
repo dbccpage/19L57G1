@@ -3,18 +3,20 @@ import ObserverEnclosure
 import ProjectiveSystem
 import DissipativeCycle
 import InternalQuotienting
+import IntervalDomain
 
 /-!
 # Target: Endogenous Continuum Lean 4 Census & Axiom Audit
 
-Comprehensive constructive census across all 4 endogenous continuum tracks:
+Comprehensive constructive census across all 5 endogenous continuum tracks:
 - Track 1: ObserverEnclosure (10 theorems)
 - Track 2: ProjectiveSystem (15 theorems)
 - Track 3: DissipativeCycle (11 theorems)
 - Track 4: InternalQuotienting (13 theorems)
+- Track 5: IntervalDomain (27 theorems)
 - EndogenousContinuum Baseline (7 theorems)
 
-Total: 56 constructive theorems.
+Total: 83 constructive theorems.
 AuthorityEffect: None.
 Axioms: strictly within {propext, Quot.sound}.
 -/
@@ -85,6 +87,37 @@ Axioms: strictly within {propext, Quot.sound}.
 #print axioms InternalQuotienting.external_minimizer_subsumption
 
 -- ============================================================================
+-- Track 5: IntervalDomain (27 theorems)
+-- ============================================================================
+#print axioms IntervalDomain.overlaps_refl
+#print axioms IntervalDomain.overlaps_symm
+#print axioms IntervalDomain.adjacent_overlaps
+#print axioms IntervalDomain.overlaps_same_scale_refl
+#print axioms IntervalDomain.overlappingChain_refl
+#print axioms IntervalDomain.overlappingChain_trans
+#print axioms IntervalDomain.overlappingChain_single
+#print axioms IntervalDomain.overlappingChain_symm
+#print axioms IntervalDomain.chain_connected_delta
+#print axioms IntervalDomain.chain_connected_of_le
+#print axioms IntervalDomain.canonical_cover_chain_connected
+#print axioms IntervalDomain.discrete_boundary_witness
+#print axioms IntervalDomain.no_clopen_partition
+#print axioms IntervalDomain.observable_transport_chain
+#print axioms IntervalDomain.intermediate_value_property
+#print axioms IntervalDomain.refinement_children_chain_connected
+#print axioms IntervalDomain.refine_child0_overlaps_parent
+#print axioms IntervalDomain.refine_child1_overlaps_parent
+#print axioms IntervalDomain.refinement_preserves_connectedness
+#print axioms IntervalDomain.contract_step_single
+#print axioms IntervalDomain.interval_contract_locally_confluent
+#print axioms IntervalDomain.contract_to_zero
+#print axioms IntervalDomain.intervals_same_scale_joinable
+#print axioms IntervalDomain.interval_contract_step_scale
+#print axioms IntervalDomain.reflTrans_contract_scale
+#print axioms IntervalDomain.interval_contract_confluent
+#print axioms IntervalDomain.interval_equivalence_iff_joinable
+
+-- ============================================================================
 -- Baseline: EndogenousContinuum (7 theorems)
 -- ============================================================================
 #print axioms EndogenousContinuum.pathwayIndex_pos
@@ -96,4 +129,4 @@ Axioms: strictly within {propext, Quot.sound}.
 #print axioms EndogenousContinuum.reflTrans_refl
 
 def main : IO Unit := do
-  IO.println "Target Endogenous Continuum Complete Lean 4 Census (56 theorems verified)."
+  IO.println "Target Endogenous Continuum Complete Lean 4 Census (83 theorems verified)."

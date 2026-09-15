@@ -1,6 +1,6 @@
 name = "endogenous_continuum"
 version = "0.1.0"
-defaultTargets = ["EndogenousContinuum", "Inventory", "ObserverEnclosure", "ProjectiveSystem", "DissipativeCycle", "InternalQuotienting"]
+defaultTargets = ["EndogenousContinuum", "Inventory", "ObserverEnclosure", "ProjectiveSystem", "DissipativeCycle", "InternalQuotienting", "IntervalDomain"]
 
 [[require]]
 name = "derivation"
@@ -17,6 +17,9 @@ name = "DissipativeCycle"
 
 [[lean_lib]]
 name = "InternalQuotienting"
+
+[[lean_lib]]
+name = "IntervalDomain"
 
 [[lean_lib]]
 name = "EndogenousContinuum"
