@@ -1,11 +1,11 @@
 -- research/endogenous_continuum/lean/IntervalDomain.lean
--- Track 5: Overlapping Dyadic Interval Domain & Constructive Connectedness
+-- Track 5: Overlapping Dyadic Intervals & Finite Overlap-Graph Connectedness
 -- AuthorityEffect: None.
 
 import InternalQuotienting
 
 /-!
-# Track 5: Overlapping Dyadic Interval Domain & Constructive Connectedness
+# Track 5: Overlapping Dyadic Intervals & Finite Overlap-Graph Connectedness
 
 This module formalizes the Overlapping Dyadic Interval Domain:
 1. `DyadicInterval`: Exact dyadic intervals ⟨scale, index⟩ representing
@@ -14,14 +14,19 @@ This module formalizes the Overlapping Dyadic Interval Domain:
 3. `OverlappingChain`: Constructive path connectivity between overlapping intervals.
 4. `canonical_cover_chain_connected`: Every pair of intervals at scale k is connected
    by an explicit constructive overlapping chain.
-5. `discrete_boundary_witness` and `no_clopen_partition`: Topological connectedness
-   characterized constructively by the impossibility of a disjoint clopen partition.
-6. `intermediate_value_property`: Any discrete observable respecting overlap is
-   constant across the entire interval cover.
+5. `discrete_boundary_witness` and `partition_boundary_overlap`: A finite binary
+   cover-index partition with separated endpoints has an adjacent cross-label overlap.
+6. `overlap_invariant_observable_constant`: Any observable that assigns equal
+   values to overlapping intervals is constant across a same-scale chain.
 7. `IntervalContractStep`: Locally confluent reduction of overlapping dyadic
    interval representations to irreducible canonical forms.
-8. `refinement_children_chain_connected` and `refinement_preserves_connectedness`:
-   Scale refinement coheres with the projective system limit.
+8. `refinement_children_chain_connected` and
+   `left_refinement_images_chain_connected`: Explicit refinement children and
+   left-child images remain connected in the finite overlap graph.
+
+These results concern the declared finite overlap graph and contraction relation.
+They do not define or prove connectedness of a point-set topology, an ordered-codomain
+intermediate-value theorem, or an analytical/projective limit.
 
 Axioms: strictly within {propext, Quot.sound}. Zero Mathlib.
 -/
@@ -148,7 +153,7 @@ theorem canonical_cover_chain_connected (k i j : Nat) :
   · exact overlappingChain_symm (chain_connected_of_le k j i hge)
 
 -- ============================================================================
--- 3. Absence of Clopen Partition (Constructive Connectedness)
+-- 3. Finite Partition Boundary Overlap
 -- ============================================================================
 
 /-- Discrete boundary witness: any binary partition of `{0, ..., n + 1}` containing
@@ -175,9 +180,9 @@ theorem discrete_boundary_witness : ∀ (n : Nat),
           · exact (hBn hB).elim
         exact ⟨n + 1, Nat.le_refl (n + 1), hAn, hBsucc⟩
 
-/-- Absence of clopen partition: no binary partition of the canonical dyadic cover
-    can isolate `0` from `n + 1` without containing an overlapping boundary pair. -/
-theorem no_clopen_partition (k n : Nat) (A B : Nat → Prop)
+/-- Boundary overlap: a binary cover-index partition with `0` in `A` and `n + 1`
+    in `B` contains an adjacent `A`-to-`B` pair whose intervals overlap. -/
+theorem partition_boundary_overlap (k n : Nat) (A B : Nat → Prop)
     [∀ i, Decidable (A i)] [∀ i, Decidable (B i)]
     (hA0 : A 0) (hBN : B (n + 1))
     (h_cover : ∀ i ≤ n + 1, A i ∨ B i) :
@@ -186,7 +191,7 @@ theorem no_clopen_partition (k n : Nat) (A B : Nat → Prop)
   exact ⟨m, hm, hAm, hBm, adjacent_overlaps k m⟩
 
 -- ============================================================================
--- 4. Constructive Intermediate Value Property (IVP)
+-- 4. Overlap-Invariant Observable Transport
 -- ============================================================================
 
 /-- Transport of an observable along an overlapping chain: any observable respecting
@@ -199,16 +204,16 @@ theorem observable_transport_chain {α : Type} (f : DyadicInterval → α)
   | refl _ => rfl
   | step hov _ ih => exact (h_resp _ _ hov).trans ih
 
-/-- Constructive Intermediate Value Property: any discrete observable respecting
-    overlap is constant across all intervals at scale `k`. -/
-theorem intermediate_value_property {α : Type} (f : DyadicInterval → α)
+/-- Any observable assigning equal values to overlapping intervals is constant
+    across all intervals at a fixed scale. -/
+theorem overlap_invariant_observable_constant {α : Type} (f : DyadicInterval → α)
     (h_resp : ∀ I1 I2, Overlaps I1 I2 → f I1 = f I2)
     (k i j : Nat) :
     f ⟨k, i⟩ = f ⟨k, j⟩ :=
   observable_transport_chain f h_resp (canonical_cover_chain_connected k i j)
 
 -- ============================================================================
--- 5. Scale Refinement and Projective Limit Coherence
+-- 5. Scale Refinement
 -- ============================================================================
 
 /-- Scale refinement children: interval `⟨k, i⟩` refines into three overlapping
@@ -295,8 +300,8 @@ theorem refine_child1_overlaps_parent (I : DyadicInterval) :
     rw [heq_lhs, heq_rhs]
     exact hlt
 
-/-- Refinement preserves chain-connectedness under projective scaling. -/
-theorem refinement_preserves_connectedness (k i j : Nat) :
+/-- Left-child images of two same-scale intervals are connected at the refined scale. -/
+theorem left_refinement_images_chain_connected (k i j : Nat) :
     OverlappingChain (refineChild0 ⟨k, i⟩) (refineChild0 ⟨k, j⟩) :=
   canonical_cover_chain_connected (k + 1) (2 * i) (2 * j)
 

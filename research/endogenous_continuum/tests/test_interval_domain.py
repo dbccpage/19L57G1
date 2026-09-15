@@ -9,6 +9,7 @@ from fractions import Fraction
 import pytest
 
 from research.endogenous_continuum.interval_domain import (
+    MAX_CAPACITY_SCALE,
     DyadicInterval,
     IntervalCover,
     IntervalRewriteSystem,
@@ -43,6 +44,10 @@ def test_dyadic_interval_endpoints_and_width() -> None:
         DyadicInterval(scale=-1, index=0)
     with pytest.raises(ValueError, match="index must be non-negative"):
         DyadicInterval(scale=0, index=-1)
+    with pytest.raises(TypeError, match="scale must be an integer"):
+        DyadicInterval(scale=1.0, index=0)  # type: ignore[arg-type]
+    with pytest.raises(TypeError, match="index must be an integer"):
+        DyadicInterval(scale=1, index=True)
 
 
 def test_dyadic_interval_overlap_same_scale() -> None:
@@ -120,6 +125,16 @@ def test_canonical_cover_structure() -> None:
 
     with pytest.raises(ValueError, match="Canonical cover requires scale >= 1"):
         IntervalCover.canonical(scale=0)
+    with pytest.raises(TypeError, match="scale must be an integer"):
+        IntervalCover.canonical(scale=True)
+
+    with pytest.raises(ValueError, match="requires 3 intervals"):
+        IntervalCover(scale=2, intervals=(DyadicInterval(2, 0),))
+    with pytest.raises(ValueError, match=r"intervals\[1\] must equal"):
+        IntervalCover(
+            scale=2,
+            intervals=(DyadicInterval(2, 0), DyadicInterval(2, 2), DyadicInterval(2, 1)),
+        )
 
 
 def test_overlapping_chain_generation() -> None:
@@ -149,13 +164,13 @@ def test_overlapping_chain_generation() -> None:
         cover.find_overlapping_chain(0, 100)
 
 
-def test_no_clopen_partition_witness() -> None:
-    """Absence of clopen partition: locating overlapping boundary pair in any partition."""
+def test_partition_boundary_overlap_witness() -> None:
+    """Locate an adjacent overlap crossing a validated finite partition."""
     cover = IntervalCover.canonical(scale=4)  # 15 intervals: 0 .. 14
     # Test partition A = {0, 1, 2, 3}, B = {4, 5, ..., 14}
     set_a = {0, 1, 2, 3}
     set_b = set(range(4, 15))
-    int_a, int_b = cover.verify_no_clopen_partition(set_a, set_b)
+    int_a, int_b = cover.find_partition_boundary_overlap(set_a, set_b)
     assert int_a == cover.intervals[3]
     assert int_b == cover.intervals[4]
     assert int_a.overlaps(int_b)
@@ -163,35 +178,42 @@ def test_no_clopen_partition_witness() -> None:
     # Irregular partition: A = {0, 2, 4}, B = {1, 3, 5, ..., 14}
     set_a2 = {0, 2, 4}
     set_b2 = {1, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}
-    int_a2, int_b2 = cover.verify_no_clopen_partition(set_a2, set_b2)
+    int_a2, int_b2 = cover.find_partition_boundary_overlap(set_a2, set_b2)
     assert int_a2 == cover.intervals[0]
     assert int_b2 == cover.intervals[1]
     assert int_a2.overlaps(int_b2)
 
     # Invalid partition missing start index 0
     with pytest.raises(ValueError, match="set_a must contain index 0"):
-        cover.verify_no_clopen_partition({1, 2}, {0, 3})
+        cover.find_partition_boundary_overlap(set(range(1, 15)), {0})
 
     # Invalid partition missing terminal index
     with pytest.raises(ValueError, match="set_b must contain the terminal index"):
-        cover.verify_no_clopen_partition({0, 1}, {2, 3})
+        cover.find_partition_boundary_overlap({0, 14}, set(range(1, 14)))
+
+    with pytest.raises(ValueError, match="must be disjoint"):
+        cover.find_partition_boundary_overlap({0, 1}, set(range(1, 15)))
+    with pytest.raises(ValueError, match="partition exactly"):
+        cover.find_partition_boundary_overlap({0}, {14})
+    with pytest.raises(ValueError, match="partition exactly"):
+        cover.find_partition_boundary_overlap({0, 99}, set(range(1, 15)))
 
 
-def test_constructive_intermediate_value_property() -> None:
-    """Overlap-respecting observables are constant across the entire cover."""
+def test_overlap_invariant_observable_is_constant() -> None:
+    """Overlap-invariant observables are constant across the finite cover chain."""
     cover = IntervalCover.canonical(scale=4)
 
     # Constant observable (respects overlap)
     def obs_const(iv: DyadicInterval) -> str:
         return "connected_state"
 
-    assert cover.check_intermediate_value_property(obs_const)
+    assert cover.observable_is_constant_on_cover(obs_const)
 
     # Non-constant observable (violates overlap condition)
     def obs_parity(iv: DyadicInterval) -> int:
         return iv.index % 2
 
-    assert not cover.check_intermediate_value_property(obs_parity)
+    assert not cover.observable_is_constant_on_cover(obs_parity)
 
 
 def test_interval_rewrite_system_confluence() -> None:
@@ -205,13 +227,14 @@ def test_interval_rewrite_system_confluence() -> None:
 
 
 def test_metric_capacity_scaling() -> None:
-    """Metric capacity scaling report converges to dimension 1.0 without float overflows."""
+    """Capacity reports distinguish exact fields from bounded float approximations."""
     reports = compute_capacity_profile(max_scale=8)
     assert len(reports) == 8
 
     # Scale 1: 1 interval, resolution 1
     assert reports[0].scale == 1
     assert reports[0].covering_number == 1
+    assert reports[0].capacity_ratio is None
 
     # Scale 8: covering number 255, resolution 1/128
     assert reports[7].scale == 8
@@ -221,7 +244,13 @@ def test_metric_capacity_scaling() -> None:
     # Scaling ratio log2(N) / (k-1) approaches 1.0
     # For k = 8: log2(255) / 7 = 7.99435 / 7 = 1.142
     # For k = 12: log2(4095) / 11 = 11.9996 / 11 = 1.09
-    assert 1.0 < reports[-1].capacity_ratio < 1.25
+    ratio = reports[-1].capacity_ratio
+    assert ratio is not None
+    assert 1.0 < ratio < 1.25
 
     with pytest.raises(ValueError, match="max_scale must be >= 1"):
         compute_capacity_profile(max_scale=0)
+    with pytest.raises(TypeError, match="max_scale must be an integer"):
+        compute_capacity_profile(max_scale=2.0)  # type: ignore[arg-type]
+    with pytest.raises(ValueError, match=f"max_scale must be <= {MAX_CAPACITY_SCALE}"):
+        compute_capacity_profile(max_scale=MAX_CAPACITY_SCALE + 1)

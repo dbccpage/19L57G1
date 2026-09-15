@@ -1,4 +1,4 @@
-"""Overlapping Dyadic Interval Domain & Constructive Connectedness.
+"""Overlapping dyadic intervals and finite overlap-graph connectedness.
 
 AuthorityEffect: None.
 
@@ -7,13 +7,12 @@ This module implements the companion Python model for Track 5:
    of width 2^{-(scale - 1)}.
 2. IntervalCover: Canonical dyadic covers of the unit interval [0, 1] with
    constructive overlapping chain extraction.
-3. Absence of Clopen Partition: Locating boundary overlapping pairs in any binary
-   partition, demonstrating topological connectedness constructively.
-4. Constructive Intermediate Value Property: Invariance of overlap-respecting
-   observables across the cover.
+3. Partition boundary witness: locating an overlapping adjacent pair crossing a
+   validated binary partition of a finite canonical cover.
+4. Observable transport: checking constancy along the cover's overlap chain.
 5. IntervalRewriteSystem: Confluent contraction to canonical normal forms.
-6. Metric Capacity Scaling: Exact rational calculation of covering capacity
-   and discrete dimensional scaling.
+6. Capacity profile: exact resolutions and cover counts plus explicitly
+   approximate logarithmic summaries.
 """
 
 from __future__ import annotations
@@ -21,6 +20,18 @@ from __future__ import annotations
 from dataclasses import dataclass
 from fractions import Fraction
 from typing import Any, Callable, List, Optional, Set, Tuple
+
+
+MAX_CAPACITY_SCALE = 4096
+
+
+def _require_natural(name: str, value: object) -> int:
+    """Return an integer natural number, rejecting booleans and numeric lookalikes."""
+    if isinstance(value, bool) or not isinstance(value, int):
+        raise TypeError(f"{name} must be an integer, got {type(value).__name__}")
+    if value < 0:
+        raise ValueError(f"{name} must be non-negative, got {value}")
+    return value
 
 
 @dataclass(frozen=True)
@@ -35,10 +46,8 @@ class DyadicInterval:
     index: int
 
     def __post_init__(self) -> None:
-        if self.scale < 0:
-            raise ValueError(f"scale must be non-negative, got {self.scale}")
-        if self.index < 0:
-            raise ValueError(f"index must be non-negative, got {self.index}")
+        _require_natural("scale", self.scale)
+        _require_natural("index", self.index)
 
     @property
     def left_endpoint(self) -> Fraction:
@@ -104,12 +113,35 @@ class IntervalCover:
     scale: int
     intervals: Tuple[DyadicInterval, ...]
 
+    def __post_init__(self) -> None:
+        scale = _require_natural("scale", self.scale)
+        if scale < 1:
+            raise ValueError(f"Canonical cover requires scale >= 1, got {scale}")
+        if not isinstance(self.intervals, tuple):
+            raise TypeError("intervals must be a tuple")
+
+        expected_count = (1 << scale) - 1
+        if len(self.intervals) != expected_count:
+            raise ValueError(
+                f"canonical scale {scale} requires {expected_count} intervals, "
+                f"got {len(self.intervals)}"
+            )
+        for expected_index, interval in enumerate(self.intervals):
+            if not isinstance(interval, DyadicInterval):
+                raise TypeError(f"intervals[{expected_index}] must be a DyadicInterval")
+            if interval.scale != scale or interval.index != expected_index:
+                raise ValueError(
+                    f"intervals[{expected_index}] must equal "
+                    f"DyadicInterval(scale={scale}, index={expected_index})"
+                )
+
     @classmethod
     def canonical(cls, scale: int) -> IntervalCover:
         """Construct the canonical cover of [0, 1] at scale k >= 1.
 
         Intervals have index 0, 1, ..., 2^scale - 2.
         """
+        scale = _require_natural("scale", scale)
         if scale < 1:
             raise ValueError(f"Canonical cover requires scale >= 1, got {scale}")
         num_intervals = (1 << scale) - 1
@@ -118,6 +150,10 @@ class IntervalCover:
 
     def find_overlapping_chain(self, start_idx: int, target_idx: int) -> List[DyadicInterval]:
         """Constructively build an overlapping chain between two intervals in the cover."""
+        if isinstance(start_idx, bool) or not isinstance(start_idx, int):
+            raise TypeError(f"start_idx must be an integer, got {type(start_idx).__name__}")
+        if isinstance(target_idx, bool) or not isinstance(target_idx, int):
+            raise TypeError(f"target_idx must be an integer, got {type(target_idx).__name__}")
         if not (0 <= start_idx < len(self.intervals)):
             raise IndexError(f"start_idx {start_idx} out of range [0, {len(self.intervals)})")
         if not (0 <= target_idx < len(self.intervals)):
@@ -139,16 +175,20 @@ class IntervalCover:
                 )
         return chain
 
-    def verify_no_clopen_partition(
+    def find_partition_boundary_overlap(
         self, set_a: Set[int], set_b: Set[int]
     ) -> Tuple[DyadicInterval, DyadicInterval]:
-        """Verify the absence of a clopen partition between set_a and set_b.
+        """Return an adjacent overlap that crosses a validated binary partition.
 
-        Given a binary partition of cover indices where 0 in set_a and (N-1) in set_b,
-        constructively returns the transition pair (I_m, I_{m+1}) where m in set_a
-        and m+1 in set_b, verifying that the boundary strictly overlaps.
+        This is a finite overlap-graph witness. It is not, by itself, a theorem
+        about a point-set topology on the represented real interval.
         """
         n = len(self.intervals)
+        domain = set(range(n))
+        if set_a & set_b:
+            raise ValueError("set_a and set_b must be disjoint")
+        if set_a | set_b != domain:
+            raise ValueError("set_a and set_b must partition exactly the cover indices")
         if 0 not in set_a:
             raise ValueError("set_a must contain index 0")
         if (n - 1) not in set_b:
@@ -165,13 +205,13 @@ class IntervalCover:
 
         raise RuntimeError("No transition index found; partition hypothesis violated")
 
-    def check_intermediate_value_property(
+    def observable_is_constant_on_cover(
         self, observable: Callable[[DyadicInterval], Any]
     ) -> bool:
-        """Check whether an overlap-respecting observable is constant across the entire cover.
+        """Check whether an observable is constant along every adjacent overlap.
 
-        If for all adjacent (and hence overlapping) intervals I_m, I_{m+1},
-        observable(I_m) == observable(I_{m+1}), then observable(I_0) == observable(I_{N-1}).
+        This finite equality-transport check does not assert a conventional
+        intermediate-value theorem for an ordered codomain.
         """
         n = len(self.intervals)
         first_val = observable(self.intervals[0])
@@ -226,13 +266,13 @@ class IntervalRewriteSystem:
 
 @dataclass(frozen=True)
 class MetricCapacityReport:
-    """Metric capacity scaling report over dyadic resolution levels."""
+    """Capacity report with exact counts and approximate logarithmic fields."""
 
     scale: int
     resolution: Fraction
     covering_number: int
     log2_covering: float
-    capacity_ratio: float
+    capacity_ratio: float | None
 
 
 def compute_capacity_profile(max_scale: int) -> List[MetricCapacityReport]:
@@ -240,20 +280,25 @@ def compute_capacity_profile(max_scale: int) -> List[MetricCapacityReport]:
 
     Resolution epsilon_k = 2^{-(k - 1)}.
     Covering number N(epsilon_k) = 2^k - 1.
-    Scaling dimension: log2(N(epsilon_k)) / log2(1 / epsilon_k) -> 1.0 as k -> infty.
+    The logarithm and ratio fields are floating approximations. The ratio is
+    undefined at scale 1 and is therefore reported as ``None`` there.
     """
     import math
 
+    max_scale = _require_natural("max_scale", max_scale)
     if max_scale < 1:
         raise ValueError(f"max_scale must be >= 1, got {max_scale}")
+    if max_scale > MAX_CAPACITY_SCALE:
+        raise ValueError(
+            f"max_scale must be <= {MAX_CAPACITY_SCALE}, got {max_scale}"
+        )
 
     reports: List[MetricCapacityReport] = []
     for k in range(1, max_scale + 1):
         res = Fraction(1, 1 << (k - 1))
         n_cov = (1 << k) - 1
         log_n = math.log2(n_cov)
-        denom = float(k - 1) if k > 1 else 1.0
-        ratio = log_n / denom if k > 1 else 0.0
+        ratio = log_n / float(k - 1) if k > 1 else None
         reports.append(
             MetricCapacityReport(
                 scale=k,

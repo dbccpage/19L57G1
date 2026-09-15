@@ -101,13 +101,13 @@ Axioms: strictly within {propext, Quot.sound}.
 #print axioms IntervalDomain.chain_connected_of_le
 #print axioms IntervalDomain.canonical_cover_chain_connected
 #print axioms IntervalDomain.discrete_boundary_witness
-#print axioms IntervalDomain.no_clopen_partition
+#print axioms IntervalDomain.partition_boundary_overlap
 #print axioms IntervalDomain.observable_transport_chain
-#print axioms IntervalDomain.intermediate_value_property
+#print axioms IntervalDomain.overlap_invariant_observable_constant
 #print axioms IntervalDomain.refinement_children_chain_connected
 #print axioms IntervalDomain.refine_child0_overlaps_parent
 #print axioms IntervalDomain.refine_child1_overlaps_parent
-#print axioms IntervalDomain.refinement_preserves_connectedness
+#print axioms IntervalDomain.left_refinement_images_chain_connected
 #print axioms IntervalDomain.contract_step_single
 #print axioms IntervalDomain.interval_contract_locally_confluent
 #print axioms IntervalDomain.contract_to_zero

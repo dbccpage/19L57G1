@@ -4,7 +4,7 @@ AuthorityEffect: None.
 
 ## What it supports
 
-1. The checked Lean inventory reports 83 declarations: 48 axiom-free and the
+1. The checked Lean inventory reports 83 declarations: 47 axiom-free and the
    remainder depending only on `{propext, Quot.sound}`. The source scan rejects
    `sorry`, `admit`, `unsafe`, `partial`, and explicit `axiom` declarations in
    this package. This is an inventory claim, not a declaration-completeness
@@ -25,26 +25,26 @@ AuthorityEffect: None.
    intervals of width $2^{-(k-1)}$ with overlapping interior $2^{-k}$. Lean proves:
    - Canonical cover chain-connectedness: every pair of intervals at scale $k$ is
      connected by an explicit constructive overlapping chain.
-   - Absence of clopen partition: any binary partition of the canonical cover contains
-     an overlapping boundary transition pair, precluding topological disconnection.
-   - Constructive Intermediate Value Property: discrete observables respecting
-     local overlap are constant across the entire interval cover.
-   - Refinement preservation: dyadic scale refinement $k \to k+1$ preserves
-     chain-connectedness and coheres with projective system limits.
+   - A finite partition boundary lemma: a binary cover-index partition with its
+     endpoints in opposite parts contains an adjacent cross-label overlap.
+   - Equality transport: observables assigning equal values to overlapping
+     intervals are constant across a same-scale chain.
+   - Explicit refinement children overlap their parent, and left-child images
+     remain connected at the refined scale.
    - Confluent interval contraction: reduction toward canonical normal form is
      locally and globally confluent.
-7. Exact rational and integer Python modeling across the five tracks, with
+7. Exact rational endpoints and integer cover counts in the Python model, with
+   explicitly approximate floating logarithmic summaries and
    focused negative controls for float inputs, trace tampering, incomplete or
    non-commuting projections, malformed cycles, non-confluent rewrites, and
-   disconnected interval covers.
+   malformed interval covers and partitions.
 
 ## What it does not support
 
-1. It does not establish classical point-set continuum theorems ($[0, 1] \subset \mathbb{R}$
-   with Dedekind cuts or non-constructive Cauchy sequences) or smooth differential manifolds.
-2. It does not construct classical metric completions in Lean 4 without Mathlib.
-   Connectedness is established constructive-topologically via overlapping chains
-   and absence of clopen partitions, not via non-constructive dichotomy.
+1. It does not construct a point-set topology, prove topological connectedness
+   of a real interval, or establish a conventional intermediate-value theorem.
+2. It does not construct a metric completion or any infinite analytical or
+   projective limit. Its connectedness result is for a declared finite overlap graph.
 3. It does not assert that arbitrary unbounded discrete dynamics possess cyclic attractors;
    cycle existence is verified only for finite state spaces or declared conservative cycles.
 4. It does not claim empirical validity for real-world continuous physics, remaining
@@ -56,12 +56,12 @@ AuthorityEffect: None.
 Within the checked finite models, the package supplies append-only observer
 records, complete carrier coarsenings, validated conservative cycles,
 conditional quotient representatives, and an overlapping dyadic interval
-domain establishing constructive chain-connectedness and confluent rewriting.
+domain establishing finite overlap-chain connectedness and confluent rewriting.
 Its declared Lean inventory stays within the stated axiom allowlist, and its
 focused Python verifier rejects the recorded negative controls. No classical
 continuous object or analytical limit follows.
 
 ## Next test needed
 
-Integration of interval domain covering approximations into the operational
-movegraph transition dynamics and cross-scale metric capacity calculations.
+A separately defined topology or ordered codomain, with hypotheses strong enough
+to state the corresponding connectedness or value-attainment theorem.
