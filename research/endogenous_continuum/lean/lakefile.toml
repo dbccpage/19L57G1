@@ -1,0 +1,28 @@
+name = "endogenous_continuum"
+version = "0.1.0"
+defaultTargets = ["EndogenousContinuum", "Inventory", "ObserverEnclosure", "ProjectiveSystem", "DissipativeCycle", "InternalQuotienting", "IntervalDomain"]
+
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+[[lean_lib]]
+name = "ObserverEnclosure"
+
+[[lean_lib]]
+name = "ProjectiveSystem"
+
+[[lean_lib]]
+name = "DissipativeCycle"
+
+[[lean_lib]]
+name = "InternalQuotienting"
+
+[[lean_lib]]
+name = "IntervalDomain"
+
+[[lean_lib]]
+name = "EndogenousContinuum"
+
+[[lean_lib]]
+name = "Inventory"
