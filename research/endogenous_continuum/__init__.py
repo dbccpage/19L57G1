@@ -65,11 +65,15 @@ from .observer_enclosure import (
     TraceInvariantChecker,
 )
 from .interval_domain import (
+    CrossScaleCapacityAnalysis,
     DyadicInterval,
     IntervalCover,
     IntervalRewriteSystem,
     MetricCapacityReport,
+    analyze_cross_scale_capacity,
     compute_capacity_profile,
+    create_interval_coarsening_map,
+    create_interval_movegraph,
 )
 from .projective_system import (
     CoarseningMap,
@@ -155,5 +159,9 @@ __all__: list[str] = [
     "IntervalRewriteSystem",
     "MetricCapacityReport",
     "compute_capacity_profile",
+    "create_interval_movegraph",
+    "create_interval_coarsening_map",
+    "CrossScaleCapacityAnalysis",
+    "analyze_cross_scale_capacity",
 ]
 

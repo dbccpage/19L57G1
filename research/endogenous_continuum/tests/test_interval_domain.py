@@ -13,7 +13,10 @@ from research.endogenous_continuum.interval_domain import (
     DyadicInterval,
     IntervalCover,
     IntervalRewriteSystem,
+    analyze_cross_scale_capacity,
     compute_capacity_profile,
+    create_interval_coarsening_map,
+    create_interval_movegraph,
 )
 
 
@@ -254,3 +257,110 @@ def test_metric_capacity_scaling() -> None:
         compute_capacity_profile(max_scale=2.0)  # type: ignore[arg-type]
     with pytest.raises(ValueError, match=f"max_scale must be <= {MAX_CAPACITY_SCALE}"):
         compute_capacity_profile(max_scale=MAX_CAPACITY_SCALE + 1)
+
+
+def test_interval_movegraph_construction() -> None:
+    """Interval movegraphs possess exactly the canonical cover intervals as states."""
+    k = 3
+    mg = create_interval_movegraph(scale=k)
+    cover = IntervalCover.canonical(scale=k)
+
+    assert mg.level == k
+    assert mg.states == set(cover.intervals)
+    # n_intervals = 7; 6 adjacent pairs * 2 directions = 12 directed edges
+    assert len(mg.edges) == 12
+
+    # Verify edge attributes
+    expected_mu1 = Fraction(1, 1 << k)
+    expected_mu2 = Fraction(1, 1 << (2 * k))
+    for e in mg.edges:
+        assert isinstance(e.source, DyadicInterval)
+        assert isinstance(e.target, DyadicInterval)
+        assert e.source.overlaps(e.target)
+        assert e.mu1 == expected_mu1
+        assert e.mu2 == expected_mu2
+
+    with pytest.raises(ValueError, match="scale must be integer >= 1"):
+        create_interval_movegraph(scale=0)
+
+
+def test_interval_traversal_pricing() -> None:
+    """Traversal pricing across canonical interval covers respects length bound < 1."""
+    for k in (1, 2, 3, 5):
+        mg = create_interval_movegraph(scale=k)
+        cover = IntervalCover.canonical(scale=k)
+        n = len(cover.intervals)
+        steps = n - 1
+
+        # Traverse from first to last interval
+        curr_price_mu1 = Fraction(0, 1)
+        curr_price_mu2 = Fraction(0, 1)
+        for i in range(steps):
+            u = cover.intervals[i]
+            v = cover.intervals[i + 1]
+            out_edges = [e for e in mg.outgoing(u) if e.target == v]
+            assert len(out_edges) == 1
+            curr_price_mu1 += out_edges[0].mu1
+            curr_price_mu2 += out_edges[0].mu2
+
+        expected_mu1 = Fraction(steps, 1 << k)
+        expected_mu2 = Fraction(steps, 1 << (2 * k))
+        assert curr_price_mu1 == expected_mu1
+        assert curr_price_mu2 == expected_mu2
+
+        # Primary cost is strictly bounded by 1
+        assert curr_price_mu1 < Fraction(1, 1)
+        # Dissipation decreases exponentially with scale
+        assert curr_price_mu2 <= Fraction(1, 1 << k)
+
+
+def test_interval_coarsening_morphism() -> None:
+    """Coarsening projection between interval movegraphs satisfies graph morphism properties."""
+    coarse_k = 2
+    fine_k = 3
+    cmap = create_interval_coarsening_map(coarse_scale=coarse_k, fine_scale=fine_k)
+    fine_mg = create_interval_movegraph(scale=fine_k)
+    coarse_mg = create_interval_movegraph(scale=coarse_k)
+
+    assert cmap.source_level == fine_k
+    assert cmap.target_level == coarse_k
+
+    # Check morphism condition: for every fine edge u -> v,
+    # either pi(u) == pi(v) (collapse) or pi(u) -> pi(v) is an edge in coarse_mg
+    res = cmap.check_morphism(fine_mg, coarse_mg)
+    assert res.is_valid
+
+    with pytest.raises(ValueError, match="coarse_scale must be int >= 1"):
+        create_interval_coarsening_map(0, 2)
+    with pytest.raises(ValueError, match="fine_scale must be int >= coarse_scale"):
+        create_interval_coarsening_map(3, 2)
+
+
+def test_cross_scale_capacity_analysis() -> None:
+    """Cross-scale capacity analysis verifies recurrence N(k+1) = 2N(k) + 1 and capacity bounds."""
+    analysis = analyze_cross_scale_capacity(max_scale=6)
+    assert analysis.max_scale == 6
+    assert len(analysis.scale_reports) == 6
+    assert len(analysis.growth_ratios) == 5
+
+    # Check Pontryagin-Schnirelmann recurrence N(k+1) = 2N(k) + 1
+    for i in range(5):
+        n_k = analysis.scale_reports[i].covering_number
+        n_k1 = analysis.scale_reports[i + 1].covering_number
+        assert n_k1 == 2 * n_k + 1
+        assert analysis.growth_ratios[i] == Fraction(n_k1, n_k)
+
+    # All primary traversal costs strictly < 1
+    for mu1 in analysis.total_mu1_costs:
+        assert mu1 < Fraction(1, 1)
+
+    # Dissipation strictly monotonically decreasing for k >= 2 (non-trivial traversals)
+    for i in range(1, len(analysis.total_mu2_costs) - 1):
+        assert analysis.total_mu2_costs[i + 1] < analysis.total_mu2_costs[i]
+
+    # Scaling dimensions approach 1.0
+    assert 1.0 <= analysis.scaling_dimensions[-1] < 1.3
+
+    with pytest.raises(ValueError, match="max_scale must be >= 1"):
+        analyze_cross_scale_capacity(0)
+

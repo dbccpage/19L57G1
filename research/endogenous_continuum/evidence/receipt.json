@@ -12,9 +12,9 @@
       "Quot.sound",
       "propext"
     ],
-    "axiom_free_count": 47,
+    "axiom_free_count": 49,
     "build_status": "PASS",
-    "theorem_count": 83,
+    "theorem_count": 97,
     "theorem_details": {
       "DissipativeCycle.acyclic_dissipative_terminates": [
         "propext",
@@ -136,6 +136,53 @@
         "Quot.sound"
       ],
       "IntervalDomain.reflTrans_contract_scale": [],
+      "IntervalMovegraph.canonical_step_count_eq": [
+        "propext",
+        "Quot.sound"
+      ],
+      "IntervalMovegraph.coarsening_preserves_adjacent_overlap": [
+        "propext"
+      ],
+      "IntervalMovegraph.coveringNumber_growth_bound": [
+        "propext",
+        "Quot.sound"
+      ],
+      "IntervalMovegraph.coveringNumber_one": [],
+      "IntervalMovegraph.coveringNumber_pos": [
+        "propext",
+        "Quot.sound"
+      ],
+      "IntervalMovegraph.coveringNumber_strict_mono": [
+        "propext",
+        "Quot.sound"
+      ],
+      "IntervalMovegraph.coveringNumber_succ": [
+        "propext",
+        "Quot.sound"
+      ],
+      "IntervalMovegraph.coveringNumber_zero": [],
+      "IntervalMovegraph.div2_le_succ_div2": [
+        "propext"
+      ],
+      "IntervalMovegraph.succ_div2_le_div2_succ": [
+        "propext"
+      ],
+      "IntervalMovegraph.traversal_cost_mu1_bounded": [
+        "propext",
+        "Quot.sound"
+      ],
+      "IntervalMovegraph.traversal_cost_mu2_vanishing": [
+        "propext",
+        "Quot.sound"
+      ],
+      "IntervalMovegraph.traversal_dissipation_ratio_bound": [
+        "propext",
+        "Quot.sound"
+      ],
+      "IntervalMovegraph.two_pow_ge_two": [
+        "propext",
+        "Quot.sound"
+      ],
       "ObserverEnclosure.init_carrier_invariant": [
         "propext"
       ],
@@ -208,7 +255,7 @@
   },
   "pytest": {
     "exit_code": 0,
-    "passed": 96,
+    "passed": 100,
     "status": "PASS"
   },
   "schema_version": 1,
@@ -218,18 +265,19 @@
   },
   "source_hashes": {
     ".gitattributes": "8d3cbb5c8e466acc37bd53780fb2f2564a6f2d41663b6a0bf22f8ae1dfb02b5d",
-    "CLAIMS.md": "82e27c15fc52c5f365bf52b9db5e61ca63068def6480de416d9722588aca5aa0",
+    "CLAIMS.md": "f513d96c535b802917252ac2d004de09b2229a7bdfc9a84d046bafdd518dcc3f",
     "README.md": "121f47d650de85c96550070bc9474aea1ffe89d27195effdf86b4570f3c238a2",
     "SOURCE_MANIFEST.json": "5814cdddf1dba62886ded8409e094d38467744ea4ff5e9e3f0630a2d9c0a1cc8",
-    "__init__.py": "6dc219308e6b1e6d69ee5d84c5f1b73f03fc3bbe0524bb7ac729f13d88e41cf2",
+    "__init__.py": "3d830868e80fc7bb65a88f9c0b7cafd88a731e08e3898da168c73916b88d3fe7",
     "dissipative_cycle.py": "335d91526080afaf7836833fa2451e2ec720afb20b73bd4e3b8053b0557aa29f",
     "internal_quotienting.py": "6e49ec433912d59357a941b7c0084c1410be37cdec670a25014a603012f2e26d",
-    "interval_domain.py": "c86d5ce811ae9b2b9ef3066010b63ae0c25219b64d88a6f75974d4cb61330893",
+    "interval_domain.py": "a41b054571ce3f084d07ccf8c34f717844c22773094f2eeb3b5ac7f5bd4d6e6e",
     "lean/DissipativeCycle.lean": "40e16d412ce71bbbe28905ee98f64755608b9138e0e5ebfddf1d443a581fa66d",
     "lean/EndogenousContinuum.lean": "f40b1408f8b5efbea9aa4d033cba2b6975bdeba044ae7bdf3958e2eb62913574",
     "lean/InternalQuotienting.lean": "c31a30fdbe4a1b77eabbbf5f05343ab040d46ca0103027b7113fffed41b9b0fb",
     "lean/IntervalDomain.lean": "c2ff8c0c57703c0213a5bbaa83a3b3a9e5e3668602472bb782c900c0ecd66c3a",
-    "lean/Inventory.lean": "522b4e9a86cf5e4f829e1dd8c49083cd6e882b1d457ff5715e3ea586b1d757a7",
+    "lean/IntervalMovegraph.lean": "95391c844d0ae2e450f4b404b37944e7c0c14bc26ad69c7b25c8a3e2b436df3f",
+    "lean/Inventory.lean": "82454a08e7bb2640da23ce18081c357761d9bab5373471f7c47b8b20d6711f5a",
     "lean/ObserverEnclosure.lean": "6a67429aa9172052dbbfc72ebaca5f2ba5fa998411df9013b393275d6ee87422",
     "lean/ProjectiveSystem.lean": "d114cebe2bb6985ba306685d72f335eb248d4891ee855623bea483c359b437eb",
     "observer_enclosure.py": "fdba45b53199cd802356c268f10c7db62cf27f10ceac83486c84d9341cf4fd2b",
@@ -238,7 +286,7 @@
     "tests/test_adversarial.py": "009b9467334d52aff474c0e3fbf90c5e4ef7d1fcc990d93e8b9a647c08249b65",
     "tests/test_dissipative_cycle.py": "2c1ec93863941fb38442dda746c1073a53732bd23b7b49066a1bb8e004c71968",
     "tests/test_internal_quotienting.py": "1fbf7156a5fb4aeadb66c1a9a5a778c9d94de9383d12b63c2b77a4f7cb929b82",
-    "tests/test_interval_domain.py": "5ec4ae3afa211ab5fdea95b38c0456580988c05bec558670fb9f8c3c05990d3e",
+    "tests/test_interval_domain.py": "66fd9f5aacace57ad2a2b64edaffdb08cc186fce1eff2616968c27a1b8c35eef",
     "tests/test_observer_enclosure.py": "d84b478ba835f01c19bde73469322c68bc8d16843afe03b26276233d97c964b3",
     "tests/test_projective_system.py": "7da04bad7fc914a9f53e6e221f7a9c01e20d4157ea5a8361ddbdadf770e15e10",
     "tests/test_scaffold.py": "9d4436d4539126bcb686d0f101bd740ec2d20942e1009bb8f9ff46e6b53f957b",

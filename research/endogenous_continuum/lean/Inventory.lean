@@ -4,19 +4,21 @@ import ProjectiveSystem
 import DissipativeCycle
 import InternalQuotienting
 import IntervalDomain
+import IntervalMovegraph
 
 /-!
 # Target: Endogenous Continuum Lean 4 Census & Axiom Audit
 
-Comprehensive constructive census across all 5 endogenous continuum tracks:
+Comprehensive constructive census across all 6 endogenous continuum tracks:
 - Track 1: ObserverEnclosure (10 theorems)
 - Track 2: ProjectiveSystem (15 theorems)
 - Track 3: DissipativeCycle (11 theorems)
 - Track 4: InternalQuotienting (13 theorems)
 - Track 5: IntervalDomain (27 theorems)
+- Track 6: IntervalMovegraph (14 theorems)
 - EndogenousContinuum Baseline (7 theorems)
 
-Total: 83 constructive theorems.
+Total: 97 constructive theorems.
 AuthorityEffect: None.
 Axioms: strictly within {propext, Quot.sound}.
 -/
@@ -118,6 +120,24 @@ Axioms: strictly within {propext, Quot.sound}.
 #print axioms IntervalDomain.interval_equivalence_iff_joinable
 
 -- ============================================================================
+-- Track 6: IntervalMovegraph (14 theorems)
+-- ============================================================================
+#print axioms IntervalMovegraph.two_pow_ge_two
+#print axioms IntervalMovegraph.canonical_step_count_eq
+#print axioms IntervalMovegraph.traversal_cost_mu1_bounded
+#print axioms IntervalMovegraph.traversal_cost_mu2_vanishing
+#print axioms IntervalMovegraph.traversal_dissipation_ratio_bound
+#print axioms IntervalMovegraph.div2_le_succ_div2
+#print axioms IntervalMovegraph.succ_div2_le_div2_succ
+#print axioms IntervalMovegraph.coarsening_preserves_adjacent_overlap
+#print axioms IntervalMovegraph.coveringNumber_zero
+#print axioms IntervalMovegraph.coveringNumber_one
+#print axioms IntervalMovegraph.coveringNumber_succ
+#print axioms IntervalMovegraph.coveringNumber_pos
+#print axioms IntervalMovegraph.coveringNumber_strict_mono
+#print axioms IntervalMovegraph.coveringNumber_growth_bound
+
+-- ============================================================================
 -- Baseline: EndogenousContinuum (7 theorems)
 -- ============================================================================
 #print axioms EndogenousContinuum.pathwayIndex_pos
@@ -129,4 +149,4 @@ Axioms: strictly within {propext, Quot.sound}.
 #print axioms EndogenousContinuum.reflTrans_refl
 
 def main : IO Unit := do
-  IO.println "Target Endogenous Continuum Complete Lean 4 Census (83 theorems verified)."
+  IO.println "Target Endogenous Continuum Complete Lean 4 Census (97 theorems verified)."
