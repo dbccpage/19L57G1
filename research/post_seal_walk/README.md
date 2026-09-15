@@ -10,14 +10,16 @@ not a theorem.
 | object | SHA |
 |---|---|
 | Seal re-run merge | `052e65739ddfd8c23c657562a51288cb083a2464` (2026-08-17) |
-| Local HEAD of this walk | `0e7814089db5ed387489acd9553a9105b0b69462` (2026-09-13) |
-| `origin/main` at walk time | `dfe649445403d7d0326594c918430ae5456b1f6b` (4 commits ahead; not in the 561) |
+| Walk snapshot | `0e7814089db5ed387489acd9553a9105b0b69462` (2026-09-13) |
+| Origin snapshot at walk time | `dfe649445403d7d0326594c918430ae5456b1f6b` (4 commits ahead) |
 
-561 commits after the seal on this HEAD. Every SHA and date is listed
-in `commits_shas.tsv`. Commit *subjects* are not tracked here:
+The range `052e657..0e781408` has 561 commits. Every SHA and date is listed
+in `commits_shas.tsv`. The expanded range `052e657..dfe64944` has 565;
+its four additional, newest rows appear first in
+`commits_origin_extra_shas.tsv`. Commit *subjects* are not tracked here:
 reprinting them reintroduces watched terms into new files. The four
-unpulled commits at walk time are in `commits_origin_extra_shas.tsv`
-and were not read as trees.
+additional commits were inspected only through their path statistics,
+not read as trees.
 
 ## What this folder is for
 
@@ -40,10 +42,13 @@ This is a map, not a restart. It does not amend the seal.
    2026-08-17.
 6. `thread_other.md` — remaining research trees, indexed not dismissed.
 7. `commits_shas.tsv` — all 561 SHAs and dates (no subjects).
+8. `commits_origin_extra_shas.tsv` — the 565-row expanded origin snapshot.
 
 ## Verification boundary of the walk itself
 
-- Commit list and path buckets: machine, from `git log --name-only`.
+- Commit ledgers: read-only comparison against the two pinned Git objects.
+- Path buckets: machine-generated from `git log --name-only` at the walk
+  snapshot.
 - Tree terminals: read from each tree's `STATUS.md` / `SEED.md` /
   `CLOSURE.md` / `CLAIM_LEDGER.md` / paper, plus named Lean theorems.
 - Not run: the twelve gate families, research Lake builds, regeneration
@@ -55,4 +60,11 @@ This is a map, not a restart. It does not amend the seal.
   Every *tree* was opened at its status/seed/ledger. Every *commit* is
   listed. File-level understanding is clustered by write-root.
 
-Regenerate the commit index with `_group_commits.py` after a fetch.
+Verify the tracked ledgers without changing files:
+
+```text
+python research/post_seal_walk/verify.py
+```
+
+Regenerate the ignored subject index and tracked touch census from the fixed
+walk snapshot with `python research/post_seal_walk/_group_commits.py`.

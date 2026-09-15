@@ -1,14 +1,14 @@
 # Comparable census (match these numbers)
 
 `AuthorityEffect: None.` Objects another accounting can agree or
-disagree with. Pin: HEAD `0e781408` unless a row names another SHA.
+disagree with. Pin: walk snapshot `0e781408` unless a row names another SHA.
 
 ## History
 
 | object | value |
 |---|---|
-| Commits on HEAD | 766 |
-| Commits on `origin/main` `dfe64944` | 770 |
+| Commits at walk snapshot | 766 |
+| Commits at origin snapshot `dfe64944` | 770 |
 | Days with commits | 30 (2026-08-11 … 2026-09-13) |
 | Roots | `5a5990d8` (derivation seed), `6fb1f66d` (GitHub LICENSE/README) |
 | Merge commits | 199 |
@@ -18,7 +18,7 @@ disagree with. Pin: HEAD `0e781408` unless a row names another SHA.
 | Era D (research native) | 197 |
 | Era E (boundary + second) | 188 |
 | Era F (remainder) | 136 |
-| Post-seal `052e657..HEAD` | 561 |
+| Post-seal `052e657..0e781408` | 561 |
 
 ## Seal object `052e657`
 
@@ -33,7 +33,7 @@ disagree with. Pin: HEAD `0e781408` unless a row names another SHA.
 | `paper/coda/` in tree | no (removed `6c3d880`) |
 | Judgement stopping clauses | operator claims, not gate-discharged |
 
-## HEAD `0e781408`
+## Walk snapshot `0e781408`
 
 | object | value |
 |---|---|

@@ -1,7 +1,7 @@
 # First appearance of sealed modules (Era A–B)
 
 `AuthorityEffect: None.` From the sealed-era file walk. Dates are
-commit dates on HEAD. Not a Lake census.
+commit dates at the walk snapshot. Not a Lake census.
 
 ## Python kernel (five-file family pattern)
 
@@ -58,16 +58,16 @@ parked Iso* / DiffAnchor (08-19–20); LocalStrategy, G1Class (08-26);
 ObserverInventory (08-31). See `thread_sealed_after.md` in the
 post-seal walk.
 
-## Coda (not in HEAD)
+## Coda (not at the walk snapshot)
 
 Appears `7da1eee0` 2026-08-16. `paper/coda/` briefly 2026-08-17,
 removed `6c3d880`. Living `coda_meta/` moved `fd7e392`. `coda/`
-removed `27a1bba8` after the seal SHA. Destination `dbccpage/CODA`
-is private.
+removed `27a1bba8` after the seal SHA. The destination is a private
+external repository and is not cited here.
 
 ## Research trees
 
 First research commit: `020e15e3` 2026-08-21 primitive-difference
 tower. Birth dates of later trees: `research/post_seal_walk/` and
 `touch_counts.txt`. `research/sign_tower` exists only on
-`origin/main` (see `origin_extra.md`).
+the origin snapshot (see `origin_extra.md`).

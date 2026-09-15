@@ -1,6 +1,6 @@
 # Era B — seal, isolate, stopping re-run (2026-08-17)
 
-`AuthorityEffect: None.` 22 commits this day on HEAD.
+`AuthorityEffect: None.` 22 commits this day at the walk snapshot.
 
 | SHA | what |
 |---|---|
@@ -23,7 +23,7 @@ Coda timeline, because the pin is easy to mis-read:
 - `7da1eee0` 2026-08-16 — `coda/` and `coda_meta/` appear.
 - `1ed7341a` 2026-08-17 — `paper/coda/` lands (seal breach).
 - `6c3d8807` — `paper/coda/` removed (30 files).
-- `fd7e3922` — `coda_meta/` moved to `dbccpage/CODA`.
+- `fd7e3922` — `coda_meta/` moved to a private external repository.
 - **`052e657` — `coda/` still in-tree**; `paper/coda/` already gone;
   `coda_meta/` already a pointer.
 - `27a1bba8` (after the pin) — `coda/` and `coda_meta/` removed from

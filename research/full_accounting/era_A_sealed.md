@@ -1,6 +1,6 @@
 # Era A — sealed derivation (2026-08-11 … 2026-08-16)
 
-`AuthorityEffect: None.` 190 commits on HEAD before 2026-08-17.
+`AuthorityEffect: None.` 190 commits at the walk snapshot before 2026-08-17.
 Source of the narrative: `paper/paper_change_log.md` entries 1–15 and
 the PR #12–#21 / contact / naturality entries through 2026-08-16, plus
 `git log --reverse` on this era. SHAs below are from `eras.md`.
@@ -101,7 +101,8 @@ claim**. No gate consumes that report. Re-run the next day
 
 Coda trees were added around this window under separate rules, then
 removed 2026-08-17 (`27a1bba8`). They are not in this repository.
-`dbccpage/CODA` is private. Do not treat their absence as a defect.
+Their destination is a private external repository. Do not treat their
+absence as a defect or cite that repository here.
 
 ---
 

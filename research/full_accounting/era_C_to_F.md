@@ -1,6 +1,6 @@
 # Eras C–F — after isolate (2026-08-18 … 2026-09-13)
 
-`AuthorityEffect: None.` 554 commits on HEAD in this window
+`AuthorityEffect: None.` 554 commits at the walk snapshot in this window
 (C 33 + D 197 + E 188 + F 136). Tree-level notes live in
 `research/post_seal_walk/`. This file is the era skeleton for
 comparison, not a second copy of those STATUS reads.
@@ -64,7 +64,7 @@ land as constructive toys that do **not** consume sealed `Regime`.
 They are a second experiment hosted in this repository. See
 `research/post_seal_walk/thread_other.md` population B.
 
-HEAD `0e781408` is diagonal-identity work on declared carriers.
+The walk snapshot `0e781408` is diagonal-identity work on declared carriers.
 
 ## What these eras add to §11
 

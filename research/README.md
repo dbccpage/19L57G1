@@ -36,6 +36,7 @@ research Lean builds are invoked separately. The table names their entry points.
 | `exchange_coefficients` | local receipt only | `verify.py` | `test_examples.py` | local build and axiom report (`verify.py`) |
 | `family_embedding` | local receipt only | `verify_lean.py`, `verify_pins.py` | test_*.py | manual receipt (`verify_lean.py`) |
 | `fresh_characters` | local receipt only | `verify_lean.py`, `verify_pins.py` | test_*.py | manual receipt (`verify_lean.py`) |
+| `full_accounting` | local receipt only | `verify.py` | none | none |
 | `g1_local_class` | local receipt only | none | none | none |
 | `genesis_continuation` | local receipt only | none | none | none |
 | `grammar_fit` | local receipt only | none | test_*.py | none |
@@ -53,6 +54,7 @@ research Lean builds are invoked separately. The table names their entry points.
 | `partial_decide` | workflow (gate 11) | `verify_pins.py` | test_*.py | none |
 | `path_dependent_cost` | local receipt only | `verify_lean.py`, `verify_pins.py` | test_*.py | manual receipt (`verify_lean.py`) |
 | `portable_interface` | workflow (gate 11) | `verify_pins.py` | test_*.py | none |
+| `post_seal_walk` | local receipt only | `verify.py` | none | none |
 | `priced_admissions` | local receipt only | none | test_*.py | none |
 | `primitive_difference_tower` | workflow (gate 11) | `verify_lean.py`, `verify_manifest.py` | test_*.py | manual receipt (`verify_lean.py`) |
 | `reach_additivity` | local receipt only | `verify_lean.py`, `verify_pins.py` | test_*.py | manual receipt (`verify_lean.py`) |
@@ -80,7 +82,7 @@ research Lean builds are invoked separately. The table names their entry points.
 | `x303_bounded_agency` | local receipt only | `verify.py` | tests/ | manual receipt (`verify.py`) |
 | `x310_vertical_integration` | local receipt only | `verify.py` | tests/ | manual receipt (`verify.py`) |
 
-13 trees are wired; 48 are local receipts only.
+13 trees are wired; 50 are local receipts only.
 
 ## Hand copies
 

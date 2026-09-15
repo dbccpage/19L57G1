@@ -3,15 +3,15 @@
 `AuthorityEffect: None.` Two counts, because squash lands do not
 create merge commits.
 
-- `git log --merges` on HEAD: 199 merge commits; 159 subjects contain
+- `git log --merges` at the walk snapshot: 199 merge commits; 159 subjects contain
   `pull request #N` (machine: `pr_merges.tsv`).
 - Titles on `origin/main` including squash `(#N)`: **173 merged PRs**
   in `#1`–`#183`. Gaps with no merge of that number:
   `#20, #28, #29, #30, #61, #66, #74, #95, #116, #118`.
   `#20` landed as review-repair `#21`.
 
-On `origin/main` only (not this HEAD): PR #182, #183
-(`origin_extra.md`). HEAD’s last merged PR is **#181**.
+In the origin snapshot only (not at the walk snapshot): PR #182, #183
+(`origin_extra.md`). The walk snapshot’s last merged PR is **#181**.
 
 Load-bearing merges for comparison (not the full 159):
 

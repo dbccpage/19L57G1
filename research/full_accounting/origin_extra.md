@@ -1,8 +1,8 @@
-# Four commits on origin/main not on local HEAD
+# Four commits in the expanded origin snapshot
 
-`AuthorityEffect: None.` Pin: `origin/main` `dfe64944` vs HEAD
-`0e781408`. Walked by `git log HEAD..origin/main --stat` only. Trees
-not present in this worktree.
+`AuthorityEffect: None.` Pin: origin snapshot `dfe64944` vs walk snapshot
+`0e781408`. Walked by `git log 0e781408..dfe64944 --stat` only. Trees
+not present at the walk snapshot.
 
 | SHA | date | subject |
 |---|---|---|
@@ -18,7 +18,7 @@ Python and tests; `FINDINGS.md`.
 `dd179b6b` touches `FINDINGS.md` and `test_obstruction.py` (+23 / −7).
 
 PR #183 merge likely includes the diagonal-identity work already on
-this HEAD (`0e781408` and parents). PR #182 is review of PR #164
+the walk snapshot (`0e781408` and parents). PR #182 is review of PR #164
 feedback. Exact file lists of the two merges were not expanded
 (`--name-only` without `-m`).
 
