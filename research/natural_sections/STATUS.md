@@ -1864,6 +1864,19 @@ is the same shape as the sibling steps; it is not applied here.
 * The countermodels separate the fixed-point reading from the
   fixed-pair reading; they say nothing about which automorphisms arise
   from any presentation theory.
+* **Correction, recorded (2026-09-16).** The B6 entry above and the
+  "unknown: how fast the running balance grows is OPEN here" passage
+  earlier in this file are the historical record of this tree's own
+  position at the time the layer-balance rung landed, and are left as
+  written. They are no longer this tree's current position. NS-95 in
+  `CLAIM_LEDGER.md` carried the same "OPEN" reading and is corrected
+  there, with the reasoning: restated in this tree's own vocabulary
+  (balance = `mu(n)`, running balance = the Mertens function `M(n)`),
+  the general question is the Mertens conjecture, proved false by
+  Odlyzko and te Riele in 1985 -- an external, cited fact this tree
+  neither derives nor checks, not a live open question. The window
+  computation itself (the `4/5` peak, the checkpoints) is unchanged and
+  still correct as a finite computation.
 
 ## Commands (run from the repository root)
 
