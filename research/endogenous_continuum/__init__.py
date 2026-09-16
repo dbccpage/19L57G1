@@ -65,11 +65,42 @@ from .observer_enclosure import (
     TraceInvariantChecker,
 )
 from .interval_domain import (
+    CrossScaleCoverAnalysis,
     DyadicInterval,
     IntervalCover,
     IntervalRewriteSystem,
-    MetricCapacityReport,
-    compute_capacity_profile,
+    FiniteCoverReport,
+    analyze_cross_scale_cover,
+    compute_cover_profile,
+    create_interval_coarsening_map,
+    create_interval_movegraph,
+)
+from .dual_relaxation import (
+    DualPotential,
+    DualRefusalReceipt,
+    ExactPathSolver,
+    DualityGapReceipt,
+)
+from .hierarchical_search import (
+    CoarseCertificateInspection,
+    HierarchicalRefusalReceipt,
+    HierarchicalSearchEngine,
+    HierarchicalSearchResult,
+    SearchExhaustionReceipt,
+)
+from .benchmark_hierarchical import (
+    BenchmarkReport,
+    ScaleBenchmarkResult,
+    run_hierarchical_benchmark,
+    run_unrelaxed_search,
+)
+from .reasoning_agent import (
+    BudgetedReasoningCoordinator,
+    BudgetLedger,
+    CandidateGoal,
+    GoalOutcome,
+    ReasoningActionType,
+    ReasoningCoordinatorReceipt,
 )
 from .projective_system import (
     CoarseningMap,
@@ -153,7 +184,30 @@ __all__: list[str] = [
     "DyadicInterval",
     "IntervalCover",
     "IntervalRewriteSystem",
-    "MetricCapacityReport",
-    "compute_capacity_profile",
+    "FiniteCoverReport",
+    "compute_cover_profile",
+    "create_interval_movegraph",
+    "create_interval_coarsening_map",
+    "CrossScaleCoverAnalysis",
+    "analyze_cross_scale_cover",
+    "DualPotential",
+    "DualRefusalReceipt",
+    "ExactPathSolver",
+    "DualityGapReceipt",
+    "CoarseCertificateInspection",
+    "HierarchicalRefusalReceipt",
+    "HierarchicalSearchEngine",
+    "HierarchicalSearchResult",
+    "SearchExhaustionReceipt",
+    "BenchmarkReport",
+    "ScaleBenchmarkResult",
+    "run_hierarchical_benchmark",
+    "run_unrelaxed_search",
+    "BudgetedReasoningCoordinator",
+    "BudgetLedger",
+    "CandidateGoal",
+    "GoalOutcome",
+    "ReasoningActionType",
+    "ReasoningCoordinatorReceipt",
 ]
 

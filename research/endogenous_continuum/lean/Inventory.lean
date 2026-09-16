@@ -4,19 +4,25 @@ import ProjectiveSystem
 import DissipativeCycle
 import InternalQuotienting
 import IntervalDomain
+import IntervalMovegraph
+import DualCertificate
+import AdaptiveBudget
 
 /-!
 # Target: Endogenous Continuum Lean 4 Census & Axiom Audit
 
-Comprehensive constructive census across all 5 endogenous continuum tracks:
+Comprehensive constructive census across all 8 endogenous continuum tracks:
 - Track 1: ObserverEnclosure (10 theorems)
 - Track 2: ProjectiveSystem (15 theorems)
 - Track 3: DissipativeCycle (11 theorems)
 - Track 4: InternalQuotienting (13 theorems)
 - Track 5: IntervalDomain (27 theorems)
+- Track 6: IntervalMovegraph (14 theorems)
+- Track 7: DualCertificate (10 theorems)
+- Track 8: AdaptiveBudget (9 theorems)
 - EndogenousContinuum Baseline (7 theorems)
 
-Total: 83 constructive theorems.
+Total: 116 constructive theorems.
 AuthorityEffect: None.
 Axioms: strictly within {propext, Quot.sound}.
 -/
@@ -118,6 +124,51 @@ Axioms: strictly within {propext, Quot.sound}.
 #print axioms IntervalDomain.interval_equivalence_iff_joinable
 
 -- ============================================================================
+-- Track 6: IntervalMovegraph (14 theorems)
+-- ============================================================================
+#print axioms IntervalMovegraph.two_pow_ge_two
+#print axioms IntervalMovegraph.canonical_step_count_eq
+#print axioms IntervalMovegraph.traversal_cost_mu1_bounded
+#print axioms IntervalMovegraph.traversal_cost_mu2_numerator_bound
+#print axioms IntervalMovegraph.traversal_secondary_scaling_inequality
+#print axioms IntervalMovegraph.div2_le_succ_div2
+#print axioms IntervalMovegraph.succ_div2_le_div2_succ
+#print axioms IntervalMovegraph.coarsening_preserves_adjacent_overlap
+#print axioms IntervalMovegraph.coveringNumber_zero
+#print axioms IntervalMovegraph.coveringNumber_one
+#print axioms IntervalMovegraph.coveringNumber_succ
+#print axioms IntervalMovegraph.coveringNumber_pos
+#print axioms IntervalMovegraph.coveringNumber_strict_mono
+#print axioms IntervalMovegraph.coveringNumber_growth_bound
+
+-- ============================================================================
+-- Track 7: DualCertificate (10 theorems)
+-- ============================================================================
+#print axioms DualCertificate.dual_step_bound
+#print axioms DualCertificate.dual_path_bound
+#print axioms DualCertificate.dual_refusal_soundness
+#print axioms DualCertificate.duality_gap_nonnegative
+#print axioms DualCertificate.optimal_path_zero_gap
+#print axioms DualCertificate.cycle_dissipation_strictly_positive
+#print axioms DualCertificate.dissipative_length_bounded
+#print axioms DualCertificate.coarsening_preserves_admissibility
+#print axioms DualCertificate.coarsening_collapse_admissibility
+#print axioms DualCertificate.hierarchical_refusal_soundness
+
+-- ============================================================================
+-- Track 8: AdaptiveBudget (9 theorems)
+-- ============================================================================
+#print axioms AdaptiveBudget.sumAllocated_nil
+#print axioms AdaptiveBudget.sumAllocated_cons
+#print axioms AdaptiveBudget.budget_conservation_init
+#print axioms AdaptiveBudget.allocation_preserves_conservation
+#print axioms AdaptiveBudget.reclaim_refused_preserves_conservation
+#print axioms AdaptiveBudget.redistribute_preserves_conservation
+#print axioms AdaptiveBudget.reclaimed_refusal_completeness
+#print axioms AdaptiveBudget.monotone_budget_consumption
+#print axioms AdaptiveBudget.finite_exploration_bound
+
+-- ============================================================================
 -- Baseline: EndogenousContinuum (7 theorems)
 -- ============================================================================
 #print axioms EndogenousContinuum.pathwayIndex_pos
@@ -129,4 +180,4 @@ Axioms: strictly within {propext, Quot.sound}.
 #print axioms EndogenousContinuum.reflTrans_refl
 
 def main : IO Unit := do
-  IO.println "Target Endogenous Continuum Complete Lean 4 Census (83 theorems verified)."
+  IO.println "Target Endogenous Continuum Complete Lean 4 Census (116 theorems verified)."

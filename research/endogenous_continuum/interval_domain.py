@@ -11,7 +11,7 @@ This module implements the companion Python model for Track 5:
    validated binary partition of a finite canonical cover.
 4. Observable transport: checking constancy along the cover's overlap chain.
 5. IntervalRewriteSystem: Confluent contraction to canonical normal forms.
-6. Capacity profile: exact resolutions and cover counts plus explicitly
+6. Finite cover profile: exact resolutions and declared cover counts plus
    approximate logarithmic summaries.
 """
 
@@ -19,10 +19,12 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from fractions import Fraction
-from typing import Any, Callable, List, Optional, Set, Tuple
+from typing import Any, Callable, Dict, List, Optional, Set, Tuple
+
+from .projective_system import CoarseningMap, MoveEdge, MoveGraph
 
 
-MAX_CAPACITY_SCALE = 4096
+MAX_COVER_SCALE = 4096
 
 
 def _require_natural(name: str, value: object) -> int:
@@ -265,47 +267,173 @@ class IntervalRewriteSystem:
 
 
 @dataclass(frozen=True)
-class MetricCapacityReport:
-    """Capacity report with exact counts and approximate logarithmic fields."""
+class FiniteCoverReport:
+    """Declared finite-cover count with explicitly approximate log fields."""
 
     scale: int
     resolution: Fraction
-    covering_number: int
-    log2_covering: float
-    capacity_ratio: float | None
+    cover_count: int
+    log2_cover_count: float
+    approximate_log_ratio: float | None
 
 
-def compute_capacity_profile(max_scale: int) -> List[MetricCapacityReport]:
-    """Compute metric capacity profile over scales k = 1 .. max_scale.
+def compute_cover_profile(max_scale: int) -> List[FiniteCoverReport]:
+    """Compute declared canonical-cover counts for scales 1 through max_scale.
 
     Resolution epsilon_k = 2^{-(k - 1)}.
-    Covering number N(epsilon_k) = 2^k - 1.
+    Canonical cover count N(k) = 2^k - 1.
     The logarithm and ratio fields are floating approximations. The ratio is
-    undefined at scale 1 and is therefore reported as ``None`` there.
+    undefined at scale 1 and reported as None. No minimal-cover or limiting
+    dimension claim follows from these finite summaries.
     """
     import math
 
     max_scale = _require_natural("max_scale", max_scale)
     if max_scale < 1:
         raise ValueError(f"max_scale must be >= 1, got {max_scale}")
-    if max_scale > MAX_CAPACITY_SCALE:
+    if max_scale > MAX_COVER_SCALE:
         raise ValueError(
-            f"max_scale must be <= {MAX_CAPACITY_SCALE}, got {max_scale}"
+            f"max_scale must be <= {MAX_COVER_SCALE}, got {max_scale}"
         )
 
-    reports: List[MetricCapacityReport] = []
+    reports: List[FiniteCoverReport] = []
     for k in range(1, max_scale + 1):
         res = Fraction(1, 1 << (k - 1))
         n_cov = (1 << k) - 1
         log_n = math.log2(n_cov)
         ratio = log_n / float(k - 1) if k > 1 else None
         reports.append(
-            MetricCapacityReport(
+            FiniteCoverReport(
                 scale=k,
                 resolution=res,
-                covering_number=n_cov,
-                log2_covering=log_n,
-                capacity_ratio=ratio,
+                cover_count=n_cov,
+                log2_cover_count=log_n,
+                approximate_log_ratio=ratio,
             )
         )
     return reports
+
+
+def create_interval_movegraph(scale: int) -> MoveGraph:
+    """Create a discrete movegraph where states are DyadicInterval objects from the canonical cover.
+
+    Edges connect adjacent overlapping intervals with exact operational step costs:
+      mu1 = 1 / 2^scale  (overlap width / displacement)
+      mu2 = 1 / 4^scale  (higher-order quadratic dissipation)
+    """
+    if not isinstance(scale, int) or isinstance(scale, bool) or scale < 1:
+        raise ValueError(f"scale must be integer >= 1, got {scale}")
+
+    cover = IntervalCover.canonical(scale)
+    states = list(cover.intervals)
+    step_mu1 = Fraction(1, 1 << scale)
+    step_mu2 = Fraction(1, 1 << (2 * scale))
+
+    edges: List[MoveEdge] = []
+    for i in range(len(cover.intervals) - 1):
+        u = cover.intervals[i]
+        v = cover.intervals[i + 1]
+        edges.append(
+            MoveEdge(
+                source=u,
+                target=v,
+                label=f"step_{i}->{i+1}",
+                mu1=step_mu1,
+                mu2=step_mu2,
+            )
+        )
+        edges.append(
+            MoveEdge(
+                source=v,
+                target=u,
+                label=f"step_{i+1}->{i}",
+                mu1=step_mu1,
+                mu2=step_mu2,
+            )
+        )
+
+    return MoveGraph.build(level=scale, states=states, edges=edges)
+
+
+def create_interval_coarsening_map(coarse_scale: int, fine_scale: int) -> CoarseningMap:
+    """Construct the canonical coarsening projection pi_{j, k} between interval movegraphs.
+
+    Maps fine interval DyadicInterval(fine_scale, i) to
+    DyadicInterval(coarse_scale, min(i >> (fine_scale - coarse_scale), 2^coarse_scale - 2)).
+    """
+    if (
+        not isinstance(coarse_scale, int)
+        or isinstance(coarse_scale, bool)
+        or coarse_scale < 1
+    ):
+        raise ValueError(f"coarse_scale must be int >= 1, got {coarse_scale}")
+    if (
+        not isinstance(fine_scale, int)
+        or isinstance(fine_scale, bool)
+        or fine_scale < coarse_scale
+    ):
+        raise ValueError(
+            f"fine_scale must be int >= coarse_scale ({coarse_scale}), got {fine_scale}"
+        )
+
+    fine_cover = IntervalCover.canonical(fine_scale)
+    shift = fine_scale - coarse_scale
+    max_coarse_idx = (1 << coarse_scale) - 2
+
+    mapping: Dict[DyadicInterval, DyadicInterval] = {}
+    for iv in fine_cover.intervals:
+        c_idx = min(iv.index >> shift, max_coarse_idx)
+        mapping[iv] = DyadicInterval(scale=coarse_scale, index=c_idx)
+
+    return CoarseningMap(
+        source_level=fine_scale,
+        target_level=coarse_scale,
+        state_map=mapping,
+    )
+
+
+@dataclass(frozen=True)
+class CrossScaleCoverAnalysis:
+    """Finite cross-scale cover-count and traversal-cost summary."""
+
+    max_scale: int
+    scale_reports: Tuple[FiniteCoverReport, ...]
+    growth_ratios: Tuple[Fraction, ...]
+    total_mu1_costs: Tuple[Fraction, ...]
+    total_mu2_costs: Tuple[Fraction, ...]
+    approximate_log_ratios: Tuple[float | None, ...]
+
+
+def analyze_cross_scale_cover(max_scale: int) -> CrossScaleCoverAnalysis:
+    """Summarize finite cover counts and traversal prices across declared scales."""
+    if max_scale < 1:
+        raise ValueError(f"max_scale must be >= 1, got {max_scale}")
+
+    reports = tuple(compute_cover_profile(max_scale))
+    growth_ratios_list: List[Fraction] = []
+    total_mu1_list: List[Fraction] = []
+    total_mu2_list: List[Fraction] = []
+    approximate_ratios = [
+        report.approximate_log_ratio for report in reports
+    ]
+
+    for k in range(1, max_scale + 1):
+        step_count = (1 << k) - 2 if k >= 1 else 0
+        total_mu1 = Fraction(step_count, 1 << k)
+        total_mu2 = Fraction(step_count, 1 << (2 * k))
+        total_mu1_list.append(total_mu1)
+        total_mu2_list.append(total_mu2)
+
+        n_cov = (1 << k) - 1
+        if k < max_scale:
+            next_cov = (1 << (k + 1)) - 1
+            growth_ratios_list.append(Fraction(next_cov, n_cov))
+
+    return CrossScaleCoverAnalysis(
+        max_scale=max_scale,
+        scale_reports=reports,
+        growth_ratios=tuple(growth_ratios_list),
+        total_mu1_costs=tuple(total_mu1_list),
+        total_mu2_costs=tuple(total_mu2_list),
+        approximate_log_ratios=tuple(approximate_ratios),
+    )
