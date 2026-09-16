@@ -1,4 +1,4 @@
-"""Continuous Relaxation & Dual Potential Solver over discrete movegraphs.
+"""Exact shortest-path potentials and receipts over finite movegraphs.
 
 AuthorityEffect: None.
 Constructive: exact rational arithmetic via fractions.Fraction and int, zero floats.
@@ -7,10 +7,10 @@ Constructive: exact rational arithmetic via fractions.Fraction and int, zero flo
 from __future__ import annotations
 
 import heapq
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from fractions import Fraction
 from types import MappingProxyType
-from typing import Any, Callable, Dict, Iterator, List, Mapping, Optional, Sequence, Set, Tuple, Union
+from typing import Any, Callable, Dict, List, Mapping, Optional, Sequence, Set, Tuple, Union
 
 from .projective_system import MoveEdge, MoveGraph, _to_fraction
 
@@ -20,11 +20,31 @@ def _default_cost_fn(e: MoveEdge) -> Fraction:
     return _to_fraction(e.mu1, "mu1")
 
 
+def _validated_cost(
+    edge: MoveEdge,
+    cost_fn: Callable[[MoveEdge], Fraction],
+) -> Fraction:
+    """Return one exact non-negative edge cost, rejecting numeric lookalikes."""
+    cost = _to_fraction(cost_fn(edge), "edge_cost")
+    if cost < 0:
+        raise ValueError(f"Negative edge cost {cost} encountered on edge {edge!r}")
+    return cost
+
+
+def _validate_graph_costs(
+    graph: MoveGraph,
+    cost_fn: Callable[[MoveEdge], Fraction],
+) -> None:
+    """Check the non-negative-cost precondition used by the queue algorithms."""
+    for edge in graph.edges:
+        _validated_cost(edge, cost_fn)
+
+
 @dataclass(frozen=True)
 class DualPotential:
-    """Exact rational dual potential vector y: V -> Q on a movegraph.
+    """Exact rational potential on the states reachable from ``source``.
 
-    Satisfies the continuous relaxation admissibility condition:
+    A verified potential satisfies the edge admissibility condition
       y(v) - y(u) <= cost(u, v) for all directed edges e = (u, v).
     """
 
@@ -34,7 +54,7 @@ class DualPotential:
     def __post_init__(self) -> None:
         if self.source not in self.potentials:
             raise ValueError(f"source {self.source!r} must be in potentials mapping")
-        # Ensure mapping is immutable and values are exact non-negative fractions
+        # Keep an exact, immutable snapshot. Potential values need not be positive.
         clean_pot: Dict[Any, Fraction] = {}
         for k, v in self.potentials.items():
             clean_pot[k] = _to_fraction(v, f"potential[{k!r}]")
@@ -57,19 +77,30 @@ class DualPotential:
         graph: MoveGraph,
         cost_fn: Callable[[MoveEdge], Fraction] = _default_cost_fn,
     ) -> Tuple[bool, Tuple[str, ...]]:
-        """Verify the dual admissibility condition y(v) - y(u) <= cost(u, v) for all edges."""
+        """Verify admissibility on the potential's source-reachable domain.
+
+        Edges whose source has no assigned potential are outside that domain. An
+        edge from an assigned source to an unassigned target is a defect because
+        it would leave the represented reachable set.
+        """
         defects: List[str] = []
         for e in graph.edges:
+            c = _validated_cost(e, cost_fn)
             y_u = self.get(e.source)
             y_v = self.get(e.target)
-            if y_u is not None and y_v is not None:
-                diff = y_v - y_u
-                c = cost_fn(e)
-                if diff > c:
-                    defects.append(
-                        f"Admissibility violated on edge {e.source!r} -> {e.target!r}: "
-                        f"y(v) - y(u) = {diff} > cost = {c}"
-                    )
+            if y_u is None:
+                continue
+            if y_v is None:
+                defects.append(
+                    f"Assigned domain is not closed on edge {e.source!r} -> {e.target!r}"
+                )
+                continue
+            diff = y_v - y_u
+            if diff > c:
+                defects.append(
+                    f"Admissibility violated on edge {e.source!r} -> {e.target!r}: "
+                    f"y(v) - y(u) = {diff} > cost = {c}"
+                )
         return len(defects) == 0, tuple(defects)
 
 
@@ -88,9 +119,11 @@ class DualityGapReceipt:
 
 @dataclass(frozen=True)
 class DualRefusalReceipt:
-    """Certified Farkas unreachability/budget-exhaustion receipt.
+    """Finite-graph unreachability or exact lower-bound refusal receipt.
 
-    Certifies that for any path p from source to target, cost(p) >= dual_bound > budget.
+    A present dual bound certifies that every path costs at least that amount
+    and that it exceeds the budget. A missing bound records exhaustive
+    finite-graph unreachability.
     """
 
     source: Any
@@ -101,8 +134,8 @@ class DualRefusalReceipt:
     reason: str
 
 
-class DualRelaxationSolver:
-    """Continuous relaxation solver computing exact rational dual potentials and certificates."""
+class ExactPathSolver:
+    """Compute exact rational shortest-distance potentials and receipts."""
 
     @classmethod
     def compute_dual_potential(
@@ -111,9 +144,10 @@ class DualRelaxationSolver:
         source: Any,
         cost_fn: Callable[[MoveEdge], Fraction] = _default_cost_fn,
     ) -> DualPotential:
-        """Compute the maximal admissible dual potential rooted at source via exact rational Dijkstra."""
+        """Compute exact source distances with a non-negative priority queue."""
         if not graph.has_state(source):
             raise KeyError(f"Source state {source!r} not in graph")
+        _validate_graph_costs(graph, cost_fn)
 
         dist: Dict[Any, Fraction] = {source: Fraction(0, 1)}
         counter = 0
@@ -128,9 +162,7 @@ class DualRelaxationSolver:
 
             for edge in graph.outgoing(u):
                 v = edge.target
-                w = cost_fn(edge)
-                if w < 0:
-                    raise ValueError(f"Negative edge cost {w} encountered on edge {edge!r}")
+                w = _validated_cost(edge, cost_fn)
                 d_v = d_u + w
                 if v not in dist or d_v < dist[v]:
                     dist[v] = d_v
@@ -153,6 +185,8 @@ class DualRelaxationSolver:
         if not graph.has_state(target):
             raise KeyError(f"Target state {target!r} not in graph")
 
+        _validate_graph_costs(graph, cost_fn)
+
         if source == target:
             return (), Fraction(0, 1)
 
@@ -172,7 +206,7 @@ class DualRelaxationSolver:
 
             for edge in graph.outgoing(u):
                 v = edge.target
-                w = cost_fn(edge)
+                w = _validated_cost(edge, cost_fn)
                 d_v = d_u + w
                 if v not in dist or d_v < dist[v]:
                     dist[v] = d_v
@@ -203,7 +237,14 @@ class DualRelaxationSolver:
         cost_fn: Callable[[MoveEdge], Fraction] = _default_cost_fn,
     ) -> Tuple[Optional[Tuple[MoveEdge, ...]], Union[DualityGapReceipt, DualRefusalReceipt]]:
         """Compute the primal solution alongside its certified dual receipt or refusal."""
+        if not graph.has_state(source):
+            raise KeyError(f"Source state {source!r} not in graph")
+        if not graph.has_state(target):
+            raise KeyError(f"Target state {target!r} not in graph")
+
         q_budget = _to_fraction(budget, "budget") if budget is not None else None
+        if q_budget is not None and q_budget < 0:
+            raise ValueError(f"budget cannot be negative: {q_budget}")
 
         # 1. Compute dual potential from source
         dual = cls.compute_dual_potential(graph, source, cost_fn=cost_fn)
@@ -235,7 +276,7 @@ class DualRelaxationSolver:
                 return None, receipt
 
         if q_budget is not None and dual_bound > q_budget:
-            # Certified Farkas separation: dual lower bound strictly exceeds budget
+            # Exact source distance is a lower bound for every source-target path.
             refusal = DualRefusalReceipt(
                 source=source,
                 target=target,
@@ -288,7 +329,7 @@ class DualRelaxationSolver:
         total_cost = Fraction(0, 1)
         for i in range(len(path)):
             e = path[i]
-            total_cost += cost_fn(e)
+            total_cost += _validated_cost(e, cost_fn)
             if i + 1 < len(path):
                 if e.target != path[i + 1].source:
                     return False, Fraction(0, 1), None, None

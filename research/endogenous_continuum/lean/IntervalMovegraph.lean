@@ -1,26 +1,26 @@
 -- research/endogenous_continuum/lean/IntervalMovegraph.lean
--- Track 6: Interval Domain Movegraph Dynamics & Metric Capacity
+-- Track 6: Interval Domain Movegraph Dynamics & Finite Cover Counts
 -- AuthorityEffect: None.
 
 import IntervalDomain
 import ProjectiveSystem
 
 /-!
-# Track 6: Interval Domain Movegraph Dynamics & Metric Capacity
+# Track 6: Interval Domain Movegraph Dynamics & Finite Cover Counts
 
 This module formalizes the integration of overlapping dyadic interval covers
-into operational movegraph transition dynamics and cross-scale metric capacity:
+into operational movegraph transition dynamics and finite cross-scale counts:
 1. `IntervalMoveEdge`: Directed transitions between overlapping dyadic intervals.
 2. `canonical_step_count_eq`: Number of transitions across canonical cover is 2^k - 2.
 3. `traversal_cost_mu1_bounded`: Traversal capability cost bounded strictly by 1.
-4. `traversal_cost_mu2_vanishing`: Quadratic dissipation decreases strictly faster
-   than primary length displacement.
+4. `traversal_cost_mu2_numerator_bound`: The integer inequality underlying the
+   declared normalized secondary-cost bound.
 5. `coarsenInterval`: Canonical coarsening projection π_{k, k+1}(⟨k+1, j⟩) = ⟨k, j / 2⟩.
 6. `coarsening_preserves_adjacent_overlap`: Coarsening projection maps adjacent fine
    intervals to overlapping coarse intervals.
 7. `coveringNumber`: Exact covering count N(k) = 2^k - 1.
-8. `coveringNumber_succ`: Pontryagin-Schnirelmann capacity growth recurrence
-   N(k+1) = 2 * N(k) + 1.
+8. `coveringNumber_succ`: Exact recurrence N(k+1) = 2 * N(k) + 1 for
+   the declared finite cover count.
 
 Axioms: strictly within {propext, Quot.sound}. Zero Mathlib.
 -/
@@ -50,10 +50,10 @@ def forwardEdge (k i : Nat) : IntervalMoveEdge where
 
 /-- Canonical backward adjacent transition edge at scale `k`. -/
 def backwardEdge (k i : Nat) : IntervalMoveEdge where
-  source := ⟨k, i⟩
+  source := ⟨k, i + 1⟩
   target := ⟨k, i⟩
   h_scale := rfl
-  h_overlap := IntervalDomain.overlaps_same_scale_refl k i
+  h_overlap := IntervalDomain.overlaps_symm (IntervalDomain.adjacent_overlaps k i)
 
 -- ============================================================================
 -- 2. Operational Pricing and Traversal Bounds
@@ -88,20 +88,15 @@ theorem traversal_cost_mu1_bounded (k : Nat) (hk : k ≥ 1) :
   have := two_pow_ge_two k hk
   omega
 
-/-- Dissipation bound: total quadratic dissipation `(2^k - 2) * 4^{-k}`
-    vanishes strictly relative to primary length `2^k`. -/
-theorem traversal_cost_mu2_vanishing (k : Nat) (hk : k ≥ 1) :
-    2 ^ k - 2 < (2 ^ k) * (2 ^ k) := by
+/-- Numerator inequality corresponding to
+    `(2^k - 2) * 4^{-k} < 2^{-k}` after normalization. -/
+theorem traversal_cost_mu2_numerator_bound (k : Nat) (hk : k ≥ 1) :
+    2 ^ k - 2 < 2 ^ k := by
   have h2 := two_pow_ge_two k hk
-  have hlt : 2 ^ k - 2 < 2 ^ k := by omega
-  have hle : 2 ^ k ≤ (2 ^ k) * (2 ^ k) := by
-    calc
-      2 ^ k = (2 ^ k) * 1 := by rw [Nat.mul_one]
-      _ ≤ (2 ^ k) * (2 ^ k) := Nat.mul_le_mul_left (2 ^ k) (by omega)
-  exact Nat.lt_of_lt_of_le hlt hle
+  omega
 
-/-- Dissipation ratio bound: the ratio of secondary to primary cost is bounded by `2^{-k}`. -/
-theorem traversal_dissipation_ratio_bound (k : Nat) (hk : k ≥ 1) :
+/-- Auxiliary natural-number scaling inequality used by the finite cost summary. -/
+theorem traversal_secondary_scaling_inequality (k : Nat) (hk : k ≥ 1) :
     (2 ^ k - 2) ≤ (2 ^ k) * (2 ^ k - 2) := by
   have hpos : 1 ≤ 2 ^ k := by
     have := two_pow_ge_two k hk
@@ -142,11 +137,10 @@ theorem coarsening_preserves_adjacent_overlap (k i : Nat) :
     · exact succ_div2_le_div2_succ i
 
 -- ============================================================================
--- 4. Metric Capacity Scaling (Pontryagin-Schnirelmann)
+-- 4. Finite Cover-Count Scaling
 -- ============================================================================
 
-/-- Covering capacity: the number of dyadic intervals of width `2^{-(k - 1)}`
-    needed to cover the unit interval `[0, 1]` is `N(k) = 2^k - 1`. -/
+/-- Size of the declared canonical dyadic cover at scale `k`. -/
 def coveringNumber (k : Nat) : Nat :=
   2 ^ k - 1
 
@@ -156,8 +150,7 @@ theorem coveringNumber_zero : coveringNumber 0 = 0 := rfl
 /-- Base case: at scale 1, a single interval of width 1 covers [0, 1]. -/
 theorem coveringNumber_one : coveringNumber 1 = 1 := rfl
 
-/-- Pontryagin-Schnirelmann recurrence: covering capacity satisfies the exact
-    doubling recurrence `N(k + 1) = 2 * N(k) + 1`. -/
+/-- Exact finite recurrence `N(k + 1) = 2 * N(k) + 1` for the declared count. -/
 theorem coveringNumber_succ (k : Nat) :
     coveringNumber (k + 1) = 2 * coveringNumber k + 1 := by
   unfold coveringNumber
@@ -166,21 +159,21 @@ theorem coveringNumber_succ (k : Nat) :
   have hpos : 0 < 2 ^ k := Nat.two_pow_pos k
   omega
 
-/-- Positivity of covering capacity for all resolution levels `k ≥ 1`. -/
+/-- Positivity of the declared cover count for all levels `k ≥ 1`. -/
 theorem coveringNumber_pos (k : Nat) (hk : k ≥ 1) :
     0 < coveringNumber k := by
   unfold coveringNumber
   have h2 := two_pow_ge_two k hk
   omega
 
-/-- Monotonicity of covering capacity: refinement strictly increases resolution capacity. -/
+/-- Refinement strictly increases the declared cover count. -/
 theorem coveringNumber_strict_mono (k : Nat) (hk : k ≥ 1) :
     coveringNumber k < coveringNumber (k + 1) := by
   rw [coveringNumber_succ]
   have hpos := coveringNumber_pos k hk
   omega
 
-/-- Capacity growth ratio bound: `N(k + 1) ≤ 2 * N(k) + 1 < 2 * (N(k) + 1)`. -/
+/-- Finite growth bound: `N(k + 1) < 2 * (N(k) + 1)`. -/
 theorem coveringNumber_growth_bound (k : Nat) :
     coveringNumber (k + 1) < 2 * (coveringNumber k + 1) := by
   rw [coveringNumber_succ]

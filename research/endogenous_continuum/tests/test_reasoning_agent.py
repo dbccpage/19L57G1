@@ -1,4 +1,4 @@
-"""Tests for Autonomous Reasoning Agent with Adaptive Budget Re-allocation.
+"""Tests for deterministic budgeted search and exact re-allocation.
 
 AuthorityEffect: None.
 Constructive: exact rational arithmetic via fractions.Fraction and int, zero floats in logical decisions.
@@ -11,16 +11,11 @@ import pytest
 
 from research.endogenous_continuum.interval_domain import (
     DyadicInterval,
-    create_interval_coarsening_map,
-    create_interval_movegraph,
 )
 from research.endogenous_continuum.reasoning_agent import (
-    AutonomousReasoningAgent,
+    BudgetedReasoningCoordinator,
     BudgetLedger,
     CandidateGoal,
-    GoalOutcome,
-    ReasoningActionType,
-    ReasoningAgentReceipt,
 )
 
 
@@ -79,25 +74,38 @@ class TestBudgetLedger:
         with pytest.raises(ValueError, match="negative"):
             BudgetLedger(total_budget=Fraction(-1, 1), unallocated_budget=Fraction(0, 1))
 
+        with pytest.raises(ValueError, match="violates conservation"):
+            BudgetLedger(total_budget=Fraction(5, 1), unallocated_budget=Fraction(4, 1))
 
-class TestAutonomousReasoningAgent:
-    """Test autonomous reasoning loop, hierarchical pruning, and adaptive re-allocation."""
+        with pytest.raises(TypeError, match="exact rational"):
+            BudgetLedger(total_budget=5.0, unallocated_budget=5)  # type: ignore[arg-type]
 
-    def test_starvation_avoidance_via_reallocation(self) -> None:
-        """A reachable goal that would starve under static allocation succeeds via reclaimed budget."""
-        # Scale 4 fine graph (16 intervals [i/16, (i+1)/16])
-        # Coarse scale 2 (4 intervals [j/4, (j+1)/4])
-        agent = AutonomousReasoningAgent(
+        fresh = BudgetLedger(total_budget=total, unallocated_budget=total)
+        with pytest.raises(ValueError, match="must be unique"):
+            fresh.redistribute_unallocated(["g1", "g1"])
+
+        with pytest.raises(ValueError, match="cannot be negative"):
+            fresh.redistribute_unallocated(
+                ["g1", "g2"],
+                weights={"g1": Fraction(1, 1), "g2": Fraction(-1, 1)},
+            )
+
+
+class TestBudgetedReasoningCoordinator:
+    """Test exact bound screening, checked search, and budget re-allocation."""
+
+    def test_reclaimed_budget_is_reallocated_to_viable_goal(self) -> None:
+        """A viable goal receives the exact budget reclaimed from a refusal."""
+        agent = BudgetedReasoningCoordinator(
             fine_scale=4,
             coarse_scale=2,
-            total_budget=Fraction(1, 2),  # Total budget = 1/2
+            total_budget=Fraction(1, 2),
         )
 
-        # Source at interval [0, 1/16]
         source = DyadicInterval(scale=4, index=0)
 
-        # Goal A: Target at interval 14 (coarse index 2).
-        # Coarse bound is 1/2. Under initial split 1/4, it is provably unreachable and refused.
+        # Priority weights allocate 1/6 to A and 1/3 to B. A's exact path
+        # bound is 7/8, so its 1/6 is reclaimed.
         goal_a = CandidateGoal(
             goal_id="goal_unreachable",
             target=DyadicInterval(scale=4, index=14),
@@ -105,28 +113,27 @@ class TestAutonomousReasoningAgent:
             description="Far interval beyond initial budget",
         )
 
-        # Goal B: Target at interval 5 (coarse index 1).
-        # Coarse bound is 1/4 <= 1/4 (survives coarse probe).
-        # Fine path requires 5 steps * 1/16 = 5/16 > 1/4 (would starve under static allocation).
-        # With reclaimed budget from Goal A (boosted to 1/2), it succeeds.
+        # B's exact bound is 5/16, within its initial 1/3. Re-allocation then
+        # raises the available budget to 1/2 before path search.
         goal_b = CandidateGoal(
             goal_id="goal_reachable",
             target=DyadicInterval(scale=4, index=5),
-            priority=1,
+            priority=2,
             description="Moderate interval reachable with boosted budget",
         )
 
         outcomes, receipt = agent.run(source=source, goals=[goal_a, goal_b])
 
-        # Goal A must be certified refused at coarse level with 0 fine nodes explored
+        # Screening computes an exact fine potential, then avoids a separate
+        # path-search expansion for A.
         assert outcomes["goal_unreachable"].status == "CERTIFIED_REFUSED"
         assert outcomes["goal_unreachable"].fine_nodes_explored == 0
-        assert outcomes["goal_unreachable"].coarse_pruned is True
+        assert outcomes["goal_unreachable"].coarse_pruned is False
 
-        # Goal B must be solved because it received the reclaimed budget from Goal A
         assert outcomes["goal_reachable"].status == "SOLVED"
         assert outcomes["goal_reachable"].path is not None
-        assert outcomes["goal_reachable"].cost is not None
+        assert outcomes["goal_reachable"].cost == Fraction(5, 16)
+        assert outcomes["goal_reachable"].budget_allocated == Fraction(1, 2)
 
         # Verify receipt invariants
         assert receipt.budget_conservation_verified is True
@@ -138,8 +145,8 @@ class TestAutonomousReasoningAgent:
         assert receipt.total_fine_nodes_explored > 0
 
     def test_all_goals_certified_refused(self) -> None:
-        """When all goals are beyond budget, both are pruned in 0 fine nodes and full budget preserved."""
-        agent = AutonomousReasoningAgent(
+        """Exact bounds can refuse every allocation before separate path search."""
+        agent = BudgetedReasoningCoordinator(
             fine_scale=4,
             coarse_scale=2,
             total_budget=Fraction(1, 8),  # Very small budget
@@ -168,10 +175,14 @@ class TestAutonomousReasoningAgent:
             CandidateGoal(goal_id="g2", target=DyadicInterval(scale=4, index=2)),
         ]
 
-        agent1 = AutonomousReasoningAgent(fine_scale=4, coarse_scale=2, total_budget=Fraction(1, 1))
+        agent1 = BudgetedReasoningCoordinator(
+            fine_scale=4, coarse_scale=2, total_budget=Fraction(1, 1)
+        )
         _, receipt1 = agent1.run(source=source, goals=goals)
 
-        agent2 = AutonomousReasoningAgent(fine_scale=4, coarse_scale=2, total_budget=Fraction(1, 1))
+        agent2 = BudgetedReasoningCoordinator(
+            fine_scale=4, coarse_scale=2, total_budget=Fraction(1, 1)
+        )
         _, receipt2 = agent2.run(source=source, goals=goals)
 
         assert receipt1.trace_digest == receipt2.trace_digest
@@ -179,7 +190,9 @@ class TestAutonomousReasoningAgent:
 
     def test_empty_goals_behavior(self) -> None:
         """Empty goals list returns empty outcomes and clean receipt."""
-        agent = AutonomousReasoningAgent(fine_scale=4, coarse_scale=2, total_budget=Fraction(1, 1))
+        agent = BudgetedReasoningCoordinator(
+            fine_scale=4, coarse_scale=2, total_budget=Fraction(1, 1)
+        )
         source = DyadicInterval(scale=4, index=0)
         outcomes, receipt = agent.run(source=source, goals=[])
 
@@ -187,6 +200,8 @@ class TestAutonomousReasoningAgent:
         assert receipt.goals_total == 0
         assert receipt.goals_solved == 0
         assert receipt.budget_conservation_verified is True
+        with pytest.raises(RuntimeError, match="one-shot"):
+            agent.run(source=source, goals=[])
 
     def test_adversarial_rejections(self) -> None:
         """Negative controls: invalid priority, invalid budget types, etc."""
@@ -196,5 +211,24 @@ class TestAutonomousReasoningAgent:
         with pytest.raises(ValueError, match="Priority must be strictly positive"):
             CandidateGoal(goal_id="bad", target=0, priority=-2)
 
+        with pytest.raises(ValueError, match="non-empty"):
+            CandidateGoal(goal_id="", target=0)
+
         with pytest.raises(TypeError, match="float"):
-            AutonomousReasoningAgent(total_budget=1.5)  # type: ignore[arg-type]
+            BudgetedReasoningCoordinator(total_budget=1.5)  # type: ignore[arg-type]
+
+        agent = BudgetedReasoningCoordinator()
+        source = DyadicInterval(scale=4, index=0)
+        duplicate_goals = [
+            CandidateGoal(goal_id="same", target=DyadicInterval(scale=4, index=1)),
+            CandidateGoal(goal_id="same", target=DyadicInterval(scale=4, index=2)),
+        ]
+        with pytest.raises(ValueError, match="must be unique"):
+            agent.run(source=source, goals=duplicate_goals)
+
+        fresh_agent = BudgetedReasoningCoordinator()
+        with pytest.raises(KeyError, match="not in fine graph"):
+            fresh_agent.run(
+                source=source,
+                goals=[CandidateGoal(goal_id="missing", target="not-a-state")],
+            )

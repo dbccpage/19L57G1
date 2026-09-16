@@ -14,17 +14,18 @@ from research.endogenous_continuum.dual_relaxation import (
 from research.endogenous_continuum.hierarchical_search import (
     HierarchicalRefusalReceipt,
     HierarchicalSearchEngine,
+    SearchExhaustionReceipt,
 )
 from research.endogenous_continuum.interval_domain import (
     DyadicInterval,
     create_interval_coarsening_map,
     create_interval_movegraph,
 )
-from research.endogenous_continuum.projective_system import MoveEdge, MoveGraph
+from research.endogenous_continuum.projective_system import CoarseningMap, MoveEdge, MoveGraph
 
 
-def test_coarse_pruning_zero_nodes_expanded() -> None:
-    """Coarse dual potential prunes fine search immediately (0 fine nodes explored) when budget is exceeded."""
+def test_unverified_lift_falls_back_to_fine_search() -> None:
+    """A raw coarse cost cannot prune when its lift violates fine edge costs."""
     coarse_k = 2
     fine_k = 4
     coarse_mg = create_interval_movegraph(scale=coarse_k)
@@ -35,8 +36,8 @@ def test_coarse_pruning_zero_nodes_expanded() -> None:
     # Fine target index 14 is at the other end: coarse projection is index 2
     fine_t = DyadicInterval(scale=fine_k, index=14)
 
-    # Coarse distance from 0 to 2 is 2 * (1/4) = 1/2.
-    # If we declare budget 1/4 < 1/2:
+    # The raw coarse distance is 1/2, but one projected coarse jump occurs on
+    # a fine edge costing 1/16. The lift is therefore not admissible.
     tight_budget = Fraction(1, 4)
     result = HierarchicalSearchEngine.search_with_coarse_pruning(
         fine_graph=fine_mg,
@@ -48,14 +49,40 @@ def test_coarse_pruning_zero_nodes_expanded() -> None:
     )
 
     assert result.path is None
-    assert result.coarse_pruned
-    assert result.nodes_explored == 0  # Zero fine nodes expanded!
-    assert isinstance(result.receipt, HierarchicalRefusalReceipt)
+    assert not result.coarse_pruned
+    assert result.nodes_explored > 0
+    assert isinstance(result.receipt, SearchExhaustionReceipt)
     assert result.receipt.certified_refusal
-    assert result.receipt.coarse_level == coarse_k
-    assert result.receipt.fine_level == fine_k
     assert result.receipt.budget == tight_budget
-    assert result.receipt.coarse_dual_bound == Fraction(1, 2)
+    assert result.coarse_certificate.coarse_bound == Fraction(1, 2)
+    assert result.coarse_certificate.morphism_verified
+    assert not result.coarse_certificate.lifted_admissibility_verified
+    assert result.coarse_certificate.defects
+
+
+def test_verified_identity_lift_prunes_zero_search_nodes() -> None:
+    """An identity projection has a verified lift and may refuse before search."""
+    graph = create_interval_movegraph(scale=3)
+    cmap = CoarseningMap.identity(graph)
+    source = DyadicInterval(scale=3, index=0)
+    target = DyadicInterval(scale=3, index=6)
+
+    result = HierarchicalSearchEngine.search_with_coarse_pruning(
+        fine_graph=graph,
+        coarse_graph=graph,
+        coarsening_map=cmap,
+        source=source,
+        target=target,
+        budget=Fraction(1, 2),
+    )
+
+    assert result.path is None
+    assert result.coarse_pruned
+    assert result.nodes_explored == 0
+    assert isinstance(result.receipt, HierarchicalRefusalReceipt)
+    assert result.receipt.refusal_basis == "verified_lifted_lower_bound"
+    assert result.receipt.coarse_dual_bound == Fraction(3, 4)
+    assert result.receipt.lifted_admissibility_verified
 
 
 def test_hierarchical_guided_search_finds_optimal_path() -> None:
@@ -88,8 +115,8 @@ def test_hierarchical_guided_search_finds_optimal_path() -> None:
     assert result.receipt.duality_gap == Fraction(0, 1)
 
 
-def test_dissipative_cycle_detection_prunes_loops() -> None:
-    """Cycle filter detects and prunes loops where potential mu1 is invariant but dissipation mu2 accumulates."""
+def test_repeated_state_cycle_detection_prunes_loops() -> None:
+    """Path-local cycle filtering rejects a repeated state."""
     # Build a graph with a 2-cycle loop
     s0 = "start"
     s1 = "cycle_a"
@@ -105,12 +132,8 @@ def test_dissipative_cycle_detection_prunes_loops() -> None:
         MoveEdge(source=s2, target=target, mu1=Fraction(1, 1), mu2=Fraction(1, 1)),
     ]
     graph = MoveGraph.build(level=1, states=[s0, s1, s2, target], edges=edges)
-    cmap = create_interval_coarsening_map(coarse_scale=1, fine_scale=1)
-    coarse_graph = create_interval_movegraph(scale=1)
-
     # Use identity coarsening mapping for this custom graph
-    custom_cmap = create_interval_coarsening_map(1, 1)
-    # Search fine graph directly using identity
+    custom_cmap = CoarseningMap.identity(graph)
     result = HierarchicalSearchEngine.search_with_coarse_pruning(
         fine_graph=graph,
         coarse_graph=graph,
@@ -122,7 +145,7 @@ def test_dissipative_cycle_detection_prunes_loops() -> None:
 
     assert result.path is not None
     assert len(result.path) == 3  # s0 -> s1 -> s2 -> target
-    assert result.dissipative_cycles_pruned >= 1
+    assert result.repeated_state_cycles_pruned >= 1
 
 
 def test_hierarchical_search_negative_controls() -> None:
@@ -142,4 +165,29 @@ def test_hierarchical_search_negative_controls() -> None:
     with pytest.raises(KeyError, match="not in fine graph"):
         HierarchicalSearchEngine.search_with_coarse_pruning(
             fine_mg, coarse_mg, cmap, "unknown", t
+        )
+
+    with pytest.raises(ValueError, match="budget cannot be negative"):
+        HierarchicalSearchEngine.search_with_coarse_pruning(
+            fine_mg, coarse_mg, cmap, s, t, budget=Fraction(-1, 1)
+        )
+
+    invalid_map = CoarseningMap(
+        source_level=3,
+        target_level=2,
+        state_map={s: DyadicInterval(scale=2, index=0)},
+    )
+    with pytest.raises(ValueError, match="failed morphism verification"):
+        HierarchicalSearchEngine.search_with_coarse_pruning(
+            fine_mg, coarse_mg, invalid_map, s, t
+        )
+
+    with pytest.raises(ValueError, match="Negative edge cost"):
+        HierarchicalSearchEngine.search_with_coarse_pruning(
+            fine_mg,
+            coarse_mg,
+            cmap,
+            s,
+            t,
+            cost_fn=lambda _edge: Fraction(-1, 1),
         )

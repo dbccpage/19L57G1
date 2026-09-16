@@ -33,41 +33,49 @@ AuthorityEffect: None.
      remain connected at the refined scale.
    - Confluent interval contraction: reduction toward canonical normal form is
      locally and globally confluent.
-7. Track 6 (Interval Movegraph Dynamics & Discrete Metric Capacity): Lean formalizes
-   canonical interval movegraphs with exact operational step costs $\mu_1 = 2^{-k}$
-   and quadratic dissipation $\mu_2 = 4^{-k}$. Lean demonstrates:
-   - Traversal step count across canonical cover is $2^k - 2$.
-   - Cumulative primary traversal cost is strictly bounded: $(2^k - 2) \cdot 2^{-k} < 1$.
-   - Cumulative dissipation vanishes exponentially: $(2^k - 2) \cdot 4^{-k} < 2^{-k}$.
-   - Traversal dissipation ratio bound: $(2^k - 2) \le 2^k (2^k - 2)$.
-   - Dyadic index coarsening $\lfloor i / 2 \rfloor$ preserves adjacent overlapping relations across scales.
-   - Discrete metric capacity recurrence $N(k+1) = 2N(k) + 1$, strict capacity monotonicity, and doubling growth bounds.
-8. Track 7 (Dual Certificate Verification & Hierarchical Pruning): Lean formalizes
-   exact dual potentials and certificates. Lean demonstrates:
-   - Fundamental Dual Lower Bound: for any admissible path from $u$ to $w$, $y(w) \le y(u) + \text{cost}(p)$.
-   - Certified Farkas Refusal Soundness: if $y(w) > y(u) + \text{budget}$, every admissible path strictly exceeds the budget.
-   - Zero Duality Gap Optimality: paths attaining $\text{cost}(p) + y(u) = y(w)$ are globally minimal-cost.
-   - Dissipative Cycle Boundedness: cumulative representation dissipation lower-bounds path length for positive dissipation steps.
-   - Coarsening Admissibility Lift: valid coarse potentials lift to admissible fine potentials under coarsening graph morphisms.
-   - Master Hierarchical Refusal Soundness: if coarse dual bound exceeds budget, fine-scale search is soundly pruned top-down.
-9. Exact rational endpoints, integer cover counts, and discrete graph morphisms in the Python model, with
-   `DualRelaxationSolver` computing exact rational dual potentials and duality gaps in polynomial time,
-   `HierarchicalSearchEngine` pruning fine subtrees in zero explored fine nodes via coarse dual certificates, and
-   focused negative controls for float inputs, trace tampering, incomplete or
-   non-commuting projections, malformed cycles, non-confluent rewrites, and
-   malformed interval covers and partitions.
-
-10. Empirical benchmarking across scale depths $k \in \{4, 6, 8\}$ demonstrates 100% fine-scale
-    node expansion reduction (zero fine nodes explored) upon certified early refusal under insufficient budget.
-
-11. Track 8 (Adaptive Budget Conservation & Autonomous Reasoning Agent): Lean formalizes
-    exact budget conservation invariants, demonstrating that candidate allocation, budget reclamation
-    upon certified refusal, and unallocated redistribution preserve total budget conservation.
-    Lean establishes that reclaiming refused candidate budget loses no feasible path within that budget,
-    and that operational transitions with cost $\ge 1$ yield finite exploration step bounds.
-    Python implements `AutonomousReasoningAgent` and `BudgetLedger`, demonstrating starvation avoidance
-    by dynamically transferring reclaimed funds from coarse-pruned unreachable targets to high-cost
-    reachable targets with verified exact budget conservation and cryptographic execution receipts.
+7. Track 6 (Interval Movegraphs and Finite Cover Counts):
+   - Python constructs the declared canonical interval graph and assigns exact
+     rational edge costs $\mu_1 = 2^{-k}$ and $\mu_2 = 4^{-k}$.
+   - Lean constructs forward and backward adjacent overlap edges and proves the
+     natural-number step-count and numerator inequalities used by the normalized
+     finite cost formulas.
+   - Lean proves that index-halving maps adjacent fine intervals to equal or
+     adjacent coarse indices.
+   - The declared finite cover count $N(k)=2^k-1$ obeys
+     $N(k+1)=2N(k)+1$ and the recorded finite monotonicity bounds.
+8. Track 7 (Path Potentials and Checked Hierarchical Pruning):
+   - Lean proves that an admissible potential lower-bounds every supplied path,
+     that a strict lower-bound/budget separation refuses that path, and that a
+     tight admissible path is minimal among other admissible paths.
+   - The Lean coarse-to-fine theorem is conditional on an explicit
+     lifted-admissibility hypothesis. Its transition lemma separately requires
+     an equal projected edge cost, while collapsed edges are immediate.
+   - Python computes exact shortest-distance potentials on finite graphs after
+     validating exact non-negative edge costs.
+   - Before using a coarse numerical bound, Python verifies both the movegraph
+     morphism and the lifted inequality on every relevant fine edge. If the
+     lift fails, it uses an unguided exact fine search. Projected
+     unreachability may still prune under a verified morphism.
+9. Focused negative controls cover float inputs, negative costs, unknown states,
+   malformed or incomplete projections, an inadmissible coarse lift, malformed
+   cycles, non-confluent rewrites, and malformed interval covers and
+   partitions.
+10. The scale-$\{4,6,8\}$ benchmark is bounded telemetry only. For the default
+    interval costs, it records that the raw cross-scale potential is not an
+    admissible fine potential and that the solver falls back to fine search. It
+    establishes no general node reduction or timing advantage.
+11. Track 8 (Allocation Conservation and Budgeted Coordination):
+    - Lean proves allocation/reclamation/redistribution conservation for a
+      natural-number allocation state with no consumed-budget field. Its
+      refusal result retains the explicit lifted-admissibility premise, and its
+      step bound follows from a supplied unit-step accounting equation.
+    - Python validates the full exact ledger equation including consumed
+      budget, non-negative allocations and weights, unique goal identifiers,
+      and one-shot execution.
+    - `BudgetedReasoningCoordinator` screens allocations with exact finite
+      shortest-distance bounds, reassigns reclaimed amounts, and then invokes
+      checked coarse-to-fine search. Its SHA-256 values are deterministic
+      content checksums, not signatures or authenticity proofs.
 
 ## What it does not support
 
@@ -77,10 +85,17 @@ AuthorityEffect: None.
    projective limit. Its connectedness result is for a declared finite overlap graph.
 3. It does not assert that arbitrary unbounded discrete dynamics possess cyclic attractors;
    cycle existence is verified only for finite state spaces or declared conservative cycles.
-4. It does not establish continuous capacity or Hausdorff dimension, which require infinite limit constructions.
+4. It does not establish continuous capacity or any limiting dimension, which
+   require infinite limit constructions.
 5. It does not claim empirical validity for real-world continuous physics, remaining
    strictly scoped as a constructive discrete relational model.
 6. It does not import unverified third-party libraries or unsealed external theories.
+7. It does not provide a general continuous optimization solver, a general
+   complexity theorem, or a performance guarantee for hierarchical search.
+8. It does not establish the lifted-admissibility premise merely from a graph
+   morphism. The executable checks that premise and falls back when it fails.
+9. Its deterministic checksums do not establish provenance, authorization,
+   tamper resistance, or external identity.
 
 ## Narrowest defensible claim
 
@@ -88,14 +103,15 @@ Within the checked finite models, the package supplies append-only observer
 records, complete carrier coarsenings, validated conservative cycles,
 conditional quotient representatives, an overlapping dyadic interval
 domain establishing finite overlap-chain connectedness and confluent rewriting,
-discrete interval movegraph dynamics demonstrating bounded primary traversal costs,
-dual-certified continuous relaxation with hierarchical coarsening pruning,
-and an autonomous multi-scale reasoning agent with exact rational adaptive budget conservation.
+discrete interval movegraphs with finite cost summaries, exact finite-graph path
+potentials, runtime-checked coarse-to-fine pruning with a safe fine-search
+fallback, and a one-shot budgeted coordinator with exact rational conservation.
 Its declared Lean inventory stays within the stated axiom allowlist, and its
 focused Python verifier rejects the recorded negative controls. No classical
-continuous object, Hausdorff dimension, or analytical limit follows.
+continuous object, limiting dimension, or analytical limit follows.
 
 ## Next test needed
 
-Integration of the autonomous reasoning agent workflow with higher-order belief revision
-(AGM Truth Maintenance System) across branching multi-hypothesis trees.
+Construct a non-identity finite abstraction whose projected potential passes
+the executable lifted-edge check, then compare its bounded search telemetry
+against the current fallback cases without extrapolating beyond those graphs.

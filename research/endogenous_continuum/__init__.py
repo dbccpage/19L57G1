@@ -65,26 +65,28 @@ from .observer_enclosure import (
     TraceInvariantChecker,
 )
 from .interval_domain import (
-    CrossScaleCapacityAnalysis,
+    CrossScaleCoverAnalysis,
     DyadicInterval,
     IntervalCover,
     IntervalRewriteSystem,
-    MetricCapacityReport,
-    analyze_cross_scale_capacity,
-    compute_capacity_profile,
+    FiniteCoverReport,
+    analyze_cross_scale_cover,
+    compute_cover_profile,
     create_interval_coarsening_map,
     create_interval_movegraph,
 )
 from .dual_relaxation import (
     DualPotential,
     DualRefusalReceipt,
-    DualRelaxationSolver,
+    ExactPathSolver,
     DualityGapReceipt,
 )
 from .hierarchical_search import (
+    CoarseCertificateInspection,
     HierarchicalRefusalReceipt,
     HierarchicalSearchEngine,
     HierarchicalSearchResult,
+    SearchExhaustionReceipt,
 )
 from .benchmark_hierarchical import (
     BenchmarkReport,
@@ -93,12 +95,12 @@ from .benchmark_hierarchical import (
     run_unrelaxed_search,
 )
 from .reasoning_agent import (
-    AutonomousReasoningAgent,
+    BudgetedReasoningCoordinator,
     BudgetLedger,
     CandidateGoal,
     GoalOutcome,
     ReasoningActionType,
-    ReasoningAgentReceipt,
+    ReasoningCoordinatorReceipt,
 )
 from .projective_system import (
     CoarseningMap,
@@ -182,28 +184,30 @@ __all__: list[str] = [
     "DyadicInterval",
     "IntervalCover",
     "IntervalRewriteSystem",
-    "MetricCapacityReport",
-    "compute_capacity_profile",
+    "FiniteCoverReport",
+    "compute_cover_profile",
     "create_interval_movegraph",
     "create_interval_coarsening_map",
-    "CrossScaleCapacityAnalysis",
-    "analyze_cross_scale_capacity",
+    "CrossScaleCoverAnalysis",
+    "analyze_cross_scale_cover",
     "DualPotential",
     "DualRefusalReceipt",
-    "DualRelaxationSolver",
+    "ExactPathSolver",
     "DualityGapReceipt",
+    "CoarseCertificateInspection",
     "HierarchicalRefusalReceipt",
     "HierarchicalSearchEngine",
     "HierarchicalSearchResult",
+    "SearchExhaustionReceipt",
     "BenchmarkReport",
     "ScaleBenchmarkResult",
     "run_hierarchical_benchmark",
     "run_unrelaxed_search",
-    "AutonomousReasoningAgent",
+    "BudgetedReasoningCoordinator",
     "BudgetLedger",
     "CandidateGoal",
     "GoalOutcome",
     "ReasoningActionType",
-    "ReasoningAgentReceipt",
+    "ReasoningCoordinatorReceipt",
 ]
 

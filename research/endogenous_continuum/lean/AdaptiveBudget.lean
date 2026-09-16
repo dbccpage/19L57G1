@@ -1,5 +1,5 @@
 -- research/endogenous_continuum/lean/AdaptiveBudget.lean
--- Track 8: Adaptive Budget Conservation & Bounded Agent Execution
+-- Track 8: Allocation Conservation & Bounded Execution Arithmetic
 -- AuthorityEffect: None.
 
 import DualCertificate
@@ -28,13 +28,13 @@ def sumAllocated {V : Type} : List (CandidateTarget V) → Nat
   | [] => 0
   | c :: cs => c.allocatedBudget + sumAllocated cs
 
-/-- State of the reasoning engine's budget manager. -/
+/-- Allocation state before consumption is represented separately. -/
 structure BudgetState (V : Type) where
   totalBudget : Nat
   unallocatedBudget : Nat
   activeCandidates : List (CandidateTarget V)
 
-/-- Exact rational/Nat budget conservation invariant:
+/-- Natural-number allocation conservation invariant (no consumed field):
     `totalBudget = unallocatedBudget + sumAllocated activeCandidates`. -/
 def PreservesBudgetConservation {V : Type} (st : BudgetState V) : Prop :=
   st.totalBudget = st.unallocatedBudget + sumAllocated st.activeCandidates
@@ -107,10 +107,9 @@ theorem redistribute_preserves_conservation {V : Type} (st : BudgetState V)
 -- 3. Soundness of Budget Reclamation under Certified Refusal
 -- ============================================================================
 
-/-- Soundness of Reclaiming Refused Budget:
-    If a coarse dual certificate shows that target `c.dst` requires cost strictly exceeding `c.allocatedBudget`,
-    then NO fine-scale path can be achieved within `c.allocatedBudget`.
-    Consequently, reclaiming `c.allocatedBudget` loses NO feasible paths within the declared budget. -/
+/-- Conditional refusal bound for one supplied fine path. The conclusion needs
+    the explicit lifted-admissibility hypothesis `h_adm`; this theorem does not
+    establish that hypothesis for an executable coarsening map. -/
 theorem reclaimed_refusal_completeness {V_fine V_coarse : Type}
     (π : V_fine → V_coarse) (y_coarse : V_coarse → Nat)
     (c : CandidateTarget V_fine)
@@ -131,12 +130,11 @@ theorem monotone_budget_consumption (b cost : Nat) (h_pos : cost ≥ 1) (h_le : 
     b - cost < b := by
   omega
 
-/-- Finite exploration step bound:
-    An agent starting with budget `B` executing operations of cost `≥ 1` can execute
-    at most `B` transitions before remaining budget is exhausted. -/
-theorem finite_exploration_bound (B : Nat) (steps : Nat)
-    (h_exhausted : B < steps) :
-    ¬ (steps ≤ B) := by
+/-- If a unit-per-step accounting equation writes `B = steps + remaining`,
+    then the number of recorded steps is at most `B`. -/
+theorem finite_exploration_bound (B steps remaining : Nat)
+    (h_account : B = steps + remaining) :
+    steps ≤ B := by
   omega
 
 end AdaptiveBudget

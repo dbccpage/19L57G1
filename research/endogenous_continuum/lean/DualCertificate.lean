@@ -40,8 +40,7 @@ def pathLength {V : Type} {u w : V} : Path V u w → Nat
 
 /-- Admissibility condition for a dual potential `y : V → Nat` on a transition `t`:
     `y(t.dst) ≤ y(t.src) + t.mu1`.
-    In linear programming duality, this guarantees that potential differences
-    lower-bound operational transition costs. -/
+    This edge inequality lets potential differences lower-bound path costs. -/
 def IsAdmissibleOnTransition {V : Type} (y : V → Nat) (t : MoveTransition V) : Prop :=
   y t.dst ≤ y t.src + t.mu1
 
@@ -58,7 +57,7 @@ theorem dual_step_bound {V : Type} (y : V → Nat) (t : MoveTransition V)
 
 /-- Fundamental Theorem of Dual Potential:
     For any admissible path from `u` to `w`, `y w ≤ y u + pathCost p`.
-    The continuous dual potential difference `y w - y u` provides a certified
+    The potential difference `y w - y u` provides a certified
     lower bound for the discrete primary path cost. -/
 theorem dual_path_bound {V : Type} (y : V → Nat) {u w : V} (p : Path V u w)
     (h_adm : IsAdmissiblePath y p) :
@@ -80,7 +79,7 @@ theorem dual_path_bound {V : Type} (y : V → Nat) {u w : V} (p : Path V u w)
 -- 3. Exact Duality Receipts and Certified Refusal
 -- ============================================================================
 
-/-- Certified Dual Refusal Soundness (Farkas Separating Certificate):
+/-- Certified dual lower-bound refusal:
     If `y w > y u + budget`, then NO admissible path from `u` to `w` can have
     `pathCost p ≤ budget`. Every admissible path must strictly exceed the budget. -/
 theorem dual_refusal_soundness {V : Type} (y : V → Nat) {u w : V} (budget : Nat)
@@ -175,12 +174,12 @@ theorem coarsening_collapse_admissibility {V_fine V_coarse : Type}
   rw [h_collapse]
   omega
 
-/-- Master Hierarchical Refusal Theorem:
+/-- Conditional hierarchical refusal theorem:
     If the coarse dual potential satisfies `y_coarse(π w) > y_coarse(π u) + budget`,
     then NO fine-scale path whose transitions lift to admissible coarse steps can
     attain `pathCost p_fine ≤ budget`.
-    This guarantees that the entire fine-scale search branch can be pruned top-down
-    without expanding a single fine-scale vertex! -/
+    The conclusion applies only when the lifted potential is explicitly
+    admissible along the supplied fine path. -/
 theorem hierarchical_refusal_soundness {V_fine V_coarse : Type}
     (π : V_fine → V_coarse) (y_coarse : V_coarse → Nat)
     {u w : V_fine} (budget : Nat)

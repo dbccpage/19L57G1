@@ -16,20 +16,21 @@ from research.endogenous_continuum.interval_domain import (
 
 
 def test_hierarchical_benchmark_runs_across_scale_depths() -> None:
-    """Benchmark runs cleanly across scale depths 4, 6, 8 and confirms 100% fine node pruning on refusal."""
+    """Benchmark reports bounded and reachable cases at scales 4, 6, and 8."""
     report = run_hierarchical_benchmark(scales=(4, 6, 8), coarse_scale=2)
     assert report.scales == (4, 6, 8)
     assert len(report.refusal_benchmarks) == 3
     assert len(report.guided_benchmarks) == 3
 
-    # On refusal, hierarchical search must explore 0 fine nodes at every scale depth
+    # The default cross-scale cost lift is not admissible, so the implementation
+    # must fall back rather than advertise a zero-node coarse refusal.
     for r in report.refusal_benchmarks:
-        assert r.hierarchical_nodes_explored == 0
+        assert r.hierarchical_nodes_explored > 0
         assert r.unrelaxed_nodes_explored > 0
-        assert r.node_reduction_ratio == 1.0  # 100% reduction
-        assert r.certified_outcome == "HierarchicalRefusalReceipt"
+        assert r.certified_outcome == "SearchExhaustionReceipt"
+        assert r.node_reduction_ratio <= 1.0
 
-    # On guided search, valid solution is found
+    # On reachable search, an exact optimality receipt is returned.
     for r in report.guided_benchmarks:
         assert r.certified_outcome == "DualityGapReceipt"
         assert r.hierarchical_nodes_explored > 0

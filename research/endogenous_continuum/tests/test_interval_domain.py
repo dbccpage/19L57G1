@@ -9,12 +9,12 @@ from fractions import Fraction
 import pytest
 
 from research.endogenous_continuum.interval_domain import (
-    MAX_CAPACITY_SCALE,
+    MAX_COVER_SCALE,
     DyadicInterval,
     IntervalCover,
     IntervalRewriteSystem,
-    analyze_cross_scale_capacity,
-    compute_capacity_profile,
+    analyze_cross_scale_cover,
+    compute_cover_profile,
     create_interval_coarsening_map,
     create_interval_movegraph,
 )
@@ -229,34 +229,34 @@ def test_interval_rewrite_system_confluence() -> None:
     assert steps == 7
 
 
-def test_metric_capacity_scaling() -> None:
-    """Capacity reports distinguish exact fields from bounded float approximations."""
-    reports = compute_capacity_profile(max_scale=8)
+def test_finite_cover_profile() -> None:
+    """Cover reports distinguish exact fields from float approximations."""
+    reports = compute_cover_profile(max_scale=8)
     assert len(reports) == 8
 
     # Scale 1: 1 interval, resolution 1
     assert reports[0].scale == 1
-    assert reports[0].covering_number == 1
-    assert reports[0].capacity_ratio is None
+    assert reports[0].cover_count == 1
+    assert reports[0].approximate_log_ratio is None
 
     # Scale 8: covering number 255, resolution 1/128
     assert reports[7].scale == 8
-    assert reports[7].covering_number == 255
+    assert reports[7].cover_count == 255
     assert reports[7].resolution == Fraction(1, 128)
 
-    # Scaling ratio log2(N) / (k-1) approaches 1.0
+    # This finite approximate ratio is checked only at the declared scale.
     # For k = 8: log2(255) / 7 = 7.99435 / 7 = 1.142
     # For k = 12: log2(4095) / 11 = 11.9996 / 11 = 1.09
-    ratio = reports[-1].capacity_ratio
+    ratio = reports[-1].approximate_log_ratio
     assert ratio is not None
     assert 1.0 < ratio < 1.25
 
     with pytest.raises(ValueError, match="max_scale must be >= 1"):
-        compute_capacity_profile(max_scale=0)
+        compute_cover_profile(max_scale=0)
     with pytest.raises(TypeError, match="max_scale must be an integer"):
-        compute_capacity_profile(max_scale=2.0)  # type: ignore[arg-type]
-    with pytest.raises(ValueError, match=f"max_scale must be <= {MAX_CAPACITY_SCALE}"):
-        compute_capacity_profile(max_scale=MAX_CAPACITY_SCALE + 1)
+        compute_cover_profile(max_scale=2.0)  # type: ignore[arg-type]
+    with pytest.raises(ValueError, match=f"max_scale must be <= {MAX_COVER_SCALE}"):
+        compute_cover_profile(max_scale=MAX_COVER_SCALE + 1)
 
 
 def test_interval_movegraph_construction() -> None:
@@ -336,17 +336,18 @@ def test_interval_coarsening_morphism() -> None:
         create_interval_coarsening_map(3, 2)
 
 
-def test_cross_scale_capacity_analysis() -> None:
-    """Cross-scale capacity analysis verifies recurrence N(k+1) = 2N(k) + 1 and capacity bounds."""
-    analysis = analyze_cross_scale_capacity(max_scale=6)
+def test_cross_scale_cover_analysis() -> None:
+    """Finite cover analysis verifies the declared recurrence and cost bounds."""
+    analysis = analyze_cross_scale_cover(max_scale=6)
     assert analysis.max_scale == 6
     assert len(analysis.scale_reports) == 6
     assert len(analysis.growth_ratios) == 5
+    assert analysis.approximate_log_ratios[0] is None
 
-    # Check Pontryagin-Schnirelmann recurrence N(k+1) = 2N(k) + 1
+    # Check the exact finite recurrence N(k+1) = 2N(k) + 1.
     for i in range(5):
-        n_k = analysis.scale_reports[i].covering_number
-        n_k1 = analysis.scale_reports[i + 1].covering_number
+        n_k = analysis.scale_reports[i].cover_count
+        n_k1 = analysis.scale_reports[i + 1].cover_count
         assert n_k1 == 2 * n_k + 1
         assert analysis.growth_ratios[i] == Fraction(n_k1, n_k)
 
@@ -358,9 +359,11 @@ def test_cross_scale_capacity_analysis() -> None:
     for i in range(1, len(analysis.total_mu2_costs) - 1):
         assert analysis.total_mu2_costs[i + 1] < analysis.total_mu2_costs[i]
 
-    # Scaling dimensions approach 1.0
-    assert 1.0 <= analysis.scaling_dimensions[-1] < 1.3
+    # Approximate log ratio at this finite endpoint; no limiting claim.
+    endpoint_ratio = analysis.approximate_log_ratios[-1]
+    assert endpoint_ratio is not None
+    assert 1.0 <= endpoint_ratio < 1.3
 
     with pytest.raises(ValueError, match="max_scale must be >= 1"):
-        analyze_cross_scale_capacity(0)
+        analyze_cross_scale_cover(0)
 

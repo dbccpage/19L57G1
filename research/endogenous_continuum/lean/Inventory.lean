@@ -129,8 +129,8 @@ Axioms: strictly within {propext, Quot.sound}.
 #print axioms IntervalMovegraph.two_pow_ge_two
 #print axioms IntervalMovegraph.canonical_step_count_eq
 #print axioms IntervalMovegraph.traversal_cost_mu1_bounded
-#print axioms IntervalMovegraph.traversal_cost_mu2_vanishing
-#print axioms IntervalMovegraph.traversal_dissipation_ratio_bound
+#print axioms IntervalMovegraph.traversal_cost_mu2_numerator_bound
+#print axioms IntervalMovegraph.traversal_secondary_scaling_inequality
 #print axioms IntervalMovegraph.div2_le_succ_div2
 #print axioms IntervalMovegraph.succ_div2_le_div2_succ
 #print axioms IntervalMovegraph.coarsening_preserves_adjacent_overlap

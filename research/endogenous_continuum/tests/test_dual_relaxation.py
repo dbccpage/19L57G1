@@ -1,4 +1,4 @@
-"""Tests for Continuous Relaxation & Exact Rational Dual Potential Solver.
+"""Tests for exact rational shortest-distance potentials and receipts.
 
 AuthorityEffect: None.
 """
@@ -11,7 +11,7 @@ import pytest
 from research.endogenous_continuum.dual_relaxation import (
     DualPotential,
     DualRefusalReceipt,
-    DualRelaxationSolver,
+    ExactPathSolver,
     DualityGapReceipt,
 )
 from research.endogenous_continuum.interval_domain import (
@@ -25,7 +25,7 @@ def test_dual_potential_admissibility_and_differences() -> None:
     """Dual potential satisfies admissibility y(v) - y(u) <= cost(u, v) on interval movegraph."""
     mg = create_interval_movegraph(scale=3)
     s = DyadicInterval(scale=3, index=0)
-    dual = DualRelaxationSolver.compute_dual_potential(mg, s)
+    dual = ExactPathSolver.compute_dual_potential(mg, s)
 
     is_adm, defects = dual.verify_admissibility(mg)
     assert is_adm
@@ -45,13 +45,13 @@ def test_dual_potential_admissibility_and_differences() -> None:
     assert dual.potential_difference(s, s6) == Fraction(3, 4)
 
 
-def test_dual_relaxation_optimal_path_zero_gap() -> None:
+def test_exact_path_solver_optimal_path_zero_gap() -> None:
     """Primal-dual solver finds shortest path with exact zero duality gap."""
     mg = create_interval_movegraph(scale=3)
     s = DyadicInterval(scale=3, index=0)
     t = DyadicInterval(scale=3, index=4)
 
-    path, receipt = DualRelaxationSolver.solve_primal_dual(mg, s, t)
+    path, receipt = ExactPathSolver.solve_primal_dual(mg, s, t)
     assert path is not None
     assert len(path) == 4
     assert isinstance(receipt, DualityGapReceipt)
@@ -63,14 +63,14 @@ def test_dual_relaxation_optimal_path_zero_gap() -> None:
 
 
 def test_dual_refusal_on_insufficient_budget() -> None:
-    """Solver emits certified Farkas refusal when budget < dual lower bound."""
+    """Solver refuses when an exact lower bound exceeds the budget."""
     mg = create_interval_movegraph(scale=3)
     s = DyadicInterval(scale=3, index=0)
     t = DyadicInterval(scale=3, index=6)
     # Required cost is 6/8 = 3/4. Allocate budget 1/2 < 3/4.
     insufficient_budget = Fraction(1, 2)
 
-    path, receipt = DualRelaxationSolver.solve_primal_dual(
+    path, receipt = ExactPathSolver.solve_primal_dual(
         mg, s, t, budget=insufficient_budget
     )
     assert path is None
@@ -89,7 +89,7 @@ def test_dual_refusal_on_unreachable_target() -> None:
     e1 = MoveEdge(source=s1, target=s2, mu1=Fraction(1, 1), mu2=Fraction(0, 1))
     mg = MoveGraph.build(level=1, states=[s1, s2, isolated], edges=[e1])
 
-    path, receipt = DualRelaxationSolver.solve_primal_dual(
+    path, receipt = ExactPathSolver.solve_primal_dual(
         mg, s1, isolated, budget=Fraction(10, 1)
     )
     assert path is None
@@ -105,11 +105,11 @@ def test_independent_path_verification() -> None:
     s = DyadicInterval(scale=3, index=0)
     t = DyadicInterval(scale=3, index=3)
 
-    path, _ = DualRelaxationSolver.solve_primal_dual(mg, s, t)
+    path, _ = ExactPathSolver.solve_primal_dual(mg, s, t)
     assert path is not None
-    dual = DualRelaxationSolver.compute_dual_potential(mg, s)
+    dual = ExactPathSolver.compute_dual_potential(mg, s)
 
-    is_valid, cost, bound, gap = DualRelaxationSolver.verify_path_against_dual(
+    is_valid, cost, bound, gap = ExactPathSolver.verify_path_against_dual(
         path, dual, s, t
     )
     assert is_valid
@@ -126,11 +126,27 @@ def test_negative_controls_and_type_discipline() -> None:
 
     # Rejection of float budget
     with pytest.raises(TypeError, match="must be exact rational"):
-        DualRelaxationSolver.solve_primal_dual(mg, s, t, budget=1.5)  # type: ignore[arg-type]
+        ExactPathSolver.solve_primal_dual(mg, s, t, budget=1.5)  # type: ignore[arg-type]
 
     # Rejection of unknown state
     with pytest.raises(KeyError, match="not in graph"):
-        DualRelaxationSolver.compute_dual_potential(mg, "unknown_state")
+        ExactPathSolver.compute_dual_potential(mg, "unknown_state")
+
+    with pytest.raises(KeyError, match="not in graph"):
+        ExactPathSolver.solve_primal_dual(mg, s, "unknown_target")
+
+    with pytest.raises(ValueError, match="budget cannot be negative"):
+        ExactPathSolver.solve_primal_dual(
+            mg, s, t, budget=Fraction(-1, 1)
+        )
+
+    with pytest.raises(ValueError, match="Negative edge cost"):
+        ExactPathSolver.solve_shortest_path(
+            mg,
+            s,
+            t,
+            cost_fn=lambda _edge: Fraction(-1, 1),
+        )
 
     # Detection of violated admissibility
     invalid_pot = {
@@ -142,3 +158,10 @@ def test_negative_controls_and_type_discipline() -> None:
     is_adm, defects = bad_dual.verify_admissibility(mg)
     assert not is_adm
     assert len(defects) > 0
+
+    # A partial potential may omit an unreachable component, but not a target
+    # reached by an edge leaving its assigned domain.
+    partial = DualPotential(source=s, potentials={s: Fraction(0, 1)})
+    is_adm, defects = partial.verify_admissibility(mg)
+    assert not is_adm
+    assert any("not closed" in defect for defect in defects)

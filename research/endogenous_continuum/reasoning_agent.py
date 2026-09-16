@@ -1,4 +1,4 @@
-"""Autonomous Reasoning Engine Agent with Adaptive Budget Re-allocation.
+"""Deterministic budgeted search coordinator with exact re-allocation.
 
 AuthorityEffect: None.
 Constructive: exact rational arithmetic via fractions.Fraction and int, zero floats in logical decisions.
@@ -11,22 +11,19 @@ import json
 from dataclasses import dataclass, field
 from enum import Enum
 from fractions import Fraction
-from typing import Any, Callable, Dict, List, Mapping, Optional, Sequence, Set, Tuple, Union
+from typing import Any, Callable, Dict, List, Mapping, Optional, Sequence, Tuple, Union
 
 from .dual_relaxation import (
-    DualPotential,
     DualRefusalReceipt,
-    DualRelaxationSolver,
-    DualityGapReceipt,
+    ExactPathSolver,
     _default_cost_fn,
+    _validated_cost,
 )
 from .hierarchical_search import (
-    HierarchicalRefusalReceipt,
     HierarchicalSearchEngine,
-    HierarchicalSearchResult,
+    SearchReceipt,
 )
 from .interval_domain import (
-    DyadicInterval,
     create_interval_coarsening_map,
     create_interval_movegraph,
 )
@@ -34,15 +31,14 @@ from .projective_system import CoarseningMap, MoveEdge, MoveGraph, _to_fraction
 
 
 class ReasoningActionType(str, Enum):
-    """Discrete decision steps executed by the autonomous reasoning agent."""
+    """Discrete decisions recorded by the budgeted coordinator."""
 
     INITIAL_ALLOCATION = "initial_allocation"
-    COARSE_PROBE = "coarse_probe"
+    BOUND_PROBE = "bound_probe"
     CERTIFIED_REFUSAL = "certified_refusal"
     BUDGET_REALLOCATION = "budget_reallocation"
     FINE_EXPANSION = "fine_expansion"
     OPTIMAL_SOLUTION = "optimal_solution"
-    BUDGET_EXHAUSTION = "budget_exhaustion"
 
 
 @dataclass(frozen=True)
@@ -55,6 +51,8 @@ class CandidateGoal:
     description: str = ""
 
     def __post_init__(self) -> None:
+        if not isinstance(self.goal_id, str) or not self.goal_id:
+            raise ValueError("goal_id must be a non-empty string")
         if self.priority < 1:
             raise ValueError(f"Priority must be strictly positive, got {self.priority}")
 
@@ -69,13 +67,42 @@ class BudgetLedger:
     consumed_budget: Fraction = field(default_factory=lambda: Fraction(0, 1))
 
     def __post_init__(self) -> None:
-        if self.total_budget < 0:
-            raise ValueError(f"Total budget cannot be negative: {self.total_budget}")
-        if self.unallocated_budget < 0:
-            raise ValueError(f"Unallocated budget cannot be negative: {self.unallocated_budget}")
+        self.total_budget = _to_fraction(self.total_budget, "total_budget")
+        self.unallocated_budget = _to_fraction(
+            self.unallocated_budget, "unallocated_budget"
+        )
+        self.consumed_budget = _to_fraction(self.consumed_budget, "consumed_budget")
+        clean_allocations: Dict[str, Fraction] = {}
+        for goal_id, amount in self.allocated_budgets.items():
+            if not isinstance(goal_id, str) or not goal_id:
+                raise ValueError("allocated budget keys must be non-empty strings")
+            clean_allocations[goal_id] = _to_fraction(
+                amount, f"allocated_budgets[{goal_id!r}]"
+            )
+        self.allocated_budgets = clean_allocations
+
+        values = {
+            "total budget": self.total_budget,
+            "unallocated budget": self.unallocated_budget,
+            "consumed budget": self.consumed_budget,
+            **{
+                f"allocation for {goal_id!r}": amount
+                for goal_id, amount in self.allocated_budgets.items()
+            },
+        }
+        for label, amount in values.items():
+            if amount < 0:
+                raise ValueError(f"{label} cannot be negative: {amount}")
+        if not self.audit_conservation():
+            raise ValueError(
+                "Initial ledger violates conservation: total must equal "
+                "unallocated + allocated + consumed"
+            )
 
     def allocate(self, goal_id: str, amount: Union[Fraction, int]) -> None:
         """Allocate a budget slice from unallocated funds to a goal."""
+        if not isinstance(goal_id, str) or not goal_id:
+            raise ValueError("goal_id must be a non-empty string")
         q_amt = _to_fraction(amount, "allocation_amount")
         if q_amt < 0:
             raise ValueError(f"Cannot allocate negative budget: {q_amt}")
@@ -88,12 +115,16 @@ class BudgetLedger:
 
     def reclaim(self, goal_id: str) -> Fraction:
         """Reclaim all remaining allocated budget for a goal back into unallocated pool."""
+        if not isinstance(goal_id, str) or not goal_id:
+            raise ValueError("goal_id must be a non-empty string")
         reclaimed = self.allocated_budgets.pop(goal_id, Fraction(0, 1))
         self.unallocated_budget += reclaimed
         return reclaimed
 
     def consume(self, goal_id: str, amount: Union[Fraction, int]) -> None:
         """Consume budget during operational execution."""
+        if not isinstance(goal_id, str) or not goal_id:
+            raise ValueError("goal_id must be a non-empty string")
         q_amt = _to_fraction(amount, "consumed_amount")
         if q_amt < 0:
             raise ValueError(f"Cannot consume negative budget: {q_amt}")
@@ -111,11 +142,32 @@ class BudgetLedger:
         weights: Optional[Mapping[str, Fraction]] = None,
     ) -> None:
         """Redistribute all unallocated funds across active candidate goals."""
+        if any(not isinstance(goal_id, str) or not goal_id for goal_id in active_goal_ids):
+            raise ValueError("active_goal_ids must contain non-empty strings")
+        if len(set(active_goal_ids)) != len(active_goal_ids):
+            raise ValueError("active_goal_ids must be unique")
+        clean_weights: Optional[Dict[str, Fraction]] = None
+        if weights is not None:
+            extras = set(weights) - set(active_goal_ids)
+            if extras:
+                raise ValueError(
+                    f"weights contain inactive goal ids: {sorted(extras)!r}"
+                )
+            clean_weights = {}
+            for goal_id in active_goal_ids:
+                weight = _to_fraction(
+                    weights.get(goal_id, Fraction(0, 1)),
+                    f"weight[{goal_id!r}]",
+                )
+                if weight < 0:
+                    raise ValueError(f"weight for {goal_id!r} cannot be negative")
+                clean_weights[goal_id] = weight
+
         if not active_goal_ids or self.unallocated_budget <= 0:
             return
 
         avail = self.unallocated_budget
-        if weights is None:
+        if clean_weights is None:
             # Uniform exact rational division
             n = len(active_goal_ids)
             slice_amt = avail / n
@@ -123,7 +175,10 @@ class BudgetLedger:
                 self.allocated_budgets[gid] = self.allocated_budgets.get(gid, Fraction(0, 1)) + slice_amt
             self.unallocated_budget = Fraction(0, 1)
         else:
-            total_weight = sum(weights.get(gid, Fraction(0, 1)) for gid in active_goal_ids)
+            total_weight = sum(
+                (clean_weights[gid] for gid in active_goal_ids),
+                Fraction(0, 1),
+            )
             if total_weight <= 0:
                 return
             allocated_so_far = Fraction(0, 1)
@@ -132,7 +187,7 @@ class BudgetLedger:
                     # Remainder absorption preserves conservation exactly
                     share = avail - allocated_so_far
                 else:
-                    w = weights.get(gid, Fraction(0, 1))
+                    w = clean_weights[gid]
                     share = (avail * w) / total_weight
                     allocated_so_far += share
                 self.allocated_budgets[gid] = self.allocated_budgets.get(gid, Fraction(0, 1)) + share
@@ -146,7 +201,7 @@ class BudgetLedger:
 
 @dataclass(frozen=True)
 class ReasoningTraceEvent:
-    """An immutable atomic event in the reasoning agent's execution log."""
+    """One deterministic event in the coordinator execution log."""
 
     step: int
     action: ReasoningActionType
@@ -160,10 +215,10 @@ class GoalOutcome:
     """The resolved outcome of a candidate goal."""
 
     goal_id: str
-    status: str  # "SOLVED", "CERTIFIED_REFUSED", "BUDGET_EXHAUSTED"
+    status: str  # "SOLVED" or "CERTIFIED_REFUSED"
     path: Optional[Tuple[MoveEdge, ...]]
     cost: Optional[Fraction]
-    receipt: Optional[Union[DualityGapReceipt, DualRefusalReceipt, HierarchicalRefusalReceipt]]
+    receipt: Optional[SearchReceipt]
     fine_nodes_explored: int
     coarse_pruned: bool
     budget_allocated: Fraction
@@ -171,8 +226,8 @@ class GoalOutcome:
 
 
 @dataclass(frozen=True)
-class ReasoningAgentReceipt:
-    """Cryptographically verifiable execution receipt of the autonomous reasoning engine."""
+class ReasoningCoordinatorReceipt:
+    """Deterministic summary with SHA-256 content checksums, not an authenticity proof."""
 
     total_initial_budget: Fraction
     consumed_budget: Fraction
@@ -208,8 +263,8 @@ class ReasoningAgentReceipt:
         return hashlib.sha256(canonical_json.encode("utf-8")).hexdigest()
 
 
-class AutonomousReasoningAgent:
-    """Autonomous multi-scale reasoning agent with adaptive budget re-allocation."""
+class BudgetedReasoningCoordinator:
+    """One-shot deterministic coordinator for budgeted finite-graph searches."""
 
     def __init__(
         self,
@@ -250,6 +305,7 @@ class AutonomousReasoningAgent:
         self.trace: List[ReasoningTraceEvent] = []
         self._step_counter = 0
         self._total_reclaimed = Fraction(0, 1)
+        self._has_run = False
 
     def _record_event(
         self,
@@ -278,10 +334,31 @@ class AutonomousReasoningAgent:
         self,
         source: Any,
         goals: Sequence[CandidateGoal],
-    ) -> Tuple[Dict[str, GoalOutcome], ReasoningAgentReceipt]:
-        """Execute the autonomous reasoning workflow across candidate goals."""
+    ) -> Tuple[Dict[str, GoalOutcome], ReasoningCoordinatorReceipt]:
+        """Allocate once, screen by exact bounds, reallocate, and search."""
+        if self._has_run:
+            raise RuntimeError("BudgetedReasoningCoordinator instances are one-shot")
+        if not self.fine_graph.has_state(source):
+            raise KeyError(f"Source state {source!r} not in fine graph")
+        goal_ids = [goal.goal_id for goal in goals]
+        if len(set(goal_ids)) != len(goal_ids):
+            raise ValueError("Candidate goal_id values must be unique")
+        for goal in goals:
+            if not self.fine_graph.has_state(goal.target):
+                raise KeyError(
+                    f"Target state {goal.target!r} for goal {goal.goal_id!r} "
+                    "not in fine graph"
+                )
+        morphism = self.coarsening_map.check_morphism(
+            self.fine_graph, self.coarse_graph
+        )
+        if not morphism.is_valid:
+            detail = "; ".join(morphism.defects)
+            raise ValueError(f"Coarsening map failed morphism verification: {detail}")
+
+        self._has_run = True
         if not goals:
-            return {}, ReasoningAgentReceipt(
+            return {}, ReasoningCoordinatorReceipt(
                 total_initial_budget=self.total_budget,
                 consumed_budget=Fraction(0, 1),
                 unallocated_budget=self.total_budget,
@@ -296,7 +373,7 @@ class AutonomousReasoningAgent:
                 budget_conservation_verified=self.ledger.audit_conservation(),
             )
 
-        # 1. Phase 1: Initial Priority-Weighted Budget Allocation
+        # Stage 1: initial priority-weighted allocation.
         total_priority = sum(g.priority for g in goals)
         for g in goals:
             slice_amt = (self.total_budget * g.priority) / total_priority
@@ -309,41 +386,44 @@ class AutonomousReasoningAgent:
 
         outcomes: Dict[str, GoalOutcome] = {}
         viable_goals: List[CandidateGoal] = []
-        coarse_bounds: Dict[str, Fraction] = {}
+        exact_bounds: Dict[str, Fraction] = {}
 
-        coarse_s = self.coarsening_map.apply_state(source)
-
-        # 2. Phase 2: Coarse Continuous Dual Screening & Certified Pruning
+        # Stage 2: exact fine-graph distance screening. This computation does
+        # traverse the finite graph; zero below means zero subsequent path-search
+        # expansions, not zero certificate work.
+        fine_potential = ExactPathSolver.compute_dual_potential(
+            self.fine_graph, source, cost_fn=self.cost_fn
+        )
         for g in goals:
             alloc = self.ledger.allocated_budgets[g.goal_id]
-            coarse_t = self.coarsening_map.apply_state(g.target)
-
-            # Compute coarse dual relaxation
-            coarse_dual = DualRelaxationSolver.compute_dual_potential(
-                self.coarse_graph, coarse_s, cost_fn=self.cost_fn
-            )
-            coarse_bound = coarse_dual.potential_difference(coarse_s, coarse_t)
+            exact_bound = fine_potential.potential_difference(source, g.target)
 
             self._record_event(
-                ReasoningActionType.COARSE_PROBE,
+                ReasoningActionType.BOUND_PROBE,
                 g.goal_id,
-                {"coarse_bound": str(coarse_bound) if coarse_bound is not None else "disconnected"},
+                {
+                    "exact_bound": (
+                        str(exact_bound) if exact_bound is not None else "unreachable"
+                    )
+                },
             )
 
-            # Check if provably unreachable under allocated budget
-            if coarse_bound is None or coarse_bound > alloc:
-                # Certified hierarchical refusal: 0 fine nodes explored
-                refusal_rcpt = HierarchicalRefusalReceipt(
-                    coarse_level=self.coarse_scale,
-                    fine_level=self.fine_scale,
+            if exact_bound is None or exact_bound > alloc:
+                reason = (
+                    "Target is unreachable in the exact finite fine graph"
+                    if exact_bound is None
+                    else (
+                        f"Exact shortest-path lower bound {exact_bound} strictly "
+                        f"exceeds allocated budget {alloc}"
+                    )
+                )
+                refusal_receipt = DualRefusalReceipt(
                     source=source,
                     target=g.target,
-                    coarse_source=coarse_s,
-                    coarse_target=coarse_t,
                     budget=alloc,
-                    coarse_dual_bound=coarse_bound if coarse_bound is not None else Fraction(-1, 1),
-                    pruned_levels=(self.fine_scale,),
-                    reason="Coarse dual lower bound exceeds allocated budget; fine search pruned",
+                    dual_bound=exact_bound,
+                    certified_refusal=True,
+                    reason=reason,
                 )
                 reclaimed = self.ledger.reclaim(g.goal_id)
                 self._total_reclaimed += reclaimed
@@ -351,7 +431,7 @@ class AutonomousReasoningAgent:
                 self._record_event(
                     ReasoningActionType.CERTIFIED_REFUSAL,
                     g.goal_id,
-                    {"reclaimed": str(reclaimed), "reason": refusal_rcpt.reason},
+                    {"reclaimed": str(reclaimed), "reason": refusal_receipt.reason},
                 )
 
                 outcomes[g.goal_id] = GoalOutcome(
@@ -359,25 +439,22 @@ class AutonomousReasoningAgent:
                     status="CERTIFIED_REFUSED",
                     path=None,
                     cost=None,
-                    receipt=refusal_rcpt,
+                    receipt=refusal_receipt,
                     fine_nodes_explored=0,
-                    coarse_pruned=True,
+                    coarse_pruned=False,
                     budget_allocated=alloc,
                     budget_consumed=Fraction(0, 1),
                 )
             else:
                 viable_goals.append(g)
-                coarse_bounds[g.goal_id] = coarse_bound
+                exact_bounds[g.goal_id] = exact_bound
 
-        # 3. Phase 3: Adaptive Budget Re-allocation
+        # Stage 3: exact re-allocation of reclaimed funds.
         if viable_goals and self.ledger.unallocated_budget > 0:
             reclaimed_pool = self.ledger.unallocated_budget
-            # Re-allocate reclaimed funds inversely proportional to coarse bound, weighted by priority
-            # Lower bound means closer target -> higher priority for execution
             weights: Dict[str, Fraction] = {}
             for g in viable_goals:
-                dist = coarse_bounds[g.goal_id]
-                # Avoid division by zero: weight = priority / (dist + 1/2)
+                dist = exact_bounds[g.goal_id]
                 weights[g.goal_id] = Fraction(g.priority, 1) / (dist + Fraction(1, 2))
 
             viable_ids = [g.goal_id for g in viable_goals]
@@ -392,9 +469,8 @@ class AutonomousReasoningAgent:
                 },
             )
 
-        # 4. Phase 4: Coarse-Guided Fine-Scale Execution
-        # Sort viable goals by coarse bound ascending (closest first)
-        viable_goals.sort(key=lambda g: coarse_bounds[g.goal_id])
+        # Stage 4: checked coarse-to-fine execution, ordered by exact bound.
+        viable_goals.sort(key=lambda g: exact_bounds[g.goal_id])
 
         for g in viable_goals:
             current_budget = self.ledger.allocated_budgets[g.goal_id]
@@ -416,11 +492,12 @@ class AutonomousReasoningAgent:
             )
 
             if result.path is not None:
-                # Path found within budget
-                actual_cost = sum((self.cost_fn(e) for e in result.path), Fraction(0, 1))
+                actual_cost = sum(
+                    (_validated_cost(edge, self.cost_fn) for edge in result.path),
+                    Fraction(0, 1),
+                )
                 self.ledger.consume(g.goal_id, actual_cost)
 
-                # Reclaim remaining unused budget and re-allocate to subsequent viable goals
                 reclaimed_remainder = self.ledger.reclaim(g.goal_id)
                 self._total_reclaimed += reclaimed_remainder
 
@@ -446,7 +523,6 @@ class AutonomousReasoningAgent:
                     budget_consumed=actual_cost,
                 )
 
-                # Dynamically redistribute remainder to remaining viable goals that haven't been run yet
                 remaining_unrun = [
                     rem.goal_id
                     for rem in viable_goals
@@ -455,27 +531,13 @@ class AutonomousReasoningAgent:
                 if remaining_unrun and self.ledger.unallocated_budget > 0:
                     self.ledger.redistribute_unallocated(remaining_unrun)
             else:
-                # Search failed or budget exhausted
-                self.ledger.consume(g.goal_id, current_budget)
-                self._record_event(
-                    ReasoningActionType.BUDGET_EXHAUSTION,
-                    g.goal_id,
-                    {"nodes_explored": result.nodes_explored},
+                raise RuntimeError(
+                    "Consistency defect: exact screening admitted goal "
+                    f"{g.goal_id!r} at bound {exact_bounds[g.goal_id]}, but "
+                    "checked search returned no path"
                 )
 
-                outcomes[g.goal_id] = GoalOutcome(
-                    goal_id=g.goal_id,
-                    status="BUDGET_EXHAUSTED",
-                    path=None,
-                    cost=None,
-                    receipt=result.receipt,
-                    fine_nodes_explored=result.nodes_explored,
-                    coarse_pruned=result.coarse_pruned,
-                    budget_allocated=current_budget,
-                    budget_consumed=current_budget,
-                )
-
-        # 5. Final Audit and Verification Receipt
+        # Stage 5: exact conservation audit and deterministic content checksum.
         conservation_ok = self.ledger.audit_conservation()
         if not conservation_ok:
             raise RuntimeError(
@@ -485,7 +547,6 @@ class AutonomousReasoningAgent:
                 f"consumed={self.ledger.consumed_budget}"
             )
 
-        # Compute trace digest
         raw_trace_json = json.dumps(
             [
                 {
@@ -501,7 +562,7 @@ class AutonomousReasoningAgent:
         )
         trace_digest = hashlib.sha256(raw_trace_json.encode("utf-8")).hexdigest()
 
-        receipt = ReasoningAgentReceipt(
+        receipt = ReasoningCoordinatorReceipt(
             total_initial_budget=self.total_budget,
             consumed_budget=self.ledger.consumed_budget,
             unallocated_budget=self.ledger.unallocated_budget,
