@@ -1,0 +1,11 @@
+# Tree-local config. The root pyproject scopes mypy and coverage to code/, so
+# this tree is outside both unless run from here.
+[tool.mypy]
+python_version = "3.14"
+strict = true
+files = [
+  "carrier.py",
+  "floor.py",
+  "thread.py",
+  "test_symmetry_floor.py",
+]
