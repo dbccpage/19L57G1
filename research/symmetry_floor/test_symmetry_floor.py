@@ -77,17 +77,18 @@ class TestFloor(unittest.TestCase):
     def test_exhaustion_over_every_map(self) -> None:
         """Counted by index arithmetic, without consulting the characterisation."""
         self.assertEqual(len(self.small), 8)
-        self.assertEqual(
-            floor.counted_rule_count(self.small),
-            floor.predicted_rule_count(self.small),
-        )
-        self.assertEqual(floor.counted_rule_count(self.small), 128)
+        counted = floor.counted_rule_count(self.small)
+        predicted = floor.predicted_rule_count(self.small)
+        self.assertEqual(counted, predicted)
+        self.assertEqual(counted, 128)
 
     def test_a_rule_that_reads_glyphs_is_not_a_rule_of_this_kind(self) -> None:
         """Negative: a map that reads which glyph is which fails both tests.
 
         It breaks the floor, which is the point -- such a map is exactly what is
-        unavailable to a rule computed from the inscription alone.
+        excluded by the explicit renaming-equivariance premise.  It also shows
+        that merely being a function of the inscription does not imply that
+        premise.
         """
         empty = carrier.parse("<>")
         leaked = carrier.parse("<a>")

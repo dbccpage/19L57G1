@@ -1,16 +1,17 @@
 # STATUS — symmetry_floor
 
-`AuthorityEffect: None.` Open research tree. Nothing under the seal is touched:
-no file outside `research/symmetry_floor/` is added, changed or read as input.
+`AuthorityEffect: None.` Open research tree. Nothing under the seal is touched.
+The only changed path outside `research/symmetry_floor/` is the corresponding
+local-receipt row and count in `research/README.md`.
 
 ## Terminals
 
 | terminal | scope |
 | --- | --- |
-| `FLOOR_PROVED` | A state-read single-valued rule cannot break a renaming the state holds still. Lean, no axioms. Arbitrary `G`, `act`, `X`. |
+| `FLOOR_PROVED` | A renaming-equivariant single-valued rule cannot break a renaming the state holds still. Lean, no axioms. Arbitrary `G`, `act`, `X`. This preserves the held set; it does not force the successor to equal the state. |
 | `CHARACTERISATION_EXHAUSTED` | Held-set containment is necessary and sufficient, over all 30,625 pairs at dividers ≤ 2, data ≤ 3. |
 | `COUNT_EXHAUSTED` | All 16,777,216 maps on a closed 8-inscription carrier enumerated; 128 agree, matching the characterisation. |
-| `EXIT_PRICED` | 2 offered successors to break one renaming, 4 to break every one. |
+| `EXIT_PRICED` | Within the declared finite carrier, invariant offered sets need at least 2 successors to break one non-identity renaming and 4 to break all three. |
 | `THREAD_UNIQUE_TO_GENERATION_8` | Exactly one object per generation is held still by everything, to generation 8. Not proved beyond. |
 | `DEPARTURE_IRREVERSIBLE_TO_GENERATION_7` | No step lowers the distance, to generation 7. Not proved beyond. |
 | `CLOSED_FORM_TO_GENERATION_10` | `objects(k) = a(ceil(k/2))·a(floor(k/2))`, verified to 10. Not proved. |

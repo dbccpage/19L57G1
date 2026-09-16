@@ -1,26 +1,26 @@
-# Why nothing happens, and exactly what it costs to make something happen
+# Why equivariant deterministic rules preserve held renamings
 
 `AuthorityEffect: None.` Open research tree. Touches nothing under the seal.
 
-This tree answers one question and answers it exhaustively: **why a world built
-from marks that mean nothing sits still, and what has to be given up for it to
-move.** The answer is not that the right start has not been found yet. It is that
-no start can work, and the reason is one line.
+This tree asks a narrower question: **what can a single-valued rule do when it
+is explicitly required to agree with every declared renaming?** The answer is
+that it cannot remove a renaming already held by the input. This is a
+stabilizer-preservation result, not a claim that the state cannot change.
 
 ---
 
 ## 1. The obstruction
 
-Take a rule `f` that carries one inscription to one inscription, computed from
-the inscription alone. It cannot see which glyph is which -- glyphs are
-forgettable -- so renaming the input renames the output. Write `r` for a
-renaming. Then
+Take a rule `f` that carries one inscription to one inscription and explicitly
+assume it agrees with each declared renaming. State dependence alone does not
+imply this premise; the negative control in the tests is a state function that
+fails it. Write `r` for a renaming. Then
 
     r(f(s)) = f(r(s)) = f(s)   whenever r(s) = s
 
-**Whatever a renaming already left alone in the start, it leaves alone in the
-successor.** What is held still can only grow, never shrink, for every rule, at
-every step, forever.
+**Whatever a renaming already left alone in the input, it leaves alone in the
+successor.** The held set can only grow under an equivariant single-valued rule.
+The successor may nevertheless be a different fully held state.
 
 Proved in `lean/SymmetryFloor.lean` as `floor`, and iterated as
 `floor_iterated`. Both **depend on no axioms at all**.
@@ -32,9 +32,9 @@ Proved in `lean/SymmetryFloor.lean` as `floor`, and iterated as
 - `X` is not this carrier, not finite, not anything.
 
 So the result is not about inscriptions. It holds for any notion of state and
-any notion of renaming whatever. **A different start cannot escape it, because
-the start never entered the proof.** The starts are not the variable. Single-
-valuedness is.
+renaming at every state fixed by the renaming in question. **A non-fixed start
+does not evade the theorem; it falls outside its fixed-state hypothesis and
+supplies asymmetry.** Equivariance and single-valuedness are both load-bearing.
 
 ---
 
@@ -43,14 +43,15 @@ valuedness is.
 It would be easy to read §1 as a technicality that a cleverer rule might slip
 past. It is not, and the reason is the converse.
 
-`held(s) <= held(t)` is not merely **necessary** for some rule to carry `s` to
-`t`. It is **sufficient**: every such pair extends to a rule, and no other
-constraint exists. Checked over all 30,625 pairs of the 175 inscriptions with at
-most two dividers and three data: **zero disagreements**
+Within the declared four-renaming carrier, `held(s) <= held(t)` is not merely
+**necessary** for an equivariant rule to carry `s` to `t`. It is
+**sufficient**: every such pair extends to an equivariant rule. Checked over all
+30,625 pairs of the 175 inscriptions with at most two dividers and three data:
+**zero disagreements**
 (`floor.containment_matches_constructibility`).
 
-So containment is the *complete* description of what a state-read rule may do.
-There is no other freedom to find and no other constraint to evade.
+So containment is the complete source-target description for equivariant rules
+on this finite carrier.
 
 ### Counted, not argued
 
@@ -63,12 +64,12 @@ characterisation exactly (`floor.counted_rule_count`).
 
 ## 3. The exit, and its price
 
-Drop single-valuedness. A step now offers a **set**. The set must still be
-carried to itself -- but its members need not be. So a break becomes possible,
-and it is not free: the set has to hold every way of presenting what it
-contains.
+Drop single-valuedness. A step now offers a **set**. At a fully held source the
+set must be invariant -- but its members need not be fixed individually. Every
+such finite invariant set is a union of complete renaming orbits.
 
-Computed (`floor.price_of_a_break`):
+Computed over all orbit unions in the declared 175-inscription closed carrier
+(`floor.price_of_a_break`):
 
 | to break | costs |
 | --- | --- |
@@ -79,15 +80,16 @@ The smallest set that breaks everything is `<a|>`, `<b|>`, `<|a>`, `<|b>`. Those
 four are one object. Nothing separates them and nothing selected one. **That is
 what breaking a symmetry costs when there is no outside to do the selecting.**
 
-Proved in Lean as `offered_set_carried`, `members_move`, `price_is_two`.
+Lean supplies the two-member witness and singleton lower bound as
+`offered_set_carried`, `members_move`, and `price_is_two`. The four-member
+all-renamings minimum is the finite orbit-union computation.
 
 ---
 
-## 4. What the world then does
+## 4. The declared branching growth relation
 
-The step is declared once, and it is the weakest thing that is not nothing:
-**one glyph appears**, anywhere, with nothing selecting where. It agrees with the
-renamings because it was written without reference to which glyph is which, and
+The step offers every result of adding **one glyph**, anywhere, with no selected
+branch. It agrees with the renamings on the checked finite carrier;
 `thread.step_agrees_with_renamings` checks that rather than assuming it.
 
 Every inscription of size `k` has a predecessor of size `k-1`, so generation `k`
@@ -111,12 +113,11 @@ is the complete set of inscriptions of size `k`. Nothing is sampled.
 Exact to generation 10. The count splits into two halves, which is the
 reflection doing what a reflection does.
 
-**(b) There is exactly one place where nothing happens, and it is always
-available.** At every generation precisely one object is held still by every
-renaming: the one with no data at all -- `<>`, `<|>`, `<||>`, `<|||>`. The
-numerator never moves off 1 while the total grows like `3**k / 4`. **Nothing
-compels the world to start.** Staying still is permanently available and never
-gets any wider.
+**(b) The checked generations contain exactly one fully invariant object.** It
+has no data -- `<>`, `<|>`, `<||>`, `<|||>`. These are different states along a
+fully invariant thread, so their existence does not mean the state is immobile.
+The branching relation selects no successor, and the invariant branch remains
+one available branch through generation 8.
 
 **(c) The world does not remember.** By generation 8 only **3 objects in 1681**
 have a single possible past. The rest could have arrived up to eight different
@@ -129,23 +130,22 @@ convenience of such a design -- it is a requirement of it.
 
 ---
 
-## 5. Distance from the still thread
+## 5. Distance from the fully invariant thread
 
-The thread of §4(b) is the one place nothing happens, so everything else is
-measured by distance from it. That distance is the **data count**, and three
-facts pin it (`thread`, and the tests beside it):
+The thread of §4(b) contains the fully invariant object at each checked size.
+Distance from it is the **data count**, and three bounded computations pin it
+(`thread`, and the tests beside it):
 
-1. **`held` is everything exactly when the distance is zero.** The thread is not
-   one still object among others; it is the only one there is.
-2. **One step never lowers the distance.** Checked across the whole step relation
-   to generation 8: zero descents.
-3. Therefore **the thread is left once and never regained.** Every other
-   symmetry loss can be repaired, by (d). This one cannot.
+1. **`held` is everything exactly when the distance is zero**, through source
+   generation 7.
+2. **One step never lowers the distance**, across every checked edge from
+   source generations 0 through 7.
+3. Therefore no checked path in this no-removal relation returns to distance
+   zero after adding data. Other held renamings can return, by (d).
 
-So the world has exactly one irreversible act, and it is the first datum. Not the
-first divider -- dividers may be added forever with nothing broken. The first
-**datum**. Everything after it is reversible in what it holds still; the return
-to the thread is closed permanently.
+Within the declared no-removal relation, adding the first datum is what leaves
+distance zero; adding a divider does not. The finite checks do not promote this
+observation into an unbounded theorem.
 
 ### What can be held at each distance
 
@@ -156,22 +156,22 @@ to the thread is closed permanently.
 | 2 | 1, 2 |
 | 3 | 1 |
 
-A composite renaming -- exchange the glyphs *and* reflect -- can never hold an
-inscription with an odd data count: a centre datum would have to be its own
-exchange, and neither is. Reflection alone has no such obstruction, because its
-centre may be a datum. Both checked to generation 8.
+Through generation 8, the composite renaming -- exchange the glyphs *and*
+reflect -- holds no inscription with an odd data count. Reflection alone has
+checked odd-data examples. No unbounded theorem is claimed here.
 
 ---
 
 ## 6. What this settles, and what it does not
 
-**Settled.** The three-part condition the programme was working under --
-a rule that is single-valued, a start, and nothing supplied -- is
-over-determined. Pick all three and nothing moves, by theorem, in any carrier.
-That is why no choice of start has worked and no future choice will.
+**Settled.** For arbitrary types and renaming maps, an explicitly equivariant
+single-valued rule preserves every renaming that fixes its input. A fully fixed
+input therefore maps into the fully fixed locus. The theorem does not say the
+successor equals the input, and it does not apply to a non-fixed start.
 
-**Settled.** The cost of the exit is exact: 2 offered successors to break one
-renaming, 4 to break them all, and one irreversible act to leave the thread.
+**Settled within the declared finite carrier.** Invariant offered sets need 2
+states to break one non-identity renaming and 4 to break all three. The bounded
+growth checks locate the first distance-zero departure at the first datum.
 
 **Not settled.** Whether dropping a *different* one of the three is cheaper.
 Supplying one asymmetry at the start, or refusing a first state at all, are the

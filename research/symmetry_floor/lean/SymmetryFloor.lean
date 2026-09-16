@@ -1,5 +1,5 @@
 /-
-  SymmetryFloor.lean -- a start that every renaming leaves alone stays that way.
+  SymmetryFloor.lean -- equivariant functions preserve held renamings.
 
   Core Lean 4.  No mathlib.  The reports at the foot record what each result
   leans on; this comment does not name the tokens the repository scan reads,
@@ -11,22 +11,23 @@
     * `act` is not an action.  No `act 1 x = x`, no composition law.
     * `X` is not the glyph carrier, or finite, or anything at all.
 
-  So it is not a statement about inscriptions, or about one carrier, or about a
-  choice of start.  It holds for any notion of state and any notion of renaming.
-  Changing the start cannot escape it, because the start never entered.
+  So it is not a statement about inscriptions or one carrier.  It holds for any
+  notion of state and any notion of renaming, at every state fixed by the
+  renaming in question.  A state that is not fixed is outside that hypothesis
+  and supplies asymmetry rather than evading the conclusion.
 
-  What it DOES assume is the single thing the programme took for granted:
-  `f` is a FUNCTION.  One state in, one state out.
+  What it DOES assume is explicit equivariance of a single-valued function:
+  `f (act g x) = act g (f x)`.  State dependence alone does not imply this.
 -/
 
 namespace SymmetryFloor
 
 /--
-  **A rule that reads only the state cannot break what the state already holds.**
+  **An equivariant single-valued rule cannot break a held renaming.**
 
   `agrees` says `f` cannot see whatever `act g` renames: rename the input and the
-  output is renamed to match.  That is what "computed from the state alone, with
-  no reading of which glyph is which and no outside choice" amounts to.
+  output is renamed to match.  It is a premise here, not a consequence of being
+  a function on states.
 
   Then any `g` that already left the state alone leaves the successor alone.
 -/
@@ -53,7 +54,7 @@ theorem floor_iterated {G X : Type} (act : G → X → X) (f : X → X)
       exact ih (f s) (floor act f agrees g s still)
 
 /--
-  **The exit is real, and it is exactly the loss of single-valuedness.**
+  **A set-valued exit.**
 
   A step that offers a SET need only offer a set carried to itself.  Its members
   need not be carried to themselves.  Below, `swap` leaves `0` alone -- a start
@@ -61,8 +62,9 @@ theorem floor_iterated {G X : Type} (act : G → X → X) (f : X → X)
   neither member is.
 
   Nothing selects between `1` and `2`.  There is no fact about which.  That is
-  not a defect in the rule; it is what breaking a symmetry costs when there is no
-  outside to do the selecting.
+  the displayed invariant offer witnesses a break while retaining equivariance.
+  Other exits, such as a non-fixed start or loss of equivariance, are outside
+  this construction rather than ruled out by it.
 -/
 def swap : Fin 3 → Fin 3
   | 0 => 0

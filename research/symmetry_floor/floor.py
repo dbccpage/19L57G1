@@ -1,35 +1,36 @@
-"""The floor: what a rule that reads only the state can do, and what it cannot.
+"""The floor for single-valued rules that agree with declared renamings.
 
 THE OBSTRUCTION
 
-A rule that carries one inscription to one inscription, computed from the
-inscription alone, cannot see which glyph is which -- so renaming the input
-renames the output.  Call that agreeing with the renamings.  Then any renaming
-that already left the input alone leaves the output alone:
+A rule that carries one inscription to one inscription is *required* here to
+agree with the declared renamings.  This is an explicit equivariance premise;
+being a function of the state alone does not imply it.  Under that premise, any
+renaming that already left the input alone leaves the output alone:
 
     r(f(s)) = f(r(s)) = f(s)
 
-So what an inscription holds still can only grow.  A start that every renaming
-leaves alone has a successor that every renaming leaves alone, for every rule,
-forever.  The seed is not the variable; single-valuedness is.
+So the held set can only grow.  A start that every renaming leaves alone has a
+successor that every renaming leaves alone, for every equivariant
+single-valued rule, forever.  The successor need not equal the start: this is
+stabilizer preservation, not immobility.
 
 WHAT THIS MODULE ADDS TO THAT LINE
 
 1.  The converse.  ``held(s) <= held(t)`` is not merely necessary for some rule
     to carry ``s`` to ``t`` -- it is sufficient.  Every such pair extends to a
-    rule, and no further constraint exists.  So the containment is the complete
-    description of what a state-read rule may do, not a side condition on it.
+    rule on the declared carrier.  So containment is its complete
+    source-target description, not a side condition on it.
 
 2.  Exhaustion.  Checked over every map on a closed carrier, by index
     arithmetic that does not consult the characterisation it is checking.
 
-3.  The price of the exit.  Drop single-valuedness and a step offers a set.  The
-    set must still be carried to itself, so it must hold every way of presenting
-    what it contains.  The multiplicity that buys a break is that count, computed
+3.  The price of the exit.  Drop single-valuedness and a step offers an
+    invariant set.  Such a set is a union of complete renaming orbits.  The
+    smallest union that breaks one or every non-identity renaming is computed
     rather than asserted.
 
-The one-line obstruction is proved in ``lean/SymmetryFloor.lean`` with no
-appeal to any property of the carrier, so it is not about inscriptions.
+The one-line stabilizer-preservation result is proved in
+``lean/SymmetryFloor.lean`` with no appeal to any property of the carrier.
 """
 
 from __future__ import annotations
@@ -38,7 +39,6 @@ import itertools
 from typing import Callable, NamedTuple, Sequence
 
 from carrier import (
-    DATA,
     RENAMINGS,
     Form,
     apply,
@@ -95,7 +95,7 @@ def containment_matches_constructibility(carrier: Sequence[Form]) -> list[str]:
     """Where the held-set containment and the existence of a rule disagree.
 
     An empty result is the converse: containment is sufficient, not merely
-    necessary, so it is the complete description of what a rule may do.
+    necessary on the declared finite carrier.
     """
     out: list[str] = []
     for source in carrier:
@@ -160,27 +160,45 @@ class BreakPrice(NamedTuple):
 
 
 def price_of_a_break(carrier: Sequence[Form]) -> BreakPrice:
-    """What a symmetry break costs once single-valuedness is dropped.
+    """Minimum cardinalities of invariant offered sets that break renamings.
 
-    A set-valued step need only return a set carried to itself.  Its members need
-    not be.  The smallest such set holding an inscription that some renaming
-    moves is the count of ways that inscription can be presented.
+    An offered set at a fully held source must be invariant under every declared
+    renaming, hence a union of complete orbits.  A renaming is broken when it
+    moves at least one member of the offered set.  Dynamic programming over the
+    finite orbit family finds the least union cardinality for all non-identity
+    renamings; the one-renaming minima are the least qualifying orbit sizes.
     """
-    per_renaming: dict[str, int] = {}
-    for n in RENAMINGS:
-        if n == "id":
-            continue
-        moved = [len({s, apply(n, s)}) for s in carrier if apply(n, s) != s]
-        per_renaming[n] = min(moved) if moved else 0
-    nothing_held = [
-        len({apply(n, s) for n in RENAMINGS})
-        for s in carrier
-        if len(held(s)) == 1
+    nonidentity = frozenset(n for n in RENAMINGS if n != "id")
+    orbits = sorted(
+        {frozenset(apply(n, s) for n in RENAMINGS) for s in carrier},
+        key=lambda orbit: (len(orbit), sorted(orbit)),
+    )
+    orbit_breaks = [
+        frozenset(
+            n for n in nonidentity if any(apply(n, s) != s for s in orbit)
+        )
+        for orbit in orbits
     ]
+
+    per_renaming: dict[str, int] = {}
+    for n in sorted(nonidentity):
+        costs = [len(orbit) for orbit, broken in zip(orbits, orbit_breaks) if n in broken]
+        per_renaming[n] = min(costs) if costs else 0
+
+    best: dict[frozenset[str], int] = {frozenset(): 0}
+    for orbit, broken in zip(orbits, orbit_breaks):
+        updated = dict(best)
+        for already, cost in best.items():
+            combined = already | broken
+            new_cost = cost + len(orbit)
+            if combined not in updated or new_cost < updated[combined]:
+                updated[combined] = new_cost
+        best = updated
+
     return BreakPrice(
         held_by_everything=[render(s) for s in still_everywhere(carrier)],
         to_break_one_renaming=per_renaming,
-        to_break_every_renaming=min(nothing_held) if nothing_held else None,
+        to_break_every_renaming=best.get(nonidentity),
     )
 
 

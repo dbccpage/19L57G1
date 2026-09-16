@@ -1,8 +1,8 @@
-"""The world once single-valuedness is dropped, and its distance from the thread.
+"""A branching growth relation and its distance from the invariant thread.
 
 THE STEP
 
-Declared once, and it is the weakest thing that is not nothing:
+The declared relation offers every result in which:
 
     one glyph appears.
 
@@ -23,10 +23,9 @@ size ``k``.  Nothing is sampled.
 
 THE THREAD
 
-At every generation exactly one object is held still by every renaming: the one
-with no data at all.  That thread is the one place where nothing happens, and it
-is available forever.  Distance from it is the data count, and the results below
-are what that coordinate does.
+In each checked generation, exactly one object is held still by every renaming:
+the one with no data at all.  These are different states along a fully invariant
+thread, not an immobile state.  Distance from that thread is the data count.
 """
 
 from __future__ import annotations
@@ -45,8 +44,6 @@ from carrier import (
     name_of,
     objects,
     render,
-    size,
-    ways,
 )
 
 
@@ -75,15 +72,15 @@ def step_agrees_with_renamings(carrier: Sequence[Form]) -> list[str]:
 
 
 def thread_at(k: int) -> Form:
-    """The object every renaming holds still at generation ``k``: no data."""
+    """The no-data, fully invariant representative at generation ``k``."""
     return tuple(() for _ in range(k + 1))
 
 
 def distance(form: Form) -> int:
     """Distance from the thread: the data count.
 
-    ``held`` is the whole group exactly when this is zero, and one step never
-    lowers it, so the thread is left once and never regained.
+    The bounded checks establish that ``held`` is the full declared renaming set
+    exactly when this is zero, and that checked steps never lower it.
     """
     return data_count(form)
 
@@ -187,7 +184,12 @@ def report(horizon: int = 8) -> list[str]:
         )
 
     out.append("")
-    out.append("thread unique at every generation: " + str(all(thread_is_unique(k) for k in range(horizon + 1))))
+    out.append(
+        "thread unique through generation "
+        + str(horizon)
+        + ": "
+        + str(all(thread_is_unique(k) for k in range(horizon + 1)))
+    )
     out.append("distance never falls: " + str(all(not distance_never_falls(k) for k in range(horizon))))
     out.append("held can return after a break: " + str(bool(held_can_return(2))))
 
