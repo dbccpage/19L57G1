@@ -57,6 +57,21 @@ Evidence classes used here: **theorem** (Lean, axiom report recorded),
 | SF-OPEN-2 | Whether refusing a first state at all is coherent, and what it would cost. Not addressed here. | open |
 | SF-OPEN-3 | Whether the closed form SF-16 continues past generation 10. Verified to 10, not proved. | open |
 | SF-OPEN-4 | Whether SF-11 and SF-13 hold at every generation. Verified to 8 and 7, not proved. | open |
+| SF-OPEN-5 | **Is there a floor for set-valued rules too?** SF-1 bounds single-valued rules absolutely, and SF-10 prices a break at 2 offered successors for one renaming and 4 for all. Neither says how much a set-valued rule may produce *per step*. A bound of the form "a step offering `n` successors cannot lower the held-set by more than `f(n)`" would be the sequel to SF-1 and is not known here, in either direction. | open |
+| SF-OPEN-6 | **Nothing in this tree checks whether a result is already known.** SF-1 is a statement about maps agreeing with a set of renamings; the shape is old even if this instance is not, and no step of the method would have noticed. The gap is procedural, not mathematical: no tree in `research/` carries a required "nearest known result, and how this differs" field. Recorded here because the tree that fails to look is the tree that cannot say it looked. | open |
+
+---
+
+## The three named hunts
+
+`SF-OPEN-1`, `SF-OPEN-2` and `SF-OPEN-5` are the live questions this tree opens
+and does not answer. They are named together because they are the only three
+that are **specific to this carrier** — each has to be worked out rather than
+looked up.
+
+`SF-OPEN-6` is different in kind: it is a defect in how trees are built, not a
+question about the carrier. It is listed with the others because it is the one
+that decides whether the other three are worth the work.
 
 ---
 
