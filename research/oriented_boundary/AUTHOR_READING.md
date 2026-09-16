@@ -91,3 +91,57 @@ Scored against the frozen predictions:
 
 The space/time functor stays deferred and refused here: the result is about the
 object language, not nature. See `CLOSURE.md` for the discharge of `SF-OPEN-A`.
+
+## Outcome (2026-09-16) — the genuinely blind run, and a downgrade
+
+The 2026-09-10 HIT above rests on `TIME_PROMPT_v2.md`, which — checked
+directly — is not blind: it self-declares "an ANALYTIC PROOF-PROMPT, not a
+blind discovery" and discloses the load-bearing premise ("a one-way edge is
+an extra admission") as a settled fact before the model reasons about it.
+Scoring a disclosed-premise run as confirmation of the conclusion that
+premise determines is not evidence; it is restating the input. **The
+2026-09-10 HIT above is downgraded: it recorded a reproduction of the
+analytic reasoning under disclosed premises, not an independent
+confirmation.**
+
+A genuinely blind run — five independent agents against this tree's own
+`SEED.md`, none shown this file or `TIME_PROMPT_v2.md` — landed 2026-09-16
+(`BLIND_RUN_REPORT_20260916.md`, synthesized in `BLIND_RECONCILIATION.md`).
+Rescored against the frozen predictions above, honestly:
+
+- **AP1 (unoriented = swap-automorphism): HIT**, first clause. Its second
+  clause ("separates nothing the bare boundary did not") is a **MISS**: the
+  both-crossings unoriented reading separates the two data while the swap
+  remains an automorphism — separability and interchangeability are
+  independent (`DIVERGENCES [2]`).
+- **AP2 (oriented reading breaks the symmetry at exactly one admitted
+  capability): MISS.** 5/5 blind runs find the cheapest swap-preserving
+  separating response costs 2, not 1, and every cost-1 response already
+  breaks the swap (`DIVERGENCES [1]`).
+- **AP3 (two kinds, one primitive, one toll): PARTIAL.** "Two kinds,
+  separated by the automorphism invariant" is a real, independently-reached
+  HIT (`HONEST_VERDICT`, paragraph 1). "One toll" survives only if its
+  direction is left unstated; stated as this file originally stated it
+  (orientation is the paid side), it is the MISS `DIVERGENCES [1]` records.
+- **AP4 (the arrow is priced-and-internal only after the toll is paid, never
+  a free external given): MISS**, and not a narrow one. Blind: "the oriented
+  reading's event history is a strict prefix of the symmetric one, the
+  witnessing observer costs zero admissions" (`HONEST_VERDICT`, paragraph 2).
+  Orientation is the *cheap* reading, not the paid one.
+- **AP5 (one primitive at two capability levels, split = the paid
+  orientation): MISS**, for the same reason as AP4 — the mechanism this
+  prediction names (paying buys orientation) runs backwards blind.
+
+Per this file's own discipline reminder above ("the valuable outcomes are the
+divergences... a blind agent that finds the orientation free... is telling us
+our prediction was wrong — which is the point"): this is exactly that
+outcome, and it is recorded as a downgrade rather than reconciled into a
+tidier restatement. What survives across both runs is narrower than what was
+claimed: oriented and unoriented are different kinds, reached by an
+admitted witness rather than a from-nowhere observer (`OB-B-EMPTY`, now also
+`OB-B-EMPTY-BLIND-JUDGEMENT`). Which side of that distinction costs more is
+open, not one-capability-on-the-orientation-side as this file said in 2026-09.
+See `BLIND_RECONCILIATION.md` for the full account, including the real
+residual complexity (an unpayable polarity remainder, a counter-level where
+the two readings collapse, tied non-isomorphic minima) the frozen predictions
+never contemplated and this outcome does not resolve.

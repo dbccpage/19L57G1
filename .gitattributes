@@ -13,3 +13,5 @@ ci/prose_watchlist.json -text
 research/alpha_engine/evidence/** -text
 research/diagonal_identity/evidence/** -text
 research/diagonal_identity/SOURCE_MANIFEST.json -text
+research/oriented_boundary/BLIND_RUN_REPORT_20260916.md -text
+research/oriented_boundary/BLIND_RECONCILIATION.md -text

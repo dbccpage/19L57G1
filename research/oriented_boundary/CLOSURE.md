@@ -4,10 +4,26 @@
 `SF-OPEN-A` (`research/side_free/CLAIM_LEDGER.md`). This is an **open-tree**
 result: it touches nothing under the seal (`prompt/`, `paper/`,
 `code/derivation/`, `lean4/Derivation/`, `artifacts/`). It is **analytic, not
-blind** — reasoned by the author in session (Claude polluted), then reproduced
-by a clean model run of `TIME_PROMPT_v2.md` at VERDICT **T7**, with the
-load-bearing lemma proved independently. The blind `oriented_boundary` seed
-remains parked for a future *independent* confirmation.
+blind** — reasoned by the author in session (Claude polluted), then a
+`TIME_PROMPT_v2.md` run was run and originally cited below as independent
+confirmation.
+
+**Correction, recorded (2026-09-16), read before the rest of this file.**
+That citation was wrong: `TIME_PROMPT_v2.md` self-declares "an ANALYTIC
+PROOF-PROMPT, not a blind discovery" and discloses, as a "settled fact," the
+exact premise ("a one-way edge is an extra admission") the run was later
+credited with proving independently. It is not independent evidence for
+anything it was told. A genuinely blind run against the parked
+`oriented_boundary` `SEED.md` has since landed — see
+`BLIND_RECONCILIATION.md` for the full account. It reconfirms the *kind*
+conclusion below (§§2–3: an order is a paid symmetry-breaking witness, not a
+container) but **reverses the toll direction** §2 states: blind, orientation
+is free (its event history is a strict prefix of the symmetric reading's,
+costing zero admissions) and *symmetry* is what a separating response must
+pay for. Read every occurrence of "priced at exactly one capability" and
+"proved independently" below as the analytic-only claim it was, corrected in
+`CLAIM_LEDGER.md`'s rows and in `BLIND_RECONCILIATION.md`, not as this
+tree's current position.
 
 ## The obstruction, as recorded
 
@@ -73,12 +89,16 @@ closes the *kind* question; it does not conjure succession.
 ## Provenance and scope
 
 The derivation is the author's (Jeremy Carroll). Reasoned analytically in
-session, then a clean `deepseek` run of `TIME_PROMPT_v2.md` returned VERDICT
-**T7** and proved the (B)-empty lemma independently; the frozen predictions in
-`AUTHOR_READING.md` scored a **HIT**. This is a statement about the object
-language — glyphs and sightedness — **not** about nature. Any reading of the
-boundary/orientation as space/time is a deferred functor (see
-`AUTHOR_READING.md`), refused here.
+session, then a `deepseek` run of `TIME_PROMPT_v2.md` — a disclosed, not
+blind, prompt (see the correction above) — returned VERDICT **T7** and
+reproduced the (B)-empty lemma under the premises it was handed; the frozen
+predictions in `AUTHOR_READING.md` originally scored a **HIT** on that basis.
+That HIT is downgraded as of 2026-09-16 — see `AUTHOR_READING.md`'s own
+2026-09-16 outcome section for the genuinely blind scoring, which hits AP1's
+and AP3's structural clauses and misses AP2/AP4/AP5's economic clauses. This
+is a statement about the object language — glyphs and sightedness — **not**
+about nature. Any reading of the boundary/orientation as space/time is a
+deferred functor (see `AUTHOR_READING.md`), refused here.
 
 ## Plan to pin it (the focused next act)
 

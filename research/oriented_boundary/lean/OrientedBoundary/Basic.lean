@@ -8,6 +8,21 @@ sorry/admit/axiom/mathlib.
 A judgment is read by its action on the tested ordered pair (x, y): the pair
 (d x y, d y x). The swap σ = (x y) preserves it iff it is symmetric on the pair;
 it "distinguishes" the pair (a mechanism-(A) witness) iff it is asymmetric.
+
+Scope note, recorded (2026-09-16) after an audit prompted by a genuinely
+blind run scoring differently than this analytic one (../BLIND_RECONCILIATION.md).
+`Judgment`, `distinguishes` and `swapPreserves` are declared here, freely, as a
+self-contained two-Boolean model -- they are not derived from the sealed
+derivation's own primitives (`Derivation.Regime`, its admission events,
+`iso.py`'s `canonical`). `distinguishes` is DEFINED as `d.1 != d.2`, and
+`swapPreserves` as its negation, so `b_is_empty` restates that definitional
+opposite-ness pointwise and lifts it through `List.all` -- correct, and
+mechanically checked, but tautological in the choice of model, not a
+derivation FROM the sealed system that the model is claimed (in prose only,
+here and in `../CLOSURE.md`) to represent. Read this file as: IF a judgment is
+modeled this way, THEN (B) is empty -- a real theorem about a stipulated
+model, not an independent proof that the model is the right one for what
+`../CLOSURE.md` and `../AUTHOR_READING.md` conclude about the sealed system.
 -/
 namespace OrientedBoundary
 
