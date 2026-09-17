@@ -1,0 +1,28 @@
+{
+  "schema": "boundary-custody-amendment-v1",
+  "freeze": "ef77e02a4ea4ae8d43c50617206bc491e7310d53",
+  "baseline": "2b40b13c56e548f3ec341ce7497df681519402f9",
+  "historical_exceptions": {
+    "2914032fb39721430a79451f1a693b6aed1f79aa": {
+      "research/boundary_seed/SOURCE_MANIFEST.json": "ce5cbb7a2b525448a59c559a316cbd90fed92731",
+      "research/boundary_seed/verify_sources.py": "482622aa154a9ae6b84917519471f2b7ba21f88f"
+    },
+    "420e6eb25f43e62568ce1d743447829a455358ee": {
+      "research/boundary_seed/SOURCE_MANIFEST.json": "ce5cbb7a2b525448a59c559a316cbd90fed92731",
+      "research/boundary_seed/verify_sources.py": "ca458e3944b360e02e83c7b6f828b2f3a6c172a9"
+    },
+    "03a36d31ce3937b13efd23f2bb6e9bd4d2ca3db7": {
+      "research/boundary_seed/SOURCE_MANIFEST.json": "cd18b025b1fa58ddc0be929890eabc62e014d64c",
+      "research/boundary_seed/verify_sources.py": "73cc1201796061ce28ae898f99288802d692e85f"
+    },
+    "94ce8acad0672221859e440170e6f1fb569443f4": {
+      "research/boundary_seed/SOURCE_MANIFEST.json": "cd18b025b1fa58ddc0be929890eabc62e014d64c",
+      "research/boundary_seed/verify_sources.py": "73cc1201796061ce28ae898f99288802d692e85f"
+    }
+  },
+  "current_blobs": {
+    "research/boundary_seed/SOURCE_MANIFEST.json": "cd18b025b1fa58ddc0be929890eabc62e014d64c",
+    "research/boundary_seed/verify_sources.py": "73cc1201796061ce28ae898f99288802d692e85f",
+    "research/boundary_seed/verify_freeze.py": "8f89fb9e54f7641ef4f02ca370de9ddb6aa94ee0"
+  }
+}
