@@ -90,4 +90,67 @@ Scored against the frozen predictions:
   *succession* the word "time" names.
 
 The space/time functor stays deferred and refused here: the result is about the
-object language, not nature. See `CLOSURE.md` for the discharge of `SF-OPEN-A`.
+object language, not nature. See `CLOSURE.md` for the proposed analytic answer
+to `SF-OPEN-A`, not a discharge imported into the isolated control.
+
+## Outcome (2026-09-16) — the reported blind run, and a downgrade
+
+The 2026-09-10 HIT above rests on `TIME_PROMPT_v2.md`, which — checked
+directly — is not blind: it self-declares "an ANALYTIC PROOF-PROMPT, not a
+blind discovery" and discloses the load-bearing premise ("a one-way edge is
+an extra admission") as a settled fact before the model reasons about it.
+Scoring a disclosed-premise run as confirmation of the conclusion that
+premise determines is not evidence; it is restating the input. **The
+2026-09-10 HIT above is downgraded: it recorded a reproduction of the
+analytic reasoning under disclosed premises, not an independent
+confirmation.**
+
+A supplied synthesis describing five runs against this tree's own
+`SEED.md`, reportedly not shown this file or `TIME_PROMPT_v2.md`, landed 2026-09-16
+(`BLIND_RUN_REPORT_20260916.md`, synthesized in `BLIND_RECONCILIATION.md`).
+The following is report-relative rescoring, not a verified replay or a
+refutation of the model-local Lean theorems. Independence is not certified;
+raw runs are absent and the synthesis flags a shared environment. Costs
+below belong to the report's candidate space, not a proven translation of
+the Boolean model. With those limits:
+
+- **AP1 (unoriented = swap-automorphism): HIT**, first clause. Its second
+  clause ("separates nothing the bare boundary did not") is a **MISS**: the
+  both-crossings unoriented reading separates the two data while the swap
+  remains an automorphism — separability and interchangeability are
+  independent (`DIVERGENCES [2]`).
+- **AP2 (oriented reading breaks the symmetry at exactly one admitted
+  capability): reported MISS for the generalized toll reading.** The
+  synthesis reports minimum rigid responses at item cost 1 and
+  swap-preserving separating responses at item cost 2 (`DIVERGENCES [1]`).
+  This does not refute the Boolean model's exactly-one-witness theorem;
+  the comparative claim requires an explicit bridge between counters.
+- **AP3 (two kinds, one primitive, one toll): PARTIAL.** "Two kinds,
+  separated by the automorphism invariant" is a reported
+  HIT (`HONEST_VERDICT`, paragraph 1). "One toll" survives only if its
+  direction is left unstated; stated as this file originally stated it
+  (orientation is the paid side), it is the MISS `DIVERGENCES [1]` records.
+- **AP4 (the arrow is priced-and-internal only after the toll is paid, never
+  a free external given): MISS**, and not a narrow one. Blind: "the oriented
+  reading's event history is a strict prefix of the symmetric one, the
+  witnessing observer costs zero admissions" (`HONEST_VERDICT`, paragraph 2).
+  That zero is the observing context's cost, not the oriented object's
+  admission count. The reported one-item versus two-item comparison is
+  model-relative, not a universal reversal of the one-witness theorem.
+- **AP5 (one primitive at two capability levels, split = the paid
+  orientation): reported MISS**, for the same reason as AP4. The report
+  challenges this generalization; a cross-model price theorem is absent.
+
+Per this file's own discipline reminder above ("the valuable outcomes are the
+divergences... a blind agent that finds the orientation free... is telling us
+our prediction was wrong — which is the point"): this is exactly that
+outcome, and it is recorded as a downgrade rather than reconciled into a
+tidier restatement. What survives across both runs is narrower than what was
+claimed: oriented and unoriented are different kinds, reached by an
+admitted witness rather than a from-nowhere observer (`OB-B-EMPTY`, now also
+`OB-B-EMPTY-BLIND-JUDGEMENT`). Which side of that distinction costs more is
+open, not one-capability-on-the-orientation-side as this file said in 2026-09.
+See `BLIND_RECONCILIATION.md` for the full account, including the real
+residual complexity (an unpayable polarity remainder, a counter-level where
+the two readings collapse, tied non-isomorphic minima) the frozen predictions
+never contemplated and this outcome does not resolve.

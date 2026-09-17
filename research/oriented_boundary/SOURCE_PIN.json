@@ -4,7 +4,8 @@
   "repository": "https://github.com/dbccpage/19L57G1",
   "baseline_commit": "1ab151a201acfc3c5e0ff9d72bb19d32981b0b2d",
   "kind": "open, analytic (not blind) object-language result",
-  "discharges": "SF-OPEN-A (research/side_free/CLAIM_LEDGER.md)",
+  "related_question": "SF-OPEN-A (research/side_free/CLAIM_LEDGER.md); no discharge imported into that isolated control",
+  "discharges_side_free_obstruction": false,
   "consumes_sealed_files": false,
-  "note": "This tree is a self-contained finite lemma: a two-element carrier with Bool-valued judgments. It vendors and textually consumes NO sealed file, so there is no sha256 source-manifest to drift and no gate-11 pin to guard. The baseline_commit is nominal provenance only. The mechanization (Python + Lean) and the discharge argument stand on their own; see MECHANIZATION.md and CLOSURE.md. Grade: OB-B-EMPTY is Lean-proved (axioms within {propext, Quot.sound}); the kind conclusion and the SF-OPEN-A discharge are analytic, corroborated by one independent clean-model run (VERDICT T7)."
+  "note": "This tree is a self-contained finite lemma: a two-element carrier with Bool-valued judgments. It vendors and textually consumes NO sealed file, so there is no sha256 source-manifest to drift and no gate-11 pin to guard. The baseline_commit is nominal provenance only. The mechanization (Python + Lean) and the proposed analytic kind argument stand on their own; see MECHANIZATION.md and CLOSURE.md. Grade: OB-B-EMPTY is Lean-proved (axioms within {propext, Quot.sound}) in its stipulated model; the kind argument is analytic and does not discharge the isolated side-free control's obstruction. The earlier independent-confirmation claim for VERDICT T7 is withdrawn: its prompt supplied the load-bearing premise. The supplied later synthesis reports compatible judgements, but raw runs and isolation records are absent and independence is not certified. See BLIND_RECONCILIATION.md; neither a sealed-to-model bridge nor a cross-model cost theorem is claimed."
 }

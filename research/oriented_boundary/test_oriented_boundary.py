@@ -57,6 +57,10 @@ class TestBEmpty(unittest.TestCase):
         self.assertEqual(r["S2_O_breaking_witness_count"], 1)
         self.assertEqual(r["n_admitted_sets_checked"], len(_all_admitted_sets()))
         self.assertEqual(r["S2_O_breaking_witness_count"], len(breaking_witnesses(S2_O)))
+        self.assertNotIn("discharges", r)
+        self.assertFalse(r["discharges_side_free_obstruction"])
+        self.assertFalse(r["independent_confirmation"])
+        self.assertIn("model-local", r["grade"])
 
 
 if __name__ == "__main__":
