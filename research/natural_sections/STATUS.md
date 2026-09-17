@@ -6,7 +6,7 @@ derivation and amends nothing under `prompt/`, `paper/`, `code/`,
 
 | object | id |
 |---|---|
-| source snapshot | `a36d34948ffd2a24ee99ec717f903f57141095c7`, tree `603478526a6c06de116c843956da7e76d280c4b6` |
+| source snapshot | `908d89705daa4794740b6567fdb7272a8203a5c3`, tree `c86338c34c3b2d83a4633cab198e2aa45d3a976b` |
 | semantic root | `Derivation.PresentationNaturality` (import closure: 12 sealed modules, all pinned in `SOURCE_MANIFEST.json`) |
 
 ## Question
@@ -1864,6 +1864,21 @@ is the same shape as the sibling steps; it is not applied here.
 * The countermodels separate the fixed-point reading from the
   fixed-pair reading; they say nothing about which automorphisms arise
   from any presentation theory.
+* **Evidence-scope correction (2026-09-16).** The B6 entry and the
+  earlier "OPEN here" wording record this tree's evidence boundary,
+  not the state of outside knowledge. NS-95 now classifies only the
+  verified window (`4/5` peak) as `finite computation`. No universal
+  bound or internal countermodel beyond that window is established;
+  the finite calculation supplies neither. External citations are
+  not admitted as internal countermodels.
+* **Source-pin refresh (2026-09-16).** The manifest and table now name
+  the PR base snapshot. Within the twelve-module import closure,
+  only comments in `PrimitiveContact.lean` and `PrimitivePassage.lean`
+  changed since the previous manifest snapshot; their digests are
+  refreshed. Other sealed-path changes between snapshots are accepted
+  as upstream history, not changes made by this research tree. The
+  verifier still requires an exact import closure, snapshot ancestry,
+  unchanged sealed paths since the new snapshot, and a clean seal.
 
 ## Commands (run from the repository root)
 

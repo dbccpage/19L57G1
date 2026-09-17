@@ -322,6 +322,23 @@ class ClaimLedgerTests(unittest.TestCase):
         duplicates = sorted({i for i in ids if ids.count(i) > 1})
         self.assertEqual(duplicates, [], f"claim ids used more than once: {duplicates}")
 
+    def test_ns95_classifies_only_the_computed_window(self) -> None:
+        rows = [line for line in self.LEDGER.read_text(encoding="utf-8").splitlines()
+                if line.startswith("| NS-95 |")]
+        self.assertEqual(len(rows), 1)
+        fields = [field.strip() for field in rows[0].split("|")]
+        self.assertEqual(fields[3], "finite computation")
+        self.assertIn("2 <= n <= 10^6", fields[2])
+        self.assertIn("no universal growth bound", fields[2])
+        self.assertIn("test_growth_maximum_is_four_fifths_at_part_count_five", fields[4])
+
+    def test_status_source_snapshot_matches_manifest(self) -> None:
+        snapshot = verify_pins.read_manifest()["source_snapshot"]
+        table = next(line for line in (TREE / "STATUS.md").read_text(encoding="utf-8").splitlines()
+                     if line.startswith("| source snapshot |"))
+        self.assertIn(snapshot["commit"], table)
+        self.assertIn(snapshot["tree"], table)
+
     def test_the_reserved_range_holds_only_its_reservation(self) -> None:
         """NS-80..NS-89 is reserved in the ledger's own prose for one branch.
 
