@@ -1,8 +1,8 @@
 {
   "schema": "natural_sections_source_manifest/v1",
   "source_snapshot": {
-    "commit": "042b7041927261c87c0e846b628ed76c750243c9",
-    "tree": "3995f1294d323385ba843c6fcd41b83ef4d7807c"
+    "commit": "908d89705daa4794740b6567fdb7272a8203a5c3",
+    "tree": "c86338c34c3b2d83a4633cab198e2aa45d3a976b"
   },
   "hash_basis": "SHA-256 of canonical Git blobs, checked at the source snapshot AND at the verification HEAD; independent of checkout line endings",
   "source_policy": "read-only sealed inputs; the module list is exactly the import closure of the semantic roots, computed from the import lines of the snapshot blobs and checked in both directions; the snapshot commit must resolve, must be an ancestor of HEAD, and must carry the recorded tree; nothing under a sealed prefix may differ between the snapshot and HEAD, be modified, be untracked, or be ignored-but-present in the worktree; the Lean package compiles staged copies of these blobs and declares no Lake dependency, so no build product leaves research/natural_sections/",
@@ -67,7 +67,7 @@
     {
       "module": "Derivation.PrimitiveContact",
       "path": "lean4/Derivation/PrimitiveContact.lean",
-      "sha256": "400DB03613A0960DFA5FEBBFE780EA36C0C85F79F1489E7CE24ABACA3328CEBD",
+      "sha256": "448BD29D6E5DB6B3A615AA02B28D704F8604C0163E611CEBE50860EE87ACC23F",
       "role": "transitive compilation input"
     },
     {
@@ -79,7 +79,7 @@
     {
       "module": "Derivation.PrimitivePassage",
       "path": "lean4/Derivation/PrimitivePassage.lean",
-      "sha256": "EC48FE566F97FE5593DB6997BF0F036DAA82F04DB817DF48B2CFB99B0F275E03",
+      "sha256": "E14CA1A035E90E2D28CCE2ACA46F92425BF6E9304C8D274FBD2A21ADD09BD8A8",
       "role": "transitive compilation input"
     }
   ]
