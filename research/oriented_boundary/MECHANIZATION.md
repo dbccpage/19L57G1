@@ -1,11 +1,17 @@
 # Mechanization — the (B)-is-empty lemma (discharges SF-OPEN-A)
 
+**Evidence boundary (2026-09-16).** The later synthesis is a supplied
+report, not locally authenticated independent-run evidence. Its shared-environment
+flag, absent raw runs, distinct cost counters, and missing cross-model bridge
+limit every reported HIT/MISS below; see `BLIND_RECONCILIATION.md`.
+Zero observer cost does not mean a zero-admission oriented object.
+
 `AuthorityEffect: None.` Object-language result. Touches nothing under the seal.
 **Analytic, not blind** (see `CLOSURE.md`): author-reasoned, then reproduced by a
 model run under disclosed premises at VERDICT T7. That run is **not**
 independent confirmation — see `BLIND_RECONCILIATION.md`, dated 2026-09-16 —
 and the frozen predictions in `AUTHOR_READING.md` are rescored there against a
-genuinely blind run instead. This folder adds the mechanization the closure
+reported blind run instead. This folder adds the mechanization the closure
 planned; the caveats below on what it does and does not establish are
 unchanged in kind, sharper in one place (see "What is NOT mechanized").
 
@@ -45,8 +51,8 @@ existence conditions, recorded in `CLOSURE.md`, graded Representation. And
 Also NOT mechanized, as of 2026-09-16: the **toll direction**. `OB-ONE-CAPABILITY`
 is a real Lean theorem about the stipulated two-judgment model in
 `Basic.lean`, but that model does not itself establish that orientation is
-the side of a separating response that costs — a genuinely blind run found
-the reverse over a wider, non-isomorphic candidate space (`BLIND_RECONCILIATION.md`).
+the side of a separating response that costs. The supplied synthesis reports
+a different item-price comparison in a different candidate space (`BLIND_RECONCILIATION.md`).
 No corrected toll-direction theorem is mechanized here; the blind report's
 own residuals (an unpayable polarity remainder, tied non-isomorphic minima, a
 counter-level collapse) make a single clean replacement theorem premature,
@@ -56,13 +62,13 @@ not merely undone.
 
 The derivation is the author's (Jeremy Carroll). Grades: `OB-B-EMPTY`
 Derivation (Lean, over a stipulated model — see its docstring and
-`CLAIM_LEDGER.md`'s caveat), also confirmed as `OB-B-EMPTY-BLIND-JUDGEMENT`
-(judgement, not mechanized, five independent runs); the exhaustive check
+`CLAIM_LEDGER.md`'s caveat), also reported as `OB-B-EMPTY-BLIND-JUDGEMENT`
+(judgement, not mechanized; independence not certified); the exhaustive check
 Representation (Python); `OB-KIND` Representation, narrowed to the kind
 question only; `OB-ONE-CAPABILITY` Derivation over its stipulated model,
 toll-direction claim superseded; the SF-OPEN-A discharge Representation,
-downgraded — analytic plus a genuinely blind confirmation of the kind
-question, **not** the "one independent clean-model confirmation" this file
+downgraded — analytic plus a reported judgement on the kind
+question, with independence not certified, **not** the "one independent clean-model confirmation" this file
 previously claimed (`TIME_PROMPT_v2.md` discloses its own conclusion; see
 `BLIND_RECONCILIATION.md`).
 
@@ -70,6 +76,6 @@ This tree lives at `research/oriented_boundary/` with a light `SOURCE_PIN.json`
 (no sealed consume, so no gate-11 pin). `research/side_free/CLAIM_LEDGER.md`
 records a "Correction, recorded" discharge under SF-OPEN-A (the verifier does
 not read the ledger, so a note keeps it green), itself corrected alongside
-this file. The blind `SEED.md` is no longer parked — it has run
-(`BLIND_RUN_REPORT_20260916.md`) — and its findings are reconciled in
+this file. The supplied synthesis reports runs of `SEED.md`
+(`BLIND_RUN_REPORT_20260916.md`); its claims and their limits are reconciled in
 `BLIND_RECONCILIATION.md`.

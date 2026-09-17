@@ -9,8 +9,8 @@ A judgment is read by its action on the tested ordered pair (x, y): the pair
 (d x y, d y x). The swap σ = (x y) preserves it iff it is symmetric on the pair;
 it "distinguishes" the pair (a mechanism-(A) witness) iff it is asymmetric.
 
-Scope note, recorded (2026-09-16) after an audit prompted by a genuinely
-blind run scoring differently than this analytic one (../BLIND_RECONCILIATION.md).
+Scope note, recorded (2026-09-16) after an audit prompted by a reported
+blind synthesis (provenance limits in ../BLIND_RECONCILIATION.md).
 `Judgment`, `distinguishes` and `swapPreserves` are declared here, freely, as a
 self-contained two-Boolean model -- they are not derived from the sealed
 derivation's own primitives (`Derivation.Regime`, its admission events,

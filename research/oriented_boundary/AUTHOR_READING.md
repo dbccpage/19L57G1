@@ -92,7 +92,7 @@ Scored against the frozen predictions:
 The space/time functor stays deferred and refused here: the result is about the
 object language, not nature. See `CLOSURE.md` for the discharge of `SF-OPEN-A`.
 
-## Outcome (2026-09-16) — the genuinely blind run, and a downgrade
+## Outcome (2026-09-16) — the reported blind run, and a downgrade
 
 The 2026-09-10 HIT above rests on `TIME_PROMPT_v2.md`, which — checked
 directly — is not blind: it self-declares "an ANALYTIC PROOF-PROMPT, not a
@@ -104,10 +104,14 @@ premise determines is not evidence; it is restating the input. **The
 analytic reasoning under disclosed premises, not an independent
 confirmation.**
 
-A genuinely blind run — five independent agents against this tree's own
-`SEED.md`, none shown this file or `TIME_PROMPT_v2.md` — landed 2026-09-16
+A supplied synthesis describing five runs against this tree's own
+`SEED.md`, reportedly not shown this file or `TIME_PROMPT_v2.md`, landed 2026-09-16
 (`BLIND_RUN_REPORT_20260916.md`, synthesized in `BLIND_RECONCILIATION.md`).
-Rescored against the frozen predictions above, honestly:
+The following is report-relative rescoring, not a verified replay or a
+refutation of the model-local Lean theorems. Independence is not certified;
+raw runs are absent and the synthesis flags a shared environment. Costs
+below belong to the report's candidate space, not a proven translation of
+the Boolean model. With those limits:
 
 - **AP1 (unoriented = swap-automorphism): HIT**, first clause. Its second
   clause ("separates nothing the bare boundary did not") is a **MISS**: the
@@ -115,11 +119,13 @@ Rescored against the frozen predictions above, honestly:
   remains an automorphism — separability and interchangeability are
   independent (`DIVERGENCES [2]`).
 - **AP2 (oriented reading breaks the symmetry at exactly one admitted
-  capability): MISS.** 5/5 blind runs find the cheapest swap-preserving
-  separating response costs 2, not 1, and every cost-1 response already
-  breaks the swap (`DIVERGENCES [1]`).
+  capability): reported MISS for the generalized toll reading.** The
+  synthesis reports minimum rigid responses at item cost 1 and
+  swap-preserving separating responses at item cost 2 (`DIVERGENCES [1]`).
+  This does not refute the Boolean model's exactly-one-witness theorem;
+  the comparative claim requires an explicit bridge between counters.
 - **AP3 (two kinds, one primitive, one toll): PARTIAL.** "Two kinds,
-  separated by the automorphism invariant" is a real, independently-reached
+  separated by the automorphism invariant" is a reported
   HIT (`HONEST_VERDICT`, paragraph 1). "One toll" survives only if its
   direction is left unstated; stated as this file originally stated it
   (orientation is the paid side), it is the MISS `DIVERGENCES [1]` records.
@@ -127,10 +133,12 @@ Rescored against the frozen predictions above, honestly:
   a free external given): MISS**, and not a narrow one. Blind: "the oriented
   reading's event history is a strict prefix of the symmetric one, the
   witnessing observer costs zero admissions" (`HONEST_VERDICT`, paragraph 2).
-  Orientation is the *cheap* reading, not the paid one.
+  That zero is the observing context's cost, not the oriented object's
+  admission count. The reported one-item versus two-item comparison is
+  model-relative, not a universal reversal of the one-witness theorem.
 - **AP5 (one primitive at two capability levels, split = the paid
-  orientation): MISS**, for the same reason as AP4 — the mechanism this
-  prediction names (paying buys orientation) runs backwards blind.
+  orientation): reported MISS**, for the same reason as AP4. The report
+  challenges this generalization; a cross-model price theorem is absent.
 
 Per this file's own discipline reminder above ("the valuable outcomes are the
 divergences... a blind agent that finds the orientation free... is telling us
