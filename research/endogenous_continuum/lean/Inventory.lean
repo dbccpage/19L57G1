@@ -7,11 +7,12 @@ import IntervalDomain
 import IntervalMovegraph
 import DualCertificate
 import AdaptiveBudget
+import BeliefRevisionTree
 
 /-!
 # Target: Endogenous Continuum Lean 4 Census & Axiom Audit
 
-Comprehensive constructive census across all 8 endogenous continuum tracks:
+Comprehensive constructive census across all 9 endogenous continuum tracks:
 - Track 1: ObserverEnclosure (10 theorems)
 - Track 2: ProjectiveSystem (15 theorems)
 - Track 3: DissipativeCycle (11 theorems)
@@ -20,9 +21,10 @@ Comprehensive constructive census across all 8 endogenous continuum tracks:
 - Track 6: IntervalMovegraph (14 theorems)
 - Track 7: DualCertificate (10 theorems)
 - Track 8: AdaptiveBudget (9 theorems)
+- Track 9: BeliefRevisionTree (8 theorems)
 - EndogenousContinuum Baseline (7 theorems)
 
-Total: 116 constructive theorems.
+Total: 124 constructive theorems.
 AuthorityEffect: None.
 Axioms: strictly within {propext, Quot.sound}.
 -/
@@ -169,6 +171,18 @@ Axioms: strictly within {propext, Quot.sound}.
 #print axioms AdaptiveBudget.finite_exploration_bound
 
 -- ============================================================================
+-- Track 9: BeliefRevisionTree (8 theorems)
+-- ============================================================================
+#print axioms BeliefRevisionTree.tree_budget_leaf
+#print axioms BeliefRevisionTree.tree_budget_branch
+#print axioms BeliefRevisionTree.prune_root_exact
+#print axioms BeliefRevisionTree.prune_preserves_conservation
+#print axioms BeliefRevisionTree.monotone_pruning
+#print axioms BeliefRevisionTree.retraction_soundness_under_refusal
+#print axioms BeliefRevisionTree.agm_inclusion_leaf
+#print axioms BeliefRevisionTree.prune_nonexistent_leaf
+
+-- ============================================================================
 -- Baseline: EndogenousContinuum (7 theorems)
 -- ============================================================================
 #print axioms EndogenousContinuum.pathwayIndex_pos
@@ -180,4 +194,4 @@ Axioms: strictly within {propext, Quot.sound}.
 #print axioms EndogenousContinuum.reflTrans_refl
 
 def main : IO Unit := do
-  IO.println "Target Endogenous Continuum Complete Lean 4 Census (116 theorems verified)."
+  IO.println "Target Endogenous Continuum Complete Lean 4 Census (124 theorems verified)."

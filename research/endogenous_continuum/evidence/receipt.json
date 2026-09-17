@@ -12,9 +12,9 @@
       "Quot.sound",
       "propext"
     ],
-    "axiom_free_count": 54,
+    "axiom_free_count": 59,
     "build_status": "PASS",
-    "theorem_count": 116,
+    "theorem_count": 124,
     "theorem_details": {
       "AdaptiveBudget.allocation_preserves_conservation": [
         "propext",
@@ -43,6 +43,23 @@
       ],
       "AdaptiveBudget.sumAllocated_cons": [],
       "AdaptiveBudget.sumAllocated_nil": [],
+      "BeliefRevisionTree.agm_inclusion_leaf": [],
+      "BeliefRevisionTree.monotone_pruning": [
+        "propext",
+        "Quot.sound"
+      ],
+      "BeliefRevisionTree.prune_nonexistent_leaf": [],
+      "BeliefRevisionTree.prune_preserves_conservation": [
+        "propext",
+        "Quot.sound"
+      ],
+      "BeliefRevisionTree.prune_root_exact": [],
+      "BeliefRevisionTree.retraction_soundness_under_refusal": [
+        "propext",
+        "Quot.sound"
+      ],
+      "BeliefRevisionTree.tree_budget_branch": [],
+      "BeliefRevisionTree.tree_budget_leaf": [],
       "DissipativeCycle.acyclic_dissipative_terminates": [
         "propext",
         "Quot.sound"
@@ -316,7 +333,7 @@
   },
   "pytest": {
     "exit_code": 0,
-    "passed": 120,
+    "passed": 127,
     "status": "PASS"
   },
   "schema_version": 1,
@@ -326,10 +343,11 @@
   },
   "source_hashes": {
     ".gitattributes": "8d3cbb5c8e466acc37bd53780fb2f2564a6f2d41663b6a0bf22f8ae1dfb02b5d",
-    "CLAIMS.md": "0b58d623a6841ef3c4efc9d4744629d7a815a0f0708c877acdbc763e5f0f5519",
+    "CLAIMS.md": "27d1be0fee6090a682530a7f20d288ea60836e845d36a403c17af8aac5521a08",
     "README.md": "22f282beca9d07b84da7f68641bf0a0df949601410ae42a045a5c9ec3cd459aa",
     "SOURCE_MANIFEST.json": "5814cdddf1dba62886ded8409e094d38467744ea4ff5e9e3f0630a2d9c0a1cc8",
-    "__init__.py": "bbb71c83c22e9faf7776abf1412dca439e2406f0eec5c08f576ee5226576d273",
+    "__init__.py": "072bd57ae0d8c28f7b0b526d72b0cfc2d70311066ba92a08b0b2d88e2166f6ee",
+    "belief_revision_tree.py": "6923f3942e7740b70eef2f304a5ebd8ca2db57f7b06390c80bdd10308284bee0",
     "benchmark_hierarchical.py": "c446679e543ff9434236e57886cd3aef1b10e9a1f2025eccefffaa10fbd3b75b",
     "dissipative_cycle.py": "335d91526080afaf7836833fa2451e2ec720afb20b73bd4e3b8053b0557aa29f",
     "dual_relaxation.py": "8a4e420d9193b4a23f01f0ac446d00d594d2a9dcf55501d59b8accfa72c70e18",
@@ -337,13 +355,14 @@
     "internal_quotienting.py": "6e49ec433912d59357a941b7c0084c1410be37cdec670a25014a603012f2e26d",
     "interval_domain.py": "fa47ab717d3043655bfad44490ab3500c48413a1dde48e19e1817e7736bab471",
     "lean/AdaptiveBudget.lean": "a0ce0134a324966c1e50114f0eb4d9e27e2c0946bfa2bde3a6f3c64af08745dc",
+    "lean/BeliefRevisionTree.lean": "7134bf2ed98325da48c7d8bc4b48fbe859a0a6f854d97952d2105820b63605d7",
     "lean/DissipativeCycle.lean": "40e16d412ce71bbbe28905ee98f64755608b9138e0e5ebfddf1d443a581fa66d",
     "lean/DualCertificate.lean": "26811d0769cdb27e57d34982fb810a8e62c067affaa7e75c45e808c97d2e4712",
     "lean/EndogenousContinuum.lean": "f40b1408f8b5efbea9aa4d033cba2b6975bdeba044ae7bdf3958e2eb62913574",
     "lean/InternalQuotienting.lean": "c31a30fdbe4a1b77eabbbf5f05343ab040d46ca0103027b7113fffed41b9b0fb",
     "lean/IntervalDomain.lean": "c2ff8c0c57703c0213a5bbaa83a3b3a9e5e3668602472bb782c900c0ecd66c3a",
     "lean/IntervalMovegraph.lean": "a5675a5cf9aea0d56f24742bbe3e5116bce304db8c296ae2d3e34cb5cbe90bb3",
-    "lean/Inventory.lean": "4c1de4e8828fa0248848d283008930f0cc1eb65f16670858ac04285194c88aec",
+    "lean/Inventory.lean": "809c1e74739e3478df577315063346e02ea498a19ded881066fd20827f1bc1f3",
     "lean/ObserverEnclosure.lean": "6a67429aa9172052dbbfc72ebaca5f2ba5fa998411df9013b393275d6ee87422",
     "lean/ProjectiveSystem.lean": "d114cebe2bb6985ba306685d72f335eb248d4891ee855623bea483c359b437eb",
     "observer_enclosure.py": "fdba45b53199cd802356c268f10c7db62cf27f10ceac83486c84d9341cf4fd2b",
@@ -351,6 +370,7 @@
     "reasoning_agent.py": "1fccce107b95140c8e7eec4d66dfa4c16d07d80b75c640fb693fd27290483632",
     "tests/__init__.py": "44b1fc4e79bb35aa69c00ad6a8cbc1a1e68c6a9d8c7c18caee32ade0adcafa9b",
     "tests/test_adversarial.py": "009b9467334d52aff474c0e3fbf90c5e4ef7d1fcc990d93e8b9a647c08249b65",
+    "tests/test_belief_revision_tree.py": "09a80e3ce817527025170b5344e6c9421ef89c5bc86c5b7a9fd2deb02320b18c",
     "tests/test_benchmark_hierarchical.py": "cfa79265a2ee4cc86a925d00c074273062b1f9d40e0a2033e3cd6821bdee1fb5",
     "tests/test_dissipative_cycle.py": "2c1ec93863941fb38442dda746c1073a53732bd23b7b49066a1bb8e004c71968",
     "tests/test_dual_relaxation.py": "1d51a41ba28d60cc5c41df6261ef8c91753f2b0c2b36e76d8b7af7f5f288cbc6",

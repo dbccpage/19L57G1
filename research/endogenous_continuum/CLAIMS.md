@@ -4,7 +4,7 @@ AuthorityEffect: None.
 
 ## What it supports
 
-1. The checked Lean inventory reports 116 declarations: 54 axiom-free and the
+1. The checked Lean inventory reports 124 declarations: 59 axiom-free and the
    remainder depending only on `{propext, Quot.sound}`. The source scan rejects
    `sorry`, `admit`, `unsafe`, `partial`, and explicit `axiom` declarations in
    this package. This is an inventory claim, not a declaration-completeness
@@ -76,6 +76,10 @@ AuthorityEffect: None.
       shortest-distance bounds, reassigns reclaimed amounts, and then invokes
       checked coarse-to-fine search. Its SHA-256 values are deterministic
       content checksums, not signatures or authenticity proofs.
+12. Track 9 (Belief Revision Trees and Autonomous Multi-Hypothesis Coordination):
+    - Lean formalizes inductive branching hypothesis trees (`HypTree`), cumulative subtree budget accounting (`treeBudget`), and the subtree retraction operator (`pruneSubtree`). Lean establishes exact budget decomposition, budget conservation under subtree pruning, subtree descent deactivation, AGM inclusion on leaves, and non-empty pruning monotonicity.
+    - Python models `BranchingHypothesisTree`, an endogenous Truth Maintenance System (`TreeTMS`) tracking deductive justifications and resolving refutation conflicts via AGM belief revision, and `AutonomousTreeReasoningCoordinator`.
+    - Python demonstrates 100% budget reclamation from certified refuted subtrees, dynamic redistribution preventing starvation in alternative viable branches, exact rational budget ledger conservation across tree exploration, and deterministic SHA-256 trace and justification hashing.
 
 ## What it does not support
 
@@ -96,6 +100,7 @@ AuthorityEffect: None.
    morphism. The executable checks that premise and falls back when it fails.
 9. Its deterministic checksums do not establish provenance, authorization,
    tamper resistance, or external identity.
+10. It does not provide first-order non-monotonic logic or general AGM belief revision over unbounded formula spaces; the TMS is scoped to finite reachability hypotheses, certified dual refutations, and direct contradiction resolution.
 
 ## Narrowest defensible claim
 
@@ -105,13 +110,13 @@ conditional quotient representatives, an overlapping dyadic interval
 domain establishing finite overlap-chain connectedness and confluent rewriting,
 discrete interval movegraphs with finite cost summaries, exact finite-graph path
 potentials, runtime-checked coarse-to-fine pruning with a safe fine-search
-fallback, and a one-shot budgeted coordinator with exact rational conservation.
+fallback, a one-shot budgeted coordinator with exact rational conservation,
+and an endogenous Truth Maintenance System over branching hypothesis trees
+with exact subtree budget reclamation.
 Its declared Lean inventory stays within the stated axiom allowlist, and its
 focused Python verifier rejects the recorded negative controls. No classical
 continuous object, limiting dimension, or analytical limit follows.
 
 ## Next test needed
 
-Construct a non-identity finite abstraction whose projected potential passes
-the executable lifted-edge check, then compare its bounded search telemetry
-against the current fallback cases without extrapolating beyond those graphs.
+Integration of multi-hypothesis belief revision trees with dynamic coarse abstraction refinement, testing whether refutation traces can synthesize tighter quotient projections across search iterations.
