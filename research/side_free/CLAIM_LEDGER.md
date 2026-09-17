@@ -595,16 +595,11 @@ What pays for separation in a world with no container is the admission order.
 This control prices that route; it does not decide what kind of thing an order
 is.  **OPEN OBSTRUCTION.**
 
-* **Correction, recorded (2026-09-11).**  SF-OPEN-A is DISCHARGED analytically
-  (not blind): an order is a paid symmetry-breaking admitted witness (mechanism
-  A, one capability), **not** a container — a container exists before its
-  contents, an order only with them (different existence conditions, different
-  kinds).  Load-bearing lemma: route (B) is empty — `σ ∉ Aut` forces an admitted
-  distinguishing witness, so the witnessless withdrawal does not exist —
-  mechanized in Lean and Python (`research/oriented_boundary/`), and
-  corroborated by one independent clean-model run at VERDICT T7.  The
-  **OPEN OBSTRUCTION** label above is superseded, not rewritten.  Object-language
-  result; the space/time reading stays a deferred, refused functor.
+* **Correction, recorded (2026-09-17).** The later analytic discharge and
+  independent-confirmation claim are WITHDRAWN for this control. They are not
+  established by this tree's pinned candidate space, computations or receipts.
+  No unrestricted cost conclusion is imported here. The obstruction remains
+  OPEN outside the declared comparison.
 
 ### SF-OPEN-B — the price of re-purchasing a per-mark two-valued datum
 

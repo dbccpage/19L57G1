@@ -5,6 +5,8 @@ The marker commit changes only the marker. Every later source snapshot, index,
 and working tree must preserve that source; only comparison.md may be added.
 Ignored build products are outside the tracked source census. Untracked source
 is refused, not silently excluded. A filename alone never retires isolation.
+The author-approved amendment in research/BOUNDARY_CUSTODY_AMENDMENT.md permits
+only exact listed apparatus exceptions; the original marker is not rewritten.
 """
 
 from __future__ import annotations
@@ -15,6 +17,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import re
 import stat
 import subprocess
 
@@ -22,6 +25,9 @@ ROOT = Path(__file__).resolve().parents[2]
 REL = "research/boundary_seed"
 MARKER = f"{REL}/FREEZE.md"
 COMPARISON = f"{REL}/comparison.md"
+POLICY = "research/boundary_custody_policy.json"
+APPARATUS = {f"{REL}/SOURCE_MANIFEST.json", f"{REL}/verify_sources.py"}
+CHECKER = f"{REL}/verify_freeze.py"
 
 
 def git(root: Path, *args: str, data: bytes | None = None) -> bytes:
@@ -200,16 +206,88 @@ def local_source_problems(
 class FreezeAudit:
     commit: str | None
     problems: tuple[str, ...]
+    acknowledged: tuple[str, ...] = ()
 
     @property
     def frozen(self) -> bool:
         return self.commit is not None and not self.problems
 
 
+def ancestor(root: Path, older: str, newer: str) -> bool:
+    proc = subprocess.run(
+        ["git", "--no-replace-objects", "merge-base", "--is-ancestor", older, newer],
+        cwd=root, capture_output=True,
+    )
+    if proc.returncode not in (0, 1):
+        raise ValueError("custody policy ancestry could not be established")
+    return proc.returncode == 0
+
+
+def policy_maps(root: Path, freeze: str) -> tuple[str, dict[str, dict[str, Blob]], dict[str, Blob]] | None:
+    """A committed, explicit amendment; never infer permission from live bytes."""
+    present = git(root, "ls-tree", "HEAD", "--", POLICY)
+    local = root / POLICY
+    if not present:
+        if local.exists() or local.is_symlink():
+            raise ValueError("custody policy must be committed before it can authorize exceptions")
+        return None
+    committed = git(root, "show", f"HEAD:{POLICY}")
+    if local.is_symlink() or not local.is_file():
+        raise ValueError("custody policy must be a regular file")
+    if git(root, "show", f":{POLICY}") != committed or git(
+        root, "hash-object", "--", POLICY
+    ).strip() != git(root, "rev-parse", f"HEAD:{POLICY}").strip():
+        raise ValueError("custody policy differs between HEAD, index and working bytes")
+
+    def unique(pairs: list[tuple[str, object]]) -> dict[str, object]:
+        result: dict[str, object] = {}
+        for key, value in pairs:
+            if key in result:
+                raise ValueError(f"duplicate custody policy key: {key}")
+            result[key] = value
+        return result
+
+    data = json.loads(committed, object_pairs_hook=unique)
+    if not isinstance(data, dict) or set(data) != {
+        "schema", "freeze", "baseline", "historical_exceptions", "current_blobs"
+    } or data["schema"] != "boundary-custody-amendment-v1" or data["freeze"] != freeze:
+        raise ValueError("custody policy schema or freeze differs")
+    base = data["baseline"]
+    if not isinstance(base, str) or re.fullmatch(r"[0-9a-f]{40}", base) is None:
+        raise ValueError("custody policy baseline must be an exact commit")
+    if not ancestor(root, freeze, base) or not ancestor(root, base, "HEAD"):
+        raise ValueError("custody policy baseline is not between freeze and HEAD")
+
+    def parse_map(raw: object, allowed: set[str]) -> dict[str, Blob]:
+        if not isinstance(raw, dict) or set(raw) != allowed:
+            raise ValueError("custody policy path census differs")
+        result: dict[str, Blob] = {}
+        for path, oid in raw.items():
+            if not isinstance(oid, str) or re.fullmatch(r"[0-9a-f]{40}", oid) is None:
+                raise ValueError("custody policy requires exact blob identifiers")
+            if git(root, "cat-file", "-t", oid).strip() != b"blob":
+                raise ValueError("custody policy identifier is not a blob")
+            result[path] = Blob("100644", oid)
+        return result
+
+    raw_history = data["historical_exceptions"]
+    if not isinstance(raw_history, dict) or not raw_history:
+        raise ValueError("custody policy requires a nonempty historical exception census")
+    history: dict[str, dict[str, Blob]] = {}
+    for commit, raw in raw_history.items():
+        if not isinstance(commit, str) or re.fullmatch(r"[0-9a-f]{40}", commit) is None:
+            raise ValueError("custody policy history requires exact commits")
+        if not ancestor(root, freeze, commit) or not ancestor(root, commit, base):
+            raise ValueError("custody policy exception outside the historical interval")
+        history[commit] = parse_map(raw, APPARATUS)
+    return base, history, parse_map(data["current_blobs"], APPARATUS | {CHECKER})
+
+
 def audit(root: Path = ROOT, *, working: bool = True) -> FreezeAudit:
     """Fail closed for a malformed marker, incomplete history, or source revision."""
     problems: list[str] = []
     freeze: str | None = None
+    acknowledged: list[str] = []
     try:
         graft_path = Path(git(root, "rev-parse", "--git-path", "info/grafts").decode().strip())
         if not graft_path.is_absolute():
@@ -251,6 +329,7 @@ def audit(root: Path = ROOT, *, working: bool = True) -> FreezeAudit:
             problems.append(f"FREEZE.md {freeze}: bytes differ from the exact complete parent manifest {source}")
         baseline = tree(root, source)
         baseline[MARKER] = marker
+        policy = policy_maps(root, freeze)
         commits = git(
             root, "rev-list", "--reverse", "--full-history",
             f"{freeze}..HEAD", "--", REL,
@@ -260,24 +339,35 @@ def audit(root: Path = ROOT, *, working: bool = True) -> FreezeAudit:
         ).decode("ascii").splitlines()) | {freeze, "HEAD"}
         # HEAD is checked even when it did not itself modify the write root.
         commits = list(dict.fromkeys([freeze, *commits, "HEAD"]))
+        if policy is not None and not set(policy[1]).issubset(commits):
+            problems.append("custody policy historical census contains unvisited exceptions")
         for commit in commits:
             current = tree(root, commit)
+            expected_tree = baseline
+            if policy is not None:
+                base, history, approved = policy
+                if commit in history:
+                    expected_tree = baseline | history[commit]
+                    acknowledged.append(f"{commit}: approved historical apparatus exception")
+                elif commit == "HEAD" or (commit != base and ancestor(root, base, commit)):
+                    expected_tree = baseline | approved
             if commit not in descendants and not current:
                 parents = git(root, "rev-list", "--parents", "-n", "1", commit).decode("ascii").split()[1:]
                 if any(tree(root, parent) for parent in parents):
                     problems.append(f"{commit}:{REL}: newly reachable history deletes the source root")
                 continue
-            for path in sorted(set(baseline) | set(current)):
+            for path in sorted(set(expected_tree) | set(current)):
                 if path == MARKER and commit not in descendants and path not in current:
                     continue
                 if path == COMPARISON:
                     if commit not in descendants and path in current:
                         problems.append(f"{commit}:comparison.md is not descended from the freeze")
                     continue
-                if current.get(path) != baseline.get(path):
+                if current.get(path) != expected_tree.get(path):
                     problems.append(f"{commit}:{path}: source changed after freeze")
         if working:
-            problems.extend(local_source_problems(root, baseline, allow_comparison=True))
+            live_baseline = baseline if policy is None else baseline | policy[2]
+            problems.extend(local_source_problems(root, live_baseline, allow_comparison=True))
             local_marker = root / MARKER
             if local_marker.is_symlink() or not local_marker.is_file() or local_marker.read_bytes() != expected:
                 problems.append("working:FREEZE.md: raw marker bytes differ from the parent manifest")
@@ -286,7 +376,7 @@ def audit(root: Path = ROOT, *, working: bool = True) -> FreezeAudit:
                 problems.append("working:comparison.md: comparison must be a regular file")
     except (ValueError, OSError, UnicodeError) as exc:
         problems.append(str(exc))
-    return FreezeAudit(freeze, tuple(problems))
+    return FreezeAudit(freeze, tuple(problems), tuple(acknowledged))
 
 
 def write_marker(root: Path = ROOT) -> None:
@@ -322,6 +412,8 @@ def main() -> int:
         print("generated FREEZE.md; source isolation remains active until the dedicated commit is validated")
         return 0
     result = audit()
+    for entry in result.acknowledged:
+        print(f"AMENDED CUSTODY, not an unbroken original freeze: {entry}")
     for problem in result.problems:
         print(f"FAIL: {problem}")
     if result.problems or (args.require_frozen and not result.frozen):

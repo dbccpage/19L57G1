@@ -11,12 +11,17 @@ so a name that appeared between commits cannot evade the scan.  Undecodable
 or symlinked files fail closed, because an all-file scan cannot certify bytes
 it did not inspect.
 
+The author has acknowledged exactly two historical ledger snapshots. Their
+bytes and complete hit lists are pinned below; this is amended custody, not
+a claim of unbroken isolation. No current or future citation is exempted.
+
 This file is itself scanned, so every barred example below is assembled from
 pieces.
 """
 
 from __future__ import annotations
 
+import hashlib
 import pathlib
 import re
 import subprocess
@@ -36,6 +41,19 @@ CARVED_PATHS: tuple[str, ...] = (
     f"{REL}/pinned/QUOTATIONS.md",
 )
 CARVED_TREE = "boundary" + "_" + "seed"
+
+# Author-approved retrospective exceptions, not an additional live carve.
+ACKNOWLEDGED_TREE = "oriented" + "_" + "boundary"
+HISTORICAL_LEDGER: dict[str, tuple[str, tuple[int, ...]]] = {
+    "c0c4ac505faa2d745a7e847f2746724ec7c8d1d9": (
+        "f20e7ee817ae492c85418230e8dae2511ed0e83eba313f958e59f5dd2f6e106c",
+        (604, 604, 605),
+    ),
+    "81ef18ff0c578b3c6b683a9790db15ec5eba9fdb": (
+        "c64833e18f8c0c32eabfa15dcb905bce63b07555c3d24a454c29fc0c77a8f439",
+        (604, 604),
+    ),
+}
 
 SEALED_PATTERNS: tuple[tuple[str, str], ...] = (
     ("citation into the sealed paper", r"\bpaper[\\/][^\s`'\"<>]+?\.md\b"),
@@ -58,7 +76,7 @@ SEALED_PATTERNS: tuple[tuple[str, str], ...] = (
 
 
 def git_bytes(args: list[str]) -> bytes:
-    proc = subprocess.run(["git", *args], cwd=ROOT, capture_output=True)
+    proc = subprocess.run(["git", "--no-replace-objects", *args], cwd=ROOT, capture_output=True)
     if proc.returncode != 0:
         detail = proc.stderr.decode("utf-8", errors="replace").strip()
         raise RuntimeError(f"git {' '.join(args)} failed: {detail}")
@@ -139,6 +157,23 @@ def tracked_paths() -> list[str]:
     )
 
 
+def historical_problems(
+    data: bytes, commit: str, repo_path: str, patterns: list[tuple[str, str]],
+) -> tuple[list[str], bool]:
+    """Acknowledge only an exact historical snapshot and its entire hit list."""
+    source = f"{commit[:12]}:{repo_path}"
+    problems = scan_bytes(data, source, patterns)
+    if commit not in HISTORICAL_LEDGER or repo_path != f"{REL}/CLAIM_LEDGER.md":
+        return problems, False
+    digest, lines = HISTORICAL_LEDGER[commit]
+    expected = [
+        f"{source}:{line}: other research tree {ACKNOWLEDGED_TREE}" for line in lines
+    ]
+    if hashlib.sha256(data).hexdigest() != digest or problems != expected:
+        return [f"{source}: historical exception bytes or complete hit list differ", *problems], False
+    return [], True
+
+
 class SourceIsolation(unittest.TestCase):
     def test_the_tree_is_source_isolated_under_the_one_carve(self) -> None:
         names = other_tree_names()
@@ -162,7 +197,7 @@ class SourceIsolation(unittest.TestCase):
         self.assertGreater(scanned, 0)
         self.assertEqual(problems, [], "\n".join(problems))
 
-    def test_every_committed_version_of_the_tree_is_isolated(self) -> None:
+    def test_every_committed_version_is_isolated_or_exactly_acknowledged(self) -> None:
         shallow = git_bytes(["rev-parse", "--is-shallow-repository"]).decode().strip()
         self.assertEqual(shallow, "false", "a shallow clone cannot certify history")
         names = other_tree_names()
@@ -175,18 +210,21 @@ class SourceIsolation(unittest.TestCase):
         ]
         self.assertGreater(len(commits), 0)
         problems: list[str] = []
+        acknowledged: set[str] = set()
         for commit in commits:
             for repo_path in nul_paths(
                 git_bytes(["ls-tree", "-r", "-z", "--name-only", commit, "--", REL])
             ):
                 data = git_bytes(["show", f"{commit}:{repo_path}"])
-                problems.extend(
-                    scan_bytes(
-                        data,
-                        f"{commit[:12]}:{repo_path}",
-                        patterns_for(repo_path, names),
-                    )
+                found, accepted = historical_problems(
+                    data, commit, repo_path, patterns_for(repo_path, names)
                 )
+                problems.extend(found)
+                if accepted:
+                    acknowledged.add(commit)
+        self.assertEqual(acknowledged, set(HISTORICAL_LEDGER), "exception census must be fully visited")
+        for commit in sorted(acknowledged):
+            print(f"AMENDED ISOLATION, not an unbroken history: {commit}: exact ledger snapshot")
         self.assertEqual(problems, [], "\n".join(problems))
 
 
