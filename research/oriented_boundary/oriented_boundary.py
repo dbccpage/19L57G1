@@ -1,10 +1,10 @@
-"""Mechanization of the (B)-is-empty lemma that discharges SF-OPEN-A.
+"""Mechanization of the (B)-is-empty lemma in a stipulated Boolean model.
 
 Classification: metatheory apparatus for an OPEN, ANALYTIC result. Touches
-nothing under the seal. The result is ANALYTIC (author-reasoned, then reproduced
-by a clean model run at VERDICT T7), not blind. See ``CLOSURE.md`` (this folder)
-for the discharge and ``research/side_free/CLAIM_LEDGER.md`` (SF-OPEN-A, in the
-19L57G1 repository) for the obstruction.
+nothing under the seal. The proposed kind argument is ANALYTIC, not blind;
+VERDICT T7 reproduced supplied premises, not independent confirmation.
+See ``CLOSURE.md`` and ``BLIND_RECONCILIATION.md`` for its limits. This model
+does not discharge SF-OPEN-A in the isolated side-free control.
 
 The question SF-OPEN-A left open was the *kind* classification: what kind of
 thing is the admission order? The load-bearing lemma is that route (B) is empty.
@@ -86,7 +86,7 @@ def breaking_witnesses(admitted: Sequence[Judgment]) -> tuple[Judgment, ...]:
 
 
 def receipt() -> dict[str, Any]:
-    """Deterministic record of the mechanized discharge."""
+    """Deterministic record of the model-local exhaustive check."""
     subsets = _all_admitted_sets()
     b_empty_all = all(b_is_empty(s) for s in subsets)
     # swap in Aut IFF no (A) witness -- exhaustively, over every admitted set.
@@ -103,9 +103,10 @@ def receipt() -> dict[str, Any]:
         "S2_U_swap_is_automorphism": swap_in_aut(S2_U),  # AP1: True
         "S2_O_swap_is_automorphism": swap_in_aut(S2_O),  # AP2: False
         "S2_O_breaking_witness_count": len(breaking_witnesses(S2_O)),  # exactly one capability
-        "discharges": "SF-OPEN-A (research/side_free/CLAIM_LEDGER.md): an order is a paid "
-        "symmetry-breaking admitted witness (mechanism A, one capability), not a container.",
-        "grade": "analytic discharge (not blind); object-language only, not physics",
+        "scope": "stipulated Boolean judgment model; no sealed-to-model or cost-preserving bridge",
+        "discharges_side_free_obstruction": False,
+        "independent_confirmation": False,
+        "grade": "finite exhaustive check; model-local, not a general cost or kind theorem",
     }
 
 

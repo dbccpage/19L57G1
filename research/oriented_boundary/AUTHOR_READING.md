@@ -90,7 +90,8 @@ Scored against the frozen predictions:
   *succession* the word "time" names.
 
 The space/time functor stays deferred and refused here: the result is about the
-object language, not nature. See `CLOSURE.md` for the discharge of `SF-OPEN-A`.
+object language, not nature. See `CLOSURE.md` for the proposed analytic answer
+to `SF-OPEN-A`, not a discharge imported into the isolated control.
 
 ## Outcome (2026-09-16) — the reported blind run, and a downgrade
 

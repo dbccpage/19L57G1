@@ -73,5 +73,8 @@ claims can be established.
 
 The independent-confirmation claim is withdrawn in `SOURCE_PIN.json`,
 `CLOSURE.md`, `AUTHOR_READING.md`, `MECHANIZATION.md` and both ledgers.
+The side-free control has also withdrawn the purported analytic discharge.
+This tree's proposed kind argument does not discharge SF-OPEN-A in the isolated control;
+the Python record and source metadata now state that boundary explicitly.
 The supplied report remains unchanged so that its assertions and these
 limits can be inspected separately.

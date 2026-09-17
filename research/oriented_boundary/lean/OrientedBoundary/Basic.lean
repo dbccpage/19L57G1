@@ -1,5 +1,5 @@
 /-
-The (B)-is-empty lemma: the load-bearing result that discharges SF-OPEN-A.
+The (B)-is-empty lemma in a stipulated Boolean judgment model.
 
 Open, analytic result. Touches nothing under the seal. Analytic, not blind
 (../CLOSURE.md). Axioms are within {propext, Quot.sound}; no

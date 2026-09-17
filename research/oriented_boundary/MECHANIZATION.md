@@ -1,4 +1,4 @@
-# Mechanization — the (B)-is-empty lemma (discharges SF-OPEN-A)
+# Mechanization — the model-local (B)-is-empty lemma
 
 **Evidence boundary (2026-09-16).** The later synthesis is a supplied
 report, not locally authenticated independent-run evidence. Its shared-environment
@@ -66,16 +66,16 @@ Derivation (Lean, over a stipulated model — see its docstring and
 (judgement, not mechanized; independence not certified); the exhaustive check
 Representation (Python); `OB-KIND` Representation, narrowed to the kind
 question only; `OB-ONE-CAPABILITY` Derivation over its stipulated model,
-toll-direction claim superseded; the SF-OPEN-A discharge Representation,
-downgraded — analytic plus a reported judgement on the kind
+toll-direction claim superseded; the proposed SF-OPEN-A kind argument
+Representation, downgraded — analytic plus a reported judgement on the kind
 question, with independence not certified, **not** the "one independent clean-model confirmation" this file
 previously claimed (`TIME_PROMPT_v2.md` discloses its own conclusion; see
 `BLIND_RECONCILIATION.md`).
 
 This tree lives at `research/oriented_boundary/` with a light `SOURCE_PIN.json`
 (no sealed consume, so no gate-11 pin). `research/side_free/CLAIM_LEDGER.md`
-records a "Correction, recorded" discharge under SF-OPEN-A (the verifier does
-not read the ledger, so a note keeps it green), itself corrected alongside
-this file. The supplied synthesis reports runs of `SEED.md`
+records withdrawal of the purported discharge under SF-OPEN-A. That control
+does not import this tree's argument; its exact historical custody exceptions
+do not authorize a new cross-tree result or pointer. The supplied synthesis reports runs of `SEED.md`
 (`BLIND_RUN_REPORT_20260916.md`); its claims and their limits are reconciled in
 `BLIND_RECONCILIATION.md`.

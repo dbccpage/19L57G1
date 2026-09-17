@@ -28,6 +28,8 @@ class ReconciliationTests(unittest.TestCase):
         self.assertIn("is withdrawn", pin["note"])
         self.assertIn("independence is not certified", pin["note"])
         self.assertFalse(pin["consumes_sealed_files"])
+        self.assertNotIn("discharges", pin)
+        self.assertFalse(pin["discharges_side_free_obstruction"])
 
     def test_reconciliation_keeps_provenance_and_cost_boundaries(self) -> None:
         prose = (HERE / "BLIND_RECONCILIATION.md").read_text(encoding="utf-8")
@@ -36,6 +38,7 @@ class ReconciliationTests(unittest.TestCase):
         self.assertIn("zero-cost observing", prose)
         self.assertIn("not a zero-admission oriented object", prose)
         self.assertIn("no cost-preserving", prose)
+        self.assertIn("does not discharge SF-OPEN-A in the isolated control", prose)
 
 
 if __name__ == "__main__":

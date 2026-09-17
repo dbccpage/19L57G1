@@ -1,4 +1,4 @@
-# SF-OPEN-A — discharged. An order is not a container.
+# SF-OPEN-A — a proposed analytic kind argument, not a control discharge
 
 **Evidence boundary (2026-09-16).** The later synthesis is a supplied
 report, not locally authenticated independent-run evidence. Its shared-environment
@@ -6,13 +6,18 @@ flag, absent raw runs, distinct cost counters, and missing cross-model bridge
 limit every reported HIT/MISS below; see `BLIND_RECONCILIATION.md`.
 Zero observer cost does not mean a zero-admission oriented object.
 
-`AuthorityEffect: None.` The analytic closure of the inherited obstruction
+`AuthorityEffect: None.` A proposed analytic answer to the inherited obstruction
 `SF-OPEN-A` (`research/side_free/CLAIM_LEDGER.md`). This is an **open-tree**
 result: it touches nothing under the seal (`prompt/`, `paper/`,
 `code/derivation/`, `lean4/Derivation/`, `artifacts/`). It is **analytic, not
 blind** — reasoned by the author in session (Claude polluted), then a
 `TIME_PROMPT_v2.md` run was run and originally cited below as independent
 confirmation.
+
+**Custody boundary (2026-09-17).** The isolated side-free control has withdrawn
+the purported discharge: its own candidate space, computations and receipts
+do not establish it. The argument below belongs to this open tree only; it
+does not close that control's obstruction or authorize a cross-tree pointer.
 
 **Correction, recorded (2026-09-16), read before the rest of this file.**
 That citation was wrong: `TIME_PROMPT_v2.md` self-declares "an ANALYTIC
@@ -37,8 +42,8 @@ tree's current position.
 > route; it does not decide **what kind of thing an order is**. OPEN OBSTRUCTION.
 
 The open part was never "can order separate?" (it does, at a price) — it was the
-declined **kind-classification**: *what kind of thing is an order.* That is now
-decided.
+declined **kind-classification**: *what kind of thing is an order.* The
+following proposes an analytic answer under this tree's model assumptions.
 
 ## The resolution, in the repo's own terms
 
@@ -78,18 +83,18 @@ object. The language reaches the static one and never the successive one. So the
 witness (not a container), and succession (the only honest meaning of "time")
 never entered `<>`, `<|>`, `<a|b>` at all.
 
-## Verdict
+## Scoped verdict
 
-**SF-OPEN-A is DISCHARGED.** The admission order is a **symmetry-breaking
-admitted witness** — kind (A), one capability — **not a container** (a different
-existence-condition kind); the "withdraw-`σ`-without-a-witness / from-nowhere"
-reading is the **empty (B)**; and time-as-succession is **absent**. The
-obstruction's open clause — "does not decide what kind of thing an order is" — is
-decided: an order is the paid symmetry-breaking relation.
+Within the proposed analytic reading, an order is a **symmetry-breaking
+admitted witness**, not a container. The stipulated Boolean model proves
+that witnessless withdrawal is empty and that its chosen oriented example
+has exactly one breaking witness. It does not prove the reading's bridge to
+the side-free control or a general admission price. **SF-OPEN-A remains open
+in that isolated control.**
 
-**Still not internal** (the discharge adds nothing it should not): no clock, no
+**Still not internal** (the argument adds nothing it should not): no clock, no
 succession-as-object, no admitted order on events, no from-nowhere observer. This
-closes the *kind* question; it does not conjure succession.
+proposes a *kind* answer within this reading; it does not conjure succession.
 
 ## Provenance and scope
 
@@ -105,14 +110,10 @@ is a statement about the object language — glyphs and sightedness — **not**
 about nature. Any reading of the boundary/orientation as space/time is a
 deferred functor (see `AUTHOR_READING.md`), refused here.
 
-## Plan to pin it (the focused next act)
+## Historical plan and current boundary
 
-1. Build `research/oriented_boundary/` (open tree): the (B)-empty lemma as a Lean
-   theorem **or** an explicit downgrade; a Python check of the automorphism
-   argument over the `S2-U` / `S2-O` configurations; source pins; this closure as
-   its ledgered result, citing `SF-OPEN-A` as the obstruction it discharges.
-2. Add a **one-line discharge pointer** to `research/side_free/CLAIM_LEDGER.md`'s
-   `SF-OPEN-A` entry — a small, safe edit that must keep that tree's verifier
-   green — never a rewrite of the pinned ledger.
-3. Keep the blind `oriented_boundary` seed for an independent fresh-session run,
-   scored against the frozen predictions.
+The model-local Lean lemma and exhaustive Python check are implemented here.
+The former plan to add a discharge pointer to the isolated control is
+withdrawn; a passing verifier would not establish or authorize that claim.
+Keep further analytic comparisons and any fresh-session evidence in this
+open tree, with explicit model, provenance and cost boundaries.
