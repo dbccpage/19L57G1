@@ -15,26 +15,33 @@ with `-e` (`-eo pipefail` for `shell: bash`), as the hosted runner does.  On
 Windows that is Git for Windows' `bin/bash.exe`; set GATES_BASH to override.
 `python`, `python3` and `coverage` are bound to the interpreter running this
 script, `${{ github.workspace }}` to the repository root, and RUNNER_TEMP to a
-fresh directory.  Each step starts from the caller's environment without the
-variables in SCRUBBED_ENV, with PYTHONUTF8=1, no pager, and no stdin.  A step
-that runs past `timeout-minutes` is killed with its whole process tree.
+fresh directory.  Each step starts from the caller's environment without its
+Python, pytest, coverage and mypy settings or the files bash would source
+(SCRUBBED_ENV, SCRUBBED_PREFIXES), with PYTHONUTF8=1, no pager, and no stdin.
+A step that runs past `timeout-minutes`, or is interrupted, is killed with
+the processes it started: on Windows through a job object, elsewhere through
+its process group.
 
 What it holds of its own, each checked against the workflow so that a change
-there is reported rather than absorbed: the names in SETUP_STEPS (skipped,
-because they install software), the local meaning of each action in ACTIONS,
-and the body of COVERAGE_STEP that `--workers` replaces.  Any other workflow
-feature the parser does not implement is refused, including a step that
-installs software under a name not in SETUP_STEPS.
+there is refused until reviewed: SETUP_STEPS, the steps skipped because they
+install software, with a digest of each body; ACTIONS, the actions it gives a
+local meaning, with the `with:` inputs each may carry; and the body of
+COVERAGE_STEP that `--workers` replaces.  Any other workflow feature the
+parser does not implement is refused, including a gate step whose body
+matches a software installer.
 
 What it cannot reproduce, and does instead:
 * A hosted job starts from a fresh checkout.  Here, before any step runs, the
   outputs the workflow writes into the repository root (STALE_OUTPUTS) are
-  deleted, so a step cannot pass on an earlier run's output, and every
-  tracked file under PROTECTED_DIRS is restored after any step that rewrites
-  it, so a failed regeneration cannot become the next run's baseline.
-* A pull request is checked out as its merge commit.  Here the working tree
-  is checked; the checkout step reports whether `origin/main` is in HEAD's
-  history, and fails if the history is shallow.
+  deleted, so a step cannot pass on an earlier run's output.  A step that
+  rewrites a tracked file under PROTECTED_DIRS fails, and the file is put
+  back, so a failed regeneration cannot become the next run's baseline.  If
+  HEAD moves during a run, nothing is put back and the remaining steps are
+  not run.
+* A pull request is checked out as its merge commit, and without
+  `fetch-depth: 0` a hosted checkout is shallow.  Here the working tree is
+  checked with its full history; the checkout step fails if the history is
+  shallow and reports whether `origin/main` is in HEAD's history.
 * Every job gets the running interpreter, and setup-python's check compares
   its version with the workflow's.  The hosted lean job has no setup-python
   and runs the image's own `python3`.
@@ -53,6 +60,7 @@ from __future__ import annotations
 import argparse
 import contextlib
 import dataclasses
+import hashlib
 import importlib.metadata
 import importlib.util
 import json
@@ -70,16 +78,30 @@ from collections.abc import Iterator
 REPO = Path(__file__).resolve().parent.parent
 WORKFLOW = REPO / ".github" / "workflows" / "verify.yml"
 
-# Steps that install software on a hosted runner, skipped here.
-SETUP_STEPS = frozenset(
-    {"Install pinned dependencies", "Install elan", "Install pinned Lean toolchain"}
+# Steps that install software on a hosted runner, skipped here, with the first
+# 16 hex digits of the SHA-256 of each body: a changed body is refused until
+# the change is reviewed and its digest updated.
+SETUP_STEPS = {
+    "Install pinned dependencies": "f634394e6be6cb44",
+    "Install elan": "223ad83112f52f3f",
+    "Install pinned Lean toolchain": "f5a6fa1fa83d7182",
+}
+# Commands that install software; a gate step containing one is refused.
+_INSTALLS = re.compile(
+    r"\bpip[\w.]*\s+install\b|\buv\s+(?:pip|sync|tool|add)\b|\bnpm\s+(?:ci|install)\b"
+    r"|\|\s*(?:ba)?sh\b|\b(?:cargo|pipx|conda|brew)\s+install\b|\bapt(?:-get)?\b[^\n]*\binstall\b"
+    r"|\belan-init\b|\belan\s+toolchain\s+install\b|\blake\s+exe\s+cache\s+get\b"
 )
-_INSTALLS = re.compile(r"\bpip3? install\b|\belan-init\b|\belan toolchain install\b|\bapt(-get)? install\b")
 
-# Actions the workflow uses, and what each is checked as here.
+# Actions the workflow uses, what each is checked as here, and the `with:`
+# inputs each may carry.
 ACTIONS = {
     "actions/checkout@v4": "full history present; reports whether origin/main is in HEAD's history",
     "actions/setup-python@v5": "the running interpreter's version equals `with.python-version`",
+}
+ACTION_INPUTS = {
+    "actions/checkout@v4": frozenset({"fetch-depth"}),
+    "actions/setup-python@v5": frozenset({"python-version"}),
 }
 
 # The root suite under coverage, whose body `--workers N` replaces.
@@ -94,12 +116,13 @@ FAST_COMMAND = re.compile(r"python3? (ci/[A-Za-z0-9_./-]+\.py)|python3? -m mypy"
 STALE_OUTPUTS = ("coverage.json", "artifacts_ci", "lake_build.log")
 # Directories whose tracked files are restored after any step rewrites them.
 PROTECTED_DIRS = ("artifacts",)
-# Caller variables that would change what a step runs or measures.
-SCRUBBED_ENV = ("PYTHONPATH", "PYTHONHOME", "PYTHONSTARTUP", "PYTEST_ADDOPTS", "PYTEST_PLUGINS")
-SCRUBBED_PREFIXES = ("COVERAGE_",)
+# Caller variables that would change what a step runs or measures: every
+# Python, pytest, coverage and mypy setting, and the files bash sources.
+SCRUBBED_ENV = ("BASH_ENV", "ENV")
+SCRUBBED_PREFIXES = ("PYTHON", "PYTEST_", "COVERAGE_", "MYPY")
 
 TOP_KEYS = frozenset({"name", "on", "jobs"})
-JOB_KEYS = frozenset({"runs-on", "steps", "needs", "timeout-minutes"})
+JOB_KEYS = frozenset({"runs-on", "steps"})
 STEP_KEYS = frozenset(
     {"name", "id", "uses", "with", "run", "shell", "working-directory", "env",
      "timeout-minutes", "continue-on-error"}
@@ -198,6 +221,8 @@ def _mapping(lines: list[str], start: int, parent: int) -> tuple[dict[str, str],
         key, sep, value = line.strip().partition(":")
         if not sep or not value.strip():
             raise WorkflowError(f"line {i + 1}: expected 'key: value' in a mapping")
+        if key.strip() in mapping:
+            raise WorkflowError(f"line {i + 1}: duplicate key {key.strip()!r}")
         mapping[key.strip()] = _scalar(value, i + 1)
         i += 1
     return mapping, i
@@ -273,8 +298,8 @@ def parse_workflow(text: str) -> list[Step]:
     in_steps = False
     fields: dict[str, object] | None = None
     i = lines.index("jobs:") + 1
-
     start = 0
+    jobs_seen: set[str] = set()
 
     def flush() -> None:
         nonlocal fields
@@ -294,7 +319,10 @@ def parse_workflow(text: str) -> list[Step]:
             flush()
             if not re.fullmatch(r"[A-Za-z0-9_-]+:", body):
                 raise WorkflowError(f"line {i + 1}: expected a job name")
+            if body[:-1] in jobs_seen:
+                raise WorkflowError(f"line {i + 1}: duplicate job {body[:-1]!r}")
             job, in_steps = body[:-1], False
+            jobs_seen.add(job)
             i += 1
             continue
         if indent == 4:
@@ -323,6 +351,8 @@ def parse_workflow(text: str) -> list[Step]:
             raise WorkflowError(f"line {i + 1}: expected 'key: value'")
         if key not in STEP_KEYS:
             raise WorkflowError(f"line {i + 1}: step key {key!r} is not implemented")
+        if key in fields:
+            raise WorkflowError(f"line {i + 1}: duplicate step key {key!r}")
         if value == "|":
             fields[key], i = _block(lines, i + 1, 8)
         elif value == "":
@@ -347,17 +377,31 @@ def resolve_env(step: Step, repo: Path) -> dict[str, str]:
 def check_contract(steps: list[Step]) -> None:
     """The names and bodies this runner holds must still match the workflow."""
     names = {s.name for s in steps}
-    missing = sorted((SETUP_STEPS | {COVERAGE_STEP}) - names)
+    missing = sorted((set(SETUP_STEPS) | {COVERAGE_STEP}) - names)
     if missing:
         raise WorkflowError(f"steps named by ci/run_gates.py are gone from the workflow: {missing}")
     for step in steps:
-        if step.uses is not None and step.uses not in ACTIONS:
-            raise WorkflowError(f"{step.name}: action {step.uses!r} has no local meaning here")
+        if step.uses is not None:
+            if step.uses not in ACTIONS:
+                raise WorkflowError(f"{step.name}: action {step.uses!r} has no local meaning here")
+            inputs = dict(step.with_)
+            extra = sorted(set(inputs) - ACTION_INPUTS[step.uses])
+            if extra:
+                raise WorkflowError(f"{step.name}: inputs {extra} are not implemented")
+            if inputs.get("fetch-depth", "0") != "0":
+                raise WorkflowError(f"{step.name}: only fetch-depth 0 is implemented")
         if step.run is None:
             continue
         if "${{" in step.run:
             raise WorkflowError(f"{step.name}: expression in run is not implemented")
-        if not step.is_setup and _INSTALLS.search(step.run):
+        if step.is_setup:
+            digest = hashlib.sha256(step.run.encode("utf-8")).hexdigest()[:16]
+            if digest != SETUP_STEPS[step.name]:
+                raise WorkflowError(
+                    f"{step.name}: its body changed (digest {digest}); "
+                    "review the change and update SETUP_STEPS"
+                )
+        elif _INSTALLS.search(step.run):
             raise WorkflowError(f"{step.name}: installs software but is not in SETUP_STEPS")
         if step.name == COVERAGE_STEP and step.run != COVERAGE_BODY:
             raise WorkflowError(f"{COVERAGE_STEP}: its body changed; update --workers to match")
@@ -555,8 +599,48 @@ def step_env(step: Step, repo: Path, runner_temp: Path) -> dict[str, str]:
     return env
 
 
-def _kill_tree(proc: subprocess.Popen[bytes]) -> None:
+def _windows_job(proc: subprocess.Popen[bytes]) -> int | None:
+    """A job object holding the step's process.  Windows adds every process
+    the step starts to it, including programs an MSYS shell starts by fork and
+    exec, which `taskkill /T` misses because it follows parent ids.  None
+    where there are no job objects or the assignment is refused."""
+    if sys.platform != "win32":
+        return None
+    import ctypes
+    from ctypes import wintypes
+
+    kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+    kernel32.CreateJobObjectW.restype = wintypes.HANDLE
+    kernel32.CreateJobObjectW.argtypes = [wintypes.LPVOID, wintypes.LPCWSTR]
+    kernel32.AssignProcessToJobObject.argtypes = [wintypes.HANDLE, wintypes.HANDLE]
+    kernel32.CloseHandle.argtypes = [wintypes.HANDLE]
+    job = kernel32.CreateJobObjectW(None, None)
+    handle = getattr(proc, "_handle", None)
+    if not job:
+        return None
+    if handle is None or not kernel32.AssignProcessToJobObject(job, int(handle)):
+        kernel32.CloseHandle(job)
+        return None
+    return int(job)
+
+
+def _close_job(job: int | None, terminate: bool) -> None:
+    if job is None or sys.platform != "win32":
+        return
+    import ctypes
+    from ctypes import wintypes
+
+    kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+    kernel32.TerminateJobObject.argtypes = [wintypes.HANDLE, wintypes.UINT]
+    kernel32.CloseHandle.argtypes = [wintypes.HANDLE]
+    if terminate:
+        kernel32.TerminateJobObject(job, 1)
+    kernel32.CloseHandle(job)
+
+
+def _kill_tree(proc: subprocess.Popen[bytes], job: int | None) -> None:
     if sys.platform == "win32":
+        _close_job(job, terminate=True)
         subprocess.run(["taskkill", "/F", "/T", "/PID", str(proc.pid)], capture_output=True)
     else:
         with contextlib.suppress(ProcessLookupError):
@@ -594,6 +678,14 @@ def run_action(step: Step, repo: Path) -> Result:
     return Result(step, "pass", 0, note="working tree" + history)
 
 
+def _head(repo: Path) -> str | None:
+    return _git_text(repo, "rev-parse", "HEAD") if (repo / ".git").exists() else None
+
+
+def _add_note(result: Result, note: str) -> None:
+    result.note = "; ".join(filter(None, [result.note, note]))
+
+
 def run_steps(
     steps: list[Step],
     repo: Path,
@@ -602,28 +694,46 @@ def run_steps(
     keep_going: bool = False,
     workers: int | None = None,
 ) -> list[Result]:
+    """Run the steps in order.  A step that rewrites a tracked file under
+    PROTECTED_DIRS fails, and the file is put back.  If HEAD moves during the
+    run nothing is put back, since the files may now belong to another
+    commit, and the remaining steps are not run."""
     results: list[Result] = []
     failed_jobs: set[str] = set()
     protected = protected_snapshot(repo)
+    head = _head(repo)
+    moved = False
     with tempfile.TemporaryDirectory(prefix="gates-") as tmp:
         scratch = Path(tmp)
         runner_temp = scratch / "runner_temp"
         runner_temp.mkdir()
         for index, step in enumerate(steps):
+            if moved:
+                results.append(Result(step, "not run", note="HEAD moved during the run"))
+                continue
             if step.job in failed_jobs and not keep_going:
                 results.append(Result(step, "not run", note="an earlier step in this job failed"))
                 continue
             print(f"\n=== [{step.job}] {step.name}", flush=True)
-            if step.uses is not None:
-                result = run_action(step, repo)
-            else:
-                result = _run_script(step, index, repo, bash, python, scratch, runner_temp, workers)
-            restored = restore_protected(repo, protected)
+            restored: list[str] = []
+            try:
+                if step.uses is not None:
+                    result = run_action(step, repo)
+                else:
+                    result = _run_script(step, index, repo, bash, python, scratch, runner_temp, workers)
+            finally:
+                moved = _head(repo) != head
+                if not moved:
+                    restored = restore_protected(repo, protected)
+            if moved:
+                _add_note(result, "HEAD moved; tracked files left as the step left them")
             if restored:
-                result.note = "; ".join(filter(None, [result.note, "restored " + ", ".join(restored)]))
+                if result.outcome == "pass":
+                    result.outcome = "FAIL"
+                _add_note(result, "rewrote " + ", ".join(restored) + "; restored")
             if result.outcome != "pass":
                 if step.continue_on_error:
-                    result.note = "; ".join(filter(None, [result.note, "continue-on-error"]))
+                    _add_note(result, "continue-on-error")
                 else:
                     failed_jobs.add(step.job)
             results.append(result)
@@ -650,14 +760,20 @@ def _run_script(
         cwd=cwd, env=step_env(step, repo, runner_temp), stdin=subprocess.DEVNULL,
         start_new_session=sys.platform != "win32",
     )
+    job = _windows_job(proc)
     try:
         code: int | None = proc.wait(
             timeout=step.timeout_minutes * 60 if step.timeout_minutes else None
         )
         outcome = "pass" if code == 0 else "FAIL"
+        _close_job(job, terminate=False)
     except subprocess.TimeoutExpired:
-        _kill_tree(proc)
+        _kill_tree(proc, job)
         code, outcome = None, "TIMEOUT"
+    except BaseException:
+        # Ctrl-C included: the step's processes go too, not just this one.
+        _kill_tree(proc, job)
+        raise
     return Result(step, outcome, code, time.monotonic() - started, note)
 
 
@@ -706,6 +822,8 @@ def main(argv: list[str] | None = None) -> int:
                 where = f"  (in {s.working_directory})" if s.working_directory else ""
                 print(f"{s.job:<9}{kind} {s.name}{where}")
             return 0
+        if args.receipt is not None and not args.receipt.resolve().parent.is_dir():
+            raise WorkflowError(f"--receipt {args.receipt}: its directory does not exist")
         check_top_level(REPO)
         bash = find_bash()
         if args.workers is not None and any(s.name == COVERAGE_STEP for s in chosen):
@@ -726,6 +844,10 @@ def main(argv: list[str] | None = None) -> int:
         print(f"run_gates: {exc}", file=sys.stderr)
         return 2
 
+    print("\n" + report(results, head, end_head, before, after))
+    if drift:
+        print("these results come from an interpreter whose packages differ from the pins:")
+        print("\n".join(f"  {line}" for line in drift))
     if args.receipt is not None:
         receipt = {
             "head": head,
@@ -742,10 +864,6 @@ def main(argv: list[str] | None = None) -> int:
             ],
         }
         args.receipt.write_bytes((json.dumps(receipt, indent=2) + "\n").encode("utf-8"))
-    print("\n" + report(results, head, end_head, before, after))
-    if drift:
-        print("these results come from an interpreter whose packages differ from the pins:")
-        print("\n".join(f"  {line}" for line in drift))
     return 0 if all(r.outcome == "pass" or r.step.continue_on_error for r in results) else 1
 
 

@@ -269,13 +269,80 @@ def _repo(tmp_path: Path) -> Path:
     return tmp_path
 
 
-def test_a_rewritten_protected_file_is_restored_after_the_step(tmp_path: Path) -> None:
+def test_a_step_that_rewrites_a_protected_file_fails_and_the_file_is_put_back(
+    tmp_path: Path,
+) -> None:
     repo = _repo(tmp_path)
-    steps = [rg.Step(job="a", name="rewrite", run="echo changed > artifacts/sealed.txt\nexit 1\n")]
+    steps = [rg.Step(job="a", name="rewrite", run="echo changed > artifacts/sealed.txt\n"),
+             rg.Step(job="a", name="after", run="true\n")]
     results = rg.run_steps(steps, repo, _bash(), sys.executable)
-    assert results[0].outcome == "FAIL"
-    assert "restored artifacts/sealed.txt" in results[0].note
+    assert [r.outcome for r in results] == ["FAIL", "not run"]
+    assert "rewrote artifacts/sealed.txt; restored" in results[0].note
     assert (repo / "artifacts" / "sealed.txt").read_bytes() == b"committed\n"
+
+
+def test_nothing_is_put_back_and_nothing_more_runs_after_head_moves(tmp_path: Path) -> None:
+    repo = _repo(tmp_path)
+    moves = ("echo changed > artifacts/sealed.txt\n"
+             "git -c user.name=t -c user.email=t@t commit -q --allow-empty -m moved\n")
+    steps = [rg.Step(job="a", name="moves", run=moves),
+             rg.Step(job="b", name="later", run="true\n")]
+    results = rg.run_steps(steps, repo, _bash(), sys.executable)
+    assert [r.outcome for r in results] == ["pass", "not run"]
+    assert "HEAD moved" in results[0].note and "HEAD moved" in results[1].note
+    assert (repo / "artifacts" / "sealed.txt").read_bytes() == b"changed\n"
+
+
+def test_a_timed_out_step_loses_the_programs_its_shell_started(tmp_path: Path) -> None:
+    body = "bash -c 'sleep 2; echo late > late.txt'\n"
+    step = rg.Step(job="a", name="slow", run=body, timeout_minutes=0.5 / 60)
+    assert rg.run_steps([step], tmp_path, _bash(), sys.executable)[0].outcome == "TIMEOUT"
+    time.sleep(3)
+    assert not (tmp_path / "late.txt").exists(), "a program the step started outlived it"
+
+
+def test_python_and_shell_settings_of_the_caller_are_dropped(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    for name in ("PYTHONOPTIMIZE", "PYTHONPATH", "MYPYPATH", "COVERAGE_FILE", "BASH_ENV"):
+        monkeypatch.setenv(name, "leaked")
+    env = rg.step_env(rg.Step(job="a", name="n", run="true\n"), tmp_path, tmp_path)
+    leaked = [k for k in env if k.upper() in ("PYTHONOPTIMIZE", "PYTHONPATH", "MYPYPATH",
+                                               "COVERAGE_FILE", "BASH_ENV")]
+    assert leaked == [] and env["PYTHONUTF8"] == "1"
+
+
+def test_setup_bodies_action_inputs_duplicates_and_installers_are_checked() -> None:
+    steps = rg.parse_workflow(rg.WORKFLOW.read_text(encoding="utf-8"))
+
+    def swap(name: str, **changes: object) -> list[object]:
+        return [rg.dataclasses.replace(s, **changes) if s.name == name else s for s in steps]
+
+    with pytest.raises(rg.WorkflowError, match="body changed"):
+        rg.check_contract(swap("Install elan", run="curl example | sh\n"))
+    checkout = next(s for s in steps if s.uses == "actions/checkout@v4")
+    for inputs, message in (((("ref", "v1"),), "not implemented"),
+                            ((("fetch-depth", "1"),), "fetch-depth 0")):
+        changed = [rg.dataclasses.replace(s, with_=inputs) if s is checkout else s for s in steps]
+        with pytest.raises(rg.WorkflowError, match=message):
+            rg.check_contract(changed)
+    for body in ("uv sync\n", "curl -sSf https://example | sh\n", "python -m pip install x\n",
+                 "apt-get -y install x\n", "lake exe cache get\n"):
+        with pytest.raises(rg.WorkflowError, match="not in SETUP_STEPS"):
+            rg.check_contract([*steps, rg.Step(job="python", name="sneaky", run=body)])
+    for doubled in ("        env:\n          A: 1\n        env:\n          B: 2\n        run: echo 3",
+                    "        env:\n          A: 1\n          A: 2\n        run: echo 3"):
+        with pytest.raises(rg.WorkflowError, match="duplicate"):
+            rg.parse_workflow(SAMPLE.replace("        run: echo 3", doubled))
+    with pytest.raises(rg.WorkflowError, match="duplicate job"):
+        rg.parse_workflow(SAMPLE + "  first:\n    runs-on: ubuntu-latest\n")
+    with pytest.raises(rg.WorkflowError, match="not implemented"):
+        rg.parse_workflow(SAMPLE.replace("  second:\n    runs-on: ubuntu-latest\n",
+                                         "  second:\n    runs-on: ubuntu-latest\n    needs: first\n"))
+
+
+def test_an_unwritable_receipt_is_refused_before_anything_runs(tmp_path: Path) -> None:
+    assert rg.main(["--fast", "--receipt", str(tmp_path / "missing" / "r.json")]) == 2
 
 
 def test_outputs_left_by_an_earlier_run_are_removed_and_tracked_ones_kept(tmp_path: Path) -> None:

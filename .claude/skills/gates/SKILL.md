@@ -214,7 +214,7 @@ recursive census is nonempty, matches its committed pin, and every enumerated
 module is built as its own target.
 
 The written Lean job also rebuilds two research packages and audits their
-axioms; run them after the per-module loop:
+axioms, after the axiom-artifact check and before the per-module loop:
 
 ```powershell
 python research/second_nofirst/verify_lean.py
