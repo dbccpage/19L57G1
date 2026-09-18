@@ -213,6 +213,16 @@ LF-checked, then the original artifact bytes are restored even on failure. The
 recursive census is nonempty, matches its committed pin, and every enumerated
 module is built as its own target.
 
+The written Lean job also rebuilds two research packages and audits their
+axioms, after the axiom-artifact check and before the per-module loop:
+
+```powershell
+python research/second_nofirst/verify_lean.py
+if ($LASTEXITCODE -ne 0) { throw "second_nofirst Lean audit failed" }
+python research/typed_translation/verify_lean.py
+if ($LASTEXITCODE -ne 0) { throw "typed_translation Lean audit failed" }
+```
+
 Only `propext` and `Quot.sound` are permitted. `Classical.choice` fails.
 
 ### 7. Skills are well formed and declare no authority

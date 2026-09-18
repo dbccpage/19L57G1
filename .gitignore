@@ -11,3 +11,5 @@ lake_build_*.log
 .claude/worktrees/
 2026-*.txt
 coverage.json
+artifacts_ci/
+lake_build.log

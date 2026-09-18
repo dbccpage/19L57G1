@@ -2,7 +2,8 @@
 
 The skill is prose and drifts; `.github/workflows/verify.yml` is what CI
 actually runs.  Every `python ci/...py` or `python research/...py` command
-the workflow issues must be named in `.claude/skills/gates/SKILL.md`, so a
+the workflow issues, `python3` included, must be named in
+`.claude/skills/gates/SKILL.md`, so a
 gate the skill omits fails here by path."""
 
 from __future__ import annotations
@@ -13,7 +14,7 @@ import re
 REPO = Path(__file__).resolve().parent.parent
 WORKFLOW = REPO / ".github" / "workflows" / "verify.yml"
 SKILL = REPO / ".claude" / "skills" / "gates" / "SKILL.md"
-COMMAND = re.compile(r"python ((?:ci|research)/[A-Za-z0-9_./-]+\.py)")
+COMMAND = re.compile(r"python3? ((?:ci|research)/[A-Za-z0-9_./-]+\.py)")
 
 
 def workflow_scripts() -> list[str]:
