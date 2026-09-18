@@ -34,15 +34,15 @@ When you start a new `research/<tree>/`:
 Do **not** copy an older tree's `check_coverage.py` / `run.py` — that is how the
 bugs spread.
 
-Register the tree in `research/README.md`: run
-`python ci/research_index.py --write` and commit the result.
-`tests/test_research_index.py`, part of the root suite, fails until the tree
-has a row, and again when it is registered in or out of the workflow's
-research job. A tree whose own boundary test or charter forbids writes
-outside its root either lists `research/README.md` among its declared shared
-paths, as it does `.github/workflows/verify.yml`, or has the row added in a
-separate commit on the same branch by whoever opens the pull request; a
-commit that touches only `research/README.md` is not one of the tree's own.
+Register the tree in `research/README.md`: stage its files (`git add`), run
+`python ci/research_index.py --write`, which reads the git index, and commit
+the result. `tests/test_research_index.py`, part of the root suite, fails
+until the tree has a row, and again when it is registered in or out of the
+workflow's research job. The row is inserted in name order, so it is not an
+append. A tree whose boundary checks look at each of its own commits can take
+the row in a separate commit on the same branch; a tree whose boundary test
+checks the whole branch diff must list `research/README.md` as a declared
+shared path that it does not require to be append-only.
 
 ## Keep the family in sync
 

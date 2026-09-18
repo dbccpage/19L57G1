@@ -11,12 +11,13 @@ in the git index, except names beginning with ``_`` (templates) and the
 directories in ``NOT_TREES``.
 
 Gate 11: ``workflow (gate 11)`` when ``research/<tree>`` appears as a whole
-path segment anywhere in the ``research:`` job of the workflow file as the
-index holds it -- in a command, a working directory, or a comment; otherwise
-``local receipt only``.  Comments count because the workflow registers the
-second derivation's rungs by naming ``research/second/`` in a comment.  This
-is the reading ``research/estate_honesty/audit_estate.py`` uses, and
-``tests/test_research_index.py`` checks that the two agree.
+path segment on a non-comment line of the ``research:`` job of the workflow
+file as the index holds it, that is, in a command, a working directory, or
+an environment value; otherwise ``local receipt only``.  A comment naming a
+tree does not run it.  ``research/estate_honesty/audit_estate.py`` also
+counts comments and adds ``second`` whenever any ``second_*`` rung is named;
+``KNOWN_AUDIT_DIFFERENCES`` records where the two readings differ, and
+``tests/test_research_index.py`` requires the difference to be exactly that.
 
 Only these two columns are committed, and they change only when a tree is
 added, removed, or registered in the workflow, so work inside a tree never
@@ -57,6 +58,11 @@ RULE = "|---|---|"
 WIRED = "workflow (gate 11)"
 LOCAL = "local receipt only"
 REGENERATE = "python ci/research_index.py --write"
+
+# Trees the estate audit counts as wired and this reading does not, and why.
+KNOWN_AUDIT_DIFFERENCES: Mapping[str, str] = {
+    "second": "no workflow step runs it; the rungs' pin verifiers hash its SEED.md",
+}
 
 # Top-level directories under research/ that are not trees.
 NOT_TREES: Mapping[str, str] = {
@@ -136,8 +142,8 @@ def named_trees(lines: Sequence[str]) -> set[str]:
 
 
 def wired_trees(workflow: str) -> set[str]:
-    """Trees named anywhere in the ``research:`` job, comments included."""
-    return named_trees(job_lines(workflow, "research", comments=True))
+    """Trees named on a non-comment line of the ``research:`` job."""
+    return named_trees(job_lines(workflow, "research", comments=False))
 
 
 def render_block(trees: Sequence[str], wired: set[str]) -> str:

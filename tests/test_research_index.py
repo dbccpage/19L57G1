@@ -3,8 +3,8 @@
 ``ci/research_index.py`` derives the table of trees and their gate-11 status
 from the git index.  These tests fail when a tree is added or removed, or
 registered in or out of the workflow's research job, without the README
-being regenerated; they check that the estate audit reads the same wiring
-from the workflow; and they exercise the stale-report path on a scratch
+being regenerated; they check that the estate audit reads the same rows and
+differs from this reading of the workflow only where recorded; and they exercise the stale-report path on a scratch
 repository.
 """
 
@@ -47,14 +47,21 @@ def test_readme_lists_every_tree_and_its_gate_11_status() -> None:
     )
 
 
-def test_the_estate_audit_reads_the_same_rows_and_the_same_wiring() -> None:
+def test_the_estate_audit_reads_the_same_rows_and_differs_only_as_recorded(
+    tmp_path: Path,
+) -> None:
     ae = _estate_audit()
     trees = ri.group_trees(ri.tracked_research_files(REPO))
-    wired = ri.wired_trees(ri.workflow_text(REPO))
+    workflow = ri.workflow_text(REPO)
+    wired = ri.wired_trees(workflow)
     want = {name: ri.WIRED if name in wired else ri.LOCAL for name in trees}
     assert ae.parse_readme_trees(REPO / ri.README_REL) == want
-    audit_wired, _ = ae.check_verify_yml(REPO / ri.WORKFLOW_REL)
-    assert audit_wired & set(trees) == wired & set(trees)
+    # The audit reads a file; give it the same (index) text the generator read.
+    copy = tmp_path / "verify.yml"
+    copy.write_bytes(workflow.encode("utf-8"))
+    audit_wired, _ = ae.check_verify_yml(copy)
+    assert wired <= audit_wired
+    assert (audit_wired - wired) & set(trees) == set(ri.KNOWN_AUDIT_DIFFERENCES)
 
 
 def _git(repo: Path, *args: str) -> None:
@@ -70,7 +77,7 @@ WORKFLOW = "\n".join([
     "      - run: python3 research/stem/verify_lean.py",
     "  research:",
     "    steps:",
-    "      # research/umbrella/NOTE.md registers the rungs below",
+    "      # research/umbrella/NOTE.md is named in a comment only: not run",
     "      - run: python research/stem_longer/verify_pins.py",
     "        working-directory: research/stem_longer",
     "",
@@ -103,7 +110,7 @@ def test_a_stale_readme_is_reported_by_name_and_regenerated(tmp_path: Path) -> N
         f"head\n{ri.BEGIN}\n{ri.HEADER}\n{ri.RULE}\n"
         "| `stem` | local receipt only |\n"
         "| `stem_longer` | workflow (gate 11) |\n"
-        "| `umbrella` | workflow (gate 11) |\n"
+        "| `umbrella` | local receipt only |\n"
         f"{ri.END}\ntail\n"
     )
     (tmp_path / ri.README_REL).write_bytes(regenerated.encode("utf-8"))
