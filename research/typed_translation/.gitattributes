@@ -4,6 +4,8 @@ SOURCE_MANIFEST.json -text
 pinned/** -text
 receipts/** -text
 lean/axioms.txt -text
+# A checkout made before the three lines below arrived keeps CRLF copies until
+# they are checked out again: git checkout -- CLAIM_LEDGER.md FINDINGS.md STATUS.md
 CLAIM_LEDGER.md -text
 FINDINGS.md -text
 STATUS.md -text
