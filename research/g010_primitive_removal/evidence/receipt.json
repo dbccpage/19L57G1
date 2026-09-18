@@ -38,7 +38,8 @@
     "tests/test_obstruction.py": "109529a742500ad50a893c799a5e4c82dfe96e3a6f71c9f67c07e879ee6890f7",
     "tests/test_restriction.py": "f7e25ade908fefdecb7cc8bfa9f8564726a2260f170f29e1fea37aeb7aab38f8",
     "tests/test_runner.py": "62e422176b58ef07d4d38ade9e54d63e916d1cc69e5d0299235bb29b7cc610bb",
-    "verify.py": "893ba2fbf54fade25c1be108cda4043c9e455f48f09ebaa83a0493f385c62430"
+    "verify.py": "893ba2fbf54fade25c1be108cda4043c9e455f48f09ebaa83a0493f385c62430",
+    "verify_sources.py": "5ec07f99007ab9e2763e5a8158596a35f08c65f64da85160e39d4401cf1693ce"
   },
   "target": "G010",
   "terminal_status": "BOUNDARY_REMOVAL_SEMANTICALLY_EXECUTED",
