@@ -274,10 +274,12 @@ def parse_workflow(text: str) -> list[Step]:
     fields: dict[str, object] | None = None
     i = lines.index("jobs:") + 1
 
+    start = 0
+
     def flush() -> None:
         nonlocal fields
         if fields is not None and job is not None:
-            steps.append(_step(job, fields, f"step ending before line {i + 1}"))
+            steps.append(_step(job, fields, f"step at line {start}"))
         fields = None
 
     while i < len(lines):
@@ -311,7 +313,7 @@ def parse_workflow(text: str) -> list[Step]:
             if not body.startswith("- "):
                 raise WorkflowError(f"line {i + 1}: expected a '- ' step item")
             flush()
-            fields = {}
+            fields, start = {}, i + 1
             body, indent = body[2:], 8
         if indent != 8 or fields is None:
             raise WorkflowError(f"line {i + 1}: unexpected indentation")
@@ -321,7 +323,7 @@ def parse_workflow(text: str) -> list[Step]:
             raise WorkflowError(f"line {i + 1}: expected 'key: value'")
         if key not in STEP_KEYS:
             raise WorkflowError(f"line {i + 1}: step key {key!r} is not implemented")
-        if value in ("|", "|-"):
+        if value == "|":
             fields[key], i = _block(lines, i + 1, 8)
         elif value == "":
             fields[key], i = _mapping(lines, i + 1, 8)
@@ -479,10 +481,12 @@ def check_top_level(repo: Path) -> None:
         )
 
 
+LOCK = Path(tempfile.gettempdir()) / "19L57G1-run_gates.lock"
+
+
 @contextlib.contextmanager
-def machine_lock() -> Iterator[None]:
+def machine_lock(path: Path = LOCK) -> Iterator[None]:
     """Held for a whole run: the workflow's /tmp paths are machine-wide here."""
-    path = Path(tempfile.gettempdir()) / "19L57G1-run_gates.lock"
     handle = open(path, "a+b")
     try:
         try:

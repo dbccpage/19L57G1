@@ -125,6 +125,7 @@ def test_parser_reads_blocks_mappings_and_comments() -> None:
         ("        run: echo 3", "        run: echo 3 # trailing note"),
         ("        run: echo 3", "        timeout-minutes: 1.5\n        run: echo 3"),
         ("        run: echo 3", "        run: >\n          echo 3"),
+        ("        run: echo 3", "        run: |-\n          echo 3"),
         ("        run: echo 3", "\trun: echo 3"),
         ("        run: echo 3", "        run: |\n          cat <<EOF\nEOF"),
         ("    runs-on: ubuntu-latest\n    steps:\n      - name: Three",
@@ -302,10 +303,13 @@ def test_the_checkout_and_interpreter_checks(tmp_path: Path) -> None:
     assert result.outcome == "pass" and "could not compare" in result.note
 
 
-def test_two_runs_cannot_hold_the_lock_at_once() -> None:
-    with rg.machine_lock():
+def test_two_runs_cannot_hold_the_lock_at_once(tmp_path: Path) -> None:
+    # A lock file of its own: the real one may be held by a runner that is
+    # running this very suite.
+    lock = tmp_path / "run_gates.lock"
+    with rg.machine_lock(lock):
         with pytest.raises(rg.WorkflowError, match="another run"):
-            with rg.machine_lock():
+            with rg.machine_lock(lock):
                 pass
 
 
