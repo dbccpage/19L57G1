@@ -68,8 +68,18 @@ class Hit(NamedTuple):
 
 
 def normalize(text: str) -> str:
-    """NFKD, drop combining marks, lowercase.  Idempotent."""
+    """NFKD, drop combining marks, lowercase.  Idempotent.
+
+    Two shortcuts, neither of which changes the result: ASCII text has no
+    decomposition and no combining mark, so it is only lowercased; and a
+    decomposition that came out ASCII has no combining mark to drop.  Only
+    text that stays non-ASCII after NFKD pays the per-character filter.
+    """
+    if text.isascii():
+        return text.lower()
     decomposed = unicodedata.normalize("NFKD", text)
+    if decomposed.isascii():
+        return decomposed.lower()
     stripped = "".join(
         ch for ch in decomposed if not unicodedata.combining(ch))
     return stripped.lower()
@@ -125,20 +135,73 @@ def _match_bigram(
     return None
 
 
+class _Memo:
+    """Match results already computed against one ``watched`` mapping.
+
+    For a fixed ``watched``, ``_match_unigram`` and ``_match_bigram`` are
+    deterministic in their token arguments, and a line's hits (less its
+    line number) are deterministic in the line's text.  A repeated token,
+    adjacent pair, or whole line is therefore answered from here instead of
+    being re-tokenized, re-stemmed, and re-digested; the tree repeats all
+    three heavily.  A memo is built for one scan and dropped with it; it is
+    never shared across scans, so a mapping that changes between scans
+    (``--add``) cannot be answered from a stale entry.
+    """
+
+    __slots__ = ("watched", "unigram", "bigram", "lines")
+
+    def __init__(self, watched: Mapping[str, str]) -> None:
+        self.watched = watched
+        self.unigram: dict[str, str | None] = {}
+        self.bigram: dict[tuple[str, str], str | None] = {}
+        self.lines: dict[str, tuple[tuple[str, str], ...]] = {}
+
+    def one(self, token: str) -> str | None:
+        unigram = self.unigram
+        if token in unigram:
+            return unigram[token]
+        found = unigram[token] = _match_unigram(token, self.watched)
+        return found
+
+    def two(self, first: str, second: str) -> str | None:
+        key = (first, second)
+        bigram = self.bigram
+        if key in bigram:
+            return bigram[key]
+        found = bigram[key] = _match_bigram(first, second, self.watched)
+        return found
+
+
+def _line_hits(line: str, memo: _Memo) -> tuple[tuple[str, str], ...]:
+    """(surface, digest) for every hit on one line, in scan order."""
+    out: list[tuple[str, str]] = []
+    toks = tokens(line)
+    for i, tok in enumerate(toks):
+        one = memo.one(tok)
+        if one is not None:
+            out.append((tok, one))
+        if i + 1 < len(toks):
+            two = memo.two(tok, toks[i + 1])
+            if two is not None:
+                out.append((f"{tok} {toks[i + 1]}", two))
+    return tuple(out)
+
+
+def _scan_text(text: str, memo: _Memo) -> list[Hit]:
+    hits: list[Hit] = []
+    lines = memo.lines
+    for line_no, line in enumerate(text.splitlines(), start=1):
+        found = lines.get(line)
+        if found is None:
+            found = lines[line] = _line_hits(line, memo)
+        for surface, d in found:
+            hits.append(Hit(line_no, surface, d))
+    return hits
+
+
 def scan_text(text: str, watched: Mapping[str, str]) -> list[Hit]:
     """Every watched-term hit in ``text``, in line order."""
-    hits: list[Hit] = []
-    for line_no, line in enumerate(text.splitlines(), start=1):
-        toks = tokens(line)
-        for i, tok in enumerate(toks):
-            one = _match_unigram(tok, watched)
-            if one is not None:
-                hits.append(Hit(line_no, tok, one))
-            if i + 1 < len(toks):
-                two = _match_bigram(tok, toks[i + 1], watched)
-                if two is not None:
-                    hits.append(Hit(line_no, f"{tok} {toks[i + 1]}", two))
-    return hits
+    return _scan_text(text, _Memo(watched))
 
 
 def in_scope(rel: str) -> bool:
@@ -183,6 +246,7 @@ def scan_repo(
     omitted).  ``files`` overrides the git census, for tests."""
     rels = tracked_files(repo) if files is None else sorted(
         f.replace("\\", "/") for f in files)
+    memo = _Memo(watched)
     out: dict[str, list[Hit]] = {}
     for rel in rels:
         if not in_scope(rel):
@@ -190,7 +254,7 @@ def scan_repo(
         text = read_text(repo / rel)
         if text is None:
             continue
-        hits = scan_text(text, watched)
+        hits = _scan_text(text, memo)
         if hits:
             out[rel] = hits
     return out
