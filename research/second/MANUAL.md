@@ -171,3 +171,11 @@ is live.
 | 2-stake (scope repair) | REAL CASE (found live, not injected) | none -- the branch of pull request 138, which touches only `research/second_nofirst/` | `FAIL: test_only_write_root_and_two_shared_appends_are_changed`, exit 1: the scan diffed the working tree against the FIXED `8dea98da`, so it read every rung merged since as this rung writing outside its root.  It passed on `main` only because this rung merged last, and the next rung to touch anything else broke it.  The repaired scan SKIPS that shape, named; that half is proved hermetically in `BoundaryScopeSituationTests` rather than replayed, because reproducing it for real needs the repair itself on `main` first -- copying the repaired file into a foreign checkout puts a path under this write root into the diff and makes the branch look like this rung's own.  Recorded as the residual it is |
 
 <!-- markdownlint-enable MD013 -->
+
+<!-- markdownlint-disable MD013 -->
+
+| rung | gate | injection | observed failure |
+|---|---|---|---|
+| 1 (scanner repin, 2026-09-18) | frozen-text pin on the shared scanner (`second_stream/verify_pins.py`), after `ci/check_prose_watchlist.py` moved from the sources to the HEAD-only frozen texts | one throwaway commit appending a comment line to `ci/check_prose_watchlist.py` on top of `2687d948` | `FAIL: frozen text moved: ci/check_prose_watchlist.py: expected cf5cbb17…, got 54697c52…`, exit 1; after `git reset --keep HEAD~1`, `second_stream pins verified: 19 sources at snapshot and HEAD, 5 frozen texts at HEAD`, exit 0 |
+
+<!-- markdownlint-enable MD013 -->

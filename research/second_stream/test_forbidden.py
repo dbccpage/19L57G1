@@ -253,7 +253,7 @@ def load_scanner() -> ModuleType:
     this repository of what a whole word is, of how a word is normalized,
     and of which plurals a word reaches.  A change to its tokenizer or its
     plural rule changes what this file can see, which is why the rung pins
-    it as a source.
+    it: among the frozen texts, at HEAD, since 2026-09-18.
     """
 
     spec = importlib.util.spec_from_file_location(

@@ -268,3 +268,54 @@ def test_live_census_matches_its_pin() -> None:
         assert rel in tracked, rel
         assert cpw.in_scope(rel), rel
     assert set(hits) == set(baseline)
+
+
+# -- the cached scan agrees with an uncached one --------------------------
+
+
+def _uncached_scan(text: str, watched: dict[str, str]) -> list[cpw.Hit]:
+    hits: list[cpw.Hit] = []
+    for line_no, line in enumerate(text.splitlines(), start=1):
+        toks = cpw.tokens(line)
+        for i, tok in enumerate(toks):
+            one = cpw._match_unigram(tok, watched)
+            if one is not None:
+                hits.append(cpw.Hit(line_no, tok, one))
+            if i + 1 < len(toks):
+                two = cpw._match_bigram(tok, toks[i + 1], watched)
+                if two is not None:
+                    hits.append(cpw.Hit(line_no, f"{tok} {toks[i + 1]}", two))
+    return hits
+
+
+def test_cached_scan_matches_an_uncached_scan() -> None:
+    watched = _watched("apfel", "birne", "rote beere", "kirsche")
+    lines = [
+        "Apfel and birnen, rote beeren and Kirschen.",
+        "Apfel and birnen, rote beeren and Kirschen.",
+        "ÄPFEL Äpfel apfel_1 apfel-birne",
+        "rote\tbeere  rote beere",
+        "",
+        "nothing here",
+        "Apfel and birnen, rote beeren and Kirschen.",
+    ]
+    texts = ["\n".join(lines), "\r\n".join(lines), "\x0b".join(lines), "\u2028".join(lines)]
+    memo = cpw._Memo(watched)
+    for text in texts:
+        want = _uncached_scan(text, watched)
+        assert want, "the probe corpus found nothing; it proves nothing"
+        assert cpw.scan_text(text, watched) == want
+        assert cpw._scan_text(text, memo) == want
+
+
+def test_normalize_shortcuts_agree_with_the_full_form() -> None:
+    import unicodedata
+
+    def full(text: str) -> str:
+        decomposed = unicodedata.normalize("NFKD", text)
+        return "".join(ch for ch in decomposed if not unicodedata.combining(ch)).lower()
+
+    samples = [chr(c) for c in range(0x3000)] + ["Straße", "ﬁle", "Ⅻ", "e\u0301", "ÀB"]
+    for text in samples:
+        assert cpw.normalize(text) == full(text), repr(text)
+        assert cpw.normalize("ab" + text + "Z") == full("ab" + text + "Z"), repr(text)
