@@ -3,8 +3,9 @@
   "source_hashes": {
     "lean/Inventory.lean": "eb9de0c3cce15c443887aa305feca7876109ea55fbb8615fc755b86736b966c6",
     "lean/ObstructionHomology.lean": "0cf4c7eb4d3221b35155b6da023a6d4e63b4c32dd5ff460be62ccf96fbd6ea41",
-    "homology.py": "ac97d7e9111b520c71b5ea45bf2106da1b2144eb66e35ae5d6426decf0e7f997",
+    "homology.py": "053732c72a884f98cca46547a4950b1ddaf886a9532ad76a73a87f58e3267c3a",
     "verify.py": "c5001d2f1945436b345b262c4e5a9805548208de3d6080de6b78b5be0d044d0b",
+    "verify_sources.py": "b5b6a26c85083d2d94257cc30f50f81153946a4bb697849bca3daed63748573e",
     "tests/test_homology.py": "286852ff927fa061c73cf4626321ff229adbcfbc63f78f16bcbd5e3fc0b37b9b"
   },
   "pytest": {
