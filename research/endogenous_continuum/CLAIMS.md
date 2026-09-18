@@ -4,11 +4,13 @@ AuthorityEffect: None.
 
 ## What it supports
 
-1. The checked Lean inventory reports 129 declarations: 56 axiom-free and the
-   remainder depending only on `{propext, Quot.sound}`. The source scan rejects
-   `sorry`, `admit`, `unsafe`, `partial`, and explicit `axiom` declarations in
-   this package. This is an inventory claim, not a declaration-completeness
-   theorem.
+1. The checked Lean inventory lists all 155 theorems the package's modules
+   declare with `theorem` or `lemma`: 72 axiom-free and the remainder depending
+   only on `{propext, Quot.sound}`. Generated lemmas and structure fields are
+   not listed. `verify.py` compares the list with the compiled environment and
+   fails on any declared theorem that is missing; the comparison is a checked
+   census, not a Lean theorem. The source scan rejects `sorry`, `admit`,
+   `unsafe`, `partial`, and explicit `axiom` declarations in this package.
 2. Track 1 (Endogenous Observer Enclosure): Verification of local observation evaluation without external history prefix inspection, inductive preservation of internal trace invariants, and immutability of earlier records under forward transitions.
 3. Track 2: Python verifies complete finite bonding-map families, morphisms,
    composition, full threads, attainable path prices, and finite path-metric

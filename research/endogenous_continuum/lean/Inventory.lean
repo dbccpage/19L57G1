@@ -12,12 +12,14 @@ import HypothesisTree
 /-!
 # Target: Endogenous Continuum Lean 4 Census & Axiom Audit
 
-Declared census across the 9 endogenous continuum tracks. It lists the
-theorems named below, not every declaration in the package:
-- Track 1: ObserverEnclosure (10 theorems)
-- Track 2: ProjectiveSystem (15 theorems)
-- Track 3: DissipativeCycle (11 theorems)
-- Track 4: InternalQuotienting (13 theorems)
+Declared census across the 9 endogenous continuum tracks: every theorem the
+package's modules declare with `theorem` or `lemma`. Generated lemmas and
+structure fields are not listed. `verify.py` checks this list against the
+compiled environment and fails on any declared theorem missing from it.
+- Track 1: ObserverEnclosure (16 theorems)
+- Track 2: ProjectiveSystem (19 theorems)
+- Track 3: DissipativeCycle (23 theorems)
+- Track 4: InternalQuotienting (17 theorems)
 - Track 5: IntervalDomain (27 theorems)
 - Track 6: IntervalMovegraph (14 theorems)
 - Track 7: DualCertificate (10 theorems)
@@ -25,13 +27,13 @@ theorems named below, not every declaration in the package:
 - Track 9: HypothesisTree (13 theorems)
 - EndogenousContinuum Baseline (7 theorems)
 
-Total: 129 listed theorems.
+Total: 155 listed theorems.
 AuthorityEffect: None.
 Axioms: strictly within {propext, Quot.sound}.
 -/
 
 -- ============================================================================
--- Track 1: ObserverEnclosure (10 theorems)
+-- Track 1: ObserverEnclosure (16 theorems)
 -- ============================================================================
 #print axioms ObserverEnclosure.init_carrier_invariant
 #print axioms ObserverEnclosure.trace_step_preserves_invariant
@@ -43,9 +45,15 @@ Axioms: strictly within {propext, Quot.sound}.
 #print axioms ObserverEnclosure.observer_readout_log_soundness
 #print axioms ObserverEnclosure.localized_enclosure_soundness
 #print axioms ObserverEnclosure.local_evaluation_prefix_independent
+#print axioms ObserverEnclosure.insertNew_nil
+#print axioms ObserverEnclosure.replayCore_nil
+#print axioms ObserverEnclosure.replayCore_append_singleton
+#print axioms ObserverEnclosure.extractReadouts_nil
+#print axioms ObserverEnclosure.extractReadouts_append
+#print axioms ObserverEnclosure.extractReadouts_singleton
 
 -- ============================================================================
--- Track 2: ProjectiveSystem (15 theorems)
+-- Track 2: ProjectiveSystem (19 theorems)
 -- ============================================================================
 #print axioms ProjectiveSystem.projective_identity
 #print axioms ProjectiveSystem.projective_identity_apply
@@ -62,9 +70,13 @@ Axioms: strictly within {propext, Quot.sound}.
 #print axioms ProjectiveSystem.embed_operationalPricing
 #print axioms ProjectiveSystem.operational_pricing_ambient_independent
 #print axioms ProjectiveSystem.project_operationalPricing
+#print axioms ProjectiveSystem.embed_totalMu1
+#print axioms ProjectiveSystem.embed_totalMu2
+#print axioms ProjectiveSystem.project_totalMu1
+#print axioms ProjectiveSystem.project_totalMu2
 
 -- ============================================================================
--- Track 3: DissipativeCycle (11 theorems)
+-- Track 3: DissipativeCycle (23 theorems)
 -- ============================================================================
 #print axioms DissipativeCycle.acyclic_dissipative_terminates
 #print axioms DissipativeCycle.cycle_net_potential_zero
@@ -77,9 +89,21 @@ Axioms: strictly within {propext, Quot.sound}.
 #print axioms DissipativeCycle.conservative_cycle_activity_strictly_positive
 #print axioms DissipativeCycle.conservative_cycle_preserves_start
 #print axioms DissipativeCycle.dissipative_trajectory_acyclic
+#print axioms DissipativeCycle.iterateStep_succ_right
+#print axioms DissipativeCycle.iterateStep_add
+#print axioms DissipativeCycle.iterateStep_comm
+#print axioms DissipativeCycle.trajectory_length
+#print axioms DissipativeCycle.getLastD_cons_cons
+#print axioms DissipativeCycle.trajectory_getLastD
+#print axioms DissipativeCycle.dissipative_trajectory_drop
+#print axioms DissipativeCycle.dissipative_trajectory_not_closed
+#print axioms DissipativeCycle.path_μ1_cons_cons
+#print axioms DissipativeCycle.path_μ1_telescope
+#print axioms DissipativeCycle.dissipative_is_transient
+#print axioms DissipativeCycle.cycle_state_is_attractor
 
 -- ============================================================================
--- Track 4: InternalQuotienting (13 theorems)
+-- Track 4: InternalQuotienting (17 theorems)
 -- ============================================================================
 #print axioms InternalQuotienting.local_joinability
 #print axioms InternalQuotienting.normal_form_unique
@@ -94,6 +118,10 @@ Axioms: strictly within {propext, Quot.sound}.
 #print axioms InternalQuotienting.eqv_iff_joinable
 #print axioms InternalQuotienting.canonical_minimizer_elimination
 #print axioms InternalQuotienting.external_minimizer_subsumption
+#print axioms InternalQuotienting.reflTransStep_refl
+#print axioms InternalQuotienting.reflTransStep_single
+#print axioms InternalQuotienting.reflTransStep_trans
+#print axioms InternalQuotienting.normal_form_terminal
 
 -- ============================================================================
 -- Track 5: IntervalDomain (27 theorems)
@@ -200,4 +228,4 @@ Axioms: strictly within {propext, Quot.sound}.
 #print axioms EndogenousContinuum.reflTrans_refl
 
 def main : IO Unit := do
-  IO.println "Target Endogenous Continuum Lean 4 census: 129 listed theorems."
+  IO.println "Target Endogenous Continuum Lean 4 census: 155 listed theorems."
