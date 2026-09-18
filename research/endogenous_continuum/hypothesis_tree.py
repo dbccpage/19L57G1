@@ -34,6 +34,11 @@ from .projective_system import CoarseningMap, MoveEdge, MoveGraph, _to_fraction
 from .reasoning_agent import BudgetLedger
 
 
+def _check_node_id(node_id: Any) -> None:
+    if not isinstance(node_id, str) or not node_id:
+        raise ValueError(f"Node ids must be non-empty strings, got {node_id!r}")
+
+
 def _digest(payload: object) -> str:
     """SHA-256 of the canonical JSON form: a deterministic content checksum, not a signature."""
     text = json.dumps(payload, sort_keys=True)
@@ -49,7 +54,11 @@ class Formula(ABC):
 
     @abstractmethod
     def to_dict(self) -> Dict[str, Any]:
-        """Deterministic dictionary form, used in checksums."""
+        """Dictionary form used in checksums.
+
+        Targets are written with ``repr``, so the form is deterministic only for
+        targets whose ``repr`` is; the movegraph states of this package are.
+        """
 
 
 @dataclass(frozen=True)
@@ -164,6 +173,8 @@ class HypothesisTreeNode:
     description: str = ""
 
     def __post_init__(self) -> None:
+        _check_node_id(self.node_id)
+        self.allocated_budget = _to_fraction(self.allocated_budget, "allocated_budget")
         if self.allocated_budget < 0:
             raise ValueError(f"Allocated budget cannot be negative: {self.allocated_budget}")
 
@@ -197,6 +208,7 @@ class BranchingHypothesisTree:
         description: str = "",
     ) -> HypothesisTreeNode:
         """Add a child hypothesis under an existing, active parent."""
+        _check_node_id(node_id)
         if node_id in self._nodes:
             raise ValueError(f"Node {node_id!r} already exists in tree")
         if parent_id not in self._nodes:
@@ -312,6 +324,7 @@ class SupportRecord:
         depends_on: Sequence[str] = (),
     ) -> str:
         """Hold a reachability hypothesis resting on itself and on ``depends_on``."""
+        budget = _to_fraction(budget, "budget")
         tms_id = f"hyp:{node_id}"
         if tms_id in self._nodes:
             raise ValueError(f"Hypothesis {node_id!r} is already registered")
@@ -343,6 +356,9 @@ class SupportRecord:
 
         ``dual_bound`` must exceed ``budget``, or be ``None`` (no path at all).
         """
+        budget = _to_fraction(budget, "budget")
+        if dual_bound is not None:
+            dual_bound = _to_fraction(dual_bound, "dual_bound")
         hyp_id = f"hyp:{node_id}"
         if node_id not in self._active_hypotheses:
             raise KeyError(f"No held hypothesis {node_id!r} to refute")
@@ -522,6 +538,11 @@ class AutonomousTreeReasoningCoordinator:
             raise RuntimeError("AutonomousTreeReasoningCoordinator instances are one-shot")
         if not self.fine_graph.has_state(source):
             raise KeyError(f"Source state {source!r} not in fine graph")
+        root = tree.nodes[tree.root_id]
+        if root.target != source:
+            raise ValueError(f"Source {source!r} is not the tree's root state {root.target!r}")
+        if root.allocated_budget != 0:
+            raise ValueError("The root holds no hypothesis, so its budget must be 0")
         declared = Fraction(0, 1)
         for nid, node in tree.nodes.items():
             if nid == tree.root_id:
@@ -621,11 +642,6 @@ class AutonomousTreeReasoningCoordinator:
                 }
                 continue
 
-            if exact_bound > alloc:
-                drawn = exact_bound - alloc
-                self.ledger.allocate(nid, drawn)
-                self._record("DRAW", nid, {"drawn": str(drawn)})
-
             if node.children:
                 # Admitted without a search of its own: release the allocation so
                 # the children can draw on it.
@@ -639,6 +655,11 @@ class AutonomousTreeReasoningCoordinator:
                 )
                 outcomes[nid] = {"status": "EXPANDED", "exact_bound": exact_bound}
                 continue
+
+            if exact_bound > alloc:
+                drawn = exact_bound - alloc
+                self.ledger.allocate(nid, drawn)
+                self._record("DRAW", nid, {"drawn": str(drawn)})
 
             search_res = HierarchicalSearchEngine.search_with_coarse_pruning(
                 fine_graph=self.fine_graph,

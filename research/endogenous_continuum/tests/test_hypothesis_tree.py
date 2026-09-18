@@ -82,6 +82,10 @@ class TestBranchingHypothesisTree:
         tree.prune_subtree("p")
         with pytest.raises(ValueError, match="retracted"):
             tree.add_child("late", "p", "s", allocated_budget=1)
+        with pytest.raises(ValueError, match="non-empty strings"):
+            tree.add_child("", "root", "s", allocated_budget=1)
+        with pytest.raises(TypeError, match="exact rational"):
+            tree.add_child("f", "root", "s", allocated_budget=0.5)  # type: ignore[arg-type]
 
 
 class TestSupportRecord:
@@ -143,6 +147,10 @@ class TestSupportRecord:
             record.record_refutation("ghost", "t", Fraction(3, 1), Fraction(2, 1))
         with pytest.raises(ValueError, match="Not a refutation"):
             record.record_refutation("h", "t", Fraction(2, 1), Fraction(2, 1))
+        with pytest.raises(TypeError, match="exact rational"):
+            record.register_hypothesis("f", "t", 0.1)  # type: ignore[arg-type]
+        with pytest.raises(TypeError, match="exact rational"):
+            record.record_refutation("h", "t", 0.3, Fraction(2, 1))  # type: ignore[arg-type]
         # No path at all is a refutation whatever the budget.
         record.record_refutation("h", "t", None, Fraction(2, 1))
         assert record.nodes["ref:h"].formula.to_dict()["dual_bound"] == "unreachable"
@@ -272,6 +280,27 @@ class TestAutonomousTreeReasoningCoordinator:
         assert receipt.reclaimed_budget == sum(reclaims, Fraction(0, 1))
         assert receipt.budget_conservation_verified
 
+    def test_reclaimed_budget_never_exceeds_the_declared_slices(self) -> None:
+        # Five solved leaves and a chain of expanded nodes: every node returns at
+        # most its declared slice, once.
+        coord = coordinator(Fraction(1, 1))
+        tree = BranchingHypothesisTree("root", SOURCE)
+        for i in range(5):
+            tree.add_child(f"leaf{i}", "root", at(1), allocated_budget=Fraction(1, 5))
+        _, receipt = coord.run_tree(SOURCE, tree)
+        assert receipt.reclaimed_budget == 5 * (Fraction(1, 5) - Fraction(1, 16))
+
+        chain = coordinator(Fraction(1, 1))
+        deep = BranchingHypothesisTree("root", SOURCE)
+        parent = "root"
+        for i in range(20):
+            deep.add_child(f"n{i}", parent, at(1), allocated_budget=0)
+            parent = f"n{i}"
+        outcomes, deep_receipt = chain.run_tree(SOURCE, deep)
+        assert outcomes["n19"]["status"] == "SOLVED"
+        assert deep_receipt.reclaimed_budget == 0
+        assert deep_receipt.reclaimed_budget <= deep_receipt.total_initial_budget
+
     def test_trace_binds_what_was_solved(self) -> None:
         def run(index: int) -> TreeReasoningCoordinatorReceipt:
             coord = coordinator(Fraction(1, 2))
@@ -311,6 +340,16 @@ class TestAutonomousTreeReasoningCoordinator:
         tree.prune_subtree("b")
         with pytest.raises(ValueError, match="already retracted"):
             coordinator(Fraction(1, 1)).run_tree(SOURCE, tree)
+
+        elsewhere = BranchingHypothesisTree("root", at(14))
+        elsewhere.add_child("a", "root", at(1), allocated_budget=Fraction(1, 16))
+        with pytest.raises(ValueError, match="root state"):
+            coordinator(Fraction(1, 1)).run_tree(SOURCE, elsewhere)
+
+        funded_root = BranchingHypothesisTree("root", SOURCE, root_budget=Fraction(1, 4))
+        funded_root.add_child("a", "root", at(1), allocated_budget=Fraction(1, 16))
+        with pytest.raises(ValueError, match="root holds no hypothesis"):
+            coordinator(Fraction(1, 1)).run_tree(SOURCE, funded_root)
 
     def test_mismatched_graphs_are_rejected_before_any_change(self) -> None:
         source = DyadicInterval(scale=3, index=0)

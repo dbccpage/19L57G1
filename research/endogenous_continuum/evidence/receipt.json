@@ -355,7 +355,7 @@
   },
   "pytest": {
     "exit_code": 0,
-    "passed": 141,
+    "passed": 142,
     "status": "PASS"
   },
   "schema_version": 1,
@@ -373,7 +373,7 @@
     "dissipative_cycle.py": "335d91526080afaf7836833fa2451e2ec720afb20b73bd4e3b8053b0557aa29f",
     "dual_relaxation.py": "8a4e420d9193b4a23f01f0ac446d00d594d2a9dcf55501d59b8accfa72c70e18",
     "hierarchical_search.py": "33db3ebd26eb47447de37503e86f78fe82bb12ff7496b30c9d392de553929874",
-    "hypothesis_tree.py": "3c27875280abfafaee52427bc8627ccf107cc7a26ded6361403c420dd0a2ba4f",
+    "hypothesis_tree.py": "573f79946ad5244f12c1fe033b5a3c26deb8031e8f396a243df8802a06c5af2d",
     "internal_quotienting.py": "6e49ec433912d59357a941b7c0084c1410be37cdec670a25014a603012f2e26d",
     "interval_domain.py": "fa47ab717d3043655bfad44490ab3500c48413a1dde48e19e1817e7736bab471",
     "lean/AdaptiveBudget.lean": "a0ce0134a324966c1e50114f0eb4d9e27e2c0946bfa2bde3a6f3c64af08745dc",
@@ -396,7 +396,7 @@
     "tests/test_dissipative_cycle.py": "2c1ec93863941fb38442dda746c1073a53732bd23b7b49066a1bb8e004c71968",
     "tests/test_dual_relaxation.py": "1d51a41ba28d60cc5c41df6261ef8c91753f2b0c2b36e76d8b7af7f5f288cbc6",
     "tests/test_hierarchical_search.py": "01e3c57e2da9e623627caeef48669277cf788f798a7d965c73bc8c0e2baf54ce",
-    "tests/test_hypothesis_tree.py": "f19e475b9e1b5f11d16e4014272ed1b6c126f11769aedad1c0875fcf9999bfbe",
+    "tests/test_hypothesis_tree.py": "31500992abf7c40ad8569d989c50ddef6bf2ddc886bf3f17e3ca207ca03b84eb",
     "tests/test_internal_quotienting.py": "1fbf7156a5fb4aeadb66c1a9a5a778c9d94de9383d12b63c2b77a4f7cb929b82",
     "tests/test_interval_domain.py": "02ef9ce79dfb8d6a74df2ed32ff99f5fc93ecebb14e0e0d65a14e2444ae86bb3",
     "tests/test_observer_enclosure.py": "d84b478ba835f01c19bde73469322c68bc8d16843afe03b26276233d97c964b3",
