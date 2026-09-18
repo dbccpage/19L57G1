@@ -96,11 +96,12 @@
   },
   "schema_version": 1,
   "source_hashes": {
-    "composite_systems.py": "8e15fd8c7ea9a1ecb6f6947d1dd84f8364d1d7c64d216fe4ed1229a94fe72816",
+    "composite_systems.py": "e65d8ad02a79ab3050d4b6118e42d988b05575225fcaf97803a440394776f289",
     "lean/CompositeSystems.lean": "c7a7ab50698a5d8dce0477b7853b32cdd7a0b3089655f67c03f9bbe396c9c2d2",
     "lean/Inventory.lean": "847b9593af070b7e00ed3dc1b0ef6992274d9f66915256f83deec169470e02ca",
     "tests/test_composite_systems.py": "fc555799396daef8d37a520c1bf1683fdc598b6f7d16804265d3db47a9198b66",
-    "verify.py": "bd5b2fc184ab16eb8582c46d7faec6835ca87b773454db1d02be2c1c66438aff"
+    "verify.py": "bd5b2fc184ab16eb8582c46d7faec6835ca87b773454db1d02be2c1c66438aff",
+    "verify_sources.py": "d87d0f72a0cb2fbe02cbb824fdad4cf3e63f49b011b88ac537f1f944da5dcfde"
   },
   "status": "PASS",
   "target": "Target P203: Composite Systems & Pre-Spatial Locality",

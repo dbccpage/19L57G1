@@ -15,16 +15,17 @@
     "connectives.py": "3222dd87c81fa9678cc03d598b0b36c8c62601973356dcb6c9239ef55a0c3e0d",
     "lean/Connectives.lean": "a87ad4e8e9def8793ed1b7688e4b8f86544cf123b0a9e22d9b59ff34c71819f0",
     "lean/Inventory.lean": "5ce63723f06c99002f3c1f22df465a99a5a073700acb8dc0c7567d23ad7054e1",
-    "lean/Logic.lean": "34b24cc741839b6f91219c8b4ebb7ef1d52d83e5851fb85faf42a7cd015cdef0",
+    "lean/Logic.lean": "135fb541d7f86a5e7bb4c82c84c3f8d200dd87902c51cd4fcf0c30f6b25ab27f",
     "lean/Pricing.lean": "a8299fae04c353f8c4d35884133b3ab4be441cd0bf9d3b72af5314298bd01739",
     "lean/Syntax.lean": "ea82034429f000af74765c5f970d2c6693e8e1b353154af46a09f8f71d2a5752",
     "lean/lakefile.toml": "e58ce9b5b19f5d278474f42f37c3ff3f800048b46b429c2a3c0d91bf7de1a036",
     "lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
-    "logic.py": "b132ec9c01beedd9ea5a9f0f506edb49b45b298842bda3b9d60d0e5635a1d2ea",
+    "logic.py": "0aa6c95add58290605b4491f4e248c20ea323d65ac94c74f1dfb992ee528a00e",
     "pricing.py": "d28a8bf70136eedcf5b11464be63e7273646e5089b5b9f400197c9745ea29591",
     "syntax.py": "5321f112c7a4cedfb8af6cf89fc7739cd40a1a5699dd0a129cb4ded642d5f575",
     "tests/test_logic.py": "b7b33c2ac0f8acae5b7cc86d379728e90723170fd16bc5265b5c35103788bff4",
-    "verify.py": "f4aad269612427c8ed5bc304fc9a9847b1a3687fead004077df3967745e06549"
+    "verify.py": "f4aad269612427c8ed5bc304fc9a9847b1a3687fead004077df3967745e06549",
+    "verify_sources.py": "9d19ab8dad8fc4d408749554317d93ad00db84c1604b892fd3c63f0bb107ba7b"
   },
   "target": "M100_M103",
   "terminal_status": "INTERNAL_SYNTAX_LOGIC_SOUND",
@@ -366,7 +367,7 @@
     "InternalSyntaxLogic.instDecidableEqTerm.decEq._proof_8",
     "InternalSyntaxLogic.instDecidableEqTerm.decEq._proof_9"
   ],
-  "timestamp_utc": "2026-09-10T21:10:03.909482+00:00",
+  "timestamp_utc": "2026-09-18T20:35:11.156668+00:00",
   "title": "Internal Syntax, Operational Logic & Connectives",
   "toolchains": {
     "lean": "leanprover/lean4:v4.33.0",

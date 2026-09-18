@@ -27,7 +27,8 @@
     "tests/test_diagonal_obstruction.py": "b3af4ce855d115a2e2fa4ce7d11f8f486aa2d7c11a4faf702f51e300df0766a4",
     "tests/test_reflection_boundary.py": "7c044ab118bd93b7b3c4309458ec54ea1ce0540729b78676aa0340af832a73f7",
     "tests/test_simulator.py": "0525064eadb0cb9943aeb8f6764a027e9bb4ec0cb4e99b3be895a20ba44ae28f",
-    "verify.py": "6eca238e930df2a77b0cc1edd3547be21f3edc55c652c20e3b72df049aac458a"
+    "verify.py": "6eca238e930df2a77b0cc1edd3547be21f3edc55c652c20e3b72df049aac458a",
+    "verify_sources.py": "bcb749abb5ecfa7387d0345abe09762d815f7fbd5b218a97346e40cdf634d22c"
   },
   "target": "G018",
   "terminal_status": "SELF_HOSTING_SIMULATION_ESTABLISHED",
@@ -115,7 +116,7 @@
     "G018SelfHosting.step_simulation_extract_commutes",
     "G018SelfHosting.total_transition_oracle_refutation"
   ],
-  "timestamp_utc": "2026-09-10T21:53:02.628232+00:00",
+  "timestamp_utc": "2026-09-18T20:34:37.072169+00:00",
   "title": "Self-Hosting, Internal Simulation & Reflection Boundary",
   "toolchains": {
     "lean": "leanprover/lean4:v4.33.0",

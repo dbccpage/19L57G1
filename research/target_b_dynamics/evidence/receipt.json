@@ -364,7 +364,7 @@
   },
   "schema_version": 1,
   "source_hashes": {
-    "bounds.py": "02b6dfad7114c36b5a064d38fcadff8a4af880e09d412743399c2b61ebc7f033",
+    "bounds.py": "741917ec5dec83acefe88b3fff9f2520efe7b492f6b321e8a3a09d90b95780ed",
     "commute.py": "f3403f174f2ea247a18c5a49812a384e664108dc9323fe8b19b0a6508ba8e9cd",
     "lean/Commute.lean": "810f2b20ce5e0fa46b5832c7c5777aff60e489e8d07f8960c40d9637c39bccc0",
     "lean/Inventory.lean": "5f66684f4a4f92862847416f9ca076fb9975fece644070b107b3a2eccfefd927",
@@ -377,7 +377,8 @@
     "tests/test_commute.py": "c1629c81d5420a080fbaa5dad883f6cf3f95514250c88cbe26a421f1eb1b5816",
     "tests/test_limits.py": "33b2d967c33302400d834809e0f1b23a984856cb99b9ea2c64ed19298decfe16",
     "tests/test_observe.py": "9738ffdbba562f790bac37d8e71e50439eb4d4c170a4add9f79b6cbdf0e34154",
-    "verify.py": "db78513c8738066fb003b55cac863e12347f586f9f5577ac156d9d233d5d3a3a"
+    "verify.py": "db78513c8738066fb003b55cac863e12347f586f9f5577ac156d9d233d5d3a3a",
+    "verify_sources.py": "7ef91fc095ecf741aa69b68042c96025e4a1d73c4bed759b9e8d02ae7e8712d3"
   },
   "status": "PASS",
   "target": "Target B (Coherent Observation Scales & Dynamics)",

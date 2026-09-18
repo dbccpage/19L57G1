@@ -123,7 +123,8 @@
     "tests/test_panel_firewall.py": "e0993d4cad3ec603b56561d706e2ba25a392e5c90d79d834d5a254131fbf9862",
     "tests/test_satisfaction.py": "c431a66ffce6d639c450da640054e5607befe9b4ebebada40df7626c51c4eabd",
     "valuation.py": "154e9c74ef834e8db7caf5faf1ef2ac291190ecdc91570162a954d27efac1de8",
-    "verify.py": "763cd0da1dacb92cfd574c21e5514981f80668d5d106395757a9c682691f7c3f"
+    "verify.py": "763cd0da1dacb92cfd574c21e5514981f80668d5d106395757a9c682691f7c3f",
+    "verify_sources.py": "1f5d45caf705747d1121351f2952c310282f213e758922e7f2f4100cc4cd0950"
   },
   "status": "PASS",
   "target": "Target X301: Formal Semantics, Empirical Reference & Intervention Grounding",

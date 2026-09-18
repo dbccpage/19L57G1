@@ -291,7 +291,8 @@
     "lean/StabilizerCodes.lean": "431c7f238eafe11f33d9ddbc67b4459be9b448372f1f14e2d436f5bbca81608e",
     "stabilizer_codes.py": "4afd3b74dd39cc87e06b55044e510db9020fb96dab8014cc8a1e35300d7571dd",
     "tests/test_stabilizer.py": "69d4d08f4966362791832c1e4f0b7674da7c6260bfdd0bd7ccb99dfde0c2381a",
-    "verify.py": "77ddc1c5a18949b87277c1e82ae12bdcfc189fcc14d996a1267b8faa3710d56f"
+    "verify.py": "77ddc1c5a18949b87277c1e82ae12bdcfc189fcc14d996a1267b8faa3710d56f",
+    "verify_sources.py": "af6a70af69fe642acac87b5c1ea5c5a5a4d225c0857eaf8f355d4433e2eaa124"
   },
   "status": "PASS",
   "target": "Target P209c: Stabilizer Error-Correcting Codes on Affine Grids",

@@ -29,7 +29,8 @@
     "tests/test_ordinals.py": "1e96c93b4f8d941e4c2f7d2a8d45200bc1bc85ad8b8551427db3d17b3c0c3678",
     "tests/test_recursion.py": "7f8abe35ff78e2f56b79173280fe0da12a41e5599c5ffc09477fda49dbc8a818",
     "tests/test_substrate.py": "91edfb2f941f48ce813544b17c7bc25b33d3e499e1f206b99d240365710f7b57",
-    "verify.py": "5ed406702b783236d9f862936b97485b4e024e54dc36fad80c6e5885bf360115"
+    "verify.py": "5ed406702b783236d9f862936b97485b4e024e54dc36fad80c6e5885bf360115",
+    "verify_sources.py": "5e67068de6ccbe25e4aef56c3f0517d1737cbae503ef7634c7703a27c58b38ca"
   },
   "target": "G011",
   "terminal_status": "FINITARY_SUBSTRATE_INTERNAL",
@@ -217,7 +218,7 @@
     "FinitarySubstrate.instDecidableEqOrdinal.decEq._proof_3",
     "FinitarySubstrate.instDecidableEqOrdinal.decEq._proof_4"
   ],
-  "timestamp_utc": "2026-09-10T19:43:14.983244+00:00",
+  "timestamp_utc": "2026-09-18T20:32:56.535267+00:00",
   "title": "Internal Finitary Substrate",
   "toolchains": {
     "lean": "leanprover/lean4:v4.33.0",

@@ -30,7 +30,8 @@
     "tests/test_price.py": "64bb964cc2fd7ee4c3becebb28cdfb2abb62928f1dbaa41ac812a523008ac151",
     "tests/test_trace.py": "1662bccbc2829e9da155bfb74795e36682998d27bd34a6a4661257b4608d06c0",
     "trace.py": "3135381958c4135552b26e65b49db3319c1e57f38ecdcaccb7aaa5501ddb06d9",
-    "verify.py": "931d98f04c93809be9414f7ffe79fcf380ebe354dce9a9764f8e5bd3f9b91fc8"
+    "verify.py": "931d98f04c93809be9414f7ffe79fcf380ebe354dce9a9764f8e5bd3f9b91fc8",
+    "verify_sources.py": "2f5a108f1cd6b909672045443d2dc3f48e8c57b10db662d9b82e517356522c40"
   },
   "target": "G013",
   "terminal_status": "COHERENT_TRACE_CALCULUS_VERIFIED",
@@ -107,7 +108,7 @@
     "G013TraceCalculus.sourceOf_concat",
     "G013TraceCalculus.targetOf_concat"
   ],
-  "timestamp_utc": "2026-09-10T21:52:56.155012+00:00",
+  "timestamp_utc": "2026-09-18T20:33:54.507848+00:00",
   "title": "Coherent Trace Calculus & Higher Cell Algebra",
   "toolchains": {
     "lean": "leanprover/lean4:v4.33.0",

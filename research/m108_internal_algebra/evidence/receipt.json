@@ -9,6 +9,7 @@
     "quotients.py": "16d541869fb7e64ccc8cbb57c53a1e2cd5971b00fc15d6d1e201373e57f2a484",
     "structures.py": "06cd09a45934e4a773eea5e53a77b9f2ce464855986aeb9f345d7140f753b68a",
     "verify.py": "e7dd3bb6312661d0961f43358ed3bf65ab6dc554798164902dc331e987bf83e2",
+    "verify_sources.py": "9fed59b2098d020ee7caf1224dea83d21d1857091d73af74d86a251d33da8514",
     "tests/test_algebra.py": "cb22190fb13e401ebf6bada5c154366491d02d64f47b4f6a0800944f0962e9b8"
   },
   "pytest": {

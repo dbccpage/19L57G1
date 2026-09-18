@@ -133,6 +133,7 @@
     "lean/WignerPhaseSpace.lean": "35a688c3ee2d4f5fe18edc1cde503df19e86a7ae470b4895a0152da13a6e32cf",
     "tests/test_wigner.py": "9edb1bd0c1fde00938641fb6db5222f9ff58067f7277bf63a14cb2ef13a2c96f",
     "verify.py": "60acebc3edf1ad3a652ad70a40d7be4ade3d21d04a7b7316a5f5f31db7dbc6ac",
+    "verify_sources.py": "08f6906f9a17dd4e1db211cd6257bbd2b630f2463ac4f64f0fa6e7addd2aec4e",
     "wigner_phase_space.py": "41a894e9f1ef70f07b3189cd054036c8294097e00852d5aca77c2ab936c85f78"
   },
   "status": "PASS",

@@ -156,7 +156,8 @@
     "lean/OperationalValuations.lean": "db5035c5eca898e483468b20c45270a7fc6a92c85b4d6eba3a881b7efab3b777",
     "tests/test_valuations.py": "40747b0feb35e6f8a00c96d4dc2e638876517b7f2099ceff73a7541e94fabb3e",
     "valuations.py": "f1932dcb9dd7f0400e4d291c24bd4cd10b2956e34d546b4b30d0e515c96c2f6e",
-    "verify.py": "b7b772eae5329c7f564adcc9e03cb58c1acb1378eaea49990f3892e8c928c9e7"
+    "verify.py": "b7b772eae5329c7f564adcc9e03cb58c1acb1378eaea49990f3892e8c928c9e7",
+    "verify_sources.py": "3dc7783a8cf4b9ba90e3537d64078b7bd81b265f314dc72a824b5d0a789d7aa3"
   },
   "status": "PASS",
   "target": "Target P204: Operational Valuations & Convex State Spaces",

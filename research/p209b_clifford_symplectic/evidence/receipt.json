@@ -109,7 +109,8 @@
     "lean/CliffordSymplectic.lean": "c8d1052f1bd08abdf9b0bf62e503a1c079015311e795208b4a96e27ed30b8c20",
     "lean/Inventory.lean": "a814ac33053a4f035c2aa0fa2b002387d5f92f64439137c27d15792de11f5dbc",
     "tests/test_clifford.py": "745fcc202057a52ec426dcf1a89cd79304ab0f6cc3aea411617b315f8d000d46",
-    "verify.py": "4d84cd80561560b96eed90bd8089415116a864f81c48e8bbd066981f41a66eb4"
+    "verify.py": "4d84cd80561560b96eed90bd8089415116a864f81c48e8bbd066981f41a66eb4",
+    "verify_sources.py": "713c295a7d3c3f488ae60a34c3571b878b4a6d7a397f6045edeec33021a010f0"
   },
   "status": "PASS",
   "target": "Target P209b: Discrete Clifford Group & Symplectic Geometry",

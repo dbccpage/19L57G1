@@ -101,7 +101,8 @@
     "tests/test_duplicate_observers.py": "e877836bda6575a5c5e440d2e880e5a6e8b5a0d28a25dd7a9f1dd7ac067bbdb3",
     "tests/test_non_signaling.py": "7ba6c25d89645b8b1c967f9aad75da2495951986cba9e143694c80866eb7418b",
     "tests/test_protocol.py": "b1e36b44cd9f5d7cd8b92f13ec707312df8e87e9bbc878be87db1f9f7df12b5c",
-    "verify.py": "8d7536622d727e241283512954c659b6b829a5f0cb8fa938b16e8c2eda5e9d02"
+    "verify.py": "8d7536622d727e241283512954c659b6b829a5f0cb8fa938b16e8c2eda5e9d02",
+    "verify_sources.py": "6b8dd0d4ae3df849afd14dd5f3fc47df5359379cf836743963f567c0fbc2fd3f"
   },
   "status": "PASS",
   "target": "Requirement R4: Operational Protocols & Embedded Observers (Target P200)",

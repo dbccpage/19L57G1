@@ -27,7 +27,8 @@
     "tests/test_commutation.py": "0fa668ee62fb6af5e1c8ad04fb2f96d0ebbb8fd871451debc92ec5b9932e32c6",
     "tests/test_naturality.py": "464f49a0f925998d2bd5b54cedc3e8340c84ac7e49474aa3d97408eee10ae785",
     "tests/test_specialization.py": "2c47c8a4aab880ac96a6285b89414b08ca8dbd55942a2aff3240d4df921f352b",
-    "verify.py": "c71baf1c86af3d66d5a3effb1b8e91e9830924a03edc5f86952a07f0cef4c7d1"
+    "verify.py": "c71baf1c86af3d66d5a3effb1b8e91e9830924a03edc5f86952a07f0cef4c7d1",
+    "verify_sources.py": "176b4c2be64331b4453e90c16fb1153a546902e16bdcb54bf97bc066d572faf4"
   },
   "target": "G012",
   "terminal_status": "TYPED_TRANSLATION_CONSTRUCTIVE_BOUND_UNIFORM",
@@ -369,7 +370,7 @@
     "G012TypedTranslation.unsupplied_d0_refusal",
     "G012TypedTranslation.unsupplied_d1_refusal"
   ],
-  "timestamp_utc": "2026-09-10T21:52:49.221747+00:00",
+  "timestamp_utc": "2026-09-18T20:33:19.301903+00:00",
   "title": "Bound-Uniform Typed Translation & General Signature Codec",
   "toolchains": {
     "lean": "leanprover/lean4:v4.33.0",
