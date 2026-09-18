@@ -1,4 +1,4 @@
-"""One Lean toolchain and one Python version, wherever the repository names them.
+"""One Lean toolchain everywhere, and one Python version at the repository root.
 
 The sealed package pins its Lean release in ``lean4/lean-toolchain``.  Elan
 builds a Lean file with the nearest ``lean-toolchain`` at or above its
@@ -31,7 +31,7 @@ REPO = Path(__file__).resolve().parent.parent
 SEALED_PIN = "lean4/lean-toolchain"
 PIN_NAME = "lean-toolchain"
 RELEASE_LITERAL = re.compile(r"leanprover/lean4:v[0-9][0-9A-Za-z.\-]*")
-WORKFLOW_PYTHON = re.compile(r"python-version:\s*\"?([0-9.]+)\"?")
+WORKFLOW_PYTHON = re.compile(r"""python-version:\s*["']?([0-9.]+)["']?""")
 
 
 @functools.cache
@@ -91,10 +91,12 @@ def test_research_scripts_name_the_sealed_release() -> None:
 def test_one_python_version_at_the_root() -> None:
     wanted = _text(".python-version")
     mypy = tomllib.loads((REPO / "pyproject.toml").read_text(encoding="utf-8"))["tool"]["mypy"]
-    workflow = WORKFLOW_PYTHON.findall(
-        (REPO / ".github" / "workflows" / "verify.yml").read_text(encoding="utf-8")
+    text = (REPO / ".github" / "workflows" / "verify.yml").read_text(encoding="utf-8")
+    workflow = WORKFLOW_PYTHON.findall(text)
+    setups = text.count("uses: actions/setup-python@")
+    assert setups and len(workflow) == setups, (
+        f"{setups} setup-python steps but {len(workflow)} python-version values read"
     )
-    assert workflow, "the workflow names no python-version; the pattern is broken"
     assert {wanted, mypy["python_version"], *workflow} == {wanted}, (
         f".python-version {wanted!r}, root mypy target {mypy['python_version']!r}, "
         f"workflow {workflow}"
