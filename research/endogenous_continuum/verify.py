@@ -21,6 +21,7 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+import tempfile
 from typing import Any
 
 ROOT = Path(__file__).resolve().parent
@@ -134,7 +135,7 @@ def run_pytest() -> dict[str, Any]:
     tests_path = str(ROOT / "tests")
     cmd = [sys.executable, "-m", "pytest", "-v", tests_path]
     print(f"== Running pytest: {' '.join(cmd)}")
-    proc = subprocess.run(cmd, cwd=REPO_ROOT, capture_output=True, text=True, check=False)
+    proc = subprocess.run(cmd, cwd=REPO_ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace", check=False)
     output = proc.stdout + "\n" + proc.stderr
     print(output)
     if proc.returncode != 0:
@@ -152,12 +153,83 @@ def run_pytest() -> dict[str, Any]:
 def run_mypy() -> dict[str, Any]:
     cmd = [sys.executable, "-m", "mypy", "--strict", str(ROOT)]
     print(f"== Running mypy: {' '.join(cmd)}")
-    proc = subprocess.run(cmd, cwd=REPO_ROOT, capture_output=True, text=True, check=False)
+    proc = subprocess.run(cmd, cwd=REPO_ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace", check=False)
     output = proc.stdout + "\n" + proc.stderr
     print(output)
     if proc.returncode != 0:
         raise RuntimeError(f"mypy failed with exit code {proc.returncode}")
     return {"exit_code": proc.returncode, "status": "PASS"}
+
+
+_DECLARING_KEYWORD = re.compile(r"\b(?:theorem|lemma)\s+$")
+
+
+def census_check_source(modules: list[str]) -> str:
+    """A Lean script printing every theorem the given modules add, with its position."""
+    imports = "".join(f"import {m}\n" for m in modules)
+    names = ", ".join(f"`{m}" for m in modules)
+    return (
+        f"{imports}import Lean\n\nopen Lean\n\n"
+        "#eval show CoreM Unit from do\n"
+        "  let env ← getEnv\n"
+        f"  for m in ([{names}] : List Name) do\n"
+        "    let some idx := env.getModuleIdx? m | throwError m!\"module {m} not found\"\n"
+        "    for n in env.header.moduleData[idx.toNat]!.constNames do\n"
+        "      if n.isInternalDetail then continue\n"
+        "      if let some (.thmInfo _) := env.find? n then\n"
+        "        if let some r ← findDeclarationRanges? n then\n"
+        "          IO.println s!\"THM {m} {n} {r.selectionRange.pos.line} {r.selectionRange.pos.column}\"\n"
+    )
+
+
+def declared_theorems(check_output: str, lean_dir: Path) -> set[str]:
+    """Theorems whose name, at its declared position, follows `theorem` or `lemma`.
+
+    Lean positions count code points, so the source line is sliced by characters.
+    Generated lemmas have no declaration range, and structure fields are not
+    preceded by a declaring keyword; neither is counted.
+    """
+    names: set[str] = set()
+    for line in check_output.splitlines():
+        parts = line.split()
+        if len(parts) != 5 or parts[0] != "THM":
+            continue
+        _, module, name, row, column = parts
+        source = (lean_dir / f"{module}.lean").read_text(encoding="utf-8").split("\n")
+        if _DECLARING_KEYWORD.search(source[int(row) - 1][: int(column)]):
+            names.add(name)
+    return names
+
+
+def check_census_complete(listed: set[str]) -> int:
+    """Fail unless Inventory.lean lists exactly the theorems the modules declare."""
+    modules = sorted(p.stem for p in LEAN_DIR.glob("*.lean") if p.stem != "Inventory")
+    with tempfile.TemporaryDirectory() as tmp:
+        script = Path(tmp) / "CensusCheck.lean"
+        script.write_text(census_check_source(modules), encoding="utf-8")
+        proc = subprocess.run(
+            ["lake", "env", "lean", str(script)],
+            cwd=LEAN_DIR,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            check=False,
+        )
+    if proc.returncode != 0:
+        raise RuntimeError(
+            f"Census completeness check failed to run:\n{proc.stdout}\n{proc.stderr}"
+        )
+    declared = declared_theorems(proc.stdout, LEAN_DIR)
+    missing = sorted(declared - listed)
+    extra = sorted(listed - declared)
+    if missing or extra:
+        raise RuntimeError(
+            f"Inventory.lean does not match the declared theorems: missing {missing}, "
+            f"listed but not declared {extra}"
+        )
+    print(f"PASS: census lists all {len(declared)} declared theorems")
+    return len(declared)
 
 
 def run_lean() -> dict[str, Any]:
@@ -172,7 +244,7 @@ def run_lean() -> dict[str, Any]:
 
     print("== Building Lean package with lake build")
     build_proc = subprocess.run(
-        ["lake", "build"], cwd=LEAN_DIR, capture_output=True, text=True, check=False
+        ["lake", "build"], cwd=LEAN_DIR, capture_output=True, text=True, encoding="utf-8", errors="replace", check=False
     )
     build_output = build_proc.stdout + "\n" + build_proc.stderr
     print(build_output)
@@ -186,6 +258,8 @@ def run_lean() -> dict[str, Any]:
             cwd=LEAN_DIR,
             capture_output=True,
             text=True,
+            encoding="utf-8",
+            errors="replace",
             check=False,
         )
         inv_output = inv_proc.stdout + "\n" + inv_proc.stderr
@@ -207,6 +281,7 @@ def run_lean() -> dict[str, Any]:
         if not theorems:
             raise RuntimeError(f"No theorem axioms were parsed from Inventory.lean output:\n{inv_output}")
 
+        declared_count = check_census_complete(set(theorems))
         axiom_free = sum(1 for ax in theorems.values() if not ax)
         print(
             f"Lean Census: {len(theorems)} theorems verified, {axiom_free} axiom-free."
@@ -214,6 +289,7 @@ def run_lean() -> dict[str, Any]:
         return {
             "build_status": "PASS",
             "theorem_count": len(theorems),
+            "declared_theorem_count": declared_count,
             "axiom_free_count": axiom_free,
             "allowed_axioms": sorted(ALLOWED_AXIOMS),
             "theorem_details": dict(sorted(theorems.items())),
@@ -231,6 +307,8 @@ def run_prose_watchlist() -> None:
             cwd=REPO_ROOT,
             capture_output=True,
             text=True,
+            encoding="utf-8",
+            errors="replace",
             check=False,
         )
         if proc.returncode != 0:
@@ -279,6 +357,9 @@ def main() -> int:
     )
     parser.add_argument("--write", action="store_true", help="Write fresh receipt")
     args = parser.parse_args()
+    # Names may carry characters the console code page cannot print.
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(errors="backslashreplace")
 
     try:
         receipt = verify()
