@@ -2,6 +2,10 @@ prompt/** -text
 artifacts/** -text
 requirements.txt -text
 *.json.gz binary
+# Many research verifiers compare evidence/receipt.json with a fresh rendering
+# byte for byte, and some write it with CRLF on Windows: store LF, check out
+# LF.  Kept above the tree-specific rules below so that those still win.
+research/*/evidence/receipt.json text eol=lf
 research/partial_decide/partial_decide_c3.json -text
 research/natural_sections/receipts/** -text
 research/family_embedding/receipts/** -text
@@ -15,6 +19,3 @@ research/diagonal_identity/evidence/** -text
 research/diagonal_identity/SOURCE_MANIFEST.json -text
 research/oriented_boundary/BLIND_RUN_REPORT_20260916.md -text
 research/oriented_boundary/BLIND_RECONCILIATION.md -text
-# Evidence receipts are compared byte for byte by their verifiers' --check, and
-# some verifiers write them with CRLF on Windows: store LF, check out LF.
-research/*/evidence/receipt.json text eol=lf
