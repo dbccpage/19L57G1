@@ -20,7 +20,8 @@
     "lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
     "number_tower.py": "9cce00b20a6e3fffc757aae2f1ae941e4d5bbe93bbc4194718d1a9ea351e2c65",
     "tests/test_number_tower.py": "b0bb3ca1146d3b642f82514be9b1f9934ae89263404af6f4929f963e15e644d9",
-    "verify.py": "8994cbd514daebc4fb335fdfcff709295a81422bf338072bcdc8b63fa074286c"
+    "verify.py": "8994cbd514daebc4fb335fdfcff709295a81422bf338072bcdc8b63fa074286c",
+    "verify_sources.py": "dc47a77a6a45be3c3c1a78d76ebbdf0b799df00391aa6d8def0a1b9f5754dd3e"
   },
   "target": "M105-M106",
   "terminal_status": "NUMBER_TOWER_CONSTRUCTIVE",
@@ -142,7 +143,7 @@
     "NumberTower.zero_mulQ",
     "NumberTower.zero_mulZ"
   ],
-  "timestamp_utc": "2026-09-10T21:10:07.598054+00:00",
+  "timestamp_utc": "2026-09-18T20:35:33.516841+00:00",
   "title": "Natural Number Object & Rational Number Tower from Finitary Substrate",
   "toolchains": {
     "lean": "leanprover/lean4:v4.33.0",
