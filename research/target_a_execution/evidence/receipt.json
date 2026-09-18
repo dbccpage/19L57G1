@@ -212,7 +212,8 @@
     "tests/test_memory.py": "a510624829f6db736e9a4f0462bba7a341b299bfb5138fa5ccad82311081decf",
     "tests/test_protection.py": "a984af741b15b6506383076dcaa3f6b12c221eedcacec88bbf355bddb9c542fc",
     "tests/test_runner.py": "59b3a04e1a49995acfa5b93d3bb6315835e9541ceb8b7b49e94693f5985f21a7",
-    "verify.py": "105b28196b8069eb8521333bc561dba12f6daf7f596b5c694e3568e7ad0909c4"
+    "verify.py": "105b28196b8069eb8521333bc561dba12f6daf7f596b5c694e3568e7ad0909c4",
+    "verify_sources.py": "2345b1d094b69179a485ec1ac94861ba379d8665fc2cf9222eec3074d5bbec69"
   },
   "status": "PASS",
   "target": "Target A (Represented Execution Substrate)",
