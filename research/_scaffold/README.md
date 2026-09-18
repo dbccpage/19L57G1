@@ -34,6 +34,14 @@ When you start a new `research/<tree>/`:
 Do **not** copy an older tree's `check_coverage.py` / `run.py` — that is how the
 bugs spread.
 
+Register the tree in `research/README.md`: run
+`python ci/research_index.py --write` and commit the result.
+`tests/test_research_index.py`, part of the root suite, fails until the tree
+has a row, and again when it is registered in or out of the workflow's
+research job. A tree whose own boundary test forbids writes outside its root
+should list `research/README.md` among its declared shared paths, as it does
+`.github/workflows/verify.yml`.
+
 ## Keep the family in sync
 
 `python research/_scaffold/check_scaffold.py` scans every `research/<tree>/` and:
