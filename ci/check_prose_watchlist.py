@@ -139,22 +139,20 @@ class _Memo:
     """Match results already computed against one ``watched`` mapping.
 
     For a fixed ``watched``, ``_match_unigram`` and ``_match_bigram`` are
-    deterministic in their token arguments, and a line's hits (less its
-    line number) are deterministic in the line's text.  A repeated token,
-    adjacent pair, or whole line is therefore answered from here instead of
-    being re-tokenized, re-stemmed, and re-digested; the tree repeats all
-    three heavily.  A memo is built for one scan and dropped with it; it is
-    never shared across scans, so a mapping that changes between scans
-    (``--add``) cannot be answered from a stale entry.
+    deterministic in their token arguments, so a repeated token or adjacent
+    pair is answered from here instead of being re-stemmed and re-digested;
+    the tree repeats both heavily.  A memo is built for one scan and dropped
+    with it; it is never shared across scans, so a mapping that changes
+    between scans (``--add``) cannot be answered from a stale entry.
+    ``tests/test_prose_watchlist.py`` compares it with an uncached scan.
     """
 
-    __slots__ = ("watched", "unigram", "bigram", "lines")
+    __slots__ = ("watched", "unigram", "bigram")
 
     def __init__(self, watched: Mapping[str, str]) -> None:
         self.watched = watched
         self.unigram: dict[str, str | None] = {}
         self.bigram: dict[tuple[str, str], str | None] = {}
-        self.lines: dict[str, tuple[tuple[str, str], ...]] = {}
 
     def one(self, token: str) -> str | None:
         unigram = self.unigram
@@ -188,8 +186,12 @@ def _line_hits(line: str, memo: _Memo) -> tuple[tuple[str, str], ...]:
 
 
 def _scan_text(text: str, memo: _Memo) -> list[Hit]:
+    """Hits in one text.  A line repeated within the text is scanned once;
+    the line cache lives for this text only, because almost every repeat is
+    within one file and a cache of every distinct line in the tree would
+    hold tens of megabytes to save little."""
     hits: list[Hit] = []
-    lines = memo.lines
+    lines: dict[str, tuple[tuple[str, str], ...]] = {}
     for line_no, line in enumerate(text.splitlines(), start=1):
         found = lines.get(line)
         if found is None:
