@@ -5,6 +5,7 @@
     "lean/RelationalSpacetime.lean": "e0b726d562b6307b722dac6bad5031b3242ecb4271f1bf7e51f2732b955ccccb",
     "relational_spacetime.py": "054a1032f848a2f589d2ac2621aadf82238b804f1f8f262f41feb8170ad4a059",
     "verify.py": "90afd8b76d5a919ac87423a5bb142a4e305fe706b44dbbdd6a2898b4e27b8cdc",
+    "verify_sources.py": "f9adf4d7474b4b94147c644da16592f7dc3e06650515721df43db6f765a51911",
     "tests/test_relational_spacetime.py": "04a43ad22397183d7146de18b8dab10c90a5c87eb9e8b3fc3e91ccf661540a2c"
   },
   "pytest": {

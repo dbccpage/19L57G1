@@ -5,6 +5,7 @@
     "lean/Inventory.lean": "0e16a376fe2ac9b00c60b002499834f84b18c98313d08f45dcddd01b301ce3fb",
     "stepping.py": "be006329d5bc1d56881781b026b627ad20dd0f45e156f45f498ede4ac98b58ae",
     "verify.py": "f88b50d8a83e10694840043956f3b671b6ef802f291ad990e8699a1b8fded252",
+    "verify_sources.py": "ff38eb263d7f2c46cb7dcdd2fa8ac341b890d311832b20bdfc63d42a2cfb8384",
     "tests/test_stepping.py": "d961d1f312f92e1144fea7d4fa6e95cc51566fb668fc2865299706a8318b41ef"
   },
   "pytest": {
