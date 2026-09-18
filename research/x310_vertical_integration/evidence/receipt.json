@@ -212,7 +212,8 @@
     "tests/test_receipt_determinism.py": "e43d9cb930e982359e56f4bd0a6f17fa8844a72f55fa874f5309f949235cb450",
     "tests/test_vertical_commutation.py": "1b55add1b40ab0f757ce1c336eb48c3245f28685f9aa7a5c9e5024e8e91ab494",
     "types.py": "90768efa3cd0c16949125e4e33c7ac09adcf2f47abbdd4fc015ccbd71ee7ad98",
-    "verify.py": "8e83e68825b98b76f20fffc597bca23b66b480fae1506a520c1c5af0b7d98718"
+    "verify.py": "8e83e68825b98b76f20fffc597bca23b66b480fae1506a520c1c5af0b7d98718",
+    "verify_sources.py": "64029fdc7d79f5eb5cd49f70e1ed4beb54d0844128932ea1d05b134af2963ecc"
   },
   "status": "PASS",
   "target": "Target X310: Vertical Integration Chain",
