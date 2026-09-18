@@ -3,7 +3,7 @@
   "claim_hygiene": {
     "inventory_reports_no_classical_choice": true,
     "reported_axioms_within_allowlist": true,
-    "scope": "Four finite constructions over relational carrier models: observer records, carrier coarsenings, cycle validation, and conditional rewrite quotients. Three sealed sources are pinned read-only. See CLAIMS.md for hypotheses and nonclaims.",
+    "scope": "Nine finite tracks over relational carrier models, listed in README.md. Three sealed sources are pinned read-only. See CLAIMS.md for hypotheses and nonclaims.",
     "sealed_sources_pinned": true,
     "zero_floating_point_arithmetic": true
   },
@@ -12,9 +12,9 @@
       "Quot.sound",
       "propext"
     ],
-    "axiom_free_count": 59,
+    "axiom_free_count": 56,
     "build_status": "PASS",
-    "theorem_count": 124,
+    "theorem_count": 129,
     "theorem_details": {
       "AdaptiveBudget.allocation_preserves_conservation": [
         "propext",
@@ -43,23 +43,6 @@
       ],
       "AdaptiveBudget.sumAllocated_cons": [],
       "AdaptiveBudget.sumAllocated_nil": [],
-      "BeliefRevisionTree.agm_inclusion_leaf": [],
-      "BeliefRevisionTree.monotone_pruning": [
-        "propext",
-        "Quot.sound"
-      ],
-      "BeliefRevisionTree.prune_nonexistent_leaf": [],
-      "BeliefRevisionTree.prune_preserves_conservation": [
-        "propext",
-        "Quot.sound"
-      ],
-      "BeliefRevisionTree.prune_root_exact": [],
-      "BeliefRevisionTree.retraction_soundness_under_refusal": [
-        "propext",
-        "Quot.sound"
-      ],
-      "BeliefRevisionTree.tree_budget_branch": [],
-      "BeliefRevisionTree.tree_budget_leaf": [],
       "DissipativeCycle.acyclic_dissipative_terminates": [
         "propext",
         "Quot.sound"
@@ -136,6 +119,45 @@
       "EndogenousContinuum.pathwayIndex_pos": [],
       "EndogenousContinuum.potential_nonincreasing": [],
       "EndogenousContinuum.reflTrans_refl": [],
+      "HypothesisTree.prune_absent_unchanged": [
+        "propext"
+      ],
+      "HypothesisTree.prune_conserves_total": [
+        "propext",
+        "Quot.sound"
+      ],
+      "HypothesisTree.prune_inclusion": [
+        "propext"
+      ],
+      "HypothesisTree.prune_list_absent_unchanged": [
+        "propext"
+      ],
+      "HypothesisTree.prune_list_inclusion": [
+        "propext"
+      ],
+      "HypothesisTree.prune_list_split": [
+        "propext",
+        "Quot.sound"
+      ],
+      "HypothesisTree.prune_list_success": [
+        "propext"
+      ],
+      "HypothesisTree.prune_root_exact": [
+        "propext"
+      ],
+      "HypothesisTree.prune_shrinks_of_pos": [
+        "propext",
+        "Quot.sound"
+      ],
+      "HypothesisTree.prune_split": [
+        "propext",
+        "Quot.sound"
+      ],
+      "HypothesisTree.prune_success": [
+        "propext"
+      ],
+      "HypothesisTree.tree_budget_branch": [],
+      "HypothesisTree.tree_budget_leaf": [],
       "InternalQuotienting.canonical_minimizer_elimination": [],
       "InternalQuotienting.endogenous_equivalence_refl": [],
       "InternalQuotienting.endogenous_equivalence_symm": [],
@@ -333,7 +355,7 @@
   },
   "pytest": {
     "exit_code": 0,
-    "passed": 127,
+    "passed": 141,
     "status": "PASS"
   },
   "schema_version": 1,
@@ -343,26 +365,26 @@
   },
   "source_hashes": {
     ".gitattributes": "8d3cbb5c8e466acc37bd53780fb2f2564a6f2d41663b6a0bf22f8ae1dfb02b5d",
-    "CLAIMS.md": "27d1be0fee6090a682530a7f20d288ea60836e845d36a403c17af8aac5521a08",
-    "README.md": "22f282beca9d07b84da7f68641bf0a0df949601410ae42a045a5c9ec3cd459aa",
+    "CLAIMS.md": "b8a4dba99411989a38f46632bf14d9f0a7d64fd51646909cae253224d181ff39",
+    "README.md": "9277a096b0c73e4afcb8d2f63fc304170cc20ad711ac5c033013c1e9a4d61605",
     "SOURCE_MANIFEST.json": "5814cdddf1dba62886ded8409e094d38467744ea4ff5e9e3f0630a2d9c0a1cc8",
-    "__init__.py": "072bd57ae0d8c28f7b0b526d72b0cfc2d70311066ba92a08b0b2d88e2166f6ee",
-    "belief_revision_tree.py": "6923f3942e7740b70eef2f304a5ebd8ca2db57f7b06390c80bdd10308284bee0",
+    "__init__.py": "91411ad32aa7ea905e94c75c901e1ba7a228d1384655ff51c94b09fc781e0202",
     "benchmark_hierarchical.py": "c446679e543ff9434236e57886cd3aef1b10e9a1f2025eccefffaa10fbd3b75b",
     "dissipative_cycle.py": "335d91526080afaf7836833fa2451e2ec720afb20b73bd4e3b8053b0557aa29f",
     "dual_relaxation.py": "8a4e420d9193b4a23f01f0ac446d00d594d2a9dcf55501d59b8accfa72c70e18",
     "hierarchical_search.py": "33db3ebd26eb47447de37503e86f78fe82bb12ff7496b30c9d392de553929874",
+    "hypothesis_tree.py": "3c27875280abfafaee52427bc8627ccf107cc7a26ded6361403c420dd0a2ba4f",
     "internal_quotienting.py": "6e49ec433912d59357a941b7c0084c1410be37cdec670a25014a603012f2e26d",
     "interval_domain.py": "fa47ab717d3043655bfad44490ab3500c48413a1dde48e19e1817e7736bab471",
     "lean/AdaptiveBudget.lean": "a0ce0134a324966c1e50114f0eb4d9e27e2c0946bfa2bde3a6f3c64af08745dc",
-    "lean/BeliefRevisionTree.lean": "7134bf2ed98325da48c7d8bc4b48fbe859a0a6f854d97952d2105820b63605d7",
     "lean/DissipativeCycle.lean": "40e16d412ce71bbbe28905ee98f64755608b9138e0e5ebfddf1d443a581fa66d",
     "lean/DualCertificate.lean": "26811d0769cdb27e57d34982fb810a8e62c067affaa7e75c45e808c97d2e4712",
     "lean/EndogenousContinuum.lean": "f40b1408f8b5efbea9aa4d033cba2b6975bdeba044ae7bdf3958e2eb62913574",
+    "lean/HypothesisTree.lean": "3f933f44c140863db7f4e8e19ca0281ed63205b817541f956a4597f023ac1e24",
     "lean/InternalQuotienting.lean": "c31a30fdbe4a1b77eabbbf5f05343ab040d46ca0103027b7113fffed41b9b0fb",
     "lean/IntervalDomain.lean": "c2ff8c0c57703c0213a5bbaa83a3b3a9e5e3668602472bb782c900c0ecd66c3a",
     "lean/IntervalMovegraph.lean": "a5675a5cf9aea0d56f24742bbe3e5116bce304db8c296ae2d3e34cb5cbe90bb3",
-    "lean/Inventory.lean": "809c1e74739e3478df577315063346e02ea498a19ded881066fd20827f1bc1f3",
+    "lean/Inventory.lean": "4ddd760e9640ec9b972db519ca7450fb66f9030c720b9d8e76a2667b5a09aac6",
     "lean/ObserverEnclosure.lean": "6a67429aa9172052dbbfc72ebaca5f2ba5fa998411df9013b393275d6ee87422",
     "lean/ProjectiveSystem.lean": "d114cebe2bb6985ba306685d72f335eb248d4891ee855623bea483c359b437eb",
     "observer_enclosure.py": "fdba45b53199cd802356c268f10c7db62cf27f10ceac83486c84d9341cf4fd2b",
@@ -370,18 +392,18 @@
     "reasoning_agent.py": "1fccce107b95140c8e7eec4d66dfa4c16d07d80b75c640fb693fd27290483632",
     "tests/__init__.py": "44b1fc4e79bb35aa69c00ad6a8cbc1a1e68c6a9d8c7c18caee32ade0adcafa9b",
     "tests/test_adversarial.py": "009b9467334d52aff474c0e3fbf90c5e4ef7d1fcc990d93e8b9a647c08249b65",
-    "tests/test_belief_revision_tree.py": "09a80e3ce817527025170b5344e6c9421ef89c5bc86c5b7a9fd2deb02320b18c",
     "tests/test_benchmark_hierarchical.py": "cfa79265a2ee4cc86a925d00c074273062b1f9d40e0a2033e3cd6821bdee1fb5",
     "tests/test_dissipative_cycle.py": "2c1ec93863941fb38442dda746c1073a53732bd23b7b49066a1bb8e004c71968",
     "tests/test_dual_relaxation.py": "1d51a41ba28d60cc5c41df6261ef8c91753f2b0c2b36e76d8b7af7f5f288cbc6",
     "tests/test_hierarchical_search.py": "01e3c57e2da9e623627caeef48669277cf788f798a7d965c73bc8c0e2baf54ce",
+    "tests/test_hypothesis_tree.py": "f19e475b9e1b5f11d16e4014272ed1b6c126f11769aedad1c0875fcf9999bfbe",
     "tests/test_internal_quotienting.py": "1fbf7156a5fb4aeadb66c1a9a5a778c9d94de9383d12b63c2b77a4f7cb929b82",
     "tests/test_interval_domain.py": "02ef9ce79dfb8d6a74df2ed32ff99f5fc93ecebb14e0e0d65a14e2444ae86bb3",
     "tests/test_observer_enclosure.py": "d84b478ba835f01c19bde73469322c68bc8d16843afe03b26276233d97c964b3",
     "tests/test_projective_system.py": "7da04bad7fc914a9f53e6e221f7a9c01e20d4157ea5a8361ddbdadf770e15e10",
     "tests/test_reasoning_agent.py": "67386080755fe4f360d59ee6462a4e41194651c8839dc37e173f0d367849103f",
     "tests/test_scaffold.py": "9d4436d4539126bcb686d0f101bd740ec2d20942e1009bb8f9ff46e6b53f957b",
-    "verify.py": "0a05f292fb6e7494a928bb6a712e122c99c87f9beff9f4626fdc3f56f85a3879",
+    "verify.py": "1a75bcf99e820f1b2e9ac71147f94edd7843f98b4a809ccab569a7e7eb9539c5",
     "verify_sources.py": "f123e65e95765c9aa93b6b31f1b100be925ab18a69b3accd875d234f70fd4b2b"
   },
   "status": "PASS",

@@ -4,7 +4,7 @@ AuthorityEffect: None.
 
 ## What it supports
 
-1. The checked Lean inventory reports 124 declarations: 59 axiom-free and the
+1. The checked Lean inventory reports 129 declarations: 56 axiom-free and the
    remainder depending only on `{propext, Quot.sound}`. The source scan rejects
    `sorry`, `admit`, `unsafe`, `partial`, and explicit `axiom` declarations in
    this package. This is an inventory claim, not a declaration-completeness
@@ -76,10 +76,33 @@ AuthorityEffect: None.
       shortest-distance bounds, reassigns reclaimed amounts, and then invokes
       checked coarse-to-fine search. Its SHA-256 values are deterministic
       content checksums, not signatures or authenticity proofs.
-12. Track 9 (Belief Revision Trees and Autonomous Multi-Hypothesis Coordination):
-    - Lean formalizes inductive branching hypothesis trees (`HypTree`), cumulative subtree budget accounting (`treeBudget`), and the subtree retraction operator (`pruneSubtree`). Lean establishes exact budget decomposition, budget conservation under subtree pruning, subtree descent deactivation, AGM inclusion on leaves, and non-empty pruning monotonicity.
-    - Python models `BranchingHypothesisTree`, an endogenous Truth Maintenance System (`TreeTMS`) tracking deductive justifications and resolving refutation conflicts via AGM belief revision, and `AutonomousTreeReasoningCoordinator`.
-    - Python demonstrates 100% budget reclamation from certified refuted subtrees, dynamic redistribution preventing starvation in alternative viable branches, exact rational budget ledger conservation across tree exploration, and deterministic SHA-256 trace and justification hashing.
+12. Track 9 (Branching Hypothesis Trees and Tree Coordination):
+    - Lean defines finite hypothesis trees with natural-number budgets and
+      `pruneSubtree`, which removes every subtree carrying a given identifier.
+      For every tree and identifier, with no uniqueness assumption, Lean proves
+      that the surviving budget plus the reclaimed amount equals the original
+      budget, that a positive reclaimed amount strictly shrinks the tree, that
+      every identifier left was present before, that the pruned identifier is
+      gone, and that pruning an absent identifier changes nothing. This models
+      structural removal; the Python tree deactivates nodes in place over exact
+      rationals, and the correspondence between the two is not proved.
+    - Python `SupportRecord` holds each child hypothesis as resting on its
+      non-root ancestors, so retracting a hypothesis retracts its dependents.
+      Refutations and contradictions are recorded per hypothesis, and a
+      retraction resolves exactly the recorded conflicts it touches. Records are
+      replaced on retraction, never mutated.
+    - `AutonomousTreeReasoningCoordinator` screens a hypothesis only after its
+      parent is admitted, against the exact fine-graph distance from one full
+      exact search from the source. It refuses a hypothesis when that distance
+      exceeds its own allocation plus the unallocated pool at that moment, and
+      otherwise draws any shortfall from the pool. Expanded nodes release their
+      allocation to the pool and solved leaves release the remainder. Every
+      check on the inputs runs before any state changes, and instances are
+      one-shot. The receipt reports the amounts the ledger actually moved, and
+      the trace records every refusal, draw, expansion, and solve.
+    - Refusing a hypothesis retracts its dependents without refuting them: a
+      dependent's own target may be reachable within its own budget, and a test
+      exhibits one. Which hypotheses are funded depends on screening order.
 
 ## What it does not support
 
@@ -100,7 +123,11 @@ AuthorityEffect: None.
    morphism. The executable checks that premise and falls back when it fails.
 9. Its deterministic checksums do not establish provenance, authorization,
    tamper resistance, or external identity.
-10. It does not provide first-order non-monotonic logic or general AGM belief revision over unbounded formula spaces; the TMS is scoped to finite reachability hypotheses, certified dual refutations, and direct contradiction resolution.
+10. It does not provide retraction over unbounded statement spaces. The
+    support record holds finite reachability hypotheses, exact-distance
+    refutations, and the contradictions between them. The tree coordinator's
+    refusals use the exact fine-graph distance, not a coarse certificate, and
+    cost one full exact search of the fine graph.
 
 ## Narrowest defensible claim
 
@@ -111,12 +138,14 @@ domain establishing finite overlap-chain connectedness and confluent rewriting,
 discrete interval movegraphs with finite cost summaries, exact finite-graph path
 potentials, runtime-checked coarse-to-fine pruning with a safe fine-search
 fallback, a one-shot budgeted coordinator with exact rational conservation,
-and an endogenous Truth Maintenance System over branching hypothesis trees
-with exact subtree budget reclamation.
+and a one-shot tree coordinator whose refusals rest on exact finite distances
+and whose retractions follow recorded dependencies.
 Its declared Lean inventory stays within the stated axiom allowlist, and its
 focused Python verifier rejects the recorded negative controls. No classical
 continuous object, limiting dimension, or analytical limit follows.
 
 ## Next test needed
 
-Integration of multi-hypothesis belief revision trees with dynamic coarse abstraction refinement, testing whether refutation traces can synthesize tighter quotient projections across search iterations.
+Construct a non-identity finite abstraction whose projected potential passes
+the executable lifted-edge check, then compare its bounded search telemetry
+against the current fallback cases without extrapolating beyond those graphs.

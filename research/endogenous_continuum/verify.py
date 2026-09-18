@@ -259,9 +259,8 @@ def verify() -> dict[str, Any]:
         "lean": lean_res,
         "claim_hygiene": {
             "scope": (
-                "Four finite constructions over relational carrier models: observer "
-                "records, carrier coarsenings, cycle validation, and conditional "
-                "rewrite quotients. Three sealed sources are pinned read-only. "
+                "Nine finite tracks over relational carrier models, listed in "
+                "README.md. Three sealed sources are pinned read-only. "
                 "See CLAIMS.md for hypotheses and nonclaims."
             ),
             "sealed_sources_pinned": True,

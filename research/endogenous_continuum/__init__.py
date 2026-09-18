@@ -102,7 +102,7 @@ from .reasoning_agent import (
     ReasoningActionType,
     ReasoningCoordinatorReceipt,
 )
-from .belief_revision_tree import (
+from .hypothesis_tree import (
     AutonomousTreeReasoningCoordinator,
     BranchingHypothesisTree,
     Contradiction,
@@ -112,10 +112,10 @@ from .belief_revision_tree import (
     JustificationKind,
     ReachabilityHypothesis,
     RefutationWitness,
-    RevisionReceipt,
-    TMSNode,
+    RetractionReceipt,
+    SupportNode,
+    SupportRecord,
     TreeReasoningCoordinatorReceipt,
-    TreeTMS,
 )
 from .projective_system import (
     CoarseningMap,
@@ -233,9 +233,9 @@ __all__: list[str] = [
     "JustificationKind",
     "ReachabilityHypothesis",
     "RefutationWitness",
-    "RevisionReceipt",
-    "TMSNode",
+    "RetractionReceipt",
+    "SupportNode",
+    "SupportRecord",
     "TreeReasoningCoordinatorReceipt",
-    "TreeTMS",
 ]
 

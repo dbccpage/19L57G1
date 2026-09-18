@@ -2,14 +2,14 @@
 
 AuthorityEffect: None.
 
-Local research tree testing eight finite constructions over discrete relational
+Local research tree testing nine finite constructions over discrete relational
 structures. It consumes three sealed derivation sources in read-only mode. The
 word “continuum” names the research target; no continuous carrier or analytical
 limit is constructed here.
 
 ## Overview of Pathways
 
-This research program explores eight distinct finite tracks for relational systems:
+This research program explores nine distinct finite tracks for relational systems:
 
 1. **Track 1: Endogenous Observer Enclosure**
    Implements finite observer panels carried with relational states and checks
@@ -49,6 +49,13 @@ This research program explores eight distinct finite tracks for relational syste
    Maintains an exact allocation/consumption ledger, screens allocations with
    exact finite bounds, and reassigns reclaimed budget in a one-shot
    deterministic workflow.
+
+9. **Track 9: Branching Hypothesis Trees**
+   Holds hypotheses in a tree in which a child rests on its parent, screens each
+   admitted node against exact finite distances and the funds it can draw on,
+   and retracts a refused hypothesis together with its dependents. The Lean
+   model proves budget conservation and removal properties of subtree pruning
+   over natural-number budgets.
 
 ## Verification
 

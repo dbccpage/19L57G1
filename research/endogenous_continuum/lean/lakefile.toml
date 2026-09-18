@@ -1,6 +1,6 @@
 name = "endogenous_continuum"
 version = "0.1.0"
-defaultTargets = ["EndogenousContinuum", "Inventory", "ObserverEnclosure", "ProjectiveSystem", "DissipativeCycle", "InternalQuotienting", "IntervalDomain", "IntervalMovegraph", "DualCertificate", "AdaptiveBudget", "BeliefRevisionTree"]
+defaultTargets = ["EndogenousContinuum", "Inventory", "ObserverEnclosure", "ProjectiveSystem", "DissipativeCycle", "InternalQuotienting", "IntervalDomain", "IntervalMovegraph", "DualCertificate", "AdaptiveBudget", "HypothesisTree"]
 
 [[require]]
 name = "derivation"
@@ -31,7 +31,7 @@ name = "DualCertificate"
 name = "AdaptiveBudget"
 
 [[lean_lib]]
-name = "BeliefRevisionTree"
+name = "HypothesisTree"
 
 [[lean_lib]]
 name = "EndogenousContinuum"
