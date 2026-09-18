@@ -48,11 +48,12 @@
   },
   "schema_version": 1,
   "source_hashes": {
-    "information.py": "ad567fef8612c01a88bd2ae34be88057fcc44bb86e7c3d14f881e9a2c5a07faf",
+    "information.py": "6000712b03c3d52ca177ad1bce65a557f79787528dcf2a5e2881a47d41f6fc33",
     "lean/Inventory.lean": "478ad866490a645b594e522167732b64afea4f772f563ad9a56b990faae6853e",
-    "lean/ObserverInformation.lean": "0a24686f0197b71335b82d0e4a9dd8cc8bb3f0ab2f3160b9076a6e83c94e9240",
-    "tests/test_information.py": "6446569c18aee03f8e308221789080dd117b7adab8aab1400f3cd86254ad67d9",
-    "verify.py": "8a0b775375173a84aac148204e0266b115ffd069b265e384276e16445a72429c"
+    "lean/ObserverInformation.lean": "d30138cbd9aec3dbba40195f18b7f702afe9eb9dc3898f7d65ade7d9ccde3b95",
+    "tests/test_information.py": "96187e532ba6af5fb6d1ca3db72fe5e5ac456980179831fa6228cdb29841fddb",
+    "verify.py": "a8e3d2d45d90bab1b591a2d1fe83fa5ed7cd652bdf71cedf056b9c97d9ada280",
+    "verify_sources.py": "3ec0d4cdc1958940bdf40028327af8c86586a063c438f6263303a4ffbb28b0d8"
   },
   "status": "PASS",
   "target": "Target X300: Observer-Relative Information, Channels & Loss",
