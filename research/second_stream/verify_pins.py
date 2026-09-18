@@ -59,9 +59,10 @@ freeze.  A fourth frozen entry, ``ci/prose_watchlist.json``, is hashed here
 rather than among the sources because a later rung grew that shared census
 after this snapshot; hashing it at the snapshot would now fail for a reason
 that has nothing to do with this rung.  A fifth, ``ci/check_prose_watchlist.py``,
-moved from the sources for a reason of the same kind: the shared scanner was
-changed to memoize its per-token work, with byte-identical output, so its
-snapshot bytes are no longer its HEAD bytes.  This verifier reads Git blobs, so an
+moved from the sources on 2026-09-18: the shared scanner was changed to cache
+its per-token work (``tests/test_prose_watchlist.py`` compares the cached scan
+with an uncached one), so its snapshot bytes are no longer its HEAD bytes, and
+the snapshot check on its bytes went with the move.  This verifier reads Git blobs, so an
 edit to a frozen text that is never staged is invisible to it; the runner
 hashes the rung's own three such files FROM DISK before the build and again
 before output.
@@ -77,7 +78,11 @@ moving it silently is how a citation stops meaning anything.  Because
 legitimate growth of that shared census, or a change to its scanner, is
 repinned BY HAND here, not by
 ``--repin``; that a census change is a deliberate, reviewed edit is the
-anti-narrowing property, not a regression.
+anti-narrowing property, not a regression.  The repin must be a commit of its
+own, separate from the change to ``ci/``: a commit that touches this write root
+is audited, and every path it touches must be inside the root or a declared
+exception, which ``ci/`` is not.  A squash merge that folds the two together
+fails that audit permanently.
 """
 
 from __future__ import annotations

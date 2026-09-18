@@ -50,7 +50,10 @@ on the apparatus - and is not evidence about the question.
 Snapshot `3f44571240a0830a2fa8de639281670f4e50a511`, the merge base with
 `origin/main` and an ancestor of HEAD.  Twenty-one sources pinned as git
 blob hashes and checked at the snapshot **and** at HEAD; three frozen
-texts pinned by digest; zero absent-at-snapshot records - unlike rung zero,
+texts pinned by digest (the counts when this rung ran; as of 2026-09-18
+`verify_pins.py` reports nineteen sources and five frozen texts, because the
+shared census and then its scanner moved from the sources to the HEAD-only
+frozen texts); zero absent-at-snapshot records - unlike rung zero,
 every named input was on `main` when this rung took its snapshot, so the
 current manifest has no arrival absence to record. This establishes source
 arrival and pinning, not a replay of another tree's mathematics. Rung zero's
