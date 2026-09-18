@@ -179,3 +179,13 @@ is live.
 | 1 (scanner repin, 2026-09-18) | frozen-text pin on the shared scanner (`second_stream/verify_pins.py`), after `ci/check_prose_watchlist.py` moved from the sources to the HEAD-only frozen texts | one throwaway commit appending a comment line to `ci/check_prose_watchlist.py` on top of `2687d948` | `FAIL: frozen text moved: ci/check_prose_watchlist.py: expected cf5cbb17…, got 54697c52…`, exit 1; after `git reset --keep HEAD~1`, `second_stream pins verified: 19 sources at snapshot and HEAD, 5 frozen texts at HEAD`, exit 0 |
 
 <!-- markdownlint-enable MD013 -->
+
+<!-- markdownlint-disable MD013 -->
+
+| rung | gate | injection | observed failure |
+|---|---|---|---|
+| 2-stake (sealed-path scope, 2026-09-18) | sealed-path claim BEFORE the change, `test_no_branch_writes_a_sealed_path` at `9386c81e` | one throwaway commit adding only `ci/zz_probe.txt` on a branch touching nothing of this rung | `AssertionError: Lists differ: ['ci/zz_probe.txt'] != []`, exit 1.  An author branch changing `ci/` failed this rung's step; this is the behaviour withdrawn |
+| 2-stake (sealed-path scope, 2026-09-18) | a rung commit writing `ci/` still fails, `test_no_rung_commit_writes_a_sealed_path` at `0b818337` | one throwaway commit adding `research/second_stake/zz_probe.md` and `ci/zz_probe.txt` together | `AssertionError: Lists differ: ['ci/zz_probe.txt'] != []`, exit 1 |
+| 2-stake (sealed-path scope, 2026-09-18) | an unrelated commit writing `ci/` no longer fails, same test at `0b818337` | one throwaway commit adding only `ci/zz_probe.txt` on top of `0b818337` | `ok`, exit 0: the `ci/` commit touches nothing of this rung and is not in its scope.  A branch with no commit of this rung at all skips by name; that is proved in `BoundaryScopeSituationTests`, since staging it for real needs this change on `main` first |
+
+<!-- markdownlint-enable MD013 -->
