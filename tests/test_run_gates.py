@@ -1,10 +1,11 @@
 """`ci/run_gates.py` runs the steps the workflow file declares, and only those.
 
 The runner holds no gate list of its own, so the checks here are about the
-reading: every gate command in the workflow is reached, the few names the
-runner does hold still exist, workflow features it does not implement are
-refused rather than approximated, and a failing step stops its own job
-without stopping the others."""
+reading and the running: every gate command in the workflow is reached, the
+few names the runner holds still match, workflow forms it does not implement
+are refused rather than approximated, and the local stand-ins for a fresh
+hosted checkout (stale outputs removed, protected files restored, caller
+variables dropped, a timed-out step killed with its children) hold."""
 
 from __future__ import annotations
 
@@ -13,6 +14,7 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+import time
 from types import ModuleType
 
 import pytest
@@ -36,7 +38,7 @@ on:
   push:
 jobs:
   first:
-    runs-on: x
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
@@ -55,20 +57,20 @@ jobs:
 
           echo b
   second:
-    runs-on: x
+    runs-on: ubuntu-latest
     steps:
       - name: Three
         run: echo 3
 """
 
 
-def test_the_workflow_parses_and_the_names_the_runner_holds_exist() -> None:
+def test_the_workflow_parses_and_the_names_the_runner_holds_match() -> None:
     steps = rg.parse_workflow(rg.WORKFLOW.read_text(encoding="utf-8"))
     rg.check_contract(steps)
-    assert {s.job for s in steps} == {"python", "lean", "research"}
+    assert {"python", "lean", "research"} <= {s.job for s in steps}
     chosen = rg.select(steps, [], False, None)
-    assert chosen and all(s.run for s in chosen)
-    assert not any(s.is_setup for s in chosen)
+    assert chosen and not any(s.is_setup for s in chosen)
+    assert {s.uses for s in chosen if s.uses} <= set(rg.ACTIONS)
 
 
 def test_every_gate_command_in_the_workflow_is_reached() -> None:
@@ -80,19 +82,21 @@ def test_every_gate_command_in_the_workflow_is_reached() -> None:
     wanted = set(pattern.findall(live))
     assert wanted, "the pattern found no gate command in the workflow"
     chosen = rg.select(rg.parse_workflow(text), [], False, None)
-    reached = {m for s in chosen for m in pattern.findall(s.run)}
+    reached = {m for s in chosen if s.run for m in pattern.findall(s.run)}
     assert sorted(wanted - reached) == [], "gate commands the runner would not run"
     assert sorted(reached - wanted) == []
 
 
-def test_fast_is_single_command_python_checks() -> None:
+def test_fast_is_single_command_python_checks_and_their_preconditions() -> None:
     steps = rg.parse_workflow(rg.WORKFLOW.read_text(encoding="utf-8"))
     fast = rg.select(steps, [], True, None)
-    assert fast
-    for step in fast:
+    commands = [s for s in fast if s.run]
+    assert commands
+    for step in commands:
         assert step.job == "python" and step.working_directory is None
         assert "\n" not in step.run.strip()
         assert "check_coverage" not in step.run
+    assert {s.uses for s in fast if s.uses} == {"actions/checkout@v4", "actions/setup-python@v5"}
 
 
 def test_parser_reads_blocks_mappings_and_comments() -> None:
@@ -108,57 +112,70 @@ def test_parser_reads_blocks_mappings_and_comments() -> None:
     assert two.working_directory == "sub"
     assert two.timeout_minutes == 5
     assert rg.resolve_env(two, Path("/repo")) == {"PYTHONPATH": "/repo/code"}
+    assert dict(steps[0].with_) == {"fetch-depth": "0"}
     assert [s.name for s in rg.select(steps, ["second"], False, None)] == ["Three"]
 
 
 @pytest.mark.parametrize(
-    "line", ["        if: always()", "        shell: pwsh", "        continue-on-error: true"]
+    ("old", "new"),
+    [
+        ("        run: echo 3", "        if: always()\n        run: echo 3"),
+        ("        run: echo 3", "        shell: pwsh\n        run: echo 3"),
+        ("        run: echo 3", '        run: "echo \\"3\\""'),
+        ("        run: echo 3", "        run: echo 3 # trailing note"),
+        ("        run: echo 3", "        timeout-minutes: 1.5\n        run: echo 3"),
+        ("        run: echo 3", "        run: >\n          echo 3"),
+        ("        run: echo 3", "\trun: echo 3"),
+        ("        run: echo 3", "        run: |\n          cat <<EOF\nEOF"),
+        ("    runs-on: ubuntu-latest\n    steps:\n      - name: Three",
+         "    runs-on: windows-latest\n    steps:\n      - name: Three"),
+        ("  second:\n    runs-on: ubuntu-latest\n", "  second:\n    runs-on: ubuntu-latest\n    env:\n      X: 1\n"),
+    ],
 )
-def test_unimplemented_step_keys_are_refused(line: str) -> None:
-    text = SAMPLE.replace("        run: echo 3", f"{line}\n        run: echo 3")
-    with pytest.raises(rg.WorkflowError, match="not implemented"):
-        rg.parse_workflow(text)
+def test_unimplemented_forms_are_refused(old: str, new: str) -> None:
+    assert SAMPLE.count(old) == 1
+    with pytest.raises(rg.WorkflowError):
+        rg.parse_workflow(SAMPLE.replace(old, new))
 
 
-def test_top_level_and_job_level_settings_are_refused() -> None:
+def test_top_level_settings_are_refused() -> None:
     with pytest.raises(rg.WorkflowError, match="not implemented"):
         rg.parse_workflow("env:\n  X: 1\n" + SAMPLE)
-    job_env = SAMPLE.replace("  second:\n    runs-on: x\n", "  second:\n    runs-on: x\n    env:\n      X: 1\n")
-    with pytest.raises(rg.WorkflowError, match="not implemented"):
-        rg.parse_workflow(job_env)
 
 
-def test_an_unknown_expression_is_refused() -> None:
+def test_the_contract_refuses_what_the_runner_cannot_stand_in_for() -> None:
+    steps = rg.parse_workflow(rg.WORKFLOW.read_text(encoding="utf-8"))
+    extra_action = rg.Step(job="python", name="uses example/gate@v1", run=None, uses="example/gate@v1")
+    with pytest.raises(rg.WorkflowError, match="no local meaning"):
+        rg.check_contract([*steps, extra_action])
+    installer = rg.Step(job="python", name="Install extras", run="pip install -r extra.txt\n")
+    with pytest.raises(rg.WorkflowError, match="not in SETUP_STEPS"):
+        rg.check_contract([*steps, installer])
+    changed = [
+        rg.Step(job=s.job, name=s.name, run="coverage run -m pytest -q -x\n")
+        if s.name == rg.COVERAGE_STEP else s
+        for s in steps
+    ]
+    with pytest.raises(rg.WorkflowError, match="body changed"):
+        rg.check_contract(changed)
     step = rg.Step(job="j", name="n", run="echo", env=(("X", "${{ secrets.T }}"),))
     with pytest.raises(rg.WorkflowError, match="not implemented"):
         rg.resolve_env(step, Path("/r"))
-
-
-def test_an_unknown_job_is_refused() -> None:
     with pytest.raises(rg.WorkflowError, match="no such job"):
         rg.select(rg.parse_workflow(SAMPLE), ["third"], False, None)
-
-
-def test_packages_differing_from_the_pins_are_reported(tmp_path: Path) -> None:
-    (tmp_path / "requirements.txt").write_text(
-        "pytest==0.0.1\nzzz-no-such-package==1.0\n# a comment\n", encoding="utf-8"
-    )
-    drift = rg.pin_drift(tmp_path)
-    assert len(drift) == 2
-    assert drift[0].startswith("pytest ") and drift[0].endswith("(requirements.txt pins 0.0.1)")
-    assert drift[1] == "zzz-no-such-package not installed (requirements.txt pins 1.0)"
 
 
 def _bash() -> str:
     try:
         bash: str = rg.find_bash()
-    except (rg.WorkflowError, OSError, subprocess.CalledProcessError):
+    except (rg.WorkflowError, OSError):
         pytest.skip("no bash on this machine")
     return bash
 
 
 RUN = """jobs:
   a:
+    runs-on: ubuntu-latest
     steps:
       - name: ok
         run: python -c "open('ran_ok', 'w').close()"
@@ -169,6 +186,7 @@ RUN = """jobs:
       - name: after the failure
         run: python -c "open('ran_after', 'w').close()"
   b:
+    runs-on: ubuntu-latest
     steps:
       - name: other job
         working-directory: sub
@@ -176,12 +194,15 @@ RUN = """jobs:
           MARK: ${{ github.workspace }}/marker
         run: |
           test -d "$RUNNER_TEMP"
-          python -c "import os, sys; open(os.environ['MARK'], 'w').write(os.getcwd() + '\\n' + sys.executable)"
+          python -c "import os, sys; open(os.environ['MARK'], 'w').write(os.getcwd() + '\\n' + sys.executable + '\\n' + os.environ.get('PYTEST_ADDOPTS', 'absent'))"
           coverage --version > coverage.txt
 """
 
 
-def test_a_failure_stops_its_own_job_and_not_the_others(tmp_path: Path) -> None:
+def test_a_failure_stops_its_own_job_and_not_the_others(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setenv("PYTEST_ADDOPTS", "-k leaked")
     (tmp_path / "sub").mkdir()
     steps = rg.select(rg.parse_workflow(RUN), [], False, None)
     results = rg.run_steps(steps, tmp_path, _bash(), sys.executable)
@@ -189,18 +210,109 @@ def test_a_failure_stops_its_own_job_and_not_the_others(tmp_path: Path) -> None:
     assert results[1].exit_code == 3
     assert (tmp_path / "ran_ok").exists()
     assert not (tmp_path / "ran_after").exists()
-    cwd, exe = (tmp_path / "marker").read_text(encoding="utf-8").split("\n")
+    cwd, exe, addopts = (tmp_path / "marker").read_text(encoding="utf-8").split("\n")
     assert Path(cwd).resolve() == (tmp_path / "sub").resolve()
     assert Path(exe).resolve() == Path(sys.executable).resolve()
+    assert addopts == "absent"
     assert "Coverage.py" in (tmp_path / "sub" / "coverage.txt").read_text(encoding="utf-8")
 
 
-def test_keep_going_runs_every_step(tmp_path: Path) -> None:
+def test_keep_going_and_continue_on_error(tmp_path: Path) -> None:
     (tmp_path / "sub").mkdir()
     steps = rg.select(rg.parse_workflow(RUN), ["a"], False, None)
     results = rg.run_steps(steps, tmp_path, _bash(), sys.executable, keep_going=True)
     assert [r.outcome for r in results] == ["pass", "FAIL", "pass"]
-    assert (tmp_path / "ran_after").exists()
+    allowed = RUN.replace("      - name: fails\n", "      - name: fails\n        continue-on-error: true\n")
+    results = rg.run_steps(rg.select(rg.parse_workflow(allowed), ["a"], False, None),
+                           tmp_path, _bash(), sys.executable)
+    assert [r.outcome for r in results] == ["pass", "FAIL", "pass"]
+    assert "continue-on-error" in results[1].note
+
+
+def test_shell_bash_sets_pipefail(tmp_path: Path) -> None:
+    body = "jobs:\n  a:\n    runs-on: ubuntu-latest\n    steps:\n      - name: pipe\n{shell}        run: |\n          false | cat\n"
+    plain = rg.parse_workflow(body.format(shell=""))
+    strict = rg.parse_workflow(body.format(shell="        shell: bash\n"))
+    assert rg.run_steps(plain, tmp_path, _bash(), sys.executable)[0].outcome == "pass"
+    assert rg.run_steps(strict, tmp_path, _bash(), sys.executable)[0].outcome == "FAIL"
+
+
+def test_a_missing_working_directory_fails_the_step_not_the_run(tmp_path: Path) -> None:
+    steps = [rg.Step(job="a", name="gone", run="true\n", working_directory="nowhere"),
+             rg.Step(job="b", name="next", run="true\n")]
+    results = rg.run_steps(steps, tmp_path, _bash(), sys.executable)
+    assert [r.outcome for r in results] == ["FAIL", "pass"]
+    assert "does not exist" in results[0].note
+
+
+def test_a_timed_out_step_is_killed_with_its_children(tmp_path: Path) -> None:
+    body = "sleep 2\necho late > late.txt\n"
+    step = rg.Step(job="a", name="slow", run=body, timeout_minutes=0.5 / 60)
+    results = rg.run_steps([step], tmp_path, _bash(), sys.executable)
+    assert results[0].outcome == "TIMEOUT"
+    time.sleep(3)
+    assert not (tmp_path / "late.txt").exists(), "the step kept running after its timeout"
+
+
+def _git(repo: Path, *args: str) -> None:
+    subprocess.run(["git", "-c", "core.autocrlf=false", *args], cwd=repo, check=True,
+                   capture_output=True)
+
+
+def _repo(tmp_path: Path) -> Path:
+    (tmp_path / "artifacts").mkdir()
+    (tmp_path / "artifacts" / "sealed.txt").write_bytes(b"committed\n")
+    _git(tmp_path, "init", "-q")
+    _git(tmp_path, "add", "-A")
+    _git(tmp_path, "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "-m", "c")
+    return tmp_path
+
+
+def test_a_rewritten_protected_file_is_restored_after_the_step(tmp_path: Path) -> None:
+    repo = _repo(tmp_path)
+    steps = [rg.Step(job="a", name="rewrite", run="echo changed > artifacts/sealed.txt\nexit 1\n")]
+    results = rg.run_steps(steps, repo, _bash(), sys.executable)
+    assert results[0].outcome == "FAIL"
+    assert "restored artifacts/sealed.txt" in results[0].note
+    assert (repo / "artifacts" / "sealed.txt").read_bytes() == b"committed\n"
+
+
+def test_outputs_left_by_an_earlier_run_are_removed_and_tracked_ones_kept(tmp_path: Path) -> None:
+    repo = _repo(tmp_path)
+    (repo / "artifacts_ci").mkdir()
+    (repo / "artifacts_ci" / "old.json").write_text("{}", encoding="utf-8")
+    (repo / "coverage.json").write_text("{}", encoding="utf-8")
+    (repo / "lake_build.log").write_text("tracked", encoding="utf-8")
+    _git(repo, "add", "lake_build.log")
+    assert rg.clear_stale_outputs(repo) == ["coverage.json", "artifacts_ci"]
+    assert not (repo / "artifacts_ci").exists() and (repo / "lake_build.log").exists()
+
+
+def test_the_checkout_and_interpreter_checks(tmp_path: Path) -> None:
+    repo = _repo(tmp_path)
+    here = f"{sys.version_info.major}.{sys.version_info.minor}"
+    setup = rg.Step(job="a", name="setup", run=None, uses="actions/setup-python@v5",
+                    with_=(("python-version", here),))
+    other = rg.Step(job="a", name="setup", run=None, uses="actions/setup-python@v5",
+                    with_=(("python-version", "2.7"),))
+    checkout = rg.Step(job="a", name="checkout", run=None, uses="actions/checkout@v4")
+    assert rg.run_action(setup, repo).outcome == "pass"
+    assert rg.run_action(other, repo).outcome == "FAIL"
+    result = rg.run_action(checkout, repo)
+    assert result.outcome == "pass" and "could not compare" in result.note
+
+
+def test_two_runs_cannot_hold_the_lock_at_once() -> None:
+    with rg.machine_lock():
+        with pytest.raises(rg.WorkflowError, match="another run"):
+            with rg.machine_lock():
+                pass
+
+
+def test_status_folds_a_rename_into_one_entry(tmp_path: Path) -> None:
+    repo = _repo(tmp_path)
+    _git(repo, "mv", "artifacts/sealed.txt", "artifacts/moved.txt")
+    assert rg.git_status(repo) == {"R  artifacts/moved.txt <- artifacts/sealed.txt"}
 
 
 def test_a_plain_subdirectory_is_not_a_checkout(tmp_path: Path) -> None:
@@ -209,3 +321,13 @@ def test_a_plain_subdirectory_is_not_a_checkout(tmp_path: Path) -> None:
     rg.check_top_level(tmp_path)
     with pytest.raises(rg.WorkflowError, match="not the top of its own checkout"):
         rg.check_top_level(tmp_path / "inner")
+
+
+def test_packages_differing_from_the_pins_are_reported(tmp_path: Path) -> None:
+    (tmp_path / "requirements.txt").write_text(
+        "pytest==0.0.1\nzzz-no-such-package==1.0\n# a comment\n", encoding="utf-8"
+    )
+    drift = rg.pin_drift(tmp_path)
+    assert len(drift) == 2
+    assert drift[0].startswith("pytest ") and drift[0].endswith("(requirements.txt pins 0.0.1)")
+    assert drift[1] == "zzz-no-such-package not installed (requirements.txt pins 1.0)"
