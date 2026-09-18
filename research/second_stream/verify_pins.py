@@ -21,8 +21,8 @@ Checks, none implying the others:
 * ``absent_at_snapshot`` records the presence of each named path at the
   snapshot correctly, and is permitted to be empty;
 * the frozen seed, question, and prediction texts, and the shared
-  prose-watchlist census, still hash, as blobs at HEAD, to the values
-  recorded for them;
+  prose-watchlist census and its scanner, still hash, as blobs at HEAD,
+  to the values recorded for them;
 * every commit after the exact required snapshot that CONTRIBUTES a change
   under this rung's write root is audited NUL-safely across all of the paths
   that same commit contributed; a merge contributes its combined diff and not
@@ -58,7 +58,10 @@ hashing them there would fail for a reason that has nothing to do with the
 freeze.  A fourth frozen entry, ``ci/prose_watchlist.json``, is hashed here
 rather than among the sources because a later rung grew that shared census
 after this snapshot; hashing it at the snapshot would now fail for a reason
-that has nothing to do with this rung.  This verifier reads Git blobs, so an
+that has nothing to do with this rung.  A fifth, ``ci/check_prose_watchlist.py``,
+moved from the sources for a reason of the same kind: the shared scanner was
+changed to memoize its per-token work, with byte-identical output, so its
+snapshot bytes are no longer its HEAD bytes.  This verifier reads Git blobs, so an
 edit to a frozen text that is never staged is invisible to it; the runner
 hashes the rung's own three such files FROM DISK before the build and again
 before output.
@@ -71,7 +74,8 @@ sets ``snapshot_commit`` to HEAD -- it refuses to move ``snapshot_commit``,
 because the snapshot is the commit the rung's prose is written against and
 moving it silently is how a citation stops meaning anything.  Because
 ``ci/prose_watchlist.json`` now lives among the frozen texts, a future
-legitimate growth of that shared census is repinned BY HAND here, not by
+legitimate growth of that shared census, or a change to its scanner, is
+repinned BY HAND here, not by
 ``--repin``; that a census change is a deliberate, reviewed edit is the
 anti-narrowing property, not a regression.
 """
@@ -120,7 +124,6 @@ SEALED_PREFIXES = (
 # turn the verifier green by shrinking its own census.
 REQUIRED_SOURCE_PATHS = frozenset(
     {
-        "ci/check_prose_watchlist.py",
         "code/derivation/__init__.py",
         "code/derivation/candidates.py",
         "code/derivation/" + "eng" + "ine.py",
@@ -144,6 +147,7 @@ REQUIRED_SOURCE_PATHS = frozenset(
 )
 REQUIRED_FROZEN_PATHS = frozenset(
     {
+        "ci/check_prose_watchlist.py",
         "ci/prose_watchlist.json",
         "research/second/SEED.md",
         "research/second_stream/PREDICTIONS.md",
