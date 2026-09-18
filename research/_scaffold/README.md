@@ -38,9 +38,11 @@ Register the tree in `research/README.md`: run
 `python ci/research_index.py --write` and commit the result.
 `tests/test_research_index.py`, part of the root suite, fails until the tree
 has a row, and again when it is registered in or out of the workflow's
-research job. A tree whose own boundary test forbids writes outside its root
-should list `research/README.md` among its declared shared paths, as it does
-`.github/workflows/verify.yml`.
+research job. A tree whose own boundary test or charter forbids writes
+outside its root either lists `research/README.md` among its declared shared
+paths, as it does `.github/workflows/verify.yml`, or has the row added in a
+separate commit on the same branch by whoever opens the pull request; a
+commit that touches only `research/README.md` is not one of the tree's own.
 
 ## Keep the family in sync
 
