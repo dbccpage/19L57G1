@@ -204,27 +204,32 @@ def scope_from_commits(
 ) -> list[str]:
     """This rung's share of a branch.
 
-    The current paths of every commit that touches this write root, plus the
-    pending writes when any of them is under it.  A commit that mixes this
-    rung with other paths still exposes all of them; a commit that does not
-    touch this write root is not this rung's.  Adapted from
-    `research/second_nofirst/test_forbidden.py`, where the same scope was
-    repaired first.
+    A commit is this rung's when any path it wrote is under this write root,
+    judged on everything it wrote, so a later commit reverting its write-root
+    edit does not disown the rest of it.  The scope is the paths of those
+    commits that still differ from the base, plus every pending write once
+    any commit or pending write is this rung's: a pending write cannot be
+    attributed to a commit, so on this rung's branch all of them count.  A
+    commit that touches nothing under this write root is not this rung's.
+    Adapted from `research/second_nofirst/test_forbidden.py`, where the same
+    scope was repaired first; ownership there is judged after the filter.
     """
-    proposed = [[p for p in paths if p in current_paths] for paths in commits]
-    owned = [paths for paths in proposed if any(p.startswith(WRITE_ROOT) for p in paths)]
+    owned = [paths for paths in commits if any(p.startswith(WRITE_ROOT) for p in paths)]
     if owned or any(p.startswith(WRITE_ROOT) for p in uncommitted):
-        return sorted({p for paths in owned for p in paths} | set(uncommitted))
+        still_changed = {p for paths in owned for p in paths if p in current_paths}
+        return sorted(still_changed | set(uncommitted))
     return []
 
 
 def rung_commit_paths(base: str, head: str) -> list[str]:
-    """Read each commit in `base..head` against its first parent.
+    """Read each commit in `base..head`: an ordinary commit against its first
+    parent, a merge commit by its combined diff.
 
-    Renames are disabled, so a move out of a sealed path shows its source.
-    Merge commits are skipped: their first-parent diff restates the incoming
-    side, which is read commit by commit.  A missing or malformed census
-    fails closed.
+    Renames are disabled, so a move out of a sealed path shows its source.  A
+    merge's first-parent diff would restate the incoming side, which is read
+    commit by commit; its combined diff holds only what the merge itself
+    wrote, such as a conflict resolution, and is empty for a clean merge.  A
+    missing or malformed census fails closed.
     """
     proc = subprocess.run(
         ["git", "rev-list", "--parents", f"{base}..{head}"],
@@ -244,13 +249,11 @@ def rung_commit_paths(base: str, head: str) -> list[str]:
         if len(ids) < 2 or any(re.fullmatch(r"[0-9a-f]{40}", s) is None for s in ids):
             raise ValueError("malformed rung commit census")
         if len(ids) > 2:
-            continue
-        diff = subprocess.run(
-            ["git", "diff", "--no-renames", "--name-only", "-z", ids[1], ids[0], "--"],
-            cwd=REPO,
-            capture_output=True,
-            check=False,
-        )
+            command = ["git", "diff-tree", "-r", "-z", "--no-commit-id", "--no-renames",
+                       "--cc", "--name-only", ids[0]]
+        else:
+            command = ["git", "diff", "--no-renames", "--name-only", "-z", ids[1], ids[0], "--"]
+        diff = subprocess.run(command, cwd=REPO, capture_output=True, check=False)
         if diff.returncode != 0:
             raise RuntimeError("rung commit path census is unavailable")
         commits.append(nul_paths(diff.stdout))
@@ -414,13 +417,16 @@ class BoundaryTests(unittest.TestCase):
         self.base = base
         self.head = head_commit()
         self.changed = changed_paths(base)
-        self.scoped = rung_commit_paths(base, self.head)
+        self.scoped: list[str] | None = None
 
     def _require_rung_commits(self) -> None:
         """Skip, named, unless a commit or pending write of this rung is
         under test.  A branch ahead of its base with an empty change census
         still fails, and so does a change under this write root that the
-        commit census cannot attribute."""
+        commit census cannot attribute.  The commit census is taken here, not
+        in setUp, because only the sealed-path test reads it."""
+        if self.scoped is None:
+            self.scoped = rung_commit_paths(self.base, self.head)
         if self.base != self.head and not self.changed:
             self.fail(
                 f"HEAD {self.head[:12]} is ahead of comparison base "
@@ -484,13 +490,18 @@ class BoundaryTests(unittest.TestCase):
         sealed path fail this rung's gate-11 step until merged (#198, #200 and
         #201 on 2026-09-18; ac95c806 and the paper and artifact batches before
         them), although the repository's seal does not include `ci/` and
-        research/second/SEED.md section 10 forbids only rungs from writing the
-        seal's gate scripts.  The claim this rung can own is about its own
-        commits, and `ci/` stays on its list.
+        research/second/SEED.md section 10 says "the seal's own gate scripts
+        are the author's to change".  The claim this rung can own is about its
+        own commits, and `ci/` stays on its list.
+
+        This test alone is scoped by commit.  The write-scope and append tests
+        above still read the whole branch once it touches this write root, so
+        a branch carrying a commit of this rung and someone else's `ci/`
+        commit passes here and fails there.
         """
         self._require_rung_commits()
         sealed = sorted(
-            p for p in self.scoped
+            p for p in self.scoped or []
             if any(p.startswith(prefix) for prefix in SEALED)
         )
         self.assertEqual(sealed, [])
@@ -713,7 +724,8 @@ class BoundaryScopeSituationTests(unittest.TestCase):
     def test_a_sealed_path_fails_in_this_rungs_commits_only(self) -> None:
         """A commit of this rung writing `ci/` or a sealed path fails by
         name; a foreign branch writing one skips; this rung's clean commits
-        pass even on a branch that also carries someone else's `ci/` change."""
+        pass this test on a branch that also carries someone else's `ci/`
+        change (the branch-level write-scope test still refuses that branch)."""
         name = "test_no_rung_commit_writes_a_sealed_path"
         own = self._case(
             "a" * 40, "b" * 40, {WRITE_ROOT + "x.py", "ci/probe.py"}, name,
@@ -755,6 +767,9 @@ class BoundaryScopeSituationTests(unittest.TestCase):
             scope_from_commits([[sealed]], {mine}, current), [mine]
         )
         self.assertEqual(scope_from_commits([[mine]], set(), {other}), [])
+        # A rung commit that also wrote `ci/` stays this rung's after a later
+        # commit reverts its write-root edit.
+        self.assertEqual(scope_from_commits([[mine, sealed]], set(), {sealed}), [sealed])
 
     def test_the_commit_census_fails_closed(self) -> None:
         with mock.patch.object(
@@ -775,6 +790,36 @@ class BoundaryScopeSituationTests(unittest.TestCase):
         ):
             with self.assertRaisesRegex(ValueError, "malformed"):
                 rung_commit_paths("a" * 40, "b" * 40)
+        row = f"{'b' * 40} {'a' * 40}\n"
+        with mock.patch.object(
+            subprocess, "run",
+            side_effect=[
+                subprocess.CompletedProcess([], 0, row, ""),
+                subprocess.CompletedProcess([], 1, b"", b"boom"),
+            ],
+        ):
+            with self.assertRaisesRegex(RuntimeError, "path census is unavailable"):
+                rung_commit_paths("a" * 40, "b" * 40)
+
+    def test_a_merge_commit_is_read_by_its_combined_diff(self) -> None:
+        """A merge contributes only what it wrote itself, such as a conflict
+        resolution, and that is attributed like any commit."""
+        merge = f"{'c' * 40} {'a' * 40} {'d' * 40}\n"
+        resolution = f"{WRITE_ROOT}x.py\0ci/probe.py\0".encode()
+        changed = subprocess.CompletedProcess([], 0, resolution, b"")
+        empty = subprocess.CompletedProcess([], 0, b"", b"")
+        with mock.patch.object(
+            subprocess, "run",
+            side_effect=[
+                subprocess.CompletedProcess([], 0, merge, ""),
+                changed,
+                empty, empty,
+                changed, empty,
+            ],
+        ) as run:
+            scope = rung_commit_paths("a" * 40, "c" * 40)
+        self.assertEqual(scope, sorted([WRITE_ROOT + "x.py", "ci/probe.py"]))
+        self.assertIn("--cc", run.call_args_list[1].args[0])
 
     def test_the_append_claim_is_scoped_the_same_way(self) -> None:
         case = self._case(
