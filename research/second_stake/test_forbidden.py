@@ -199,6 +199,64 @@ def changed_paths(base: str = SCOPE_BASE) -> set[str]:
     return set(nul_paths(diff_raw) + nul_paths(untracked_raw))
 
 
+def scope_from_commits(
+    commits: list[list[str]], uncommitted: set[str], current_paths: set[str]
+) -> list[str]:
+    """This rung's share of a branch.
+
+    The current paths of every commit that touches this write root, plus the
+    pending writes when any of them is under it.  A commit that mixes this
+    rung with other paths still exposes all of them; a commit that does not
+    touch this write root is not this rung's.  Adapted from
+    `research/second_nofirst/test_forbidden.py`, where the same scope was
+    repaired first.
+    """
+    proposed = [[p for p in paths if p in current_paths] for paths in commits]
+    owned = [paths for paths in proposed if any(p.startswith(WRITE_ROOT) for p in paths)]
+    if owned or any(p.startswith(WRITE_ROOT) for p in uncommitted):
+        return sorted({p for paths in owned for p in paths} | set(uncommitted))
+    return []
+
+
+def rung_commit_paths(base: str, head: str) -> list[str]:
+    """Read each commit in `base..head` against its first parent.
+
+    Renames are disabled, so a move out of a sealed path shows its source.
+    Merge commits are skipped: their first-parent diff restates the incoming
+    side, which is read commit by commit.  A missing or malformed census
+    fails closed.
+    """
+    proc = subprocess.run(
+        ["git", "rev-list", "--parents", f"{base}..{head}"],
+        cwd=REPO,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if proc.returncode != 0:
+        raise RuntimeError("rung commit census is unavailable")
+    rows = proc.stdout.splitlines()
+    if base != head and not rows:
+        raise ValueError("rung commit census is empty ahead of its base")
+    commits: list[list[str]] = []
+    for row in rows:
+        ids = row.split()
+        if len(ids) < 2 or any(re.fullmatch(r"[0-9a-f]{40}", s) is None for s in ids):
+            raise ValueError("malformed rung commit census")
+        if len(ids) > 2:
+            continue
+        diff = subprocess.run(
+            ["git", "diff", "--no-renames", "--name-only", "-z", ids[1], ids[0], "--"],
+            cwd=REPO,
+            capture_output=True,
+            check=False,
+        )
+        if diff.returncode != 0:
+            raise RuntimeError("rung commit path census is unavailable")
+        commits.append(nul_paths(diff.stdout))
+    return scope_from_commits(commits, changed_paths(head), changed_paths(base))
+
+
 def append_only(base: bytes, current: bytes) -> bool:
     return current.startswith(base)
 
@@ -356,6 +414,22 @@ class BoundaryTests(unittest.TestCase):
         self.base = base
         self.head = head_commit()
         self.changed = changed_paths(base)
+        self.scoped = rung_commit_paths(base, self.head)
+
+    def _require_rung_commits(self) -> None:
+        """Skip, named, unless a commit or pending write of this rung is
+        under test.  A branch ahead of its base with an empty change census
+        still fails, and so does a change under this write root that the
+        commit census cannot attribute."""
+        if self.base != self.head and not self.changed:
+            self.fail(
+                f"HEAD {self.head[:12]} is ahead of comparison base "
+                f"{self.base[:12]}, but the change census is empty"
+            )
+        if any(p.startswith(WRITE_ROOT) for p in self.changed) and not self.scoped:
+            self.fail("this rung changed but its commit scope is empty")
+        if not self.scoped:
+            self.skipTest("no commit or pending write of this branch belongs to this rung")
 
     def _require_this_rungs_branch(self) -> None:
         """Skip, named, when there is no branch of THIS rung under test.
@@ -395,16 +469,28 @@ class BoundaryTests(unittest.TestCase):
                 f"{WRITE_ROOT}; it is not this rung's branch"
             )
 
-    def test_no_branch_writes_a_sealed_path(self) -> None:
-        """Repository-wide, and therefore NOT scoped to this rung's branch.
+    def test_no_rung_commit_writes_a_sealed_path(self) -> None:
+        """No commit of this rung writes a sealed path or `ci/`.
 
-        No rung may write a sealed path, so this one claim is checked on
-        whatever branch is under test rather than skipped when the branch
-        belongs to someone else. It is the half of the old combined test that
-        was never this rung's alone.
+        Scoped to this rung's own commits and pending writes, the way
+        `research/second_nofirst` scopes the same claim: a commit that touches
+        this write root and a path under SEALED fails by name, a branch whose
+        commits are all someone else's skips by name.
+
+        An earlier version of this test, `test_no_branch_writes_a_sealed_path`
+        (c2ea9d36), was "repository-wide, and therefore NOT scoped to this
+        rung's branch": it read the whole branch's diff.  WITHDRAWN
+        2026-09-18.  It made every author branch that changes `ci/` or a
+        sealed path fail this rung's gate-11 step until merged (#198, #200 and
+        #201 on 2026-09-18; ac95c806 and the paper and artifact batches before
+        them), although the repository's seal does not include `ci/` and
+        research/second/SEED.md section 10 forbids only rungs from writing the
+        seal's gate scripts.  The claim this rung can own is about its own
+        commits, and `ci/` stays on its list.
         """
+        self._require_rung_commits()
         sealed = sorted(
-            p for p in self.changed
+            p for p in self.scoped
             if any(p.startswith(prefix) for prefix in SEALED)
         )
         self.assertEqual(sealed, [])
@@ -571,11 +657,13 @@ class BoundaryScopeSituationTests(unittest.TestCase):
     """
 
     @staticmethod
-    def _case(base: str, head: str, changed: set[str], name: str):
+    def _case(base: str, head: str, changed: set[str], name: str,
+              scoped: list[str] | None = None):
         case = BoundaryTests(name)
         case.base = base
         case.head = head
         case.changed = changed
+        case.scoped = [] if scoped is None else scoped
         return case
 
     def test_at_the_base_the_write_scope_claim_skips(self) -> None:
@@ -622,25 +710,71 @@ class BoundaryScopeSituationTests(unittest.TestCase):
             case.test_only_write_root_and_two_shared_appends_are_changed()
         self.assertIn("not this rung's branch", str(caught.exception))
 
-    def test_a_sealed_path_fails_on_any_branch_including_a_foreign_one(
-        self,
-    ) -> None:
-        """The half that is NOT scoped. No rung may write a sealed path, so
-        this claim is checked on whatever branch is under test -- including
-        one that touches nothing of this rung and skips everything else."""
-        case = self._case(
-            "a" * 40, "b" * 40,
-            {"research/second_stream/x.py", "paper/paper.md"},
-            "test_no_branch_writes_a_sealed_path",
+    def test_a_sealed_path_fails_in_this_rungs_commits_only(self) -> None:
+        """A commit of this rung writing `ci/` or a sealed path fails by
+        name; a foreign branch writing one skips; this rung's clean commits
+        pass even on a branch that also carries someone else's `ci/` change."""
+        name = "test_no_rung_commit_writes_a_sealed_path"
+        own = self._case(
+            "a" * 40, "b" * 40, {WRITE_ROOT + "x.py", "ci/probe.py"}, name,
+            scoped=[WRITE_ROOT + "x.py", "ci/probe.py"],
         )
         with self.assertRaises(AssertionError) as caught:
-            case.test_no_branch_writes_a_sealed_path()
-        self.assertIn("paper/paper.md", str(caught.exception))
-        clean = self._case(
-            "a" * 40, "b" * 40, {"research/second_stream/x.py"},
-            "test_no_branch_writes_a_sealed_path",
+            own.test_no_rung_commit_writes_a_sealed_path()
+        self.assertIn("ci/probe.py", str(caught.exception))
+        foreign = self._case(
+            "a" * 40, "b" * 40, {"ci/probe.py", "paper/paper.md"}, name,
         )
-        clean.test_no_branch_writes_a_sealed_path()
+        with self.assertRaises(unittest.SkipTest) as skipped:
+            foreign.test_no_rung_commit_writes_a_sealed_path()
+        self.assertIn("belongs to this rung", str(skipped.exception))
+        mixed_branch = self._case(
+            "a" * 40, "b" * 40, {WRITE_ROOT + "x.py", "ci/probe.py"}, name,
+            scoped=[WRITE_ROOT + "x.py"],
+        )
+        mixed_branch.test_no_rung_commit_writes_a_sealed_path()
+
+    def test_an_unattributable_change_under_this_write_root_fails(self) -> None:
+        case = self._case(
+            "a" * 40, "b" * 40, {WRITE_ROOT + "x.py"},
+            "test_no_rung_commit_writes_a_sealed_path",
+        )
+        with self.assertRaises(AssertionError) as caught:
+            case.test_no_rung_commit_writes_a_sealed_path()
+        self.assertIn("commit scope is empty", str(caught.exception))
+
+    def test_commit_scope_attributes_whole_commits_and_pending_writes(self) -> None:
+        mine, other, sealed = WRITE_ROOT + "x.py", "research/second_stream/y.py", "ci/z.py"
+        current = {mine, other, sealed}
+        self.assertEqual(scope_from_commits([[mine], [sealed]], set(), current), [mine])
+        self.assertEqual(
+            scope_from_commits([[mine, sealed]], set(), current), sorted([mine, sealed])
+        )
+        self.assertEqual(scope_from_commits([[other], [sealed]], set(), current), [])
+        self.assertEqual(
+            scope_from_commits([[sealed]], {mine}, current), [mine]
+        )
+        self.assertEqual(scope_from_commits([[mine]], set(), {other}), [])
+
+    def test_the_commit_census_fails_closed(self) -> None:
+        with mock.patch.object(
+            subprocess, "run",
+            return_value=subprocess.CompletedProcess([], 1, "", "boom"),
+        ):
+            with self.assertRaisesRegex(RuntimeError, "census is unavailable"):
+                rung_commit_paths("a" * 40, "b" * 40)
+        with mock.patch.object(
+            subprocess, "run",
+            return_value=subprocess.CompletedProcess([], 0, "", ""),
+        ):
+            with self.assertRaisesRegex(ValueError, "empty ahead of its base"):
+                rung_commit_paths("a" * 40, "b" * 40)
+        with mock.patch.object(
+            subprocess, "run",
+            return_value=subprocess.CompletedProcess([], 0, "not-a-sha\n", ""),
+        ):
+            with self.assertRaisesRegex(ValueError, "malformed"):
+                rung_commit_paths("a" * 40, "b" * 40)
 
     def test_the_append_claim_is_scoped_the_same_way(self) -> None:
         case = self._case(
