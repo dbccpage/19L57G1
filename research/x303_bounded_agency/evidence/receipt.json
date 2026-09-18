@@ -124,7 +124,8 @@
     "tests/test_causal_evaluation.py": "c2a158a6f131cb77e4c6661b56d27d99ad49a6d898e3e991c7685b21bdf46b8e",
     "tests/test_licensing_firewall.py": "e5f85675dd566ab2925b63d2820f970b4fc1ca68b5aeeba8aeeac15a204530da",
     "tests/test_viability_envelope.py": "cf77ec21d9ca9286ac1fd2e1899b2ff6f53a2363d8e15cd0ab25b8f47163ebbb",
-    "verify.py": "4f1c803c7a01e54e7eb6588a6d826cd218e3d0dd8b0b89dee785db9332c9ae6e"
+    "verify.py": "4f1c803c7a01e54e7eb6588a6d826cd218e3d0dd8b0b89dee785db9332c9ae6e",
+    "verify_sources.py": "c7b12cda0a1a93ffde48dec5ebb813f6a6ce89dfffd46cdb9cf2924618fb42eb"
   },
   "status": "PASS",
   "target": "Target X303: Agency & Control (Bounded Operational Agency)"
