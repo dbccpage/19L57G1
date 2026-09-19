@@ -176,9 +176,10 @@ def test_the_longest_chain_comes_first_then_the_rest_by_depth(tmp_path: Path) ->
     assert "# Require group 1: its longest chain, one at a time: x -> y -> z." in block
     assert "Invoke-InDir 'lean4' 'lake' @('build')" in block
     assert "Push-Location -LiteralPath $Dir -ErrorAction Stop" in block
-    helper = block.split("function Invoke-InDir", 1)[1].split("}", 1)[0]
-    assert helper.index("Push-Location") < helper.index("try")
-    assert "ErrorAction Stop" in helper.split("try")[0]
+    helper = block.split("function Invoke-InDir", 1)[1].split("\n}\n", 1)[0]
+    assert helper.index("Test-Path -LiteralPath $Dir -PathType Container") < helper.index(
+        "Push-Location") < helper.index("try {")
+    assert "ErrorAction Stop" in helper.split("try {")[0]
 
 
 def test_a_diamond_in_a_require_group_is_topological(tmp_path: Path) -> None:
