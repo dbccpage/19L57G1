@@ -102,10 +102,20 @@ the rest.
   modules outside the root's import closure. What the phrase still excludes:
   **definitions**, since the census reports theorems, and any top-level
   `lean4/*.lean`, since every census is rooted at `lean4/Derivation/`.
+  The definition exclusion is not hypothetical: the census program's own
+  four apparatus definitions in `lean4/ParkedAudit.lean` carry
+  `Classical.choice` (measured 2026-09-18 with
+  `ci/check_declaration_axioms.py`, a local tool and not a registered
+  gate, which reads every constant the `Derivation` modules add from the
+  compiled environment, definitions, instances and internal details
+  included, and found none of those outside `propext` and `Quot.sound`).
 * **The ledger gate checks that names resolve, never that wording
   matches proof.** `Class: theorem` with no Lean evidence passes it.
   Whether a claim overclaims is a judgement no gate can make — it was
-  audited by hand, and the findings are in the change log.
+  audited by hand, and the findings are in the change log. Resolution is
+  by final name segment, so a bare name can resolve to a same-named
+  theorem elsewhere and a cited theorem can lack a report; both are
+  pinned residuals, and closing them is sealed and record-only.
 * **Four clauses of the stopping conditions are operator claims**, not
   gate-discharged: that every notion carries a source classification,
   that every theorem-level claim has Lean evidence or is downgraded,
