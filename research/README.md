@@ -147,6 +147,19 @@ one such defect).  The copies to touch on a defect:
 * `run.py`: `coherent_process_limits`, `ignition`, `local_reuse`, `magnification`, `record_reading`, `represented_execution`, `setting_translation`
 * `verify.py`: `coherent_process_limits`, `ignition`, `magnification`, `reachable`, `record_reading`, `represented_execution`, `setting_translation`
 
+*Narrowed 2026-09-18.*  The lists above were typed by hand and are not the
+whole population.  The primed-name parser defect they cite was still standing
+in four `verify_lean.py` copies the list omits (`higher_order_diagonalization`,
+`iso_sound_lean`, `seventh_constructor`, `twin_pricing`) and in two files no
+list covers (`exchange_coefficients/verify.py`,
+`admission_sign_shadow/verify_frozen_compatibility.py`).  Two tools give the
+population rather than a checklist, and are the ones to read before touching
+copies on a defect: `python research/house_diff.py --families` finds every
+copy of `verify_sources.py`, `verify_lean.py`, `verify_pins.py`,
+`test_forbidden.py` and `check_coverage.py` under `research/` and groups them
+by bytes and by logic, and `python research/_scaffold/check_scaffold.py` names
+every file still carrying the quote-excluding capture.
+
 A shared module under `research/` importable by every tree was the proposed
 repair.  **It is declined, and the reason is the point**: a shared guard is a
 single point of trust for eight independent pins.  Each tree's
