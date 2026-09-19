@@ -143,7 +143,7 @@
   },
   "source_hashes": {
     "Diagonalization.lean": "4e3e0369b720ec3a0079d6d18fa0f01765a2013b1224a17f3600825a2dd5347c",
-    "Inventory.lean": "575c42ab041301de0cc236161d85f7f029931fbfd495e27e2ea753ffb92a91cc",
+    "Inventory.lean": "b595e1ab263132ea371b763af5dd9cbb932cd6d0a2ad3de9044f7db07428e45b",
     "ObserverHierarchy.lean": "ca40109dcc6947b14e3d3e7ea08f415a1071f1a42d61294bd65f386c9344a4c1",
     "SeparationCapacity.lean": "27181630de260e97716ea0c25496da8e7290fb8739fe910ab132b3f31d856d25",
     "lakefile.lean": "d98d1eb4e014f70cbbc5be9321c3ee41f59de6f8fdca04b67086cfc8740d8f3a"
