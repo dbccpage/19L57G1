@@ -299,7 +299,14 @@ narrowed rather than kept with a receipt leaned on.
     `verify_lean.py` additionally refuses a module outside the census root's
     import closure, which is the half Lean cannot see. The receipt went from
     17 reports to 21: the missing one, the new witness, and two equation
-    lemmas Lean generates.
+    lemmas Lean generates. (2026-09-18) The escape this census names only
+    hypothetically has a measured witness: `LimitObserver.AxiomReport.renderReport`,
+    the apparatus definition that formats each report, depends on
+    `Classical.choice`; it is outside the census by construction, being a
+    definition in `LimitObserver.AxiomReport` rather than a theorem of
+    `LimitObserver`, no theorem in that census reaches it, and
+    `receipts/lean_axioms.txt` is unchanged. The witness was rechecked locally
+    on 2026-09-19 with the same dependencies.
 11. **No gate bound the published prose to the receipt**, which is why the
     three divergences in item 1 survived every green run. `verify_prose.py`
     now binds each published number to the receipt value it claims to report
