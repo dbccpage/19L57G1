@@ -27,8 +27,10 @@ cannot be indexed by guesswork or dropped in silence.  A ``tree`` pin
 records one Git tree object; it is expanded to every tracked file under
 that directory, because the tree verifiers diff the whole directory
 against their baseline.  Paths inside ``prompt/``, ``paper/``, ``code/``,
-``lean4/Derivation/``, ``artifacts/`` and the file ``lean4/Derivation.lean``
-are listed as sealed; every other pinned path is listed too, separately.
+``lean4/Derivation/``, and ``artifacts/`` are listed as sealed — the same
+carve as the repository contract.  ``lean4/Derivation.lean`` is a sibling
+of that directory, not inside it, so it is listed with the other pinned
+paths.  Every other pinned path is listed too, separately.
 
 Scope pins live in no pin file, so they are read from the syntax tree of
 every tracked ``verify*.py`` at the top level of a tree: a module-level
@@ -89,7 +91,6 @@ OUTPUTS = (TOPICS_REL, PINS_REL)
 REGENERATE = "python ci/lookup_indexes.py --write"
 
 SEALED_PREFIXES = ("prompt/", "paper/", "code/", "lean4/Derivation/", "artifacts/")
-SEALED_FILES = frozenset({"lean4/Derivation.lean"})
 
 PIN_FILE_NAME = re.compile(r"^[A-Z0-9_]*(?:MANIFEST|PIN|PINS)\.json$")
 
@@ -173,8 +174,12 @@ ROLES: tuple[tuple[str, str], ...] = (
 
 
 def is_sealed(path: str) -> bool:
-    """Whether a repository-relative path lies inside the sealed derivation."""
-    return path in SEALED_FILES or path.startswith(SEALED_PREFIXES)
+    """Whether a repository-relative path lies inside the sealed derivation.
+
+    The contract carves ``lean4/`` to the directory ``lean4/Derivation/``.
+    The root file ``lean4/Derivation.lean`` is a sibling of that directory.
+    """
+    return path.startswith(SEALED_PREFIXES)
 
 
 def _git(repo: Path, *args: str) -> bytes:

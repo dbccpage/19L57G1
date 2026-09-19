@@ -124,6 +124,18 @@ def test_pinned_paths_outside_the_seal_are_listed_not_dropped() -> None:
         assert not li.is_sealed(path)
 
 
+def test_the_root_lean_file_is_outside_the_directory_carve() -> None:
+    """``lean4/`` is carved to ``lean4/Derivation/``, not the sibling root file."""
+    assert li.is_sealed("lean4/Derivation/IsoCollapseCompat.lean")
+    assert li.is_sealed("lean4/Derivation/Basic.lean")
+    assert not li.is_sealed("lean4/Derivation.lean")
+    assert not li.is_sealed("lean4/ParkedAudit.lean")
+    assert not li.is_sealed("lean4/lakefile.toml")
+    row = _row("Other pinned paths", "lean4/Derivation.lean")
+    assert row.startswith("| `lean4/Derivation.lean` | 13 |")
+    assert row.endswith("| none |")
+
+
 def test_every_field_rule_matches_some_pin_file() -> None:
     # A rule that names no field would hide a future field of that name.
     shapes: set[tuple[str, ...]] = set()

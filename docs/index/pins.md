@@ -40,12 +40,12 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 |---|---|---|---|
 | `research/admission_sign_shadow/SOURCE_MANIFEST.json` | 7 | 2 | 0 |
 | `research/admit_leftover/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
-| `research/alpha_engine/SOURCE_MANIFEST.json` | 109 | 3 | 0 |
+| `research/alpha_engine/SOURCE_MANIFEST.json` | 108 | 4 | 0 |
 | `research/balance_carrier/SOURCE_MANIFEST.json` | 0 | 8 | 0 |
 | `research/blind_restart/SOURCE_PINS.json` | 2 | 0 | 0 |
 | `research/boundary_seed/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
 | `research/closed_family/SOURCE_MANIFEST.json` | 3 | 1 | 0 |
-| `research/coherent_process_limits/SOURCE_MANIFEST.json` | 109 | 79 | 0 |
+| `research/coherent_process_limits/SOURCE_MANIFEST.json` | 108 | 80 | 0 |
 | `research/concurrency/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
 | `research/convention_price/SOURCE_MANIFEST.json` | 0 | 23 | 0 |
 | `research/cost_cohomology/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
@@ -53,10 +53,10 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `research/diagonal_identity/SOURCE_MANIFEST.json` | 1 | 2 | 0 |
 | `research/dynamics_step/SOURCE_MANIFEST.json` | 4 | 0 | 0 |
 | `research/endogenous_continuum/SOURCE_MANIFEST.json` | 3 | 0 | 0 |
-| `research/endogenous_demand/SOURCE_MANIFEST.json` | 109 | 3 | 0 |
+| `research/endogenous_demand/SOURCE_MANIFEST.json` | 108 | 4 | 0 |
 | `research/estate_honesty/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
 | `research/exchange_coefficients/SOURCE_MANIFEST.json` | 15 | 5 | 0 |
-| `research/f_class_distinctness/SOURCE_MANIFEST.json` | 109 | 3 | 0 |
+| `research/f_class_distinctness/SOURCE_MANIFEST.json` | 108 | 4 | 0 |
 | `research/family_embedding/SOURCE_MANIFEST.json` | 12 | 0 | 0 |
 | `research/fresh_characters/SOURCE_MANIFEST.json` | 0 | 11 | 0 |
 | `research/g001_target_charter/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
@@ -72,20 +72,20 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `research/grammar_fit/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
 | `research/higher_order_diagonalization/SOURCE_MANIFEST.json` | 3 | 2 | 0 |
 | `research/identification_dual/SOURCE_MANIFEST.json` | 6 | 2 | 0 |
-| `research/ignition/SOURCE_MANIFEST.json` | 113 | 8 | 0 |
+| `research/ignition/SOURCE_MANIFEST.json` | 112 | 9 | 0 |
 | `research/instance_demand/SOURCE_MANIFEST.json` | 5 | 5 | 0 |
 | `research/instance_demand/STAGE3_SOURCE_MANIFEST.json` | 13 | 12 | 0 |
 | `research/internal_syntax_logic/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
-| `research/iso_sound/SOURCE_MANIFEST.json` | 109 | 3 | 0 |
+| `research/iso_sound/SOURCE_MANIFEST.json` | 108 | 4 | 0 |
 | `research/iso_sound_lean/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
 | `research/limit_and_observer/SOURCE_MANIFEST.json` | 15 | 4 | 0 |
-| `research/local_reuse/SOURCE_MANIFEST.json` | 109 | 3 | 0 |
+| `research/local_reuse/SOURCE_MANIFEST.json` | 108 | 4 | 0 |
 | `research/m104_equality_order/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
 | `research/m105_number_tower/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
 | `research/m108_internal_algebra/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
 | `research/m109_obstruction_homology/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
 | `research/m114_solver_adapter/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
-| `research/magnification/SOURCE_MANIFEST.json` | 121 | 13 | 0 |
+| `research/magnification/SOURCE_MANIFEST.json` | 120 | 14 | 0 |
 | `research/multi_depth/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
 | `research/multi_magnitude/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
 | `research/natural_sections/SOURCE_MANIFEST.json` | 12 | 0 | 0 |
@@ -109,11 +109,11 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `research/primitive_difference_tower/SOURCE_MANIFEST.json` | 12 | 0 | 0 |
 | `research/reach_additivity/SOURCE_MANIFEST.json` | 4 | 1 | 0 |
 | `research/reach_measure/SOURCE_MANIFEST.json` | 5 | 4 | 0 |
-| `research/reachable/SOURCE_MANIFEST.json` | 121 | 3 | 0 |
+| `research/reachable/SOURCE_MANIFEST.json` | 120 | 4 | 0 |
 | `research/reading_f_iso/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
-| `research/record_reading/SOURCE_MANIFEST.json` | 109 | 107 | 0 |
+| `research/record_reading/SOURCE_MANIFEST.json` | 108 | 108 | 0 |
 | `research/redheffer/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
-| `research/represented_execution/SOURCE_MANIFEST.json` | 109 | 44 | 0 |
+| `research/represented_execution/SOURCE_MANIFEST.json` | 108 | 45 | 0 |
 | `research/s9_obligations/SOURCE_MANIFEST.json` | 5 | 1 | 0 |
 | `research/second/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
 | `research/second_inheritance/SOURCE_MANIFEST.json` | 10 | 13 | 0 |
@@ -121,7 +121,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `research/second_stake/SOURCE_MANIFEST.json` | 7 | 10 | 0 |
 | `research/second_stream/SOURCE_MANIFEST.json` | 9 | 15 | 0 |
 | `research/self_interpreter/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
-| `research/setting_translation/SOURCE_MANIFEST.json` | 109 | 20 | 0 |
+| `research/setting_translation/SOURCE_MANIFEST.json` | 108 | 21 | 0 |
 | `research/seventh_constructor/SOURCE_MANIFEST.json` | 2 | 2 | 0 |
 | `research/side_free/SOURCE_MANIFEST.json` | 0 | 12 | 0 |
 | `research/side_free/pinned/BOUNDARY_PIN.json` | 0 | 2 | 0 |
@@ -134,7 +134,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `research/twin_pricing/SOURCE_MANIFEST.json` | 3 | 1 | 0 |
 | `research/two_sided_commitment/SOURCE_MANIFEST.json` | 6 | 3 | 0 |
 | `research/typed_translation/SOURCE_MANIFEST.json` | 4 | 27 | 0 |
-| `research/unboundedness/SOURCE_MANIFEST.json` | 109 | 44 | 0 |
+| `research/unboundedness/SOURCE_MANIFEST.json` | 108 | 45 | 0 |
 | `research/x300_observer_information/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
 | `research/x301_formal_semantics/SOURCE_MANIFEST.json` | 1 | 0 | 0 |
 | `research/x302_operational_reasoning/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
@@ -275,7 +275,6 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `code/run_trace_algebra.py` | 16 | none | all 16 |
 | `code/run_transition_alphabet.py` | 16 | none | all 16 |
 | `code/run_weight_profile.py` | 16 | none | all 16 |
-| `lean4/Derivation.lean` | 13 | `alpha_engine` (file), `coherent_process_limits` (file), `endogenous_demand` (file), `f_class_distinctness` (file), `ignition` (file), `iso_sound` (file), `local_reuse` (file), `magnification` (file), `reachable` (file), `record_reading` (file), `represented_execution` (file), `setting_translation` (file), `unboundedness` (file) | none |
 | `lean4/Derivation/Apartness.lean` | 30 | `alpha_engine` (tree), `coherent_process_limits` (tree), `endogenous_demand` (tree), `exchange_coefficients` (file), `f_class_distinctness` (tree), `family_embedding` (file), `ignition` (tree), `iso_sound` (tree), `local_reuse` (tree), `magnification` (tree), `natural_sections` (file), `observer_visibility` (file), `primitive_difference_tower` (file), `reachable` (tree), `record_reading` (tree), `represented_execution` (tree), `setting_translation` (tree), `unboundedness` (tree) | all 16 |
 | `lean4/Derivation/Attachment.lean` | 30 | `alpha_engine` (tree), `coherent_process_limits` (tree), `endogenous_demand` (tree), `f_class_distinctness` (tree), `ignition` (tree), `instance_demand/STAGE3_SOURCE_MANIFEST.json` (file), `iso_sound` (tree), `local_reuse` (tree), `magnification` (tree), `reachable` (tree), `record_reading` (tree), `represented_execution` (tree), `setting_translation` (tree), `unboundedness` (tree) | all 16 |
 | `lean4/Derivation/Basic.lean` | 33 | `admission_sign_shadow` (file), `alpha_engine` (tree), `coherent_process_limits` (tree), `endogenous_demand` (tree), `f_class_distinctness` (tree), `ignition` (tree), `instance_demand` (file), `iso_sound` (tree), `local_reuse` (tree), `magnification` (tree), `reachable` (tree), `record_reading` (tree), `represented_execution` (tree), `second_nofirst` (file), `setting_translation` (tree), `target_a_execution` (file), `twin_pricing` (file), `unboundedness` (tree) | all 16 |
@@ -393,6 +392,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `ci/check_prose_watchlist.py` | 1 | `second_stream` (file) | none |
 | `ci/prose_watchlist.json` | 1 | `second_stream` (file) | none |
 | `contact/analysis/contact_countermodels.json` | 2 | `second_stream` (file), `sign_slice` (file) | none |
+| `lean4/Derivation.lean` | 13 | `alpha_engine` (file), `coherent_process_limits` (file), `endogenous_demand` (file), `f_class_distinctness` (file), `ignition` (file), `iso_sound` (file), `local_reuse` (file), `magnification` (file), `reachable` (file), `record_reading` (file), `represented_execution` (file), `setting_translation` (file), `unboundedness` (file) | none |
 | `lean4/ParkedAudit.lean` | 1 | `limit_and_observer` (file) | none |
 | `lean4/lake-manifest.json` | 13 | `alpha_engine` (file), `coherent_process_limits` (file), `endogenous_demand` (file), `f_class_distinctness` (file), `ignition` (file), `iso_sound` (file), `local_reuse` (file), `magnification` (file), `reachable` (file), `record_reading` (file), `represented_execution` (file), `setting_translation` (file), `unboundedness` (file) | none |
 | `lean4/lakefile.toml` | 14 | `alpha_engine` (file), `coherent_process_limits` (file), `endogenous_demand` (file), `f_class_distinctness` (file), `ignition` (file), `instance_demand` (file), `iso_sound` (file), `local_reuse` (file), `magnification` (file), `reachable` (file), `record_reading` (file), `represented_execution` (file), `setting_translation` (file), `unboundedness` (file) | none |
