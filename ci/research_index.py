@@ -25,11 +25,33 @@ makes the README stale.  The table carries no total: two branches that each
 add a tree would both rewrite a total line, and git would merge them into a
 wrong one.
 
-``--show`` prints a longer table that is not committed: each tree's
-``verify*.py`` entry points, where its ``test_*.py`` files are, its Lean
-files and what checks them, and which other trees require it in a
-``lakefile.toml`` or name one of its paths in a tracked JSON file (a
-reference, not necessarily a pin).  It reads the working tree.
+``--show`` prints a longer table that is not committed.  It reads the
+working tree, and each column is a reading, not a proof:
+
+- entry points: the tree-root ``verify*.py`` files;
+- tests: the folders holding its ``test_*.py`` files;
+- Lean: how many ``.lean`` files it holds (lakefiles aside), and every
+  tree-root ``verify*.py`` that calls ``lake`` or ``lean`` itself, split into
+  those the workflow's ``lean:`` job names and those run locally.  Marks
+  follow: a count when the tree holds more than one lakefile; ``no Lake
+  package`` when it holds none; ``stages snapshot blobs ... bare lake build
+  fails`` when a Lake library's ``srcDir`` lies in a folder named ``sealed``
+  or ``pinned`` that a tree ``.gitignore`` ignores and a tracked ``.lean``
+  file imports a module no tracked file provides, so a clean checkout lacks
+  those sources until a verifier stages them (``that no Lake library reads``
+  when such a folder is ignored but no ``srcDir`` points into it);
+  and ``frozen-snapshot modules`` when files import ``Derivation.*`` that no
+  tracked file provides, with neither a path require on ``lean4`` nor a
+  staged library to supply them;
+- claims: tree-root ``.md`` files whose names contain ``claim`` or
+  ``ledger`` in any case;
+- required or named by: other trees that require it in a ``lakefile.toml``
+  or a ``lakefile.lean`` (``require ... from "<path>"``), name one of its
+  paths in a tracked JSON file, or name or build one of its paths in a
+  tracked Python file (see ``python_tree_names``); ``root tests``, ``ci``
+  and ``research top level`` are Python files under ``tests/``, under
+  ``ci/``, and directly under ``research/``.  A reference is not
+  necessarily a pin.
 
 ``--check`` exits 1 and names what differs; ``--write`` rewrites the file.
 
@@ -39,6 +61,7 @@ AuthorityEffect: None.
 from __future__ import annotations
 
 import argparse
+import ast
 import difflib
 import posixpath
 import re
@@ -72,7 +95,6 @@ NOT_TREES: Mapping[str, str] = {
 
 _JOB_HEADER = re.compile(r"^  ([A-Za-z0-9_-]+):\s*(#.*)?$")
 _TREE_TOKEN = re.compile(r"(?<![A-Za-z0-9_])research/([A-Za-z0-9_-]+)(?![A-Za-z0-9_-])")
-_LEAN_JOB_VERIFIER = re.compile(r"(?<![A-Za-z0-9_])research/([A-Za-z0-9_-]+)/verify_lean\.py\b")
 _JSON_TREE_PATH = re.compile(rb"research/([A-Za-z0-9_-]+)(?=[/\"])")
 _PATH_CONTINUES = frozenset(
     b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_./-"
@@ -209,79 +231,345 @@ def problems(repo: Path) -> list[str]:
 
 # --show: an uncommitted, longer table for reading.
 
+SHOW_COLUMNS = ("tree", "gate 11", "entry points", "tests", "Lean", "claims", "required or named by")
+ROOT_TESTS = "root tests"
+ROOT_CI = "ci"
+RESEARCH_TOP = "research top level"
+NOT_A_TREE = " (not a tree)"
+FROZEN_VERIFIER = "verify_frozen_compatibility.py"
+FROZEN_MARK = "frozen-snapshot modules via"
+STAGING_MARK = "stages snapshot blobs"
+STAGED_BUILD_FAILS = "bare lake build fails"
+STAGED_UNREAD = "that no Lake library reads"
+STAGED_UNIMPORTED = "bare lake build not known to fail"
+NO_LAKE_PACKAGE = "no Lake package: compile with `lean <file>`"
+NO_LEAN_VERIFIER = "no root verifier invokes lake or lean"
+STAGING_NAMES = frozenset({"sealed", "pinned"})
+LAKEFILES = frozenset({"lakefile.lean", "lakefile.toml"})
+_CORE_ROOTS = frozenset({"Init", "Lean", "Lake", "Std"})
+
+_INVOKES_LEAN = re.compile(
+    r"""\[\s*["'](?:lake|lean)["']|\bwhich\(\s*["'](?:lake|lean)["']|\b(?:lake|lean)\.exe\b"""
+)
+_LEAN_JOB_VERIFIER = re.compile(
+    r"(?<![A-Za-z0-9_])research/([A-Za-z0-9_-]+)/(verify[A-Za-z0-9_]*\.py)(?![A-Za-z0-9_])"
+)
+_LEAN_IMPORT = re.compile(r"^[ \t]*import[ \t]+(.*)$", re.MULTILINE)
+_LEAN_REQUIRE_FROM = re.compile(
+    r'^[ \t]*require[ \t]+(?:"[^"\n]*"[ \t]*/[ \t]*)?\S+[ \t]+from[ \t]+"([^"\n]+)"', re.MULTILINE
+)
+_LEAN_SRC_DIR = re.compile(r'\bsrcDir[ \t]*:=[ \t]*"([^"\n]+)"')
+_CLAIM_DOCUMENT = re.compile(r"claim|ledger", re.IGNORECASE)
+_PY_TREE_PATH = re.compile(r"(?<![A-Za-z0-9_./-])research/([A-Za-z0-9_-]+)(?![A-Za-z0-9_-])")
+_SPELLED_SEGMENT = re.compile(rb"[/\"']([A-Za-z0-9_-]+)")
+
+
+def _code(names: Sequence[str]) -> str:
+    return ", ".join(f"`{n}`" for n in names)
+
+
+def _read(path: Path) -> str:
+    return path.read_bytes().decode("utf-8", "replace")
+
+
 def _test_dirs(files: Sequence[str]) -> list[str]:
     dirs = {posixpath.dirname(f) for f in files if posixpath.basename(f).startswith("test_")
             and f.endswith(".py")}
     return sorted(f"{d}/" if d else "root" for d in dirs)
 
 
-def _references(repo: Path, trees: Mapping[str, tuple[str, ...]]) -> dict[str, set[str]]:
-    """For each tree, the other trees that require it or name one of its paths."""
+def claim_documents(files: Sequence[str]) -> list[str]:
+    """Tree-root ``.md`` files whose names contain ``claim`` or ``ledger``, any case."""
+    return sorted(f for f in files if "/" not in f and f.lower().endswith(".md")
+                  and _CLAIM_DOCUMENT.search(f))
+
+
+def _lakefile_facts(text: str, *, toml: bool) -> tuple[list[str], list[str]]:
+    """The ``path`` requires and the ``srcDir`` values one lakefile declares."""
+    if toml:
+        data = tomllib.loads(text)
+        requires = [str(r.get("path", "")) for r in data.get("require", [])]
+        sources = [str(data["srcDir"])] if "srcDir" in data else []
+        sources += [str(lib["srcDir"]) for lib in data.get("lean_lib", []) if "srcDir" in lib]
+        return requires, sources
+    return _LEAN_REQUIRE_FROM.findall(text), _LEAN_SRC_DIR.findall(text)
+
+
+def _lean_imports(text: str) -> list[str]:
+    names: list[str] = []
+    for match in _LEAN_IMPORT.finditer(text):
+        names += match.group(1).split("--", 1)[0].split()
+    return names
+
+
+def _staging_rules(repo: Path, name: str, files: Sequence[str]) -> list[tuple[str, str, bool]]:
+    """``(folder, pattern, anchored)`` for each tree ``.gitignore`` line naming
+    a folder called ``sealed`` or ``pinned``.  Negations are not read."""
+    rules: list[tuple[str, str, bool]] = []
+    for rel in files:
+        if posixpath.basename(rel) != ".gitignore":
+            continue
+        for raw in _read(repo / "research" / name / rel).splitlines():
+            line = raw.strip()
+            if not line or line.startswith(("#", "!")):
+                continue
+            pattern = line.strip("/")
+            if posixpath.basename(pattern) in STAGING_NAMES:
+                rules.append((posixpath.dirname(rel), pattern, "/" in line.rstrip("/")))
+    return rules
+
+
+def _rule_matches(rule: tuple[str, str, bool], path: str) -> bool:
+    folder, pattern, anchored = rule
+    if folder:
+        if not path.startswith(folder + "/"):
+            return False
+        path = path[len(folder) + 1:]
+    if anchored:
+        return path == pattern or path.startswith(pattern + "/")
+    return pattern in path.split("/")
+
+
+def _resolve(folder: str, target: str) -> str:
+    return posixpath.normpath(posixpath.join(folder, target))
+
+
+def lean_cell(repo: Path, name: str, files: Sequence[str], workflow_verifiers: Sequence[str]) -> str:
+    """The ``Lean`` cell: file count, what compiles them, and build-context marks."""
+    modules = sorted(f for f in files if f.endswith(".lean") and posixpath.basename(f) not in LAKEFILES)
+    if not modules:
+        return "none"
+    here = repo / "research" / name
+    root = [f for f in files if "/" not in f]
+    workflow = sorted(set(workflow_verifiers))
+    local = sorted(
+        f for f in root
+        if f.startswith("verify") and f.endswith(".py") and f not in workflow
+        and _INVOKES_LEAN.search(_read(here / f))
+    )
+    checkers = ([f"workflow Lean job {_code(workflow)}"] if workflow else []) + (
+        [f"local {_code(local)}"] if local else [])
+    parts = [str(len(modules)), ", ".join(checkers) or NO_LEAN_VERIFIER]
+
+    lakefiles = sorted(f for f in files if posixpath.basename(f) in LAKEFILES)
+    if not lakefiles:
+        parts.append(NO_LAKE_PACKAGE)
+    elif len(lakefiles) > 1:
+        parts.append(f"{len(lakefiles)} lakefiles: {_code(lakefiles)}")
+    requires_lean4 = False
+    package_dirs: set[str] = set()
+    for lakefile in lakefiles:
+        folder = posixpath.dirname(lakefile)
+        requires, sources = _lakefile_facts(_read(here / lakefile), toml=lakefile.endswith(".toml"))
+        requires_lean4 = requires_lean4 or any(
+            _resolve(f"research/{name}/{folder}", r) == "lean4" for r in requires
+        )
+        package_dirs |= {_resolve(folder, s) for s in [".", *sources]}
+
+    # Modules a tracked file provides, and imports no tracked file provides.
+    provided = {
+        posixpath.relpath(m, d)[: -len(".lean")].replace("/", ".")
+        for d in package_dirs for m in modules
+        if d == "." or m.startswith(d + "/")
+    }
+    imports = {m: _lean_imports(_read(here / m)) for m in modules}
+    missing = {
+        i for found in imports.values() for i in found
+        if i not in provided and i.split(".", 1)[0] not in _CORE_ROOTS
+    }
+
+    rules = _staging_rules(repo, name, files)
+    read = sorted(d for d in package_dirs if any(_rule_matches(r, d) for r in rules))
+    unread = sorted(
+        _resolve(folder, pattern) for folder, pattern, anchored in rules
+        if not any(_rule_matches((folder, pattern, anchored), d) for d in read)
+    )
+    if read:
+        parts.append(f"{STAGING_MARK} ({_code(read)}, gitignored); "
+                     + (STAGED_BUILD_FAILS if missing else STAGED_UNIMPORTED))
+    if unread:
+        parts.append(f"{STAGING_MARK} ({_code(unread)}, gitignored) {STAGED_UNREAD}")
+
+    frozen = [m for m in modules if any(
+        (i == "Derivation" or i.startswith("Derivation.")) and i in missing for i in imports[m])]
+    if frozen and not requires_lean4 and not read:
+        count = len(frozen)
+        if FROZEN_VERIFIER in root:
+            parts.append(f"{count} {FROZEN_MARK} `{FROZEN_VERIFIER}`")
+        else:
+            parts.append(f"{count} {'file imports' if count == 1 else 'files import'} "
+                         "Derivation.* with no lean4 require and no staging")
+    return "; ".join(parts)
+
+
+def _div_operands(node: ast.expr) -> list[ast.expr]:
+    if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Div):
+        return _div_operands(node.left) + _div_operands(node.right)
+    return [node]
+
+
+def _steps_up(node: ast.expr) -> bool:
+    """``x.parent``, ``x.parents[i]``, ``os.path.dirname(x)``, or ``".."``."""
+    if isinstance(node, ast.Attribute):
+        return node.attr == "parent"
+    if isinstance(node, ast.Subscript):
+        return isinstance(node.value, ast.Attribute) and node.value.attr == "parents"
+    if isinstance(node, ast.Call):
+        func = node.func
+        return (isinstance(func, ast.Attribute) and func.attr == "dirname") or (
+            isinstance(func, ast.Name) and func.id == "dirname")
+    return isinstance(node, ast.Constant) and node.value == ".."
+
+
+def python_tree_names(source: bytes, trees: frozenset[str], *, inside_research: bool) -> set[str]:
+    """Trees a Python file names by a concrete path.
+
+    A string literal holding ``research/<tree>``; ``"research"`` then
+    ``"<tree>..."`` as adjacent ``/`` operands or call arguments; and, for a
+    file under ``research/``, ``"<tree>..."`` right after a step up
+    (``.parent``, ``.parents[i]``, ``dirname(...)``, ``".."``) or a literal
+    ``"../<tree>"``.  Docstrings and comments are not read.  A file that does
+    not parse falls back to the ``research/<tree>`` literal alone, comments
+    included."""
+    try:
+        module = ast.parse(source)
+    except (SyntaxError, ValueError):
+        text = source.decode("utf-8", "replace")
+        return {m.group(1) for m in _PY_TREE_PATH.finditer(text)} & trees
+    docstrings: set[int] = set()
+    found: set[str] = set()
+    for node in ast.walk(module):
+        # Breadth first: a body is visited before its first statement's string.
+        if isinstance(node, (ast.Module, ast.ClassDef, ast.FunctionDef, ast.AsyncFunctionDef)):
+            first = node.body[0] if node.body else None
+            if isinstance(first, ast.Expr) and isinstance(first.value, ast.Constant):
+                docstrings.add(id(first.value))
+        if isinstance(node, ast.Constant) and isinstance(node.value, str) \
+                and id(node) not in docstrings:
+            found |= {m.group(1) for m in _PY_TREE_PATH.finditer(node.value)}
+            segments = node.value.split("/")
+            ups = next((i for i, s in enumerate(segments) if s != ".."), len(segments))
+            if inside_research and 0 < ups < len(segments):
+                found.add(segments[ups])
+        runs: list[list[ast.expr]] = []
+        if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Div):
+            runs.append(_div_operands(node))
+        elif isinstance(node, ast.Call):
+            runs.append(list(node.args))
+        for run in runs:
+            for before, after in zip(run, run[1:]):
+                if not (isinstance(after, ast.Constant) and isinstance(after.value, str)):
+                    continue
+                head = after.value.split("/", 1)[0]
+                if (isinstance(before, ast.Constant) and before.value == "research") or (
+                        inside_research and _steps_up(before)):
+                    found.add(head)
+    return found & trees
+
+
+def _tree_references(repo: Path, rel: str, full: str) -> list[str]:
+    """Trees one tracked lakefile or JSON file of ``owner`` requires or names."""
+    base = posixpath.basename(rel)
+    source = repo / full
+    if not source.is_file():
+        return []
+    if base in LAKEFILES:
+        requires, _ = _lakefile_facts(_read(source), toml=base == "lakefile.toml")
+        parts = [_resolve(posixpath.dirname(full), r).split("/") for r in requires]
+        return [p[1] for p in parts if len(p) > 1 and p[0] == "research"]
+    targets: list[str] = []
+    data = source.read_bytes()
+    if b"research/" in data:
+        for match in _JSON_TREE_PATH.finditer(data):
+            at = match.start()
+            if at == 0 or data[at - 1] not in _PATH_CONTINUES:
+                targets.append(match.group(1).decode("ascii"))
+    return targets
+
+
+def references(repo: Path, trees: Mapping[str, tuple[str, ...]]) -> dict[str, set[str]]:
+    """For each tree, who requires it or names one of its paths.
+
+    Trees are named bare.  ``root tests`` and ``ci`` are tracked Python
+    files under ``tests/`` and ``ci/``; ``research top level`` is a Python
+    file directly under ``research/``; ``<dir> (not a tree)`` is one under an
+    excluded directory.  A reference is not necessarily a pin."""
+    names = frozenset(trees)
     found: dict[str, set[str]] = {name: set() for name in trees}
+
+    def add(owner: str, targets: set[str] | list[str]) -> None:
+        for tree in targets:
+            if tree in found and tree != owner:
+                found[tree].add(owner)
+
     for owner, files in trees.items():
         for rel in files:
-            base = posixpath.basename(rel)
-            if base != "lakefile.toml" and not base.endswith(".json"):
-                continue
             full = f"research/{owner}/{rel}"
-            source = repo / full
-            if not source.is_file():
-                continue
-            targets: list[str] = []
-            if base == "lakefile.toml":
-                for require in tomllib.loads(source.read_text(encoding="utf-8")).get("require", []):
-                    joined = posixpath.normpath(
-                        posixpath.join(posixpath.dirname(full), str(require.get("path", "")))
-                    )
-                    parts = joined.split("/")
-                    if len(parts) > 1 and parts[0] == "research":
-                        targets.append(parts[1])
-            else:
-                data = source.read_bytes()
-                if b"research/" in data:
-                    for match in _JSON_TREE_PATH.finditer(data):
-                        at = match.start()
-                        if at == 0 or data[at - 1] not in _PATH_CONTINUES:
-                            targets.append(match.group(1).decode("ascii"))
-            for tree in targets:
-                if tree in found and tree != owner:
-                    found[tree].add(owner)
+            if posixpath.basename(rel) in LAKEFILES or rel.endswith(".json"):
+                add(owner, _tree_references(repo, rel, full))
+    raw = _git(repo, "ls-files", "-z", "--", "research/", "tests/", "ci/")
+    for path in (p for p in raw.decode("utf-8").split("\0") if p.endswith(".py")):
+        parts = path.split("/")
+        if parts[0] == "tests":
+            owner, inside = ROOT_TESTS, False
+        elif parts[0] == "ci":
+            owner, inside = ROOT_CI, False
+        elif len(parts) == 2:
+            owner, inside = RESEARCH_TOP, True
+        elif parts[1] in names:
+            owner, inside = parts[1], True
+        else:
+            owner, inside = parts[1] + NOT_A_TREE, True
+        source = repo / path
+        if not source.is_file():
+            continue
+        data = source.read_bytes()
+        # Every reading needs another tree's name spelled out right after a
+        # slash or a quote, so a file that spells none that way is not parsed.
+        spelled = {m.decode("ascii") for m in _SPELLED_SEGMENT.findall(data)}
+        present = frozenset(spelled & names) - {owner}
+        if present:
+            add(owner, python_tree_names(data, present, inside_research=inside))
     return found
+
+
+def _owner_cell(owners: set[str], trees: Mapping[str, tuple[str, ...]]) -> str:
+    ordered = sorted(owners, key=lambda o: (o not in trees, o))
+    cells = [f"`{o}`" if o in trees else o for o in ordered]
+    return ", ".join(cells) or "none"
+
+
+def show_rows(repo: Path) -> dict[str, dict[str, str]]:
+    """Each tree's ``--show`` cells, keyed by tree and then by column."""
+    trees = group_trees(tracked_research_files(repo))
+    workflow = workflow_text(repo)
+    wired = wired_trees(workflow)
+    lean_job: dict[str, set[str]] = {}
+    for line in job_lines(workflow, "lean", comments=False):
+        for m in _LEAN_JOB_VERIFIER.finditer(line):
+            lean_job.setdefault(m.group(1), set()).add(m.group(2))
+    refs = references(repo, trees)
+    rows: dict[str, dict[str, str]] = {}
+    for name, files in trees.items():
+        root = [f for f in files if "/" not in f]
+        entry = [f for f in root if f.startswith("verify") and f.endswith(".py")]
+        cells = [
+            f"`{name}`", WIRED if name in wired else LOCAL,
+            _code(entry) or "none",
+            ", ".join(d if d == "root" else f"`{d}`" for d in _test_dirs(files)) or "none",
+            lean_cell(repo, name, files, sorted(lean_job.get(name, set()))),
+            _code(claim_documents(files)) or "none",
+            _owner_cell(refs[name], trees),
+        ]
+        rows[name] = dict(zip(SHOW_COLUMNS, cells))
+    return rows
 
 
 def show(repo: Path) -> str:
     """The longer table ``--show`` prints."""
-    trees = group_trees(tracked_research_files(repo))
-    workflow = workflow_text(repo)
-    wired = wired_trees(workflow)
-    lean_job = {
-        m.group(1)
-        for line in job_lines(workflow, "lean", comments=False)
-        for m in _LEAN_JOB_VERIFIER.finditer(line)
-    }
-    refs = _references(repo, trees)
-    rows = ["| tree | gate 11 | entry points | tests | Lean | required or named by |",
-            "|---|---|---|---|---|---|"]
-    for name, files in trees.items():
-        root = [f for f in files if "/" not in f]
-        entry = [f for f in root if f.startswith("verify") and f.endswith(".py")]
-        modules = [f for f in files if f.endswith(".lean") and posixpath.basename(f) != "lakefile.lean"]
-        if not modules:
-            lean = "none"
-        elif name in lean_job:
-            lean = f"{len(modules)}, workflow Lean job"
-        else:
-            checker = next((v for v in ("verify_lean.py", "verify.py") if v in root), None)
-            lean = f"{len(modules)}, " + (f"local `{checker}`" if checker else "no verifier")
-        cells = [
-            f"`{name}`", WIRED if name in wired else LOCAL,
-            ", ".join(f"`{e}`" for e in entry) or "none",
-            ", ".join(d if d == "root" else f"`{d}`" for d in _test_dirs(files)) or "none",
-            lean,
-            ", ".join(f"`{r}`" for r in sorted(refs[name])) or "none",
-        ]
-        rows.append("| " + " | ".join(cells) + " |")
-    return "\n".join(rows) + "\n"
+    lines = ["| " + " | ".join(SHOW_COLUMNS) + " |", "|" + "---|" * len(SHOW_COLUMNS)]
+    lines += ["| " + " | ".join(row.values()) + " |" for row in show_rows(repo).values()]
+    return "\n".join(lines) + "\n"
 
 
 def main(argv: Sequence[str] | None = None) -> int:
