@@ -187,6 +187,25 @@ Passed on the tree committed with this wording:
   hash.  The bridge tests additionally reject a tampered finite report and
   confirm that its Lean inventory is named by `AxiomReport.lean`.
 
+### 2026-09-19: ledger-cited reports added
+
+The fifteen-report summary above records the earlier run and is withdrawn
+as a description of the current inventory. Rows PDT-4 and PDT-5 cite eleven
+theorems from this tree; five were missing from that inventory:
+`upMap_id`, `upMap_comp`, `fresh_not_in_upPoint_image`,
+`clampedRestriction_certified`, and `replay_rounds_preserve_anchor`.
+Their reports are now named in both `AxiomReport.lean` and `verify_lean.py`.
+
+A fresh local `verify_lean.py` run on 2026-09-19 built the report target,
+scanned all four research Lean files, and checked twenty reports: eleven
+depend on exactly `{propext, Quot.sound}`, and nine depend on no axioms.
+Each of the five added reports depends on exactly that pair. The reach
+remains the named inventory; this is not a census of all declarations.
+
+The same day's local research checks passed all fifty-six unit tests and
+strict typing over eighteen source and test files. The earlier fifty-five
+test count above is also historical.
+
 Not established or not run:
 
 - Every receipt above was produced on Windows, with Lean `v4.33.0`.  Paths in
