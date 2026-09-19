@@ -32,6 +32,11 @@ The load-bearing formal step — **route (B) is empty** — is mechanized twice:
     reading breaks it at **exactly one** asymmetric witness (AP1/AP2).
   - Axioms: within `{propext, Quot.sound}`; no `sorry`/`admit`/`axiom`/mathlib/
     `Classical`. Reports emitted by `lean/OrientedBoundary.lean`.
+  - Checked, since 2026-09-18, by `python verify_lean.py --check`: it builds
+    the package, reads those six reports, and compares them with every
+    theorem the compiled modules contain (the six above and three generated
+    equation lemmas), each held to `{propext, Quot.sound}`. A local receipt;
+    no gate runs it.
 - **Python** (`oriented_boundary.py`, `test_oriented_boundary.py`): the same lemma
   checked **exhaustively** over all 16 admitted sets on the four distinct
   judgments — `b_is_empty` holds on every set, `swap_in_aut` iff no (A) witness,
