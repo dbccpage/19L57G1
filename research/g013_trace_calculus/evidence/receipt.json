@@ -21,7 +21,7 @@
     "lean/Inventory.lean": "b614ae10646c2ed6e77df2748dc5af6ca3acd92dcb5280bf3e4faab40a77c1cb",
     "lean/Price.lean": "0f34a604e88e89c9962f9c1c24acb03a915da3b629013e8d7866b1b1b2b39879",
     "lean/Trace.lean": "284ab9743d7922096389fbcb19e66346e11438470f97853822ddae66c502c04f",
-    "lean/lakefile.toml": "4e06bb3f727ed76679df2eabf6b17aea29123ea72edebd98d403fc36405866f2",
+    "lean/lakefile.toml": "fec490992e9ba43a8245b442d1281addd4080e3f420c576fcbc530c41b5f31e1",
     "lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
     "price.py": "e029dc5749f518637650c65594ec834d6f1a093ba022b577f120a2ca2915c0da",
     "tests/test_endpoint_factorization.py": "bfd03648dae562d3c3aa4222415994b3ecf4de7f25703a6d79900c757bc2cefc",
@@ -108,7 +108,7 @@
     "G013TraceCalculus.sourceOf_concat",
     "G013TraceCalculus.targetOf_concat"
   ],
-  "timestamp_utc": "2026-09-18T20:33:54.507848+00:00",
+  "timestamp_utc": "2026-09-19T23:41:49.609052+00:00",
   "title": "Coherent Trace Calculus & Higher Cell Algebra",
   "toolchains": {
     "lean": "leanprover/lean4:v4.33.0",
