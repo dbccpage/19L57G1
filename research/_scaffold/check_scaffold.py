@@ -105,16 +105,6 @@ REPAIR_PENDING: dict[str, str] = {
         "8b75c6349fafe96cc8f608c8ece5cd37f6dacc1b9b6d8bc716085ef9885b019c",
     "research/described_replay/verify_lean.py":
         "7fee00bb85124841128450d1deede63b12d0a6915985f3caa083b4b12aa38184",
-    "research/exchange_coefficients/verify.py":
-        "5f2a57b56adc911309583b0cda9bc4b833c599eafc84a48ef9631bf1c627afa2",
-    "research/higher_order_diagonalization/verify_lean.py":
-        "cafb45a53f1d831e2c54e0e74c213b0fbab6b5ddd9799c488e7298da800dfebb",
-    "research/iso_sound_lean/verify_lean.py":
-        "98cb73c1ca3fe13e0939b753526c960187337b94cc04702bce3091d4f7ca19de",
-    "research/seventh_constructor/verify_lean.py":
-        "b63e60e569cdb7ac4f927a59c03635cc91b56e4a6772f844af3906edabaaf20e",
-    "research/twin_pricing/verify_lean.py":
-        "d90cb5142700facfa9f3b6264c29d259c9eab8742d56ad4a55787b4319daa3ac",
 }
 
 
