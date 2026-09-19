@@ -20,7 +20,8 @@ AuthorityEffect: None.
   90 local receipts, 598 collected) with nothing wrong in the estate. The live
   path is now tested for parser health (root collection succeeds, its per-file
   counts equal an independent nodeid read, the tree census equals the generated
-  table in `research/README.md`, report counts are non-zero) and for drift
+  table in `research/README.md`, the gate-11 reading differs from that table's
+  column only on `second`, report counts are non-zero) and for drift
   arithmetic (drift = current - README), whatever the populations are.
 - **No silent fallback.** `audit_estate.py` used to substitute 41 files / 481
   collected when it could not parse the Tests row of the root `README.md`; it

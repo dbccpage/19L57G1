@@ -3,7 +3,8 @@
 Verifies:
 1. Every tree declared in research/README.md exists on disk, and the auditor's
    tree census equals an independent read of the generated table.
-2. The Gate 11 wiring (13 trees) and the local-receipt remainder.
+2. The Gate 11 wiring (13 trees), cross-checked against the generated column
+   of research/README.md.
 3. Exact Lean CI axiom checking (2 trees in CI: second_nofirst, typed_translation).
 4. Root test count drift: the live path is checked for parser health and
    drift arithmetic only.
@@ -105,12 +106,21 @@ class TestEstateHonesty(unittest.TestCase):
         )
 
     def test_gate_11_ci_integration_counts(self) -> None:
-        """Gate 11 in .github/workflows/verify.yml wires exactly 13 trees; every other tree is a local receipt."""
+        """Gate 11 in .github/workflows/verify.yml wires exactly 13 trees; the rest are local receipts."""
         g11_trees = [t.name for t in self.trees if t.in_verify_yml_gate11]
         local_trees = [t.name for t in self.trees if not t.in_verify_yml_gate11]
-        self.assertEqual(len(g11_trees), 13)
-        self.assertEqual(len(local_trees), len(self.trees) - len(g11_trees))
+        # The auditor reads the workflow one way and the generated column of
+        # research/README.md reads it another.  They differ only on `second`,
+        # which the auditor counts as wired (KNOWN_AUDIT_DIFFERENCES in
+        # ci/research_index.py).  This replaces the frozen local count.
+        disagree = {
+            t.name
+            for t in self.trees
+            if t.in_verify_yml_gate11 != (t.gate_11_in_readme == "workflow (gate 11)")
+        }
+        self.assertEqual(disagree, {"second"})
         self.assertGreater(len(local_trees), 0)
+        self.assertEqual(len(g11_trees), 13)
 
         expected_g11 = {
             "blind_restart", "boundary_seed", "limit_and_observer", "partial_decide",
