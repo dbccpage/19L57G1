@@ -34,5 +34,29 @@ To run with pytest:
 pytest research/e2e_tests/suites/
 ```
 
+## Cohort scripts moved here from `research/` (2026-09-18)
+Fifteen standalone scripts and the seven receipts they write were moved into
+this directory from the top level of `research/`, unchanged except for their
+path computations: `REPO_ROOT` now climbs three levels instead of two, and
+each receipt is written beside its script.  They are not part of the four
+tiers above, and neither `run_all_tests.py` nor the pytest command runs them.
+
+| script | writes | notes |
+|---|---|---|
+| `adversarial_challenge_cohort2.py` | nothing | pure Python |
+| `adversarial_challenge_cohort3.py` | `evidence_adversarial_cohort3.json` | pure Python |
+| `adversarial_challenge_cohort4.py` | `evidence_adversarial_cohort4.json` | runs `git status` and `lake build` |
+| `adversarial_challenge_cohort5.py` | `evidence_cohort5_adversarial.json` | runs `git status` and `lake build` |
+| `adversarial_challenge_cohort6.py` | `evidence_cohort6_adversarial.json` | imports the six `cohort6_adv_*.py` modules beside it; `cohort6_adv_seal.py` runs `git status` and `lake build` |
+| `adversarial_challenge_cohort7.py` | `evidence_cohort7_adversarial.json` | runs `git status` and `lake build` |
+| `adversarial_challenge_cohort8.py` | `evidence_cohort8_adversarial.json` | runs `git status` and `lake build` |
+| `e2e_cohorts_1_to_4_integration.py` | `evidence_cohorts_1_to_4_integration.json` | pure Python |
+| `fuzz_g011_g001.py` | nothing | imports `harness.py` beside it |
+
+Run each as a script from the repository root, for example
+`python research/e2e_tests/adversarial_challenge_cohort3.py`.  A script that
+writes a receipt overwrites the committed one, including its timestamp.
+No gate runs these scripts or reads their receipts.
+
 ## Epistemic Posture & Claim Discipline
 In accordance with the Claim Hygiene Rule, all assertions and tests demonstrate properties within the declared constructive toy models and finite bounds. No unencoded host oracles or infinite continuous assumptions are invoked.
