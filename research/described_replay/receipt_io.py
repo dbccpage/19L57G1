@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+import gzip
 import json
 import os
 import stat
+import struct
 import tempfile
+import zlib
 from pathlib import Path
 from typing import Never, TypeAlias, cast
 
@@ -13,6 +16,18 @@ JSONValue: TypeAlias = JSONScalar | list["JSONValue"] | dict[str, "JSONValue"]
 
 WRITE_ROOT = Path(__file__).resolve().parent
 _FILE_ATTRIBUTE_REPARSE_POINT = 0x400
+
+# Gzip storage for large receipts.  The level and modification time are fixed
+# and no file name is recorded, so one zlib build always writes the same bytes.
+# Different zlib builds may still choose different compressed streams for the
+# same input, so every comparison and every hash is taken over the
+# DECOMPRESSED bytes, never over the stored gzip bytes.
+GZIP_LEVEL = 9
+GZIP_MTIME = 0
+_GZIP_MAGIC = b"\x1f\x8b"
+_GZIP_DEFLATE = 8
+_GZIP_HEADER_BYTES = 10
+_GZIP_TRAILER_BYTES = 8
 
 
 class DuplicateNameError(ValueError):
@@ -122,8 +137,54 @@ def _validate_payload(payload: bytes) -> None:
         raise ValueError("receipt bytes must end in exactly one LF")
 
 
-def write_bytes_atomic(target: Path, payload: bytes) -> Path:
+def deterministic_gzip_bytes(payload: bytes) -> bytes:
+    """One gzip member of ``payload`` at the fixed level and mtime, no name.
+
+    The payload obeys the same LF rules as a plain receipt, and the result is
+    checked by the strict reader before it is returned.
+    """
+
     _validate_payload(payload)
+    stored = gzip.compress(payload, compresslevel=GZIP_LEVEL, mtime=GZIP_MTIME)
+    if strict_gzip_payload(stored, source="rendered gzip receipt") != payload:
+        raise RuntimeError("rendered gzip receipt does not round-trip")
+    return stored
+
+
+def strict_gzip_payload(data: bytes, *, source: str = "gzip input") -> bytes:
+    """The decompressed bytes of exactly one plain gzip member.
+
+    Refused: a wrong magic number or method, any header flag (so a recorded
+    file name, comment, extra field, or header checksum), a nonzero
+    modification time, a corrupt stream, a checksum or length mismatch, a
+    truncated member, and any byte after the first member.  The extra-flags
+    and operating-system bytes are not read: zlib builds differ there.
+    """
+
+    if len(data) < _GZIP_HEADER_BYTES + _GZIP_TRAILER_BYTES:
+        raise ValueError(f"invalid {source}: gzip member is truncated")
+    magic, method, flags, mtime = struct.unpack("<2sBBI", data[:8])
+    if magic != _GZIP_MAGIC:
+        raise ValueError(f"invalid {source}: not a gzip member")
+    if method != _GZIP_DEFLATE:
+        raise ValueError(f"invalid {source}: gzip method is not deflate")
+    if flags != 0:
+        raise ValueError(f"invalid {source}: gzip header flags must be zero")
+    if mtime != GZIP_MTIME:
+        raise ValueError(f"invalid {source}: gzip modification time must be zero")
+    decoder = zlib.decompressobj(wbits=16 + zlib.MAX_WBITS)
+    try:
+        payload = decoder.decompress(data)
+    except zlib.error as error:
+        raise ValueError(f"invalid {source}: {error}") from error
+    if not decoder.eof:
+        raise ValueError(f"invalid {source}: gzip member is truncated")
+    if decoder.unused_data:
+        raise ValueError(f"invalid {source}: bytes follow the gzip member")
+    return payload
+
+
+def _replace_atomic(target: Path, payload: bytes) -> Path:
     destination = _resolved_target(target)
     destination.parent.mkdir(parents=True, exist_ok=True)
     if destination.parent.resolve(strict=True) != destination.parent:
@@ -189,17 +250,35 @@ def write_bytes_atomic(target: Path, payload: bytes) -> Path:
         raise
 
 
+def write_bytes_atomic(target: Path, payload: bytes) -> Path:
+    _validate_payload(payload)
+    return _replace_atomic(target, payload)
+
+
+def write_gzip_atomic(target: Path, payload: bytes) -> Path:
+    """Store ``payload`` as one deterministic gzip member at a ``.gz`` target."""
+
+    if target.suffix != ".gz":
+        raise ValueError(f"gzip receipt target must end in .gz: {target}")
+    return _replace_atomic(target, deterministic_gzip_bytes(payload))
+
+
 def write_json_atomic(target: Path, value: JSONValue) -> Path:
     return write_bytes_atomic(target, deterministic_json_bytes(value))
 
 
 __all__ = [
     "DuplicateNameError",
+    "GZIP_LEVEL",
+    "GZIP_MTIME",
     "JSONValue",
     "WRITE_ROOT",
+    "deterministic_gzip_bytes",
     "deterministic_json_bytes",
     "load_json_object",
     "strict_json_loads",
+    "strict_gzip_payload",
     "write_bytes_atomic",
+    "write_gzip_atomic",
     "write_json_atomic",
 ]
