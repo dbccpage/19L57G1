@@ -6,6 +6,19 @@ import OperationalPricing
 # Axiom Inventory Census for SeventhConstructor
 
 Audit verifying all exported theorems depend only on {propext, Quot.sound}.
+Narrowed 2026-09-18: the completeness claim above is WITHDRAWN.
+Rechecked 2026-09-19: this file reports exactly the 28 theorem
+constants named by its report lines below. The verifier requires that
+exact named population. A fresh compiled-module census found
+51 non-internal theorem constants in the three local modules, including
+generated declarations and proof-valued instances; 23 are outside this
+report list. These are compiled constants, not a count of explicit
+theorem statements in source. The previous draft counts are superseded
+by this population criterion.
+A reported theorem includes the axioms of its dependencies. An
+unreported declaration that no reported theorem uses remains outside
+this audit. This note does not turn the named list into a full census.
+
 AuthorityEffect: None.
 -/
 

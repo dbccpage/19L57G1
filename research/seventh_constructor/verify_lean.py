@@ -49,8 +49,12 @@ FORBIDDEN = re.compile(
     r"\b(sorry|admit|unsafe|partial|noncomputable)\b|^\s*axiom\s|\bClassical\.",
     re.MULTILINE,
 )
-NO_AXIOMS = re.compile(r"'([^']+)' does not depend on any axioms")
-HAS_AXIOMS = re.compile(r"'([^']+)' depends on axioms: \[([^\]]*)\]")
+# `.+?` and not `[^']+`: a primed theorem name ends in a quote
+# character, and the character-class pattern cannot capture it --
+# the recorded primed-names parser defect.  `.` stops at a line end,
+# so one capture never spans two reports.  Repaired 2026-09-18.
+NO_AXIOMS = re.compile(r"'(.+?)' does not depend on any axioms")
+HAS_AXIOMS = re.compile(r"'(.+?)' depends on axioms: \[([^\]]*)\]")
 
 
 def tree_root() -> Path:
