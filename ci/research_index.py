@@ -249,7 +249,10 @@ LAKEFILES = frozenset({"lakefile.lean", "lakefile.toml"})
 _CORE_ROOTS = frozenset({"Init", "Lean", "Lake", "Std"})
 
 _INVOKES_LEAN = re.compile(
-    r"""\[\s*["'](?:lake|lean)["']|\bwhich\(\s*["'](?:lake|lean)["']|\b(?:lake|lean)\.exe\b"""
+    r"""\[\s*["'](?:lake|lean)["']"""
+    r"""|\bwhich\(\s*["'](?:lake|lean)["']"""
+    r"""|\bexecutable\(\s*["'](?:lake|lean)["']"""
+    r"""|\b(?:lake|lean)\.exe\b"""
 )
 _LEAN_JOB_VERIFIER = re.compile(
     r"(?<![A-Za-z0-9_])research/([A-Za-z0-9_-]+)/(verify[A-Za-z0-9_]*\.py)(?![A-Za-z0-9_])"

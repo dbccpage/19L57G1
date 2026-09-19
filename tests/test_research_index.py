@@ -187,6 +187,19 @@ def test_show_marks_lean_files_without_a_lake_package(
     assert ri.NO_LAKE_PACKAGE in show_rows["symmetry_floor"]["Lean"]
 
 
+def test_show_sees_executable_lake_or_lean_invokers(
+    show_rows: dict[str, dict[str, str]],
+) -> None:
+    """Root verifiers that locate the binary as ``executable("lake"|"lean")``.
+
+    The argv / ``which("lake")`` / ``lake.exe`` forms miss this family.
+    """
+    for name in ("oriented_boundary", "sign_tower", "symmetry_floor"):
+        cell = show_rows[name]["Lean"]
+        assert "`verify_lean.py`" in cell, (name, cell)
+        assert ri.NO_LEAN_VERIFIER not in cell, (name, cell)
+
+
 def test_show_counts_root_tests_as_consumers(show_rows: dict[str, dict[str, str]]) -> None:
     for name in ("boundary_seed", "side_free"):
         assert ri.ROOT_TESTS in show_rows[name]["required or named by"], name
