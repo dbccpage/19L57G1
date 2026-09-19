@@ -55,7 +55,8 @@ tiers above, and neither `run_all_tests.py` nor the pytest command runs them.
 
 Run each as a script from the repository root, for example
 `python research/e2e_tests/adversarial_challenge_cohort3.py`.  A script that
-writes a receipt overwrites the committed one, including its timestamp.
+writes a receipt overwrites the committed one, and every receipt records its
+run's elapsed time, so a rerun changes the committed bytes.
 No gate runs these scripts or reads their receipts.
 
 ## Epistemic Posture & Claim Discipline
