@@ -2,4 +2,3 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 lean/.lake/
-lean/lake-manifest.json
