@@ -3,6 +3,10 @@
   "class_id": "DR-C-2-1-3",
   "class_replay_terminal": "NO_SUCH_MEMBER_IN_CLASS",
   "cost_terminal": "COST_TABLE_WRITTEN",
+  "gzip_stored_outputs": {
+    "class_replay.json": "class_replay.json.gz",
+    "diagonal.json": "diagonal.json.gz"
+  },
   "lean_receipt": "manual_verify_lean_separate",
   "output_sha256": {
     "class_replay.json": "cd2b0ad3417426c75130b0683f085399313d7a506fe6ff6728917023bed2e844",
@@ -10,7 +14,7 @@
     "description.json": "430820c765e8fc8f3c7cf62d87bae790d1b30a496d3f3604362ac111bb9c0d8c",
     "diagonal.json": "807ba3e4a57a805aeb5e788af5343b6787e6fa83b383372db603cd44fef3bc1f",
     "injections.json": "8be195fc42405ea436b93f039fa502cef18e8ccebc33745bb2ea284a70341afd",
-    "register.json": "96724670bf86125f3aa88a3beee1b0c8816cd4b5dd9915c2a0d60de66e605e72",
+    "register.json": "d5851092c803e497e56d9d6b04b8c6aee660b7b629d1cd58987f23f6f69d32fe",
     "stepper.json": "da8cef9ca4ca854c7d4c0d628fcaac7b8e86121b6893ed6e7df6e6afa50c3e20",
     "tau.json": "9200275fbd644d1fa32977bd7f8a48c50b3feb5dd8811f304cc855411f2ddcfc"
   },

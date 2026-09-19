@@ -739,6 +739,43 @@ class RegisterAndReceiptTests(unittest.TestCase):
             ("artifacts/claims.json", "research/other/status.md"),
         )
 
+    def test_register_receipts_name_stored_files(self) -> None:
+        stages = register.render_register()["stages"]
+        assert isinstance(stages, list)
+        receipts: list[str] = []
+        for stage in stages:
+            assert isinstance(stage, dict)
+            observation = stage["python_observation"]
+            assert isinstance(observation, dict)
+            receipt = observation["receipt"]
+            assert isinstance(receipt, str)
+            receipts.append(receipt)
+        self.assertEqual(
+            [
+                "receipts/python/description.json",
+                "receipts/python/stepper.json",
+                "receipts/python/class_replay.json.gz",
+                "receipts/python/diagonal.json.gz",
+                "receipts/python/cost_ledger.json",
+            ],
+            receipts,
+        )
+        stored = {
+            f"receipts/python/{name}" for name in run_described_replay.STORED_NAMES
+        }
+        for receipt in receipts:
+            self.assertIn(receipt, stored)
+            self.assertTrue((HERE / receipt).is_file(), receipt)
+
+    def test_committed_receipts_match_the_rendering(self) -> None:
+        self.assertEqual(
+            [],
+            run_described_replay.snapshot_failures(
+                run_described_replay.render_outputs(),
+                run_described_replay.receipt_snapshot(),
+            ),
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
