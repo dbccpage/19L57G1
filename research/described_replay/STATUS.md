@@ -347,3 +347,90 @@ authorized handoff, while acceptance and merge remain author acts. The
 stage-local terminal is `stage_register_complete: true`; top-level
 `final_state` remains false because this tree does not claim that the
 author-controlled boundary has occurred.
+
+## Receipt storage change (2026-09-18)
+
+[METATHEORY] Since 2026-09-18 the two largest Python receipts are stored as
+deterministic gzip members. The payloads themselves did not change:
+
+| Payload | Uncompressed bytes | SHA-256 of the uncompressed bytes | Stored file | Stored bytes |
+| --- | --- | --- | --- | --- |
+| `class_replay.json` | 20,485,055 | `cd2b0ad3417426c75130b0683f085399313d7a506fe6ff6728917023bed2e844` | `receipts/python/class_replay.json.gz` | 3,055,258 |
+| `diagonal.json` | 5,733,474 | `807ba3e4a57a805aeb5e788af5343b6787e6fa83b383372db603cd44fef3bc1f` | `receipts/python/diagonal.json.gz` | 111,570 |
+
+[METATHEORY] The writer uses gzip level 9, modification time zero, and no
+header flags, so no file name is recorded. Different zlib builds may choose
+different compressed streams for the same input, so every comparison and every
+hash reads the decompressed bytes and never the stored gzip bytes;
+`run_described_replay.py --write` leaves an existing member in place when it
+already decompresses to the rendering. A strict reader refuses a wrong magic
+number or method, any header flag, a nonzero modification time, a corrupt,
+truncated, or checksum-failing member, and any byte after the first member.
+
+[METATHEORY] Receipt effects: `register.json` names the two stored files, so
+its hash in `machine_receipt.json` moved; `machine_receipt.json` gained
+`gzip_stored_outputs`; the `output_sha256` values of the two stored payloads
+are unchanged because they are hashes of the decompressed bytes; the other six
+receipts are byte-identical. The claim ledger records the moved evidence
+pointers in its own dated storage note.
+
+[METATHEORY] The injection record and the local verifier battery above predate
+this change and are kept as recorded. Where the battery says nine
+byte-identical Python receipts, the reading since 2026-09-18 is seven
+byte-identical stored files plus two gzip members whose decompressed bytes are
+identical to the rendering.
+
+[METATHEORY] Scan reach. The write-root scans in `test_forbidden.py` read each
+`.gz` member through the strict reader and scan its decompressed text. The
+repository prose watchlist, `ci/check_prose_watchlist.py`, skips a gzip member
+as binary, so its census no longer reads the text of these two receipts;
+`test_repository_prose_watchlist_is_clean` scans their decompressed text with
+the same digests instead. That test was vacuous until this change: it passed
+the whole watchlist file object where the scanner expects the digest map, so
+no hit could be reported. An injected watched term in an untracked write-root
+Markdown file left it green. It now passes the digest map, and the same
+injection fails naming the file and the hit.
+
+[METATHEORY] Two verifiers were already red on `main` at
+`827bf9834e7aaafa2b3d52c7b88bc4c781124829` before this change and stay red
+for the same reasons. `verify_pins.py --check-scope` stops at
+`pin injection source_census did not recover` because `CLAUDE.md` and
+`paper/paper_claim_ledger.md` (with its pinned span) differ at HEAD from the
+snapshot objects. `test_actual_changes_stay_inside_write_root` names the 1,894
+committed paths outside this write root that differ between the snapshot and
+current `main`; the change adds none, so the named set is identical on `main`
+and on this change.
+
+[METATHEORY] Injections at `5130abc0fe0a4aa0c3e33237b51e89c5132b644a`, each
+reversed before its recovery run; no receipt or pin was regenerated while one
+was live:
+
+| Injection | Check | Observed failure | Recovery |
+| --- | --- | --- | --- |
+| One key added to the decompressed `class_replay.json.gz` payload, recompressed | `run_described_replay.py --check` | `Python receipt differs: class_replay.json.gz; machine receipt output hash map differs`, exit 1 | exit 0 |
+| File-name header flag set on `diagonal.json.gz` | same | `invalid diagonal.json.gz: gzip header flags must be zero`, exit 1 | exit 0 |
+| Nonzero modification time on `diagonal.json.gz` | same | `invalid diagonal.json.gz: gzip modification time must be zero`, exit 1 | exit 0 |
+| One byte appended after the `diagonal.json.gz` member | same | `invalid diagonal.json.gz: bytes follow the gzip member`, exit 1 | exit 0 |
+| Uncompressed `diagonal.json` restored beside the member | same | `Python receipt census differs`, naming `diagonal.json` in `got` only, exit 1 | exit 0 |
+| `register.py` pointing the ClassReplay stage at the removed `.json` path | `test_register_receipts_name_stored_files` | list mismatch at the ClassReplay receipt, exit 1 | exit 0 |
+| An outside computation name inside the decompressed `diagonal.json.gz` text | `test_outside_computation_names_are_absent` | `receipts/python/diagonal.json.gz: outside-name[0]:content`, exit 1 | exit 0 |
+| A watched term inside the decompressed `diagonal.json.gz` text | `test_repository_prose_watchlist_is_clean` | a hit at line 256010 of `receipts/python/diagonal.json.gz`, exit 1 | exit 0 |
+| A watched term in an untracked write-root Markdown file | same | a hit at line 1 of that file, exit 1 | exit 0 |
+| An untracked NUL-bearing file in `receipts/python/` | `test_every_census_member_is_read_as_text` | that file named as unread, exit 1 | exit 0 |
+| `receipts/python/*.gz text` added to this tree's `.gitattributes` | `test_gzip_receipts_are_stored_as_binary` | attribute map differs: `text` is set where `unset` is required, exit 1 | exit 0 |
+
+[METATHEORY] Controls at the same commit: the outside-name injection with the
+decompression removed from `_text`, and the untracked-Markdown injection with
+the pre-repair watchlist line restored, both stayed green (exit 0), which is
+the defect each repair removes; `class_replay.json.gz` recompressed at level 1
+passed `--check` (exit 0), so stored gzip bytes are not what is compared.
+
+[METATHEORY] Local battery at `5130abc0fe0a4aa0c3e33237b51e89c5132b644a`, run
+from this directory:
+
+| Command | Result |
+| --- | --- |
+| `python verify_pins.py --check-scope` | exit 1 at `pin injection source_census did not recover`, as on `main` |
+| `python run_described_replay.py --check` | exit 0: `Python receipt replay clean: outputs=9 terminal=REGISTER_WRITTEN` |
+| `python -m pytest -q` | exit 1: 78 passed, 2 failed, the same two tests that fail on `main` (67 passed there) |
+| `python -m mypy --strict .` | exit 0: no issues in 13 source files |
