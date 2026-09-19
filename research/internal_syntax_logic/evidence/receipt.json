@@ -18,7 +18,7 @@
     "lean/Logic.lean": "135fb541d7f86a5e7bb4c82c84c3f8d200dd87902c51cd4fcf0c30f6b25ab27f",
     "lean/Pricing.lean": "a8299fae04c353f8c4d35884133b3ab4be441cd0bf9d3b72af5314298bd01739",
     "lean/Syntax.lean": "ea82034429f000af74765c5f970d2c6693e8e1b353154af46a09f8f71d2a5752",
-    "lean/lakefile.toml": "e58ce9b5b19f5d278474f42f37c3ff3f800048b46b429c2a3c0d91bf7de1a036",
+    "lean/lakefile.toml": "aa69816f08ae1deca9359d017b560b15c499d327b2f1d63b07c3665251ec2d14",
     "lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
     "logic.py": "0aa6c95add58290605b4491f4e248c20ea323d65ac94c74f1dfb992ee528a00e",
     "pricing.py": "d28a8bf70136eedcf5b11464be63e7273646e5089b5b9f400197c9745ea29591",
@@ -367,7 +367,7 @@
     "InternalSyntaxLogic.instDecidableEqTerm.decEq._proof_8",
     "InternalSyntaxLogic.instDecidableEqTerm.decEq._proof_9"
   ],
-  "timestamp_utc": "2026-09-18T20:35:11.156668+00:00",
+  "timestamp_utc": "2026-09-19T23:42:32.085994+00:00",
   "title": "Internal Syntax, Operational Logic & Connectives",
   "toolchains": {
     "lean": "leanprover/lean4:v4.33.0",
