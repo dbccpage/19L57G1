@@ -21,10 +21,14 @@ proved, and — stated with equal precision — what was not.
 |---|---|
 | Python | 60 typed source files; the computational object language and its studies |
 | Lean 4 | 75 modules, 63 in the root's import closure, 12 parked and audited separately |
-| Tests | 41 files, 481 collected: 480 passed / 1 skipped; line 99.09% / branch 96.71% |
+| Tests | 55 files, 787 collected: 786 passed / 1 skipped; line 99.10% / branch 96.71% |
 | Artifacts | 40 deterministic JSON exports plus 6 full gzipped trees |
 | Claims | 140 `CL-*` headings; schema and evidence ratchets expose the remaining legacy gaps |
 | Axioms | 1530 axiom reports, all within `{propext, Quot.sound}` |
+
+The Tests row records the local Python-job run of 2026-09-19. The earlier
+claim of a current census of 41 files and 481 collected tests is withdrawn
+as of that date; it was a historical count.
 
 The derivation's result is not that some structure was built. It is
 that at the first point where the system had to answer, **the
@@ -155,7 +159,7 @@ that have actually been tested.
 ## Quick start
 
 ```powershell
-python -m pytest                    # 480 passed, 1 skipped on the current census
+python -m pytest                    # 786 passed, 1 skipped in the 2026-09-19 local run
 python -m mypy                      # strict, over code/
 cd lean4; lake build; cd ..         # default targets; the census elaborates all 75 modules
 ```
