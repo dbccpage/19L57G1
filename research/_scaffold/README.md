@@ -66,3 +66,48 @@ tree is left until its family is deliberately repinned.
 trees (left as-is by design): `coherent_process_limits`, `ignition`,
 `local_reuse`, `magnification`, `record_reading`, `represented_execution`,
 `setting_translation`.
+
+## Do not reuse a standard-library module name
+
+`research/limit_and_observer/code/` is a regular package: it has an
+`__init__.py`, and the tree imports it as `code.calibration`,
+`code.census` and so on. So whenever `research/limit_and_observer/` comes
+first on `sys.path`, as it does for `python -m ...` or `python -c ...`
+started in that directory and for a script in it run directly,
+`import code` finds the tree's package and not Python's built-in `code`
+module. Measured on 2026-09-18 with Python 3.14.2:
+
+- `import pdb` fails there with `AttributeError: module 'code' has no
+  attribute 'InteractiveConsole'`, because the debugger subclasses that
+  class when it is imported;
+- `python -m pytest` started there stops with `INTERNALERROR` on the same
+  error before it collects a test, because pytest imports the debugger.
+
+The tree's registered test commands use `python -m unittest` and
+`python -m coverage run -m unittest`, and `import unittest` does not import
+the debugger, so those commands still run. Use them in that tree, or start
+the tool from another directory. The package is not renamed here: the
+tree's `run_price.py` and 11 of its test files import it by that name, and
+its `mypy.ini` file list, `.coveragerc` and `check_coverage.py` name the
+directory, so a rename is a deliberate change to that tree, not a scaffold
+note.
+
+Two other tracked research files share a name with a standard-library
+module (census of 2026-09-18 against Python 3.14.2's list of 297 names):
+
+- `research/g013_trace_calculus/trace.py`: `import trace` started in that
+  directory gets the tree's file. The tree's 21 tests pass under
+  `python -m pytest` there, and `research/adversarial_challenge_cohort4.py`
+  puts the directory first on `sys.path` on purpose so that this file wins.
+- `research/x310_vertical_integration/types.py`: the interpreter has already
+  loaded the built-in `types` before the directory is searched, and the tree
+  imports its own file as `.types`; its 27 tests pass under
+  `python -m pytest` there. mypy started in that directory refuses to check
+  it, exit 2: `"types.py" shadows library module "types"`.
+
+For a new tree, give each source file and package a name that no
+standard-library module has; `sys.stdlib_module_names` lists them. A
+directory without `__init__.py` is only a namespace package, and the
+built-in module still wins over it. That is why the repository's own
+top-level `code/`, which has no `__init__.py`, does not hide the built-in
+module.
