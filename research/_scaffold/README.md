@@ -50,7 +50,36 @@ shared path that it does not require to be append-only.
 
 - **fails (exit 1)** if the substring `COVERAGE_LEAK` form (`OMIT_PARTS` without
   `_directories`) reappears anywhere — a correctness bug that must never ship;
-- **warns (exit 0)** on any `run.py` with two `verify_sources()` calls.
+- **fails (exit 1)** on a quote-excluding name capture in an axiom-report
+  pattern — `'([^']+)' does not depend on any axioms` and its relatives — in
+  any `.py` file under `research/` (added 2026-09-18). A primed theorem name
+  ends in a quote character, so that capture stops short and the report is
+  dropped without a word; the fixed form is `'(.+?)'`, with its comment, in
+  `research/balance_carrier/verify_lean.py`. The check reads string literals,
+  which `research/house_diff.py` blanks and so cannot see;
+- **warns (exit 0)** on any `run.py` that calls `verify_sources()` twice.
+
+The capture check has two pinned lists, keyed by path and pinned to the
+SHA-256 of the file's committed bytes, and it prints both on every run:
+
+- `FROZEN_EXCEPTIONS` holds one file, `research/boundary_seed/verify_lean.py`,
+  which `research/boundary_seed/verify_freeze.py` freezes. It is the one
+  permanent exception.
+- `REPAIR_PENDING` holds the eight other files that carried the capture on
+  2026-09-18, printed as `DEFECT, repair pending`. It only shrinks:
+  `tests/test_research_drift.py` fails if it names a path it did not name on
+  that day. An entry excuses its pinned bytes and nothing else, so once a file
+  is edited the entry fails the check until the capture is repaired and the
+  entry deleted. Repair a tree in the tree's own commit, then delete its entry
+  here in a separate commit.
+
+Neither list makes the capture an accepted form. The two error checks also run
+over the live tree in the root suite, through `tests/test_research_drift.py`.
+
+Until 2026-09-18 the double-scan warning counted the text `verify_sources()`,
+so a comment naming the call read as a second scan: `diagonal_identity`, which
+copied the canonical `run.py` and its comment, was warned on with one call. It
+now counts calls in the syntax tree.
 
 The double-scan is only warned, not blocked, because it **cannot be retrofitted
 freely**: several older trees pin each other's whole `.py` tree at a baseline
