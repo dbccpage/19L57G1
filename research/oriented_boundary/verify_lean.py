@@ -226,12 +226,22 @@ def scan_tokens() -> list[str]:
     return failures
 
 
+def file_digest(path: Path) -> str:
+    """SHA-256 of one tree file.  ``lake-manifest.json`` is hashed after
+    CRLF is folded to LF: Lake writes LF, and a Windows autocrlf checkout
+    can hold CRLF for the same member."""
+    data = path.read_bytes()
+    if path.name == "lake-manifest.json":
+        data = data.replace(b"\r\n", b"\n")
+    return hashlib.sha256(data).hexdigest()
+
+
 def snapshot() -> dict[str, str]:
     result: dict[str, str] = {}
     for path in TREE.rglob("*"):
         parts = set(path.relative_to(TREE).parts)
         if path.is_file() and not (CACHE_DIRS & parts):
-            result[path.relative_to(TREE).as_posix()] = hashlib.sha256(path.read_bytes()).hexdigest()
+            result[path.relative_to(TREE).as_posix()] = file_digest(path)
     return result
 
 
