@@ -93,7 +93,7 @@ def render_register() -> dict[str, object]:
             ],
             "python_observation": {
                 "evidence_class": "FINITE_COMPUTATION",
-                "receipt": "receipts/python/class_replay.json",
+                "receipt": "receipts/python/class_replay.json.gz",
             },
         },
         {
@@ -135,7 +135,7 @@ def render_register() -> dict[str, object]:
             ],
             "python_observation": {
                 "evidence_class": "FINITE_COMPUTATION",
-                "receipt": "receipts/python/diagonal.json",
+                "receipt": "receipts/python/diagonal.json.gz",
             },
         },
         {

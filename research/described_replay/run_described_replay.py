@@ -1,5 +1,11 @@
 """Render or check every deterministic Python receipt for this rung.
 
+The two large payloads, ``class_replay.json`` and ``diagonal.json``, are
+stored as deterministic gzip members (``<name>.gz``).  Their decompressed
+bytes are what is compared with the rendering and hashed into the machine
+receipt; the compressed bytes are never compared, because zlib builds may
+choose different streams for the same input.
+
 AuthorityEffect: None.
 """
 
@@ -23,8 +29,10 @@ from diagonal import render_diagonal_stage
 from receipt_io import (
     JSONValue,
     deterministic_json_bytes,
+    strict_gzip_payload,
     strict_json_loads,
     write_bytes_atomic,
+    write_gzip_atomic,
 )
 from register import render_register, render_tau
 
@@ -44,6 +52,17 @@ CORE_PAYLOAD_NAMES: tuple[str, ...] = (
 INJECTION_NAME = "injections.json"
 PAYLOAD_NAMES: tuple[str, ...] = (*CORE_PAYLOAD_NAMES, INJECTION_NAME)
 ALL_NAMES: tuple[str, ...] = (*PAYLOAD_NAMES, "machine_receipt.json")
+# The two large payloads are stored as ``<name>.gz``.  Every name above stays
+# the payload's name; the stored file of a gzip payload is its name plus
+# ``.gz``, and comparisons and hashes read the decompressed bytes.
+GZIP_PAYLOAD_NAMES: tuple[str, ...] = ("class_replay.json", "diagonal.json")
+
+
+def stored_name(name: str, gzip_names: tuple[str, ...] = GZIP_PAYLOAD_NAMES) -> str:
+    return f"{name}.gz" if name in gzip_names else name
+
+
+STORED_NAMES: tuple[str, ...] = tuple(stored_name(name) for name in ALL_NAMES)
 
 
 @dataclass(frozen=True)
@@ -159,10 +178,19 @@ def snapshot_failures(
     *,
     all_names: tuple[str, ...] = ALL_NAMES,
     payload_names: tuple[str, ...] = PAYLOAD_NAMES,
+    gzip_names: tuple[str, ...] = GZIP_PAYLOAD_NAMES,
 ) -> list[str]:
+    """Diagnostics for one receipt-directory snapshot, keyed by stored names.
+
+    ``rendered`` and ``all_names`` use payload names.  A payload named in
+    ``gzip_names`` is expected on disk as ``<name>.gz``; it is decompressed by
+    the strict reader and only its decompressed bytes are compared with the
+    rendering and hashed against the machine receipt.
+    """
+
     failures: list[str] = []
     observed_names = tuple(sorted(snapshot))
-    wanted_names = tuple(sorted(all_names))
+    wanted_names = tuple(sorted(stored_name(name, gzip_names) for name in all_names))
     if observed_names != wanted_names:
         failures.append(
             f"Python receipt census differs: got={list(observed_names)} "
@@ -177,32 +205,36 @@ def snapshot_failures(
             )
 
     objects: dict[str, dict[str, JSONValue]] = {}
+    decoded: dict[str, bytes] = {}
     for name in all_names:
-        candidate = snapshot.get(name)
+        stored = stored_name(name, gzip_names)
+        candidate = snapshot.get(stored)
         if candidate is None or candidate.kind != "file" or candidate.payload is None:
             continue
+        payload = candidate.payload
+        if stored != name:
+            try:
+                payload = strict_gzip_payload(payload, source=stored)
+            except ValueError as error:
+                failures.append(str(error))
+                continue
+        decoded[name] = payload
         try:
-            objects[name] = _object_from_entry(name, candidate)
+            objects[name] = _object_from_entry(stored, ReceiptEntry("file", payload))
         except ValueError as error:
             failures.append(str(error))
             continue
-        if candidate.payload != rendered[name]:
-            failures.append(f"Python receipt differs: {name}")
+        if payload != rendered[name]:
+            failures.append(f"Python receipt differs: {stored}")
 
     machine = objects.get("machine_receipt.json")
     if machine is not None:
         hashes = machine.get("output_sha256")
         if not isinstance(hashes, dict):
             failures.append("machine receipt output hash map is absent")
-        elif all(
-            name in snapshot
-            and snapshot[name].kind == "file"
-            and snapshot[name].payload is not None
-            for name in payload_names
-        ):
+        elif all(name in decoded for name in payload_names):
             observed_hashes: JSONValue = {
-                name: sha256(cast(bytes, snapshot[name].payload)).hexdigest()
-                for name in payload_names
+                name: sha256(decoded[name]).hexdigest() for name in payload_names
             }
             if hashes != observed_hashes:
                 failures.append("machine receipt output hash map differs")
@@ -458,6 +490,9 @@ def render_outputs() -> dict[str, bytes]:
         "class_id": class_payload["class_id"],
         "class_replay_terminal": class_payload["terminal"],
         "cost_terminal": cost_payload["terminal"],
+        "gzip_stored_outputs": {
+            name: stored_name(name) for name in GZIP_PAYLOAD_NAMES
+        },
         "lean_receipt": "manual_verify_lean_separate",
         "output_sha256": {
             name: sha256(rendered[name]).hexdigest() for name in PAYLOAD_NAMES
@@ -487,6 +522,33 @@ def check_outputs(rendered: dict[str, bytes]) -> None:
         raise ValueError("; ".join(failures))
 
 
+def _stored_gzip_matches(path: Path, payload: bytes) -> bool:
+    """Whether an existing plain ``.gz`` receipt already decompresses to
+    ``payload``.  Such a file is left in place, so a zlib build that picks
+    another compressed stream does not rewrite an unchanged receipt."""
+
+    try:
+        info = path.lstat()
+    except FileNotFoundError:
+        return False
+    if _receipt_kind(info) != "file":
+        return False
+    try:
+        return strict_gzip_payload(_plain_file_payload(path, info), source=path.name) == payload
+    except ValueError:
+        return False
+
+
+def write_outputs(rendered: Mapping[str, bytes]) -> None:
+    RECEIPTS.mkdir(parents=True, exist_ok=True)
+    for name in ALL_NAMES:
+        stored = stored_name(name)
+        if stored == name:
+            write_bytes_atomic(RECEIPTS / stored, rendered[name])
+        elif not _stored_gzip_matches(RECEIPTS / stored, rendered[name]):
+            write_gzip_atomic(RECEIPTS / stored, rendered[name])
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     mode = parser.add_mutually_exclusive_group(required=True)
@@ -495,9 +557,7 @@ def main() -> None:
     args = parser.parse_args()
     rendered = render_outputs()
     if args.write:
-        RECEIPTS.mkdir(parents=True, exist_ok=True)
-        for name in ALL_NAMES:
-            write_bytes_atomic(RECEIPTS / name, rendered[name])
+        write_outputs(rendered)
     check_outputs(rendered)
     print(
         f"Python receipt replay clean: outputs={len(ALL_NAMES)} "
