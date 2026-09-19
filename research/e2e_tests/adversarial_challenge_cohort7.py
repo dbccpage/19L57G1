@@ -27,7 +27,7 @@ import sys
 import time
 from typing import Any, Callable, Dict, List, Mapping, Sequence, Set, Tuple, Union
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 
 # Prepend research directories for Cohort 7
 TARGET_DIRS = [
@@ -969,7 +969,7 @@ def main() -> None:
         "axiom_audit": "PASS",
         "status": "PASS",
     }
-    receipt_path = REPO_ROOT / "research" / "evidence_cohort7_adversarial.json"
+    receipt_path = REPO_ROOT / "research" / "e2e_tests" / "evidence_cohort7_adversarial.json"
     receipt_path.write_text(json.dumps(receipt, indent=2), encoding="utf-8")
     print(f"Receipt written to {receipt_path}")
 

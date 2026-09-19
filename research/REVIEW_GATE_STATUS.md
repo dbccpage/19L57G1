@@ -18,6 +18,13 @@ Live claims for this cohort are in `research/x303_bounded_agency/CLAIMS.md`
 and `research/x310_vertical_integration/CLAIMS.md`. The remainder of this
 file is prior-cohort history.
 
+Moved 2026-09-18: the cohort 2-8 adversarial scripts, the six
+`cohort6_adv_*.py` modules, `e2e_cohorts_1_to_4_integration.py`,
+`fuzz_g011_g001.py`, and the seven `evidence_*.json` receipts they write
+now live in `research/e2e_tests/` under the same file names.  The history
+below names them at the paths they had when it was written, `research/<name>`;
+it is left as written.
+
 ---
 
 # Previous Review Gate History

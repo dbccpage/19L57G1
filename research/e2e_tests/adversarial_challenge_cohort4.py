@@ -27,7 +27,7 @@ from typing import Any, Callable, Dict, List, Sequence, Tuple
 
 # Resolve repository root and prepend research directories to avoid shadowing
 # (specifically ensuring research/g013_trace_calculus takes precedence over stdlib trace)
-REPO_ROOT = Path(__file__).resolve().parent.parent
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 TARGET_DIRS = [
     REPO_ROOT / "code",
     REPO_ROOT / "research" / "g012_typed_translation",
@@ -1003,7 +1003,7 @@ def main() -> None:
         },
     }
 
-    receipt_path = REPO_ROOT / "research" / "evidence_adversarial_cohort4.json"
+    receipt_path = REPO_ROOT / "research" / "e2e_tests" / "evidence_adversarial_cohort4.json"
     with open(receipt_path, "w", encoding="utf-8") as f:
         json.dump(receipt, f, indent=2)
     print(f"Receipt written to: {receipt_path}")

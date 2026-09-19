@@ -126,8 +126,9 @@ module (census of 2026-09-18 against Python 3.14.2's list of 297 names):
 
 - `research/g013_trace_calculus/trace.py`: `import trace` started in that
   directory gets the tree's file. The tree's 21 tests pass under
-  `python -m pytest` there, and `research/adversarial_challenge_cohort4.py`
-  puts the directory first on `sys.path` on purpose so that this file wins.
+  `python -m pytest` there, and
+  `research/e2e_tests/adversarial_challenge_cohort4.py` puts the directory
+  first on `sys.path` on purpose so that this file wins.
 - `research/x310_vertical_integration/types.py`: the interpreter has already
   loaded the built-in `types` before the directory is searched, and the tree
   imports its own file as `.types`; its 27 tests pass under

@@ -13,7 +13,7 @@ from cohort6_adv_x300 import test_x300_adversarial_observer_information
 from cohort6_adv_integration import test_four_pillar_cross_integration
 from cohort6_adv_seal import audit_repository_seal_and_axioms
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 
 
 def main() -> None:
@@ -44,7 +44,7 @@ def main() -> None:
         "axiom_audit": "PASS",
         "status": "PASS",
     }
-    receipt_path = REPO_ROOT / "research" / "evidence_cohort6_adversarial.json"
+    receipt_path = REPO_ROOT / "research" / "e2e_tests" / "evidence_cohort6_adversarial.json"
     receipt_path.write_text(json.dumps(receipt, indent=2), encoding="utf-8")
     print(f"Receipt written to {receipt_path}")
 

@@ -28,7 +28,7 @@ from pathlib import Path
 from typing import Any, List, Sequence, Tuple
 
 # Path setup
-REPO_ROOT = Path(__file__).resolve().parent.parent
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 RESEARCH_DIR = REPO_ROOT / "research"
 G011_DIR = RESEARCH_DIR / "g011_finitary_substrate"
 G001_DIR = RESEARCH_DIR / "g001_target_charter"

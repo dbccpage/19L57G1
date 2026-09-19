@@ -32,7 +32,7 @@ def outer_product(u: Sequence[complex], v: Sequence[complex]) -> list[list[compl
     return [[u[i] * v[j].conjugate() for j in range(len(v))] for i in range(len(u))]
 
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 
 # Prepend research directories for Cohort 8
 TARGET_DIRS = [
@@ -748,7 +748,7 @@ def run_adversarial_suite() -> dict[str, Any]:
     results["verdict"] = "ALL COHORT 8 ADVERSARIAL INVARIANTS PASSED"
 
     # Emit receipt
-    receipt_path = REPO_ROOT / "research" / "evidence_cohort8_adversarial.json"
+    receipt_path = REPO_ROOT / "research" / "e2e_tests" / "evidence_cohort8_adversarial.json"
     receipt_path.write_text(json.dumps(results, indent=2), encoding="utf-8")
     print(f"\nMaster Adversarial Suite PASSED: {total_checks} total checks in {elapsed:.2f}s.")
     print(f"Receipt written to {receipt_path}")

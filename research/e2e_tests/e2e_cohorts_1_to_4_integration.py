@@ -31,7 +31,7 @@ import time
 from typing import Any, Dict
 
 # Resolve paths
-REPO_ROOT = Path(__file__).resolve().parent.parent
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 RESEARCH_DIR = REPO_ROOT / "research"
 
 MODULE_PATHS = [
@@ -287,7 +287,7 @@ def run_integration_pipeline() -> Dict[str, Any]:
         },
     }
 
-    receipt_path = RESEARCH_DIR / "evidence_cohorts_1_to_4_integration.json"
+    receipt_path = RESEARCH_DIR / "e2e_tests" / "evidence_cohorts_1_to_4_integration.json"
     with open(receipt_path, "w", encoding="utf-8") as f:
         json.dump(receipt, f, indent=2)
     print(f"Receipt written to: {receipt_path}")

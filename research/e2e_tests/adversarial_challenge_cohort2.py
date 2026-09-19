@@ -22,7 +22,7 @@ import sys
 from pathlib import Path
 
 # Add dependencies to sys.path
-REPO_ROOT = Path(__file__).resolve().parent.parent
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.extend([
     str(REPO_ROOT / "code"),
     str(REPO_ROOT / "research" / "target_a_execution"),

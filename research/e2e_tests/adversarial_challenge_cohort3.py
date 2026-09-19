@@ -30,7 +30,7 @@ import sys
 import time
 
 # Resolve paths
-REPO_ROOT = Path(__file__).resolve().parent.parent
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.extend([
     str(REPO_ROOT / "code"),
     str(REPO_ROOT / "research" / "target_a_execution"),
@@ -771,7 +771,7 @@ def main() -> None:
         "internal_syntax_logic": stats_logic,
         "number_tower": stats_number_tower,
     }
-    receipt_path = REPO_ROOT / "research" / "evidence_adversarial_cohort3.json"
+    receipt_path = REPO_ROOT / "research" / "e2e_tests" / "evidence_adversarial_cohort3.json"
     with open(receipt_path, "w", encoding="utf-8") as f:
         json.dump(receipt, f, indent=2)
     print(f"Receipt written to: {receipt_path}")
