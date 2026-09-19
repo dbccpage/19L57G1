@@ -3,8 +3,10 @@
 Audits all research trees declared in research/README.md across the Genesis estate for:
 1. Gate 11 CI inclusion vs. local-only manual receipt status.
 2. Lean formalization presence and axiom gate coverage (CI vs. manual vs. none).
-3. Test count drift between root README (481) and current test suite (523).
-4. Axiom count drift between verification_20260817.md (1314) and lean_axioms.txt (1530).
+3. Test count drift between the root README's Tests row and the current root
+   test suite (481 vs. 523 in the dated 2026-09-10 record, audit_summary.json).
+4. Axiom count drift between verification_20260817.md (1314) and lean_axioms.txt
+   (1530 in the same dated record).
 5. Definition-level non-constructive axiom vulnerability (ParkedAudit.lean boundary).
 
 Claim Hygiene:
@@ -188,6 +190,11 @@ def parse_pytest_collect_output(stdout: str) -> dict[str, int]:
     return counts_by_file
 
 
+README_TESTS_ROW = re.compile(
+    r"\|\s*Tests\s*\|\s*(\d+)\s*files,\s*(\d+)\s*collected:\s*(\d+)\s*passed\s*/\s*(\d+)\s*skipped"
+)
+
+
 def audit_test_counts(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
     """Audit pytest collection counts in root tests/ and gate-11 hardcoded counts."""
     # 1. Root pytest collection
@@ -201,15 +208,21 @@ def audit_test_counts(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
     current_collected = sum(counts_by_file.values())
     current_files = len(counts_by_file)
 
-    # 2. Parse README.md declared test counts
+    # 2. Parse README.md declared test counts.  There is no fallback: until
+    # 2026-09-18 an unparsable row silently became the 2026-09-10 values
+    # (41 files, 481 collected), which hid a README the regex could not read.
     readme_path = repo_root / "README.md"
-    readme_text = readme_path.read_text(encoding="utf-8") if readme_path.is_file() else ""
-    readme_match = re.search(r"\|\s*Tests\s*\|\s*(\d+)\s*files,\s*(\d+)\s*collected:\s*(\d+)\s*passed\s*/\s*(\d+)\s*skipped", readme_text)
-    
-    readme_files = int(readme_match.group(1)) if readme_match else 41
-    readme_collected = int(readme_match.group(2)) if readme_match else 481
-    readme_passed = int(readme_match.group(3)) if readme_match else 480
-    readme_skipped = int(readme_match.group(4)) if readme_match else 1
+    readme_text = readme_path.read_text(encoding="utf-8")
+    readme_match = README_TESTS_ROW.search(readme_text)
+    if readme_match is None:
+        raise ValueError(
+            f"{readme_path}: no Tests row of the shape "
+            "'| Tests | N files, N collected: N passed / N skipped'"
+        )
+    readme_files = int(readme_match.group(1))
+    readme_collected = int(readme_match.group(2))
+    readme_passed = int(readme_match.group(3))
+    readme_skipped = int(readme_match.group(4))
 
     # 3. Gate 11 hardcoded test count pins from .github/workflows/verify.yml
     verify_yml = (repo_root / ".github" / "workflows" / "verify.yml").read_text(encoding="utf-8")
@@ -224,6 +237,7 @@ def audit_test_counts(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
 
     return {
         "root_suite": {
+            "collect_returncode": res.returncode,
             "current_files": current_files,
             "current_collected": current_collected,
             "readme_files": readme_files,
@@ -324,7 +338,7 @@ def generate_audit_report(
         f"- **Trees with Lean Axiom Verification in CI:** {ci_lean_count} (`second_nofirst`, `typed_translation`)",
         f"- **Trees with Local Manual Lean Receipts:** {manual_lean_count} (`verify_lean.py` exists, local operator attestation)",
         f"- **Trees with Zero Lean Formalization:** {no_lean_count} (pure Python / analytical)",
-        f"- **Root Test Suite Count Drift:** 481 in `README.md` vs. **{root_s['current_collected']}** collected by pytest (+{root_s['drift_collected']} tests)",
+        f"- **Root Test Suite Count Drift:** {root_s['readme_collected']} in `README.md` vs. **{root_s['current_collected']}** collected by pytest ({root_s['drift_collected']:+d} tests)",
         f"- **Kernel Axiom Report Drift:** 1,314 in `verification_20260817.md` vs. **{k_ax['current_report_count']}** in `artifacts/lean_axioms.txt` (+{k_ax['drift']} reports across {k_ax['elaborated_modules']} modules)",
         f"- **Kernel Axiom Integrity:** {k_ax['current_report_count']} / {k_ax['current_report_count']} reports strictly within `{{propext, Quot.sound}}` (0 disallowed axioms)",
         "",
@@ -356,13 +370,12 @@ def generate_audit_report(
         "### 3.1 Root Pytest Suite Reconciliation",
         f"- **Documented in root `README.md` (line 24):** `{root_s['readme_files']} files, {root_s['readme_collected']} collected: {root_s['readme_passed']} passed / {root_s['readme_skipped']} skipped`",
         f"- **Discovered by current `python -m pytest --collect-only`:** `{root_s['current_files']} files, {root_s['current_collected']} collected`",
-        f"- **Observed Drift:** +{root_s['drift_collected']} tests across {root_s['current_files']} files.",
+        f"- **Observed Drift:** {root_s['drift_collected']:+d} tests across {root_s['current_files']} files.",
         "",
         "#### Cause of Drift:",
-        "The root test suite expanded through ongoing test development, adding 42 new test cases",
-        "across existing test files without updating the historical line in `README.md`.",
-        "Because `README.md` is outside the research tree and under blind seal, this report",
-        "reconciles and pins the exact per-file counts.",
+        "Any drift is test development that the Tests row of the root `README.md` has not caught up with.",
+        "`README.md` is outside this research tree, so this report does not edit it; it records",
+        "the exact per-file counts instead.",
         "",
         "| Test File | Collected Test Count |",
         "|---|---|",
@@ -558,7 +571,7 @@ def main() -> int:
         print(f"Local Receipt Trees:      {len(trees) - sum(1 for t in trees if t.in_verify_yml_gate11)}")
         print(f"CI Lean Axiom Trees:      {sum(1 for t in trees if t.in_verify_yml_lean)}")
         print(f"Manual Lean Trees:        {sum(1 for t in trees if t.has_verify_lean and not t.in_verify_yml_lean)}")
-        print(f"Root Tests Collected:     {test_audit['root_suite']['current_collected']} (README says {test_audit['root_suite']['readme_collected']}, drift: +{test_audit['root_suite']['drift_collected']})")
+        print(f"Root Tests Collected:     {test_audit['root_suite']['current_collected']} (README says {test_audit['root_suite']['readme_collected']}, drift: {test_audit['root_suite']['drift_collected']:+d})")
         print(f"Kernel Axiom Reports:     {axiom_audit['kernel_axioms']['current_report_count']} (Historical 2026-08-17: {axiom_audit['kernel_axioms']['historical_count_20260817']}, drift: +{axiom_audit['kernel_axioms']['drift']})")
         print(f"Kernel Axiom Strictness:  {axiom_audit['kernel_axioms']['all_within_allowed']} (0 disallowed axioms)")
 
