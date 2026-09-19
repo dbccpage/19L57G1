@@ -66,9 +66,19 @@ def stage_sources():
     return len(seen)
 
 
+def declared_theorems(source):
+    # Lean names may end in apostrophes; `\w+` alone would stop before
+    # them and misname a primed theorem.  Repaired 2026-09-18.
+    return re.findall(r"^theorem\s+([\w']+)", source, re.M)
+
+
 def parse_axioms(text, expected):
     reports = {}
-    pattern = r"'([^']+)' (?:depends on axioms: \[([^]]*)\]|does not depend on any axioms)"
+    # `.+?` and not `[^']+`: a primed theorem name ends in a quote
+    # character, and the character-class pattern cannot capture it --
+    # the recorded primed-names parser defect.  `.` stops at a line end,
+    # so one capture never spans two reports.  Repaired 2026-09-18.
+    pattern = r"'(.+?)' (?:depends on axioms: \[([^]]*)\]|does not depend on any axioms)"
     for match in re.finditer(pattern, text):
         name = match[1]
         assert name not in reports, ('Duplicate report', name)
@@ -86,7 +96,7 @@ def lean_checks(lake):
     for module in LOCAL_MODULES:
         source = (HERE / f'lean/{module}.lean').read_text(encoding='utf-8')
         assert not any(re.search(p, source, re.M) for p in forbidden)
-        own += [module + '.' + n for n in re.findall(r'^theorem\s+(\w+)', source, re.M)]
+        own += [module + '.' + n for n in declared_theorems(source)]
     assert set(own) == {n for n in expected if n.split('.')[0] in LOCAL_MODULES}
     build = subprocess.run([lake, 'build'], cwd=HERE / 'lean', capture_output=True, text=True,
                            encoding='utf-8', errors='replace')

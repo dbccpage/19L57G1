@@ -1,4 +1,10 @@
-⚠ [8/25] Replayed Derivation.Apartness
+✔ [2/25] Built ClaimExample (1.5s)
+✔ [3/25] Built Derivation.PrimDiff (3.0s)
+✔ [4/25] Built Derivation.DiffInterface (4.1s)
+✔ [5/25] Built Derivation.PrimitiveCore (2.1s)
+✔ [6/25] Built Derivation.PrimitiveCats (2.2s)
+✔ [7/25] Built Derivation.Compression (3.4s)
+⚠ [8/25] Built Derivation.Apartness (3.4s)
 warning: pinned/Derivation/Apartness.lean:172:16: Variable name `x` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
@@ -11,22 +17,18 @@ Hint: The binding can be removed (if unused) or named `_` (if used implicitly). 
   [apply] _y
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [16/25] Replayed ExchangeCoefficients
-warning: ExchangeCoefficients.lean:72:42: This simp argument is unused:
-  Prod.fst
-
-Hint: Omit it from the simp argument list.
-  [apply] simp only [transportCoeff, hopB, flipB, Prod.snd, Bool.or_eq_true, Bool.and_eq_true, Nat.beq_eq_true_eq]
-
-Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-warning: ExchangeCoefficients.lean:72:52: This simp argument is unused:
-  Prod.snd
-
-Hint: Omit it from the simp argument list.
-  [apply] simp only [transportCoeff, hopB, flipB, Prod.fst, Bool.or_eq_true, Bool.and_eq_true, Nat.beq_eq_true_eq]
-
-Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-⚠ [20/25] Replayed NaturalSections.PhaseReceiver
+✔ [9/25] Built Derivation.PrimitivePassage (3.6s)
+✔ [10/25] Built Derivation.ObsDescent (2.0s)
+✔ [11/25] Built Derivation.ContactBridge (1.8s)
+✔ [12/25] Built Derivation.HigherStructure (3.8s)
+✔ [13/25] Built Derivation.PrimitiveContact (965ms)
+✔ [14/25] Built Derivation.LadderGeneral (2.3s)
+✔ [15/25] Built Derivation.ContactKernel (1.7s)
+✔ [16/25] Built Derivation.BoundaryCancellation (1.8s)
+✔ [17/25] Built Derivation.PresentationNaturality (1.6s)
+✔ [18/25] Built NaturalSections (970ms)
+✔ [19/25] Built NaturalSections.HopFixture (2.1s)
+⚠ [20/25] Built NaturalSections.PhaseReceiver (2.1s)
 warning: pinned/NaturalSections/PhaseReceiver.lean:97:30: This simp argument is unused:
   Int.natCast_mul
 
@@ -474,7 +476,24 @@ Hint: Omit it from the simp argument list.
   [apply] simp [Int.neg_mul, Int.mul_neg, Int.mul_comm, Int.mul_left_comm] at hInt ⊢
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-ℹ [24/25] Replayed ExamplesAudit
+⚠ [21/25] Built ExchangeCoefficients (4.4s)
+warning: ExchangeCoefficients.lean:72:42: This simp argument is unused:
+  Prod.fst
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [transportCoeff, hopB, flipB, Prod.snd, Bool.or_eq_true, Bool.and_eq_true, Nat.beq_eq_true_eq]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ExchangeCoefficients.lean:72:52: This simp argument is unused:
+  Prod.snd
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [transportCoeff, hopB, flipB, Prod.fst, Bool.or_eq_true, Bool.and_eq_true, Nat.beq_eq_true_eq]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+✔ [22/25] Built NaturalSections.WeightedLayer (4.3s)
+✔ [23/25] Built NaturalSections.SlotExchange (1.2s)
+ℹ [24/25] Built ExamplesAudit (754ms)
 info: ExamplesAudit.lean:7:0: 'ExchangeCoefficients.insert_left' depends on axioms: [propext]
 info: ExamplesAudit.lean:8:0: 'ExchangeCoefficients.insert_right' depends on axioms: [propext]
 info: ExamplesAudit.lean:9:0: 'ExchangeCoefficients.insert_zero_off_target' depends on axioms: [propext]
