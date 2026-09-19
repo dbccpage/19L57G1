@@ -19,7 +19,7 @@
     "lean/Inventory.lean": "9ef71b1bb7a520d1ac8fb54cc3158778bd5424bbb41f68c765f0c8e6dec509cb",
     "lean/Ordinal.lean": "481a7a94c525240bbc34a6697eb904f9db6e29ca2144dfab6edee6abb8d8a7b3",
     "lean/Recursion.lean": "0905141787a5a4049346d867de88619761b30c9d0626c5b800eee2f1a7b3f56b",
-    "lean/lakefile.toml": "a3561597c0003e8f3fe2673bb67864c057cf68439c67503d4aa6735e0af76b65",
+    "lean/lakefile.toml": "e9451fc2a93340e9f33b31b1b736804013291ec62ad009dc7133412a5e38feb9",
     "lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
     "ordinals.py": "3eec34bdb18cdfccc75cc762beda21b8538c18efc02696b6a3072b7d3ac91a95",
     "recursion.py": "3c6b5e2f6caf48c2cde2b46aa97bc764e9d2b0d284a91cf17be0b15b85872744",
@@ -218,7 +218,7 @@
     "FinitarySubstrate.instDecidableEqOrdinal.decEq._proof_3",
     "FinitarySubstrate.instDecidableEqOrdinal.decEq._proof_4"
   ],
-  "timestamp_utc": "2026-09-18T20:32:56.535267+00:00",
+  "timestamp_utc": "2026-09-19T23:41:15.434151+00:00",
   "title": "Internal Finitary Substrate",
   "toolchains": {
     "lean": "leanprover/lean4:v4.33.0",
