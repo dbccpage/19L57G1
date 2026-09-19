@@ -1,16 +1,19 @@
-"""The research copy-drift lint: ``research/_scaffold/check_scaffold.py``.
+"""The research copy-drift tools: ``research/house_diff.py --families`` and
+``research/_scaffold/check_scaffold.py``.
 
 The research trees keep hand copies of their verifiers on purpose; there is
-no shared helper.  ``check_scaffold.py`` FAILS on the recurring correctness
-defects: the substring coverage leak, and a quote-excluding name capture in
-an axiom-report pattern, which drops a primed theorem name without a word.
+no shared helper.  ``house_diff.py --families`` REPORTS how the copies of five
+verifier files drift -- byte-identical groups, logic variants, and a compact
+summary of each variant against the most common one -- and never fails.
+``check_scaffold.py`` FAILS on the recurring correctness defects: the
+substring coverage leak, and a quote-excluding name capture in an
+axiom-report pattern, which drops a primed theorem name without a word.
 
 The live-tree tests below are what give ``check_scaffold.py``'s errors teeth:
 a new tree that copies an old, quote-blind parser fails the root suite, and
-so does a pinned file whose bytes move.  The population test counts the
-research Python files from the git index, independently of the walk the lint
-does, so a file the walk cannot reach fails instead of vanishing from both
-sides.
+so does a pinned file whose bytes move.  The population tests count the
+copies from the git index, independently of the walk the tools do, so a copy
+the walk cannot reach fails instead of vanishing from both sides.
 """
 
 from __future__ import annotations
@@ -36,6 +39,7 @@ def _load(name: str, path: Path) -> ModuleType:
     return module
 
 
+hd = _load("_house_diff", REPO / "research" / "house_diff.py")
 cs = _load("_check_scaffold", REPO / "research" / "_scaffold" / "check_scaffold.py")
 
 # The copies that carried a quote-excluding axiom-report capture when the
@@ -267,3 +271,119 @@ def test_main_exits_one_on_an_error_and_zero_otherwise(
     path.write_text(FIXED, encoding="utf-8")
     assert cs.main(tmp_path) == 0
     assert "scaffold clean of correctness drift; 0 pinned" in capsys.readouterr().out
+
+
+# --- house_diff.py --families -----------------------------------------------
+
+
+def test_every_tracked_copy_of_every_family_is_found() -> None:
+    tracked = _tracked()
+    for name in hd.FAMILIES:
+        walked = {p.relative_to(REPO).as_posix() for p in hd.family_copies(name)}
+        indexed = {p for p in tracked if p.rsplit("/", 1)[-1] == name and (REPO / p).is_file()}
+        assert indexed - walked == set(), f"{name}: tracked but not found: {sorted(indexed - walked)}"
+        assert indexed, f"{name}: no tracked copy at all; the census found nothing"
+
+
+def test_the_live_family_report_covers_all_five_families_and_exits_zero(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    assert hd.main(["--families"]) == 0
+    out = capsys.readouterr().out
+    for name in hd.FAMILIES:
+        count = len(hd.family_copies(name))
+        assert f"== {name}: {count} copies\n" in out
+    assert "UNPARSABLE" not in out
+
+
+CHECK = '''\
+"""Doc {doc}."""
+LIMIT = {limit}
+
+
+def check(value: int) -> bool:
+    """Say whether ``value`` is small."""
+    return value < LIMIT
+
+
+def main() -> int:
+    return 0 if check({limit}) else 1
+'''
+
+
+def test_bytes_and_logic_group_separately(tmp_path: Path) -> None:
+    same = CHECK.format(doc="one", limit=3)
+    _write(tmp_path / "a" / "verify_pins.py", same)
+    _write(tmp_path / "b" / "verify_pins.py", same.replace("\n", "\r\n"))  # a CRLF checkout
+    _write(tmp_path / "c" / "verify_pins.py", CHECK.format(doc="two", limit=9))
+    found = hd.family("verify_pins.py", tmp_path)
+    assert found.copies == ("a", "b", "c")
+    assert found.byte_groups == (("a", "b"), ("c",))
+    assert [v.members for v in found.variants] == [("a", "b", "c")]
+    assert found.unparsable == ()
+
+
+def test_a_variant_is_summarised_against_the_most_common(tmp_path: Path) -> None:
+    base = CHECK.format(doc="x", limit=3)
+    for tree in ("a", "b"):
+        _write(tmp_path / tree / "verify_lean.py", base)
+    other = base.replace("return value < LIMIT", "if value < 0:\n        return False\n"
+                         "    return value < LIMIT")
+    other = other.replace("def main() -> int:\n    return 0 if check(3) else 1\n",
+                          "def extra() -> None:\n    pass\n")
+    _write(tmp_path / "c" / "verify_lean.py", other)
+    found = hd.family("verify_lean.py", tmp_path)
+    assert [v.members for v in found.variants] == [("a", "b"), ("c",)]
+    assert hd.summary(found.variants[1], found.variants[0]) == (
+        "adds 1 (extra); lacks 1 (main); changes 1 (check +2/-0)")
+    assert hd.summary(found.variants[0], found.variants[0]) == (
+        "no difference in top-level definitions")
+
+
+def test_long_name_lists_are_counted_not_printed() -> None:
+    names = [f"n{i}" for i in range(hd.SHOWN + 3)]
+    assert hd._names(names).endswith(", +3 more")
+    assert hd._names(names[:2]) == "n0, n1"
+
+
+def test_copies_are_found_at_any_depth_but_not_in_hidden_dirs(tmp_path: Path) -> None:
+    body = CHECK.format(doc="d", limit=1)
+    _write(tmp_path / "_scaffold" / "test_forbidden.py", body)
+    _write(tmp_path / "d" / "tests" / "test_forbidden.py", body)
+    _write(tmp_path / "d" / "lean" / ".lake" / "pkg" / "test_forbidden.py", body)
+    _write(tmp_path / "d" / "__pycache__" / "test_forbidden.py", body)
+    assert [hd.label(p, tmp_path) for p in hd.family_copies("test_forbidden.py", tmp_path)] == [
+        "_scaffold", "d/tests"]
+
+
+def test_a_byte_order_mark_is_read_and_an_unparsable_copy_is_named(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str],
+) -> None:
+    body = CHECK.format(doc="d", limit=1)
+    _write(tmp_path / "a" / "check_coverage.py", b"\xef\xbb\xbf" + body.encode())
+    _write(tmp_path / "b" / "check_coverage.py", body)
+    _write(tmp_path / "c" / "check_coverage.py", "def broken(:\n")
+    found = hd.family("check_coverage.py", tmp_path)
+    assert found.unparsable == ("c",)
+    assert [v.members for v in found.variants] == [("a", "b")]
+    assert set(hd.definitions(tmp_path / "a" / "check_coverage.py")) == {"check", "main"}
+    assert hd.family_report(tmp_path) == 0
+    out = capsys.readouterr().out
+    assert "  UNPARSABLE, logic not compared: c\n" in out
+    assert "== check_coverage.py: 3 copies\n" in out
+
+
+def test_a_tie_for_most_common_is_said(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str],
+) -> None:
+    _write(tmp_path / "a" / "verify_sources.py", CHECK.format(doc="d", limit=1))
+    _write(tmp_path / "b" / "verify_sources.py", "def other() -> None:\n    pass\n")
+    _write(tmp_path / "c" / "verify_sources.py", "def other() -> None:\n    pass\n")
+    _write(tmp_path / "d" / "verify_sources.py", CHECK.format(doc="e", limit=2))
+    assert hd.family_report(tmp_path) == 0
+    out = capsys.readouterr().out
+    assert ("  logic variants: 2; tied with 1 other variant(s) of 2 copies, "
+            "so the first by path is the reference\n") in out
+    assert "  variant 1 (most common: the reference), 2 copies: a, d\n" in out
+    assert "      vs variant 1: adds 1 (other); lacks 2 (check, main)\n" in out
+    assert "  byte-identical (2): b, c\n  byte-unique: 2\n" in out
