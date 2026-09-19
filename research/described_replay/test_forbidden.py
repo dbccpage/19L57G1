@@ -17,10 +17,12 @@ from receipt_io import (
     JSONValue,
     deterministic_json_bytes,
     load_json_object,
+    strict_gzip_payload,
     strict_json_loads,
     write_bytes_atomic,
     write_json_atomic,
 )
+from run_described_replay import GZIP_PAYLOAD_NAMES, stored_name
 from verify_pins import WRITE_ROOT as SCOPE_ROOT
 from verify_pins import changed_paths, scope_failures
 
@@ -49,6 +51,8 @@ class _WatchlistModule(Protocol):
         watched: object,
         files: list[str] | None = None,
     ) -> dict[str, list[str]]: ...
+
+    def scan_text(self, text: str, watched: object) -> list[object]: ...
 
 
 def _git_population() -> tuple[str, ...]:
@@ -161,7 +165,17 @@ def _plain_surface_bytes(relative: str) -> bytes:
 
 
 def _text(relative: str) -> str | None:
+    """The text every scan reads for one census member.
+
+    A ``.gz`` member is read through the strict gzip reader and its
+    DECOMPRESSED bytes are scanned: the two large receipts are stored that
+    way, and skipping them as binary would leave their content read by no
+    scan in this file.  A member that fails the strict reader fails the scan.
+    """
+
     data = _plain_surface_bytes(relative)
+    if relative.endswith(".gz"):
+        data = strict_gzip_payload(data, source=relative)
     if b"\0" in data:
         return None
     return data.decode("utf-8")
@@ -446,9 +460,64 @@ class ForbiddenSurfaceTests(unittest.TestCase):
 
     def test_repository_prose_watchlist_is_clean(self) -> None:
         scanner = _load_watchlist_module()
-        watched = scanner.load(REPO / "ci" / "prose_watchlist.json")
+        # ``load`` returns the whole watchlist file; the digest map the
+        # scanners match against is its ``watched`` member.  Until 2026-09-18
+        # this test passed the whole file object, so no digest could ever
+        # match and the test was green whatever the tree contained.
+        loaded = scanner.load(REPO / "ci" / "prose_watchlist.json")
+        assert isinstance(loaded, dict)
+        watched = loaded["watched"]
+        assert isinstance(watched, dict) and watched
         hits = scanner.scan_repo(REPO, watched, files=list(_git_population()))
         self.assertEqual({}, hits)
+        # The repository scanner skips a gzip member as binary, so the
+        # decompressed text of each one is scanned here with the same terms.
+        compressed_hits = {
+            relative: found
+            for relative in _git_population()
+            if relative.endswith(".gz")
+            and (content := _text(relative)) is not None
+            and (found := scanner.scan_text(content, watched))
+        }
+        self.assertEqual({}, compressed_hits)
+
+    def test_every_census_member_is_read_as_text(self) -> None:
+        population = _git_population()
+        for name in GZIP_PAYLOAD_NAMES:
+            self.assertIn(f"{WRITE_ROOT}receipts/python/{stored_name(name)}", population)
+            self.assertNotIn(f"{WRITE_ROOT}receipts/python/{name}", population)
+        unread = [relative for relative in population if _text(relative) is None]
+        self.assertEqual([], unread)
+
+    def test_gzip_receipts_are_stored_as_binary(self) -> None:
+        paths = [
+            f"{WRITE_ROOT}receipts/python/{stored_name(name)}"
+            for name in GZIP_PAYLOAD_NAMES
+        ]
+        completed = subprocess.run(
+            ["git", "check-attr", "-z", "binary", "text", "diff", "merge", "--", *paths],
+            cwd=REPO,
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+        fields = completed.stdout.split(b"\0")
+        observed = {
+            (os.fsdecode(fields[index]), os.fsdecode(fields[index + 1])):
+            os.fsdecode(fields[index + 2])
+            for index in range(0, len(fields) - 2, 3)
+        }
+        wanted = {
+            (path, attribute): value
+            for path in paths
+            for attribute, value in (
+                ("binary", "set"),
+                ("text", "unset"),
+                ("diff", "unset"),
+                ("merge", "unset"),
+            )
+        }
+        self.assertEqual(wanted, observed)
 
     def test_working_102_name_denylist_is_clean(self) -> None:
         names = _working_denylist()
