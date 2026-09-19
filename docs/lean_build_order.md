@@ -159,7 +159,7 @@ package instead.
 ```powershell
 $env:PYTHONUTF8 = '1'
 function Invoke-InDir([string]$Dir, [string]$Exe, [string[]]$Arguments) {
-  Push-Location $Dir
+  Push-Location -LiteralPath $Dir -ErrorAction Stop
   try {
     & $Exe @Arguments
     if ($LASTEXITCODE -ne 0) { throw "failed in ${Dir}: $Exe $Arguments" }
@@ -170,6 +170,7 @@ function Invoke-InDir([string]$Dir, [string]$Exe, [string[]]$Arguments) {
 # Base package(s), alone, before anything that requires them.
 Invoke-InDir 'lean4' 'lake' @('build')
 # Require group 1: its longest chain, one at a time: local_reuse -> ignition -> magnification -> setting_translation -> represented_execution -> coherent_process_limits -> record_reading.
+# Require group 1: other members sit after what each one requires.
 Invoke-InDir 'research/local_reuse/lean' 'lake' @('build')
 Invoke-InDir 'research/ignition/lean' 'lake' @('build')
 Invoke-InDir 'research/magnification/lean' 'lake' @('build')
@@ -177,7 +178,6 @@ Invoke-InDir 'research/setting_translation/lean' 'lake' @('build')
 Invoke-InDir 'research/represented_execution/lean' 'lake' @('build')
 Invoke-InDir 'research/coherent_process_limits/lean' 'lake' @('build')
 Invoke-InDir 'research/record_reading/lean' 'lake' @('build')
-# Require group 1: the rest, after what each one requires.
 Invoke-InDir 'research/instance_demand/lean' 'lake' @('build')
 Invoke-InDir 'research/unboundedness/lean' 'lake' @('build')
 # Require group 2: its longest chain, one at a time: g011_finitary_substrate -> m105_number_tower.

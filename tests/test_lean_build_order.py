@@ -175,6 +175,30 @@ def test_the_longest_chain_comes_first_then_the_rest_by_depth(tmp_path: Path) ->
     block = lbo.render_block(graph)
     assert "# Require group 1: its longest chain, one at a time: x -> y -> z." in block
     assert "Invoke-InDir 'lean4' 'lake' @('build')" in block
+    assert "Push-Location -LiteralPath $Dir -ErrorAction Stop" in block
+    helper = block.split("function Invoke-InDir", 1)[1].split("}", 1)[0]
+    assert helper.index("Push-Location") < helper.index("try")
+    assert "ErrorAction Stop" in helper.split("try")[0]
+
+
+def test_a_diamond_in_a_require_group_is_topological(tmp_path: Path) -> None:
+    """A chain package that also requires a rest package cannot precede it."""
+    sealed = {"derivation": "../lean4"}
+    repo = _repo(tmp_path, {
+        "lean4/lakefile.toml": SEALED,
+        "a/lakefile.toml": _toml("a", sealed),
+        "b/lakefile.toml": _toml("b", {**sealed, "a": "../a"}),
+        "c/lakefile.toml": _toml("c", {**sealed, "a": "../a"}),
+        "d/lakefile.toml": _toml("d", {**sealed, "b": "../b", "c": "../c"}),
+    })
+    graph = lbo.build_graph(repo, {}, {})
+    assert graph.groups == ((("a", "b", "d"), ("c",)),)
+    order = lbo.sequence(graph)
+    assert order == ["lean4", "a", "b", "c", "d"]
+    position = {d: i for i, d in enumerate(order)}
+    for directory in order:
+        for _, target in graph.packages[directory].requires:
+            assert position[target] < position[directory], (directory, target)
 
 
 def test_a_root_module_supplied_twice_in_a_closure_is_listed(tmp_path: Path) -> None:

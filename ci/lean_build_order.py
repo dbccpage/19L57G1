@@ -19,10 +19,11 @@ errors rather than rows, so the page cannot silently drop an edge.
 
 Order: the base packages (required by others, requiring nothing) come first,
 alone.  Then, for each group of packages joined by research-to-research
-requires, its longest require chain one package at a time, then the rest of
-that group by depth.  Then every package that requires only a base package,
-then the packages that require nothing.  A package's depth is one more than
-the deepest package it requires.
+requires, its longest require chain, with any other member of the group
+inserted so each package follows what it requires (a diamond cannot place a
+chain package before a rest package it requires).  Then every package that
+requires only a base package, then the packages that require nothing.  A
+package's depth is one more than the deepest package it requires.
 
 Two tables are recorded by hand, because no lakefile says them, and each
 entry is checked against the tree: ``DUPLICATE_PACKAGE_DIRS`` (a Lake
@@ -485,11 +486,63 @@ def build_graph(
     )
 
 
+def group_order(
+    chain: Sequence[str],
+    rest: Sequence[str],
+    packages: Mapping[str, Package],
+) -> list[str]:
+    """One require group's packages in a valid build order.
+
+    The longest chain is emitted first whenever its next package's in-group
+    requires are already placed.  A rest package (already ordered by depth)
+    is inserted as soon as the chain cannot proceed, or after the chain by
+    depth.  Concatenating ``chain + rest`` is not used: a diamond would then
+    place a chain package before a rest package it requires.
+    """
+    component = set(chain) | set(rest)
+    placed: list[str] = []
+    placed_set: set[str] = set()
+    remaining = set(component)
+    chain_i = 0
+
+    def ready(directory: str) -> bool:
+        return all(
+            target in placed_set or target not in component
+            for _, target in packages[directory].requires
+        )
+
+    while remaining:
+        while chain_i < len(chain) and chain[chain_i] not in remaining:
+            chain_i += 1
+        nxt: str | None = None
+        if chain_i < len(chain) and ready(chain[chain_i]):
+            nxt = chain[chain_i]
+        else:
+            rest_ready = [d for d in rest if d in remaining and ready(d)]
+            if rest_ready:
+                nxt = rest_ready[0]
+            else:
+                later = [
+                    d for d in chain[chain_i + 1 :]
+                    if d in remaining and ready(d)
+                ]
+                if later:
+                    nxt = later[0]
+        if nxt is None:
+            raise ValueError(
+                "cannot order require group: " + ", ".join(sorted(remaining))
+            )
+        placed.append(nxt)
+        placed_set.add(nxt)
+        remaining.remove(nxt)
+    return placed
+
+
 def sequence(graph: Graph) -> list[str]:
     """Every build entry in the order the page gives it."""
     order = list(graph.base)
     for chain, rest in graph.groups:
-        order += [*chain, *rest]
+        order += group_order(chain, rest, graph.packages)
     return order + list(graph.leaves) + list(graph.standalone)
 
 
@@ -556,7 +609,7 @@ def render_block(graph: Graph) -> str:
     )
     lines += ["", "```powershell", "$env:PYTHONUTF8 = '1'",
               "function Invoke-InDir([string]$Dir, [string]$Exe, [string[]]$Arguments) {",
-              "  Push-Location $Dir",
+              "  Push-Location -LiteralPath $Dir -ErrorAction Stop",
               "  try {",
               "    & $Exe @Arguments",
               "    if ($LASTEXITCODE -ne 0) { throw \"failed in ${Dir}: $Exe $Arguments\" }",
@@ -570,12 +623,12 @@ def render_block(graph: Graph) -> str:
     for number, (chain, rest) in enumerate(graph.groups, start=1):
         names = " -> ".join(graph.packages[d].name for d in chain)
         lines.append(f"# Require group {number}: its longest chain, one at a time: {names}.")
-        for directory in chain:
-            lines += _commands(graph, directory)
         if rest:
-            lines.append(f"# Require group {number}: the rest, after what each one requires.")
-            for directory in rest:
-                lines += _commands(graph, directory)
+            lines.append(
+                f"# Require group {number}: other members sit after what each one requires."
+            )
+        for directory in group_order(chain, rest, graph.packages):
+            lines += _commands(graph, directory)
     lines.append("# Packages that require only a base package, one at a time, any order.")
     for directory in graph.leaves:
         lines += _commands(graph, directory)
