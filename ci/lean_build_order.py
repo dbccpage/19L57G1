@@ -609,6 +609,11 @@ def render_block(graph: Graph) -> str:
     )
     lines += ["", "```powershell", "$env:PYTHONUTF8 = '1'",
               "function Invoke-InDir([string]$Dir, [string]$Exe, [string[]]$Arguments) {",
+              # A failed Push-Location still pushes a frame, and without
+              # -ErrorAction Stop the command would run in the current
+              # directory under its toolchain; check the directory first.
+              "  if (-not (Test-Path -LiteralPath $Dir -PathType Container)) "
+              "{ throw \"no directory: ${Dir}\" }",
               "  Push-Location -LiteralPath $Dir -ErrorAction Stop",
               "  try {",
               "    & $Exe @Arguments",

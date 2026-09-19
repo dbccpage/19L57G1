@@ -47,10 +47,10 @@ command in the block was run for it.
    sealed modules instead of compiling them: the `local_reuse` build above
    compiled only its own two libraries, and from the sealed package it only
    replayed the logged warnings of two modules.
-2. For each require group, build its longest chain one package at a time,
-   in the order given, then the rest of the group. The block names the
-   packages; they come from the lakefiles, so a require line removed or
-   added changes them.
+2. For each require group, build its packages one at a time in the order
+   given: its longest chain, with every other member of the group placed
+   after everything it requires. The block names the packages; they come
+   from the lakefiles, so a require line removed or added changes them.
 3. Then the packages that require only `lean4`, one at a time, in any
    order.
 4. The packages that require nothing compile inside their own `.lake/` and
@@ -126,7 +126,10 @@ module is supplied more than once. In those packages, compile a census
 module by file path, as `lake env lean Inventory.lean` from the package
 directory or `lake build` of the package's own target, never through
 `import Inventory`, which leaves the search path to decide whose module it
-gets.
+gets. The block's table reads library roots only; the census over every
+tracked module is `tests/test_research_module_names.py`, which pins each
+such collision and fails when a research verifier feeds `import Inventory`
+to Lean inside a closure with more than one `Inventory`.
 
 ## Script steps
 
@@ -159,6 +162,7 @@ package instead.
 ```powershell
 $env:PYTHONUTF8 = '1'
 function Invoke-InDir([string]$Dir, [string]$Exe, [string[]]$Arguments) {
+  if (-not (Test-Path -LiteralPath $Dir -PathType Container)) { throw "no directory: ${Dir}" }
   Push-Location -LiteralPath $Dir -ErrorAction Stop
   try {
     & $Exe @Arguments
