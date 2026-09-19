@@ -9,7 +9,7 @@ import subprocess
 import sys
 from typing import Any
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 TARGET_DIRS = [
     REPO_ROOT / "research" / "p203_composite_systems",
     REPO_ROOT / "research" / "m108_internal_algebra",

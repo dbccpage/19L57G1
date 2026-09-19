@@ -24,7 +24,7 @@ import sys
 import time
 from typing import Any, Mapping, Sequence
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 
 # Prepend research directories
 TARGET_DIRS = [
@@ -338,7 +338,7 @@ def main() -> None:
         "targets_covered": ["G014", "G015", "G017", "M104", "M107", "P201", "P202"],
         "status": "PASS",
     }
-    receipt_path = REPO_ROOT / "research" / "evidence_cohort5_adversarial.json"
+    receipt_path = REPO_ROOT / "research" / "e2e_tests" / "evidence_cohort5_adversarial.json"
     receipt_path.write_text(json.dumps(receipt, indent=2), encoding="utf-8")
     print(f"Receipt written to {receipt_path}")
 
