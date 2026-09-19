@@ -460,7 +460,14 @@ class ForbiddenSurfaceTests(unittest.TestCase):
 
     def test_repository_prose_watchlist_is_clean(self) -> None:
         scanner = _load_watchlist_module()
-        watched = scanner.load(REPO / "ci" / "prose_watchlist.json")
+        # ``load`` returns the whole watchlist file; the digest map the
+        # scanners match against is its ``watched`` member.  Until 2026-09-18
+        # this test passed the whole file object, so no digest could ever
+        # match and the test was green whatever the tree contained.
+        loaded = scanner.load(REPO / "ci" / "prose_watchlist.json")
+        assert isinstance(loaded, dict)
+        watched = loaded["watched"]
+        assert isinstance(watched, dict) and watched
         hits = scanner.scan_repo(REPO, watched, files=list(_git_population()))
         self.assertEqual({}, hits)
         # The repository scanner skips a gzip member as binary, so the
