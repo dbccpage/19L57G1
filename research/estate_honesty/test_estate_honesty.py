@@ -158,7 +158,13 @@ class TestEstateHonesty(unittest.TestCase):
             text=True,
         )
         self.assertEqual(res.returncode, 0, res.stdout[-2000:] + res.stderr[-2000:])
-        self.assertEqual(by_file, nodeid_counts(res.stdout))
+        independent = nodeid_counts(res.stdout)
+        differ = {
+            path: (by_file.get(path), independent.get(path))
+            for path in sorted(set(by_file) | set(independent))
+            if by_file.get(path) != independent.get(path)
+        }
+        self.assertEqual(differ, {}, "per-file counts (auditor, independent nodeid read) differ")
         # The README row parses, is internally consistent, and the drift is
         # the difference of the two populations, whatever they are today.
         self.assertGreater(root["readme_collected"], 0)
