@@ -8,4 +8,5 @@ files = [
   "floor.py",
   "thread.py",
   "test_symmetry_floor.py",
+  "verify_lean.py",
 ]
