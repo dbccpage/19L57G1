@@ -38,6 +38,19 @@ lean SymmetryFloor.lean
 Expected: `floor` and `floor_iterated` depend on no axioms; the four `decide`
 results depend on `propext`, which is inside the repository whitelist.
 
+Since 2026-09-18 that expectation is also checked rather than read off by
+eye. From this directory:
+
+```powershell
+python verify_lean.py --check
+```
+
+It runs the same `lean SymmetryFloor.lean`, requires exactly the six
+reports with the axioms above, and compares them with every theorem the
+compiled file contains, generated ones included. It adds no lakefile and
+writes no tracked file. Like everything else here it is a local receipt:
+no gate runs it.
+
 ## Cost
 
 The suite runs in about **two and a half minutes**, dominated by
