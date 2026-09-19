@@ -112,7 +112,10 @@ the rest.
 * **The ledger gate checks that names resolve, never that wording
   matches proof.** `Class: theorem` with no Lean evidence passes it.
   Whether a claim overclaims is a judgement no gate can make — it was
-  audited by hand, and the findings are in the change log.
+  audited by hand, and the findings are in the change log. Resolution is
+  by final name segment, so a bare name can resolve to a same-named
+  theorem elsewhere and a cited theorem can lack a report; both are
+  pinned residuals, and closing them is sealed and record-only.
 * **Four clauses of the stopping conditions are operator claims**, not
   gate-discharged: that every notion carries a source classification,
   that every theorem-level claim has Lean evidence or is downgraded,
