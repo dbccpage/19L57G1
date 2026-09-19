@@ -119,7 +119,7 @@
     ]
   },
   "source_hashes": {
-    "Inventory.lean": "6ff182253c8e3f199a1a717a1d3783403e50d2f691602229e616aed48f0e8b4d",
+    "Inventory.lean": "c8d59449dc7e14a820b891d3157f6ff7b93f906c3da0424b089511041f37b13e",
     "QuotientTopology.lean": "5f838fe20c0d54e58c3ce0ff949156b29e04e2e69cca09f261db2f2cfbf8187d",
     "TwinRelation.lean": "3c6ac3cc892bea61bc71b454e0e84272a3a8b805759fb5bf1b05339f2895c4e3",
     "ValuationPricing.lean": "5113668c59ae0201ed5ddfd90279b4f16d8d1f06cdf3a2927500b62057ef0fd4",
