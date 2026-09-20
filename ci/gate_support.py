@@ -62,6 +62,7 @@ def receipt_replay(cwd: Path, paths: Sequence[str], command: Sequence[str]) -> i
     current = cwd.resolve()
     if not current.is_relative_to(repo):
         raise ValueError("receipt working directory is outside its repository")
+    head = git(repo, "rev-parse", "HEAD").decode().strip()
     originals: dict[Path, bytes] = {}
     committed: dict[Path, bytes] = {}
     for name in paths:
@@ -74,8 +75,10 @@ def receipt_replay(cwd: Path, paths: Sequence[str], command: Sequence[str]) -> i
         if path in originals:
             raise ValueError(f"duplicate receipt path: {name}")
         tracked = path.relative_to(repo).as_posix()
-        committed[path] = git(repo, "show", f"HEAD:{tracked}")
+        committed[path] = git(repo, "show", f"{head}:{tracked}")
         originals[path] = path.read_bytes()
+    if git(repo, "rev-parse", "HEAD").decode().strip() != head:
+        raise ValueError("HEAD moved before receipt reproduction")
     args = list(command)
     if args[0] in ("python", "python3"):
         args[0] = sys.executable
@@ -87,6 +90,8 @@ def receipt_replay(cwd: Path, paths: Sequence[str], command: Sequence[str]) -> i
             if not path.is_file() or path.is_symlink() or path.read_bytes() != expected:
                 failures.append(f"{path.relative_to(current)} differs from fresh reproduction")
     finally:
+        if git(repo, "rev-parse", "HEAD").decode().strip() != head:
+            raise ValueError("HEAD moved during receipt reproduction; newer checkout bytes left intact")
         for path, data in originals.items():
             if path.is_symlink():
                 path.unlink()

@@ -122,3 +122,16 @@ def test_replay_refuses_escape_and_missing_outputs(tmp_path: Path) -> None:
     for name in ("../escape", "missing.json"):
         with pytest.raises(ValueError, match="receipt"):
             gs.receipt_replay(tree, [name], command(b"unused"))
+
+
+def test_newer_checkout_bytes_are_not_overwritten_after_head_moves(tmp_path: Path) -> None:
+    tree, receipt = receipt_repo(tmp_path)
+    script = (
+        "from pathlib import Path; import subprocess; "
+        "Path('receipt.json').write_bytes(b'new commit\\n'); "
+        "subprocess.run(['git', 'add', '--', 'receipt.json'], check=True); "
+        "subprocess.run(['git', 'commit', '-qm', 'new output'], check=True)"
+    )
+    with pytest.raises(ValueError, match="HEAD moved during receipt reproduction"):
+        gs.receipt_replay(tree, ["receipt.json"], [sys.executable, "-c", script])
+    assert receipt.read_bytes() == b"new commit\n"

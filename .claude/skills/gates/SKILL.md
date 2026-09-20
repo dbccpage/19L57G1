@@ -48,10 +48,10 @@ python ci/check_transport_citations.py
 ```
 
 Expect `N verified, 0 unresolved`. The population is enumerated by a
-pattern independent of the classifier, on purpose â€” do not "simplify" that
+pattern independent of the classifier, on purpose — do not "simplify" that
 into one pattern.
 
-### 3. Tests under coverage â€” delete the stale file FIRST
+### 3. Tests under coverage — delete the stale file FIRST
 
 ```powershell
 $coveragePath = Join-Path (Resolve-Path -LiteralPath ".").Path "coverage.json"
@@ -68,7 +68,7 @@ python ci/check_coverage.py
 if ($LASTEXITCODE -ne 0) { throw "coverage threshold/freshness check failed" }
 ```
 
-Use `python -m coverage`, not `coverage` â€” the bare name is not always on
+Use `python -m coverage`, not `coverage` — the bare name is not always on
 PATH, and that failure is silent in the way described above. Confirm
 `coverage.json` did not exist before the generate step and does after.
 Both line and branch must reach 95% independently.
@@ -105,7 +105,7 @@ Config lives in `pyproject.toml`: `strict = true`, `files = ["code"]`.
 
 ### 5. Artifact regeneration
 
-The runner census is a glob over the TOP LEVEL of `code/` â€” not a hand
+The runner census is a glob over the TOP LEVEL of `code/` — not a hand
 list, and not recursive.
 
 ```powershell
@@ -178,6 +178,11 @@ if ($regeneratedAxiomHash -cne $originalAxiomHash) {
 if ($regeneratedHasCr) { throw "regenerated axiom artifact contains CR bytes" }
 Write-Host "axiom artifact regeneration: PASS (byte-identical, LF-only)"
 
+python research/second_nofirst/verify_lean.py
+if ($LASTEXITCODE -ne 0) { throw "second_nofirst Lean audit failed" }
+python research/typed_translation/verify_lean.py
+if ($LASTEXITCODE -ne 0) { throw "typed_translation Lean audit failed" }
+
 python ci/check_declaration_axioms.py
 if ($LASTEXITCODE -ne 0) { throw "compiled declaration axiom census failed" }
 python ci/gate_support.py lean-census
@@ -196,12 +201,7 @@ check of every constant in its declared module scope.
 The written Lean job also rebuilds two research packages and audits their
 axioms, after the axiom-artifact check and before the final all-module build:
 
-```powershell
-python research/second_nofirst/verify_lean.py
-if ($LASTEXITCODE -ne 0) { throw "second_nofirst Lean audit failed" }
-python research/typed_translation/verify_lean.py
-if ($LASTEXITCODE -ne 0) { throw "typed_translation Lean audit failed" }
-```
+The commands appear in that order in the complete block above.
 
 For reported theorems and the declaration census's declared module scope,
 only `propext` and `Quot.sound` are permitted. `Classical.choice` fails there;
@@ -227,7 +227,7 @@ One `extract` function serves both the walk and the self-check, so a
 pattern cannot pass the self-check and behave differently in production.
 Traversal segments are refused and the resolved target must stay under
 `paper/`. Prose must not write a `paper/<name>.md` path it does not want a
-reader to follow â€” the gate cannot tell a live citation from a narrative
+reader to follow — the gate cannot tell a live citation from a narrative
 mention of a dead one.
 
 ### 9. Every ledger evidence citation resolves
@@ -388,6 +388,6 @@ after a timeout kills a runner before its own cleanup can finish.
 ## Reporting
 
 State each gate's own result and exit status. State explicitly which gates
-you did NOT run and why â€” an unrun gate is reported as unrun, never
+you did NOT run and why — an unrun gate is reported as unrun, never
 omitted. Numbers are claims: quote what the command printed rather than
 what you expected.
