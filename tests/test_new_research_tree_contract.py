@@ -127,3 +127,16 @@ def test_generator_refuses_existing_or_traversing_names(repository: Path) -> Non
         result = subprocess.run([sys.executable, str(SCAFFOLD/"new_tree.py"), name, "--repo", str(repository)], capture_output=True, text=True)
         assert result.returncode == 1
     assert contract.problems(repository) == []
+
+
+
+def test_native_pins_use_the_existing_lookup_index_path_convention(repository: Path) -> None:
+    spec = importlib.util.spec_from_file_location("new_tree_pin_lookup", REPO/"ci/lookup_indexes.py")
+    assert spec and spec.loader
+    lookup = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = lookup
+    spec.loader.exec_module(lookup)
+    paths = ["research/probe/SOURCE_MANIFEST.json", "research/probe/input.json", "research/probe/verify.py"]
+    census = lookup.collect_pins(repository, paths)
+    assert not census.problems
+    assert {pin.path for pin in census.pins} == {"research/probe/input.json"}
