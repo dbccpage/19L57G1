@@ -48,10 +48,10 @@ python ci/check_transport_citations.py
 ```
 
 Expect `N verified, 0 unresolved`. The population is enumerated by a
-pattern independent of the classifier, on purpose — do not "simplify" that
+pattern independent of the classifier, on purpose â€” do not "simplify" that
 into one pattern.
 
-### 3. Tests under coverage — delete the stale file FIRST
+### 3. Tests under coverage â€” delete the stale file FIRST
 
 ```powershell
 $coveragePath = Join-Path (Resolve-Path -LiteralPath ".").Path "coverage.json"
@@ -68,7 +68,7 @@ python ci/check_coverage.py
 if ($LASTEXITCODE -ne 0) { throw "coverage threshold/freshness check failed" }
 ```
 
-Use `python -m coverage`, not `coverage` — the bare name is not always on
+Use `python -m coverage`, not `coverage` â€” the bare name is not always on
 PATH, and that failure is silent in the way described above. Confirm
 `coverage.json` did not exist before the generate step and does after.
 Both line and branch must reach 95% independently.
@@ -105,7 +105,7 @@ Config lives in `pyproject.toml`: `strict = true`, `files = ["code"]`.
 
 ### 5. Artifact regeneration
 
-The runner census is a glob over the TOP LEVEL of `code/` — not a hand
+The runner census is a glob over the TOP LEVEL of `code/` â€” not a hand
 list, and not recursive.
 
 ```powershell
@@ -178,43 +178,23 @@ if ($regeneratedAxiomHash -cne $originalAxiomHash) {
 if ($regeneratedHasCr) { throw "regenerated axiom artifact contains CR bytes" }
 Write-Host "axiom artifact regeneration: PASS (byte-identical, LF-only)"
 
-Push-Location lean4
-try {
-  $modules = Get-ChildItem -Recurse -Filter *.lean -Path Derivation -File |
-    ForEach-Object {
-      $relative = $_.FullName.Substring($_.FullName.IndexOf("Derivation"))
-      ($relative -replace "\.lean$", "") -replace "\\", "."
-    }
-  $census = [Collections.Generic.List[string]]$modules
-  $census.Sort([StringComparer]::Ordinal)
-  if ($census.Count -eq 0) { throw "Lean census enumerated no modules" }
-  $censusText = ([string]::Join("`n", $census)) + "`n"
-  $pinnedText = [IO.File]::ReadAllText(
-    (Join-Path $repoRoot "artifacts/elaborated_modules.txt"))
-  if ($censusText -cne $pinnedText) { throw "Lean census differs from its pin" }
-  foreach ($module in $census) {
-    $moduleOutput = & lake build $module 2>&1
-    $moduleExit = $LASTEXITCODE
-    if ($moduleExit -ne 0) {
-      $moduleOutput | Write-Output
-      throw "Lean target failed: $module"
-    }
-  }
-  Write-Host "per-module elaboration: PASS ($($census.Count) pinned targets)"
-} finally {
-  Pop-Location
-}
+python ci/check_declaration_axioms.py
+if ($LASTEXITCODE -ne 0) { throw "compiled declaration axiom census failed" }
+python ci/gate_support.py lean-census
+if ($LASTEXITCODE -ne 0) { throw "all-module elaboration failed" }
 ```
 
 The default build writes its log by redirection rather than a pipeline, so the
 captured exit code belongs to `lake build`. `lake clean` ensures the two default
 roots actually emit fresh axiom reports. The regeneration is byte-compared and
 LF-checked, then the original artifact bytes are restored even on failure. The
-recursive census is nonempty, matches its committed pin, and every enumerated
-module is built as its own target.
+recursive census is nonempty, matches its committed pin, and passes every
+enumerated module as a target in one build invocation. The former per-module
+loop is withdrawn on 2026-09-19. The compiled declaration census is a separate
+check of every constant in its declared module scope.
 
 The written Lean job also rebuilds two research packages and audits their
-axioms, after the axiom-artifact check and before the per-module loop:
+axioms, after the axiom-artifact check and before the final all-module build:
 
 ```powershell
 python research/second_nofirst/verify_lean.py
@@ -223,7 +203,9 @@ python research/typed_translation/verify_lean.py
 if ($LASTEXITCODE -ne 0) { throw "typed_translation Lean audit failed" }
 ```
 
-Only `propext` and `Quot.sound` are permitted. `Classical.choice` fails.
+For reported theorems and the declaration census's declared module scope,
+only `propext` and `Quot.sound` are permitted. `Classical.choice` fails there;
+the separate apparatus witness is informational.
 
 ### 7. Skills are well formed and declare no authority
 
@@ -245,7 +227,7 @@ One `extract` function serves both the walk and the self-check, so a
 pattern cannot pass the self-check and behave differently in production.
 Traversal segments are refused and the resolved target must stay under
 `paper/`. Prose must not write a `paper/<name>.md` path it does not want a
-reader to follow — the gate cannot tell a live citation from a narrative
+reader to follow â€” the gate cannot tell a live citation from a narrative
 mention of a dead one.
 
 ### 9. Every ledger evidence citation resolves
@@ -383,20 +365,29 @@ This gate reads prose only; identifiers stay with the firewall in
 `tests/test_primitive_contact.py`. Expect `prose watchlist clean: N watched
 terms, M files with pinned hits, K hits, census matches its pin`.
 
-## This file can drift, and nothing checks it
+## Registration and receipt freshness
 
-Steps 7 and 8 were missing for as long as those gates existed, step 9 was
-missing from the moment the ledger gate landed, and steps 10–11 later existed
-in the workflow without appearing here. Those are historical examples of why
-the workflow, not this prose, is authoritative.
+2026-09-19: the earlier claim that no gate compares this file with the
+workflow is withdrawn. `tests/test_gates_skill_matches_workflow.py` checks
+that every registered gate script is named here, including relative script
+paths. It does not prove that prose instructions describe every argument.
 
-No gate compares this file with `.github/workflows/verify.yml`. When they
-disagree the workflow is right. Before trusting a count here, read the
-workflow's step list and confirm it matches.
+The six research population checks use `ci/gate_support.py test-count` with
+an explicit positive minimum. A missing, ambiguous, empty, or too-small
+summary fails by log path; additional tests are allowed. Each research
+reader binds its own minimum and mandatory comparison commands.
+
+The receipt runners that support `--check` compare fresh bytes without
+writing. For the eight boundary runners, `ci/gate_support.py replay` compares
+each explicitly named output with its committed bytes, then restores its
+exact incoming bytes even if reproduction fails. It never adopts a fresh
+receipt as a new baseline. Existing `git diff` guards remain afterward.
+The outer `ci/run_gates.py` snapshot also restores tracked research receipts
+after a timeout kills a runner before its own cleanup can finish.
 
 ## Reporting
 
 State each gate's own result and exit status. State explicitly which gates
-you did NOT run and why — an unrun gate is reported as unrun, never
+you did NOT run and why â€” an unrun gate is reported as unrun, never
 omitted. Numbers are claims: quote what the command printed rather than
 what you expected.
