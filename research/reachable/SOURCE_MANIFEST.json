@@ -2,7 +2,7 @@
   "schema": "reachable-sources-v1",
   "baseline_commit": "60c2cb05d91cdfa099017c9cd205b52564db884b",
   "text_normalization": "CRLF_TO_LF_ONLY",
-  "scope": "Exactly the sources this tree consumes: the seven derivation modules census.py imports, the Lean derivation tree lean/Reachable.lean imports, and the six full exports with their summaries that the census reads. prompt and paper are not pinned; this tree reads neither.",
+  "scope": "Exactly the sources this tree consumes: the seven derivation modules census.py imports, the Lean derivation tree lean/Reachable.lean imports, and the six full exports with their summaries that the census reads. prompt and paper are not pinned; this tree reads neither. 2026-09-19 scope correction: whole-directory pins record custody; they do not assert that the computation imports or reads every pinned file. The tree census is not a compiled import closure.",
   "runtime_modules": {
     "derivation": "code/derivation/__init__.py",
     "derivation.model": "code/derivation/model.py",
