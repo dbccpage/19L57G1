@@ -125,7 +125,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `research/seventh_constructor/SOURCE_MANIFEST.json` | 2 | 2 | 0 |
 | `research/side_free/SOURCE_MANIFEST.json` | 0 | 12 | 0 |
 | `research/side_free/pinned/BOUNDARY_PIN.json` | 0 | 2 | 0 |
-| `research/sign_slice/SOURCE_MANIFEST.json` | 3 | 8 | 0 |
+| `research/sign_slice/SOURCE_MANIFEST.json` | 0 | 1 | 0 |
 | `research/sign_tower/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
 | `research/standing_commitment/SOURCE_MANIFEST.json` | 2 | 2 | 0 |
 | `research/target_a_execution/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
@@ -213,7 +213,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `artifacts/tree_F_mu2_summary.json` | 18 | `magnification` (file), `reachable` (file) | all 16 |
 | `artifacts/tree_L_mu1_summary.json` | 18 | `magnification` (file), `reachable` (file) | all 16 |
 | `artifacts/tree_L_mu2_summary.json` | 18 | `magnification` (file), `reachable` (file) | all 16 |
-| `artifacts/weight_profile.json` | 17 | `sign_slice` (file) | all 16 |
+| `artifacts/weight_profile.json` | 16 | none | all 16 |
 | `code/.gitkeep` | 16 | none | all 16 |
 | `code/derivation/__init__.py` | 33 | `alpha_engine` (tree, file), `coherent_process_limits` (tree, file), `endogenous_demand` (tree, file), `f_class_distinctness` (tree, file), `ignition` (tree, file), `instance_demand` (file), `iso_sound` (tree, file), `local_reuse` (tree, file), `magnification` (tree, file), `partial_decide/SOURCE_PINS.json` (tree, file), `reachable` (tree, file), `record_reading` (tree, file), `represented_execution` (tree, file), `second_stake` (file), `second_stream` (file), `setting_translation` (tree, file), `unboundedness` (tree, file) | all 16 |
 | `code/derivation/apartness.py` | 30 | `alpha_engine` (tree), `coherent_process_limits` (tree), `endogenous_demand` (tree), `f_class_distinctness` (tree), `ignition` (tree), `iso_sound` (tree), `local_reuse` (tree), `magnification` (tree), `partial_decide/SOURCE_PINS.json` (tree), `reachable` (tree), `record_reading` (tree), `represented_execution` (tree), `setting_translation` (tree), `unboundedness` (tree) | all 16 |
@@ -361,7 +361,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `paper/native_derivation_completion.md` | 16 | none | all 16 |
 | `paper/native_derivation_map.md` | 16 | none | all 16 |
 | `paper/observer_inventory.md` | 16 | none | all 16 |
-| `paper/paper.md` | 18 | `second_nofirst` (file, span), `sign_slice` (file) | all 16 |
+| `paper/paper.md` | 17 | `second_nofirst` (file, span) | all 16 |
 | `paper/paper_change_log.md` | 16 | none | all 16 |
 | `paper/paper_claim_ledger.md` | 17 | `described_replay` (file, span) | all 16 |
 | `paper/pr11_correction_ledger.md` | 16 | none | all 16 |
@@ -379,7 +379,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `paper/represented_progress.md` | 16 | none | all 16 |
 | `paper/skill_inbox.md` | 16 | none | all 16 |
 | `paper/succession_declarations.md` | 16 | none | all 16 |
-| `paper/weight_profile_contact.md` | 17 | `sign_slice` (file) | all 16 |
+| `paper/weight_profile_contact.md` | 16 | none | all 16 |
 | `prompt/prompt.md` | 16 | none | all 16 |
 | `prompt/seed_prompt.md` | 17 | `described_replay` (file, span) | all 16 |
 
@@ -387,7 +387,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 
 | path | trees | pinned by | scope pins |
 |---|---|---|---|
-| `CLAUDE.md` | 11 | `admission_sign_shadow` (file), `balance_carrier` (file), `closed_family` (file), `convention_price` (file), `described_replay` (file), `fresh_characters` (file), `path_dependent_cost` (file), `reach_additivity` (file), `reach_measure` (file), `sign_slice` (file), `standing_commitment` (file) | none |
+| `CLAUDE.md` | 10 | `admission_sign_shadow` (file), `balance_carrier` (file), `closed_family` (file), `convention_price` (file), `described_replay` (file), `fresh_characters` (file), `path_dependent_cost` (file), `reach_additivity` (file), `reach_measure` (file), `standing_commitment` (file) | none |
 | `ci/check_parked_audit.py` | 1 | `limit_and_observer` (file) | none |
 | `ci/check_prose_watchlist.py` | 1 | `second_stream` (file) | none |
 | `ci/prose_watchlist.json` | 1 | `second_stream` (file) | none |
@@ -483,9 +483,8 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `research/magnification/lean/Restart.lean` | 4 | `coherent_process_limits` (tree), `record_reading` (tree), `represented_execution` (tree), `setting_translation` (tree) | none |
 | `research/magnification/lean/lakefile.toml` | 5 | `coherent_process_limits` (tree, file), `instance_demand/STAGE3_SOURCE_MANIFEST.json` (file), `record_reading` (tree, file), `represented_execution` (tree, file), `setting_translation` (tree, file) | none |
 | `research/magnification/lean/lean-toolchain` | 5 | `coherent_process_limits` (tree, file), `instance_demand/STAGE3_SOURCE_MANIFEST.json` (file), `record_reading` (tree, file), `represented_execution` (tree, file), `setting_translation` (tree, file) | none |
-| `research/natural_sections/CLAIM_LEDGER.md` | 2 | `convention_price` (file), `sign_slice` (file) | none |
-| `research/natural_sections/STATUS.md` | 3 | `balance_carrier` (file, span), `convention_price` (file), `sign_slice` (file) | none |
-| `research/natural_sections/holonomy_fixture.py` | 1 | `sign_slice` (file) | none |
+| `research/natural_sections/CLAIM_LEDGER.md` | 1 | `convention_price` (file) | none |
+| `research/natural_sections/STATUS.md` | 2 | `balance_carrier` (file, span), `convention_price` (file) | none |
 | `research/natural_sections/lean/NaturalSections.lean` | 1 | `exchange_coefficients` (file) | none |
 | `research/natural_sections/lean/NaturalSections/HopFixture.lean` | 1 | `exchange_coefficients` (file) | none |
 | `research/natural_sections/lean/NaturalSections/LayerBalance.lean` | 2 | `balance_carrier` (file, reconstruction), `fresh_characters` (file, reconstruction) | none |
@@ -498,7 +497,6 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `research/natural_sections/run_sign_repair.py` | 1 | `convention_price` (file) | none |
 | `research/natural_sections/sign_repair.py` | 1 | `convention_price` (file) | none |
 | `research/natural_sections/test_sign_repair.py` | 1 | `convention_price` (file) | none |
-| `research/priced_admissions/PROMPT.md` | 1 | `sign_slice` (file) | none |
 | `research/represented_execution/.gitattributes` | 2 | `coherent_process_limits` (tree), `record_reading` (tree) | none |
 | `research/represented_execution/.gitignore` | 2 | `coherent_process_limits` (tree), `record_reading` (tree) | none |
 | `research/represented_execution/CLAIMS.md` | 2 | `coherent_process_limits` (tree), `record_reading` (tree) | none |
@@ -602,7 +600,6 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `research/standing_commitment/receipts/standing_commitment.json` | 1 | `second_inheritance` (file) | none |
 | `research/standing_commitment/run_standing.py` | 1 | `second_inheritance` (file) | none |
 | `research/standing_commitment/standing.py` | 1 | `second_inheritance` (file) | none |
-| `research/thinghood/PROMPT.md` | 1 | `sign_slice` (file) | none |
 | `research/two_sided_commitment/CLAIM_LEDGER.md` | 2 | `second_nofirst` (file), `second_stream` (file) | none |
 | `research/two_sided_commitment/PREDICTIONS.md` | 1 | `two_sided_commitment` (file) | none |
 | `research/two_sided_commitment/PROMPT.md` | 2 | `second_stream` (file), `two_sided_commitment` (file) | none |
@@ -613,7 +610,6 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `research/two_sided_commitment/two_sided.py` | 4 | `second_inheritance` (file), `second_nofirst` (file, span), `second_stake` (file, span), `second_stream` (file) | none |
 | `research/unboundedness/lean/Continuum.lean` | 1 | `diagonal_identity` (file) | none |
 | `tests/test_candidates.py` | 1 | `second_stream` (file) | none |
-| `tests/test_primitive_contact.py` | 1 | `sign_slice` (file) | none |
 
 ## Pinned paths not in the git index
 
