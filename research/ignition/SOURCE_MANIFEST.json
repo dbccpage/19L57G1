@@ -2,7 +2,7 @@
   "schema": "ignition-sources-v1",
   "baseline_commit": "60c2cb05d91cdfa099017c9cd205b52564db884b",
   "text_normalization": "CRLF_TO_LF_ONLY",
-  "scope": "Exactly the sources this family consumes: the seven derivation modules ignition.py imports, the sealed Lean derivation tree and the merged local_reuse Lean tree that lean/Ignition.lean imports, the Lean configuration of both packages, and the two closed exports with their summaries read by the fixpoint census. prompt and paper are not pinned; this family reads neither.",
+  "scope": "Exactly the sources this family consumes: the seven derivation modules ignition.py imports, the sealed Lean derivation tree and the merged local_reuse Lean tree that lean/Ignition.lean imports, the Lean configuration of both packages, and the two closed exports with their summaries read by the fixpoint census. prompt and paper are not pinned; this family reads neither. 2026-09-19 scope correction: whole-directory pins record custody; they do not assert that the computation imports or reads every pinned file. The tree census is not a compiled import closure.",
   "runtime_modules": {
     "derivation": "code/derivation/__init__.py",
     "derivation.model": "code/derivation/model.py",

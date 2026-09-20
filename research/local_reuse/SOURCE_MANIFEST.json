@@ -2,7 +2,7 @@
   "schema": "local-reuse-sources-v2",
   "baseline_commit": "93853697ed845284ecbb9a9b51a78c9bf5b070cb",
   "text_normalization": "CRLF_TO_LF_ONLY",
-  "scope": "Exactly the sources this packet consumes: the seven derivation modules audit.py imports, and the Lean derivation tree lean/LocalReuse.lean imports. prompt, paper and artifacts are deliberately not pinned; this packet reads none of them, so churn there cannot change any recorded result. Schema v1 pinned all five sealed trees and is withdrawn.",
+  "scope": "Exactly the sources this packet consumes: the seven derivation modules audit.py imports, and the Lean derivation tree lean/LocalReuse.lean imports. prompt, paper and artifacts are deliberately not pinned; this packet reads none of them, so churn there cannot change any recorded result. Schema v1 pinned all five sealed trees and is withdrawn. 2026-09-19 scope correction: whole-directory pins record custody; they do not assert that the computation imports or reads every pinned file. The tree census is not a compiled import closure.",
   "runtime_modules": {
     "derivation": "code/derivation/__init__.py",
     "derivation.model": "code/derivation/model.py",

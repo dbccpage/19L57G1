@@ -119,8 +119,13 @@ def test_scope_pins_are_read_from_diff_calls_only() -> None:
 
 
 def test_pinned_paths_outside_the_seal_are_listed_not_dropped() -> None:
-    for path in ("CLAUDE.md", "tests/test_primitive_contact.py"):
-        assert "`sign_slice` (file)" in _row("Other pinned paths", path)
+    # 2026-09-19: sign_slice withdrew its consultation-only pins. Keep both
+    # document and data examples, using their remaining actual pinners.
+    for path, tree in (
+        ("CLAUDE.md", "admission_sign_shadow"),
+        ("contact/analysis/contact_countermodels.json", "sign_slice"),
+    ):
+        assert f"`{tree}` (file)" in _row("Other pinned paths", path)
         assert not li.is_sealed(path)
 
 

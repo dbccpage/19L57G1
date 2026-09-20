@@ -1,18 +1,8 @@
 {
   "pins": {
-    "CLAUDE.md": "c29f14d62bf413452bd7096fc194e340f741424d",
-    "artifacts/weight_profile.json": "a6eefb129c0346abf5c4af8d5654a47ae57c90d8",
-    "contact/analysis/contact_countermodels.json": "ec12efeb1154bbbd2836cea8dae32260e6a3e449",
-    "paper/paper.md": "1bf64c210603694a28a74c1bc3ceeb5acf789941",
-    "paper/weight_profile_contact.md": "5fe8c8e12f0378ca7677621e59a9d4ffcd09f59e",
-    "research/natural_sections/CLAIM_LEDGER.md": "885db1947b8315605a62c9a8e15636d2fdf7a0f4",
-    "research/natural_sections/STATUS.md": "3d3a629efbaf94f0b318e93d719098b2afef7bb9",
-    "research/natural_sections/holonomy_fixture.py": "19f7886152250a1c65574ac2131c7d3683fa753a",
-    "research/priced_admissions/PROMPT.md": "ec75967eab378de57c640bb3756f8e3e838a16e8",
-    "research/thinghood/PROMPT.md": "7150921ee1c5e04e3bc91b43e7864522d0eb556d",
-    "tests/test_primitive_contact.py": "ab6b526c6159ab1ff12bc221996cec6fcfcb3d05"
+    "contact/analysis/contact_countermodels.json": "ec12efeb1154bbbd2836cea8dae32260e6a3e449"
   },
   "prompt_native_sha256": "ad499c48ebdda0ce64050c6743409d242c7aeec1c54b7b854beabac4da6d9266",
-  "purpose": "read-only sources consulted by the sign_slice run; this tree writes none of them",
+  "purpose": "read-only external input consumed by the executable tests; 2026-09-19: consultation-only pins withdrawn after import and file-read tracing; the original snapshot and native prompt freeze are retained",
   "snapshot_commit": "3bfc9422580a381b53ec635fb8d051c74b0e76fe"
 }
