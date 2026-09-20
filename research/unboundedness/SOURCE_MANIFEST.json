@@ -2,7 +2,7 @@
   "schema": "unboundedness-sources-v1",
   "baseline_commit": "75564f7796c11aefd40045cb5dc2eed3479af9b9",
   "text_normalization": "CRLF_TO_LF_ONLY",
-  "scope": "Exactly the sources this family consumes: the derivation modules unboundedness.py imports; the sealed Lean derivation tree; the merged local_reuse, ignition, represented_execution, setting_translation and coherent_process_limits Lean trees the local proofs import; the Lean configuration of those packages; and the translation and represented-execution Python modules reader.py imports, by digest and runtime origin. No export is read. prompt and paper are not read and not pinned.",
+  "scope": "Exactly the sources this family consumes: the derivation modules unboundedness.py imports; the sealed Lean derivation tree; the merged local_reuse, ignition, represented_execution, setting_translation and coherent_process_limits Lean trees the local proofs import; the Lean configuration of those packages; and the translation and represented-execution Python modules reader.py imports, by digest and runtime origin. No export is read. prompt and paper are not read and not pinned. 2026-09-19 scope correction: whole-directory pins record custody; they do not assert that the computation imports or reads every pinned file. The tree census is not a compiled import closure.",
   "runtime_modules": {
     "derivation": "code/derivation/__init__.py",
     "derivation.model": "code/derivation/model.py",
