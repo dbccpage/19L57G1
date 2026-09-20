@@ -173,8 +173,7 @@ class RegisteredStep(unittest.TestCase):
             "suite discovers",
         )
 
-
-    def test_population_growth_is_allowed_but_empty_or_lowered_floor_is_not(self) -> None:
+        # These population cases belong to the existing registration probe.
         text = WORKFLOW.read_text(encoding="utf-8")
         self.assertEqual(registration_problems(text, MINIMUM_TESTS + 1), [])
         self.assertTrue(registration_problems(text, 0))
