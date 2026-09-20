@@ -2,7 +2,7 @@
   "schema": "setting-translation-sources-v1",
   "baseline_commit": "0bb7fe5ecc16da8b6ee7c5e94df933eae7b65779",
   "text_normalization": "CRLF_TO_LF_ONLY",
-  "scope": "Exactly the sources this family consumes: the eight derivation modules translation.py imports, the sealed Lean derivation tree and the merged local_reuse, ignition and magnification Lean trees that the local proofs import (ignition through magnification), and the Lean configuration of the four packages. No export is read. prompt and paper are not read and not pinned.",
+  "scope": "Exactly the sources this family consumes: the eight derivation modules translation.py imports, the sealed Lean derivation tree and the merged local_reuse, ignition and magnification Lean trees that the local proofs import (ignition through magnification), and the Lean configuration of the four packages. No export is read. prompt and paper are not read and not pinned. 2026-09-19 scope correction: whole-directory pins record custody; they do not assert that the computation imports or reads every pinned file. The tree census is not a compiled import closure.",
   "runtime_modules": {
     "derivation": "code/derivation/__init__.py",
     "derivation.model": "code/derivation/model.py",
