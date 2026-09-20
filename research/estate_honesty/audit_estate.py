@@ -1,4 +1,4 @@
-"""audit_estate.py â€” Comprehensive Research Estate Honesty Auditor.
+"""audit_estate.py — Comprehensive Research Estate Honesty Auditor.
 
 Audits all research trees declared in research/README.md across the Genesis estate for:
 1. Gate 11 CI inclusion vs. local-only manual receipt status.
