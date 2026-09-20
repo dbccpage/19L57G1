@@ -2,7 +2,7 @@
   "schema": "magnification-sources-v1",
   "baseline_commit": "f12a498ea75899ea119df958d54209fee25819f1",
   "text_normalization": "CRLF_TO_LF_ONLY",
-  "scope": "Exactly the sources this family consumes: the seven derivation modules magnification.py imports, the sealed Lean derivation tree and the merged local_reuse and ignition Lean trees that the local proofs import, the Lean configuration of the three packages, and the six full exports with their summaries read by the census. prompt and paper are not read and not pinned.",
+  "scope": "Exactly the sources this family consumes: the seven derivation modules magnification.py imports, the sealed Lean derivation tree and the merged local_reuse and ignition Lean trees that the local proofs import, the Lean configuration of the three packages, and the six full exports with their summaries read by the census. prompt and paper are not read and not pinned. 2026-09-19 scope correction: whole-directory pins record custody; they do not assert that the computation imports or reads every pinned file. The tree census is not a compiled import closure.",
   "runtime_modules": {
     "derivation": "code/derivation/__init__.py",
     "derivation.model": "code/derivation/model.py",
