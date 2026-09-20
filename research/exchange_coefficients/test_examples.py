@@ -73,6 +73,24 @@ def test_axiom_parser_rejects_missing_duplicate_and_extra_dependencies():
             raise AssertionError('Invalid axiom evidence was accepted')
 
 
+def test_axiom_parser_and_theorem_census_read_primed_names():
+    # Names ending in zero, one and two apostrophes (added 2026-09-18).
+    # The quote-blind report capture and a primeless `\w+` theorem
+    # pattern both fail this case.
+    from verify import declared_theorems, parse_axioms
+    names = ['Example.step', "Example.step'", "Example.step''"]
+    text = ("'Example.step' does not depend on any axioms\n"
+            "'Example.step'' depends on axioms: [propext]\n"
+            "'Example.step''' depends on axioms: [propext, Quot.sound]\n")
+    assert parse_axioms(text, names) == {
+        'Example.step': [], "Example.step'": ['propext'],
+        "Example.step''": ['propext', 'Quot.sound']}
+    source = ("theorem step : True := trivial\n"
+              "theorem step' : True := trivial\n"
+              "theorem step'' : True := trivial\n")
+    assert declared_theorems(source) == ['step', "step'", "step''"]
+
+
 def test_matrix_checker_rejects_malformed_shapes():
     for value in [[], [[1, 2]], [[1.0]], [[True]], 'matrix', None]:
         assert gate.assess({'kind': 'integer_matrix_equality', 'left': value, 'right': value})['status'] == 'REFUSED'

@@ -65,8 +65,12 @@ SHA-256 of the file's committed bytes, and it prints both on every run:
 - `FROZEN_EXCEPTIONS` holds one file, `research/boundary_seed/verify_lean.py`,
   which `research/boundary_seed/verify_freeze.py` freezes. It is the one
   permanent exception.
-- `REPAIR_PENDING` holds the eight other files that carried the capture on
-  2026-09-18, printed as `DEFECT, repair pending`. It only shrinks:
+- `REPAIR_PENDING` holds the remaining files from the eight that carried the
+  capture on 2026-09-18, printed as `DEFECT, repair pending`. Narrowed
+  2026-09-19: five entries have been repaired and removed; the earlier
+  present-tense count of eight is withdrawn. Three files remain in two
+  trees whose frozen source checks already fail on the current main.
+  It only shrinks:
   `tests/test_research_drift.py` fails if it names a path it did not name on
   that day. An entry excuses its pinned bytes and nothing else, so once a file
   is edited the entry fails the check until the capture is repaired and the
