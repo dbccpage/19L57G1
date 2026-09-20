@@ -116,11 +116,8 @@ SPECIAL: Mapping[str, Special] = {
 }
 
 # A Lake package declared by two directories: the key is not a build entry,
-# the value is.  Both verifiers build from `lean/` (LEAN_DIR = ROOT / "lean").
-DUPLICATE_PACKAGE_DIRS: Mapping[str, str] = {
-    "research/concurrency": "research/concurrency/lean",
-    "research/m105_number_tower": "research/m105_number_tower/lean",
-}
+# the value is. The two duplicate root packages were removed on 2026-09-19.
+DUPLICATE_PACKAGE_DIRS: Mapping[str, str] = {}
 
 
 @dataclass(frozen=True)

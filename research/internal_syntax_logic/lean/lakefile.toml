@@ -2,10 +2,6 @@ name = "internal_syntax_logic"
 version = "0.1.0"
 defaultTargets = ["Syntax", "Logic", "Pricing", "Connectives", "Inventory"]
 
-[[require]]
-name = "derivation"
-path = "../../../lean4"
-
 [[lean_lib]]
 name = "Syntax"
 

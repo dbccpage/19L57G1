@@ -3,10 +3,6 @@ version = "0.1.0"
 defaultTargets = ["NNO", "IntZ", "RatQ", "Inventory"]
 
 [[require]]
-name = "derivation"
-path = "../../../lean4"
-
-[[require]]
 name = "g011_finitary_substrate"
 path = "../../g011_finitary_substrate/lean"
 

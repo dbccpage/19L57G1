@@ -4,4 +4,3 @@ __pycache__/
 .coverage
 coverage.json
 lean/.lake/
-lean/lake-manifest.json

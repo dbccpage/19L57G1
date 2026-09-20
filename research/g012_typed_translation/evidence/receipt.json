@@ -18,7 +18,7 @@
     "lean/Naturality.lean": "e41275293b9a3f82212d38ec9a2d7412328cf2ae21809c9a19249f7d4897341c",
     "lean/Signature.lean": "c0c0457d292e9cd9290295843385e229ce26f985910d13692044e1b9ba4038af",
     "lean/Specialization.lean": "b408315f0bdb4e3581f5dbefc807a1ffdaff29619bb0d9c616d6575c8941cf51",
-    "lean/lakefile.toml": "55588e221e7a696dca9bb67032e48f58c9a1515f4de053918ad1626bb21e9ca2",
+    "lean/lakefile.toml": "9e8015ff063062d9c196b6faccf55761950ac3e2d78be9179ad944d4d4010365",
     "lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
     "naturality.py": "b7517391cc887597c59f441b55f27341e801a3daae03e3cdd8e7a2e6449caac0",
     "signature.py": "3755ccc6e1339376c7a4857eca597cb78865980da0a3c9deb6423bec79f477e5",
@@ -370,7 +370,7 @@
     "G012TypedTranslation.unsupplied_d0_refusal",
     "G012TypedTranslation.unsupplied_d1_refusal"
   ],
-  "timestamp_utc": "2026-09-18T20:33:19.301903+00:00",
+  "timestamp_utc": "2026-09-19T23:41:33.588555+00:00",
   "title": "Bound-Uniform Typed Translation & General Signature Codec",
   "toolchains": {
     "lean": "leanprover/lean4:v4.33.0",

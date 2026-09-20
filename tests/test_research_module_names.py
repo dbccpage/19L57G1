@@ -531,6 +531,7 @@ def worktree_reader(repo: Path) -> Reader:
 
 # Computed by take_census/collisions over the index at
 # 827bf9834e7aaafa2b3d52c7b88bc4c781124829: one colliding name, ten contexts.
+# 2026-09-19: the duplicate m105 root package was removed; nine remain.
 PINNED_COLLISIONS: dict[tuple[str, str], tuple[str, ...]] = {
     ("Inventory", "research/coherent_process_limits/lean"): (
         "research/coherent_process_limits/lean",
@@ -551,10 +552,6 @@ PINNED_COLLISIONS: dict[tuple[str, str], tuple[str, ...]] = {
         "research/magnification/lean",
         "research/represented_execution/lean",
         "research/setting_translation/lean",
-    ),
-    ("Inventory", "research/m105_number_tower"): (
-        "research/g011_finitary_substrate/lean",
-        "research/m105_number_tower",
     ),
     ("Inventory", "research/m105_number_tower/lean"): (
         "research/g011_finitary_substrate/lean",

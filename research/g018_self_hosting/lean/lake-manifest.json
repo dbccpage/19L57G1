@@ -1,0 +1,6 @@
+{"version": "1.2.0",
+ "packagesDir": ".lake/packages",
+ "packages": [],
+ "name": "g018_self_hosting",
+ "lakeDir": ".lake",
+ "fixedToolchain": false}
