@@ -1,13 +1,19 @@
 # research/_scaffold — canonical copy-source for research trees
 
-AuthorityEffect: None. Outside the seal; consumes nothing; pins nothing.
+AuthorityEffect: None. Outside the seal; copy sources and the new-tree contract.
+
+2026-09-20: the earlier "consumes nothing; pins nothing" description is withdrawn
+for the new additions. The generator copies the root toolchain declaration, and
+the contract fixes an existing-directory list at its recorded baseline.
 
 Every `research/<tree>/` is deliberately **self-contained**: it keeps its own
 `check_coverage.py`, `run.py`, `verify_sources.py`, `verify_lean.py`,
 `verify.py`, `evidence/`, `tests/`, and prose, so it can be verified and its
 custody reasoned about in isolation. Nothing here is imported by a tree — a
 shared import would make the trees depend on this directory and break that
-isolation. Instead, new trees **copy** the two files below.
+isolation. New trees use the generator in the new-tree contract section below. The two
+earlier copy sources remain available when a tree needs their coverage or
+record runners.
 
 The cost of copy-based reuse is that a bug pasted once gets pasted again. Two
 defects recurred that way across the recent scaffold generation:
@@ -24,7 +30,7 @@ defects recurred that way across the recent scaffold generation:
 
 ## Use it
 
-When you start a new `research/<tree>/`:
+When a tree needs these earlier coverage or record runners:
 
 - Copy [`check_coverage.py`](check_coverage.py) verbatim; edit only
   `REQUIRED_FILES`.
@@ -168,7 +174,8 @@ identity and checks one integer input. It grants no authority.
   runs the tree's local input pins, tests, strict typing and Lean checks in
   order, failing if any step fails. `--write-pins` is a separate deliberate
   regeneration mode. Both read `TREE_CONTRACT.json`; pins cover actual local
-  inputs selected there. Run the complete verifier under the operator's serial
+  inputs selected there; manifest keys use repository-relative paths for the
+  generated pin index. Run the complete verifier under the operator's serial
   lock when one is in use. A successful scaffold run is local evidence only.
 - Use one Lake package, `lean/lakefile.toml`, with a unique `Research...` root.
   All Lean modules, including `Root.AxiomReport`, belong under that root.
@@ -180,6 +187,8 @@ identity and checks one integer input. It grants no authority.
   compiled constant. New evidence with broader reach needs an explicitly
   reviewed contract change, not an enlarged claim over this named list.
 
-Stage the new files explicitly, generate the research index, then run the
-root contract check and the tree's complete verifier before opening its PR.
+Stage the new files explicitly, then run `python ci/research_index.py --write`,
+`python ci/lookup_indexes.py --write` and `python ci/lean_build_order.py --write`
+to refresh the generated indexes and build recipe. Run the root contract check
+and the tree's complete verifier before opening its PR.
 CLAUDE.md can point here once its separate documentation-split item is resolved.

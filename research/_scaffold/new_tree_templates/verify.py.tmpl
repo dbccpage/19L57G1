@@ -45,7 +45,8 @@ def pins(config: dict[str, Any], write: bool) -> None:
             or any(not isinstance(name, str) for name in names)
             or len(set(names)) != len(names)):
         raise ValueError("TREE_CONTRACT.json: pin_files must be a nonempty unique list")
-    expected = {name: hashlib.sha256(local_file(name).read_bytes()).hexdigest()
+    # Manifest keys use the repository path convention of the pin index.
+    expected = {f"research/{HERE.name}/{Path(name).as_posix()}": hashlib.sha256(local_file(name).read_bytes()).hexdigest()
                 for name in sorted(names)}
     manifest = HERE / "SOURCE_MANIFEST.json"
     if write:
@@ -62,7 +63,7 @@ def pins(config: dict[str, Any], write: bool) -> None:
 
 
 def run(label: str, command: list[str], cwd: Path = HERE) -> str:
-    print(f"phase: {label}", flush=True)
+    print(f"step: {label}", flush=True)
     result = subprocess.run(command, cwd=cwd, capture_output=True, text=True, encoding="utf-8", check=False)
     output = result.stdout + result.stderr
     print(output, end="", flush=True)
