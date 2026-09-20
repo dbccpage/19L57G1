@@ -1,4 +1,4 @@
-"""audit_estate.py — Comprehensive Research Estate Honesty Auditor.
+"""audit_estate.py â€” Comprehensive Research Estate Honesty Auditor.
 
 Audits all research trees declared in research/README.md across the Genesis estate for:
 1. Gate 11 CI inclusion vs. local-only manual receipt status.
@@ -196,7 +196,7 @@ README_TESTS_ROW = re.compile(
 
 
 def audit_test_counts(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
-    """Audit pytest collection counts in root tests/ and gate-11 hardcoded counts."""
+    """Audit pytest collection counts in root tests/ and gate-11 minimums."""
     # 1. Root pytest collection
     res = subprocess.run(
         [sys.executable, "-m", "pytest", "tests/", "--collect-only", "-q"],
@@ -224,16 +224,19 @@ def audit_test_counts(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
     readme_passed = int(readme_match.group(3))
     readme_skipped = int(readme_match.group(4))
 
-    # 3. Gate 11 hardcoded test count pins from .github/workflows/verify.yml
+    # 2026-09-19: the old exact-count literals are withdrawn in favor of
+    # positive minima. Read each minimum from its own working-directory step.
     verify_yml = (repo_root / ".github" / "workflows" / "verify.yml").read_text(encoding="utf-8")
-    g11_pins = {
-        "second_stream": 150 if "Ran 150 tests in" in verify_yml else None,
-        "boundary_seed": 566 if "Ran 566 tests in" in verify_yml else None,
-        "second_nofirst": 180 if "Ran 180 tests in" in verify_yml else None,
-        "side_free": 364 if "Ran 364 tests in" in verify_yml else None,
-        "typed_translation": 119 if "Ran 119 tests in" in verify_yml else None,
-        "limit_and_observer": "([6-9][0-9]|[1-9][0-9]{2,})" if "Ran ([6-9][0-9]|[1-9][0-9]{2,}) tests in" in verify_yml else None,
-    }
+    g11_pins: dict[str, int | None] = {}
+    for tree in ("second_stream", "boundary_seed", "second_nofirst", "side_free",
+                 "typed_translation", "limit_and_observer"):
+        blocks = re.split(r"(?m)^      - name: ", verify_yml)
+        values = [int(value) for block in blocks
+                  if f"working-directory: research/{tree}\n" in block
+                  for value in re.findall(
+                      r'^          python \.\./\.\./ci/gate_support\.py test-count "\$log" --minimum (\d+)$',
+                      block, re.M)]
+        g11_pins[tree] = values[0] if len(values) == 1 and values[0] > 0 else None
 
     return {
         "root_suite": {
