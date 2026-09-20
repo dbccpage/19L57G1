@@ -1,8 +1,13 @@
 """Verification script for research/reading_f_iso (Target 2).
 
 Audits source hygiene (no sorry, admit, unsafe, partial, or mathlib imports),
-runs lake build, and verifies that all theorems depend only on allowed axioms
-in {"propext", "Quot.sound"}.
+runs lake build, checks the emitted theorem reports for this package against
+{"propext", "Quot.sound"}, and requires the fixed expected_theorems list.
+
+2026-09-19: the former all-theorems wording is withdrawn. A local compiled
+module census found 33 theorem constants with non-internal names, including
+generated declarations; the required list names 13, leaving 20 outside
+that list. This verifier does not establish that every theorem is reported.
 """
 
 from __future__ import annotations

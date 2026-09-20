@@ -5,8 +5,13 @@ Runs:
 1. Source hygiene checks (prohibits sorry, admit, unsafe, partial, axiom in Lean sources).
 2. Python pytest test suite across tests/.
 3. Lean 4 constructive package build via lake build.
-4. Environment theorem census check against allowed axioms {propext, Quot.sound}.
+4. Hand-written inventory check against allowed axioms {propext, Quot.sound}.
 5. Emits evidence/receipt.json.
+
+2026-09-19: the former environment-census wording is withdrawn. Inventory.lean
+lists 18 reports. A local compiled-module census found 59 theorem constants
+with non-internal names, including generated declarations; 41 are unreported,
+including formulaSize_pos. The check below covers the emitted inventory only.
 """
 
 from __future__ import annotations
@@ -93,7 +98,7 @@ def run_lean() -> dict[str, Any]:
     if build_proc.returncode != 0:
         raise RuntimeError(f"lake build failed ({build_proc.returncode}):\n{build_output}")
 
-    print("== Running Inventory.lean census and axiom audit")
+    print("== Running Inventory.lean report list and axiom audit")
     inv_proc = subprocess.run(
         ["lake", "env", "lean", "Inventory.lean"],
         cwd=LEAN_DIR,
@@ -122,7 +127,7 @@ def run_lean() -> dict[str, Any]:
 
     axiom_free = sum(1 for ax in theorems.values() if not ax)
     print(
-        f"Lean Census: {len(theorems)} theorems verified, {axiom_free} axiom-free, zero choice."
+        f"Lean inventory: {len(theorems)} reports checked, {axiom_free} axiom-free, zero choice."
     )
     return {
         "build_status": "PASS",

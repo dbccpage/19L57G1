@@ -40,7 +40,15 @@ AuthorityEffect: None.
 
 ## 2. Lean 4 Constructive Formalization (`lean/`)
 
-The constructive Lean 4 formalization under `lean/InternalAlgebra.lean` contains 14 theorems verified by `lean/Inventory.lean`:
+The inventory in `lean/Inventory.lean` names 14 theorem reports from the
+formalization under `lean/InternalAlgebra.lean`.
+
+2026-09-19: the earlier wording that this module "contains 14 theorems" is
+withdrawn as a complete count. A local compiled-module census found 58
+theorem constants with non-internal names, including generated declarations;
+44 are outside the report list. The unreported source theorems include
+`evalSum_nil`, `factorMap_map_one`, and `freeMonoidLift_nil`.
+The table describes the 14 named reports only:
 
 | Theorem | Mathematical Content | Axioms |
 |---|---|---|
