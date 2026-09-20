@@ -44,6 +44,11 @@ AXIOM_REPORT_DECLARATIONS = (
     "PrimitiveDifferenceTower.no_bool_single_pair_selector",
     "PrimitiveDifferenceTower.raw_bool_single_pair_selector_exists",
     "PrimitiveDifferenceTower.collapsed_source_has_no_witness",
+    "PrimitiveDifferenceTower.upMap_id",
+    "PrimitiveDifferenceTower.upMap_comp",
+    "PrimitiveDifferenceTower.fresh_not_in_upPoint_image",
+    "PrimitiveDifferenceTower.clampedRestriction_certified",
+    "PrimitiveDifferenceTower.replay_rounds_preserve_anchor",
     *BRIDGE_AXIOM_REPORT_DECLARATIONS,
 )
 ALLOWED_AXIOMS = frozenset({"propext", "Quot.sound"})
