@@ -2,7 +2,8 @@
 
 ``ci/research_index.py`` derives the table of trees and their gate-11 status
 from the git index.  These tests fail when a tree is added or removed, or
-registered in or out of the workflow's research job, without the README
+registered in or out of the workflow's research job, or given a different
+maintenance status, without the README
 being regenerated; they check that the estate audit reads the same rows and
 differs from this reading of the workflow only where recorded; and they exercise the stale-report path on a scratch
 repository.  The longer ``--show`` table is checked against facts measured
@@ -109,9 +110,9 @@ def test_a_stale_readme_is_reported_by_name_and_regenerated(tmp_path: Path) -> N
     regenerated = ri.expected_readme(tmp_path, current)
     assert regenerated == (
         f"head\n{ri.BEGIN}\n{ri.HEADER}\n{ri.RULE}\n"
-        "| `stem` | local receipt only |\n"
-        "| `stem_longer` | workflow (gate 11) |\n"
-        "| `umbrella` | local receipt only |\n"
+        "| `stem` | local receipt only |  |\n"
+        "| `stem_longer` | workflow (gate 11) |  |\n"
+        "| `umbrella` | local receipt only |  |\n"
         f"{ri.END}\ntail\n"
     )
     (tmp_path / ri.README_REL).write_bytes(regenerated.encode("utf-8"))
@@ -122,6 +123,9 @@ def test_every_excluded_directory_exists() -> None:
     # An exclusion naming nothing would hide a future tree of that name.
     top = {p.split("/")[1] for p in ri.tracked_research_files(REPO) if p.count("/") >= 2}
     assert set(ri.NOT_TREES) <= top
+    trees = set(ri.group_trees(ri.tracked_research_files(REPO)))
+    assert set(ri.PARKED_TREES) <= trees
+    assert not set(ri.PARKED_TREES) & ri.wired_trees(ri.workflow_text(REPO))
 
 
 def test_splice_keeps_outside_text_and_refuses_bad_markers() -> None:
@@ -347,3 +351,32 @@ def test_staging_mark_needs_an_import_without_a_tracked_source(tmp_path: Path) -
     _git(tmp_path, "add", "-A")
     cell = ri.show_rows(tmp_path)["zq_front"]["Lean"]
     assert cell.endswith(f"(`lean/sealed`, gitignored); {ri.STAGED_UNIMPORTED}"), cell
+
+
+
+def test_parked_status_drift_is_reported_and_gate_registration_is_refused(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    for rel, text in {
+        ".github/workflows/verify.yml": WORKFLOW,
+        "research/stem/verify.py": "",
+        "research/README.md": f"{ri.BEGIN}\n{ri.END}\n",
+    }.items():
+        (tmp_path / rel).parent.mkdir(parents=True, exist_ok=True)
+        (tmp_path / rel).write_text(text, encoding="utf-8")
+    _git(tmp_path, "init", "-q")
+    _git(tmp_path, "add", "--", ".github/workflows/verify.yml",
+         "research/stem/verify.py", "research/README.md")
+    monkeypatch.setattr(ri, "PARKED_TREES", {"stem": "reviewed in this fixture"})
+    page = tmp_path / ri.README_REL
+    expected = ri.expected_readme(tmp_path, page.read_text(encoding="utf-8"))
+    page.write_text(expected, encoding="utf-8")
+    assert not ri.problems(tmp_path)
+    assert ri.show_rows(tmp_path)["stem"]["status"] == "parked"
+    page.write_text(expected.replace("| parked |", "|  |"), encoding="utf-8")
+    diagnostic = "\n".join(ri.problems(tmp_path))
+    assert "research/README.md is stale" in diagnostic and "stem" in diagnostic
+    page.write_text(expected, encoding="utf-8")
+    assert not ri.problems(tmp_path)
+    with pytest.raises(ValueError, match="parked trees are registered in gate 11: stem"):
+        ri.render_block(["stem"], {"stem"})
