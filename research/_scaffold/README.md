@@ -1,13 +1,19 @@
 # research/_scaffold — canonical copy-source for research trees
 
-AuthorityEffect: None. Outside the seal; consumes nothing; pins nothing.
+AuthorityEffect: None. Outside the seal; copy sources and the new-tree contract.
+
+2026-09-20: the earlier "consumes nothing; pins nothing" description is withdrawn
+for the new additions. The generator copies the root toolchain declaration, and
+the contract fixes an existing-directory list at its recorded baseline.
 
 Every `research/<tree>/` is deliberately **self-contained**: it keeps its own
 `check_coverage.py`, `run.py`, `verify_sources.py`, `verify_lean.py`,
 `verify.py`, `evidence/`, `tests/`, and prose, so it can be verified and its
 custody reasoned about in isolation. Nothing here is imported by a tree — a
 shared import would make the trees depend on this directory and break that
-isolation. Instead, new trees **copy** the two files below.
+isolation. New trees use the generator in the new-tree contract section below. The two
+earlier copy sources remain available when a tree needs their coverage or
+record runners.
 
 The cost of copy-based reuse is that a bug pasted once gets pasted again. Two
 defects recurred that way across the recent scaffold generation:
@@ -24,7 +30,7 @@ defects recurred that way across the recent scaffold generation:
 
 ## Use it
 
-When you start a new `research/<tree>/`:
+When a tree needs these earlier coverage or record runners:
 
 - Copy [`check_coverage.py`](check_coverage.py) verbatim; edit only
   `REQUIRED_FILES`.
@@ -145,3 +151,44 @@ directory without `__init__.py` is only a namespace package, and the
 built-in module still wins over it. That is why the repository's own
 top-level `code/`, which has no `__init__.py`, does not hide the built-in
 module.
+
+## New-tree contract (2026-09-20)
+
+Existing research directories are grandfathered by the exact list and baseline
+commit in `grandfathered.json`; their naming and verifier bytes are unchanged.
+The new contract is checked by `python ci/check_new_research_trees.py` and by
+the root test suite. The fixed list must equal the directories at its recorded
+commit, so adding a new directory to that list silently does not exempt it.
+
+Create a working seed with `python research/_scaffold/new_tree.py tree_name`.
+This copies independent files from `new_tree_templates/`; it does not create
+an import dependency on the scaffold. Replace the seed model, proofs, input,
+tests and claims with the intended work. The seed proves only its stated
+identity and checks one integer input. It grants no authority.
+
+- Use exactly `CLAIMS.md`, with columns `Claim`, `Status`, `Statement`, `Evidence`.
+  Status is one of `PROVED_THEOREM` (the stated theorem), `VERIFIED_FINITE`
+  (the stated finite check), `CONDITIONAL` (stated assumptions), `OPEN`
+  (no completed evidence), or `REFUTED` (a stated counterexample).
+- Keep the canonical `verify.py` copy unchanged; `python verify.py --check`
+  runs the tree's local input pins, tests, strict typing and Lean checks in
+  order, failing if any step fails. `--write-pins` is a separate deliberate
+  regeneration mode. Both read `TREE_CONTRACT.json`; pins cover actual local
+  inputs selected there; manifest keys use repository-relative paths for the
+  generated pin index. Run the complete verifier under the operator's serial
+  lock when one is in use. A successful scaffold run is local evidence only.
+- Use one Lake package, `lean/lakefile.toml`, with a unique `Research...` root.
+  All Lean modules, including `Root.AxiomReport`, belong under that root.
+  The report is compiled by file path, never imported as a census module.
+  Commit its native, machine-independent Lake manifest after the first build.
+- The seed chooses an explicit report scope: `axiom_declarations` must be
+  nonempty and match every fresh report exactly, including primed names.
+  The verifier states those names; it does not claim to enumerate every
+  compiled constant. New evidence with broader reach needs an explicitly
+  reviewed contract change, not an enlarged claim over this named list.
+
+Stage the new files explicitly, then run `python ci/research_index.py --write`,
+`python ci/lookup_indexes.py --write` and `python ci/lean_build_order.py --write`
+to refresh the generated indexes and build recipe. Run the root contract check
+and the tree's complete verifier before opening its PR.
+CLAUDE.md can point here once its separate documentation-split item is resolved.
