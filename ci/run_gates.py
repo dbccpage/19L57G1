@@ -114,8 +114,10 @@ FAST_COMMAND = re.compile(r"python3? (ci/[A-Za-z0-9_./-]+\.py)|python3? -m mypy"
 
 # Outputs the workflow writes into the repository root, deleted before a run.
 STALE_OUTPUTS = ("coverage.json", "artifacts_ci", "lake_build.log")
-# Directories whose tracked files are restored after any step rewrites them.
-PROTECTED_DIRS = ("artifacts",)
+# Tracked output pathspecs restored after a step, including timeout or failure.
+# The research receipt wrapper restores ordinary exits itself; this outer
+# snapshot also covers a wrapper killed with the rest of a timed-out step.
+PROTECTED_DIRS = ("artifacts", ":(glob)research/**/receipts/**")
 # Caller variables that would change what a step runs or measures: every
 # Python, pytest, coverage and mypy setting, and the files bash sources.
 SCRUBBED_ENV = ("BASH_ENV", "ENV")

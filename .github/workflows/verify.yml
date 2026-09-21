@@ -171,6 +171,8 @@ jobs:
       # declaration census is compared with an exact committed inventory.
       - name: Typed translation, fresh Lean and total axiom inventory
         run: python3 research/typed_translation/verify_lean.py
+      - name: Every compiled declaration stays within the axiom boundary
+        run: python3 ci/check_declaration_axioms.py
       # Must stay LAST in this job and must not write to lake_build.log: the
       # three steps above compare that log against artifacts/lean_axioms.txt.
       # `lake build` only builds defaultTargets, so a module the root does not
@@ -196,20 +198,7 @@ jobs:
       - name: Every Lean module elaborates
         working-directory: lean4
         timeout-minutes: 20
-        run: |
-          set -o pipefail
-          find Derivation -name '*.lean' \
-            | sed -e 's/\.lean$//' -e 's#/#.#g' \
-            | LC_ALL=C sort > /tmp/census.txt
-          if [ ! -s /tmp/census.txt ]; then
-            echo "census enumerated no modules - the enumeration is broken" >&2
-            exit 1
-          fi
-          echo "source census: $(wc -l < /tmp/census.txt) modules"
-          diff ../artifacts/elaborated_modules.txt /tmp/census.txt
-          while IFS= read -r m; do
-            lake build "$m"
-          done < /tmp/census.txt
+        run: python3 ../ci/gate_support.py lean-census
 
   # The ELEVENTH gate family, and the only one EXPECTED to go red on a change;
   # that is entirely legitimate. Read the next three paragraphs before
@@ -341,7 +330,7 @@ jobs:
           log="$RUNNER_TEMP/second-stream-tests.log"
           python -m coverage erase
           python -m coverage run -m unittest discover -s . -p "test_*.py" 2>&1 | tee "$log"
-          grep -Eq '^Ran 150 tests in ' "$log"
+          python ../../ci/gate_support.py test-count "$log" --minimum 150
           python -m coverage json -q
           python check_coverage.py
           git diff --exit-code -- receipts
@@ -363,17 +352,17 @@ jobs:
           log="$RUNNER_TEMP/boundary-seed-tests.log"
           python -m coverage erase
           python -m coverage run -m unittest discover -s tests -p "test_*.py" 2>&1 | tee "$log"
-          grep -Eq '^Ran 566 tests in ' "$log"
+          python ../../ci/gate_support.py test-count "$log" --minimum 566
           python -m coverage json -q
           python check_coverage.py
-          python run_challenge0.py
-          python run_challenge1.py
-          python run_challenge2.py
-          python run_challenge3.py
-          python run_challenge4.py
-          python run_challenge5.py
-          python run_continuation1.py
-          python run_continuation2.py
+          python ../../ci/gate_support.py replay --file receipts/challenge0.json -- python run_challenge0.py
+          python ../../ci/gate_support.py replay --file receipts/challenge1.json -- python run_challenge1.py
+          python ../../ci/gate_support.py replay --file receipts/challenge2.json -- python run_challenge2.py
+          python ../../ci/gate_support.py replay --file receipts/challenge3.json -- python run_challenge3.py
+          python ../../ci/gate_support.py replay --file receipts/challenge4.json -- python run_challenge4.py
+          python ../../ci/gate_support.py replay --file receipts/challenge5.json -- python run_challenge5.py
+          python ../../ci/gate_support.py replay --file receipts/continuation1.json -- python run_continuation1.py
+          python ../../ci/gate_support.py replay --file receipts/continuation2.json -- python run_continuation2.py
           git diff --exit-code -- receipts
       - name: Boundary derivation, strict typing
         working-directory: research/boundary_seed
@@ -392,7 +381,7 @@ jobs:
           log="$RUNNER_TEMP/second-nofirst-tests.log"
           python -m coverage erase
           python -m coverage run -m unittest discover -s . -p "test_*.py" 2>&1 | tee "$log"
-          grep -Eq '^Ran 180 tests in ' "$log"
+          python ../../ci/gate_support.py test-count "$log" --minimum 180
           python -m coverage json -q
           python check_coverage.py
           git diff --exit-code -- receipts
@@ -427,10 +416,10 @@ jobs:
           log="$RUNNER_TEMP/limit-and-observer-tests.log"
           python -m coverage erase
           python -m coverage run -m unittest discover -s tests -p "test_*.py" 2>&1 | tee "$log"
-          grep -Eq '^Ran ([6-9][0-9]|[1-9][0-9]{2,}) tests in ' "$log"
+          python ../../ci/gate_support.py test-count "$log" --minimum 60
           python -m coverage json -q
           python check_coverage.py
-          python run_price.py
+          python run_price.py --check
           git diff --exit-code -- receipts
       - name: Limit and second observer, strict typing
         working-directory: research/limit_and_observer
@@ -443,7 +432,7 @@ jobs:
       # and fails in both directions: a drifted number is named with its file,
       # line and both values, and a binding that stops matching is named as a
       # stale binding, so deleting the sentence is not a way to pass. It runs
-      # after run_price.py so it cannot compare prose against a stale receipt.
+      # after run_price.py --check so a stale receipt fails before this step.
       - name: Limit and second observer, published prose bound to the receipt
         working-directory: research/limit_and_observer
         run: python verify_prose.py
@@ -464,14 +453,10 @@ jobs:
       # committed receipt is not evidence of the current code.  Coverage is
       # generated in this same fresh process and checked immediately, and the
       # test count is asserted so an enumeration that finds NOTHING cannot
-      # pass as a green suite.  That count is a literal here and it DRIFTED:
-      # it was written at 321 and two later commits added two tests without
-      # moving it, so the step could not pass.  The literal stays -- a
-      # wildcard would let an empty enumeration through, which is the whole
-      # point of the line -- and the drift is closed from the other side:
-      # tests/test_registration.py parses this number out of this file and
-      # requires it to equal the count the suite discovers, so a suite that
-      # grows without a bump here fails locally by name.
+      # pass as a green suite.  2026-09-19: the exact-count policy is withdrawn;
+      # a declared minimum now permits suite growth while refusing a reduced
+      # or empty run. tests/test_registration.py binds that minimum to this
+      # step and requires the discovered population to reach it.
       #
       # The frozen design's conditional field remains in the record. The
       # required pin step above refuses the unavailable-source condition, so
@@ -483,10 +468,10 @@ jobs:
           log="$RUNNER_TEMP/side-free-tests.log"
           python -m coverage erase
           python -m coverage run -m unittest discover -s tests -p "test_*.py" 2>&1 | tee "$log"
-          grep -Eq '^Ran 364 tests in ' "$log"
+          python ../../ci/gate_support.py test-count "$log" --minimum 364
           python -m coverage json -q
           python check_coverage.py
-          python run_side_free.py
+          python run_side_free.py --check
           git diff --exit-code -- receipts
       - name: Side-free control, strict typing
         working-directory: research/side_free
@@ -502,7 +487,7 @@ jobs:
       - name: Side-free control, the price-list comparison
         working-directory: research/side_free
         run: |
-          python run_comparison.py
+          python run_comparison.py --check
           git diff --exit-code -- receipts/comparison.json COMPARISON.md
       # The numbers gate.  This tree restates computed values across five prose
       # documents, and three editorial repair passes each fixed the counts they
@@ -522,8 +507,9 @@ jobs:
       # source blobs; their own batteries remain registered immediately above.
       - name: Typed translation, freeze, source pins, vendored values, isolation
         run: python research/typed_translation/verify_pins.py
-      # The literal count is paired with tests/test_gates.py, which discovers
-      # the suite independently and requires this number to move with it.
+      # 2026-09-19: the former exact count is replaced by a minimum.
+      # tests/test_gates.py independently checks that floor and discovers
+      # enough tests; growth does not require a workflow edit.
       - name: Typed translation, tests, coverage, receipt, isolation
         working-directory: research/typed_translation
         env:
@@ -533,10 +519,10 @@ jobs:
           log="$RUNNER_TEMP/typed-translation-tests.log"
           python -m coverage erase
           python -m coverage run -m unittest discover -s tests -p "test_*.py" 2>&1 | tee "$log"
-          grep -Eq '^Ran 119 tests in ' "$log"
+          python ../../ci/gate_support.py test-count "$log" --minimum 119
           python -m coverage json -q
           python check_coverage.py
-          python run_translation.py
+          python run_translation.py --check
           git diff --exit-code -- receipts/typed_translation.json STATUS.md FINDINGS.md CLAIM_LEDGER.md
       - name: Typed translation, strict typing
         working-directory: research/typed_translation

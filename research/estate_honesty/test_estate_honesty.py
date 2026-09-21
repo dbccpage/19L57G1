@@ -1,4 +1,4 @@
-"""test_estate_honesty.py — Test suite for Target 10 Estate Honesty Pass.
+"""test_estate_honesty.py â€” Test suite for Target 10 Estate Honesty Pass.
 
 Verifies:
 1. Every tree declared in research/README.md exists on disk, and the auditor's
@@ -208,15 +208,15 @@ class TestEstateHonesty(unittest.TestCase):
         self.assertIn("does not add a new distinctness result", status)
         self.assertIn("f_class_distinctness", status)
 
-    def test_gate11_literal_pins_exist(self) -> None:
-        """Gate 11 pinned literal test counts are present in verify.yml."""
+    def test_gate11_minimum_populations_exist(self) -> None:
+        """Gate 11 positive minimum test counts are present in verify.yml."""
         pins = self.test_audit["gate11_pinned_counts"]
         self.assertEqual(pins["second_stream"], 150)
         self.assertEqual(pins["boundary_seed"], 566)
         self.assertEqual(pins["second_nofirst"], 180)
         self.assertEqual(pins["side_free"], 364)
         self.assertEqual(pins["typed_translation"], 119)
-        self.assertIsNotNone(pins["limit_and_observer"])
+        self.assertEqual(pins["limit_and_observer"], 60)
 
     def test_kernel_axioms_strictly_constructive(self) -> None:
         """Every kernel axiom report is strictly contained in {propext, Quot.sound}."""

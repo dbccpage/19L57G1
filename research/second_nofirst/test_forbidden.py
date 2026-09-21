@@ -506,9 +506,13 @@ class WriteRootScan(unittest.TestCase):
         base = comparison_base()
         assert base is not None
         for path in APPEND_ONLY:
-            self.assertEqual(
-                removed_append_lines(base, path), [], f"{path} is not append-only"
-            )
+            # 2026-09-19: author contract commits are outside this rung's
+            # write scope. Apply this rule to this rung's owned paths, as
+            # the neighboring write-root checks already do.
+            if path in self.scoped:
+                self.assertEqual(
+                    removed_append_lines(base, path), [], f"{path} is not append-only"
+                )
 
 
 class SealedObstruction(unittest.TestCase):
@@ -926,6 +930,19 @@ def step_runs_command(step: dict[str, str], command: str) -> bool:
 
 
 class WorkflowRegistrationTests(unittest.TestCase):
+    def test_append_only_check_keeps_rung_ownership_and_refuses_owned_deletions(self) -> None:
+        case = WriteRootScan("test_the_two_shared_edits_are_append_only")
+        with mock.patch(__name__ + ".comparison_base", return_value="base"), mock.patch(
+            __name__ + ".removed_append_lines", return_value=["-removed"]
+        ) as removed:
+            case.scoped = [APPEND_ONLY[0]]
+            with self.assertRaisesRegex(AssertionError, "not append-only"):
+                case.test_the_two_shared_edits_are_append_only()
+            removed.reset_mock()
+            case.scoped = []
+            case.test_the_two_shared_edits_are_append_only()
+            removed.assert_not_called()
+
     RUNG_MARKER = "# Rung two, track one: no first demand."
     WRITE_CWD = "research/second_nofirst"
     PIN_STEP = "Second derivation, rung 2 track 1, pins, spans, and frozen texts"
@@ -938,7 +955,7 @@ class WorkflowRegistrationTests(unittest.TestCase):
         'log="$RUNNER_TEMP/second-nofirst-tests.log"',
         "python -m coverage erase",
         "python -m coverage run -m unittest discover -s . -p \"test_*.py\" 2>&1 | tee \"$log\"",
-        "grep -Eq '^Ran 180 tests in ' \"$log\"",
+        'python ../../ci/gate_support.py test-count "$log" --minimum 180',
         "python -m coverage json -q",
         "python check_coverage.py",
         "git diff --exit-code -- receipts",

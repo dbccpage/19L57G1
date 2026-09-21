@@ -73,6 +73,15 @@ def test_the_workflow_parses_and_the_names_the_runner_holds_match() -> None:
     assert {s.uses for s in chosen if s.uses} <= set(rg.ACTIONS)
 
 
+def test_lean_census_stays_last_after_the_declaration_audit() -> None:
+    steps = rg.parse_workflow(rg.WORKFLOW.read_text(encoding="utf-8"))
+    lean = [s for s in steps if s.job == "lean" and s.run is not None and not s.is_setup]
+    assert lean[-1].name == "Every Lean module elaborates"
+    assert lean[-1].run.strip() == "python3 ../ci/gate_support.py lean-census"
+    census = next(i for i, s in enumerate(lean) if s.run.strip() == "python3 ci/check_declaration_axioms.py")
+    assert 0 < census < len(lean) - 1
+
+
 def test_every_gate_command_in_the_workflow_is_reached() -> None:
     # Enumerated from the raw text, independently of the parser: a command
     # the parser dropped would be missing from the selected steps.
@@ -279,6 +288,21 @@ def test_a_step_that_rewrites_a_protected_file_fails_and_the_file_is_put_back(
     assert [r.outcome for r in results] == ["FAIL", "not run"]
     assert "rewrote artifacts/sealed.txt; restored" in results[0].note
     assert (repo / "artifacts" / "sealed.txt").read_bytes() == b"committed\n"
+
+
+def test_a_timeout_restores_tracked_research_receipts(tmp_path: Path) -> None:
+    repo = _repo(tmp_path)
+    receipt = repo / "research/probe/receipts/value.json"
+    receipt.parent.mkdir(parents=True)
+    receipt.write_bytes(b"original\n")
+    _git(repo, "add", "--", "research/probe/receipts/value.json")
+    _git(repo, "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qm", "receipt")
+    step = rg.Step(job="a", name="interrupted receipt", timeout_minutes=0.5 / 60,
+                   run="echo partial > research/probe/receipts/value.json\nsleep 2\n")
+    result = rg.run_steps([step], repo, _bash(), sys.executable)[0]
+    assert result.outcome == "TIMEOUT"
+    assert "research/probe/receipts/value.json; restored" in result.note
+    assert receipt.read_bytes() == b"original\n"
 
 
 def test_nothing_is_put_back_and_nothing_more_runs_after_head_moves(tmp_path: Path) -> None:

@@ -5,9 +5,9 @@ Usage (after ``lake build`` in the Lean package):
     python ci/check_declaration_axioms.py [--lean-dir lean4] [--pin FILE]
                                           [--raw-out FILE] [--print-census]
 
-A LOCAL TOOL, not a registered gate: ``.github/workflows/verify.yml`` does
-not run it, and nothing in the gate census reads its output.  Registering it
-is a contract amendment, which is the author's act.
+2026-09-19: registered in the written local Lean job after the default
+build and before the final module census. The earlier description as an
+unregistered local tool is withdrawn by this contract amendment.
 
 What it closes, and what it does not
 ------------------------------------
