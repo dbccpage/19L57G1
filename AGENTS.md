@@ -26,13 +26,13 @@ See `CLAUDE.md`, section **No hosted CI**, for the full statement.
 - The author merges; an agent prepares the pull request and does not merge
   unless told to. Every pull request targets `main` directly; no stacked
   pull requests.
-- The blind protocol seals `prompt/`, `paper/`, `code/`, `lean4/Derivation/`
-  and `artifacts/`; do not edit those or `CLAUDE.md` without the author's
-  explicit say-so. Research lives under `research/`, outside the seal, and
-  consumes the sealed sources read-only.
+- The blind protocol seals `prompt/`, `paper/`, `code/`, `lean4/Derivation/`,
+  `artifacts/` and the root file `lean4/Derivation.lean`; do not edit those
+  or `CLAUDE.md` without the author's explicit say-so. Research lives under
+  `research/`, outside the seal, and consumes the sealed sources read-only.
 - No outside theory names anywhere in the repository (the prose watchlist
   and the identifier firewall enforce parts of this; judgement covers the
   rest).
-- Run the twelve gate families locally before asking for a merge; the
-  commands are in `CLAUDE.md` under **Commands**, and `research/README.md`
-  says which research trees the contract enumerates.
+- Run the twelve gate families locally before asking for a merge, with
+  `python ci/run_gates.py` (see `CLAUDE.md`, **Running the gates**);
+  `research/README.md` says which research trees the contract enumerates.

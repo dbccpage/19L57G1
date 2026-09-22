@@ -28,7 +28,6 @@ SOURCES: tuple[tuple[str, str], ...] = (
     ("frozen", "lean4/Derivation/PrimDiff.lean"),
     ("frozen", "lean4/Derivation/WeightProfile.lean"),
     ("frozen", "lean4/lean-toolchain"),
-    ("base", "CLAUDE.md"),
 )
 
 

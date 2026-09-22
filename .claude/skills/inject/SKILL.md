@@ -84,5 +84,5 @@ produced false clean results here, for author and reviewer alike.
 - **That a reviewer will follow a procedure.** Behaviour outside the
   machine is outside the domain of any injection.
 
-Record what was injected and what failed. `CLAUDE.md` carries the standing
-table under "Proving a gate: the injection record".
+Record what was injected and what failed. `docs/injection_record.md` carries
+the standing table (moved from `CLAUDE.md` on 2026-09-21).
