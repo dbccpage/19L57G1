@@ -67,7 +67,11 @@ MANIFEST_PATH = HERE / "SOURCE_MANIFEST.json"
 SCHEMA = "s9_obligations_source_manifest/v1"
 
 # The sealed prefixes of CLAUDE.md, as pathspecs and as prefixes.  A
-# top-level ``lean4/*.lean`` is outside the seal and outside this check.
+# top-level ``lean4/*.lean`` is outside this check.  The root file
+# ``lean4/Derivation.lean`` is inside the seal by the author's ruling of
+# 2026-09-18, but this check reads prefixes only and does not cover it.
+# (2026-09-21: this comment used to call every top-level file outside the
+# seal; that is withdrawn.)
 SEALED_PATHSPECS = ("prompt", "paper", "code", "lean4/Derivation", "artifacts")
 SEALED_PREFIXES = tuple(f"{spec}/" for spec in SEALED_PATHSPECS)
 

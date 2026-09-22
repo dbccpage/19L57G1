@@ -91,6 +91,9 @@ OUTPUTS = (TOPICS_REL, PINS_REL)
 REGENERATE = "python ci/lookup_indexes.py --write"
 
 SEALED_PREFIXES = ("prompt/", "paper/", "code/", "lean4/Derivation/", "artifacts/")
+# The root file, sealed by the author's ruling of 2026-09-18 (CLAUDE.md,
+# "Repository boundary").  An exact path, not a prefix.
+SEALED_FILES = ("lean4/Derivation.lean",)
 
 PIN_FILE_NAME = re.compile(r"^[A-Z0-9_]*(?:MANIFEST|PIN|PINS)\.json$")
 
@@ -176,10 +179,14 @@ ROLES: tuple[tuple[str, str], ...] = (
 def is_sealed(path: str) -> bool:
     """Whether a repository-relative path lies inside the sealed derivation.
 
-    The contract carves ``lean4/`` to the directory ``lean4/Derivation/``.
-    The root file ``lean4/Derivation.lean`` is a sibling of that directory.
+    The contract carves ``lean4/`` to the directory ``lean4/Derivation/``
+    plus the root file ``lean4/Derivation.lean``, which the author ruled
+    inside the seal on 2026-09-18.  Other top-level ``lean4/*.lean`` files,
+    such as ``lean4/ParkedAudit.lean``, stay outside.  Until 2026-09-21
+    this docstring called the root file an unsealed sibling of the
+    directory; that is withdrawn.
     """
-    return path.startswith(SEALED_PREFIXES)
+    return path.startswith(SEALED_PREFIXES) or path in SEALED_FILES
 
 
 def _git(repo: Path, *args: str) -> bytes:
