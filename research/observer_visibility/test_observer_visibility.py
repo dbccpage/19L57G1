@@ -44,8 +44,14 @@ class ManifestTests(unittest.TestCase):
             "import closure of ['Derivation.PresentationNaturality']: 12 module(s), all pinned",
             lines,
         )
-        self.assertEqual(
-            lines[-1], "sealed prefixes clean: prompt paper code lean4/Derivation artifacts"
+        # 2026-09-22: the report now ends with the drift count, and the
+        # worktree-cleanliness line is no longer last.  The earlier
+        # assertion that it was last is withdrawn.
+        self.assertIn(
+            "sealed prefixes clean: prompt paper code lean4/Derivation artifacts", lines
+        )
+        self.assertTrue(
+            lines[-1].startswith("drift since the snapshot: "), lines[-1]
         )
 
     def test_manifest_follows_the_established_shape(self) -> None:

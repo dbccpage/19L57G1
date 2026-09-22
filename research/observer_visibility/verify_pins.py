@@ -12,8 +12,9 @@ compiles.  Seven checks, and none of them implies the others:
   ``HEAD``), RESOLVES to a commit object, is an ancestor of the
   verification HEAD (or HEAD itself), and carries the recorded tree;
 * every module hashes to its recorded SHA-256 as the Git blob at the
-  SNAPSHOT and again at HEAD, so the theorems were checked against the
-  sealed sources they name and those sources have not moved since;
+  SNAPSHOT, so the theorems were checked against the sealed sources they
+  name.  Whether those sources have MOVED since is reported as drift, not
+  failed: see the dated note below;
 * the module list is EXACTLY the import closure of the semantic roots,
   computed from the ``import Derivation.*`` lines of the snapshot blobs
   and compared in both directions -- a module the package compiles but
@@ -22,8 +23,8 @@ compiles.  Seven checks, and none of them implies the others:
 * each module's path is the sealed path its name denotes, and every
   pinned path is relative, has no ``..``, no backslash, no drive letter,
   and lies under a sealed prefix;
-* no tracked path under a sealed prefix differs between the snapshot and
-  HEAD;
+* tracked sealed paths that differ between the snapshot and HEAD are
+  reported as drift, not failed;
 * the worktree carries nothing under a sealed prefix that is modified,
   untracked, or ignored-but-present (``git status --porcelain
   --untracked-files=all --ignored=matching``): a gitignored bytecode or
@@ -38,6 +39,14 @@ A pass says the inputs did not move and nothing sealed was touched.  It
 says nothing about the mathematics, and it does not authenticate the
 interpreter, Git, or this script.  Nothing in ``.github/workflows`` runs
 this script; a pass is a manual receipt.  AuthorityEffect: None.
+
+2026-09-22, by the author's ruling: this file used to FAIL when a pinned
+source, or any tracked sealed path, differed at HEAD.  The snapshot blob is
+fixed history, so no repin could satisfy both sides once the author edited a
+sealed file, and the check was red for that reason alone.  That HEAD-side
+failure is withdrawn.  Provenance at the snapshot still fails; currency is
+printed as ``DRIFT:`` lines with a count, and ``--require-current`` restores
+the old failure.
 """
 
 from __future__ import annotations
@@ -50,7 +59,9 @@ import hashlib
 import json
 import pathlib
 import re
+import argparse
 import subprocess
+from collections.abc import Sequence
 from pathlib import PurePosixPath
 from typing import Any
 
@@ -213,12 +224,15 @@ def _roots(manifest: dict[str, Any]) -> list[str]:
     return list(roots)
 
 
-def verify(manifest: dict[str, Any] | None = None) -> list[str]:
+def verify(
+    manifest: dict[str, Any] | None = None, *, require_current: bool = False
+) -> list[str]:
     """Run every check; raise ``ValueError`` on the first failure."""
 
     if manifest is None:
         manifest = read_manifest()
     lines: list[str] = []
+    drift: list[str] = []
 
     head = _git("rev-parse", "HEAD")
     _require_hex(head, 40, "verification commit", uppercase=False)
@@ -264,15 +278,20 @@ def verify(manifest: dict[str, Any] | None = None) -> list[str]:
         _required_string(item, "role", f"module {module}")
         if module in pinned:
             raise ValueError(f"module pinned twice: {module}")
-        for label, revision in (("snapshot", snapshot), ("HEAD", head)):
-            actual = _sha256(_git_bytes("show", f"{revision}:{relative.as_posix()}"))
-            if actual != wanted:
-                raise ValueError(
-                    f"hash mismatch for {relative} at {label} {revision}: "
-                    f"expected {wanted}, got {actual}"
-                )
+        actual = _sha256(_git_bytes("show", f"{snapshot}:{relative.as_posix()}"))
+        if actual != wanted:
+            raise ValueError(
+                f"hash mismatch for {relative} at snapshot {snapshot}: "
+                f"expected {wanted}, got {actual}"
+            )
+        at_head = _sha256(_git_bytes("show", f"{head}:{relative.as_posix()}"))
+        if at_head != wanted:
+            drift.append(
+                f"hash mismatch for {relative} at HEAD {head}: "
+                f"expected {wanted}, got {at_head}"
+            )
         pinned[module] = wanted
-        lines.append(f"pin: {module} {wanted} (at snapshot and HEAD)")
+        lines.append(f"pin: {module} {wanted} (at the snapshot)")
 
     roots = _roots(manifest)
     closure = import_closure(
@@ -287,13 +306,8 @@ def verify(manifest: dict[str, Any] | None = None) -> list[str]:
         )
     lines.append(f"import closure of {roots}: {len(closure)} module(s), all pinned")
 
-    moved = _sealed_diff(snapshot, head)
-    if moved:
-        raise ValueError(
-            "tracked sealed paths differ between the snapshot and HEAD:\n  "
-            + "\n  ".join(moved)
-        )
-    lines.append("sealed prefixes unchanged between snapshot and HEAD")
+    for path in _sealed_diff(snapshot, head):
+        drift.append(f"sealed path {path} differs between the snapshot and HEAD")
 
     violations = sealed_prefix_violations(_live_porcelain())
     if violations:
@@ -304,12 +318,29 @@ def verify(manifest: dict[str, Any] | None = None) -> list[str]:
             + "\n  ".join(violations)
         )
     lines.append("sealed prefixes clean: " + " ".join(SEALED_PATHSPECS))
+    if drift and require_current:
+        raise ValueError(
+            "pinned sources moved since the snapshot (--require-current):\n  "
+            + "\n  ".join(drift)
+        )
+    lines += [f"DRIFT: {line}" for line in drift]
+    lines.append(
+        f"drift since the snapshot: {len(drift)} pinned path(s) or sealed path(s)"
+        f" moved at HEAD"
+    )
     return lines
 
 
-def main() -> int:
+def main(argv: Sequence[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Verify this tree's source pins.")
+    parser.add_argument(
+        "--require-current",
+        action="store_true",
+        help="also fail when a pinned source or sealed path has moved since the snapshot",
+    )
+    args = parser.parse_args(argv)
     try:
-        lines = verify()
+        lines = verify(require_current=args.require_current)
     except ValueError as exc:
         print(f"FAIL: {exc}")
         return 1
