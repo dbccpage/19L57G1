@@ -55,12 +55,6 @@
       "path": "lean4/lean-toolchain",
       "revision": "frozen",
       "sha256": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
-    },
-    {
-      "git_blob": "69ba29f02e66f7d3aa5ef00205906946dd91c8ed",
-      "path": "CLAUDE.md",
-      "revision": "base",
-      "sha256": "37fc6aaa054fd7a330270fdac88a04986d6e9fc604ab841d8cba74c371913c21"
     }
   ],
   "toolchains": {

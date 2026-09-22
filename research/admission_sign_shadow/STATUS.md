@@ -83,3 +83,16 @@ bridge source, the complete expected declaration census, the exact frozen
 commit/tree and pinned blobs, and the absence of persistent exact frozen
 source copies. Identical `lean-toolchain` text is listed separately as
 metatheoretic apparatus.
+
+## Source pin change (2026-09-21)
+
+By the author's ruling on 2026-09-21, `CLAUDE.md` is no longer a pinned
+source. It had been pinned as a `base` source, so `source_manifest.py
+--check` required its blob at HEAD to equal the blob at the fixed base
+`be7476868e496e06d5dec6599fa4346394c512bd`. The file changed on
+2026-09-08, so the check had failed since then with `base source changed
+at HEAD: CLAUDE.md`, and no regeneration could repair it. Nothing in this
+tree computes from `CLAUDE.md`. The manifest now pins eight sources, all
+at the frozen tag. The frozen identities, the base and publication-base
+ancestry checks, and every other pin are unchanged. The machine receipt was
+regenerated with `build_receipt.py --write`, and every command in it passed.
