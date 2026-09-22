@@ -38,7 +38,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 
 | pin file | sealed paths | other paths | paths not in the git index |
 |---|---|---|---|
-| `research/admission_sign_shadow/SOURCE_MANIFEST.json` | 7 | 2 | 0 |
+| `research/admission_sign_shadow/SOURCE_MANIFEST.json` | 7 | 1 | 0 |
 | `research/admit_leftover/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
 | `research/alpha_engine/SOURCE_MANIFEST.json` | 108 | 4 | 0 |
 | `research/balance_carrier/SOURCE_MANIFEST.json` | 0 | 8 | 0 |
@@ -387,7 +387,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 
 | path | trees | pinned by | scope pins |
 |---|---|---|---|
-| `CLAUDE.md` | 10 | `admission_sign_shadow` (file), `balance_carrier` (file), `closed_family` (file), `convention_price` (file), `described_replay` (file), `fresh_characters` (file), `path_dependent_cost` (file), `reach_additivity` (file), `reach_measure` (file), `standing_commitment` (file) | none |
+| `CLAUDE.md` | 9 | `balance_carrier` (file), `closed_family` (file), `convention_price` (file), `described_replay` (file), `fresh_characters` (file), `path_dependent_cost` (file), `reach_additivity` (file), `reach_measure` (file), `standing_commitment` (file) | none |
 | `ci/check_parked_audit.py` | 1 | `limit_and_observer` (file) | none |
 | `ci/check_prose_watchlist.py` | 1 | `second_stream` (file) | none |
 | `ci/prose_watchlist.json` | 1 | `second_stream` (file) | none |

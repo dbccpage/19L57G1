@@ -121,8 +121,10 @@ def test_scope_pins_are_read_from_diff_calls_only() -> None:
 def test_pinned_paths_outside_the_seal_are_listed_not_dropped() -> None:
     # 2026-09-19: sign_slice withdrew its consultation-only pins. Keep both
     # document and data examples, using their remaining actual pinners.
+    # 2026-09-21: admission_sign_shadow dropped its CLAUDE.md pin (author
+    # ruling); balance_carrier still pins the file.
     for path, tree in (
-        ("CLAUDE.md", "admission_sign_shadow"),
+        ("CLAUDE.md", "balance_carrier"),
         ("contact/analysis/contact_countermodels.json", "sign_slice"),
     ):
         assert f"`{tree}` (file)" in _row("Other pinned paths", path)
