@@ -234,3 +234,17 @@ Adding this tree to the research job would be the following step in
 | `PYTHONDONTWRITEBYTECODE=1 python run_convention_price.py --out receipts` | 0 | `sixlabel: SIXLABEL_MOVES, flips 10965, price 1`; `channels: CHANNELS_AGREE_ON_DECIDED_ROWS`; `register rows: 9` |
 | `PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | all tests pass, refusal scans included |
 | `python -m mypy` | 0 | strict, all source files |
+
+## Source pin semantics (2026-09-22)
+
+By the author's ruling, `verify_pins.py` separates two claims it used to
+merge. Provenance still fails: the 23 pinned blobs at the snapshot, the frozen
+native `PROMPT.md`, and the last recorded predictions freeze. Currency is now
+reported: a pinned source that differs between the snapshot and HEAD prints as
+a `DRIFT:` line with a count, and no longer fails. `--require-current` restores
+the old failure.
+
+Why: the snapshot blob is fixed history, so once `CLAUDE.md`, the two
+`natural_sections` documents and the two `sign_slice` files changed, no repin
+could satisfy both sides, and this check was red for that reason alone. What
+this tree claims is about its snapshot, and that is what the check enforces.
