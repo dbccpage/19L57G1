@@ -1,0 +1,6 @@
+{
+ "comment": "Research trees whose own custody verifier fails on main. A tree here is NOT excused: it is recorded so a NEW failure is visible. Regenerate deliberately with ci/check_tree_custody.py --write.",
+ "expected_failures": {
+  "described_replay/verify_pins.py": "ValueError: pin injection source_census did not recover"
+ }
+}
