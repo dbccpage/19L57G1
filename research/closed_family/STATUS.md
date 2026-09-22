@@ -155,3 +155,25 @@ outside this write root.
 | `python verify_lean.py` | 0 | `lean audit clean: 5 sources, 21 axiom reports (21 axiom-free), axioms within ['Quot.sound', 'propext'], 14 originating theorems all listed` |
 | `python -m unittest discover -s . -p "test_*.py"` | 0 | refusal scans pass |
 | `python ci/check_prose_watchlist.py` (repository root) | 0 | clean without a repin |
+
+## Source pin semantics (2026-09-22)
+
+By the author's ruling, `verify_pins.py` separates two claims that it used to
+merge.
+
+- **Provenance, which still fails.** The pinned blobs and spans at the
+  snapshot, the exact source projections, the frozen native `PROMPT.md`, the
+  recorded prediction freezes where this tree has them, and the rule that the
+  worktree carries nothing outside the write root.
+- **Currency, which is now reported.** That nothing pinned has moved between
+  the snapshot and HEAD is printed as `DRIFT:` lines, followed by a
+  `drift since the snapshot:` count. It no longer fails. Pass
+  `--require-current` to restore the old failure.
+
+Why the change: the snapshot blob is fixed history, so once the author edited
+a sealed or contract file, no repin could satisfy both sides, and this check
+had been red for weeks for that reason alone. What this tree claims is about
+its snapshot, and that is what the check now enforces.
+
+The `python verify_pins.py` row in the commands table above records a run made
+under the earlier wording, and is kept as the dated record of that run.
