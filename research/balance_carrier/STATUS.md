@@ -30,7 +30,9 @@ append-only file.  It does not provide an external timestamp, so the stated
 before/after chronology remains an operator report rather than a receipt.
 Sources are pinned in `SOURCE_MANIFEST.json` at snapshot
 `be7476868e496e06d5dec6599fa4346394c512bd` of `main`; `verify_pins.py`
-checks the eight blobs and the two spans at the snapshot and at HEAD.
+checks the eight blobs and the two spans at the snapshot, and reports any
+that have moved at HEAD without failing (see the dated note at the end of
+this file).
 The parallel track (`research/role_census/`) was live on its own branch
 when this run started; this tree pins `main`, never that branch, and read
 nothing from it.  One prediction missed (P3.5); it is recorded below next
@@ -379,3 +381,25 @@ parallel tracks):
 | `PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | all tests pass, refusal scans included |
 | `python -m mypy` | 0 | strict, all source files |
 | `python ci/check_prose_watchlist.py` (repository root) | 0 | clean without a repin |
+
+## Source pin semantics (2026-09-22)
+
+By the author's ruling, `verify_pins.py` separates two claims that it used to
+merge.
+
+- **Provenance, which still fails.** The pinned blobs and spans at the
+  snapshot, the exact source projections, the frozen native `PROMPT.md`, the
+  recorded prediction freezes where this tree has them, and the rule that the
+  worktree carries nothing outside the write root.
+- **Currency, which is now reported.** That nothing pinned has moved between
+  the snapshot and HEAD is printed as `DRIFT:` lines, followed by a
+  `drift since the snapshot:` count. It no longer fails. Pass
+  `--require-current` to restore the old failure.
+
+Why the change: the snapshot blob is fixed history, so once the author edited
+a sealed or contract file, no repin could satisfy both sides, and this check
+had been red for weeks for that reason alone. What this tree claims is about
+its snapshot, and that is what the check now enforces.
+
+The `python verify_pins.py` row in the commands table above records a run made
+under the earlier wording, and is kept as the dated record of that run.
