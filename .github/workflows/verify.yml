@@ -228,9 +228,11 @@ jobs:
   #
   # NOT run here: verify_lean.py. It builds the research Lake package, which
   # needs elan and compiles the sealed package as a dependency -- exactly the
-  # expense this job exists to avoid. The research tree's AXIOMS therefore
-  # remain a manual receipt, unchecked by any gate. Do not read a green run
-  # here as covering them.
+  # expense this job exists to avoid. Two research Lean verifiers run in the
+  # lean job instead (second_nofirst and typed_translation). Every other
+  # tree's AXIOMS remain a manual receipt, unchecked by any gate; do not read
+  # a green run here as covering them. (2026-09-21: this comment used to say
+  # no research tree's axioms were gated; that is withdrawn.)
   research:
     runs-on: ubuntu-latest
     steps:
