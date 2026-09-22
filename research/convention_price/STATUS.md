@@ -17,7 +17,8 @@ predictions frozen at
 (phases 3-5, also before any phase computation ran).  Sources read are
 pinned in `SOURCE_MANIFEST.json` at snapshot
 `d54118ca6d8768e6f1ef31cc8e72192f7880f8be`; `verify_pins.py` checks
-them at the snapshot and at HEAD.  Every prediction was disposed
+them at the snapshot, and reports without failing any that have moved at
+HEAD (see the dated note at the end of this file).  Every prediction was disposed
 CONFIRMED or held; no prediction missed this run (the dispositions are
 in the receipt next to their values).
 
@@ -50,7 +51,10 @@ a declared reading here rather than a question:
    first, this tree was rebased onto their shared `main` descendant, and
    the snapshot above pins that exact merge result.  The nested
    sign-slice pin verifier is therefore clean at HEAD; no predecessor
-   drift is accepted or hidden.  The frozen `PROMPT.md` and
+   drift is accepted or hidden.  (2026-09-22: `sign_slice`'s manifest and
+   verifier have both changed on `main` since this was written, so that
+   sentence no longer holds at HEAD.  The change is reported by this
+   tree's own check as drift, not hidden.)  The frozen `PROMPT.md` and
    `PREDICTIONS.md` remain byte-identical historical inputs.
 5. **Eleven evidence classes.**  The charter's admissible vocabulary
    names "the eleven evidence classes" without listing them.  Reading:
