@@ -348,6 +348,20 @@ The workflow enumerates nine more registered trees by the same shape
 runs a gate script this skill does not name; `research/README.md` lists the
 trees the workflow does not enumerate at all.
 
+The `research` job ends with the estate-wide custody census:
+
+```powershell
+python ci/check_tree_custody.py
+```
+
+It runs EVERY research tree's own custody verifier, including the trees the
+steps above never touch, and compares the outcome set with
+`ci/tree_custody_pin.json`. It fails in both directions: a NEW red that is
+not pinned, and a STALE pin whose tree now passes, each named. It judges no
+verifier's logic. Run it on a clean worktree, because many of those verifiers
+refuse when anything outside their own write root is modified. Rewrite the
+pin deliberately with `--write`, never while an injection is live.
+
 ### 12. Prose watchlist census
 
 ```powershell

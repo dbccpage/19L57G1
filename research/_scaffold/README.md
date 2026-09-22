@@ -192,3 +192,20 @@ Stage the new files explicitly, then run `python ci/research_index.py --write`,
 to refresh the generated indexes and build recipe. Run the root contract check
 and the tree's complete verifier before opening its PR.
 CLAUDE.md can point here once its separate documentation-split item is resolved.
+
+## Pinning sealed sources (2026-09-22)
+
+`new_tree_templates/verify.py.tmpl` pins only the tree's own input files, by
+digest. That is deliberate, and it is why a scaffolded tree cannot inherit the
+custody trap described below.
+
+A tree that also pins SEALED sources (a `SOURCE_MANIFEST.json` naming files
+under `prompt/`, `paper/`, `code/`, `lean4/Derivation/` or `artifacts/`) must
+follow the rule in `CLAUDE.md`: fail on provenance at the snapshot the tree was
+derived against, and REPORT drift at HEAD rather than failing on it. Eleven
+trees demanded both and went permanently red, because the snapshot blob is
+fixed history and no repin can satisfy both sides once the author edits a
+sealed file. Offer `--require-current` for anyone who wants the strict check.
+
+`ci/check_tree_custody.py` runs every tree's custody verifier and pins the
+outcome set, so a new red is visible even for a tree no gate step names.

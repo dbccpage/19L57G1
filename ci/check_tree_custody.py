@@ -65,7 +65,20 @@ def verifiers() -> list[tuple[str, str]]:
 
 
 def run_one(tree: str, name: str) -> tuple[int, str]:
-    """Exit status and the most informative line of one verifier's output."""
+    """Exit status and the most informative line, retried once on a git error.
+
+    These verifiers shell out to git.  A concurrent commit or index lock in
+    the same repository makes git fail transiently, which was observed as a
+    spurious red for a tree that passed moments later.  A transient is
+    retried once; a real failure fails twice.
+    """
+    code, line = _run_once(tree, name)
+    if code != 0 and ("git " in line and "failed" in line):
+        code, line = _run_once(tree, name)
+    return code, line
+
+
+def _run_once(tree: str, name: str) -> tuple[int, str]:
     env = {**os.environ, "PYTHONUTF8": "1", "PYTHONDONTWRITEBYTECODE": "1"}
     path = REPO / "research" / tree / name
     for args in ([], ["--check"]):
