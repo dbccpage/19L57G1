@@ -131,14 +131,21 @@ def test_pinned_paths_outside_the_seal_are_listed_not_dropped() -> None:
         assert not li.is_sealed(path)
 
 
-def test_the_root_lean_file_is_outside_the_directory_carve() -> None:
-    """``lean4/`` is carved to ``lean4/Derivation/``, not the sibling root file."""
+def test_the_root_lean_file_is_sealed_by_ruling() -> None:
+    """``lean4/`` is carved to ``lean4/Derivation/`` plus the root file.
+
+    2026-09-21: the author ruled on 2026-09-18 that ``lean4/Derivation.lean``
+    is inside the seal.  This test used to assert the opposite; that
+    assertion is withdrawn.  The rule names one exact file, so other
+    top-level files and look-alike names stay outside.
+    """
     assert li.is_sealed("lean4/Derivation/IsoCollapseCompat.lean")
     assert li.is_sealed("lean4/Derivation/Basic.lean")
-    assert not li.is_sealed("lean4/Derivation.lean")
+    assert li.is_sealed("lean4/Derivation.lean")
     assert not li.is_sealed("lean4/ParkedAudit.lean")
     assert not li.is_sealed("lean4/lakefile.toml")
-    row = _row("Other pinned paths", "lean4/Derivation.lean")
+    assert not li.is_sealed("lean4/Derivation.lean.orig")
+    row = _row("Sealed paths", "lean4/Derivation.lean")
     assert row.startswith("| `lean4/Derivation.lean` | 13 |")
     assert row.endswith("| none |")
 
