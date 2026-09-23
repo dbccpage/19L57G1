@@ -55,6 +55,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `research/endogenous_continuum/SOURCE_MANIFEST.json` | 3 | 0 | 0 |
 | `research/endogenous_demand/SOURCE_MANIFEST.json` | 109 | 3 | 0 |
 | `research/estate_honesty/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
+| `research/evidence_graph/SOURCE_MANIFEST.json` | 0 | 5 | 0 |
 | `research/exchange_coefficients/SOURCE_MANIFEST.json` | 15 | 5 | 0 |
 | `research/f_class_distinctness/SOURCE_MANIFEST.json` | 109 | 3 | 0 |
 | `research/family_embedding/SOURCE_MANIFEST.json` | 12 | 0 | 0 |
@@ -456,6 +457,11 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `research/diagonal_identity/lean/DiagonalIdentity/Dual.lean` | 1 | `higher_order_diagonalization` (file) | none |
 | `research/endogenous_demand/CLAIMS.md` | 1 | `instance_demand` (file) | none |
 | `research/endogenous_demand/reader.py` | 1 | `instance_demand` (file) | none |
+| `research/evidence_graph/SCHEMA.json` | 1 | `evidence_graph` (file) | none |
+| `research/evidence_graph/evidence/capture.json` | 1 | `evidence_graph` (file) | none |
+| `research/evidence_graph/input.json` | 1 | `evidence_graph` (file) | none |
+| `research/evidence_graph/scope_reviews.json` | 1 | `evidence_graph` (file) | none |
+| `research/evidence_graph/source_population.json` | 1 | `evidence_graph` (file) | none |
 | `research/genesis_continuation/continuation_plan.md` | 2 | `described_replay` (file, span), `standing_commitment` (file, span) | none |
 | `research/identification_dual/PREDICTIONS.md` | 1 | `identification_dual` (file) | none |
 | `research/identification_dual/PROMPT.md` | 1 | `identification_dual` (file) | none |

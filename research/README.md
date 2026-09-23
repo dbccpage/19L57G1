@@ -57,6 +57,7 @@ Lean layout. The first and last also have explicit build-recipe entries.
 | `endogenous_continuum` | local receipt only |  |
 | `endogenous_demand` | local receipt only |  |
 | `estate_honesty` | local receipt only |  |
+| `evidence_graph` | local receipt only |  |
 | `exchange_coefficients` | local receipt only |  |
 | `f_class_distinctness` | local receipt only |  |
 | `family_embedding` | local receipt only |  |
