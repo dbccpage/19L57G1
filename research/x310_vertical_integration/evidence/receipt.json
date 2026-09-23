@@ -191,7 +191,7 @@
   "pipeline_run_id": "X310-VERIFY-CANONICAL",
   "pytest": {
     "exit_code": 0,
-    "passed": 28,
+    "passed": 30,
     "status": "PASS"
   },
   "receipt_version": "1.0.0",
@@ -210,9 +210,10 @@
     "tests/test_end_to_end_lifecycle.py": "969b2e4b6728a5da20aee400060814720824a1c6a72f0d2347e4802eeedcb3fe",
     "tests/test_pipeline_stages.py": "4ec495231ef6d8ec03e9ff9f273b61e6a5a4c7917541ce650d03452cf52aa5d1",
     "tests/test_receipt_determinism.py": "e43d9cb930e982359e56f4bd0a6f17fa8844a72f55fa874f5309f949235cb450",
+    "tests/test_verifier_cli.py": "cf72eab1e222b77997ef7957b0568fb398381e307a68e458b7fc4dc549b562ea",
     "tests/test_vertical_commutation.py": "e455840fdc833c020cbc445fc74925f6a54ab61b3f9a573ded7df979ec9170bf",
     "types.py": "90768efa3cd0c16949125e4e33c7ac09adcf2f47abbdd4fc015ccbd71ee7ad98",
-    "verify.py": "9cabbad363263c82a21fb09462932a019bd2d2d3de860aebf32fa69b6a9e25ca",
+    "verify.py": "8d8ea8a774888e85a2b427b82ac623678d7cf09b652250ebf93332c30e58f91a",
     "verify_sources.py": "64029fdc7d79f5eb5cd49f70e1ed4beb54d0844128932ea1d05b134af2963ecc"
   },
   "status": "PASS",

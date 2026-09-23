@@ -90,13 +90,22 @@ stopping conditions below still govern any change inside the seal.
   mutates admitted state without a separately defined admission event.
 - Receipts (hashes, test passes, parser success) are never treated as proof of
   an unverified mathematical payload.
-- No known theory is targeted or named during the derivation. The post-hoc
-  comparison once allowed in the paper's final section was withheld by caller
-  correction on 2026-08-11: no external architecture, theory or project
-  terminology appears **anywhere in this repository** outside the read-only
-  seed prompt. The vocabulary firewall in `tests/test_primitive_contact.py`
-  walks the whole tree via `git ls-files`. It bars the 102 working-denylist
-  identifiers outside `contact/analysis/`.
+- **Vocabulary ruling (author, 2026-09-23).** No external theory,
+  architecture, or project terminology may be introduced as an input to the
+  sealed derivation. The read-only seed prompt remains an immutable supplied
+  input. Research outside the seal may use explicitly classified supplied
+  vocabulary; such vocabulary supplies neither a native derivation nor a
+  proved bridge. The six already fenced post-hoc comparison sections
+  identified in paper section 13 are preserved as historical records in
+  their existing positions. They are not derivational inputs, theorem
+  evidence, or authorization to extend comparison inside the seal. External
+  citations remain prohibited throughout the repository. The identifier
+  firewall and prose watchlist retain their current populations; changing
+  either population requires a separate deliberate author decision. The
+  vocabulary firewall in `tests/test_primitive_contact.py` walks the whole
+  tree via `git ls-files` and bars the 102 working-denylist identifiers
+  outside `contact/analysis/`. This ruling supersedes the repository-wide
+  vocabulary prohibition; `docs/claude_md_history.md` records the change.
 - **Refused grid, recorded (author, 2026-08-31).**
   - *What was offered:* an outside classification grid, nine single-letter
     slot names and an accompanying phrase, offered through the operator
