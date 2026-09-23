@@ -52,3 +52,16 @@ def test_comprehensive_predictor_sweep() -> None:
     for ref in results:
         assert ref.refutation_success, f"Failed to refute predictor {ref.predictor_name}"
         assert ref.predicted_halt != ref.actual_halt
+
+
+def test_exact_finite_predictor_is_not_artificially_refuted() -> None:
+    """A correct predictor on the probed finite family has no false witness."""
+    budget = 8
+
+    def exact_finite_predictor(spec, code):
+        state = MachineState(state=0, cursor=0, tape=code, fuel=budget, halted=False)
+        return run_direct(spec, state, max_steps=budget).halted
+
+    result = evaluate_diagonal_obstruction("ExactFinite", exact_finite_predictor, fuel_budget=budget)
+    assert not result.refutation_success
+    assert result.predicted_halt == result.actual_halt

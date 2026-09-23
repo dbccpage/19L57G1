@@ -175,7 +175,7 @@
   "source_hashes": {
     "horizons.py": "d9cf5853f1e4c598443a3895cd3115d0431bbfe24bac5ae0e252d89017b9a11d",
     "lean/Inventory.lean": "38eae3dcde33246a77279762c7ea1959f80dde1071b856a52949ff894a89ec61",
-    "lean/NonclassicalHorizons.lean": "cdaab9a6869081911196dc72fcd43ea903dbd648a2586517bf3eeb83cb80b7c0",
+    "lean/NonclassicalHorizons.lean": "6adec5cc0f030170dd1ecd9fab584b5ed7fecd4bf8692ade745b215a5b7c944f",
     "tests/test_horizons.py": "c2d06d41e4f49be5919a36e41ef937ce0bf3a5ee6fefd937d10424c45091a519",
     "verify.py": "be629ee49341a093b2c604404015cb79ad81810e7ddc33b3e4a502a2508003f4",
     "verify_sources.py": "b418a57dd753043cfbe8f4b72e822139f989ca3af82ffc446cf2a7805ca7af11"

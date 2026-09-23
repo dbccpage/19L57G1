@@ -2,6 +2,11 @@
 
 This ledger documents the formal mathematical and computational claims established by `research/p209c_stabilizer_codes/` under constructive core Lean 4 and exact Python implementations.
 
+Evidence boundary: Lean proves explicit Pauli-string and syndrome equalities,
+ending with seven X-error syndrome evaluations. Codespace dimensions, distance,
+decoding, and projector statements below are Python calculations for named
+finite examples unless an exact Lean theorem is individually cited.
+
 AuthorityEffect: None.
 Axiom Scope: Strictly contained within `{propext, Quot.sound}`; zero `Classical.choice`; zero `mathlib`.
 
@@ -25,7 +30,7 @@ Axiom Scope: Strictly contained within `{propext, Quot.sound}`; zero `Classical.
   - `research/p209c_stabilizer_codes/stabilizer_codes.py`
   - `research/p209c_stabilizer_codes/tests/test_stabilizer.py`
 - **Claim Discipline**:
-  1. *What it supports*: Confirms that two pairwise commuting weight-2 $Z$-type stabilizers on 3 state carriers define a 2-dimensional codespace with distinct syndrome signatures for all single bit-flip operators.
+  1. *What it supports*: Lean checks the named commutations and syndrome signatures; the codespace dimension is a separate Python calculation.
   2. *What it does not support*: Does not protect against single-carrier sign-flip ($Z$) errors or arbitrary composite noise channels.
   3. *Narrowest defensible claim*: For the discrete Pauli string algebra on 3 carriers, $S_1 = ZZI$ and $S_2 = IZZ$ yield four pairwise distinct syndrome pairs over $\{I, X_1, X_2, X_3\}$.
   4. *Next test needed*: Concatenation with a 3-carrier sign-flip code to construct the 9-carrier Shor code architecture.
@@ -59,7 +64,7 @@ Axiom Scope: Strictly contained within `{propext, Quot.sound}`; zero `Classical.
   - `research/p209c_stabilizer_codes/stabilizer_codes.py`
   - `research/p209c_stabilizer_codes/tests/test_stabilizer.py`
 - **Claim Discipline**:
-  1. *What it supports*: Confirms that 4 state carriers on a periodic discrete square grid support a $[[4, 2, 2]]$ error-detecting CSS code where every weight-1 Pauli error yields a non-zero syndrome.
+  1. *What it supports*: Lean checks selected explicit commutations and Python checks the named four-carrier error-detection example; no general Lean distance theorem is cited.
   2. *What it does not support*: Does not support deterministic correction of weight-1 errors, as syndromes identify error type ($X, Z, Y$) rather than carrier locus.
   3. *Narrowest defensible claim*: For $S_Z = Z^{\otimes 4}$ and $S_X = X^{\otimes 4}$, all 12 single-carrier Pauli operators have syndrome $(s_Z, s_X) \neq (0, 0)$.
   4. *Next test needed*: Surface code extensions on $L \times L$ planar discrete grids with boundary boundaries.
@@ -118,16 +123,16 @@ Axiom Scope: Strictly contained within `{propext, Quot.sound}`; zero `Classical.
   - `research/p209c_stabilizer_codes/stabilizer_codes.py`
   - `research/p209c_stabilizer_codes/tests/test_stabilizer.py`
 - **Claim Discipline**:
-  1. *What it supports*: Confirms deterministic correction of all weight-1 Pauli errors via binary syndrome lookup.
+  1. *What it supports*: Python checks the declared finite correction examples; Lean evaluates seven explicit X-error syndromes only.
   2. *What it does not support*: Does not protect against weight-2 or higher errors, which can mimic weight-1 errors or act as non-trivial logical operators.
-  3. *Narrowest defensible claim*: For all 21 single-carrier Pauli operators $E$, the syndrome pair uniquely identifies $E$, and $E \cdot E$ evaluates to identity on state carriers.
+  3. *Narrowest defensible claim*: In Lean, the seven named X errors have the displayed syndrome values. The 21-error lookup and recovery are Python-level results for the named code.
   4. *Next test needed*: Minimum-weight perfect matching decoding for higher-distance surface geometries.
 
 ---
 
 ## CL-P209C-06: Exact Stabilizer Projection Operator Idempotence
 
-- **Statement**: For any valid abelian stabilizer group $S$ on discrete state carriers, the projection operator $\Pi_S = \frac{1}{|S|} \sum_{M \in S} M$ satisfies exact algebraic idempotence $\Pi_S^2 = \Pi_S$ and has trace equal to the codespace dimension $2^{n - m}$.
+- **Statement**: For the three explicitly evaluated Python groups, the unnormalized operator sum $K_S$ satisfies the checked matrix identity $K_S^2 = |S|K_S$, with the reported traces. No universal projector theorem is implemented in Lean here.
 - **Evidence Paths**:
   - `research/p209c_stabilizer_codes/stabilizer_codes.py`
   - `research/p209c_stabilizer_codes/tests/test_stabilizer.py`

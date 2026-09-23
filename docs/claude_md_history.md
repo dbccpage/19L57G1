@@ -9,6 +9,25 @@ execution plan. The current rules are in `CLAUDE.md`. The injection record
 continues in `docs/injection_record.md`. Where this archive and `CLAUDE.md`
 differ, `CLAUDE.md` governs.
 
+## Later author ruling: vocabulary, 2026-09-23
+
+The author explicitly approved the proposed rule while closing Section 3.
+The repository-wide vocabulary prohibition is superseded by the current
+`CLAUDE.md` rule: no external terminology as a sealed derivational input;
+explicitly classified supplied vocabulary is permitted in research outside
+the seal. The six already fenced comparisons named in paper section 13 are
+preserved as historical records in their existing positions, with no
+permission to extend sealed comparison. They supply no derivational input,
+theorem evidence or native bridge. External citations remain prohibited.
+The identifier firewall and prose watchlist retain their current populations;
+changing those populations requires a separate deliberate author decision.
+
+The earlier statement that no external terminology appears anywhere in the
+repository is withdrawn as a present-file claim. Historical blindness remains
+an author attestation, not a result of scanning current files. The historical
+policy and placement flags elsewhere describe their earlier source snapshots.
+The archive below the rule is unchanged.
+
 ---
 
 # CLAUDE.md — Execution Plan

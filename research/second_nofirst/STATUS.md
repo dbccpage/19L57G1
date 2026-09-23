@@ -24,6 +24,10 @@ proofs are in `lean/`, with the axiom log committed at
   Sources and spans were rehashed from HEAD; snapshot is now
   `233621725ea7b3281a12604f63a0345ac85f9f39`. `research/second_stream/` is
   present at this snapshot. Frozen texts were not repinned.
+- **2026-09-23 repin (PR 231):** the author-authorized Section 3 correction (#231) edited paper/paper.md
+  (`6C657F4F…` → `8E0A3F23…`).  The pinned span (lines 531-537) still
+  hashes to its recorded value.  Sources and spans were rehashed from HEAD;
+  snapshot is now `16fcffd64fcc8c7299a5dda5bb8b7082dc181c11`.  Frozen texts were not repinned.
 - **Pull request 133 merged while this rung was being built**, at
   `9b9bea87f0ed3b3bd5be8145b837f91cbaeb3d4d`.  No pinned source moved: it added
   `research/second_stream/` and appended to the two shared files, and every

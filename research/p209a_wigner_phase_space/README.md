@@ -2,7 +2,7 @@
 
 ## Overview
 
-This research package formalizes discrete Wigner phase_spaces on finite state carriers of odd_prime dimensions $p \in \{3, 5\}$, discrete Weyl displacement operators, Gross phase_point operators, stabilizer state non-negativity, and magic state negativity witnesses under Target P209a.
+This research package combines exact Python calculations for discrete `phase_space` examples in dimensions 3 and 5 with a narrower Lean development of explicit parity, shift, eigenstate, and rational-value facts. The Lean negativity lemma compares a separately defined value of $-1/p$ with zero; it does not derive that value from a density operator and `phase_point` frame.
 
 AuthorityEffect: None.
 Axiom Scope: Constructive core Lean 4; `#print axioms` strictly within `{propext, Quot.sound}`; zero `Classical.choice`; zero `mathlib`.
@@ -44,11 +44,13 @@ $$W_\rho(q, p) = \frac{1}{p} \operatorname{Tr}(\rho A(q, p))$$
 
 ### 4. Stabilizer Non-Negativity and Magic State Negativity Witnesses
 - **Stabilizer Non-Negativity**: For stabilizer eigenstates $|0\rangle$ and $|+\rangle$, $W(q, p) \ge 0$ everywhere on $\mathbb{F}_p \times \mathbb{F}_p$.
-- **Magic State Negativity Witness**: For the non_classical resource state $|M\rangle = \frac{1}{\sqrt{2}}(|1\rangle - |p-1\rangle)$:
+- **Python magic-state example**: For the declared resource state $|M\rangle = \frac{1}{\sqrt{2}}(|1\rangle - |p-1\rangle)$:
   $$P |M\rangle = -|M\rangle$$
   yielding a strict point negativity witness at the origin:
   $$W_{|M\rangle}(0, 0) = -\frac{1}{p} < 0$$
   specifically $W(0, 0) = -1/3$ in dimension 3 and $W(0, 0) = -1/5$ in dimension 5.
+
+The cited Lean file checks parity eigenstate and expectation facts separately, then defines these negative rational point values. A Lean bridge from its parity expectation to the Wigner value remains to be established.
 
 ---
 

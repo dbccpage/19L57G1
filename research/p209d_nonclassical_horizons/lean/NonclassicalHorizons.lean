@@ -291,9 +291,8 @@ theorem wigner_magic_origin_negative : StrictlyNegative (W_magic_norrell 0 0) :=
   dsimp [StrictlyNegative, W_magic_norrell]
   decide
 
-/-- Discrete Hudson Theorem Boundary:
-    Stabilizer states inhabit the non-negative Wigner cone (W ≥ 0),
-    whereas magic states break non-negativity with negative quasiprobability. -/
+/-- Comparison of signs for two explicitly defined non-negative tables and
+    one explicitly defined negative origin value. -/
 theorem discrete_hudson_boundary_separation :
     (∀ q p : Fin 3, NonNegative (W_stab_zero q p)) ∧
     StrictlyNegative (W_magic_norrell 0 0) := by
@@ -363,9 +362,8 @@ theorem magic_branch_5_eval : magic_branch_count 5 = 32 := rfl
 theorem magic_branch_5_gt_quadratic : magic_branch_count 5 > 5 * 5 := by
   decide
 
-/-- Gottesman-Knill computational horizon:
-    Pure Clifford circuits simulate in polynomial time O(m · n²),
-    while k injected magic states mandate exponential branch tracking 2^k. -/
+/-- At k = 10, the declared doubling recurrence evaluates to 1024,
+    which exceeds 100. No simulator lower bound is stated. -/
 theorem gottesman_knill_separation (k : Nat) (h : k = 10) :
     magic_branch_count k = 1024 ∧ 1024 > 10 * 10 := by
   rw [h]

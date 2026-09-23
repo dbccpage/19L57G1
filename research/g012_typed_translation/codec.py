@@ -109,7 +109,11 @@ Result = Ok[T] | Err[E]
 
 @dataclass(frozen=True)
 class RelationalState:
-    """Relational carrier partitioned into data, forms, insts, rules, reqs."""
+    """String-token carrier for this typed-structure codec.
+
+    Malformed values remain constructible so `decode` can return a structured
+    refusal. Shared field names do not identify this with the sealed Regime.
+    """
 
     data: tuple[str, ...]
     forms: tuple[str, ...]
@@ -117,14 +121,9 @@ class RelationalState:
     rules: tuple[str, ...]
     reqs: tuple[str, ...]
 
-    def __post_init__(self) -> None:
-        # Enforce canonical ordering across all carrier components
-        pass
-
-
 @dataclass(frozen=True)
 class RelationalOp:
-    """Operational transition on the relational carrier."""
+    """Operational transition, including removals outside native admission."""
 
     added_data: tuple[str, ...] = ()
     added_forms: tuple[str, ...] = ()
