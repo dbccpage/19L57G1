@@ -57,7 +57,10 @@ def audit_readout_step_commutation(
 def audit_codec_roundtrip_commutation(
     sample_states: Optional[Sequence[SubstrateState]] = None,
 ) -> bool:
-    """Verify signature codec round-trip identity: T^-1 o T = id and step transport."""
+    """Check sample round trips with tape and protection supplied separately.
+
+    This audit does not compare transitions or prove full codec inversion.
+    """
     if sample_states is None:
         ctrl = frozenset({(0, 0), (1, 1)})
         c = Controlled(n=2, ops=((1, 0), (0, 1)), ctrl=ctrl)

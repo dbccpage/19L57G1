@@ -200,7 +200,7 @@
     "__init__.py": "8226d6f42af8f8363a1465bf81da342a5319dae083904c02ef3ce767cfed2ada",
     "_bootstrap.py": "b34da70341bc87cc07ffb886a01166b4457e1485c6489714d6cc0808726be072",
     "codec.py": "880b1898d1f54268269f2517ed5514d3de037e7cbe1e40b877c439e02c3323d2",
-    "commutation.py": "c48bb01faf3cdf52910f012c79b8c5ab7ce1b17158b172ea37486ab6dc075106",
+    "commutation.py": "aeebb5583708527afbfa915bc10f0cc7fc048f3740c689360854303169d7c7f2",
     "lean/Inventory.lean": "3bd8fb5b555d7a8f9069e18911cf6f5e41843d00221755eb82de9ecdf43206f0",
     "lean/VerticalIntegration.lean": "b8dd527e10332fca431ee568279e57990e8ed2781ed0828a09fd2ebce9f34919",
     "pipeline.py": "20fa629ee827060aa83bedc9ec355849005f8f583fdd574cd7a4e08af5da3709",
