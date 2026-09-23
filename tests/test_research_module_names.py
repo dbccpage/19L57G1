@@ -541,6 +541,18 @@ PINNED_COLLISIONS: dict[tuple[str, str], tuple[str, ...]] = {
         "research/represented_execution/lean",
         "research/setting_translation/lean",
     ),
+    # Accepted 2026-09-23 (plan F, #238), argued in its restoring pull
+    # request: domain_adapters requires native_bridge, which requires g013
+    # for its G013 read-back, and it requires p209b for the imported matrix
+    # carrier.  Both supply an `Inventory`.  Nothing in this closure imports
+    # `Inventory` (assertion 3 holds), and the tree's verifier compiles its
+    # own AxiomReport.lean by file path, never an `import Inventory` script
+    # (assertion 2 holds), so the ambiguity is never resolved by anything.
+    # Removing it would split native_bridge's read-back into its own package.
+    ("Inventory", "research/domain_adapters/lean"): (
+        "research/g013_trace_calculus/lean",
+        "research/p209b_clifford_symplectic/lean",
+    ),
     ("Inventory", "research/ignition/lean"): (
         "research/ignition/lean",
         "research/local_reuse/lean",
