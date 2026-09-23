@@ -1,0 +1,29 @@
+{
+  "authority_effect": "None",
+  "bounds": {
+    "battery_depth": 3,
+    "counter_bound": 32,
+    "grid_radius": 3
+  },
+  "counter": {
+    "distinct_cores": 33,
+    "squares": 32
+  },
+  "license": {
+    "acting_applies": 48,
+    "gated_applies": 684,
+    "inert_proposals": 1593,
+    "states": 531
+  },
+  "mechanics": {
+    "moved": 2400,
+    "pairs": 2401
+  },
+  "quantum": {
+    "budget_squares": 4,
+    "distinct_cores": 1,
+    "distinct_encodings": 4,
+    "moved": 2,
+    "vectors": 4
+  }
+}
