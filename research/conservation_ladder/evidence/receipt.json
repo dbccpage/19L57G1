@@ -1,0 +1,35 @@
+{
+  "authority_effect": "None",
+  "bounds": {
+    "coefficient_radius": 2,
+    "grid_radius": 2,
+    "history_length": 8
+  },
+  "coefficients": [
+    -2,
+    -1,
+    0,
+    1,
+    2
+  ],
+  "conservation": {
+    "aniso_histories_with_moving_charge": 576,
+    "central_histories": 3125,
+    "variations_checked": 37500
+  },
+  "exactness": {
+    "checked": 9375
+  },
+  "invariance": {
+    "aniso_rot_failures": 400,
+    "central0_shift_failures": 0,
+    "central1_shift_failures": 500,
+    "central_rot_failures": 0,
+    "pairs": 625
+  },
+  "nonstationary": {
+    "moving": 1528,
+    "triples": 2197
+  },
+  "points": 25
+}

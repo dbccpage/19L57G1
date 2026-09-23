@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "snapshot": "1805e58145171f92eb0f300c44ea4bb7fd5b1684",
+  "pins": {
+    "lean4/Derivation/PrimitivePassage.lean": "80563edc5922c64b193fbb86c88fb5546f22777d",
+    "lean4/Derivation/TransitionAlphabet.lean": "403c929c1dce8d93dd6a3989b0ceada2b51a1170",
+    "research/native_bridge/lean/ResearchNativeBridge/Path.lean": "16b82caaa1bc23da0a981c9149d1b899998fb62a",
+    "research/native_bridge/lean/ResearchNativeBridge/Passage.lean": "582a1c56f47f45fa9d09d1eba2b38ecf5e4b5fe1"
+  }
+}

@@ -1,0 +1,16 @@
+name = "conservation_ladder"
+version = "0.1.0"
+defaultTargets = ["ResearchConservationLadder"]
+
+# The sealed derivation package, consumed read-only.
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+# The native_bridge tree's actual-step paths, consumed read-only.
+[[require]]
+name = "native_bridge"
+path = "../../native_bridge/lean"
+
+[[lean_lib]]
+name = "ResearchConservationLadder"
