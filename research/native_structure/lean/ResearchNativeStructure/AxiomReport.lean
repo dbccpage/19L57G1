@@ -1,0 +1,35 @@
+import ResearchNativeStructure
+
+-- Exact reach is the declaration list in TREE_CONTRACT.json.
+#print axioms ResearchNativeStructure.swap_sound
+#print axioms ResearchNativeStructure.cell_sound
+#print axioms ResearchNativeStructure.cell_perm
+#print axioms ResearchNativeStructure.cell_append_right
+#print axioms ResearchNativeStructure.cell_append_left
+#print axioms ResearchNativeStructure.cell_hcomp
+#print axioms ResearchNativeStructure.swap_license
+#print axioms ResearchNativeStructure.swap_budget
+#print axioms ResearchNativeStructure.swap_occ
+#print axioms ResearchNativeStructure.parallel_not_cell
+#print axioms ResearchNativeStructure.boundary_boundary
+#print axioms ResearchNativeStructure.boundary_zero_iff_commutes
+#print axioms ResearchNativeStructure.terminal_square_boundary
+#print axioms ResearchNativeStructure.pathCost_append
+#print axioms ResearchNativeStructure.exact_pathCost
+#print axioms ResearchNativeStructure.exact_closed
+#print axioms ResearchNativeStructure.closed_cell_cost
+#print axioms ResearchNativeStructure.not_exact_of_cycle
+#print axioms ResearchNativeStructure.budgetDelta_exact
+#print axioms ResearchNativeStructure.writes_not_exact
+#print axioms ResearchNativeStructure.core_descends
+#print axioms ResearchNativeStructure.refineCol_not_descends
+#print axioms ResearchNativeStructure.addCol_not_descends
+#print axioms ResearchNativeStructure.path_descends
+#print axioms ResearchNativeStructure.actS_id
+#print axioms ResearchNativeStructure.actS_comp
+#print axioms ResearchNativeStructure.step_equivariant
+#print axioms ResearchNativeStructure.needs_injective
+#print axioms ResearchNativeStructure.size_act
+#print axioms ResearchNativeStructure.core_act_eq
+#print axioms ResearchNativeStructure.replayP_act
+#print axioms ResearchNativeStructure.cost_invariant
