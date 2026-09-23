@@ -49,12 +49,12 @@ Lean layout. The first and last also have explicit build-recipe entries.
 | `closed_family` | local receipt only |  |
 | `coherent_process_limits` | local receipt only |  |
 | `concurrency` | local receipt only |  |
-| `conservation_ladder` | local receipt only |  |
+| `conservation_ladder` | workflow (gate 11) |  |
 | `convention_price` | local receipt only |  |
 | `cost_cohomology` | local receipt only |  |
 | `described_replay` | local receipt only |  |
 | `diagonal_identity` | local receipt only |  |
-| `domain_adapters` | local receipt only |  |
+| `domain_adapters` | workflow (gate 11) |  |
 | `dynamics_step` | local receipt only | parked |
 | `endogenous_continuum` | local receipt only |  |
 | `endogenous_demand` | local receipt only |  |
@@ -93,8 +93,8 @@ Lean layout. The first and last also have explicit build-recipe entries.
 | `magnification` | local receipt only |  |
 | `multi_depth` | local receipt only |  |
 | `multi_magnitude` | local receipt only |  |
-| `native_bridge` | local receipt only |  |
-| `native_structure` | local receipt only |  |
+| `native_bridge` | workflow (gate 11) |  |
+| `native_structure` | workflow (gate 11) |  |
 | `natural_sections` | local receipt only |  |
 | `observer_visibility` | local receipt only |  |
 | `oriented_boundary` | local receipt only |  |

@@ -320,9 +320,12 @@ what actually runs.
 11. **Registered research trees:** their pins, tests, strict typing and
     receipts. This is not a sealed-derivation gate.
     - *Which trees:* the registered set is the workflow's `research` job,
-      plus the two research Lean audits in its `lean` job (`second_nofirst`
-      and `typed_translation`). `research/README.md` marks each tree's
-      registration, and `python ci/run_gates.py --job research` runs them.
+      plus the research Lean audits in its `lean` job: `second_nofirst`,
+      `typed_translation`, and (author, 2026-09-23) the four foundations
+      trees `native_bridge`, `native_structure`, `conservation_ladder` and
+      `domain_adapters`, whose receipt checks run in the `research` job.
+      `research/README.md` marks each tree's registration, and
+      `python ci/run_gates.py --job research` runs them.
     - *What it does not cover:* every other tree's `verify_lean.py` stays a
       manual receipt, unchecked by any gate. So does every check of a tree
       outside the registered set. Such a check can be red on `main` while

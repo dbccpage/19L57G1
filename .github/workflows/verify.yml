@@ -176,6 +176,31 @@ jobs:
       # declaration census is compared with an exact committed inventory.
       - name: Typed translation, fresh Lean and total axiom inventory
         run: python3 research/typed_translation/verify_lean.py
+      # The four foundations trees of 2026-09-23 (plans C to F). Each runs its
+      # canonical new-tree verifier: input pins, tests, strict typing, its own
+      # Lake build against the sealed package, and the exact named axiom
+      # reports its TREE_CONTRACT.json lists. It runs here because it needs
+      # elan and builds Lean; the research job checks only their receipts.
+      - name: Native bridge, tree verifier with Lean and named axiom reports
+        working-directory: research/native_bridge
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python verify.py --check
+      - name: Native structure, tree verifier with Lean and named axiom reports
+        working-directory: research/native_structure
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python verify.py --check
+      - name: Conservation ladder, tree verifier with Lean and named axiom reports
+        working-directory: research/conservation_ladder
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python verify.py --check
+      - name: Domain adapters, tree verifier with Lean and named axiom reports
+        working-directory: research/domain_adapters
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python verify.py --check
       - name: Every compiled declaration stays within the axiom boundary
         run: python3 ci/check_declaration_axioms.py
       # Must stay LAST in this job and must not write to lake_build.log: the
@@ -233,11 +258,14 @@ jobs:
   #
   # NOT run here: verify_lean.py. It builds the research Lake package, which
   # needs elan and compiles the sealed package as a dependency -- exactly the
-  # expense this job exists to avoid. Two research Lean verifiers run in the
-  # lean job instead (second_nofirst and typed_translation). Every other
-  # tree's AXIOMS remain a manual receipt, unchecked by any gate; do not read
-  # a green run here as covering them. (2026-09-21: this comment used to say
-  # no research tree's axioms were gated; that is withdrawn.)
+  # expense this job exists to avoid. Research Lean verifiers run in the
+  # lean job instead: second_nofirst and typed_translation, and since
+  # 2026-09-23 the four foundations trees (native_bridge, native_structure,
+  # conservation_ladder, domain_adapters). Every other tree's AXIOMS remain
+  # a manual receipt, unchecked by any gate; do not read a green run here as
+  # covering them. (2026-09-21: this comment used to say no research tree's
+  # axioms were gated; that is withdrawn. 2026-09-23: it used to say two
+  # research Lean verifiers run in the lean job; that is withdrawn.)
   research:
     runs-on: ubuntu-latest
     steps:
@@ -562,6 +590,21 @@ jobs:
       - name: Typed translation, published prose bound to fresh computation
         working-directory: research/typed_translation
         run: python verify_prose.py
+      # The four foundations trees: each finite receipt regenerates
+      # byte-identically from the pinned bounds. Their Lean runs in the lean
+      # job, which is where their full verifier is registered.
+      - name: Native bridge, receipt regenerates byte-identically
+        working-directory: research/native_bridge
+        run: python run.py --check
+      - name: Native structure, receipt regenerates byte-identically
+        working-directory: research/native_structure
+        run: python run.py --check
+      - name: Conservation ladder, receipt regenerates byte-identically
+        working-directory: research/conservation_ladder
+        run: python run.py --check
+      - name: Domain adapters, receipt regenerates byte-identically
+        working-directory: research/domain_adapters
+        run: python run.py --check
       # Last in this job on purpose: it runs EVERY research tree's own custody
       # verifier, including the trees this job does not otherwise touch, and
       # compares the outcome set with ci/tree_custody_pin.json. Most trees are

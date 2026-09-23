@@ -132,3 +132,28 @@ an injection. Recovery is the unmodified fixture or byte-identical regeneration.
 | Incremental custody | delete a cached headline or alter the bound graph | REFRESH_CACHE_POPULATION_CHANGED; source drift invalidates its descendants while historical evidence remains unchanged |
 | Corrected source custody | absent or duplicate subject, a source from another subject, stale span, failed check, absent check link, or a check of another tree | CORRECTION_POPULATION_MISMATCH; CORRECTION_SUBJECT_SOURCE_MISSING; SOURCE_REFERENCE_MISMATCH; CORRECTION_CHECK_FAILED; CORRECTION_CHECK_LINK_MISSING; CORRECTION_CHECK_WRONG_TREE |
 | Correction publication boundary | unmerged or unavailable main ancestry, the original source presented as a correction, or promotion to a theorem | CORRECTION_NOT_MERGED; CORRECTION_REQUIRES_NEW_SOURCE_VERSION; CORRECTION_DISPOSITION; corrected wording retains its open mathematical obligations |
+
+## Foundations trees registered in the local gates (2026-09-23)
+
+Plan G registered the four foundations trees:
+
+- each tree's canonical `verify.py --check` runs in the `lean` job;
+- each tree's `run.py --check` runs in the `research` job.
+
+Every injection below was made on disk, uncommitted, in a worktree of
+`chore/foundations-registration`, and reverted with `git checkout` or a
+byte copy. The step was then re-run and exited 0. No receipt or pin was
+regenerated while an injection was live.
+
+| Step | Injection | Observed failure |
+|---|---|---|
+| `lean`: native_bridge tree verifier | one byte appended to the pinned `input.json` | exit 1; `FAIL: SOURCE_MANIFEST.json: stale pin population or digest: ['research/native_bridge/input.json']` |
+| `lean`: native_structure tree verifier | the same, on its `input.json` | exit 1, naming `research/native_structure/input.json` |
+| `lean`: conservation_ladder tree verifier | the same, on its `input.json` | exit 1, naming `research/conservation_ladder/input.json` |
+| `lean`: domain_adapters tree verifier | the same, on its `input.json` | exit 1, naming `research/domain_adapters/input.json` |
+| `lean`: native_bridge tree verifier, axiom scope | `#print axioms ResearchNativeBridge.run_step` appended to `AxiomReport.lean`, outside the contract's declared list | exit 1; `FAIL: AxiomReport.lean: expected [...], reported [...]`, listing `ResearchNativeBridge.run_step` among the reported names |
+| `lean`: native_bridge tree verifier, forbidden token | a comment carrying the forbidden proof-shortcut word appended to `Path.lean` | exit 1; `FAIL: lean\ResearchNativeBridge\Path.lean: forbidden proof shortcut` |
+| `research`: native_bridge receipt | `"authority_effect": "None"` changed to `"Nonf"` in `evidence/receipt.json` | exit 1; `FAIL: evidence/receipt.json differs from a fresh computation` |
+| `research`: native_structure receipt | the same | the same failure |
+| `research`: conservation_ladder receipt | the same | the same failure |
+| `research`: domain_adapters receipt | the same | the same failure |
