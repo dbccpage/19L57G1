@@ -1,0 +1,28 @@
+{
+  "all_headlines_supported": false,
+  "claim_statuses": {
+    "CONDITIONAL": 12,
+    "OPEN": 20592,
+    "REFUTED": 1,
+    "VERIFIED_FINITE": 1
+  },
+  "claims": 20606,
+  "compiled_theorems": 3953,
+  "independent_commands": 31,
+  "independent_results": {
+    "FAILED": 1,
+    "PASSED": 30
+  },
+  "independently_replayed_trees": 24,
+  "interpretation": "Complete source-block disposition is distinct from mathematical adequacy. Unreviewed metadata, listings and historical prose are conservatively unresolved, so the unresolved count is not a count of false theorems.",
+  "inventory_complete": true,
+  "ledger_entries": 1339,
+  "public_blocks": 23426,
+  "public_files": 375,
+  "scope_verdicts": {
+    "CONTEXT": 49,
+    "MATCHED": 5,
+    "UNRESOLVED": 23372
+  },
+  "source_trees": 103
+}

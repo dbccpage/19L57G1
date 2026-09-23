@@ -79,3 +79,23 @@ That is WITHDRAWN as to the parked-module residual, which is closed, and
 injection is exactly how the closure was shown to bite. The general point
 survives and still applies to the research-tree axiom receipt above:
 injection demonstrates that a residual is live; it does not close one.
+
+## Evidence graph controls, 2026-09-23
+
+These are synthetic input mutations in the new consumer's tests. They exercise
+the named schema and population guards without editing a sealed source theorem,
+altering another tree's verifier, or regenerating a scientific receipt under
+an injection. Recovery is the unmodified fixture or byte-identical regeneration.
+
+| Guard | Injected input defect | Named failure or discriminating result |
+|---|---|---|
+| Header census | nested comment containing an import, string mention, or import-looking text after the module body | none joins the header-import population; malformed headers fail by name |
+| Typed links | missing parent bridge or assumption | LINK_MISSING; empty conditional assumptions give CONDITIONAL_ASSUMPTIONS_MISSING |
+| Source custody | changed source digest or wrong replay head | SOURCE_REFERENCE_MISMATCH; REPLAY_NOT_SUCCESSFUL |
+| Compiled scope | stale declaration or added local premise in a report | THEOREM_NOT_IN_REPORT; THEOREM_SCOPE_CHANGED; altered payload gives COMPILED_PAYLOAD_CHANGED |
+| Finite scope | increase the claim's bound, or increase both claim and computation without a renewed review | FINITE_BOUND_SCOPE_CHANGED |
+| Native lineage | relabel a parallel research fixture native without its parent map | NATIVE_BRIDGE_MISSING |
+| Headline population | remove a headline while retaining its expected source population, or supply an empty population | HEADLINE_POPULATION_MISMATCH; HEADLINE_POPULATION_EMPTY |
+| Independent verifier | substitute an aggregate helper for the named tree-local command | INDEPENDENT_VERIFIER_SUBSTITUTED; foreign origin gives INDEPENDENT_VERIFIER_ORIGIN |
+| Artifact population | add, remove or change a generated artifact | ARTIFACT_POPULATION_MISMATCH; GRAPH_ARTIFACT_DIFFERS |
+| Incremental custody | delete a cached headline or alter the bound graph | REFRESH_CACHE_POPULATION_CHANGED; source drift invalidates its descendants while historical evidence remains unchanged |

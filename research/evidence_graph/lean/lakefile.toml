@@ -1,0 +1,6 @@
+name = "evidence_graph"
+version = "0.1.0"
+defaultTargets = ["ResearchEvidenceGraph"]
+
+[[lean_lib]]
+name = "ResearchEvidenceGraph"
