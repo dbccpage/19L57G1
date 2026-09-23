@@ -7,6 +7,16 @@ along with the diagonal_identity dual module.
 Sealed prefixes must stay clean.
 
 A pass says the inputs did not move. AuthorityEffect: None.
+
+Pins certify the snapshot (2026-09-23, applying the author's ruling of
+2026-09-22).  PROVENANCE fails: every pinned source hashes to its recorded
+value at the snapshot, and the worktree carries nothing under a sealed
+prefix.  CURRENCY is printed as ``DRIFT:`` lines, then a ``drift since the
+snapshot:`` count, and does not fail: a pinned source that moved or is
+absent at HEAD, or a tracked sealed path that differs between the snapshot
+and HEAD.  ``--require-current`` restores that failure.  This file used to
+fail on both.  The snapshot blob is fixed history, so every authorized
+sealed edit turned it red until a repin, whatever this tree claimed.
 """
 
 from __future__ import annotations
@@ -150,10 +160,31 @@ def _sources(manifest: dict[str, Any]) -> list[dict[str, Any]]:
     return sources
 
 
-def verify(manifest: dict[str, Any] | None = None) -> list[str]:
+def _head_drift(head: str, relative: PurePosixPath, wanted: str) -> list[str]:
+    """How a pinned source differs at HEAD, reported rather than failed.
+
+    A path that is tracked at HEAD but cannot be read is still a failure:
+    that is a Git read error, not drift.
+    """
+    try:
+        at_head = _sha256_git_blob(head, relative)
+    except ValueError as exc:
+        listed = _git("ls-tree", "-r", "--name-only", head, "--", relative.as_posix())
+        if relative.as_posix() in listed.splitlines():
+            raise ValueError(f"could not read {relative} at HEAD: {exc}") from exc
+        return [f"{relative} is absent at HEAD"]
+    if at_head != wanted:
+        return [f"{relative} at HEAD is {at_head}, pinned {wanted}"]
+    return []
+
+
+def verify(
+    manifest: dict[str, Any] | None = None, *, require_current: bool = False
+) -> list[str]:
     if manifest is None:
         manifest = read_manifest()
     lines: list[str] = []
+    drift: list[str] = []
 
     head = _git("rev-parse", "HEAD")
     _require_hex(head, 40, "verification commit", uppercase=False)
@@ -200,23 +231,23 @@ def verify(manifest: dict[str, Any] | None = None) -> list[str]:
             raise ValueError(f"unknown source role {role!r} for {relative}")
         wanted = _required_string(item, "sha256", "source")
         _require_hex(wanted, 64, f"sha256 for {relative}", uppercase=True)
-        for label, revision in (("snapshot", snapshot), ("HEAD", head)):
-            actual = _sha256_git_blob(revision, relative)
-            if actual != wanted:
-                raise ValueError(
-                    f"hash mismatch for {relative} at {label} {revision}: "
-                    f"expected {wanted}, got {actual}"
-                )
-        lines.append(f"pin: {relative} {wanted} ({role}; at snapshot and HEAD)")
+        actual = _sha256_git_blob(snapshot, relative)
+        if actual != wanted:
+            raise ValueError(
+                f"hash mismatch for {relative} at snapshot {snapshot}: "
+                f"expected {wanted}, got {actual}"
+            )
+        drift.extend(_head_drift(head, relative, wanted))
+        lines.append(f"pin: {relative} {wanted} ({role}; at the snapshot)")
 
     moved = _git_bytes("diff", "--name-only", "-z", snapshot, head, "--", *SEALED_PATHSPECS)
     names = sorted(part.decode("utf-8") for part in moved.split(b"\0") if part)
-    if names:
+    drift.extend(f"sealed path {name} differs between the snapshot and HEAD" for name in names)
+    if drift and require_current:
         raise ValueError(
-            "tracked sealed paths differ between the snapshot and HEAD:\n  "
-            + "\n  ".join(names)
+            "pinned inputs moved between the snapshot and HEAD (--require-current):\n  "
+            + "\n  ".join(drift)
         )
-    lines.append("sealed prefixes unchanged between snapshot and HEAD")
 
     violations = sealed_prefix_violations(_live_porcelain())
     if violations:
@@ -224,14 +255,24 @@ def verify(manifest: dict[str, Any] | None = None) -> list[str]:
             "worktree carries files under a sealed prefix:\n  " + "\n  ".join(violations)
         )
     lines.append("sealed prefixes clean: " + " ".join(SEALED_PATHSPECS))
+    lines.extend(f"DRIFT: {line}" for line in drift)
+    lines.append(
+        f"drift since the snapshot: {len(drift)} pinned source(s) or sealed path(s)"
+        " moved at HEAD"
+    )
     return lines
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Verify higher_order_diagonalization source manifest.")
-    parser.parse_args()
+    parser.add_argument(
+        "--require-current",
+        action="store_true",
+        help="also fail when a pinned source or sealed path has moved between the snapshot and HEAD",
+    )
+    args = parser.parse_args()
     try:
-        lines = verify()
+        lines = verify(require_current=args.require_current)
     except ValueError as exc:
         print(f"FAIL: {exc}")
         return 1
