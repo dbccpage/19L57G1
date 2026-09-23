@@ -111,9 +111,25 @@ def tree_problems(tree: Path, canonical: bytes, roots: dict[str, set[str]]) -> l
     return errors
 
 
+def records_seed(value: object) -> bool:
+    """Does a manifest record `SEED` at its pinned sha256, at any depth?"""
+    if isinstance(value, dict):
+        if value.get("path") == SEED and value.get("sha256") == SEED_SHA256:
+            return True
+        return any(records_seed(item) for item in value.values())
+    if isinstance(value, list):
+        return any(records_seed(item) for item in value)
+    return False
+
+
 def seed_rung(tree: Path) -> bool:
     manifest = tree/"SOURCE_MANIFEST.json"
-    return tree.name.startswith("second_") and manifest.is_file() and SEED_SHA256 in manifest.read_text(encoding="utf-8")
+    if not (tree.name.startswith("second_") and manifest.is_file()):
+        return False
+    try:
+        return records_seed(json.loads(manifest.read_text(encoding="utf-8")))
+    except ValueError:
+        return False
 
 
 def rung_problems(tree: Path, roots: dict[str, set[str]], seed_intact: bool) -> list[str]:

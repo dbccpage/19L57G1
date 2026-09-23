@@ -190,6 +190,23 @@ def test_an_unpinned_rung_is_held_to_the_new_tree_contract(repository: Path) -> 
     assert any("research/second_probe/verify.py" in f for f in failures), failures
 
 
+def test_the_seed_must_be_recorded_at_its_path_and_hash(repository: Path) -> None:
+    tree = add_rung(repository)
+    manifest = tree/"SOURCE_MANIFEST.json"
+    for text in (
+        json.dumps({"note": "not derived from seed "+contract.SEED_SHA256}),
+        json.dumps({"sources": [{"path": "research/other.md", "sha256": contract.SEED_SHA256}]}),
+        json.dumps({"sources": [{"path": contract.SEED, "sha256": "0"*64}]}),
+        "{not json",
+    ):
+        manifest.write_text(text)
+        failures = contract.problems(repository)
+        assert any("records no pinned seed hash" in f for f in failures), (text, failures)
+        assert any("research/second_probe/CLAIMS.md" in f for f in failures), (text, failures)
+    manifest.write_text(json.dumps({"sources": [{"path": contract.SEED, "sha256": contract.SEED_SHA256}]}))
+    assert contract.problems(repository) == []
+
+
 def test_only_a_second_tree_can_claim_the_seed_contract(repository: Path) -> None:
     add_rung(repository, "other_probe")
     failures = contract.problems(repository)
