@@ -80,6 +80,18 @@ injection is exactly how the closure was shown to bite. The general point
 survives and still applies to the research-tree axiom receipt above:
 injection demonstrates that a residual is live; it does not close one.
 
+## G012 wrapped axiom reports, 2026-09-23
+
+The new native admission obstruction generated long helper names whose axiom
+lists Lean wraps over two lines. The existing single-line reader rejected
+five such reports as missing. A three-case parser regression uses an actual
+wrapped helper report, a forbidden-axiom mutation, and an unterminated list.
+Before the repair, the allowed report failed and the forbidden report was
+misclassified as missing (two failures, one pass). After reading complete
+records across wrapped lists, all three tests pass: the allowed report is
+counted, the forbidden axiom is named by the violation, and the malformed
+report remains missing. No generated helper is excluded from the census.
+
 ## Evidence graph controls, 2026-09-23
 
 These are synthetic input mutations in the new consumer's tests. They exercise

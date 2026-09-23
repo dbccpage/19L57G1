@@ -97,20 +97,20 @@ def audit_theorems_and_axioms() -> tuple[list[str], dict[str, list[str]]]:
     theorem_axioms: dict[str, list[str]] = {}
     disallowed: list[tuple[str, list[str]]] = []
 
-    for line in axiom_output.splitlines():
-        line = line.strip()
-        m_used = re.fullmatch(r"'(.+?)' depends on axioms: \[(.*?)\]", line)
-        m_none = re.fullmatch(r"'(.+?)' does not depend on any axioms", line)
-        if m_used:
-            thm_name = m_used.group(1)
-            raw_axioms = [a.strip() for a in m_used.group(2).split(",") if a.strip()]
-            theorem_axioms[thm_name] = raw_axioms
-            bad = [a for a in raw_axioms if a not in ALLOWED_AXIOMS]
-            if bad:
-                disallowed.append((thm_name, bad))
-        elif m_none:
-            thm_name = m_none.group(1)
-            theorem_axioms[thm_name] = []
+    # Lean wraps long generated-helper reports inside the axiom list.
+    # Read complete records, retaining the full census and its missing check.
+    reports = re.finditer(
+        r"(?m)^[ \t]*'(.+?)' (?:depends on axioms: \[([^\[\]]*)\]"
+        r"|does not depend on any axioms)[ \t]*$",
+        axiom_output,
+    )
+    for report in reports:
+        thm_name = report.group(1)
+        raw_axioms = [a.strip() for a in (report.group(2) or "").split(",") if a.strip()]
+        theorem_axioms[thm_name] = raw_axioms
+        bad = [a for a in raw_axioms if a not in ALLOWED_AXIOMS]
+        if bad:
+            disallowed.append((thm_name, bad))
 
     if disallowed:
         raise RuntimeError(f"VIOLATION: Declarations depend on disallowed axioms: {disallowed}")

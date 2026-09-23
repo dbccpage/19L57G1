@@ -146,3 +146,23 @@ def test_multistep_trace_commutation_and_decode_invariance() -> None:
         assert dec_res.unwrap() == next_struct
 
         current_struct = next_struct
+
+
+def test_replacement_cycle_is_a_nonmonotone_codec_witness() -> None:
+    """A finite two-state witness for the native-admission cycle obstruction.
+
+    The Lean obstruction uses the actual native replay function. This test
+    separately checks the Python cycle; it does not identify the Python
+    string parser with the Lean typed-token codec.
+    """
+    sig = Signature(sorts=("item",), constants=(ConstantSymbol("chosen", "item"),))
+    a = TypedStructure.create(sig, carriers={"item": ["a", "b"]}, constants={"chosen": "a"})
+    set_b, set_a = SetConstant("chosen", "b"), SetConstant("chosen", "a")
+    b = step(a, set_b)
+    assert a != b and step(b, set_a) == a
+    ra, rb = encode(a), encode(b)
+    assert decode(ra).unwrap() == a and decode(rb).unwrap() == b
+    assert step_relational(ra, encode_op(set_b, a)) == rb
+    assert step_relational(rb, encode_op(set_a, b)) == ra
+    assert set(ra.insts) - set(rb.insts) == {"bind:chosen:a"}
+    assert set(ra.reqs) - set(rb.reqs) == {"req:const:chosen:item:a"}

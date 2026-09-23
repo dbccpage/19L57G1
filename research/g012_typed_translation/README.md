@@ -19,7 +19,7 @@ The module supplies:
 - **`codec.py`**: Constructive bidirectional encoder `encode` and decoder `decode` returning structured `Result[TypedStructure, Refusal]`.
 - **`naturality.py`**: Signature morphisms $\sigma: \Sigma_1 \to \Sigma_2$, translation functoriality, naturality square commutation, and exact rational distortion vectors in $\mathbb{Q}^3$ (`fractions.Fraction`).
 - **`specialization.py`**: Bounded specialization recovering the exact historical 1,459-history prefix census from `research/typed_translation/`.
-- **`lean/`**: Constructive Lean 4 package compiling 317 declarations with strict axiom boundary contained within `{'propext', 'Quot.sound'}` (zero `Classical.choice`, zero mathlib).
+- **`lean/`**: Constructive Lean 4 package with an enumerated theorem census and strict axiom boundary contained within `{'propext', 'Quot.sound'}` (zero `Classical.choice`, zero mathlib).
 
 ## 2. Boundary Codec & Structured Refusals
 
@@ -76,7 +76,7 @@ The module `specialization.py` and Lean library `Specialization.lean` construct 
    - Structured refusal preservation on corrupted relational states without unhandled exceptions.
    - Exact operational transition commutation between structure updates and relational updates.
    - Preservation of exact rational distortion vectors in $\mathbb{Q}^3$ under signature morphisms.
-   - Constructive Lean 4 formalization containing 317 declarations strictly bounded by `{'propext', 'Quot.sound'}` with zero `Classical.choice` and zero mathlib dependencies.
+   - Constructive Lean 4 formalization whose enumerated theorem declarations are strictly bounded by `{'propext', 'Quot.sound'}` with zero `Classical.choice` and zero mathlib dependencies.
    - Exact recovery of the historical 1,459 valid history prefixes as a specialized instance of the general signature framework.
 2. **What it does not support**:
    - Infinite structures or signatures with infinite carrier sets.
@@ -87,3 +87,14 @@ The module `specialization.py` and Lean library `Specialization.lean` construct 
    - Within finite multi-sorted signatures and the declared five-category relational carrier, the constructive codec achieves exact round-trip inversion, transition commutation, refusal safety, and recovers the historical 1,459-prefix census as a bounded specialization.
 4. **The next test needed**:
    - Property-based fuzz testing of deep multi-sorted structures with large arities ($\ge 5$) and complex mutual recursion graphs.
+
+## 7. Native admission obstruction, 2026-09-23
+
+`lean/NativeAdmission.lean` reads the actual sealed admission function and
+proves that a successful finite native trace is an identity or strictly
+increases admitted size. Consequently, a nontrivial state cycle cannot be
+encoded with a left inverse while both directions commute with finite
+native admission traces. A separate Python test supplies an exact constant
+replacement cycle and checks its two local codec steps. This is the scoped
+obstruction in CL-G012-09; it supplies no positive native bridge and does not
+identify the Python string parser with the Lean typed-token codec.

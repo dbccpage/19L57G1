@@ -28,7 +28,8 @@ Terminal: `TYPED_TRANSLATION_CONSTRUCTIVE_BOUND_UNIFORM`.
 | **CL-G012-05** | Translation Functoriality & Naturality | `renaming_naturality`, `renaming_id_elements`, `renaming_id_constBindings`, `renaming_id_relTuples`, `renaming_id_funcEntries` | `naturality.py:Renaming`, `test_naturality.py` | Strictly within `{"propext"}` | VERIFIED |
 | **CL-G012-06** | Exact Rational Distortion Vector | `distortion_depth_ratio`, `distortion_expansion_bound`, `distortion_mark_count_bound`, `distortion_invariance_length_*` | `naturality.py:compute_distortion`, `test_naturality.py` | Strictly within `{"propext", "Quot.sound"}` | VERIFIED |
 | **CL-G012-07** | Bounded Specialization (1,459 Prefixes) | `historical_event_count`, `historical_prefix_census_count`, `memoryless_fixed_block_obstruction`, `symmetric_form_cost_obstruction`, `historical_admit_*_commutation`, `*_refusal` | `specialization.py:verify_specialization_recovery`, `test_specialization.py` | Strictly within `{"propext", "Quot.sound"}` | VERIFIED |
-| **CL-G012-08** | Constructive Metatheoretic Boundary | Census in `lean/Inventory.lean` (317 declarations) | `verify.py` audit | Strictly within `{"propext", "Quot.sound"}` | VERIFIED |
+| **CL-G012-08** | Constructive Metatheoretic Boundary | Theorem census in `lean/Inventory.lean` | `verify.py` audit | Strictly within `{"propext", "Quot.sound"}` | VERIFIED |
+| **CL-G012-09** | Native admission cycle obstruction | `NativeAdmission.no_roundtrip_commuting_trace_cycle` | `test_replacement_cycle_is_a_nonmonotone_codec_witness` supplies a separate exact Python cycle | `{"propext", "Quot.sound"}` | PROVED_THEOREM for the stated obstruction; VERIFIED_FINITE for the Python witness |
 
 ---
 
@@ -146,7 +147,7 @@ Terminal: `TYPED_TRANSLATION_CONSTRUCTIVE_BOUND_UNIFORM`.
   4. *Next test:* Exploration of 3-datum ternary carrier prefix posets.
 
 ### CL-G012-08: Constructive Metatheoretic Axiom Boundary
-- **Statement:** All 317 compiled declarations in the `G012TypedTranslation` Lean 4 package satisfy the strict constructive axiom boundary contained in `{'propext', 'Quot.sound'}`, with zero occurrences of `Classical.choice` and zero mathlib dependencies.
+- **Statement:** The compiled theorem declarations enumerated under `G012TypedTranslation` by `lean/Inventory.lean` satisfy the strict constructive axiom boundary contained in `{'propext', 'Quot.sound'}`, with zero occurrences of `Classical.choice` and zero mathlib dependencies. The current receipt records the population.
 - **Formal Verification:**
   - Verified by `lean/Inventory.lean` census and audited by `verify.py`.
 - **Claim Hygiene:**
@@ -154,3 +155,25 @@ Terminal: `TYPED_TRANSLATION_CONSTRUCTIVE_BOUND_UNIFORM`.
   2. *Does not support:* Classical non-constructive principles or non-computable choice.
   3. *Narrowest claim:* Every compiled declaration is strictly constructive within Lean 4 core logic.
   4. *Next test:* Mechanized constructive extraction into verified executable code.
+
+### CL-G012-09: Native Admission Cycle Obstruction (2026-09-23)
+
+`lean/NativeAdmission.lean` imports the actual sealed `Derivation.Basic`
+read-only. For every successful `stepE` or finite `replayE`, the state is
+unchanged or the sum of its datum count and four collection lengths strictly
+increases. Thus a successful native trace out and back returns through the
+same state. `no_roundtrip_commuting_trace_cycle` proves that distinct source
+states cannot both satisfy a decode-after-encode law and have their two
+directions commute with finite native admission traces.
+
+The separate Python test constructs one constant over the carrier `{a, b}`,
+sets its value from `a` to `b` and back, checks both codec round trips and both
+encoded steps, and exhibits the removed binding and requirement tokens.
+The native trace theorem is general; this Python witness is finite. No
+compiler theorem identifies the Python implementation with a Lean model.
+
+This refutes the simultaneous requirements of an invertible state encoding
+and finite admission-trace commutation on that replacement cycle. It does
+not rule out a restricted source transition domain, a history representation
+with a forgetting map, or another declared target semantics. No positive
+native encode/decode construction is supplied here.
