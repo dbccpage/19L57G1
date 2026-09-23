@@ -76,7 +76,10 @@ The historical graph remains intact. `refresh.py --previous` also detects
 recovery after a change is reversed. The new consumer is an explicit 104th
 tree at the execution head, not part of its own 103-tree source snapshot.
 
-`versions/section3.json` imports the twelve correction subjects from a later
+The Section 3 correction version is pending the owner merge and its local
+checks. The full local verifier will refuse the missing review input until
+that integration is complete. Once recorded, `versions/section3.json` will
+import the twelve correction subjects from a later
 source snapshot after that snapshot lands on `main`. The deliberate input
 `correction_reviews.json` binds the corrected source spans, their scope,
 remaining obligations, and local-check receipts to the tested tree. The
