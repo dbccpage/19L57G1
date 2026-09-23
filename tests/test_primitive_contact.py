@@ -317,7 +317,8 @@ def test_main_checkout_is_read_from_the_git_common_directory(
     call, or a common directory not named .git, gives None."""
     main = _main_checkout(REPO)
     if main is None:
-        pytest.skip("git unavailable")
+        pytest.skip("git unavailable" if shutil.which("git") is None
+                    else "git's common directory is not a checkout's .git")
     assert (main / ".git").is_dir()
 
     def answer(code: int, out: bytes) -> object:
