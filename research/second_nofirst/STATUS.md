@@ -433,3 +433,25 @@ row for succession and is named before L-3.  If the parallel track's result
 reduces the declared-input count, its leftovers rank ahead of L-2 by the
 same rule, and the choice is made when both tracks are on `main`.  Nothing
 of either is started here.
+
+## Source pin semantics (2026-09-23)
+
+By the author's ruling of 2026-09-22, `verify_pins.py` separates two claims
+that it used to merge.
+
+- **Provenance, which still fails.** Every source and span hashes to its recorded value at the snapshot;
+  the snapshot is an ancestor of HEAD; the absent-at-snapshot record
+  holds at the snapshot; and the frozen `PROMPT.md` and `PREDICTIONS.md`,
+  which live in this rung's own write root, still hash to their frozen
+  values.
+- **Currency, which is now reported.** That nothing pinned has moved
+  between the snapshot and HEAD is printed as `DRIFT:` lines, followed by
+  a `drift since the snapshot:` count.  It no longer fails.  Pass
+  `--require-current` to restore the old failure.
+
+Why the change: the snapshot blob is fixed history, so every authorized
+sealed edit turned this check red until a repin, whatever this tree
+claimed; the most recent was on 2026-09-23, for pull request 231.  What
+this tree claims is about its snapshot, and that is what the check now
+enforces.  Runs recorded above were made under the
+earlier wording and stand as dated records of those runs.
