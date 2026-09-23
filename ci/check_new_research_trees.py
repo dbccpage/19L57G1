@@ -1,10 +1,15 @@
 """Enforce the copy-source contract for new research trees only.
 
 Existing directories are frozen in the grandfathered list; their bytes are
-not rewritten or held to the new naming convention. AuthorityEffect: None.
+not rewritten or held to the new naming convention. A rung of the second
+derivation, a `second_<rung>` tree whose SOURCE_MANIFEST.json records the
+pinned sha256 of research/second/SEED.md, is held to that seed's rung
+contract instead: the seed is read-only, predates this contract, and fixes
+CLAIM_LEDGER.md as the rung's claim document. AuthorityEffect: None.
 """
 from __future__ import annotations
 import argparse
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -17,6 +22,11 @@ REPO = Path(__file__).resolve().parents[1]
 SCAFFOLD = "research/_scaffold"
 STATUSES = {"PROVED_THEOREM", "VERIFIED_FINITE", "CONDITIONAL", "OPEN", "REFUTED"}
 CLAIM_NAMES = {"CLAIMS.md", "CLAIM_LEDGER.md", "claim_ledger.md", "claims.md", "RECONCILED_CLAIMS_LEDGER.md"}
+SEED = "research/second/SEED.md"
+SEED_SHA256 = "52439e5f75d1c599ce52dc716beb88f1dd7bfc83856ee73ce85f3a7eeec5e70e"
+# The seed's section 4 files; SOURCE_MANIFEST.json selects this contract, and
+# CLAIM_LEDGER.md is checked as the one claim document.
+RUNG_FILES = ("PROMPT.md", "PREDICTIONS.md", "STATUS.md", "verify_pins.py")
 
 
 def tree_names(paths: list[str]) -> list[str]:
@@ -101,6 +111,39 @@ def tree_problems(tree: Path, canonical: bytes, roots: dict[str, set[str]]) -> l
     return errors
 
 
+def seed_rung(tree: Path) -> bool:
+    manifest = tree/"SOURCE_MANIFEST.json"
+    return tree.name.startswith("second_") and manifest.is_file() and SEED_SHA256 in manifest.read_text(encoding="utf-8")
+
+
+def rung_problems(tree: Path, roots: dict[str, set[str]], seed_intact: bool) -> list[str]:
+    errors: list[str] = []
+    label = "research/"+tree.name
+    def fail(relative: str, reason: str) -> None:
+        errors.append(f"{label}/{relative}: {reason}")
+    if not seed_intact:
+        errors.append(f"{SEED}: sha256 differs from the pinned seed, so no tree may claim its rung contract")
+    names = {p.name for p in tree.iterdir() if p.is_file()}
+    for name in RUNG_FILES:
+        if name not in names:
+            fail(name, f"a second-derivation rung requires this file ({SEED}, section 4)")
+    if names & CLAIM_NAMES != {"CLAIM_LEDGER.md"}:
+        fail("CLAIM_LEDGER.md", f"require exactly this claim-document filename ({SEED}, section 4)")
+    files = own_files(tree)
+    packages = [p.relative_to(tree).as_posix() for p in files if p.name in ("lakefile.toml", "lakefile.lean")]
+    modules = [p.relative_to(tree).as_posix() for p in files if p.suffix == ".lean" and p.name != "lakefile.lean"]
+    if (packages or modules) and packages not in (["lean/lakefile.lean"], ["lean/lakefile.toml"]):
+        fail("lean", f"require one package directly under lean/; found {packages}")
+    for relative in modules:
+        if not relative.startswith("lean/"):
+            fail(relative, "Lean modules must live under lean/")
+    for root in sorted({m.split("/")[1].removesuffix(".lean") for m in modules if m.startswith("lean/")}):
+        others = roots.get(root, set()) - {tree.name}
+        if others:
+            fail("lean", f"Lean root {root} is also supplied by {sorted(others)}")
+    return errors
+
+
 def problems(repo: Path) -> list[str]:
     record = json.loads((repo/SCAFFOLD/"grandfathered.json").read_text(encoding="utf-8"))
     baseline = record.get("baseline", "")
@@ -120,8 +163,20 @@ def problems(repo: Path) -> list[str]:
                 if after:
                     roots.setdefault(after[0].removesuffix(".lean"), set()).add(tree.name)
     canonical = (repo/SCAFFOLD/"new_tree_templates/verify.py.tmpl").read_bytes()
-    return [error for tree in trees if tree.name not in expected
-            for error in tree_problems(tree, canonical, roots)]
+    seed = repo/SEED
+    seed_intact = seed.is_file() and hashlib.sha256(seed.read_bytes()).hexdigest() == SEED_SHA256
+    failures: list[str] = []
+    for tree in trees:
+        if tree.name in expected:
+            continue
+        if seed_rung(tree):
+            failures.extend(rung_problems(tree, roots, seed_intact))
+            continue
+        errors = tree_problems(tree, canonical, roots)
+        if errors and tree.name.startswith("second_"):
+            errors.insert(0, f"research/{tree.name}/SOURCE_MANIFEST.json: records no pinned seed hash, so the new-tree contract applies")
+        failures.extend(errors)
+    return failures
 
 
 def main() -> int:
@@ -135,7 +190,7 @@ def main() -> int:
     for failure in failures:
         print("FAIL: "+failure, file=sys.stderr)
     if not failures:
-        print("new research-tree contract clean; existing baseline directories grandfathered")
+        print("new research-tree contract clean; existing baseline directories grandfathered; second-derivation rungs held to their seed")
     return 1 if failures else 0
 
 

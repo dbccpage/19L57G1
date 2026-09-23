@@ -25,17 +25,19 @@ def git(repo: Path, *args: str) -> str:
 def repository(tmp_path: Path) -> Path:
     (tmp_path/"research/legacy").mkdir(parents=True)
     (tmp_path/"research/legacy/README.md").write_text("unchanged legacy tree\n")
+    (tmp_path/"research/second").mkdir()
+    shutil.copyfile(REPO/contract.SEED, tmp_path/contract.SEED)
     (tmp_path/"lean4").mkdir()
     shutil.copyfile(REPO/"lean4/lean-toolchain", tmp_path/"lean4/lean-toolchain")
     git(tmp_path, "init", "-q")
     git(tmp_path, "config", "user.name", "contract-test")
     git(tmp_path, "config", "user.email", "contract-test@example.invalid")
     git(tmp_path, "config", "core.autocrlf", "false")
-    git(tmp_path, "add", "--", "research/legacy/README.md", "lean4/lean-toolchain")
-    git(tmp_path, "commit", "-qm", "existing tree")
+    git(tmp_path, "add", "--", "research/legacy/README.md", contract.SEED, "lean4/lean-toolchain")
+    git(tmp_path, "commit", "-qm", "existing trees")
     scaffold = tmp_path/"research/_scaffold"
     scaffold.mkdir()
-    (scaffold/"grandfathered.json").write_text(json.dumps({"schema": 1, "baseline": git(tmp_path, "rev-parse", "HEAD"), "trees": ["legacy"]}))
+    (scaffold/"grandfathered.json").write_text(json.dumps({"schema": 1, "baseline": git(tmp_path, "rev-parse", "HEAD"), "trees": ["legacy", "second"]}))
     shutil.copytree(SCAFFOLD/"new_tree_templates", scaffold/"new_tree_templates")
     result = subprocess.run([sys.executable, str(SCAFFOLD/"new_tree.py"), "probe", "--repo", str(tmp_path)], capture_output=True, text=True)
     assert result.returncode == 0, result.stdout+result.stderr
@@ -120,6 +122,89 @@ def test_primed_name_is_retained_by_the_copied_parser(repository: Path) -> None:
     spec.loader.exec_module(verifier)
     assert verifier.NO_AXIOMS.findall("'ResearchProbe.identity'' does not depend on any axioms") == ["ResearchProbe.identity'"]
     assert verifier.WITH_AXIOMS.findall("'ResearchProbe.identity'' depends on axioms: [propext]") == [("ResearchProbe.identity'", "propext")]
+
+
+def add_rung(repository: Path, name: str = "second_probe") -> Path:
+    tree = repository/"research"/name
+    tree.mkdir()
+    for file in (*contract.RUNG_FILES, "CLAIM_LEDGER.md"):
+        (tree/file).write_text(file+"\n")
+    (tree/"SOURCE_MANIFEST.json").write_text(json.dumps({"frozen_texts": [{"path": contract.SEED, "sha256": contract.SEED_SHA256}]}))
+    return tree
+
+
+def test_seed_rung_names_each_missing_seed_file_then_recovers(repository: Path) -> None:
+    tree = add_rung(repository)
+    assert contract.problems(repository) == []
+    for name in (*contract.RUNG_FILES, "CLAIM_LEDGER.md"):
+        original = (tree/name).read_bytes()
+        (tree/name).unlink()
+        failures = contract.problems(repository)
+        assert any(f"research/second_probe/{name}" in f and "section 4" in f for f in failures), failures
+        (tree/name).write_bytes(original)
+        assert contract.problems(repository) == []
+
+
+def test_seed_rung_with_one_lean_package_passes(repository: Path) -> None:
+    tree = add_rung(repository)
+    (tree/"lean/SecondProbe").mkdir(parents=True)
+    for name in ("lean/lakefile.lean", "lean/SecondProbe.lean", "lean/SecondProbe/Kernel.lean"):
+        (tree/name).write_text("-- rung module\n")
+    assert contract.problems(repository) == []
+
+
+@pytest.mark.parametrize("mutation, expected", [
+    ("claims_alias", "research/second_probe/CLAIM_LEDGER.md: require exactly this claim-document filename"),
+    ("bare_module", "require one package directly under lean/"),
+    ("root_package", "require one package directly under lean/"),
+    ("stray_module", "research/second_probe/Stray.lean: Lean modules must live under lean/"),
+    ("unpinned", "research/second_probe/SOURCE_MANIFEST.json: records no pinned seed hash"),
+    ("moved_seed", "research/second/SEED.md: sha256 differs from the pinned seed"),
+])
+def test_seed_rung_mutations_are_named(repository: Path, mutation: str, expected: str) -> None:
+    tree = add_rung(repository)
+    if mutation == "claims_alias":
+        (tree/"CLAIMS.md").write_text("second claim document\n")
+    elif mutation in ("bare_module", "root_package", "stray_module"):
+        (tree/"lean").mkdir()
+        (tree/"lean/SecondProbe.lean").write_text("-- rung module\n")
+        if mutation == "root_package":
+            (tree/"lakefile.lean").write_text("-- package outside lean/\n")
+        elif mutation == "stray_module":
+            (tree/"lean/lakefile.lean").write_text("-- package\n")
+            (tree/"Stray.lean").write_text("-- module outside lean/\n")
+    elif mutation == "unpinned":
+        (tree/"SOURCE_MANIFEST.json").write_text(json.dumps({"frozen_texts": []}))
+    else:
+        seed = repository/contract.SEED
+        seed.write_bytes(seed.read_bytes()+b"\n")
+    failures = contract.problems(repository)
+    assert any(expected in failure for failure in failures), failures
+
+
+def test_an_unpinned_rung_is_held_to_the_new_tree_contract(repository: Path) -> None:
+    tree = add_rung(repository)
+    (tree/"SOURCE_MANIFEST.json").write_text("{}")
+    failures = contract.problems(repository)
+    assert any("research/second_probe/CLAIMS.md" in f for f in failures), failures
+    assert any("research/second_probe/verify.py" in f for f in failures), failures
+
+
+def test_only_a_second_tree_can_claim_the_seed_contract(repository: Path) -> None:
+    add_rung(repository, "other_probe")
+    failures = contract.problems(repository)
+    assert any("research/other_probe/CLAIMS.md" in f for f in failures), failures
+    assert not any("records no pinned seed hash" in f for f in failures), failures
+
+
+def test_seed_rung_lean_root_collision_names_both_trees(repository: Path) -> None:
+    tree = add_rung(repository)
+    (tree/"lean").mkdir()
+    (tree/"lean/lakefile.lean").write_text("-- package\n")
+    (tree/"lean/ResearchProbe.lean").write_text("-- the scaffold probe's root\n")
+    failures = contract.problems(repository)
+    assert any(f.startswith("research/second_probe/lean") and "ResearchProbe" in f and "'probe'" in f for f in failures), failures
+    assert any(f.startswith("research/probe/") and "ResearchProbe" in f and "second_probe" in f for f in failures), failures
 
 
 def test_generator_refuses_existing_or_traversing_names(repository: Path) -> None:
