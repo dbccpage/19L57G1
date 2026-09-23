@@ -208,8 +208,12 @@ def main(argv: Sequence[str] | None = None) -> int:
                 failures += 1
         try:
             at_head = git_text("rev-parse", f"HEAD:{path}")
-        except RuntimeError:
-            drift.append(f"{path} is absent at HEAD")
+        except RuntimeError as exc:
+            if path in git_text("ls-tree", "-r", "--name-only", "HEAD", "--", path).splitlines():
+                print(f"FAIL: could not read {path} at HEAD: {exc}")
+                failures += 1
+            else:
+                drift.append(f"{path} is absent at HEAD")
         else:
             if at_head != want:
                 drift.append(f"{path} blob at HEAD is {at_head}, pinned {want}")
@@ -233,7 +237,13 @@ def main(argv: Sequence[str] | None = None) -> int:
             head_blob = git("show", f"HEAD:{path}")
             at_head = span_hash(head_blob, int(span["first_line"]), int(span["last_line"]))
         except RuntimeError as exc:
-            drift.append(f"{label} cannot be read at HEAD: {exc}")
+            if str(exc).startswith("git ") and path in git_text(
+                "ls-tree", "-r", "--name-only", "HEAD", "--", path
+            ).splitlines():
+                print(f"FAIL: could not read {label} at HEAD: {exc}")
+                failures += 1
+            else:
+                drift.append(f"{label} cannot be read at HEAD: {exc}")
         else:
             if at_head != span["sha256"]:
                 drift.append(f"{label} at HEAD hashes {at_head}, pinned {span['sha256']}")

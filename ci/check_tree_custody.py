@@ -79,7 +79,7 @@ def run_one(tree: str, name: str, repo: Path = REPO) -> tuple[int, str]:
     retried once; a real failure fails twice.
     """
     code, line = _run_once(tree, name, repo)
-    if code != 0 and ("git " in line and "failed" in line):
+    if code != 0 and "git " in line:
         code, line = _run_once(tree, name, repo)
     return code, line
 

@@ -79,8 +79,12 @@ def main(argv: Sequence[str] | None = None) -> int:
                 failures += 1
         try:
             at_head = git("rev-parse", f"HEAD:{path}")
-        except RuntimeError:
-            drift.append(f"{path} is absent at HEAD")
+        except RuntimeError as exc:
+            if path in git("ls-tree", "-r", "--name-only", "HEAD", "--", path).splitlines():
+                print(f"FAIL: could not read {path} at HEAD: {exc}")
+                failures += 1
+            else:
+                drift.append(f"{path} is absent at HEAD")
         else:
             if at_head != want:
                 drift.append(f"{path} blob at HEAD is {at_head}, pinned {want}")
