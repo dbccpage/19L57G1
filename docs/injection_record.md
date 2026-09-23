@@ -204,3 +204,38 @@ coordinator's merge, not from the rung's own run.
 
 A synthetic test covers the ownership rule: a sibling commit is not the
 rung's, and a mixed commit exposes every path.
+## Custody verifiers report HEAD drift (2026-09-23)
+
+Six research-tree custody verifiers were converted so that provenance at
+the snapshot fails and drift at HEAD is reported (`CLAUDE.md`, "A research
+tree's pins certify its snapshot, not the present").
+`research/primitive_difference_tower/verify_manifest.py` was left strict by
+the author's decision of 2026-09-23.
+
+**The injection.** One throwaway commit, `0c68e56d`, on top of `7841d7bf`
+(this branch before its rebase onto `main`; the six verifier files are
+byte-identical after the rebase), appended one line each to five pinned
+sealed files:
+
+- `lean4/Derivation/PrimDiff.lean`
+- `lean4/Derivation/Quot.lean`
+- `lean4/Derivation/Apartness.lean`
+- `code/derivation/iso.py`
+- `code/derivation/engine.py`
+
+The commit was discarded with `git reset --hard 7841d7bf`. No receipt was
+regenerated while it was live.
+
+| Verifier | Plain run under the injection | `--require-current` under the injection | After discard |
+|---|---|---|---|
+| `research/diagonal_identity/verify_pins.py` | exit 0; `DRIFT: lean4/Derivation/PrimDiff.lean at HEAD is 7BC6DDB5…, pinned F46C3BC4…`; five sealed-path `DRIFT:` lines; count 6 | exit 1; `FAIL: pinned inputs moved between the snapshot and HEAD (--require-current):`, naming `lean4/Derivation/PrimDiff.lean` | exit 0 both ways; drift 0 |
+| `research/higher_order_diagonalization/verify_sources.py` | exit 0; `DRIFT: code/derivation/iso.py at HEAD is 41CE33CE…, pinned B0F1F3BC…`; count 6 | exit 1, naming `code/derivation/iso.py` | exit 0 both ways; drift 0 |
+| `research/natural_sections/verify_pins.py` | exit 0; `DRIFT:` for `lean4/Derivation/Apartness.lean` and `lean4/Derivation/PrimDiff.lean`; count 7 | exit 1, naming both modules | exit 0 both ways; drift 0 |
+| `research/seventh_constructor/verify_sources.py` | exit 0; `DRIFT: code/derivation/iso.py at HEAD is 41CE33CE…`; count 6 | exit 1, naming `code/derivation/iso.py` | exit 0 both ways; drift 0 |
+| `research/twin_pricing/verify_sources.py` | exit 0; `DRIFT: lean4/Derivation/Quot.lean at HEAD is 7FFB8282…, pinned 0D1DF5E6…`; count 6 | exit 1, naming `lean4/Derivation/Quot.lean` | exit 0 both ways; drift 0 |
+| `research/second_nofirst/verify_pins.py` | exit 0; `DRIFT: source moved at HEAD for code/derivation/engine.py`; count 1 | exit 1, naming `code/derivation/engine.py` | exit 0 both ways; drift 0 |
+
+**Provenance still fails.** Each tree's own tests keep the snapshot-side
+failures, for example a mutated recorded hash is refused as a mismatch at
+the snapshot. The new tests also cover a pin that is tracked at HEAD but
+cannot be read: it still fails as `could not read`.
