@@ -49,6 +49,7 @@ Lean layout. The first and last also have explicit build-recipe entries.
 | `closed_family` | local receipt only |  |
 | `coherent_process_limits` | local receipt only |  |
 | `concurrency` | local receipt only |  |
+| `conservation_ladder` | local receipt only |  |
 | `convention_price` | local receipt only |  |
 | `cost_cohomology` | local receipt only |  |
 | `described_replay` | local receipt only |  |
