@@ -1,0 +1,1678 @@
+{
+  "authority_effect": "None",
+  "items": [
+    {
+      "action": "Ingest an author-merged correction as a new source version; preserve this historical snapshot. Do not edit these sources in the evidence consumer.",
+      "disposition": "UNRESOLVED_AT_SOURCE_SNAPSHOT",
+      "evidence_source": {
+        "blob": "5cc9291bb8564c14c4e15c973c85ea47ebb0f22f",
+        "end_line": 171,
+        "file_sha256": "ab1c1ebd328f2c704ece2baa050a38dcabc2ce6fe3e149ae6c0172e6391cafc4",
+        "path": "lean4/Derivation/Initiality.lean",
+        "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+        "span_sha256": "ab1c1ebd328f2c704ece2baa050a38dcabc2ce6fe3e149ae6c0172e6391cafc4",
+        "start_line": 1
+      },
+      "headline_ids": [
+        "headline:paper/native_derivation_completion.md:7b3bb19bb305b9c1d3b4:1"
+      ],
+      "id": "handoff:initial_descriptor",
+      "owner": "section_3",
+      "scope": "The final conclusion still says initial; the earlier section states unique probe-compliance in 64 descriptors plus one split retract. No wider universal property follows.",
+      "sources": [
+        {
+          "blob": "9fb90fc0c39f480d5f2540c47e72a571d7c732ca",
+          "end_line": 603,
+          "file_sha256": "eab082ddd2cb4158e90d7fad778301a9858e1858e9f3c0c33297a093154d3e18",
+          "path": "paper/native_derivation_completion.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "7b3bb19bb305b9c1d3b479af904b9ca6539e854f432f4c99662884b82dc76de3",
+          "start_line": 593
+        }
+      ],
+      "theorem_ids": [
+        "theorem:lean4::Initiality.accept_guard_load_bearing",
+        "theorem:lean4::Initiality.budget_gate_load_bearing",
+        "theorem:lean4::Initiality.dedup_load_bearing",
+        "theorem:lean4::Initiality.extension_retract",
+        "theorem:lean4::Initiality.extension_retract_replay",
+        "theorem:lean4::Initiality.license_gate_load_bearing",
+        "theorem:lean4::Initiality.minimum_unique_in_class",
+        "theorem:lean4::Initiality.refusal_certificate_load_bearing",
+        "theorem:lean4::Initiality.require_guard_load_bearing",
+        "theorem:lean4::Initiality.retract_section",
+        "theorem:lean4::Initiality.unique_compliant"
+      ]
+    },
+    {
+      "action": "Ingest an author-merged correction as a new source version; preserve this historical snapshot. Do not edit these sources in the evidence consumer.",
+      "disposition": "UNRESOLVED_AT_SOURCE_SNAPSHOT",
+      "evidence_source": {
+        "blob": "847164b028c22ef7d007c4550517c037c72902f1",
+        "end_line": 112,
+        "file_sha256": "49839ef0985c9603498e1ad7e28d3bf1bcabdfa7bca2f05be73b9ff2c0d3a007",
+        "path": "research/g013_trace_calculus/lean/HigherCell.lean",
+        "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+        "span_sha256": "49839ef0985c9603498e1ad7e28d3bf1bcabdfa7bca2f05be73b9ff2c0d3a007",
+        "start_line": 1
+      },
+      "headline_ids": [
+        "headline:research/g013_trace_calculus/CLAIMS.md:91e2db436587ee8b3ffd:1",
+        "headline:research/g013_trace_calculus/CLAIMS.md:3e496ff5423f70683b80:1",
+        "headline:research/g013_trace_calculus/CLAIMS.md:287e8db64898b2793624:1",
+        "headline:research/g013_trace_calculus/CLAIMS.md:8c091a9533f10e2b5c3d:1",
+        "headline:research/g013_trace_calculus/CLAIMS.md:ea4b528f918087c81699:1",
+        "headline:research/g013_trace_calculus/CLAIMS.md:1e43e8546cb376a326d6:1",
+        "headline:research/g013_trace_calculus/CLAIMS.md:17c1cc932cafe0cba72f:1",
+        "headline:research/g013_trace_calculus/CLAIMS.md:3a5e99ad685df988163e:1",
+        "headline:research/g013_trace_calculus/CLAIMS.md:b969a9f31e1d6451d19f:1",
+        "headline:research/g013_trace_calculus/CLAIMS.md:849e4d01a752be688f37:1",
+        "headline:research/g013_trace_calculus/CLAIMS.md:f580ae45af64f5fe9f33:1",
+        "headline:research/g013_trace_calculus/CLAIMS.md:361d876463a3a9384d83:1",
+        "headline:research/g013_trace_calculus/CLAIMS.md:b8d02768826e11629887:1",
+        "headline:research/g013_trace_calculus/CLAIMS.md:93aee933f474a897ef4e:1",
+        "headline:research/g013_trace_calculus/README.md:089aeaf6ace97df26a01:1",
+        "headline:research/g013_trace_calculus/README.md:dc1349af4fec6e239cb1:1",
+        "headline:research/g013_trace_calculus/README.md:e826ff4ddee034adf571:1",
+        "headline:research/g013_trace_calculus/README.md:71693a8bec60be218356:1",
+        "headline:research/g013_trace_calculus/README.md:38ce9e02cbc393a58b52:1",
+        "headline:research/g013_trace_calculus/README.md:30e1697cb56f2bdfe4bd:1",
+        "headline:research/g013_trace_calculus/README.md:073f4d7c7292fe792d0e:1",
+        "headline:research/g013_trace_calculus/README.md:6110a5fdc6f0bda905d0:1",
+        "headline:research/g013_trace_calculus/README.md:2a61d43e6acf717f59a5:1"
+      ],
+      "id": "handoff:cell_relations",
+      "owner": "section_3",
+      "scope": "Cell constructors and reflexive coherence facts do not prove the additional composition/quotient laws or a guarded-native-step bridge. Preserve any narrower supported trace and price facts.",
+      "sources": [
+        {
+          "blob": "b62c8d178d33f1314658bcff8e65cd7cba4ee8e5",
+          "end_line": 1,
+          "file_sha256": "04886f502ec7fd58363e00ec4b8188a443133f6bfe87ea782f092fc2161fd4e7",
+          "path": "research/g013_trace_calculus/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "91e2db436587ee8b3ffd60dcdd82121a9d034e732fc16f1c342d04e604553df9",
+          "start_line": 1
+        },
+        {
+          "blob": "b62c8d178d33f1314658bcff8e65cd7cba4ee8e5",
+          "end_line": 25,
+          "file_sha256": "04886f502ec7fd58363e00ec4b8188a443133f6bfe87ea782f092fc2161fd4e7",
+          "path": "research/g013_trace_calculus/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "3e496ff5423f70683b8097dea75a99d5e2379bd0f065323fe4f6222170d23c8a",
+          "start_line": 25
+        },
+        {
+          "blob": "b62c8d178d33f1314658bcff8e65cd7cba4ee8e5",
+          "end_line": 29,
+          "file_sha256": "04886f502ec7fd58363e00ec4b8188a443133f6bfe87ea782f092fc2161fd4e7",
+          "path": "research/g013_trace_calculus/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "287e8db64898b2793624278ee4a0d05a189aef5f078e8fd95c3596328e7dfa2f",
+          "start_line": 29
+        },
+        {
+          "blob": "b62c8d178d33f1314658bcff8e65cd7cba4ee8e5",
+          "end_line": 30,
+          "file_sha256": "04886f502ec7fd58363e00ec4b8188a443133f6bfe87ea782f092fc2161fd4e7",
+          "path": "research/g013_trace_calculus/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "8c091a9533f10e2b5c3dc03bb3687c9a64ab6fe162e034972c075b5cf7e4db89",
+          "start_line": 30
+        },
+        {
+          "blob": "b62c8d178d33f1314658bcff8e65cd7cba4ee8e5",
+          "end_line": 31,
+          "file_sha256": "04886f502ec7fd58363e00ec4b8188a443133f6bfe87ea782f092fc2161fd4e7",
+          "path": "research/g013_trace_calculus/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "ea4b528f918087c816990a11941558e5bd1571390ba6c28cef77d0aee6473d86",
+          "start_line": 31
+        },
+        {
+          "blob": "b62c8d178d33f1314658bcff8e65cd7cba4ee8e5",
+          "end_line": 32,
+          "file_sha256": "04886f502ec7fd58363e00ec4b8188a443133f6bfe87ea782f092fc2161fd4e7",
+          "path": "research/g013_trace_calculus/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "1e43e8546cb376a326d6f8dea12fbbbd3c4e2d5c5b2ce8bba352b7faaed40205",
+          "start_line": 32
+        },
+        {
+          "blob": "b62c8d178d33f1314658bcff8e65cd7cba4ee8e5",
+          "end_line": 33,
+          "file_sha256": "04886f502ec7fd58363e00ec4b8188a443133f6bfe87ea782f092fc2161fd4e7",
+          "path": "research/g013_trace_calculus/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "17c1cc932cafe0cba72f33b6aad1c7428846ec80d81f8d3d8ac8664181e27d27",
+          "start_line": 33
+        },
+        {
+          "blob": "b62c8d178d33f1314658bcff8e65cd7cba4ee8e5",
+          "end_line": 34,
+          "file_sha256": "04886f502ec7fd58363e00ec4b8188a443133f6bfe87ea782f092fc2161fd4e7",
+          "path": "research/g013_trace_calculus/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "3a5e99ad685df988163e820db9a941226a1b66c1ab6232c1a883d9aceeb2a4c8",
+          "start_line": 34
+        },
+        {
+          "blob": "b62c8d178d33f1314658bcff8e65cd7cba4ee8e5",
+          "end_line": 60,
+          "file_sha256": "04886f502ec7fd58363e00ec4b8188a443133f6bfe87ea782f092fc2161fd4e7",
+          "path": "research/g013_trace_calculus/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "b969a9f31e1d6451d19f50c43a0309e1e52e6d4a797bda4c69a07b403d5b6fad",
+          "start_line": 60
+        },
+        {
+          "blob": "b62c8d178d33f1314658bcff8e65cd7cba4ee8e5",
+          "end_line": 63,
+          "file_sha256": "04886f502ec7fd58363e00ec4b8188a443133f6bfe87ea782f092fc2161fd4e7",
+          "path": "research/g013_trace_calculus/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "849e4d01a752be688f3719af2ead033811d1edd0b82562399bd0e7607ef95f7b",
+          "start_line": 63
+        },
+        {
+          "blob": "b62c8d178d33f1314658bcff8e65cd7cba4ee8e5",
+          "end_line": 74,
+          "file_sha256": "04886f502ec7fd58363e00ec4b8188a443133f6bfe87ea782f092fc2161fd4e7",
+          "path": "research/g013_trace_calculus/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "f580ae45af64f5fe9f33ca5369c97ffd6193632276aa28759e4c3991aa3b5f8c",
+          "start_line": 69
+        },
+        {
+          "blob": "b62c8d178d33f1314658bcff8e65cd7cba4ee8e5",
+          "end_line": 79,
+          "file_sha256": "04886f502ec7fd58363e00ec4b8188a443133f6bfe87ea782f092fc2161fd4e7",
+          "path": "research/g013_trace_calculus/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "361d876463a3a9384d839c0c87471a0ba834d1ee1b6077f0c5d18e4ee0ba13d1",
+          "start_line": 76
+        },
+        {
+          "blob": "b62c8d178d33f1314658bcff8e65cd7cba4ee8e5",
+          "end_line": 82,
+          "file_sha256": "04886f502ec7fd58363e00ec4b8188a443133f6bfe87ea782f092fc2161fd4e7",
+          "path": "research/g013_trace_calculus/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "b8d02768826e116298877d0acc4a259faa88dce9b5e4b8879089a980bb9e3f03",
+          "start_line": 81
+        },
+        {
+          "blob": "b62c8d178d33f1314658bcff8e65cd7cba4ee8e5",
+          "end_line": 85,
+          "file_sha256": "04886f502ec7fd58363e00ec4b8188a443133f6bfe87ea782f092fc2161fd4e7",
+          "path": "research/g013_trace_calculus/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "93aee933f474a897ef4ee1ed9e49a675498f0ad00e9cdf95cd993059ecd4044a",
+          "start_line": 84
+        },
+        {
+          "blob": "6e8645475aa73e21501761e80394548eec10f885",
+          "end_line": 1,
+          "file_sha256": "c591117428cd2ad6961e7d4ea0ef616fe8389b8d3067802b9c64bdc31a688dba",
+          "path": "research/g013_trace_calculus/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "089aeaf6ace97df26a01be5e47c370991a91eecd58c9b31e845b1faab4363210",
+          "start_line": 1
+        },
+        {
+          "blob": "6e8645475aa73e21501761e80394548eec10f885",
+          "end_line": 3,
+          "file_sha256": "c591117428cd2ad6961e7d4ea0ef616fe8389b8d3067802b9c64bdc31a688dba",
+          "path": "research/g013_trace_calculus/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "dc1349af4fec6e239cb1446898f438b3a90fdd86fd5a9a8fc90f39438ff49c21",
+          "start_line": 3
+        },
+        {
+          "blob": "6e8645475aa73e21501761e80394548eec10f885",
+          "end_line": 7,
+          "file_sha256": "c591117428cd2ad6961e7d4ea0ef616fe8389b8d3067802b9c64bdc31a688dba",
+          "path": "research/g013_trace_calculus/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "e826ff4ddee034adf571a314b988de4013c6dbea63b6380f30d09cecb2f24c25",
+          "start_line": 7
+        },
+        {
+          "blob": "6e8645475aa73e21501761e80394548eec10f885",
+          "end_line": 11,
+          "file_sha256": "c591117428cd2ad6961e7d4ea0ef616fe8389b8d3067802b9c64bdc31a688dba",
+          "path": "research/g013_trace_calculus/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "71693a8bec60be2183569dce9db6598cc0509e523b7d132289ea7e0d3f9d3e4c",
+          "start_line": 11
+        },
+        {
+          "blob": "6e8645475aa73e21501761e80394548eec10f885",
+          "end_line": 14,
+          "file_sha256": "c591117428cd2ad6961e7d4ea0ef616fe8389b8d3067802b9c64bdc31a688dba",
+          "path": "research/g013_trace_calculus/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "38ce9e02cbc393a58b523032f4357a5f8664d4918b85761fb50538943c16574c",
+          "start_line": 14
+        },
+        {
+          "blob": "6e8645475aa73e21501761e80394548eec10f885",
+          "end_line": 24,
+          "file_sha256": "c591117428cd2ad6961e7d4ea0ef616fe8389b8d3067802b9c64bdc31a688dba",
+          "path": "research/g013_trace_calculus/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "30e1697cb56f2bdfe4bd1bee709371c6f5310e077ccbf45aae1470171507d0e0",
+          "start_line": 19
+        },
+        {
+          "blob": "6e8645475aa73e21501761e80394548eec10f885",
+          "end_line": 28,
+          "file_sha256": "c591117428cd2ad6961e7d4ea0ef616fe8389b8d3067802b9c64bdc31a688dba",
+          "path": "research/g013_trace_calculus/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "073f4d7c7292fe792d0e78f82b745d58e5d0bd900a1e7f940d7db4ba9c106af8",
+          "start_line": 28
+        },
+        {
+          "blob": "6e8645475aa73e21501761e80394548eec10f885",
+          "end_line": 33,
+          "file_sha256": "c591117428cd2ad6961e7d4ea0ef616fe8389b8d3067802b9c64bdc31a688dba",
+          "path": "research/g013_trace_calculus/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "6110a5fdc6f0bda905d08ad67cb222c228c10afdc0f78ec10d641c33f589394e",
+          "start_line": 33
+        },
+        {
+          "blob": "6e8645475aa73e21501761e80394548eec10f885",
+          "end_line": 68,
+          "file_sha256": "c591117428cd2ad6961e7d4ea0ef616fe8389b8d3067802b9c64bdc31a688dba",
+          "path": "research/g013_trace_calculus/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "2a61d43e6acf717f59a5ec28967b12bbbc453e6be7c226b429158e1b150828e9",
+          "start_line": 40
+        }
+      ],
+      "theorem_ids": [
+        "theorem:research/g013_trace_calculus/lean::G013TraceCalculus.Cell2.assoc.sizeOf_spec",
+        "theorem:research/g013_trace_calculus/lean::G013TraceCalculus.Cell2.brecOn.eq",
+        "theorem:research/g013_trace_calculus/lean::G013TraceCalculus.Cell2.h_comp.inj",
+        "theorem:research/g013_trace_calculus/lean::G013TraceCalculus.Cell2.h_comp.injEq",
+        "theorem:research/g013_trace_calculus/lean::G013TraceCalculus.Cell2.h_comp.sizeOf_spec",
+        "theorem:research/g013_trace_calculus/lean::G013TraceCalculus.Cell2.id_left.sizeOf_spec",
+        "theorem:research/g013_trace_calculus/lean::G013TraceCalculus.Cell2.id_right.sizeOf_spec",
+        "theorem:research/g013_trace_calculus/lean::G013TraceCalculus.Cell2.refl.sizeOf_spec",
+        "theorem:research/g013_trace_calculus/lean::G013TraceCalculus.Cell2.step_comm.sizeOf_spec",
+        "theorem:research/g013_trace_calculus/lean::G013TraceCalculus.Cell2.symm.inj",
+        "theorem:research/g013_trace_calculus/lean::G013TraceCalculus.Cell2.symm.injEq",
+        "theorem:research/g013_trace_calculus/lean::G013TraceCalculus.Cell2.symm.sizeOf_spec",
+        "theorem:research/g013_trace_calculus/lean::G013TraceCalculus.Cell2.trans.inj",
+        "theorem:research/g013_trace_calculus/lean::G013TraceCalculus.Cell2.trans.injEq",
+        "theorem:research/g013_trace_calculus/lean::G013TraceCalculus.Cell2.trans.sizeOf_spec",
+        "theorem:research/g013_trace_calculus/lean::G013TraceCalculus.EqCell2.brecOn",
+        "theorem:research/g013_trace_calculus/lean::G013TraceCalculus.interchange_source_coherence",
+        "theorem:research/g013_trace_calculus/lean::G013TraceCalculus.interchange_target_coherence",
+        "theorem:research/g013_trace_calculus/lean::G013TraceCalculus.middle_four_interchange_equiv"
+      ]
+    },
+    {
+      "action": "Ingest an author-merged correction as a new source version; preserve this historical snapshot. Do not edit these sources in the evidence consumer.",
+      "disposition": "UNRESOLVED_AT_SOURCE_SNAPSHOT",
+      "evidence_source": {
+        "blob": "1556a8b96a0b09a92fca99758e3b11ad35b63bc4",
+        "end_line": 60,
+        "file_sha256": "e5daf03a2fb45f04d99641597295b5a846e29571362213b0ffd5318f3e7e97e2",
+        "path": "research/g018_self_hosting/lean/Obstruction.lean",
+        "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+        "span_sha256": "e5daf03a2fb45f04d99641597295b5a846e29571362213b0ffd5318f3e7e97e2",
+        "start_line": 1
+      },
+      "headline_ids": [
+        "headline:research/g018_self_hosting/CLAIMS.md:5d36ae58bcd6daf2fc8e:1",
+        "headline:research/g018_self_hosting/CLAIMS.md:5a3e08d2e85d624f44aa:1",
+        "headline:research/g018_self_hosting/CLAIMS.md:1f46b5e0ff06aadc46e5:1",
+        "headline:research/g018_self_hosting/CLAIMS.md:7ec1e6cb5cf21d8ec1e4:1",
+        "headline:research/g018_self_hosting/CLAIMS.md:a976c85b5790881d53d7:1",
+        "headline:research/g018_self_hosting/CLAIMS.md:39f20cf059c5d6f8f532:1",
+        "headline:research/g018_self_hosting/README.md:c0f34f6f211fde12badc:1",
+        "headline:research/g018_self_hosting/README.md:762d40b974401e3dfc3c:1",
+        "headline:research/g018_self_hosting/README.md:d28b4c9b40cc4f47859b:1",
+        "headline:research/g018_self_hosting/README.md:d412b8010a165f6bedf0:1",
+        "headline:research/g018_self_hosting/README.md:c7a78fe54096594d7430:1"
+      ],
+      "id": "handoff:self_evaluation",
+      "owner": "section_3",
+      "scope": "The compiled diagonal result excludes a row of a supplied Boolean table equal to its negated diagonal. It does not connect the Python predictor to one encoded machine and its own evaluation; the executable self-oracle application needs that representation/evaluation bridge.",
+      "sources": [
+        {
+          "blob": "0baca257ba9b7417d2102d356308b3b6b79e2f42",
+          "end_line": 21,
+          "file_sha256": "837c36acec93d4176e0263d2f0143424d1fa4aab28ef4a337a8c100e6dfd88ed",
+          "path": "research/g018_self_hosting/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "5d36ae58bcd6daf2fc8e7b8bcbf1919a1fdcef923768a72dbe6ffc9cc36e9b65",
+          "start_line": 21
+        },
+        {
+          "blob": "0baca257ba9b7417d2102d356308b3b6b79e2f42",
+          "end_line": 41,
+          "file_sha256": "837c36acec93d4176e0263d2f0143424d1fa4aab28ef4a337a8c100e6dfd88ed",
+          "path": "research/g018_self_hosting/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "5a3e08d2e85d624f44aa2dff904a869f0cda0e213ba0d6b22001ee9469b271ae",
+          "start_line": 41
+        },
+        {
+          "blob": "0baca257ba9b7417d2102d356308b3b6b79e2f42",
+          "end_line": 90,
+          "file_sha256": "837c36acec93d4176e0263d2f0143424d1fa4aab28ef4a337a8c100e6dfd88ed",
+          "path": "research/g018_self_hosting/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "1f46b5e0ff06aadc46e51e0ffdbda52d05a4b5906e414e6d1060634998c56388",
+          "start_line": 90
+        },
+        {
+          "blob": "0baca257ba9b7417d2102d356308b3b6b79e2f42",
+          "end_line": 91,
+          "file_sha256": "837c36acec93d4176e0263d2f0143424d1fa4aab28ef4a337a8c100e6dfd88ed",
+          "path": "research/g018_self_hosting/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "7ec1e6cb5cf21d8ec1e4f467f5165b7e453c0ad016f7615b4c48e4858e91783c",
+          "start_line": 91
+        },
+        {
+          "blob": "0baca257ba9b7417d2102d356308b3b6b79e2f42",
+          "end_line": 96,
+          "file_sha256": "837c36acec93d4176e0263d2f0143424d1fa4aab28ef4a337a8c100e6dfd88ed",
+          "path": "research/g018_self_hosting/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "a976c85b5790881d53d7ac8d68bfa70130792d89f3596129b3560ad73eb0c07d",
+          "start_line": 92
+        },
+        {
+          "blob": "0baca257ba9b7417d2102d356308b3b6b79e2f42",
+          "end_line": 101,
+          "file_sha256": "837c36acec93d4176e0263d2f0143424d1fa4aab28ef4a337a8c100e6dfd88ed",
+          "path": "research/g018_self_hosting/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "39f20cf059c5d6f8f532e388bb32f6bbf68e5f3c179f59af9f0dfb06df3e04c5",
+          "start_line": 97
+        },
+        {
+          "blob": "ea0d8aabe2b548684a1b53298711b91c8327323c",
+          "end_line": 7,
+          "file_sha256": "dffcf334c04ca6da4b7fcc36083ab0d3b945ef1ce42b71ec1ece7965c64f2071",
+          "path": "research/g018_self_hosting/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "c0f34f6f211fde12badc9834842d1dd0661dcdef2b669410d72b1bfdf65033bc",
+          "start_line": 5
+        },
+        {
+          "blob": "ea0d8aabe2b548684a1b53298711b91c8327323c",
+          "end_line": 11,
+          "file_sha256": "dffcf334c04ca6da4b7fcc36083ab0d3b945ef1ce42b71ec1ece7965c64f2071",
+          "path": "research/g018_self_hosting/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "762d40b974401e3dfc3c9c34d06a40286431edf6ea030edac5aa78f4d4ed9e55",
+          "start_line": 9
+        },
+        {
+          "blob": "ea0d8aabe2b548684a1b53298711b91c8327323c",
+          "end_line": 46,
+          "file_sha256": "dffcf334c04ca6da4b7fcc36083ab0d3b945ef1ce42b71ec1ece7965c64f2071",
+          "path": "research/g018_self_hosting/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "d28b4c9b40cc4f47859bc958e814266e08d6b6970ae374dc8549b89a171d2950",
+          "start_line": 46
+        },
+        {
+          "blob": "ea0d8aabe2b548684a1b53298711b91c8327323c",
+          "end_line": 49,
+          "file_sha256": "dffcf334c04ca6da4b7fcc36083ab0d3b945ef1ce42b71ec1ece7965c64f2071",
+          "path": "research/g018_self_hosting/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "d412b8010a165f6bedf0dfac92508bb3a8c6284c9c180d3d9db70a3409c434db",
+          "start_line": 47
+        },
+        {
+          "blob": "ea0d8aabe2b548684a1b53298711b91c8327323c",
+          "end_line": 69,
+          "file_sha256": "dffcf334c04ca6da4b7fcc36083ab0d3b945ef1ce42b71ec1ece7965c64f2071",
+          "path": "research/g018_self_hosting/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "c7a78fe54096594d74300538b324ee17b8c52559e48d491edff69754d0756ad0",
+          "start_line": 69
+        }
+      ],
+      "theorem_ids": [
+        "theorem:research/g018_self_hosting/lean::G018SelfHosting.bool_neq_not_self",
+        "theorem:research/g018_self_hosting/lean::G018SelfHosting.diagonal_self_evaluation_obstruction",
+        "theorem:research/g018_self_hosting/lean::G018SelfHosting.halting_self_oracle_obstruction",
+        "theorem:research/g018_self_hosting/lean::G018SelfHosting.total_transition_oracle_refutation"
+      ]
+    },
+    {
+      "action": "Ingest an author-merged correction as a new source version; preserve this historical snapshot. Do not edit these sources in the evidence consumer.",
+      "disposition": "UNRESOLVED_AT_SOURCE_SNAPSHOT",
+      "evidence_source": {
+        "blob": "c497c1f0604de520866cdd05100b3a0254491977",
+        "end_line": 253,
+        "file_sha256": "c8d1052f1bd08abdf9b0bf62e503a1c079015311e795208b4a96e27ed30b8c20",
+        "path": "research/p209b_clifford_symplectic/lean/CliffordSymplectic.lean",
+        "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+        "span_sha256": "c8d1052f1bd08abdf9b0bf62e503a1c079015311e795208b4a96e27ed30b8c20",
+        "start_line": 1
+      },
+      "headline_ids": [
+        "headline:research/p209b_clifford_symplectic/CLAIMS.md:88207594fad25c7e7bb0:1",
+        "headline:research/p209b_clifford_symplectic/CLAIMS.md:eaba5678b10864f8ad9a:1",
+        "headline:research/p209b_clifford_symplectic/CLAIMS.md:8a88071002e467bd987f:1",
+        "headline:research/p209b_clifford_symplectic/CLAIMS.md:643069316e1392cdf6fa:1",
+        "headline:research/p209b_clifford_symplectic/CLAIMS.md:c968d873b726c10716c9:1",
+        "headline:research/p209b_clifford_symplectic/CLAIMS.md:4806f63ff6235827c84b:1",
+        "headline:research/p209b_clifford_symplectic/CLAIMS.md:82ca6e2b6189253c5e7f:1",
+        "headline:research/p209b_clifford_symplectic/CLAIMS.md:b6b6d07b14cc610e7e0a:1",
+        "headline:research/p209b_clifford_symplectic/CLAIMS.md:11f5c6491aff0ceda6f3:1",
+        "headline:research/p209b_clifford_symplectic/README.md:aa5db41aeb17e2b1edb3:1",
+        "headline:research/p209b_clifford_symplectic/README.md:98b2edb05e632ea57191:1",
+        "headline:research/p209b_clifford_symplectic/README.md:5613e6bbaf1a55248bf1:1",
+        "headline:research/p209b_clifford_symplectic/README.md:820f21884588f6a22698:1",
+        "headline:research/p209b_clifford_symplectic/README.md:e6291405661bcd0afdfa:1",
+        "headline:research/p209b_clifford_symplectic/README.md:8b56e705591c3421dcf7:1",
+        "headline:research/p209b_clifford_symplectic/README.md:015c18cb2af703e86048:1"
+      ],
+      "id": "handoff:matrix_scope",
+      "owner": "section_3",
+      "scope": "The reported matrix scope is the six displayed two-element-field matrices and their declared closure. General parameter and obstruction wording needs independent same-scope evidence.",
+      "sources": [
+        {
+          "blob": "75d0c99552c039cc591d5a0a4222772eccff4ace",
+          "end_line": 37,
+          "file_sha256": "8b0e8c9de80acdc62337b10bb9af30be6d9e2d6528c4a5ab959e7c90003f06ed",
+          "path": "research/p209b_clifford_symplectic/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "88207594fad25c7e7bb0e55f02506a31901e8c0000d07a5ab28b08dae96cabac",
+          "start_line": 37
+        },
+        {
+          "blob": "75d0c99552c039cc591d5a0a4222772eccff4ace",
+          "end_line": 39,
+          "file_sha256": "8b0e8c9de80acdc62337b10bb9af30be6d9e2d6528c4a5ab959e7c90003f06ed",
+          "path": "research/p209b_clifford_symplectic/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "eaba5678b10864f8ad9a84ce4e430c67a9fc78e2442455f5a505155df2ccf106",
+          "start_line": 39
+        },
+        {
+          "blob": "75d0c99552c039cc591d5a0a4222772eccff4ace",
+          "end_line": 60,
+          "file_sha256": "8b0e8c9de80acdc62337b10bb9af30be6d9e2d6528c4a5ab959e7c90003f06ed",
+          "path": "research/p209b_clifford_symplectic/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "8a88071002e467bd987f18404170065dbae2ba6b7fe9fee0af96ff7bda71dc30",
+          "start_line": 56
+        },
+        {
+          "blob": "75d0c99552c039cc591d5a0a4222772eccff4ace",
+          "end_line": 64,
+          "file_sha256": "8b0e8c9de80acdc62337b10bb9af30be6d9e2d6528c4a5ab959e7c90003f06ed",
+          "path": "research/p209b_clifford_symplectic/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "643069316e1392cdf6fa21116944a57952ee11aaaf6f26b0b968bcdb60c25c32",
+          "start_line": 64
+        },
+        {
+          "blob": "75d0c99552c039cc591d5a0a4222772eccff4ace",
+          "end_line": 74,
+          "file_sha256": "8b0e8c9de80acdc62337b10bb9af30be6d9e2d6528c4a5ab959e7c90003f06ed",
+          "path": "research/p209b_clifford_symplectic/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "c968d873b726c10716c9520db4e63901e40998f60f263457b3ab35efca17637c",
+          "start_line": 70
+        },
+        {
+          "blob": "75d0c99552c039cc591d5a0a4222772eccff4ace",
+          "end_line": 78,
+          "file_sha256": "8b0e8c9de80acdc62337b10bb9af30be6d9e2d6528c4a5ab959e7c90003f06ed",
+          "path": "research/p209b_clifford_symplectic/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "4806f63ff6235827c84bd7fcebad4d3a2541305b84f0d1fc7d4e6ff8c6a3aa11",
+          "start_line": 78
+        },
+        {
+          "blob": "75d0c99552c039cc591d5a0a4222772eccff4ace",
+          "end_line": 80,
+          "file_sha256": "8b0e8c9de80acdc62337b10bb9af30be6d9e2d6528c4a5ab959e7c90003f06ed",
+          "path": "research/p209b_clifford_symplectic/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "82ca6e2b6189253c5e7f60b72873dc3fb258ccd2e7188e841077e87ff30e341e",
+          "start_line": 80
+        },
+        {
+          "blob": "75d0c99552c039cc591d5a0a4222772eccff4ace",
+          "end_line": 83,
+          "file_sha256": "8b0e8c9de80acdc62337b10bb9af30be6d9e2d6528c4a5ab959e7c90003f06ed",
+          "path": "research/p209b_clifford_symplectic/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "b6b6d07b14cc610e7e0a328e55ba9a792793ae96cf91048a519723e507c92e38",
+          "start_line": 81
+        },
+        {
+          "blob": "75d0c99552c039cc591d5a0a4222772eccff4ace",
+          "end_line": 93,
+          "file_sha256": "8b0e8c9de80acdc62337b10bb9af30be6d9e2d6528c4a5ab959e7c90003f06ed",
+          "path": "research/p209b_clifford_symplectic/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "11f5c6491aff0ceda6f3a4dd7533017051ada8a2e999d5ba17f4f1fe7d214cfc",
+          "start_line": 89
+        },
+        {
+          "blob": "a698c0eb166610edbaca33f0161f609365353ade",
+          "end_line": 5,
+          "file_sha256": "7e6ac0bc25c4927fb020e83d96cfa989a8ca5fd0b05b6e3335c9f9932b68b4dd",
+          "path": "research/p209b_clifford_symplectic/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "aa5db41aeb17e2b1edb3119da4eb2fca9b6ec855c538815edb3702b174ceecec",
+          "start_line": 5
+        },
+        {
+          "blob": "a698c0eb166610edbaca33f0161f609365353ade",
+          "end_line": 21,
+          "file_sha256": "7e6ac0bc25c4927fb020e83d96cfa989a8ca5fd0b05b6e3335c9f9932b68b4dd",
+          "path": "research/p209b_clifford_symplectic/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "98b2edb05e632ea571910b6095400f3f4784bf7d43ee9e214b00955b43bb809c",
+          "start_line": 21
+        },
+        {
+          "blob": "a698c0eb166610edbaca33f0161f609365353ade",
+          "end_line": 24,
+          "file_sha256": "7e6ac0bc25c4927fb020e83d96cfa989a8ca5fd0b05b6e3335c9f9932b68b4dd",
+          "path": "research/p209b_clifford_symplectic/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "5613e6bbaf1a55248bf14d4dff659d965e896d9a4e0d60c9d92c666b8ee32cab",
+          "start_line": 22
+        },
+        {
+          "blob": "a698c0eb166610edbaca33f0161f609365353ade",
+          "end_line": 34,
+          "file_sha256": "7e6ac0bc25c4927fb020e83d96cfa989a8ca5fd0b05b6e3335c9f9932b68b4dd",
+          "path": "research/p209b_clifford_symplectic/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "820f21884588f6a22698863722d4a647334576dbd53c1a60d253b7aed40defd1",
+          "start_line": 34
+        },
+        {
+          "blob": "a698c0eb166610edbaca33f0161f609365353ade",
+          "end_line": 38,
+          "file_sha256": "7e6ac0bc25c4927fb020e83d96cfa989a8ca5fd0b05b6e3335c9f9932b68b4dd",
+          "path": "research/p209b_clifford_symplectic/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "e6291405661bcd0afdfac6975c7a954a5f8a1529c395d0b1f8a11d709ba2a4ba",
+          "start_line": 35
+        },
+        {
+          "blob": "a698c0eb166610edbaca33f0161f609365353ade",
+          "end_line": 45,
+          "file_sha256": "7e6ac0bc25c4927fb020e83d96cfa989a8ca5fd0b05b6e3335c9f9932b68b4dd",
+          "path": "research/p209b_clifford_symplectic/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "8b56e705591c3421dcf7125d5fbd49504475270ddf1a05b03cb32b4a4d22f926",
+          "start_line": 45
+        },
+        {
+          "blob": "a698c0eb166610edbaca33f0161f609365353ade",
+          "end_line": 48,
+          "file_sha256": "7e6ac0bc25c4927fb020e83d96cfa989a8ca5fd0b05b6e3335c9f9932b68b4dd",
+          "path": "research/p209b_clifford_symplectic/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "015c18cb2af703e86048805a215b5714a3b52e5e9612b12d30b8b0f695053aa0",
+          "start_line": 46
+        }
+      ],
+      "theorem_ids": [
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.F2.add_comm",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.F2.mul_comm",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.F2.ofNat_ctorIdx",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.F2.one.sizeOf_spec",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.F2.zero.sizeOf_spec",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.F2.zero_ne_one",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.GeneratedByHS.brecOn",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.Mat2.mk.inj",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.Mat2.mk.injEq",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.Mat2.mk.sizeOf_spec",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.Vec2.mk.inj",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.Vec2.mk.injEq",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.Vec2.mk.sizeOf_spec",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.canonical_pairing",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.canonical_pairing_rev",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.det_matH",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.det_matHS",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.det_matHSH",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.det_matI",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.det_matS",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.det_matSH",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.eastin_knill_finite_quotient_obstruction",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.matHSH_def",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.matHS_def",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.matHS_ne_matHSH",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.matHS_sq_eq_matSH",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.matH_ne_matHS",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.matH_ne_matHSH",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.matH_ne_matS",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.matH_ne_matSH",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.matI_ne_matH",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.matI_ne_matHS",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.matI_ne_matHSH",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.matI_ne_matS",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.matI_ne_matSH",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.matSHS_eq_matHSH",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.matSH_def",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.matSH_ne_matHS",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.matSH_ne_matHSH",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.matSH_sq_eq_matHS",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.matS_ne_matHS",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.matS_ne_matHSH",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.matS_ne_matSH",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.omega_self",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.omega_symm",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.order_matH",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.order_matHS",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.order_matHSH",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.order_matS",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.order_matSH",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.sp2_has_H",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.sp2_has_HS",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.sp2_has_HSH",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.sp2_has_I",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.sp2_has_S",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.sp2_has_SH",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.sp2_mul_closure",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.symplectic_preservation_H",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.symplectic_preservation_HS",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.symplectic_preservation_HSH",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.symplectic_preservation_I",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.symplectic_preservation_S",
+        "theorem:research/p209b_clifford_symplectic/lean::P209bCliffordSymplectic.symplectic_preservation_SH"
+      ]
+    },
+    {
+      "action": "Ingest an author-merged correction as a new source version; preserve this historical snapshot. Do not edit these sources in the evidence consumer.",
+      "disposition": "UNRESOLVED_AT_SOURCE_SNAPSHOT",
+      "evidence_source": {
+        "blob": "fcea483253250ce13a7d20510f6f4375fad1a8b6",
+        "end_line": 535,
+        "file_sha256": "d9e5050127be295d7ae7d2f8ad95e589689fff4ec4eec846594fe718dab2d622",
+        "path": "research/p208c_commutator_tomography/lean/CommutatorTomography.lean",
+        "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+        "span_sha256": "d9e5050127be295d7ae7d2f8ad95e589689fff4ec4eec846594fe718dab2d622",
+        "start_line": 1
+      },
+      "headline_ids": [
+        "headline:research/p208c_commutator_tomography/CLAIMS.md:34e751e7c7724d4ba064:1",
+        "headline:research/p208c_commutator_tomography/CLAIMS.md:1a33053be8b2e3bc8c05:1",
+        "headline:research/p208c_commutator_tomography/CLAIMS.md:913ad283511369ec98de:1",
+        "headline:research/p208c_commutator_tomography/CLAIMS.md:0c50ee1726940a3446ed:1",
+        "headline:research/p208c_commutator_tomography/CLAIMS.md:a658f2e4ea0e4d22a6e6:1",
+        "headline:research/p208c_commutator_tomography/CLAIMS.md:05897f43aa949f3e3ce3:1",
+        "headline:research/p208c_commutator_tomography/CLAIMS.md:97d5b76e3fdbe02cfa23:1",
+        "headline:research/p208c_commutator_tomography/CLAIMS.md:05897f43aa949f3e3ce3:2",
+        "headline:research/p208c_commutator_tomography/CLAIMS.md:4b1f31bf72ca260f113c:1",
+        "headline:research/p208c_commutator_tomography/CLAIMS.md:8b9e0d8aab6247e3c0b5:1",
+        "headline:research/p208c_commutator_tomography/CLAIMS.md:05897f43aa949f3e3ce3:3",
+        "headline:research/p208c_commutator_tomography/CLAIMS.md:91d7fa82cf1805839676:1",
+        "headline:research/p208c_commutator_tomography/CLAIMS.md:05897f43aa949f3e3ce3:4",
+        "headline:research/p208c_commutator_tomography/CLAIMS.md:ea89f5fe09cf521846e4:1",
+        "headline:research/p208c_commutator_tomography/README.md:3e37d21a2814dff0e64f:1",
+        "headline:research/p208c_commutator_tomography/README.md:78dce4f5380013eb2456:1",
+        "headline:research/p208c_commutator_tomography/README.md:dc1ef80882d97e080cf7:1",
+        "headline:research/p208c_commutator_tomography/README.md:706799da9949f4e0053b:1"
+      ],
+      "id": "handoff:trace_domain",
+      "owner": "section_3",
+      "scope": "The compiled trace and commutator theorem is over integer matrices. A field-generic statement needs a different typed result.",
+      "sources": [
+        {
+          "blob": "bcd378becfedde98c675055ca2667a2558ecd0ab",
+          "end_line": 1,
+          "file_sha256": "01a488471bc721405d3a933f090f0b6683c5ba110b71f7e6926f0b0acdcc2782",
+          "path": "research/p208c_commutator_tomography/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "34e751e7c7724d4ba064e410bf5ecbdd046a6e5b6b64e469519d4e58723dadc5",
+          "start_line": 1
+        },
+        {
+          "blob": "bcd378becfedde98c675055ca2667a2558ecd0ab",
+          "end_line": 3,
+          "file_sha256": "01a488471bc721405d3a933f090f0b6683c5ba110b71f7e6926f0b0acdcc2782",
+          "path": "research/p208c_commutator_tomography/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "1a33053be8b2e3bc8c0569036e4320a7b77d6d496d0d4a187badb09a5fcf8cf9",
+          "start_line": 3
+        },
+        {
+          "blob": "bcd378becfedde98c675055ca2667a2558ecd0ab",
+          "end_line": 10,
+          "file_sha256": "01a488471bc721405d3a933f090f0b6683c5ba110b71f7e6926f0b0acdcc2782",
+          "path": "research/p208c_commutator_tomography/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "913ad283511369ec98de502fc34f99783ce2996c5e501951b0ddd7cb846270c6",
+          "start_line": 10
+        },
+        {
+          "blob": "bcd378becfedde98c675055ca2667a2558ecd0ab",
+          "end_line": 12,
+          "file_sha256": "01a488471bc721405d3a933f090f0b6683c5ba110b71f7e6926f0b0acdcc2782",
+          "path": "research/p208c_commutator_tomography/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "0c50ee1726940a3446ed7086bfb5ded46621a4074e6c36893ebf588c2c9e649d",
+          "start_line": 12
+        },
+        {
+          "blob": "bcd378becfedde98c675055ca2667a2558ecd0ab",
+          "end_line": 17,
+          "file_sha256": "01a488471bc721405d3a933f090f0b6683c5ba110b71f7e6926f0b0acdcc2782",
+          "path": "research/p208c_commutator_tomography/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "a658f2e4ea0e4d22a6e6fbb0d5c5f0453f5e1279005e2e01b0e8234bea0679c5",
+          "start_line": 13
+        },
+        {
+          "blob": "bcd378becfedde98c675055ca2667a2558ecd0ab",
+          "end_line": 22,
+          "file_sha256": "01a488471bc721405d3a933f090f0b6683c5ba110b71f7e6926f0b0acdcc2782",
+          "path": "research/p208c_commutator_tomography/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "05897f43aa949f3e3ce32a3d8e2a3934c9958879c8de2b23af1d31ced4891476",
+          "start_line": 19
+        },
+        {
+          "blob": "bcd378becfedde98c675055ca2667a2558ecd0ab",
+          "end_line": 38,
+          "file_sha256": "01a488471bc721405d3a933f090f0b6683c5ba110b71f7e6926f0b0acdcc2782",
+          "path": "research/p208c_commutator_tomography/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "97d5b76e3fdbe02cfa2327bde6426ce5e2bc6b37f5f3b0436a7b0e67b51ae9b8",
+          "start_line": 34
+        },
+        {
+          "blob": "bcd378becfedde98c675055ca2667a2558ecd0ab",
+          "end_line": 43,
+          "file_sha256": "01a488471bc721405d3a933f090f0b6683c5ba110b71f7e6926f0b0acdcc2782",
+          "path": "research/p208c_commutator_tomography/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "05897f43aa949f3e3ce32a3d8e2a3934c9958879c8de2b23af1d31ced4891476",
+          "start_line": 40
+        },
+        {
+          "blob": "bcd378becfedde98c675055ca2667a2558ecd0ab",
+          "end_line": 48,
+          "file_sha256": "01a488471bc721405d3a933f090f0b6683c5ba110b71f7e6926f0b0acdcc2782",
+          "path": "research/p208c_commutator_tomography/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "4b1f31bf72ca260f113c1e114cc42cbd5cdd4bd0bc1046d05a0efef14fc56c0c",
+          "start_line": 44
+        },
+        {
+          "blob": "bcd378becfedde98c675055ca2667a2558ecd0ab",
+          "end_line": 65,
+          "file_sha256": "01a488471bc721405d3a933f090f0b6683c5ba110b71f7e6926f0b0acdcc2782",
+          "path": "research/p208c_commutator_tomography/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "8b9e0d8aab6247e3c0b53d892e16d99f07043d2c41bc073672e9fe3192b91288",
+          "start_line": 55
+        },
+        {
+          "blob": "bcd378becfedde98c675055ca2667a2558ecd0ab",
+          "end_line": 70,
+          "file_sha256": "01a488471bc721405d3a933f090f0b6683c5ba110b71f7e6926f0b0acdcc2782",
+          "path": "research/p208c_commutator_tomography/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "05897f43aa949f3e3ce32a3d8e2a3934c9958879c8de2b23af1d31ced4891476",
+          "start_line": 67
+        },
+        {
+          "blob": "bcd378becfedde98c675055ca2667a2558ecd0ab",
+          "end_line": 88,
+          "file_sha256": "01a488471bc721405d3a933f090f0b6683c5ba110b71f7e6926f0b0acdcc2782",
+          "path": "research/p208c_commutator_tomography/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "91d7fa82cf18058396762d5d640a0055afcc53067c7996b54ea46173344ec777",
+          "start_line": 82
+        },
+        {
+          "blob": "bcd378becfedde98c675055ca2667a2558ecd0ab",
+          "end_line": 93,
+          "file_sha256": "01a488471bc721405d3a933f090f0b6683c5ba110b71f7e6926f0b0acdcc2782",
+          "path": "research/p208c_commutator_tomography/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "05897f43aa949f3e3ce32a3d8e2a3934c9958879c8de2b23af1d31ced4891476",
+          "start_line": 90
+        },
+        {
+          "blob": "bcd378becfedde98c675055ca2667a2558ecd0ab",
+          "end_line": 107,
+          "file_sha256": "01a488471bc721405d3a933f090f0b6683c5ba110b71f7e6926f0b0acdcc2782",
+          "path": "research/p208c_commutator_tomography/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "ea89f5fe09cf521846e439fe20d4f42564446cfcb4efa89fdda60a94c4cebce7",
+          "start_line": 105
+        },
+        {
+          "blob": "21ec2a896bd4464358704985878d2d55a601e6fb",
+          "end_line": 1,
+          "file_sha256": "357af9cb19f4077ad1fca70f07c1b4f93c9207ced03f3d4097a71fb271cbde49",
+          "path": "research/p208c_commutator_tomography/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "3e37d21a2814dff0e64f93a84faa90bab414863f83b1a1ba9c9d7a7017f4152a",
+          "start_line": 1
+        },
+        {
+          "blob": "21ec2a896bd4464358704985878d2d55a601e6fb",
+          "end_line": 5,
+          "file_sha256": "357af9cb19f4077ad1fca70f07c1b4f93c9207ced03f3d4097a71fb271cbde49",
+          "path": "research/p208c_commutator_tomography/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "78dce4f5380013eb2456f910d35de23609c356f857eee403a0f134424ee92fb0",
+          "start_line": 5
+        },
+        {
+          "blob": "21ec2a896bd4464358704985878d2d55a601e6fb",
+          "end_line": 14,
+          "file_sha256": "357af9cb19f4077ad1fca70f07c1b4f93c9207ced03f3d4097a71fb271cbde49",
+          "path": "research/p208c_commutator_tomography/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "dc1ef80882d97e080cf7af35aa01971ff1d295070cfebc5e4634fe2de1a8b5f5",
+          "start_line": 14
+        },
+        {
+          "blob": "21ec2a896bd4464358704985878d2d55a601e6fb",
+          "end_line": 19,
+          "file_sha256": "357af9cb19f4077ad1fca70f07c1b4f93c9207ced03f3d4097a71fb271cbde49",
+          "path": "research/p208c_commutator_tomography/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "706799da9949f4e0053bb8aae3358479b83617b27ec559773dd11f5650cae08c",
+          "start_line": 15
+        }
+      ],
+      "theorem_ids": [
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.Cyclo3.mk.inj",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.Cyclo3.mk.injEq",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.Cyclo3.mk.sizeOf_spec",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.Cyclo3.mub0_mub1_unbiased",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.Cyclo3.mub0_mub2_unbiased",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.Cyclo3.mub0_mub3_unbiased",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.Cyclo3.mub0_orthonormal",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.Cyclo3.mub1_mub2_unbiased",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.Cyclo3.mub1_mub3_unbiased",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.Cyclo3.mub1_orthonormal",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.Cyclo3.mub2_mub3_unbiased",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.Cyclo3.mub2_orthonormal",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.Cyclo3.mub3_orthonormal",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.GaussInt.mk.inj",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.GaussInt.mk.injEq",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.GaussInt.mk.sizeOf_spec",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.GaussInt.mub4_0_1_unbiased",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.GaussInt.mub4_0_2_unbiased",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.GaussInt.mub4_0_3_unbiased",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.GaussInt.mub4_0_4_unbiased",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.GaussInt.mub4_0_orthonormal",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.GaussInt.mub4_1_2_unbiased",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.GaussInt.mub4_1_3_unbiased",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.GaussInt.mub4_1_4_unbiased",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.GaussInt.mub4_1_orthonormal",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.GaussInt.mub4_2_3_unbiased",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.GaussInt.mub4_2_4_unbiased",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.GaussInt.mub4_2_orthonormal",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.GaussInt.mub4_3_4_unbiased",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.GaussInt.mub4_3_orthonormal",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.GaussInt.mub4_4_orthonormal",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.commutator_trace_obstruction",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.const_mul_sum",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.fin2_cases",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.finRange_two",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.identity_matMul_2",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.matMul_identity_2",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.multi_locus_microcausality_2x2",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.sum_add",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.sum_congr",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.sum_const",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.sum_mul_const",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.sum_prod",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.sum_sub",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.sum_swap",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.sum_zero",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.tensor_mixed_product",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.trace_commutator_zero",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.trace_matMul_comm",
+        "theorem:research/p208c_commutator_tomography/lean::P208cCommutatorTomography.trace_scalar_identity"
+      ]
+    },
+    {
+      "action": "Ingest an author-merged correction as a new source version; preserve this historical snapshot. Do not edit these sources in the evidence consumer.",
+      "disposition": "UNRESOLVED_AT_SOURCE_SNAPSHOT",
+      "evidence_source": {
+        "blob": "3d8d009e828c3d85bd3849e3e85a7ca712896eb2",
+        "end_line": 550,
+        "file_sha256": "de45206e4a8fb0f252c7d31aa5011c7cf47b7c8fbc2340248a4c5232745592fa",
+        "path": "research/g012_typed_translation/codec.py",
+        "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+        "span_sha256": "de45206e4a8fb0f252c7d31aa5011c7cf47b7c8fbc2340248a4c5232745592fa",
+        "start_line": 1
+      },
+      "headline_ids": [
+        "headline:research/g012_typed_translation/CLAIMS.md:cb0b7ce1e82ea7ec2ff1:1",
+        "headline:research/g012_typed_translation/CLAIMS.md:edce98d5f22ee94cdd7c:1",
+        "headline:research/g012_typed_translation/CLAIMS.md:d43eb22fa23cbe626c06:1",
+        "headline:research/g012_typed_translation/CLAIMS.md:1fa8ee3f14018a44df2f:1",
+        "headline:research/g012_typed_translation/CLAIMS.md:6bca70916273cf6997b0:1",
+        "headline:research/g012_typed_translation/CLAIMS.md:6312df9453ba0f455a95:1",
+        "headline:research/g012_typed_translation/CLAIMS.md:785cb053322841cecd1f:1",
+        "headline:research/g012_typed_translation/CLAIMS.md:d116f19f596891dd8d56:1",
+        "headline:research/g012_typed_translation/CLAIMS.md:73612542570284e608e6:1",
+        "headline:research/g012_typed_translation/CLAIMS.md:d9233b5e82572be9902b:1",
+        "headline:research/g012_typed_translation/CLAIMS.md:71294ada4c371502b5dc:1",
+        "headline:research/g012_typed_translation/CLAIMS.md:d61b9ff4dab4d2b32e5d:1",
+        "headline:research/g012_typed_translation/CLAIMS.md:5b92e19ef7437990d33b:1",
+        "headline:research/g012_typed_translation/CLAIMS.md:895b8f391f21203654ec:1",
+        "headline:research/g012_typed_translation/CLAIMS.md:bc5fea0ae42525694b89:1",
+        "headline:research/g012_typed_translation/CLAIMS.md:7d6c85ff7da56c92916b:1",
+        "headline:research/g012_typed_translation/CLAIMS.md:f43a2155d04b0e70e222:1",
+        "headline:research/g012_typed_translation/CLAIMS.md:ea8d22fe885adc84ec57:1",
+        "headline:research/g012_typed_translation/README.md:fc771a661d761a24a6bd:1",
+        "headline:research/g012_typed_translation/README.md:194a72b11c6434d769c1:1",
+        "headline:research/g012_typed_translation/README.md:75fc6c214d9eedb040ba:1",
+        "headline:research/g012_typed_translation/README.md:94dab46fbe83c3ab845b:1",
+        "headline:research/g012_typed_translation/README.md:064cb544b2006877ed5f:1",
+        "headline:research/g012_typed_translation/README.md:cbac94e8fb8637f7036c:1",
+        "headline:research/g012_typed_translation/README.md:b789ab921f2011852f09:1",
+        "headline:research/g012_typed_translation/README.md:8d88f81a065cedeb6810:1",
+        "headline:research/g012_typed_translation/README.md:cb8d5e3d58e4428856ab:1",
+        "headline:research/g012_typed_translation/README.md:828fecdfb2b137285f0e:1",
+        "headline:research/g012_typed_translation/README.md:718d9f9a69d9f510e84b:1"
+      ],
+      "id": "handoff:codec_native",
+      "owner": "section_3",
+      "scope": "A string codec with removal operations needs an actual state/step bridge to the monotone admission grammar; similarly named fields do not supply one.",
+      "sources": [
+        {
+          "blob": "6af91a2f9206a85a37e7a20e9d4cee51f1dcbecc",
+          "end_line": 1,
+          "file_sha256": "11532393969c3ffd6df1e02021d31edc49a6e7f58a578978a7d4f99e1daa7740",
+          "path": "research/g012_typed_translation/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "cb0b7ce1e82ea7ec2ff1a0e39f1a2076193767cb1acf63f48f218050cebbceb8",
+          "start_line": 1
+        },
+        {
+          "blob": "6af91a2f9206a85a37e7a20e9d4cee51f1dcbecc",
+          "end_line": 3,
+          "file_sha256": "11532393969c3ffd6df1e02021d31edc49a6e7f58a578978a7d4f99e1daa7740",
+          "path": "research/g012_typed_translation/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "edce98d5f22ee94cdd7c2cc6059234bf7dc3137a0605697c77d75fcaf0c01f0b",
+          "start_line": 3
+        },
+        {
+          "blob": "6af91a2f9206a85a37e7a20e9d4cee51f1dcbecc",
+          "end_line": 14,
+          "file_sha256": "11532393969c3ffd6df1e02021d31edc49a6e7f58a578978a7d4f99e1daa7740",
+          "path": "research/g012_typed_translation/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "d43eb22fa23cbe626c06d2025ce940698ad36aaf27c4c75283dd16580dcd30c2",
+          "start_line": 14
+        },
+        {
+          "blob": "6af91a2f9206a85a37e7a20e9d4cee51f1dcbecc",
+          "end_line": 15,
+          "file_sha256": "11532393969c3ffd6df1e02021d31edc49a6e7f58a578978a7d4f99e1daa7740",
+          "path": "research/g012_typed_translation/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "1fa8ee3f14018a44df2fdd6c74b6386bb4663093c6c63856648f8ffcc6c90a5a",
+          "start_line": 15
+        },
+        {
+          "blob": "6af91a2f9206a85a37e7a20e9d4cee51f1dcbecc",
+          "end_line": 16,
+          "file_sha256": "11532393969c3ffd6df1e02021d31edc49a6e7f58a578978a7d4f99e1daa7740",
+          "path": "research/g012_typed_translation/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "6bca70916273cf6997b038c2501280896681d06a6064f3fb3f16cbcca53255d5",
+          "start_line": 16
+        },
+        {
+          "blob": "6af91a2f9206a85a37e7a20e9d4cee51f1dcbecc",
+          "end_line": 17,
+          "file_sha256": "11532393969c3ffd6df1e02021d31edc49a6e7f58a578978a7d4f99e1daa7740",
+          "path": "research/g012_typed_translation/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "6312df9453ba0f455a95e4c891fa16dae39ad1e1dc1ff2bccc4700b03424d9f9",
+          "start_line": 17
+        },
+        {
+          "blob": "6af91a2f9206a85a37e7a20e9d4cee51f1dcbecc",
+          "end_line": 20,
+          "file_sha256": "11532393969c3ffd6df1e02021d31edc49a6e7f58a578978a7d4f99e1daa7740",
+          "path": "research/g012_typed_translation/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "785cb053322841cecd1f0cc228192449ef6f54bf26fcf7dc49094ac84ca62545",
+          "start_line": 20
+        },
+        {
+          "blob": "6af91a2f9206a85a37e7a20e9d4cee51f1dcbecc",
+          "end_line": 45,
+          "file_sha256": "11532393969c3ffd6df1e02021d31edc49a6e7f58a578978a7d4f99e1daa7740",
+          "path": "research/g012_typed_translation/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "d116f19f596891dd8d56ae10f4e2ab9a815876cd13dee504b089100b3882c88f",
+          "start_line": 45
+        },
+        {
+          "blob": "6af91a2f9206a85a37e7a20e9d4cee51f1dcbecc",
+          "end_line": 53,
+          "file_sha256": "11532393969c3ffd6df1e02021d31edc49a6e7f58a578978a7d4f99e1daa7740",
+          "path": "research/g012_typed_translation/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "73612542570284e608e6644acbeefe27cd9d642f49c32ea4d7a6148da1a03cfc",
+          "start_line": 49
+        },
+        {
+          "blob": "6af91a2f9206a85a37e7a20e9d4cee51f1dcbecc",
+          "end_line": 66,
+          "file_sha256": "11532393969c3ffd6df1e02021d31edc49a6e7f58a578978a7d4f99e1daa7740",
+          "path": "research/g012_typed_translation/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "d9233b5e82572be9902b4424f7d4133c48a76a52d9ad364df577316a7e8974a6",
+          "start_line": 66
+        },
+        {
+          "blob": "6af91a2f9206a85a37e7a20e9d4cee51f1dcbecc",
+          "end_line": 67,
+          "file_sha256": "11532393969c3ffd6df1e02021d31edc49a6e7f58a578978a7d4f99e1daa7740",
+          "path": "research/g012_typed_translation/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "71294ada4c371502b5dc98daedeef8664b247dce5f2725c808a506f27399b2a7",
+          "start_line": 67
+        },
+        {
+          "blob": "6af91a2f9206a85a37e7a20e9d4cee51f1dcbecc",
+          "end_line": 73,
+          "file_sha256": "11532393969c3ffd6df1e02021d31edc49a6e7f58a578978a7d4f99e1daa7740",
+          "path": "research/g012_typed_translation/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "d61b9ff4dab4d2b32e5dcd0b7a73a2d5bdae1c47803f2c9c01a2a083c5b97b1f",
+          "start_line": 68
+        },
+        {
+          "blob": "6af91a2f9206a85a37e7a20e9d4cee51f1dcbecc",
+          "end_line": 78,
+          "file_sha256": "11532393969c3ffd6df1e02021d31edc49a6e7f58a578978a7d4f99e1daa7740",
+          "path": "research/g012_typed_translation/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "5b92e19ef7437990d33bc46669420956e11a472cbb2ac1c778c05082d386421f",
+          "start_line": 74
+        },
+        {
+          "blob": "6af91a2f9206a85a37e7a20e9d4cee51f1dcbecc",
+          "end_line": 81,
+          "file_sha256": "11532393969c3ffd6df1e02021d31edc49a6e7f58a578978a7d4f99e1daa7740",
+          "path": "research/g012_typed_translation/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "895b8f391f21203654ecd8447d017d5cd35ad13a4998751c4a7b9f9ee7b53914",
+          "start_line": 81
+        },
+        {
+          "blob": "6af91a2f9206a85a37e7a20e9d4cee51f1dcbecc",
+          "end_line": 92,
+          "file_sha256": "11532393969c3ffd6df1e02021d31edc49a6e7f58a578978a7d4f99e1daa7740",
+          "path": "research/g012_typed_translation/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "bc5fea0ae42525694b897bde0a4a3870aab7e0b06ca8f8fc205be04459532314",
+          "start_line": 88
+        },
+        {
+          "blob": "6af91a2f9206a85a37e7a20e9d4cee51f1dcbecc",
+          "end_line": 95,
+          "file_sha256": "11532393969c3ffd6df1e02021d31edc49a6e7f58a578978a7d4f99e1daa7740",
+          "path": "research/g012_typed_translation/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "7d6c85ff7da56c92916b9616068a3ba9c74825e01e1dbe1b696cb8973c545382",
+          "start_line": 95
+        },
+        {
+          "blob": "6af91a2f9206a85a37e7a20e9d4cee51f1dcbecc",
+          "end_line": 112,
+          "file_sha256": "11532393969c3ffd6df1e02021d31edc49a6e7f58a578978a7d4f99e1daa7740",
+          "path": "research/g012_typed_translation/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "f43a2155d04b0e70e222246cc4d7c8c47d82a42d7accb2234762a7eca8be8b60",
+          "start_line": 112
+        },
+        {
+          "blob": "6af91a2f9206a85a37e7a20e9d4cee51f1dcbecc",
+          "end_line": 131,
+          "file_sha256": "11532393969c3ffd6df1e02021d31edc49a6e7f58a578978a7d4f99e1daa7740",
+          "path": "research/g012_typed_translation/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "ea8d22fe885adc84ec57bc7b1c15c9efd5eb0ce8318cc7bce47089967b78df17",
+          "start_line": 113
+        },
+        {
+          "blob": "f5c560cadc14b60fce01dd08ab1cf68a4a90a7bc",
+          "end_line": 1,
+          "file_sha256": "e7eca9b5bd368d8a06ab35ca4795fbcc39be08f9dbf67f6b02847de3816bc622",
+          "path": "research/g012_typed_translation/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "fc771a661d761a24a6bd8271a19a3918388ee881a3c96e92e736b2492ca152ea",
+          "start_line": 1
+        },
+        {
+          "blob": "f5c560cadc14b60fce01dd08ab1cf68a4a90a7bc",
+          "end_line": 5,
+          "file_sha256": "e7eca9b5bd368d8a06ab35ca4795fbcc39be08f9dbf67f6b02847de3816bc622",
+          "path": "research/g012_typed_translation/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "194a72b11c6434d769c15dbca850354f961cac250d91e1834f364d6de040ed14",
+          "start_line": 5
+        },
+        {
+          "blob": "f5c560cadc14b60fce01dd08ab1cf68a4a90a7bc",
+          "end_line": 11,
+          "file_sha256": "e7eca9b5bd368d8a06ab35ca4795fbcc39be08f9dbf67f6b02847de3816bc622",
+          "path": "research/g012_typed_translation/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "75fc6c214d9eedb040ba9a5c3690a24f62e31e5486e0e8c2f0a9ba029456085c",
+          "start_line": 11
+        },
+        {
+          "blob": "f5c560cadc14b60fce01dd08ab1cf68a4a90a7bc",
+          "end_line": 12,
+          "file_sha256": "e7eca9b5bd368d8a06ab35ca4795fbcc39be08f9dbf67f6b02847de3816bc622",
+          "path": "research/g012_typed_translation/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "94dab46fbe83c3ab845b78be415d25d5f14f0a412072f2961250bc2e8f9d15a3",
+          "start_line": 12
+        },
+        {
+          "blob": "f5c560cadc14b60fce01dd08ab1cf68a4a90a7bc",
+          "end_line": 16,
+          "file_sha256": "e7eca9b5bd368d8a06ab35ca4795fbcc39be08f9dbf67f6b02847de3816bc622",
+          "path": "research/g012_typed_translation/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "064cb544b2006877ed5f51a5099333381b0852cbcd7747d822f6297a941c62f6",
+          "start_line": 16
+        },
+        {
+          "blob": "f5c560cadc14b60fce01dd08ab1cf68a4a90a7bc",
+          "end_line": 31,
+          "file_sha256": "e7eca9b5bd368d8a06ab35ca4795fbcc39be08f9dbf67f6b02847de3816bc622",
+          "path": "research/g012_typed_translation/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "cbac94e8fb8637f7036c269fe0f52ab3f834081d4ef1b2f884390c0cd1c3f9d3",
+          "start_line": 30
+        },
+        {
+          "blob": "f5c560cadc14b60fce01dd08ab1cf68a4a90a7bc",
+          "end_line": 40,
+          "file_sha256": "e7eca9b5bd368d8a06ab35ca4795fbcc39be08f9dbf67f6b02847de3816bc622",
+          "path": "research/g012_typed_translation/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "b789ab921f2011852f09a0323ad4e13a0c7580a3be49fdc16b836377abdf2e82",
+          "start_line": 38
+        },
+        {
+          "blob": "f5c560cadc14b60fce01dd08ab1cf68a4a90a7bc",
+          "end_line": 53,
+          "file_sha256": "e7eca9b5bd368d8a06ab35ca4795fbcc39be08f9dbf67f6b02847de3816bc622",
+          "path": "research/g012_typed_translation/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "8d88f81a065cedeb68100c437e1e6faf55e69df7539a7519504832065df388cd",
+          "start_line": 52
+        },
+        {
+          "blob": "f5c560cadc14b60fce01dd08ab1cf68a4a90a7bc",
+          "end_line": 62,
+          "file_sha256": "e7eca9b5bd368d8a06ab35ca4795fbcc39be08f9dbf67f6b02847de3816bc622",
+          "path": "research/g012_typed_translation/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "cb8d5e3d58e4428856ab449c5c9c1004950ab3b4ef1f4441c0a6939f74adcb6f",
+          "start_line": 62
+        },
+        {
+          "blob": "f5c560cadc14b60fce01dd08ab1cf68a4a90a7bc",
+          "end_line": 72,
+          "file_sha256": "e7eca9b5bd368d8a06ab35ca4795fbcc39be08f9dbf67f6b02847de3816bc622",
+          "path": "research/g012_typed_translation/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "828fecdfb2b137285f0e8c46df61dd2d14c18773580b261469512384afaf588c",
+          "start_line": 66
+        },
+        {
+          "blob": "f5c560cadc14b60fce01dd08ab1cf68a4a90a7bc",
+          "end_line": 78,
+          "file_sha256": "e7eca9b5bd368d8a06ab35ca4795fbcc39be08f9dbf67f6b02847de3816bc622",
+          "path": "research/g012_typed_translation/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "718d9f9a69d9f510e84b32f578030ac7c1783234529fab828133996bd5f4d7b0",
+          "start_line": 77
+        }
+      ],
+      "theorem_ids": []
+    },
+    {
+      "action": "Ingest an author-merged correction as a new source version; preserve this historical snapshot. Do not edit these sources in the evidence consumer.",
+      "disposition": "UNRESOLVED_AT_SOURCE_SNAPSHOT",
+      "evidence_source": {
+        "blob": "799f5b65aaf74ea124dd3025db6898dd706f6fdb",
+        "end_line": 316,
+        "file_sha256": "a8b18b7e19df3bb8d9c2c8a4bd6d769aa0d1797276fcab5e0f03e55f8873a060",
+        "path": "research/x310_vertical_integration/commutation.py",
+        "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+        "span_sha256": "a8b18b7e19df3bb8d9c2c8a4bd6d769aa0d1797276fcab5e0f03e55f8873a060",
+        "start_line": 1
+      },
+      "headline_ids": [
+        "headline:research/x310_vertical_integration/CLAIMS.md:d714d6ca73249f42a037:1",
+        "headline:research/x310_vertical_integration/CLAIMS.md:b3f54c9bc8d0acdc619d:1",
+        "headline:research/x310_vertical_integration/CLAIMS.md:68b9843dfb1cd8735433:1",
+        "headline:research/x310_vertical_integration/CLAIMS.md:5a0a8876b653b1b6f7ec:1",
+        "headline:research/x310_vertical_integration/README.md:10ec9da1f5ed297d42c0:1",
+        "headline:research/x310_vertical_integration/README.md:8c5be3fb384ab7968715:1",
+        "headline:research/x310_vertical_integration/README.md:0a30b592dac2fbffab5b:1"
+      ],
+      "id": "handoff:pipeline_native",
+      "owner": "section_3",
+      "scope": "The audit uses a separately constructed sample carrier; prove the required squares on the live carrier and preserve all declared metadata before claiming full integration.",
+      "sources": [
+        {
+          "blob": "7b9fb1e4a1b1f30a1274abe35dc442b5895bbf77",
+          "end_line": 5,
+          "file_sha256": "4feaa15a7151ee30113dcddcdda25fea4c5fdf3754e3b26895321f1c330e853c",
+          "path": "research/x310_vertical_integration/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "d714d6ca73249f42a03787cd1cd1ab8c33e71a8744e2b4fbf11fd16d4139574c",
+          "start_line": 5
+        },
+        {
+          "blob": "7b9fb1e4a1b1f30a1274abe35dc442b5895bbf77",
+          "end_line": 9,
+          "file_sha256": "4feaa15a7151ee30113dcddcdda25fea4c5fdf3754e3b26895321f1c330e853c",
+          "path": "research/x310_vertical_integration/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "b3f54c9bc8d0acdc619d38999b2bc85b136cefd11564f36b81d8ae4c41d7ebbf",
+          "start_line": 9
+        },
+        {
+          "blob": "7b9fb1e4a1b1f30a1274abe35dc442b5895bbf77",
+          "end_line": 11,
+          "file_sha256": "4feaa15a7151ee30113dcddcdda25fea4c5fdf3754e3b26895321f1c330e853c",
+          "path": "research/x310_vertical_integration/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "68b9843dfb1cd8735433a5263d35b1405912aa4d39e92c9c70be6d299237c478",
+          "start_line": 10
+        },
+        {
+          "blob": "7b9fb1e4a1b1f30a1274abe35dc442b5895bbf77",
+          "end_line": 25,
+          "file_sha256": "4feaa15a7151ee30113dcddcdda25fea4c5fdf3754e3b26895321f1c330e853c",
+          "path": "research/x310_vertical_integration/CLAIMS.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "5a0a8876b653b1b6f7ec5e2ecbfc19cce095d18e211619becbd5ebcddbb72bdb",
+          "start_line": 23
+        },
+        {
+          "blob": "95340b8024e7172710fd46883928302c63b77b3f",
+          "end_line": 1,
+          "file_sha256": "e3f1c15bfc4a38e78a872e5bc82d1e2bcdae0f159a1857b88aa0a94af5f39e1f",
+          "path": "research/x310_vertical_integration/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "10ec9da1f5ed297d42c05b930e94199300d58b0a9022107e67735e1a695bd764",
+          "start_line": 1
+        },
+        {
+          "blob": "95340b8024e7172710fd46883928302c63b77b3f",
+          "end_line": 6,
+          "file_sha256": "e3f1c15bfc4a38e78a872e5bc82d1e2bcdae0f159a1857b88aa0a94af5f39e1f",
+          "path": "research/x310_vertical_integration/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "8c5be3fb384ab79687150d430dc1fe79ade8b94a4684df6f25b2175ca61b4fc9",
+          "start_line": 5
+        },
+        {
+          "blob": "95340b8024e7172710fd46883928302c63b77b3f",
+          "end_line": 10,
+          "file_sha256": "e3f1c15bfc4a38e78a872e5bc82d1e2bcdae0f159a1857b88aa0a94af5f39e1f",
+          "path": "research/x310_vertical_integration/README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "0a30b592dac2fbffab5b9825d0117a53f54cb20b45b1b8d855b92fd402a6a98e",
+          "start_line": 8
+        }
+      ],
+      "theorem_ids": []
+    },
+    {
+      "action": "Ingest an author-merged correction as a new source version; preserve this historical snapshot. Do not edit these sources in the evidence consumer.",
+      "disposition": "UNRESOLVED_AT_SOURCE_SNAPSHOT",
+      "evidence_source": {
+        "blob": "79dcb986633edf44b61f3569680be98560d011ba",
+        "end_line": 211,
+        "file_sha256": "7f46bcb5a31a4aeac370a993d582f9e2c8f6fe961f4d5cd745c0007a4bcc652d",
+        "path": "research/README.md",
+        "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+        "span_sha256": "7f46bcb5a31a4aeac370a993d582f9e2c8f6fe961f4d5cd745c0007a4bcc652d",
+        "start_line": 1
+      },
+      "headline_ids": [
+        "headline:README.md:cad76ee9c82724f61ba4:1"
+      ],
+      "id": "handoff:registered_count",
+      "owner": "section_3",
+      "scope": "The source index records twelve gate-11 trees. The older four-tree statement is a source-head documentation mismatch.",
+      "sources": [
+        {
+          "blob": "62ced9fe5b77c0190cea83c97807fa6a2aaf83a4",
+          "end_line": 189,
+          "file_sha256": "6e5319fa48bbc2c1b9fafb8527f420cdcb6f520bd823c2d7d470c186032a7d75",
+          "path": "README.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "cad76ee9c82724f61ba418c8d5da1867b1af3f1bee95cefc3f1c67ed6646bf13",
+          "start_line": 174
+        }
+      ],
+      "theorem_ids": []
+    },
+    {
+      "action": "Ingest an author-merged correction as a new source version; preserve this historical snapshot. Do not edit these sources in the evidence consumer.",
+      "disposition": "UNRESOLVED_AT_SOURCE_SNAPSHOT",
+      "evidence_source": {
+        "blob": "57e77b1d9d1eb2c333732b9969f3a2c03d39452d",
+        "end_line": 601,
+        "file_sha256": "cfb4a6c60ea75351342b2fcfae04a1cd8a226f39b0b5a9b05871da2c37f7f433",
+        "path": "CLAUDE.md",
+        "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+        "span_sha256": "cfb4a6c60ea75351342b2fcfae04a1cd8a226f39b0b5a9b05871da2c37f7f433",
+        "start_line": 1
+      },
+      "headline_ids": [
+        "headline:paper/paper.md:9ee0de3f920299e51aed:1",
+        "headline:paper/paper.md:3ab1881e0b8b42c82870:1",
+        "headline:paper/paper.md:7c1ee80a0cfc32ffaa6b:1",
+        "headline:paper/paper.md:100b224e1c63b41f4fb0:1",
+        "headline:paper/paper.md:2a3031a0be20a877c4fc:1",
+        "headline:paper/paper.md:6173ab63b0ca3925070b:1",
+        "headline:paper/paper.md:f4438be25bcd41f7c76c:1",
+        "headline:paper/paper.md:053ecde041bb803765ad:1",
+        "headline:paper/paper.md:d636750296fa2b6dc5c3:1",
+        "headline:paper/paper.md:0666edc119608db21f18:1",
+        "headline:paper/paper.md:bfb9e4e0d74602110a26:1",
+        "headline:paper/paper.md:7d0ff9e544175416cfc1:1",
+        "headline:paper/paper.md:24e539f0211baed762de:1",
+        "headline:paper/paper.md:c1fc1229fc1609be93aa:1",
+        "headline:paper/paper.md:81c962f1472e88aed369:1",
+        "headline:paper/paper.md:5b726104ac3df5bf8a28:1",
+        "headline:paper/paper.md:ed419237d4ac92a39680:1",
+        "headline:paper/paper.md:27946a179d90102e17be:1",
+        "headline:paper/paper.md:24cb940fda9b0b8192c2:1",
+        "headline:paper/paper.md:7e0b0a5293e820370ea2:1",
+        "headline:paper/paper.md:dfc97504a8c688c1abc1:1",
+        "headline:paper/paper.md:3d45a15a84a2ae258005:1",
+        "headline:paper/paper.md:33d1759477ad20d55fd6:1",
+        "headline:paper/paper.md:aab4bea8cb873caa26ec:1",
+        "headline:paper/paper.md:6f0e5d352dc060fd0479:1",
+        "headline:paper/paper.md:4596a9c434d00da9586c:1",
+        "headline:paper/paper.md:838e7c42562af6220c50:1"
+      ],
+      "id": "handoff:policy_custody",
+      "owner": "section_3",
+      "scope": "Repository vocabulary and the governing exclusion require an author-owned policy reconciliation. This consumer copies source spans by reference and makes no contract amendment.",
+      "sources": [
+        {
+          "blob": "860d8b2010f4670ecc11e3996c737cc502d1ef5f",
+          "end_line": 16,
+          "file_sha256": "6c657f4fc5d0613c13fd62e4071c846e51596663bf98ec97ee866bce92e982ba",
+          "path": "paper/paper.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "9ee0de3f920299e51aed2a7bcd52f6f294d7bed405956b8dae6fd437a749a693",
+          "start_line": 9
+        },
+        {
+          "blob": "860d8b2010f4670ecc11e3996c737cc502d1ef5f",
+          "end_line": 185,
+          "file_sha256": "6c657f4fc5d0613c13fd62e4071c846e51596663bf98ec97ee866bce92e982ba",
+          "path": "paper/paper.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "3ab1881e0b8b42c82870cdea793d256a147f12a5682d85e2e1b9e3a194d371d1",
+          "start_line": 174
+        },
+        {
+          "blob": "860d8b2010f4670ecc11e3996c737cc502d1ef5f",
+          "end_line": 190,
+          "file_sha256": "6c657f4fc5d0613c13fd62e4071c846e51596663bf98ec97ee866bce92e982ba",
+          "path": "paper/paper.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "7c1ee80a0cfc32ffaa6baceb8227c4f5d59e0433ea1cec8649d1cbd65bf17dee",
+          "start_line": 186
+        },
+        {
+          "blob": "860d8b2010f4670ecc11e3996c737cc502d1ef5f",
+          "end_line": 362,
+          "file_sha256": "6c657f4fc5d0613c13fd62e4071c846e51596663bf98ec97ee866bce92e982ba",
+          "path": "paper/paper.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "100b224e1c63b41f4fb0dbee6bc0132e1c5a54197efac768356967c4221466e1",
+          "start_line": 357
+        },
+        {
+          "blob": "860d8b2010f4670ecc11e3996c737cc502d1ef5f",
+          "end_line": 367,
+          "file_sha256": "6c657f4fc5d0613c13fd62e4071c846e51596663bf98ec97ee866bce92e982ba",
+          "path": "paper/paper.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "2a3031a0be20a877c4fc8ea9c81dadbfcabb71fd91a044d0c7f5c3b8582367e4",
+          "start_line": 364
+        },
+        {
+          "blob": "860d8b2010f4670ecc11e3996c737cc502d1ef5f",
+          "end_line": 402,
+          "file_sha256": "6c657f4fc5d0613c13fd62e4071c846e51596663bf98ec97ee866bce92e982ba",
+          "path": "paper/paper.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "6173ab63b0ca3925070b0db0c412bbf8590606c66ffd92f05cb80803bb7234a8",
+          "start_line": 381
+        },
+        {
+          "blob": "860d8b2010f4670ecc11e3996c737cc502d1ef5f",
+          "end_line": 435,
+          "file_sha256": "6c657f4fc5d0613c13fd62e4071c846e51596663bf98ec97ee866bce92e982ba",
+          "path": "paper/paper.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "f4438be25bcd41f7c76c75e0f258c946fcc312d8bd8b760b4c339c45492b08a0",
+          "start_line": 435
+        },
+        {
+          "blob": "860d8b2010f4670ecc11e3996c737cc502d1ef5f",
+          "end_line": 465,
+          "file_sha256": "6c657f4fc5d0613c13fd62e4071c846e51596663bf98ec97ee866bce92e982ba",
+          "path": "paper/paper.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "053ecde041bb803765ad31e87493ab5feafe7b09d58ad1aee1872c508cd67e38",
+          "start_line": 449
+        },
+        {
+          "blob": "860d8b2010f4670ecc11e3996c737cc502d1ef5f",
+          "end_line": 478,
+          "file_sha256": "6c657f4fc5d0613c13fd62e4071c846e51596663bf98ec97ee866bce92e982ba",
+          "path": "paper/paper.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "d636750296fa2b6dc5c31f5e3e0fa36bc8f20a015e3ca4c8d169e38118e36251",
+          "start_line": 474
+        },
+        {
+          "blob": "860d8b2010f4670ecc11e3996c737cc502d1ef5f",
+          "end_line": 489,
+          "file_sha256": "6c657f4fc5d0613c13fd62e4071c846e51596663bf98ec97ee866bce92e982ba",
+          "path": "paper/paper.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "0666edc119608db21f18065a7c2940855a14afe8cdf10bad8d9a3aafe6e0c794",
+          "start_line": 489
+        },
+        {
+          "blob": "860d8b2010f4670ecc11e3996c737cc502d1ef5f",
+          "end_line": 537,
+          "file_sha256": "6c657f4fc5d0613c13fd62e4071c846e51596663bf98ec97ee866bce92e982ba",
+          "path": "paper/paper.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "bfb9e4e0d74602110a2636b0944a75cce4075972aa75c00db503547b98daba6a",
+          "start_line": 531
+        },
+        {
+          "blob": "860d8b2010f4670ecc11e3996c737cc502d1ef5f",
+          "end_line": 544,
+          "file_sha256": "6c657f4fc5d0613c13fd62e4071c846e51596663bf98ec97ee866bce92e982ba",
+          "path": "paper/paper.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "7d0ff9e544175416cfc1dc3ba77d4e5e3fe10830efb7178cc6c16aa94e632787",
+          "start_line": 539
+        },
+        {
+          "blob": "860d8b2010f4670ecc11e3996c737cc502d1ef5f",
+          "end_line": 562,
+          "file_sha256": "6c657f4fc5d0613c13fd62e4071c846e51596663bf98ec97ee866bce92e982ba",
+          "path": "paper/paper.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "24e539f0211baed762de1a9617e607e50998f2a7d3194a6c65f0ab3cbecfb38a",
+          "start_line": 558
+        },
+        {
+          "blob": "860d8b2010f4670ecc11e3996c737cc502d1ef5f",
+          "end_line": 569,
+          "file_sha256": "6c657f4fc5d0613c13fd62e4071c846e51596663bf98ec97ee866bce92e982ba",
+          "path": "paper/paper.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "c1fc1229fc1609be93aa1d2419a374c0f963cdae3708851e8675fe38011ee8b0",
+          "start_line": 563
+        },
+        {
+          "blob": "860d8b2010f4670ecc11e3996c737cc502d1ef5f",
+          "end_line": 606,
+          "file_sha256": "6c657f4fc5d0613c13fd62e4071c846e51596663bf98ec97ee866bce92e982ba",
+          "path": "paper/paper.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "81c962f1472e88aed369598ff8def670d2a95f2625fd4398b338cd0991604a52",
+          "start_line": 599
+        },
+        {
+          "blob": "860d8b2010f4670ecc11e3996c737cc502d1ef5f",
+          "end_line": 686,
+          "file_sha256": "6c657f4fc5d0613c13fd62e4071c846e51596663bf98ec97ee866bce92e982ba",
+          "path": "paper/paper.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "5b726104ac3df5bf8a2811286a0d5c44ca4fa9641c5ee1df96cf6720ed9b90f8",
+          "start_line": 681
+        },
+        {
+          "blob": "860d8b2010f4670ecc11e3996c737cc502d1ef5f",
+          "end_line": 696,
+          "file_sha256": "6c657f4fc5d0613c13fd62e4071c846e51596663bf98ec97ee866bce92e982ba",
+          "path": "paper/paper.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "ed419237d4ac92a396801c51034a10711e2b204952e9c4e2a5451f28ac7f9453",
+          "start_line": 687
+        },
+        {
+          "blob": "860d8b2010f4670ecc11e3996c737cc502d1ef5f",
+          "end_line": 708,
+          "file_sha256": "6c657f4fc5d0613c13fd62e4071c846e51596663bf98ec97ee866bce92e982ba",
+          "path": "paper/paper.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "27946a179d90102e17be4e39729797f178e965d9165144f88f971c1fa1b390b6",
+          "start_line": 703
+        },
+        {
+          "blob": "860d8b2010f4670ecc11e3996c737cc502d1ef5f",
+          "end_line": 740,
+          "file_sha256": "6c657f4fc5d0613c13fd62e4071c846e51596663bf98ec97ee866bce92e982ba",
+          "path": "paper/paper.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "24cb940fda9b0b8192c2ba0429109584a8989a04d6374a97c9f5fa21c8940ad7",
+          "start_line": 732
+        },
+        {
+          "blob": "860d8b2010f4670ecc11e3996c737cc502d1ef5f",
+          "end_line": 806,
+          "file_sha256": "6c657f4fc5d0613c13fd62e4071c846e51596663bf98ec97ee866bce92e982ba",
+          "path": "paper/paper.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "7e0b0a5293e820370ea25d0b62283ee6a58db2210c9227616c7a9e4e398c5ca2",
+          "start_line": 800
+        },
+        {
+          "blob": "860d8b2010f4670ecc11e3996c737cc502d1ef5f",
+          "end_line": 812,
+          "file_sha256": "6c657f4fc5d0613c13fd62e4071c846e51596663bf98ec97ee866bce92e982ba",
+          "path": "paper/paper.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "dfc97504a8c688c1abc119fa8e6c61c4e931da5bac20cc6d1b7ec6e846def69a",
+          "start_line": 807
+        },
+        {
+          "blob": "860d8b2010f4670ecc11e3996c737cc502d1ef5f",
+          "end_line": 874,
+          "file_sha256": "6c657f4fc5d0613c13fd62e4071c846e51596663bf98ec97ee866bce92e982ba",
+          "path": "paper/paper.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "3d45a15a84a2ae25800561adcf6d8f9a65be11e6d938b4f026b689815b33e95d",
+          "start_line": 862
+        },
+        {
+          "blob": "860d8b2010f4670ecc11e3996c737cc502d1ef5f",
+          "end_line": 898,
+          "file_sha256": "6c657f4fc5d0613c13fd62e4071c846e51596663bf98ec97ee866bce92e982ba",
+          "path": "paper/paper.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "33d1759477ad20d55fd6704648adb781f8fe7930e6ef91d6481cdbbd493cd847",
+          "start_line": 894
+        },
+        {
+          "blob": "860d8b2010f4670ecc11e3996c737cc502d1ef5f",
+          "end_line": 931,
+          "file_sha256": "6c657f4fc5d0613c13fd62e4071c846e51596663bf98ec97ee866bce92e982ba",
+          "path": "paper/paper.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "aab4bea8cb873caa26ecc95f277084b347d96057d66e6feaac9cd1ef1b3fed45",
+          "start_line": 926
+        },
+        {
+          "blob": "860d8b2010f4670ecc11e3996c737cc502d1ef5f",
+          "end_line": 945,
+          "file_sha256": "6c657f4fc5d0613c13fd62e4071c846e51596663bf98ec97ee866bce92e982ba",
+          "path": "paper/paper.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "6f0e5d352dc060fd0479c78a6b22c473b1f9cbae0dac500898db9f51f85b8323",
+          "start_line": 933
+        },
+        {
+          "blob": "860d8b2010f4670ecc11e3996c737cc502d1ef5f",
+          "end_line": 951,
+          "file_sha256": "6c657f4fc5d0613c13fd62e4071c846e51596663bf98ec97ee866bce92e982ba",
+          "path": "paper/paper.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "4596a9c434d00da9586c79566ad0a54064c1036288a4620e54ee8b4b02d31748",
+          "start_line": 947
+        },
+        {
+          "blob": "860d8b2010f4670ecc11e3996c737cc502d1ef5f",
+          "end_line": 981,
+          "file_sha256": "6c657f4fc5d0613c13fd62e4071c846e51596663bf98ec97ee866bce92e982ba",
+          "path": "paper/paper.md",
+          "snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+          "span_sha256": "838e7c42562af6220c509447acc0ab758be5fed7067be356b6687661fe1d793f",
+          "start_line": 968
+        }
+      ],
+      "theorem_ids": []
+    }
+  ],
+  "scope": "A handoff identifies a scope question for its owner. It does not pronounce every selected sentence false; neighboring qualified and historical sentences remain context.",
+  "source_snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f"
+}

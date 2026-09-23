@@ -1,0 +1,59 @@
+-- Compiled environment observer; generated reports remain apparatus.
+import Lean.Elab.Command
+import Lean.Util.CollectAxioms
+import Lean.Meta
+import Lean.Data.Json
+@@IMPORTS@@
+
+open Lean Elab Command Meta
+set_option pp.universes true
+set_option pp.explicit true
+set_option pp.fullNames true
+set_option format.width 120
+set_option maxRecDepth 10000
+set_option maxHeartbeats 0
+
+run_cmd do
+  let env ← getEnv
+  liftIO <| IO.println ("EG_REACH " ++ (toJson (env.header.moduleNames.map Name.toString)).compress)
+  let selected : Array String := @@MODULES@@
+  let mut count : Nat := 0
+  let mut modules : Nat := 0
+  for (modName, data) in env.header.moduleNames.zip env.header.moduleData do
+    if selected.contains modName.toString then
+      modules := modules + 1
+      liftIO <| IO.println ("EG_MODULE " ++ (toJson modName.toString).compress)
+      for name in data.constNames do
+        match env.find? name with
+        | none => throwError "EG_CONSTANT_MISSING {name}"
+        | some info =>
+          if info.isTheorem && !name.isInternalDetail then
+            let axes ← liftCoreM (Lean.collectAxioms name)
+            let (typ, binders, result) ← liftTermElabM do
+              let typ := (← ppExpr info.type).pretty
+              forallTelescope info.type fun xs body => do
+                let mut binders : Array Json := #[]
+                for x in xs do
+                  let decl ← x.fvarId!.getDecl
+                  let visibility := match decl.binderInfo with
+                    | .default => "explicit"
+                    | .implicit => "implicit"
+                    | .strictImplicit => "strict_implicit"
+                    | .instImplicit => "instance"
+                  binders := binders.push <| Json.mkObj [
+                    ("name", toJson decl.userName.toString),
+                    ("type", toJson (← ppExpr decl.type).pretty),
+                    ("visibility", toJson visibility),
+                    ("is_proposition", toJson (← isProp decl.type))]
+                return (typ, binders, (← ppExpr body).pretty)
+            count := count + 1
+            liftIO <| IO.println ("EG_THEOREM " ++ (Json.mkObj [
+              ("module", toJson modName.toString),
+              ("declaration", toJson name.toString),
+              ("kind", toJson "theorem"),
+              ("elaborated_type", toJson typ),
+              ("local_hypotheses", toJson binders),
+              ("conclusion", toJson result),
+              ("axioms", toJson (axes.map Name.toString))]).compress)
+  liftIO <| IO.println ("EG_END " ++ (Json.mkObj [
+    ("modules", toJson modules), ("theorems", toJson count)]).compress)
