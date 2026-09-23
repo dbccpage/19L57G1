@@ -182,6 +182,8 @@ python research/second_nofirst/verify_lean.py
 if ($LASTEXITCODE -ne 0) { throw "second_nofirst Lean audit failed" }
 python research/typed_translation/verify_lean.py
 if ($LASTEXITCODE -ne 0) { throw "typed_translation Lean audit failed" }
+python research/second_index/verify_lean.py
+if ($LASTEXITCODE -ne 0) { throw "second_index Lean audit failed" }
 
 python ci/check_declaration_axioms.py
 if ($LASTEXITCODE -ne 0) { throw "compiled declaration axiom census failed" }
@@ -334,10 +336,11 @@ remains a separate manual Lean/axiom receipt and is not part of CI.
 The partial-Decide verifier has no automatic repin: its sealed source snapshot
 and import authority list move only by an inspected provenance edit.
 
-The workflow enumerates nine more registered trees by the same shape
+The workflow also enumerates these registered trees by the same shape
 (pin verifier, then the tree's tests and typing from inside it):
 `research/boundary_seed/verify_pins.py`,
 `research/limit_and_observer/verify_pins.py`,
+`research/second_index/verify_pins.py`,
 `research/second_inheritance/verify_pins.py`,
 `research/second_nofirst/verify_pins.py`,
 `research/second_stake/verify_pins.py`,

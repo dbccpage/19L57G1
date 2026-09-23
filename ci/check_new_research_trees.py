@@ -112,9 +112,16 @@ def tree_problems(tree: Path, canonical: bytes, roots: dict[str, set[str]]) -> l
 
 
 def records_seed(value: object) -> bool:
-    """Does a manifest record `SEED` at its pinned sha256, at any depth?"""
+    """Does a manifest record `SEED` at its pinned sha256, at any depth?
+
+    A hex digest's letter case carries no information, and rungs record
+    digests in either case (second_nofirst and second_index use upper), so
+    the comparison ignores case.  Any other difference still refuses.
+    """
     if isinstance(value, dict):
-        if value.get("path") == SEED and value.get("sha256") == SEED_SHA256:
+        digest = value.get("sha256")
+        if (value.get("path") == SEED and isinstance(digest, str)
+                and digest.lower() == SEED_SHA256):
             return True
         return any(records_seed(item) for item in value.values())
     if isinstance(value, list):
