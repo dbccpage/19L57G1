@@ -191,7 +191,7 @@
   "pipeline_run_id": "X310-VERIFY-CANONICAL",
   "pytest": {
     "exit_code": 0,
-    "passed": 27,
+    "passed": 31,
     "status": "PASS"
   },
   "receipt_version": "1.0.0",
@@ -210,10 +210,11 @@
     "tests/test_end_to_end_lifecycle.py": "969b2e4b6728a5da20aee400060814720824a1c6a72f0d2347e4802eeedcb3fe",
     "tests/test_pipeline_stages.py": "4ec495231ef6d8ec03e9ff9f273b61e6a5a4c7917541ce650d03452cf52aa5d1",
     "tests/test_receipt_determinism.py": "e43d9cb930e982359e56f4bd0a6f17fa8844a72f55fa874f5309f949235cb450",
+    "tests/test_verifier_cli.py": "0444babe6dc734cd0348f3ad303923f13ceea67188fa1a3b23cfb26d6af761b0",
     "tests/test_vertical_commutation.py": "1b55add1b40ab0f757ce1c336eb48c3245f28685f9aa7a5c9e5024e8e91ab494",
     "types.py": "90768efa3cd0c16949125e4e33c7ac09adcf2f47abbdd4fc015ccbd71ee7ad98",
-    "verify.py": "8e83e68825b98b76f20fffc597bca23b66b480fae1506a520c1c5af0b7d98718",
-    "verify_sources.py": "64029fdc7d79f5eb5cd49f70e1ed4beb54d0844128932ea1d05b134af2963ecc"
+    "verify.py": "365780f0e712ecc4b32975cbe07f0a29f42cba3630966296f079806a5094f10b",
+    "verify_sources.py": "198569fe1fef4ebcde513f37b6a7ef306b7a6fcab91c3393edb969566dbb4e84"
   },
   "status": "PASS",
   "target": "Target X310: Vertical Integration Chain",

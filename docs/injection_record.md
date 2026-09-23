@@ -81,3 +81,15 @@ That is WITHDRAWN as to the parked-module residual, which is closed, and
 injection is exactly how the closure was shown to bite. The general point
 survives and still applies to the research-tree axiom receipt above:
 injection demonstrates that a residual is live; it does not close one.
+
+## Direct verifier startup (2026-09-23)
+
+The full research custody census exposed a clean-interpreter failure in
+`research/x310_vertical_integration/verify_sources.py`: its local `types.py`
+shadowed the standard library before source verification began. The same
+startup problem affected `verify.py`. Four regression cases execute both
+scripts with `python -S`, from the repository root and the tree directory.
+All four failed with the import error before the repair and passed afterward.
+Each script now removes its own script-directory search entry before importing
+standard-library dependencies; qualified model imports retain their scope.
+The tree's full verifier and receipt remain independent checks.
