@@ -1,0 +1,29 @@
+# Claims
+
+AuthorityEffect: None.  Every Lean name below is in the
+`ResearchNativeBridge` namespace and is reported in
+`lean/ResearchNativeBridge/AxiomReport.lean`.  Each reports only `propext`
+and `Quot.sound`, or no axiom.  Counts dated 2026-09-23.
+
+| Claim | Status | Statement | Evidence |
+| --- | --- | --- | --- |
+| NB-1 | PROVED_THEOREM | For every deterministic step function, paths from `s` to `t` correspond exactly to event lists whose replay from `s` ends at `t`: `events` encodes, `ofSub` decodes, and both round trips are identities. Two paths with the same endpoints and events are equal. | `Path.run_events`, `Path.events_ofEvents`, `Path.toSub_ofSub`, `Path.ofSub_toSub`, `Path.events_injective` |
+| NB-2 | PROVED_THEOREM | Paths compose. The empty path is a two-sided identity, composition is associative, and `events` sends composition to list concatenation. | `Path.append_nil`, `Path.append_assoc`, `Path.events_append` |
+| NB-3 | PROVED_THEOREM | Every path of the sealed passage step yields an aligned typed trace of the sealed trace algebra, with the path's events and end state. The trace is legal when every step is accepted from a state of the sealed well-formed class. | `eraseTrace_records`, `endState_records`, `records_legal` |
+| NB-4 | PROVED_THEOREM | Every aligned typed trace is a native path whose events are the erased trace; this re-derives the sealed erasure theorem. Every legal typed trace is recovered exactly from its path. | `events_ofAligned`, `replay_erases_via_paths`, `records_ofAligned` |
+| NB-5 | PROVED_THEOREM | Refusal records persist along every native path. A path from a halted state ends at its start. | `refusals_mono`, `halted_path` |
+| NB-6 | PROVED_THEOREM | Every passage step either keeps every field except budget and license, or strictly grows a size read from those fields. So a state on a cycle through `s` is `s` with at most its budget and license changed. Both fields carry a nontrivial cycle at genesis. | `step_keep_or_grow`, `passage_cycle_core`, `passage_cycle_budget_license`, `budget_cycle`, `license_cycle` |
+| NB-7 | PROVED_THEOREM | A commuting translation (one replay square per source step) composes over histories. It maps every source path to a target path between the encoded endpoints, preserving the empty path and composition. | `Sim.run_trHist`, `Sim.trHist_append`, `Sim.events_lift`, `Sim.lift_nil`, `Sim.lift_append` |
+| NB-8 | PROVED_THEOREM | Into the sealed passage, the encodings of all states on a source cycle share their core. For any target step with a measure and core satisfying the premises of NB-6's generic form, a source whose encoding's core separates states has no cycle through two distinct states. | `passage_sim_cycle`, `Sim.acyclic_of_core_injective`, `Path.cycle_core` |
+| NB-9 | REFUTED | "A commuting replay square with an injective state encoding shows that the passage reproduces the source's structure." Every system with an injective numbering commutes with the passage through budget writes alone, with an injective encoding. The two-state toggle is one such system: its states get distinct encodings with a common core. | `budgetSim_enc_injective`, `toggle_encoding` |
+| NB-10 | PROVED_THEOREM | Paths of the sealed admission step: each path's events replay under `replayE` to its end, every successful replay is a path with those events, and paths are determined by their events. Every successful admission step keeps the regime or grows its size, so the admission kernel has no cycle through two distinct regimes. | `PPath.run_events`, `PPath.events_ofEventsM`, `PPath.events_injective`, `PPath.events_append`, `PPath.cycle_eq`, `stepE_keep_or_grow`, `admission_cycle` |
+| NB-11 | PROVED_THEOREM | Every token-aware admission path maps to an admission path between the erased endpoints, whose events are the sealed `eraseHistory` of the token-aware events. | `events_liftT` |
+| NB-12 | PROVED_THEOREM | Over passage states, the read-back of a G013 trace by a supplied label decoder succeeds exactly when every step's label decodes to an event whose sealed step lands on that step's recorded target. On success, the native events are the decoded labels. | `realize_iff`, `realize_events` |
+| NB-13 | REFUTED | "A G013 trace over passage states is a native trace." A one-step G013 trace from genesis to the halted genesis state, labelled as an occurrence admission, is refused. Its endpoints are nevertheless joined by a native path. | `unrealized_step` |
+| NB-14 | VERIFIED_FINITE | Over the declared battery in `input.json` and `bridge.py` (28 events; 2,272 states reachable in at most six steps from the twelve sealed named states), all 63,616 state-event pairs keep the core or grow the size. Growth is exercised for every one of the nine growing event kinds. All 243 nontrivial strongly connected components vary only budget and license. All 1,555 histories of up to four events over a six-event alphabet satisfy the record square; 126 are legal. The budget register commutes on every square of a toggle and of a three-state rotation. 49 successful token-aware admission steps keep or grow, and 31 are refused. | `evidence/receipt.json`, `tests/test_bridge.py` |
+| NB-15 | OPEN | Event selection: a translation's target event lists are supplied data. No rule is proved that selects them from a source system, and none is proved canonical. | none |
+| NB-16 | OPEN | A translation that preserves the passage's observation (zero relation, obstruction, refusal) and not only its states. NB-9 shows that state-level squares alone do not constrain this. | none |
+| NB-17 | OPEN | Read-back of the X310 pipeline carrier and of the G012 codec into native paths. | none |
+
+Lean reach: only the declarations named in `TREE_CONTRACT.json`.  This is
+not a census of every compiled constant.

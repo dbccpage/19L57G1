@@ -1,0 +1,45 @@
+import ResearchNativeBridge
+
+-- Exact reach is the declaration list in TREE_CONTRACT.json.
+#print axioms ResearchNativeBridge.Path.run_events
+#print axioms ResearchNativeBridge.Path.events_ofEvents
+#print axioms ResearchNativeBridge.Path.toSub_ofSub
+#print axioms ResearchNativeBridge.Path.ofSub_toSub
+#print axioms ResearchNativeBridge.Path.events_injective
+#print axioms ResearchNativeBridge.Path.append_nil
+#print axioms ResearchNativeBridge.Path.append_assoc
+#print axioms ResearchNativeBridge.Path.events_append
+#print axioms ResearchNativeBridge.Path.cycle_core
+#print axioms ResearchNativeBridge.eraseTrace_records
+#print axioms ResearchNativeBridge.endState_records
+#print axioms ResearchNativeBridge.records_legal
+#print axioms ResearchNativeBridge.events_ofAligned
+#print axioms ResearchNativeBridge.replay_erases_via_paths
+#print axioms ResearchNativeBridge.records_ofAligned
+#print axioms ResearchNativeBridge.refusals_mono
+#print axioms ResearchNativeBridge.halted_path
+#print axioms ResearchNativeBridge.step_keep_or_grow
+#print axioms ResearchNativeBridge.passage_cycle_core
+#print axioms ResearchNativeBridge.passage_cycle_budget_license
+#print axioms ResearchNativeBridge.budget_cycle
+#print axioms ResearchNativeBridge.license_cycle
+#print axioms ResearchNativeBridge.Sim.run_trHist
+#print axioms ResearchNativeBridge.Sim.trHist_append
+#print axioms ResearchNativeBridge.Sim.events_lift
+#print axioms ResearchNativeBridge.Sim.lift_nil
+#print axioms ResearchNativeBridge.Sim.lift_append
+#print axioms ResearchNativeBridge.Sim.acyclic_of_core_injective
+#print axioms ResearchNativeBridge.budgetSim_enc_injective
+#print axioms ResearchNativeBridge.passage_sim_cycle
+#print axioms ResearchNativeBridge.toggle_encoding
+#print axioms ResearchNativeBridge.PPath.run_events
+#print axioms ResearchNativeBridge.PPath.events_ofEventsM
+#print axioms ResearchNativeBridge.PPath.events_injective
+#print axioms ResearchNativeBridge.PPath.events_append
+#print axioms ResearchNativeBridge.PPath.cycle_eq
+#print axioms ResearchNativeBridge.stepE_keep_or_grow
+#print axioms ResearchNativeBridge.admission_cycle
+#print axioms ResearchNativeBridge.events_liftT
+#print axioms ResearchNativeBridge.realize_iff
+#print axioms ResearchNativeBridge.realize_events
+#print axioms ResearchNativeBridge.unrealized_step

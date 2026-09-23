@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "snapshot": "89fc568a61eb22100edf4070d40eb1449c350ed4",
+  "pins": {
+    "code/derivation/model.py": "b6f95a673853d423a0d73b4faa95b2cd22f306a3",
+    "code/derivation/primitive_passage.py": "fff44fa3cf8b9a4b96bc6543ed8242afeed4842b",
+    "code/derivation/trace_algebra.py": "ad4075ff6f7ff4b3a33c3bc4e376389f87233150",
+    "code/derivation/transition_alphabet.py": "618277da3310e282a6d3d8899783a5c175848a69",
+    "lean4/Derivation/Basic.lean": "610d8fc982853807eb892eaaf683fc4eb2959cc1",
+    "lean4/Derivation/Erasure.lean": "b855d58a7196c13591b6d43c3dac68adb58f146c",
+    "lean4/Derivation/PrimitivePassage.lean": "80563edc5922c64b193fbb86c88fb5546f22777d",
+    "lean4/Derivation/TransitionAlphabet.lean": "403c929c1dce8d93dd6a3989b0ceada2b51a1170",
+    "lean4/Derivation/TraceAlgebra.lean": "d3d1a9a7e5663c18b8da3f5f86f5589d80aca073",
+    "research/g013_trace_calculus/lean/Trace.lean": "301823719e5de8873b63c3fae4d865a3926aa756"
+  }
+}

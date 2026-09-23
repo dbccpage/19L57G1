@@ -1,0 +1,66 @@
+{
+  "admission": {
+    "depth": 3,
+    "grow": 30,
+    "keep": 19,
+    "refused": 31,
+    "regimes": 22
+  },
+  "alphabet": 28,
+  "authority_effect": "None",
+  "bounds": {
+    "admission_depth": 3,
+    "reachable_depth": 6,
+    "record_length": 4
+  },
+  "cycles": {
+    "components": 1243,
+    "largest": 6,
+    "nontrivial": 243,
+    "varying_fields": [
+      "budget",
+      "licensed"
+    ]
+  },
+  "dichotomy": {
+    "grow_by_kind": {
+      "addCol": 180,
+      "admitOcc": 364,
+      "admitWit": 624,
+      "assertWit": 406,
+      "declareObs": 560,
+      "halt": 1348,
+      "protect": 664,
+      "refineCol": 84,
+      "refuse": 196
+    },
+    "keep": 59190,
+    "pairs": 63616
+  },
+  "realize": {
+    "endpoints_joined": true,
+    "mislabelled_refused": true,
+    "realized_events": [
+      [
+        "admitOcc",
+        0
+      ]
+    ]
+  },
+  "records": {
+    "histories": 1555,
+    "legal": 126,
+    "max_length": 4
+  },
+  "rotation": {
+    "distinct_cores": 1,
+    "distinct_encodings": 3,
+    "squares": 6
+  },
+  "states": 2272,
+  "toggle": {
+    "distinct_cores": 1,
+    "distinct_encodings": 2,
+    "squares": 2
+  }
+}
