@@ -6,12 +6,13 @@ This research tree implements and formalizes the general multi-sorted relational
 
 $$\text{Carrier} = (\text{data}, \text{forms}, \text{insts}, \text{rules}, \text{reqs})$$
 
-These names resemble the sealed admission regime, but this codec's components
-are string tokens for typed structures. Its operations can remove instances,
-rules, and requirements, whereas sealed admission is monotone. The round-trip
-and step-commutation results below are internal to this typed-structure codec;
-they do not establish a native-regime isomorphism or a commuting square with
-sealed admission events.
+Scope correction (2026-09-23): these names resemble the sealed admission
+regime. Python uses sorted string tokens and permits removals of instances,
+rules, and requirements; sealed admission is monotone. Lean instead packages
+typed structures in inductive tokens and proves its own decode-after-encode
+identity and step commutation. These theorems do not verify the Python parser
+or an inverse on every relational state. Neither implementation establishes
+a native-regime isomorphism or a commuting square with sealed admission events.
 
 The module supplies:
 - **`signature.py`**: Finite multi-sorted signatures supporting sorts, constants, relation symbols of arbitrary arities, and function symbols, paired with canonical `TypedStructure` carriers and operational transitions `step(S, op)`.

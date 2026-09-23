@@ -2,11 +2,15 @@
 
 This document formalizes the claims ledger for **G012 (Bound-Uniform Typed Translation & General Signature Codec)**, specifying the mathematical basis, formal Lean 4 theorems, Python verification mirrors, and epistemic boundaries.
 
-Scope boundary: all codec and step-commutation theorems below concern this
-tree's finite typed structures and its string-token relational carrier.
-Shared field names do not give an isomorphism with the sealed `Regime`.
-Its removal operations have no sealed admission counterpart. A native bridge
-requires separate encode/decode and transition-commutation theorems.
+Scope correction (2026-09-23): the Lean codec theorems concern this tree's
+typed structures packaged in inductive tokens; the Python codec instead
+parses sorted string tokens. No theorem here identifies those two carriers
+or proves the Python parser implements the Lean decoder. The Lean round trip
+is `decode (encode s) = ok s`; it does not establish an inverse on every
+relational state. Shared field names give neither carrier an isomorphism
+with the sealed `Regime`. Python removal operations have no sealed admission
+counterpart. A native bridge requires separate encode/decode and
+transition-commutation theorems.
 
 AuthorityEffect: None.  
 Terminal: `TYPED_TRANSLATION_CONSTRUCTIVE_BOUND_UNIFORM`.
