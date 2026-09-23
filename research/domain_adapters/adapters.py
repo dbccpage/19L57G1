@@ -58,7 +58,7 @@ def vec_code(v: Vec) -> int:
     return v[0] + 2 * v[1]
 
 
-def quantum_report() -> Json:
+def matrix_report() -> Json:
     vectors = [(x, z) for x in (0, 1) for z in (0, 1)]
     if any(h_step(h_step(v)) != v for v in vectors):
         raise AssertionError("the matrix is not an involution")
@@ -123,7 +123,7 @@ def receipt() -> Json:
         "authority_effect": "None",
         "bounds": dict(b),
         "counter": counter_report(b["counter_bound"]),
-        "quantum": quantum_report(),
+        "matrix": matrix_report(),
         "mechanics": mechanics_report(b["grid_radius"]),
         "license": license_report(states),
     }

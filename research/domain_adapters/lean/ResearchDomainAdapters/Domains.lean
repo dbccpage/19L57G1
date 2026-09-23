@@ -15,9 +15,9 @@ as supplied.
 * **The P209b two-element-field carrier** (imported).  The matrix `matH`
   swaps the two basis vectors and is its own inverse.  So every
   translation of its action into the passage gives both basis vectors the
-  same core (`quantum_core_collapse`), and none is faithful in the core
-  (`no_core_faithful_quantum`).  A translation does exist, through budget
-  writes (`quantum_budget_adapter`).
+  same core (`matrix_core_collapse`), and none is faithful in the core
+  (`no_core_faithful_matrix`).  A translation does exist, through budget
+  writes (`matrix_budget_adapter`).
 * **The conservation ladder's integer mechanics** (imported).  At
   coefficient 2 its step on pairs has period four.  So every translation
   gives a state and its successor the same core (`mechanics_core_collapse`).
@@ -74,16 +74,16 @@ theorem basis_distinct : ex ≠ ez := by decide
 
 theorem hStep_ex : hStep ex () = ez := rfl
 
-theorem quantum_core_collapse (m : Sim hStep step) :
+theorem matrix_core_collapse (m : Sim hStep step) :
     core (m.enc ez) = core (m.enc ex) := by
   have := swap_core m ex () (hStep_twice ex ())
   rw [hStep_ex] at this
   exact this
 
-theorem no_core_faithful_quantum :
+theorem no_core_faithful_matrix :
     ¬ ∃ m : Sim hStep step, ∀ a b, core (m.enc a) = core (m.enc b) → a = b := by
   intro ⟨m, hinj⟩
-  exact basis_distinct (hinj ex ez (quantum_core_collapse m).symm)
+  exact basis_distinct (hinj ex ez (matrix_core_collapse m).symm)
 
 /-- A numbering of the four vectors. -/
 def vecCode (v : Vec2) : Nat :=
@@ -94,7 +94,7 @@ theorem vecCode_injective (a b : Vec2) (h : vecCode a = vecCode b) : a = b := by
   | mk ax az => cases b with
     | mk bx bz => cases ax <;> cases az <;> cases bx <;> cases bz <;> simp_all [vecCode]
 
-theorem quantum_budget_adapter :
+theorem matrix_budget_adapter :
     ∃ m : Sim hStep step, ∀ a b, m.enc a = m.enc b → a = b :=
   ⟨budgetSim hStep vecCode, budgetSim_enc_injective hStep vecCode vecCode_injective⟩
 

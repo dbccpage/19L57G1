@@ -24,7 +24,7 @@ def test_receipt_matches_committed() -> None:
 
 def test_small_reports() -> None:
     assert adapters.counter_report(3) == {"squares": 3, "distinct_cores": 4}
-    assert adapters.quantum_report()["distinct_cores"] == 1
+    assert adapters.matrix_report()["distinct_cores"] == 1
     assert adapters.mechanics_report(1) == {"pairs": 81, "moved": 80}
     report = adapters.license_report([GENESIS_P, PS(licensed=False)])
     assert report["inert_proposals"] == 6 and report["gated_applies"] == 6
@@ -48,16 +48,16 @@ def test_counter_catches_a_collapsed_core(monkeypatch: pytest.MonkeyPatch) -> No
         adapters.counter_report(2)
 
 
-def test_quantum_catches_a_non_involution(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_matrix_catches_a_non_involution(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(adapters, "h_step", lambda v: (v[1], 1))
     with pytest.raises(AssertionError, match="not an involution"):
-        adapters.quantum_report()
+        adapters.matrix_report()
 
 
-def test_quantum_catches_a_broken_budget_square(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_matrix_catches_a_broken_budget_square(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(adapters, "preplay", lambda h, s: s)
     with pytest.raises(AssertionError, match="budget square fails"):
-        adapters.quantum_report()
+        adapters.matrix_report()
 
 
 def test_mechanics_catches_a_wrong_period(monkeypatch: pytest.MonkeyPatch) -> None:

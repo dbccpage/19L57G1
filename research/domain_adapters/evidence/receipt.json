@@ -15,15 +15,15 @@
     "inert_proposals": 1593,
     "states": 531
   },
-  "mechanics": {
-    "moved": 2400,
-    "pairs": 2401
-  },
-  "quantum": {
+  "matrix": {
     "budget_squares": 4,
     "distinct_cores": 1,
     "distinct_encodings": 4,
     "moved": 2,
     "vectors": 4
+  },
+  "mechanics": {
+    "moved": 2400,
+    "pairs": 2401
   }
 }
