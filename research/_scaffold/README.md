@@ -193,6 +193,29 @@ to refresh the generated indexes and build recipe. Run the root contract check
 and the tree's complete verifier before opening its PR.
 CLAUDE.md can point here once its separate documentation-split item is resolved.
 
+### Second-derivation rungs (2026-09-23)
+
+A rung of the second derivation is a `research/second_<rung>/` tree whose
+`SOURCE_MANIFEST.json` records the sha256 of `research/second/SEED.md`. That
+seed is read-only, is pinned by hash in every rung, and predates this contract.
+Its section 4 fixes the rung's files, and names `CLAIM_LEDGER.md` as the claim
+document. So this contract cannot bind a rung without contradicting its seed:
+on 2026-09-23 a probe rung with exactly the seed's files failed it by name
+(`docs/injection_record.md`).
+
+The checker therefore holds such a tree to the seed's contract instead:
+
+- `PROMPT.md`, `PREDICTIONS.md`, `STATUS.md` and `verify_pins.py` exist;
+- the one claim document is `CLAIM_LEDGER.md`;
+- any Lean lives in one package directly under `lean/` (`lakefile.lean` or
+  `lakefile.toml`), and no other tree supplies any of its module roots.
+
+The exception holds only while the seed's bytes match the pinned hash, and
+only for the `second_` name that the seed's write root uses. A `second_` tree
+whose manifest records no seed hash is held to this contract, and the checker
+says why. The root check reads file presence only. Each rung's own
+`verify_pins.py` and tests carry the seed's custody and replay checks.
+
 ## Pinning sealed sources (2026-09-22)
 
 `new_tree_templates/verify.py.tmpl` pins only the tree's own input files, by
