@@ -1,8 +1,8 @@
 {
   "schema": "twin_pricing_source_manifest/v1",
   "source_snapshot": {
-    "commit": "dfe649445403d7d0326594c918430ae5456b1f6b",
-    "tree": "67f2c6f4b52853cf32b5564a54f9f9ac90269c0d"
+    "commit": "16fcffd64fcc8c7299a5dda5bb8b7082dc181c11",
+    "tree": "e652ca24e63eb251c019a4f7e8f47e45a33bcdaf"
   },
   "sources": [
     {

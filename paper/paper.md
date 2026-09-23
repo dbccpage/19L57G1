@@ -898,8 +898,10 @@ WITHDRAWN.  It was false when read literally, and it is narrowed here
 rather than defended.**
 
 Six documents under `paper/` do name external mathematics in comparison
-sections. The paper repair chosen here is to fence comparison, not to use
-those sections as evidence and not to amend the stricter authority record:
+sections. The earlier paper repair fenced comparison without amending the
+authority record. The author's 2026-09-23 vocabulary ruling now preserves
+exactly these existing fenced sections as historical records in their
+existing positions:
 
 | document | section |
 |---|---|
@@ -912,21 +914,25 @@ those sections as evidence and not to amend the stricter authority record:
 
 All six now carry the same explicit fence: post-hoc comparison only,
 not derivational input, theorem evidence, or authorization, and nothing
-above depends on the section. `CLAUDE.md` remains the stricter operating
-boundary for future derivational work; this paper repair does not amend
-that authority record. What this section can do, and now does, is stop
-asserting the strongest repository-wide blindness sentence as though it
-were settled.
+above depends on the section. The current `CLAUDE.md` ruling prohibits
+external terminology as a sealed derivational input and permits explicitly
+classified supplied vocabulary in research outside the seal. Such vocabulary
+supplies neither a native derivation nor a proved bridge. External citations
+remain prohibited throughout the repository, and the identifier firewall and
+prose watchlist keep their current populations. The dated contract history
+records the author's explicit approval.
 
-Two placement defects remain: substantive sections still follow the
-comparison surfaces in `paper/endogenous_generator.md` and
-`paper/primitive_difference_map.md`. The paper fence is therefore local
-claim hygiene, not a constitution repair:
+Substantive sections still follow the comparison surfaces in
+`paper/endogenous_generator.md` and `paper/primitive_difference_map.md`.
+The author has preserved those two historical placements; they are no longer
+unresolved policy choices. This grants no permission to extend comparison
+inside the seal. The earlier OPEN and placement-defect flags are superseded
+by this dated ruling:
 
 ```text
 OB3_PAPER_FENCE_UNIFORM
-OB3_END_ONLY_PLACEMENT_DEFECTS=2
-OB3_COMPARISON_POLICY_STILL_OPEN
+OB3_EXISTING_PLACEMENTS_PRESERVED_BY_AUTHOR_20260923
+OB3_COMPARISON_POLICY_RESOLVED_BY_AUTHOR_20260923
 AuthorityEffect: None
 ```
 
@@ -938,8 +944,9 @@ itself was carried out blind.  That is an operator attestation by the
 repository's author, dated 2026-08-16, and no instrument here can
 establish the historical absence of exposure or dependence; a scanner
 reads files, not history.  In `paper/`, the six known comparison surfaces
-are fenced, but exact comparison-policy precedence, allowed sealed paths,
-and end-only placement remain open author acts.  The withdrawn sentence
+are fenced and the author's ruling fixes their exact scope and preserves
+their existing positions. Historical blindness remains an attestation;
+the ruling does not turn it into a mechanically checked fact. The withdrawn sentence
 claimed more, and an earlier version of this paragraph ran the checked
 and the attested together ("what survives, and is checked: the
 derivation itself was carried out blind") — separated 2026-09-08.

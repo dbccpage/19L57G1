@@ -596,8 +596,8 @@ calculus is a priced, recorded import; and the priced imports compose
 runtime causes, choices, evaluations, continuations, and stopping
 conditions are represented and replayable, whose event source and
 constitution are themselves represented and executable relative to
-one fixed family interpreter, which is the unique compliant and
-initial member of its declared comparison class, and whose one
-remaining metatheoretic dependency is exactly named: the outermost
-interpretation relation. The derivation is closed relative to its
-constitution and honestly open above it.
+one fixed family interpreter. Its descriptor is uniquely probe-compliant
+in the declared 64-member toggle class; this does not establish
+categorical initiality. The single OPEN edge in the declared bridge
+graph names the outermost interpretation relation. The derivation is
+closed relative to its constitution and honestly open above it.

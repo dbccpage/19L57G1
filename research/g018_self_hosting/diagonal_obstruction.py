@@ -1,8 +1,9 @@
-"""Diagonal obstruction theorem and simulation sweeps for G018 Self-Hosting.
+"""Finite same-code counterexamples for selected predictor functions.
 
-Demonstrates that no finite carrier contains a total halting/transition self-oracle.
-For every candidate total predictor P, the constructive diagonal machine D_P
-inverts P's prediction on its own code, demonstrating the obstruction.
+The Lean module proves a conditional boolean self-negation contradiction. This
+Python sweep finds concrete prediction errors on the exact machine and code
+executed. It does not construct a self-referential fixed point or refute every
+possible total predictor.
 
 AuthorityEffect: None.
 """
@@ -29,7 +30,7 @@ PredictorFn = Callable[[MachineSpec, tuple[int, ...]], bool]
 
 @dataclass(frozen=True)
 class DiagonalRefutation:
-    """Witness refuting a candidate total prediction oracle."""
+    """Bounded witness for a named predictor; historical class name retained."""
 
     predictor_name: str
     diagonal_code: tuple[int, ...]
@@ -56,8 +57,38 @@ def make_halting_machine(symbols: Sequence[int] = (0, TAG_SPEC_START)) -> Machin
     return MachineSpec(transitions=tuple(trans_list), default_sym=0)
 
 
+def make_delayed_halting_machine(steps: int, symbols: Sequence[int] = (0, TAG_SPEC_START)) -> MachineSpec:
+    """Halt on the given positive step count while staying on one tape cell."""
+    if steps < 1:
+        raise ValueError("steps must be positive")
+    transitions = tuple(
+        Transition(
+            curr_state=i, read_sym=s, next_state=i + 1,
+            write_sym=s, move_cursor=0, halt=(i + 1 == steps),
+        )
+        for i in range(steps) for s in sorted(set(symbols))
+    )
+    return MachineSpec(transitions=transitions, default_sym=0)
+
+
+def make_unreachable_halt_machine(symbols: Sequence[int] = (0, TAG_SPEC_START)) -> MachineSpec:
+    """Loop from state zero despite a syntactically present halt edge."""
+    loop = make_looping_machine(symbols)
+    unreachable = tuple(
+        Transition(
+            curr_state=99, read_sym=s, next_state=100,
+            write_sym=s, move_cursor=0, halt=True,
+        )
+        for s in sorted(set(symbols))
+    )
+    return MachineSpec(transitions=loop.transitions + unreachable, default_sym=0)
+
+
 def build_diagonal_machine_for_prediction(predicted_halt: bool, symbols: Sequence[int] = (0, TAG_SPEC_START)) -> MachineSpec:
-    """Construct diagonal machine whose behavior is opposite to the prediction.
+    """Construct an opposite-behavior machine from a supplied prediction.
+
+    This construction alone does not refute a predictor: the prediction may
+    have been made for a different machine.
 
     If predicted_halt is True:
         The machine MUST NOT halt (enters an infinite cycle between state 1 and 2).
@@ -77,51 +108,34 @@ def evaluate_diagonal_obstruction(
     predictor: PredictorFn,
     fuel_budget: int = 100,
 ) -> DiagonalRefutation:
-    """Constructively refute a candidate predictor using the diagonal argument.
+    """Search finite probes for an error on the very code given to predictor.
 
-    1. We present a machine specification schema parameterized by the predictor's decision.
-    2. We query the predictor on candidate probe code.
-    3. We synthesize the diagonal machine that inverts the prediction.
-    4. We execute the diagonal machine on its own encoding under the declared fuel budget.
-    5. We observe that prediction != actual outcome.
+    `refutation_success` says only that this named predictor failed on a
+    member of the bounded probe family. An exact predictor for this finite
+    family can return False here without contradiction.
     """
-    # Create an initial probe code
-    probe_spec = make_halting_machine()
-    probe_state = MachineState(state=0, cursor=0, tape=(0,), fuel=fuel_budget, halted=False)
-    probe_code = encode_carrier(probe_spec, probe_state)
-
-    # Query candidate predictor
-    predicted = predictor(probe_spec, probe_code)
-
-    # Build the adversarial diagonal machine that inverts `predicted`
-    diagonal_spec = build_diagonal_machine_for_prediction(predicted)
-    diagonal_state = MachineState(state=0, cursor=0, tape=(0,), fuel=fuel_budget, halted=False)
-    diagonal_code = encode_carrier(diagonal_spec, diagonal_state)
-
-    # Now query predictor on the actual diagonal machine code
-    self_predicted = predictor(diagonal_spec, diagonal_code)
-
-    # Final diagonal machine configured with respect to its own self-prediction
-    symbols: tuple[int, ...] = (0, TAG_SPEC_START)
-    if diagonal_code:
-        symbols = (0, TAG_SPEC_START, diagonal_code[0])
-    final_diag_spec = build_diagonal_machine_for_prediction(self_predicted, symbols=symbols)
-    final_diag_state = MachineState(state=0, cursor=0, tape=diagonal_code, fuel=fuel_budget, halted=False)
-
-    # Execute the diagonal machine
-    executed_state = run_direct(final_diag_spec, final_diag_state, max_steps=fuel_budget)
-    actual_halt = executed_state.halted
-
-    # Refutation succeeds when predicted does not match actual behavior
-    success = (self_predicted != actual_halt)
-
-    return DiagonalRefutation(
-        predictor_name=predictor_name,
-        diagonal_code=diagonal_code,
-        predicted_halt=self_predicted,
-        actual_halt=actual_halt,
-        refutation_success=success,
-    )
+    if fuel_budget < 1:
+        raise ValueError("fuel_budget must be positive")
+    probes = [make_looping_machine(), make_halting_machine(), make_unreachable_halt_machine()]
+    probes.extend(make_delayed_halting_machine(n) for n in range(2, fuel_budget + 1))
+    last: DiagonalRefutation | None = None
+    for spec in probes:
+        initial = MachineState(state=0, cursor=0, tape=(0,), fuel=fuel_budget, halted=False)
+        code = encode_carrier(spec, initial)
+        predicted = predictor(spec, code)
+        execution = MachineState(state=0, cursor=0, tape=code, fuel=fuel_budget, halted=False)
+        actual = run_direct(spec, execution, max_steps=fuel_budget).halted
+        last = DiagonalRefutation(
+            predictor_name=predictor_name,
+            diagonal_code=code,
+            predicted_halt=predicted,
+            actual_halt=actual,
+            refutation_success=(predicted != actual),
+        )
+        if last.refutation_success:
+            return last
+    assert last is not None
+    return last
 
 
 # --- Suite of Candidate Heuristic Predictors to Sweep ---
@@ -151,7 +165,7 @@ def predictor_has_halt_transition(spec: MachineSpec, tape: tuple[int, ...]) -> b
 
 
 def sweep_candidate_predictors(fuel_budget: int = 50) -> list[DiagonalRefutation]:
-    """Execute diagonal obstruction sweeps across multiple distinct candidate predictors."""
+    """Find bounded same-code errors for the listed heuristic predictors."""
     candidates: list[tuple[str, PredictorFn]] = [
         ("AlwaysHaltOracle", predictor_always_halt),
         ("NeverHaltOracle", predictor_never_halt),

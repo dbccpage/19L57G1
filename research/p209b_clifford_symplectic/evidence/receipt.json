@@ -106,7 +106,7 @@
   "schema_version": 1,
   "source_hashes": {
     "clifford_symplectic.py": "f242650b1c14b0d0c75a57d2584c2018d5efa62b79387baa53d51031097798e4",
-    "lean/CliffordSymplectic.lean": "c8d1052f1bd08abdf9b0bf62e503a1c079015311e795208b4a96e27ed30b8c20",
+    "lean/CliffordSymplectic.lean": "eec75bb14210ae7f61e36d8700bc425b87315c66bc1a64ff170f9bdf78e25bd8",
     "lean/Inventory.lean": "a814ac33053a4f035c2aa0fa2b002387d5f92f64439137c27d15792de11f5dbc",
     "tests/test_clifford.py": "745fcc202057a52ec426dcf1a89cd79304ab0f6cc3aea411617b315f8d000d46",
     "verify.py": "4d84cd80561560b96eed90bd8089415116a864f81c48e8bbd066981f41a66eb4",

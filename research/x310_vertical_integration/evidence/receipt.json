@@ -4,7 +4,7 @@
     "epistemic_posture": "Claim Hygiene Compliant (bounded, narrow, receipt-grounded)",
     "exact_rational_arithmetic_only": true,
     "refusal_state_preservation": true,
-    "scope": "Harness that calls six sibling research packages under a fixed timestamp. Stages 1, 2, 3, and 6 share the encoded carrier. Stages 4 and 5 are sibling solver and TMS demos under the same receipt. Codec recovers clock/fuel/nops/tape from custom_domains. Lean is a Nat-field toy. See CLAIMS.md.",
+    "scope": "Harness that calls six sibling research packages under a fixed timestamp. Stages 1, 2, 3, and 6 share the encoded carrier. Stages 4 and 5 are sibling solver and TMS demos under the same receipt. Codec recovers graph, active, clock, fuel, nops and designated pair; tape and protection obligations are supplied metadata. Descent checks four projected counts on the supplied carrier. Lean is a Nat-field toy. See CLAIMS.md.",
     "zero_floating_point": true
   },
   "commutation_audit": {
@@ -44,7 +44,7 @@
         },
         "sheaf_descent_commutation": {
           "commutes": true,
-          "description": "Multi-observer sheaf descent commutation (pi_i o U = u_i o pi_i)",
+          "description": "Count-level descent for additions on the supplied carrier",
           "diagram_id": "sheaf_descent_commutation",
           "metric_name": "gluing_defect",
           "residual_price_q": "0/1"
@@ -54,7 +54,7 @@
     },
     "status": "PASS"
   },
-  "grand_receipt_sha256": "0206c97dd378522c828cf708e78d88e6b4978a94279a41b37916142930e83556",
+  "grand_receipt_sha256": "6170979a5bd47ccd2f443fddfee1cb5b923db1c20aef28e26a861929595bc932",
   "lean": {
     "allowed_axioms": [
       "Quot.sound",
@@ -191,7 +191,7 @@
   "pipeline_run_id": "X310-VERIFY-CANONICAL",
   "pytest": {
     "exit_code": 0,
-    "passed": 31,
+    "passed": 34,
     "status": "PASS"
   },
   "receipt_version": "1.0.0",
@@ -200,7 +200,7 @@
     "__init__.py": "8226d6f42af8f8363a1465bf81da342a5319dae083904c02ef3ce767cfed2ada",
     "_bootstrap.py": "b34da70341bc87cc07ffb886a01166b4457e1485c6489714d6cc0808726be072",
     "codec.py": "880b1898d1f54268269f2517ed5514d3de037e7cbe1e40b877c439e02c3323d2",
-    "commutation.py": "a8b18b7e19df3bb8d9c2c8a4bd6d769aa0d1797276fcab5e0f03e55f8873a060",
+    "commutation.py": "aeebb5583708527afbfa915bc10f0cc7fc048f3740c689360854303169d7c7f2",
     "lean/Inventory.lean": "3bd8fb5b555d7a8f9069e18911cf6f5e41843d00221755eb82de9ecdf43206f0",
     "lean/VerticalIntegration.lean": "b8dd527e10332fca431ee568279e57990e8ed2781ed0828a09fd2ebce9f34919",
     "pipeline.py": "20fa629ee827060aa83bedc9ec355849005f8f583fdd574cd7a4e08af5da3709",
@@ -210,10 +210,10 @@
     "tests/test_end_to_end_lifecycle.py": "969b2e4b6728a5da20aee400060814720824a1c6a72f0d2347e4802eeedcb3fe",
     "tests/test_pipeline_stages.py": "4ec495231ef6d8ec03e9ff9f273b61e6a5a4c7917541ce650d03452cf52aa5d1",
     "tests/test_receipt_determinism.py": "e43d9cb930e982359e56f4bd0a6f17fa8844a72f55fa874f5309f949235cb450",
-    "tests/test_verifier_cli.py": "0444babe6dc734cd0348f3ad303923f13ceea67188fa1a3b23cfb26d6af761b0",
-    "tests/test_vertical_commutation.py": "1b55add1b40ab0f757ce1c336eb48c3245f28685f9aa7a5c9e5024e8e91ab494",
+    "tests/test_verifier_cli.py": "f80e59abddf920e792e7cbb2b41e83cc320c87cd3005b9651b86b1b00bd39437",
+    "tests/test_vertical_commutation.py": "e455840fdc833c020cbc445fc74925f6a54ab61b3f9a573ded7df979ec9170bf",
     "types.py": "90768efa3cd0c16949125e4e33c7ac09adcf2f47abbdd4fc015ccbd71ee7ad98",
-    "verify.py": "365780f0e712ecc4b32975cbe07f0a29f42cba3630966296f079806a5094f10b",
+    "verify.py": "8d8ea8a774888e85a2b427b82ac623678d7cf09b652250ebf93332c30e58f91a",
     "verify_sources.py": "198569fe1fef4ebcde513f37b6a7ef306b7a6fcab91c3393edb969566dbb4e84"
   },
   "status": "PASS",

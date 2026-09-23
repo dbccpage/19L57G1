@@ -85,6 +85,7 @@ from research.x310_vertical_integration.pipeline import (
     encode_substrate_to_relational,
     run_commutation_audit,
 )
+from research.x310_vertical_integration.commutation import build_sheaf_descent_square
 
 
 def test_diagram_1_readout_step_commutation():
@@ -158,9 +159,36 @@ def test_diagram_2_codec_inversion_and_step_transport():
     assert canonical_model_digest(encoded_s1) != canonical_model_digest(encoded)
 
 
+def test_descent_preserves_empty_and_saturated_carriers():
+    for carrier in (
+        RelationalModel(data=(), forms=(), insts=frozenset(), reqs=frozenset()),
+        RelationalModel(
+            data=("a", "b"), forms=(1,),
+            insts=frozenset({(0, (0,)), (0, (1,))}),
+            reqs=frozenset({(0, 1)}),
+        ),
+    ):
+        square = build_sheaf_descent_square(carrier)
+        assert square.initial_counts == square.updated_counts
+        assert dict(square.initial_counts)["data_count"] == len(carrier.data)
+        assert square.commutes
+
+
 def test_diagram_3_sheaf_descent_commutation():
     """Verify Diagram 3: Multi-observer sheaf descent commutes with concurrent step."""
     assert audit_sheaf_descent_commutation()
+
+    supplied = RelationalModel(
+        data=("a", "b", "c"), forms=(1,), insts=frozenset(), reqs=frozenset(),
+    )
+    square = build_sheaf_descent_square(supplied)
+    assert dict(square.initial_counts) == {
+        "data_count": 3, "form_count": 1, "inst_count": 0, "req_count": 0,
+    }
+    assert dict(square.updated_counts) == {
+        "data_count": 3, "form_count": 1, "inst_count": 1, "req_count": 1,
+    }
+    assert square.commutes
 
     # Negative control: overlapping conflicting local updates cause gluing obstruction
     initial_mapping = {"l1": 1, "l2": 2, "overlap": 5}
