@@ -1,0 +1,363 @@
+{
+  "authority_effect": "None",
+  "classes": {
+    "R2F_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "R2F_wf": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "R2L_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "R2L_wf": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "admission_without_expressive_increase": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "admitForm_preserves_demands": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "apart_demand_of_no_forms": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "collapsed_addForm": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "collapsed_not_separable": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "collapsed_of_no_insts": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "collapsed_of_not_separable": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "data_le_replay": {
+      "class": "CONTENT",
+      "module": "Index.lean"
+    },
+    "data_le_stateAt": {
+      "class": "THIN",
+      "module": "Index.lean"
+    },
+    "data_le_step": {
+      "class": "THIN",
+      "module": "Index.lean"
+    },
+    "data_of_step": {
+      "class": "CONTENT",
+      "module": "Index.lean"
+    },
+    "demand_can_cease": {
+      "class": "DEFINITION",
+      "module": "Countermodel.lean"
+    },
+    "demand_congr": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "demand_iff_apart_of_no_insts": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "demand_needs_label": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "demand_needs_two_data": {
+      "class": "THIN",
+      "module": "Index.lean"
+    },
+    "demands_replay_inert": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "demands_step_inert": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "demands_subset_labelled": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "first_demand_exists_when_a_demand_is_decidable": {
+      "class": "CONTENT",
+      "module": "Index.lean"
+    },
+    "first_demand_follows_a_changing_event": {
+      "class": "CONTENT",
+      "module": "Index.lean"
+    },
+    "first_demand_index": {
+      "class": "DEFINITION",
+      "module": "Countermodel.lean"
+    },
+    "first_demand_unique": {
+      "class": "CONTENT",
+      "module": "Index.lean"
+    },
+    "first_demand_zero_iff_base_carries_one": {
+      "class": "THIN",
+      "module": "Index.lean"
+    },
+    "free_stake_has_no_index": {
+      "class": "DEFINITION",
+      "module": "Index.lean"
+    },
+    "free_stake_no_demand": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "genesis_underivable": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "getD_append_left": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "historyF_replays": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "historyL_replays": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "impose_preserves_demands": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "index_is_not_a_function_of_the_reached_regime": {
+      "class": "DEFINITION",
+      "module": "Countermodel.lean"
+    },
+    "index_of_ceaseHistory": {
+      "class": "CONTENT",
+      "module": "Countermodel.lean"
+    },
+    "index_of_historyA": {
+      "class": "CONTENT",
+      "module": "Countermodel.lean"
+    },
+    "index_of_historyB": {
+      "class": "CONTENT",
+      "module": "Countermodel.lean"
+    },
+    "inert_run_carries_no_index": {
+      "class": "THIN",
+      "module": "Index.lean"
+    },
+    "insertNew_nil": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "insertNew_of_mem": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "insertNew_of_not_mem": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "labelled_cases": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "least_witness": {
+      "class": "THIN",
+      "module": "Index.lean"
+    },
+    "least_witness_from": {
+      "class": "CONTENT",
+      "module": "Index.lean"
+    },
+    "mem_insertNew": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "new_form_derives_nothing": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "no_demand_at_small_prefix": {
+      "class": "THIN",
+      "module": "Countermodel.lean"
+    },
+    "no_demand_of_data_le_one": {
+      "class": "THIN",
+      "module": "Index.lean"
+    },
+    "no_index_below_two_from_the_empty_base": {
+      "class": "THIN",
+      "module": "Index.lean"
+    },
+    "no_state_function_gives_the_index": {
+      "class": "THIN",
+      "module": "Countermodel.lean"
+    },
+    "quiet_before_the_index": {
+      "class": "DEFINITION",
+      "module": "Index.lean"
+    },
+    "replayE_append": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "replayE_cons": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "replayE_nil": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "replayE_singleton": {
+      "class": "THIN",
+      "module": "Index.lean"
+    },
+    "separable_addForm": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "separable_not_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "separated_has_no_demand": {
+      "class": "CONTENT",
+      "module": "Countermodel.lean"
+    },
+    "separated_separates": {
+      "class": "DEFINITION",
+      "module": "Countermodel.lean"
+    },
+    "shared_regime_of_two_histories": {
+      "class": "DEFINITION",
+      "module": "Countermodel.lean"
+    },
+    "stake_irrefl": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "stateAt_full": {
+      "class": "THIN",
+      "module": "Index.lean"
+    },
+    "stateAt_succ": {
+      "class": "CONTENT",
+      "module": "Index.lean"
+    },
+    "stateAt_zero": {
+      "class": "DEFINITION",
+      "module": "Index.lean"
+    },
+    "stepE_admitDatum": {
+      "class": "DEFINITION",
+      "module": "Index.lean"
+    },
+    "stepE_admitForm": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "stepE_admitInst": {
+      "class": "DEFINITION",
+      "module": "Index.lean"
+    },
+    "stepE_admitRuleAll": {
+      "class": "DEFINITION",
+      "module": "Index.lean"
+    },
+    "stepE_impose": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "supply_no_op": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "supply_preserves_demands": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "the_ceasing_event_is_not_inert": {
+      "class": "DEFINITION",
+      "module": "Countermodel.lean"
+    },
+    "twoData_demand": {
+      "class": "THIN",
+      "module": "Countermodel.lean"
+    },
+    "twoData_has_demand": {
+      "class": "DEFINITION",
+      "module": "Countermodel.lean"
+    },
+    "underivable_of_empty": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "wfCtx_addForm_left": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "wf_addDatum": {
+      "class": "CONTENT",
+      "module": "Index.lean"
+    },
+    "wf_addForm": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "wf_addInst": {
+      "class": "CONTENT",
+      "module": "Index.lean"
+    },
+    "wf_addReq": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "wf_addRule": {
+      "class": "CONTENT",
+      "module": "Index.lean"
+    },
+    "wf_replayE": {
+      "class": "CONTENT",
+      "module": "Index.lean"
+    },
+    "wf_stateAt": {
+      "class": "THIN",
+      "module": "Index.lean"
+    },
+    "wf_step_any": {
+      "class": "CONTENT",
+      "module": "Index.lean"
+    },
+    "wf_step_inert": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    }
+  },
+  "counts": {
+    "CONTENT": 16,
+    "DEFINITION": 13,
+    "RECONSTRUCTION": 44,
+    "THIN": 14
+  },
+  "long_but_definitional": {
+    "first_demand_index": "Twenty-four lines of which the statement is twenty and the proof is four: a six-clause conjunction, each clause quoted from a theorem proved elsewhere in the package and applied by name.  Its length measures the number of clauses, not the amount of work, so the line bound is the wrong instrument here.  The exception is listed rather than the bound raised, so that it is visible and countable; test_census.py requires this list to stay at or below one entry."
+  },
+  "note": "The FW-DEF census of this rung, TOTAL over every theorem of the package. The four classes are the sibling rung's, with the sibling's meanings. RECONSTRUCTION: not this rung's work, reproduced verbatim under a pin -- every theorem of Kernel.lean and of Inherited.lean. DEFINITION: true by unfolding, by rfl, by a projection, by one rewrite, by kernel computation over a concrete regime, or by assembling neighbours into a conjunction or an existential; never counted as content. THIN: one genuine step, or a direct corollary of a neighbour; counted apart from CONTENT so the headline is not inflated by one-liners. CONTENT: everything else. test_census.py checks this file is total over the package in both directions, that no row classed DEFINITION has a long proof outside long_but_definitional, and that the classes here are scored against the frozen prediction in PREDICTIONS.md."
+}
