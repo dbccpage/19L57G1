@@ -1,0 +1,46 @@
+{
+  "authority_effect": "None",
+  "bounds": {
+    "descent_depth": 4,
+    "history_length": 4,
+    "square_depth": 2
+  },
+  "descent": {
+    "core_classes": 262,
+    "funded_violations": {
+      "addCol": 224,
+      "refineCol": 92
+    },
+    "unfunded_checked": 31467
+  },
+  "descent_states": 952,
+  "equivariance": {
+    "constant_failures": 150,
+    "shift_failures": 0,
+    "swap_failures": 0
+  },
+  "frame": {
+    "license_frame_squares": 10560
+  },
+  "square_states": 240,
+  "squares": {
+    "budget_delta_open": 0,
+    "commuting": 88338,
+    "noncommuting": 2382,
+    "writes_open": 0
+  },
+  "telescoping": {
+    "histories": 341,
+    "shortest_loop": [
+      [
+        "setBudget",
+        1
+      ],
+      [
+        "setBudget",
+        0
+      ]
+    ],
+    "writes_nonzero_loops": 70
+  }
+}
