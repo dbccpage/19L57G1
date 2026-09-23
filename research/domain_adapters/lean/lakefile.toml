@@ -1,0 +1,26 @@
+name = "domain_adapters"
+version = "0.1.0"
+defaultTargets = ["ResearchDomainAdapters"]
+
+# The sealed derivation package, consumed read-only.
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+# Native paths and commuting translations.
+[[require]]
+name = "native_bridge"
+path = "../../native_bridge/lean"
+
+# The integer mechanics of the conservation ladder.
+[[require]]
+name = "conservation_ladder"
+path = "../../conservation_ladder/lean"
+
+# The P209b two-element-field carrier.
+[[require]]
+name = "p209b_clifford_symplectic"
+path = "../../p209b_clifford_symplectic/lean"
+
+[[lean_lib]]
+name = "ResearchDomainAdapters"

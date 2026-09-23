@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "snapshot": "83d458d0cc6024197f7cad2ce56dc878657ba380",
+  "pins": {
+    "code/derivation/primitive_passage.py": "fff44fa3cf8b9a4b96bc6543ed8242afeed4842b",
+    "lean4/Derivation/PrimitivePassage.lean": "80563edc5922c64b193fbb86c88fb5546f22777d",
+    "research/native_bridge/bridge.py": "43bed32e024682da47c293bda1566dbc308f3063",
+    "research/native_bridge/lean/ResearchNativeBridge/Sim.lean": "ff153a12928c8cbfc3932ed36e1b288d5e06a01c",
+    "research/conservation_ladder/ladder.py": "20267a0e97541ec2e4da865d8a494a4ea12a9498",
+    "research/conservation_ladder/lean/ResearchConservationLadder/Native.lean": "574a88534fd242e03e0daa8235cde186f69c61b3",
+    "research/p209b_clifford_symplectic/lean/CliffordSymplectic.lean": "c497c1f0604de520866cdd05100b3a0254491977"
+  }
+}

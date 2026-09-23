@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "sources": {
+    "research/domain_adapters/SEALED_PINS.json": "3dbd5bf1f57c3f76bce096db5f15d6ae778be75933edeea6e35717b96c1a44ef",
+    "research/domain_adapters/input.json": "c6e83f3996c8aa453f3784fef4447d8c457198c64c24b48dac42e69608b5b728"
+  }
+}
