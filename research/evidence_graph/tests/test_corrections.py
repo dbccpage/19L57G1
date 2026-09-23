@@ -5,9 +5,9 @@ from typing import Any
 
 import pytest
 
-from corrections import OUTPUT, build, ingest, require_merged
+from corrections import OUTPUT, REVIEW_FILE, build, ingest, require_merged
 from eg_census import headlines
-from eg_sources import HERE, Snapshot, canonical, git, load_snapshot, read_object
+from eg_sources import HERE, Snapshot, git, load_snapshot, read_object
 from eg_views import HANDOFF_SUBJECTS
 
 
@@ -83,7 +83,9 @@ def test_unmerged_or_unavailable_main_ref_is_refused(monkeypatch: pytest.MonkeyP
         require_merged(HERE, "0" * 40)
 
 
-def test_committed_corrections_are_deterministic_and_current() -> None:
-    first, second = canonical(build()), canonical(build())
-    assert first == second
-    assert OUTPUT.read_bytes() == first
+def test_unpublished_correction_review_is_refused() -> None:
+    """No version is current while the owner review file is absent."""
+    assert not REVIEW_FILE.is_file()
+    assert not OUTPUT.is_file()
+    with pytest.raises(FileNotFoundError):
+        build()
