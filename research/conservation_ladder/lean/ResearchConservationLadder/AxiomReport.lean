@@ -1,0 +1,29 @@
+import ResearchConservationLadder
+
+-- Exact reach is the declaration list in TREE_CONTRACT.json.
+#print axioms ResearchConservationLadder.Expr.evalD_eq
+#print axioms ResearchConservationLadder.Expr.ddir_zero
+#print axioms ResearchConservationLadder.Expr.ddir_add
+#print axioms ResearchConservationLadder.Expr.ddir_smul
+#print axioms ResearchConservationLadder.action_variation
+#print axioms ResearchConservationLadder.stationary_iff_variation
+#print axioms ResearchConservationLadder.invariant_iff_dual
+#print axioms ResearchConservationLadder.charge_step
+#print axioms ResearchConservationLadder.charge_const
+#print axioms ResearchConservationLadder.D₁_central
+#print axioms ResearchConservationLadder.D₂_central
+#print axioms ResearchConservationLadder.central_invariant
+#print axioms ResearchConservationLadder.central_charge
+#print axioms ResearchConservationLadder.charge_nonconstant
+#print axioms ResearchConservationLadder.solve_stationary
+#print axioms ResearchConservationLadder.solve_charge_const
+#print axioms ResearchConservationLadder.aniso_not_invariant
+#print axioms ResearchConservationLadder.aniso_next_stationary
+#print axioms ResearchConservationLadder.aniso_charge_moves
+#print axioms ResearchConservationLadder.nonstationary_charge_moves
+#print axioms ResearchConservationLadder.shift_not_invariant
+#print axioms ResearchConservationLadder.shift_invariant_free
+#print axioms ResearchConservationLadder.conserved_path
+#print axioms ResearchConservationLadder.charge_tick
+#print axioms ResearchConservationLadder.tick_path_charge
+#print axioms ResearchConservationLadder.passage_conserved_blind
