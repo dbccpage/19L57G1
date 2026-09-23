@@ -63,6 +63,9 @@ What has actually been injected, and what failed:
 | Prose watchlist, stale pin | deleted the one line of `research/notes/peirce_semiotics_note.md` carrying a pinned noun | `FAIL: STALE PIN: research/notes/peirce_semiotics_note.md: watched term d4e3fc7b0477 appears 0 times, pinned 1; if the removal is intended, regenerate with --regen`, exit 1; exit 0 after reversal |
 | Prose watchlist, real case | (found live, not injected) the gate's own test file used an outside proper name as a tokenization sample | `FAIL: NEW HIT: tests/test_prose_watchlist.py: watched term 5cc10d9143b2 appears 2 times, pinned 0 -- line 48 '…'; line 49 '…'` on the first run over the staged tree; the sample was reworded, the pin was NOT regenerated |
 | Prose watchlist, stemmer over-reach | (found live, not injected) the phrase "prose hopes" in `research/convention_price/PROMPT.md` was pinned as a hit on a watched three-letter noun: the `es` strip reached it through a vowel | the strip was narrowed to the English rule (after s, x, z, ch, sh), `test_es_strip_does_not_reach_a_three_letter_stem_through_a_vowel` fixes it, the gate then reported `STALE PIN: research/convention_price/PROMPT.md: … appears 2 times, pinned 3`, and the pin dropped by exactly that one hit on the next deliberate `--regen` |
+| Root suite, external contact-file candidates, shallow checkout (2026-09-23) | in `tests/test_primitive_contact.py`, put back the unguarded third-ancestor index (`base.parents[2]` for `*base.parents[2:3]`); an earlier probe did the same to the first form of the guard | `test_external_candidates_tolerate_a_shallow_checkout` failed with `IndexError: 2`, exit 1; exit 0 with the original bytes restored |
+| Same, main-checkout base | dropped the main checkout from the candidate bases | `test_a_linked_worktree_searches_where_the_main_checkout_does` failed, naming the missing main-checkout candidate `C:/u/src/repos/repo/external/file.lean`, exit 1; exit 0 when restored |
+| Same, common-directory check | returned the git common directory's parent without checking that it is named `.git` | `test_main_checkout_is_read_from_the_git_common_directory` failed with `assert WindowsPath('C:/srv') is None`, exit 1; exit 0 when restored |
 
 The Partial-Decide injection commit IDs above are local throwaway objects with
 no branch or tag reachability; they may be pruned and are locators rather than
@@ -78,6 +81,18 @@ That is WITHDRAWN as to the parked-module residual, which is closed, and
 injection is exactly how the closure was shown to bite. The general point
 survives and still applies to the research-tree axiom receipt above:
 injection demonstrates that a residual is live; it does not close one.
+
+## Direct verifier startup (2026-09-23)
+
+The full research custody census exposed a clean-interpreter failure in
+`research/x310_vertical_integration/verify_sources.py`: its local `types.py`
+shadowed the standard library before source verification began. The same
+startup problem affected `verify.py`. Four regression cases execute both
+scripts with `python -S`, from the repository root and the tree directory.
+All four failed with the import error before the repair and passed afterward.
+Each script now removes its own script-directory search entry before importing
+standard-library dependencies; qualified model imports retain their scope.
+The tree's full verifier and receipt remain independent checks.
 
 ## Evidence graph controls, 2026-09-23
 

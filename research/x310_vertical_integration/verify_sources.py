@@ -5,10 +5,18 @@ AuthorityEffect: None.
 
 from __future__ import annotations
 
+import sys
+
+# Keep the local model types.py from shadowing the standard library during
+# direct script startup, before any standard-library dependency imports it.
+if __name__ == "__main__" and not __package__:
+    _script_directory = __file__.replace("\\", "/").rsplit("/", 1)[0].casefold()
+    sys.path[:] = [entry for entry in sys.path
+                   if entry.replace("\\", "/").rstrip("/").casefold() != _script_directory]
+
 import hashlib
 import json
 from pathlib import Path
-import sys
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 MANIFEST_PATH = Path(__file__).resolve().parent / "SOURCE_MANIFEST.json"
