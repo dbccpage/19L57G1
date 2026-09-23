@@ -111,9 +111,11 @@ class DescentSquare:
 
 
 def build_sheaf_descent_square(carrier: Optional[RelationalModel] = None) -> DescentSquare:
-    """Project one actual carrier through two independent X301 additions.
+    """Project one actual carrier through up to two independent X301 additions.
 
     Only four component counts descend; this is not gluing of the full model.
+    An addition is an identity step when its declared probe family has no
+    missing instance or requirement.
     """
     import research.g014_observer_descent.observer_descent as g14
 

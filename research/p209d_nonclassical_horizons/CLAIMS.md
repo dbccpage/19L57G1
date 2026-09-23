@@ -72,8 +72,8 @@ Axiom Scope: Strictly within `{propext, Quot.sound}`; zero `Classical.choice`; z
 - **Claim Discipline**:
   1. *What it supports*: Checks the signs of the three explicit dimension-3 tables.
   2. *What it does not support*: Does not imply that even-dimensional carriers admit identical phase_point definitions without contextual extensions.
-  3. *Narrowest defensible claim*: For the explicit states evaluated in dimension 3, $|0\rangle$ and $|+\rangle$ have non-negative Wigner values everywhere, while $|N\rangle$ attains value $-1/3$ at $(0, 0)$.
-  4. *Next test needed*: Characterize the full convex hull of Wigner non-negative states in dimension $p = 5$.
+  3. *Narrowest defensible claim*: The two defined dimension-3 tables are non-negative everywhere and the third defined table has value $-1/3$ at $(0,0)$. Their labels do not prove a state-to-table identity.
+  4. *Next test needed*: Prove that each table is obtained from its named state and the declared measurement formula before extending the state population.
 
 ---
 

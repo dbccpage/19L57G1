@@ -88,6 +88,6 @@ Axiom Scope: Strictly within `{propext, Quot.sound}`; zero `Classical.choice`; z
   - `research/p209b_clifford_symplectic/tests/test_clifford.py`
 - **Claim Discipline**:
   1. *What it supports*: Demonstrates closure of this finite generated matrix family.
-  2. *What it does not support*: Does not imply that dense covering is unreachable when non-transversal resources (such as auxiliary magic state injection) are admitted.
+  2. *What it does not support*: No code, logical action, quotient map, or topology is constructed, so this result establishes no transversal-code or density obstruction.
   3. *Narrowest defensible claim*: `GeneratedByHS m` implies membership in the six listed matrices. A code, logical action, topology, and quotient map remain separate obligations.
-  4. *Next test needed*: Evaluate noise thresholds for magic state distillation outside the transversal Clifford quotient.
+  4. *Next test needed*: Define a code, its permitted operations, a logical action, and a quotient map; prove their connection to this six-matrix family before drawing an obstruction conclusion.

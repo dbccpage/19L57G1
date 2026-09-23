@@ -189,4 +189,8 @@ paper-fence repair: the comparison sections are post-hoc apparatus, not
 derivational inputs, theorem evidence, or authorization. It does not close
 D7's constitution-level policy question.
 
+The dated [section 3 correction record](docs/section3_claim_corrections.md)
+withdraws the identified broad readings and lists the finite evidence and
+open proof obligations for the affected research trees.
+
 `AuthorityEffect: None` — this repository records. It does not certify.

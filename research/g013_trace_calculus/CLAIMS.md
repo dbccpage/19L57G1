@@ -82,4 +82,4 @@ This ledger documents the formal claims, constructive definitions, theorems, emp
    For the declared directed-graph syntax, traces compose with identities and associativity, and the conditional endpoint, observation, and price statements hold. `Cell2` and `EqCell2` are presentations of candidate higher cells; this package does not establish a strict 2-category or a guarded native replay equivalence.
 
 4. **Next Test Needed**:
-   Formalize higher 3-cells (homotopies of 2-cells) and investigate multi-observer descent over non-discrete state spaces.
+   Prove the vertical and horizontal unit and associativity laws, compatibility of composition with a specified quotient, and a bridge from each nontrivial cell to permitted guarded native steps before expanding the cell syntax.

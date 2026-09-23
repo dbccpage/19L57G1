@@ -297,8 +297,10 @@ def verify(write_receipt: bool = True, check_only: bool = False) -> dict[str, An
             "scope": (
                 "Harness that calls six sibling research packages under a fixed timestamp. "
                 "Stages 1, 2, 3, and 6 share the encoded carrier. Stages 4 and 5 are sibling "
-                "solver and TMS demos under the same receipt. Codec recovers clock/fuel/nops/tape "
-                "from custom_domains. Lean is a Nat-field toy. See CLAIMS.md."
+                "solver and TMS demos under the same receipt. Codec recovers graph, active, "
+                "clock, fuel, nops and designated pair; tape and protection obligations are "
+                "supplied metadata. Descent checks four projected counts on the supplied "
+                "carrier. Lean is a Nat-field toy. See CLAIMS.md."
             ),
             "epistemic_posture": "Claim Hygiene Compliant (bounded, narrow, receipt-grounded)",
             "exact_rational_arithmetic_only": True,

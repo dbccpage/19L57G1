@@ -15,7 +15,7 @@ Axiom Scope: Constructive core Lean 4; `#print axioms` strictly within `{propext
 The Python model uses a binary tableau with $n$ destabilizer and $n$ stabilizer rows. The cited Lean identities concern one-carrier $H,S$ and two-carrier $CNOT$ vectors; there is no Lean theorem for arbitrary $n$ or a simulator-wide complexity bound.
 - **Explicit Symplectic Identities**: The named Lean operations preserve the defined form on their declared vector types:
   $$\\Omega(M u, M v) = \\Omega(u, v) \\pmod 2$$
-  maintaining mutual stabilizer commutativity $\\Omega(S_i, S_j) = 0$ and conjugate destabilizer duality $\\Omega(D_i, S_j) = \\delta_{ij}$.
+  The named finite commutativity and duality identities follow for these explicit vector operations. A proof that arbitrary simulator updates preserve a full tableau remains separate.
 - **Python Measurement Examples**: The tested $Z$-measurement branches distinguish deterministic and random outcomes in the implemented tableau model.
 
 ### 2. Explicit Dimension-3 Wigner Tables
