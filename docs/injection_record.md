@@ -63,6 +63,7 @@ What has actually been injected, and what failed:
 | Prose watchlist, stale pin | deleted the one line of `research/notes/peirce_semiotics_note.md` carrying a pinned noun | `FAIL: STALE PIN: research/notes/peirce_semiotics_note.md: watched term d4e3fc7b0477 appears 0 times, pinned 1; if the removal is intended, regenerate with --regen`, exit 1; exit 0 after reversal |
 | Prose watchlist, real case | (found live, not injected) the gate's own test file used an outside proper name as a tokenization sample | `FAIL: NEW HIT: tests/test_prose_watchlist.py: watched term 5cc10d9143b2 appears 2 times, pinned 0 -- line 48 '…'; line 49 '…'` on the first run over the staged tree; the sample was reworded, the pin was NOT regenerated |
 | Prose watchlist, stemmer over-reach | (found live, not injected) the phrase "prose hopes" in `research/convention_price/PROMPT.md` was pinned as a hit on a watched three-letter noun: the `es` strip reached it through a vowel | the strip was narrowed to the English rule (after s, x, z, ch, sh), `test_es_strip_does_not_reach_a_three_letter_stem_through_a_vowel` fixes it, the gate then reported `STALE PIN: research/convention_price/PROMPT.md: … appears 2 times, pinned 3`, and the pin dropped by exactly that one hit on the next deliberate `--regen` |
+| X310 verifier entry point, clean interpreter (2026-09-23) | found live: execute the documented script with no site-preloaded modules, from both the tree and repository roots | both `test_verifier_help_without_site_preloaded_modules` cases failed with `ImportError` from local `types.py` shadowing the standard library; both pass after removing only the script directory from the initial search path; the complete verifier and regenerated receipt check also pass |
 | Root suite, external contact-file candidates, shallow checkout (2026-09-23) | in `tests/test_primitive_contact.py`, put back the unguarded third-ancestor index (`base.parents[2]` for `*base.parents[2:3]`); an earlier probe did the same to the first form of the guard | `test_external_candidates_tolerate_a_shallow_checkout` failed with `IndexError: 2`, exit 1; exit 0 with the original bytes restored |
 | Same, main-checkout base | dropped the main checkout from the candidate bases | `test_a_linked_worktree_searches_where_the_main_checkout_does` failed, naming the missing main-checkout candidate `C:/u/src/repos/repo/external/file.lean`, exit 1; exit 0 when restored |
 | Same, common-directory check | returned the git common directory's parent without checking that it is named `.git` | `test_main_checkout_is_read_from_the_git_common_directory` failed with `assert WindowsPath('C:/srv') is None`, exit 1; exit 0 when restored |
@@ -85,6 +86,18 @@ That is WITHDRAWN as to the parked-module residual, which is closed, and
 injection is exactly how the closure was shown to bite. The general point
 survives and still applies to the research-tree axiom receipt above:
 injection demonstrates that a residual is live; it does not close one.
+
+## G012 wrapped axiom reports, 2026-09-23
+
+The new native admission obstruction generated long helper names whose axiom
+lists Lean wraps over two lines. The existing single-line reader rejected
+five such reports as missing. A three-case parser regression uses an actual
+wrapped helper report, a forbidden-axiom mutation, and an unterminated list.
+Before the repair, the allowed report failed and the forbidden report was
+misclassified as missing (two failures, one pass). After reading complete
+records across wrapped lists, all three tests pass: the allowed report is
+counted, the forbidden axiom is named by the violation, and the malformed
+report remains missing. No generated helper is excluded from the census.
 
 ## Direct verifier startup (2026-09-23)
 

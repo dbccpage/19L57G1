@@ -2,8 +2,8 @@
 
 ## 1. Overview
 
-Target G018 formalizes the internalized self-simulation engine, step correctness,
-reflection boundary, and diagonal obstruction for deterministic transition systems
+Target G018 formalizes an internalized finite simulator, step correctness,
+reflection fuel bounds, and conditional Boolean diagonal lemmas for deterministic transition systems
 represented within the object carrier.
 
 The investigation addresses whether an execution engine's own operational stepping rule
@@ -43,30 +43,30 @@ The reflection boundary formalizes capacity limits on self-evaluation:
 - **State Capacity Limit**: By the constructive pigeonhole principle, any host carrier with state capacity $k$
   attempting to evaluate a guest with state space $m > k$ incurs state aliasing ($\exists s_1 \neq s_2, f(s_1) = f(s_2)$).
 
-### 2.4 Diagonal Obstruction (`diagonal_obstruction.py`, `Obstruction.lean`)
-Formalizes that no finite carrier contains a total halting or transition self-oracle.
-For every candidate total predictor $P(M, x) \to \text{Bool}$, the diagonal construction synthesizes
-a machine $D_P$ that executes the opposite of $P$'s prediction on its own code:
-- $P(D_P, \text{code}(D_P)) = \text{True} \implies D_P \text{ loops}$
-- $P(D_P, \text{code}(D_P)) = \text{False} \implies D_P \text{ halts}$
-
-The Lean 4 formalization derives the obstruction constructively with zero external axioms:
-$$\neg \exists (P : \text{Nat} \to \text{Nat} \to \text{Bool}), \exists d, \forall x, P(d, x) = \neg P(x, x)$$
+### 2.4 Conditional Diagonal Lemmas and Finite Predictor Probes (`diagonal_obstruction.py`, `Obstruction.lean`)
+Lean proves that no row of a Boolean table equals the pointwise negation of
+its own diagonal entry, and that explicitly assumed self-negating equations
+are contradictory. It does not construct an evaluator, self-code fixed point,
+or a general halting theorem. Python searches a declared finite family of
+machines for errors by named heuristic predictors. Each reported prediction
+and observed behavior now refer to the same machine and encoded input; an
+exact predictor on that finite family has no reported counterexample.
 
 ## 3. Claim Hygiene Summary
 
 ### 1. What it supports
 - Shows in this formal model that an internalized simulator faithfully reproduces the step-by-step state trajectory of a deterministic transition machine using carrier-represented data alone.
 - Demonstrates in this finite setting that simulation depth is bounded by host fuel budgets according to $F(d, S) = S + d$.
-- Shows constructively that total halting self-prediction is obstructed for any candidate predictor within the carrier.
+- Gives same-code finite counterexamples for the listed heuristic predictors and conditional Boolean self-negation lemmas.
 
 ### 2. What it does not support
 - Does not demonstrate computability across arbitrary infinite transition systems or general continuum dynamics.
 - Does not claim that real-world hardware or LLMs possess or lack self-modeling capacity.
 - Does not establish unstratified reflective self-modification without fuel decrement.
+- Does not prove a general self-oracle or halting impossibility theorem; that would require a representation/evaluation fixed-point bridge.
 
 ### 3. The narrowest defensible claim
-For the class of deterministic transition machines with finite state alphabets and discrete tapes, internal simulation tracks operational stepping step-for-step under finite fuel decrement, and total self-oracle evaluation is obstructed by diagonal inversion with zero classical axioms.
+For the defined finite machines, internal simulation tracks operational steps under the stated fuel conditions. The Boolean contradiction theorems and bounded same-code predictor counterexamples are separate results.
 
 ### 4. The next test needed
-Scale the carrier representation to multi-head and branching non-deterministic transition graphs, verifying whether the reflection boundary maintains strict linear or polynomial overhead under parallel evaluation branches.
+For a general diagonal theorem, construct a coding/evaluation fixed point and prove that the encoded program's behavior is the one queried by the predictor. Keep multi-head and branching extensions separate from that proof obligation.

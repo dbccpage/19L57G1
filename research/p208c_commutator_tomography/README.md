@@ -2,7 +2,7 @@
 
 ## Overview
 
-This research package formalizes the finite-dimensional commutator trace obstruction, multi-locus microcausality on composite carrier networks, discrete Mutually Unbiased Bases (MUBs) in dimensions 3 and 4, and complete operational state tomography under Target P208c.
+This research package combines Lean theorems for integer matrices and explicit dimension-3 and dimension-4 basis tables with exact Python examples of finite tomography. The Lean commutator obstruction is over `Int`; this package does not contain a characteristic-zero-field parameterization or a Lean tomography theorem.
 
 AuthorityEffect: None.
 Axiom Scope: Constructive core Lean 4; `#print axioms` strictly within `{propext, Quot.sound}`; zero `Classical.choice`; zero `mathlib`.
@@ -12,11 +12,11 @@ Axiom Scope: Constructive core Lean 4; `#print axioms` strictly within `{propext
 ## Core Theorems & Implementations
 
 ### 1. Finite-Dimensional Commutator Trace Obstruction
-For any finite $N \times N$ matrices $A, B$ over any field of characteristic 0:
+The cited Lean theorem states, for finite $N \times N$ matrices $A,B$ over the integers:
 $$\operatorname{Tr}([A, B]) = \operatorname{Tr}(A B - B A) = 0$$
-Consequently, the continuous canonical commutation relation $[Q, P] = c \cdot I_N$ with $c \neq 0$ is algebraically obstructed on any finite-dimensional carrier of dimension $N \ge 1$:
+Consequently, for the implemented integer matrices and nonzero integer $c$, $[Q, P] = c \cdot I_N$ is obstructed when $N \ge 1$:
 $$\operatorname{Tr}([Q, P]) = 0 \neq N \cdot c = \operatorname{Tr}(c \cdot I_N)$$
-This demonstrates that unbounded continuum commutation relations cannot be embedded into finite-dimensional discrete substrates without algebraic breakdown.
+The corresponding statement over an arbitrary characteristic-zero field requires a separately parameterized proof; the present Lean theorem does not address an embedding of continuous systems.
 
 ### 2. Multi-Locus Microcausality on Composite Carriers
 On a composite multi-locus carrier network with loci $A$ and $B$:
@@ -34,7 +34,7 @@ In finite carrier dimensions, maximal sets of $d + 1$ MUBs provide complete oper
   yielding exact rational overlap $1/3$ in dimension 3 and $1/4$ in dimension 4.
 
 ### 4. Complete Operational State Tomography
-Any discrete carrier state represented by density operator $\rho$ is completely determined by projection measurement probabilities along all $d + 1$ MUBs:
+The Python implementation reconstructs the exact finite examples it evaluates in dimensions 3 and 4 from projection probabilities along the listed MUBs. There is no cited Lean reconstruction theorem:
 $$p_{b, k} = \operatorname{Tr}(\rho \, \Pi_{b, k})$$
 The package provides two independent exact reconstruction algorithms:
 1. **Wootters Dual Frame Closed-Form Inversion**:

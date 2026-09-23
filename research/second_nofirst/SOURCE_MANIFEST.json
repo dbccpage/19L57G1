@@ -1,8 +1,8 @@
 {
   "authority_effect": "None",
   "rung": "two, track one: no first demand",
-  "snapshot_commit": "233621725ea7b3281a12604f63a0345ac85f9f39",
-  "snapshot_note": "Repinned 2026-09-10 because paper/paper.md moved on main after launch (PR 164 merge bar). Pull request 133 has merged, so research/second_stream is present at this snapshot; see STATUS.md.",
+  "snapshot_commit": "16fcffd64fcc8c7299a5dda5bb8b7082dc181c11",
+  "snapshot_note": "Repinned 2026-09-23 because the author-authorized Section 3 correction (#231) edited paper/paper.md; the pinned span and every other source are unchanged. Earlier repin 2026-09-10 (PR 164): paper/paper.md moved on main after launch; see STATUS.md.",
   "sources": [
     {
       "path": "code/derivation/engine.py",
@@ -31,7 +31,7 @@
     },
     {
       "path": "paper/paper.md",
-      "sha256": "6C657F4FC5D0613C13FD62E4071C846E51596663BF98EC97EE866BCE92E982BA",
+      "sha256": "8E0A3F2333E9AE5740B26C59F88FD41CD1EE9C9B92CA4F0A19DAD53747DDF3CD",
       "note": "the sealed paper carrying the obstruction span"
     },
     {
