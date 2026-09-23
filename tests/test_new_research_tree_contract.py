@@ -205,6 +205,12 @@ def test_the_seed_must_be_recorded_at_its_path_and_hash(repository: Path) -> Non
         assert any("research/second_probe/CLAIMS.md" in f for f in failures), (text, failures)
     manifest.write_text(json.dumps({"sources": [{"path": contract.SEED, "sha256": contract.SEED_SHA256}]}))
     assert contract.problems(repository) == []
+    # A digest's letter case is not information: the upper-case record that
+    # rung three committed is the same seed, and still selects the contract.
+    manifest.write_text(json.dumps({"sources": [{"path": contract.SEED, "sha256": contract.SEED_SHA256.upper()}]}))
+    assert contract.problems(repository) == []
+    manifest.write_text(json.dumps({"sources": [{"path": contract.SEED, "sha256": 7}]}))
+    assert any("records no pinned seed hash" in f for f in contract.problems(repository))
 
 
 def test_only_a_second_tree_can_claim_the_seed_contract(repository: Path) -> None:

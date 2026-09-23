@@ -157,3 +157,24 @@ regenerated while an injection was live.
 | `research`: native_structure receipt | the same | the same failure |
 | `research`: conservation_ladder receipt | the same | the same failure |
 | `research`: domain_adapters receipt | the same | the same failure |
+
+## Seed-contract selection, real case (2026-09-23)
+
+Found live, not injected. Rung three (`research/second_index`, #239)
+records `research/second/SEED.md` in its manifest with the correct digest
+in upper case. `ci/check_new_research_trees.py` compared that digest with
+its lower-case constant, so it did not select the seed's rung contract and
+failed the rung by name:
+
+- `FAIL: research/second_index/SOURCE_MANIFEST.json: records no pinned seed hash, so the new-tree contract applies`
+- the ordinary contract's `CLAIMS.md`, `verify.py` and `TREE_CONTRACT.json` failures
+
+`tests/test_new_research_tree_contract.py::test_current_repository_is_grandfathered_and_clean`
+was red on `main` at `013be46f`. That was the coordinator's error: #239 was
+merged before this check's result was read.
+
+**The repair.** `records_seed` compares a string digest without regard to
+letter case. With it the live check is clean and the test passes.
+
+**The test added.** It accepts the upper-case record, and still refuses a
+non-string digest, a wrong digest, and the seed's hash at another path.
