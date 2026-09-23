@@ -30,10 +30,11 @@ Usage::
 Regenerating the pin is a deliberate act, like the watchlist and module
 censuses: never do it while an injection is live.
 
-Run this on a CLEAN worktree.  Many of these verifiers refuse when anything
-outside their own write root is modified or untracked, so an uncommitted
-file of your own turns them red and would be captured as an expected
-failure by --write.
+The census runs in a temporary clean worktree at HEAD. Earlier local gate
+steps leave ignored bytecode under sealed paths, which several verifiers
+correctly refuse. The temporary worktree keeps those generated files out of
+the census without deleting them. --write also requires the caller's
+worktree to be clean, so it cannot pin uncommitted verifier changes.
 
 AuthorityEffect: None.
 """
@@ -41,10 +42,13 @@ AuthorityEffect: None.
 from __future__ import annotations
 
 import argparse
+from contextlib import contextmanager
 import json
 import os
 import subprocess
 import sys
+import tempfile
+from collections.abc import Iterator
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
@@ -53,10 +57,10 @@ VERIFIERS = ("verify_pins.py", "verify_sources.py", "verify_manifest.py", "sourc
 TIMEOUT = 300
 
 
-def verifiers() -> list[tuple[str, str]]:
+def verifiers(repo: Path = REPO) -> list[tuple[str, str]]:
     """Every (tree, verifier file name), in a deterministic order."""
     found: list[tuple[str, str]] = []
-    research = REPO / "research"
+    research = repo / "research"
     for tree in sorted(p.name for p in research.iterdir() if p.is_dir()):
         if tree.startswith((".", "_")):
             continue
@@ -66,7 +70,7 @@ def verifiers() -> list[tuple[str, str]]:
     return found
 
 
-def run_one(tree: str, name: str) -> tuple[int, str]:
+def run_one(tree: str, name: str, repo: Path = REPO) -> tuple[int, str]:
     """Exit status and the most informative line, retried once on a git error.
 
     These verifiers shell out to git.  A concurrent commit or index lock in
@@ -74,20 +78,20 @@ def run_one(tree: str, name: str) -> tuple[int, str]:
     spurious red for a tree that passed moments later.  A transient is
     retried once; a real failure fails twice.
     """
-    code, line = _run_once(tree, name)
+    code, line = _run_once(tree, name, repo)
     if code != 0 and ("git " in line and "failed" in line):
-        code, line = _run_once(tree, name)
+        code, line = _run_once(tree, name, repo)
     return code, line
 
 
-def _run_once(tree: str, name: str) -> tuple[int, str]:
+def _run_once(tree: str, name: str, repo: Path = REPO) -> tuple[int, str]:
     env = {**os.environ, "PYTHONUTF8": "1", "PYTHONDONTWRITEBYTECODE": "1"}
-    path = REPO / "research" / tree / name
+    path = repo / "research" / tree / name
     for args in ([], ["--check"]):
         try:
             done = subprocess.run(
                 [sys.executable, "-B", str(path), *args],
-                cwd=REPO, env=env, capture_output=True, text=True,
+                cwd=repo, env=env, capture_output=True, text=True,
                 encoding="utf-8", errors="replace", timeout=TIMEOUT,
             )
         except subprocess.TimeoutExpired:
@@ -104,12 +108,38 @@ def _run_once(tree: str, name: str) -> tuple[int, str]:
     return 2, "no runnable mode"
 
 
-def measure() -> dict[str, dict[str, object]]:
+def measure(repo: Path = REPO) -> dict[str, dict[str, object]]:
     outcomes: dict[str, dict[str, object]] = {}
-    for tree, name in verifiers():
-        code, line = run_one(tree, name)
+    for tree, name in verifiers(repo):
+        code, line = run_one(tree, name, repo)
         outcomes[f"{tree}/{name}"] = {"exit": code, "line": line[:300]}
     return outcomes
+
+
+@contextmanager
+def clean_checkout() -> Iterator[Path]:
+    """Borrow an exact-HEAD worktree without touching generated caller files."""
+    with tempfile.TemporaryDirectory(prefix="tree-custody-") as temp:
+        checkout = Path(temp) / "checkout"
+        added = subprocess.run(
+            ["git", "worktree", "add", "--detach", str(checkout), "HEAD"],
+            cwd=REPO, capture_output=True, text=True, encoding="utf-8",
+            errors="replace", check=False,
+        )
+        if added.returncode != 0:
+            raise RuntimeError(f"cannot create clean HEAD worktree: {added.stderr.strip()}")
+        try:
+            yield checkout
+        finally:
+            removed = subprocess.run(
+                ["git", "worktree", "remove", "--force", str(checkout)],
+                cwd=REPO, capture_output=True, text=True, encoding="utf-8",
+                errors="replace", check=False,
+            )
+            if removed.returncode != 0:
+                raise RuntimeError(
+                    f"cannot remove temporary HEAD worktree: {removed.stderr.strip()}"
+                )
 
 
 def compare(outcomes: dict[str, dict[str, object]], pin: dict[str, object]) -> list[str]:
@@ -156,7 +186,12 @@ def main(argv: list[str] | None = None) -> int:
             print("FAIL: --write requires a clean worktree")
             return 1
 
-    outcomes = measure()
+    try:
+        with clean_checkout() as checkout:
+            outcomes = measure(checkout)
+    except RuntimeError as exc:
+        print(f"FAIL: {exc}")
+        return 1
     if args.json:
         args.json.write_bytes(
             (json.dumps(outcomes, indent=1, sort_keys=True) + "\n").encode("utf-8")
