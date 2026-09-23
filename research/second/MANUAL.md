@@ -190,3 +190,50 @@ is live.
 | 2-stake (sealed-path scope, 2026-09-18) | ownership judged on everything a commit wrote, `test_no_rung_commit_writes_a_sealed_path` at `6038cead` | two throwaway commits: one adding `research/second_stake/zz_probe.md` and `ci/zz_probe.txt`, then one removing only `zz_probe.md` | `AssertionError: Lists differ: ['ci/zz_probe.txt'] != []`, exit 1.  The same two commits on `0b818337`, which judged ownership after dropping the reverted path, gave `ok`, exit 0: the review finding this row proves repaired |
 
 <!-- markdownlint-enable MD013 -->
+
+## Session handoff, rung three (2026-09-23)
+
+**Read at the start of a session; written at the end of one.**  The
+seed's section eleven asks for a handoff, and the run had none as a file:
+until now the next rung was carried only in the last rung's `STATUS.md`.
+It still is, and this section says where to look rather than duplicating
+it, because two copies of a handoff drift.
+
+- The rungs on `main` are rung zero (`second_inheritance`), rung one
+  (`second_stream`), rung two track two (`second_stake`) and rung two
+  track one (`second_nofirst`).  Rung three (`second_index`) is this
+  session's, and is not merged by an agent.
+- The next rung is named at the end of the LAST rung's `STATUS.md`, under
+  the heading "The next rung, named so it cannot be smuggled in later",
+  with the seed's rule applied to that rung's own leftover list.  Rung
+  three's says X-3, the index up to the implemented isomorphism.
+- One rung per session at most.  Never merge a rung; the author merges.
+- Before writing anything in a new rung: freeze `PROMPT.md` by hash and
+  commit it, then freeze `PREDICTIONS.md` by hash and commit it, then
+  compute.  The commits are the evidence of the order.
+
+## Injection record, rung three (2026-09-23)
+
+Eight injections, each minimal and reversible, none live while any
+receipt was regenerated.  Every one names the object it was given.
+
+<!-- markdownlint-disable MD013 -->
+
+| rung | gate | injection | observed failure |
+|---|---|---|---|
+| 3 | frozen-text pin (`second_index/verify_pins.py`) | one line appended to `PROMPT.md` in a throwaway commit `bb479a90` on top of `321cfd29` | `FAIL: frozen text moved: research/second_index/PROMPT.md: expected 8487d72e..., got 3452f3e8...`, exit 1; after `git reset --hard HEAD~1` the verifier passed with exit 0 and the tree was clean.  The verifier reads blobs at HEAD, so an uncommitted edit is invisible to it by design; the injection had to be committed to be seen, and was discarded rather than reverted, so no receipt was regenerated under it |
+| 3 | span pin (same verifier) | one span's `last_line` moved by one in `SOURCE_MANIFEST.json`, uncommitted | `FAIL: span mismatch at the snapshot for lean4/Derivation/Basic.lean:20-168: expected 3b9f40cb..., got 0c646ee8...`, exit 1; exit 0 after restoring the manifest.  A blob pin and a span pin are different guarantees, and this is the span one firing on its own |
+| 3 | receipt comparison (`run_index.py --check`) | one node count in `receipts/index.json` changed from 577 to 578 | `FAIL: ...receipts\index.json differs from a fresh run`, exit 1; exit 0 after restoring the file.  The check writes nothing, so the generator could not bless the drift by overwriting it |
+| 3 | Lean audit (`second_index/verify_lean.py`) | one `#print axioms` line deleted from `AxiomReport.lean` | `FAIL: compiler declaration SecondIndex.Index.first_demand_unique has no fresh #print axioms report`, exit 1; exit 0 after restoring the line.  The compiled-environment census and the report population are compared both ways, so dropping a print drops only one side |
+| 3 | FW-DEF census totality (`test_census.py`) | one row deleted from `FWDEF_CENSUS.json` and its count decremented | `AssertionError: Lists differ: ['first_demand_follows_a_changing_event'] != []`, exit 1; exit 0 after restoring the row |
+| 3 | reconstruction comparison (`test_reconstruction.py`) | one binder renamed in the reconstructed sealed `collapsed`, from `d d'` to `d dd` | the assertion printed both normalized declarations with the differing character marked, exit 1; exit 0 after restoring the binder.  The comparison reads the source blob AT THE SNAPSHOT, so it is a comparison with the pinned revision and not with the working tree |
+| 3 | prose census over the write root (`test_forbidden.py`) | a probe file `zz_probe.md` in the write root carrying one watched term | `AssertionError: Lists differ: ['research/second_index/zz_probe.md:1: <term elided>'] != []`, with the watched term named in place of the elision, exit 1; exit 0 after deleting the probe.  RECORDED BESIDE IT: the first probe used the term the rung-one row of this record names, and it did NOT fire -- that term is not in the current watched population.  The term that DID fire is elided above for the same reason the rung-one rows elide theirs: this record is itself scanned.  A probe must be drawn from the list as it stands, not from a record of what it once held.  Why the population moved is not established here, and this rung regenerated no pin |
+| 3 | write-root scope scan (`test_forbidden.py`) | an untracked `zz_outside_probe.md` at the repository root | `AssertionError: Lists differ: ['zz_outside_probe.md'] != []`, exit 1; exit 0 after deleting it.  The scan reads uncommitted writes as well as committed ones, so a file outside the root is seen before it is added to Git |
+| 3 | coverage census (`second_index/check_coverage.py`) | a new production module `zz_helper.py` in the tree, declared nowhere | `FAIL: production module census differs: missing from declarations=['zz_helper.py'], declared but absent=[]`, exit 1; exit 0 after deleting it.  The census fails in both directions, so a measured file cannot disappear silently either |
+
+<!-- markdownlint-enable MD013 -->
+
+**What these injections do not prove.**  That the populations they pin
+are the right mathematical objects.  A perfect pin of the wrong set is
+still the wrong set.  Each shows only that the named gate is live and
+recovers.
