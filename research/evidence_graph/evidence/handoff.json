@@ -1,0 +1,48 @@
+{
+  "authority_effect": "None",
+  "plans": [
+    {
+      "boundary": "Start with the actual native state, event, guard and typed-record maps. Additional reverse maps and event selection remain obligations.",
+      "input_ids": [
+        "claim:scoped:aligned_replay",
+        "claim:scoped:legal_replay",
+        "bridge:typed_trace_erasure",
+        "bridge:token_erasure"
+      ],
+      "plan": "C"
+    },
+    {
+      "boundary": "Keep the action, branch-cost equality, congruence, invariance and guard hypotheses separate. The open cell bridge must not be replaced by matching names.",
+      "input_ids": [
+        "claim:scoped:rewrite_sound",
+        "claim:scoped:price_premise",
+        "claim:research/path_dependent_cost/CLAIM_LEDGER.md::PD-3",
+        "claim:research/path_dependent_cost/CLAIM_LEDGER.md::PD-5",
+        "bridge:cells_native"
+      ],
+      "plan": "D"
+    },
+    {
+      "boundary": "No broad conserved-charge theorem is supplied by these precedents. A common native transition domain and every extra premise must be specified first.",
+      "input_ids": [
+        "precedent:additive_cost",
+        "precedent:budget_accounting",
+        "precedent:signed_boundary",
+        "precedent:path_cost"
+      ],
+      "plan": "E"
+    },
+    {
+      "boundary": "Declare every imported carrier and law, prove each claimed state/step/observation map, and preserve proposal/evaluation/license distinctions.",
+      "input_ids": [
+        "bridge:represented_readback",
+        "bridge:pipeline_carrier",
+        "frontier:driver_b",
+        "frontier:analytic_limit",
+        "frontier:demand_channel"
+      ],
+      "plan": "F"
+    }
+  ],
+  "source_snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f"
+}

@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "source_snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+  "audit_snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+  "consumer_root": "research/evidence_graph",
+  "population_file": "source_population.json",
+  "schema_file": "SCHEMA.json",
+  "public_roots": ["paper/", "research/"],
+  "public_files": ["README.md"],
+  "excluded_public_roots": ["research/_scaffold/", "research/evidence_graph/"],
+  "independent_verifiers_required": true,
+  "historical_drift_is_not_provenance_failure": true,
+  "status_policy": "A source assertion is never promoted by import, citation resolution, compilation, or a graph check alone.",
+  "statement_policy": "Exact prose stays at its source span. This tree records resolving references rather than duplicating inherited vocabulary.",
+  "authority_effect": "None"
+}
