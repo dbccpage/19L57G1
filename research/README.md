@@ -54,6 +54,7 @@ Lean layout. The first and last also have explicit build-recipe entries.
 | `cost_cohomology` | local receipt only |  |
 | `described_replay` | local receipt only |  |
 | `diagonal_identity` | local receipt only |  |
+| `domain_adapters` | local receipt only |  |
 | `dynamics_step` | local receipt only | parked |
 | `endogenous_continuum` | local receipt only |  |
 | `endogenous_demand` | local receipt only |  |
