@@ -6,7 +6,7 @@ derivation and amends nothing under `prompt/`, `paper/`, `code/`,
 
 | object | id |
 |---|---|
-| source snapshot | `908d89705daa4794740b6567fdb7272a8203a5c3`, tree `c86338c34c3b2d83a4633cab198e2aa45d3a976b` |
+| source snapshot | `16fcffd64fcc8c7299a5dda5bb8b7082dc181c11`, tree `e652ca24e63eb251c019a4f7e8f47e45a33bcdaf` (repinned 2026-09-23 from `908d89705daa4794740b6567fdb7272a8203a5c3` because the author-authorized Section 3 correction (#231) edited paper/; the pinned modules are unchanged) |
 | semantic root | `Derivation.PresentationNaturality` (import closure: 12 sealed modules, all pinned in `SOURCE_MANIFEST.json`) |
 
 ## Question

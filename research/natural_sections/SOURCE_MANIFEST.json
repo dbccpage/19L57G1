@@ -1,8 +1,8 @@
 {
   "schema": "natural_sections_source_manifest/v1",
   "source_snapshot": {
-    "commit": "908d89705daa4794740b6567fdb7272a8203a5c3",
-    "tree": "c86338c34c3b2d83a4633cab198e2aa45d3a976b"
+    "commit": "16fcffd64fcc8c7299a5dda5bb8b7082dc181c11",
+    "tree": "e652ca24e63eb251c019a4f7e8f47e45a33bcdaf"
   },
   "hash_basis": "SHA-256 of canonical Git blobs, checked at the source snapshot AND at the verification HEAD; independent of checkout line endings",
   "source_policy": "read-only sealed inputs; the module list is exactly the import closure of the semantic roots, computed from the import lines of the snapshot blobs and checked in both directions; the snapshot commit must resolve, must be an ancestor of HEAD, and must carry the recorded tree; nothing under a sealed prefix may differ between the snapshot and HEAD, be modified, be untracked, or be ignored-but-present in the worktree; the Lean package compiles staged copies of these blobs and declares no Lake dependency, so no build product leaves research/natural_sections/",

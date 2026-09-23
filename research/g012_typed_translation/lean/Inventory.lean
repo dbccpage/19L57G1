@@ -3,6 +3,7 @@ import Signature
 import Codec
 import Naturality
 import Specialization
+import NativeAdmission
 
 /-!
 # Metatheoretic Theorem Census for G012 Typed Translation

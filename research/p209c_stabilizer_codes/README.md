@@ -2,7 +2,7 @@
 
 AuthorityEffect: None.
 
-This package formalizes and computationally implements stabilizer error-correcting codes on discrete multi-carrier state spaces and finite geometric incidence structures.
+This package combines exact Python calculations for three finite code examples with Lean theorems about explicit Pauli-string commutation, selected transversal mappings, and seven X-error syndrome evaluations. The cited Lean file contains no projector, decoder, codespace-dimension, or code-distance theorem.
 
 ## Overview
 
@@ -24,9 +24,9 @@ Target P209c establishes:
    - Even pairwise intersection cardinalities ($|h_i \cap h_j| = 2 \equiv 0 \pmod 2$) algebraically enforcing generator commutativity.
    - Logical operators $X_L = X^{\otimes 7}, Z_L = Z^{\otimes 7}$.
    - Transversal Hadamard operational step $H^{\otimes 7}$ preserving the stabilizer group and interchanging logical $X_L \leftrightarrow Z_L$.
-   - Deterministic diagnosis and correction of all 21 single-carrier Pauli errors.
-5. **Stabilizer Projection Operator**:
-   - Exact matrix representation $\Pi_S = \frac{1}{|S|} \sum_{M \in S} M$ with exact integer idempotence $\Pi_S^2 = \Pi_S$ and trace matching codespace dimension.
+   - Python diagnosis and correction examples for 21 single-carrier Pauli errors; Lean checks seven explicit X-error syndromes.
+5. **Python Stabilizer Projection Operator**:
+   - Exact matrix checks for the evaluated groups using $\Pi_S = \frac{1}{|S|} \sum_{M \in S} M$; no corresponding Lean projector theorem is cited.
 6. **Constructive Formalization**:
    - Core Lean 4 formalization with 100 verified theorems.
    - Axiom dependency strictly contained in `{propext, Quot.sound}` (zero `Classical.choice`, zero `mathlib`, zero `sorry`/`admit`).

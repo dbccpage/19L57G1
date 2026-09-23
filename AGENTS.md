@@ -30,9 +30,13 @@ See `CLAUDE.md`, section **No hosted CI**, for the full statement.
   `artifacts/` and the root file `lean4/Derivation.lean`; do not edit those
   or `CLAUDE.md` without the author's explicit say-so. Research lives under
   `research/`, outside the seal, and consumes the sealed sources read-only.
-- No outside theory names anywhere in the repository (the prose watchlist
-  and the identifier firewall enforce parts of this; judgement covers the
-  rest).
+- No external terminology as an input to the sealed derivation. Outside
+  the seal, research may use explicitly classified supplied vocabulary;
+  this supplies no native derivation or proved bridge. The six existing
+  fenced paper comparisons remain historical records in their existing
+  positions. External citations remain prohibited repository-wide. The
+  prose watchlist and identifier firewall keep their current populations.
+  See the author's 2026-09-23 vocabulary ruling in `CLAUDE.md`.
 - Run the twelve gate families locally before asking for a merge, with
   `python ci/run_gates.py` (see `CLAUDE.md`, **Running the gates**);
   `research/README.md` says which research trees the contract enumerates.

@@ -13,10 +13,10 @@
   "schema_version": 1,
   "source_hashes": {
     "carrier_repr.py": "ca1ffc2462c13890a65ba5a01f8752a0e851ca582d496f3215f013cebe5e075d",
-    "diagonal_obstruction.py": "ad726a51efbb941ab120c2555dcd685334d2d35f8359f0867b22ef5b73a5bc71",
+    "diagonal_obstruction.py": "6a5c3556b9fce35a593c8dfd893421852d1d0cb05540f0dad5f18379b1577d95",
     "lean/CarrierRepr.lean": "a1b99bd4f211794701eae077af1bfc2da2e38aed14831e3f1994dbea3bff88b5",
     "lean/Inventory.lean": "a0f7d989d0276667538a63b8b2f6a90efa8bf728ca1e2c71c72fad2843c9f77c",
-    "lean/Obstruction.lean": "e5daf03a2fb45f04d99641597295b5a846e29571362213b0ffd5318f3e7e97e2",
+    "lean/Obstruction.lean": "6cd835c4dd21f2c8967773728351f2f72c62c348b5bcd4b8e188b4d9e6d5f37d",
     "lean/ReflectionBoundary.lean": "bd52b3eb4ce11e5f42f269ba995a004c9f70954bb425650cc385aee0b2fa27ea",
     "lean/Simulator.lean": "3b3cb8facf02e08aff128d10856619b6090b7d85109142a4a21605fe3728556e",
     "lean/lakefile.toml": "e8af9e752e4b25a539e0fc6e2bf8878f48c2be9c19a4dc20d9e1463b04a262b4",
@@ -24,7 +24,7 @@
     "reflection_boundary.py": "93805498abf4d95e0f4d4b388e5a3ce289b6d42db895ef6003c1356767de9212",
     "simulator.py": "e6669dec7ec4ccad91c46bb64683379a8bf74056ff69609c46adc8f98dc89f6a",
     "tests/test_carrier_repr.py": "0571d69b583f3c3f925c905fffbce1f0c3f5271c9f459fd0e8a129d99bcc6149",
-    "tests/test_diagonal_obstruction.py": "b3af4ce855d115a2e2fa4ce7d11f8f486aa2d7c11a4faf702f51e300df0766a4",
+    "tests/test_diagonal_obstruction.py": "04cebcf287ec8b9cccf10238e757110ce687dd3eca862784b0b49cd8295c0df9",
     "tests/test_reflection_boundary.py": "7c044ab118bd93b7b3c4309458ec54ea1ce0540729b78676aa0340af832a73f7",
     "tests/test_simulator.py": "0525064eadb0cb9943aeb8f6764a027e9bb4ec0cb4e99b3be895a20ba44ae28f",
     "verify.py": "6eca238e930df2a77b0cc1edd3547be21f3edc55c652c20e3b72df049aac458a",
@@ -34,7 +34,7 @@
   "terminal_status": "SELF_HOSTING_SIMULATION_ESTABLISHED",
   "test_results": {
     "failed": 0,
-    "passed": 21,
+    "passed": 22,
     "status": "PASS",
     "test_runner": "pytest"
   },
@@ -116,7 +116,7 @@
     "G018SelfHosting.step_simulation_extract_commutes",
     "G018SelfHosting.total_transition_oracle_refutation"
   ],
-  "timestamp_utc": "2026-09-19T23:42:19.617642+00:00",
+  "timestamp_utc": "2026-09-23T07:54:19.938409+00:00",
   "title": "Self-Hosting, Internal Simulation & Reflection Boundary",
   "toolchains": {
     "lean": "leanprover/lean4:v4.33.0",

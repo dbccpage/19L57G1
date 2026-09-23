@@ -52,4 +52,4 @@ Sealed staging, not a Lake path into `lean4/`. `Limits.lean` is staged the
 same way. `Continuum.lean` is pinned for formula comparison and is not
 compiled.
 
-Snapshot: `0ab0e67037900606159ec2babb2e7cf5b7854f20`.
+Snapshot: `16fcffd64fcc8c7299a5dda5bb8b7082dc181c11` (repinned 2026-09-23 from `0ab0e67037900606159ec2babb2e7cf5b7854f20` because the author-authorized Section 3 correction (#231) edited paper/; the pinned sources are unchanged).

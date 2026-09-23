@@ -2650,3 +2650,21 @@ verifiers the gates skill omitted, with
 `tests/test_gates_skill_matches_workflow.py` to hold the skill to the
 workflow, and repins the primitive-difference manifest to the batch-one
 commit.  No theorem, computation or artifact changed.
+
+## 2026-09-23 -- terminal descriptor scope and author vocabulary ruling
+
+The final paragraph of `native_derivation_completion.md` withdraws the
+unqualified initial-member wording. It states unique probe compliance in
+the declared 64-member descriptor class, does not claim categorical
+initiality, and binds the single OPEN edge to the declared bridge graph.
+This incorporates the preserved correction `9e4d724a` at the author's
+explicit request. No Lean theorem or sealed computation is changed.
+
+The author separately approved the exact vocabulary rule now in
+`CLAUDE.md`. Section 13 records it: explicitly classified supplied vocabulary
+is permitted in research outside the seal, and the six already fenced
+comparison sections are preserved as historical records in their existing
+positions. They are not derivational inputs, theorem evidence, or permission
+to extend sealed comparison. External citations remain prohibited and the
+scanner populations are unchanged. The policy and placement questions are
+resolved by this author act; historical blindness remains an attestation.

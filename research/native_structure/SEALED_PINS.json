@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "snapshot": "1805e58145171f92eb0f300c44ea4bb7fd5b1684",
+  "pins": {
+    "code/derivation/primitive_passage.py": "fff44fa3cf8b9a4b96bc6543ed8242afeed4842b",
+    "code/derivation/trace_algebra.py": "ad4075ff6f7ff4b3a33c3bc4e376389f87233150",
+    "lean4/Derivation/PrimitivePassage.lean": "80563edc5922c64b193fbb86c88fb5546f22777d",
+    "lean4/Derivation/TransitionAlphabet.lean": "403c929c1dce8d93dd6a3989b0ceada2b51a1170",
+    "lean4/Derivation/TraceAlgebra.lean": "d3d1a9a7e5663c18b8da3f5f86f5589d80aca073",
+    "research/native_bridge/bridge.py": "43bed32e024682da47c293bda1566dbc308f3063",
+    "research/native_bridge/lean/ResearchNativeBridge/Passage.lean": "582a1c56f47f45fa9d09d1eba2b38ecf5e4b5fe1",
+    "research/native_bridge/lean/ResearchNativeBridge/Sim.lean": "ff153a12928c8cbfc3932ed36e1b288d5e06a01c",
+    "research/native_bridge/lean/ResearchNativeBridge/Path.lean": "16b82caaa1bc23da0a981c9149d1b899998fb62a"
+  }
+}

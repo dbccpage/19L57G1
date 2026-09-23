@@ -53,7 +53,7 @@ def rot (p : P) : P := (-p.2, p.1)
 
 def shift (_ : P) : P := (1, 0)
 
-theorem D₁_central (c : Int) (a b v : P) :
+theorem d1_central (c : Int) (a b v : P) :
     D₁ (central c) a b v =
       -2 * ((b.1 - a.1) * v.1 + (b.2 - a.2) * v.2) - 2 * c * (a.1 * v.1 + a.2 * v.2) := by
   simp only [D₁, central, sq, sub, x₀, y₀, x₁, y₁, ddir, eval, slots, first]
@@ -63,7 +63,7 @@ theorem D₁_central (c : Int) (a b v : P) :
     Int.mul_comm, Int.mul_left_comm, Int.mul_assoc]
   omega
 
-theorem D₂_central (c : Int) (a b v : P) :
+theorem d2_central (c : Int) (a b v : P) :
     D₂ (central c) a b v = 2 * ((b.1 - a.1) * v.1 + (b.2 - a.2) * v.2) := by
   simp only [D₂, central, sq, sub, x₀, y₀, x₁, y₁, ddir, eval, slots, second]
   simp only [Int.neg_mul, Int.two_mul, Int.sub_mul, Int.mul_sub, Int.add_mul, Int.mul_add]
@@ -74,7 +74,7 @@ theorem D₂_central (c : Int) (a b v : P) :
 
 theorem central_invariant (c : Int) : Invariant (central c) rot := by
   intro a b
-  rw [D₁_central, D₂_central]
+  rw [d1_central, d2_central]
   simp only [rot]
   simp only [Int.neg_mul, Int.two_mul, Int.sub_mul, Int.mul_sub, Int.add_mul, Int.mul_add]
   simp only [Int.sub_eq_add_neg, Int.neg_add, Int.neg_neg, Int.mul_neg, Int.neg_mul,
@@ -84,7 +84,7 @@ theorem central_invariant (c : Int) : Invariant (central c) rot := by
 
 theorem central_charge (c : Int) (a b : P) :
     charge (central c) rot a b = 2 * (a.1 * b.2 - a.2 * b.1) := by
-  simp only [charge, D₂_central, rot]
+  simp only [charge, d2_central, rot]
   simp only [Int.neg_mul, Int.two_mul, Int.sub_mul, Int.mul_sub, Int.add_mul, Int.mul_add]
   simp only [Int.sub_eq_add_neg, Int.neg_add, Int.neg_neg, Int.mul_neg, Int.neg_mul,
     Int.mul_zero, Int.zero_mul, Int.add_zero, Int.zero_add, Int.mul_one, Int.one_mul,
@@ -117,7 +117,7 @@ theorem solve_stationary (c : Int) (a b : P) (k : Nat) (hk : 1 ≤ k) :
     Stationary (central c) (solve c a b) k := by
   intro v
   obtain ⟨m, rfl⟩ : ∃ m, k = m + 1 := ⟨k - 1, by omega⟩
-  rw [D₂_central, D₁_central, Nat.add_sub_cancel]
+  rw [d2_central, d1_central, Nat.add_sub_cancel]
   show 2 * (((solve c a b (m + 1)).1 - (solve c a b m).1) * v.1 +
       ((solve c a b (m + 1)).2 - (solve c a b m).2) * v.2) +
     (-2 * (((solve c a b (m + 2)).1 - (solve c a b (m + 1)).1) * v.1 +
@@ -175,12 +175,12 @@ theorem nonstationary_charge_moves :
 theorem shift_not_invariant : ¬ Invariant (central 1) shift := by
   intro h
   have := h (1, 0) (1, 0)
-  rw [D₁_central, D₂_central] at this
+  rw [d1_central, d2_central] at this
   simp [shift] at this
 
 theorem shift_invariant_free : Invariant (central 0) shift := by
   intro a b
-  rw [D₁_central, D₂_central]
+  rw [d1_central, d2_central]
   simp only [shift]
   omega
 

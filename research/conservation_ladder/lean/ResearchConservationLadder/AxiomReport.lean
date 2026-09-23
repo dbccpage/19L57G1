@@ -10,8 +10,8 @@ import ResearchConservationLadder
 #print axioms ResearchConservationLadder.invariant_iff_dual
 #print axioms ResearchConservationLadder.charge_step
 #print axioms ResearchConservationLadder.charge_const
-#print axioms ResearchConservationLadder.D₁_central
-#print axioms ResearchConservationLadder.D₂_central
+#print axioms ResearchConservationLadder.d1_central
+#print axioms ResearchConservationLadder.d2_central
 #print axioms ResearchConservationLadder.central_invariant
 #print axioms ResearchConservationLadder.central_charge
 #print axioms ResearchConservationLadder.charge_nonconstant

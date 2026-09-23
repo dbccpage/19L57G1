@@ -115,24 +115,25 @@ Axiom Scope: Strictly within `{propext, Quot.sound}`; zero `Classical.choice`; z
   - `P209aWignerPhaseSpace.magic_state_parity_expectation_5`
   - `P209aWignerPhaseSpace.magic_state_negativity_witness_3`
   - `P209aWignerPhaseSpace.magic_state_negativity_witness_5`
+- **Lean boundary**: The point values `W_magic_3_origin` and `W_magic_5_origin` are definitions. Their negativity theorems compare those constants with zero; they do not derive the Wigner formula from the state and `phase_point` operators.
 - **Axiom Status**: `{propext, Quot.sound}` for eigenstates; `{propext}` for expectation; zero axioms for strict rational inequality.
 - **Evidence Paths**:
   - `research/p209a_wigner_phase_space/lean/WignerPhaseSpace.lean`
   - `research/p209a_wigner_phase_space/wigner_phase_space.py`
   - `research/p209a_wigner_phase_space/tests/test_wigner.py`
 - **Claim Discipline**:
-  1. *What it supports*: Confirms that non-stabilizer resource states exhibit point negativity in discrete Wigner distributions, serving as non_classical witnesses.
+  1. *What it supports*: Python computes the finite examples; Lean checks separate parity eigenstate facts and negativity of the declared point values.
   2. *What it does not support*: Does not establish whether negativity is necessary for computational speedup in general settings.
-  3. *Narrowest defensible claim*: In dimensions 3 and 5, $|M\rangle$ has $W_{|M\rangle}(0, 0) = -1/p < 0$.
-  4. *Next test needed*: Relate discrete negativity volume to contextuality degree and distillation thresholds.
+  3. *Narrowest defensible claim*: The defined Lean origin value equals $-1/p<0$ in dimensions 3 and 5; the state-to-value identity is a Python calculation, not a cited Lean theorem.
+  4. *Next test needed*: Prove in Lean that the state and `phase_point` expression evaluates to the defined origin value.
 
 ---
 
 ## CL-P209A-07: Exact State Reconstruction from Discrete Wigner Distributions
 
-- **Statement**: Any discrete density operator $\rho$ is reconstructed from its discrete Wigner distribution: $\rho = \sum_{q, p} W_\rho(q, p) A(q, p)$, satisfying total normalization $\sum_{q, p} W_\rho(q, p) = \operatorname{Tr}(\rho) = 1$.
-- **Formal Theorems**: Verified by exact computational arithmetic in `wigner_phase_space.py`.
-- **Axiom Status**: Metatheoretic exact cyclotomic reconstruction.
+- **Statement**: The exact Python checks reconstruct the named density matrices for $p \in \{3,5\}$ from their discrete Wigner values and verify total normalization for those fixtures.
+- **Formal Theorems**: None for this reconstruction claim; `wigner_phase_space.py` and its tests provide exact computational checks.
+- **Axiom Status**: No Lean axiom audit applies to this Python claim.
 - **Evidence Paths**:
   - `research/p209a_wigner_phase_space/wigner_phase_space.py`
   - `research/p209a_wigner_phase_space/tests/test_wigner.py`

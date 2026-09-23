@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "lean_root": "ResearchNativeStructure",
+  "pin_files": [
+    "SEALED_PINS.json",
+    "input.json"
+  ],
+  "axiom_scope": "explicit_reports",
+  "axiom_declarations": [
+    "ResearchNativeStructure.swap_sound",
+    "ResearchNativeStructure.cell_sound",
+    "ResearchNativeStructure.cell_perm",
+    "ResearchNativeStructure.cell_append_right",
+    "ResearchNativeStructure.cell_append_left",
+    "ResearchNativeStructure.cell_hcomp",
+    "ResearchNativeStructure.swap_license",
+    "ResearchNativeStructure.swap_budget",
+    "ResearchNativeStructure.swap_occ",
+    "ResearchNativeStructure.parallel_not_cell",
+    "ResearchNativeStructure.boundary_boundary",
+    "ResearchNativeStructure.boundary_zero_iff_commutes",
+    "ResearchNativeStructure.terminal_square_boundary",
+    "ResearchNativeStructure.pathCost_append",
+    "ResearchNativeStructure.exact_pathCost",
+    "ResearchNativeStructure.exact_closed",
+    "ResearchNativeStructure.closed_cell_cost",
+    "ResearchNativeStructure.not_exact_of_cycle",
+    "ResearchNativeStructure.budgetDelta_exact",
+    "ResearchNativeStructure.writes_not_exact",
+    "ResearchNativeStructure.core_descends",
+    "ResearchNativeStructure.refineCol_not_descends",
+    "ResearchNativeStructure.addCol_not_descends",
+    "ResearchNativeStructure.path_descends",
+    "ResearchNativeStructure.actS_id",
+    "ResearchNativeStructure.actS_comp",
+    "ResearchNativeStructure.step_equivariant",
+    "ResearchNativeStructure.needs_injective",
+    "ResearchNativeStructure.size_act",
+    "ResearchNativeStructure.core_act_eq",
+    "ResearchNativeStructure.replayP_act",
+    "ResearchNativeStructure.cost_invariant"
+  ]
+}

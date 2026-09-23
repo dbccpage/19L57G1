@@ -9,7 +9,7 @@ Axiom Scope: Strictly within `{propext, Quot.sound}`; zero `Classical.choice`; z
 
 ## CL-P208C-01: Finite-Dimensional Commutator Trace Obstruction
 
-- **Statement**: For any finite $N \times N$ matrices $A, B$ over characteristic zero, the trace of their commutator vanishes identically: $\operatorname{Tr}([A, B]) = 0$. Consequently, the canonical commutation relation $[Q, P] = c \cdot I_N$ with $c \neq 0$ is algebraically obstructed on any finite carrier of dimension $N \ge 1$.
+- **Statement**: For any finite $N \times N$ matrices $A,B$ over `Int`, the Lean theorem gives $\operatorname{Tr}([A,B])=0$ and excludes $[Q,P]=cI_N$ for nonzero integer $c$ and $N\ge1$. An arbitrary characteristic-zero-field version is not formalized in this package.
 - **Formal Theorems**:
   - `P208cCommutatorTomography.trace_matMul_comm`
   - `P208cCommutatorTomography.trace_commutator_zero`
@@ -21,9 +21,9 @@ Axiom Scope: Strictly within `{propext, Quot.sound}`; zero `Classical.choice`; z
   - `research/p208c_commutator_tomography/tomography.py`
   - `research/p208c_commutator_tomography/tests/test_tomography.py`
 - **Claim Discipline**:
-  1. *What it supports*: Demonstrates in this finite matrix model that $[Q, P] = c \cdot I$ cannot be represented on finite-dimensional carrier spaces without algebraic contradiction.
+  1. *What it supports*: Demonstrates the obstruction for the implemented finite integer matrices.
   2. *What it does not support*: Does not imply that infinite-dimensional continuous systems cannot represent canonical commutation relations.
-  3. *Narrowest defensible claim*: For every finite dimension $N \ge 1$ and non-zero scalar $c$, no pair of $N \times N$ matrices satisfies $[Q, P] = c \cdot I_N$.
+  3. *Narrowest defensible claim*: For every finite $N\ge1$ and nonzero $c:\mathbb{Z}$, no pair of matrices in `Fin N → Fin N → Int` satisfies $[Q,P]=cI_N$.
   4. *Next test needed*: Formulate Weyl exponentiated relations on finite cyclic groups.
 
 ---
@@ -101,12 +101,12 @@ Axiom Scope: Strictly within `{propext, Quot.sound}`; zero `Classical.choice`; z
 
 ## CL-P208C-05: Complete Operational State Tomography
 
-- **Statement**: Any discrete carrier density matrix $\rho$ of dimension $d \in \{3, 4\}$ is completely and identically reconstructed from projection measurement probabilities along all $d + 1$ MUBs via Wootters closed-form inversion and exact rational linear system solving.
+- **Statement**: The Python code performs exact reconstruction on the tested density matrices in dimensions 3 and 4 using the declared MUB projectors. This item has no Lean tomography theorem.
 - **Evidence Paths**:
   - `research/p208c_commutator_tomography/tomography.py`
   - `research/p208c_commutator_tomography/tests/test_tomography.py`
 - **Claim Discipline**:
-  1. *What it supports*: Demonstrates that projection statistics along $d+1$ MUBs constitute an informationally complete operational measurement frame in dimensions 3 and 4.
+  1. *What it supports*: Demonstrates exact reconstruction for the tested dimension-3 and dimension-4 Python fixtures.
   2. *What it does not support*: Does not address finite sample statistical noise or continuous variable state estimation.
-  3. *Narrowest defensible claim*: Given exact rational probabilities along the constructed MUBs, state reconstruction is exact with zero reconstruction error.
+  3. *Narrowest defensible claim*: The two Python reconstruction methods agree on the named exact test states; no package-level Lean theorem quantifies over all density matrices.
   4. *Next test needed*: Maximum likelihood estimation for simulated finite-count measurement records.

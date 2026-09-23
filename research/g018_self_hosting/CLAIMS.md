@@ -18,7 +18,7 @@ Terminal: `SELF_HOSTING_SIMULATION_ESTABLISHED`.
 | **CL-G018-03** | Termination & Invariant Preservation | `stepCarrier_zero_host_fuel`, `stepCarrier_guest_halted`, `stepCarrier_guest_zero_fuel`, `runCarrier_halted` | `test_multi_step_simulation_equivalence`, `test_direct_execution_counter` | None (0 axioms) | VERIFIED |
 | **CL-G018-04** | Reflection Boundary Fuel Exhaustion | `reflection_fuel_closed_form`, `reflection_fuel_monotone`, `reflection_capacity_limit`, `reflection_boundary_exhaustion` | `test_fuel_required_calculation`, `test_max_reflection_depth`, `test_reflection_tower_fuel_exhaustion` | None (0 axioms) / `{propext, Quot.sound}` | VERIFIED |
 | **CL-G018-05** | State Capacity Limit (Pigeonhole) | `carrier_state_pigeonhole_step`, `hasMatchNat_true`, `hasMatchNat_false` | `test_state_capacity_pigeonhole_collision`, `test_state_capacity_no_collision_when_sufficient` | None (0 axioms) | VERIFIED |
-| **CL-G018-06** | Constructive Diagonal Obstruction | `bool_neq_not_self`, `diagonal_self_evaluation_obstruction`, `halting_self_oracle_obstruction`, `total_transition_oracle_refutation` | `test_diagonal_machine_semantics`, `test_refute_always_halt_oracle`, `test_comprehensive_predictor_sweep` | None (0 axioms) | VERIFIED |
+| **CL-G018-06** | Conditional Boolean self-negation and bounded predictor probes | `bool_neq_not_self`, `diagonal_self_evaluation_obstruction`, `halting_self_oracle_obstruction`, `total_transition_oracle_refutation` | `test_diagonal_machine_semantics`, `test_refute_always_halt_oracle`, `test_comprehensive_predictor_sweep`, `test_exact_finite_predictor_is_not_artificially_refuted` | None (0 axioms) | VERIFIED within stated scope |
 | **CL-G018-07** | Constructive Metatheoretic Boundary | Census in `lean/Inventory.lean` (71 declarations) | `verify.py` audit | Strictly within `{"propext", "Quot.sound"}` | VERIFIED |
 
 ---
@@ -87,18 +87,18 @@ Terminal: `SELF_HOSTING_SIMULATION_ESTABLISHED`.
   3. *Narrowest defensible claim:* Any discrete state mapping from $k+1$ states into $k$ slots contains an identical pair.
   4. *Next test needed:* Extension to information capacity bounds over compressed carrier tapes.
 
-### CL-G018-06: Constructive Diagonal Obstruction
-- **Statement:** No total evaluation or prediction function inside the carrier can decide the halting or transition behavior of the self-inverting diagonal program.
+### CL-G018-06: Conditional Boolean Diagonal Lemmas and Finite Probes
+- **Statement:** An arbitrary Boolean table has no row equal to the negation of its own diagonal. Separate Python probes exhibit errors for the listed heuristic predictors on the same encoded machine that is executed.
 - **Formal Theorems:**
   - `G018SelfHosting.bool_neq_not_self`
   - `G018SelfHosting.diagonal_self_evaluation_obstruction`
   - `G018SelfHosting.halting_self_oracle_obstruction`
   - `G018SelfHosting.total_transition_oracle_refutation`
 - **Claim Hygiene:**
-  1. *Supports:* Constructive diagonal refutation of candidate total prediction oracles with 0 axioms.
-  2. *Does not support:* Impossibility of partial heuristics or approximate deciders.
-  3. *Narrowest defensible claim:* For any candidate total predictor $P$, the diagonal machine $D_P(x) = \neg P(x, x)$ refutes $P$ on its own code.
-  4. *Next test needed:* Characterization of largest admissible sub-classes where self-prediction remains total.
+  1. *Supports:* Conditional self-negation contradictions with 0 axioms and finite same-code counterexamples for seven named heuristics.
+  2. *Does not support:* A general halting or total self-oracle impossibility theorem, or impossibility of a predictor correct on this bounded family.
+  3. *Narrowest defensible claim:* If a Boolean row equals the negated diagonal, substitution at its own index gives a contradiction; the Python sweep separately detects concrete bounded prediction errors.
+  4. *Next test needed:* A proved coding/evaluation fixed point that binds an oracle query to the exact program it predicts.
 
 ### CL-G018-07: Constructive Metatheoretic Boundary & Census
 - **Statement:** All 71 declarations compiled in namespace `G018SelfHosting` depend strictly on allowed constructive axioms in `{"propext", "Quot.sound"}` with 0 private theorems and zero `Classical.choice`.
