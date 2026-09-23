@@ -1,0 +1,17 @@
+name = "native_bridge"
+version = "0.1.0"
+defaultTargets = ["ResearchNativeBridge"]
+
+# The sealed derivation package, consumed read-only.
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+# The G013 tree's trace module, consumed read-only for the read-back
+# refusal witness.
+[[require]]
+name = "g013_trace_calculus"
+path = "../../g013_trace_calculus/lean"
+
+[[lean_lib]]
+name = "ResearchNativeBridge"

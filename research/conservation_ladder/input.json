@@ -1,0 +1,5 @@
+{
+  "coefficient_radius": 2,
+  "grid_radius": 2,
+  "history_length": 8
+}

@@ -1,0 +1,17 @@
+name = "native_structure"
+version = "0.1.0"
+defaultTargets = ["ResearchNativeStructure"]
+
+# The sealed derivation package, consumed read-only.
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+# The native_bridge tree: native paths, the core and size, and commuting
+# translations, consumed read-only.
+[[require]]
+name = "native_bridge"
+path = "../../native_bridge/lean"
+
+[[lean_lib]]
+name = "ResearchNativeStructure"

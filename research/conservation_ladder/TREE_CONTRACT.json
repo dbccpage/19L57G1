@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "lean_root": "ResearchConservationLadder",
+  "pin_files": [
+    "SEALED_PINS.json",
+    "input.json"
+  ],
+  "axiom_scope": "explicit_reports",
+  "axiom_declarations": [
+    "ResearchConservationLadder.Expr.evalD_eq",
+    "ResearchConservationLadder.Expr.ddir_zero",
+    "ResearchConservationLadder.Expr.ddir_add",
+    "ResearchConservationLadder.Expr.ddir_smul",
+    "ResearchConservationLadder.action_variation",
+    "ResearchConservationLadder.stationary_iff_variation",
+    "ResearchConservationLadder.invariant_iff_dual",
+    "ResearchConservationLadder.charge_step",
+    "ResearchConservationLadder.charge_const",
+    "ResearchConservationLadder.d1_central",
+    "ResearchConservationLadder.d2_central",
+    "ResearchConservationLadder.central_invariant",
+    "ResearchConservationLadder.central_charge",
+    "ResearchConservationLadder.charge_nonconstant",
+    "ResearchConservationLadder.solve_stationary",
+    "ResearchConservationLadder.solve_charge_const",
+    "ResearchConservationLadder.aniso_not_invariant",
+    "ResearchConservationLadder.aniso_next_stationary",
+    "ResearchConservationLadder.aniso_charge_moves",
+    "ResearchConservationLadder.nonstationary_charge_moves",
+    "ResearchConservationLadder.shift_not_invariant",
+    "ResearchConservationLadder.shift_invariant_free",
+    "ResearchConservationLadder.conserved_path",
+    "ResearchConservationLadder.charge_tick",
+    "ResearchConservationLadder.tick_path_charge",
+    "ResearchConservationLadder.passage_conserved_blind"
+  ]
+}
