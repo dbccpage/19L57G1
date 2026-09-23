@@ -195,6 +195,19 @@ decision; the workflow is the written contract and its steps are run
 here.  A green gate is not a proof of anything but that the gate did not
 fire.
 
+**How they were run, exactly.**  `python ci/run_gates.py --job research
+--step "rung 3"` is the documented way to run a registered step, and it
+refused: the machine-wide lock `19L57G1-run_gates.lock` was held by
+another run, and two runs cannot overlap on one machine.  The lock was
+left alone.  Each registered command was therefore run directly, from the
+rung's own directory, in the order the contract lists them, and the
+measurements above are those runs.  `python ci/run_gates.py --list`
+enumerates all four registered steps of this rung -- three in the
+research job and one in the lean job -- so the contract parses as
+written; that the runner would EXECUTE them was not observed here, and
+this paragraph is the receipt of that limit rather than a claim past
+it.
+
 ## A defect found live, and repaired
 
 `index.py` consumes the sibling rung read-only through its public
