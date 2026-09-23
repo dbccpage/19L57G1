@@ -165,6 +165,11 @@ jobs:
       # committed log as evidence of a build that CI never performed.
       - name: Second derivation, rung 2 track 1, fresh Lean and axiom audit
         run: python3 research/second_nofirst/verify_lean.py
+      # Rung three's package is separate again, with its own axiom log and
+      # its own FW-DEF census.  Same reason as the step above: the committed
+      # log is not evidence of a build CI never performed.
+      - name: Second derivation, rung 3, fresh Lean and axiom audit
+        run: python3 research/second_index/verify_lean.py
       # The typed-translation joining tree has an independent one-module Lake
       # package.  Unlike the older manual research receipts, its two
       # obstruction targets and provenance theorem are rebuilt here and its
@@ -431,6 +436,31 @@ jobs:
           python check_coverage.py
       - name: Second derivation, stake rung, strict typing
         working-directory: research/second_stake
+        run: python -m mypy
+      # Rung three: the first-demand index over an arbitrary run.  The seed
+      # requires every rung to register its pin verifier, replay, tests,
+      # coverage, receipt comparison and strict typing here, so that no rung
+      # is a manual receipt (research/second/SEED.md, section 10).  Its clean
+      # Lean audit is registered in the lean job, where elan is installed.
+      # The receipt is compared by `run_index.py --check`, which writes
+      # nothing, and again by `git diff`, so a generator cannot bless its own
+      # drift by overwriting the bytes it is checked against.
+      - name: Second derivation, rung 3, pins, spans, and frozen texts
+        run: python research/second_index/verify_pins.py
+      - name: Second derivation, rung 3, replay, tests, and coverage
+        working-directory: research/second_index
+        run: |
+          set -euo pipefail
+          log="$RUNNER_TEMP/second-index-tests.log"
+          python -m coverage erase
+          python -m coverage run -m unittest discover -s . -p "test_*.py" 2>&1 | tee "$log"
+          python ../../ci/gate_support.py test-count "$log" --minimum 120
+          python -m coverage json -q
+          python check_coverage.py
+          python run_index.py --check
+          git diff --exit-code -- receipts
+      - name: Second derivation, rung 3, strict typing
+        working-directory: research/second_index
         run: python -m mypy
       # The limit and the second observer, priced in one tree.
       # An asserted minimum test count keeps the registration from being

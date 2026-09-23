@@ -1,0 +1,87 @@
+SecondIndex.Countermodel.demand_can_cease :: Quot.sound propext
+SecondIndex.Countermodel.first_demand_index :: Quot.sound propext
+SecondIndex.Countermodel.index_is_not_a_function_of_the_reached_regime :: Quot.sound propext
+SecondIndex.Countermodel.index_of_ceaseHistory :: Quot.sound propext
+SecondIndex.Countermodel.index_of_historyA :: Quot.sound propext
+SecondIndex.Countermodel.index_of_historyB :: Quot.sound propext
+SecondIndex.Countermodel.no_demand_at_small_prefix :: Quot.sound propext
+SecondIndex.Countermodel.no_state_function_gives_the_index :: Quot.sound propext
+SecondIndex.Countermodel.separated_has_no_demand :: Quot.sound propext
+SecondIndex.Countermodel.separated_separates :: Quot.sound propext
+SecondIndex.Countermodel.shared_regime_of_two_histories :: propext
+SecondIndex.Countermodel.the_ceasing_event_is_not_inert :: none
+SecondIndex.Countermodel.twoData_demand :: propext
+SecondIndex.Countermodel.twoData_has_demand :: propext
+SecondIndex.Index.data_le_replay :: Quot.sound propext
+SecondIndex.Index.data_le_stateAt :: Quot.sound propext
+SecondIndex.Index.data_le_step :: Quot.sound propext
+SecondIndex.Index.data_of_step :: propext
+SecondIndex.Index.demand_needs_two_data :: Quot.sound propext
+SecondIndex.Index.first_demand_exists_when_a_demand_is_decidable :: Quot.sound propext
+SecondIndex.Index.first_demand_follows_a_changing_event :: Quot.sound propext
+SecondIndex.Index.first_demand_unique :: Quot.sound propext
+SecondIndex.Index.first_demand_zero_iff_base_carries_one :: propext
+SecondIndex.Index.free_stake_has_no_index :: propext
+SecondIndex.Index.inert_run_carries_no_index :: Quot.sound propext
+SecondIndex.Index.least_witness :: Quot.sound propext
+SecondIndex.Index.least_witness_from :: Quot.sound propext
+SecondIndex.Index.no_demand_of_data_le_one :: Quot.sound propext
+SecondIndex.Index.no_index_below_two_from_the_empty_base :: Quot.sound propext
+SecondIndex.Index.quiet_before_the_index :: propext
+SecondIndex.Index.replayE_singleton :: propext
+SecondIndex.Index.stateAt_full :: propext
+SecondIndex.Index.stateAt_succ :: Quot.sound propext
+SecondIndex.Index.stateAt_zero :: propext
+SecondIndex.Index.stepE_admitDatum :: propext
+SecondIndex.Index.stepE_admitInst :: propext
+SecondIndex.Index.stepE_admitRuleAll :: propext
+SecondIndex.Index.wf_addDatum :: propext
+SecondIndex.Index.wf_addInst :: propext
+SecondIndex.Index.wf_addRule :: propext
+SecondIndex.Index.wf_replayE :: Quot.sound propext
+SecondIndex.Index.wf_stateAt :: Quot.sound propext
+SecondIndex.Index.wf_step_any :: Quot.sound propext
+SecondIndex.Inherited.admitForm_preserves_demands :: Quot.sound propext
+SecondIndex.Inherited.apart_demand_of_no_forms :: propext
+SecondIndex.Inherited.collapsed_addForm :: Quot.sound propext
+SecondIndex.Inherited.collapsed_not_separable :: propext
+SecondIndex.Inherited.collapsed_of_not_separable :: Quot.sound propext
+SecondIndex.Inherited.demand_congr :: propext
+SecondIndex.Inherited.demand_iff_apart_of_no_insts :: propext
+SecondIndex.Inherited.demand_needs_label :: propext
+SecondIndex.Inherited.demands_replay_inert :: Quot.sound propext
+SecondIndex.Inherited.demands_step_inert :: Quot.sound propext
+SecondIndex.Inherited.demands_subset_labelled :: propext
+SecondIndex.Inherited.free_stake_no_demand :: propext
+SecondIndex.Inherited.getD_append_left :: propext
+SecondIndex.Inherited.impose_preserves_demands :: propext
+SecondIndex.Inherited.labelled_cases :: propext
+SecondIndex.Inherited.new_form_derives_nothing :: propext
+SecondIndex.Inherited.replayE_cons :: propext
+SecondIndex.Inherited.replayE_nil :: propext
+SecondIndex.Inherited.separable_addForm :: Quot.sound propext
+SecondIndex.Inherited.stake_irrefl :: propext
+SecondIndex.Inherited.stepE_admitForm :: propext
+SecondIndex.Inherited.stepE_impose :: propext
+SecondIndex.Inherited.supply_preserves_demands :: propext
+SecondIndex.Inherited.wfCtx_addForm_left :: Quot.sound propext
+SecondIndex.Inherited.wf_addForm :: Quot.sound propext
+SecondIndex.Inherited.wf_addReq :: Quot.sound propext
+SecondIndex.Inherited.wf_step_inert :: Quot.sound propext
+SecondIndex.Sealed.R2F_collapsed :: propext
+SecondIndex.Sealed.R2F_wf :: Quot.sound propext
+SecondIndex.Sealed.R2L_collapsed :: propext
+SecondIndex.Sealed.R2L_wf :: Quot.sound propext
+SecondIndex.Sealed.admission_without_expressive_increase :: propext
+SecondIndex.Sealed.collapsed_of_no_insts :: propext
+SecondIndex.Sealed.genesis_underivable :: none
+SecondIndex.Sealed.historyF_replays :: propext
+SecondIndex.Sealed.historyL_replays :: propext
+SecondIndex.Sealed.insertNew_nil :: propext
+SecondIndex.Sealed.insertNew_of_mem :: propext
+SecondIndex.Sealed.insertNew_of_not_mem :: propext
+SecondIndex.Sealed.mem_insertNew :: propext
+SecondIndex.Sealed.replayE_append :: Quot.sound propext
+SecondIndex.Sealed.separable_not_collapsed :: propext
+SecondIndex.Sealed.supply_no_op :: propext
+SecondIndex.Sealed.underivable_of_empty :: none
