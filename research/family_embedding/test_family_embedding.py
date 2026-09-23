@@ -1,8 +1,8 @@
 """Tests for the family-embedding tree's verifiers.
 
-The manifest must resolve at the snapshot and at HEAD and be exactly the
-import closure of its roots; every refusal is exercised on a tampered
-in-process copy (the JSON is never written); the write-root boundary is
+The manifest must resolve and match at the snapshot and be exactly the
+import closure of its roots; HEAD movement is reported as drift. Refusals use
+a tampered in-process copy (the JSON is never written); the write-root boundary is
 tested on synthetic records and, when ``lake`` is on PATH, on a real clean
 build.  No test here proves a theorem: the Lean statements are checked by
 ``verify_lean.py``, a manual receipt.
@@ -93,6 +93,25 @@ class ManifestTests(unittest.TestCase):
         manifest["modules"][0]["sha256"] = "0" * 64
         with self.assertRaisesRegex(ValueError, "hash mismatch for .* at snapshot"):
             verify_pins.verify(manifest)
+
+    def test_module_absent_at_head_is_reported_as_drift(self) -> None:
+        manifest = verify_pins.read_manifest()
+        path = manifest["modules"][0]["path"]
+        head = verify_pins._git("rev-parse", "HEAD")
+        real = verify_pins._git_bytes
+
+        def missing(*args: str) -> bytes:
+            if args == ("show", f"{head}:{path}"):
+                raise ValueError("git show failed: path absent")
+            if args == ("ls-tree", "-r", "--name-only", head, "--", path):
+                return b""
+            return real(*args)
+
+        with mock.patch.object(verify_pins, "_git_bytes", missing):
+            lines = verify_pins.verify(manifest)
+            self.assertTrue(any(f"DRIFT: {path} is absent at HEAD" in line for line in lines))
+            with self.assertRaisesRegex(ValueError, "pinned sources moved since the snapshot"):
+                verify_pins.verify(manifest, require_current=True)
 
     def test_unpinned_closure_member_is_refused(self) -> None:
         manifest = tampered()

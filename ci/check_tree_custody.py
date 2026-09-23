@@ -15,6 +15,8 @@ ratchet over the outcome set:
   check, naming the tree and the first line of its output;
 * a verifier pinned as an expected failure that now passes also fails this
   check, so a repair cannot leave a stale pin behind.
+* the pinned verifier names must match the discovered names, so removing a
+  passing verifier cannot silently reduce the estate being checked.
 
 Both directions matter.  Pinning only failures would let a fixed tree keep a
 pin that hides the next regression.
@@ -114,6 +116,17 @@ def compare(outcomes: dict[str, dict[str, object]], pin: dict[str, object]) -> l
     expected = {str(k) for k in dict(pin.get("expected_failures", {})).keys()}  # type: ignore[arg-type]
     failing = {key for key, row in outcomes.items() if row["exit"] != 0}
     problems: list[str] = []
+    names = pin.get("verifiers")
+    if (not isinstance(names, list) or not names
+            or any(not isinstance(name, str) or not name for name in names)
+            or len(names) != len(set(names))):
+        problems.append("INVALID PIN: verifiers must be a nonempty list of unique names")
+    else:
+        pinned_names = set(names)
+        for key in sorted(pinned_names - outcomes.keys()):
+            problems.append(f"MISSING VERIFIER: {key} is pinned but was not run")
+        for key in sorted(outcomes.keys() - pinned_names):
+            problems.append(f"NEW VERIFIER: {key} ran but is not pinned")
     for key in sorted(failing - expected):
         problems.append(f"NEW RED: {key} exits {outcomes[key]['exit']}: {outcomes[key]['line']}")
     for key in sorted(expected - failing):
@@ -130,6 +143,19 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--json", type=Path, help="also write the raw outcomes here")
     args = parser.parse_args(argv)
 
+    if args.write:
+        status = subprocess.run(
+            ["git", "status", "--porcelain=v1", "--untracked-files=all"],
+            cwd=REPO, capture_output=True, text=True, encoding="utf-8",
+            errors="replace", check=False,
+        )
+        if status.returncode != 0:
+            print(f"FAIL: cannot establish a clean worktree: {status.stderr.strip()}")
+            return 1
+        if status.stdout:
+            print("FAIL: --write requires a clean worktree")
+            return 1
+
     outcomes = measure()
     if args.json:
         args.json.write_bytes(
@@ -145,6 +171,7 @@ def main(argv: list[str] | None = None) -> int:
             "expected_failures": {
                 key: outcomes[key]["line"] for key in sorted(outcomes) if outcomes[key]["exit"] != 0
             },
+            "verifiers": sorted(outcomes),
         }
         PIN.write_bytes((json.dumps(pin, indent=1, sort_keys=True) + "\n").encode("utf-8"))
         print(f"wrote {PIN.relative_to(REPO).as_posix()}: "

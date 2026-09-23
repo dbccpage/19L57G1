@@ -35,7 +35,8 @@ compiles.  Seven checks, and none of them implies the others:
 * the check of the sealed prefixes is a pure function of the porcelain
   text so it can be tested on a synthetic record.
 
-A pass says the inputs did not move and nothing sealed was touched.  It
+A pass says the snapshot inputs match their pins and nothing sealed was
+touched.  It
 says nothing about the mathematics, and it does not authenticate the
 interpreter, Git, or this script.  Nothing in ``.github/workflows`` runs
 this script; a pass is a manual receipt.  AuthorityEffect: None.
@@ -284,12 +285,19 @@ def verify(
                 f"hash mismatch for {relative} at snapshot {snapshot}: "
                 f"expected {wanted}, got {actual}"
             )
-        at_head = _sha256(_git_bytes("show", f"{head}:{relative.as_posix()}"))
-        if at_head != wanted:
-            drift.append(
-                f"hash mismatch for {relative} at HEAD {head}: "
-                f"expected {wanted}, got {at_head}"
-            )
+        try:
+            at_head = _sha256(_git_bytes("show", f"{head}:{relative.as_posix()}"))
+        except ValueError:
+            present = _git("ls-tree", "-r", "--name-only", head, "--", relative.as_posix())
+            if relative.as_posix() in present.splitlines():
+                raise
+            drift.append(f"{relative} is absent at HEAD {head}")
+        else:
+            if at_head != wanted:
+                drift.append(
+                    f"hash mismatch for {relative} at HEAD {head}: "
+                    f"expected {wanted}, got {at_head}"
+                )
         pinned[module] = wanted
         lines.append(f"pin: {module} {wanted} (at the snapshot)")
 

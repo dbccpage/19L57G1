@@ -1,6 +1,7 @@
 """Tests for verify_pins and the shared scaffolding in common.
 
-The manifest must resolve and match at the snapshot and at HEAD; every
+The manifest must resolve and match at the snapshot; the governing prompt
+must also match at HEAD. Other HEAD movement is reported as drift. Every
 refusal is exercised by tampering with the loaded manifest in-process (the
 JSON is never written), and the sealed-prefix refusal is exercised on a
 synthetic porcelain line so no sealed path is ever touched (PROMPT.md

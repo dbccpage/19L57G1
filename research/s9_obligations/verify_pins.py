@@ -40,7 +40,8 @@ its Git blob id.  Six checks, and none of them implies the others:
 * every pinned path is relative, has no ``..``, no backslash, no drive
   letter, and lies under a sealed prefix.
 
-A pass says the inputs did not move and nothing sealed was touched.  It
+A pass says the snapshot inputs match their pins and nothing sealed was
+touched.  It
 says nothing about the mathematics computed from them, and it does not
 authenticate the interpreter, Git, or this script.  Nothing in
 ``.github/workflows`` runs this script; a pass is a manual receipt for the
@@ -307,12 +308,19 @@ def verify(
                 f"hash mismatch for {relative} at snapshot {snapshot}: "
                 f"expected {wanted}, got {actual}"
             )
-        at_head = _sha256_git_blob(head, relative)
-        if at_head != wanted:
-            drift.append(
-                f"hash mismatch for {relative} at HEAD {head}: "
-                f"expected {wanted}, got {at_head}"
-            )
+        try:
+            at_head = _sha256_git_blob(head, relative)
+        except ValueError:
+            present = _git("ls-tree", "-r", "--name-only", head, "--", relative.as_posix())
+            if relative.as_posix() in present.splitlines():
+                raise
+            drift.append(f"{relative} is absent at HEAD {head}")
+        else:
+            if at_head != wanted:
+                drift.append(
+                    f"hash mismatch for {relative} at HEAD {head}: "
+                    f"expected {wanted}, got {at_head}"
+                )
         lines.append(f"pin: {relative} {wanted} (at the snapshot)")
 
     for path in _sealed_diff(snapshot, head):
