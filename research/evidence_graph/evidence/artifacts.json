@@ -1,0 +1,48 @@
+{
+  "authority_effect": "None",
+  "capture_sha256": "753fc9a629a00d549048ad210d578e7e676fd73077df93ed64e66c6dc4896ba3",
+  "outputs": {
+    "coverage.json.gz": {
+      "decoded_sha256": "70f82b9f659c807e1bb39fbd98985db566fd0e03f3b98145da21cede02882d89",
+      "sha256": "acd064cc1c401df7867ce631ef49eaa8424eff0816a6fe8597c45efc9bf78ae9",
+      "size": 1445258
+    },
+    "coverage.md": {
+      "decoded_sha256": "d4ec435f811f69ed1cf9fd72437ed8670258c2771d57e95fa3218886870a0533",
+      "sha256": "d4ec435f811f69ed1cf9fd72437ed8670258c2771d57e95fa3218886870a0533",
+      "size": 19773
+    },
+    "graph.json.gz": {
+      "decoded_sha256": "40779017d9bee14f01d070901fc311cefc09174363b45a598999de403822598c",
+      "sha256": "8678637a52d0d2072787413f6ac5e3b03c397ee3f9e6018d8f6f6ca41d6bb25a",
+      "size": 4308993
+    },
+    "handoff.json": {
+      "decoded_sha256": "b172f01b33edb58dbdf349f9fcb9cb16a2c17f9883228127d93dd38d95e3d27a",
+      "sha256": "b172f01b33edb58dbdf349f9fcb9cb16a2c17f9883228127d93dd38d95e3d27a",
+      "size": 1725
+    },
+    "imports.json": {
+      "decoded_sha256": "a6093c16865f1fec993584e648f6e8f82045898617734d93896a524df6cc110f",
+      "sha256": "a6093c16865f1fec993584e648f6e8f82045898617734d93896a524df6cc110f",
+      "size": 499820
+    },
+    "ledgers.json": {
+      "decoded_sha256": "5b29895f3d79e46a67b04d10eee1f9645fd21382a4e421131347ae3e737fe165",
+      "sha256": "5b29895f3d79e46a67b04d10eee1f9645fd21382a4e421131347ae3e737fe165",
+      "size": 4630326
+    },
+    "section3_handoff.json": {
+      "decoded_sha256": "d640ea82d998b241e82f6ac1148c18dba8948f7f3460fcf7d395cbca69c817d6",
+      "sha256": "d640ea82d998b241e82f6ac1148c18dba8948f7f3460fcf7d395cbca69c817d6",
+      "size": 93988
+    },
+    "summary.json": {
+      "decoded_sha256": "14d5e8158882cbf7e2d15440da5a96acc118bd7bc7d096246aa4dde3cf4912d0",
+      "sha256": "14d5e8158882cbf7e2d15440da5a96acc118bd7bc7d096246aa4dde3cf4912d0",
+      "size": 786
+    }
+  },
+  "scope_reviews_sha256": "3a20b197b6a473ac955f5f40c2b3cff2b0328f06363824cb0108e46a8b736945",
+  "source_snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f"
+}

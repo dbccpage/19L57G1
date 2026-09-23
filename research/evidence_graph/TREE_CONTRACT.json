@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "lean_root": "ResearchEvidenceGraph",
+  "pin_files": [
+    "SCHEMA.json",
+    "input.json",
+    "source_population.json",
+    "scope_reviews.json",
+    "evidence/capture.json"
+  ],
+  "axiom_scope": "explicit_reports",
+  "axiom_declarations": [
+    "ResearchEvidenceGraph.rank_decreases",
+    "ResearchEvidenceGraph.no_self_dependency"
+  ]
+}

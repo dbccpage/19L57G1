@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "authority_effect": "None",
+  "source_classes": ["metatheory apparatus", "supplied object-language datum", "externally imposed challenge", "admitted primitive", "derived definition", "proved theorem", "deterministic computation", "countermodel", "optional realization", "conjecture", "open obstruction", "refuted claim"],
+  "evidence_statuses": ["PROVED_THEOREM", "VERIFIED_FINITE", "CONDITIONAL", "OPEN", "REFUTED"],
+  "lineages": ["native", "supplied_bridge", "parallel_construction", "unresolved"],
+  "edge_kinds": ["uses-assumption", "depends-on-proof", "refuted-by", "simulates", "supersedes"],
+  "scope_verdicts": ["MATCHED", "UNRESOLVED", "CONTEXT"],
+  "record_fields": {
+    "claim": ["id", "public_id", "statement", "source_class", "status", "lineage", "bounds", "assumption_ids", "parent_bridge_ids", "evidence_ids", "gap"],
+    "assumption": ["id", "statement", "source_class", "gap"],
+    "theorem": ["id", "source", "module", "declaration", "kind", "elaborated_type", "local_hypotheses", "axioms", "report_population", "build_receipt", "gap"],
+    "computation": ["id", "source", "entrypoint", "grammar", "bounds", "arithmetic", "receipt_sources", "replay_command", "replay_receipt", "frontier_status", "gap"],
+    "bridge": ["id", "source", "source_carrier", "target_carrier", "source_steps", "target_steps", "supported_domain", "state_maps", "event_maps", "observation_maps", "direction", "identity_composition", "refusal_guard", "proof_ids", "countermodel_ids", "gap"],
+    "countermodel": ["id", "source", "negated_claim_id", "retained_assumptions", "removed_assumption", "witness", "checker", "replay_receipt", "gap"],
+    "tree": ["id", "name", "source_snapshot", "files", "entrypoints", "contracts", "import_files", "pin_files", "verifier_commands", "registration", "maintenance_status", "claim_ids", "last_checked_source_head", "verification", "gap"],
+    "headline": ["id", "source", "kind", "claim_ids", "scope_verdict", "scope_evidence_ids", "review", "gap"],
+    "edge": ["id", "kind", "from", "to", "source", "gap"],
+    "stage": ["id", "stage", "source", "claim_ids", "boundary", "gap"],
+    "frontier": ["id", "source", "claim_ids", "disposition", "required_evidence", "gap"],
+    "replay": ["id", "source_snapshot", "tree", "command", "cwd", "input_sources", "output_digest", "exit_code", "receipt_sources", "result", "gap"]
+  },
+  "source_reference_fields": ["snapshot", "path", "blob", "file_sha256", "start_line", "end_line", "span_sha256"],
+  "rules": [
+    "Every record has exactly its declared fields and a unique stable id.",
+    "Every source reference resolves at the named snapshot and matches both content digests.",
+    "Null or empty evidence requires a specific gap; OPEN never means a successful proof.",
+    "Conditional claims require nonempty assumptions and completed evidence for the stated implication.",
+    "Proof dependency edges form an acyclic graph; historical edges are checked separately.",
+    "A matched headline needs an explicit reviewed scope statement and checked evidence.",
+    "Source classes and lineages are distinct from evidence statuses; unresolved classification is explicit.",
+    "Verification records bind commands and results to the source population actually checked.",
+    "Every source tree and public text block is covered independently of accepted graph links.",
+    "Current source drift is reported separately from immutable snapshot provenance."
+  ]
+}

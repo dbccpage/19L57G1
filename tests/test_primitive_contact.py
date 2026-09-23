@@ -226,21 +226,110 @@ def test_require_raises() -> None:
     _require(True, "probe")
 
 
+def _external_name() -> Path:
+    """The external file's path as the contact manifest records it."""
+    manifest = json.loads(
+        (REPO / "contact" / "omega_primdiff" / "CONTACT_MANIFEST.json")
+        .read_text(encoding="utf-8"))
+    return Path(manifest["files"][0]["original_path"])
+
+
+def _main_checkout(root: Path) -> Path | None:
+    """The main worktree's root, read from git's common directory, so a
+    linked worktree searches where the main checkout searches. None when
+    git is unavailable or the common directory is not a checkout's
+    .git."""
+    if shutil.which("git") is None:
+        return None
+    proc = subprocess.run(
+        ["git", "rev-parse", "--git-common-dir"],
+        capture_output=True, cwd=root, check=False)
+    if proc.returncode != 0:
+        return None
+    common = (root / proc.stdout.decode("utf-8").strip()).resolve()
+    return common.parent if common.name == ".git" else None
+
+
+def _external_candidates(
+        root: Path, main: Path | None, name: Path) -> list[Path]:
+    """Where the external contact file may sit. Each base, the checkout
+    root and then the main checkout's root, contributes itself and its
+    third ancestor when it has one; a base with fewer than three
+    ancestors contributes itself only. Repeats keep their first place."""
+    bases = [root] if main is None else [root, main]
+    found = [b / name for base in bases
+             for b in (base, *base.parents[2:3])]
+    return list(dict.fromkeys(found))
+
+
 def test_external_file_hash_when_present() -> None:
     """Manifest promise: verify the supplied file's hash when the
     external file is reachable; skip when absent (hosted CI), so
     artifact regeneration never depends on it."""
-    candidates = [
-        REPO / "docs_external_to_this_repo"
-        / "primitive_difference.lean",
-        REPO.parents[2] / "docs_external_to_this_repo"
-        / "primitive_difference.lean",
-    ]
+    candidates = _external_candidates(
+        REPO, _main_checkout(REPO), _external_name())
     external = next((p for p in candidates if p.exists()), None)
     if external is None:
-        pytest.skip("external contact file not present")
+        pytest.skip("external contact file not present at: "
+                    + "; ".join(str(p) for p in candidates))
     got = hashlib.sha256(external.read_bytes()).hexdigest()
     assert got == EXTERNAL_SHA
+
+
+def test_external_candidates_tolerate_a_shallow_checkout() -> None:
+    """A checkout with fewer than three ancestors has no third ancestor;
+    the unguarded index raised IndexError there before the skip
+    (2026-09-23). From three directories down, the candidates are the
+    two the original list named."""
+    name = Path("external") / "file.lean"
+    anchor = Path(REPO.anchor)
+    shallow = anchor / "wt" / "x"
+    assert _external_candidates(shallow, None, name) == [shallow / name]
+    three = anchor / "a" / "b" / "repo"
+    assert _external_candidates(three, None, name) == [
+        three / name, anchor / name]
+    deep = anchor / "a" / "b" / "c" / "repo"
+    assert _external_candidates(deep, None, name) == [
+        deep / name, anchor / "a" / name]
+
+
+def test_a_linked_worktree_searches_where_the_main_checkout_does() -> None:
+    """Every checkout of one repository probes the main checkout's
+    candidates, whatever its own depth; the main checkout adds nothing
+    twice."""
+    name = Path("external") / "file.lean"
+    anchor = Path(REPO.anchor)
+    main = anchor / "u" / "src" / "repos" / "repo"
+    ancestor = anchor / "u" / name
+    shallow = anchor / "wt" / "x"
+    assert _external_candidates(shallow, main, name) == [
+        shallow / name, main / name, ancestor]
+    nested = main / ".claude" / "worktrees" / "y"
+    assert _external_candidates(nested, main, name) == [
+        nested / name, main / name, ancestor]
+    assert _external_candidates(main, main, name) == [main / name, ancestor]
+
+
+def test_main_checkout_is_read_from_the_git_common_directory(
+        monkeypatch: pytest.MonkeyPatch) -> None:
+    """This checkout resolves to a root holding a .git directory, from
+    the main checkout and from a linked worktree alike. A failed git
+    call, or a common directory not named .git, gives None."""
+    main = _main_checkout(REPO)
+    if main is None:
+        pytest.skip("git unavailable" if shutil.which("git") is None
+                    else "git's common directory is not a checkout's .git")
+    assert (main / ".git").is_dir()
+
+    def answer(code: int, out: bytes) -> object:
+        def run(*args: object, **kwargs: object) -> object:
+            return subprocess.CompletedProcess(args, code, out, b"")
+        return run
+
+    monkeypatch.setattr(subprocess, "run", answer(128, b""))
+    assert _main_checkout(REPO) is None
+    monkeypatch.setattr(subprocess, "run", answer(0, b"/srv/repo.git\n"))
+    assert _main_checkout(REPO) is None
 
 
 # Native subject name: in the working denylist of 102, verified

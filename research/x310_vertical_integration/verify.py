@@ -22,6 +22,16 @@ Audits:
 
 from __future__ import annotations
 
+import sys
+
+# Direct script execution puts this directory before the standard library.
+# Remove that one search location before argparse imports the stdlib types
+# module; our model types are always imported by their qualified package name.
+if __name__ == "__main__" and not __package__:
+    _script_directory = __file__.replace("\\", "/").rsplit("/", 1)[0].casefold()
+    sys.path[:] = [entry for entry in sys.path
+                   if entry.replace("\\", "/").rstrip("/").casefold() != _script_directory]
+
 import argparse
 from datetime import datetime, timezone
 from fractions import Fraction
@@ -30,7 +40,6 @@ import json
 from pathlib import Path
 import re
 import subprocess
-import sys
 from typing import Any, Mapping, Optional
 
 ROOT = Path(__file__).resolve().parent

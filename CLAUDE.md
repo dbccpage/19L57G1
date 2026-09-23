@@ -330,6 +330,22 @@ what actually runs.
       outcome set with `ci/tree_custody_pin.json`. It fails on a new red and
       on a stale pin, both named, and judges no verifier's logic. Run it on a
       clean worktree; rewrite the pin with `--write`, deliberately.
+    - *Second-derivation rungs:* the seed at `research/second/SEED.md`
+      limits a rung's writes to `research/second/` and its own
+      `research/second_<rung>/`, and its section 10 adds registration in
+      the workflow's research job. By the author's ruling of 2026-09-23,
+      that registration also covers the generated views of a new tree.
+      After committing its tree and its registration in
+      `.github/workflows/verify.yml`, a rung runs
+      `python ci/research_index.py --write`,
+      `python ci/lookup_indexes.py --write`,
+      `python ci/lean_build_order.py --write` and
+      `python ci/check_tree_custody.py --write`, and commits their output.
+      The custody pin may gain the rung's verifier, never an entry under
+      `expected_failures`: a rung whose verifier fails is not registered
+      until it passes. Apart from the workflow registration, the rung
+      hand-edits nothing outside its write root, and it regenerates
+      nothing while an injection is live.
 12. **Prose watchlist:** `python ci/check_prose_watchlist.py`. The census
     matches its pin. See Invariants.
 
