@@ -91,6 +91,7 @@ Lean layout. The first and last also have explicit build-recipe entries.
 | `magnification` | local receipt only |  |
 | `multi_depth` | local receipt only |  |
 | `multi_magnitude` | local receipt only |  |
+| `native_bridge` | local receipt only |  |
 | `natural_sections` | local receipt only |  |
 | `observer_visibility` | local receipt only |  |
 | `oriented_boundary` | local receipt only |  |

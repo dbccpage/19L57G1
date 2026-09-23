@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "sources": {
+    "research/native_bridge/SEALED_PINS.json": "5ef22a20fac3c07d1ca78c222095ca61cae13ce5eb9a97f2c48da77a8a447efd",
+    "research/native_bridge/input.json": "2ff8f132abaf2d371b96048a06f5c3386b051d40a245f41fc6533b5c31560517"
+  }
+}
