@@ -136,7 +136,9 @@ the wrong file is still a pin), the interpreter, Git, or itself.
 `test_verify_pins.py` exercises every refusal in-process on a tampered
 copy of the loaded manifest (the JSON is never written) -- including a
 well-formed snapshot id that resolves to nothing, a snapshot that is not
-an ancestor, a blob that moved between the snapshot and HEAD -- and the
+an ancestor, a blob that moved between the snapshot and HEAD (2026-09-22:
+that case is now asserted as reported drift, and as a refusal only under
+--require-current) -- and the
 sealed-prefix refusal on synthetic porcelain lines `?? paper/x.md` and
 `!! code/derivation/__pycache__/primdiff.cpython-314.pyc`, so no sealed
 path is touched to prove the check bites.

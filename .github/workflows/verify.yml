@@ -532,3 +532,13 @@ jobs:
       - name: Typed translation, published prose bound to fresh computation
         working-directory: research/typed_translation
         run: python verify_prose.py
+      # Last in this job on purpose: it runs EVERY research tree's own custody
+      # verifier, including the trees this job does not otherwise touch, and
+      # compares the outcome set with ci/tree_custody_pin.json. Most trees are
+      # outside the registered set above, so without this nothing reads them
+      # and a red can sit on main unnoticed; eleven did, for months. It judges
+      # no verifier: it fails on a NEW red and on a STALE pin, both named.
+      # It needs a clean worktree, which is why it runs after the steps that
+      # write and restore research receipts.
+      - name: Research tree custody census matches its pin
+        run: python3 ci/check_tree_custody.py

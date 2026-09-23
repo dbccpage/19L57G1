@@ -324,6 +324,12 @@ what actually runs.
       revise the prose it names. Review a repin by diffing the parsed JSON,
       not the text. Other registered trees have their own pin policies, and
       partial Decide deliberately provides no automatic repin.
+    - *The estate census:* the job ends with
+      `python ci/check_tree_custody.py`, which runs every research tree's own
+      custody verifier, including the unregistered ones, and compares the
+      outcome set with `ci/tree_custody_pin.json`. It fails on a new red and
+      on a stale pin, both named, and judges no verifier's logic. Run it on a
+      clean worktree; rewrite the pin with `--write`, deliberately.
 12. **Prose watchlist:** `python ci/check_prose_watchlist.py`. The census
     matches its pin. See Invariants.
 
@@ -519,6 +525,23 @@ order for `lean4/`, whose contact and passage modules are entered through
   much is forced: several parked modules begin with `import Derivation`, so
   the root importing them would be a cycle. Gate 10 checks from the source
   tree that the parked list is complete, failing in both directions.
+- **A research tree's pins certify its snapshot, not the present.** A
+  custody verifier fails when a pinned source differs at the snapshot the
+  tree was derived against. Whether that source has MOVED since is reported
+  as `DRIFT:` lines with a count, and does not fail; `--require-current`
+  restores the strict behaviour.
+  - *Why:* the snapshot blob is fixed history. Once the author legitimately
+    edits a sealed or contract file, no repin can satisfy both the snapshot
+    and HEAD, so a verifier that demands both is permanently red and stops
+    carrying information. Eleven trees were red that way, some for months,
+    until the author's ruling of 2026-09-22.
+  - *The exception:* a file inside the tree's own write root, which nothing
+    outside the tree can move. `research/s9_obligations` keeps failing on
+    drift of its own governing `PROMPT.md`, because its step 1 says so.
+  - *New trees:* the `research/_scaffold` template pins only the tree's own
+    input files, so it carries no snapshot-and-HEAD check to inherit. A new
+    tree that pins sealed sources follows this rule; the scaffold README
+    says so.
 - **Line endings are pinned.** `.gitattributes` marks `prompt/**` and
   `artifacts/**` as `-text`. Never let an editor or a CRLF conversion
   rewrite those files; it breaks both the prompt hash gate and byte

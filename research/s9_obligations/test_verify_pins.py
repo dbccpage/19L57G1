@@ -1,6 +1,7 @@
 """Tests for verify_pins and the shared scaffolding in common.
 
-The manifest must resolve and match at the snapshot and at HEAD; every
+The manifest must resolve and match at the snapshot; the governing prompt
+must also match at HEAD. Other HEAD movement is reported as drift. Every
 refusal is exercised by tampering with the loaded manifest in-process (the
 JSON is never written), and the sealed-prefix refusal is exercised on a
 synthetic porcelain line so no sealed path is ever touched (PROMPT.md
@@ -40,8 +41,9 @@ class VerifyPinsTests(unittest.TestCase):
         pin_lines = [line for line in lines if line.startswith("pin: ")]
         self.assertEqual(len(pin_lines), len(manifest["sources"]))
         self.assertEqual(len(pin_lines), 5)
+        # 2026-09-22: pins certify the snapshot; HEAD movement is drift.
         for line in pin_lines:
-            self.assertTrue(line.endswith("(at snapshot and HEAD)"), line)
+            self.assertTrue(line.endswith("(at the snapshot)"), line)
         self.assertIn(
             f"prompt: {common.PROMPT_PATH} {common.PROMPT_BLOB_ID} (at snapshot and HEAD)",
             lines,
@@ -54,11 +56,10 @@ class VerifyPinsTests(unittest.TestCase):
             )
         )
         self.assertEqual(manifest["prompt"]["blob"], common.PROMPT_BLOB_ID)
-        self.assertIn("sealed prefixes unchanged between snapshot and HEAD", lines)
-        self.assertEqual(
-            lines[-1],
-            "sealed prefixes clean: prompt paper code lean4/Derivation artifacts",
+        self.assertIn(
+            "sealed prefixes clean: prompt paper code lean4/Derivation artifacts", lines
         )
+        self.assertTrue(lines[-1].startswith("drift since the snapshot: "), lines[-1])
 
     def test_manifest_follows_the_established_shape(self) -> None:
         manifest = verify_pins.read_manifest()
@@ -77,8 +78,13 @@ class VerifyPinsTests(unittest.TestCase):
         ):
             verify_pins.verify(manifest)
 
-    def test_blob_that_moved_since_the_snapshot_is_refused(self) -> None:
-        """A pin must hold at HEAD, not only at the snapshot it was taken at."""
+    def test_blob_that_moved_since_the_snapshot_is_reported_not_refused(self) -> None:
+        """2026-09-22: a pin holds at the snapshot; movement at HEAD is drift.
+
+        The earlier assertion, that a pin must hold at HEAD too, is withdrawn
+        by the author's ruling. --require-current restores that failure, and
+        this test now pins both halves.
+        """
         manifest = verify_pins.read_manifest()
         snapshot = manifest["source_snapshot"]["commit"]
         real = verify_pins._sha256_git_blob
@@ -89,10 +95,16 @@ class VerifyPinsTests(unittest.TestCase):
             return "0" * 64
 
         with mock.patch.object(verify_pins, "_sha256_git_blob", moved_at_head):
-            with self.assertRaisesRegex(
-                ValueError, r"hash mismatch for lean4/Derivation/PrimDiff\.lean at HEAD"
-            ):
-                verify_pins.verify(manifest)
+            lines = verify_pins.verify(manifest)
+            self.assertTrue(
+                any(
+                    line.startswith("DRIFT: hash mismatch for lean4/Derivation/PrimDiff.lean at HEAD")
+                    for line in lines
+                ),
+                lines,
+            )
+            with self.assertRaisesRegex(ValueError, "pinned sources moved since the snapshot"):
+                verify_pins.verify(manifest, require_current=True)
 
     def test_head_snapshot_is_refused(self) -> None:
         manifest = tampered()
@@ -123,15 +135,20 @@ class VerifyPinsTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "snapshot tree mismatch"):
             verify_pins.verify(manifest)
 
-    def test_sealed_path_moved_since_the_snapshot_is_refused(self) -> None:
+    def test_sealed_path_moved_since_the_snapshot_is_reported_not_refused(self) -> None:
+        """2026-09-22: sealed drift is reported; --require-current refuses it."""
         manifest = verify_pins.read_manifest()
         with mock.patch.object(
             verify_pins, "_sealed_diff", return_value=["paper/primitive_difference.md"]
         ):
-            with self.assertRaisesRegex(
-                ValueError, "tracked sealed paths differ between the snapshot and HEAD"
-            ):
-                verify_pins.verify(manifest)
+            lines = verify_pins.verify(manifest)
+            self.assertIn(
+                "DRIFT: sealed path paper/primitive_difference.md differs between"
+                " the snapshot and HEAD",
+                lines,
+            )
+            with self.assertRaisesRegex(ValueError, "pinned sources moved since the snapshot"):
+                verify_pins.verify(manifest, require_current=True)
 
     def test_prompt_blob_drift_is_refused(self) -> None:
         manifest = tampered()

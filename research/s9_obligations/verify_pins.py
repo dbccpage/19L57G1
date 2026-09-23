@@ -14,14 +14,15 @@ its Git blob id.  Six checks, and none of them implies the others:
   earlier version checked only the spelling: forty zeroes passed, and a
   reviewer showed it.  A snapshot that does not resolve pins nothing;
 * every sealed file this run reads hashes to its recorded SHA-256 as the
-  Git blob at the SNAPSHOT and again at HEAD, so the receipts describe the
-  inputs they were computed against and those inputs have not moved
-  since.  The hash is taken over ``git show <rev>:path`` and is therefore
-  independent of checkout line endings;
+  Git blob at the SNAPSHOT, so the receipts describe the inputs they were
+  computed against.  Whether those inputs have MOVED since is reported as
+  drift, not failed: see the dated note below.  The hash is taken over
+  ``git show <rev>:path`` and is therefore independent of checkout line
+  endings;
 * the governing prompt has its recorded Git blob id at the snapshot and
   at HEAD (PROMPT.md step 1: stop on drift);
-* no tracked path under a sealed prefix differs between the snapshot and
-  HEAD, so a sealed file this run did not pin cannot have moved either;
+* tracked sealed paths that differ between the snapshot and HEAD are
+  reported as drift, not failed;
 * the worktree carries nothing under a sealed prefix that is modified,
   untracked, or IGNORED-BUT-PRESENT (PROMPT.md step 35): ``git status
   --porcelain=v1 --untracked-files=all --ignored`` over the sealed
@@ -39,11 +40,22 @@ its Git blob id.  Six checks, and none of them implies the others:
 * every pinned path is relative, has no ``..``, no backslash, no drive
   letter, and lies under a sealed prefix.
 
-A pass says the inputs did not move and nothing sealed was touched.  It
+A pass says the snapshot inputs match their pins and nothing sealed was
+touched.  It
 says nothing about the mathematics computed from them, and it does not
 authenticate the interpreter, Git, or this script.  Nothing in
 ``.github/workflows`` runs this script; a pass is a manual receipt for the
 tree present when it ran.  AuthorityEffect: None.
+
+2026-09-22, by the author's ruling: this file used to FAIL when a pinned
+sealed source, or any tracked sealed path, differed at HEAD.  The snapshot
+blob is fixed history, so no repin could satisfy both sides once the author
+edited a sealed file, and the check was red for that reason alone.  That
+HEAD-side failure is withdrawn: provenance at the snapshot still fails,
+currency prints as ``DRIFT:`` lines with a count, and ``--require-current``
+restores the old failure.  The GOVERNING PROMPT check is deliberately NOT
+relaxed: ``PROMPT.md`` is inside this tree's own write root, its step 1 says
+stop on drift, and nothing outside this tree can move it.
 """
 
 from __future__ import annotations
@@ -234,12 +246,15 @@ def _prompt_block(manifest: dict[str, Any]) -> tuple[PurePosixPath, str]:
     return path, blob
 
 
-def verify(manifest: dict[str, Any] | None = None) -> list[str]:
+def verify(
+    manifest: dict[str, Any] | None = None, *, require_current: bool = False
+) -> list[str]:
     """Run every check; raise ``ValueError`` on the first failure."""
 
     if manifest is None:
         manifest = read_manifest()
     lines: list[str] = []
+    drift: list[str] = []
 
     head = _git("rev-parse", "HEAD")
     _require_hex(head, 40, "verification commit", uppercase=False)
@@ -287,22 +302,29 @@ def verify(manifest: dict[str, Any] | None = None) -> list[str]:
         wanted = _required_string(item, "sha256", "source")
         _require_hex(wanted, 64, f"sha256 for {relative}", uppercase=True)
         _required_string(item, "role", f"source {relative}")
-        for label, revision in (("snapshot", snapshot), ("HEAD", head)):
-            actual = _sha256_git_blob(revision, relative)
-            if actual != wanted:
-                raise ValueError(
-                    f"hash mismatch for {relative} at {label} {revision}: "
-                    f"expected {wanted}, got {actual}"
+        actual = _sha256_git_blob(snapshot, relative)
+        if actual != wanted:
+            raise ValueError(
+                f"hash mismatch for {relative} at snapshot {snapshot}: "
+                f"expected {wanted}, got {actual}"
+            )
+        try:
+            at_head = _sha256_git_blob(head, relative)
+        except ValueError:
+            present = _git("ls-tree", "-r", "--name-only", head, "--", relative.as_posix())
+            if relative.as_posix() in present.splitlines():
+                raise
+            drift.append(f"{relative} is absent at HEAD {head}")
+        else:
+            if at_head != wanted:
+                drift.append(
+                    f"hash mismatch for {relative} at HEAD {head}: "
+                    f"expected {wanted}, got {at_head}"
                 )
-        lines.append(f"pin: {relative} {wanted} (at snapshot and HEAD)")
+        lines.append(f"pin: {relative} {wanted} (at the snapshot)")
 
-    moved = _sealed_diff(snapshot, head)
-    if moved:
-        raise ValueError(
-            "tracked sealed paths differ between the snapshot and HEAD:\n  "
-            + "\n  ".join(moved)
-        )
-    lines.append("sealed prefixes unchanged between snapshot and HEAD")
+    for path in _sealed_diff(snapshot, head):
+        drift.append(f"sealed path {path} differs between the snapshot and HEAD")
 
     violations = sealed_prefix_violations(_live_porcelain())
     if violations:
@@ -313,6 +335,16 @@ def verify(manifest: dict[str, Any] | None = None) -> list[str]:
             + "\n  ".join(violations)
         )
     lines.append("sealed prefixes clean: " + " ".join(SEALED_PATHSPECS))
+    if drift and require_current:
+        raise ValueError(
+            "pinned sources moved since the snapshot (--require-current):\n  "
+            + "\n  ".join(drift)
+        )
+    lines += [f"DRIFT: {line}" for line in drift]
+    lines.append(
+        f"drift since the snapshot: {len(drift)} pinned path(s) or sealed path(s)"
+        f" moved at HEAD"
+    )
     return lines
 
 
@@ -368,9 +400,14 @@ def main() -> int:
         action="store_true",
         help="rewrite recorded hashes from the objects at HEAD; verifies nothing",
     )
+    parser.add_argument(
+        "--require-current",
+        action="store_true",
+        help="also fail when a pinned source or sealed path has moved since the snapshot",
+    )
     args = parser.parse_args()
     try:
-        lines = repin() if args.repin else verify()
+        lines = repin() if args.repin else verify(require_current=args.require_current)
     except ValueError as exc:
         print(f"FAIL: {exc}")
         return 1

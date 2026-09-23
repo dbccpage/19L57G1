@@ -1,20 +1,35 @@
-"""Verify SOURCE_MANIFEST.json: every pinned read-only source is
-byte-identical at the snapshot and at HEAD; every pinned span (a line
-range of a pinned file, hashed as its LF-joined lines with trailing LF)
-matches at the snapshot and at HEAD; each copied Lean projection is an
-exact declared slice of its pinned source after only the namespace rename;
-the snapshot is an exact 40-digit id and an ancestor of HEAD; no tracked
-path under a sealed prefix differs between the snapshot and HEAD; the
-worktree carries nothing modified or untracked outside the write root; the
-frozen native PROMPT.md still matches its recorded hash; and both recorded
-PREDICTIONS.md content states reconstruct from the final append-only file.
+"""Verify SOURCE_MANIFEST.json against the snapshot this tree was derived
+against, and report what has moved since.
+
+PROVENANCE, which fails: every pinned read-only source is byte-identical at
+the snapshot; every pinned span (a line range of a pinned file, hashed as
+its LF-joined lines with trailing LF) matches at the snapshot; each copied
+Lean projection is an exact declared slice of its pinned source after only
+the namespace rename; the snapshot is an exact 40-digit id and an ancestor
+of HEAD; the worktree carries nothing modified or untracked outside the
+write root; the frozen native PROMPT.md still matches its recorded hash;
+and both recorded PREDICTIONS.md content states reconstruct from the final
+append-only file.
+
+CURRENCY, which is reported on stdout as DRIFT lines and does not fail:
+a pinned source, pinned span or tracked sealed path that differs between
+the snapshot and HEAD.  Pass --require-current to fail on drift instead.
+
+2026-09-22, by the author's ruling: this file used to fail when a pinned
+source differed at HEAD.  The snapshot blob is fixed history, so no repin
+could satisfy both sides once the author edited a sealed or contract file,
+and the check was red for weeks for that reason alone.  That HEAD-side
+failure is withdrawn; the claim this tree makes is about its snapshot.
+
 Exit 0 on success, 1 with a named failure otherwise.  A manual receipt: no
 CI gate runs this file.  AuthorityEffect: None.
 """
 
 from __future__ import annotations
 
+import argparse
 import sys
+from collections.abc import Sequence
 import hashlib
 import json
 import re
@@ -105,7 +120,14 @@ def prediction_freeze_hashes(predictions: bytes, boundary: bytes) -> list[str]:
     return [hashlib.sha256(prefix).hexdigest(), hashlib.sha256(predictions).hexdigest()]
 
 
-def main() -> int:
+def main(argv: Sequence[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Verify this tree's source pins.")
+    parser.add_argument(
+        "--require-current",
+        action="store_true",
+        help="also fail when a pinned source has moved between the snapshot and HEAD",
+    )
+    args = parser.parse_args(argv)
     manifest = json.loads((HERE / "SOURCE_MANIFEST.json").read_text("ascii"))
     snap = manifest["snapshot_commit"]
     if not re.fullmatch(r"[0-9a-f]{40}", snap):
@@ -117,36 +139,58 @@ def main() -> int:
         print(f"FAIL: snapshot {snap} is not an ancestor of HEAD")
         return 1
     failures = 0
+    drift: list[str] = []
     for path, want in sorted(manifest["pins"].items()):
-        for rev in (snap, "HEAD"):
-            try:
-                got = git_text("rev-parse", f"{rev}:{path}")
-            except RuntimeError:
-                print(f"FAIL: {path} missing at {rev}")
-                failures += 1
-                continue
+        try:
+            got = git_text("rev-parse", f"{snap}:{path}")
+        except RuntimeError:
+            print(f"FAIL: {path} missing at the snapshot")
+            failures += 1
+        else:
             if got != want:
-                print(f"FAIL: {path} blob at {rev} is {got}, pinned {want}")
+                print(f"FAIL: {path} blob at the snapshot is {got}, pinned {want}")
                 failures += 1
+        try:
+            at_head = git_text("rev-parse", f"HEAD:{path}")
+        except RuntimeError as exc:
+            if path in git_text("ls-tree", "-r", "--name-only", "HEAD", "--", path).splitlines():
+                print(f"FAIL: could not read {path} at HEAD: {exc}")
+                failures += 1
+            else:
+                drift.append(f"{path} is absent at HEAD")
+        else:
+            if at_head != want:
+                drift.append(f"{path} blob at HEAD is {at_head}, pinned {want}")
     for span in manifest["spans"]:
         path = span["path"]
         if path not in manifest["pins"]:
             print(f"FAIL: span path {path} is not itself pinned")
             failures += 1
-        for rev in (snap, "HEAD"):
-            try:
-                blob = git("show", f"{rev}:{path}")
-                got = span_hash(blob, int(span["first_line"]), int(span["last_line"]))
-            except RuntimeError as exc:
-                print(f"FAIL: span {path}:{span['first_line']}-{span['last_line']} at {rev}: {exc}")
-                failures += 1
-                continue
+        label = f"span {path}:{span['first_line']}-{span['last_line']}"
+        try:
+            blob = git("show", f"{snap}:{path}")
+            got = span_hash(blob, int(span["first_line"]), int(span["last_line"]))
+        except RuntimeError as exc:
+            print(f"FAIL: {label} at the snapshot: {exc}")
+            failures += 1
+        else:
             if got != span["sha256"]:
-                print(
-                    f"FAIL: span {path}:{span['first_line']}-{span['last_line']} at {rev}"
-                    f" hashes {got}, pinned {span['sha256']}"
-                )
+                print(f"FAIL: {label} at the snapshot hashes {got}, pinned {span['sha256']}")
                 failures += 1
+        try:
+            head_blob = git("show", f"HEAD:{path}")
+            at_head = span_hash(head_blob, int(span["first_line"]), int(span["last_line"]))
+        except RuntimeError as exc:
+            if str(exc).startswith("git ") and path in git_text(
+                "ls-tree", "-r", "--name-only", "HEAD", "--", path
+            ).splitlines():
+                print(f"FAIL: could not read {label} at HEAD: {exc}")
+                failures += 1
+            else:
+                drift.append(f"{label} cannot be read at HEAD: {exc}")
+        else:
+            if at_head != span["sha256"]:
+                drift.append(f"{label} at HEAD hashes {at_head}, pinned {span['sha256']}")
     reconstructions = manifest.get("reconstructions", [])
     if not isinstance(reconstructions, list):
         print("FAIL: reconstructions must be a list")
@@ -203,9 +247,8 @@ def main() -> int:
         .split("\0")
         if p
     ]
-    if moved:
-        print("FAIL: tracked sealed paths differ between the snapshot and HEAD: " + ", ".join(moved))
-        failures += 1
+    for path in moved:
+        drift.append(f"sealed path {path} differs between the snapshot and HEAD")
     porcelain = git("status", "--porcelain=v1", "--untracked-files=all").decode("utf-8")
     stray = outside_write_root(porcelain)
     if stray:
@@ -243,13 +286,23 @@ def main() -> int:
                         f" recorded {want}"
                     )
                     failures += 1
+    if drift and args.require_current:
+        for line in drift:
+            print(f"FAIL: {line}")
+        failures += len(drift)
     if failures:
         return 1
+    for line in drift:
+        print(f"DRIFT: {line}")
     print(
         f"pins clean: {len(manifest['pins'])} sources and {len(manifest['spans'])} spans"
-        f" at snapshot and HEAD; sealed prefixes unchanged; nothing outside the write"
+        f" at the snapshot; nothing outside the write"
         f" root; {len(reconstructions)} source projections exact; native PROMPT.md frozen;"
         f" {len(freezes)} predictions freezes reconstructed"
+    )
+    print(
+        f"drift since the snapshot: {len(drift)} pinned path(s), span(s) or"
+        f" sealed path(s) moved at HEAD"
     )
     return 0
 
