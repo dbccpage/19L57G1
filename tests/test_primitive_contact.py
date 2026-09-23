@@ -226,21 +226,48 @@ def test_require_raises() -> None:
     _require(True, "probe")
 
 
+_EXTERNAL_NAME = (
+    Path("docs_external_to_this_repo") / "primitive_difference.lean")
+
+
+def _external_candidates(root: Path) -> list[Path]:
+    """Where the external contact file may sit relative to a checkout
+    root. The third-ancestor candidate exists only for a checkout at
+    least three directories deep; a shallower one, such as a worktree
+    at C:/wt/<name>, has no third ancestor, so that candidate is left
+    out instead of indexed."""
+    candidates = [root / _EXTERNAL_NAME]
+    if len(root.parents) > 2:
+        candidates.append(root.parents[2] / _EXTERNAL_NAME)
+    return candidates
+
+
 def test_external_file_hash_when_present() -> None:
     """Manifest promise: verify the supplied file's hash when the
     external file is reachable; skip when absent (hosted CI), so
     artifact regeneration never depends on it."""
-    candidates = [
-        REPO / "docs_external_to_this_repo"
-        / "primitive_difference.lean",
-        REPO.parents[2] / "docs_external_to_this_repo"
-        / "primitive_difference.lean",
-    ]
+    candidates = _external_candidates(REPO)
     external = next((p for p in candidates if p.exists()), None)
     if external is None:
         pytest.skip("external contact file not present")
     got = hashlib.sha256(external.read_bytes()).hexdigest()
     assert got == EXTERNAL_SHA
+
+
+def test_external_candidates_tolerate_a_shallow_checkout() -> None:
+    """A checkout two directories deep has no third ancestor. Measured
+    2026-09-23: from C:/wt/19-0923 the unguarded index raised
+    IndexError before the skip. From three directories down, the
+    candidates are unchanged."""
+    anchor = Path(REPO.anchor)
+    shallow = anchor / "wt" / "x"
+    assert _external_candidates(shallow) == [shallow / _EXTERNAL_NAME]
+    three = anchor / "a" / "b" / "repo"
+    assert _external_candidates(three) == [
+        three / _EXTERNAL_NAME, anchor / _EXTERNAL_NAME]
+    deep = anchor / "a" / "b" / "c" / "repo"
+    assert _external_candidates(deep) == [
+        deep / _EXTERNAL_NAME, anchor / "a" / _EXTERNAL_NAME]
 
 
 # Native subject name: in the working denylist of 102, verified
