@@ -61,6 +61,7 @@ These commands run from this directory:
 python verify.py --check
 python inventory.py --check
 python graph.py --check
+python corrections.py --check
 python query.py --id claim:scoped:legal_replay
 python query.py --source paper/paper_claim_ledger.md --line 128
 python refresh.py --head HEAD --output /outside/checkout/current-head.json
@@ -74,6 +75,16 @@ current-head view, while the entire source/headline/tree census is refreshed.
 The historical graph remains intact. `refresh.py --previous` also detects
 recovery after a change is reversed. The new consumer is an explicit 104th
 tree at the execution head, not part of its own 103-tree source snapshot.
+
+`versions/section3.json` imports the twelve correction subjects from a later
+source snapshot after that snapshot lands on `main`. The deliberate input
+`correction_reviews.json` binds the corrected source spans, their scope,
+remaining obligations, and local-check receipts to the tested tree. The
+reader rejects unmerged sources, missing subjects, stale spans, failed checks
+and checks of a different tree. These are scope corrections and custody
+records; their mathematical obligations stay OPEN. The original graph and
+compiled reports retain their original source snapshot. Run `corrections.py
+--write` to regenerate this separate version twice and compare its bytes.
 
 To reproduce the captures, create a separate checkout at the full source
 snapshot, then run `capture.py --workspace SNAPSHOT_CHECKOUT --run-dir RUN_DIR
