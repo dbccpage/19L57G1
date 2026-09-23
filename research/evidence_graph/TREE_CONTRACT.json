@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "lean_root": "ResearchEvidenceGraph",
+  "pin_files": [
+    "SCHEMA.json",
+    "input.json",
+    "source_population.json"
+  ],
+  "axiom_scope": "explicit_reports",
+  "axiom_declarations": [
+    "ResearchEvidenceGraph.identity'"
+  ]
+}
