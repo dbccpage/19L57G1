@@ -172,11 +172,19 @@ def bit : Bool → Nat
   | true => 1
   | false => 0
 
-/-- Every field except budget and license. -/
-def core (s : PState) :
-    List Nat × List (Nat × Nat) × List (Nat × Nat) × List (Nat × Nat) ×
-      Option (List (List Nat)) × List (Nat × Nat) × Bool :=
-  (s.occ, s.asserted, s.wit, s.prot, s.obs, s.refusals, s.halted)
+/-- Every field of a passage state except budget and license. -/
+structure Core where
+  occ : List Nat
+  asserted : List (Nat × Nat)
+  wit : List (Nat × Nat)
+  prot : List (Nat × Nat)
+  obs : Option (List (List Nat))
+  refusals : List (Nat × Nat)
+  halted : Bool
+deriving Repr, DecidableEq
+
+def core (s : PState) : Core :=
+  ⟨s.occ, s.asserted, s.wit, s.prot, s.obs, s.refusals, s.halted⟩
 
 /-- A size read from the core fields only. -/
 def size (s : PState) : Nat :=
@@ -271,7 +279,7 @@ theorem step_keep_or_grow (s : PState) (e : PEvent) :
   · rw [if_neg hg]; left; rfl
 
 theorem size_eq_of_core_eq {s t : PState} (h : core s = core t) : size s = size t := by
-  simp only [core, Prod.mk.injEq] at h
+  simp only [core, Core.mk.injEq] at h
   obtain ⟨h1, h2, h3, h4, h5, h6, h7⟩ := h
   simp only [size, h1, h2, h3, h4, h5, h6, h7]
 
@@ -298,7 +306,7 @@ theorem passage_cycle_budget_license {s t : PState} (p : NPath s t) (q : NPath t
   have h := passage_cycle_core p q
   cases s
   cases t
-  simp only [core, Prod.mk.injEq] at h
+  simp only [core, Core.mk.injEq] at h
   obtain ⟨rfl, rfl, rfl, rfl, rfl, rfl, rfl⟩ := h
   rfl
 
