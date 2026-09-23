@@ -44,7 +44,7 @@
         },
         "sheaf_descent_commutation": {
           "commutes": true,
-          "description": "Multi-observer sheaf descent commutation (pi_i o U = u_i o pi_i)",
+          "description": "Count-level descent for additions on the supplied carrier",
           "diagram_id": "sheaf_descent_commutation",
           "metric_name": "gluing_defect",
           "residual_price_q": "0/1"
@@ -54,7 +54,7 @@
     },
     "status": "PASS"
   },
-  "grand_receipt_sha256": "0206c97dd378522c828cf708e78d88e6b4978a94279a41b37916142930e83556",
+  "grand_receipt_sha256": "6170979a5bd47ccd2f443fddfee1cb5b923db1c20aef28e26a861929595bc932",
   "lean": {
     "allowed_axioms": [
       "Quot.sound",
@@ -200,7 +200,7 @@
     "__init__.py": "8226d6f42af8f8363a1465bf81da342a5319dae083904c02ef3ce767cfed2ada",
     "_bootstrap.py": "b34da70341bc87cc07ffb886a01166b4457e1485c6489714d6cc0808726be072",
     "codec.py": "880b1898d1f54268269f2517ed5514d3de037e7cbe1e40b877c439e02c3323d2",
-    "commutation.py": "a8b18b7e19df3bb8d9c2c8a4bd6d769aa0d1797276fcab5e0f03e55f8873a060",
+    "commutation.py": "afff5111a64c6858e65241f315b20625d79bb65ee314f432edb4c1db3fd0bb68",
     "lean/Inventory.lean": "3bd8fb5b555d7a8f9069e18911cf6f5e41843d00221755eb82de9ecdf43206f0",
     "lean/VerticalIntegration.lean": "b8dd527e10332fca431ee568279e57990e8ed2781ed0828a09fd2ebce9f34919",
     "pipeline.py": "20fa629ee827060aa83bedc9ec355849005f8f583fdd574cd7a4e08af5da3709",
@@ -210,7 +210,7 @@
     "tests/test_end_to_end_lifecycle.py": "969b2e4b6728a5da20aee400060814720824a1c6a72f0d2347e4802eeedcb3fe",
     "tests/test_pipeline_stages.py": "4ec495231ef6d8ec03e9ff9f273b61e6a5a4c7917541ce650d03452cf52aa5d1",
     "tests/test_receipt_determinism.py": "e43d9cb930e982359e56f4bd0a6f17fa8844a72f55fa874f5309f949235cb450",
-    "tests/test_vertical_commutation.py": "1b55add1b40ab0f757ce1c336eb48c3245f28685f9aa7a5c9e5024e8e91ab494",
+    "tests/test_vertical_commutation.py": "d68de7a1b4facb90d0d1ce8ef0031b4117d3d539fc48f9f27618f36449c8b349",
     "types.py": "90768efa3cd0c16949125e4e33c7ac09adcf2f47abbdd4fc015ccbd71ee7ad98",
     "verify.py": "8e83e68825b98b76f20fffc597bca23b66b480fae1506a520c1c5af0b7d98718",
     "verify_sources.py": "64029fdc7d79f5eb5cd49f70e1ed4beb54d0844128932ea1d05b134af2963ecc"

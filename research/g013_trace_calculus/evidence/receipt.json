@@ -17,7 +17,7 @@
     "higher_cell.py": "6f43daa653f03ff2400db6b7c593fa6052d947da76beeff149fe5ec2b14cd1de",
     "lean/Congruence.lean": "6ca0e539076097e26e7a89a8421dbc356ee6f735b63ed1cd60fbb16daa79ac07",
     "lean/Factorization.lean": "26d40c4e6c0a0336ad10e9843316ee79f22b178c9d5c6c652fad557f46f812b4",
-    "lean/HigherCell.lean": "49839ef0985c9603498e1ad7e28d3bf1bcabdfa7bca2f05be73b9ff2c0d3a007",
+    "lean/HigherCell.lean": "a07c571ff602ba9afe7f58706fdb08217ab46b811958a5884d004161a6b803e0",
     "lean/Inventory.lean": "b614ae10646c2ed6e77df2748dc5af6ca3acd92dcb5280bf3e4faab40a77c1cb",
     "lean/Price.lean": "0f34a604e88e89c9962f9c1c24acb03a915da3b629013e8d7866b1b1b2b39879",
     "lean/Trace.lean": "284ab9743d7922096389fbcb19e66346e11438470f97853822ddae66c502c04f",
@@ -108,7 +108,7 @@
     "G013TraceCalculus.sourceOf_concat",
     "G013TraceCalculus.targetOf_concat"
   ],
-  "timestamp_utc": "2026-09-19T23:41:49.609052+00:00",
+  "timestamp_utc": "2026-09-23T07:53:52.688047+00:00",
   "title": "Coherent Trace Calculus & Higher Cell Algebra",
   "toolchains": {
     "lean": "leanprover/lean4:v4.33.0",

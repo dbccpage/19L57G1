@@ -12,7 +12,7 @@
   },
   "schema_version": 1,
   "source_hashes": {
-    "codec.py": "de45206e4a8fb0f252c7d31aa5011c7cf47b7c8fbc2340248a4c5232745592fa",
+    "codec.py": "10d91642e0d1e230b2377d38c8fffe6fd85a8fdb78d4e8ddb9acd6c5df5ae30b",
     "lean/Codec.lean": "7567cf269e5b13f38a7f363f23b1a48ac21b7bffbac9fde5d5d3cd68b86f0745",
     "lean/Inventory.lean": "4fe73aa104b53ef27e00a93b81dc0d945ab4d030b4341e371ea8544b76b22a05",
     "lean/Naturality.lean": "e41275293b9a3f82212d38ec9a2d7412328cf2ae21809c9a19249f7d4897341c",
@@ -370,7 +370,7 @@
     "G012TypedTranslation.unsupplied_d0_refusal",
     "G012TypedTranslation.unsupplied_d1_refusal"
   ],
-  "timestamp_utc": "2026-09-19T23:41:33.588555+00:00",
+  "timestamp_utc": "2026-09-23T07:52:35.418436+00:00",
   "title": "Bound-Uniform Typed Translation & General Signature Codec",
   "toolchains": {
     "lean": "leanprover/lean4:v4.33.0",

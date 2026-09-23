@@ -6,6 +6,13 @@ This research tree implements and formalizes the general multi-sorted relational
 
 $$\text{Carrier} = (\text{data}, \text{forms}, \text{insts}, \text{rules}, \text{reqs})$$
 
+These names resemble the sealed admission regime, but this codec's components
+are string tokens for typed structures. Its operations can remove instances,
+rules, and requirements, whereas sealed admission is monotone. The round-trip
+and step-commutation results below are internal to this typed-structure codec;
+they do not establish a native-regime isomorphism or a commuting square with
+sealed admission events.
+
 The module supplies:
 - **`signature.py`**: Finite multi-sorted signatures supporting sorts, constants, relation symbols of arbitrary arities, and function symbols, paired with canonical `TypedStructure` carriers and operational transitions `step(S, op)`.
 - **`codec.py`**: Constructive bidirectional encoder `encode` and decoder `decode` returning structured `Result[TypedStructure, Refusal]`.
@@ -74,6 +81,7 @@ The module `specialization.py` and Lean library `Specialization.lean` construct 
    - Infinite structures or signatures with infinite carrier sets.
    - Continuous or non-finitary carrier semantics.
    - Claims of universal translation efficiency beyond the explicit rational distortion bounds calculated.
+   - An encode/decode equivalence or transition-commutation theorem with the sealed admission regime. Removal operations in this carrier have no sealed admission counterpart.
 3. **The narrowest defensible claim**:
    - Within finite multi-sorted signatures and the declared five-category relational carrier, the constructive codec achieves exact round-trip inversion, transition commutation, refusal safety, and recovers the historical 1,459-prefix census as a bounded specialization.
 4. **The next test needed**:

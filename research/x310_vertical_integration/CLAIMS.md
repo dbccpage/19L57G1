@@ -7,8 +7,9 @@
    designated pair recover from the encoding. Tape and protection
    obligations are declared metadata.
 3. P200 readout/step commutation on a four-state sample.
-4. G014 glue on a synthetic four-locus carrier, not the live pipeline
-   carrier.
+4. G014 glue on a four-count projection of the supplied pipeline carrier
+   after two independent X301 additions. This is not gluing of the full
+   relational model.
 5. Repeated pipeline runs under a fixed timestamp share a terminal digest.
 
 ## What it does not support

@@ -26,12 +26,12 @@ This ledger documents the formal claims, constructive definitions, theorems, emp
 
 | ID | Formal Name / Declaration | Description | Status | Evidence Path |
 |:---|:---|:---|:---|:---|
-| **C07** | `G013TraceCalculus.Cell2` | Inductive definition of 2-cells between parallel 1-cells with identical endpoints | VERIFIED | `lean/HigherCell.lean`, `higher_cell.py` |
+| **C07** | `G013TraceCalculus.Cell2` | Inductive syntax of 2-cells between parallel traces; `step_comm` admits any parallel two-step routes | VERIFIED | `lean/HigherCell.lean`, `higher_cell.py` |
 | **C08** | `G013TraceCalculus.v_comp` | Vertical composition of 2-cells: `(beta circ_1 alpha) : p => r` | VERIFIED | `lean/HigherCell.lean`, `higher_cell.py` |
 | **C09** | `G013TraceCalculus.h_comp` | Horizontal composition of 2-cells: `(alpha circ_0 beta) : p1 * p2 => q1 * q2` | VERIFIED | `lean/HigherCell.lean`, `higher_cell.py` |
-| **C10** | `G013TraceCalculus.interchange_source_coherence` | Middle Four Interchange theorem: source trace alignment | VERIFIED | `lean/HigherCell.lean`, `tests/test_higher_cells.py` |
-| **C11** | `G013TraceCalculus.interchange_target_coherence` | Middle Four Interchange theorem: target trace alignment | VERIFIED | `lean/HigherCell.lean`, `tests/test_higher_cells.py` |
-| **C12** | `verify_interchange_law` | Python evaluation of Middle Four Interchange Law | VERIFIED | `higher_cell.py`, `tests/test_higher_cells.py` |
+| **C10** | `G013TraceCalculus.interchange_source_coherence` | Reflexive equality of the shared source trace | VERIFIED | `lean/HigherCell.lean`, `tests/test_higher_cells.py` |
+| **C11** | `G013TraceCalculus.interchange_target_coherence` | Reflexive equality of the shared target trace | VERIFIED | `lean/HigherCell.lean`, `tests/test_higher_cells.py` |
+| **C12** | `verify_interchange_law` | Python comparison of the two constructed interchange terms | VERIFIED | `higher_cell.py`, `tests/test_higher_cells.py` |
 
 ### 3. General Endpoint Factorization
 
@@ -52,15 +52,15 @@ This ledger documents the formal claims, constructive definitions, theorems, emp
 | **C20** | `G013TraceCalculus.quotient_zero_residuals` | Zero unrecorded residuals: congruent states agree on all observations | VERIFIED | `lean/Congruence.lean`, `tests/test_observer_congruence.py` |
 | **C21** | `audit_observer_residuals` | Python audit identifying zero unrecorded residuals and detecting discrepancies | VERIFIED | `congruence.py`, `tests/test_observer_congruence.py` |
 
-### 5. Additive Price Cocycles and Homotopy Invariance
+### 5. Additive Trace Prices and Conditional Cell Price Equality
 
 | ID | Formal Name / Declaration | Description | Status | Evidence Path |
 |:---|:---|:---|:---|:---|
 | **C22** | `G013TraceCalculus.price_concat_additive` | Trace price additivity: `C(p * q) = C(p) + C(q)` | VERIFIED | `lean/Price.lean`, `price.py` |
-| **C23** | `G013TraceCalculus.price_commute_invariance` | Homotopy invariance under commuting 2-cells with equal branch costs | VERIFIED | `lean/Price.lean`, `price.py` |
+| **C23** | `G013TraceCalculus.price_commute_invariance` | Equality of two diamond prices given equality of branch-cost sums | VERIFIED | `lean/Price.lean`, `price.py` |
 | **C24** | `G013TraceCalculus.price_h_comp_invariance` | Horizontal composition preserves price equality | VERIFIED | `lean/Price.lean`, `tests/test_price.py` |
 | **C25** | `G013TraceCalculus.price_v_comp_invariance` | Vertical composition preserves price equality | VERIFIED | `lean/Price.lean`, `tests/test_price.py` |
-| **C26** | `audit_2cell_homotopy_invariance` | Python audit verifying price invariance across composite 2-cell sets | VERIFIED | `price.py`, `tests/test_price.py` |
+| **C26** | `audit_2cell_homotopy_invariance` | Python audit of price equality for its selected composite cell sets; historical function name | VERIFIED | `price.py`, `tests/test_price.py` |
 
 ---
 
@@ -68,10 +68,10 @@ This ledger documents the formal claims, constructive definitions, theorems, emp
 
 1. **What It Supports**:
    - Demonstrates in constructive Lean 4 that execution traces form a strict 1-category with associative concatenation and identity traces.
-   - Demonstrates that 2-cells between parallel traces satisfy the Middle Four Interchange coherence conditions on 1-cell boundaries.
+   - Defines 2-cell syntax between parallel traces and includes interchange as a declared generator of `EqCell2`; source and target alignment are reflexive equalities.
    - Demonstrates that future trajectories from any history factor strictly through the terminal endpoint for deterministic and guarded systems.
    - Demonstrates that observer trace congruence preserves continuation observations without unrecorded residuals.
-   - Demonstrates that additive price cocycles are invariant under commuting 2-cell homotopies with equal branch costs.
+   - Proves additive trace prices and conditional equality when the two diamond branches have equal costs.
 
 2. **What It Does Not Support**:
    - Does not establish completeness of finite 2-cell rewrites for undecidable execution systems.
@@ -79,7 +79,7 @@ This ledger documents the formal claims, constructive definitions, theorems, emp
    - Does not model continuous-time or non-discrete dynamical manifolds.
 
 3. **Narrowest Defensible Claim**:
-   For discrete transition systems modeled as directed graphs, the coherent trace calculus constructively factors future trajectories through 0-cell endpoints and preserves observable continuation readouts and additive prices across 2-cell homotopy equivalences.
+   For the declared directed-graph syntax, traces compose with identities and associativity, and the conditional endpoint, observation, and price statements hold. `Cell2` and `EqCell2` are presentations of candidate higher cells; this package does not establish a strict 2-category or a guarded native replay equivalence.
 
 4. **Next Test Needed**:
    Formalize higher 3-cells (homotopies of 2-cells) and investigate multi-observer descent over non-discrete state spaces.

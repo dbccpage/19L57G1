@@ -14,7 +14,11 @@ from research.p200_operational_protocols.protocol import (
 )
 from research.target_a_execution.control import Controlled, encode_c
 from research.target_a_execution.control import State as SubstrateState
-from research.x301_formal_semantics.semantics import RelationalModel
+from research.x301_formal_semantics.semantics import (
+    RelationalModel,
+    add_instance_intervention,
+    add_requirement_intervention,
+)
 from research.x303_bounded_agency.agency import (
     AgentController,
     ViabilityEnvelope,
@@ -91,56 +95,97 @@ def audit_codec_roundtrip_commutation(
     return True
 
 
-def audit_sheaf_descent_commutation(
-    carrier: Optional[RelationalModel] = None,
-) -> bool:
-    """Verify multi-observer sheaf descent commutation: pi_i o U = u_i o pi_i."""
+@dataclass(frozen=True)
+class DescentSquare:
+    """One count-level descent square for a supplied relational carrier."""
+
+    initial_counts: tuple[tuple[str, int], ...]
+    updated_counts: tuple[tuple[str, int], ...]
+    commutes_a: bool
+    commutes_b: bool
+    reconstructs: bool
+
+    @property
+    def commutes(self) -> bool:
+        return self.commutes_a and self.commutes_b and self.reconstructs
+
+
+def build_sheaf_descent_square(carrier: Optional[RelationalModel] = None) -> DescentSquare:
+    """Project one actual carrier through two independent X301 additions.
+
+    Only four component counts descend; this is not gluing of the full model.
+    """
     import research.g014_observer_descent.observer_descent as g14
 
-    initial_mapping = {"l1": 1, "l2": 2, "l3": 3, "l4": 4}
-    g_state = g14.CarrierState.from_mapping(initial_mapping)
+    model = carrier if carrier is not None else RelationalModel(
+        data=("a", "b"), forms=(1, 2), insts=frozenset({(0, (0,))}),
+        reqs=frozenset(),
+    )
 
-    obs_a = g14.Observer(observer_id="OA", loci=("l1", "l2"))
-    obs_b = g14.Observer(observer_id="OB", loci=("l3", "l4"))
+    def project_counts(m: RelationalModel) -> g14.CarrierState:
+        return g14.CarrierState.from_mapping({
+            "data_count": len(m.data), "form_count": len(m.forms),
+            "inst_count": len(m.insts), "req_count": len(m.reqs),
+        })
+
+    g_state = project_counts(model)
+    obs_a = g14.Observer(observer_id="OA", loci=("data_count", "inst_count"))
+    obs_b = g14.Observer(observer_id="OB", loci=("form_count", "req_count"))
     coverage = g14.DescentCoverage(observers=(obs_a, obs_b))
 
-    # Independent concurrent step U: updates l1 at locus A, updates l3 at locus B
-    def step_u(s: g14.CarrierState) -> g14.CarrierState:
-        d = s.to_dict()
-        d["l1"] = d.get("l1", 0) + 10
-        d["l3"] = d.get("l3", 0) + 20
-        return g14.CarrierState.from_mapping(d)
+    missing_inst: tuple[int, tuple[int, ...]] | None = None
+    if model.data:
+        for form, arity in enumerate(model.forms):
+            if arity < 1:
+                continue
+            for datum in range(min(len(model.data), 2)):
+                candidate = (form, (datum,) * arity)
+                if candidate not in model.insts:
+                    missing_inst = candidate
+                    break
+            if missing_inst is not None:
+                break
+    missing_req = next(
+        ((i, j) for i in range(len(model.data))
+         for j in range(i + 1, len(model.data)) if (i, j) not in model.reqs),
+        None,
+    )
 
-    # Local updates u_a, u_b on projections
+    updated_model = model
+    if missing_inst is not None:
+        updated_model = add_instance_intervention(*missing_inst).apply(updated_model)
+    if missing_req is not None:
+        updated_model = add_requirement_intervention(*missing_req).apply(updated_model)
+    s_prime = project_counts(updated_model)
+
     def u_a(s: g14.CarrierState) -> g14.CarrierState:
         d = s.to_dict()
-        if "l1" in d:
-            d["l1"] += 10
+        d["inst_count"] += int(missing_inst is not None)
         return g14.CarrierState.from_mapping(d)
 
     def u_b(s: g14.CarrierState) -> g14.CarrierState:
         d = s.to_dict()
-        if "l3" in d:
-            d["l3"] += 20
+        d["req_count"] += int(missing_req is not None)
         return g14.CarrierState.from_mapping(d)
-
-    s_prime = step_u(g_state)
 
     pi_a_updated = obs_a.project(s_prime)
     u_a_proj = u_a(obs_a.project(g_state))
-
     pi_b_updated = obs_b.project(s_prime)
     u_b_proj = u_b(obs_b.project(g_state))
-
-    commutes_a = (pi_a_updated == u_a_proj)
-    commutes_b = (pi_b_updated == u_b_proj)
-
-    # Sheaf gluing reconstruction: Glue({u_i(pi_i(s))}) == U(s)
     local_records = {"OA": u_a_proj, "OB": u_b_proj}
     glued_res = coverage.glue(local_records)
-    reconstructs = glued_res.is_ok() and (glued_res.unwrap() == s_prime)
+    return DescentSquare(
+        initial_counts=g_state.data,
+        updated_counts=s_prime.data,
+        commutes_a=(pi_a_updated == u_a_proj),
+        commutes_b=(pi_b_updated == u_b_proj),
+        reconstructs=glued_res.is_ok() and (glued_res.unwrap() == s_prime),
+    )
 
-    return commutes_a and commutes_b and reconstructs
+
+def audit_sheaf_descent_commutation(carrier: Optional[RelationalModel] = None) -> bool:
+    """Check count-level descent on the supplied carrier, if any."""
+    return build_sheaf_descent_square(carrier).commutes
 
 
 def audit_refusal_state_preservation(
@@ -271,7 +316,7 @@ def audit_commutation_residuals(
         commutes=r3_commutes,
         residual_price_q=Fraction(0, 1) if r3_commutes else Fraction(1, 1),
         metric_name="gluing_defect",
-        description="Multi-observer sheaf descent commutation (pi_i o U = u_i o pi_i)",
+        description="Count-level descent for additions on the supplied carrier",
     )
 
     r4_commutes = audit_refusal_state_preservation(relational_model)

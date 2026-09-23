@@ -2,7 +2,7 @@
 
 ## Overview
 
-This research package formalizes and implements the Gottesman-Knill symplectic tableau simulator, the Discrete Hudson theorem boundary on discrete carrier phase_space, and the exponential resource scaling boundary induced by non-stabilizer magic state injection under Target P209d.
+This research package contains finite symplectic-tableau examples, three explicitly defined Wigner-value tables in dimension 3, and arithmetic for a declared doubling branch-count recurrence. Its Lean statements do not prove a general simulator correctness theorem, a characterization of all non-negative states, or a lower bound on simulation complexity.
 
 AuthorityEffect: None.
 Axiom Scope: Constructive core Lean 4; `#print axioms` strictly within `{propext, Quot.sound}`; zero `Classical.choice`; zero `mathlib`.
@@ -11,25 +11,23 @@ Axiom Scope: Constructive core Lean 4; `#print axioms` strictly within `{propext
 
 ## Core Theorems & Implementations
 
-### 1. Gottesman-Knill Symplectic Tableau Simulator
-On an $n$-carrier discrete substrate over the binary field $\\mathbb{F}_2$:
-- **Tableau Representation**: An $(2n) \\times (2n+1)$ binary tableau tracks $n$ destabilizer generators $D_i$ and $n$ stabilizer generators $S_i$ alongside sign bits $r_i \\in \\{0, 1\\}$.
-- **Polynomial Update Scaling**: Clifford generators (Hadamard $H$, $S$-gate, and $CNOT$) execute in $O(n^2)$ arithmetic operations over $\\mathbb{F}_2$.
-- **Symplectic Invariant Preservation**: Every Clifford generator acts as a symplectic automorphism preserving the discrete metric:
+### 1. Python symplectic tableau model and explicit Lean identities
+The Python model uses a binary tableau with $n$ destabilizer and $n$ stabilizer rows. The cited Lean identities concern one-carrier $H,S$ and two-carrier $CNOT$ vectors; there is no Lean theorem for arbitrary $n$ or a simulator-wide complexity bound.
+- **Explicit Symplectic Identities**: The named Lean operations preserve the defined form on their declared vector types:
   $$\\Omega(M u, M v) = \\Omega(u, v) \\pmod 2$$
   maintaining mutual stabilizer commutativity $\\Omega(S_i, S_j) = 0$ and conjugate destabilizer duality $\\Omega(D_i, S_j) = \\delta_{ij}$.
-- **Measurement and Reduction**: Pauli $Z$-measurements execute in $O(n^2)$ steps, distinguishing deterministic outcomes (stabilizer subspace projection) from random outcomes (generating state collapse and updating the tableau basis).
+- **Python Measurement Examples**: The tested $Z$-measurement branches distinguish deterministic and random outcomes in the implemented tableau model.
 
-### 2. The Non-Classicality Horizon & Discrete Hudson Boundary
+### 2. Explicit Dimension-3 Wigner Tables
 On discrete carrier phase_space $\mathbb{F}_p \times \mathbb{F}_p$ for odd_prime dimension $p = 3$:
 - **Discrete Wigner Quasiprobability**: Constructed via Gross phase_point operators $A(q, p)$ derived from Weyl-Heisenberg displacement operators $D(u, v) = \omega^{2 u v} X^u Z^v$.
-- **Stabilizer States**: Inhabit the non-negative Wigner cone ($W \\ge 0$) everywhere across the $p \\times p$ grid.
-- **Magic States**: Break non-negativity, attaining strictly negative Wigner quasiprobability values ($W(0, 0) = -1/3 < 0$), establishing contextuality as the operational resource boundary.
+- **Named Stabilizer Tables**: The explicitly defined tables are non-negative across their finite grid. This does not classify all stabilizer states.
+- **Declared magic-state table**: Has $W(0, 0) = -1/3 < 0$. The Lean proof checks this defined value; it does not derive the table from a density operator or classify all pure states.
 
-### 3. Magic State Tracking & Exponential Resource Boundary
-- Injecting $k$ non-stabilizer magic states (such as $|T\\rangle = \\frac{1}{\\sqrt{2}}(|0\\rangle + e^{i\\pi/4}|1\\rangle)$) breaks single-tableau closure.
-- In the stabilizer basis decomposition, simulating $k$ injected magic states requires tracking a superposition mixture over $2^k$ stabilizer tableaux.
-- The simulation complexity branches exponentially as $\\Omega(2^k \\cdot n^2)$, establishing the boundary between classical polynomial efficiency and non-classical simulation hardness.
+### 3. Declared Branch-Count Model
+- The model assigns two branches to each of $k$ declared non-stabilizer insertions; no universal branch requirement is established.
+- In the defined recurrence, $B(0)=1$ and $B(k+1)=2B(k)$, hence $B(k)=2^k$.
+- This proves arithmetic about that representation, not that every exact or approximate simulator must use $2^k$ branches or time $\\Omega(2^k \\cdot n^2)$.
 
 ---
 
