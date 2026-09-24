@@ -291,18 +291,39 @@ def test_a_step_that_rewrites_a_protected_file_fails_and_the_file_is_put_back(
 
 
 def test_a_timeout_restores_tracked_research_receipts(tmp_path: Path) -> None:
+    """A step killed by its timeout has its tracked research receipts put
+    back, and the note names them.
+
+    The step writes the receipt, then an untracked marker, then outlives
+    every timeout below.  Whether the kill lands after the write is a race
+    with the shell's start-up, which a loaded machine can lose: on
+    2026-09-24 a 0.5 s timeout fired before the write, so nothing had been
+    rewritten and the note was empty.  The timeout therefore doubles until
+    the marker shows the write happened.  The restore note is asserted on
+    that attempt, and the receipt's bytes on every attempt."""
     repo = _repo(tmp_path)
     receipt = repo / "research/probe/receipts/value.json"
     receipt.parent.mkdir(parents=True)
     receipt.write_bytes(b"original\n")
     _git(repo, "add", "--", "research/probe/receipts/value.json")
     _git(repo, "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qm", "receipt")
-    step = rg.Step(job="a", name="interrupted receipt", timeout_minutes=0.5 / 60,
-                   run="echo partial > research/probe/receipts/value.json\nsleep 2\n")
-    result = rg.run_steps([step], repo, _bash(), sys.executable)[0]
-    assert result.outcome == "TIMEOUT"
-    assert "research/probe/receipts/value.json; restored" in result.note
-    assert receipt.read_bytes() == b"original\n"
+    marker = repo / "written.marker"
+    body = ("echo partial > research/probe/receipts/value.json\n"
+            "echo written > written.marker\n"
+            "sleep 60\n")
+    for seconds in (1, 2, 4, 8, 16):
+        marker.unlink(missing_ok=True)
+        step = rg.Step(job="a", name="interrupted receipt", timeout_minutes=seconds / 60,
+                       run=body)
+        result = rg.run_steps([step], repo, _bash(), sys.executable)[0]
+        assert result.outcome == "TIMEOUT"
+        assert receipt.read_bytes() == b"original\n", (
+            f"research/probe/receipts/value.json was not restored after a {seconds} s timeout")
+        if marker.is_file():
+            assert "research/probe/receipts/value.json; restored" in result.note, (
+                f"the note does not name the restored receipt: {result.note!r}")
+            return
+    pytest.fail("the step never wrote its receipt before a 16 s timeout")
 
 
 def test_nothing_is_put_back_and_nothing_more_runs_after_head_moves(tmp_path: Path) -> None:

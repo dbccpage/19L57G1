@@ -269,3 +269,35 @@ regenerated while it was live.
 **Provenance still fails.** The tree's existing tests keep every
 snapshot-side refusal by name, and the new tests cover a pin that is
 tracked at HEAD but cannot be read.
+
+## The runner's timeout-restore test, made deterministic (2026-09-24)
+
+`tests/test_run_gates.py::test_a_timeout_restores_tracked_research_receipts`
+failed once in a full python job run on 2026-09-24, under heavy machine load.
+It gave its step a 0.5 s timeout. The timeout fired before the shell had run
+its first line, so the receipt was never rewritten, and the result's note
+was empty. The runner was not at fault.
+
+**The fix.** The step now writes the receipt, then an untracked marker, then
+sleeps 60 s. The timeout doubles from 1 s to 16 s until the marker shows that
+the write happened. The restore note is asserted on that attempt. The
+receipt's bytes and the TIMEOUT outcome are asserted on every attempt.
+`ci/run_gates.py` is unchanged.
+
+**The race, reproduced.** A scratch script put `sleep 1.5` before the write,
+standing in for a slow shell start:
+
+- the old logic (one 0.5 s timeout) gave `TIMEOUT` with note `''`, the
+  observed failure;
+- the new logic gave no marker at 1 s, with the bytes still restored, then
+  the marker and the note
+  `rewrote research/probe/receipts/value.json; restored` at 2 s.
+
+**The injections.** Each edited `ci/run_gates.py` in the working tree only,
+and each was reverted with `git checkout -- ci/run_gates.py`. No receipt was
+regenerated while one was live.
+
+| Injection | The fixed test under it | After revert |
+|---|---|---|
+| A: no restore after a timeout (`restored = []` when the outcome is `TIMEOUT`) | fails: `research/probe/receipts/value.json was not restored after a 1 s timeout` (`b'partial\n' == b'original\n'`) | passes |
+| B: the restore happens, but the note naming it is dropped | fails: `the note does not name the restored receipt: ''` | passes |
