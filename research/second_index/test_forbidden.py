@@ -240,7 +240,7 @@ def changed_paths(base: str, head: str) -> list[str]:
     lines = rows.stdout.splitlines()
     if base != head and not lines:
         raise ValueError("the branch commit census is empty ahead of its base")
-    paths: set[str] = set()
+    commits: list[list[str]] = []
     for line in lines:
         ids = line.split()
         if len(ids) < 2 or any(re.fullmatch(r"[0-9a-f]{40}", i) is None for i in ids):
@@ -253,7 +253,8 @@ def changed_paths(base: str, head: str) -> list[str]:
         )
         if diff.returncode != 0:
             raise ValueError("a branch commit path census is unavailable")
-        paths.update(nul_paths(diff.stdout, population="branch commit"))
+        commits.append(nul_paths(diff.stdout, population="branch commit"))
+    pending_paths: list[str] = []
     pending = subprocess.run(
         ["git", "status", "--porcelain", "-z", "--untracked-files=all"],
         capture_output=True, cwd=REPO, check=False,
@@ -262,8 +263,26 @@ def changed_paths(base: str, head: str) -> list[str]:
         raise ValueError("the pending-write census is unavailable")
     for item in pending.stdout.split(b"\0"):
         if len(item) > 3:
-            paths.add(item[3:].decode("utf-8"))
-    return sorted(paths)
+            pending_paths.append(item[3:].decode("utf-8"))
+    return rung_scope(commits, pending_paths)
+
+
+def rung_scope(commits: list[list[str]], pending: list[str]) -> list[str]:
+    """The paths of this rung's own commits, plus pending writes.
+
+    A commit belongs to this rung when it touches the write root; a commit
+    that mixes the rung with anything else still exposes every one of its
+    paths, so it still fails the scope tests.  A branch with no such commit
+    and no pending write under the write root is another tree's branch, and
+    its writes are not this rung's (second_nofirst's rule, 2026-09-23
+    repair by the coordinator: this scan used to attribute every branch to
+    this rung, and so failed on any other pull request that touched a
+    research tree).
+    """
+    owned = [paths for paths in commits if any(p.startswith(WRITE_ROOT + "/") for p in paths)]
+    if owned or any(p.startswith(WRITE_ROOT + "/") for p in pending):
+        return sorted({p for paths in owned for p in paths} | set(pending))
+    return []
 
 
 def whole_branch_paths(base: str, head: str) -> list[str]:
@@ -365,9 +384,31 @@ class ScopeScan(unittest.TestCase):
         self.head = head_commit()
 
     def test_the_scan_sees_this_branch_at_all(self) -> None:
-        """Not a vacuous pass: the branch must have written something."""
+        """Not a vacuous pass: the branch must have written something.
+
+        Two situations are SKIPPED by name, never passed silently (the
+        second_nofirst rule; coordinator repair 2026-09-23, because this test
+        failed on `main` as soon as the rung had merged): HEAD is the
+        comparison base, so no branch is under test; or the branch has
+        commits and none of them is this rung's.
+        """
+        if self.base == self.head:
+            self.skipTest(f"HEAD is the comparison base ({self.base[:12]}); no branch is under test")
         paths = changed_paths(self.base, self.head)
+        if not paths:
+            self.skipTest("this branch carries no commit of this rung; it is another tree's branch")
         self.assertTrue(any(p.startswith(WRITE_ROOT + "/") for p in paths))
+
+    def test_the_rung_scope_rule(self) -> None:
+        """The ownership rule on synthetic commits: a rung commit counts,
+        a sibling commit does not, a mixed commit exposes every path."""
+        rung = [f"{WRITE_ROOT}/index.py"]
+        sibling = ["research/other/verify_pins.py"]
+        self.assertEqual(rung_scope([sibling], []), [])
+        self.assertEqual(rung_scope([rung, sibling], []), rung)
+        mixed = rung_scope([rung + sibling], [])
+        self.assertIn("research/other/verify_pins.py", mixed)
+        self.assertEqual(rung_scope([sibling], [f"{WRITE_ROOT}/new.py"]), [f"{WRITE_ROOT}/new.py"])
 
     def test_this_branch_touches_nothing_outside_the_declared_scope(self) -> None:
         allowed = set(APPEND_ONLY) | set(GENERATED)
@@ -400,6 +441,8 @@ class ScopeScan(unittest.TestCase):
         self.assertEqual(written, [])
 
     def test_the_two_shared_edits_are_append_only(self) -> None:
+        if self.base != self.head and not changed_paths(self.base, self.head):
+            self.skipTest("this branch carries no commit of this rung; its shared edits are not this rung's")
         for path in APPEND_ONLY:
             self.assertEqual(removed_lines(self.base, path), [], path)
 
