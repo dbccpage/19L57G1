@@ -1,0 +1,32 @@
+{
+  "allowed_transform": "diagonal basis rephasing by plus or minus one",
+  "authority_effect": "None",
+  "counts": {
+    "2": {
+      "bipartite_gauge": 2
+    },
+    "3": {
+      "bipartite_gauge": 7,
+      "nonbipartite_odd_loop": 1
+    },
+    "4": {
+      "bipartite_gauge": 34,
+      "bipartite_odd_loop": 7,
+      "nonbipartite_odd_loop": 23
+    },
+    "5": {
+      "bipartite_gauge": 206,
+      "bipartite_odd_loop": 170,
+      "nonbipartite_odd_loop": 648
+    }
+  },
+  "family": "two occupants, sorted-pair basis, unit negative hopping",
+  "label_policy": "simple labelled site graphs; no isomorphism quotient",
+  "linear_forest_matches_all_rows": true,
+  "sites": [
+    2,
+    3,
+    4,
+    5
+  ]
+}
