@@ -24,8 +24,9 @@ nothing outside this directory.
   and is closed on commuting squares.  A closed cost is invariant under
   cells, and a nonzero cycle excludes a potential.  The budget change has
   the budget as its potential; the count of state-changing steps has none.
-  On every commuting square of the declared battery that count is also
-  closed.  Whether it is closed on every square is open.
+  That count is nevertheless closed on every commuting square (proved
+  2026-09-24; the declared battery had found no failure before), so it
+  is a closed cost that is not exact.
 - **Descent.**  The native core (every field but budget and license) is
   an observer through which every event except column refinement and
   column creation descends.  Those two read budget or license in their

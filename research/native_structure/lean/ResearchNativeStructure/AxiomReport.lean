@@ -21,6 +21,11 @@ import ResearchNativeStructure
 #print axioms ResearchNativeStructure.not_exact_of_cycle
 #print axioms ResearchNativeStructure.budgetDelta_exact
 #print axioms ResearchNativeStructure.writes_not_exact
+#print axioms ResearchNativeStructure.step_eq_or_upd
+#print axioms ResearchNativeStructure.refine_map_ne
+#print axioms ResearchNativeStructure.absorb_false
+#print axioms ResearchNativeStructure.writes_closed
+#print axioms ResearchNativeStructure.writes_closed_not_exact
 #print axioms ResearchNativeStructure.core_descends
 #print axioms ResearchNativeStructure.refineCol_not_descends
 #print axioms ResearchNativeStructure.addCol_not_descends
