@@ -204,6 +204,7 @@ coordinator's merge, not from the rung's own run.
 
 A synthetic test covers the ownership rule: a sibling commit is not the
 rung's, and a mixed commit exposes every path.
+
 ## Custody verifiers report HEAD drift (2026-09-23)
 
 Six research-tree custody verifiers were converted so that provenance at
@@ -239,3 +240,32 @@ regenerated while it was live.
 failures, for example a mutated recorded hash is refused as a mismatch at
 the snapshot. The new tests also cover a pin that is tracked at HEAD but
 cannot be read: it still fails as `could not read`.
+
+## Rung three's custody verifier reports HEAD drift (2026-09-24)
+
+`research/second_index/verify_pins.py` was the one second-derivation
+verifier left strict after the six above. It was converted the same way:
+a port of the `second_nofirst` change, with the same four tests. Its
+`STATUS.md` is untouched, because the next blind rung reads it.
+
+**The injection.** One throwaway commit, `11e36dbd`, on top of
+`f959dcb2`. That is the conversion commit before it moved onto this
+branch as `c724fe6a`; the tree is byte-identical between the two. The
+throwaway commit:
+
+- appended one line to `code/derivation/engine.py`, a pinned sealed
+  source;
+- prepended one line to `research/second/PLAN.md`, which is pinned whole
+  and by the span `26-32`.
+
+The commit was discarded with `git reset --hard f959dcb2`. No receipt was
+regenerated while it was live.
+
+| Run | Under the injection | After discard |
+|---|---|---|
+| plain | exit 0; `DRIFT: source moved at HEAD for code/derivation/engine.py: expected 23803A3D…, got E798E8A5…`; the same for `research/second/PLAN.md`; `DRIFT: span moved at HEAD for research/second/PLAN.md:26-32`; count 3 | exit 0; drift 0 |
+| `--require-current` | exit 1; `FAIL: pinned inputs moved between the snapshot and HEAD (--require-current):`, naming all three | exit 0; drift 0 |
+
+**Provenance still fails.** The tree's existing tests keep every
+snapshot-side refusal by name, and the new tests cover a pin that is
+tracked at HEAD but cannot be read.
