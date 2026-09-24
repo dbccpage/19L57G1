@@ -48,6 +48,13 @@
     "ResearchNativeBridge.events_liftT",
     "ResearchNativeBridge.realize_iff",
     "ResearchNativeBridge.realize_events",
-    "ResearchNativeBridge.unrealized_step"
+    "ResearchNativeBridge.unrealized_step",
+    "ResearchNativeBridge.nobs_of_core",
+    "ResearchNativeBridge.ObsSim.obs_on_cycle",
+    "ResearchNativeBridge.ObsSim.obs_const_on_cycle",
+    "ResearchNativeBridge.budgetSim_nobs",
+    "ResearchNativeBridge.budget_obs_const",
+    "ResearchNativeBridge.toggle_no_faithful_obs",
+    "ResearchNativeBridge.idObsSim_faithful"
   ]
 }

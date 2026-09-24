@@ -1,5 +1,6 @@
 import ResearchNativeBridge.Path
 import ResearchNativeBridge.Passage
 import ResearchNativeBridge.Sim
+import ResearchNativeBridge.Observe
 import ResearchNativeBridge.Admission
 import ResearchNativeBridge.Realize
