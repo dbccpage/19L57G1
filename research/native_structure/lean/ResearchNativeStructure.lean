@@ -1,4 +1,5 @@
 import ResearchNativeStructure.Cells
+import ResearchNativeStructure.CellData
 import ResearchNativeStructure.Boundary
 import ResearchNativeStructure.Closed
 import ResearchNativeStructure.Descent

@@ -15,7 +15,11 @@ nothing outside this directory.
   sealed frame commutations are swap generators.  Two parallel native
   loops at genesis, one in the budget and one in the license, are *not*
   related by any cell.  So cells are finer than parallelism.  `Cell` is a
-  proposition, and a proof-relevant cell calculus is open.
+  proposition.  Since 2026-09-24 a proof-relevant calculus sits over it:
+  a cell is a sequence of swap positions, vertical composition is strictly
+  unital and associative, interchange holds up to the declared exchange of
+  distant swaps, and the thin quotient is `Cell`.  Two different cells
+  share their endpoints even modulo that exchange.
 - **Boundaries.**  Chains on native states, edges and two-step squares are
   read through integer cochains.  The boundary of a square's boundary
   vanishes for every 0-cochain exactly when the square commutes.
