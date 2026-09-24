@@ -1904,3 +1904,24 @@ is the same shape as the sibling steps; it is not applied here.
 | `cd research/natural_sections && python -m mypy` | 0 | strict, 51 source files (an earlier row said 27 after the faces and repair-mass modules had raised it to 30 and then 33; a reviewer corrected the stale receipt, the aggregation modules raise it to 36, the conjugation-orbit modules to 39, the slot-exchange modules to 42, the phase-receiver modules to 45, the layer-balance modules to 48, and the sign-repair modules to 51) |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_budget_meter.py --out receipts` | 0 | `decider all within budget: True`; `decider all verdicts match: True`; `sum meter len 8: 1171 walks, 5851 steps, within linear budget: False`; `growth factors: [8.27, 8.03, 8.0]` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_refinement.py --out receipts` | 0 | square rounds `6/8 -> 14/16 -> 30/32` objects/hops, odd `2, 2, 2`, `section False` throughout; chain `section True` throughout; `verdicts invariant: {... True}` |
+
+## Source pin semantics (2026-09-23)
+
+By the author's ruling of 2026-09-22, `verify_pins.py` separates two claims
+that it used to merge.
+
+- **Provenance, which still fails.** Every pinned module hashes to its recorded value at the snapshot; the
+  module list is exactly the import closure computed from the snapshot
+  blobs; the snapshot resolves, is an ancestor of HEAD and carries the
+  recorded tree; and the worktree carries nothing under a sealed prefix.
+- **Currency, which is now reported.** That nothing pinned has moved
+  between the snapshot and HEAD is printed as `DRIFT:` lines, followed by
+  a `drift since the snapshot:` count.  It no longer fails.  Pass
+  `--require-current` to restore the old failure.
+
+Why the change: the snapshot blob is fixed history, so every authorized
+sealed edit turned this check red until a repin, whatever this tree
+claimed; the most recent was on 2026-09-23, for pull request 231.  What
+this tree claims is about its snapshot, and that is what the check now
+enforces.  Runs recorded above were made under the
+earlier wording and stand as dated records of those runs.

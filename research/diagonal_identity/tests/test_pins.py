@@ -32,7 +32,12 @@ class PinTests(unittest.TestCase):
         pins = [line for line in lines if line.startswith("pin: ")]
         self.assertEqual(len(pins), len(manifest["sources"]))
         self.assertEqual(len(pins), 3)
-        self.assertIn("sealed prefixes unchanged between snapshot and HEAD", lines)
+        drift = [line for line in lines if line.startswith("DRIFT: ")]
+        self.assertEqual(
+            lines[-1],
+            f"drift since the snapshot: {len(drift)} pinned source(s) or sealed path(s)"
+            " moved at HEAD",
+        )
 
     def test_verify_sources_wrapper_is_empty_on_pass(self) -> None:
         self.assertEqual(verify_sources.verify_sources(), [])
@@ -518,9 +523,32 @@ class ExtraCoverageTests(unittest.TestCase):
                 return "0" * 64
             return original(revision, relative)
 
+        # 2026-09-23: a source that moved at HEAD is drift, reported and not
+        # failed; --require-current restores the failure, naming the path.
         with mock.patch.object(verify_pins, "_sha256_git_blob", side_effect=_head_differs):
-            with self.assertRaisesRegex(ValueError, "at HEAD"):
+            lines = verify_pins.verify()
+        moved = [line for line in lines if line.startswith("DRIFT: ") and "at HEAD is 0000" in line]
+        self.assertEqual(len(moved), 1)
+        calls["n"] = 0
+        with mock.patch.object(verify_pins, "_sha256_git_blob", side_effect=_head_differs):
+            with self.assertRaisesRegex(ValueError, "--require-current"):
+                verify_pins.verify(require_current=True)
+
+        def _head_missing(revision: str, relative: Any) -> str:
+            if revision != verify_pins._git("rev-parse", "HEAD") or calls["n"]:
+                return original(revision, relative)
+            calls["n"] += 1
+            raise ValueError("git show failed: missing")
+
+        calls["n"] = 0
+        with mock.patch.object(verify_pins, "_sha256_git_blob", side_effect=_head_missing):
+            with self.assertRaisesRegex(ValueError, "could not read"):
                 verify_pins.verify()
+        with mock.patch.object(verify_pins, "_sha256_git_blob", side_effect=_head_missing),                 mock.patch.object(verify_pins, "_git", side_effect=lambda *a: (
+                    "" if a[0] == "ls-tree" else verify_pins._git_bytes(*a).decode().strip())):
+            calls["n"] = 0
+            lines = verify_pins.verify()
+        self.assertTrue(any(line.endswith("is absent at HEAD") for line in lines))
         self.assertEqual(verify_pins.sealed_prefix_violations("\n\n"), [])
         from unittest import mock as mock_mod
 

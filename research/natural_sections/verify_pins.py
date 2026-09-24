@@ -12,8 +12,8 @@ compiles.  Seven checks, and none of them implies the others:
   ``HEAD``), RESOLVES to a commit object, is an ancestor of the
   verification HEAD (or HEAD itself), and carries the recorded tree;
 * every module hashes to its recorded SHA-256 as the Git blob at the
-  SNAPSHOT and again at HEAD, so the theorems were checked against the
-  sealed sources they name and those sources have not moved since;
+  SNAPSHOT, so the theorems were checked against the sealed sources they
+  name; whether a module has moved since is reported (below);
 * the module list is EXACTLY the import closure of the semantic roots,
   computed from the ``import Derivation.*`` lines of the snapshot blobs
   and compared in both directions -- a module the package compiles but
@@ -22,8 +22,8 @@ compiles.  Seven checks, and none of them implies the others:
 * each module's path is the sealed path its name denotes, and every
   pinned path is relative, has no ``..``, no backslash, no drive letter,
   and lies under a sealed prefix;
-* no tracked path under a sealed prefix differs between the snapshot and
-  HEAD;
+* a tracked path under a sealed prefix that differs between the snapshot
+  and HEAD is reported, like a moved module (below);
 * the worktree carries nothing under a sealed prefix that is modified,
   untracked, or ignored-but-present (``git status --porcelain
   --untracked-files=all --ignored=matching``): a gitignored bytecode or
@@ -34,7 +34,17 @@ compiles.  Seven checks, and none of them implies the others:
 * the check of the sealed prefixes is a pure function of the porcelain
   text so it can be tested on a synthetic record.
 
-A pass says the inputs did not move and nothing sealed was touched.  It
+Pins certify the snapshot (2026-09-23, applying the author's ruling of
+2026-09-22).  PROVENANCE fails, as listed above.  CURRENCY is printed as
+``DRIFT:`` lines, then a ``drift since the snapshot:`` count, and does not
+fail: a pinned module that moved or is absent at HEAD, or a tracked sealed
+path that differs between the snapshot and HEAD.  ``--require-current``
+restores that failure.  This file used to fail on both.  The snapshot blob
+is fixed history, so every authorized sealed edit turned it red until a
+repin, whatever this tree claimed.
+
+A pass says the inputs matched at the snapshot and nothing sealed was
+touched in the worktree.  It
 says nothing about the mathematics, and it does not authenticate the
 interpreter, Git, or this script.  Nothing in ``.github/workflows`` runs
 this script; a pass is a manual receipt.  AuthorityEffect: None.
@@ -46,6 +56,7 @@ import sys
 
 sys.dont_write_bytecode = True
 
+import argparse
 import hashlib
 import json
 import pathlib
@@ -213,12 +224,33 @@ def _roots(manifest: dict[str, Any]) -> list[str]:
     return list(roots)
 
 
-def verify(manifest: dict[str, Any] | None = None) -> list[str]:
+def _head_drift(head: str, relative: PurePosixPath, wanted: str) -> list[str]:
+    """How a pinned module differs at HEAD, reported rather than failed.
+
+    A path that is tracked at HEAD but cannot be read is still a failure:
+    that is a Git read error, not drift.
+    """
+    try:
+        at_head = _sha256(_git_bytes("show", f"{head}:{relative.as_posix()}"))
+    except ValueError as exc:
+        listed = _git("ls-tree", "-r", "--name-only", head, "--", relative.as_posix())
+        if relative.as_posix() in listed.splitlines():
+            raise ValueError(f"could not read {relative} at HEAD: {exc}") from exc
+        return [f"{relative} is absent at HEAD"]
+    if at_head != wanted:
+        return [f"{relative} at HEAD is {at_head}, pinned {wanted}"]
+    return []
+
+
+def verify(
+    manifest: dict[str, Any] | None = None, *, require_current: bool = False
+) -> list[str]:
     """Run every check; raise ``ValueError`` on the first failure."""
 
     if manifest is None:
         manifest = read_manifest()
     lines: list[str] = []
+    drift: list[str] = []
 
     head = _git("rev-parse", "HEAD")
     _require_hex(head, 40, "verification commit", uppercase=False)
@@ -264,15 +296,15 @@ def verify(manifest: dict[str, Any] | None = None) -> list[str]:
         _required_string(item, "role", f"module {module}")
         if module in pinned:
             raise ValueError(f"module pinned twice: {module}")
-        for label, revision in (("snapshot", snapshot), ("HEAD", head)):
-            actual = _sha256(_git_bytes("show", f"{revision}:{relative.as_posix()}"))
-            if actual != wanted:
-                raise ValueError(
-                    f"hash mismatch for {relative} at {label} {revision}: "
-                    f"expected {wanted}, got {actual}"
-                )
+        actual = _sha256(_git_bytes("show", f"{snapshot}:{relative.as_posix()}"))
+        if actual != wanted:
+            raise ValueError(
+                f"hash mismatch for {relative} at snapshot {snapshot}: "
+                f"expected {wanted}, got {actual}"
+            )
+        drift.extend(_head_drift(head, relative, wanted))
         pinned[module] = wanted
-        lines.append(f"pin: {module} {wanted} (at snapshot and HEAD)")
+        lines.append(f"pin: {module} {wanted} (at the snapshot)")
 
     roots = _roots(manifest)
     closure = import_closure(
@@ -288,12 +320,12 @@ def verify(manifest: dict[str, Any] | None = None) -> list[str]:
     lines.append(f"import closure of {roots}: {len(closure)} module(s), all pinned")
 
     moved = _sealed_diff(snapshot, head)
-    if moved:
+    drift.extend(f"sealed path {name} differs between the snapshot and HEAD" for name in moved)
+    if drift and require_current:
         raise ValueError(
-            "tracked sealed paths differ between the snapshot and HEAD:\n  "
-            + "\n  ".join(moved)
+            "pinned inputs moved between the snapshot and HEAD (--require-current):\n  "
+            + "\n  ".join(drift)
         )
-    lines.append("sealed prefixes unchanged between snapshot and HEAD")
 
     violations = sealed_prefix_violations(_live_porcelain())
     if violations:
@@ -304,12 +336,24 @@ def verify(manifest: dict[str, Any] | None = None) -> list[str]:
             + "\n  ".join(violations)
         )
     lines.append("sealed prefixes clean: " + " ".join(SEALED_PATHSPECS))
+    lines.extend(f"DRIFT: {line}" for line in drift)
+    lines.append(
+        f"drift since the snapshot: {len(drift)} pinned module(s) or sealed path(s)"
+        " moved at HEAD"
+    )
     return lines
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Verify the natural_sections manifest.")
+    parser.add_argument(
+        "--require-current",
+        action="store_true",
+        help="also fail when a pinned module or sealed path has moved between the snapshot and HEAD",
+    )
+    args = parser.parse_args(argv)
     try:
-        lines = verify()
+        lines = verify(require_current=args.require_current)
     except ValueError as exc:
         print(f"FAIL: {exc}")
         return 1
