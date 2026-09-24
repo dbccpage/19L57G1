@@ -6,7 +6,8 @@
     "input.json",
     "source_population.json",
     "scope_reviews.json",
-    "evidence/capture.json"
+    "evidence/capture.json",
+    "correction_reviews.json"
   ],
   "axiom_scope": "explicit_reports",
   "axiom_declarations": [

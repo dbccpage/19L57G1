@@ -76,13 +76,16 @@ The historical graph remains intact. `refresh.py --previous` also detects
 recovery after a change is reversed. The new consumer is an explicit 104th
 tree at the execution head, not part of its own 103-tree source snapshot.
 
-The Section 3 correction version is pending the owner merge and its local
-checks. `build` refuses to emit `versions/section3.json` while
-`correction_reviews.json` is absent, and the tree verifier records that
-refusal instead of treating a missing review as a current correction. Once
-recorded, `versions/section3.json` will import the twelve correction
-subjects from a later source snapshot after that snapshot lands on `main`.
-The deliberate input `correction_reviews.json` binds the corrected source
+The Section 3 correction version is recorded (2026-09-24).
+`correction_reviews.json` names the corrected source snapshot `b55fc96a`,
+which is on `main` and follows the corrections merged in #231. For each of
+the twelve subjects it records the corrected source spans, the scope and
+remaining obligation from the dated correction record
+(`docs/section3_claim_corrections.md`), a disposition, and the local checks
+run at exactly that tree: the nine affected trees' own verifiers, the
+research index, paper citation resolution and the prose watchlist.
+`versions/section3.json` is generated from it. `build` still refuses to
+emit a version when the review file is absent. The deliberate input `correction_reviews.json` binds the corrected source
 spans, their scope, remaining obligations, and local-check receipts to the
 tested tree. The reader rejects unmerged sources, missing subjects, stale
 spans, failed checks and checks of a different tree. These are scope corrections and custody
