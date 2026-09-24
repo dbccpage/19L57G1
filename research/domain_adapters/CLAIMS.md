@@ -28,7 +28,7 @@ No law of an imported domain is attributed to the sealed seed.
 | DA-6 | PROVED_THEOREM | The conservation ladder's integer step at coefficient 2 has period four and moves states. Every translation into the passage gives a state and its successor the same core. | `tick_two_period`, `mechanics_moves`, `mechanics_core_collapse` |
 | DA-7 | PROVED_THEOREM | Through the proposal/license adapter, a proposal maps to no native event and changes nothing. Application is column creation, and it is inert on a live state without license or without budget. Both gates are the sealed theorems, read through the adapter. | `propose_inert`, `apply_needs_license`, `apply_needs_budget` |
 | DA-8 | VERIFIED_FINITE | Over the declared bounds: 32 counter squares with 33 distinct cores; four budget squares for the matrix action, with four encodings and one core; 2,401 pairs of the coefficient-2 step, all of period four and 2,400 moved; on 531 passage states, 1,593 proposals inert and 684 unlicensed or unfunded applications inert. | `evidence/receipt.json`, `tests/test_adapters.py` |
-| DA-9 | OPEN | An adapter for a type-theoretic or higher-cell semantics that is not thin. `native_structure`'s cells are a proposition. | none |
+| DA-9 | OPEN | An adapter for a type-theoretic or higher-cell semantics that is not thin. `native_structure`'s cells are a proposition. (2026-09-24: `native_structure` now also has proof-relevant cells, NS-5; no adapter into them is built here.) | none |
 | DA-10 | OPEN | An adapter for the smooth tier, and adapters for the operator families outside this repository. None is constructed here, and none is attributed to the seed. | none |
 
 Lean reach: only the declarations named in `TREE_CONTRACT.json`.  This is

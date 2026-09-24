@@ -43,3 +43,10 @@ import ResearchNativeBridge
 #print axioms ResearchNativeBridge.realize_iff
 #print axioms ResearchNativeBridge.realize_events
 #print axioms ResearchNativeBridge.unrealized_step
+#print axioms ResearchNativeBridge.nobs_of_core
+#print axioms ResearchNativeBridge.ObsSim.obs_on_cycle
+#print axioms ResearchNativeBridge.ObsSim.obs_const_on_cycle
+#print axioms ResearchNativeBridge.budgetSim_nobs
+#print axioms ResearchNativeBridge.budget_obs_const
+#print axioms ResearchNativeBridge.toggle_no_faithful_obs
+#print axioms ResearchNativeBridge.idObsSim_faithful

@@ -15,7 +15,11 @@ nothing outside this directory.
   sealed frame commutations are swap generators.  Two parallel native
   loops at genesis, one in the budget and one in the license, are *not*
   related by any cell.  So cells are finer than parallelism.  `Cell` is a
-  proposition, and a proof-relevant cell calculus is open.
+  proposition.  Since 2026-09-24 a proof-relevant calculus sits over it:
+  a cell is a sequence of swap positions, vertical composition is strictly
+  unital and associative, interchange holds up to the declared exchange of
+  distant swaps, and the thin quotient is `Cell`.  Two different cells
+  share their endpoints even modulo that exchange.
 - **Boundaries.**  Chains on native states, edges and two-step squares are
   read through integer cochains.  The boundary of a square's boundary
   vanishes for every 0-cochain exactly when the square commutes.
@@ -24,8 +28,9 @@ nothing outside this directory.
   and is closed on commuting squares.  A closed cost is invariant under
   cells, and a nonzero cycle excludes a potential.  The budget change has
   the budget as its potential; the count of state-changing steps has none.
-  On every commuting square of the declared battery that count is also
-  closed.  Whether it is closed on every square is open.
+  That count is nevertheless closed on every commuting square (proved
+  2026-09-24; the declared battery had found no failure before), so it
+  is a closed cost that is not exact.
 - **Descent.**  The native core (every field but budget and license) is
   an observer through which every event except column refinement and
   column creation descends.  Those two read budget or license in their
