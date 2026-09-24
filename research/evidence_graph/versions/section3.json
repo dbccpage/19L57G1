@@ -1,0 +1,2133 @@
+{
+  "all_headlines_supported": false,
+  "authority_effect": "None",
+  "boundary": "Merged corrections are a new source version. Historical theorem reports keep their original head; local checks establish only their declared scope.",
+  "checks": [
+    {
+      "checked_head": "b55fc96a94740b0afde78337350a96d293615f3f",
+      "checked_tree": "d4bab75a5c359082eb4428f2cecc3fc7bd9e5fd5",
+      "command": [
+        "python",
+        "research/g013_trace_calculus/verify.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "id": "verify:g013_trace_calculus",
+      "log_sha256": "d146fa437703cd9715336afbbf8a7e2fd1ba9c283bc305d8afaa06de8e66d451",
+      "scope": "The tree's own verifier at this exact tree: its tests, strict typing and Lean build with named axiom reports where the tree has them. It checks the corrected tree's receipts; it proves none of the remaining obligations."
+    },
+    {
+      "checked_head": "b55fc96a94740b0afde78337350a96d293615f3f",
+      "checked_tree": "d4bab75a5c359082eb4428f2cecc3fc7bd9e5fd5",
+      "command": [
+        "python",
+        "research/g012_typed_translation/verify.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "id": "verify:g012_typed_translation",
+      "log_sha256": "df85fa17fd3f7883d60198472793694d5f6b48f672f29b97d73c0540f33f593a",
+      "scope": "The tree's own verifier at this exact tree: its tests, strict typing and Lean build with named axiom reports where the tree has them. It checks the corrected tree's receipts; it proves none of the remaining obligations."
+    },
+    {
+      "checked_head": "b55fc96a94740b0afde78337350a96d293615f3f",
+      "checked_tree": "d4bab75a5c359082eb4428f2cecc3fc7bd9e5fd5",
+      "command": [
+        "python",
+        "research/g018_self_hosting/verify.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "id": "verify:g018_self_hosting",
+      "log_sha256": "8fc4da2bd9dd1b1dd49056a041280d4ad4e76d3c9c358e638d97113be416bfd3",
+      "scope": "The tree's own verifier at this exact tree: its tests, strict typing and Lean build with named axiom reports where the tree has them. It checks the corrected tree's receipts; it proves none of the remaining obligations."
+    },
+    {
+      "checked_head": "b55fc96a94740b0afde78337350a96d293615f3f",
+      "checked_tree": "d4bab75a5c359082eb4428f2cecc3fc7bd9e5fd5",
+      "command": [
+        "python",
+        "research/x310_vertical_integration/verify.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "id": "verify:x310_vertical_integration",
+      "log_sha256": "612c80cb7195a0abaed7edd1edf4eee860150ebbfeaae82804deafa38628dc77",
+      "scope": "The tree's own verifier at this exact tree: its tests, strict typing and Lean build with named axiom reports where the tree has them. It checks the corrected tree's receipts; it proves none of the remaining obligations."
+    },
+    {
+      "checked_head": "b55fc96a94740b0afde78337350a96d293615f3f",
+      "checked_tree": "d4bab75a5c359082eb4428f2cecc3fc7bd9e5fd5",
+      "command": [
+        "python",
+        "research/p208c_commutator_tomography/verify.py"
+      ],
+      "exit_code": 0,
+      "id": "verify:p208c_commutator_tomography",
+      "log_sha256": "66a172329f6865fc79194bee4b075e0db7692325521c5b409d74d91962dafd8d",
+      "scope": "The tree's own verifier at this exact tree: its tests, strict typing and Lean build with named axiom reports where the tree has them. It checks the corrected tree's receipts; it proves none of the remaining obligations."
+    },
+    {
+      "checked_head": "b55fc96a94740b0afde78337350a96d293615f3f",
+      "checked_tree": "d4bab75a5c359082eb4428f2cecc3fc7bd9e5fd5",
+      "command": [
+        "python",
+        "research/p209a_wigner_phase_space/verify.py"
+      ],
+      "exit_code": 0,
+      "id": "verify:p209a_wigner_phase_space",
+      "log_sha256": "31f4e9059167d4e35b25dd59933ca279bd086656fd5fca676d2aa9f76536e043",
+      "scope": "The tree's own verifier at this exact tree: its tests, strict typing and Lean build with named axiom reports where the tree has them. It checks the corrected tree's receipts; it proves none of the remaining obligations."
+    },
+    {
+      "checked_head": "b55fc96a94740b0afde78337350a96d293615f3f",
+      "checked_tree": "d4bab75a5c359082eb4428f2cecc3fc7bd9e5fd5",
+      "command": [
+        "python",
+        "research/p209b_clifford_symplectic/verify.py"
+      ],
+      "exit_code": 0,
+      "id": "verify:p209b_clifford_symplectic",
+      "log_sha256": "97baa109a03a3ebd922fb2003870b99f53344a1b624064b3375c37c9c3b062ad",
+      "scope": "The tree's own verifier at this exact tree: its tests, strict typing and Lean build with named axiom reports where the tree has them. It checks the corrected tree's receipts; it proves none of the remaining obligations."
+    },
+    {
+      "checked_head": "b55fc96a94740b0afde78337350a96d293615f3f",
+      "checked_tree": "d4bab75a5c359082eb4428f2cecc3fc7bd9e5fd5",
+      "command": [
+        "python",
+        "research/p209c_stabilizer_codes/verify.py"
+      ],
+      "exit_code": 0,
+      "id": "verify:p209c_stabilizer_codes",
+      "log_sha256": "01b045de9a63b04eb17bc5d355702df37d23c1a8ce9e53dbe575575aefbed52a",
+      "scope": "The tree's own verifier at this exact tree: its tests, strict typing and Lean build with named axiom reports where the tree has them. It checks the corrected tree's receipts; it proves none of the remaining obligations."
+    },
+    {
+      "checked_head": "b55fc96a94740b0afde78337350a96d293615f3f",
+      "checked_tree": "d4bab75a5c359082eb4428f2cecc3fc7bd9e5fd5",
+      "command": [
+        "python",
+        "research/p209d_nonclassical_horizons/verify.py"
+      ],
+      "exit_code": 0,
+      "id": "verify:p209d_nonclassical_horizons",
+      "log_sha256": "8e86cbe4f3097b3f74f7a805c65034812528755cea6ae63fe085d2dba4b2d0b0",
+      "scope": "The tree's own verifier at this exact tree: its tests, strict typing and Lean build with named axiom reports where the tree has them. It checks the corrected tree's receipts; it proves none of the remaining obligations."
+    },
+    {
+      "checked_head": "b55fc96a94740b0afde78337350a96d293615f3f",
+      "checked_tree": "d4bab75a5c359082eb4428f2cecc3fc7bd9e5fd5",
+      "command": [
+        "python",
+        "ci/research_index.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "id": "verify:research-index",
+      "log_sha256": "35779189c24d99abd02da9dad2b8dcd87bf7c1d81d937d066b2d8a0b8a9b47b5",
+      "scope": "The generated registration table in research/README.md is current at this tree."
+    },
+    {
+      "checked_head": "b55fc96a94740b0afde78337350a96d293615f3f",
+      "checked_tree": "d4bab75a5c359082eb4428f2cecc3fc7bd9e5fd5",
+      "command": [
+        "python",
+        "ci/check_paper_citations.py"
+      ],
+      "exit_code": 0,
+      "id": "verify:paper-citations",
+      "log_sha256": "3d2ae3d3c83ce3893fc4a1bc6d9762832fef58ba3d6545e4cc9806f1361ac877",
+      "scope": "Every paper/*.md path cited inside paper/ resolves at this tree. Resolution only; wording is read by hand."
+    },
+    {
+      "checked_head": "b55fc96a94740b0afde78337350a96d293615f3f",
+      "checked_tree": "d4bab75a5c359082eb4428f2cecc3fc7bd9e5fd5",
+      "command": [
+        "python",
+        "ci/check_prose_watchlist.py"
+      ],
+      "exit_code": 0,
+      "id": "verify:prose-watchlist",
+      "log_sha256": "4bb0c07a0affe906f1b8306a09cc4dbd7914a96246d6099e7f7391c715c5e0a9",
+      "scope": "The prose watchlist census matches its pin at this tree. It sees words, not outside shapes."
+    }
+  ],
+  "corrected_source_snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+  "corrected_source_tree": "d4bab75a5c359082eb4428f2cecc3fc7bd9e5fd5",
+  "historical_evidence_retained": true,
+  "historical_source_snapshot": "ed028912e0b06f73dd4c5bfe1bb7c2d0e6f3034f",
+  "records": [
+    {
+      "check_ids": [
+        "verify:g013_trace_calculus"
+      ],
+      "current_headlines": [
+        {
+          "id": "headline:research/g013_trace_calculus/CLAIMS.md:36ae36e9576130572c7d:1",
+          "source": {
+            "blob": "5ebef3fb509403e91b0b0f2cc3a112638beca9af",
+            "end_line": 74,
+            "file_sha256": "3598d202e46633451f8106e49b715d490038bd0ecc20a345bc63c61137c50dcb",
+            "path": "research/g013_trace_calculus/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "36ae36e9576130572c7d456322b9116a7086401c13f6bb2bd00be64a205a937b",
+            "start_line": 69
+          }
+        },
+        {
+          "id": "headline:research/g013_trace_calculus/CLAIMS.md:3dfc566419c9ccc22ce7:1",
+          "source": {
+            "blob": "5ebef3fb509403e91b0b0f2cc3a112638beca9af",
+            "end_line": 29,
+            "file_sha256": "3598d202e46633451f8106e49b715d490038bd0ecc20a345bc63c61137c50dcb",
+            "path": "research/g013_trace_calculus/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "3dfc566419c9ccc22ce713e46c7394543e51abea21defaae07a589157391fcde",
+            "start_line": 29
+          }
+        },
+        {
+          "id": "headline:research/g013_trace_calculus/CLAIMS.md:404451c6340caa6d236c:1",
+          "source": {
+            "blob": "5ebef3fb509403e91b0b0f2cc3a112638beca9af",
+            "end_line": 33,
+            "file_sha256": "3598d202e46633451f8106e49b715d490038bd0ecc20a345bc63c61137c50dcb",
+            "path": "research/g013_trace_calculus/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "404451c6340caa6d236c7cffa1850f62c6d563a2c3d675aed94ab27820ebd29a",
+            "start_line": 33
+          }
+        },
+        {
+          "id": "headline:research/g013_trace_calculus/CLAIMS.md:7976fffe8d75b572bfcc:1",
+          "source": {
+            "blob": "5ebef3fb509403e91b0b0f2cc3a112638beca9af",
+            "end_line": 34,
+            "file_sha256": "3598d202e46633451f8106e49b715d490038bd0ecc20a345bc63c61137c50dcb",
+            "path": "research/g013_trace_calculus/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "7976fffe8d75b572bfcce54350846d79c3cf73439327c626a0d656d60f585874",
+            "start_line": 34
+          }
+        },
+        {
+          "id": "headline:research/g013_trace_calculus/CLAIMS.md:bd425820689debe96f59:1",
+          "source": {
+            "blob": "5ebef3fb509403e91b0b0f2cc3a112638beca9af",
+            "end_line": 60,
+            "file_sha256": "3598d202e46633451f8106e49b715d490038bd0ecc20a345bc63c61137c50dcb",
+            "path": "research/g013_trace_calculus/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "bd425820689debe96f599e7e8a2905db2e119085cf5b26c4c136b8ec99305ee8",
+            "start_line": 60
+          }
+        },
+        {
+          "id": "headline:research/g013_trace_calculus/CLAIMS.md:e61df8a9bd85725e452e:1",
+          "source": {
+            "blob": "5ebef3fb509403e91b0b0f2cc3a112638beca9af",
+            "end_line": 82,
+            "file_sha256": "3598d202e46633451f8106e49b715d490038bd0ecc20a345bc63c61137c50dcb",
+            "path": "research/g013_trace_calculus/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "e61df8a9bd85725e452e2b00d15c6c284d61b160fe8578262a9dace51cb549cf",
+            "start_line": 81
+          }
+        },
+        {
+          "id": "headline:research/g013_trace_calculus/CLAIMS.md:ec886fc84b5442c9c3de:1",
+          "source": {
+            "blob": "5ebef3fb509403e91b0b0f2cc3a112638beca9af",
+            "end_line": 32,
+            "file_sha256": "3598d202e46633451f8106e49b715d490038bd0ecc20a345bc63c61137c50dcb",
+            "path": "research/g013_trace_calculus/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "ec886fc84b5442c9c3de05e310f1aec6ea54bdc02aa0a02d6acce202c8a0678e",
+            "start_line": 32
+          }
+        },
+        {
+          "id": "headline:research/g013_trace_calculus/README.md:0c4ccef48b0d7c4eb0e8:1",
+          "source": {
+            "blob": "5a340654239c6b8425056138ed83202eb4f5262f",
+            "end_line": 11,
+            "file_sha256": "e579b9cb3c99ce98837caca17b67be6bd8dbfdd5efc8099946454c9aaf160b4a",
+            "path": "research/g013_trace_calculus/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "0c4ccef48b0d7c4eb0e84456f5e3b2bee2b412f039dc086b0326ef89e1f5eb50",
+            "start_line": 11
+          }
+        },
+        {
+          "id": "headline:research/g013_trace_calculus/README.md:4a4d7ae5c6b7f0976557:1",
+          "source": {
+            "blob": "5a340654239c6b8425056138ed83202eb4f5262f",
+            "end_line": 37,
+            "file_sha256": "e579b9cb3c99ce98837caca17b67be6bd8dbfdd5efc8099946454c9aaf160b4a",
+            "path": "research/g013_trace_calculus/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "4a4d7ae5c6b7f09765574d9f9a3ab797334029ee70be448d21eb9560b28e5be5",
+            "start_line": 37
+          }
+        },
+        {
+          "id": "headline:research/g013_trace_calculus/README.md:5e09af6c44c7674fe93c:1",
+          "source": {
+            "blob": "5a340654239c6b8425056138ed83202eb4f5262f",
+            "end_line": 31,
+            "file_sha256": "e579b9cb3c99ce98837caca17b67be6bd8dbfdd5efc8099946454c9aaf160b4a",
+            "path": "research/g013_trace_calculus/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "5e09af6c44c7674fe93c27d0f6c380915f24c0fa9f2c60c9ebcca82b5d8b9c35",
+            "start_line": 31
+          }
+        },
+        {
+          "id": "headline:research/g013_trace_calculus/README.md:b61582f1aaf6b80e57f2:1",
+          "source": {
+            "blob": "5a340654239c6b8425056138ed83202eb4f5262f",
+            "end_line": 24,
+            "file_sha256": "e579b9cb3c99ce98837caca17b67be6bd8dbfdd5efc8099946454c9aaf160b4a",
+            "path": "research/g013_trace_calculus/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "b61582f1aaf6b80e57f29730b5e11678b9185142330cc35f594bc218f068c8b1",
+            "start_line": 19
+          }
+        },
+        {
+          "id": "headline:research/g013_trace_calculus/README.md:b72f7c1de9fa9b595177:1",
+          "source": {
+            "blob": "5a340654239c6b8425056138ed83202eb4f5262f",
+            "end_line": 34,
+            "file_sha256": "e579b9cb3c99ce98837caca17b67be6bd8dbfdd5efc8099946454c9aaf160b4a",
+            "path": "research/g013_trace_calculus/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "b72f7c1de9fa9b5951778053df5c99d87785e2e79aede1574b87148961ba9bd8",
+            "start_line": 34
+          }
+        },
+        {
+          "id": "headline:research/g013_trace_calculus/README.md:d1a7ae58301cf7dd0409:1",
+          "source": {
+            "blob": "5a340654239c6b8425056138ed83202eb4f5262f",
+            "end_line": 3,
+            "file_sha256": "e579b9cb3c99ce98837caca17b67be6bd8dbfdd5efc8099946454c9aaf160b4a",
+            "path": "research/g013_trace_calculus/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "d1a7ae58301cf7dd0409298c5269cc05fd1a4e203abddcd31af2b0bac85867ec",
+            "start_line": 3
+          }
+        }
+      ],
+      "disposition": "WORDING_NARROWED",
+      "evidence_gap": "This is a source-scope correction and check receipt, not a new proof of the remaining mathematical obligations.",
+      "historical_handoff_id": "handoff:cell_relations",
+      "id": "correction:cell_relations",
+      "mathematical_status": "OPEN",
+      "remaining_obligations": "Unit, associativity, quotient compatibility and interpretation by guarded native transitions remain open.",
+      "scope": "Traces have composition and identity laws. The higher-cell relation declares commutation and interchange constructors; the boundary coherence lemmas are reflexive.",
+      "source_class": "metatheory apparatus",
+      "sources": [
+        {
+          "blob": "5ebef3fb509403e91b0b0f2cc3a112638beca9af",
+          "end_line": 29,
+          "file_sha256": "3598d202e46633451f8106e49b715d490038bd0ecc20a345bc63c61137c50dcb",
+          "path": "research/g013_trace_calculus/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "3dfc566419c9ccc22ce713e46c7394543e51abea21defaae07a589157391fcde",
+          "start_line": 29
+        },
+        {
+          "blob": "5ebef3fb509403e91b0b0f2cc3a112638beca9af",
+          "end_line": 32,
+          "file_sha256": "3598d202e46633451f8106e49b715d490038bd0ecc20a345bc63c61137c50dcb",
+          "path": "research/g013_trace_calculus/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "ec886fc84b5442c9c3de05e310f1aec6ea54bdc02aa0a02d6acce202c8a0678e",
+          "start_line": 32
+        },
+        {
+          "blob": "5ebef3fb509403e91b0b0f2cc3a112638beca9af",
+          "end_line": 33,
+          "file_sha256": "3598d202e46633451f8106e49b715d490038bd0ecc20a345bc63c61137c50dcb",
+          "path": "research/g013_trace_calculus/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "404451c6340caa6d236c7cffa1850f62c6d563a2c3d675aed94ab27820ebd29a",
+          "start_line": 33
+        },
+        {
+          "blob": "5ebef3fb509403e91b0b0f2cc3a112638beca9af",
+          "end_line": 34,
+          "file_sha256": "3598d202e46633451f8106e49b715d490038bd0ecc20a345bc63c61137c50dcb",
+          "path": "research/g013_trace_calculus/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "7976fffe8d75b572bfcce54350846d79c3cf73439327c626a0d656d60f585874",
+          "start_line": 34
+        },
+        {
+          "blob": "5ebef3fb509403e91b0b0f2cc3a112638beca9af",
+          "end_line": 60,
+          "file_sha256": "3598d202e46633451f8106e49b715d490038bd0ecc20a345bc63c61137c50dcb",
+          "path": "research/g013_trace_calculus/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "bd425820689debe96f599e7e8a2905db2e119085cf5b26c4c136b8ec99305ee8",
+          "start_line": 60
+        },
+        {
+          "blob": "5ebef3fb509403e91b0b0f2cc3a112638beca9af",
+          "end_line": 74,
+          "file_sha256": "3598d202e46633451f8106e49b715d490038bd0ecc20a345bc63c61137c50dcb",
+          "path": "research/g013_trace_calculus/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "36ae36e9576130572c7d456322b9116a7086401c13f6bb2bd00be64a205a937b",
+          "start_line": 69
+        },
+        {
+          "blob": "5ebef3fb509403e91b0b0f2cc3a112638beca9af",
+          "end_line": 82,
+          "file_sha256": "3598d202e46633451f8106e49b715d490038bd0ecc20a345bc63c61137c50dcb",
+          "path": "research/g013_trace_calculus/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "e61df8a9bd85725e452e2b00d15c6c284d61b160fe8578262a9dace51cb549cf",
+          "start_line": 81
+        },
+        {
+          "blob": "5a340654239c6b8425056138ed83202eb4f5262f",
+          "end_line": 3,
+          "file_sha256": "e579b9cb3c99ce98837caca17b67be6bd8dbfdd5efc8099946454c9aaf160b4a",
+          "path": "research/g013_trace_calculus/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "d1a7ae58301cf7dd0409298c5269cc05fd1a4e203abddcd31af2b0bac85867ec",
+          "start_line": 3
+        },
+        {
+          "blob": "5a340654239c6b8425056138ed83202eb4f5262f",
+          "end_line": 11,
+          "file_sha256": "e579b9cb3c99ce98837caca17b67be6bd8dbfdd5efc8099946454c9aaf160b4a",
+          "path": "research/g013_trace_calculus/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "0c4ccef48b0d7c4eb0e84456f5e3b2bee2b412f039dc086b0326ef89e1f5eb50",
+          "start_line": 11
+        },
+        {
+          "blob": "5a340654239c6b8425056138ed83202eb4f5262f",
+          "end_line": 24,
+          "file_sha256": "e579b9cb3c99ce98837caca17b67be6bd8dbfdd5efc8099946454c9aaf160b4a",
+          "path": "research/g013_trace_calculus/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "b61582f1aaf6b80e57f29730b5e11678b9185142330cc35f594bc218f068c8b1",
+          "start_line": 19
+        },
+        {
+          "blob": "5a340654239c6b8425056138ed83202eb4f5262f",
+          "end_line": 31,
+          "file_sha256": "e579b9cb3c99ce98837caca17b67be6bd8dbfdd5efc8099946454c9aaf160b4a",
+          "path": "research/g013_trace_calculus/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "5e09af6c44c7674fe93c27d0f6c380915f24c0fa9f2c60c9ebcca82b5d8b9c35",
+          "start_line": 31
+        },
+        {
+          "blob": "5a340654239c6b8425056138ed83202eb4f5262f",
+          "end_line": 34,
+          "file_sha256": "e579b9cb3c99ce98837caca17b67be6bd8dbfdd5efc8099946454c9aaf160b4a",
+          "path": "research/g013_trace_calculus/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "b72f7c1de9fa9b5951778053df5c99d87785e2e79aede1574b87148961ba9bd8",
+          "start_line": 34
+        },
+        {
+          "blob": "5a340654239c6b8425056138ed83202eb4f5262f",
+          "end_line": 37,
+          "file_sha256": "e579b9cb3c99ce98837caca17b67be6bd8dbfdd5efc8099946454c9aaf160b4a",
+          "path": "research/g013_trace_calculus/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "4a4d7ae5c6b7f09765574d9f9a3ab797334029ee70be448d21eb9560b28e5be5",
+          "start_line": 37
+        }
+      ]
+    },
+    {
+      "check_ids": [
+        "verify:g012_typed_translation"
+      ],
+      "current_headlines": [
+        {
+          "id": "headline:research/g012_typed_translation/CLAIMS.md:109b79004df19d245aa1:1",
+          "source": {
+            "blob": "d179817a6fc029fa65595c0374b8c48938b6f623",
+            "end_line": 159,
+            "file_sha256": "a1a2daa49a38dac5fdcc320c660395f0bd769e133ffd405bd6efdfc1a69bec4c",
+            "path": "research/g012_typed_translation/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "109b79004df19d245aa19b43f4a5d297424481146a9488a58d42f2f85b55de64",
+            "start_line": 159
+          }
+        },
+        {
+          "id": "headline:research/g012_typed_translation/CLAIMS.md:73384509bf31852181d7:1",
+          "source": {
+            "blob": "d179817a6fc029fa65595c0374b8c48938b6f623",
+            "end_line": 32,
+            "file_sha256": "a1a2daa49a38dac5fdcc320c660395f0bd769e133ffd405bd6efdfc1a69bec4c",
+            "path": "research/g012_typed_translation/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "73384509bf31852181d710d4ff77cdd111820e148c58139c96a56250b8f50efc",
+            "start_line": 32
+          }
+        },
+        {
+          "id": "headline:research/g012_typed_translation/CLAIMS.md:81ed128d7a2e91897087:1",
+          "source": {
+            "blob": "d179817a6fc029fa65595c0374b8c48938b6f623",
+            "end_line": 167,
+            "file_sha256": "a1a2daa49a38dac5fdcc320c660395f0bd769e133ffd405bd6efdfc1a69bec4c",
+            "path": "research/g012_typed_translation/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "81ed128d7a2e918970877694671e27cd16c06da56988120388ace8fd23623757",
+            "start_line": 161
+          }
+        },
+        {
+          "id": "headline:research/g012_typed_translation/CLAIMS.md:ccf92c1cabd458f8de1a:1",
+          "source": {
+            "blob": "d179817a6fc029fa65595c0374b8c48938b6f623",
+            "end_line": 173,
+            "file_sha256": "a1a2daa49a38dac5fdcc320c660395f0bd769e133ffd405bd6efdfc1a69bec4c",
+            "path": "research/g012_typed_translation/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "ccf92c1cabd458f8de1a84749f678d8ae00f6895ed1e692cc6b14179f0203e3d",
+            "start_line": 169
+          }
+        },
+        {
+          "id": "headline:research/g012_typed_translation/CLAIMS.md:d889a020a0ac429272db:1",
+          "source": {
+            "blob": "d179817a6fc029fa65595c0374b8c48938b6f623",
+            "end_line": 13,
+            "file_sha256": "a1a2daa49a38dac5fdcc320c660395f0bd769e133ffd405bd6efdfc1a69bec4c",
+            "path": "research/g012_typed_translation/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "d889a020a0ac429272db5f13463011441fa149eb91d4ed7980b668649a51ce4e",
+            "start_line": 5
+          }
+        },
+        {
+          "id": "headline:research/g012_typed_translation/CLAIMS.md:ee2701fdd6da303596c5:1",
+          "source": {
+            "blob": "d179817a6fc029fa65595c0374b8c48938b6f623",
+            "end_line": 179,
+            "file_sha256": "a1a2daa49a38dac5fdcc320c660395f0bd769e133ffd405bd6efdfc1a69bec4c",
+            "path": "research/g012_typed_translation/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "ee2701fdd6da303596c56fc202a9829c9b5dee34ed1a7ce3dcc61feb36274bcf",
+            "start_line": 175
+          }
+        },
+        {
+          "id": "headline:research/g012_typed_translation/README.md:0c7af418556ce455f0a0:1",
+          "source": {
+            "blob": "61c0745fadc1d9da449298172936b0e1efb3396f",
+            "end_line": 91,
+            "file_sha256": "9ef23e50e0c7282dcb34337df2167a1b8ba770fc1eed0f3b38f11995690adab5",
+            "path": "research/g012_typed_translation/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "0c7af418556ce455f0a06e9827ebd75e3f9885d9558d2fb16a948012b65bb8a6",
+            "start_line": 91
+          }
+        },
+        {
+          "id": "headline:research/g012_typed_translation/README.md:316d1ca46557b56ac73b:1",
+          "source": {
+            "blob": "61c0745fadc1d9da449298172936b0e1efb3396f",
+            "end_line": 15,
+            "file_sha256": "9ef23e50e0c7282dcb34337df2167a1b8ba770fc1eed0f3b38f11995690adab5",
+            "path": "research/g012_typed_translation/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "316d1ca46557b56ac73b02c39c22ef248a6100b68986af843b82077cc578cb82",
+            "start_line": 9
+          }
+        },
+        {
+          "id": "headline:research/g012_typed_translation/README.md:c85930ce6dd0d43fc18a:1",
+          "source": {
+            "blob": "61c0745fadc1d9da449298172936b0e1efb3396f",
+            "end_line": 80,
+            "file_sha256": "9ef23e50e0c7282dcb34337df2167a1b8ba770fc1eed0f3b38f11995690adab5",
+            "path": "research/g012_typed_translation/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "c85930ce6dd0d43fc18af75c3619d4d4ad1aa1b01fd0694e0b44fa81688b7d77",
+            "start_line": 74
+          }
+        },
+        {
+          "id": "headline:research/g012_typed_translation/README.md:e7f9402e22f04b214c41:1",
+          "source": {
+            "blob": "61c0745fadc1d9da449298172936b0e1efb3396f",
+            "end_line": 100,
+            "file_sha256": "9ef23e50e0c7282dcb34337df2167a1b8ba770fc1eed0f3b38f11995690adab5",
+            "path": "research/g012_typed_translation/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "e7f9402e22f04b214c41a681223528410db8a30e29fa511deca2bf5832a0d54d",
+            "start_line": 93
+          }
+        },
+        {
+          "id": "headline:research/g012_typed_translation/README.md:e96594601e7ed4d4413a:1",
+          "source": {
+            "blob": "61c0745fadc1d9da449298172936b0e1efb3396f",
+            "end_line": 85,
+            "file_sha256": "9ef23e50e0c7282dcb34337df2167a1b8ba770fc1eed0f3b38f11995690adab5",
+            "path": "research/g012_typed_translation/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "e96594601e7ed4d4413a115c1fd7f4cd4f40e140ba40c4c840b1d8e46c3dfac5",
+            "start_line": 81
+          }
+        }
+      ],
+      "disposition": "IMPLEMENTATION_AND_SCOPE_REPAIRED",
+      "evidence_gap": "This is a source-scope correction and check receipt, not a new proof of the remaining mathematical obligations.",
+      "historical_handoff_id": "handoff:codec_native",
+      "id": "correction:codec_native",
+      "mathematical_status": "OPEN",
+      "remaining_obligations": "Positive native maps still require a stated source domain and proved codec/transition laws; no theorem identifies the two codec implementations.",
+      "scope": "Lean proves local codec laws on packaged typed tokens; Python parses a separate string carrier. NativeAdmission.no_roundtrip_commuting_trace_cycle proves that a nontrivial cycle has no left-invertible state encoding commuting with finite sealed admission traces.",
+      "source_class": "metatheory apparatus",
+      "sources": [
+        {
+          "blob": "d179817a6fc029fa65595c0374b8c48938b6f623",
+          "end_line": 13,
+          "file_sha256": "a1a2daa49a38dac5fdcc320c660395f0bd769e133ffd405bd6efdfc1a69bec4c",
+          "path": "research/g012_typed_translation/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "d889a020a0ac429272db5f13463011441fa149eb91d4ed7980b668649a51ce4e",
+          "start_line": 5
+        },
+        {
+          "blob": "d179817a6fc029fa65595c0374b8c48938b6f623",
+          "end_line": 32,
+          "file_sha256": "a1a2daa49a38dac5fdcc320c660395f0bd769e133ffd405bd6efdfc1a69bec4c",
+          "path": "research/g012_typed_translation/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "73384509bf31852181d710d4ff77cdd111820e148c58139c96a56250b8f50efc",
+          "start_line": 32
+        },
+        {
+          "blob": "d179817a6fc029fa65595c0374b8c48938b6f623",
+          "end_line": 159,
+          "file_sha256": "a1a2daa49a38dac5fdcc320c660395f0bd769e133ffd405bd6efdfc1a69bec4c",
+          "path": "research/g012_typed_translation/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "109b79004df19d245aa19b43f4a5d297424481146a9488a58d42f2f85b55de64",
+          "start_line": 159
+        },
+        {
+          "blob": "d179817a6fc029fa65595c0374b8c48938b6f623",
+          "end_line": 167,
+          "file_sha256": "a1a2daa49a38dac5fdcc320c660395f0bd769e133ffd405bd6efdfc1a69bec4c",
+          "path": "research/g012_typed_translation/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "81ed128d7a2e918970877694671e27cd16c06da56988120388ace8fd23623757",
+          "start_line": 161
+        },
+        {
+          "blob": "d179817a6fc029fa65595c0374b8c48938b6f623",
+          "end_line": 173,
+          "file_sha256": "a1a2daa49a38dac5fdcc320c660395f0bd769e133ffd405bd6efdfc1a69bec4c",
+          "path": "research/g012_typed_translation/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "ccf92c1cabd458f8de1a84749f678d8ae00f6895ed1e692cc6b14179f0203e3d",
+          "start_line": 169
+        },
+        {
+          "blob": "d179817a6fc029fa65595c0374b8c48938b6f623",
+          "end_line": 179,
+          "file_sha256": "a1a2daa49a38dac5fdcc320c660395f0bd769e133ffd405bd6efdfc1a69bec4c",
+          "path": "research/g012_typed_translation/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "ee2701fdd6da303596c56fc202a9829c9b5dee34ed1a7ce3dcc61feb36274bcf",
+          "start_line": 175
+        },
+        {
+          "blob": "61c0745fadc1d9da449298172936b0e1efb3396f",
+          "end_line": 15,
+          "file_sha256": "9ef23e50e0c7282dcb34337df2167a1b8ba770fc1eed0f3b38f11995690adab5",
+          "path": "research/g012_typed_translation/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "316d1ca46557b56ac73b02c39c22ef248a6100b68986af843b82077cc578cb82",
+          "start_line": 9
+        },
+        {
+          "blob": "61c0745fadc1d9da449298172936b0e1efb3396f",
+          "end_line": 80,
+          "file_sha256": "9ef23e50e0c7282dcb34337df2167a1b8ba770fc1eed0f3b38f11995690adab5",
+          "path": "research/g012_typed_translation/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "c85930ce6dd0d43fc18af75c3619d4d4ad1aa1b01fd0694e0b44fa81688b7d77",
+          "start_line": 74
+        },
+        {
+          "blob": "61c0745fadc1d9da449298172936b0e1efb3396f",
+          "end_line": 85,
+          "file_sha256": "9ef23e50e0c7282dcb34337df2167a1b8ba770fc1eed0f3b38f11995690adab5",
+          "path": "research/g012_typed_translation/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "e96594601e7ed4d4413a115c1fd7f4cd4f40e140ba40c4c840b1d8e46c3dfac5",
+          "start_line": 81
+        },
+        {
+          "blob": "61c0745fadc1d9da449298172936b0e1efb3396f",
+          "end_line": 91,
+          "file_sha256": "9ef23e50e0c7282dcb34337df2167a1b8ba770fc1eed0f3b38f11995690adab5",
+          "path": "research/g012_typed_translation/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "0c7af418556ce455f0a06e9827ebd75e3f9885d9558d2fb16a948012b65bb8a6",
+          "start_line": 91
+        },
+        {
+          "blob": "61c0745fadc1d9da449298172936b0e1efb3396f",
+          "end_line": 100,
+          "file_sha256": "9ef23e50e0c7282dcb34337df2167a1b8ba770fc1eed0f3b38f11995690adab5",
+          "path": "research/g012_typed_translation/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "e7f9402e22f04b214c41a681223528410db8a30e29fa511deca2bf5832a0d54d",
+          "start_line": 93
+        }
+      ]
+    },
+    {
+      "check_ids": [
+        "verify:paper-citations"
+      ],
+      "current_headlines": [
+        {
+          "id": "headline:paper/native_derivation_completion.md:e4e0518883e7056e5b32:1",
+          "source": {
+            "blob": "41ed71ff75de9b8a1946271aaf7d35101185111a",
+            "end_line": 603,
+            "file_sha256": "68d1b5c372a5c05a9818f28f187232b3d52e7085d57e4531a72566257cde74d4",
+            "path": "paper/native_derivation_completion.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "e4e0518883e7056e5b328dd0bbfbfd2af22d69daf4a14728e94b9bed33c17ad8",
+            "start_line": 593
+          }
+        }
+      ],
+      "disposition": "WORDING_NARROWED",
+      "evidence_gap": "This is a source-scope correction and check receipt, not a new proof of the remaining mathematical obligations.",
+      "historical_handoff_id": "handoff:initial_descriptor",
+      "id": "correction:initial_descriptor",
+      "mathematical_status": "OPEN",
+      "remaining_obligations": "A universal property still needs defined arrows and a proof.",
+      "scope": "The terminal descriptor is uniquely probe-compliant in its declared 64-member descriptor class; the conclusion no longer calls it initial.",
+      "source_class": "metatheory apparatus",
+      "sources": [
+        {
+          "blob": "41ed71ff75de9b8a1946271aaf7d35101185111a",
+          "end_line": 603,
+          "file_sha256": "68d1b5c372a5c05a9818f28f187232b3d52e7085d57e4531a72566257cde74d4",
+          "path": "paper/native_derivation_completion.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "e4e0518883e7056e5b328dd0bbfbfd2af22d69daf4a14728e94b9bed33c17ad8",
+          "start_line": 593
+        }
+      ]
+    },
+    {
+      "check_ids": [
+        "verify:p209b_clifford_symplectic"
+      ],
+      "current_headlines": [
+        {
+          "id": "headline:research/p209b_clifford_symplectic/CLAIMS.md:1b99810740bc5993efe1:1",
+          "source": {
+            "blob": "2ff937b63a520251d93196a88aa5759f7cc79273",
+            "end_line": 12,
+            "file_sha256": "244d01a81a3063f44d79b35c5f72517994528bfc514363739fedfe9c20336dac",
+            "path": "research/p209b_clifford_symplectic/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "1b99810740bc5993efe18fab38ca52a83ed79719e585f6397a575ca757bbcdf6",
+            "start_line": 12
+          }
+        },
+        {
+          "id": "headline:research/p209b_clifford_symplectic/CLAIMS.md:2f6b43ddeebb9889ba0d:1",
+          "source": {
+            "blob": "2ff937b63a520251d93196a88aa5759f7cc79273",
+            "end_line": 66,
+            "file_sha256": "244d01a81a3063f44d79b35c5f72517994528bfc514363739fedfe9c20336dac",
+            "path": "research/p209b_clifford_symplectic/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "2f6b43ddeebb9889ba0dff59cc1eea632e4803389582cf7f2073fc352c2e9bb4",
+            "start_line": 66
+          }
+        },
+        {
+          "id": "headline:research/p209b_clifford_symplectic/CLAIMS.md:671b0cd2aee94042cbe7:1",
+          "source": {
+            "blob": "2ff937b63a520251d93196a88aa5759f7cc79273",
+            "end_line": 74,
+            "file_sha256": "244d01a81a3063f44d79b35c5f72517994528bfc514363739fedfe9c20336dac",
+            "path": "research/p209b_clifford_symplectic/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "671b0cd2aee94042cbe78a82addc3536f0c9463ae0e1940cabcd782451732f4f",
+            "start_line": 70
+          }
+        },
+        {
+          "id": "headline:research/p209b_clifford_symplectic/CLAIMS.md:910a0f363484bb1715a5:1",
+          "source": {
+            "blob": "2ff937b63a520251d93196a88aa5759f7cc79273",
+            "end_line": 39,
+            "file_sha256": "244d01a81a3063f44d79b35c5f72517994528bfc514363739fedfe9c20336dac",
+            "path": "research/p209b_clifford_symplectic/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "910a0f363484bb1715a5d724484ec937f464780a92c0e49dc41e741c87349ebb",
+            "start_line": 39
+          }
+        },
+        {
+          "id": "headline:research/p209b_clifford_symplectic/CLAIMS.md:9989cee9673eaa5370ce:1",
+          "source": {
+            "blob": "2ff937b63a520251d93196a88aa5759f7cc79273",
+            "end_line": 60,
+            "file_sha256": "244d01a81a3063f44d79b35c5f72517994528bfc514363739fedfe9c20336dac",
+            "path": "research/p209b_clifford_symplectic/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "9989cee9673eaa5370ce86b86b95e440d473adeb112b097239c53df516ac1019",
+            "start_line": 56
+          }
+        },
+        {
+          "id": "headline:research/p209b_clifford_symplectic/CLAIMS.md:c1c755c177c95c5468c4:1",
+          "source": {
+            "blob": "2ff937b63a520251d93196a88aa5759f7cc79273",
+            "end_line": 93,
+            "file_sha256": "244d01a81a3063f44d79b35c5f72517994528bfc514363739fedfe9c20336dac",
+            "path": "research/p209b_clifford_symplectic/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "c1c755c177c95c5468c40ceb7ca87ca731b98649c1c1896a936d7539508d4ffa",
+            "start_line": 89
+          }
+        },
+        {
+          "id": "headline:research/p209b_clifford_symplectic/README.md:0977c2a2c318dea82d13:1",
+          "source": {
+            "blob": "ce6b3e1e0875b893a6d64c530dc640f4289c7134",
+            "end_line": 38,
+            "file_sha256": "8e8750c914d0a115e931e8abeb60b871b6dace51293effe5dc7566fff1b71d06",
+            "path": "research/p209b_clifford_symplectic/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "0977c2a2c318dea82d13fdc66c17b095896a19cf6ea148d8840798acec8d6958",
+            "start_line": 35
+          }
+        },
+        {
+          "id": "headline:research/p209b_clifford_symplectic/README.md:ac40327d5d7335231398:1",
+          "source": {
+            "blob": "ce6b3e1e0875b893a6d64c530dc640f4289c7134",
+            "end_line": 19,
+            "file_sha256": "8e8750c914d0a115e931e8abeb60b871b6dace51293effe5dc7566fff1b71d06",
+            "path": "research/p209b_clifford_symplectic/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "ac40327d5d7335231398f08ad11fde6162039bafa77574242e27d8dcbfcd2199",
+            "start_line": 15
+          }
+        },
+        {
+          "id": "headline:research/p209b_clifford_symplectic/README.md:b947f6b1f2552b2a644e:1",
+          "source": {
+            "blob": "ce6b3e1e0875b893a6d64c530dc640f4289c7134",
+            "end_line": 46,
+            "file_sha256": "8e8750c914d0a115e931e8abeb60b871b6dace51293effe5dc7566fff1b71d06",
+            "path": "research/p209b_clifford_symplectic/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "b947f6b1f2552b2a644e74a0b95e3654d498d2b7eadfefa7534fd665bec4bf95",
+            "start_line": 46
+          }
+        },
+        {
+          "id": "headline:research/p209b_clifford_symplectic/README.md:e82074a5e718d24e90d7:1",
+          "source": {
+            "blob": "ce6b3e1e0875b893a6d64c530dc640f4289c7134",
+            "end_line": 5,
+            "file_sha256": "8e8750c914d0a115e931e8abeb60b871b6dace51293effe5dc7566fff1b71d06",
+            "path": "research/p209b_clifford_symplectic/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "e82074a5e718d24e90d7d8af1b96a929a3f9e548eb508bf024c20442fc0739c4",
+            "start_line": 5
+          }
+        }
+      ],
+      "disposition": "WORDING_NARROWED",
+      "evidence_gap": "This is a source-scope correction and check receipt, not a new proof of the remaining mathematical obligations.",
+      "historical_handoff_id": "handoff:matrix_scope",
+      "id": "correction:matrix_scope",
+      "mathematical_status": "OPEN",
+      "remaining_obligations": "A code, logical action and quotient interpretation have not been constructed.",
+      "scope": "Lean proves facts about six explicit matrices modulo 2 and their generated closure. Python separately enumerates the modulus-3 family.",
+      "source_class": "metatheory apparatus",
+      "sources": [
+        {
+          "blob": "2ff937b63a520251d93196a88aa5759f7cc79273",
+          "end_line": 12,
+          "file_sha256": "244d01a81a3063f44d79b35c5f72517994528bfc514363739fedfe9c20336dac",
+          "path": "research/p209b_clifford_symplectic/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "1b99810740bc5993efe18fab38ca52a83ed79719e585f6397a575ca757bbcdf6",
+          "start_line": 12
+        },
+        {
+          "blob": "2ff937b63a520251d93196a88aa5759f7cc79273",
+          "end_line": 39,
+          "file_sha256": "244d01a81a3063f44d79b35c5f72517994528bfc514363739fedfe9c20336dac",
+          "path": "research/p209b_clifford_symplectic/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "910a0f363484bb1715a5d724484ec937f464780a92c0e49dc41e741c87349ebb",
+          "start_line": 39
+        },
+        {
+          "blob": "2ff937b63a520251d93196a88aa5759f7cc79273",
+          "end_line": 60,
+          "file_sha256": "244d01a81a3063f44d79b35c5f72517994528bfc514363739fedfe9c20336dac",
+          "path": "research/p209b_clifford_symplectic/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "9989cee9673eaa5370ce86b86b95e440d473adeb112b097239c53df516ac1019",
+          "start_line": 56
+        },
+        {
+          "blob": "2ff937b63a520251d93196a88aa5759f7cc79273",
+          "end_line": 66,
+          "file_sha256": "244d01a81a3063f44d79b35c5f72517994528bfc514363739fedfe9c20336dac",
+          "path": "research/p209b_clifford_symplectic/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "2f6b43ddeebb9889ba0dff59cc1eea632e4803389582cf7f2073fc352c2e9bb4",
+          "start_line": 66
+        },
+        {
+          "blob": "2ff937b63a520251d93196a88aa5759f7cc79273",
+          "end_line": 74,
+          "file_sha256": "244d01a81a3063f44d79b35c5f72517994528bfc514363739fedfe9c20336dac",
+          "path": "research/p209b_clifford_symplectic/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "671b0cd2aee94042cbe78a82addc3536f0c9463ae0e1940cabcd782451732f4f",
+          "start_line": 70
+        },
+        {
+          "blob": "2ff937b63a520251d93196a88aa5759f7cc79273",
+          "end_line": 93,
+          "file_sha256": "244d01a81a3063f44d79b35c5f72517994528bfc514363739fedfe9c20336dac",
+          "path": "research/p209b_clifford_symplectic/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "c1c755c177c95c5468c40ceb7ca87ca731b98649c1c1896a936d7539508d4ffa",
+          "start_line": 89
+        },
+        {
+          "blob": "ce6b3e1e0875b893a6d64c530dc640f4289c7134",
+          "end_line": 5,
+          "file_sha256": "8e8750c914d0a115e931e8abeb60b871b6dace51293effe5dc7566fff1b71d06",
+          "path": "research/p209b_clifford_symplectic/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "e82074a5e718d24e90d7d8af1b96a929a3f9e548eb508bf024c20442fc0739c4",
+          "start_line": 5
+        },
+        {
+          "blob": "ce6b3e1e0875b893a6d64c530dc640f4289c7134",
+          "end_line": 19,
+          "file_sha256": "8e8750c914d0a115e931e8abeb60b871b6dace51293effe5dc7566fff1b71d06",
+          "path": "research/p209b_clifford_symplectic/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "ac40327d5d7335231398f08ad11fde6162039bafa77574242e27d8dcbfcd2199",
+          "start_line": 15
+        },
+        {
+          "blob": "ce6b3e1e0875b893a6d64c530dc640f4289c7134",
+          "end_line": 38,
+          "file_sha256": "8e8750c914d0a115e931e8abeb60b871b6dace51293effe5dc7566fff1b71d06",
+          "path": "research/p209b_clifford_symplectic/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "0977c2a2c318dea82d13fdc66c17b095896a19cf6ea148d8840798acec8d6958",
+          "start_line": 35
+        },
+        {
+          "blob": "ce6b3e1e0875b893a6d64c530dc640f4289c7134",
+          "end_line": 46,
+          "file_sha256": "8e8750c914d0a115e931e8abeb60b871b6dace51293effe5dc7566fff1b71d06",
+          "path": "research/p209b_clifford_symplectic/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "b947f6b1f2552b2a644e74a0b95e3654d498d2b7eadfefa7534fd665bec4bf95",
+          "start_line": 46
+        }
+      ]
+    },
+    {
+      "check_ids": [
+        "verify:x310_vertical_integration"
+      ],
+      "current_headlines": [
+        {
+          "id": "headline:research/x310_vertical_integration/CLAIMS.md:63ea118c154e4af1fccc:1",
+          "source": {
+            "blob": "ffd3a4ee8a281e49ad608f3eb288603843e56694",
+            "end_line": 13,
+            "file_sha256": "49fb8d8b404f8e1962f3eb3affa98e8c15abc0f18e0adf98160459d5c59e750c",
+            "path": "research/x310_vertical_integration/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "63ea118c154e4af1fccc0f000e21f08b6467848189f272c3c56d32593c6a775d",
+            "start_line": 10
+          }
+        },
+        {
+          "id": "headline:research/x310_vertical_integration/CLAIMS.md:900b7eb04b6e64ea79d3:1",
+          "source": {
+            "blob": "ffd3a4ee8a281e49ad608f3eb288603843e56694",
+            "end_line": 35,
+            "file_sha256": "49fb8d8b404f8e1962f3eb3affa98e8c15abc0f18e0adf98160459d5c59e750c",
+            "path": "research/x310_vertical_integration/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "900b7eb04b6e64ea79d3ccfa00906d6609f9d6eabcb4f28f0b638422964894cc",
+            "start_line": 31
+          }
+        }
+      ],
+      "disposition": "IMPLEMENTATION_AND_SCOPE_REPAIRED",
+      "evidence_gap": "This is a source-scope correction and check receipt, not a new proof of the remaining mathematical obligations.",
+      "historical_handoff_id": "handoff:pipeline_native",
+      "id": "correction:pipeline_native",
+      "mathematical_status": "OPEN",
+      "remaining_obligations": "Count equality is not equality of complete relational states; encode/decode on a stated native domain with transition commutation remains open.",
+      "scope": "The square starts from the supplied carrier and compares four counts after up to two declared additions; empty and saturated inputs give identity steps.",
+      "source_class": "metatheory apparatus",
+      "sources": [
+        {
+          "blob": "ffd3a4ee8a281e49ad608f3eb288603843e56694",
+          "end_line": 13,
+          "file_sha256": "49fb8d8b404f8e1962f3eb3affa98e8c15abc0f18e0adf98160459d5c59e750c",
+          "path": "research/x310_vertical_integration/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "63ea118c154e4af1fccc0f000e21f08b6467848189f272c3c56d32593c6a775d",
+          "start_line": 10
+        },
+        {
+          "blob": "ffd3a4ee8a281e49ad608f3eb288603843e56694",
+          "end_line": 35,
+          "file_sha256": "49fb8d8b404f8e1962f3eb3affa98e8c15abc0f18e0adf98160459d5c59e750c",
+          "path": "research/x310_vertical_integration/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "900b7eb04b6e64ea79d3ccfa00906d6609f9d6eabcb4f28f0b638422964894cc",
+          "start_line": 31
+        }
+      ]
+    },
+    {
+      "check_ids": [
+        "verify:p209a_wigner_phase_space"
+      ],
+      "current_headlines": [
+        {
+          "id": "headline:research/p209a_wigner_phase_space/CLAIMS.md:0545f247e7ad697bf1b2:1",
+          "source": {
+            "blob": "d960e9dacfa7d328caa44e0ecd407b916b3c2121",
+            "end_line": 118,
+            "file_sha256": "912a86cceab162d3d93214a717a27a59817ccdfa6683e404c7a5056a95075ecd",
+            "path": "research/p209a_wigner_phase_space/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "0545f247e7ad697bf1b2af1d5eac99d046bb5636e320d03fbf663e7e270ceab5",
+            "start_line": 118
+          }
+        },
+        {
+          "id": "headline:research/p209a_wigner_phase_space/CLAIMS.md:1c58031e216c6f3a7830:1",
+          "source": {
+            "blob": "d960e9dacfa7d328caa44e0ecd407b916b3c2121",
+            "end_line": 134,
+            "file_sha256": "912a86cceab162d3d93214a717a27a59817ccdfa6683e404c7a5056a95075ecd",
+            "path": "research/p209a_wigner_phase_space/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "1c58031e216c6f3a7830b2a76ec430e93467f77b07a35bbc4f5cd44d3f398078",
+            "start_line": 134
+          }
+        },
+        {
+          "id": "headline:research/p209a_wigner_phase_space/CLAIMS.md:d9b79ed4771dc50d6e5d:1",
+          "source": {
+            "blob": "d960e9dacfa7d328caa44e0ecd407b916b3c2121",
+            "end_line": 128,
+            "file_sha256": "912a86cceab162d3d93214a717a27a59817ccdfa6683e404c7a5056a95075ecd",
+            "path": "research/p209a_wigner_phase_space/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "d9b79ed4771dc50d6e5d145453febaed625b073e1dae141396e5afba56fdf75c",
+            "start_line": 124
+          }
+        },
+        {
+          "id": "headline:research/p209a_wigner_phase_space/CLAIMS.md:fad7a1bdd266be5cbb46:1",
+          "source": {
+            "blob": "d960e9dacfa7d328caa44e0ecd407b916b3c2121",
+            "end_line": 135,
+            "file_sha256": "912a86cceab162d3d93214a717a27a59817ccdfa6683e404c7a5056a95075ecd",
+            "path": "research/p209a_wigner_phase_space/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "fad7a1bdd266be5cbb46f2b09fbe4585220097ae39ce580b241226d3327c9e9a",
+            "start_line": 135
+          }
+        },
+        {
+          "id": "headline:research/p209a_wigner_phase_space/README.md:c301ea71db15e67c2f0f:1",
+          "source": {
+            "blob": "35b45c2aeb6aaf2d7315d4161aa02c8a246939f0",
+            "end_line": 53,
+            "file_sha256": "4eb71c54a8e6ee37e9d1a5cd061456757b99d7716d5cdcbf6ca663ac878dddc4",
+            "path": "research/p209a_wigner_phase_space/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "c301ea71db15e67c2f0ffdbaa046aa487e79b008aa144ee4a25fd32e792401d3",
+            "start_line": 53
+          }
+        },
+        {
+          "id": "headline:research/p209a_wigner_phase_space/README.md:de79ff85e35d231405f5:1",
+          "source": {
+            "blob": "35b45c2aeb6aaf2d7315d4161aa02c8a246939f0",
+            "end_line": 5,
+            "file_sha256": "4eb71c54a8e6ee37e9d1a5cd061456757b99d7716d5cdcbf6ca663ac878dddc4",
+            "path": "research/p209a_wigner_phase_space/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "de79ff85e35d231405f51a9803f60c394383db09b03f0b7044a950986e2021dc",
+            "start_line": 5
+          }
+        },
+        {
+          "id": "headline:research/p209a_wigner_phase_space/README.md:e148e474249fa9215be1:1",
+          "source": {
+            "blob": "35b45c2aeb6aaf2d7315d4161aa02c8a246939f0",
+            "end_line": 51,
+            "file_sha256": "4eb71c54a8e6ee37e9d1a5cd061456757b99d7716d5cdcbf6ca663ac878dddc4",
+            "path": "research/p209a_wigner_phase_space/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "e148e474249fa9215be1c6f9f015af328baa559852744a9e592259e7510caa23",
+            "start_line": 47
+          }
+        }
+      ],
+      "disposition": "WORDING_NARROWED",
+      "evidence_gap": "This is a source-scope correction and check receipt, not a new proof of the remaining mathematical obligations.",
+      "historical_handoff_id": "handoff:point_value_scope",
+      "id": "correction:point_value_scope",
+      "mathematical_status": "OPEN",
+      "remaining_obligations": "The state-to-value identity needs its own Lean proof; reconstruction is Python evidence over the finite fixture domain.",
+      "scope": "Explicit parity facts and negativity of separately defined rational values are checked.",
+      "source_class": "metatheory apparatus",
+      "sources": [
+        {
+          "blob": "d960e9dacfa7d328caa44e0ecd407b916b3c2121",
+          "end_line": 118,
+          "file_sha256": "912a86cceab162d3d93214a717a27a59817ccdfa6683e404c7a5056a95075ecd",
+          "path": "research/p209a_wigner_phase_space/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "0545f247e7ad697bf1b2af1d5eac99d046bb5636e320d03fbf663e7e270ceab5",
+          "start_line": 118
+        },
+        {
+          "blob": "d960e9dacfa7d328caa44e0ecd407b916b3c2121",
+          "end_line": 128,
+          "file_sha256": "912a86cceab162d3d93214a717a27a59817ccdfa6683e404c7a5056a95075ecd",
+          "path": "research/p209a_wigner_phase_space/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "d9b79ed4771dc50d6e5d145453febaed625b073e1dae141396e5afba56fdf75c",
+          "start_line": 124
+        },
+        {
+          "blob": "d960e9dacfa7d328caa44e0ecd407b916b3c2121",
+          "end_line": 134,
+          "file_sha256": "912a86cceab162d3d93214a717a27a59817ccdfa6683e404c7a5056a95075ecd",
+          "path": "research/p209a_wigner_phase_space/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "1c58031e216c6f3a7830b2a76ec430e93467f77b07a35bbc4f5cd44d3f398078",
+          "start_line": 134
+        },
+        {
+          "blob": "d960e9dacfa7d328caa44e0ecd407b916b3c2121",
+          "end_line": 135,
+          "file_sha256": "912a86cceab162d3d93214a717a27a59817ccdfa6683e404c7a5056a95075ecd",
+          "path": "research/p209a_wigner_phase_space/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "fad7a1bdd266be5cbb46f2b09fbe4585220097ae39ce580b241226d3327c9e9a",
+          "start_line": 135
+        },
+        {
+          "blob": "35b45c2aeb6aaf2d7315d4161aa02c8a246939f0",
+          "end_line": 5,
+          "file_sha256": "4eb71c54a8e6ee37e9d1a5cd061456757b99d7716d5cdcbf6ca663ac878dddc4",
+          "path": "research/p209a_wigner_phase_space/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "de79ff85e35d231405f51a9803f60c394383db09b03f0b7044a950986e2021dc",
+          "start_line": 5
+        },
+        {
+          "blob": "35b45c2aeb6aaf2d7315d4161aa02c8a246939f0",
+          "end_line": 51,
+          "file_sha256": "4eb71c54a8e6ee37e9d1a5cd061456757b99d7716d5cdcbf6ca663ac878dddc4",
+          "path": "research/p209a_wigner_phase_space/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "e148e474249fa9215be1c6f9f015af328baa559852744a9e592259e7510caa23",
+          "start_line": 47
+        },
+        {
+          "blob": "35b45c2aeb6aaf2d7315d4161aa02c8a246939f0",
+          "end_line": 53,
+          "file_sha256": "4eb71c54a8e6ee37e9d1a5cd061456757b99d7716d5cdcbf6ca663ac878dddc4",
+          "path": "research/p209a_wigner_phase_space/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "c301ea71db15e67c2f0ffdbaa046aa487e79b008aa144ee4a25fd32e792401d3",
+          "start_line": 53
+        }
+      ]
+    },
+    {
+      "check_ids": [
+        "verify:paper-citations",
+        "verify:prose-watchlist"
+      ],
+      "current_headlines": [
+        {
+          "id": "headline:paper/paper.md:1baabcd1d5b23f329bf2:1",
+          "source": {
+            "blob": "8213c5fc10ed7707ff2563cf5d0ee8083800bc0d",
+            "end_line": 930,
+            "file_sha256": "8e0a3f2333e9ae5740b26c59f88fd41cd1ee9c9b92ca4f0a19dad53747ddf3cd",
+            "path": "paper/paper.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "1baabcd1d5b23f329bf213eaac09719d6d2f44bef43a83818977ea2dbbfc4afe",
+            "start_line": 925
+          }
+        },
+        {
+          "id": "headline:paper/paper.md:21de77a375237632c987:1",
+          "source": {
+            "blob": "8213c5fc10ed7707ff2563cf5d0ee8083800bc0d",
+            "end_line": 937,
+            "file_sha256": "8e0a3f2333e9ae5740b26c59f88fd41cd1ee9c9b92ca4f0a19dad53747ddf3cd",
+            "path": "paper/paper.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "21de77a375237632c987f9cfc5b707c4fb16a02b3a7f1346a27068b02787e9b4",
+            "start_line": 932
+          }
+        },
+        {
+          "id": "headline:paper/paper.md:21e080166c22f875d284:1",
+          "source": {
+            "blob": "8213c5fc10ed7707ff2563cf5d0ee8083800bc0d",
+            "end_line": 923,
+            "file_sha256": "8e0a3f2333e9ae5740b26c59f88fd41cd1ee9c9b92ca4f0a19dad53747ddf3cd",
+            "path": "paper/paper.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "21e080166c22f875d2842f721c0382b793b0cd8eaefc898cb7ccd60a5d8aa7cf",
+            "start_line": 915
+          }
+        },
+        {
+          "id": "headline:paper/paper.md:882975888d7c7685c821:1",
+          "source": {
+            "blob": "8213c5fc10ed7707ff2563cf5d0ee8083800bc0d",
+            "end_line": 904,
+            "file_sha256": "8e0a3f2333e9ae5740b26c59f88fd41cd1ee9c9b92ca4f0a19dad53747ddf3cd",
+            "path": "paper/paper.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "882975888d7c7685c821a900f5cb7df9e1f05a760b0cdce001ae09306e293fd9",
+            "start_line": 900
+          }
+        }
+      ],
+      "disposition": "AUTHOR_POLICY_RULING",
+      "evidence_gap": "This is a source-scope correction and check receipt, not a new proof of the remaining mathematical obligations.",
+      "historical_handoff_id": "handoff:policy_custody",
+      "id": "correction:policy_custody",
+      "mathematical_status": "OPEN",
+      "remaining_obligations": "No mathematical bridge follows from the policy decision; sealed derivational inputs, external citations and scanner populations keep their restrictions.",
+      "scope": "The author approved the 2026-09-23 vocabulary ruling recorded in CLAUDE.md, its history and paper section 13; the six existing fenced comparisons keep their historical positions.",
+      "source_class": "metatheory apparatus",
+      "sources": [
+        {
+          "blob": "8213c5fc10ed7707ff2563cf5d0ee8083800bc0d",
+          "end_line": 904,
+          "file_sha256": "8e0a3f2333e9ae5740b26c59f88fd41cd1ee9c9b92ca4f0a19dad53747ddf3cd",
+          "path": "paper/paper.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "882975888d7c7685c821a900f5cb7df9e1f05a760b0cdce001ae09306e293fd9",
+          "start_line": 900
+        },
+        {
+          "blob": "8213c5fc10ed7707ff2563cf5d0ee8083800bc0d",
+          "end_line": 923,
+          "file_sha256": "8e0a3f2333e9ae5740b26c59f88fd41cd1ee9c9b92ca4f0a19dad53747ddf3cd",
+          "path": "paper/paper.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "21e080166c22f875d2842f721c0382b793b0cd8eaefc898cb7ccd60a5d8aa7cf",
+          "start_line": 915
+        },
+        {
+          "blob": "8213c5fc10ed7707ff2563cf5d0ee8083800bc0d",
+          "end_line": 930,
+          "file_sha256": "8e0a3f2333e9ae5740b26c59f88fd41cd1ee9c9b92ca4f0a19dad53747ddf3cd",
+          "path": "paper/paper.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "1baabcd1d5b23f329bf213eaac09719d6d2f44bef43a83818977ea2dbbfc4afe",
+          "start_line": 925
+        },
+        {
+          "blob": "8213c5fc10ed7707ff2563cf5d0ee8083800bc0d",
+          "end_line": 937,
+          "file_sha256": "8e0a3f2333e9ae5740b26c59f88fd41cd1ee9c9b92ca4f0a19dad53747ddf3cd",
+          "path": "paper/paper.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "21de77a375237632c987f9cfc5b707c4fb16a02b3a7f1346a27068b02787e9b4",
+          "start_line": 932
+        }
+      ]
+    },
+    {
+      "check_ids": [
+        "verify:p209d_nonclassical_horizons"
+      ],
+      "current_headlines": [
+        {
+          "id": "headline:research/p209d_nonclassical_horizons/CLAIMS.md:0636685462a44df663d2:1",
+          "source": {
+            "blob": "26e5874ff19f52c74b8956811912aa8731ed4d97",
+            "end_line": 80,
+            "file_sha256": "c1367b96a2abd60eb681ca8b1e35bebfed40e486dba4fcc336eda9be2e3073c4",
+            "path": "research/p209d_nonclassical_horizons/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "0636685462a44df663d20692b7bcf84d749c21a0f204ab754ce468bcf45c852d",
+            "start_line": 80
+          }
+        },
+        {
+          "id": "headline:research/p209d_nonclassical_horizons/CLAIMS.md:174b308e02ce725573ac:1",
+          "source": {
+            "blob": "26e5874ff19f52c74b8956811912aa8731ed4d97",
+            "end_line": 113,
+            "file_sha256": "c1367b96a2abd60eb681ca8b1e35bebfed40e486dba4fcc336eda9be2e3073c4",
+            "path": "research/p209d_nonclassical_horizons/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "174b308e02ce725573ac052d4b4177dfbec9b49038995283735ff3709fb0efea",
+            "start_line": 109
+          }
+        },
+        {
+          "id": "headline:research/p209d_nonclassical_horizons/CLAIMS.md:3f16208863dae892776d:1",
+          "source": {
+            "blob": "26e5874ff19f52c74b8956811912aa8731ed4d97",
+            "end_line": 61,
+            "file_sha256": "c1367b96a2abd60eb681ca8b1e35bebfed40e486dba4fcc336eda9be2e3073c4",
+            "path": "research/p209d_nonclassical_horizons/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "3f16208863dae892776d2e62db6ce685e57ca475b0cbcc0fde9044e8a42ece07",
+            "start_line": 61
+          }
+        },
+        {
+          "id": "headline:research/p209d_nonclassical_horizons/CLAIMS.md:4caffaabdf48823e9182:1",
+          "source": {
+            "blob": "26e5874ff19f52c74b8956811912aa8731ed4d97",
+            "end_line": 99,
+            "file_sha256": "c1367b96a2abd60eb681ca8b1e35bebfed40e486dba4fcc336eda9be2e3073c4",
+            "path": "research/p209d_nonclassical_horizons/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "4caffaabdf48823e91822c064725aba967bdb38537dd94c5cfcd78f9d04e978b",
+            "start_line": 95
+          }
+        },
+        {
+          "id": "headline:research/p209d_nonclassical_horizons/CLAIMS.md:9709ab32dde8e0e264c0:1",
+          "source": {
+            "blob": "26e5874ff19f52c74b8956811912aa8731ed4d97",
+            "end_line": 76,
+            "file_sha256": "c1367b96a2abd60eb681ca8b1e35bebfed40e486dba4fcc336eda9be2e3073c4",
+            "path": "research/p209d_nonclassical_horizons/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "9709ab32dde8e0e264c0d252531815ec9437a066b33a3e624b63b9d3904b539e",
+            "start_line": 72
+          }
+        },
+        {
+          "id": "headline:research/p209d_nonclassical_horizons/CLAIMS.md:bfcd82944403fec675b8:1",
+          "source": {
+            "blob": "26e5874ff19f52c74b8956811912aa8731ed4d97",
+            "end_line": 82,
+            "file_sha256": "c1367b96a2abd60eb681ca8b1e35bebfed40e486dba4fcc336eda9be2e3073c4",
+            "path": "research/p209d_nonclassical_horizons/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "bfcd82944403fec675b833eae71a5f965564fa7b107e133aa9c7cb58078c6d96",
+            "start_line": 82
+          }
+        },
+        {
+          "id": "headline:research/p209d_nonclassical_horizons/CLAIMS.md:fab67e85ef7222f60768:1",
+          "source": {
+            "blob": "26e5874ff19f52c74b8956811912aa8731ed4d97",
+            "end_line": 105,
+            "file_sha256": "c1367b96a2abd60eb681ca8b1e35bebfed40e486dba4fcc336eda9be2e3073c4",
+            "path": "research/p209d_nonclassical_horizons/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "fab67e85ef7222f607684c08aaf08153615d8e5e669e75a0ecc5cfe1f2705aae",
+            "start_line": 105
+          }
+        },
+        {
+          "id": "headline:research/p209d_nonclassical_horizons/README.md:5a949a1e588d449d9647:1",
+          "source": {
+            "blob": "ee118896f26f9f6b69aa26071c2201e9582b998a",
+            "end_line": 27,
+            "file_sha256": "eac9a3fe8ae84a0c7a7553df08d42a88f85c2f5723d37aba2058542953a29d8c",
+            "path": "research/p209d_nonclassical_horizons/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "5a949a1e588d449d964778bf1a6d1419c01d52104f8724aae821e9c0456f70e4",
+            "start_line": 27
+          }
+        },
+        {
+          "id": "headline:research/p209d_nonclassical_horizons/README.md:918dba08dd88012e5216:1",
+          "source": {
+            "blob": "ee118896f26f9f6b69aa26071c2201e9582b998a",
+            "end_line": 5,
+            "file_sha256": "eac9a3fe8ae84a0c7a7553df08d42a88f85c2f5723d37aba2058542953a29d8c",
+            "path": "research/p209d_nonclassical_horizons/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "918dba08dd88012e521669f525ba28ff4c3773426bc5afada380b0e147906019",
+            "start_line": 5
+          }
+        },
+        {
+          "id": "headline:research/p209d_nonclassical_horizons/README.md:98d4e59b6fee0c536306:1",
+          "source": {
+            "blob": "ee118896f26f9f6b69aa26071c2201e9582b998a",
+            "end_line": 15,
+            "file_sha256": "eac9a3fe8ae84a0c7a7553df08d42a88f85c2f5723d37aba2058542953a29d8c",
+            "path": "research/p209d_nonclassical_horizons/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "98d4e59b6fee0c536306314368008fd7239a59130062792390efebb3c3fbbb73",
+            "start_line": 15
+          }
+        },
+        {
+          "id": "headline:research/p209d_nonclassical_horizons/README.md:9f9f1e86949d917f269e:1",
+          "source": {
+            "blob": "ee118896f26f9f6b69aa26071c2201e9582b998a",
+            "end_line": 30,
+            "file_sha256": "eac9a3fe8ae84a0c7a7553df08d42a88f85c2f5723d37aba2058542953a29d8c",
+            "path": "research/p209d_nonclassical_horizons/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "9f9f1e86949d917f269ebbe816f342fcaf6a75111df5701056e16022cd151720",
+            "start_line": 30
+          }
+        },
+        {
+          "id": "headline:research/p209d_nonclassical_horizons/README.md:d6a69d7e5cefc9161399:1",
+          "source": {
+            "blob": "ee118896f26f9f6b69aa26071c2201e9582b998a",
+            "end_line": 28,
+            "file_sha256": "eac9a3fe8ae84a0c7a7553df08d42a88f85c2f5723d37aba2058542953a29d8c",
+            "path": "research/p209d_nonclassical_horizons/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "d6a69d7e5cefc9161399b935753e54bc333980389d2e53127d3b40ce4fb453b5",
+            "start_line": 28
+          }
+        },
+        {
+          "id": "headline:research/p209d_nonclassical_horizons/README.md:df919dd5e4f9efbdd165:1",
+          "source": {
+            "blob": "ee118896f26f9f6b69aa26071c2201e9582b998a",
+            "end_line": 24,
+            "file_sha256": "eac9a3fe8ae84a0c7a7553df08d42a88f85c2f5723d37aba2058542953a29d8c",
+            "path": "research/p209d_nonclassical_horizons/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "df919dd5e4f9efbdd165e2fa9cbab1d80d37eef06e4edeaa8ef921dbb7ff2296",
+            "start_line": 24
+          }
+        },
+        {
+          "id": "headline:research/p209d_nonclassical_horizons/README.md:f3ba7443d26bf61e9572:1",
+          "source": {
+            "blob": "ee118896f26f9f6b69aa26071c2201e9582b998a",
+            "end_line": 29,
+            "file_sha256": "eac9a3fe8ae84a0c7a7553df08d42a88f85c2f5723d37aba2058542953a29d8c",
+            "path": "research/p209d_nonclassical_horizons/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "f3ba7443d26bf61e957216175ffde8244df30c6e46f30b1c8127a3a6132d2a1f",
+            "start_line": 29
+          }
+        },
+        {
+          "id": "headline:research/p209d_nonclassical_horizons/README.md:fbfd91c60a1a470c3821:1",
+          "source": {
+            "blob": "ee118896f26f9f6b69aa26071c2201e9582b998a",
+            "end_line": 19,
+            "file_sha256": "eac9a3fe8ae84a0c7a7553df08d42a88f85c2f5723d37aba2058542953a29d8c",
+            "path": "research/p209d_nonclassical_horizons/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "fbfd91c60a1a470c382171be9823fed83b69af94e4482508e6b9420bda26fe73",
+            "start_line": 19
+          }
+        }
+      ],
+      "disposition": "WORDING_NARROWED",
+      "evidence_gap": "This is a source-scope correction and check receipt, not a new proof of the remaining mathematical obligations.",
+      "historical_handoff_id": "handoff:recurrence_scope",
+      "id": "correction:recurrence_scope",
+      "mathematical_status": "OPEN",
+      "remaining_obligations": "State-to-table and simulator-to-cost bridges remain open; no simulator lower bound is stated.",
+      "scope": "Lean checks finite maps, signs of defined tables and a declared doubling recurrence.",
+      "source_class": "metatheory apparatus",
+      "sources": [
+        {
+          "blob": "26e5874ff19f52c74b8956811912aa8731ed4d97",
+          "end_line": 61,
+          "file_sha256": "c1367b96a2abd60eb681ca8b1e35bebfed40e486dba4fcc336eda9be2e3073c4",
+          "path": "research/p209d_nonclassical_horizons/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "3f16208863dae892776d2e62db6ce685e57ca475b0cbcc0fde9044e8a42ece07",
+          "start_line": 61
+        },
+        {
+          "blob": "26e5874ff19f52c74b8956811912aa8731ed4d97",
+          "end_line": 76,
+          "file_sha256": "c1367b96a2abd60eb681ca8b1e35bebfed40e486dba4fcc336eda9be2e3073c4",
+          "path": "research/p209d_nonclassical_horizons/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "9709ab32dde8e0e264c0d252531815ec9437a066b33a3e624b63b9d3904b539e",
+          "start_line": 72
+        },
+        {
+          "blob": "26e5874ff19f52c74b8956811912aa8731ed4d97",
+          "end_line": 80,
+          "file_sha256": "c1367b96a2abd60eb681ca8b1e35bebfed40e486dba4fcc336eda9be2e3073c4",
+          "path": "research/p209d_nonclassical_horizons/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "0636685462a44df663d20692b7bcf84d749c21a0f204ab754ce468bcf45c852d",
+          "start_line": 80
+        },
+        {
+          "blob": "26e5874ff19f52c74b8956811912aa8731ed4d97",
+          "end_line": 82,
+          "file_sha256": "c1367b96a2abd60eb681ca8b1e35bebfed40e486dba4fcc336eda9be2e3073c4",
+          "path": "research/p209d_nonclassical_horizons/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "bfcd82944403fec675b833eae71a5f965564fa7b107e133aa9c7cb58078c6d96",
+          "start_line": 82
+        },
+        {
+          "blob": "26e5874ff19f52c74b8956811912aa8731ed4d97",
+          "end_line": 99,
+          "file_sha256": "c1367b96a2abd60eb681ca8b1e35bebfed40e486dba4fcc336eda9be2e3073c4",
+          "path": "research/p209d_nonclassical_horizons/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "4caffaabdf48823e91822c064725aba967bdb38537dd94c5cfcd78f9d04e978b",
+          "start_line": 95
+        },
+        {
+          "blob": "26e5874ff19f52c74b8956811912aa8731ed4d97",
+          "end_line": 105,
+          "file_sha256": "c1367b96a2abd60eb681ca8b1e35bebfed40e486dba4fcc336eda9be2e3073c4",
+          "path": "research/p209d_nonclassical_horizons/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "fab67e85ef7222f607684c08aaf08153615d8e5e669e75a0ecc5cfe1f2705aae",
+          "start_line": 105
+        },
+        {
+          "blob": "26e5874ff19f52c74b8956811912aa8731ed4d97",
+          "end_line": 113,
+          "file_sha256": "c1367b96a2abd60eb681ca8b1e35bebfed40e486dba4fcc336eda9be2e3073c4",
+          "path": "research/p209d_nonclassical_horizons/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "174b308e02ce725573ac052d4b4177dfbec9b49038995283735ff3709fb0efea",
+          "start_line": 109
+        },
+        {
+          "blob": "ee118896f26f9f6b69aa26071c2201e9582b998a",
+          "end_line": 5,
+          "file_sha256": "eac9a3fe8ae84a0c7a7553df08d42a88f85c2f5723d37aba2058542953a29d8c",
+          "path": "research/p209d_nonclassical_horizons/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "918dba08dd88012e521669f525ba28ff4c3773426bc5afada380b0e147906019",
+          "start_line": 5
+        },
+        {
+          "blob": "ee118896f26f9f6b69aa26071c2201e9582b998a",
+          "end_line": 15,
+          "file_sha256": "eac9a3fe8ae84a0c7a7553df08d42a88f85c2f5723d37aba2058542953a29d8c",
+          "path": "research/p209d_nonclassical_horizons/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "98d4e59b6fee0c536306314368008fd7239a59130062792390efebb3c3fbbb73",
+          "start_line": 15
+        },
+        {
+          "blob": "ee118896f26f9f6b69aa26071c2201e9582b998a",
+          "end_line": 19,
+          "file_sha256": "eac9a3fe8ae84a0c7a7553df08d42a88f85c2f5723d37aba2058542953a29d8c",
+          "path": "research/p209d_nonclassical_horizons/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "fbfd91c60a1a470c382171be9823fed83b69af94e4482508e6b9420bda26fe73",
+          "start_line": 19
+        },
+        {
+          "blob": "ee118896f26f9f6b69aa26071c2201e9582b998a",
+          "end_line": 24,
+          "file_sha256": "eac9a3fe8ae84a0c7a7553df08d42a88f85c2f5723d37aba2058542953a29d8c",
+          "path": "research/p209d_nonclassical_horizons/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "df919dd5e4f9efbdd165e2fa9cbab1d80d37eef06e4edeaa8ef921dbb7ff2296",
+          "start_line": 24
+        },
+        {
+          "blob": "ee118896f26f9f6b69aa26071c2201e9582b998a",
+          "end_line": 27,
+          "file_sha256": "eac9a3fe8ae84a0c7a7553df08d42a88f85c2f5723d37aba2058542953a29d8c",
+          "path": "research/p209d_nonclassical_horizons/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "5a949a1e588d449d964778bf1a6d1419c01d52104f8724aae821e9c0456f70e4",
+          "start_line": 27
+        },
+        {
+          "blob": "ee118896f26f9f6b69aa26071c2201e9582b998a",
+          "end_line": 28,
+          "file_sha256": "eac9a3fe8ae84a0c7a7553df08d42a88f85c2f5723d37aba2058542953a29d8c",
+          "path": "research/p209d_nonclassical_horizons/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "d6a69d7e5cefc9161399b935753e54bc333980389d2e53127d3b40ce4fb453b5",
+          "start_line": 28
+        },
+        {
+          "blob": "ee118896f26f9f6b69aa26071c2201e9582b998a",
+          "end_line": 29,
+          "file_sha256": "eac9a3fe8ae84a0c7a7553df08d42a88f85c2f5723d37aba2058542953a29d8c",
+          "path": "research/p209d_nonclassical_horizons/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "f3ba7443d26bf61e957216175ffde8244df30c6e46f30b1c8127a3a6132d2a1f",
+          "start_line": 29
+        },
+        {
+          "blob": "ee118896f26f9f6b69aa26071c2201e9582b998a",
+          "end_line": 30,
+          "file_sha256": "eac9a3fe8ae84a0c7a7553df08d42a88f85c2f5723d37aba2058542953a29d8c",
+          "path": "research/p209d_nonclassical_horizons/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "9f9f1e86949d917f269ebbe816f342fcaf6a75111df5701056e16022cd151720",
+          "start_line": 30
+        }
+      ]
+    },
+    {
+      "check_ids": [
+        "verify:research-index"
+      ],
+      "current_headlines": [
+        {
+          "id": "headline:README.md:22077d0d99f3f3da865e:1",
+          "source": {
+            "blob": "1751992c495711b82026f7e44cf0ae1b4f384a04",
+            "end_line": 194,
+            "file_sha256": "742beeb6e17eec84b4c3c935939068fb0b4458a0d8f2ffdcd948d56930cc4aaf",
+            "path": "README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "22077d0d99f3f3da865e2b7e84a750904aca2f21fe68ad91b8a69395a1bbbe7f",
+            "start_line": 174
+          }
+        }
+      ],
+      "disposition": "INDEX_CORRECTED",
+      "evidence_gap": "This is a source-scope correction and check receipt, not a new proof of the remaining mathematical obligations.",
+      "historical_handoff_id": "handoff:registered_count",
+      "id": "correction:registered_count",
+      "mathematical_status": "OPEN",
+      "remaining_obligations": "Registration does not extend a result to another tree; each tree's own checks determine its receipt scope.",
+      "scope": "The root README points to the generated registration table in research/README.md and distinguishes gate-11 coverage from local receipts.",
+      "source_class": "metatheory apparatus",
+      "sources": [
+        {
+          "blob": "1751992c495711b82026f7e44cf0ae1b4f384a04",
+          "end_line": 189,
+          "file_sha256": "742beeb6e17eec84b4c3c935939068fb0b4458a0d8f2ffdcd948d56930cc4aaf",
+          "path": "README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "68c63d0d42ef6fcf3f5393061f976b8fd3dda2546c59657bad73cb2c5ba2dba3",
+          "start_line": 185
+        }
+      ]
+    },
+    {
+      "check_ids": [
+        "verify:g018_self_hosting"
+      ],
+      "current_headlines": [
+        {
+          "id": "headline:research/g018_self_hosting/CLAIMS.md:7032feced21fa38ef66d:1",
+          "source": {
+            "blob": "e95438eea3290ae76fb8170c3bca2f73fdd75f68",
+            "end_line": 21,
+            "file_sha256": "e5ee166023675b4a907885852a90aa545a1cce118c7181c67ac79c003a76fb56",
+            "path": "research/g018_self_hosting/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "7032feced21fa38ef66deb271d1f909bddbb401957b0d15be3a090d0a62e7387",
+            "start_line": 21
+          }
+        },
+        {
+          "id": "headline:research/g018_self_hosting/CLAIMS.md:b08724362ce9766fa9a1:1",
+          "source": {
+            "blob": "e95438eea3290ae76fb8170c3bca2f73fdd75f68",
+            "end_line": 90,
+            "file_sha256": "e5ee166023675b4a907885852a90aa545a1cce118c7181c67ac79c003a76fb56",
+            "path": "research/g018_self_hosting/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "b08724362ce9766fa9a1254f100b4887944f9e3843f81fce430f50c95563ec6d",
+            "start_line": 90
+          }
+        },
+        {
+          "id": "headline:research/g018_self_hosting/CLAIMS.md:cc720254775a2cb17a1c:1",
+          "source": {
+            "blob": "e95438eea3290ae76fb8170c3bca2f73fdd75f68",
+            "end_line": 91,
+            "file_sha256": "e5ee166023675b4a907885852a90aa545a1cce118c7181c67ac79c003a76fb56",
+            "path": "research/g018_self_hosting/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "cc720254775a2cb17a1c9ec0d20d82baeada570d2906b675360f97e955fe2b21",
+            "start_line": 91
+          }
+        },
+        {
+          "id": "headline:research/g018_self_hosting/CLAIMS.md:d28c9b13c82a27d30729:1",
+          "source": {
+            "blob": "e95438eea3290ae76fb8170c3bca2f73fdd75f68",
+            "end_line": 101,
+            "file_sha256": "e5ee166023675b4a907885852a90aa545a1cce118c7181c67ac79c003a76fb56",
+            "path": "research/g018_self_hosting/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "d28c9b13c82a27d307293fa8eecf5567df010ec7616613ed02b44fc70db547f4",
+            "start_line": 97
+          }
+        },
+        {
+          "id": "headline:research/g018_self_hosting/README.md:0ccbd14998b8c8f77d92:1",
+          "source": {
+            "blob": "016e37bcd287ecb0d4c625b77ba4ff1f9c800841",
+            "end_line": 53,
+            "file_sha256": "9bc3728e9e1882572ff55fecb6e31d2176f133f148b5eda4e762efd7fac601ef",
+            "path": "research/g018_self_hosting/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "0ccbd14998b8c8f77d929775d0e32ec7f6882f6b09e89db6989e12114f604a39",
+            "start_line": 47
+          }
+        },
+        {
+          "id": "headline:research/g018_self_hosting/README.md:2165b9de50fa16e6cda4:1",
+          "source": {
+            "blob": "016e37bcd287ecb0d4c625b77ba4ff1f9c800841",
+            "end_line": 7,
+            "file_sha256": "9bc3728e9e1882572ff55fecb6e31d2176f133f148b5eda4e762efd7fac601ef",
+            "path": "research/g018_self_hosting/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "2165b9de50fa16e6cda4b1762859407b18fa4ce07e76a8cf45eba1ecd087894a",
+            "start_line": 5
+          }
+        },
+        {
+          "id": "headline:research/g018_self_hosting/README.md:239d1f2f23807327492e:1",
+          "source": {
+            "blob": "016e37bcd287ecb0d4c625b77ba4ff1f9c800841",
+            "end_line": 66,
+            "file_sha256": "9bc3728e9e1882572ff55fecb6e31d2176f133f148b5eda4e762efd7fac601ef",
+            "path": "research/g018_self_hosting/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "239d1f2f23807327492eadb35a8b248ec74b6d38cf94e73d5ee17c04de5a3d37",
+            "start_line": 66
+          }
+        },
+        {
+          "id": "headline:research/g018_self_hosting/README.md:2ff26d2591f9e91646e1:1",
+          "source": {
+            "blob": "016e37bcd287ecb0d4c625b77ba4ff1f9c800841",
+            "end_line": 72,
+            "file_sha256": "9bc3728e9e1882572ff55fecb6e31d2176f133f148b5eda4e762efd7fac601ef",
+            "path": "research/g018_self_hosting/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "2ff26d2591f9e91646e1dcc3b8f8b20d33c9dd266d944dae0510862c6404d8ce",
+            "start_line": 72
+          }
+        },
+        {
+          "id": "headline:research/g018_self_hosting/README.md:d78f54e5f8932e790953:1",
+          "source": {
+            "blob": "016e37bcd287ecb0d4c625b77ba4ff1f9c800841",
+            "end_line": 46,
+            "file_sha256": "9bc3728e9e1882572ff55fecb6e31d2176f133f148b5eda4e762efd7fac601ef",
+            "path": "research/g018_self_hosting/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "d78f54e5f8932e79095339a0207a7a5035b9c17eb57641f7ec56457bf6616ed0",
+            "start_line": 46
+          }
+        }
+      ],
+      "disposition": "IMPLEMENTATION_AND_SCOPE_REPAIRED",
+      "evidence_gap": "This is a source-scope correction and check receipt, not a new proof of the remaining mathematical obligations.",
+      "historical_handoff_id": "handoff:self_evaluation",
+      "id": "correction:self_evaluation",
+      "mathematical_status": "OPEN",
+      "remaining_obligations": "A representation/evaluation fixed point remains open.",
+      "scope": "Lean supplies conditional Boolean self-negation lemmas. Python probes the same machine and encoded tape for each prediction and execution; the exact finite predictor is a negative control.",
+      "source_class": "metatheory apparatus",
+      "sources": [
+        {
+          "blob": "e95438eea3290ae76fb8170c3bca2f73fdd75f68",
+          "end_line": 21,
+          "file_sha256": "e5ee166023675b4a907885852a90aa545a1cce118c7181c67ac79c003a76fb56",
+          "path": "research/g018_self_hosting/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "7032feced21fa38ef66deb271d1f909bddbb401957b0d15be3a090d0a62e7387",
+          "start_line": 21
+        },
+        {
+          "blob": "e95438eea3290ae76fb8170c3bca2f73fdd75f68",
+          "end_line": 90,
+          "file_sha256": "e5ee166023675b4a907885852a90aa545a1cce118c7181c67ac79c003a76fb56",
+          "path": "research/g018_self_hosting/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "b08724362ce9766fa9a1254f100b4887944f9e3843f81fce430f50c95563ec6d",
+          "start_line": 90
+        },
+        {
+          "blob": "e95438eea3290ae76fb8170c3bca2f73fdd75f68",
+          "end_line": 91,
+          "file_sha256": "e5ee166023675b4a907885852a90aa545a1cce118c7181c67ac79c003a76fb56",
+          "path": "research/g018_self_hosting/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "cc720254775a2cb17a1c9ec0d20d82baeada570d2906b675360f97e955fe2b21",
+          "start_line": 91
+        },
+        {
+          "blob": "e95438eea3290ae76fb8170c3bca2f73fdd75f68",
+          "end_line": 101,
+          "file_sha256": "e5ee166023675b4a907885852a90aa545a1cce118c7181c67ac79c003a76fb56",
+          "path": "research/g018_self_hosting/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "d28c9b13c82a27d307293fa8eecf5567df010ec7616613ed02b44fc70db547f4",
+          "start_line": 97
+        },
+        {
+          "blob": "016e37bcd287ecb0d4c625b77ba4ff1f9c800841",
+          "end_line": 7,
+          "file_sha256": "9bc3728e9e1882572ff55fecb6e31d2176f133f148b5eda4e762efd7fac601ef",
+          "path": "research/g018_self_hosting/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "2165b9de50fa16e6cda4b1762859407b18fa4ce07e76a8cf45eba1ecd087894a",
+          "start_line": 5
+        },
+        {
+          "blob": "016e37bcd287ecb0d4c625b77ba4ff1f9c800841",
+          "end_line": 46,
+          "file_sha256": "9bc3728e9e1882572ff55fecb6e31d2176f133f148b5eda4e762efd7fac601ef",
+          "path": "research/g018_self_hosting/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "d78f54e5f8932e79095339a0207a7a5035b9c17eb57641f7ec56457bf6616ed0",
+          "start_line": 46
+        },
+        {
+          "blob": "016e37bcd287ecb0d4c625b77ba4ff1f9c800841",
+          "end_line": 53,
+          "file_sha256": "9bc3728e9e1882572ff55fecb6e31d2176f133f148b5eda4e762efd7fac601ef",
+          "path": "research/g018_self_hosting/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "0ccbd14998b8c8f77d929775d0e32ec7f6882f6b09e89db6989e12114f604a39",
+          "start_line": 47
+        },
+        {
+          "blob": "016e37bcd287ecb0d4c625b77ba4ff1f9c800841",
+          "end_line": 66,
+          "file_sha256": "9bc3728e9e1882572ff55fecb6e31d2176f133f148b5eda4e762efd7fac601ef",
+          "path": "research/g018_self_hosting/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "239d1f2f23807327492eadb35a8b248ec74b6d38cf94e73d5ee17c04de5a3d37",
+          "start_line": 66
+        },
+        {
+          "blob": "016e37bcd287ecb0d4c625b77ba4ff1f9c800841",
+          "end_line": 72,
+          "file_sha256": "9bc3728e9e1882572ff55fecb6e31d2176f133f148b5eda4e762efd7fac601ef",
+          "path": "research/g018_self_hosting/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "2ff26d2591f9e91646e1dcc3b8f8b20d33c9dd266d944dae0510862c6404d8ce",
+          "start_line": 72
+        }
+      ]
+    },
+    {
+      "check_ids": [
+        "verify:p209c_stabilizer_codes"
+      ],
+      "current_headlines": [
+        {
+          "id": "headline:research/p209c_stabilizer_codes/CLAIMS.md:0e4b4f81516c3f81a0f6:1",
+          "source": {
+            "blob": "83c366a4386ac27613e804004ab1a68b2918548e",
+            "end_line": 70,
+            "file_sha256": "43ceee7f287c0d81282c8f45a954d33a3cd74f1303189975e8f3542ac1bec983",
+            "path": "research/p209c_stabilizer_codes/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "0e4b4f81516c3f81a0f6c3f043a26ec97dc7b28bc95df78cc707e6e1bde8f439",
+            "start_line": 66
+          }
+        },
+        {
+          "id": "headline:research/p209c_stabilizer_codes/CLAIMS.md:14359cb38bd5b929edf7:1",
+          "source": {
+            "blob": "83c366a4386ac27613e804004ab1a68b2918548e",
+            "end_line": 129,
+            "file_sha256": "43ceee7f287c0d81282c8f45a954d33a3cd74f1303189975e8f3542ac1bec983",
+            "path": "research/p209c_stabilizer_codes/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "14359cb38bd5b929edf71cdfe91224056d144689d14705f40dba71c46acc43ac",
+            "start_line": 125
+          }
+        },
+        {
+          "id": "headline:research/p209c_stabilizer_codes/CLAIMS.md:61c737d03a98d13dc11c:1",
+          "source": {
+            "blob": "83c366a4386ac27613e804004ab1a68b2918548e",
+            "end_line": 135,
+            "file_sha256": "43ceee7f287c0d81282c8f45a954d33a3cd74f1303189975e8f3542ac1bec983",
+            "path": "research/p209c_stabilizer_codes/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "61c737d03a98d13dc11ce0487189af4a8e21f5ac5a3bb0aa6cfc7fde84080502",
+            "start_line": 135
+          }
+        },
+        {
+          "id": "headline:research/p209c_stabilizer_codes/CLAIMS.md:9ece8247febc86d3c629:1",
+          "source": {
+            "blob": "83c366a4386ac27613e804004ab1a68b2918548e",
+            "end_line": 8,
+            "file_sha256": "43ceee7f287c0d81282c8f45a954d33a3cd74f1303189975e8f3542ac1bec983",
+            "path": "research/p209c_stabilizer_codes/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "9ece8247febc86d3c62917d66b878ab937b45c13b3c239f7df0d9c80a7bd98d0",
+            "start_line": 5
+          }
+        },
+        {
+          "id": "headline:research/p209c_stabilizer_codes/CLAIMS.md:f537cb5bf586637e6d43:1",
+          "source": {
+            "blob": "83c366a4386ac27613e804004ab1a68b2918548e",
+            "end_line": 36,
+            "file_sha256": "43ceee7f287c0d81282c8f45a954d33a3cd74f1303189975e8f3542ac1bec983",
+            "path": "research/p209c_stabilizer_codes/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "f537cb5bf586637e6d43d3755a873b52fc6f074c0a2f6bc20b9796b12de68a7a",
+            "start_line": 32
+          }
+        },
+        {
+          "id": "headline:research/p209c_stabilizer_codes/README.md:c04f44e5037eefe9ebec:1",
+          "source": {
+            "blob": "fe0f7152be63f56bd362f7709ec11b4526ec94e8",
+            "end_line": 5,
+            "file_sha256": "c3dd0e70fd4986410aa251d15d64430f06266d00b9ffe40003816182174aceaa",
+            "path": "research/p209c_stabilizer_codes/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "c04f44e5037eefe9ebec0dd7524968c8a1401b62010245a8f5bd640b8a50aea7",
+            "start_line": 5
+          }
+        },
+        {
+          "id": "headline:research/p209c_stabilizer_codes/README.md:d8ebf148568ab8099e11:1",
+          "source": {
+            "blob": "fe0f7152be63f56bd362f7709ec11b4526ec94e8",
+            "end_line": 27,
+            "file_sha256": "c3dd0e70fd4986410aa251d15d64430f06266d00b9ffe40003816182174aceaa",
+            "path": "research/p209c_stabilizer_codes/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "d8ebf148568ab8099e110041a4554d1002977e83dc048ad2233af348d793cbf1",
+            "start_line": 22
+          }
+        },
+        {
+          "id": "headline:research/p209c_stabilizer_codes/README.md:f86c934246bce1ff1a18:1",
+          "source": {
+            "blob": "fe0f7152be63f56bd362f7709ec11b4526ec94e8",
+            "end_line": 29,
+            "file_sha256": "c3dd0e70fd4986410aa251d15d64430f06266d00b9ffe40003816182174aceaa",
+            "path": "research/p209c_stabilizer_codes/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "f86c934246bce1ff1a1808c3cb634aae667194478364e9abb943379ae3f2d35f",
+            "start_line": 28
+          }
+        }
+      ],
+      "disposition": "WORDING_NARROWED",
+      "evidence_gap": "This is a source-scope correction and check receipt, not a new proof of the remaining mathematical obligations.",
+      "historical_handoff_id": "handoff:syndrome_scope",
+      "id": "correction:syndrome_scope",
+      "mathematical_status": "OPEN",
+      "remaining_obligations": "General decoding, code dimensions, distances and projector identities need separate evidence.",
+      "scope": "Lean covers explicit commutations, mappings and syndrome values. The named finite recovery and matrix calculations are Python evidence.",
+      "source_class": "metatheory apparatus",
+      "sources": [
+        {
+          "blob": "83c366a4386ac27613e804004ab1a68b2918548e",
+          "end_line": 8,
+          "file_sha256": "43ceee7f287c0d81282c8f45a954d33a3cd74f1303189975e8f3542ac1bec983",
+          "path": "research/p209c_stabilizer_codes/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "9ece8247febc86d3c62917d66b878ab937b45c13b3c239f7df0d9c80a7bd98d0",
+          "start_line": 5
+        },
+        {
+          "blob": "83c366a4386ac27613e804004ab1a68b2918548e",
+          "end_line": 36,
+          "file_sha256": "43ceee7f287c0d81282c8f45a954d33a3cd74f1303189975e8f3542ac1bec983",
+          "path": "research/p209c_stabilizer_codes/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "f537cb5bf586637e6d43d3755a873b52fc6f074c0a2f6bc20b9796b12de68a7a",
+          "start_line": 32
+        },
+        {
+          "blob": "83c366a4386ac27613e804004ab1a68b2918548e",
+          "end_line": 70,
+          "file_sha256": "43ceee7f287c0d81282c8f45a954d33a3cd74f1303189975e8f3542ac1bec983",
+          "path": "research/p209c_stabilizer_codes/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "0e4b4f81516c3f81a0f6c3f043a26ec97dc7b28bc95df78cc707e6e1bde8f439",
+          "start_line": 66
+        },
+        {
+          "blob": "83c366a4386ac27613e804004ab1a68b2918548e",
+          "end_line": 129,
+          "file_sha256": "43ceee7f287c0d81282c8f45a954d33a3cd74f1303189975e8f3542ac1bec983",
+          "path": "research/p209c_stabilizer_codes/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "14359cb38bd5b929edf71cdfe91224056d144689d14705f40dba71c46acc43ac",
+          "start_line": 125
+        },
+        {
+          "blob": "83c366a4386ac27613e804004ab1a68b2918548e",
+          "end_line": 135,
+          "file_sha256": "43ceee7f287c0d81282c8f45a954d33a3cd74f1303189975e8f3542ac1bec983",
+          "path": "research/p209c_stabilizer_codes/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "61c737d03a98d13dc11ce0487189af4a8e21f5ac5a3bb0aa6cfc7fde84080502",
+          "start_line": 135
+        },
+        {
+          "blob": "fe0f7152be63f56bd362f7709ec11b4526ec94e8",
+          "end_line": 5,
+          "file_sha256": "c3dd0e70fd4986410aa251d15d64430f06266d00b9ffe40003816182174aceaa",
+          "path": "research/p209c_stabilizer_codes/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "c04f44e5037eefe9ebec0dd7524968c8a1401b62010245a8f5bd640b8a50aea7",
+          "start_line": 5
+        },
+        {
+          "blob": "fe0f7152be63f56bd362f7709ec11b4526ec94e8",
+          "end_line": 27,
+          "file_sha256": "c3dd0e70fd4986410aa251d15d64430f06266d00b9ffe40003816182174aceaa",
+          "path": "research/p209c_stabilizer_codes/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "d8ebf148568ab8099e110041a4554d1002977e83dc048ad2233af348d793cbf1",
+          "start_line": 22
+        },
+        {
+          "blob": "fe0f7152be63f56bd362f7709ec11b4526ec94e8",
+          "end_line": 29,
+          "file_sha256": "c3dd0e70fd4986410aa251d15d64430f06266d00b9ffe40003816182174aceaa",
+          "path": "research/p209c_stabilizer_codes/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "f86c934246bce1ff1a1808c3cb634aae667194478364e9abb943379ae3f2d35f",
+          "start_line": 28
+        }
+      ]
+    },
+    {
+      "check_ids": [
+        "verify:p208c_commutator_tomography"
+      ],
+      "current_headlines": [
+        {
+          "id": "headline:research/p208c_commutator_tomography/CLAIMS.md:a8bf4e2a3bb50e094e18:1",
+          "source": {
+            "blob": "ebe8eaa5feb4ec6151269bfe1bad4c313ea90d5f",
+            "end_line": 12,
+            "file_sha256": "a9e41b92a0069dcfcc98bd9313287422e1d602f1f6517d1e41eb3446f4159bfc",
+            "path": "research/p208c_commutator_tomography/CLAIMS.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "a8bf4e2a3bb50e094e1845633fe4c3ccef574864b8494ca3631f02088a111749",
+            "start_line": 12
+          }
+        },
+        {
+          "id": "headline:research/p208c_commutator_tomography/README.md:02642813d34b88498235:1",
+          "source": {
+            "blob": "fc04913c42353bbc277dc326895722929725a983",
+            "end_line": 5,
+            "file_sha256": "3432e59b7bb3beba6aef8e8e6ed1095c7abcb18e49e424e9402acf031e86d697",
+            "path": "research/p208c_commutator_tomography/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "02642813d34b88498235fc52e5be97c1e860f6a683051fb3cbeb9e14dcc33522",
+            "start_line": 5
+          }
+        },
+        {
+          "id": "headline:research/p208c_commutator_tomography/README.md:40e6901f46bc9c438e47:1",
+          "source": {
+            "blob": "fc04913c42353bbc277dc326895722929725a983",
+            "end_line": 19,
+            "file_sha256": "3432e59b7bb3beba6aef8e8e6ed1095c7abcb18e49e424e9402acf031e86d697",
+            "path": "research/p208c_commutator_tomography/README.md",
+            "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+            "span_sha256": "40e6901f46bc9c438e47580f792deb42b27dbb204151f8e38af19905089d50f4",
+            "start_line": 15
+          }
+        }
+      ],
+      "disposition": "WORDING_NARROWED",
+      "evidence_gap": "This is a source-scope correction and check receipt, not a new proof of the remaining mathematical obligations.",
+      "historical_handoff_id": "handoff:trace_domain",
+      "id": "correction:trace_domain",
+      "mathematical_status": "OPEN",
+      "remaining_obligations": "A field-parameterized theorem and a formal reconstruction theorem remain separate obligations.",
+      "scope": "The general Lean dimension parameter ranges over integer matrices. The tomography examples are Python computations.",
+      "source_class": "metatheory apparatus",
+      "sources": [
+        {
+          "blob": "ebe8eaa5feb4ec6151269bfe1bad4c313ea90d5f",
+          "end_line": 12,
+          "file_sha256": "a9e41b92a0069dcfcc98bd9313287422e1d602f1f6517d1e41eb3446f4159bfc",
+          "path": "research/p208c_commutator_tomography/CLAIMS.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "a8bf4e2a3bb50e094e1845633fe4c3ccef574864b8494ca3631f02088a111749",
+          "start_line": 12
+        },
+        {
+          "blob": "fc04913c42353bbc277dc326895722929725a983",
+          "end_line": 5,
+          "file_sha256": "3432e59b7bb3beba6aef8e8e6ed1095c7abcb18e49e424e9402acf031e86d697",
+          "path": "research/p208c_commutator_tomography/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "02642813d34b88498235fc52e5be97c1e860f6a683051fb3cbeb9e14dcc33522",
+          "start_line": 5
+        },
+        {
+          "blob": "fc04913c42353bbc277dc326895722929725a983",
+          "end_line": 19,
+          "file_sha256": "3432e59b7bb3beba6aef8e8e6ed1095c7abcb18e49e424e9402acf031e86d697",
+          "path": "research/p208c_commutator_tomography/README.md",
+          "snapshot": "b55fc96a94740b0afde78337350a96d293615f3f",
+          "span_sha256": "40e6901f46bc9c438e47580f792deb42b27dbb204151f8e38af19905089d50f4",
+          "start_line": 15
+        }
+      ]
+    }
+  ],
+  "review_sha256": "23a4f2d826809d0dfd95ce4c6ef60f02e303c0a2ef8624c7c52b32b00d122485",
+  "schema": 1
+}

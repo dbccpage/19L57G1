@@ -7,7 +7,7 @@ import pytest
 
 from corrections import OUTPUT, REVIEW_FILE, build, ingest, require_merged
 from eg_census import headlines
-from eg_sources import HERE, Snapshot, git, load_snapshot, read_object
+from eg_sources import HERE, Snapshot, canonical, git, load_snapshot, read_object
 from eg_views import HANDOFF_SUBJECTS
 
 
@@ -83,9 +83,23 @@ def test_unmerged_or_unavailable_main_ref_is_refused(monkeypatch: pytest.MonkeyP
         require_merged(HERE, "0" * 40)
 
 
-def test_unpublished_correction_review_is_refused() -> None:
-    """No version is current while the owner review file is absent."""
-    assert not REVIEW_FILE.is_file()
-    assert not OUTPUT.is_file()
+def test_recorded_correction_review_builds_its_committed_version() -> None:
+    """The owner review is recorded (2026-09-24), and the versioned view
+    regenerates from it byte for byte. Until then this test asserted that the
+    absent review was refused."""
+    assert REVIEW_FILE.is_file()
+    result = build()
+    assert OUTPUT.read_bytes() == canonical(result)
+    assert len(result["records"]) == len(HANDOFF_SUBJECTS) == 12
+    assert result["historical_evidence_retained"]
+    assert not result["all_headlines_supported"]
+    assert {row["mathematical_status"] for row in result["records"]} == {"OPEN"}
+    assert all(row["current_headlines"] for row in result["records"])
+    assert result["corrected_source_snapshot"] != result["historical_source_snapshot"]
+
+
+def test_missing_correction_review_is_refused(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Without the owner review file there is no current correction version."""
+    monkeypatch.setattr("corrections.REVIEW_FILE", HERE / "absent_correction_reviews.json")
     with pytest.raises(FileNotFoundError):
         build()
