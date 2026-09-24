@@ -61,10 +61,10 @@
   "input_sha256": {
     ".gitignore": "234a857ad0061b3dbc53115ce344a08b3f0ffcdccfed9299c9e9225e5603c3d6",
     "AXIOM_DECLARATIONS.json": "aeefee5ea3213b36c649f783d363f1e304838eb402ef6a16594f21398adde406",
-    "HAMILTONIAN_INDEX.md": "38fcd9efdd4580797373352496c5fe523005a10c86a2af2d9264217defecac96",
-    "README.md": "bb4a1ba59fccb3cb067b3405f223b31f8997b0cbe6e405606070f58e85b28082",
+    "HAMILTONIAN_INDEX.md": "5c538a3c0c429d4ce4d7c948e2d42703b86ba6a6ecf2d96a9d6c0dd26a540700",
+    "README.md": "479f7ba49404f9154957c42b6457d7b212f0bcdb92517fabd54fd625becbfe38",
     "SOURCE_MANIFEST.json": "7327827e77032b5ba3ded461e6296acefeb7e023807a82b45d5d4782285c1d79",
-    "bipartite_index.py": "6264c355de351ae178d01ffea0cbd42845fb4ddbc9df88d694db04a124583bd3",
+    "bipartite_index.py": "0abeebcb83b7e712d555db2d05bf212a4f22f07533eaecc072f7143095ded556",
     "claim_example.py": "8a69e2f8e015112c5c94ef5563782422953505165961c42fe6edf5a22948d782",
     "examples.py": "d9e514539e0b7443c6dacdd7747c95ee3cd87947b2b614e1577d6fff49250750",
     "lean/ClaimExample.lean": "522a7049e4d6b2968c7f3ec902dc7c72bff040c7cedd380794d668a08aaa34fd",
@@ -73,8 +73,8 @@
     "lean/lake-manifest.json": "54ba14941b93f28b01edfb224aca7d835abd517240740feb60e22d95fc36312e",
     "lean/lakefile.lean": "48f87a0b870f57004432f4ad6a077096b686cc35812453be46d76a3eb010205c",
     "lean/lean-toolchain": "b2b5068d5a4835675e651ce83b29c0ddb308d28b80076e7c007aef4630af0477",
-    "test_examples.py": "e34d545c7581735c9536756a214444d6ad14681bac5ee96500a50ff31d6bde1e",
-    "verify.py": "6cf3f6546726046c0f02faf6ded1b17d954e5b281462a91cb6f5b97eff295d53"
+    "test_examples.py": "6a6bd12d3a45b7af509e1414f6e1c24d0bc63d54584a11a09cdd7ee4aa36e6a7",
+    "verify.py": "f95573a80a6f3788ca75fcd0cc51266c41abe4bc68010e45eb72f1e2772dc5fc"
   },
   "lean": "PASS",
   "python_tests": [
