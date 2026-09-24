@@ -130,3 +130,24 @@ The following findings would have altered the verdict:
 | **R3 / B3** | 2-Cycle Capability Circulation Zero | Theorem | `SeventhConstructor.cycle2_mu1_circulation_zero`, `test_valuation_pricing.py` | None | Verified |
 | **R3 / B3** | 2-Cycle Transition Circulation Positive: $\oint \mu_2 = 2$ | Theorem | `SeventhConstructor.cycle2_mu2_circulation_strictly_positive`, `test_valuation_pricing.py` | None | Verified |
 | **R3 / B3** | Circulation Cost Contrast Decoupling | Theorem | `SeventhConstructor.circulation_cost_contrast`, `test_valuation_pricing.py` | None | Verified |
+
+## Source pin semantics (2026-09-23)
+
+By the author's ruling of 2026-09-22, `verify_sources.py` separates two claims
+that it used to merge.
+
+- **Provenance, which still fails.** Every pinned source hashes to its recorded value at the snapshot; the
+  snapshot resolves to a commit that is an ancestor of HEAD and carries
+  the recorded tree; and the worktree carries nothing under a sealed
+  prefix.
+- **Currency, which is now reported.** That nothing pinned has moved
+  between the snapshot and HEAD is printed as `DRIFT:` lines, followed by
+  a `drift since the snapshot:` count.  It no longer fails.  Pass
+  `--require-current` to restore the old failure.
+
+Why the change: the snapshot blob is fixed history, so every authorized
+sealed edit turned this check red until a repin, whatever this tree
+claimed; the most recent was on 2026-09-23, for pull request 231.  What
+this tree claims is about its snapshot, and that is what the check now
+enforces.  Runs recorded above were made under the
+earlier wording and stand as dated records of those runs.

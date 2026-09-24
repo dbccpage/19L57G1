@@ -1,6 +1,6 @@
 """Tests for the natural-sections tree's verifiers.
 
-The manifest must resolve at the snapshot and at HEAD and be exactly the
+The manifest must resolve at the snapshot (drift at HEAD is reported) and be exactly the
 import closure of its roots; every refusal is exercised on a tampered
 in-process copy (the JSON is never written); the write-root boundary is
 tested on synthetic records and, when ``lake`` is on PATH, on a real clean
@@ -45,9 +45,45 @@ class ManifestTests(unittest.TestCase):
             "import closure of ['Derivation.PresentationNaturality']: 12 module(s), all pinned",
             lines,
         )
+        self.assertIn("sealed prefixes clean: prompt paper code lean4/Derivation artifacts", lines)
+        drift = [line for line in lines if line.startswith("DRIFT: ")]
         self.assertEqual(
-            lines[-1], "sealed prefixes clean: prompt paper code lean4/Derivation artifacts"
+            lines[-1],
+            f"drift since the snapshot: {len(drift)} pinned module(s) or sealed path(s)"
+            " moved at HEAD",
         )
+
+    def test_head_drift_is_reported_and_require_current_fails(self) -> None:
+        """2026-09-23: a module that moved at HEAD is drift, not a failure."""
+        head = verify_pins._git("rev-parse", "HEAD")
+        original = verify_pins._git_bytes
+
+        def moved(*args: str) -> bytes:
+            if args[0] == "show" and args[1].startswith(f"{head}:lean4/Derivation/PrimDiff.lean"):
+                return b"moved"
+            return original(*args)
+
+        with mock.patch.object(verify_pins, "_git_bytes", side_effect=moved):
+            lines = verify_pins.verify()
+            self.assertIn("PrimDiff.lean at HEAD is", " ".join(lines))
+            with self.assertRaisesRegex(ValueError, "--require-current"):
+                verify_pins.verify(require_current=True)
+
+        def gone(*args: str) -> bytes:
+            if args[0] == "show" and args[1].startswith(f"{head}:lean4/Derivation/PrimDiff.lean"):
+                raise ValueError("git show failed: gone")
+            return original(*args)
+
+        with mock.patch.object(verify_pins, "_git_bytes", side_effect=gone):
+            with self.assertRaisesRegex(ValueError, "could not read"):
+                verify_pins.verify()
+            with mock.patch.object(verify_pins, "_git", side_effect=lambda *a: (
+                    "" if a[0] == "ls-tree" else original(*a).decode("utf-8").strip())):
+                lines = verify_pins.verify()
+        self.assertTrue(any(line.endswith("is absent at HEAD") for line in lines))
+
+    def test_main_accepts_require_current(self) -> None:
+        self.assertEqual(verify_pins.main(["--require-current"]), 0)
 
     def test_manifest_follows_the_established_shape(self) -> None:
         manifest = verify_pins.read_manifest()
