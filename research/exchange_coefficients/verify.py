@@ -128,9 +128,16 @@ def main():
             tests.append(name)
     assert tests, 'Empty test discovery'
     import examples
+    import bipartite_index
     import claim_example
-    for file, value in [('examples.json', examples.report()), ('claims.json', claim_example.examples())]:
+    catalogue = bipartite_index.catalog()
+    for file, value in [('examples.json', examples.report()),
+                        ('bipartite_summary.json', {k: v for k, v in catalogue.items() if k != 'rows'}),
+                        ('claims.json', claim_example.examples())]:
         (HERE / 'evidence' / file).write_text(json.dumps(value, indent=2, sort_keys=True) + '\n', encoding='utf-8')
+    (HERE / 'evidence/bipartite_catalog.jsonl').write_text(
+        ''.join(json.dumps(row, sort_keys=True, separators=(',', ':')) + '\n'
+                for row in catalogue['rows']), encoding='utf-8')
     result = {'status': 'PASS', 'source_commit': PIN, 'source_modules': count,
               'python_tests': tests, 'python_version': sys.version.split()[0], 'lean': 'NOT_RUN'}
     if not args.python_only:
@@ -144,7 +151,9 @@ def main():
              not any(s in {'.lake', 'pinned', 'evidence', '__pycache__', '.pytest_cache', '.mypy_cache'}
                      for s in p.relative_to(HERE).parts)]
     result['input_sha256'] = {p.relative_to(HERE).as_posix(): digest(p.read_bytes()) for p in sorted(paths)}
-    result['result_sha256'] = {n: digest((HERE / 'evidence' / n).read_bytes()) for n in ['examples.json', 'claims.json']}
+    result['result_sha256'] = {n: digest((HERE / 'evidence' / n).read_bytes())
+                               for n in ['examples.json', 'bipartite_summary.json',
+                                         'bipartite_catalog.jsonl', 'claims.json']}
     (HERE / 'evidence/verification.json').write_text(json.dumps(result, indent=2, sort_keys=True) + '\n', encoding='utf-8')
     print(json.dumps({'source_modules': count, 'python_tests': len(tests), 'lean': result['lean'], 'status': 'PASS'}))
 

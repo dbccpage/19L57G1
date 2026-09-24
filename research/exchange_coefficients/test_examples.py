@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import examples as ep
+import bipartite_index as bi
 import claim_example as gate
 
 
@@ -13,6 +14,74 @@ def test_exchange_bridge_all_graphs_and_operator_identities():
     assert value['all_simple_graphs_n_2_through_5'] == 1098
     assert value['graph_matrix_entry_comparisons'] == 104778
     assert value['operator_basis_equalities_n_1_through_6'] == 10350
+
+
+def test_two_occupant_index_has_checked_positive_and_negative_certificates():
+    records = bi.all_records()
+    assert len(records) == 1098
+    counts = {(sites, bipartite, gauge): sum(
+        row.graph.sites == sites
+        and (row.site_bipartition is not None) == bipartite
+        and row.diagonal_gauge_exists == gauge for row in records)
+        for sites in range(2, 6) for bipartite in (False, True) for gauge in (False, True)}
+    assert {key: value for key, value in counts.items() if value} == {
+        (2, True, True): 2,
+        (3, False, False): 1, (3, True, True): 7,
+        (4, False, False): 23, (4, True, False): 7, (4, True, True): 34,
+        (5, False, False): 648, (5, True, False): 170, (5, True, True): 206,
+    }
+    # This equivalence is an exhaustive observation at the stated bound.
+    assert all(bi.linear_forest(row.graph) == row.diagonal_gauge_exists for row in records)
+    for row in records:
+        matrix = ep.occupancy_matrix(row.graph.sites, row.graph.edges)
+        assert bi.verify_certificate(matrix, row.certificate)
+
+    postings = bi.inverted_index(records)
+    bipartite_four = bi.query(records, postings, sites=4, site_bipartite=True)
+    assert len(bipartite_four) == 41
+    assert sum(row.diagonal_gauge_exists for row in bipartite_four) == 34
+    assert len(bi.query(records, postings, sites=4, site_bipartite=True,
+                        diagonal_gauge_exists=False)) == 7
+    assert len(bi.query(records, postings, sites=5, linear_forest=True)) == 206
+    assert len(bi.catalog()['rows']) == 1098
+
+    for name in ('chain', 'square', 'star'):
+        row = bi.analyze(4, ep.FIXTURES[name])
+        assert row.site_bipartition is not None
+        assert row.diagonal_gauge_exists == (name == 'chain')
+        assert bi.verify_certificate(ep.occupancy_matrix(4, ep.FIXTURES[name]), row.certificate)
+        assert bool(ep.gauge_solutions(4, ep.FIXTURES[name])) == row.diagonal_gauge_exists
+    assert bi.linear_forest(bi.graph_key(4, ep.FIXTURES['chain']))
+    assert not bi.linear_forest(bi.graph_key(4, ep.FIXTURES['star']))
+
+    # Independent brute-force cross-check of the BFS decision through size 4.
+    assert all(bool(ep.gauge_solutions(row.graph.sites, row.graph.edges))
+               == row.diagonal_gauge_exists for row in records if row.graph.sites <= 4)
+
+
+def test_two_occupant_index_rejects_bad_inputs_and_bad_certificates():
+    for edges in ([(0, 0)], [(0, 4)], [(0, 1), (1, 0)]):
+        try:
+            bi.graph_key(4, edges)
+        except ValueError:
+            pass
+        else:
+            raise AssertionError('Invalid graph accepted')
+    square = ep.occupancy_matrix(4, ep.FIXTURES['square'])
+    assert not bi.verify_certificate(square, bi.Gauge((1,) * 6))
+    assert not bi.verify_certificate(square, bi.OddLoop((0, 1, 0)))
+    try:
+        bi.classify_matrix([[0, 2], [2, 0]])
+    except ValueError:
+        pass
+    else:
+        raise AssertionError('Unsupported coefficient accepted')
+    try:
+        bi.query([], {}, site_bipartite=1)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError('Ill-typed indexed feature accepted')
 
 
 def test_gauge_preserves_star_charpoly():
