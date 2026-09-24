@@ -47,11 +47,16 @@ consequences:
   show that the passage reproduces the source's structure.
 - **The squares do constrain where cycles live.**  The encodings of all
   states on a source cycle share every field except budget and license.
+- **Observation excludes the budget register** (2026-09-24).  The
+  passage's own observation (zero relation, obstruction, refusal) reads
+  only the core.  So a translation that also preserves an observation
+  sees one native observation on every source cycle, and a budget register
+  preserves only a constant one.  The toggle, observed by its own state,
+  has no faithful observation-preserving translation.
 
 The claim ledger is `CLAIMS.md`.  Its open rows are:
 
 - event selection;
-- a translation that also preserves observation;
 - the read-back of the X310 and G012 carriers.
 
 ## Checks
