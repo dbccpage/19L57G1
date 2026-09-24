@@ -13,7 +13,7 @@ named here is checked by its own tree's verifier.  Counts dated 2026-09-23.
 | B. Second-seed Challenges 3 to 5 | `research/second_*/` | Run blind, headless, from `research/second/SEED.md` alone. Rung three (#239, open, unmerged by the seed's rule) took leftover L-2, the first-demand index, by the seed's selection rule and names X-3 next. Challenges 3 to 5 remain ahead. |
 | C. Native transition bridge | `research/native_bridge/` (#235) | Proved: actual-step paths, typed-record correspondence, cycle theorem, commuting translations, G013 read-back with a refusal. |
 | D. Structural layer | `research/native_structure/` (#236) | Proved: swap cells, boundaries, cost transport and exactness, descent, a declared symmetry. Open: a proof-relevant cell calculus. |
-| E. Conservation ladder | `research/conservation_ladder/` (#237) | Proved: exact dual-number derivatives, first variation, symmetry-generated charge, a worked instance, a counterexample per premise. Open: the smooth tier. |
+| E. Conservation ladder | `research/conservation_ladder/` (#237) | Proved: exact dual-number derivatives, first variation, symmetry-generated charge, a worked instance, a counterexample per premise. Proved 2026-09-24: no nontrivial charge on the reachable passage (CL-13), sharp because a conserved quantity separates unreachable states. Open: the smooth tier. |
 | F. Domain adapters | `research/domain_adapters/` (#238) | Proved: adapter composition, a faithful counter, refusals for reversible domains, the proposal/license map. |
 | G. Tooling and consolidation | this note; the `lean` and `research` jobs of `.github/workflows/verify.yml` | Each new tree's canonical verifier runs in the `lean` job (it builds Lean) and its receipt check in the `research` job. |
 

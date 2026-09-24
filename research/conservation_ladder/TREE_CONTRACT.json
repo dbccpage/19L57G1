@@ -32,6 +32,12 @@
     "ResearchConservationLadder.conserved_path",
     "ResearchConservationLadder.charge_tick",
     "ResearchConservationLadder.tick_path_charge",
-    "ResearchConservationLadder.passage_conserved_blind"
+    "ResearchConservationLadder.passage_conserved_blind",
+    "ResearchConservationLadder.passage_charge_genesis",
+    "ResearchConservationLadder.passage_charge_const",
+    "ResearchConservationLadder.step_occ",
+    "ResearchConservationLadder.occDistinct_step",
+    "ResearchConservationLadder.occDistinct_split",
+    "ResearchConservationLadder.dupState_unreachable"
   ]
 }
