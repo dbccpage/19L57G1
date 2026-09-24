@@ -178,3 +178,29 @@ letter case. With it the live check is clean and the test passes.
 
 **The test added.** It accepts the upper-case record, and still refuses a
 non-string digest, a wrong digest, and the seed's hash at another path.
+
+## Rung three's registered test step, real cases (2026-09-23)
+
+Found live, not injected, after #239 merged. Both come from the
+coordinator's merge, not from the rung's own run.
+
+- **Scope scan on `main`.** `test_the_scan_sees_this_branch_at_all` failed
+  on `main` at `03409c1c`: with HEAD as the comparison base, it asserted
+  over an empty change set. It is the defect `second_nofirst` recorded
+  at `7d2e6e86`. The same scan also attributed every branch's commits to
+  the rung, so a branch touching another research tree failed
+  `test_no_sibling_research_tree_is_written`. Observed on
+  `chore/custody-drift-report`, naming `research/diagonal_identity/STATUS.md`.
+- **Line endings on a fresh Windows checkout.**
+  `test_the_log_is_stored_with_no_carriage_return` refused
+  `receipts/lean_axioms.txt`, because the tree lacked the sibling rungs'
+  `-text` attributes.
+
+**The repair** is in `research/second_index/` alone:
+
+- the scan reads only commits that touch the write root;
+- the non-vacuity guard skips both empty cases by name;
+- `.gitattributes` matches the siblings'.
+
+A synthetic test covers the ownership rule: a sibling commit is not the
+rung's, and a mixed commit exposes every path.
