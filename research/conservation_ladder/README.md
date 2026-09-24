@@ -44,8 +44,11 @@ The sealed passage sits on rung 1 only.  A quantity preserved by every
 passage event cannot distinguish a live state from its budget or license
 variants or from its halted version.  The passage supplies no action,
 variation or one-parameter generator, and this tree does not attribute
-one to it.  The smooth tier, and a symmetry of the passage itself, are
-open (`CLAIMS.md`).
+one to it.  Nor can any action supply a nontrivial charge on the states
+reachable from genesis (2026-09-24): a quantity preserved by every event
+keeps its genesis value there.  Off the reachable set such a quantity
+exists (occurrence distinctness), so the no-go is about reachability.  The
+smooth tier, and a symmetry of the passage itself, are open (`CLAIMS.md`).
 
 ## Checks
 

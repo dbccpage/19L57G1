@@ -27,3 +27,9 @@ import ResearchConservationLadder
 #print axioms ResearchConservationLadder.charge_tick
 #print axioms ResearchConservationLadder.tick_path_charge
 #print axioms ResearchConservationLadder.passage_conserved_blind
+#print axioms ResearchConservationLadder.passage_charge_genesis
+#print axioms ResearchConservationLadder.passage_charge_const
+#print axioms ResearchConservationLadder.step_occ
+#print axioms ResearchConservationLadder.occDistinct_step
+#print axioms ResearchConservationLadder.occDistinct_split
+#print axioms ResearchConservationLadder.dupState_unreachable
