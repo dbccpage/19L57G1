@@ -1,6 +1,6 @@
 """Verify the sources this rung consumes and the frozen texts it froze.
 
-Usage: python research/second_index/verify_pins.py [--repin]
+Usage: python research/second_index/verify_pins.py [--repin | --require-current]
 
 Checks, none implying the others:
 
@@ -8,12 +8,14 @@ Checks, none implying the others:
   ``git merge-base`` exit codes other than one reported as undecided
   rather than as "not an ancestor";
 * every consumed source hashes, as a canonical Git blob, to its recorded
-  sha256 BOTH at the snapshot AND at HEAD -- a source that moved between
-  the two is a drift, and a repin is a logged act, never a rewrite;
-* every recorded SPAN hashes to its recorded sha256 at the snapshot and at
-  HEAD.  A blob pin and a span pin are different guarantees: a blob pin
-  says the file did not move, and a span pin says the exact lines this
-  rung quotes or reconstructs did not move.  A file can be edited far from
+  sha256 at the snapshot; a source that moved between the snapshot and
+  HEAD is a drift, REPORTED (below), and a repin is a logged act, never a
+  rewrite;
+* every recorded SPAN hashes to its recorded sha256 at the snapshot; a
+  span that moved at HEAD is REPORTED the same way.  A blob pin and a
+  span pin are different guarantees: a blob pin says the file did not
+  move, and a span pin says the exact lines this rung quotes or
+  reconstructs did not move.  A file can be edited far from
   a span, which fails the blob pin and passes the span pin; recording both
   says which happened;
 * the absent-at-snapshot record is checked AT THE SNAPSHOT, not at HEAD,
@@ -21,7 +23,15 @@ Checks, none implying the others:
 * the frozen challenge and prediction texts still hash, as blobs at HEAD,
   to the values recorded when they were frozen.
 
-A pass says the inputs did not move.  It says nothing about the
+Pins certify the snapshot (2026-09-24, applying the author's ruling of
+2026-09-22).  A source or span that moved or is absent at HEAD is printed
+as a ``DRIFT:`` line, then a ``drift since the snapshot:`` count, and does
+not fail; ``--require-current`` restores that failure.  The frozen texts
+live in this rung's own write root, so a moved frozen text still fails.
+This file used to fail on a source that moved at HEAD, so every
+authorized sealed edit turned it red until a repin.
+
+A pass says the inputs matched at the snapshot.  It says nothing about the
 mathematics, and nothing about whether the reconstructions in ``lean/``
 are faithful to the sources they pin.  That is checked declaration by
 declaration in ``test_reconstruction.py``, against the blobs AT THE
@@ -126,9 +136,15 @@ def _int(item: dict[str, Any], key: str) -> int:
     return value
 
 
-def verify() -> list[str]:
+def _tracked_at_head(relative: PurePosixPath) -> bool:
+    listed = _git("ls-tree", "-r", "--name-only", "HEAD", "--", relative.as_posix())
+    return relative.as_posix() in listed.splitlines()
+
+
+def verify(require_current: bool = False) -> list[str]:
     manifest = _read_manifest()
     lines: list[str] = []
+    drift: list[str] = []
     head = _git("rev-parse", "HEAD")
     lines.append(f"verification commit: {head}")
 
@@ -151,18 +167,21 @@ def verify() -> list[str]:
         if not isinstance(wanted, str):
             raise ValueError(f"missing sha256 for {relative}")
         at_snapshot = _blob_sha256(snapshot, relative).upper()
-        at_head = _blob_sha256("HEAD", relative).upper()
         if at_snapshot != wanted.upper():
             raise ValueError(
                 f"hash mismatch at the snapshot for {relative}: "
                 f"expected {wanted}, got {at_snapshot}"
             )
-        if at_head != wanted.upper():
-            raise ValueError(
-                f"source moved at HEAD for {relative}: "
-                f"expected {wanted}, got {at_head}"
-            )
-        lines.append(f"source: {relative} {at_head}")
+        try:
+            at_head = _blob_sha256("HEAD", relative).upper()
+        except ValueError as exc:
+            if _tracked_at_head(relative):
+                raise ValueError(f"could not read {relative} at HEAD: {exc}") from exc
+            drift.append(f"source {relative} is absent at HEAD")
+        else:
+            if at_head != wanted.upper():
+                drift.append(f"source moved at HEAD for {relative}: expected {wanted}, got {at_head}")
+        lines.append(f"source: {relative} {at_snapshot}")
 
     spans = manifest.get("spans")
     if not isinstance(spans, list) or not spans:
@@ -179,18 +198,26 @@ def verify() -> list[str]:
         if not isinstance(wanted, str):
             raise ValueError(f"missing span sha256 for {relative}")
         at_snapshot = _span_sha256(snapshot, relative, first, last)
-        at_head = _span_sha256("HEAD", relative, first, last)
         if at_snapshot != wanted:
             raise ValueError(
                 f"span mismatch at the snapshot for {relative}:{first}-{last}: "
                 f"expected {wanted}, got {at_snapshot}"
             )
-        if at_head != wanted:
-            raise ValueError(
-                f"span moved at HEAD for {relative}:{first}-{last}: "
-                f"expected {wanted}, got {at_head}"
-            )
-        lines.append(f"span: {relative}:{first}-{last} {at_head}")
+        try:
+            span_head = _span_sha256("HEAD", relative, first, last)
+        except ValueError as exc:
+            if str(exc).startswith("git ") and _tracked_at_head(relative):
+                raise ValueError(
+                    f"could not read span {relative}:{first}-{last} at HEAD: {exc}"
+                ) from exc
+            drift.append(f"span {relative}:{first}-{last} cannot be read at HEAD: {exc}")
+        else:
+            if span_head != wanted:
+                drift.append(
+                    f"span moved at HEAD for {relative}:{first}-{last}: "
+                    f"expected {wanted}, got {span_head}"
+                )
+        lines.append(f"span: {relative}:{first}-{last} {at_snapshot}")
 
     absent = manifest.get("absent_at_snapshot")
     if not isinstance(absent, list):
@@ -232,6 +259,13 @@ def verify() -> list[str]:
             )
         lines.append(f"frozen: {relative} {actual}")
 
+    if drift and require_current:
+        raise ValueError(
+            "pinned inputs moved between the snapshot and HEAD (--require-current):\n  "
+            + "\n  ".join(drift)
+        )
+    lines.extend(f"DRIFT: {line}" for line in drift)
+    lines.append(f"drift since the snapshot: {len(drift)} source(s) or span(s) moved at HEAD")
     return lines
 
 
@@ -282,9 +316,14 @@ def main() -> int:
         action="store_true",
         help="rewrite source and span hashes from HEAD; verifies nothing",
     )
+    parser.add_argument(
+        "--require-current",
+        action="store_true",
+        help="also fail when a source or span has moved between the snapshot and HEAD",
+    )
     args = parser.parse_args()
     try:
-        lines = repin() if args.repin else verify()
+        lines = repin() if args.repin else verify(require_current=args.require_current)
     except ValueError as exc:
         print(f"FAIL: {exc}")
         return 1

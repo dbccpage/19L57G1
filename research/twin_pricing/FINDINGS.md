@@ -148,3 +148,24 @@ The following specific findings would have altered the conclusions:
 | **R2.14** | Closed-form finite stage prices | Theorem | `ValuationPricing.finite_stage_price_finite` | `propext`, `Quot.sound` | Verified |
 | **R2.15** | Price sequence divergence under declared tariffs | Theorem | `ValuationPricing.continuum_price_infinite` | `propext`, `Quot.sound` | Verified |
 | **R2.16** | Universal operational trace lower bound | Open Obligation | N/A | N/A | Open |
+
+## Source pin semantics (2026-09-23)
+
+By the author's ruling of 2026-09-22, `verify_sources.py` separates two claims
+that it used to merge.
+
+- **Provenance, which still fails.** Every pinned source hashes to its recorded value at the snapshot; the
+  snapshot resolves to a commit that is an ancestor of HEAD and carries
+  the recorded tree; and the worktree carries nothing under a sealed
+  prefix.
+- **Currency, which is now reported.** That nothing pinned has moved
+  between the snapshot and HEAD is printed as `DRIFT:` lines, followed by
+  a `drift since the snapshot:` count.  It no longer fails.  Pass
+  `--require-current` to restore the old failure.
+
+Why the change: the snapshot blob is fixed history, so every authorized
+sealed edit turned this check red until a repin, whatever this tree
+claimed; the most recent was on 2026-09-23, for pull request 231.  What
+this tree claims is about its snapshot, and that is what the check now
+enforces.  Runs recorded above were made under the
+earlier wording and stand as dated records of those runs.

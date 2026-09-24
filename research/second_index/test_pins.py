@@ -368,6 +368,73 @@ class PinRepinTests(unittest.TestCase):
         self._repin_refuses({"sources": [], "spans": [1]})
 
 
+class HeadDriftTests(unittest.TestCase):
+    """2026-09-24: a source or span that moved at HEAD is drift, reported
+    and not failed; `--require-current` restores the failure by name."""
+
+    def _moved_at_head(self, which: str) -> Callable[..., bytes]:
+        original = vp._git_bytes
+        manifest = json.loads((HERE / "SOURCE_MANIFEST.json").read_text(encoding="utf-8"))
+        target = manifest["sources"][0]["path"] if which == "source" else manifest["spans"][0]["path"]
+
+        def fake(*args: str) -> bytes:
+            if args[:1] == ("show",) and args[1] == f"HEAD:{target}":
+                return b"moved at HEAD\n" * 2000
+            return original(*args)
+
+        return fake
+
+    def test_a_source_moved_at_head_is_drift(self) -> None:
+        from unittest import mock
+
+        with mock.patch.object(vp, "_git_bytes", side_effect=self._moved_at_head("source")):
+            lines = vp.verify()
+            self.assertTrue(any(line.startswith("DRIFT: source moved at HEAD") for line in lines))
+            self.assertRegex(lines[-1], r"^drift since the snapshot: [1-9]")
+            with self.assertRaisesRegex(ValueError, "--require-current"):
+                vp.verify(require_current=True)
+
+    def test_a_span_moved_at_head_is_drift(self) -> None:
+        from unittest import mock
+
+        with mock.patch.object(vp, "_git_bytes", side_effect=self._moved_at_head("span")):
+            lines = vp.verify()
+        self.assertTrue(any(line.startswith("DRIFT: span moved at HEAD") for line in lines))
+
+    def test_unreadable_and_absent_at_head(self) -> None:
+        from unittest import mock
+
+        original = vp._git_bytes
+        manifest = json.loads((HERE / "SOURCE_MANIFEST.json").read_text(encoding="utf-8"))
+        source = manifest["sources"][0]["path"]
+        span = manifest["spans"][0]["path"]
+
+        def unreadable(path: str) -> Callable[..., bytes]:
+            def fake(*args: str) -> bytes:
+                if args[:1] == ("show",) and args[1] == f"HEAD:{path}":
+                    raise ValueError("git show failed: unreadable")
+                return original(*args)
+
+            return fake
+
+        for path in (source, span):
+            with mock.patch.object(vp, "_git_bytes", side_effect=unreadable(path)):
+                with self.assertRaisesRegex(ValueError, "could not read"):
+                    vp.verify()
+            with mock.patch.object(vp, "_git_bytes", side_effect=unreadable(path)), \
+                    mock.patch.object(vp, "_tracked_at_head", return_value=False):
+                lines = vp.verify()
+            self.assertTrue(any(line.startswith("DRIFT: ") for line in lines), path)
+
+    def test_main_accepts_require_current(self) -> None:
+        argv = sys.argv
+        sys.argv = ["verify_pins.py", "--require-current"]
+        try:
+            self.assertEqual(vp.main(), 0)
+        finally:
+            sys.argv = argv
+
+
 class VerifierEntryPointTests(unittest.TestCase):
     def test_main_reports_a_failure_and_exits_nonzero(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
