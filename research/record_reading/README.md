@@ -225,7 +225,11 @@ digest and runtime origin; the sealed `lean4/Derivation` tree, the merged
 `coherent_process_limits` Python trees by Git tree object; the Lean
 configuration of the seven packages and the represented execution family's
 artifact by digest.  An untracked source in any of the eleven trees is
-refused.  The two records are `-text` by an in-tree `.gitattributes`.
+refused.  (2026-09-25: the eleven Git tree pins and the untracked-source
+refusal are withdrawn.  The Python trees are pinned through the runtime
+modules above, and the Lean trees by the 30 files of the local package's
+import closure, each by digest; an edit to a file this family does not read
+no longer fails its custody check.)  The two records are `-text` by an in-tree `.gitattributes`.
 
 ```powershell
 cd research/record_reading
