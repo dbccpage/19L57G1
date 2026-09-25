@@ -80,6 +80,7 @@
   "represented_execution/verify_sources.py",
   "s9_obligations/verify_pins.py",
   "second/verify_sources.py",
+  "second_class/verify_pins.py",
   "second_duration/verify_pins.py",
   "second_index/verify_pins.py",
   "second_inheritance/verify_pins.py",
