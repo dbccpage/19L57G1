@@ -35,6 +35,15 @@ def _int_log2(n: int) -> int:
     return n.bit_length() - 1
 
 
+class UnnormalizedDistributionError(ValueError):
+    """A probability row whose entries do not sum to exactly 1.
+
+    Such a row is refused, never rescaled. Until 2026-09-24 the constructor
+    divided every entry by the row sum, so a malformed input distribution or
+    channel row was silently replaced by a different, valid one.
+    """
+
+
 # -----------------------------------------------------------------------------
 # 1. Discrete Distribution with Exact Rational Arithmetic
 # -----------------------------------------------------------------------------
@@ -65,8 +74,9 @@ class DiscreteDistribution(Generic[T]):
         if total == 0:
             raise ValueError("Distribution cannot have sum of probabilities equal to 0")
         if total != Fraction(1):
-            # Normalize if sum != 1
-            raw = {k: v / total for k, v in raw.items()}
+            raise UnnormalizedDistributionError(
+                f"Probabilities sum to {total}, not 1; the row is refused, never rescaled"
+            )
 
         self._probs: dict[T, Fraction] = dict(sorted(raw.items(), key=lambda item: str(item[0])))
 

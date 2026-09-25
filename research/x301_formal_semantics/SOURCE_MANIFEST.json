@@ -1,7 +1,13 @@
 {
   "schema": "x301_formal_semantics-sources-v1",
   "authority_effect": null,
+  "note": "2026-09-24: the pins now name what this tree consumes, measured by importing every Python file of the tree in a child interpreter, running its tests under an audit hook, and following its Lake imports. Added 1 consumed input(s) that were unpinned. The verifier checks these pins at HEAD only; no snapshot identity is claimed. Each has the same blob at 2914032fb3, the commit that created this manifest.",
   "sources": [
+    {
+      "path": "code/derivation/__init__.py",
+      "git_blob": "8c239e66976fadaa9e5a04f9451ec4c500c266d4",
+      "sha256": "0fabcb53dc46712447a727f6ceb661e5aab3267a3e8b50bdea11044b64f853af"
+    },
     {
       "path": "code/derivation/model.py",
       "git_blob": "b6f95a673853d423a0d73b4faa95b2cd22f306a3",

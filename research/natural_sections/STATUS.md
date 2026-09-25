@@ -1843,6 +1843,11 @@ enforcement.  The registration diff that would add the Python checks to
 the research job (not `verify_lean.py`, for the sibling trees' reason)
 is the same shape as the sibling steps; it is not applied here.
 
+2026-09-24: withdrawn for the Lean audit.  The `lean` job of
+`.github/workflows/verify.yml` now runs `verify_lean.py`, so the axiom
+reports are read by that step.  `verify_pins.py` is still run by no
+workflow step, and the paragraph above stands for it.
+
 ## Non-claims
 
 * No categorical structure is claimed for `Family`, `HFamily`, `Step`,

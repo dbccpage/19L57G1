@@ -26,3 +26,9 @@ Run the verification harness:
 ```bash
 python verify.py --check
 ```
+
+## Correction, 2026-09-24: a row that does not sum to 1 is refused
+
+Until this date `DiscreteDistribution` divided a row whose probabilities did not sum to 1 by that sum, so a malformed input distribution or channel row was silently replaced by a different, valid one. The package list above says the test suite exercises "distribution normalization"; that phrase referred to this rescaling. The constructor now raises `UnnormalizedDistributionError`, a `ValueError` naming the sum, as `research/p204_operational_valuations` raises on such a row and `research/p208b_contextuality_nonlocality` rejects one. `tests/test_information.py` holds five negative tests for the refusal.
+
+No committed result depended on a rescaled row. An instrumented run of the 18 tests then present built 160 distributions, and every row summed to exactly 1. In `evidence/receipt.json` only the pytest count (18 to 23) and the source hashes of `information.py` and `tests/test_information.py` moved. No Lean statement is affected.

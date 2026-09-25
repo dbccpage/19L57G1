@@ -292,3 +292,56 @@ def test_bilinear_structure_algebraic_proof() -> None:
     for k in (3, 4, 5, 6):
         for sub in combinations(path_names, k):
             assert c.is_sorkin_zero(sub)
+
+
+# =============================================================================
+# 7. Negative Tests: the Refusals and Checks the Claims Rest On
+# =============================================================================
+
+def test_cyclotomic_rational_refuses_an_unlisted_order() -> None:
+    """Claim 4 names the orders {3, 4, 6, 8, 12}; any other order is refused by name."""
+    for n in (5, 7, 10):
+        with pytest.raises(ValueError, match=rf"Cyclotomic order n={n} not in supported list"):
+            CyclotomicRational(n, [1])
+
+
+def test_cyclotomic_rational_refuses_mixed_orders() -> None:
+    """Exact quotient arithmetic stays inside one Q[x]/(Phi_n); mixing orders is refused."""
+    a = CyclotomicRational.root_gen(4)
+    b = CyclotomicRational.root_gen(8)
+    with pytest.raises(ValueError, match="Cannot add cyclotomic rationals of differing orders"):
+        _ = a + b
+    with pytest.raises(ValueError, match="Cannot subtract cyclotomic rationals of differing orders"):
+        _ = a - b
+    with pytest.raises(ValueError, match="Cannot multiply cyclotomic rationals of differing orders"):
+        _ = a * b
+
+
+def test_gaussian_sweep_refuses_a_quartic_valuation(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Claims 2 and 3 rest on the valuation being quadratic.
+
+    Under the quartic valuation P(z) = (z z^*)^2 the third-order quantity is no
+    longer zero, and the sweep refuses by name instead of reporting a clean run.
+    """
+    def quartic(self: GaussianRational) -> Fraction:
+        n = self.norm_sq()
+        return n * n
+
+    monkeypatch.setattr(GaussianRational, "valuation", quartic)
+    c = Diamond2Complex(["A", "B", "C"])
+    # All three path values are 1, so P(sigma) = |sigma|^4 and I_3 = 81 - 3*16 + 3*1.
+    assert c.third_order_sorkin("A", "B", "C") == Fraction(36)
+    assert not c.is_sorkin_zero(["A", "B", "C"])
+    with pytest.raises(ValueError, match="Sorkin I_3 non-zero"):
+        run_pythagorean_parameter_sweep(max_param=2)
+
+
+def test_cyclotomic_sweep_refuses_a_quartic_valuation(monkeypatch: pytest.MonkeyPatch) -> None:
+    """The cyclotomic sweep behind Claim 4 refuses a non-quadratic valuation by name."""
+    def quartic(self: CyclotomicRational) -> CyclotomicRational:
+        v = self * self.conjugate()
+        return v * v
+
+    monkeypatch.setattr(CyclotomicRational, "valuation", quartic)
+    with pytest.raises(ValueError, match="Cyclotomic I_3 non-zero for n="):
+        run_cyclotomic_parameter_sweep()

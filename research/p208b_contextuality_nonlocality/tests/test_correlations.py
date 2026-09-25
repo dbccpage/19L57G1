@@ -274,3 +274,56 @@ class TestCabello18RayContextuality:
         assert cech["context_cycle_mod2"] == 1
         assert cech["incidence_degree_mod2"] == 0
         assert cech["coboundary_obstruction_mod2"] == 1
+
+
+def _uniform_table() -> dict[tuple[int, int, int, int], Fraction]:
+    return {
+        (a, b, x, y): Fraction(1, 4)
+        for x in (0, 1) for y in (0, 1) for a in (1, -1) for b in (1, -1)
+    }
+
+
+class TestNegativeRefusals:
+    """Bad inputs the claims say are excluded, each refused by the check that excludes it."""
+
+    def test_negative_entry_is_refused_even_when_the_row_sums_to_one(self) -> None:
+        """Validity checks non-negativity as well as the row sum."""
+        raw = _uniform_table()
+        raw[(1, 1, 0, 0)] = Fraction(1, 2)
+        raw[(1, -1, 0, 0)] = Fraction(1, 2)
+        raw[(-1, 1, 0, 0)] = Fraction(1, 2)
+        raw[(-1, -1, 0, 0)] = Fraction(-1, 2)
+        assert sum(raw[(a, b, 0, 0)] for a in (1, -1) for b in (1, -1)) == Fraction(1, 1)
+        assert not JointProbabilityTable(table=raw).is_valid_distribution()
+
+    def test_correlator_above_the_algebraic_bound_is_not_a_distribution(self) -> None:
+        """The README's algebraic bound 4: a table built past it has a negative entry."""
+        e = Fraction(11, 10)
+        table = make_correlation_table(e, e, e, -e)
+        assert table.chsh_correlator() == Fraction(22, 5)
+        assert table.is_no_signaling()
+        assert not table.is_valid_distribution()
+        assert table.get(1, -1, 0, 0) == Fraction(-1, 40)
+
+    def test_convex_lhv_refuses_mismatched_counts(self) -> None:
+        """A convex model with more weights than strategies is refused by name."""
+        strategies = tuple(generate_all_deterministic_strategies()[:2])
+        with pytest.raises(ValueError, match="Strategy count must match weight count"):
+            ConvexLHVModel(
+                strategies=strategies,
+                weights=(Fraction(1, 3), Fraction(1, 3), Fraction(1, 3)),
+            )
+
+    def test_orthogonality_and_incidence_checks_refuse_a_broken_context(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        """Replacing ray 3 by ray 1 in context 0 breaks both properties the obstruction uses."""
+        import correlations
+
+        broken = list(CABELLO_CONTEXTS)
+        broken[0] = (0, 1, 8, 17)
+        assert dot_product_4d(CABELLO_RAYS[0], CABELLO_RAYS[1]) == 2
+        monkeypatch.setattr(correlations, "CABELLO_CONTEXTS", tuple(broken))
+        assert verify_cabello_orthogonality() is False
+        degrees = verify_cabello_incidence()
+        assert {r: d for r, d in degrees.items() if d != 2} == {1: 3, 3: 1}

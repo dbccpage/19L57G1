@@ -15,7 +15,12 @@ from verify_lean import (  # noqa: E402
     LEAN,
     MATHLIB,
     RECORD,
+    REPORTING_MODULES,
+    check_written,
     parse_reports,
+    strip_comments,
+    written_census,
+    written_theorems,
 )
 
 CENSUS = "ENDOGENOUS_DEMAND_THEOREM: EndogenousDemand.cut"
@@ -100,7 +105,9 @@ class CommittedRecord(unittest.TestCase):
         self.assertEqual(record["outcome"], "B")
         self.assertEqual(record["class"], "C_reqs")
         for name, axioms in reports.items():
-            self.assertTrue(name.startswith("EndogenousDemand."), name)
+            # The census covers both proof modules (2026-09-24); before, only
+            # the EndogenousDemand namespace was recorded.
+            self.assertTrue(name.startswith(("EndogenousDemand.", "EndogenousDemandObstruction.")), name)
             self.assertTrue(set(axioms) <= ALLOWED_AXIOMS, name)
         for theorem in (
             "EndogenousDemand.e2_on_C_reqs_unsat",
@@ -110,8 +117,73 @@ class CommittedRecord(unittest.TestCase):
             "EndogenousDemand.event_constructors",
             "EndogenousDemand.historyL_reqs_from_impose",
             "EndogenousDemand.historyF_reqs_from_impose",
+            "EndogenousDemandObstruction.endogenous_termination_bound",
+            "EndogenousDemandObstruction.endogenous_termination_from_empty",
+            "EndogenousDemandObstruction.endogenous_trace_le_binom2",
+            "EndogenousDemandObstruction.endogenous_obstruction_no_excess",
         ):
             self.assertIn(theorem, reports)
+
+    def test_every_written_theorem_has_a_recorded_report(self) -> None:
+        """The check that was missing: read without a Lean build, so a theorem
+        written outside the recorded audit fails here by name."""
+        record = json.loads(RECORD.read_text(encoding="utf-8"))
+        written = written_census()
+        self.assertEqual(sorted(set(written) - set(record["reports"])), [])
+        self.assertEqual(record["written_theorem_count"], len(written))
+        self.assertEqual(len([w for w in written if w.startswith("EndogenousDemandObstruction.")]), 17)
+        self.assertEqual(len([w for w in written if w.startswith("EndogenousDemand.")]), 22)
+
+    def test_both_proof_modules_are_read_for_reports(self) -> None:
+        self.assertEqual(set(REPORTING_MODULES) | {"Inventory.lean"}, EXPECTED_FILES)
+        inventory = (LEAN / "Inventory.lean").read_text(encoding="utf-8")
+        self.assertIn("import EndogenousDemandObstruction", inventory)
+
+
+class WrittenTheoremCensus(unittest.TestCase):
+    def test_namespaces_sections_and_root(self) -> None:
+        text = (
+            "namespace A.B\n"
+            "theorem one : True := trivial\n"
+            "section S\n"
+            "@[simp] protected theorem two : True := trivial\n"
+            "end S\n"
+            "theorem _root_.three : True := trivial\n"
+            "end A.B\n"
+            "private theorem four : True := trivial\n"
+            "section\n"
+            "theorem five' : True := trivial\n"
+            "end\n"
+        )
+        self.assertEqual(written_theorems(text), ["A.B.one", "A.B.two", "three", "four", "five'"])
+
+    def test_comments_are_not_declarations(self) -> None:
+        text = (
+            "/-! theorem hidden : True := trivial\n"
+            "  /- nested theorem deeper -/ still inside -/\n"
+            "-- theorem line : True := trivial\n"
+            "/-- A docstring naming theorem nothing. -/\n"
+            "theorem shown : True := trivial\n"
+            "#print axioms shown\n"
+        )
+        self.assertEqual(written_theorems(text), ["shown"])
+        self.assertEqual(strip_comments("a/-x\ny-/b").splitlines(), ["a ", " b"])
+
+    def test_malformed_sources_fail_by_name(self) -> None:
+        cases = [
+            ("/- open", "unterminated block comment"),
+            ("end Stray\n", "unmatched end"),
+            ("theorem t : True := trivial\ntheorem t : True := trivial\n", "duplicate written theorem"),
+        ]
+        for text, reason in cases:
+            with self.subTest(reason=reason):
+                with self.assertRaisesRegex(ValueError, reason):
+                    written_theorems(text)
+
+    def test_unreported_written_theorem_is_named(self) -> None:
+        check_written(["N.t"], {"N.t": []})
+        with self.assertRaisesRegex(ValueError, r"written theorem without axiom report: \['N.u'\]"):
+            check_written(["N.t", "N.u"], {"N.t": []})
 
 
 if __name__ == "__main__":

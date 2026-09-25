@@ -126,7 +126,14 @@ jobs:
   lean:
     runs-on: ubuntu-latest
     steps:
+      # fetch-depth: 0 since 2026-09-24. The natural sections audit stages
+      # the sealed modules it compiles from the snapshot commit its manifest
+      # pins, and the coherent process limits audit checks its consumed trees
+      # at a pinned baseline commit; both read git history that a shallow
+      # checkout does not have.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Install elan
         run: |
           curl --retry 5 --retry-all-errors --retry-delay 2 -sSfL \
@@ -205,6 +212,85 @@ jobs:
         env:
           PYTHONIOENCODING: utf-8
         run: python verify.py --check
+      # The four trees whose tests are counted in the research job
+      # (2026-09-24). `verify.py --check` reruns the source hygiene scan, the
+      # tests, the tree's own Lake build and its Inventory.lean axiom census,
+      # rebuilds evidence/receipt.json in memory and fails unless it equals the
+      # committed bytes. It writes nothing; the git diff repeats the check.
+      - name: P208a path valuations, receipt with Lean census regenerates
+        working-directory: research/p208a_path_interference
+        env:
+          PYTHONIOENCODING: utf-8
+        run: |
+          python verify.py --check
+          git diff --exit-code -- evidence/receipt.json
+      - name: P208b correlation tables, receipt with Lean census regenerates
+        working-directory: research/p208b_contextuality_nonlocality
+        env:
+          PYTHONIOENCODING: utf-8
+        run: |
+          python verify.py --check
+          git diff --exit-code -- evidence/receipt.json
+      - name: P208c commutator traces and bases, receipt with Lean census regenerates
+        working-directory: research/p208c_commutator_tomography
+        env:
+          PYTHONIOENCODING: utf-8
+        run: |
+          python verify.py --check
+          git diff --exit-code -- evidence/receipt.json
+      - name: P209c Pauli-string codes, receipt with Lean census regenerates
+        working-directory: research/p209c_stabilizer_codes
+        env:
+          PYTHONIOENCODING: utf-8
+        run: |
+          python verify.py --check
+          git diff --exit-code -- evidence/receipt.json
+      # 2026-09-24: seven older trees whose Lean audits were manual receipts.
+      # Each script builds its tree's own Lake package, stops on a nonzero
+      # lake exit, scans its .lean sources for the forbidden tokens as text,
+      # fails naming any theorem whose axiom report leaves {propext,
+      # Quot.sound}, compares the reports with a committed inventory, and
+      # rewrites no tracked file.
+      #
+      # Natural sections compiles STAGED copies of twelve sealed modules,
+      # taken by `git show` at its pinned snapshot (needs the full history
+      # above), and fails if the build writes outside its own tree. The
+      # inventory is the declaration list in the script, which must equal
+      # both the #print axioms lines and the fresh reports.
+      - name: Natural sections, fresh Lean and axiom inventory
+        run: python3 research/natural_sections/verify_lean.py
+      # Three self-contained core-Lean packages. The fresh reports must equal
+      # the #print axioms lines of AxiomReport.lean, and every theorem the
+      # source declares must be listed there (for closed family, every
+      # theorem of Closure.lean; its reconstructed Base.lean is not censused).
+      - name: Balance carrier, fresh Lean and axiom audit
+        run: python3 research/balance_carrier/verify_lean.py
+      - name: Closed family, fresh Lean and axiom audit
+        run: python3 research/closed_family/verify_lean.py
+      - name: Convention price, fresh Lean and axiom audit
+        run: python3 research/convention_price/verify_lean.py
+      # Builds against the sealed package and the represented-execution chain
+      # of trees after its own custody check, and compares an environment
+      # census of every compiled theorem in its two namespaces, with each
+      # theorem's axioms, against the committed evidence/lean.json.
+      - name: Coherent process limits, fresh Lean and environment census
+        run: python3 research/coherent_process_limits/verify_lean.py --check
+      # Cleans and rebuilds; every module must lie in the root's import
+      # closure and every declared theorem must carry a #print axioms line;
+      # the reports must equal the committed lean/axioms.txt byte for byte.
+      # The tree is frozen, so its script runs as it stands. Its Python
+      # checks run in the research job; this is its Lean.
+      - name: Boundary derivation, fresh Lean and axiom log
+        run: python3 research/boundary_seed/verify_lean.py
+      # Registered with the six above once gate 12 was green again (#249):
+      # its verify.py --check runs the prose watchlist first. It then runs
+      # custody, its tests, strict typing, its own Lake build and theorem
+      # census, and fails unless its receipt regenerates byte-identically.
+      - name: Endogenous continuum, tree verifier with Lean and census
+        working-directory: research/endogenous_continuum
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python verify.py --check
       - name: Every compiled declaration stays within the axiom boundary
         run: python3 ci/check_declaration_axioms.py
       # Must stay LAST in this job and must not write to lake_build.log: the
@@ -263,13 +349,21 @@ jobs:
   # NOT run here: verify_lean.py. It builds the research Lake package, which
   # needs elan and compiles the sealed package as a dependency -- exactly the
   # expense this job exists to avoid. Research Lean verifiers run in the
-  # lean job instead: second_nofirst and typed_translation, and since
-  # 2026-09-23 the four foundations trees (native_bridge, native_structure,
-  # conservation_ladder, domain_adapters). Every other tree's AXIOMS remain
-  # a manual receipt, unchecked by any gate; do not read a green run here as
-  # covering them. (2026-09-21: this comment used to say no research tree's
-  # axioms were gated; that is withdrawn. 2026-09-23: it used to say two
-  # research Lean verifiers run in the lean job; that is withdrawn.)
+  # lean job instead: second_nofirst, second_index and typed_translation;
+  # since 2026-09-23 the four foundations trees (native_bridge,
+  # native_structure, conservation_ladder, domain_adapters); and since
+  # 2026-09-24 natural_sections, balance_carrier, closed_family,
+  # convention_price, coherent_process_limits, boundary_seed and
+  # endogenous_continuum. The lean job also regenerates the receipts of
+  # p208a_path_interference, p208b_contextuality_nonlocality,
+  # p208c_commutator_tomography and p209c_stabilizer_codes, each of which
+  # carries its tree's Lean axiom census. Every other tree's AXIOMS remain
+  # a manual receipt, unchecked by any gate; do not read a green run here
+  # as covering them. (2026-09-21: this comment used to say no research
+  # tree's axioms were gated; that is withdrawn. 2026-09-23: it used to say
+  # two research Lean verifiers run in the lean job; that is withdrawn.
+  # 2026-09-24: it used to omit second_index, which the lean job already
+  # ran; that is withdrawn.)
   research:
     runs-on: ubuntu-latest
     steps:
@@ -629,6 +723,51 @@ jobs:
       - name: Domain adapters, receipt regenerates byte-identically
         working-directory: research/domain_adapters
         run: python run.py --check
+      # Four exact-arithmetic trees, registered 2026-09-24: p208a (path
+      # valuations and third-order sums), p208b (correlation tables and the
+      # 18-ray incidence), p208c (commutator traces and unbiased bases) and
+      # p209c (Pauli-string codes). Their suites are pytest, so the count is
+      # read from pytest's own summary line (`--runner pytest`), and the
+      # asserted minimum fails a collection that silently finds fewer tests.
+      # Each committed receipt also carries the tree's Lean census, so its
+      # byte comparison runs in the lean job, where elan is installed.
+      - name: P208a path valuations, tests with a minimum count
+        working-directory: research/p208a_path_interference
+        run: |
+          set -o pipefail
+          log="$RUNNER_TEMP/p208a-tests.log"
+          python -m pytest tests -q -p no:cacheprovider 2>&1 | tee "$log"
+          python ../../ci/gate_support.py test-count "$log" --minimum 21 --runner pytest
+      - name: P208b correlation tables, tests with a minimum count
+        working-directory: research/p208b_contextuality_nonlocality
+        run: |
+          set -o pipefail
+          log="$RUNNER_TEMP/p208b-tests.log"
+          python -m pytest tests -q -p no:cacheprovider 2>&1 | tee "$log"
+          python ../../ci/gate_support.py test-count "$log" --minimum 25 --runner pytest
+      - name: P208c commutator traces and bases, tests with a minimum count
+        working-directory: research/p208c_commutator_tomography
+        run: |
+          set -o pipefail
+          log="$RUNNER_TEMP/p208c-tests.log"
+          python -m pytest tests -q -p no:cacheprovider 2>&1 | tee "$log"
+          python ../../ci/gate_support.py test-count "$log" --minimum 15 --runner pytest
+      # p208c and p209c declare strict mypy in their pyproject.toml, which
+      # names no files, so the tree directory is passed explicitly. p208a and
+      # p208b declare no typing configuration and are not typed here.
+      - name: P208c commutator traces and bases, strict typing
+        working-directory: research/p208c_commutator_tomography
+        run: python -m mypy .
+      - name: P209c Pauli-string codes, tests with a minimum count
+        working-directory: research/p209c_stabilizer_codes
+        run: |
+          set -o pipefail
+          log="$RUNNER_TEMP/p209c-tests.log"
+          python -m pytest tests -q -p no:cacheprovider 2>&1 | tee "$log"
+          python ../../ci/gate_support.py test-count "$log" --minimum 29 --runner pytest
+      - name: P209c Pauli-string codes, strict typing
+        working-directory: research/p209c_stabilizer_codes
+        run: python -m mypy .
       # Last in this job on purpose: it runs EVERY research tree's own custody
       # verifier, including the trees this job does not otherwise touch, and
       # compares the outcome set with ci/tree_custody_pin.json. Most trees are

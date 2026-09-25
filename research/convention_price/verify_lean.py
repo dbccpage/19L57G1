@@ -1,9 +1,17 @@
 """Build the self-contained Lean package and audit it: no forbidden
 token in any committed `.lean` source, every `#print axioms` report
-within the whitelist `{propext, Quot.sound}`, and every theorem named
-in `AxiomReport.lean` reported.  A manual receipt: no CI gate runs
-this file.  Exit 0 on success, 1 with a named failure otherwise.
-AuthorityEffect: None.
+within the whitelist `{propext, Quot.sound}`, every theorem named
+in `AxiomReport.lean` reported, and every theorem the package's modules
+declare named in `AxiomReport.lean`.  Exit 0 on success, 1 with a named
+failure otherwise.  AuthorityEffect: None.
+
+2026-09-24: this docstring used to say "A manual receipt: no CI gate
+runs this file."  That is withdrawn.  The `lean` job of
+`.github/workflows/verify.yml` runs this file, locally through
+`ci/run_gates.py`.  The source census was added in the same change: the
+two diffs against `AxiomReport.lean` compare that list with the reports
+it generates, so a line dropped from the list dropped its report too and
+neither diff could see it.
 """
 
 from __future__ import annotations
@@ -23,6 +31,39 @@ LEAN = HERE / "lean"
 FORBIDDEN = ["so" + "rry", "ad" + "mit", "uns" + "afe", "par" + "tial"]
 LEADING_AXIOM = re.compile(r"^\s*ax" + r"iom\s", re.MULTILINE)
 WHITELIST = {"propext", "Quot.sound"}
+
+IDENT = r"[A-Za-z_][A-Za-z0-9_'!?]*"
+THEOREM = re.compile(rf"^\s*(?:(?:private|protected)\s+)?theorem\s+({IDENT}(?:\.{IDENT})*)")
+NAMESPACE = re.compile(rf"^namespace\s+({IDENT}(?:\.{IDENT})*)\s*$")
+END_NAMESPACE = re.compile(rf"^end\s+({IDENT}(?:\.{IDENT})*)\s*$")
+BLOCK_COMMENT = re.compile(r"/-.*?-/", re.S)
+LINE_COMMENT = re.compile(r"--[^\n]*")
+
+
+def declared_theorems(paths: list[Path]) -> dict[str, str]:
+    """Theorem name -> declaring file, read from source, comments stripped.
+
+    Namespaces are tracked so the names match `AxiomReport.lean`; a
+    `section` adds no prefix and its `end` is ignored.  The population
+    comes from the modules, not from the list it is checked against.
+    """
+    found: dict[str, str] = {}
+    for path in paths:
+        text = path.read_text("utf-8")
+        stack: list[str] = []
+        for line in LINE_COMMENT.sub("", BLOCK_COMMENT.sub("", text)).splitlines():
+            opened = NAMESPACE.match(line)
+            if opened:
+                stack.append(opened.group(1))
+                continue
+            closed = END_NAMESPACE.match(line)
+            if closed and stack and stack[-1] == closed.group(1):
+                stack.pop()
+                continue
+            theorem = THEOREM.match(line)
+            if theorem:
+                found[".".join([*stack, theorem.group(1)])] = path.name
+    return found
 
 
 def main() -> int:
@@ -70,11 +111,23 @@ def main() -> int:
     for name in sorted(reported - wanted):
         print(f"FAIL: {name} is reported but not listed in AxiomReport.lean")
         failures += 1
+    modules = [s for s in sources if s != report_path and s.name != "lakefile.lean"]
+    declared = declared_theorems(modules)
+    if not declared:
+        print("FAIL: the source census found no theorem declaration")
+        failures += 1
+    for name in sorted(set(declared) - wanted):
+        print(
+            f"FAIL: {name} is declared in {declared[name]} but not listed in"
+            " AxiomReport.lean"
+        )
+        failures += 1
     if failures:
         return 1
     print(
         f"lean audit clean: {len(sources)} sources, {len(reported)} axiom"
-        f" reports, axioms within {sorted(WHITELIST)}"
+        f" reports, axioms within {sorted(WHITELIST)},"
+        f" {len(declared)} declared theorems all listed"
     )
     return 0
 

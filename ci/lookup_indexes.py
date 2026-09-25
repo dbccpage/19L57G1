@@ -159,6 +159,7 @@ NOT_PIN_FIELDS: Mapping[Shape, str] = {
     ("lean_source", "path"): "the tree's own Lean source and its declared imports",
     ("reconstructions", ITEM, "local_path"): "the tree's own reconstruction target",
     ("vendored_blob", "local_path"): "names the copy that vendored_receipts pins",
+    ("unpinned_inputs", ITEM, "path"): "a consumed input the manifest names as deliberately unpinned",
 }
 
 KIND_ORDER = ("tree", "file", "span", "copy", "reconstruction")

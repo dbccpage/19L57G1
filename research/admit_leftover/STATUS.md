@@ -92,3 +92,13 @@ and an unfired guarded family.  They are leftovers, not defects.
 The bundled Python runtime passes byte compilation, receipt generation, and
 the dependency-free direct harness.  A repository pytest/CI witness is not
 claimed for this research tree.
+
+2026-09-24: the ten checks in `test_admit_leftover.py` were plain
+functions.  The direct harness (`python test_admit_leftover.py`) called
+them, but `python -m unittest` collected none of them and reported "NO
+TESTS RAN".  They are now methods of one `unittest.TestCase`, still
+dependency-free, and the direct harness is `unittest.main()`.  A
+`load_tests` guard adds a failing check when the collected count is not
+ten, or when assertions are disabled.  All ten pass under the direct
+harness, `python -m unittest`, and pytest.  No check changed and no claim
+moved.

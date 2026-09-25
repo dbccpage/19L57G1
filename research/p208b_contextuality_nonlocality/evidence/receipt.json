@@ -110,7 +110,7 @@
   },
   "pytest": {
     "exit_code": 0,
-    "passed": 21,
+    "passed": 25,
     "status": "PASS"
   },
   "schema_version": 1,
@@ -120,7 +120,7 @@
     "correlations.py": "589c70654a92a9efdefd4a90ae8c8f827f9deb309b720124cb217d955e3838ac",
     "lean/ContextualityNonlocality.lean": "6d67bc8dcf2bc5b845fc75351ef73f8250e86d2d3f673e8853fab912d769fffd",
     "lean/Inventory.lean": "cfeaa234c075aad63805dbfc1dd99f1972d8b0e7ff0bc854cc9701af079745a0",
-    "tests/test_correlations.py": "62df7f3715e4a024f8dc604c57c4fe2086a9dc0780a1d7ae0744cf97649cdd7e",
+    "tests/test_correlations.py": "02f54ebe011936a29df9aea373966c3a5d964a9e3e460ccd4d3e434bb2790343",
     "verify.py": "5b078343a9e2bf6e83084b6fc9fae603c94dddb582a6c1104ce58ba25923dcd2",
     "verify_sources.py": "86e1fed9599917a715af0d6d9d3f9e1c763b6f554bcccd21dbb2877624e4df5d"
   },

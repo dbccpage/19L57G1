@@ -33,7 +33,17 @@ def verify_sources() -> list[str]:
         return ["SOURCE_MANIFEST.json missing"]
     manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
     sources = manifest.get("sources")
-    if not isinstance(sources, list) or not sources:
+    if not isinstance(sources, list):
+        return ["SOURCE_MANIFEST.json has no sources"]
+    # 2026-09-24: an empty list passes only when the manifest says why: the
+    # tree consumes nothing outside its directory, or what it consumes is
+    # named under unpinned_inputs.  An unexplained empty list still fails.
+    declares_none = manifest.get("outside_inputs") == "none"
+    unpinned = manifest.get("unpinned_inputs")
+    names_unpinned = isinstance(unpinned, list) and bool(unpinned)
+    if sources and declares_none:
+        return ["SOURCE_MANIFEST.json declares outside_inputs none but pins sources"]
+    if not sources and not (declares_none or names_unpinned):
         return ["SOURCE_MANIFEST.json has no sources"]
     for item in sources:
         if not isinstance(item, dict) or "path" not in item:
@@ -60,7 +70,13 @@ def main() -> int:
         for e in errs:
             print(f"FAIL: {e}", file=sys.stderr)
         return 1
-    print("PASS: all source pins match")
+    manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+    if manifest["sources"]:
+        print("PASS: all source pins match")
+    elif manifest.get("outside_inputs") == "none":
+        print("PASS: nothing pinned; the manifest declares no outside inputs")
+    else:
+        print("PASS: nothing pinned; the manifest names its unpinned inputs")
     return 0
 
 
