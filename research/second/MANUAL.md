@@ -664,3 +664,90 @@ representative lists are carried by the isomorphism with their length,
 and does not prove that two of them have one length (T-1); the Python
 counts distinct sealed profiles.  Neither checks the other's reading of
 "class".
+
+## Session handoff, rung ten (2026-09-25)
+
+**Read at the start of a session; written at the end of one.**  As the
+earlier handoffs say, the next rung is carried in the LAST rung's
+`STATUS.md`, and this section says where to look rather than copying it.
+
+- The rungs on `main` at this session's start (`77ad2a78`) are rung zero
+  (`second_inheritance`), rung one (`second_stream`), rung two track two
+  (`second_stake`), rung two track one (`second_nofirst`), rung three
+  (`second_index`), rung four (`second_iso`), rung five
+  (`second_symmetry`), rung six (`second_succession`), rung seven
+  (`second_duration`), rung eight (`second_class`) and rung nine
+  (`second_profile`).  Rung ten (`second_response`) is this session's,
+  and is not merged by an agent.
+- **X-6 is closed.**  This rung decided its last four rows -- adjacency,
+  reach and branching as USEFUL REALIZATIONS under the declaration of
+  the sealed responder and one measure, exhaustion as DEFINABLE -- each
+  with FORCED conditional on an engine.
+- **The rule selects no next rung.**  The table at the end of
+  `research/second_response/STATUS.md` finds no eligible leftover: none
+  reduces the count of declared inputs, and with X-6 closed none extends
+  the census on the reading rungs three to nine applied.  Two facts are
+  recorded there for the author and not acted on: X-5, the engine, is
+  the leftover every FORCED column waits on, and the seed's completion
+  gate names it; and the rung budget, counted by tree, is spent (twelve
+  trees), while counted by ordinal one rung remains.  The seed's section
+  nine also names the run's own paper, change log and claim ledger under
+  `research/second/`, which no rung has written.  What comes next is the
+  author's to say.
+- **The sealed responder has a domain.**  `min_responses` refuses a
+  regime holding a uniform rule, by a `ValueError` from its fast view.
+  A rung that reads responses over a rectangle must count the regimes it
+  refuses rather than widen it silently; this one names the widening as
+  S-1.
+- **A scripted edit guard earns its keep again.**  The injection script's
+  first run stopped at its third injection, whose guard found the chosen
+  receipt value twice and refused before injecting anything, with the
+  first two already recovered, as rung eight's did.  Choose an injected
+  value by counting its occurrences first.
+- One rung per session at most.  Never merge a rung; the author merges.
+- Before writing anything in a new rung: freeze `PROMPT.md` by hash and
+  commit it, then freeze `PREDICTIONS.md` by hash and commit it, then
+  compute.  The commits are the evidence of the order.
+
+## Injection record, rung ten (2026-09-25)
+
+Twelve injections, each minimal and reversible, none live while any
+receipt was regenerated.  All were run in a throwaway worktree detached
+at `68eee7e7`, the rung branch's head at the time, checked out with
+line endings as stored, by one script written to the scratchpad as a
+file, which edited with line endings preserved, refused any edit that
+did not apply exactly once, and checked each recovery and the
+worktree's status after each reversal.  The script ran twice: its first
+run stopped at the third injection, whose guard found the value twice in
+the receipt and refused before injecting anything, with the first two
+already recovered; the second run used a value that occurs once and ran
+all twelve.  The worktree was clean after the last reversal and was then
+removed.  Every one names the object it was given.
+
+<!-- markdownlint-disable MD013 -->
+
+| rung | gate | injection | observed failure |
+|---|---|---|---|
+| 10 | frozen-text pin (`second_response/verify_pins.py`) | one line appended to `PROMPT.md` in a throwaway commit on top of `68eee7e7` | `FAIL: frozen text moved: research/second_response/PROMPT.md: expected 09e9df8c..., got e865b38e...`, exit 1; after `git reset --hard HEAD~1`, exit 0 |
+| 10 | span pin (same verifier) | the rung-nine X-6 span's `last_line` moved from 215 to 216 in `SOURCE_MANIFEST.json`, uncommitted | `FAIL: span mismatch at the snapshot for research/second_profile/STATUS.md:212-216: expected 54100799..., got 512098c1...`, exit 1; exit 0 after restoring the manifest |
+| 10 | receipt comparison (`run_response.py --check`) | `"largest_edge_count": 15` in `receipts/response.json` changed to 16 | `FAIL: ...receipts\response.json differs from a fresh run`, exit 1; exit 0 after restoring the bytes.  The check writes nothing |
+| 10 | Lean axiom whitelist (`second_response/verify_lean.py`) | a theorem `zzz_probe_choice` proved by `Classical.em`, appended to `Move.lean` with its report line | three failures naming it: no FW-DEF row; `depends on disallowed axioms ['Classical.choice']`; a fresh report the committed log lacks; exit 1, then exit 0 |
+| 10 | Lean compiler census (same verifier) | the `#print axioms` line for `SecondResponse.Move.separation_needs_mention` deleted from `AxiomReport.lean` | `FAIL: compiler declaration SecondResponse.Move.separation_needs_mention has no fresh #print axioms report`, exit 1; exit 0 after restoring |
+| 10 | FW-DEF census totality (`test_census.py`) | the `response_collapses_a_pair` row deleted and the CONTENT count decremented | `AssertionError: Lists differ: ['response_collapses_a_pair'] != []` from the totality and axiom-log tests, the dated-count test naming CONTENT 7 against 8, and the prediction tests erroring with `KeyError: 'response_collapses_a_pair'`; exit 1, then OK |
+| 10 | reconstruction comparison (`test_reconstruction.py`) | the binder `d'` of the reconstructed sealed `collapsed` renamed to `dd` in `Kernel.lean` | `AssertionError: Lists differ: ['lean4/Derivation/Basic.lean -> Kernel.lean: collapsed'] != []`, exit 1; OK after restoring.  The comparison reads the sealed blob AT THE SNAPSHOT |
+| 10 | prose census over the write root (`test_forbidden.py`) | a probe `zz_probe.md` in the write root, marked intent-to-add, carrying the one term whose watchlist digest begins `326020dd`, confirmed watched by `ci/check_prose_watchlist.py --probe` | `AssertionError: Lists differ: ['research/second_response/zz_probe.md:1: <term elided>'] != []`, the term named in place of the elision; OK after removing the probe.  The term is elided because this record is itself scanned |
+| 10 | write-root scope scan (`test_forbidden.py`) | an untracked `zz_outside_probe.md` at the repository root | `AssertionError: Lists differ: ['zz_outside_probe.md'] != []`, exit 1; OK after deleting it |
+| 10 | coverage module census (`second_response/check_coverage.py`) | an undeclared production module `zz_helper.py` in the tree, after a report of the full suite had been generated and had passed | `FAIL: production module census differs: missing from declarations=['zz_helper.py'], declared but absent=[]`, exit 1; exit 0 after deleting it |
+| 10 | registration scan (`test_forbidden.py`) | the line `python run_response.py --check` deleted from the rung's step in `.github/workflows/verify.yml` | `AssertionError: 'python run_response.py --check' not found in` the rung's block, exit 1; OK after restoring |
+| 10 | the reach, through the receipt and the scoring (`run_response.py --check`; `test_response.py`) | the reach in `response_rows.py` made to read only the pairs a response moves APART | `FAIL: ...receipts\response.json differs from a fresh run`, exit 1; and the scored-verdict test `AssertionError: Lists differ`, naming R-14 as the row that fell; both recover after restoring the line |
+
+<!-- markdownlint-enable MD013 -->
+
+**What these injections do not prove.**  That the populations they pin
+are the right mathematical objects, or that the Python response rows and
+the Lean statements speak of one object: the Lean proves that a history
+moves only the pairs its instances mention, whatever chose the history,
+and the Python counts the sealed responder's minima on the rectangle;
+neither checks the other's reading of "response", which is a minimum of
+the sealed candidate space on one side and any history of events on the
+other.
