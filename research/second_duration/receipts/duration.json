@@ -1,0 +1,420 @@
+{
+  "alphabet": {
+    "arities": [
+      1,
+      2
+    ],
+    "fresh_tokens": [
+      "<n0>",
+      "<n1>",
+      "<n2>",
+      "<n3>",
+      "<n4>"
+    ],
+    "max_data": 5,
+    "max_forms": 2,
+    "max_sequence_length": 4,
+    "supply_token": "<z>"
+  },
+  "authority_effect": "None",
+  "bases": [
+    "EMPTY",
+    "L",
+    "F"
+  ],
+  "input_count_claim": "none",
+  "predictions_scored": {
+    "N-1": {
+      "value": "scored elsewhere: the committed Lean package, checked by verify_lean.py and test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "N-10": {
+      "value": {
+        "EMPTY": {
+          "one_tuple_iff_one_vector_violations": 0,
+          "regimes_with_unreached_or_extra_tuples": 0,
+          "vectors_outside_envelope": 0
+        },
+        "F": {
+          "one_tuple_iff_one_vector_violations": 0,
+          "regimes_with_unreached_or_extra_tuples": 0,
+          "vectors_outside_envelope": 0
+        },
+        "L": {
+          "one_tuple_iff_one_vector_violations": 0,
+          "regimes_with_unreached_or_extra_tuples": 0,
+          "vectors_outside_envelope": 0
+        }
+      },
+      "verdict": "HIT"
+    },
+    "N-11": {
+      "value": {
+        "gap_split_regimes": {
+          "EMPTY": 19,
+          "F": 103,
+          "L": 63
+        },
+        "shortest_gap_splitting_length": {
+          "EMPTY": 3,
+          "F": 3,
+          "L": 3
+        },
+        "shortest_vector_splitting_length": {
+          "EMPTY": 2,
+          "F": 2,
+          "L": 2
+        },
+        "vector_split_regimes": {
+          "EMPTY": 47,
+          "F": 597,
+          "L": 260
+        }
+      },
+      "verdict": "HIT"
+    },
+    "N-12": {
+      "value": {
+        "tail_only_regimes": {
+          "EMPTY": 3,
+          "F": 17,
+          "L": 13
+        }
+      },
+      "verdict": "HIT"
+    },
+    "N-13": {
+      "value": {
+        "classes": {
+          "EMPTY": 54,
+          "F": 265,
+          "L": 174
+        },
+        "classes_with_two_envelopes": {
+          "EMPTY": 3,
+          "F": 50,
+          "L": 45
+        },
+        "classes_with_two_sums": {
+          "EMPTY": 0,
+          "F": 0,
+          "L": 0
+        },
+        "classes_with_two_vectors": {
+          "EMPTY": 34,
+          "F": 73,
+          "L": 69
+        }
+      },
+      "verdict": "HIT"
+    },
+    "N-14": {
+      "value": {
+        "gap_splits": true,
+        "lead_splits": true,
+        "pinned_by_requirement": true
+      },
+      "verdict": "HIT"
+    },
+    "N-15": {
+      "value": "scored elsewhere: CLAIM_LEDGER.md, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "N-16": {
+      "value": "scored elsewhere: CLAIM_LEDGER.md and this receipt's input_count_claim",
+      "verdict": "ELSEWHERE"
+    },
+    "N-17": {
+      "value": "scored elsewhere: the receipt bytes, --check and test_duration.py; the time in STATUS.md",
+      "verdict": "ELSEWHERE"
+    },
+    "N-2": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py; replayed in lean_witnesses",
+      "verdict": "ELSEWHERE"
+    },
+    "N-3": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py; replayed in lean_witnesses",
+      "verdict": "ELSEWHERE"
+    },
+    "N-4": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "N-5": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py; replayed in lean_witnesses",
+      "verdict": "ELSEWHERE"
+    },
+    "N-6": {
+      "value": "scored elsewhere: the committed Lean package and CLAIM_LEDGER.md, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "N-7": {
+      "value": "scored elsewhere: receipts/lean_axioms.txt, checked by verify_lean.py",
+      "verdict": "ELSEWHERE"
+    },
+    "N-8": {
+      "value": {
+        "distinct_regimes": {
+          "EMPTY": 75,
+          "F": 1718,
+          "L": 523
+        },
+        "replay_mismatches": 0,
+        "sequences": {
+          "EMPTY": 577,
+          "F": 14293,
+          "L": 3928
+        }
+      },
+      "verdict": "HIT"
+    },
+    "N-9": {
+      "value": {
+        "EMPTY": {
+          "length_violations": 0,
+          "sum_violations": 0
+        },
+        "F": {
+          "length_violations": 0,
+          "sum_violations": 0
+        },
+        "L": {
+          "length_violations": 0,
+          "sum_violations": 0
+        }
+      },
+      "verdict": "HIT"
+    }
+  },
+  "predictions_sha256": "338d1b115327e1b99caf1699eade18f8b9e217dda3c328b6c8fc4987dfcf6f0e",
+  "prompt_sha256": "90ee1d2266f7d1a1269f21655dbd3a131542409e58cca79444d7b4ef720317b7",
+  "reading": "CHANGING",
+  "reports": {
+    "base_order": [
+      "EMPTY",
+      "L",
+      "F"
+    ],
+    "bases": {
+      "EMPTY": {
+        "base_data": 0,
+        "distinct_regimes": 75,
+        "gap_split_regimes": 19,
+        "length_violations": 0,
+        "one_tuple_iff_one_vector_violations": 0,
+        "regimes_reached_with_one_vector": 28,
+        "regimes_with_one_tuple_envelope": 28,
+        "regimes_with_unreached_or_extra_tuples": 0,
+        "sequences": 577,
+        "shortest_gap_splitting_sequence": {
+          "history": [
+            "AdmitDatum(<n0>)",
+            "AdmitDatum(<n1>)",
+            "AdmitForm(1)"
+          ],
+          "length": 3,
+          "splits_from": [
+            "AdmitDatum(<n0>)",
+            "AdmitForm(1)",
+            "AdmitDatum(<n1>)"
+          ],
+          "splits_from_value": [
+            1
+          ],
+          "value": [
+            0
+          ]
+        },
+        "shortest_vector_splitting_sequence": {
+          "history": [
+            "AdmitDatum(<n0>)",
+            "AdmitForm(1)"
+          ],
+          "length": 2,
+          "splits_from": [
+            "AdmitForm(1)",
+            "AdmitDatum(<n0>)"
+          ],
+          "splits_from_value": [
+            1,
+            0
+          ],
+          "value": [
+            0,
+            1
+          ]
+        },
+        "sum_violations": 0,
+        "tail_only_regimes": 3,
+        "vector_split_regimes": 47,
+        "vectors_outside_envelope": 0
+      },
+      "F": {
+        "base_data": 3,
+        "distinct_regimes": 1718,
+        "gap_split_regimes": 103,
+        "length_violations": 0,
+        "one_tuple_iff_one_vector_violations": 0,
+        "regimes_reached_with_one_vector": 1121,
+        "regimes_with_one_tuple_envelope": 1121,
+        "regimes_with_unreached_or_extra_tuples": 0,
+        "sequences": 14293,
+        "shortest_gap_splitting_sequence": {
+          "history": [
+            "AdmitDatum(<n0>)",
+            "AdmitDatum(<n1>)",
+            "AdmitForm(1)"
+          ],
+          "length": 3,
+          "splits_from": [
+            "AdmitDatum(<n0>)",
+            "AdmitForm(1)",
+            "AdmitDatum(<n1>)"
+          ],
+          "splits_from_value": [
+            1
+          ],
+          "value": [
+            0
+          ]
+        },
+        "shortest_vector_splitting_sequence": {
+          "history": [
+            "AdmitDatum(<n0>)",
+            "AdmitForm(1)"
+          ],
+          "length": 2,
+          "splits_from": [
+            "AdmitForm(1)",
+            "AdmitDatum(<n0>)"
+          ],
+          "splits_from_value": [
+            1,
+            0
+          ],
+          "value": [
+            0,
+            1
+          ]
+        },
+        "sum_violations": 0,
+        "tail_only_regimes": 17,
+        "vector_split_regimes": 597,
+        "vectors_outside_envelope": 0
+      },
+      "L": {
+        "base_data": 2,
+        "distinct_regimes": 523,
+        "gap_split_regimes": 63,
+        "length_violations": 0,
+        "one_tuple_iff_one_vector_violations": 0,
+        "regimes_reached_with_one_vector": 263,
+        "regimes_with_one_tuple_envelope": 263,
+        "regimes_with_unreached_or_extra_tuples": 0,
+        "sequences": 3928,
+        "shortest_gap_splitting_sequence": {
+          "history": [
+            "AdmitDatum(<n0>)",
+            "AdmitDatum(<n1>)",
+            "AdmitForm(1)"
+          ],
+          "length": 3,
+          "splits_from": [
+            "AdmitDatum(<n0>)",
+            "AdmitForm(1)",
+            "AdmitDatum(<n1>)"
+          ],
+          "splits_from_value": [
+            1
+          ],
+          "value": [
+            0
+          ]
+        },
+        "shortest_vector_splitting_sequence": {
+          "history": [
+            "AdmitDatum(<n0>)",
+            "AdmitForm(1)"
+          ],
+          "length": 2,
+          "splits_from": [
+            "AdmitForm(1)",
+            "AdmitDatum(<n0>)"
+          ],
+          "splits_from_value": [
+            1,
+            0
+          ],
+          "value": [
+            0,
+            1
+          ]
+        },
+        "sum_violations": 0,
+        "tail_only_regimes": 13,
+        "vector_split_regimes": 260,
+        "vectors_outside_envelope": 0
+      }
+    },
+    "classes": {
+      "classes": {
+        "EMPTY": 54,
+        "F": 265,
+        "L": 174
+      },
+      "classes_with_two_envelopes": {
+        "EMPTY": 3,
+        "F": 50,
+        "L": 45
+      },
+      "classes_with_two_sums": {
+        "EMPTY": 0,
+        "F": 0,
+        "L": 0
+      },
+      "classes_with_two_vectors": {
+        "EMPTY": 34,
+        "F": 73,
+        "L": 69
+      }
+    },
+    "lean_witnesses": {
+      "gap_splits": {
+        "claim_holds": true,
+        "position": 1,
+        "same_regime": true,
+        "segments": [
+          1,
+          0
+        ]
+      },
+      "lead_splits": {
+        "claim_holds": true,
+        "position": 0,
+        "same_regime": true,
+        "segments": [
+          1,
+          0
+        ]
+      },
+      "pinned_by_requirement": {
+        "claim_holds": true,
+        "envelope": [
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "vector": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "replay_mismatches": 0
+  },
+  "rung": "seven",
+  "write_root": "research/second_duration"
+}
