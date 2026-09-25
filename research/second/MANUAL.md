@@ -751,3 +751,65 @@ and the Python counts the sealed responder's minima on the rectangle;
 neither checks the other's reading of "response", which is a minimum of
 the sealed candidate space on one side and any history of events on the
 other.
+
+## Continuation: author ruling of 2026-09-25
+
+Rung ten (`research/second_response`, #265) recorded that the seed's
+next-rung rule selects no leftover, that the twelve-attempt budget is
+spent when counted by tree, and that the run's paper, change log and
+claim ledger are unwritten. The author then ruled as follows. The
+ruling is recorded verbatim, here and in `CLAUDE.md`; `SEED.md` is
+unchanged. It is a protocol intervention, not a result of the run.
+
+```text
+AUTHOR RULING — SECOND DERIVATION CONTINUATION
+
+1. Census eligibility
+Resolving an unresolved FORCED classification counts as extending
+the Challenge 5 census. A proved negative decision counts as well
+as a proved positive decision. Merely recording OPEN does not
+constitute an evidential resolution.
+
+A named prerequisite necessary to attempt an eligible census
+question is eligible. Its costs and dependencies must be stated.
+X-5 is eligible on this basis.
+
+2. Original budget
+The twelve-rung limit is counted by distinct research attempts,
+not by ordinal labels. The two separately scoped rung-two tracks
+count separately. The twelve recorded attempts exhaust the
+original budget. Historical labels and receipts are unchanged.
+
+3. Authorized continuation
+Authorize at most two additional research attempts in an explicitly
+identified continuation: first Challenge 3, then Challenge 4 with
+its engine-dependent census evaluations.
+
+The first attempt closes before the second opens. Each retains
+its declared bounds and may terminate OPEN. No additional attempt
+is authorized automatically. No scientific outcome is prescribed.
+
+The original SEED.md remains byte-identical. The continuation and
+this intervention are disclosed in the manual, paper, and ledger.
+
+4. Closeout responsibility
+A designated closeout session creates and reconciles:
+research/second/paper.md
+research/second/change_log.md
+research/second/claim_ledger.md
+
+Reporting and replay do not consume a research attempt. New
+substantive research is not permitted under the label of closeout.
+The author approves the final snapshot.
+
+5. Completion and freeze
+The paper distinguishes original-phase results, continuation
+results, protocol deviations, and unresolved obstructions.
+
+Budget exhaustion is not reported as completion-gate satisfaction.
+Every completion condition receives its own evidence or explicit
+unmet status, including the input-count floor.
+
+The final report and supporting files are frozen before comparison.
+The comparison is written only in the companion repository.
+```
