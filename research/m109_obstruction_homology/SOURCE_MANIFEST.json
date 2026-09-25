@@ -1,7 +1,23 @@
 {
   "schema": "m109_obstruction_homology-sources-v1",
   "authority_effect": null,
+  "note": "2026-09-24: the pins now name what this tree consumes, measured by importing every Python file of the tree in a child interpreter, running its tests under an audit hook, and following its Lake imports. Added 7 consumed input(s) that were unpinned. The verifier checks these pins at HEAD only; no snapshot identity is claimed. Each has the same blob at 2914032fb3, the commit that created this manifest.",
   "sources": [
+    {
+      "path": "code/derivation/__init__.py",
+      "git_blob": "8c239e66976fadaa9e5a04f9451ec4c500c266d4",
+      "sha256": "0fabcb53dc46712447a727f6ceb661e5aab3267a3e8b50bdea11044b64f853af"
+    },
+    {
+      "path": "code/derivation/candidates.py",
+      "git_blob": "9fa609d8a797f74f1620ce39e377c7dc54ee53b7",
+      "sha256": "856ce42faba2dc2ae1217207ecc8af893eac29b50ae8a374dc06d2ba22c957bb"
+    },
+    {
+      "path": "code/derivation/engine.py",
+      "git_blob": "343290d82a7fcda91f3ff85751af7af99f9a0359",
+      "sha256": "23803a3dcce2adf0dee623caba33791d41a25d2da3fdfd226da3cad2ee140b5e"
+    },
     {
       "path": "code/derivation/iso.py",
       "git_blob": "f05399fe6bdfbd2311bf34fa6fe927af194f586f",
@@ -11,6 +27,26 @@
       "path": "code/derivation/model.py",
       "git_blob": "b6f95a673853d423a0d73b4faa95b2cd22f306a3",
       "sha256": "6a7fd2ba9688d47e9291514c623a811cde3c6b9e8fda1d12a608dc9bb0b1f3c2"
+    },
+    {
+      "path": "code/derivation/observe.py",
+      "git_blob": "2552c0412d472ae9ff5d31f9068684cfa531aad9",
+      "sha256": "78443d67e613d9cc9924538fe2e0a5acaf81f4654440bfe8586e16652f0317ba"
+    },
+    {
+      "path": "research/path_dependent_cost/costs.py",
+      "git_blob": "60edb455ed2ae4917b23966e4949aedf2fe858bb",
+      "sha256": "8073a3be1efaa9d637c6fd81efaac66d42837d96f760a594606a3568fad157b5"
+    },
+    {
+      "path": "research/path_dependent_cost/exactness.py",
+      "git_blob": "4d071fcd4cd95e4e47cc8947c4c49d905a01131e",
+      "sha256": "ecc6752efffa965ff63ae6a2d4cb65376949df6469930dfcd7e138153deb6531"
+    },
+    {
+      "path": "research/path_dependent_cost/movegraph.py",
+      "git_blob": "b9fe5dc876d2f69f33bec70e174f11da1d894807",
+      "sha256": "9437d483db5f0603210d417a42121d65d50724226ed4f2b786085d15eaf0ec4f"
     }
   ]
 }

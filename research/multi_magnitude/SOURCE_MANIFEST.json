@@ -1,16 +1,32 @@
 {
   "schema": "multi_magnitude-sources-v1",
   "authority_effect": null,
+  "note": "2026-09-24: the pins now name what this tree consumes, measured by importing every Python file of the tree in a child interpreter, running its tests under an audit hook, and following its Lake imports. Removed, because nothing in this tree imports, opens or builds against them: code/derivation/iso.py, code/derivation/model.py. Added 5 consumed input(s) that were unpinned. The verifier checks these pins at HEAD only; no snapshot identity is claimed. Each has the same blob at 2914032fb3, the commit that created this manifest.",
   "sources": [
     {
-      "path": "code/derivation/iso.py",
-      "git_blob": "f05399fe6bdfbd2311bf34fa6fe927af194f586f",
-      "sha256": "b0f1f3bcf05126111a07706f4388a9fff5e30455d4b8f127966cf99ab0d0886e"
+      "path": "research/convention_price/channels.py",
+      "git_blob": "67c20b351558a2cd35f852fc5ef6cccc9a9fc4a2",
+      "sha256": "310eb745f4528692947c56428a81ac30231021eb92865776c47f23e6905ae856"
     },
     {
-      "path": "code/derivation/model.py",
-      "git_blob": "b6f95a673853d423a0d73b4faa95b2cd22f306a3",
-      "sha256": "6a7fd2ba9688d47e9291514c623a811cde3c6b9e8fda1d12a608dc9bb0b1f3c2"
+      "path": "research/convention_price/parity.py",
+      "git_blob": "c2e373ab0cc402630f3a98ff2ada1fa27f3c7f04",
+      "sha256": "018949acf00c9155c557a9ad9c4c6e6fc41a58b6593ff6cf1b02212a82ed3431"
+    },
+    {
+      "path": "research/sign_slice/cone_section.py",
+      "git_blob": "6b49ca3ea658ec706ae04264adc3c7210df643c3",
+      "sha256": "af0fd2ab01dcbdeee345a6f2a7ce12f556f538a5d8e84ad5f334f31bb523b8f8"
+    },
+    {
+      "path": "research/sign_slice/genpres.py",
+      "git_blob": "a69a2a4c00d5189c2b4a5911bc3c408c336e12c1",
+      "sha256": "b6b6eb808e054e6e8b95510f6fe36601f54baaa153973a1f0273e1f72e807f69"
+    },
+    {
+      "path": "research/sign_slice/slice_set.py",
+      "git_blob": "7f48ac9d05530a29b7450e1d820fa12ee646f62d",
+      "sha256": "b6911370dc6949de3137ef5fc4040713b24921b42afb5a79be8fec5a38481c29"
     }
   ]
 }

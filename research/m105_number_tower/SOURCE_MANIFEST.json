@@ -1,16 +1,22 @@
 {
   "schema": "m105_number_tower-sources-v1",
   "authority_effect": null,
+  "note": "2026-09-24: the pins now name what this tree consumes, measured by importing every Python file of the tree in a child interpreter, running its tests under an audit hook, and following its Lake imports. Removed, because nothing in this tree imports, opens or builds against them: code/derivation/iso.py, code/derivation/model.py. Added 3 consumed input(s) that were unpinned. The verifier checks these pins at HEAD only; no snapshot identity is claimed. 2 of them differ from their bytes at 2914032fb3, the commit that created this manifest, so for those the pin records HEAD, not that commit.",
   "sources": [
     {
-      "path": "code/derivation/iso.py",
-      "git_blob": "f05399fe6bdfbd2311bf34fa6fe927af194f586f",
-      "sha256": "b0f1f3bcf05126111a07706f4388a9fff5e30455d4b8f127966cf99ab0d0886e"
+      "path": "research/g011_finitary_substrate/lean/Ordinal.lean",
+      "git_blob": "56500e694a25f3424a2ed080e4ec6a666105c8aa",
+      "sha256": "481a7a94c525240bbc34a6697eb904f9db6e29ca2144dfab6edee6abb8d8a7b3"
     },
     {
-      "path": "code/derivation/model.py",
-      "git_blob": "b6f95a673853d423a0d73b4faa95b2cd22f306a3",
-      "sha256": "6a7fd2ba9688d47e9291514c623a811cde3c6b9e8fda1d12a608dc9bb0b1f3c2"
+      "path": "research/g011_finitary_substrate/lean/lake-manifest.json",
+      "git_blob": "0f34938a8f397ff16b924092cf50b98350ff2ed0",
+      "sha256": "7d93b4198d2a361fe7f93db342a4be7c494710d6e054106c18a300ad52923aea"
+    },
+    {
+      "path": "research/g011_finitary_substrate/lean/lakefile.toml",
+      "git_blob": "31c5bf20f38f70e58ccb4a52f0f46e46981e1f99",
+      "sha256": "e9451fc2a93340e9f33b31b1b736804013291ec62ad009dc7133412a5e38feb9"
     }
   ]
 }
