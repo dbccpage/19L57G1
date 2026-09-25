@@ -1,0 +1,237 @@
+{
+  "authority_effect": "None",
+  "classes": {
+    "R2F_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "R2F_wf": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "R2L_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "R2L_wf": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "admission_without_expressive_increase": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "collapse_needs_mention_or_rule": {
+      "class": "CONTENT",
+      "module": "Move.lean"
+    },
+    "collapsed_inst_unmentioned": {
+      "class": "THIN",
+      "module": "Move.lean"
+    },
+    "collapsed_of_no_insts": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "collapsed_step_keep": {
+      "class": "CONTENT",
+      "module": "Move.lean"
+    },
+    "ctx_step_keep": {
+      "class": "CONTENT",
+      "module": "ExhaustStep.lean"
+    },
+    "derivable_bwd": {
+      "class": "THIN",
+      "module": "Carry.lean"
+    },
+    "derivable_fwd": {
+      "class": "DEFINITION",
+      "module": "Carry.lean"
+    },
+    "derivable_inst_unmentioned": {
+      "class": "THIN",
+      "module": "Move.lean"
+    },
+    "derivable_mapCtx": {
+      "class": "THIN",
+      "module": "Carry.lean"
+    },
+    "distinguishes_step_keep": {
+      "class": "THIN",
+      "module": "ExhaustStep.lean"
+    },
+    "exhausted_iff_not_distinguishes": {
+      "class": "THIN",
+      "module": "Exhaust.lean"
+    },
+    "exhausted_iso": {
+      "class": "THIN",
+      "module": "Exhaust.lean"
+    },
+    "exhausted_of_le_one": {
+      "class": "THIN",
+      "module": "Exhaust.lean"
+    },
+    "exhausted_of_no_inst": {
+      "class": "THIN",
+      "module": "Exhaust.lean"
+    },
+    "exhausted_of_rule": {
+      "class": "DEFINITION",
+      "module": "Exhaust.lean"
+    },
+    "exhausted_step_keep": {
+      "class": "CONTENT",
+      "module": "ExhaustStep.lean"
+    },
+    "exhaustion_at_one": {
+      "class": "DEFINITION",
+      "module": "Exhaust.lean"
+    },
+    "exhaustion_begun_by_inst": {
+      "class": "CONTENT",
+      "module": "ExhaustStep.lean"
+    },
+    "exhaustion_begun_by_rule": {
+      "class": "THIN",
+      "module": "ExhaustStep.lean"
+    },
+    "exhaustion_ended_by_datum": {
+      "class": "THIN",
+      "module": "ExhaustStep.lean"
+    },
+    "exhaustion_ended_by_inst": {
+      "class": "THIN",
+      "module": "ExhaustStep.lean"
+    },
+    "fresh_form_exhausted": {
+      "class": "THIN",
+      "module": "ExhaustStep.lean"
+    },
+    "genesis_underivable": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "getD_append_lt": {
+      "class": "THIN",
+      "module": "ExhaustStep.lean"
+    },
+    "historyF_replays": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "historyL_replays": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "holdsTwo_iff_distinguishes": {
+      "class": "DEFINITION",
+      "module": "Exhaust.lean"
+    },
+    "insertNew_nil": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "insertNew_of_mem": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "insertNew_of_not_mem": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "map_inv": {
+      "class": "THIN",
+      "module": "Carry.lean"
+    },
+    "mem_insertNew": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "mem_plug_of_hole": {
+      "class": "DEFINITION",
+      "module": "Move.lean"
+    },
+    "moved_pairs_meet_mentions": {
+      "class": "THIN",
+      "module": "Move.lean"
+    },
+    "no_exhausted_at_genesis": {
+      "class": "DEFINITION",
+      "module": "Exhaust.lean"
+    },
+    "one_inst_moves_two_pairs": {
+      "class": "DEFINITION",
+      "module": "Move.lean"
+    },
+    "plug_args_lt": {
+      "class": "THIN",
+      "module": "Carry.lean"
+    },
+    "plug_mapCtx": {
+      "class": "DEFINITION",
+      "module": "Carry.lean"
+    },
+    "replayE_append": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "response_collapses_a_pair": {
+      "class": "CONTENT",
+      "module": "Move.lean"
+    },
+    "separable_inst_unmentioned": {
+      "class": "THIN",
+      "module": "Move.lean"
+    },
+    "separable_not_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "separable_step_keep": {
+      "class": "THIN",
+      "module": "ExhaustStep.lean"
+    },
+    "separation_needs_inst": {
+      "class": "THIN",
+      "module": "Move.lean"
+    },
+    "separation_needs_mention": {
+      "class": "CONTENT",
+      "module": "Move.lean"
+    },
+    "slots_ok_of_plug_mem": {
+      "class": "THIN",
+      "module": "Move.lean"
+    },
+    "step_data_le": {
+      "class": "THIN",
+      "module": "ExhaustStep.lean"
+    },
+    "step_wf": {
+      "class": "CONTENT",
+      "module": "Move.lean"
+    },
+    "supply_no_op": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "underivable_of_empty": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "wfCtx_mapCtx": {
+      "class": "THIN",
+      "module": "Carry.lean"
+    }
+  },
+  "counts": {
+    "CONTENT": 8,
+    "DEFINITION": 8,
+    "RECONSTRUCTION": 17,
+    "THIN": 23
+  },
+  "long_but_definitional": {},
+  "note": "The FW-DEF census of this rung, TOTAL over every theorem of the package. The four classes are rung six's, with rung six's meanings. RECONSTRUCTION: not this rung's work, reproduced verbatim under a pin -- every theorem of Kernel.lean; IsoKernel.lean reconstructs definitions only and carries no theorem. DEFINITION: true by unfolding, by rfl, by a projection, by one rewrite, by kernel computation over concrete regimes, or by pure case exhaustion; never counted as content. THIN: one genuine step, or a direct corollary of a neighbour. CONTENT: everything else. Rung seven's rule for inductions is applied: separation_needs_mention and collapse_needs_mention_or_rule are inductions over the history whose step is a case analysis on the shape of the event -- an instance admission mentioning the pair, one not mentioning it, a rule admission, and the rest -- so both are CONTENT. ctx_step_keep is the six-way case exhaustion in which the datum and form cases re-establish well-formedness of a context through the widened range of a slot and the reading of a lengthened list of forms; rung nine classed that shape CONTENT in separable_step_keep, and here it is stated once, so separable_step_keep and distinguishes_step_keep become THIN corollaries of it. exhausted_step_keep and collapsed_step_keep are case exhaustions whose form and rule cases each carry an argument of their own (the form case of collapsed_step_keep uses well-formedness to show a context on the new form derives nothing), so both are CONTENT; step_wf is rung three's wf_step_any, which rung three classed CONTENT. exhaustion_begun_by_inst and response_collapses_a_pair are CONTENT and not DEFINITION for the reason rung nine gave for twoness_lost_by_inst: the regimes are concrete, but that every well-formed context of the regime reads two data alike is a statement over every context, which kernel computation cannot decide; the proof shows every well-formed context is the one-hole context of the only form. exhausted_iso is THIN, as the frozen prediction said applying rung nine's lesson: it assembles derivable_mapCtx and wfCtx_mapCtx along isoSymm. Two rows were predicted THIN and are DEFINITION: holdsTwo_iff_distinguishes, which only repackages the witness of separability as a witness of distinguishing and back, and mem_plug_of_hole, a one-line term by List.mem_map. Both misses are DEMOTIONS. No native theorem was added beyond the frozen prediction. Several statements are credited, not counted as new to the run: map_inv, plug_mapCtx, plug_args_lt, wfCtx_mapCtx, derivable_fwd, derivable_bwd and derivable_mapCtx (rung nine), separable_step_keep (rung nine's statement, proved differently here), getD_append_lt (rung five, proved again at rungs eight and nine) and step_wf (rung three's wf_step_any); the definitions isoSymm (rung eight) and HoldsTwo (rung nine) repeat earlier rungs'. test_census.py checks this file is total over the package in both directions, that no row classed DEFINITION has a long proof outside long_but_definitional, and that the classes here are scored against the frozen prediction in PREDICTIONS.md."
+}
