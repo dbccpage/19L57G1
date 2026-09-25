@@ -1,6 +1,6 @@
 {
   "schema": "record-reading-sources-v1",
-  "baseline_commit": "6df9aa3163d514070c6b90a0949a68d52d63a2dc",
+  "baseline_commit": "9fa450d01e436687de5a3549e8a7c80cb390e207",
   "text_normalization": "CRLF_TO_LF_ONLY",
   "scope": "Exactly the sources this family consumes: the eight derivation modules the merged encoder loads and the translation, execution, control and limits modules, by digest and runtime origin; the sealed Lean derivation tree, the merged local_reuse, ignition, magnification, setting_translation, represented_execution and coherent_process_limits Lean trees the local proofs build on, the setting_translation, represented_execution and coherent_process_limits Python trees that supply the encoder, the machines this family extends and the observation it selects against, the Lean configuration of the seven packages, and the represented execution family's artifact evidence/process.json (read here through the coherent process limits family's identification, never written here) at the commit at which both families are frozen. No export is read. prompt and paper are not read and not pinned. 2026-09-19 scope correction: whole-directory pins record custody; they do not assert that the computation imports or reads every pinned file. The tree census is not a compiled import closure.",
   "runtime_modules": {
@@ -30,7 +30,7 @@
     "research/represented_execution/lean": "029507c079417cc540e9b8fb850339a253d6a70e",
     "research/represented_execution": "6fee5c0a8f63d1cc0be1d17d4e0e9e2dc8159c56",
     "research/coherent_process_limits/lean": "081e8140894a34bb9bc049e96fe72e9aa9e8f4c6",
-    "research/coherent_process_limits": "91d9fb7ec05869e06454f50b88ba095c42dd2bf1"
+    "research/coherent_process_limits": "381fc29185c157f00957b79ae8662053d3d3c64e"
   },
   "tree_census": {
     "code/derivation": [
