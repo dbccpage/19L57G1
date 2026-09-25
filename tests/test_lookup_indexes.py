@@ -146,7 +146,9 @@ def test_the_root_lean_file_is_sealed_by_ruling() -> None:
     assert not li.is_sealed("lean4/lakefile.toml")
     assert not li.is_sealed("lean4/Derivation.lean.orig")
     row = _row("Sealed paths", "lean4/Derivation.lean")
-    assert row.startswith("| `lean4/Derivation.lean` | 13 |")
+    # 2026-09-24: 14, not 13, since g010_primitive_removal pins the import
+    # closure of the Derivation root that its Lake package builds.
+    assert row.startswith("| `lean4/Derivation.lean` | 14 |")
     assert row.endswith("| none |")
 
 
