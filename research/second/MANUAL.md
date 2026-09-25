@@ -303,3 +303,70 @@ was removed afterwards.  Every one names the object it was given.
 are the right mathematical objects, or that the Lean stake formulas are
 the sibling Python rules: that last is checked by transcription on a
 finite range, and a transcription is not the text it transcribes.
+
+## Session handoff, rung five (2026-09-25)
+
+**Read at the start of a session; written at the end of one.**  As the
+earlier handoffs say, the next rung is carried in the LAST rung's
+`STATUS.md`, and this section says where to look rather than copying it.
+
+- The rungs on `main` at this session's start (`630622da`) are rung zero
+  (`second_inheritance`), rung one (`second_stream`), rung two track two
+  (`second_stake`), rung two track one (`second_nofirst`), rung three
+  (`second_index`) and rung four (`second_iso`).  Rung five
+  (`second_symmetry`) is this session's, and is not merged by an agent.
+- The next rung is named at the end of `research/second_symmetry/STATUS.md`,
+  under "The next rung, named so it cannot be smuggled in later": Z-4,
+  succession through the element count.
+- **The registration gap rung four met is closed by rule.**  The author's
+  ruling of 2026-09-25 in `CLAUDE.md` lets a rung add its own gate scripts
+  to `.claude/skills/gates/SKILL.md`.  This rung did so in its own pull
+  request, and `tests/test_gates_skill_matches_workflow.py` passed on the
+  rung branch before it was opened.  `test_forbidden.py` now lists the
+  skill beside the workflow and this manual as a shared file a rung may
+  append to, and checks that no line of it is removed.
+- **Line endings in a throwaway worktree.**  This machine checks files
+  out with CRLF, so an injection script that edits by exact text must
+  convert its line endings first; the first run of this rung's did not,
+  and refused its own edit before injecting anything.  And a new worktree
+  has no `coverage.json`: the coverage census must be given a report of
+  the full suite before an injection into it, or it fails on the missing
+  report and not on the injected module.  Both are recorded beside the
+  table below.
+- One rung per session at most.  Never merge a rung; the author merges.
+- Before writing anything in a new rung: freeze `PROMPT.md` by hash and
+  commit it, then freeze `PREDICTIONS.md` by hash and commit it, then
+  compute.  The commits are the evidence of the order.
+
+## Injection record, rung five (2026-09-25)
+
+Twelve injections, each minimal and reversible, none live while any
+receipt was regenerated.  All were run in a throwaway worktree detached at
+`c60a0065`, the rung branch's head at the time, so that none could race
+the rung's own worktree, and that worktree was removed afterwards with a
+clean status.  Every one names the object it was given.
+
+<!-- markdownlint-disable MD013 -->
+
+| rung | gate | injection | observed failure |
+|---|---|---|---|
+| 5 | frozen-text pin (`second_symmetry/verify_pins.py`) | one line appended to `PROMPT.md` in a throwaway commit `27ad905e` on top of `c60a0065` | `FAIL: frozen text moved: research/second_symmetry/PROMPT.md: expected 7b3f73c0..., got 6acbd072...`, exit 1; after `git reset --hard HEAD~1`, exit 0 and a clean tree |
+| 5 | span pin (same verifier) | the `Minimality.lean` span's `last_line` moved from 224 to 225 in `SOURCE_MANIFEST.json`, uncommitted | `FAIL: span mismatch at the snapshot for lean4/Derivation/Minimality.lean:169-225: expected 4856138d..., got 7ea30d05...`, exit 1; exit 0 after restoring the manifest |
+| 5 | receipt comparison (`run_symmetry.py --check`) | `"largest": 240` in `receipts/symmetry.json` changed to 241 | `FAIL: ...receipts\symmetry.json differs from a fresh run`, exit 1; exit 0 after `git checkout`.  The check writes nothing |
+| 5 | Lean axiom whitelist (`second_symmetry/verify_lean.py`) | a theorem `zzz_probe_choice` proved by `Classical.em`, appended to `Witness.lean` with its report line | three failures naming it: no FW-DEF row; `depends on disallowed axioms ['Classical.choice']`; a fresh report the committed log lacks; exit 1, then `lean audit clean: 9 sources, 64 axiom reports` |
+| 5 | Lean compiler census (same verifier) | the `#print axioms` line for `SecondSymmetry.Aut.inst_descends_of_fixed` deleted from `AxiomReport.lean` | `FAIL: compiler declaration SecondSymmetry.Aut.inst_descends_of_fixed has no fresh #print axioms report`, exit 1; exit 0 after restoring |
+| 5 | FW-DEF census totality (`test_census.py`) | the `datum_lift` row deleted and the CONTENT count decremented | `AssertionError: Lists differ: ['datum_lift'] != []` from the totality test and from the axiom-log coverage test; exit 1, then OK |
+| 5 | reconstruction comparison (`test_reconstruction.py`) | the binder `hreqs` of the reconstructed sealed `isoRefl` renamed to `hreq` in `IsoKernel.lean` | `AssertionError: Lists differ: ['lean4/Derivation/Minimality.lean -> IsoKernel.lean: isoRefl'] != []`, exit 1; OK after restoring.  The comparison reads the sealed blob AT THE SNAPSHOT |
+| 5 | prose census over the write root (`test_forbidden.py`) | a probe `zz_probe.md` in the write root carrying one term confirmed watched by `ci/check_prose_watchlist.py --probe` | `AssertionError: Lists differ: ['research/second_symmetry/zz_probe.md:1: <term elided>'] != []`, the term named in place of the elision; OK after deleting the probe.  The term is elided because this record is itself scanned |
+| 5 | write-root scope scan (`test_forbidden.py`) | an untracked `zz_outside_probe.md` at the repository root | `AssertionError: Lists differ: ['zz_outside_probe.md'] != []`, exit 1; OK after deleting it |
+| 5 | coverage module census (`second_symmetry/check_coverage.py`) | an undeclared production module `zz_helper.py` in the tree | `FAIL: production module census differs: missing from declarations=['zz_helper.py'], declared but absent=[]`, exit 1; exit 0 after deleting it.  RECORDED BESIDE IT: the first attempt ran in the fresh worktree before any coverage report existed, and the gate failed on `coverage.json is missing` -- the right refusal for the wrong reason, so it was not counted.  The report was generated from the full suite and the injection repeated |
+| 5 | registration scan (`test_forbidden.py`) | the line `python run_symmetry.py --check` deleted from the rung's step in `.github/workflows/verify.yml` | `AssertionError: 'python run_symmetry.py --check' not found in` the rung's block, exit 1; OK after restoring |
+| 5 | the datum law, through the receipt and the scoring (`run_symmetry.py --check`; `test_symmetry.py`) | `untouched_data` in `symmetry.py` made to count one datum too many whenever any datum is touched | `FAIL: ...receipts\symmetry.json differs from a fresh run`, exit 1; and the scored-verdict test `AssertionError: Lists differ: ['K-10', 'K-11', 'K-13', ...] != ['K-10', 'K-11', 'K-12', 'K-13', ...]`, naming K-12 as the row that fell; both recover after restoring the function |
+
+<!-- markdownlint-enable MD013 -->
+
+**What these injections do not prove.**  That the populations they pin
+are the right mathematical objects, or that a size law checked on the
+rectangle holds beyond it: the Lean of this rung proves which
+automorphisms survive, never how many there are, and a law about sizes
+is a finite computation until it is proved.

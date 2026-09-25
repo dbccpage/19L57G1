@@ -1,0 +1,461 @@
+{
+  "alphabet": {
+    "arities": [
+      1,
+      2
+    ],
+    "fresh_tokens": [
+      "<n0>",
+      "<n1>",
+      "<n2>",
+      "<n3>",
+      "<n4>"
+    ],
+    "max_data": 5,
+    "max_forms": 2,
+    "max_sequence_length": 4,
+    "supply_token": "<z>"
+  },
+  "authority_effect": "None",
+  "bases": [
+    "EMPTY",
+    "L",
+    "F"
+  ],
+  "input_count_claim": "none",
+  "orbit_bound": 240,
+  "predictions_scored": {
+    "K-1": {
+      "value": "scored elsewhere: the committed Lean package, checked by verify_lean.py and test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "K-10": {
+      "value": {
+        "count_disagreements": 0,
+        "edges": 18795,
+        "replay_mismatches": 0,
+        "sequences": {
+          "EMPTY": 577,
+          "F": 14293,
+          "L": 3928
+        },
+        "set_disagreements": 0
+      },
+      "verdict": "HIT"
+    },
+    "K-11": {
+      "value": {
+        "adding_kinds": {
+          "AdmitInst": {
+            "down": 4476,
+            "equal": 2344,
+            "up": 678
+          },
+          "AdmitRuleAll": {
+            "down": 132,
+            "equal": 1064,
+            "up": 18
+          },
+          "Impose": {
+            "down": 1886,
+            "equal": 1384,
+            "up": 318
+          }
+        },
+        "datum_or_form_edges_lowering": 0,
+        "supply_edges_changing": 0,
+        "unchanging_edges_moving": 0
+      },
+      "verdict": "HIT"
+    },
+    "K-12": {
+      "value": {
+        "datum": {
+          "checked": 1346,
+          "violations": 0
+        },
+        "form": {
+          "checked": 2200,
+          "violations": 0
+        }
+      },
+      "verdict": "HIT"
+    },
+    "K-13": {
+      "value": {
+        "checked": 12300,
+        "ratio_violations": 0,
+        "set_violations": 0
+      },
+      "verdict": "HIT"
+    },
+    "K-14": {
+      "value": {
+        "largest_fall": {
+          "kinds": [
+            "AdmitInst"
+          ],
+          "ratio": "24"
+        },
+        "largest_rise": {
+          "kinds": [
+            "AdmitDatum"
+          ],
+          "ratio": "5"
+        }
+      },
+      "verdict": "MISSED"
+    },
+    "K-15": {
+      "value": {
+        "classes_by_base": {
+          "EMPTY": {
+            "CONSTANT": 343,
+            "FALLING": 0,
+            "MIXED": 77,
+            "RISING": 157
+          },
+          "F": {
+            "CONSTANT": 135,
+            "FALLING": 6996,
+            "MIXED": 6884,
+            "RISING": 278
+          },
+          "L": {
+            "CONSTANT": 498,
+            "FALLING": 1106,
+            "MIXED": 1959,
+            "RISING": 365
+          }
+        },
+        "shortest_mixed_length": 2
+      },
+      "verdict": "HIT"
+    },
+    "K-16": {
+      "value": {
+        "class_revisits": 0,
+        "element_count_violations": 0
+      },
+      "verdict": "HIT"
+    },
+    "K-17": {
+      "value": {
+        "largest": 240,
+        "smallest": 1
+      },
+      "verdict": "HIT"
+    },
+    "K-18": {
+      "value": "scored elsewhere: CLAIM_LEDGER.md, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "K-19": {
+      "value": "scored elsewhere: CLAIM_LEDGER.md and this receipt's input_count_claim",
+      "verdict": "ELSEWHERE"
+    },
+    "K-2": {
+      "value": "scored elsewhere: the committed Lean package, checked by verify_lean.py and test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "K-20": {
+      "value": "scored elsewhere: the receipt bytes, --check and test_symmetry.py; the time in STATUS.md",
+      "verdict": "ELSEWHERE"
+    },
+    "K-3": {
+      "value": "scored elsewhere: FWDEF_CENSUS.json, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "K-4": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "K-5": {
+      "value": "scored elsewhere: the committed Lean package and CLAIM_LEDGER.md, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "K-6": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "K-7": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "K-8": {
+      "value": "scored elsewhere: the committed Lean package and CLAIM_LEDGER.md, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "K-9": {
+      "value": "scored elsewhere: receipts/lean_axioms.txt, checked by verify_lean.py",
+      "verdict": "ELSEWHERE"
+    }
+  },
+  "predictions_sha256": "bcedea00300218386e0ca9df39d476482319234521131f67267d1f699f858ae9",
+  "prompt_sha256": "7b3f73c0af7b1e5ed61bb5cb48da6e079eccf310b4b7b76c67538ddc69e6bbb9",
+  "reports": {
+    "automorphisms": {
+      "count_disagreements": 0,
+      "largest": 240,
+      "regimes": 2316,
+      "set_disagreements": 0,
+      "size_distribution": {
+        "1": 1120,
+        "12": 46,
+        "120": 10,
+        "2": 795,
+        "24": 33,
+        "240": 2,
+        "3": 2,
+        "4": 140,
+        "48": 4,
+        "6": 125,
+        "8": 39
+      },
+      "smallest": 1
+    },
+    "bases": {
+      "EMPTY": {
+        "edges": 576,
+        "sequences": 577
+      },
+      "F": {
+        "edges": 14292,
+        "sequences": 14293
+      },
+      "L": {
+        "edges": 3927,
+        "sequences": 3928
+      }
+    },
+    "edges": {
+      "by_kind": {
+        "AdmitDatum": {
+          "changing": {
+            "down": 0,
+            "equal": 359,
+            "up": 987
+          },
+          "unchanging": {
+            "down": 0,
+            "equal": 0,
+            "up": 0
+          }
+        },
+        "AdmitForm": {
+          "changing": {
+            "down": 0,
+            "equal": 1896,
+            "up": 304
+          },
+          "unchanging": {
+            "down": 0,
+            "equal": 0,
+            "up": 0
+          }
+        },
+        "AdmitInst": {
+          "changing": {
+            "down": 4476,
+            "equal": 2344,
+            "up": 678
+          },
+          "unchanging": {
+            "down": 0,
+            "equal": 630,
+            "up": 0
+          }
+        },
+        "AdmitRuleAll": {
+          "changing": {
+            "down": 132,
+            "equal": 1064,
+            "up": 18
+          },
+          "unchanging": {
+            "down": 0,
+            "equal": 144,
+            "up": 0
+          }
+        },
+        "Impose": {
+          "changing": {
+            "down": 1886,
+            "equal": 1384,
+            "up": 318
+          },
+          "unchanging": {
+            "down": 0,
+            "equal": 799,
+            "up": 0
+          }
+        },
+        "Supply": {
+          "changing": {
+            "down": 0,
+            "equal": 0,
+            "up": 0
+          },
+          "unchanging": {
+            "down": 0,
+            "equal": 1376,
+            "up": 0
+          }
+        }
+      },
+      "datum_law": {
+        "checked": 1346,
+        "violations": 0
+      },
+      "edges": 18795,
+      "element_count_violations": 0,
+      "form_law": {
+        "checked": 2200,
+        "violations": 0
+      },
+      "largest_fall": {
+        "kinds": [
+          "AdmitInst"
+        ],
+        "ratio": "24"
+      },
+      "largest_rise": {
+        "kinds": [
+          "AdmitDatum"
+        ],
+        "ratio": "5"
+      },
+      "meet_law": {
+        "checked": 12300,
+        "ratio_violations": 0,
+        "set_violations": 0
+      }
+    },
+    "lean_witnesses": {
+      "inst_gain": {
+        "claim_holds": true,
+        "regime_before": {
+          "data": 2,
+          "forms": 1,
+          "insts": 1,
+          "reqs": 0,
+          "rules": 0
+        },
+        "side": "GAIN",
+        "sizes": [
+          1,
+          2
+        ]
+      },
+      "inst_loss": {
+        "claim_holds": true,
+        "regime_before": {
+          "data": 2,
+          "forms": 1,
+          "insts": 0,
+          "reqs": 0,
+          "rules": 0
+        },
+        "side": "LOSS",
+        "sizes": [
+          2,
+          1
+        ]
+      },
+      "req_gain": {
+        "claim_holds": true,
+        "regime_before": {
+          "data": 3,
+          "forms": 0,
+          "insts": 0,
+          "reqs": 1,
+          "rules": 0
+        },
+        "side": "GAIN",
+        "sizes": [
+          2,
+          2
+        ]
+      },
+      "req_loss": {
+        "claim_holds": true,
+        "regime_before": {
+          "data": 3,
+          "forms": 0,
+          "insts": 0,
+          "reqs": 0,
+          "rules": 0
+        },
+        "side": "LOSS",
+        "sizes": [
+          6,
+          2
+        ]
+      },
+      "rule_gain": {
+        "claim_holds": true,
+        "regime_before": {
+          "data": 0,
+          "forms": 2,
+          "insts": 0,
+          "reqs": 0,
+          "rules": 1
+        },
+        "side": "GAIN",
+        "sizes": [
+          1,
+          2
+        ]
+      },
+      "rule_loss": {
+        "claim_holds": true,
+        "regime_before": {
+          "data": 0,
+          "forms": 2,
+          "insts": 0,
+          "reqs": 0,
+          "rules": 0
+        },
+        "side": "LOSS",
+        "sizes": [
+          2,
+          1
+        ]
+      }
+    },
+    "replay_mismatches": 0,
+    "sequences": {
+      "class_revisits_after_a_changing_event": 0,
+      "classes_by_base": {
+        "EMPTY": {
+          "CONSTANT": 343,
+          "FALLING": 0,
+          "MIXED": 77,
+          "RISING": 157
+        },
+        "F": {
+          "CONSTANT": 135,
+          "FALLING": 6996,
+          "MIXED": 6884,
+          "RISING": 278
+        },
+        "L": {
+          "CONSTANT": 498,
+          "FALLING": 1106,
+          "MIXED": 1959,
+          "RISING": 365
+        }
+      },
+      "shortest_mixed": {
+        "base": "F",
+        "history": [
+          "AdmitDatum(<n0>)",
+          "Impose(0,1)"
+        ],
+        "length": 2
+      }
+    }
+  },
+  "rung": "five",
+  "write_root": "research/second_symmetry"
+}

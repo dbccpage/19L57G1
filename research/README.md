@@ -140,6 +140,7 @@ Lean layout. The first and last also have explicit build-recipe entries.
 | `second_nofirst` | workflow (gate 11) |  |
 | `second_stake` | workflow (gate 11) |  |
 | `second_stream` | workflow (gate 11) |  |
+| `second_symmetry` | workflow (gate 11) |  |
 | `self_interpreter` | local receipt only |  |
 | `setting_translation` | local receipt only |  |
 | `seventh_constructor` | local receipt only |  |
