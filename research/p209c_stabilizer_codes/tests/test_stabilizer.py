@@ -318,3 +318,61 @@ def test_steane_code_projection_idempotence() -> None:
     assert check_projection_idempotence(SteaneCode7.STABILIZERS)
     dim = stabilizer_codespace_dimension(SteaneCode7.STABILIZERS)
     assert dim == 2
+
+
+# =============================================================================
+# 5. Negative Tests: the Limits the Claims State
+# =============================================================================
+
+
+def test_bitflip_code_does_not_correct_a_sign_flip() -> None:
+    """CL-P209C-01: no protection against a single Z error, which acts as a logical."""
+    err = PauliString("ZII")
+    assert BitFlipCode3.syndrome(err) == (0, 0)
+    correction = BitFlipCode3.correct(err)
+    assert correction == PauliString("III")
+    residual = correction * err
+    assert residual == err
+    assert residual.anticommutes_with(BitFlipCode3.X_L)
+
+
+def test_torus_code_syndrome_names_the_type_not_the_locus() -> None:
+    """CL-P209C-02: a weight-1 error is detected but not located, and distance 2 is attained."""
+    x_errors = [PauliString(s) for s in ("XIII", "IXII", "IIXI", "IIIX")]
+    assert {TorusCode4.syndrome(e) for e in x_errors} == {(1, 0)}
+    # The weight-2 logical X_L2 = XXII passes both checks unseen.
+    assert TorusCode4.X_L2.weight == 2
+    assert TorusCode4.syndrome(TorusCode4.X_L2) == (0, 0)
+    assert TorusCode4.X_L2.anticommutes_with(TorusCode4.Z_L2)
+
+
+def test_steane_code_weight_two_errors_are_not_corrected() -> None:
+    """CL-P209C-05: a weight-2 error either mimics a weight-1 error or is refused by name."""
+    err = PauliString("XXIIIII")
+    correction = SteaneCode7.correct(err)
+    assert correction == PauliString("IIXIIII")
+    residual = correction * err
+    assert residual == PauliString("XXXIIII")
+    assert SteaneCode7.syndrome(residual) == ((0, 0, 0), (0, 0, 0))
+    assert residual.anticommutes_with(SteaneCode7.Z_L)
+
+    with pytest.raises(ValueError, match="Inconsistent Y error syndrome: locus_x=0 != locus_z=1"):
+        SteaneCode7.correct(PauliString("XZIIIII"))
+
+
+def test_pauli_string_refuses_bad_symbols_and_mismatched_carriers() -> None:
+    """The string algebra behind every commutation claim refuses malformed input by name."""
+    with pytest.raises(ValueError, match="Invalid Pauli symbol: Q"):
+        PauliString("XQ")
+    with pytest.raises(ValueError, match="Carrier count mismatch: 2 vs 3"):
+        _ = PauliString("XX") * PauliString("XXX")
+    with pytest.raises(ValueError, match="Carrier count mismatch"):
+        PauliString("XX").commutes_with(PauliString("XXX"))
+
+
+def test_projection_check_refuses_non_commuting_or_complex_generators() -> None:
+    """CL-P209C-06: the integer identity K^2 = |S| K fails for anticommuting generators,
+    and a string with a complex integer matrix is refused rather than rounded."""
+    assert check_projection_idempotence([PauliString("XI"), PauliString("ZI")]) is False
+    with pytest.raises(ValueError, match="Cannot represent complex Pauli string with integer matrix"):
+        PauliString("Y").to_int_matrix()

@@ -102,12 +102,12 @@ Lean layout. The first and last also have explicit build-recipe entries.
 | `p201_relational_spacetime` | local receipt only |  |
 | `p203_composite_systems` | local receipt only |  |
 | `p204_operational_valuations` | local receipt only |  |
-| `p208a_path_interference` | local receipt only |  |
-| `p208b_contextuality_nonlocality` | local receipt only |  |
-| `p208c_commutator_tomography` | local receipt only |  |
+| `p208a_path_interference` | workflow (gate 11) |  |
+| `p208b_contextuality_nonlocality` | workflow (gate 11) |  |
+| `p208c_commutator_tomography` | workflow (gate 11) |  |
 | `p209a_wigner_phase_space` | local receipt only |  |
 | `p209b_clifford_symplectic` | local receipt only |  |
-| `p209c_stabilizer_codes` | local receipt only |  |
+| `p209c_stabilizer_codes` | workflow (gate 11) |  |
 | `p209d_nonclassical_horizons` | local receipt only |  |
 | `partial_decide` | workflow (gate 11) |  |
 | `path_dependent_cost` | local receipt only |  |

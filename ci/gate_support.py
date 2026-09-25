@@ -11,16 +11,31 @@ from collections.abc import Sequence
 
 REPO = Path(__file__).resolve().parent.parent
 TEST_SUMMARY = re.compile(r"^Ran (\d+) tests? in .+$", re.MULTILINE)
+# pytest ends with one summary line: "21 passed in 0.9s", or under -v
+# "=== 20 passed, 1 skipped in 1.2s ===". Only the passed count is read, so a
+# skipped or failed test never counts toward the minimum.
+PYTEST_SUMMARY = re.compile(
+    r"^=*\s*(\d+ [a-z]+(?:, \d+ [a-z]+)*) in \d+(?:\.\d+)?s(?: \([0-9:]+\))?\s*=*$", re.MULTILINE
+)
+PYTEST_PASSED = re.compile(r"\b(\d+) passed\b")
+RUNNERS = ("unittest", "pytest")
 MODULE_NAME = re.compile(r"[A-Za-z_][A-Za-z_0-9]*(?:\.[A-Za-z_][A-Za-z_0-9]*)*\Z")
 
 
-def test_count(log: Path, minimum: int) -> int:
+def test_count(log: Path, minimum: int, runner: str = "unittest") -> int:
     if minimum < 1:
         raise ValueError("test-count minimum must be positive")
-    counts = TEST_SUMMARY.findall(log.read_text(encoding="utf-8"))
+    if runner not in RUNNERS:
+        raise ValueError(f"unknown test runner {runner!r}; expected one of {RUNNERS}")
+    summary = TEST_SUMMARY if runner == "unittest" else PYTEST_SUMMARY
+    counts = summary.findall(log.read_text(encoding="utf-8"))
     if len(counts) != 1:
         raise ValueError(f"{log}: expected one test summary, found {len(counts)}")
-    actual = int(counts[0])
+    if runner == "unittest":
+        actual = int(counts[0])
+    else:
+        passed = PYTEST_PASSED.search(counts[0])
+        actual = int(passed.group(1)) if passed else 0
     if actual < minimum:
         raise ValueError(f"{log}: ran {actual} tests; minimum is {minimum}")
     print(f"{log}: {actual} tests meet minimum {minimum}")
@@ -113,6 +128,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     count = modes.add_parser("test-count")
     count.add_argument("log", type=Path)
     count.add_argument("--minimum", type=int, required=True)
+    count.add_argument("--runner", choices=RUNNERS, default="unittest")
     lean = modes.add_parser("lean-census")
     lean.add_argument("--repo", type=Path, default=REPO)
     replay = modes.add_parser("replay")
@@ -121,7 +137,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
     try:
         if args.mode == "test-count":
-            return test_count(args.log, args.minimum)
+            return test_count(args.log, args.minimum, args.runner)
         if args.mode == "lean-census":
             return lean_census(args.repo.resolve())
         command = args.command[1:] if args.command[:1] == ["--"] else args.command

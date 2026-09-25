@@ -201,6 +201,39 @@ jobs:
         env:
           PYTHONIOENCODING: utf-8
         run: python verify.py --check
+      # The four trees whose tests are counted in the research job
+      # (2026-09-24). `verify.py --check` reruns the source hygiene scan, the
+      # tests, the tree's own Lake build and its Inventory.lean axiom census,
+      # rebuilds evidence/receipt.json in memory and fails unless it equals the
+      # committed bytes. It writes nothing; the git diff repeats the check.
+      - name: P208a path valuations, receipt with Lean census regenerates
+        working-directory: research/p208a_path_interference
+        env:
+          PYTHONIOENCODING: utf-8
+        run: |
+          python verify.py --check
+          git diff --exit-code -- evidence/receipt.json
+      - name: P208b correlation tables, receipt with Lean census regenerates
+        working-directory: research/p208b_contextuality_nonlocality
+        env:
+          PYTHONIOENCODING: utf-8
+        run: |
+          python verify.py --check
+          git diff --exit-code -- evidence/receipt.json
+      - name: P208c commutator traces and bases, receipt with Lean census regenerates
+        working-directory: research/p208c_commutator_tomography
+        env:
+          PYTHONIOENCODING: utf-8
+        run: |
+          python verify.py --check
+          git diff --exit-code -- evidence/receipt.json
+      - name: P209c Pauli-string codes, receipt with Lean census regenerates
+        working-directory: research/p209c_stabilizer_codes
+        env:
+          PYTHONIOENCODING: utf-8
+        run: |
+          python verify.py --check
+          git diff --exit-code -- evidence/receipt.json
       - name: Every compiled declaration stays within the axiom boundary
         run: python3 ci/check_declaration_axioms.py
       # Must stay LAST in this job and must not write to lake_build.log: the
@@ -265,7 +298,12 @@ jobs:
   # a manual receipt, unchecked by any gate; do not read a green run here as
   # covering them. (2026-09-21: this comment used to say no research tree's
   # axioms were gated; that is withdrawn. 2026-09-23: it used to say two
-  # research Lean verifiers run in the lean job; that is withdrawn.)
+  # research Lean verifiers run in the lean job; that is withdrawn.
+  # 2026-09-24: the lean job also regenerates the receipts of
+  # p208a_path_interference, p208b_contextuality_nonlocality,
+  # p208c_commutator_tomography and p209c_stabilizer_codes, each of which
+  # carries its tree's Lean axiom census, so those four are no longer among
+  # the "every other tree" above.)
   research:
     runs-on: ubuntu-latest
     steps:
@@ -605,6 +643,51 @@ jobs:
       - name: Domain adapters, receipt regenerates byte-identically
         working-directory: research/domain_adapters
         run: python run.py --check
+      # Four exact-arithmetic trees, registered 2026-09-24: p208a (path
+      # valuations and third-order sums), p208b (correlation tables and the
+      # 18-ray incidence), p208c (commutator traces and unbiased bases) and
+      # p209c (Pauli-string codes). Their suites are pytest, so the count is
+      # read from pytest's own summary line (`--runner pytest`), and the
+      # asserted minimum fails a collection that silently finds fewer tests.
+      # Each committed receipt also carries the tree's Lean census, so its
+      # byte comparison runs in the lean job, where elan is installed.
+      - name: P208a path valuations, tests with a minimum count
+        working-directory: research/p208a_path_interference
+        run: |
+          set -o pipefail
+          log="$RUNNER_TEMP/p208a-tests.log"
+          python -m pytest tests -q -p no:cacheprovider 2>&1 | tee "$log"
+          python ../../ci/gate_support.py test-count "$log" --minimum 21 --runner pytest
+      - name: P208b correlation tables, tests with a minimum count
+        working-directory: research/p208b_contextuality_nonlocality
+        run: |
+          set -o pipefail
+          log="$RUNNER_TEMP/p208b-tests.log"
+          python -m pytest tests -q -p no:cacheprovider 2>&1 | tee "$log"
+          python ../../ci/gate_support.py test-count "$log" --minimum 25 --runner pytest
+      - name: P208c commutator traces and bases, tests with a minimum count
+        working-directory: research/p208c_commutator_tomography
+        run: |
+          set -o pipefail
+          log="$RUNNER_TEMP/p208c-tests.log"
+          python -m pytest tests -q -p no:cacheprovider 2>&1 | tee "$log"
+          python ../../ci/gate_support.py test-count "$log" --minimum 15 --runner pytest
+      # p208c and p209c declare strict mypy in their pyproject.toml, which
+      # names no files, so the tree directory is passed explicitly. p208a and
+      # p208b declare no typing configuration and are not typed here.
+      - name: P208c commutator traces and bases, strict typing
+        working-directory: research/p208c_commutator_tomography
+        run: python -m mypy .
+      - name: P209c Pauli-string codes, tests with a minimum count
+        working-directory: research/p209c_stabilizer_codes
+        run: |
+          set -o pipefail
+          log="$RUNNER_TEMP/p209c-tests.log"
+          python -m pytest tests -q -p no:cacheprovider 2>&1 | tee "$log"
+          python ../../ci/gate_support.py test-count "$log" --minimum 29 --runner pytest
+      - name: P209c Pauli-string codes, strict typing
+        working-directory: research/p209c_stabilizer_codes
+        run: python -m mypy .
       # Last in this job on purpose: it runs EVERY research tree's own custody
       # verifier, including the trees this job does not otherwise touch, and
       # compares the outcome set with ci/tree_custody_pin.json. Most trees are

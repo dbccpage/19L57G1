@@ -48,7 +48,7 @@ research/p209c_stabilizer_codes/
 │   ├── lakefile.toml           # Lake build configuration
 │   └── lean-toolchain          # Lean 4 toolchain (leanprover/lean4:v4.33.0)
 └── tests/
-    └── test_stabilizer.py      # Pytest test suite (24 test cases)
+    └── test_stabilizer.py      # Pytest test suite (29 test cases; 24 before the 2026-09-24 negative tests)
 ```
 
 ## Verification & Commands

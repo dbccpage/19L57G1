@@ -24,6 +24,7 @@ from information import (
     LandauerAccounting,
     MemoryRetentionModel,
     OperationalCommunicationProtocol,
+    UnnormalizedDistributionError,
     coarse_grain_loss,
     exact_dyadic_cross_entropy,
     exact_dyadic_divergence,
@@ -303,3 +304,37 @@ class TestMemoryRetentionAndErasure:
         assert receipt.erased_entropy_bits == 0.0
         assert not receipt.operational_non_reversibility
         assert receipt.minimal_heat_dissipated_joules == 0.0
+
+
+class TestProbabilityRowRefusal:
+    """A row that does not sum to exactly 1 is refused by name, never rescaled.
+
+    Until 2026-09-24 the constructor divided such a row by its sum.
+    """
+
+    def test_row_summing_to_three_halves_is_refused(self) -> None:
+        with pytest.raises(UnnormalizedDistributionError, match="Probabilities sum to 3/2, not 1"):
+            DiscreteDistribution({0: Fraction(1, 2), 1: Fraction(1, 2), 2: Fraction(1, 2)})
+
+    def test_row_summing_to_one_half_is_refused(self) -> None:
+        with pytest.raises(UnnormalizedDistributionError, match="Probabilities sum to 1/2, not 1"):
+            DiscreteDistribution({0: Fraction(1, 4), 1: Fraction(1, 4)})
+
+    def test_integer_weights_are_not_rescaled_into_a_uniform_row(self) -> None:
+        """The former behaviour turned {0: 1, 1: 1} into the uniform row; it is now refused."""
+        with pytest.raises(UnnormalizedDistributionError, match="Probabilities sum to 2, not 1"):
+            DiscreteDistribution({0: 1, 1: 1})
+
+    def test_channel_with_an_unnormalized_row_is_refused(self) -> None:
+        with pytest.raises(UnnormalizedDistributionError, match="Probabilities sum to 3/4, not 1"):
+            Channel({
+                0: {0: Fraction(1, 2), 1: Fraction(1, 4)},
+                1: {1: Fraction(1, 1)},
+            })
+
+    def test_refusal_is_a_value_error_and_other_row_refusals_stand(self) -> None:
+        assert issubclass(UnnormalizedDistributionError, ValueError)
+        with pytest.raises(ValueError, match="Negative probability for 1: -1/2"):
+            DiscreteDistribution({0: Fraction(3, 2), 1: Fraction(-1, 2)})
+        with pytest.raises(ValueError, match="sum of probabilities equal to 0"):
+            DiscreteDistribution({0: 0, 1: 0})
