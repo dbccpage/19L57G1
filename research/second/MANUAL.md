@@ -370,3 +370,67 @@ are the right mathematical objects, or that a size law checked on the
 rectangle holds beyond it: the Lean of this rung proves which
 automorphisms survive, never how many there are, and a law about sizes
 is a finite computation until it is proved.
+
+## Session handoff, rung six (2026-09-25)
+
+**Read at the start of a session; written at the end of one.**  As the
+earlier handoffs say, the next rung is carried in the LAST rung's
+`STATUS.md`, and this section says where to look rather than copying it.
+
+- The rungs on `main` at this session's start (`144d9c2b`) are rung zero
+  (`second_inheritance`), rung one (`second_stream`), rung two track two
+  (`second_stake`), rung two track one (`second_nofirst`), rung three
+  (`second_index`), rung four (`second_iso`) and rung five
+  (`second_symmetry`).  Rung six (`second_succession`) is this session's,
+  and is not merged by an agent.
+- The next rung is named at the end of
+  `research/second_succession/STATUS.md`, under "The next rung, named so
+  it cannot be smuggled in later": W-1, duration under the CHANGING
+  reading.
+- **A leftover that refines a decided row is not eligible.**  This rung
+  named W-2, the full set of counts a base and a regime admit, and
+  recorded it as extending no row of the census, because the succession
+  row it refines is decided here.  The seed's rule reads "extends the
+  census"; a refinement of a decided row is recorded, priced, and left.
+- **A statement proved again is credited, not counted.**  The package is
+  self-contained, so two of rung five's statements are proved again in it.
+  The ledger and the census note say so, and `test_census.py` checks that
+  the module and the note carry the credit.
+- One rung per session at most.  Never merge a rung; the author merges.
+- Before writing anything in a new rung: freeze `PROMPT.md` by hash and
+  commit it, then freeze `PREDICTIONS.md` by hash and commit it, then
+  compute.  The commits are the evidence of the order.
+
+## Injection record, rung six (2026-09-25)
+
+Twelve injections, each minimal and reversible, none live while any
+receipt was regenerated.  All were run in a throwaway worktree detached at
+`75d5ee72`, the rung branch's head at the time, by one script that edited
+with line endings preserved and checked each recovery; the worktree was
+clean after the last reversal and was then removed.  Every one names the
+object it was given.
+
+<!-- markdownlint-disable MD013 -->
+
+| rung | gate | injection | observed failure |
+|---|---|---|---|
+| 6 | frozen-text pin (`second_succession/verify_pins.py`) | one line appended to `PROMPT.md` in a throwaway commit `40d770c9` on top of `75d5ee72` | `FAIL: frozen text moved: research/second_succession/PROMPT.md: expected ac592808..., got b5750061...`, exit 1; after `git reset --hard HEAD~1`, exit 0 |
+| 6 | span pin (same verifier) | the Z-4 span's `last_line` moved from 198 to 199 in `SOURCE_MANIFEST.json`, uncommitted | `FAIL: span mismatch at the snapshot for research/second_symmetry/STATUS.md:194-199: expected 6b3f4b34..., got 122dbe59...`, exit 1; exit 0 after restoring the manifest |
+| 6 | receipt comparison (`run_succession.py --check`) | the first `"split_regimes": 33` in `receipts/succession.json` changed to 34 | `FAIL: ...receipts\succession.json differs from a fresh run`, exit 1; exit 0 after restoring the bytes.  The check writes nothing |
+| 6 | Lean axiom whitelist (`second_succession/verify_lean.py`) | a theorem `zzz_probe_choice` proved by `Classical.em`, appended to `Readings.lean` with its report line | three failures naming it: no FW-DEF row; `depends on disallowed axioms ['Classical.choice']`; a fresh report the committed log lacks; exit 1, then `lean audit clean: 6 sources, 34 axiom reports` |
+| 6 | Lean compiler census (same verifier) | the `#print axioms` line for `SecondSuccession.Count.changes_counted` deleted from `AxiomReport.lean` | `FAIL: compiler declaration SecondSuccession.Count.changes_counted has no fresh #print axioms report`, exit 1; exit 0 after restoring |
+| 6 | FW-DEF census totality (`test_census.py`) | the `changes_counted` row deleted and the CONTENT count decremented | `AssertionError: Lists differ: ['changes_counted'] != []` from the totality and axiom-log tests, and the dated-count and prediction tests naming it; exit 1, then OK |
+| 6 | reconstruction comparison (`test_reconstruction.py`) | the binder of the reconstructed sealed `collapsed` renamed from `d d'` to `d dd` in `Kernel.lean` | `AssertionError: Lists differ: ['lean4/Derivation/Basic.lean -> Kernel.lean: collapsed'] != []`, exit 1; OK after restoring.  The comparison reads the sealed blob AT THE SNAPSHOT |
+| 6 | prose census over the write root (`test_forbidden.py`) | a probe `zz_probe.md` in the write root carrying the one term whose watchlist digest begins `4cbe0959`, confirmed watched by `ci/check_prose_watchlist.py --probe` | `AssertionError: Lists differ: ['research/second_succession/zz_probe.md:1: <term elided>'] != []`, the term named in place of the elision; OK after deleting the probe.  The term is elided because this record is itself scanned |
+| 6 | write-root scope scan (`test_forbidden.py`) | an untracked `zz_outside_probe.md` at the repository root | `AssertionError: Lists differ: ['zz_outside_probe.md'] != []`, exit 1; OK after deleting it |
+| 6 | coverage module census (`second_succession/check_coverage.py`) | an undeclared production module `zz_helper.py` in the tree, after a report of the full suite had been generated and had passed | `FAIL: production module census differs: missing from declarations=['zz_helper.py'], declared but absent=[]`, exit 1; exit 0 after deleting it |
+| 6 | registration scan (`test_forbidden.py`) | the line `python run_succession.py --check` deleted from the rung's step in `.github/workflows/verify.yml` | `AssertionError: 'python run_succession.py --check' not found in` the rung's block, exit 1; OK after restoring |
+| 6 | the CHANGING law, through the receipt and the scoring (`run_succession.py --check`; `test_succession.py`) | `element_count` in `succession.py` made to leave out the uniform rules | `FAIL: ...receipts\succession.json differs from a fresh run`, exit 1; and the scored-verdict test `AssertionError: Lists differ: ['M-10', 'M-11', 'M-12', 'M-13', 'M-8'] != [..., 'M-9']`, naming M-9 as the row that fell; both recover after restoring the function |
+
+<!-- markdownlint-enable MD013 -->
+
+**What these injections do not prove.**  That the populations they pin
+are the right mathematical objects, or that the count up to the
+isomorphism behaves beyond the rectangle as it does inside it: the Lean of
+this rung never mentions the isomorphism, and the class-level answer is a
+finite computation until Z-1 is proved.
