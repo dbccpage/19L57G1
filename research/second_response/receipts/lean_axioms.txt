@@ -1,0 +1,56 @@
+SecondResponse.Carry.derivable_bwd :: Quot.sound propext
+SecondResponse.Carry.derivable_fwd :: propext
+SecondResponse.Carry.derivable_mapCtx :: Quot.sound propext
+SecondResponse.Carry.map_inv :: none
+SecondResponse.Carry.plug_args_lt :: Quot.sound propext
+SecondResponse.Carry.plug_mapCtx :: Quot.sound propext
+SecondResponse.Carry.wfCtx_mapCtx :: Quot.sound propext
+SecondResponse.Exhaust.exhausted_iff_not_distinguishes :: Quot.sound propext
+SecondResponse.Exhaust.exhausted_iso :: Quot.sound propext
+SecondResponse.Exhaust.exhausted_of_le_one :: propext
+SecondResponse.Exhaust.exhausted_of_no_inst :: propext
+SecondResponse.Exhaust.exhausted_of_rule :: propext
+SecondResponse.Exhaust.exhaustion_at_one :: propext
+SecondResponse.Exhaust.holdsTwo_iff_distinguishes :: propext
+SecondResponse.Exhaust.no_exhausted_at_genesis :: propext
+SecondResponse.ExhaustStep.ctx_step_keep :: propext
+SecondResponse.ExhaustStep.distinguishes_step_keep :: propext
+SecondResponse.ExhaustStep.exhausted_step_keep :: propext
+SecondResponse.ExhaustStep.exhaustion_begun_by_inst :: Quot.sound propext
+SecondResponse.ExhaustStep.exhaustion_begun_by_rule :: Quot.sound propext
+SecondResponse.ExhaustStep.exhaustion_ended_by_datum :: Quot.sound propext
+SecondResponse.ExhaustStep.exhaustion_ended_by_inst :: Quot.sound propext
+SecondResponse.ExhaustStep.fresh_form_exhausted :: propext
+SecondResponse.ExhaustStep.getD_append_lt :: propext
+SecondResponse.ExhaustStep.separable_step_keep :: propext
+SecondResponse.ExhaustStep.step_data_le :: propext
+SecondResponse.Move.collapse_needs_mention_or_rule :: Quot.sound propext
+SecondResponse.Move.collapsed_inst_unmentioned :: Quot.sound propext
+SecondResponse.Move.collapsed_step_keep :: Quot.sound propext
+SecondResponse.Move.derivable_inst_unmentioned :: Quot.sound propext
+SecondResponse.Move.mem_plug_of_hole :: Quot.sound propext
+SecondResponse.Move.moved_pairs_meet_mentions :: Quot.sound propext
+SecondResponse.Move.one_inst_moves_two_pairs :: Quot.sound propext
+SecondResponse.Move.response_collapses_a_pair :: Quot.sound propext
+SecondResponse.Move.separable_inst_unmentioned :: Quot.sound propext
+SecondResponse.Move.separation_needs_inst :: Quot.sound propext
+SecondResponse.Move.separation_needs_mention :: Quot.sound propext
+SecondResponse.Move.slots_ok_of_plug_mem :: Quot.sound propext
+SecondResponse.Move.step_wf :: propext
+SecondResponse.Sealed.R2F_collapsed :: propext
+SecondResponse.Sealed.R2F_wf :: Quot.sound propext
+SecondResponse.Sealed.R2L_collapsed :: propext
+SecondResponse.Sealed.R2L_wf :: Quot.sound propext
+SecondResponse.Sealed.admission_without_expressive_increase :: propext
+SecondResponse.Sealed.collapsed_of_no_insts :: propext
+SecondResponse.Sealed.genesis_underivable :: none
+SecondResponse.Sealed.historyF_replays :: propext
+SecondResponse.Sealed.historyL_replays :: propext
+SecondResponse.Sealed.insertNew_nil :: propext
+SecondResponse.Sealed.insertNew_of_mem :: propext
+SecondResponse.Sealed.insertNew_of_not_mem :: propext
+SecondResponse.Sealed.mem_insertNew :: propext
+SecondResponse.Sealed.replayE_append :: Quot.sound propext
+SecondResponse.Sealed.separable_not_collapsed :: propext
+SecondResponse.Sealed.supply_no_op :: propext
+SecondResponse.Sealed.underivable_of_empty :: none

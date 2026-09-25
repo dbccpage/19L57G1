@@ -1,0 +1,944 @@
+{
+  "alphabet": {
+    "arities": [
+      1,
+      2
+    ],
+    "fresh_tokens": [
+      "<n0>",
+      "<n1>",
+      "<n2>",
+      "<n3>",
+      "<n4>"
+    ],
+    "max_data": 5,
+    "max_forms": 2,
+    "max_sequence_length": 4,
+    "supply_token": "<z>"
+  },
+  "authority_effect": "None",
+  "bases": [
+    "EMPTY",
+    "L",
+    "F"
+  ],
+  "input_count_claim": "none",
+  "predictions_scored": {
+    "R-1": {
+      "value": "scored elsewhere: the committed Lean package, checked by verify_lean.py and test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "R-10": {
+      "value": {
+        "inside_domain_with_rules": {
+          "EMPTY": 0,
+          "F": 0,
+          "L": 0
+        },
+        "outside_domain_without_rules": {
+          "EMPTY": 0,
+          "F": 0,
+          "L": 0
+        },
+        "regimes_in_domain": {
+          "EMPTY": 47,
+          "F": 1441,
+          "L": 402
+        },
+        "regimes_outside_domain": {
+          "EMPTY": 28,
+          "F": 277,
+          "L": 121
+        }
+      },
+      "verdict": "HIT"
+    },
+    "R-11": {
+      "value": {
+        "refusal_disagreements": {
+          "EMPTY": 0,
+          "F": 0,
+          "L": 0
+        },
+        "refused": {
+          "mu1": {
+            "EMPTY": 0,
+            "F": 0,
+            "L": 0
+          },
+          "mu2": {
+            "EMPTY": 0,
+            "F": 0,
+            "L": 0
+          }
+        }
+      },
+      "verdict": "MISSED"
+    },
+    "R-12": {
+      "value": {
+        "responses_mentioning_no_demanded_datum": {
+          "mu1": {
+            "EMPTY": 0,
+            "F": 0,
+            "L": 0
+          },
+          "mu2": {
+            "EMPTY": 0,
+            "F": 0,
+            "L": 0
+          }
+        },
+        "responses_moving_an_unmentioned_pair": {
+          "mu1": {
+            "EMPTY": 0,
+            "F": 0,
+            "L": 0
+          },
+          "mu2": {
+            "EMPTY": 0,
+            "F": 0,
+            "L": 0
+          }
+        },
+        "responses_with_rule_item": {
+          "mu1": {
+            "EMPTY": 0,
+            "F": 0,
+            "L": 0
+          },
+          "mu2": {
+            "EMPTY": 0,
+            "F": 0,
+            "L": 0
+          }
+        }
+      },
+      "verdict": "HIT"
+    },
+    "R-13": {
+      "value": {
+        "responses_moving_a_pair_together": {
+          "mu1": {
+            "EMPTY": 0,
+            "F": 1152,
+            "L": 114
+          },
+          "mu2": {
+            "EMPTY": 0,
+            "F": 1152,
+            "L": 114
+          }
+        },
+        "responses_not_moving_their_demand_apart": {
+          "mu1": {
+            "EMPTY": 0,
+            "F": 0,
+            "L": 0
+          },
+          "mu2": {
+            "EMPTY": 0,
+            "F": 0,
+            "L": 0
+          }
+        }
+      },
+      "verdict": "HIT"
+    },
+    "R-14": {
+      "value": {
+        "reach_class_violations": {
+          "mu1": {
+            "EMPTY": 0,
+            "F": 0,
+            "L": 0
+          },
+          "mu2": {
+            "EMPTY": 0,
+            "F": 0,
+            "L": 0
+          }
+        },
+        "reach_two_pair_mismatches": {
+          "mu1": {
+            "EMPTY": 0,
+            "F": 0,
+            "L": 0
+          },
+          "mu2": {
+            "EMPTY": 0,
+            "F": 0,
+            "L": 0
+          }
+        },
+        "responses_with_empty_reach": {
+          "mu1": {
+            "EMPTY": 48,
+            "F": 3858,
+            "L": 570
+          },
+          "mu2": {
+            "EMPTY": 40,
+            "F": 3714,
+            "L": 530
+          }
+        },
+        "responses_with_nonempty_reach": {
+          "mu1": {
+            "EMPTY": 222,
+            "F": 18018,
+            "L": 4566
+          },
+          "mu2": {
+            "EMPTY": 60,
+            "F": 14272,
+            "L": 2746
+          }
+        }
+      },
+      "verdict": "HIT"
+    },
+    "R-15": {
+      "value": {
+        "largest_finite_distance": {
+          "mu1": {
+            "EMPTY": 1,
+            "F": 2,
+            "L": 2
+          },
+          "mu2": {
+            "EMPTY": 2,
+            "F": 2,
+            "L": 2
+          }
+        },
+        "least_length_with_an_edge": {
+          "mu1": {
+            "EMPTY": 3,
+            "F": 0,
+            "L": 1
+          },
+          "mu2": {
+            "EMPTY": 3,
+            "F": 0,
+            "L": 1
+          }
+        }
+      },
+      "verdict": "HIT"
+    },
+    "R-16": {
+      "value": {
+        "demands_with_tie_count_one": {
+          "mu1": {
+            "EMPTY": 0,
+            "F": 192,
+            "L": 42
+          },
+          "mu2": {
+            "EMPTY": 6,
+            "F": 456,
+            "L": 174
+          }
+        },
+        "least_length_with_two_tie_classes": {
+          "mu1": {
+            "EMPTY": 2,
+            "F": 0,
+            "L": 0
+          },
+          "mu2": {
+            "EMPTY": 3,
+            "F": 1,
+            "L": 1
+          }
+        },
+        "mu2_not_among_mu1": {
+          "EMPTY": 0,
+          "F": 0,
+          "L": 0
+        }
+      },
+      "verdict": "HIT"
+    },
+    "R-17": {
+      "value": {
+        "EMPTY": {
+          "classes": 54,
+          "classes_with_two_values_of_exhausted_count": 0,
+          "classes_with_two_values_of_signature_mu1": 0,
+          "classes_with_two_values_of_signature_mu2": 0
+        },
+        "F": {
+          "classes": 265,
+          "classes_with_two_values_of_exhausted_count": 0,
+          "classes_with_two_values_of_signature_mu1": 0,
+          "classes_with_two_values_of_signature_mu2": 0
+        },
+        "L": {
+          "classes": 174,
+          "classes_with_two_values_of_exhausted_count": 0,
+          "classes_with_two_values_of_signature_mu1": 0,
+          "classes_with_two_values_of_signature_mu2": 0
+        },
+        "all": {
+          "classes": 402,
+          "classes_with_two_values_of_exhausted_count": 0,
+          "classes_with_two_values_of_signature_mu1": 0,
+          "classes_with_two_values_of_signature_mu2": 0
+        }
+      },
+      "verdict": "HIT"
+    },
+    "R-18": {
+      "value": {
+        "changes_by_kind": {
+          "AdmitDatum": [
+            -1,
+            0
+          ],
+          "AdmitForm": [
+            1
+          ],
+          "AdmitInst": [
+            -1,
+            0,
+            1
+          ],
+          "AdmitRuleAll": [
+            0,
+            1
+          ],
+          "Impose": [
+            0
+          ],
+          "Supply": [
+            0
+          ]
+        },
+        "holds_two_mismatches": {
+          "EMPTY": 0,
+          "F": 0,
+          "L": 0
+        },
+        "ruled_forms_distinguishing": {
+          "EMPTY": 0,
+          "F": 0,
+          "L": 0
+        }
+      },
+      "verdict": "HIT"
+    },
+    "R-19": {
+      "value": {
+        "least_length_holding_two_with_an_exhausted_form": {
+          "EMPTY": null,
+          "F": 3,
+          "L": 3
+        },
+        "least_length_with_an_exhausted_form": {
+          "EMPTY": 1,
+          "F": 1,
+          "L": 1
+        }
+      },
+      "verdict": "HIT"
+    },
+    "R-2": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "R-20": {
+      "value": {
+        "crosscheck_empty_base": {
+          "refusal_disagreements": 0,
+          "response_disagreements": 0,
+          "situations": 68,
+          "tie_partition_disagreements": 0
+        },
+        "reference_validity_failures": {
+          "mu1": {
+            "EMPTY": 0,
+            "F": 0,
+            "L": 0
+          },
+          "mu2": {
+            "EMPTY": 0,
+            "F": 0,
+            "L": 0
+          }
+        }
+      },
+      "verdict": "HIT"
+    },
+    "R-21": {
+      "value": "scored elsewhere: CLAIM_LEDGER.md, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "R-22": {
+      "value": "scored elsewhere: CLAIM_LEDGER.md, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "R-23": {
+      "value": "scored elsewhere: CLAIM_LEDGER.md and this receipt's input_count_claim",
+      "verdict": "ELSEWHERE"
+    },
+    "R-24": {
+      "value": "scored elsewhere: the receipt bytes, --check and test_response.py; the time in STATUS.md",
+      "verdict": "ELSEWHERE"
+    },
+    "R-3": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "R-4": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "R-5": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "R-6": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "R-7": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py; written in the Python grammar in lean_witnesses",
+      "verdict": "ELSEWHERE"
+    },
+    "R-8": {
+      "value": "scored elsewhere: receipts/lean_axioms.txt, checked by verify_lean.py",
+      "verdict": "ELSEWHERE"
+    },
+    "R-9": {
+      "value": {
+        "classes_over_all_bases": 402,
+        "distinct_regimes": {
+          "EMPTY": 75,
+          "F": 1718,
+          "L": 523
+        },
+        "distinct_regimes_over_all_bases": 2316,
+        "key_brute_disagreements": 0,
+        "replay_mismatches": {
+          "EMPTY": 0,
+          "F": 0,
+          "L": 0
+        },
+        "sequences": {
+          "EMPTY": 577,
+          "F": 14293,
+          "L": 3928
+        }
+      },
+      "verdict": "HIT"
+    }
+  },
+  "predictions_sha256": "2fc139d7f455da1abb28548e355b0175ec4d918522c555207043c34c4b55cafa",
+  "prompt_sha256": "09e9df8c4349b1ef3307f7cb606284534ca0e5b735163c6e7098805d18aa6093",
+  "reports": {
+    "base_order": [
+      "EMPTY",
+      "L",
+      "F"
+    ],
+    "bases": {
+      "EMPTY": {
+        "distinct_regimes": 75,
+        "exhaustion": {
+          "changes_by_kind": {
+            "AdmitDatum": [
+              -1,
+              0
+            ],
+            "AdmitForm": [
+              1
+            ],
+            "AdmitInst": [
+              -1,
+              0
+            ],
+            "AdmitRuleAll": [
+              0
+            ],
+            "Impose": [
+              0
+            ],
+            "Supply": [
+              0
+            ]
+          },
+          "exhausted_count_histogram": {
+            "0": 15,
+            "1": 20,
+            "2": 40
+          },
+          "holds_two_mismatches": 0,
+          "least_length_holding_two_with_an_exhausted_form": null,
+          "least_length_with_an_exhausted_form": 1,
+          "ruled_forms_distinguishing": 0
+        },
+        "inside_domain_with_rules": 0,
+        "measures": {
+          "mu1": {
+            "answered_by_cost": {
+              "1": 14,
+              "2": 20
+            },
+            "demands": 34,
+            "demands_with_tie_count_one": 0,
+            "largest_edge_count": 15,
+            "largest_finite_distance": 1,
+            "largest_reach": 2,
+            "largest_tie_class_count": 5,
+            "least_length_with_an_edge": 3,
+            "least_length_with_two_tie_classes": 2,
+            "reach_class_violations": 0,
+            "reach_two_pair_mismatches": 0,
+            "reference_validity_failures": 0,
+            "refused": 0,
+            "regimes_in_domain": 47,
+            "regimes_with_distance_at_least_two": 0,
+            "responses": 270,
+            "responses_mentioning_no_demanded_datum": 0,
+            "responses_moving_a_pair_together": 0,
+            "responses_moving_an_unmentioned_pair": 0,
+            "responses_not_moving_their_demand_apart": 0,
+            "responses_with_empty_reach": 48,
+            "responses_with_nonempty_reach": 222,
+            "responses_with_rule_item": 0,
+            "tie_count_histogram": {
+              "10": 6,
+              "14": 6,
+              "2": 5,
+              "4": 3,
+              "6": 4,
+              "8": 10
+            }
+          },
+          "mu2": {
+            "answered_by_cost": {
+              "1": 14,
+              "2": 20
+            },
+            "demands": 34,
+            "demands_with_tie_count_one": 6,
+            "largest_edge_count": 12,
+            "largest_finite_distance": 2,
+            "largest_reach": 2,
+            "largest_tie_class_count": 4,
+            "least_length_with_an_edge": 3,
+            "least_length_with_two_tie_classes": 3,
+            "reach_class_violations": 0,
+            "reach_two_pair_mismatches": 0,
+            "reference_validity_failures": 0,
+            "refused": 0,
+            "regimes_in_domain": 47,
+            "regimes_with_distance_at_least_two": 4,
+            "responses": 100,
+            "responses_mentioning_no_demanded_datum": 0,
+            "responses_moving_a_pair_together": 0,
+            "responses_moving_an_unmentioned_pair": 0,
+            "responses_not_moving_their_demand_apart": 0,
+            "responses_with_empty_reach": 40,
+            "responses_with_nonempty_reach": 60,
+            "responses_with_rule_item": 0,
+            "tie_count_histogram": {
+              "1": 6,
+              "2": 19,
+              "4": 3,
+              "6": 2,
+              "8": 4
+            }
+          }
+        },
+        "outside_domain_without_rules": 0,
+        "refinement": {
+          "mu2_not_among_mu1": 0,
+          "refusal_disagreements": 0
+        },
+        "regimes_in_domain": 47,
+        "regimes_outside_domain": 28,
+        "replay_mismatches": 0,
+        "sequences": 577
+      },
+      "F": {
+        "distinct_regimes": 1718,
+        "exhaustion": {
+          "changes_by_kind": {
+            "AdmitDatum": [
+              0
+            ],
+            "AdmitForm": [
+              1
+            ],
+            "AdmitInst": [
+              -1,
+              0,
+              1
+            ],
+            "AdmitRuleAll": [
+              0,
+              1
+            ],
+            "Impose": [
+              0
+            ],
+            "Supply": [
+              0
+            ]
+          },
+          "exhausted_count_histogram": {
+            "0": 870,
+            "1": 696,
+            "2": 152
+          },
+          "holds_two_mismatches": 0,
+          "least_length_holding_two_with_an_exhausted_form": 3,
+          "least_length_with_an_exhausted_form": 1,
+          "ruled_forms_distinguishing": 0
+        },
+        "inside_domain_with_rules": 0,
+        "measures": {
+          "mu1": {
+            "answered_by_cost": {
+              "1": 1514,
+              "2": 965
+            },
+            "demands": 2479,
+            "demands_with_tie_count_one": 192,
+            "largest_edge_count": 45,
+            "largest_finite_distance": 2,
+            "largest_reach": 3,
+            "largest_tie_class_count": 16,
+            "least_length_with_an_edge": 0,
+            "least_length_with_two_tie_classes": 0,
+            "reach_class_violations": 0,
+            "reach_two_pair_mismatches": 0,
+            "reference_validity_failures": 0,
+            "refused": 0,
+            "regimes_in_domain": 1441,
+            "regimes_with_distance_at_least_two": 316,
+            "responses": 21876,
+            "responses_mentioning_no_demanded_datum": 0,
+            "responses_moving_a_pair_together": 1152,
+            "responses_moving_an_unmentioned_pair": 0,
+            "responses_not_moving_their_demand_apart": 0,
+            "responses_with_empty_reach": 3858,
+            "responses_with_nonempty_reach": 18018,
+            "responses_with_rule_item": 0,
+            "tie_count_histogram": {
+              "1": 192,
+              "10": 258,
+              "11": 108,
+              "12": 312,
+              "14": 138,
+              "16": 149,
+              "18": 64,
+              "2": 158,
+              "24": 66,
+              "3": 12,
+              "32": 10,
+              "4": 217,
+              "6": 420,
+              "7": 24,
+              "8": 267,
+              "9": 84
+            }
+          },
+          "mu2": {
+            "answered_by_cost": {
+              "1": 1514,
+              "2": 965
+            },
+            "demands": 2479,
+            "demands_with_tie_count_one": 456,
+            "largest_edge_count": 45,
+            "largest_finite_distance": 2,
+            "largest_reach": 3,
+            "largest_tie_class_count": 16,
+            "least_length_with_an_edge": 0,
+            "least_length_with_two_tie_classes": 1,
+            "reach_class_violations": 0,
+            "reach_two_pair_mismatches": 0,
+            "reference_validity_failures": 0,
+            "refused": 0,
+            "regimes_in_domain": 1441,
+            "regimes_with_distance_at_least_two": 340,
+            "responses": 17986,
+            "responses_mentioning_no_demanded_datum": 0,
+            "responses_moving_a_pair_together": 1152,
+            "responses_moving_an_unmentioned_pair": 0,
+            "responses_not_moving_their_demand_apart": 0,
+            "responses_with_empty_reach": 3714,
+            "responses_with_nonempty_reach": 14272,
+            "responses_with_rule_item": 0,
+            "tie_count_histogram": {
+              "1": 456,
+              "10": 126,
+              "11": 108,
+              "12": 147,
+              "14": 120,
+              "16": 155,
+              "18": 44,
+              "2": 256,
+              "24": 60,
+              "3": 12,
+              "32": 10,
+              "4": 259,
+              "6": 423,
+              "7": 24,
+              "8": 195,
+              "9": 84
+            }
+          }
+        },
+        "outside_domain_without_rules": 0,
+        "refinement": {
+          "mu2_not_among_mu1": 0,
+          "refusal_disagreements": 0
+        },
+        "regimes_in_domain": 1441,
+        "regimes_outside_domain": 277,
+        "replay_mismatches": 0,
+        "sequences": 14293
+      },
+      "L": {
+        "distinct_regimes": 523,
+        "exhaustion": {
+          "changes_by_kind": {
+            "AdmitDatum": [
+              -1,
+              0
+            ],
+            "AdmitForm": [
+              1
+            ],
+            "AdmitInst": [
+              -1,
+              0,
+              1
+            ],
+            "AdmitRuleAll": [
+              0,
+              1
+            ],
+            "Impose": [
+              0
+            ],
+            "Supply": [
+              0
+            ]
+          },
+          "exhausted_count_histogram": {
+            "0": 214,
+            "1": 225,
+            "2": 84
+          },
+          "holds_two_mismatches": 0,
+          "least_length_holding_two_with_an_exhausted_form": 3,
+          "least_length_with_an_exhausted_form": 1,
+          "ruled_forms_distinguishing": 0
+        },
+        "inside_domain_with_rules": 0,
+        "measures": {
+          "mu1": {
+            "answered_by_cost": {
+              "1": 315,
+              "2": 282
+            },
+            "demands": 597,
+            "demands_with_tie_count_one": 42,
+            "largest_edge_count": 45,
+            "largest_finite_distance": 2,
+            "largest_reach": 3,
+            "largest_tie_class_count": 8,
+            "least_length_with_an_edge": 1,
+            "least_length_with_two_tie_classes": 0,
+            "reach_class_violations": 0,
+            "reach_two_pair_mismatches": 0,
+            "reference_validity_failures": 0,
+            "refused": 0,
+            "regimes_in_domain": 402,
+            "regimes_with_distance_at_least_two": 43,
+            "responses": 5136,
+            "responses_mentioning_no_demanded_datum": 0,
+            "responses_moving_a_pair_together": 114,
+            "responses_moving_an_unmentioned_pair": 0,
+            "responses_not_moving_their_demand_apart": 0,
+            "responses_with_empty_reach": 570,
+            "responses_with_nonempty_reach": 4566,
+            "responses_with_rule_item": 0,
+            "tie_count_histogram": {
+              "1": 42,
+              "10": 81,
+              "12": 102,
+              "14": 30,
+              "16": 22,
+              "18": 20,
+              "2": 56,
+              "24": 6,
+              "4": 24,
+              "6": 74,
+              "7": 12,
+              "8": 104,
+              "9": 24
+            }
+          },
+          "mu2": {
+            "answered_by_cost": {
+              "1": 315,
+              "2": 282
+            },
+            "demands": 597,
+            "demands_with_tie_count_one": 174,
+            "largest_edge_count": 45,
+            "largest_finite_distance": 2,
+            "largest_reach": 3,
+            "largest_tie_class_count": 8,
+            "least_length_with_an_edge": 1,
+            "least_length_with_two_tie_classes": 1,
+            "reach_class_violations": 0,
+            "reach_two_pair_mismatches": 0,
+            "reference_validity_failures": 0,
+            "refused": 0,
+            "regimes_in_domain": 402,
+            "regimes_with_distance_at_least_two": 54,
+            "responses": 3276,
+            "responses_mentioning_no_demanded_datum": 0,
+            "responses_moving_a_pair_together": 114,
+            "responses_moving_an_unmentioned_pair": 0,
+            "responses_not_moving_their_demand_apart": 0,
+            "responses_with_empty_reach": 530,
+            "responses_with_nonempty_reach": 2746,
+            "responses_with_rule_item": 0,
+            "tie_count_histogram": {
+              "1": 174,
+              "10": 24,
+              "12": 36,
+              "14": 18,
+              "16": 22,
+              "2": 101,
+              "24": 6,
+              "4": 30,
+              "6": 70,
+              "7": 12,
+              "8": 80,
+              "9": 24
+            }
+          }
+        },
+        "outside_domain_without_rules": 0,
+        "refinement": {
+          "mu2_not_among_mu1": 0,
+          "refusal_disagreements": 0
+        },
+        "regimes_in_domain": 402,
+        "regimes_outside_domain": 121,
+        "replay_mismatches": 0,
+        "sequences": 3928
+      }
+    },
+    "bounds": {
+      "max_arity": 2,
+      "max_items": 2
+    },
+    "classes": {
+      "distinct_regimes_over_all_bases": 2316,
+      "key_brute_disagreements": 0,
+      "over_all_bases": {
+        "classes": 402,
+        "classes_with_two_values_of_exhausted_count": 0,
+        "classes_with_two_values_of_signature_mu1": 0,
+        "classes_with_two_values_of_signature_mu2": 0
+      },
+      "within_base": {
+        "EMPTY": {
+          "classes": 54,
+          "classes_with_two_values_of_exhausted_count": 0,
+          "classes_with_two_values_of_signature_mu1": 0,
+          "classes_with_two_values_of_signature_mu2": 0
+        },
+        "F": {
+          "classes": 265,
+          "classes_with_two_values_of_exhausted_count": 0,
+          "classes_with_two_values_of_signature_mu1": 0,
+          "classes_with_two_values_of_signature_mu2": 0
+        },
+        "L": {
+          "classes": 174,
+          "classes_with_two_values_of_exhausted_count": 0,
+          "classes_with_two_values_of_signature_mu1": 0,
+          "classes_with_two_values_of_signature_mu2": 0
+        }
+      }
+    },
+    "crosscheck_empty_base": {
+      "refusal_disagreements": 0,
+      "response_disagreements": 0,
+      "situations": 68,
+      "tie_partition_disagreements": 0
+    },
+    "exhaustion_changes_over_all_bases": {
+      "AdmitDatum": [
+        -1,
+        0
+      ],
+      "AdmitForm": [
+        1
+      ],
+      "AdmitInst": [
+        -1,
+        0,
+        1
+      ],
+      "AdmitRuleAll": [
+        0,
+        1
+      ],
+      "Impose": [
+        0
+      ],
+      "Supply": [
+        0
+      ]
+    },
+    "lean_witnesses": {
+      "one_inst_moves_two_pairs": [
+        [
+          [
+            0,
+            1
+          ],
+          true
+        ],
+        [
+          [
+            0,
+            2
+          ],
+          true
+        ]
+      ],
+      "response_collapses_a_pair": [
+        [
+          [
+            0,
+            1
+          ],
+          true
+        ],
+        [
+          [
+            0,
+            2
+          ],
+          false
+        ]
+      ]
+    }
+  },
+  "rung": "ten",
+  "write_root": "research/second_response"
+}
