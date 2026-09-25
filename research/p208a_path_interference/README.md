@@ -50,7 +50,7 @@ coincides with the $k$-th discrete difference operator $\Delta_{j_1} \cdots \Del
 ## Verification Suite
 
 - Python reference implementation (`path_interference` engine): Pure Python exact arithmetic reference implementation.
-- `tests/test_interference.py`: 15 pytest test cases verifying arithmetic, parameter sweeps, and discrete difference identities.
+- `tests/test_interference.py`: 21 pytest test cases verifying arithmetic, parameter sweeps, discrete difference identities, and (since 2026-09-24) the refusals the claims rest on. Correction, 2026-09-24: this line said 15, already stale at 17 before four negative tests were added.
 - `lean/PathInterference.lean`: Formal proofs in Lean 4.
 - `lean/Inventory.lean`: Metatheoretic census auditing all 30 theorems.
 - `verify.py`: End-to-end verification harness.

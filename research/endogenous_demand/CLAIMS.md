@@ -148,9 +148,20 @@ is `E2OnCReqs`.
 - **Statement**: Endogenous traces without external data growth terminate in at most binom(N,2) steps. This bound is a corollary of `closedRun_round_bound` from sealed `Derivation.Rounds`. This does NOT close OB-1 — it shows a termination bound, not a demand generator. The Lean file is a Lake target (`EndogenousDemandObstruction`).
 - **Class**: proved theorem (termination bound on closed runs).
 - **Lean**: `EndogenousDemandObstruction.endogenous_termination_bound` (`exact closedRun_round_bound`).
-- **Python**: `verify_termination.py`.
+- **Python**: `verify_termination.py`, run by `tests/test_termination.py`.
 - **Falsifier**: a trace satisfying endogenous constraints that exceeds binom(N,2) steps without external growth.
+- **Axioms**: `{propext, Quot.sound}` for the termination theorems; every
+  theorem of `EndogenousDemandObstruction` is recorded in `evidence/lean.json`.
 - **Obligation**: OB-1 (demand generator on C_reqs) remains OPEN.
+- **Dated note (2026-09-24)**: until this date the Lean evidence above was
+  compiled but not audited.  `verify_lean.py` read reports only from
+  `EndogenousDemand.lean`, and its census covered only the `EndogenousDemand`
+  namespace, so the seventeen written theorems of
+  `EndogenousDemandObstruction.lean` had no recorded axiom report, and three
+  of them had no report line at all.  The Python evidence was not run by
+  `verify.py` either: it was measured at 0% and failed the tree's coverage
+  step.  Both are repaired.  The theorems and their statements are unchanged,
+  and none of them relies on an axiom outside `{propext, Quot.sound}`.
 
 ### CL-ED-DYNAMICS
 

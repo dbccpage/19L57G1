@@ -1,9 +1,15 @@
 """Build the self-contained Lean package and audit it: no forbidden
 token in any committed `.lean` source, every `#print axioms` report
 within the whitelist `{propext, Quot.sound}`, and every theorem named
-in `AxiomReport.lean` reported.  A manual receipt: no CI gate runs
-this file.  Exit 0 on success, 1 with a named failure otherwise.
-AuthorityEffect: None.
+in `AxiomReport.lean` reported.  Exit 0 on success, 1 with a named
+failure otherwise.  AuthorityEffect: None.
+
+2026-09-24: this docstring used to say "A manual receipt: no CI gate
+runs this file."  That is withdrawn.  The `lean` job of
+`.github/workflows/verify.yml` runs this file, locally through
+`ci/run_gates.py`.  The source census below covers `Closure.lean` only;
+the theorems of the reconstructed `Base.lean` are audited only where
+`AxiomReport.lean` lists them or a listed theorem uses them.
 """
 
 from __future__ import annotations

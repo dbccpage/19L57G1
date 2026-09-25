@@ -334,3 +334,47 @@ def test_operational_tomography_dim4() -> None:
         probs_pert, projectors, 4, GaussianRational(0), GaussianRational(1)
     )
     assert rec_lin == rho_pert
+
+
+# =============================================================================
+# 6. Negative Tests: the Hypotheses the Claims Name
+# =============================================================================
+
+def test_commutation_obstruction_refuses_an_empty_carrier() -> None:
+    """CL-P208C-01 is stated for N >= 1; a carrier of dimension N < 1 is refused by name."""
+    for dim in (0, -1):
+        with pytest.raises(ValueError, match="Carrier dimension must be positive"):
+            verify_canonical_commutation_obstruction(dim, Fraction(1))
+
+
+def test_overlap_check_refuses_a_biased_pair_of_bases() -> None:
+    """CL-P208C-03 and 04 claim overlap exactly 1/d; a repeated basis is refused."""
+    bases3 = construct_mubs_dim3()
+    # The three Fourier bases share the unscaled norm 3, so their scale factor is 9.
+    assert verify_mub_pairwise_overlap(bases3[1:], 3, Fraction(9)) is True
+    assert verify_mub_pairwise_overlap([bases3[1], bases3[1]], 3, Fraction(9)) is False
+
+    bases4 = construct_mubs_dim4()
+    assert verify_mub_pairwise_overlap([bases4[1], bases4[1]], 4, Fraction(16)) is False
+    swapped = [list(bases4[2]), list(bases4[3])]
+    swapped[1][0] = bases4[2][0]
+    assert verify_mub_pairwise_overlap(swapped, 4, Fraction(16)) is False
+
+
+def test_dimension3_fixture_is_not_determined_by_d_bases() -> None:
+    """The README asks for all d + 1 bases: with the shift eigenbasis dropped, the
+    coherent dimension-3 fixture and the maximally mixed state give identical
+    probabilities on the remaining d = 3 bases, so those bases cannot separate them."""
+    projectors = construct_mub_projectors_dim3()
+    I3 = identity_matrix(3, Cyclotomic3(0), Cyclotomic3(1))
+    rho_mixed = matrix_scale(Cyclotomic3(Fraction(1, 3)), I3)
+    X = discrete_shift_operator(3, Cyclotomic3(0), Cyclotomic3(1))
+    X_dag = [[X[j][i].conj() for j in range(3)] for i in range(3)]
+    rho_coh = matrix_add(rho_mixed, matrix_scale(Cyclotomic3(Fraction(1, 12)), matrix_add(X, X_dag)))
+    assert rho_coh != rho_mixed
+
+    probs_mixed = measure_mub_probabilities(rho_mixed, projectors)
+    probs_coh = measure_mub_probabilities(rho_coh, projectors)
+    assert [b for b in range(4) if probs_mixed[b] != probs_coh[b]] == [1]
+    remaining = [0, 2, 3]
+    assert [probs_mixed[b] for b in remaining] == [probs_coh[b] for b in remaining]

@@ -327,3 +327,51 @@ regenerated while one was live.
 | A: the first word as prose, appended to `research/exchange_coefficients/README.md` | fails: `README.md:92` | fails: new hit | passes |
 | B: the second word inside a `snake_case` name appended to `bipartite_index.py` | fails: `bipartite_index.py:277` | **clean**: identifiers are outside its reach | passes |
 | C: the index note renamed so its path holds the first word | fails: `path holds` the word | clean | passes |
+
+## Estate hygiene: three repaired trees, four receipt trees, seven Lean audits (2026-09-24)
+
+Four pull requests, integrated and gated together. Each injection was a
+minimal edit to a committed tree, run against the check it exists to catch,
+reverted with `git checkout`, and run again. No receipt, inventory or pin was
+regenerated while an injection was live.
+
+**#250: three trees repaired.**
+
+| Check | Injection | Failing line | After revert |
+|---|---|---|---|
+| `endogenous_demand/verify_lean.py` | the report line for `endogenous_termination_bound` deleted | `FAIL: report/census mismatch: missing=['EndogenousDemandObstruction.endogenous_termination_bound']` | passes |
+| `endogenous_demand` census test and verifier | an unreported theorem appended | `Lists differ: ['injected_unreported'] != []`; verifier `missing=['injected_unreported']` | passes |
+| `cost_cohomology` file-set pin | an extra `rank_float.py` in the tree | `Lists differ: ['rank_float.py', ...]` | passes |
+| `cost_cohomology` no-numpy check | `import numpy` added to `verify_sources.py` | `Regex matched: 'import numpy' ... : verify_sources.py` | passes |
+| `admit_leftover` collection guard | one check renamed so it is not collected | `COLLECTION_GUARD: collected 9 tests, expected 10` | passes |
+
+**#251: four exact-arithmetic trees registered, x300 refuses bad rows.**
+
+| Check | Injection | Failing line | After revert |
+|---|---|---|---|
+| p208a test-count minimum | one test hidden | `ran 20 tests; minimum is 21` | 21 pass |
+| p208b test-count minimum | one test hidden | `ran 24 tests; minimum is 25` | 25 pass |
+| p208c test-count minimum | one test hidden | `ran 14 tests; minimum is 15` | 15 pass |
+| p209c test-count minimum | one test hidden | `ran 28 tests; minimum is 29` | 29 pass |
+| receipt diff, each of the four trees | a comment line in the tree's module, no regeneration | `FAIL: existing receipt does not match freshly generated verification` | passes |
+| p209c receipt diff | the committed receipt's `"passed"` changed from 29 to 30 | the same line | passes |
+| p208c strict typing | a mistyped assignment | `tomography.py:312: error: Incompatible types in assignment` | clean |
+| p209c strict typing | a mistyped assignment | `stabilizer_codes.py:177: error: Incompatible types in assignment` | clean |
+| p208a negative test | the unlisted-order refusal disabled | `FAILED ...::test_cyclotomic_rational_refuses_an_unlisted_order` | passes |
+| p208b negative tests | the negative-entry check disabled | `FAILED ...::test_negative_entry_is_refused_even_when_the_row_sums_to_one`, and the bound test | passes |
+| p208c negative test | the empty-carrier refusal disabled | `FAILED ...::test_commutation_obstruction_refuses_an_empty_carrier` | passes |
+| p209c negative test | the inconsistent-syndrome refusal disabled | `FAILED ...::test_steane_code_weight_two_errors_are_not_corrected` | passes |
+| x300 refusal | the old rescaling restored | `4 failed, 19 passed` | 23 pass |
+
+**#252 and the integration: seven Lean audits registered in the `lean` job.**
+
+| Step | Injection | Failing line | After revert |
+|---|---|---|---|
+| natural_sections | `wedge_total_positive` proved through `Classical.em` | `FAIL: NaturalSections.SignRepair.wedge_total_positive depends on disallowed axioms: ['Classical.choice']` | passes |
+| balance_carrier | one `#print axioms` line removed from `AxiomReport.lean` | `FAIL: BalanceCarrier.Observer.layer_observer_grades is declared in LayerObserver.lean but not listed in AxiomReport.lean` (main's script passed this injection) | passes |
+| convention_price, axioms | `holo_nil` proved through `Classical.em` | `FAIL: ConventionPrice.holo_nil depends on disallowed axioms ['Classical.choice']` | passes |
+| convention_price, census | one `#print axioms` line removed | `FAIL: ConventionPrice.cycle_parity_sum is declared in ParityLaws.lean but not listed in AxiomReport.lean` | passes |
+| closed_family | a comment line carrying a forbidden token | `FAIL: Closure.lean contains forbidden token sorry` | passes |
+| coherent_process_limits | `Limits.toSeq_ofSeq` proved through `Classical.em` | `FAIL: disallowed reliance: Limits.toSeq_ofSeq: ['Classical.choice', 'Quot.sound', 'propext']` | passes |
+| boundary_seed | `supply_no_op` proved through `Classical.em` | `FAIL: disallowed axioms ['Classical.choice'] in BoundarySeed.supply_no_op` | passes |
+| endogenous_continuum (integration) | `sumAllocated_nil` given a `Classical.choice` term | `FAIL: Disallowed axioms in theorem AdaptiveBudget.sumAllocated_nil: {'Classical.choice'}` | passes |

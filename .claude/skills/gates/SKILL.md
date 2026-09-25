@@ -184,6 +184,18 @@ python research/typed_translation/verify_lean.py
 if ($LASTEXITCODE -ne 0) { throw "typed_translation Lean audit failed" }
 python research/second_index/verify_lean.py
 if ($LASTEXITCODE -ne 0) { throw "second_index Lean audit failed" }
+python research/natural_sections/verify_lean.py
+if ($LASTEXITCODE -ne 0) { throw "natural_sections Lean audit failed" }
+python research/balance_carrier/verify_lean.py
+if ($LASTEXITCODE -ne 0) { throw "balance_carrier Lean audit failed" }
+python research/closed_family/verify_lean.py
+if ($LASTEXITCODE -ne 0) { throw "closed_family Lean audit failed" }
+python research/convention_price/verify_lean.py
+if ($LASTEXITCODE -ne 0) { throw "convention_price Lean audit failed" }
+python research/coherent_process_limits/verify_lean.py --check
+if ($LASTEXITCODE -ne 0) { throw "coherent_process_limits Lean audit failed" }
+python research/boundary_seed/verify_lean.py
+if ($LASTEXITCODE -ne 0) { throw "boundary_seed Lean audit failed" }
 
 python ci/check_declaration_axioms.py
 if ($LASTEXITCODE -ne 0) { throw "compiled declaration axiom census failed" }

@@ -52,7 +52,7 @@ python verify.py --check
 ```
 This harness executes:
 1. Source hygiene audit (enforces absence of `sorry`, `admit`, `unsafe`, `partial`, `axiom`, and watched terms).
-2. Pytest suite across `tests/test_tomography.py` (10 unit and property tests).
+2. Pytest suite across `tests/test_tomography.py` (15 tests. Correction, 2026-09-24: this said 10 unit and property tests, already stale at 12 before three negative tests were added).
 3. Lean 4 package build via `lake build`.
 4. Metatheoretic theorem census and axiom verification in `Inventory.lean` (73 theorems verified within `{propext, Quot.sound}`).
 5. Validates `evidence/receipt.json`.
