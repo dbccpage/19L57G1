@@ -80,6 +80,9 @@ of a pinned sealed source, checked at the snapshot and at `HEAD`.
 - **MANUAL_RECEIPT_DECLARED**: no CI gate reads this tree's pins or Lean
   audit. `verify_pins.py` and `verify_lean.py` are manual receipts, as in
   the sibling trees.
+  2026-09-24: withdrawn for the Lean audit only.  The `lean` job of
+  `.github/workflows/verify.yml` now runs `verify_lean.py`; `verify_pins.py`
+  is still read by no gate.
 
 ## What this rung does and does not settle
 

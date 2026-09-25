@@ -22,8 +22,14 @@ file under ``lean/`` outside ``.lake`` and ``sealed``, parses every
 of reported declarations to equal ``AXIOM_REPORT_DECLARATIONS`` below,
 and requires every report to lie within ``{propext, Quot.sound}``.
 
-Nothing in ``.github/workflows`` runs this script.  A pass is a manual
-receipt for the sources present when it ran.  AuthorityEffect: None.
+The ``lean`` job of ``.github/workflows/verify.yml`` runs this script,
+locally through ``ci/run_gates.py``.  AuthorityEffect: None.
+
+2026-09-24: this docstring used to say "Nothing in ``.github/workflows``
+runs this script.  A pass is a manual receipt for the sources present
+when it ran."  That is withdrawn by the registration above, and so is the
+matching last line of the printed receipt.  ``verify_pins.py`` is still
+not run by any workflow step.
 """
 
 from __future__ import annotations
@@ -564,7 +570,7 @@ def verify_axiom_report() -> list[str]:
         f"Lean axiom-report target: {AXIOM_REPORT_MODULE}",
         f"Lean #print axioms declarations: {len(report_lines)} within {sorted(ALLOWED_AXIOMS)}",
         *report_lines,
-        "manual receipt: nothing in .github/workflows runs this script",
+        "registered: the lean job of .github/workflows/verify.yml runs this script",
     ]
 
 

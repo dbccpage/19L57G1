@@ -214,6 +214,9 @@ to its value and was not edited.
 - MANUAL_RECEIPT_DECLARED: no CI gate reads this tree's receipts, scans,
   or Lean audit.  `verify_lean.py` is a manual receipt in the same sense
   as the other research trees'.
+  2026-09-24: withdrawn for the Lean audit only.  The `lean` job of
+  `.github/workflows/verify.yml` now runs `verify_lean.py`; the receipts,
+  the scans and `verify_pins.py` are still read by no gate.
 - OB1_UNCHANGED, S66_UNCHANGED, S9_LAST_UNCHANGED, NS95_GROWTH_UNCHANGED:
   the three protected opens of the chain and the growth open of this run
   are untouched; `test_forbidden.py` fails the run on any claim to the
