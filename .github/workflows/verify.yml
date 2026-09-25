@@ -268,7 +268,8 @@ jobs:
       # Three self-contained core-Lean packages. The fresh reports must equal
       # the #print axioms lines of AxiomReport.lean, and every theorem the
       # source declares must be listed there (for closed family, every
-      # theorem of Closure.lean; its reconstructed Base.lean is not censused).
+      # theorem of Closure.lean and of its reconstructed Base.lean; until
+      # 2026-09-25 this said Base.lean was not censused, which is withdrawn).
       - name: Balance carrier, fresh Lean and axiom audit
         run: python3 research/balance_carrier/verify_lean.py
       - name: Closed family, fresh Lean and axiom audit
