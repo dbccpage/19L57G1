@@ -157,7 +157,7 @@ package instead.
 
 ### Build sequence
 
-93 build entries: 4 base, 13 in 2 require group(s), 12 requiring only a base package, 64 requiring nothing.  Run the block from the repository root.  Each command throws when it fails, so a run of the block saved as a script stops at the first failure.
+94 build entries: 4 base, 13 in 2 require group(s), 12 requiring only a base package, 65 requiring nothing.  Run the block from the repository root.  Each command throws when it fails, so a run of the block saved as a script stops at the first failure.
 
 ```powershell
 $env:PYTHONUTF8 = '1'
@@ -257,6 +257,7 @@ Invoke-InDir 'research/second_index/lean' 'lake' @('build')
 Invoke-InDir 'research/second_iso/lean' 'lake' @('build')
 Invoke-InDir 'research/second_nofirst/lean' 'lake' @('build')
 Invoke-InDir 'research/second_profile/lean' 'lake' @('build')
+Invoke-InDir 'research/second_response/lean' 'lake' @('build')
 Invoke-InDir 'research/second_succession/lean' 'lake' @('build')
 Invoke-InDir 'research/second_symmetry/lean' 'lake' @('build')
 Invoke-InDir 'research/self_interpreter' 'lake' @('build')
@@ -358,25 +359,26 @@ Invoke-InDir 'research/symmetry_floor/lean' 'lean' @('SymmetryFloor.lean')
 | 76 | `research/second_iso/lean` | `second_iso` | none | 0 | no | none |
 | 77 | `research/second_nofirst/lean` | `second_nofirst` | none | 0 | no | none |
 | 78 | `research/second_profile/lean` | `second_profile` | none | 0 | no | none |
-| 79 | `research/second_succession/lean` | `second_succession` | none | 0 | no | none |
-| 80 | `research/second_symmetry/lean` | `second_symmetry` | none | 0 | no | none |
-| 81 | `research/self_interpreter` | `self_interpreter` | none | 0 | no | none |
-| 82 | `research/seventh_constructor/lean` | `seventh_constructor` | none | 0 | no | none |
-| 83 | `research/side_free/lean` | `sidefree` | none | 0 | no | none |
-| 84 | `research/sign_tower/lean` | `sign_tower` | none | 0 | no | none |
-| 85 | `research/standing_commitment/lean` | `standing_commitment` | none | 0 | no | none |
-| 86 | `research/target_b_dynamics/lean` | `target_b_dynamics` | none | 0 | no | none |
-| 87 | `research/twin_pricing/lean` | `twin_pricing` | none | 0 | no | none |
-| 88 | `research/typed_translation/lean` | `typedtranslation` | none | 0 | no | none |
-| 89 | `research/x300_observer_information/lean` | `x300_observer_information` | none | 0 | no | none |
-| 90 | `research/x301_formal_semantics/lean` | `x301_formal_semantics` | none | 0 | no | none |
-| 91 | `research/x302_operational_reasoning/lean` | `x302_operational_reasoning` | none | 0 | no | none |
-| 92 | `research/x303_bounded_agency/lean` | `x303_bounded_agency` | none | 0 | no | none |
-| 93 | `research/x310_vertical_integration/lean` | `x310_vertical_integration` | none | 0 | no | none |
+| 79 | `research/second_response/lean` | `second_response` | none | 0 | no | none |
+| 80 | `research/second_succession/lean` | `second_succession` | none | 0 | no | none |
+| 81 | `research/second_symmetry/lean` | `second_symmetry` | none | 0 | no | none |
+| 82 | `research/self_interpreter` | `self_interpreter` | none | 0 | no | none |
+| 83 | `research/seventh_constructor/lean` | `seventh_constructor` | none | 0 | no | none |
+| 84 | `research/side_free/lean` | `sidefree` | none | 0 | no | none |
+| 85 | `research/sign_tower/lean` | `sign_tower` | none | 0 | no | none |
+| 86 | `research/standing_commitment/lean` | `standing_commitment` | none | 0 | no | none |
+| 87 | `research/target_b_dynamics/lean` | `target_b_dynamics` | none | 0 | no | none |
+| 88 | `research/twin_pricing/lean` | `twin_pricing` | none | 0 | no | none |
+| 89 | `research/typed_translation/lean` | `typedtranslation` | none | 0 | no | none |
+| 90 | `research/x300_observer_information/lean` | `x300_observer_information` | none | 0 | no | none |
+| 91 | `research/x301_formal_semantics/lean` | `x301_formal_semantics` | none | 0 | no | none |
+| 92 | `research/x302_operational_reasoning/lean` | `x302_operational_reasoning` | none | 0 | no | none |
+| 93 | `research/x303_bounded_agency/lean` | `x303_bounded_agency` | none | 0 | no | none |
+| 94 | `research/x310_vertical_integration/lean` | `x310_vertical_integration` | none | 0 | no | none |
 
 ### Toolchain pins
 
-- `leanprover/lean4:v4.33.0`: 94 build directories.
+- `leanprover/lean4:v4.33.0`: 95 build directories.
 
 ### Root modules supplied more than once in one require closure
 

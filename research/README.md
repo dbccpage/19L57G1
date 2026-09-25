@@ -141,6 +141,7 @@ Lean layout. The first and last also have explicit build-recipe entries.
 | `second_iso` | workflow (gate 11) |  |
 | `second_nofirst` | workflow (gate 11) |  |
 | `second_profile` | workflow (gate 11) |  |
+| `second_response` | workflow (gate 11) |  |
 | `second_stake` | workflow (gate 11) |  |
 | `second_stream` | workflow (gate 11) |  |
 | `second_succession` | workflow (gate 11) |  |
