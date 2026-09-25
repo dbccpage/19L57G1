@@ -301,3 +301,29 @@ regenerated while one was live.
 |---|---|---|
 | A: no restore after a timeout (`restored = []` when the outcome is `TIMEOUT`) | fails: `research/probe/receipts/value.json was not restored after a 1 s timeout` (`b'partial\n' == b'original\n'`) | passes |
 | B: the restore happens, but the note naming it is dropped | fails: `the note does not name the restored receipt: ''` | passes |
+
+## Two refused words, enforced without a pin (2026-09-24)
+
+By the author's ruling of 2026-09-24, two watched words are not allowed
+anywhere in this repository. Pull request #246 had used both in
+`research/exchange_coefficients` and was merged with gate 12 red. The fix
+removes them from that tree and adds
+`tests/test_refused_words.py::test_no_refused_word_appears_in_any_tracked_path_or_file`.
+The test stores each word as a digest with its length, cuts every tracked
+file's text and every tracked path into letter runs, and fails on any run
+holding either word. It has no pin, so no regeneration can adopt a hit.
+
+**The defect it exists to catch.** Run against `a371ab74`, main as #246 left
+it, the test named 15 places. Four of them were invisible to gate 12: the
+note's file name as a path, a `snake_case` column name in the note, and the
+same file name inside the tree's README and its receipt.
+
+**The injections.** Each was made in the committed fix's working tree and
+reverted with `git checkout` (or a reversing `git mv`). No receipt was
+regenerated while one was live.
+
+| Injection | The test under it | Gate 12 under it | After revert |
+|---|---|---|---|
+| A: the first word as prose, appended to `research/exchange_coefficients/README.md` | fails: `README.md:92` | fails: new hit | passes |
+| B: the second word inside a `snake_case` name appended to `bipartite_index.py` | fails: `bipartite_index.py:277` | **clean**: identifiers are outside its reach | passes |
+| C: the index note renamed so its path holds the first word | fails: `path holds` the word | clean | passes |
