@@ -1,13 +1,13 @@
 {
   "authority_effect": "None",
   "axiom_free_count": 2,
-  "census": "compiled environment theorem declarations in the EndogenousDemand namespace",
+  "census": "compiled environment theorem declarations of the EndogenousDemand and EndogenousDemandObstruction modules",
   "class": "C_reqs",
   "classification": "Lean proof compilation",
   "local_sources_sha256": {
     "EndogenousDemand.lean": "818ea99adf8467682e6b7142ab90b00f1cec5ad888ccd356fbd7745c1f76fc9d",
-    "EndogenousDemandObstruction.lean": "376148e990e8c627f6caa7c4199549cb76ef12001bfcc462566b10d5c6441788",
-    "Inventory.lean": "4626fc1eb26a6ca641decf3430a586a5f4b1a8ac767c8e0855ebbc35aef24584",
+    "EndogenousDemandObstruction.lean": "352642f6214e0f4768860f58b49673d226c89c6d5393ca0f4342ecc8721c6f3d",
+    "Inventory.lean": "ebcca950fef246c3d757be246cd13794a1775534e21c97f6ef9700438104e9a0",
     "lakefile.toml": "f68bcd45b16bda9acc7d2071dbbbcdf265408d59c9f9f55ed55f809eda311b50",
     "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
   },
@@ -75,10 +75,88 @@
     ],
     "EndogenousDemand.stepE_reqs_supply": [
       "propext"
+    ],
+    "EndogenousDemandObstruction.EndogenousStep.fresh": [
+      "propext"
+    ],
+    "EndogenousDemandObstruction.EndogenousStep.no_grow": [
+      "propext"
+    ],
+    "EndogenousDemandObstruction.EndogenousStep.step": [
+      "propext"
+    ],
+    "EndogenousDemandObstruction.carrierPairs_capacity": [
+      "Quot.sound",
+      "propext"
+    ],
+    "EndogenousDemandObstruction.carrierPairs_nodup": [
+      "Quot.sound",
+      "propext"
+    ],
+    "EndogenousDemandObstruction.endogenous_obstruction_no_excess": [
+      "Quot.sound",
+      "propext"
+    ],
+    "EndogenousDemandObstruction.endogenous_obstruction_no_excess._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "EndogenousDemandObstruction.endogenous_termination_bound": [
+      "Quot.sound",
+      "propext"
+    ],
+    "EndogenousDemandObstruction.endogenous_termination_from_empty": [
+      "Quot.sound",
+      "propext"
+    ],
+    "EndogenousDemandObstruction.endogenous_trace_le_binom2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "EndogenousDemandObstruction.endogenous_trace_le_binom2._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "EndogenousDemandObstruction.mem_carrierPairs_iff": [
+      "Quot.sound",
+      "propext"
+    ],
+    "EndogenousDemandObstruction.step_data_invariant": [
+      "propext"
+    ],
+    "EndogenousDemandObstruction.step_reqs_nodup": [
+      "propext"
+    ],
+    "EndogenousDemandObstruction.step_reqs_strict_mono": [
+      "propext"
+    ],
+    "EndogenousDemandObstruction.step_reqs_wf": [
+      "propext"
+    ],
+    "EndogenousDemandObstruction.trace_data_invariant": [
+      "propext"
+    ],
+    "EndogenousDemandObstruction.trace_reqs_length": [
+      "Quot.sound",
+      "propext"
+    ],
+    "EndogenousDemandObstruction.trace_reqs_nodup": [
+      "propext"
+    ],
+    "EndogenousDemandObstruction.trace_reqs_subset_carrierPairs": [
+      "Quot.sound",
+      "propext"
+    ],
+    "EndogenousDemandObstruction.trace_reqs_wf": [
+      "propext"
+    ],
+    "EndogenousDemandObstruction.trace_zero": [
+      "propext"
     ]
   },
   "schema_version": 1,
   "scope": "E2 on the sealed reqs channel is unsatisfiable; the instance channel is not formalized here and remains OPEN",
-  "theorem_count_including_generated": 22,
-  "toolchain": "leanprover/lean4:v4.33.0"
+  "theorem_count_including_generated": 44,
+  "toolchain": "leanprover/lean4:v4.33.0",
+  "written_theorem_count": 39
 }

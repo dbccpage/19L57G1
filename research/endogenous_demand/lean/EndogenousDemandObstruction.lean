@@ -24,6 +24,10 @@ Under minimum-response selection with no external driving (`Item.newDatum ∉ re
    at most `binom(N, 2)`. Existence of a generator is a different claim (OB-1, OPEN).
 
 Axioms are strictly audited to be contained in `{propext, Quot.sound}`.
+(2026-09-24: this sentence was not true of the recorded audit before this
+date.  `verify_lean.py` compiled this module but never read its reports, and
+three of its theorems had no report line.  Every theorem written here is now
+reported and checked against that set.)
 AuthorityEffect: None.
 -/
 
@@ -190,10 +194,13 @@ end EndogenousDemandObstruction
 /-! ## 5. Axiom Audit -/
 
 #print axioms EndogenousDemandObstruction.carrierPairs_capacity
+#print axioms EndogenousDemandObstruction.mem_carrierPairs_iff
+#print axioms EndogenousDemandObstruction.carrierPairs_nodup
 #print axioms EndogenousDemandObstruction.step_data_invariant
 #print axioms EndogenousDemandObstruction.step_reqs_strict_mono
 #print axioms EndogenousDemandObstruction.step_reqs_nodup
 #print axioms EndogenousDemandObstruction.step_reqs_wf
+#print axioms EndogenousDemandObstruction.trace_zero
 #print axioms EndogenousDemandObstruction.trace_data_invariant
 #print axioms EndogenousDemandObstruction.trace_reqs_length
 #print axioms EndogenousDemandObstruction.trace_reqs_nodup
