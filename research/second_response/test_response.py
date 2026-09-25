@@ -39,7 +39,7 @@ if str(HERE) in sys.path:
 sys.path.insert(0, str(HERE))
 import run_response as rp  # noqa: E402
 
-from derivation.candidates import NewDatum, NewForm, NewInst  # noqa: E402
+from derivation.candidates import NewDatum, NewForm, NewInst, NewRuleAll  # noqa: E402
 from derivation.iso import CanonKey, canonical  # noqa: E402
 from derivation.model import (  # noqa: E402
     EMPTY,
@@ -419,6 +419,64 @@ class AdjacencyTests(unittest.TestCase):
     def test_a_triangle_has_distance_one(self) -> None:
         answers = [self._answer(((0, 1), True), ((0, 2), True), ((1, 2), True))]
         self.assertEqual(rr.adjacency(3, answers), (3, (3,), 1))
+
+
+class ForgedResponder(rr.Responder):
+    """A FORGED responder, used only to show that each census of
+    `measure_report`, `refinement_violations` and `crosscheck` COUNTS the
+    defect it exists to catch.  Under `mu1` it refuses every demand; under
+    `mu2` it returns two forged responses: a lone rule item that moves an
+    unmentioned pair together and claims a reach it cannot have, and one
+    of empty reach, each with its own tie key over one regime."""
+
+    def answer(self, regime: Regime, target: tuple[int, int], measure: str) -> rr.Answer:
+        if measure == "mu1":
+            return rr.Answer(target, None, ())
+        imposed = replay((Impose(*target),), regime)
+        loud = rr.Response((NewRuleAll(0),), (((1, 2), False),), frozenset({2}),
+                           canonical(EMPTY), imposed)
+        quiet = rr.Response((NewInst(0, (0,)),), (), frozenset(), canonical(imposed), imposed)
+        return rr.Answer(target, (1, 0), (loud, quiet))
+
+
+class ForgedCensusTests(unittest.TestCase):
+    """NEGATIVE: every violation the rectangle reports as zero is counted
+    when it is there."""
+
+    def setUp(self) -> None:
+        self.r = regime(*THREE)
+        self.rows = [((), self.r)]
+
+    def test_every_response_census_counts_a_forged_response(self) -> None:
+        report = rr.measure_report(self.rows, "mu2", ForgedResponder())
+        for key in ("reference_validity_failures", "responses_with_rule_item",
+                    "responses_mentioning_no_demanded_datum",
+                    "responses_moving_an_unmentioned_pair",
+                    "responses_not_moving_their_demand_apart",
+                    "responses_moving_a_pair_together", "reach_two_pair_mismatches",
+                    "reach_class_violations"):
+            self.assertGreater(report[key], 0, key)
+        self.assertEqual(report["responses"], 6)
+
+    def test_the_refinement_census_counts_a_forged_split(self) -> None:
+        self.assertEqual(rr.refinement_violations(self.rows, ForgedResponder()),
+                         {"refusal_disagreements": 3, "mu2_not_among_mu1": 3})
+
+    def test_the_crosscheck_counts_a_forged_answer(self) -> None:
+        cross = rr.crosscheck([self.r], ForgedResponder())
+        self.assertEqual(cross["refusal_disagreements"], 3)
+        self.assertEqual(cross["response_disagreements"], 3)
+        self.assertEqual(cross["tie_partition_disagreements"], 3)
+
+    def test_a_distinguishing_ruled_form_would_be_counted(self) -> None:
+        ruled = regime(*THREE, AdmitRuleAll(0))
+        saved = rr.distinguishes
+        rr.distinguishes = lambda regime, form: True
+        try:
+            report = rr.exhaustion_report([((), ruled)], {ruled: 1})
+        finally:
+            rr.distinguishes = saved
+        self.assertEqual(report["ruled_forms_distinguishing"], 1)
 
 
 class ReportTests(unittest.TestCase):

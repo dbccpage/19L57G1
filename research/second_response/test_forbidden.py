@@ -509,7 +509,7 @@ class ObstructionScan(unittest.TestCase):
             (HERE / "SOURCE_MANIFEST.json").read_text(encoding="utf-8")
         )
         ledger = (HERE / "CLAIM_LEDGER.md").read_text(encoding="utf-8")
-        for suffix, first in (("second_index/STATUS.md", 165), ("second_response/STATUS.md", 212)):
+        for suffix, first in (("second_index/STATUS.md", 165), ("second_profile/STATUS.md", 212)):
             span = next(
                 item
                 for item in manifest["spans"]
