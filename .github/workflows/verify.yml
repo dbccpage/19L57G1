@@ -126,7 +126,14 @@ jobs:
   lean:
     runs-on: ubuntu-latest
     steps:
+      # fetch-depth: 0 since 2026-09-24. The natural sections audit stages
+      # the sealed modules it compiles from the snapshot commit its manifest
+      # pins, and the coherent process limits audit checks its consumed trees
+      # at a pinned baseline commit; both read git history that a shallow
+      # checkout does not have.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Install elan
         run: |
           curl --retry 5 --retry-all-errors --retry-delay 2 -sSfL \
@@ -201,6 +208,43 @@ jobs:
         env:
           PYTHONIOENCODING: utf-8
         run: python verify.py --check
+      # 2026-09-24: six older trees whose Lean audits were manual receipts.
+      # Each script builds its tree's own Lake package, stops on a nonzero
+      # lake exit, scans its .lean sources for the forbidden tokens as text,
+      # fails naming any theorem whose axiom report leaves {propext,
+      # Quot.sound}, compares the reports with a committed inventory, and
+      # rewrites no tracked file.
+      #
+      # Natural sections compiles STAGED copies of twelve sealed modules,
+      # taken by `git show` at its pinned snapshot (needs the full history
+      # above), and fails if the build writes outside its own tree. The
+      # inventory is the declaration list in the script, which must equal
+      # both the #print axioms lines and the fresh reports.
+      - name: Natural sections, fresh Lean and axiom inventory
+        run: python3 research/natural_sections/verify_lean.py
+      # Three self-contained core-Lean packages. The fresh reports must equal
+      # the #print axioms lines of AxiomReport.lean, and every theorem the
+      # source declares must be listed there (for closed family, every
+      # theorem of Closure.lean; its reconstructed Base.lean is not censused).
+      - name: Balance carrier, fresh Lean and axiom audit
+        run: python3 research/balance_carrier/verify_lean.py
+      - name: Closed family, fresh Lean and axiom audit
+        run: python3 research/closed_family/verify_lean.py
+      - name: Convention price, fresh Lean and axiom audit
+        run: python3 research/convention_price/verify_lean.py
+      # Builds against the sealed package and the represented-execution chain
+      # of trees after its own custody check, and compares an environment
+      # census of every compiled theorem in its two namespaces, with each
+      # theorem's axioms, against the committed evidence/lean.json.
+      - name: Coherent process limits, fresh Lean and environment census
+        run: python3 research/coherent_process_limits/verify_lean.py --check
+      # Cleans and rebuilds; every module must lie in the root's import
+      # closure and every declared theorem must carry a #print axioms line;
+      # the reports must equal the committed lean/axioms.txt byte for byte.
+      # The tree is frozen, so its script runs as it stands. Its Python
+      # checks run in the research job; this is its Lean.
+      - name: Boundary derivation, fresh Lean and axiom log
+        run: python3 research/boundary_seed/verify_lean.py
       - name: Every compiled declaration stays within the axiom boundary
         run: python3 ci/check_declaration_axioms.py
       # Must stay LAST in this job and must not write to lake_build.log: the
@@ -259,13 +303,18 @@ jobs:
   # NOT run here: verify_lean.py. It builds the research Lake package, which
   # needs elan and compiles the sealed package as a dependency -- exactly the
   # expense this job exists to avoid. Research Lean verifiers run in the
-  # lean job instead: second_nofirst and typed_translation, and since
-  # 2026-09-23 the four foundations trees (native_bridge, native_structure,
-  # conservation_ladder, domain_adapters). Every other tree's AXIOMS remain
-  # a manual receipt, unchecked by any gate; do not read a green run here as
-  # covering them. (2026-09-21: this comment used to say no research tree's
-  # axioms were gated; that is withdrawn. 2026-09-23: it used to say two
-  # research Lean verifiers run in the lean job; that is withdrawn.)
+  # lean job instead: second_nofirst, second_index and typed_translation;
+  # since 2026-09-23 the four foundations trees (native_bridge,
+  # native_structure, conservation_ladder, domain_adapters); and since
+  # 2026-09-24 natural_sections, balance_carrier, closed_family,
+  # convention_price, coherent_process_limits and boundary_seed. Every
+  # other tree's AXIOMS remain a manual receipt, unchecked by any gate; do
+  # not read a green run here as covering them. (2026-09-21: this comment
+  # used to say no research tree's axioms were gated; that is withdrawn.
+  # 2026-09-23: it used to say two research Lean verifiers run in the lean
+  # job; that is withdrawn. 2026-09-24: it used to omit second_index, which
+  # the lean job already ran, and the six trees named last; that is
+  # withdrawn.)
   research:
     runs-on: ubuntu-latest
     steps:
