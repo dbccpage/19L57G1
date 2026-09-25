@@ -65,8 +65,8 @@
     },
     {
       "path": "research/x300_observer_information/information.py",
-      "git_blob": "96af270fad8ea495dd140a07eef519bae27377eb",
-      "sha256": "6000712b03c3d52ca177ad1bce65a557f79787528dcf2a5e2881a47d41f6fc33"
+      "git_blob": "36d9d9ee7c42b303394fea7543998f03ba82a65d",
+      "sha256": "62c2143ce32cb0f222633a1f8d3cdb1b88518ec6fb20ede9fa162da751bdd8ae"
     },
     {
       "path": "research/x301_formal_semantics/formulas.py",
