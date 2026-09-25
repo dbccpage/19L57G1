@@ -47,9 +47,12 @@ package and the observed family's package.  Python: the machine mirrored;
 the artifact read through the observed family and never written, every
 run recorded with its operation tables in index order; 83 tests, strict
 typing over eleven files, two byte-identical records.  Base
-`6df9aa3163d514070c6b90a0949a68d52d63a2dc`, the observed family's commit
+`9fa450d01e436687de5a3549e8a7c80cb390e207`, the observed family's commit
 with its obligations discharged, at which both consumed families are frozen and pinned; no sealed path and
-no sibling path is written.
+no sibling path is written.  (2026-09-25: the base was `6df9aa31`, the
+commit named above until then.  It moved to the commit that corrects only the
+observed family's `README.md` registration line; no consumed source, tree
+census or digest other than that directory's tree object moved.)
 
 ## 1. The record read (`lean/Record.lean`)
 
@@ -213,7 +216,7 @@ the path, and `run.py` and `verify_lean.py` refuse by name if a foreign
 guard is imported.
 
 **Custody** (`verify_sources.py`, `SOURCE_MANIFEST.json`): at
-`6df9aa3163d514070c6b90a0949a68d52d63a2dc`, the eight derivation modules and
+`9fa450d01e436687de5a3549e8a7c80cb390e207`, the eight derivation modules and
 the consumed `translation`, `execution`, `control` and `limits` modules by
 digest and runtime origin; the sealed `lean4/Derivation` tree, the merged
 `local_reuse`, `ignition`, `magnification`, `setting_translation`,
@@ -222,7 +225,11 @@ digest and runtime origin; the sealed `lean4/Derivation` tree, the merged
 `coherent_process_limits` Python trees by Git tree object; the Lean
 configuration of the seven packages and the represented execution family's
 artifact by digest.  An untracked source in any of the eleven trees is
-refused.  The two records are `-text` by an in-tree `.gitattributes`.
+refused.  (2026-09-25: the eleven Git tree pins and the untracked-source
+refusal are withdrawn.  The Python trees are pinned through the runtime
+modules above, and the Lean trees by the 30 files of the local package's
+import closure, each by digest; an edit to a file this family does not read
+no longer fails its custody check.)  The two records are `-text` by an in-tree `.gitattributes`.
 
 ```powershell
 cd research/record_reading

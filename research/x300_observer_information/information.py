@@ -44,6 +44,18 @@ class UnnormalizedDistributionError(ValueError):
     """
 
 
+class FloatProbabilityError(TypeError):
+    """A probability given as a binary float, refused rather than approximated.
+
+    Until 2026-09-25 the constructor accepted a float and replaced it by
+    ``Fraction(val).limit_denominator(10**9)``, a nearby rational chosen by
+    the approximation, not the value the caller wrote.  Every result here is
+    exact over Q, so a float is refused by name; pass a ``Fraction``, an
+    ``int``, a decimal string such as ``"0.1"``, or a ``(numerator,
+    denominator)`` pair.
+    """
+
+
 # -----------------------------------------------------------------------------
 # 1. Discrete Distribution with Exact Rational Arithmetic
 # -----------------------------------------------------------------------------
@@ -51,17 +63,20 @@ class UnnormalizedDistributionError(ValueError):
 class DiscreteDistribution(Generic[T]):
     """Discrete probability distribution with exact rational probabilities in Q."""
 
-    def __init__(self, probabilities: Mapping[T, Fraction | int | float | str | tuple[int, int]]) -> None:
+    def __init__(self, probabilities: Mapping[T, Fraction | int | str | tuple[int, int]]) -> None:
         raw: dict[T, Fraction] = {}
         for key, val in probabilities.items():
+            if isinstance(val, float):
+                raise FloatProbabilityError(
+                    f"Probability for {key} is the float {val!r}; floats are refused, never "
+                    "approximated: pass a Fraction, an int, a decimal string or a pair"
+                )
             if isinstance(val, tuple) and len(val) == 2:
                 frac = Fraction(val[0], val[1])
             elif isinstance(val, (int, str)):
                 frac = Fraction(val)
             elif isinstance(val, Fraction):
                 frac = val
-            elif isinstance(val, float):
-                frac = Fraction(val).limit_denominator(1_000_000_000)
             else:
                 frac = Fraction(val)
 
@@ -277,7 +292,7 @@ class Channel(Generic[T, U]):
 
     def __init__(
         self,
-        transitions: Mapping[T, DiscreteDistribution[U] | Mapping[U, Fraction | int | float | str]],
+        transitions: Mapping[T, DiscreteDistribution[U] | Mapping[U, Fraction | int | str]],
         input_alphabet: Iterable[T] | None = None,
     ) -> None:
         self._table: dict[T, DiscreteDistribution[U]] = {}

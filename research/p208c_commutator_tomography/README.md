@@ -56,3 +56,14 @@ This harness executes:
 3. Lean 4 package build via `lake build`.
 4. Metatheoretic theorem census and axiom verification in `Inventory.lean` (73 theorems verified within `{propext, Quot.sound}`).
 5. Validates `evidence/receipt.json`.
+
+## Correction, 2026-09-25: the zero scalar
+
+`verify_canonical_commutation_obstruction(N, 0)` returned `True`
+("obstructed") for every `N >= 1`, although `Q = P = I_N` solves
+`[Q, P] = 0 * I_N`; its own inline comment named the commuting solutions.
+The claim, in Lean and in `CLAIMS.md`, covers nonzero `c` only, and no
+committed result called the function at zero. It now answers `False` at
+`c = 0`, computed on that witness, and
+`test_commutation_at_zero_is_not_obstructed` pins the answer for
+`N = 1, 2, 3, 4, 10`. The receipt was regenerated through `verify.py`.

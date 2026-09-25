@@ -16,6 +16,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import verify_sources as guard  # noqa: E402
 
 UNCONSUMED = ("prompt/input.md", "paper/claim.md", "artifacts/other.json")
+# Files beside the pinned ones that this family does not read (2026-09-25).
+NEIGHBOURS = ("lean4/Derivation/Unconsumed.lean", "code/derivation/unconsumed_notes.md")
 
 
 def git(root: Path, *args: str) -> bytes:
@@ -51,7 +53,11 @@ class Fixture:
             path = root / relative
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(b"\x1f\x8b fixture artifact bytes\r\n")
-        git(root, "add", "--", *guard.CONSUMED_TREES, *guard.CONFIG_PATHS,
+        for relative in (*guard.LEAN_PATHS, *NEIGHBOURS):
+            path = root / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(b"# fixture source\n")
+        git(root, "add", "--", ".", *guard.CONFIG_PATHS,
             *guard.RUNTIME_PATHS.values(), *guard.ARTIFACT_PATHS, *UNCONSUMED)
         git(root, "commit", "--quiet", "-m", "Fixture baseline")
         self.baseline = git(root, "rev-parse", "HEAD").decode().strip()
@@ -62,12 +68,9 @@ class Fixture:
             "baseline_commit": self.baseline,
             "text_normalization": "CRLF_TO_LF_ONLY",
             "runtime_modules": guard.RUNTIME_PATHS,
-            "consumed_trees": {tree: git(root, "rev-parse", f"{self.baseline}:{tree}").decode().strip()
-                               for tree in guard.CONSUMED_TREES},
-            "tree_census": {tree: guard.tree_census(root, tree, suffix)[0]
-                            for tree, suffix in guard.CONSUMED_TREES.items()},
             "source_sha256": {path: hashlib.sha256(git(root, "show", f"{self.baseline}:{path}")).hexdigest()
-                              for path in (*guard.RUNTIME_PATHS.values(), *guard.CONFIG_PATHS)},
+                              for path in (*guard.RUNTIME_PATHS.values(), *guard.CONFIG_PATHS,
+                                           *guard.LEAN_PATHS)},
             "artifact_sha256": {path: hashlib.sha256(git(root, "show", f"{self.baseline}:{path}")).hexdigest()
                                 for path in guard.ARTIFACT_PATHS},
         }
@@ -127,17 +130,32 @@ class CustodyTests(unittest.TestCase):
         path.write_bytes(original)
         self.assertEqual(self.fixture.check(), [])
 
-    def test_untracked_source_in_a_consumed_tree_is_named(self) -> None:
-        for relative in ("code/derivation/new.py", "lean4/Derivation/New.lean",
-                         "research/local_reuse/lean/Extra.lean",
-                         "research/ignition/lean/Extra.lean"):
-            with self.subTest(relative=relative):
-                path = self.root / relative
-                path.write_bytes(b"# injected source\n")
-                failures = self.fixture.check()
-                path.unlink()
-                self.assertTrue(any("SOURCE_CENSUS:" in f and relative in f for f in failures), failures)
+    def test_unconsumed_neighbours_are_not_failures(self) -> None:
+        """2026-09-25: the directory pins are retired.  A file beside the pinned
+        ones that this family does not read may change, tracked or not; until
+        then each of these failed as CONSUMED_TRACKED_DIFF or SOURCE_CENSUS."""
+        for relative in NEIGHBOURS:
+            (self.root / relative).write_bytes(b"# an edit this family does not read\n")
+        git(self.root, "add", "--", *NEIGHBOURS)
+        for relative in ("code/derivation/new.py", "lean4/Derivation/New.lean"):
+            (self.root / relative).write_bytes(b"# nothing here imports this\n")
         self.assertEqual(self.fixture.check(), [])
+
+    def test_changed_pinned_lean_source_is_named(self) -> None:
+        relative = guard.LEAN_PATHS[-1]
+        (self.root / relative).write_bytes(b"-- injected different payload\n")
+        failures = self.fixture.check()
+        self.assertIn(f"SOURCE_CHANGED: {relative}", failures)
+        self.assertIn(f"CONSUMED_TRACKED_DIFF: {relative}", failures)
+
+    def test_a_manifest_with_directory_pins_is_refused(self) -> None:
+        manifest = json.loads(self.fixture.manifest_path.read_text(encoding="utf-8"))
+        manifest["consumed_trees"] = {"lean4/Derivation": "0" * 40}
+        self.fixture.manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+        self.assertEqual(
+            self.fixture.check(),
+            ["MANIFEST_TREE_PINS: whole-directory pins were retired on 2026-09-25"],
+        )
 
     def test_build_outputs_under_lake_are_not_sources(self) -> None:
         path = self.root / "research/local_reuse/lean/.lake/build/Copy.lean"
@@ -173,7 +191,7 @@ class CustodyTests(unittest.TestCase):
         self.assertTrue(any("duplicate manifest key" in f for f in self.fixture.check()))
 
     def test_manifest_cannot_adopt_source_or_artifact_drift(self) -> None:
-        for field in ("source_sha256", "consumed_trees", "tree_census", "artifact_sha256"):
+        for field in ("source_sha256", "lean", "artifact_sha256"):
             with self.subTest(field=field):
                 fixture = Fixture()
                 try:
@@ -182,10 +200,10 @@ class CustodyTests(unittest.TestCase):
                         source = fixture.root / "code/derivation/model.py"
                         source.write_bytes(b"# changed and adopted\n")
                         manifest[field]["code/derivation/model.py"] = hashlib.sha256(source.read_bytes()).hexdigest()
-                    elif field == "consumed_trees":
-                        manifest[field]["code/derivation"] = "0" * 40
-                    elif field == "tree_census":
-                        manifest[field]["code/derivation"].append("code/derivation/invented.py")
+                    elif field == "lean":
+                        source = fixture.root / guard.LEAN_PATHS[0]
+                        source.write_bytes(b"-- changed and adopted\n")
+                        manifest["source_sha256"][guard.LEAN_PATHS[0]] = hashlib.sha256(source.read_bytes()).hexdigest()
                     else:
                         if not guard.ARTIFACT_PATHS:
                             continue
@@ -194,7 +212,7 @@ class CustodyTests(unittest.TestCase):
                         manifest[field][guard.ARTIFACT_PATHS[0]] = hashlib.sha256(artifact.read_bytes()).hexdigest()
                     fixture.manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
                     failures = fixture.check()
-                    self.assertTrue(any("PIN:" in f or "MANIFEST_TREE_CENSUS:" in f for f in failures), failures)
+                    self.assertTrue(any("PIN:" in f for f in failures), failures)
                 finally:
                     fixture.close()
                     guard.BASELINE_COMMIT = self.fixture.baseline

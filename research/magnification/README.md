@@ -221,6 +221,10 @@ the `research/local_reuse/lean` and `research/ignition/lean` trees by Git
 tree object, the three Lean configurations by digest, the six full exports
 and their summaries by raw digest; an untracked `.py` on the import path or
 `.lean` in any of the three Lean trees is refused.
+(2026-09-25: the Git tree pins and the untracked-file refusal are withdrawn.
+The Lean trees are now pinned by the 27 files of the local package's import
+closure, each by digest; an edit to a file this family does not read no
+longer fails its custody check.  See the dated note in `verify_sources.py`.)
 
 **Author-recorded regression gates at the original head `0717d6e2`**: (1) prompt hashes ok; (2) transport citations clean, 190 verified; (3) the full sealed suite under coverage, exit 0, line 99.10 %, branch 96.71 % (four workers); (4) mypy clean over 60 files; (5) artifacts reproducible, 40 JSON byte-identical and 6 full exports content-identical; (6) Lean audit clean on a fresh log, 77 sources, 1530 reports within the whitelist, report pin matching; (7) 7 skills well formed; (8) 62 paper cross-references resolve; (9) 1152 ledger evidence tokens resolve; (10) parked audit complete, 75 modules, 12 parked; (11) the four registered research checks pass; (12) prose watchlist clean with no pin regenerated, 49 terms, 130 files, 1826 hits; the identifier firewall passes over the index. Unavailable: hosted CI. Pre-existing failures observed: none.
 

@@ -17,13 +17,12 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import verify_sources as guard  # noqa: E402
 
 UNCONSUMED = ("prompt/input.md", "paper/claim.md", "artifacts/other.json")
-LEAN_SOURCES = ("lean4/Derivation/Example.lean", "research/local_reuse/lean/LocalReuse.lean",
-                "research/ignition/lean/Ignition.lean", "research/magnification/lean/EngineClass.lean",
-                "research/setting_translation/lean/Translation.lean",
-                "research/represented_execution/lean/Control.lean",
-                "research/coherent_process_limits/lean/Observe.lean")
-PY_SOURCES = ("research/setting_translation/translation.py", "research/represented_execution/control.py",
-              "research/coherent_process_limits/limits.py")
+# Files beside the pinned ones that this family does not read (2026-09-25).
+NEIGHBOURS = ("lean4/Derivation/Example.lean", "research/local_reuse/lean/LocalReuse.lean",
+              "research/coherent_process_limits/lean/Limits.lean",
+              "research/coherent_process_limits/README.md",
+              "research/represented_execution/SOURCE_MANIFEST.json",
+              "research/setting_translation/verify_sources.py")
 
 
 def git(root: Path, *args: str) -> bytes:
@@ -40,12 +39,13 @@ class Fixture:
         git(root, "config", "core.autocrlf", "false")
         git(root, "config", "user.name", "Custody fixture")
         git(root, "config", "user.email", "fixture@example.invalid")
-        for relative in (*guard.RUNTIME_PATHS.values(), *guard.CONFIG_PATHS, *LEAN_SOURCES, *PY_SOURCES,
-                         *UNCONSUMED):
+        for relative in (*guard.RUNTIME_PATHS.values(), *guard.CONFIG_PATHS, *guard.LEAN_PATHS,
+                         *NEIGHBOURS, *UNCONSUMED):
             path = root / relative
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(b"# fixture source\n")
-        git(root, "add", "--", *guard.CONSUMED_TREES, *guard.CONFIG_PATHS, *UNCONSUMED)
+        git(root, "add", "--", *guard.RUNTIME_PATHS.values(), *guard.CONFIG_PATHS, *guard.LEAN_PATHS,
+            *NEIGHBOURS, *UNCONSUMED)
         git(root, "commit", "--quiet", "-m", "Fixture baseline")
         self.baseline = git(root, "rev-parse", "HEAD").decode().strip()
         self.original_baseline = guard.BASELINE_COMMIT
@@ -63,12 +63,9 @@ class Fixture:
             "baseline_commit": self.baseline,
             "text_normalization": "CRLF_TO_LF_ONLY",
             "runtime_modules": guard.RUNTIME_PATHS,
-            "consumed_trees": {tree: git(root, "rev-parse", f"{self.baseline}:{tree}").decode().strip()
-                               for tree in guard.CONSUMED_TREES},
-            "tree_census": {tree: guard.tree_census(root, tree, suffix)[0]
-                            for tree, suffix in guard.CONSUMED_TREES.items()},
             "source_sha256": {path: hashlib.sha256(git(root, "show", f"{self.baseline}:{path}")).hexdigest()
-                              for path in (*guard.RUNTIME_PATHS.values(), *guard.CONFIG_PATHS)},
+                              for path in (*guard.RUNTIME_PATHS.values(), *guard.CONFIG_PATHS,
+                                           *guard.LEAN_PATHS)},
         }
         packet = root / guard.PACKET
         packet.mkdir(parents=True)
@@ -103,7 +100,9 @@ class CustodyTests(unittest.TestCase):
 
     def test_changed_pinned_source_is_named(self) -> None:
         for relative in ("code/derivation/primitive_core.py", "research/coherent_process_limits/lean/lakefile.toml",
-                         "research/represented_execution/evidence/process.json"):
+                         "research/represented_execution/evidence/process.json",
+                         "research/coherent_process_limits/lean/Observe.lean",
+                         "lean4/Derivation/PrimitiveCore.lean"):
             with self.subTest(relative=relative):
                 path = self.root / relative
                 original = path.read_bytes()
@@ -114,16 +113,26 @@ class CustodyTests(unittest.TestCase):
                 self.assertIn(f"CONSUMED_TRACKED_DIFF: {relative}", failures)
         self.assertEqual(self.fixture.check(), [])
 
-    def test_untracked_source_in_a_consumed_tree_is_named(self) -> None:
+    def test_unconsumed_neighbours_are_not_failures(self) -> None:
+        """2026-09-25: the directory pins are retired.  A file beside the pinned
+        ones that this family does not read may change, tracked or not; until
+        then each of these failed as CONSUMED_TRACKED_DIFF or SOURCE_CENSUS."""
+        for relative in NEIGHBOURS:
+            (self.root / relative).write_bytes(b"# an edit this family does not read\n")
+        git(self.root, "add", "--", *NEIGHBOURS)
         for relative in ("code/derivation/new.py", "research/coherent_process_limits/lean/Extra.lean",
-                         "research/coherent_process_limits/extra.py", "research/represented_execution/extra.py"):
-            with self.subTest(relative=relative):
-                path = self.root / relative
-                path.write_bytes(b"# injected source\n")
-                failures = self.fixture.check()
-                path.unlink()
-                self.assertTrue(any("SOURCE_CENSUS:" in f and relative in f for f in failures), failures)
+                         "research/represented_execution/extra.py"):
+            (self.root / relative).write_bytes(b"# nothing here imports this\n")
         self.assertEqual(self.fixture.check(), [])
+
+    def test_a_manifest_with_directory_pins_is_refused(self) -> None:
+        manifest = json.loads(self.fixture.manifest_path.read_text(encoding="utf-8"))
+        manifest["consumed_trees"] = {"lean4/Derivation": "0" * 40}
+        self.fixture.manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+        self.assertEqual(
+            self.fixture.check(),
+            ["MANIFEST_TREE_PINS: whole-directory pins were retired on 2026-09-25"],
+        )
 
     def test_changed_consumed_observer_is_a_tracked_diff(self) -> None:
         path = self.root / "research/coherent_process_limits/limits.py"
@@ -151,24 +160,19 @@ class CustodyTests(unittest.TestCase):
         self.assertTrue(any(f.startswith("BASELINE_UNAVAILABLE:") for f in self.fixture.check()))
 
     def test_manifest_cannot_adopt_drift(self) -> None:
-        for field in ("source_sha256", "consumed_trees", "tree_census"):
+        for field in ("process.json", "lean"):
             with self.subTest(field=field):
                 fixture = Fixture()
                 try:
                     manifest = json.loads(fixture.manifest_path.read_text(encoding="utf-8"))
-                    if field == "source_sha256":
-                        source = fixture.root / "research/represented_execution/evidence/process.json"
-                        source.write_bytes(b"# changed and adopted\n")
-                        manifest[field]["research/represented_execution/evidence/process.json"] = \
-                            hashlib.sha256(source.read_bytes()).hexdigest()
-                    elif field == "consumed_trees":
-                        manifest[field]["research/coherent_process_limits"] = "0" * 40
-                    else:
-                        manifest[field]["research/coherent_process_limits"].append(
-                            "research/coherent_process_limits/invented.py")
+                    relative = ("research/represented_execution/evidence/process.json"
+                                if field == "process.json" else guard.LEAN_PATHS[0])
+                    source = fixture.root / relative
+                    source.write_bytes(b"# changed and adopted\n")
+                    manifest["source_sha256"][relative] = hashlib.sha256(source.read_bytes()).hexdigest()
                     fixture.manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
                     failures = fixture.check()
-                    self.assertTrue(any("PIN:" in f or "MANIFEST_TREE_CENSUS:" in f for f in failures), failures)
+                    self.assertTrue(any("PIN:" in f for f in failures), failures)
                 finally:
                     fixture.close()
                     guard.BASELINE_COMMIT = self.fixture.baseline

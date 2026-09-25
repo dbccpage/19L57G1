@@ -328,6 +328,10 @@ digest and runtime origin, the sealed `lean4/Derivation` tree and the
 by digest, the two closed exports and summaries by raw digest; an untracked
 `.py` on the import path or `.lean` in either Lean tree is refused.
 `prompt/` and `paper/` are not read and not pinned.
+(2026-09-25: the Git tree pins and the untracked-file refusal are withdrawn.
+The Lean trees are now pinned by the 24 files of the local package's import
+closure, each by digest; an edit to a file this family does not read no
+longer fails its custody check.  See the dated note in `verify_sources.py`.)
 
 **Regression gates at the execution base with this family staged**: prompt
 hashes (1), transport citations (2), the full sealed suite under coverage

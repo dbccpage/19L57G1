@@ -2,8 +2,8 @@
 
 AuthorityEffect: None.
 
-- **Gate 11 Status**: Not in Gate 11.
-- **Receipts**: Local receipts only.
+- **Gate 11 Status**: Registered 2026-09-25 (see the dated note below).
+- **Receipts**: The test suite runs in the workflow's research job.
 - **Verification**: Verified via local Python test suite (`test_estate_honesty.py`).
 - **Census scope**: The frozen `ESTATE_AUDIT_REPORT.md` and `audit_summary.json` cover the 48 trees present at audit time. The `audit_estate.py` script dynamically discovers trees from `research/README.md` on each run, so future runs will reflect the current tree count.
 
@@ -33,3 +33,25 @@ AuthorityEffect: None.
   longer says it.
 - `audit_estate.py --write` overwrites the dated record, and
   `test_dated_snapshot_20260910` then fails by design.
+
+## 2026-09-25: the workflow counts follow the workflow; registered
+
+- **Withdrawn.** Two tests asserted that gate 11 wires exactly 13 named
+  trees and that the lean job runs exactly two research trees
+  (`second_nofirst`, `typed_translation`). Both were true on 2026-09-10; at
+  `35e680ec` the research job ran 25 trees and the lean job 22, and both tests
+  were red on main.
+- **What replaces them.** Each job's trees are read twice: by
+  `audit_estate.py`, and by `workflow_step_trees` in the test, which reads
+  only the `run` and `working-directory` values of each step. The readings
+  must agree (the auditor still adds the `second` umbrella), and each set
+  must contain every tree of its dated record (`RESEARCH_JOB_20260925`,
+  `LEAN_JOB_20260925`). A tree dropped from the workflow fails by name; a new
+  registration passes.
+- **Auditor repair.** `audit_estate.py` read lean-job trees only from a
+  `research/<tree>/verify_lean.py` path, so the nine lean-job steps that enter
+  their tree and run `verify.py --check` were invisible to it. It now reads
+  that form too.
+- **Registered.** The status line above said "Not in Gate 11" and "Local
+  receipts only"; that is withdrawn. The suite now runs as the research-job
+  step "Estate honesty tests". It writes no tracked file.

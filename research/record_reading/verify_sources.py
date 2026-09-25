@@ -25,6 +25,20 @@ represented execution family's artifact ``evidence/process.json`` — read
 here through the coherent process limits family's identification, never
 written here — by digest at the commit at which both families are frozen.
 No export is read.  ``prompt`` and ``paper`` are not read and not pinned.
+
+2026-09-25: the eleven directory pins are retired.  Each directory was pinned
+by Git tree object, a suffix census and a tracked diff over the whole
+directory, so any edit anywhere in those trees (a README, a manifest, a
+verifier) failed this check, whether or not this family reads it.  The pins
+are now the files it consumes, measured by importing every module of the
+tree in a child interpreter, by the files its tests open, and by the import
+closure of its Lean package through its Lake requires: ``RUNTIME_PATHS`` and
+``CONFIG_PATHS`` (unchanged) and ``LEAN_PATHS``, each by digest at the
+baseline, compared with the working tree and covered by the tracked diff.
+An import of a file outside them has to edit a pinned file, which fails, and
+an extra module fails the runtime census.  The sentence above that the
+eleven trees are pinned by their exact Git tree objects is withdrawn with
+them; the scope paragraph above still names what each tree supplies.
 """
 
 from __future__ import annotations
@@ -39,22 +53,43 @@ import sys
 from types import ModuleType
 from typing import Mapping
 
-BASELINE_COMMIT = "6df9aa3163d514070c6b90a0949a68d52d63a2dc"
+BASELINE_COMMIT = "9fa450d01e436687de5a3549e8a7c80cb390e207"
 PACKET = Path("research/record_reading")
-SCHEMA = "record-reading-sources-v1"
-CONSUMED_TREES = {
-    "code/derivation": ".py",
-    "lean4/Derivation": ".lean",
-    "research/local_reuse/lean": ".lean",
-    "research/ignition/lean": ".lean",
-    "research/magnification/lean": ".lean",
-    "research/setting_translation/lean": ".lean",
-    "research/setting_translation": ".py",
-    "research/represented_execution/lean": ".lean",
-    "research/represented_execution": ".py",
-    "research/coherent_process_limits/lean": ".lean",
-    "research/coherent_process_limits": ".py",
-}
+SCHEMA = "record-reading-sources-v2"
+# 2026-09-25: the Lean import closure of the local package through its Lake
+# requires, measured; it replaces the eleven directory pins.
+LEAN_PATHS = (
+    "lean4/Derivation/Attachment.lean",
+    "lean4/Derivation/Basic.lean",
+    "lean4/Derivation/Bridge.lean",
+    "lean4/Derivation/CapacityBound.lean",
+    "lean4/Derivation/Erasure.lean",
+    "lean4/Derivation/Generator.lean",
+    "lean4/Derivation/HigherStructure.lean",
+    "lean4/Derivation/Inertia.lean",
+    "lean4/Derivation/Pigeonhole.lean",
+    "lean4/Derivation/PrimDiff.lean",
+    "lean4/Derivation/PrimitiveCore.lean",
+    "lean4/Derivation/PrimitivePassage.lean",
+    "lean4/Derivation/Refusal.lean",
+    "lean4/Derivation/RefusalFrontier.lean",
+    "lean4/Derivation/SeparationCapacity.lean",
+    "research/coherent_process_limits/lean/Chain.lean",
+    "research/coherent_process_limits/lean/Cycle.lean",
+    "research/coherent_process_limits/lean/Fork.lean",
+    "research/coherent_process_limits/lean/Observe.lean",
+    "research/coherent_process_limits/lean/Periodic.lean",
+    "research/coherent_process_limits/lean/Steps.lean",
+    "research/coherent_process_limits/lean/TwoLoci.lean",
+    "research/represented_execution/lean/Control.lean",
+    "research/represented_execution/lean/Execution.lean",
+    "research/represented_execution/lean/Product.lean",
+    "research/represented_execution/lean/Rename.lean",
+    "research/represented_execution/lean/Runner.lean",
+    "research/represented_execution/lean/Schedule.lean",
+    "research/setting_translation/lean/Chains.lean",
+    "research/setting_translation/lean/Translation.lean",
+)
 CONFIG_PATHS = (
     "lean4/Derivation.lean",
     "lean4/lean-toolchain",
@@ -147,20 +182,6 @@ def runtime_errors(root: Path, modules: Mapping[str, ModuleType]) -> list[str]:
     return errors
 
 
-def tree_census(root: Path, tree: str, suffix: str) -> tuple[list[str], list[str]]:
-    baseline = sorted(
-        path for path in _git(root, "ls-tree", "-r", "--name-only", BASELINE_COMMIT,
-                              "--", tree).decode().splitlines()
-        if path.endswith(suffix)
-    )
-    current = sorted(
-        path.relative_to(root).as_posix()
-        for path in (root / tree).rglob("*" + suffix)
-        if ".lake" not in path.relative_to(root).parts
-    )
-    return baseline, current
-
-
 def verify_sources(repo_root: Path | None = None, *, check_runtime: bool = True) -> list[str]:
     """Return named failures; an empty list is a pass for this source scope."""
     root = (repo_root or Path(__file__).resolve().parents[2]).resolve()
@@ -178,11 +199,11 @@ def verify_sources(repo_root: Path | None = None, *, check_runtime: bool = True)
             return ["MANIFEST_NORMALIZATION: expected CRLF_TO_LF_ONLY"]
         if manifest.get("runtime_modules") != RUNTIME_PATHS:
             return ["MANIFEST_RUNTIME_CENSUS: runtime module paths differ"]
-        if set(manifest.get("consumed_trees", {})) != set(CONSUMED_TREES):
-            return ["MANIFEST_CONSUMED_CENSUS: consumed tree paths differ"]
-        if set(manifest.get("tree_census", {})) != set(CONSUMED_TREES):
-            return ["MANIFEST_TREE_CENSUS: censused tree paths differ"]
-        if set(manifest.get("source_sha256", {})) != set(RUNTIME_PATHS.values()) | set(CONFIG_PATHS):
+        if "consumed_trees" in manifest or "tree_census" in manifest:
+            return ["MANIFEST_TREE_PINS: whole-directory pins were retired on 2026-09-25"]
+        if set(manifest.get("source_sha256", {})) != (
+            set(RUNTIME_PATHS.values()) | set(CONFIG_PATHS) | set(LEAN_PATHS)
+        ):
             return ["MANIFEST_SOURCE_CENSUS: pinned source paths differ"]
     except (OSError, ValueError, TypeError) as exc:
         return [f"MANIFEST_UNAVAILABLE: {exc}"]
@@ -193,18 +214,6 @@ def verify_sources(repo_root: Path | None = None, *, check_runtime: bool = True)
     except (OSError, ValueError) as exc:
         return [f"BASELINE_UNAVAILABLE: {exc}"]
     try:
-        for tree, suffix in CONSUMED_TREES.items():
-            tree_oid = _git(root, "rev-parse", f"{BASELINE_COMMIT}:{tree}").decode().strip()
-            if manifest["consumed_trees"][tree] != tree_oid:
-                errors.append(f"BASELINE_TREE_PIN: {tree}")
-            baseline, current = tree_census(root, tree, suffix)
-            if manifest["tree_census"][tree] != baseline:
-                errors.append(f"MANIFEST_TREE_CENSUS: {tree} differs from baseline")
-            if current != baseline:
-                errors.append(
-                    f"SOURCE_CENSUS: {tree}: missing={sorted(set(baseline) - set(current))} "
-                    f"unexpected={sorted(set(current) - set(baseline))}"
-                )
         for relative, pinned_hash in manifest["source_sha256"].items():
             blob = _git(root, "show", f"{BASELINE_COMMIT}:{relative}")
             if _sha(blob) != pinned_hash:
@@ -217,7 +226,7 @@ def verify_sources(repo_root: Path | None = None, *, check_runtime: bool = True)
                     errors.append(f"SOURCE_CHANGED: {relative}")
             except OSError as exc:
                 errors.append(f"SOURCE_UNAVAILABLE: {relative}: {exc}")
-        consumed = (*CONSUMED_TREES, *CONFIG_PATHS)
+        consumed = (*RUNTIME_PATHS.values(), *CONFIG_PATHS, *LEAN_PATHS)
         changed = set(_git(root, "diff", "--name-only", "--no-ext-diff", BASELINE_COMMIT,
                            "--", *consumed).decode().splitlines())
         changed.update(_git(root, "diff", "--cached", "--name-only", "--no-ext-diff", BASELINE_COMMIT,

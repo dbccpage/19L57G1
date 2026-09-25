@@ -16,6 +16,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import verify_sources as guard
 
 UNCONSUMED = ("prompt/input.md", "paper/claim.md", "artifacts/example.json")
+# Files beside the pinned ones that this family does not read (2026-09-25).
+NEIGHBOURS = ("lean4/Derivation/Unconsumed.lean", "code/derivation/unconsumed_notes.md")
 
 
 def git(root: Path, *args: str) -> bytes:
@@ -37,8 +39,13 @@ def source_fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
         path = root / relative
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(b"# fixture source\n")
+    for relative in (*guard.LEAN_PATHS, *NEIGHBOURS):
+        path = root / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(b"# fixture source\n")
     # Explicit paths; this fixture has no user work to collect.
-    git(root, "add", "--", *guard.CONSUMED_TREES, *guard.CONFIG_PATHS, *UNCONSUMED)
+    git(root, "add", "--", *guard.RUNTIME_PATHS.values(), *guard.LEAN_PATHS, *NEIGHBOURS,
+        "lean4/Derivation/Example.lean", *guard.CONFIG_PATHS, *UNCONSUMED)
     git(root, "commit", "--quiet", "-m", "Fixture baseline")
     baseline = git(root, "rev-parse", "HEAD").decode().strip()
     monkeypatch.setattr(guard, "BASELINE_COMMIT", baseline)
@@ -47,12 +54,9 @@ def source_fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
         "baseline_commit": baseline,
         "text_normalization": "CRLF_TO_LF_ONLY",
         "runtime_modules": guard.RUNTIME_PATHS,
-        "consumed_trees": {tree: git(root, "rev-parse", f"{baseline}:{tree}").decode().strip()
-                           for tree in guard.CONSUMED_TREES},
-        "tree_census": {tree: guard.tree_census(root, tree, suffix)[0]
-                        for tree, suffix in guard.CONSUMED_TREES.items()},
         "source_sha256": {path: hashlib.sha256(git(root, "show", f"{baseline}:{path}")).hexdigest()
-                          for path in (*guard.RUNTIME_PATHS.values(), *guard.CONFIG_PATHS)},
+                          for path in (*guard.RUNTIME_PATHS.values(), *guard.CONFIG_PATHS,
+                                           *guard.LEAN_PATHS)},
     }
     packet = root / guard.PACKET
     packet.mkdir(parents=True)
@@ -78,14 +82,33 @@ def test_changed_pinned_source_is_named(source_fixture: Path, relative: str) -> 
     assert f"CONSUMED_TRACKED_DIFF: {relative}" in failures
 
 
-def test_a_changed_but_unpinned_file_in_a_consumed_tree_is_named(source_fixture: Path) -> None:
-    """The tree diff covers what the seven module pins do not."""
+def test_a_changed_unconsumed_file_beside_the_pinned_ones_is_not_named(source_fixture: Path) -> None:
+    """2026-09-25: reversed.  Until then the whole-directory diff named this
+    file, which this family does not read; the pins are now the files it
+    consumes, so a later commit beside them is not a custody failure."""
     other = source_fixture / "code/derivation/other.py"
     other.write_bytes(b"# fixture source\n")
-    git(source_fixture, "add", "--", "code/derivation/other.py")
-    git(source_fixture, "commit", "--quiet", "-m", "Later change inside a consumed tree")
-    assert "CONSUMED_TRACKED_DIFF: code/derivation/other.py" in guard.verify_sources(
-        source_fixture, check_runtime=False)
+    (source_fixture / NEIGHBOURS[0]).write_bytes(b"-- a later edit this family does not read\n")
+    git(source_fixture, "add", "--", "code/derivation/other.py", NEIGHBOURS[0])
+    git(source_fixture, "commit", "--quiet", "-m", "Later change beside the consumed files")
+    assert guard.verify_sources(source_fixture, check_runtime=False) == []
+
+
+def test_changed_pinned_lean_source_is_named(source_fixture: Path) -> None:
+    relative = guard.LEAN_PATHS[-1]
+    (source_fixture / relative).write_bytes(b"-- injected different payload\n")
+    failures = guard.verify_sources(source_fixture, check_runtime=False)
+    assert f"SOURCE_CHANGED: {relative}" in failures
+    assert f"CONSUMED_TRACKED_DIFF: {relative}" in failures
+
+
+def test_a_manifest_with_directory_pins_is_refused(source_fixture: Path) -> None:
+    path = source_fixture / guard.PACKET / "SOURCE_MANIFEST.json"
+    manifest = json.loads(path.read_text())
+    manifest["tree_census"] = {}
+    path.write_text(json.dumps(manifest), encoding="utf-8")
+    assert guard.verify_sources(source_fixture, check_runtime=False) == [
+        "MANIFEST_TREE_PINS: whole-directory pins were retired on 2026-09-25"]
 
 
 @pytest.mark.parametrize("relative", UNCONSUMED)
@@ -126,11 +149,12 @@ def test_staged_change_to_a_consumed_source_survives_working_file_recovery(sourc
 
 
 @pytest.mark.parametrize("relative", ["code/derivation/new.py", "lean4/Derivation/New.lean"])
-def test_untracked_source_census_change_is_named(source_fixture: Path, relative: str) -> None:
-    """An untracked file a build or an import WOULD pick up is still refused."""
+def test_untracked_file_beside_the_pinned_ones_is_not_named(source_fixture: Path, relative: str) -> None:
+    """2026-09-25: reversed.  Until then this was refused as a SOURCE_CENSUS
+    change.  A build or an import picks the file up only if a pinned file
+    imports it, and that edit fails as SOURCE_CHANGED."""
     (source_fixture / relative).write_bytes(b"# injected source\n")
-    failures = guard.verify_sources(source_fixture, check_runtime=False)
-    assert any("SOURCE_CENSUS:" in failure and relative in failure for failure in failures)
+    assert guard.verify_sources(source_fixture, check_runtime=False) == []
 
 
 def test_missing_baseline_fails_closed(source_fixture: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -154,7 +178,7 @@ def test_a_duplicate_manifest_key_is_refused(source_fixture: Path) -> None:
                for failure in guard.verify_sources(source_fixture, check_runtime=False))
 
 
-@pytest.mark.parametrize("field", ["source_sha256", "consumed_trees", "tree_census"])
+@pytest.mark.parametrize("field", ["source_sha256", "lean"])
 def test_manifest_cannot_adopt_source_drift(source_fixture: Path, field: str) -> None:
     path = source_fixture / guard.PACKET / "SOURCE_MANIFEST.json"
     manifest = json.loads(path.read_text())
@@ -162,13 +186,13 @@ def test_manifest_cannot_adopt_source_drift(source_fixture: Path, field: str) ->
         source = source_fixture / "code/derivation/model.py"
         source.write_bytes(b"# changed and adopted\n")
         manifest[field]["code/derivation/model.py"] = hashlib.sha256(source.read_bytes()).hexdigest()
-    elif field == "consumed_trees":
-        manifest[field]["code/derivation"] = "0" * 40
     else:
-        manifest[field]["code/derivation"].append("code/derivation/invented.py")
+        source = source_fixture / guard.LEAN_PATHS[0]
+        source.write_bytes(b"-- changed and adopted\n")
+        manifest["source_sha256"][guard.LEAN_PATHS[0]] = hashlib.sha256(source.read_bytes()).hexdigest()
     path.write_text(json.dumps(manifest), encoding="utf-8")
     failures = guard.verify_sources(source_fixture, check_runtime=False)
-    assert any("PIN:" in failure or "MANIFEST_TREE_CENSUS:" in failure for failure in failures)
+    assert any("PIN:" in failure for failure in failures)
 
 
 def test_unrelated_later_commit_is_allowed(source_fixture: Path) -> None:
