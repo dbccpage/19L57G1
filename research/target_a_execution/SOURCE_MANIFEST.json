@@ -1,7 +1,13 @@
 {
   "schema": "target_a_execution-sources-v1",
   "authority_effect": null,
+  "note": "2026-09-24: the pins now name what this tree consumes, measured by importing every Python file of the tree in a child interpreter, running its tests under an audit hook, and following its Lake imports. Added 3 consumed input(s) that were unpinned. The verifier checks these pins at HEAD only; no snapshot identity is claimed. Each has the same blob at 2914032fb3, the commit that created this manifest.",
   "sources": [
+    {
+      "path": "code/derivation/__init__.py",
+      "git_blob": "8c239e66976fadaa9e5a04f9451ec4c500c266d4",
+      "sha256": "0fabcb53dc46712447a727f6ceb661e5aab3267a3e8b50bdea11044b64f853af"
+    },
     {
       "path": "code/derivation/model.py",
       "git_blob": "b6f95a673853d423a0d73b4faa95b2cd22f306a3",
@@ -11,6 +17,16 @@
       "path": "lean4/Derivation/Basic.lean",
       "git_blob": "610d8fc982853807eb892eaaf683fc4eb2959cc1",
       "sha256": "1520b392f4061af568e00ca4fd235feb03facf6d3612c030c1d60018539e3eed"
+    },
+    {
+      "path": "lean4/lake-manifest.json",
+      "git_blob": "8e201944fa9d35190015955f1e21d458bc2cae14",
+      "sha256": "df949b280480c0c2a766e8e6dd33245fe85923c517f6c0d121b79b6f2b2cab91"
+    },
+    {
+      "path": "lean4/lakefile.toml",
+      "git_blob": "7a714802e3af2c6a4ad362dfc073a4eb064f209a",
+      "sha256": "e75cbde5829dc2efbb5612fbfdba9301c20ccbf2d21ab80bc87db52f4ead0f3c"
     }
   ]
 }

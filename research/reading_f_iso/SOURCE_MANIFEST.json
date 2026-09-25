@@ -1,7 +1,23 @@
 {
   "schema": "reading_f_iso-sources-v1",
   "authority_effect": null,
+  "note": "2026-09-24: the pins now name what this tree consumes, measured by importing every Python file of the tree in a child interpreter, running its tests under an audit hook, and following its Lake imports. Added 5 consumed input(s) that were unpinned. The verifier checks these pins at HEAD only; no snapshot identity is claimed. Each has the same blob at 2914032fb3, the commit that created this manifest.",
   "sources": [
+    {
+      "path": "lean4/Derivation/Basic.lean",
+      "git_blob": "610d8fc982853807eb892eaaf683fc4eb2959cc1",
+      "sha256": "1520b392f4061af568e00ca4fd235feb03facf6d3612c030c1d60018539e3eed"
+    },
+    {
+      "path": "lean4/Derivation/Inertia.lean",
+      "git_blob": "99c0597259c0f759a1790a970a432e7e9b59d4b5",
+      "sha256": "c62615cb3757474d20348f6507b8dea4e2de3e3a02268909194a2d0736bbe5ce"
+    },
+    {
+      "path": "lean4/Derivation/Mention.lean",
+      "git_blob": "3bde13ea2aa871aa8fdd2a7848a4789567a648f8",
+      "sha256": "68722b804252dd95129d8619db0b2e11ac36d4245747aab1acddea52172f6f03"
+    },
     {
       "path": "lean4/Derivation/Minimality.lean",
       "git_blob": "6cf6c4aafa95d8d3c151f45f37579afcab4d3786",
@@ -11,6 +27,16 @@
       "path": "lean4/Derivation/MinimalityF.lean",
       "git_blob": "7b780c1aa25fcea574450ac67284f5fedd9c3a21",
       "sha256": "04ce2ef3fb6b036f885e1595322824ceeaea03123bd29e36817c33af50c05fc6"
+    },
+    {
+      "path": "lean4/lake-manifest.json",
+      "git_blob": "8e201944fa9d35190015955f1e21d458bc2cae14",
+      "sha256": "df949b280480c0c2a766e8e6dd33245fe85923c517f6c0d121b79b6f2b2cab91"
+    },
+    {
+      "path": "lean4/lakefile.toml",
+      "git_blob": "7a714802e3af2c6a4ad362dfc073a4eb064f209a",
+      "sha256": "e75cbde5829dc2efbb5612fbfdba9301c20ccbf2d21ab80bc87db52f4ead0f3c"
     }
   ]
 }

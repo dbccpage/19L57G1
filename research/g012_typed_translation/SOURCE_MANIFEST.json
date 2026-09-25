@@ -1,6 +1,7 @@
 {
   "schema": "g012_typed_translation-sources-v1",
   "authority_effect": null,
+  "note": "2026-09-24: the pins now name what this tree consumes, measured by importing every Python file of the tree in a child interpreter, running its tests under an audit hook, and following its Lake imports. Removed, because nothing in this tree imports, opens or builds against them: code/derivation/iso.py, code/derivation/model.py. Added 5 consumed input(s) that were unpinned. The verifier checks these pins at HEAD only; no snapshot identity is claimed. Each has the same blob at 2914032fb3, the commit that created this manifest.",
   "sources": [
     {
       "path": "lean4/Derivation/Basic.lean",
@@ -8,14 +9,32 @@
       "sha256": "1520b392f4061af568e00ca4fd235feb03facf6d3612c030c1d60018539e3eed"
     },
     {
-      "path": "code/derivation/iso.py",
-      "git_blob": "f05399fe6bdfbd2311bf34fa6fe927af194f586f",
-      "sha256": "b0f1f3bcf05126111a07706f4388a9fff5e30455d4b8f127966cf99ab0d0886e"
+      "path": "lean4/lake-manifest.json",
+      "git_blob": "8e201944fa9d35190015955f1e21d458bc2cae14",
+      "sha256": "df949b280480c0c2a766e8e6dd33245fe85923c517f6c0d121b79b6f2b2cab91"
     },
     {
-      "path": "code/derivation/model.py",
-      "git_blob": "b6f95a673853d423a0d73b4faa95b2cd22f306a3",
-      "sha256": "6a7fd2ba9688d47e9291514c623a811cde3c6b9e8fda1d12a608dc9bb0b1f3c2"
+      "path": "lean4/lakefile.toml",
+      "git_blob": "7a714802e3af2c6a4ad362dfc073a4eb064f209a",
+      "sha256": "e75cbde5829dc2efbb5612fbfdba9301c20ccbf2d21ab80bc87db52f4ead0f3c"
+    },
+    {
+      "path": "research/typed_translation/code/typed_translation/__init__.py",
+      "git_blob": "c248e9650ca2026f512920f0cde48300db13a048",
+      "sha256": "0aefd6e09869d4970fae2debe31d62913941486eb0f4008a882faa7c43ebbd82",
+      "consumed_by": "tests/test_specialization.py only: a function-local import after the test puts research/typed_translation/code on sys.path, so an import-time census cannot see it"
+    },
+    {
+      "path": "research/typed_translation/code/typed_translation/enumerate.py",
+      "git_blob": "3f5e390c0bb931fdd31ecadfa423f3dc8a0d8f56",
+      "sha256": "b2e0fbb4b9aa33440541e19dd25347519536f50969426c6be333f1a46779ef3e",
+      "consumed_by": "tests/test_specialization.py only: a function-local import after the test puts research/typed_translation/code on sys.path, so an import-time census cannot see it"
+    },
+    {
+      "path": "research/typed_translation/code/typed_translation/model.py",
+      "git_blob": "11daf9be23490246023f7d0ff352fa87295d2079",
+      "sha256": "5e2dea5dc6b695a1ceb28fa58fe755aeb1e640fe3bb1716755b5ce02264955f4",
+      "consumed_by": "tests/test_specialization.py only: a function-local import after the test puts research/typed_translation/code on sys.path, so an import-time census cannot see it"
     }
   ]
 }

@@ -1,7 +1,13 @@
 {
   "schema": "x310_vertical_integration-sources-v1",
   "authority_effect": null,
+  "note": "2026-09-24: the pins now name what this tree consumes, measured by importing every Python file of the tree in a child interpreter, running its tests under an audit hook, and following its Lake imports. Added 32 consumed input(s) that were unpinned. The verifier checks these pins at HEAD only; no snapshot identity is claimed. Each has the same blob at 2914032fb3, the commit that created this manifest.",
   "sources": [
+    {
+      "path": "code/derivation/__init__.py",
+      "git_blob": "8c239e66976fadaa9e5a04f9451ec4c500c266d4",
+      "sha256": "0fabcb53dc46712447a727f6ceb661e5aab3267a3e8b50bdea11044b64f853af"
+    },
     {
       "path": "code/derivation/iso.py",
       "git_blob": "f05399fe6bdfbd2311bf34fa6fe927af194f586f",
@@ -11,6 +17,161 @@
       "path": "code/derivation/model.py",
       "git_blob": "b6f95a673853d423a0d73b4faa95b2cd22f306a3",
       "sha256": "6a7fd2ba9688d47e9291514c623a811cde3c6b9e8fda1d12a608dc9bb0b1f3c2"
+    },
+    {
+      "path": "code/derivation/observe.py",
+      "git_blob": "2552c0412d472ae9ff5d31f9068684cfa531aad9",
+      "sha256": "78443d67e613d9cc9924538fe2e0a5acaf81f4654440bfe8586e16652f0317ba"
+    },
+    {
+      "path": "research/g014_observer_descent/observer_descent.py",
+      "git_blob": "5bb2bcb8beb13391037bdb91c943c96cbb1c8541",
+      "sha256": "6fc0bcfdac714534c88688a3668828aea56842f00ac5e4328a7c8706ade44621"
+    },
+    {
+      "path": "research/m114_solver_adapter/solver_adapter.py",
+      "git_blob": "afb420b56421b43de19782296abc6f73033f5619",
+      "sha256": "45890f7adc50cdb2791ae7d8d3b74d2d945bcb84b5659079828a162b6b307b3a"
+    },
+    {
+      "path": "research/p200_operational_protocols/commutation.py",
+      "git_blob": "45cae642577bad17c9198d1bc0c8798fd2ebbf55",
+      "sha256": "ea1e303972f29e5271ac8f539955d315d55d186f3251439573ae637a934ea7f2"
+    },
+    {
+      "path": "research/p200_operational_protocols/embedded_observer.py",
+      "git_blob": "571f6a86047572b6e4214851135d2affa9ec3c97",
+      "sha256": "2d6e972dea770789f94ad3db805013046383646004e18dafb65f32da9eca158a"
+    },
+    {
+      "path": "research/p200_operational_protocols/non_signaling.py",
+      "git_blob": "14e4a69792df14db7ac10757a32518e104415806",
+      "sha256": "f022821eeb1b8cc179edf786de9680af74f0893e696cecf9db8e750e336c2c56"
+    },
+    {
+      "path": "research/p200_operational_protocols/protocol.py",
+      "git_blob": "7c800da669244715f61cc884e266c95a52ed949a",
+      "sha256": "d33182daa3b0b34cf5e52a4dc0b1a36dbfb5f0b4e06b6430fd6c2a867f6a66d4"
+    },
+    {
+      "path": "research/target_a_execution/control.py",
+      "git_blob": "e758158119af3bba531ecb22f4506f78885ae5f8",
+      "sha256": "64d6c6baa3babe0bc3eedc8ba6fb992dfe0d25d691f5b1118291294565b8d113"
+    },
+    {
+      "path": "research/target_a_execution/runner.py",
+      "git_blob": "ac87641f03eadd2d5d57aa2d450e277d644abce6",
+      "sha256": "4e63dd96436ec0e0e90a0c8aa1ab358ef0efd2643fc4d089d541e8612a7e1f10"
+    },
+    {
+      "path": "research/x300_observer_information/information.py",
+      "git_blob": "36d9d9ee7c42b303394fea7543998f03ba82a65d",
+      "sha256": "62c2143ce32cb0f222633a1f8d3cdb1b88518ec6fb20ede9fa162da751bdd8ae"
+    },
+    {
+      "path": "research/x301_formal_semantics/formulas.py",
+      "git_blob": "8f7699967c3a4d6115c2cb4f1afdd1c1cdb9f6fb",
+      "sha256": "91fdfb76e38e29f828168768003e80f0b24cd48cfd73c6b18caad0e05f2f2e03"
+    },
+    {
+      "path": "research/x301_formal_semantics/intervention.py",
+      "git_blob": "e32b3c0481eb2ca8dd3ae0c6a51c77eebf809067",
+      "sha256": "cf972dec57e8a0884c5ddb35063dd7914b5760b3c818cd6cdd9b0bfc224bb84f"
+    },
+    {
+      "path": "research/x301_formal_semantics/isomorphism.py",
+      "git_blob": "3708485babbe49fbf39df9c4e1ac5c61ead6c279",
+      "sha256": "b3596bc160b8bd68f5fca0de36f59c052dca9fd0aa3f75e4aadecdee6422a836"
+    },
+    {
+      "path": "research/x301_formal_semantics/model.py",
+      "git_blob": "b2e1efaa60311a24de1c386feb8fdd654a672a2a",
+      "sha256": "8d45aeb46ede1a7f9504a887b45812b5771d8b27d45ccc22d54f8fd38c3957f2"
+    },
+    {
+      "path": "research/x301_formal_semantics/panel.py",
+      "git_blob": "6f953848d59ac14d51c5072dd06a7a604fd536ae",
+      "sha256": "5a290962b3a5fbdefe965b1cfb7ca0dfd0787d7fbac1669a25a9b1dc3dc1ebf3"
+    },
+    {
+      "path": "research/x301_formal_semantics/semantics.py",
+      "git_blob": "06c8d585e61688e101bb781023e3adc8bb08fd73",
+      "sha256": "92e4302e97881a98b8bde55588d2dde5a13f3c90a2cd0b79c73dc7b53ddb4a61"
+    },
+    {
+      "path": "research/x301_formal_semantics/valuation.py",
+      "git_blob": "6a3959320da99b1beed06c891cbdc675e577d75c",
+      "sha256": "154e9c74ef834e8db7caf5faf1ef2ac291190ecdc91570162a954d27efac1de8"
+    },
+    {
+      "path": "research/x302_operational_reasoning/reasoning.py",
+      "git_blob": "88570ce37488d7a9688c0dbf6c9175598a99cb78",
+      "sha256": "7e01da8f522c9a30a24009bb73c5868169e0cdb2b8008349e1b0bdee802bb651"
+    },
+    {
+      "path": "research/x303_bounded_agency/__init__.py",
+      "git_blob": "b575c287e8d937fa94057f4805af4e12a6a36461",
+      "sha256": "a3b48292e8d3545243344e5fa2a1475aad8aacd8231879a9ac57f418345c7d68"
+    },
+    {
+      "path": "research/x303_bounded_agency/_bootstrap.py",
+      "git_blob": "4ab119f69bece8be3c6f2e79b1ca56f829fae417",
+      "sha256": "1f05cd75f0cbfb9286a98066c9ca2ce3051756c7c8672a6533c8f8235168856f"
+    },
+    {
+      "path": "research/x303_bounded_agency/actions.py",
+      "git_blob": "42324d72e53cb47e41d27dd3aa7fc2511c52fd47",
+      "sha256": "00fd6210fa45e374d7327484443042ad245d4c3f42ce4c678f5d549408c4d560"
+    },
+    {
+      "path": "research/x303_bounded_agency/agency.py",
+      "git_blob": "70f401455c8ec47679b1b138d96c813a1143fe1d",
+      "sha256": "71a856fb1d872835475a04533ab92fbd6500010694263dc034de38219c00d2d3"
+    },
+    {
+      "path": "research/x303_bounded_agency/controller.py",
+      "git_blob": "9285c9d1c9ab6855f444243c0f7f4052d24faf7f",
+      "sha256": "f980d002752fcab6c36cfb5a7770797f105cd3a554b1e67610efded32a4dafd9"
+    },
+    {
+      "path": "research/x303_bounded_agency/envelope.py",
+      "git_blob": "64f8cc55a0fa7a06f897ee3eaa5135a417a8d373",
+      "sha256": "e06637b951885307fe6f468507017c6ba05813ace243afed5ab71635fcc75252"
+    },
+    {
+      "path": "research/x303_bounded_agency/evaluation.py",
+      "git_blob": "30e16f9f83535588d4e77e8c2c70d54462587430",
+      "sha256": "b2df9ddae7e67e4916f3023da6d298ace846c2d524357c2e8f64452f452b4231"
+    },
+    {
+      "path": "research/x303_bounded_agency/keys.py",
+      "git_blob": "e840be96d55b8f2e93437cc2cc34eadf189c4a0e",
+      "sha256": "afe0998d449d65cbb893d8f8e88387a861ce545d3eb6dfcc7a604e2d018678d7"
+    },
+    {
+      "path": "research/x303_bounded_agency/licensing.py",
+      "git_blob": "7adbadeae58316d9b4a72a60f0ef125f96aec7f5",
+      "sha256": "88ab8509354a14b99261e509702449e1d773840cc5e389096b9202dac49dd921"
+    },
+    {
+      "path": "research/x303_bounded_agency/memory.py",
+      "git_blob": "a976f34a8dd93afdfe5b967289b7dfb1ada172d2",
+      "sha256": "da149264be9dc06ab0ffbb623362cffb90f4219ad335337d9a5ef74547a30bc6"
+    },
+    {
+      "path": "research/x303_bounded_agency/receipts.py",
+      "git_blob": "217dc5bf05d9cd88a51f0e34e917c0f8fb8bcfef",
+      "sha256": "50bd402cd93b97c3d78e1ab9b2dafa0169d894b8f9671ec7bf49434f7e67e654"
+    },
+    {
+      "path": "research/x303_bounded_agency/refusal.py",
+      "git_blob": "bcd1beeba6050cce2100512a5f9ac44ff394bca0",
+      "sha256": "6ad38971511eb9e5e57d57b80b7b1906aa1bf22000f12c0667b8dc0c1a8f8e26"
+    },
+    {
+      "path": "research/x303_bounded_agency/selector.py",
+      "git_blob": "261d895354a7897ca29f8ea2ee8265f7df2e7290",
+      "sha256": "8ef7e6d3eced302b9194b470e9f1825273267de92e3ebdf29f72358b6034d558"
     }
   ]
 }

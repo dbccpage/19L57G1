@@ -1,16 +1,32 @@
 {
   "schema": "dynamics_step-sources-v1",
   "authority_effect": null,
+  "note": "2026-09-24: the pins now name what this tree consumes, measured by importing every Python file of the tree in a child interpreter, running its tests under an audit hook, and following its Lake imports. Added 3 consumed input(s) that were unpinned. The verifier checks these pins at HEAD only; no snapshot identity is claimed. Each has the same blob at 2914032fb3, the commit that created this manifest.",
   "sources": [
+    {
+      "path": "code/derivation/__init__.py",
+      "git_blob": "8c239e66976fadaa9e5a04f9451ec4c500c266d4",
+      "sha256": "0fabcb53dc46712447a727f6ceb661e5aab3267a3e8b50bdea11044b64f853af"
+    },
     {
       "path": "code/derivation/candidates.py",
       "git_blob": "9fa609d8a797f74f1620ce39e377c7dc54ee53b7",
       "sha256": "856ce42faba2dc2ae1217207ecc8af893eac29b50ae8a374dc06d2ba22c957bb"
     },
     {
+      "path": "code/derivation/engine.py",
+      "git_blob": "343290d82a7fcda91f3ff85751af7af99f9a0359",
+      "sha256": "23803a3dcce2adf0dee623caba33791d41a25d2da3fdfd226da3cad2ee140b5e"
+    },
+    {
       "path": "code/derivation/export.py",
       "git_blob": "d923c3aa1f5468a101ede2d0c30c66680d1ba6cd",
       "sha256": "202b2fba9cb99864bae52d2463864c67064bb0f85e27b78c3371d930b5bf7bdd"
+    },
+    {
+      "path": "code/derivation/iso.py",
+      "git_blob": "f05399fe6bdfbd2311bf34fa6fe927af194f586f",
+      "sha256": "b0f1f3bcf05126111a07706f4388a9fff5e30455d4b8f127966cf99ab0d0886e"
     },
     {
       "path": "code/derivation/model.py",
