@@ -1,7 +1,7 @@
-"""Finite index of two-occupant, unit-hopping presentation certificates.
+"""Finite index of two-occupant, unit-move presentation certificates.
 
-The input Hamiltonian is exactly -sum_(p,q adjacent) c†_p c_q on the sorted
-two-occupant basis.  The coefficients come from ``examples.occupancy_matrix``.
+The input exchange matrix is exactly -sum_(p,q adjacent) c†_p c_q on the
+sorted two-occupant basis.  The coefficients come from ``examples.occupancy_matrix``.
 This module decides whether diagonal ±1 basis rephasings make every nonzero
 off-diagonal entry negative.  It does not decide sign freedom under other
 representations, transformations, or sampling algorithms.
@@ -24,7 +24,7 @@ class GraphKey:
 
 
 @dataclass(frozen=True)
-class Gauge:
+class DiagonalSigns:
     signs: tuple[int, ...]
 
 
@@ -37,11 +37,11 @@ class OddLoop:
 class Record:
     graph: GraphKey
     site_bipartition: tuple[int, ...] | None
-    certificate: Gauge | OddLoop
+    certificate: DiagonalSigns | OddLoop
 
     @property
     def diagonal_gauge_exists(self) -> bool:
-        return isinstance(self.certificate, Gauge)
+        return isinstance(self.certificate, DiagonalSigns)
 
 
 def graph_key(sites: int, edges) -> GraphKey:
@@ -135,7 +135,7 @@ def _tree_cycle(a: int, b: int, parent: list[int]) -> tuple[int, ...]:
                  + list(reversed(right[:right.index(common)])) + [a])
 
 
-def classify_matrix(matrix) -> Gauge | OddLoop:
+def classify_matrix(matrix) -> DiagonalSigns | OddLoop:
     """Exact signed-graph decision with a checkable certificate either way."""
     _validate_matrix(matrix)
     size = len(matrix)
@@ -160,16 +160,16 @@ def classify_matrix(matrix) -> Gauge | OddLoop:
                     result = OddLoop(_tree_cycle(a, b, parent))
                     assert verify_certificate(matrix, result)
                     return result
-    result = Gauge(tuple(signs))
+    result = DiagonalSigns(tuple(signs))
     assert verify_certificate(matrix, result)
     return result
 
 
-def verify_certificate(matrix, certificate: Gauge | OddLoop) -> bool:
-    """Check a diagonal gauge or a negative closed transport loop directly."""
+def verify_certificate(matrix, certificate: DiagonalSigns | OddLoop) -> bool:
+    """Check a diagonal sign assignment or a negative closed transport loop directly."""
     _validate_matrix(matrix)
     size = len(matrix)
-    if isinstance(certificate, Gauge):
+    if isinstance(certificate, DiagonalSigns):
         signs = certificate.signs
         return (len(signs) == size and all(type(s) is int and s in (-1, 1) for s in signs)
                 and all(not matrix[i][j] or signs[i] * matrix[i][j] * signs[j] == -1
@@ -247,12 +247,14 @@ def catalog() -> dict:
         matrix = occupancy_matrix(graph.sites, graph.edges)
         assert verify_certificate(matrix, record.certificate)
         bipartite = record.site_bipartition is not None
-        gauge = record.diagonal_gauge_exists
-        name = ('bipartite_' if bipartite else 'nonbipartite_') + ('gauge' if gauge else 'odd_loop')
+        rephasable = record.diagonal_gauge_exists
+        name = {(True, True): 'bipartite_gauge', (True, False): 'bipartite_odd_loop',
+                (False, True): 'nonbipartite_gauge',
+                (False, False): 'nonbipartite_odd_loop'}[(bipartite, rephasable)]
         size_counts = counts.setdefault(str(graph.sites), {})
         size_counts[name] = size_counts.get(name, 0) + 1
         basis = list(combinations(range(graph.sites), 2))
-        if isinstance(record.certificate, Gauge):
+        if isinstance(record.certificate, DiagonalSigns):
             witness = {'kind': 'diagonal_gauge', 'basis_signs': record.certificate.signs}
         else:
             witness = {'kind': 'negative_exchange_loop',
@@ -260,10 +262,10 @@ def catalog() -> dict:
         rows.append({'sites': graph.sites, 'edges': graph.edges,
                      'site_bipartition': record.site_bipartition,
                      'linear_forest': linear_forest(graph),
-                     'diagonal_gauge_exists': gauge, 'witness': witness})
+                     'diagonal_gauge_exists': rephasable, 'witness': witness})
     return {
         'authority_effect': 'None',
-        'family': 'two occupants, sorted-pair basis, unit negative hopping',
+        'family': 'two occupants, sorted-pair basis, unit negative move coefficient',
         'allowed_transform': 'diagonal basis rephasing by plus or minus one',
         'label_policy': 'simple labelled site graphs; no isomorphism quotient',
         'sites': [2, 3, 4, 5],

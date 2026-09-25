@@ -19,11 +19,11 @@ def test_exchange_bridge_all_graphs_and_operator_identities():
 def test_two_occupant_index_has_checked_positive_and_negative_certificates():
     records = bi.all_records()
     assert len(records) == 1098
-    counts = {(sites, bipartite, gauge): sum(
+    counts = {(sites, bipartite, rephasable): sum(
         row.graph.sites == sites
         and (row.site_bipartition is not None) == bipartite
-        and row.diagonal_gauge_exists == gauge for row in records)
-        for sites in range(2, 6) for bipartite in (False, True) for gauge in (False, True)}
+        and row.diagonal_gauge_exists == rephasable for row in records)
+        for sites in range(2, 6) for bipartite in (False, True) for rephasable in (False, True)}
     assert {key: value for key, value in counts.items() if value} == {
         (2, True, True): 2,
         (3, False, False): 1, (3, True, True): 7,
@@ -68,7 +68,7 @@ def test_two_occupant_index_rejects_bad_inputs_and_bad_certificates():
         else:
             raise AssertionError('Invalid graph accepted')
     square = ep.occupancy_matrix(4, ep.FIXTURES['square'])
-    assert not bi.verify_certificate(square, bi.Gauge((1,) * 6))
+    assert not bi.verify_certificate(square, bi.DiagonalSigns((1,) * 6))
     assert not bi.verify_certificate(square, bi.OddLoop((0, 1, 0)))
     try:
         bi.classify_matrix([[0, 2], [2, 0]])

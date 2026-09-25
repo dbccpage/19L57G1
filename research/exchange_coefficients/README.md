@@ -36,8 +36,8 @@ closed-loop sign-invariance proofs require no axioms.
 
 ## Reproducible examples
 
-`HAMILTONIAN_INDEX.md` reports the bounded two-occupant graph index built by
-`bipartite_index.py`. Its 1,098 checkable gauge or negative-loop certificates
+`EXCHANGE_SIGN_INDEX.md` reports the bounded two-occupant graph index built by
+`bipartite_index.py`. Its 1,098 checkable diagonal-sign or negative-loop certificates
 are regenerated in `evidence/bipartite_catalog.jsonl` by `verify.py`.
 
 | Result | Evidence | Exact scope |
