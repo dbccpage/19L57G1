@@ -237,3 +237,69 @@ receipt was regenerated.  Every one names the object it was given.
 are the right mathematical objects.  A perfect pin of the wrong set is
 still the wrong set.  Each shows only that the named gate is live and
 recovers.
+
+## Session handoff, rung four (2026-09-24)
+
+**Read at the start of a session; written at the end of one.**  As rung
+three's handoff says, the next rung is carried in the LAST rung's
+`STATUS.md`, and this section says where to look rather than copying it.
+
+- The rungs on `main` at this session's start (`bdbe5832`) are rung zero
+  (`second_inheritance`), rung one (`second_stream`), rung two track two
+  (`second_stake`), rung two track one (`second_nofirst`) and rung three
+  (`second_index`).  Rung four (`second_iso`) is this session's, and is
+  not merged by an agent.
+- The next rung is named at the end of `research/second_iso/STATUS.md`,
+  under "The next rung, named so it cannot be smuggled in later": Y-3,
+  symmetry along a history.
+- **A registration gap, met twice.**  `tests/test_gates_skill_matches_workflow.py`
+  requires `.claude/skills/gates/SKILL.md` to name every gate script the
+  workflow runs.  A rung registers its scripts in the workflow and may
+  hand-edit nothing else outside its write root, so the rung's own pull
+  request cannot keep that test green.  Rung three's registration left it
+  red on `main` until `db434a28`.  This session opened the skill edit as
+  its own pull request against `main`, not stacked, on branch
+  `fix/gates-skill-rung-four`; the test is green once both have landed,
+  in either order.  The residual, recorded and not repaired here: the
+  rung contract and this test disagree, and each future rung will meet it.
+  Whether the skill joins the generated views a rung may write is the
+  author's call.
+- One rung per session at most.  Never merge a rung; the author merges.
+- Before writing anything in a new rung: freeze `PROMPT.md` by hash and
+  commit it, then freeze `PREDICTIONS.md` by hash and commit it, then
+  compute.  The commits are the evidence of the order.  Read every
+  supplied receipt a prediction leans on before freezing it: rung four's
+  one computational miss (J-12) came from reasoning about the Lean reading
+  regimes while the Python readings, whose receipt was already on `main`,
+  differ from them.
+
+## Injection record, rung four (2026-09-24 and 2026-09-25)
+
+Eleven injections, each minimal and reversible, none live while any
+receipt was regenerated.  All were run in a throwaway worktree detached at
+`6c852dba`, the rung branch's head at the time, so that none could race
+the root test suite running in the rung's own worktree, and that worktree
+was removed afterwards.  Every one names the object it was given.
+
+<!-- markdownlint-disable MD013 -->
+
+| rung | gate | injection | observed failure |
+|---|---|---|---|
+| 4 | frozen-text pin (`second_iso/verify_pins.py`) | one line appended to `PROMPT.md` in a throwaway commit `5e610375` on top of `6c852dba` | `FAIL: frozen text moved: research/second_iso/PROMPT.md: expected 833fb3b3..., got e25440c2...`, exit 1; after `git reset --hard HEAD~1`, exit 0 and a clean tree |
+| 4 | span pin, the new sealed span (same verifier) | the `Minimality.lean` span's `last_line` moved from 224 to 225 in `SOURCE_MANIFEST.json`, uncommitted | `FAIL: span mismatch at the snapshot for lean4/Derivation/Minimality.lean:169-225: expected 4856138d..., got 7ea30d05...`, exit 1; exit 0 after restoring the manifest |
+| 4 | receipt comparison (`run_iso_index.py --check`) | the first `"classes": 402` in `receipts/iso_index.json` changed to 403 | `FAIL: ...receipts\iso_index.json differs from a fresh run`, exit 1; exit 0 after `git checkout`.  The check writes nothing |
+| 4 | Lean axiom whitelist (`second_iso/verify_lean.py`) | a theorem `zzz_probe_choice` proved by `Classical.em`, appended to `Countermodel.lean` with its report line | three failures naming it: no FW-DEF row; `depends on disallowed axioms ['Classical.choice']`; a fresh report the committed log lacks; exit 1, then `lean audit clean: 11 sources, 84 axiom reports`.  RECORDED BESIDE IT: the same gate had already fired on a real defect before any injection, naming nineteen theorems whose proofs reached `Classical.choice` through two `simp` calls; see `research/second_iso/STATUS.md` |
+| 4 | Lean compiler census (same verifier) | the `#print axioms` line for `SecondIso.Transport.demand_transport` deleted from `AxiomReport.lean` | `FAIL: compiler declaration SecondIso.Transport.demand_transport has no fresh #print axioms report`, exit 1; exit 0 after restoring |
+| 4 | FW-DEF census totality (`test_census.py`) | the `demand_transport` row deleted and the CONTENT count decremented | `AssertionError: Lists differ: ['demand_transport'] != []` from the totality test, plus the dated-count and prediction tests naming it; exit 1, then OK |
+| 4 | reconstruction faithfulness (`test_reconstruction.py`) | the binder of the reconstructed sealed `collapsed_transport` renamed from `d d'` to `d dd` in `IsoKernel.lean` | `AssertionError: Lists differ: ['lean4/Derivation/IsoCollapse.lean -> IsoKernel.lean: collapsed_transport'] != []`, exit 1; OK after restoring.  The comparison reads the PARKED sealed module at the snapshot |
+| 4 | prose census over the write root (`test_forbidden.py`) | a probe `zz_probe.md` in the write root carrying one term confirmed watched by `ci/check_prose_watchlist.py --probe` | `AssertionError: Lists differ: ['research/second_iso/zz_probe.md:1: <term elided>'] != []`, the term named in place of the elision; OK after deleting the probe.  The term is elided because this record is itself scanned |
+| 4 | write-root scope scan (`test_forbidden.py`) | an untracked `zz_outside_probe.md` at the repository root | `AssertionError: Lists differ: ['zz_outside_probe.md'] != []`, exit 1; OK after deleting it |
+| 4 | coverage module census (`second_iso/check_coverage.py`) | an undeclared production module `zz_helper.py` in the tree | `FAIL: production module census differs: missing from declarations=['zz_helper.py'], declared but absent=[]`, exit 1.  RECORDED BESIDE IT: the first recovery run failed for a different reason, `verify_pins.py is declared measured but is absent from the report`, because the report had been generated from one test module only; the gate refused a partial report by name.  With the full suite under coverage it passed, exit 0 |
+| 4 | registration scan (`test_forbidden.py`) | the line `python run_iso_index.py --check` deleted from the rung's step in `.github/workflows/verify.yml` | `AssertionError: 'python run_iso_index.py --check' not found in` the rung's block, exit 1; OK after restoring |
+
+<!-- markdownlint-enable MD013 -->
+
+**What these injections do not prove.**  That the populations they pin
+are the right mathematical objects, or that the Lean stake formulas are
+the sibling Python rules: that last is checked by transcription on a
+finite range, and a transcription is not the text it transcribes.
