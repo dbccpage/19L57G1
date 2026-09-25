@@ -3,9 +3,10 @@
 Verifies:
 1. Every tree declared in research/README.md exists on disk, and the auditor's
    tree census equals an independent read of the generated table.
-2. The Gate 11 wiring (13 trees), cross-checked against the generated column
-   of research/README.md.
-3. Exact Lean CI axiom checking (2 trees in CI: second_nofirst, typed_translation).
+2. The Gate 11 wiring, cross-checked against the generated column of
+   research/README.md and against an independent step-by-step read of the
+   workflow's research job.
+3. The lean job's research trees, read the same two ways.
 4. Root test count drift: the live path is checked for parser health and
    drift arithmetic only.
 5. Kernel axiom report integrity (every report within {propext, Quot.sound}).
@@ -20,6 +21,19 @@ being wrong, and the fourth would at the next honest change.  The numbers the
 2026-09-10 audit recorded are tested where they are recorded, as a dated
 snapshot.  Running ``audit_estate.py --write`` overwrites that record, and the
 snapshot test then fails by design.
+
+2026-09-25: the two workflow counts are no longer frozen literals either.
+Gate 11 was asserted to wire exactly 13 named trees and the lean job exactly
+two (second_nofirst, typed_translation).  Both were true on 2026-09-10 and
+both are withdrawn: at 35e680ec the research job runs 25 trees and the lean
+job 22, and the two tests had been red on main.  Each set is now read twice,
+by audit_estate.py and by ``workflow_step_trees`` below, which reads only
+the ``run`` and ``working-directory`` values of each step.  The two readings
+must agree, and each set must still contain every tree in its dated
+registration record (``RESEARCH_JOB_20260925``, ``LEAN_JOB_20260925``), so
+a tree silently dropped from the workflow fails by name.  A new
+registration passes; a deliberate removal edits the record with a dated
+note.
 """
 
 import json
@@ -52,6 +66,66 @@ SNAPSHOT_20260910 = {
     "kernel_axioms_historical": 1314,
     "axiom_drift": 216,
 }
+
+
+# The dated registration record: every tree the workflow's research and lean
+# jobs ran at 35e680ec (2026-09-25), read by ``workflow_step_trees``.  A tree
+# leaves these sets only by a deliberate, dated edit here.
+RESEARCH_JOB_20260925 = frozenset({
+    "blind_restart", "boundary_seed", "conservation_ladder", "domain_adapters",
+    "estate_honesty", "limit_and_observer", "native_bridge", "native_structure",
+    "p208a_path_interference", "p208b_contextuality_nonlocality",
+    "p208c_commutator_tomography", "p209c_stabilizer_codes", "partial_decide",
+    "portable_interface", "primitive_difference_tower", "second_duration",
+    "second_index", "second_inheritance", "second_iso", "second_nofirst",
+    "second_stake", "second_stream", "second_succession", "second_symmetry",
+    "side_free", "typed_translation",
+})
+LEAN_JOB_20260925 = frozenset({
+    "balance_carrier", "boundary_seed", "closed_family", "coherent_process_limits",
+    "conservation_ladder", "convention_price", "domain_adapters",
+    "endogenous_continuum", "native_bridge", "native_structure", "natural_sections",
+    "p208a_path_interference", "p208b_contextuality_nonlocality",
+    "p208c_commutator_tomography", "p209c_stabilizer_codes", "second_duration",
+    "second_index", "second_iso", "second_nofirst", "second_succession",
+    "second_symmetry", "typed_translation",
+})
+WORKFLOW_PATH = ROOT / ".github" / "workflows" / "verify.yml"
+_STEP_TREE = re.compile(r"(?<![A-Za-z0-9_./-])research/([A-Za-z0-9_-]+)(?![A-Za-z0-9_-])")
+
+
+def workflow_step_trees(workflow: str, job: str) -> set[str]:
+    """Trees one job's steps run or enter, read step by step without audit_estate.
+
+    Only ``run`` values (inline or block) and ``working-directory`` values are
+    read; comment lines and step names are not, so a comment naming a tree
+    does not register it.
+    """
+    lines = workflow.replace("\r\n", "\n").split("\n")
+    header = f"  {job}:"
+    if header not in lines:
+        raise AssertionError(f"the workflow has no '{job}:' job")
+    trees: set[str] = set()
+    in_block = False
+    for line in lines[lines.index(header) + 1:]:
+        stripped = line.strip()
+        if re.match(r"^  \S", line) and not stripped.startswith("#"):
+            break  # the next job
+        if in_block:
+            if not stripped or line.startswith(" " * 10):
+                if not stripped.startswith("#"):
+                    trees |= set(_STEP_TREE.findall(stripped))
+                continue
+            in_block = False
+        if stripped.startswith("#"):
+            continue
+        key, sep, value = stripped.removeprefix("- ").partition(":")
+        if sep and key in ("run", "working-directory"):
+            if value.strip() in ("|", ">"):
+                in_block = True
+            else:
+                trees |= set(_STEP_TREE.findall(value))
+    return trees
 
 
 def generated_table_trees(readme_text: str) -> set[str]:
@@ -106,7 +180,7 @@ class TestEstateHonesty(unittest.TestCase):
         )
 
     def test_gate_11_ci_integration_counts(self) -> None:
-        """Gate 11 in .github/workflows/verify.yml wires exactly 13 trees; the rest are local receipts."""
+        """Gate 11's trees, read two ways, agree, and none of the dated record is dropped."""
         g11_trees = [t.name for t in self.trees if t.in_verify_yml_gate11]
         local_trees = [t.name for t in self.trees if not t.in_verify_yml_gate11]
         # The auditor reads the workflow one way and the generated column of
@@ -120,20 +194,27 @@ class TestEstateHonesty(unittest.TestCase):
         }
         self.assertEqual(disagree, {"second"})
         self.assertGreater(len(local_trees), 0)
-        self.assertEqual(len(g11_trees), 13)
-
-        expected_g11 = {
-            "blind_restart", "boundary_seed", "limit_and_observer", "partial_decide",
-            "portable_interface", "primitive_difference_tower", "second",
-            "second_inheritance", "second_nofirst", "second_stake", "second_stream",
-            "side_free", "typed_translation",
-        }
-        self.assertEqual(set(g11_trees), expected_g11)
+        # 2026-09-25: `len(g11_trees) == 13` and a frozen 13-name set are
+        # withdrawn (see the module docstring).  The auditor's set must equal
+        # the step-by-step read plus the `second` umbrella, and the step read
+        # must keep every tree of the dated record.
+        stepwise = workflow_step_trees(WORKFLOW_PATH.read_text(encoding="utf-8"), "research")
+        self.assertEqual(set(g11_trees) - stepwise, {"second"})
+        self.assertEqual(stepwise - set(g11_trees), set())
+        dropped = sorted(RESEARCH_JOB_20260925 - stepwise)
+        self.assertEqual(dropped, [], f"research-job trees dropped from the workflow: {dropped}")
 
     def test_lean_ci_axiom_gate_counts(self) -> None:
-        """Only second_nofirst and typed_translation have Lean axiom audits run in CI."""
-        ci_lean_trees = [t.name for t in self.trees if t.in_verify_yml_lean]
-        self.assertEqual(set(ci_lean_trees), {"second_nofirst", "typed_translation"})
+        """The lean job's research trees, read two ways, agree, and none of the dated record is dropped."""
+        # 2026-09-25: "only second_nofirst and typed_translation" is withdrawn
+        # (see the module docstring).
+        ci_lean_trees = {t.name for t in self.trees if t.in_verify_yml_lean}
+        stepwise = workflow_step_trees(WORKFLOW_PATH.read_text(encoding="utf-8"), "lean")
+        declared = {t.name for t in self.trees}
+        self.assertEqual(ci_lean_trees, stepwise & declared)
+        self.assertEqual(stepwise - declared, set(), "the lean job runs a tree research/README.md does not list")
+        dropped = sorted(LEAN_JOB_20260925 - stepwise)
+        self.assertEqual(dropped, [], f"lean-job trees dropped from the workflow: {dropped}")
 
     def test_root_test_suite_drift_reconciled(self) -> None:
         """The live root-suite path: parser health and drift arithmetic, no frozen counts."""

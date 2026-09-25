@@ -68,7 +68,7 @@ Lean layout. The first and last also have explicit build-recipe entries.
 | `dynamics_step` | local receipt only | parked |
 | `endogenous_continuum` | local receipt only |  |
 | `endogenous_demand` | local receipt only |  |
-| `estate_honesty` | local receipt only |  |
+| `estate_honesty` | workflow (gate 11) |  |
 | `evidence_graph` | local receipt only |  |
 | `exchange_coefficients` | local receipt only |  |
 | `f_class_distinctness` | local receipt only |  |
