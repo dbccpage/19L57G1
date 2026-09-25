@@ -373,6 +373,11 @@ what actually runs.
       workflow gate script. Apart from the workflow registration and
       those skill lines, the rung hand-edits nothing outside its write
       root, and it regenerates nothing while an injection is live.
+    - *"Named first" in the next-rung rule:* by the author's ruling of
+      2026-09-25, when the seed's rule breaks a tie by the leftover
+      "named first", that means first in the list of leftovers as the
+      applying rung writes it. It never means earliest in time: these
+      systems have no time.
 12. **Prose watchlist:** `python ci/check_prose_watchlist.py`. The census
     matches its pin. See Invariants.
 
