@@ -251,15 +251,15 @@
   },
   "pytest": {
     "exit_code": 0,
-    "passed": 15,
+    "passed": 16,
     "status": "PASS"
   },
   "schema_version": 1,
   "source_hashes": {
     "lean/CommutatorTomography.lean": "d9e5050127be295d7ae7d2f8ad95e589689fff4ec4eec846594fe718dab2d622",
     "lean/Inventory.lean": "3e644d0d319bc2be53860799c371bd7915b916156f1a31c077d4ed8762ab3bd0",
-    "tests/test_tomography.py": "f0170950f42a8413d7ccf33f2b6996ec43265f3cc670323c862033d7e890e1d1",
-    "tomography.py": "a7ea5a3e1d783e7c6437d8755c4b811922b692f1e9bef525af8d5006c0fed88a",
+    "tests/test_tomography.py": "8681f56d4d2c99fcfb45a10319084a95f8645103239c24d56f58f8b2783c1dea",
+    "tomography.py": "578837d63637d52cee3ac1a48a266c109ae8ce4234987d791c1e2074657154d4",
     "verify.py": "849c4a7da0dcc687f2dd233b4f9025409ee6d64405331a17c394dd70af7de67f",
     "verify_sources.py": "ce40d3d59a80c4788c6f21944e86f302faf86055d66bd37e2acdd965ded95d8a"
   },
