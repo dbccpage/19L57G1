@@ -14,6 +14,20 @@ are pinned by their exact Git tree objects and the Lean configuration of the
 three packages by digest.  The six full exports and their summaries, read by the
 census, are pinned by raw digest.  ``prompt`` and ``paper`` are not read and
 not pinned.
+
+2026-09-25: the four directory pins are retired.  Each of
+``code/derivation``, ``lean4/Derivation``, ``research/local_reuse/lean``, ``research/ignition/lean`` was pinned whole, by Git
+tree object, a suffix census and a tracked diff, so an edit to any file in
+them failed this check whether or not this family reads it.  The pins are
+now the files it consumes, measured by importing every module of the tree in
+a child interpreter, by the files its tests open, and by the import closure
+of its Lean package through its Lake requires: ``RUNTIME_PATHS``,
+``CONFIG_PATHS`` and ``ARTIFACT_PATHS`` (as before) and ``LEAN_PATHS``, each
+by digest at the baseline, compared with the working tree and covered by the
+tracked diff.  An import of a file outside them has to edit a pinned file,
+which fails, and an extra module fails the runtime census.  The statements
+above that the directories are pinned by Git tree object, and the refusal of
+untracked files, are withdrawn with them.
 """
 
 from __future__ import annotations
@@ -30,13 +44,38 @@ from typing import Mapping
 
 BASELINE_COMMIT = "f12a498ea75899ea119df958d54209fee25819f1"
 PACKET = Path("research/magnification")
-SCHEMA = "magnification-sources-v1"
-CONSUMED_TREES = {
-    "code/derivation": ".py",
-    "lean4/Derivation": ".lean",
-    "research/local_reuse/lean": ".lean",
-    "research/ignition/lean": ".lean",
-}
+SCHEMA = "magnification-sources-v2"
+# 2026-09-25: the Lean import closure of the local package through its Lake
+# requires, measured; it replaces the directory pins.
+LEAN_PATHS = (
+    "lean4/Derivation/Basic.lean",
+    "lean4/Derivation/Bridge.lean",
+    "lean4/Derivation/Compression.lean",
+    "lean4/Derivation/CountTransport.lean",
+    "lean4/Derivation/Counting.lean",
+    "lean4/Derivation/Erasure.lean",
+    "lean4/Derivation/Ext.lean",
+    "lean4/Derivation/Generator.lean",
+    "lean4/Derivation/Inertia.lean",
+    "lean4/Derivation/Mention.lean",
+    "lean4/Derivation/Minimality.lean",
+    "lean4/Derivation/NoOutside.lean",
+    "lean4/Derivation/PresentationRelativity.lean",
+    "lean4/Derivation/PrimDiff.lean",
+    "lean4/Derivation/PrimitiveCore.lean",
+    "lean4/Derivation/PrimitivePassage.lean",
+    "lean4/Derivation/Progress.lean",
+    "lean4/Derivation/Refusal.lean",
+    "lean4/Derivation/RefusalFrontier.lean",
+    "lean4/Derivation/Represented.lean",
+    "lean4/Derivation/Rounds.lean",
+    "lean4/Derivation/RuleBridge.lean",
+    "lean4/Derivation/TraceAlgebra.lean",
+    "lean4/Derivation/TransitionAlphabet.lean",
+    "lean4/Derivation/TransitionTransport.lean",
+    "research/ignition/lean/Ignition.lean",
+    "research/local_reuse/lean/LocalReuse.lean",
+)
 CONFIG_PATHS = (
     "lean4/Derivation.lean",
     "lean4/lean-toolchain",
@@ -116,20 +155,6 @@ def runtime_errors(root: Path, modules: Mapping[str, ModuleType]) -> list[str]:
     return errors
 
 
-def tree_census(root: Path, tree: str, suffix: str) -> tuple[list[str], list[str]]:
-    baseline = sorted(
-        path for path in _git(root, "ls-tree", "-r", "--name-only", BASELINE_COMMIT,
-                              "--", tree).decode().splitlines()
-        if path.endswith(suffix)
-    )
-    current = sorted(
-        path.relative_to(root).as_posix()
-        for path in (root / tree).rglob("*" + suffix)
-        if ".lake" not in path.relative_to(root).parts
-    )
-    return baseline, current
-
-
 def verify_sources(repo_root: Path | None = None, *, check_runtime: bool = True) -> list[str]:
     """Return named failures; an empty list is a pass for this source scope."""
     root = (repo_root or Path(__file__).resolve().parents[2]).resolve()
@@ -147,11 +172,11 @@ def verify_sources(repo_root: Path | None = None, *, check_runtime: bool = True)
             return ["MANIFEST_NORMALIZATION: expected CRLF_TO_LF_ONLY"]
         if manifest.get("runtime_modules") != RUNTIME_PATHS:
             return ["MANIFEST_RUNTIME_CENSUS: runtime module paths differ"]
-        if set(manifest.get("consumed_trees", {})) != set(CONSUMED_TREES):
-            return ["MANIFEST_CONSUMED_CENSUS: consumed tree paths differ"]
-        if set(manifest.get("tree_census", {})) != set(CONSUMED_TREES):
-            return ["MANIFEST_TREE_CENSUS: censused tree paths differ"]
-        if set(manifest.get("source_sha256", {})) != set(RUNTIME_PATHS.values()) | set(CONFIG_PATHS):
+        if "consumed_trees" in manifest or "tree_census" in manifest:
+            return ["MANIFEST_TREE_PINS: whole-directory pins were retired on 2026-09-25"]
+        if set(manifest.get("source_sha256", {})) != (
+            set(RUNTIME_PATHS.values()) | set(CONFIG_PATHS) | set(LEAN_PATHS)
+        ):
             return ["MANIFEST_SOURCE_CENSUS: pinned source paths differ"]
         if set(manifest.get("artifact_sha256", {})) != set(ARTIFACT_PATHS):
             return ["MANIFEST_ARTIFACT_CENSUS: pinned artifact paths differ"]
@@ -164,18 +189,6 @@ def verify_sources(repo_root: Path | None = None, *, check_runtime: bool = True)
     except (OSError, ValueError) as exc:
         return [f"BASELINE_UNAVAILABLE: {exc}"]
     try:
-        for tree, suffix in CONSUMED_TREES.items():
-            tree_oid = _git(root, "rev-parse", f"{BASELINE_COMMIT}:{tree}").decode().strip()
-            if manifest["consumed_trees"][tree] != tree_oid:
-                errors.append(f"BASELINE_TREE_PIN: {tree}")
-            baseline, current = tree_census(root, tree, suffix)
-            if manifest["tree_census"][tree] != baseline:
-                errors.append(f"MANIFEST_TREE_CENSUS: {tree} differs from baseline")
-            if current != baseline:
-                errors.append(
-                    f"SOURCE_CENSUS: {tree}: missing={sorted(set(baseline) - set(current))} "
-                    f"unexpected={sorted(set(current) - set(baseline))}"
-                )
         for relative, pinned_hash in manifest["source_sha256"].items():
             blob = _git(root, "show", f"{BASELINE_COMMIT}:{relative}")
             if _sha(blob) != pinned_hash:
@@ -198,7 +211,7 @@ def verify_sources(repo_root: Path | None = None, *, check_runtime: bool = True)
                     errors.append(f"ARTIFACT_CHANGED: {relative}")
             except OSError as exc:
                 errors.append(f"ARTIFACT_UNAVAILABLE: {relative}: {exc}")
-        consumed = (*CONSUMED_TREES, *CONFIG_PATHS, *ARTIFACT_PATHS)
+        consumed = (*RUNTIME_PATHS.values(), *LEAN_PATHS, *CONFIG_PATHS, *ARTIFACT_PATHS)
         changed = set(_git(root, "diff", "--name-only", "--no-ext-diff", BASELINE_COMMIT,
                            "--", *consumed).decode().splitlines())
         changed.update(_git(root, "diff", "--cached", "--name-only", "--no-ext-diff", BASELINE_COMMIT,

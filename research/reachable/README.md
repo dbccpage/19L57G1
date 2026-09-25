@@ -121,6 +121,10 @@ tree the proofs import (by Git tree object), the Lean configuration, and the
 six exports with their summaries (by raw digest); it refuses an untracked
 `.py` on the import path or `.lean` in the elaborated tree.  `prompt/` and
 `paper/` are not pinned: this tree reads neither.
+(2026-09-25: the Git tree pins and the untracked-file refusal are withdrawn.
+The Lean trees are now pinned by the 9 files of the local package's import
+closure, each by digest; an edit to a file this family does not read no
+longer fails its custody check.  See the dated note in `verify_sources.py`.)
 
 ## Running
 

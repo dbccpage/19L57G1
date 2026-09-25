@@ -38,9 +38,12 @@ li = _load("_lookup_indexes", REPO / "ci" / "lookup_indexes.py")
 
 # The nine manifests the audit named as pinning lean4/Derivation as one tree
 # object.  Measured on 2026-09-18 there are thirteen; these nine are among them.
+# 2026-09-25: seven of the nine (with alpha_engine and f_class_distinctness,
+# which the audit did not name) now pin the files they consume instead, so
+# they leave this set; represented_execution and setting_translation still pin
+# the tree (docs/research_pin_scope.md says why).
 AUDIT_NAMED_TREE_PINNERS = frozenset({
-    "ignition", "local_reuse", "magnification", "reachable", "record_reading",
-    "represented_execution", "setting_translation", "unboundedness", "iso_sound",
+    "represented_execution", "setting_translation",
 })
 PARKED_MODULE = "lean4/Derivation/IsoCollapseCompat.lean"
 
