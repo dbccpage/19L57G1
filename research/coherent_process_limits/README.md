@@ -2,9 +2,7 @@
 
 AuthorityEffect: None.  Outside the sealed derivation; consumes it read-only.
 Not registered in `.github/workflows/verify.yml`: its checks run locally
-through `verify.py` (section 7).  2026-09-24: withdrawn for the Lean
-check only.  The workflow's `lean` job now runs `verify_lean.py --check`;
-the other steps of `verify.py` still run only locally.
+through `verify.py` (section 7).
 
 **Result.**  The process of the represented execution family — the merged
 `Control` machine run by its deterministic runner — is observed at finite

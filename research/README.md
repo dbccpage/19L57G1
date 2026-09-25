@@ -18,7 +18,14 @@ distinction is written down.
 
 The Lean receipts are produced by local compilation. The written Lean contract
 explicitly includes `second_nofirst` and `typed_translation`; the other listed
-research Lean builds are invoked separately. `python ci/research_index.py --show`
+research Lean builds are invoked separately. 2026-09-24: that sentence is
+withdrawn as incomplete. The workflow's `lean` job also runs the Lean verifiers
+of `second_index`, of the four foundations trees (`native_bridge`,
+`native_structure`, `conservation_ladder`, `domain_adapters`), and, since
+2026-09-24, of `natural_sections`, `balance_carrier`, `closed_family`,
+`convention_price`, `coherent_process_limits` and `boundary_seed`. The gate 11
+column below reads the `research` job only, so a tree whose Lean runs only in
+the `lean` job still shows there as a local receipt. `python ci/research_index.py --show`
 prints each tree's entry points, test locations, Lean files, and the trees that
 require it or name its paths.
 
