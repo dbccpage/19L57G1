@@ -23,7 +23,10 @@ withdrawn as incomplete. The workflow's `lean` job also runs the Lean verifiers
 of `second_index`, of the four foundations trees (`native_bridge`,
 `native_structure`, `conservation_ladder`, `domain_adapters`), and, since
 2026-09-24, of `natural_sections`, `balance_carrier`, `closed_family`,
-`convention_price`, `coherent_process_limits` and `boundary_seed`. The gate 11
+`convention_price`, `coherent_process_limits`, `boundary_seed` and
+`endogenous_continuum`; it also regenerates the receipts, with their Lean
+axiom census, of `p208a_path_interference`, `p208b_contextuality_nonlocality`,
+`p208c_commutator_tomography` and `p209c_stabilizer_codes`. The gate 11
 column below reads the `research` job only, so a tree whose Lean runs only in
 the `lean` job still shows there as a local receipt. `python ci/research_index.py --show`
 prints each tree's entry points, test locations, Lean files, and the trees that

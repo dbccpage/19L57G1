@@ -321,12 +321,22 @@ what actually runs.
     receipts. This is not a sealed-derivation gate.
     - *Which trees:* the registered set is the workflow's `research` job,
       plus the research Lean audits in its `lean` job: `second_nofirst`,
-      `second_index` (author, 2026-09-24), `typed_translation`, and
+      `second_index` (author, 2026-09-24), `typed_translation`,
       (author, 2026-09-23) the four foundations trees `native_bridge`,
       `native_structure`, `conservation_ladder` and `domain_adapters`,
-      whose receipt checks run in the `research` job.
-      `research/README.md` marks each tree's registration, and
-      `python ci/run_gates.py --job research` runs them.
+      whose receipt checks run in the `research` job, and (author,
+      2026-09-24) seven older trees whose Lean was a manual receipt:
+      `natural_sections`, `balance_carrier`, `closed_family`,
+      `convention_price`, `coherent_process_limits`, `boundary_seed` and
+      `endogenous_continuum`. Also by the author's ruling of 2026-09-24,
+      the `research` job holds the test counts of `p208a_path_interference`,
+      `p208b_contextuality_nonlocality`, `p208c_commutator_tomography` and
+      `p209c_stabilizer_codes` to a minimum, and the `lean` job regenerates
+      their receipts, which carry each tree's Lean axiom census.
+      `research/README.md` marks each tree's `research`-job registration
+      only, so a tree whose Lean alone is gated still shows there as a
+      local receipt. `python ci/run_gates.py --job research` runs the
+      `research` job, and `--job lean` the Lean audits.
     - *What it does not cover:* every other tree's `verify_lean.py` stays a
       manual receipt, unchecked by any gate. So does every check of a tree
       outside the registered set. Such a check can be red on `main` while
