@@ -10,6 +10,19 @@ modules the Python mirror imports.  ``lean4/Derivation`` supplies the sealed
 modules ``lean/IsoSound.lean`` imports.  Both trees are pinned by
 their exact Git tree objects, and the Lean configuration by digest.
 
+2026-09-25: the two directory pins are retired.  ``code/derivation`` and
+``lean4/Derivation`` were pinned whole, by Git tree object and a suffix
+census, which covered every file of both directories whether or not this
+family reads it.  The pins are now the files it consumes, measured by
+importing every module of the tree in a child interpreter, by the files its
+tests open, and by the import closure of ``lean/IsoSound.lean`` through its Lake
+require: ``RUNTIME_PATHS`` (unchanged), ``LEAN_PATHS``, ``CONFIG_PATHS`` and
+``OPENED_PATHS``, each by digest at the baseline and compared with the
+working tree.  An import of a file outside them has to edit a pinned file,
+which fails, and an extra ``derivation`` module fails the runtime census.
+The two statements above that the trees are pinned by tree object, and the
+refusal of untracked files below, are withdrawn with them.
+
 Every consumed path is compared to its baseline blob by reading the
 working-tree file.  That comparison does not consult Git's index flags, so
 ``assume-unchanged`` / ``skip-worktree`` cannot hide a byte change from the
@@ -20,9 +33,10 @@ compiler.  Staged-but-restored edits are still named by ``git diff --cached``.
 (``OPENED_PATHS``).  It was read and not pinned; the directory pins above
 never covered it.
 
-``prompt`` and ``paper`` are not pinned: this family reads neither.  Untracked
-files are refused only where a build or an import would pick them up: a ``.py``
-under ``code/derivation`` or a ``.lean`` under ``lean4/Derivation``.
+``prompt`` and ``paper`` are not pinned: this family reads neither.  Until
+2026-09-25 untracked files were refused only where a build or an import would
+pick them up: a ``.py`` under ``code/derivation`` or a ``.lean`` under
+``lean4/Derivation``.
 """
 
 from __future__ import annotations
@@ -39,11 +53,12 @@ from typing import Mapping
 
 BASELINE_COMMIT = "cea346d7f3603fd8da374947e76c9b3cd426d122"
 PACKET = Path("research/iso_sound")
-SCHEMA = "iso-sound-sources-v1"
-CONSUMED_TREES = {
-    "code/derivation": ".py",
-    "lean4/Derivation": ".lean",
-}
+SCHEMA = "iso-sound-sources-v2"
+# 2026-09-25: the Lean import closure of the tree's own modules, measured.
+LEAN_PATHS = (
+    "lean4/Derivation/Basic.lean",
+    "lean4/Derivation/Inertia.lean",
+)
 CONFIG_PATHS = (
     "lean4/Derivation.lean",
     "lean4/lean-toolchain",
@@ -142,21 +157,6 @@ def worktree_matches_blob(root: Path, relative: str, blob: bytes, *, text: bool)
     return None
 
 
-def tree_census(root: Path, tree: str, suffix: str) -> tuple[list[str], list[str]]:
-    """The baseline and current consumable files of one pinned tree."""
-    baseline = sorted(
-        path for path in _git(root, "ls-tree", "-r", "--name-only", BASELINE_COMMIT,
-                              "--", tree).decode().splitlines()
-        if path.endswith(suffix)
-    )
-    current = sorted(
-        path.relative_to(root).as_posix()
-        for path in (root / tree).rglob("*" + suffix)
-        if ".lake" not in path.relative_to(root).parts
-    )
-    return baseline, current
-
-
 def verify_sources(repo_root: Path | None = None, *, check_runtime: bool = True) -> list[str]:
     """Return named failures; an empty list is a pass for this source scope."""
     root = (repo_root or Path(__file__).resolve().parents[2]).resolve()
@@ -174,12 +174,10 @@ def verify_sources(repo_root: Path | None = None, *, check_runtime: bool = True)
             return ["MANIFEST_NORMALIZATION: expected CRLF_TO_LF_ONLY"]
         if manifest.get("runtime_modules") != RUNTIME_PATHS:
             return ["MANIFEST_RUNTIME_CENSUS: runtime module paths differ"]
-        if set(manifest.get("consumed_trees", {})) != set(CONSUMED_TREES):
-            return ["MANIFEST_CONSUMED_CENSUS: consumed tree paths differ"]
-        if set(manifest.get("tree_census", {})) != set(CONSUMED_TREES):
-            return ["MANIFEST_TREE_CENSUS: censused tree paths differ"]
+        if "consumed_trees" in manifest or "tree_census" in manifest:
+            return ["MANIFEST_TREE_PINS: whole-directory pins were retired on 2026-09-25"]
         if set(manifest.get("source_sha256", {})) != (
-            set(RUNTIME_PATHS.values()) | set(CONFIG_PATHS) | set(OPENED_PATHS)
+            set(RUNTIME_PATHS.values()) | set(CONFIG_PATHS) | set(LEAN_PATHS) | set(OPENED_PATHS)
         ):
             return ["MANIFEST_SOURCE_CENSUS: pinned source paths differ"]
         if set(manifest.get("artifact_sha256", {})) != set(ARTIFACT_PATHS):
@@ -193,34 +191,10 @@ def verify_sources(repo_root: Path | None = None, *, check_runtime: bool = True)
     except (OSError, ValueError) as exc:
         return [f"BASELINE_UNAVAILABLE: {exc}"]
     try:
-        for tree, suffix in CONSUMED_TREES.items():
-            tree_oid = _git(root, "rev-parse", f"{BASELINE_COMMIT}:{tree}").decode().strip()
-            if manifest["consumed_trees"][tree] != tree_oid:
-                errors.append(f"BASELINE_TREE_PIN: {tree}")
-            baseline, current = tree_census(root, tree, suffix)
-            if manifest["tree_census"][tree] != baseline:
-                errors.append(f"MANIFEST_TREE_CENSUS: {tree} differs from baseline")
-            if current != baseline:
-                errors.append(
-                    f"SOURCE_CENSUS: {tree}: missing={sorted(set(baseline) - set(current))} "
-                    f"unexpected={sorted(set(current) - set(baseline))}"
-                )
-            for relative in baseline:
-                blob = _git(root, "show", f"{BASELINE_COMMIT}:{relative}")
-                failure = worktree_matches_blob(root, relative, blob, text=True)
-                if failure:
-                    errors.append(failure)
-        censused = {
-            path
-            for paths in manifest["tree_census"].values()
-            for path in paths
-        }
         for relative, pinned_hash in manifest["source_sha256"].items():
             blob = _git(root, "show", f"{BASELINE_COMMIT}:{relative}")
             if _sha(blob) != pinned_hash:
                 errors.append(f"BASELINE_SOURCE_PIN: {relative}")
-            if relative in censused:
-                continue
             failure = worktree_matches_blob(root, relative, blob, text=True)
             if failure:
                 errors.append(failure)
@@ -231,7 +205,7 @@ def verify_sources(repo_root: Path | None = None, *, check_runtime: bool = True)
             failure = worktree_matches_blob(root, relative, blob, text=False)
             if failure:
                 errors.append(failure)
-        consumed = (*CONSUMED_TREES, *CONFIG_PATHS, *OPENED_PATHS, *ARTIFACT_PATHS)
+        consumed = (*RUNTIME_PATHS.values(), *CONFIG_PATHS, *LEAN_PATHS, *OPENED_PATHS, *ARTIFACT_PATHS)
         # Index only: worktree bytes are compared to blobs above, so that
         # assume-unchanged cannot hide a change.  Staged-but-restored
         # edits still have to fail.
