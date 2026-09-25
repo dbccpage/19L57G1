@@ -1,0 +1,34 @@
+SecondSuccession.Count.admitting_le_every :: Quot.sound propext
+SecondSuccession.Count.changes_counted :: Quot.sound propext
+SecondSuccession.Count.changes_from_genesis :: Quot.sound propext
+SecondSuccession.Count.changes_given_base :: Quot.sound propext
+SecondSuccession.Count.changes_le_admitting :: Quot.sound propext
+SecondSuccession.Count.changes_path_free :: Quot.sound propext
+SecondSuccession.Count.insertNew_grows :: propext
+SecondSuccession.Count.replayE_cons :: propext
+SecondSuccession.Count.size_genesis :: none
+SecondSuccession.Count.step_grows :: Quot.sound propext
+SecondSuccession.Count.supply_uncounted :: propext
+SecondSuccession.Readings.admitting_not_given_base :: Quot.sound propext
+SecondSuccession.Readings.admitting_splits :: propext
+SecondSuccession.Readings.base_matters :: propext
+SecondSuccession.Readings.changing_not_of_regime :: Quot.sound propext
+SecondSuccession.Readings.every_not_given_base :: Quot.sound propext
+SecondSuccession.Readings.every_splits :: propext
+SecondSuccession.Sealed.R2F_collapsed :: propext
+SecondSuccession.Sealed.R2F_wf :: Quot.sound propext
+SecondSuccession.Sealed.R2L_collapsed :: propext
+SecondSuccession.Sealed.R2L_wf :: Quot.sound propext
+SecondSuccession.Sealed.admission_without_expressive_increase :: propext
+SecondSuccession.Sealed.collapsed_of_no_insts :: propext
+SecondSuccession.Sealed.genesis_underivable :: none
+SecondSuccession.Sealed.historyF_replays :: propext
+SecondSuccession.Sealed.historyL_replays :: propext
+SecondSuccession.Sealed.insertNew_nil :: propext
+SecondSuccession.Sealed.insertNew_of_mem :: propext
+SecondSuccession.Sealed.insertNew_of_not_mem :: propext
+SecondSuccession.Sealed.mem_insertNew :: propext
+SecondSuccession.Sealed.replayE_append :: Quot.sound propext
+SecondSuccession.Sealed.separable_not_collapsed :: propext
+SecondSuccession.Sealed.supply_no_op :: propext
+SecondSuccession.Sealed.underivable_of_empty :: none

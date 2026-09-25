@@ -1,0 +1,149 @@
+{
+  "authority_effect": "None",
+  "classes": {
+    "R2F_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "R2F_wf": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "R2L_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "R2L_wf": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "admission_without_expressive_increase": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "admitting_le_every": {
+      "class": "THIN",
+      "module": "Count.lean"
+    },
+    "admitting_not_given_base": {
+      "class": "THIN",
+      "module": "Readings.lean"
+    },
+    "admitting_splits": {
+      "class": "DEFINITION",
+      "module": "Readings.lean"
+    },
+    "base_matters": {
+      "class": "DEFINITION",
+      "module": "Readings.lean"
+    },
+    "changes_counted": {
+      "class": "CONTENT",
+      "module": "Count.lean"
+    },
+    "changes_from_genesis": {
+      "class": "THIN",
+      "module": "Count.lean"
+    },
+    "changes_given_base": {
+      "class": "THIN",
+      "module": "Count.lean"
+    },
+    "changes_le_admitting": {
+      "class": "THIN",
+      "module": "Count.lean"
+    },
+    "changes_path_free": {
+      "class": "THIN",
+      "module": "Count.lean"
+    },
+    "changing_not_of_regime": {
+      "class": "THIN",
+      "module": "Readings.lean"
+    },
+    "collapsed_of_no_insts": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "every_not_given_base": {
+      "class": "THIN",
+      "module": "Readings.lean"
+    },
+    "every_splits": {
+      "class": "DEFINITION",
+      "module": "Readings.lean"
+    },
+    "genesis_underivable": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "historyF_replays": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "historyL_replays": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "insertNew_grows": {
+      "class": "THIN",
+      "module": "Count.lean"
+    },
+    "insertNew_nil": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "insertNew_of_mem": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "insertNew_of_not_mem": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "mem_insertNew": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "replayE_append": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "replayE_cons": {
+      "class": "DEFINITION",
+      "module": "Count.lean"
+    },
+    "separable_not_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "size_genesis": {
+      "class": "DEFINITION",
+      "module": "Count.lean"
+    },
+    "step_grows": {
+      "class": "THIN",
+      "module": "Count.lean"
+    },
+    "supply_no_op": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "supply_uncounted": {
+      "class": "DEFINITION",
+      "module": "Count.lean"
+    },
+    "underivable_of_empty": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    }
+  },
+  "counts": {
+    "CONTENT": 1,
+    "DEFINITION": 6,
+    "RECONSTRUCTION": 17,
+    "THIN": 10
+  },
+  "long_but_definitional": {},
+  "note": "The FW-DEF census of this rung, TOTAL over every theorem of the package. The four classes are rung five's, with rung five's meanings. RECONSTRUCTION: not this rung's work, reproduced verbatim under a pin -- every theorem of Kernel.lean. DEFINITION: true by unfolding, by rfl, by a projection, by one rewrite, by kernel computation over concrete histories, or by pure case exhaustion; never counted as content. THIN: one genuine step, or a direct corollary of a neighbour; counted apart from CONTENT so the headline is not inflated by one-liners. Two THIN rows are inductions whose step bounds one term by one (changes_le_admitting, admitting_le_every); the induction is counted as their one genuine step. step_grows is a six-way case exhaustion with one length rewrite per case, THIN as rung five classed its size_step. CONTENT: everything else. step_grows and changes_counted repeat, as statements, rung five's size_step and size_counts_changes and are proved again here so that the package imports nothing; the statements are rung five's and are not counted as new to the run. test_census.py checks this file is total over the package in both directions, that no row classed DEFINITION has a long proof outside long_but_definitional, and that the classes here are scored against the frozen prediction in PREDICTIONS.md."
+}
