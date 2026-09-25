@@ -38,6 +38,53 @@ def test_zero_minimum_is_refused(tmp_path: Path) -> None:
         gs.test_count(tmp_path / "unused", 0)
 
 
+@pytest.mark.parametrize("summary", [
+    "7 passed in 0.10s",
+    "7 passed, 3 skipped in 0.10s",
+    "2 failed, 7 passed in 1.00s",
+    "==================== 7 passed, 1 warning in 75.12s (0:01:15) ====================",
+])
+def test_pytest_passed_count_below_minimum_fails_by_name_then_recovers(tmp_path: Path, summary: str) -> None:
+    log = tmp_path / "pytest.log"
+    log.write_text("....... [100%]\n" + summary + "\n")
+    with pytest.raises(ValueError, match=r"pytest.log: ran 7 tests; minimum is 8"):
+        gs.test_count(log, 8, "pytest")
+    assert gs.test_count(log, 7, "pytest") == 0
+
+
+@pytest.mark.parametrize("text", [
+    "",
+    "no tests ran in 0.01s",
+    "Ran 9 tests in 1s",
+    "9 passed in 1.00s\n9 passed in 1.00s",
+])
+def test_missing_or_ambiguous_pytest_summary_is_refused(tmp_path: Path, text: str) -> None:
+    log = tmp_path / "summary.log"
+    log.write_text(text)
+    with pytest.raises(ValueError, match="summary.log: expected one test summary"):
+        gs.test_count(log, 1, "pytest")
+
+
+def test_pytest_summary_without_a_pass_counts_zero(tmp_path: Path) -> None:
+    log = tmp_path / "skips.log"
+    log.write_text("3 skipped in 0.01s\n")
+    with pytest.raises(ValueError, match=r"skips.log: ran 0 tests; minimum is 1"):
+        gs.test_count(log, 1, "pytest")
+
+
+def test_unknown_runner_is_refused(tmp_path: Path) -> None:
+    with pytest.raises(ValueError, match="unknown test runner 'nose'"):
+        gs.test_count(tmp_path / "unused", 1, "nose")
+
+
+def test_runner_flag_reaches_the_cli(tmp_path: Path) -> None:
+    log = tmp_path / "cli.log"
+    log.write_text("5 passed in 0.20s\n")
+    assert gs.main(["test-count", str(log), "--minimum", "5", "--runner", "pytest"]) == 0
+    assert gs.main(["test-count", str(log), "--minimum", "6", "--runner", "pytest"]) == 1
+    assert gs.main(["test-count", str(log), "--minimum", "5"]) == 1
+
+
 def package(tmp_path: Path) -> Path:
     (tmp_path / "lean4/Derivation/Nested").mkdir(parents=True)
     (tmp_path / "artifacts").mkdir()

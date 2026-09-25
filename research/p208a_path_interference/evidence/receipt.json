@@ -88,17 +88,17 @@
   },
   "pytest": {
     "exit_code": 0,
-    "passed": 17,
+    "passed": 21,
     "status": "PASS"
   },
   "schema_version": 1,
   "source_hashes": {
     "CLAIMS.md": "84a6dccce32576da0630f1869f3a2306b3abe187a8cdd961a7df814719a18cb5",
-    "README.md": "0ceca9a13af60513183b6a65608aa04e65e23ca7ab662d2752949454ff207003",
+    "README.md": "10f5e23d6cb86b1feb4c255a7d6768452d4d2e88cebc0435f9abf85e52739d0b",
     "lean/Inventory.lean": "ae24a192d8049b7ae22becbc74bf187b5a47ad13cbdce87a668266567c5c72cc",
     "lean/PathInterference.lean": "0c78208d3cdc74f90ca706f9849d71314353e50cad1f3997246a1f33dfc6df41",
     "path_interference.py": "2d29f85c195eb0a5cca7012c021b302a56a4167273ffdcb70ec8684433bf8b9d",
-    "tests/test_interference.py": "4c27dcad8ca83371717eabef3fcfd9e3f4b0c12df82aa0525f706b96de87c8d6",
+    "tests/test_interference.py": "f34cebbe4a4bcb473a83d96d66b4c0e1e88a2240a3009e40d85ed5563d1643b2",
     "verify.py": "8e372ac4b971638fa0aee735c9b70dc7eea3c1fbea32952017ec1df64664f070",
     "verify_sources.py": "1a4bbf82026a7f746966d2f43cc9ce24dc1b700d1012b0f5aea4b729a15ea5af"
   },
