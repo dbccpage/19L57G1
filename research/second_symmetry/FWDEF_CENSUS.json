@@ -1,0 +1,271 @@
+{
+  "authority_effect": "None",
+  "classes": {
+    "R2F_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "R2F_wf": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "R2L_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "R2L_wf": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "admission_without_expressive_increase": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "collapsed_of_no_insts": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "datum_lift": {
+      "class": "CONTENT",
+      "module": "Grow.lean"
+    },
+    "ext_ge": {
+      "class": "DEFINITION",
+      "module": "Grow.lean"
+    },
+    "ext_inverse": {
+      "class": "THIN",
+      "module": "Grow.lean"
+    },
+    "ext_lt": {
+      "class": "DEFINITION",
+      "module": "Grow.lean"
+    },
+    "ext_range": {
+      "class": "THIN",
+      "module": "Grow.lean"
+    },
+    "form_lift": {
+      "class": "CONTENT",
+      "module": "Grow.lean"
+    },
+    "genesis_underivable": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "getD_append_lt": {
+      "class": "THIN",
+      "module": "Grow.lean"
+    },
+    "historyF_replays": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "historyL_replays": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "insertNew_cases": {
+      "class": "THIN",
+      "module": "Grow.lean"
+    },
+    "insertNew_nil": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "insertNew_of_mem": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "insertNew_of_not_mem": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "inst_back": {
+      "class": "THIN",
+      "module": "Meet.lean"
+    },
+    "inst_descends_of_fixed": {
+      "class": "CONTENT",
+      "module": "Meet.lean"
+    },
+    "inst_fixed_of_survives": {
+      "class": "THIN",
+      "module": "Meet.lean"
+    },
+    "inst_fwd_back": {
+      "class": "THIN",
+      "module": "Meet.lean"
+    },
+    "inst_gain": {
+      "class": "THIN",
+      "module": "Witness.lean"
+    },
+    "inst_loss": {
+      "class": "THIN",
+      "module": "Witness.lean"
+    },
+    "inst_meet": {
+      "class": "DEFINITION",
+      "module": "Meet.lean"
+    },
+    "inst_meet_after": {
+      "class": "THIN",
+      "module": "Meet.lean"
+    },
+    "inst_survives_of_fixed": {
+      "class": "THIN",
+      "module": "Meet.lean"
+    },
+    "kinds_move_both_ways": {
+      "class": "DEFINITION",
+      "module": "Witness.lean"
+    },
+    "map_agree": {
+      "class": "THIN",
+      "module": "Meet.lean"
+    },
+    "map_fix": {
+      "class": "THIN",
+      "module": "Meet.lean"
+    },
+    "mem_insertNew": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "no_return": {
+      "class": "THIN",
+      "module": "Grow.lean"
+    },
+    "replayE_append": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "replayE_cons": {
+      "class": "DEFINITION",
+      "module": "Grow.lean"
+    },
+    "req_descends_of_fixed": {
+      "class": "CONTENT",
+      "module": "Meet.lean"
+    },
+    "req_fixed_of_survives": {
+      "class": "THIN",
+      "module": "Meet.lean"
+    },
+    "req_gain": {
+      "class": "THIN",
+      "module": "Witness.lean"
+    },
+    "req_loss": {
+      "class": "THIN",
+      "module": "Witness.lean"
+    },
+    "req_meet": {
+      "class": "DEFINITION",
+      "module": "Meet.lean"
+    },
+    "req_meet_after": {
+      "class": "THIN",
+      "module": "Meet.lean"
+    },
+    "req_survives_of_fixed": {
+      "class": "THIN",
+      "module": "Meet.lean"
+    },
+    "rule_descends_of_fixed": {
+      "class": "CONTENT",
+      "module": "Meet.lean"
+    },
+    "rule_fixed_of_survives": {
+      "class": "THIN",
+      "module": "Meet.lean"
+    },
+    "rule_gain": {
+      "class": "THIN",
+      "module": "Witness.lean"
+    },
+    "rule_loss": {
+      "class": "THIN",
+      "module": "Witness.lean"
+    },
+    "rule_meet": {
+      "class": "DEFINITION",
+      "module": "Meet.lean"
+    },
+    "rule_meet_after": {
+      "class": "THIN",
+      "module": "Meet.lean"
+    },
+    "rule_survives_of_fixed": {
+      "class": "THIN",
+      "module": "Meet.lean"
+    },
+    "sameMaps_symm": {
+      "class": "DEFINITION",
+      "module": "Aut.lean"
+    },
+    "separable_not_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "size_counts_changes": {
+      "class": "CONTENT",
+      "module": "Grow.lean"
+    },
+    "size_replay_mono": {
+      "class": "THIN",
+      "module": "Grow.lean"
+    },
+    "size_step": {
+      "class": "THIN",
+      "module": "Grow.lean"
+    },
+    "sortPair_round": {
+      "class": "THIN",
+      "module": "Meet.lean"
+    },
+    "stepE_datum": {
+      "class": "DEFINITION",
+      "module": "Aut.lean"
+    },
+    "stepE_form": {
+      "class": "DEFINITION",
+      "module": "Aut.lean"
+    },
+    "stepE_inst": {
+      "class": "DEFINITION",
+      "module": "Aut.lean"
+    },
+    "stepE_req": {
+      "class": "DEFINITION",
+      "module": "Aut.lean"
+    },
+    "stepE_rule": {
+      "class": "DEFINITION",
+      "module": "Aut.lean"
+    },
+    "supply_keeps": {
+      "class": "DEFINITION",
+      "module": "Aut.lean"
+    },
+    "supply_no_op": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "underivable_of_empty": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    }
+  },
+  "counts": {
+    "CONTENT": 6,
+    "DEFINITION": 14,
+    "RECONSTRUCTION": 17,
+    "THIN": 27
+  },
+  "long_but_definitional": {
+    "kinds_move_both_ways": "A six-clause conjunction of existentials whose proof is one line naming the six witnesses of the same module.  Its length measures the number of clauses, not the amount of work, so the line bound is the wrong instrument here.  The exception is listed rather than the bound raised, so that it is visible and countable; test_census.py requires this list to stay at or below one entry."
+  },
+  "note": "The FW-DEF census of this rung, TOTAL over every theorem of the package. The four classes are rung four's, with rung four's meanings. RECONSTRUCTION: not this rung's work, reproduced verbatim under a pin -- every theorem of Kernel.lean and IsoKernel.lean (the latter carries none). DEFINITION: true by unfolding, by rfl, by a projection, by one rewrite, by kernel computation over a concrete regime, by pure case exhaustion, or by assembling neighbours into a conjunction, an existential or an equivalence; never counted as content. THIN: one genuine step, or a direct corollary of a neighbour, including a kernel computation read through a neighbour's fixing theorem; counted apart from CONTENT so the headline is not inflated by one-liners. CONTENT: everything else. test_census.py checks this file is total over the package in both directions, that no row classed DEFINITION has a long proof outside long_but_definitional, and that the classes here are scored against the frozen prediction in PREDICTIONS.md."
+}

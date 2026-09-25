@@ -1,0 +1,64 @@
+SecondSymmetry.Aut.datum_lift :: Quot.sound propext
+SecondSymmetry.Aut.ext_ge :: none
+SecondSymmetry.Aut.ext_inverse :: Quot.sound propext
+SecondSymmetry.Aut.ext_lt :: none
+SecondSymmetry.Aut.ext_range :: Quot.sound propext
+SecondSymmetry.Aut.form_lift :: Quot.sound propext
+SecondSymmetry.Aut.getD_append_lt :: propext
+SecondSymmetry.Aut.insertNew_cases :: propext
+SecondSymmetry.Aut.inst_back :: Quot.sound propext
+SecondSymmetry.Aut.inst_descends_of_fixed :: Quot.sound propext
+SecondSymmetry.Aut.inst_fixed_of_survives :: Quot.sound propext
+SecondSymmetry.Aut.inst_fwd_back :: Quot.sound propext
+SecondSymmetry.Aut.inst_gain :: Quot.sound propext
+SecondSymmetry.Aut.inst_loss :: Quot.sound propext
+SecondSymmetry.Aut.inst_meet :: Quot.sound propext
+SecondSymmetry.Aut.inst_meet_after :: Quot.sound propext
+SecondSymmetry.Aut.inst_survives_of_fixed :: Quot.sound propext
+SecondSymmetry.Aut.kinds_move_both_ways :: Quot.sound propext
+SecondSymmetry.Aut.map_agree :: propext
+SecondSymmetry.Aut.map_fix :: propext
+SecondSymmetry.Aut.no_return :: Quot.sound propext
+SecondSymmetry.Aut.replayE_cons :: propext
+SecondSymmetry.Aut.req_descends_of_fixed :: Quot.sound propext
+SecondSymmetry.Aut.req_fixed_of_survives :: Quot.sound propext
+SecondSymmetry.Aut.req_gain :: Quot.sound propext
+SecondSymmetry.Aut.req_loss :: Quot.sound propext
+SecondSymmetry.Aut.req_meet :: Quot.sound propext
+SecondSymmetry.Aut.req_meet_after :: Quot.sound propext
+SecondSymmetry.Aut.req_survives_of_fixed :: Quot.sound propext
+SecondSymmetry.Aut.rule_descends_of_fixed :: Quot.sound propext
+SecondSymmetry.Aut.rule_fixed_of_survives :: Quot.sound propext
+SecondSymmetry.Aut.rule_gain :: Quot.sound propext
+SecondSymmetry.Aut.rule_loss :: Quot.sound propext
+SecondSymmetry.Aut.rule_meet :: Quot.sound propext
+SecondSymmetry.Aut.rule_meet_after :: Quot.sound propext
+SecondSymmetry.Aut.rule_survives_of_fixed :: Quot.sound propext
+SecondSymmetry.Aut.sameMaps_symm :: propext
+SecondSymmetry.Aut.size_counts_changes :: Quot.sound propext
+SecondSymmetry.Aut.size_replay_mono :: Quot.sound propext
+SecondSymmetry.Aut.size_step :: Quot.sound propext
+SecondSymmetry.Aut.sortPair_round :: none
+SecondSymmetry.Aut.stepE_datum :: propext
+SecondSymmetry.Aut.stepE_form :: propext
+SecondSymmetry.Aut.stepE_inst :: propext
+SecondSymmetry.Aut.stepE_req :: propext
+SecondSymmetry.Aut.stepE_rule :: propext
+SecondSymmetry.Aut.supply_keeps :: propext
+SecondSymmetry.Sealed.R2F_collapsed :: propext
+SecondSymmetry.Sealed.R2F_wf :: Quot.sound propext
+SecondSymmetry.Sealed.R2L_collapsed :: propext
+SecondSymmetry.Sealed.R2L_wf :: Quot.sound propext
+SecondSymmetry.Sealed.admission_without_expressive_increase :: propext
+SecondSymmetry.Sealed.collapsed_of_no_insts :: propext
+SecondSymmetry.Sealed.genesis_underivable :: none
+SecondSymmetry.Sealed.historyF_replays :: propext
+SecondSymmetry.Sealed.historyL_replays :: propext
+SecondSymmetry.Sealed.insertNew_nil :: propext
+SecondSymmetry.Sealed.insertNew_of_mem :: propext
+SecondSymmetry.Sealed.insertNew_of_not_mem :: propext
+SecondSymmetry.Sealed.mem_insertNew :: propext
+SecondSymmetry.Sealed.replayE_append :: Quot.sound propext
+SecondSymmetry.Sealed.separable_not_collapsed :: propext
+SecondSymmetry.Sealed.supply_no_op :: propext
+SecondSymmetry.Sealed.underivable_of_empty :: none

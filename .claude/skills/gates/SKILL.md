@@ -186,6 +186,8 @@ python research/second_index/verify_lean.py
 if ($LASTEXITCODE -ne 0) { throw "second_index Lean audit failed" }
 python research/second_iso/verify_lean.py
 if ($LASTEXITCODE -ne 0) { throw "second_iso Lean audit failed" }
+python research/second_symmetry/verify_lean.py
+if ($LASTEXITCODE -ne 0) { throw "second_symmetry Lean audit failed" }
 python research/natural_sections/verify_lean.py
 if ($LASTEXITCODE -ne 0) { throw "natural_sections Lean audit failed" }
 python research/balance_carrier/verify_lean.py
@@ -360,6 +362,7 @@ The workflow also enumerates these registered trees by the same shape
 `research/second_nofirst/verify_pins.py`,
 `research/second_stake/verify_pins.py`,
 `research/second_stream/verify_pins.py`,
+`research/second_symmetry/verify_pins.py`,
 `research/side_free/verify_pins.py`,
 `research/typed_translation/verify_pins.py`, and the four blocks above.
 `tests/test_gates_skill_matches_workflow.py` fails by path when the workflow
