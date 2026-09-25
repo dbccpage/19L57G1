@@ -505,3 +505,80 @@ are the right mathematical objects, or that the envelope is attained
 beyond the rectangle: the Lean of this rung proves the lower bounds and
 never their attainment, and attainment is a finite computation until V-1
 is proved.
+
+## Session handoff, rung eight (2026-09-25)
+
+**Read at the start of a session; written at the end of one.**  As the
+earlier handoffs say, the next rung is carried in the LAST rung's
+`STATUS.md`, and this section says where to look rather than copying it.
+
+- The rungs on `main` at this session's start (`35e680ec`) are rung zero
+  (`second_inheritance`), rung one (`second_stream`), rung two track two
+  (`second_stake`), rung two track one (`second_nofirst`), rung three
+  (`second_index`), rung four (`second_iso`), rung five
+  (`second_symmetry`), rung six (`second_succession`) and rung seven
+  (`second_duration`).  Rung eight (`second_class`) is this session's,
+  and is not merged by an agent.
+- The next rung is named at the end of `research/second_class/STATUS.md`,
+  under "The next rung, named so it cannot be smuggled in later": X-6,
+  the undecided rows of the census, the only eligible leftover.  X-6
+  carries six rows, and the seed does not say whether a rung taking it
+  decides all of them or which comes first; that reading is recorded
+  there for the author and is not made.
+- **The Lean and the Python readings differ, and a prediction missed on
+  it again.**  The sealed Lean reading regime `R2L` holds the requirement
+  imposed at challenge three; the sealed Python genesis history of L,
+  which rung three takes as the base of the rectangle, stops before it.
+  Rung four's J-12 missed by reasoning from one while computing on the
+  other, and so did this rung's P-13.  Before freezing a prediction that
+  writes a Lean witness into the Python grammar, replay the Python base
+  and look at it.
+- **Library lemmas can reach `Classical.choice`.**  In the toolchain on
+  this machine, the library's lemmas on removing an entry of a list, the
+  length after it, and the admitted range holding no index twice all do.
+  `#print axioms` the library lemmas a proof leans on before building on
+  them; the rung's audit found this only after a green build.
+- One rung per session at most.  Never merge a rung; the author merges.
+- Before writing anything in a new rung: freeze `PROMPT.md` by hash and
+  commit it, then freeze `PREDICTIONS.md` by hash and commit it, then
+  compute.  The commits are the evidence of the order.
+
+## Injection record, rung eight (2026-09-25)
+
+Twelve injections, each minimal and reversible, none live while any
+receipt was regenerated.  All were run in a throwaway worktree detached at
+`7162abae`, the rung branch's head at the time, by one script that edited
+with line endings preserved and checked each recovery; the worktree was
+clean after the last reversal and was then removed.  The script ran
+twice: its first run stopped at the third injection, whose edit guard
+found the injected value twice in the receipt and refused before
+injecting anything, with the first two already recovered; the second run
+moved only the first occurrence and ran the other ten.  Every one names
+the object it was given.
+
+<!-- markdownlint-disable MD013 -->
+
+| rung | gate | injection | observed failure |
+|---|---|---|---|
+| 8 | frozen-text pin (`second_class/verify_pins.py`) | one line appended to `PROMPT.md` in a throwaway commit `a16fee76` on top of `7162abae` | `FAIL: frozen text moved: research/second_class/PROMPT.md: expected 16b57c49..., got ab5d1bac...`, exit 1; after `git reset --hard HEAD~1`, exit 0 |
+| 8 | span pin (same verifier) | the Z-1 span's `last_line` moved from 188 to 189 in `SOURCE_MANIFEST.json`, uncommitted | `FAIL: span mismatch at the snapshot for research/second_symmetry/STATUS.md:178-189: expected c461e6c6..., got 56c3637f...`, exit 1; exit 0 after restoring the manifest |
+| 8 | receipt comparison (`run_class.py --check`) | the first `"classes_at_more_than_one_base": 86` in `receipts/class_count.json` changed to 87 | `FAIL: ...receipts\class_count.json differs from a fresh run`, exit 1; exit 0 after restoring the bytes.  The check writes nothing |
+| 8 | Lean axiom whitelist (`second_class/verify_lean.py`) | a theorem `zzz_probe_choice` proved by `Classical.em`, appended to `Counter.lean` with its report line | three failures naming it: no FW-DEF row; `depends on disallowed axioms ['Classical.choice']`; a fresh report the committed log lacks; exit 1, then `lean audit clean: 10 sources, 58 axiom reports`.  RECORDED BESIDE IT: the same gate had already been read on a real defect before any injection -- fifteen theorems reaching `Classical.choice` through three library lemmas; see `research/second_class/STATUS.md` |
+| 8 | Lean compiler census (same verifier) | the `#print axioms` line for `SecondClass.Recur.recurrence_is_stutter` deleted from `AxiomReport.lean` | `FAIL: compiler declaration SecondClass.Recur.recurrence_is_stutter has no fresh #print axioms report`, exit 1; exit 0 after restoring |
+| 8 | FW-DEF census totality (`test_census.py`) | the `recurrence_is_stutter` row deleted and the THIN count decremented | `AssertionError: Lists differ: ['recurrence_is_stutter'] != []` from the totality and axiom-log tests, the dated-count test naming THIN 21 against 22, and the prediction tests erroring on the missing row; exit 1, then OK |
+| 8 | reconstruction comparison (`test_reconstruction.py`) | the binder `hreqs` of the reconstructed sealed `isoRefl` renamed to `hreq` in `IsoKernel.lean` | `AssertionError: Lists differ: ['lean4/Derivation/Minimality.lean -> IsoKernel.lean: isoRefl'] != []`, exit 1; OK after restoring.  The comparison reads the sealed blob AT THE SNAPSHOT |
+| 8 | prose census over the write root (`test_forbidden.py`) | a probe `zz_probe.md` in the write root carrying the one term whose watchlist digest begins `8fb7cf7a`, confirmed watched by `ci/check_prose_watchlist.py --probe` | `AssertionError: Lists differ: ['research/second_class/zz_probe.md:1: <term elided>'] != []`, the term named in place of the elision; OK after deleting the probe.  The term is elided because this record is itself scanned |
+| 8 | write-root scope scan (`test_forbidden.py`) | an untracked `zz_outside_probe.md` at the repository root | `AssertionError: Lists differ: ['zz_outside_probe.md'] != []`, exit 1; OK after deleting it |
+| 8 | coverage module census (`second_class/check_coverage.py`) | an undeclared production module `zz_helper.py` in the tree, after a report of the full suite had been generated and had passed | `FAIL: production module census differs: missing from declarations=['zz_helper.py'], declared but absent=[]`, exit 1; exit 0 after deleting it |
+| 8 | registration scan (`test_forbidden.py`) | the line `python run_class.py --check` deleted from the rung's step in `.github/workflows/verify.yml` | `AssertionError: 'python run_class.py --check' not found in` the rung's block, exit 1; OK after restoring |
+| 8 | the stutter law, through the receipt and the scoring (`run_class.py --check`; `test_class.py`) | `recurrences` in `class_count.py` made to call a recurrence a stutter exactly when NO earlier prefix of the class reached the same regime | `FAIL: ...receipts\class_count.json differs from a fresh run`, exit 1; and the scored-verdict test `AssertionError: Lists differ: ['P-10', 'P-12', 'P-9'] != ['P-10', 'P-11', 'P-12', 'P-9']`, naming P-11 as the row that fell; both recover after restoring the line |
+
+<!-- markdownlint-enable MD013 -->
+
+**What these injections do not prove.**  That the populations they pin
+are the right mathematical objects, or that the Python recurrence census
+agrees with the Lean theorem beyond the rectangle: the Lean proves that
+a recurrence from a clean base is a stutter, and the Python counts
+recurrences on the rectangle; neither checks the other's reading of
+"class", which is the sealed key procedure on one side and the sealed
+structure on the other.
