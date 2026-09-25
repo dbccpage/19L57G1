@@ -7,11 +7,11 @@
     "Class tags: 'physics-shaped common noun' (counted, never refused; several are house words in research/), 'outside proper name', and 'outside program phrase (two words)'."
   ],
   "baseline": {
-    "research/exchange_coefficients/lean/ExchangeCoefficients.lean": {
-      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 1
-    },
     ".claude/skills/pin/SKILL.md": {
       "dccc5d01dabcd1c0b9fa89c91e7f4bde603121ee0172b4ff394e6bb30d295e41": 1
+    },
+    "CLAUDE.md": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1
     },
     "contact/omega_primdiff/CONTACT_MANIFEST.json": {
       "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1
@@ -117,6 +117,9 @@
     },
     "research/convention_price/test_forbidden.py": {
       "1124524a9be2dc24e6756eb4d7ad60802ab0687b50d9e74b13eac0de598a8bbb": 2
+    },
+    "research/exchange_coefficients/lean/ExchangeCoefficients.lean": {
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 1
     },
     "research/g1_local_class/STATUS.md": {
       "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 2
@@ -449,6 +452,9 @@
     },
     "research/s9_obligations/verify_lean.py": {
       "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 1
+    },
+    "research/second/MANUAL.md": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1
     },
     "research/sign_slice/CLAIM_LEDGER.md": {
       "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1,
