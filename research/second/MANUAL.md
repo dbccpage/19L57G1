@@ -582,3 +582,85 @@ a recurrence from a clean base is a stutter, and the Python counts
 recurrences on the rectangle; neither checks the other's reading of
 "class", which is the sealed key procedure on one side and the sealed
 structure on the other.
+
+## Session handoff, rung nine (2026-09-25)
+
+**Read at the start of a session; written at the end of one.**  As the
+earlier handoffs say, the next rung is carried in the LAST rung's
+`STATUS.md`, and this section says where to look rather than copying it.
+
+- The rungs on `main` at this session's start (`ff584d44`) are rung zero
+  (`second_inheritance`), rung one (`second_stream`), rung two track two
+  (`second_stake`), rung two track one (`second_nofirst`), rung three
+  (`second_index`), rung four (`second_iso`), rung five
+  (`second_symmetry`), rung six (`second_succession`), rung seven
+  (`second_duration`) and rung eight (`second_class`).  Rung nine
+  (`second_profile`) is this session's, and is not merged by an agent.
+- The next rung is named at the end of
+  `research/second_profile/STATUS.md`, under "The next rung, named so it
+  cannot be smuggled in later": X-6 again, now carrying four rows --
+  adjacency, reach, branching and exhaustion.
+- **The reading of a leftover carrying several rows was made here, for
+  this rung only.**  Rung eight left it for the author.  This rung wrote
+  its reading into `PROMPT.md` before freezing its predictions -- take
+  the rows in rung three's order and decide the first two, which need no
+  response -- and it binds no later rung.  `STATUS.md` also records that
+  the sealed estate's candidate space and minimum responses exist, so
+  the next rung must decide, and record, whether they are the response
+  the adjacency, reach and branching rows speak of.
+- **The rung budget is now counted, and the count is ambiguous.**  The
+  seed allows at most twelve rungs.  Rung nine is the tenth ordinal;
+  rung two ran as two tracks, so eleven trees exist.  By ordinal two
+  rungs remain, by tree one.  Recorded for the author in `STATUS.md`.
+- **A tactic can reach `Classical.choice`, not only a library lemma.**
+  In the toolchain on this machine, `omega` closing a conjunction, or
+  closing a goal that is not arithmetic by finding its hypotheses
+  contradictory, reports `Classical.choice`; closing one arithmetic goal
+  does not.  Write `exact ⟨by omega, by omega⟩` for a conjunction and
+  `exact absurd h (by omega)` for a contradiction, and `#print axioms`
+  before building on a lemma, as rung eight's handoff says.
+- **A module name can shadow the standard library.**  Name a rung's
+  computation module so that it cannot, since the rung's directory is
+  put at the front of the import path.
+- One rung per session at most.  Never merge a rung; the author merges.
+- Before writing anything in a new rung: freeze `PROMPT.md` by hash and
+  commit it, then freeze `PREDICTIONS.md` by hash and commit it, then
+  compute.  The commits are the evidence of the order.
+
+## Injection record, rung nine (2026-09-25)
+
+Twelve injections, each minimal and reversible, none live while any
+receipt was regenerated.  All were run in a throwaway worktree detached
+at `e9bf4b6d`, the rung branch's head at the time, by one script written
+to the scratchpad as a file, which edited with line endings preserved,
+refused any edit that did not apply exactly once, and checked each
+recovery; the worktree was clean after the last reversal, apart from
+ignored build and coverage outputs, and was then removed.  Every one
+names the object it was given.
+
+<!-- markdownlint-disable MD013 -->
+
+| rung | gate | injection | observed failure |
+|---|---|---|---|
+| 9 | frozen-text pin (`second_profile/verify_pins.py`) | one line appended to `PROMPT.md` in a throwaway commit `6d7c7439` on top of `e9bf4b6d` | `FAIL: frozen text moved: research/second_profile/PROMPT.md: expected df68d1cc..., got 09e0a69f...`, exit 1; after `git reset --hard HEAD~1`, exit 0 |
+| 9 | span pin (same verifier) | the X-6 span's `last_line` moved from 168 to 169 in `SOURCE_MANIFEST.json`, uncommitted | `FAIL: span mismatch at the snapshot for research/second_index/STATUS.md:165-169: expected 7afa345f..., got b68aa231...`, exit 1; exit 0 after restoring the manifest |
+| 9 | receipt comparison (`run_profile.py --check`) | `"sequences_holding_two": 22` in `receipts/profile.json` changed to 23 | `FAIL: ...receipts\profile.json differs from a fresh run`, exit 1; exit 0 after restoring the bytes.  The check writes nothing |
+| 9 | Lean axiom whitelist (`second_profile/verify_lean.py`) | a theorem `zzz_probe_choice` proved by `Classical.em`, appended to `Keep.lean` with its report line | three failures naming it: no FW-DEF row; `depends on disallowed axioms ['Classical.choice']`; a fresh report the committed log lacks; exit 1, then `lean audit clean: 9 sources, 50 axiom reports`.  RECORDED BESIDE IT: the same gate had already been read on a real defect before any injection -- seven theorems reaching `Classical.choice` through the `omega` tactic; see `research/second_profile/STATUS.md` |
+| 9 | Lean compiler census (same verifier) | the `#print axioms` line for `SecondProfile.Keep.twoness_lost_by_rule` deleted from `AxiomReport.lean` | `FAIL: compiler declaration SecondProfile.Keep.twoness_lost_by_rule has no fresh #print axioms report`, exit 1; exit 0 after restoring |
+| 9 | FW-DEF census totality (`test_census.py`) | the `twoness_lost_by_rule` row deleted and the THIN count decremented | `AssertionError: Lists differ: ['twoness_lost_by_rule'] != []` from the totality and axiom-log tests, the dated-count test naming THIN 20 against 21, and the prediction tests erroring on the missing row; exit 1, then OK |
+| 9 | reconstruction comparison (`test_reconstruction.py`) | the binder of the reconstructed sealed `collapsed` renamed from `d d'` to `d dd` in `Kernel.lean` | `AssertionError: Lists differ: ['lean4/Derivation/Basic.lean -> Kernel.lean: collapsed'] != []`, exit 1; OK after restoring.  The comparison reads the sealed blob AT THE SNAPSHOT |
+| 9 | prose census over the write root (`test_forbidden.py`) | a probe `zz_probe.md` in the write root carrying the one term whose watchlist digest begins `a90fd9a`, confirmed watched by `ci/check_prose_watchlist.py --probe` | `AssertionError: Lists differ: ['research/second_profile/zz_probe.md:1: <term elided>'] != []`, the term named in place of the elision; OK after deleting the probe.  The term is elided because this record is itself scanned |
+| 9 | write-root scope scan (`test_forbidden.py`) | an untracked `zz_outside_probe.md` at the repository root | `AssertionError: Lists differ: ['zz_outside_probe.md'] != []`, exit 1; OK after deleting it |
+| 9 | coverage module census (`second_profile/check_coverage.py`) | an undeclared production module `zz_helper.py` in the tree, after a report of the full suite had been generated and had passed | `FAIL: production module census differs: missing from declarations=['zz_helper.py'], declared but absent=[]`, exit 1; exit 0 after deleting it |
+| 9 | registration scan (`test_forbidden.py`) | the line `python run_profile.py --check` deleted from the rung's step in `.github/workflows/verify.yml` | `AssertionError: 'python run_profile.py --check' not found in` the rung's block, exit 1; OK after restoring |
+| 9 | the class count, through the receipt and the scoring (`run_profile.py --check`; `test_profile.py`) | `class_count` in `profile_rows.py` made to count the profiles of every admitted datum but the last | `FAIL: ...receipts\profile.json differs from a fresh run`, exit 1; and the scored-verdict test `AssertionError: Lists differ: ['Q-13', 'Q-14', 'Q-8', 'Q-9'] != ['Q-10', 'Q-11', 'Q-12', 'Q-13', 'Q-14', 'Q-8', 'Q-9']`, naming Q-10, Q-11 and Q-12 as the rows that fell; both recover after restoring the line |
+
+<!-- markdownlint-enable MD013 -->
+
+**What these injections do not prove.**  That the populations they pin
+are the right mathematical objects, or that the Python class count and
+the Lean representative lists count the same thing: the Lean proves that
+representative lists are carried by the isomorphism with their length,
+and does not prove that two of them have one length (T-1); the Python
+counts distinct sealed profiles.  Neither checks the other's reading of
+"class".

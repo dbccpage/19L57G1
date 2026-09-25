@@ -1,0 +1,215 @@
+{
+  "authority_effect": "None",
+  "classes": {
+    "R2F_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "R2F_wf": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "R2L_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "R2L_wf": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "admission_without_expressive_increase": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "collapsed_iso": {
+      "class": "THIN",
+      "module": "Carry.lean"
+    },
+    "collapsed_of_no_insts": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "collapsed_refl": {
+      "class": "DEFINITION",
+      "module": "Classes.lean"
+    },
+    "collapsed_symm": {
+      "class": "DEFINITION",
+      "module": "Classes.lean"
+    },
+    "collapsed_trans": {
+      "class": "DEFINITION",
+      "module": "Classes.lean"
+    },
+    "derivable_bwd": {
+      "class": "THIN",
+      "module": "Carry.lean"
+    },
+    "derivable_fwd": {
+      "class": "DEFINITION",
+      "module": "Carry.lean"
+    },
+    "derivable_mapCtx": {
+      "class": "THIN",
+      "module": "Carry.lean"
+    },
+    "genesis_underivable": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "getD_append_lt": {
+      "class": "THIN",
+      "module": "Keep.lean"
+    },
+    "historyF_replays": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "historyL_replays": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "holdsTwo_iso": {
+      "class": "THIN",
+      "module": "Classes.lean"
+    },
+    "holdsTwo_of_reps": {
+      "class": "THIN",
+      "module": "Classes.lean"
+    },
+    "holdsTwo_parts": {
+      "class": "THIN",
+      "module": "Stage.lean"
+    },
+    "holdsTwo_step_keep": {
+      "class": "THIN",
+      "module": "Keep.lean"
+    },
+    "insertNew_le": {
+      "class": "DEFINITION",
+      "module": "Stage.lean"
+    },
+    "insertNew_nil": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "insertNew_of_mem": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "insertNew_of_not_mem": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "map_inv": {
+      "class": "THIN",
+      "module": "Carry.lean"
+    },
+    "mem_insertNew": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "no_twoness_without_insts": {
+      "class": "THIN",
+      "module": "Classes.lean"
+    },
+    "plug_args_lt": {
+      "class": "THIN",
+      "module": "Carry.lean"
+    },
+    "plug_mapCtx": {
+      "class": "DEFINITION",
+      "module": "Carry.lean"
+    },
+    "replayE_append": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "replay_parts_le": {
+      "class": "THIN",
+      "module": "Stage.lean"
+    },
+    "reps_iso": {
+      "class": "THIN",
+      "module": "Classes.lean"
+    },
+    "reps_of_no_insts": {
+      "class": "THIN",
+      "module": "Classes.lean"
+    },
+    "separable_iso": {
+      "class": "THIN",
+      "module": "Carry.lean"
+    },
+    "separable_not_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "separable_step_keep": {
+      "class": "CONTENT",
+      "module": "Keep.lean"
+    },
+    "step_parts_le": {
+      "class": "THIN",
+      "module": "Stage.lean"
+    },
+    "supply_no_op": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "two_classes_at_four": {
+      "class": "DEFINITION",
+      "module": "Stage.lean"
+    },
+    "twoness_at_four": {
+      "class": "DEFINITION",
+      "module": "Stage.lean"
+    },
+    "twoness_at_two_F": {
+      "class": "DEFINITION",
+      "module": "Stage.lean"
+    },
+    "twoness_at_two_L": {
+      "class": "DEFINITION",
+      "module": "Stage.lean"
+    },
+    "twoness_lost_by_inst": {
+      "class": "CONTENT",
+      "module": "Keep.lean"
+    },
+    "twoness_lost_by_rule": {
+      "class": "THIN",
+      "module": "Keep.lean"
+    },
+    "twoness_needs_four": {
+      "class": "THIN",
+      "module": "Stage.lean"
+    },
+    "twoness_needs_two_F": {
+      "class": "THIN",
+      "module": "Stage.lean"
+    },
+    "twoness_needs_two_L": {
+      "class": "THIN",
+      "module": "Stage.lean"
+    },
+    "underivable_of_empty": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "wfCtx_mapCtx": {
+      "class": "THIN",
+      "module": "Carry.lean"
+    }
+  },
+  "counts": {
+    "CONTENT": 2,
+    "DEFINITION": 10,
+    "RECONSTRUCTION": 17,
+    "THIN": 21
+  },
+  "long_but_definitional": {
+    "two_classes_at_four": "Fifteen lines of KERNEL COMPUTATION AND PURE CASE EXHAUSTION over one concrete regime: the entries are admitted by decide; the pairwise clause is the one pair, separated by the one-hole context of the only form, by decide; the covering clause splits the datum into zero, one and the rest, the first two collapsed with themselves by collapsed_refl and the rest refuted by arithmetic.  Its length measures the three clauses of a representative list and the cases of the split, not the amount of work, so the line bound is the wrong instrument here.  The exception is listed rather than the bound raised, so that it is visible and countable; test_census.py requires this list to stay at one entry."
+  },
+  "note": "The FW-DEF census of this rung, TOTAL over every theorem of the package. The four classes are rung six's, with rung six's meanings. RECONSTRUCTION: not this rung's work, reproduced verbatim under a pin -- every theorem of Kernel.lean; IsoKernel.lean reconstructs definitions only and carries no theorem. DEFINITION: true by unfolding, by rfl, by a projection, by one rewrite, by kernel computation over concrete regimes, or by pure case exhaustion; never counted as content. THIN: one genuine step, or a direct corollary of a neighbour; counted apart from CONTENT so the headline is not inflated by one-liners. CONTENT: everything else. The rule applied to the inductions over histories is rung seven's, stated there against rung six's precedent and applied again at rung eight: an induction whose step needs a case analysis on the shape of the step is CONTENT; one closed by a step lemma and arithmetic alone is THIN. replay_parts_le is the second kind -- its only case split is on whether the step is accepted, and step_parts_le and arithmetic close it -- so it is THIN, and the frozen prediction's CONTENT is a miss. step_parts_le is a six-way case exhaustion closed by one length rewrite and arithmetic per case, THIN as rung eight classed step_parts. separable_step_keep is a six-way case exhaustion in which the datum and form cases re-establish the well-formedness of the context through the widened range of a slot and the reading of a lengthened list of forms; that is more than a rewrite per case, and it is CONTENT, as rung eight classed clean_step. derivable_mapCtx, collapsed_iso and reps_iso were predicted CONTENT and are THIN: each is an assembly of its neighbours -- derivable_mapCtx applies derivable_fwd and derivable_bwd after one rewrite by plug_mapCtx; collapsed_iso applies derivable_mapCtx twice along isoSymm and chains the equivalences; reps_iso applies separable_iso and collapsed_iso to the three clauses of a representative list. The four misses are DEMOTIONS, the same mistake rung three recorded: the content of the carrying sits in no single statement, and the census says so rather than counting an assembly as content. twoness_lost_by_inst is CONTENT and not DEFINITION: its regime is concrete, but that no two admitted data of the regime after the event are separable is a statement over every context, which kernel computation cannot decide; the proof shows that every well-formed context of that regime is the one-hole context of the only form. twoness_lost_by_rule is THIN: every well-formed context names the only form, whose rule makes every plugging derivable. two_classes_at_four is DEFINITION and is listed in long_but_definitional. No native theorem was added beyond the frozen prediction. One statement is credited, not counted as new to the run: getD_append_lt (rung five, proved again at rung eight); the definition isoSymm is rung eight's. test_census.py checks this file is total over the package in both directions, that no row classed DEFINITION has a long proof outside long_but_definitional, and that the classes here are scored against the frozen prediction in PREDICTIONS.md."
+}

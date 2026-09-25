@@ -86,6 +86,7 @@
   "second_inheritance/verify_pins.py",
   "second_iso/verify_pins.py",
   "second_nofirst/verify_pins.py",
+  "second_profile/verify_pins.py",
   "second_stake/verify_pins.py",
   "second_stream/verify_pins.py",
   "second_succession/verify_pins.py",

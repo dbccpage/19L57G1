@@ -1,0 +1,426 @@
+{
+  "alphabet": {
+    "arities": [
+      1,
+      2
+    ],
+    "fresh_tokens": [
+      "<n0>",
+      "<n1>",
+      "<n2>",
+      "<n3>",
+      "<n4>"
+    ],
+    "max_data": 5,
+    "max_forms": 2,
+    "max_sequence_length": 4,
+    "supply_token": "<z>"
+  },
+  "authority_effect": "None",
+  "bases": [
+    "EMPTY",
+    "L",
+    "F"
+  ],
+  "input_count_claim": "none",
+  "predictions_scored": {
+    "Q-1": {
+      "value": "scored elsewhere: the committed Lean package, checked by verify_lean.py and test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "Q-10": {
+      "value": {
+        "two_count_mismatches": {
+          "EMPTY": 0,
+          "F": 0,
+          "L": 0
+        }
+      },
+      "verdict": "HIT"
+    },
+    "Q-11": {
+      "value": {
+        "count_above_data": {
+          "EMPTY": 0,
+          "F": 0,
+          "L": 0
+        },
+        "count_above_named_plus_one": {
+          "EMPTY": 0,
+          "F": 0,
+          "L": 0
+        },
+        "largest_class_count": {
+          "EMPTY": 2,
+          "F": 4,
+          "L": 3
+        }
+      },
+      "verdict": "HIT"
+    },
+    "Q-12": {
+      "value": {
+        "EMPTY": {
+          "class_count": 0,
+          "holding_two": 0
+        },
+        "F": {
+          "class_count": 0,
+          "holding_two": 0
+        },
+        "L": {
+          "class_count": 0,
+          "holding_two": 0
+        },
+        "all": {
+          "class_count": 0,
+          "holding_two": 0
+        }
+      },
+      "verdict": "HIT"
+    },
+    "Q-13": {
+      "value": {
+        "EMPTY": [],
+        "F": [
+          "AdmitInst",
+          "AdmitRuleAll"
+        ],
+        "L": [
+          "AdmitInst",
+          "AdmitRuleAll"
+        ]
+      },
+      "verdict": "HIT"
+    },
+    "Q-14": {
+      "value": {
+        "AdmitDatum": [
+          0,
+          1
+        ],
+        "AdmitForm": [
+          0
+        ],
+        "AdmitInst": [
+          -1,
+          0,
+          1,
+          2
+        ],
+        "AdmitRuleAll": [
+          -2,
+          -1,
+          0
+        ],
+        "Impose": [
+          0
+        ],
+        "Supply": [
+          0
+        ]
+      },
+      "verdict": "HIT"
+    },
+    "Q-15": {
+      "value": "scored elsewhere: CLAIM_LEDGER.md, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "Q-16": {
+      "value": "scored elsewhere: CLAIM_LEDGER.md, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "Q-17": {
+      "value": "scored elsewhere: CLAIM_LEDGER.md and this receipt's input_count_claim",
+      "verdict": "ELSEWHERE"
+    },
+    "Q-18": {
+      "value": "scored elsewhere: the receipt bytes, --check and test_profile.py; the time in STATUS.md",
+      "verdict": "ELSEWHERE"
+    },
+    "Q-2": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "Q-3": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "Q-4": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py; the witness is written in the Python grammar in lean_witnesses",
+      "verdict": "ELSEWHERE"
+    },
+    "Q-5": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "Q-6": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py; written in the Python grammar in lean_witnesses",
+      "verdict": "ELSEWHERE"
+    },
+    "Q-7": {
+      "value": "scored elsewhere: receipts/lean_axioms.txt, checked by verify_lean.py",
+      "verdict": "ELSEWHERE"
+    },
+    "Q-8": {
+      "value": {
+        "classes_over_all_bases": 402,
+        "classes_within_base": {
+          "EMPTY": 54,
+          "F": 265,
+          "L": 174
+        },
+        "distinct_regimes": {
+          "EMPTY": 75,
+          "F": 1718,
+          "L": 523
+        },
+        "distinct_regimes_over_all_bases": 2316,
+        "key_brute_disagreements": 0,
+        "replay_mismatches": {
+          "EMPTY": 0,
+          "F": 0,
+          "L": 0
+        },
+        "sequences": {
+          "EMPTY": 577,
+          "F": 14293,
+          "L": 3928
+        }
+      },
+      "verdict": "HIT"
+    },
+    "Q-9": {
+      "value": {
+        "empty_holding_two": {
+          "classes": 3,
+          "regimes": 6,
+          "sequences": 22
+        },
+        "least_length_holding_two": {
+          "EMPTY": 4,
+          "F": 2,
+          "L": 2
+        }
+      },
+      "verdict": "HIT"
+    }
+  },
+  "predictions_sha256": "7fc9a68c6447a7df85c0ff3ea3f4b7092045c0e7e6d847158b69cc469a539499",
+  "prompt_sha256": "df68d1cc735c3bfc8559e3dd96e3fc93b02f008cfdcb0679bbb1b19b8575a5f7",
+  "reports": {
+    "base_order": [
+      "EMPTY",
+      "L",
+      "F"
+    ],
+    "bases": {
+      "EMPTY": {
+        "changes_by_kind": {
+          "AdmitDatum": [
+            0,
+            1
+          ],
+          "AdmitForm": [
+            0
+          ],
+          "AdmitInst": [
+            0,
+            1
+          ],
+          "AdmitRuleAll": [
+            0
+          ],
+          "Impose": [
+            0
+          ],
+          "Supply": [
+            0
+          ]
+        },
+        "class_count_histogram": {
+          "0": 21,
+          "1": 48,
+          "2": 6
+        },
+        "classes_holding_two": 3,
+        "count_above_data": 0,
+        "count_above_named_plus_one": 0,
+        "distinct_regimes": 75,
+        "ending_transitions_by_kind": {},
+        "largest_class_count": 2,
+        "least_length_holding_two": 4,
+        "regimes_holding_two": 6,
+        "replay_mismatches": 0,
+        "sequences": 577,
+        "sequences_holding_two": 22,
+        "two_count_mismatches": 0
+      },
+      "F": {
+        "changes_by_kind": {
+          "AdmitDatum": [
+            0,
+            1
+          ],
+          "AdmitForm": [
+            0
+          ],
+          "AdmitInst": [
+            -1,
+            0,
+            1,
+            2
+          ],
+          "AdmitRuleAll": [
+            -2,
+            -1,
+            0
+          ],
+          "Impose": [
+            0
+          ],
+          "Supply": [
+            0
+          ]
+        },
+        "class_count_histogram": {
+          "1": 478,
+          "2": 356,
+          "3": 824,
+          "4": 60
+        },
+        "classes_holding_two": 156,
+        "count_above_data": 0,
+        "count_above_named_plus_one": 0,
+        "distinct_regimes": 1718,
+        "ending_transitions_by_kind": {
+          "AdmitInst": 6,
+          "AdmitRuleAll": 370
+        },
+        "largest_class_count": 4,
+        "least_length_holding_two": 2,
+        "regimes_holding_two": 1240,
+        "replay_mismatches": 0,
+        "sequences": 14293,
+        "sequences_holding_two": 8676,
+        "two_count_mismatches": 0
+      },
+      "L": {
+        "changes_by_kind": {
+          "AdmitDatum": [
+            0,
+            1
+          ],
+          "AdmitForm": [
+            0
+          ],
+          "AdmitInst": [
+            -1,
+            0,
+            1,
+            2
+          ],
+          "AdmitRuleAll": [
+            -2,
+            -1,
+            0
+          ],
+          "Impose": [
+            0
+          ],
+          "Supply": [
+            0
+          ]
+        },
+        "class_count_histogram": {
+          "1": 208,
+          "2": 225,
+          "3": 90
+        },
+        "classes_holding_two": 82,
+        "count_above_data": 0,
+        "count_above_named_plus_one": 0,
+        "distinct_regimes": 523,
+        "ending_transitions_by_kind": {
+          "AdmitInst": 28,
+          "AdmitRuleAll": 126
+        },
+        "largest_class_count": 3,
+        "least_length_holding_two": 2,
+        "regimes_holding_two": 315,
+        "replay_mismatches": 0,
+        "sequences": 3928,
+        "sequences_holding_two": 2036,
+        "two_count_mismatches": 0
+      }
+    },
+    "changes_by_kind_over_all_bases": {
+      "AdmitDatum": [
+        0,
+        1
+      ],
+      "AdmitForm": [
+        0
+      ],
+      "AdmitInst": [
+        -1,
+        0,
+        1,
+        2
+      ],
+      "AdmitRuleAll": [
+        -2,
+        -1,
+        0
+      ],
+      "Impose": [
+        0
+      ],
+      "Supply": [
+        0
+      ]
+    },
+    "classes": {
+      "distinct_regimes_over_all_bases": 2316,
+      "key_brute_disagreements": 0,
+      "over_all_bases": {
+        "classes": 402,
+        "classes_with_two_class_counts": 0,
+        "classes_with_two_values_of_holding_two": 0
+      },
+      "within_base": {
+        "EMPTY": {
+          "classes": 54,
+          "classes_with_two_class_counts": 0,
+          "classes_with_two_values_of_holding_two": 0
+        },
+        "F": {
+          "classes": 265,
+          "classes_with_two_class_counts": 0,
+          "classes_with_two_values_of_holding_two": 0
+        },
+        "L": {
+          "classes": 174,
+          "classes_with_two_class_counts": 0,
+          "classes_with_two_values_of_holding_two": 0
+        }
+      }
+    },
+    "lean_witnesses": {
+      "twoness_at_four": {
+        "class_count": 2,
+        "holds_two": true
+      },
+      "twoness_lost_by_inst": {
+        "class_count": 1,
+        "holds_two": false
+      },
+      "twoness_lost_by_rule": {
+        "class_count": 1,
+        "holds_two": false
+      }
+    }
+  },
+  "rung": "nine",
+  "write_root": "research/second_profile"
+}

@@ -1,0 +1,50 @@
+SecondProfile.Carry.collapsed_iso :: Quot.sound propext
+SecondProfile.Carry.derivable_bwd :: Quot.sound propext
+SecondProfile.Carry.derivable_fwd :: propext
+SecondProfile.Carry.derivable_mapCtx :: Quot.sound propext
+SecondProfile.Carry.map_inv :: none
+SecondProfile.Carry.plug_args_lt :: Quot.sound propext
+SecondProfile.Carry.plug_mapCtx :: Quot.sound propext
+SecondProfile.Carry.separable_iso :: Quot.sound propext
+SecondProfile.Carry.wfCtx_mapCtx :: Quot.sound propext
+SecondProfile.Classes.collapsed_refl :: propext
+SecondProfile.Classes.collapsed_symm :: propext
+SecondProfile.Classes.collapsed_trans :: propext
+SecondProfile.Classes.holdsTwo_iso :: Quot.sound propext
+SecondProfile.Classes.holdsTwo_of_reps :: propext
+SecondProfile.Classes.no_twoness_without_insts :: propext
+SecondProfile.Classes.reps_iso :: Quot.sound propext
+SecondProfile.Classes.reps_of_no_insts :: Quot.sound propext
+SecondProfile.Keep.getD_append_lt :: propext
+SecondProfile.Keep.holdsTwo_step_keep :: Quot.sound propext
+SecondProfile.Keep.separable_step_keep :: propext
+SecondProfile.Keep.twoness_lost_by_inst :: Quot.sound propext
+SecondProfile.Keep.twoness_lost_by_rule :: Quot.sound propext
+SecondProfile.Sealed.R2F_collapsed :: propext
+SecondProfile.Sealed.R2F_wf :: Quot.sound propext
+SecondProfile.Sealed.R2L_collapsed :: propext
+SecondProfile.Sealed.R2L_wf :: Quot.sound propext
+SecondProfile.Sealed.admission_without_expressive_increase :: propext
+SecondProfile.Sealed.collapsed_of_no_insts :: propext
+SecondProfile.Sealed.genesis_underivable :: none
+SecondProfile.Sealed.historyF_replays :: propext
+SecondProfile.Sealed.historyL_replays :: propext
+SecondProfile.Sealed.insertNew_nil :: propext
+SecondProfile.Sealed.insertNew_of_mem :: propext
+SecondProfile.Sealed.insertNew_of_not_mem :: propext
+SecondProfile.Sealed.mem_insertNew :: propext
+SecondProfile.Sealed.replayE_append :: Quot.sound propext
+SecondProfile.Sealed.separable_not_collapsed :: propext
+SecondProfile.Sealed.supply_no_op :: propext
+SecondProfile.Sealed.underivable_of_empty :: none
+SecondProfile.Stage.holdsTwo_parts :: Quot.sound propext
+SecondProfile.Stage.insertNew_le :: Quot.sound propext
+SecondProfile.Stage.replay_parts_le :: Quot.sound propext
+SecondProfile.Stage.step_parts_le :: Quot.sound propext
+SecondProfile.Stage.two_classes_at_four :: Quot.sound propext
+SecondProfile.Stage.twoness_at_four :: Quot.sound propext
+SecondProfile.Stage.twoness_at_two_F :: Quot.sound propext
+SecondProfile.Stage.twoness_at_two_L :: Quot.sound propext
+SecondProfile.Stage.twoness_needs_four :: Quot.sound propext
+SecondProfile.Stage.twoness_needs_two_F :: Quot.sound propext
+SecondProfile.Stage.twoness_needs_two_L :: Quot.sound propext
