@@ -1,0 +1,416 @@
+{
+  "alphabet": {
+    "arities": [
+      1,
+      2
+    ],
+    "fresh_tokens": [
+      "<n0>",
+      "<n1>",
+      "<n2>",
+      "<n3>",
+      "<n4>"
+    ],
+    "max_data": 5,
+    "max_forms": 2,
+    "max_sequence_length": 4,
+    "supply_token": "<z>"
+  },
+  "authority_effect": "None",
+  "bases": [
+    "EMPTY",
+    "L",
+    "F"
+  ],
+  "input_count_claim": "none",
+  "predictions_scored": {
+    "M-1": {
+      "value": "scored elsewhere: the committed Lean package, checked by verify_lean.py and test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "M-10": {
+      "value": {
+        "shortest_admitting": {
+          "EMPTY": {
+            "history": [
+              "AdmitForm(1)",
+              "AdmitRuleAll(0)",
+              "AdmitRuleAll(0)"
+            ],
+            "length": 3
+          },
+          "F": {
+            "history": [
+              "Impose(0,1)",
+              "Impose(0,1)"
+            ],
+            "length": 2
+          },
+          "L": {
+            "history": [
+              "Impose(0,1)",
+              "Impose(0,1)"
+            ],
+            "length": 2
+          }
+        },
+        "shortest_every": {
+          "EMPTY": {
+            "history": [
+              "Supply(<z>)"
+            ],
+            "length": 1
+          },
+          "F": {
+            "history": [
+              "Supply(<z>)"
+            ],
+            "length": 1
+          },
+          "L": {
+            "history": [
+              "Supply(<z>)"
+            ],
+            "length": 1
+          }
+        },
+        "split_regimes": {
+          "ADMITTING": {
+            "EMPTY": 15,
+            "F": 259,
+            "L": 100
+          },
+          "EVERY": {
+            "EMPTY": 33,
+            "F": 276,
+            "L": 118
+          }
+        }
+      },
+      "verdict": "HIT"
+    },
+    "M-11": {
+      "value": {
+        "ADMITTING": {
+          "EMPTY": 15,
+          "F": 259,
+          "L": 100
+        },
+        "EVERY": {
+          "EMPTY": 33,
+          "F": 276,
+          "L": 118
+        }
+      },
+      "verdict": "HIT"
+    },
+    "M-12": {
+      "value": {
+        "shared": 86,
+        "shared_agreeing_relative": 0,
+        "shared_two_from_empty": 0,
+        "within_a_base": {
+          "EMPTY": 0,
+          "F": 0,
+          "L": 0
+        }
+      },
+      "verdict": "HIT"
+    },
+    "M-13": {
+      "value": {
+        "base_element_counts": {
+          "EMPTY": 0,
+          "F": 3,
+          "L": 2
+        },
+        "genesis_counts": {
+          "F": {
+            "ADMITTING": 3,
+            "CHANGING": 3,
+            "EVERY": 7
+          },
+          "L": {
+            "ADMITTING": 2,
+            "CHANGING": 2,
+            "EVERY": 6
+          }
+        }
+      },
+      "verdict": "HIT"
+    },
+    "M-14": {
+      "value": "scored elsewhere: CLAIM_LEDGER.md, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "M-15": {
+      "value": "scored elsewhere: CLAIM_LEDGER.md and this receipt's input_count_claim",
+      "verdict": "ELSEWHERE"
+    },
+    "M-16": {
+      "value": "scored elsewhere: the receipt bytes, --check and test_succession.py; the time in STATUS.md",
+      "verdict": "ELSEWHERE"
+    },
+    "M-2": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "M-3": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py; replayed in lean_witnesses",
+      "verdict": "ELSEWHERE"
+    },
+    "M-4": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py; replayed in lean_witnesses",
+      "verdict": "ELSEWHERE"
+    },
+    "M-5": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "M-6": {
+      "value": "scored elsewhere: the committed Lean package and CLAIM_LEDGER.md, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "M-7": {
+      "value": "scored elsewhere: receipts/lean_axioms.txt, checked by verify_lean.py",
+      "verdict": "ELSEWHERE"
+    },
+    "M-8": {
+      "value": {
+        "distinct_regimes": {
+          "EMPTY": 75,
+          "F": 1718,
+          "L": 523
+        },
+        "replay_mismatches": 0,
+        "sequences": {
+          "EMPTY": 577,
+          "F": 14293,
+          "L": 3928
+        }
+      },
+      "verdict": "HIT"
+    },
+    "M-9": {
+      "value": {
+        "EMPTY": {
+          "from_empty_violations": 0,
+          "law_violations": 0,
+          "split_regimes": 0
+        },
+        "F": {
+          "from_empty_violations": 0,
+          "law_violations": 0,
+          "split_regimes": 0
+        },
+        "L": {
+          "from_empty_violations": 0,
+          "law_violations": 0,
+          "split_regimes": 0
+        }
+      },
+      "verdict": "HIT"
+    }
+  },
+  "predictions_sha256": "bffdd720b9dc4f96948a5e188e30d7b51b40b628c5ef81c1983e3b3765990758",
+  "prompt_sha256": "ac59280878c2e8f626517bcf49079823bf5561184d6b8fa711fadc0e392cdecc",
+  "readings": [
+    "EVERY",
+    "ADMITTING",
+    "CHANGING"
+  ],
+  "reports": {
+    "base_order": [
+      "EMPTY",
+      "L",
+      "F"
+    ],
+    "bases": {
+      "EMPTY": {
+        "base_element_count": 0,
+        "changing_from_empty_violations": 0,
+        "changing_law_violations": 0,
+        "distinct_regimes": 75,
+        "genesis_counts": {
+          "ADMITTING": 0,
+          "CHANGING": 0,
+          "EVERY": 0
+        },
+        "readings": {
+          "ADMITTING": {
+            "shortest_splitting_sequence": {
+              "count": 3,
+              "history": [
+                "AdmitForm(1)",
+                "AdmitRuleAll(0)",
+                "AdmitRuleAll(0)"
+              ],
+              "length": 3,
+              "splits_from": [
+                "AdmitForm(1)",
+                "AdmitRuleAll(0)"
+              ],
+              "splits_from_count": 2
+            },
+            "split_regimes": 15
+          },
+          "CHANGING": {
+            "shortest_splitting_sequence": null,
+            "split_regimes": 0
+          },
+          "EVERY": {
+            "shortest_splitting_sequence": {
+              "count": 1,
+              "history": [
+                "Supply(<z>)"
+              ],
+              "length": 1,
+              "splits_from": [],
+              "splits_from_count": 0
+            },
+            "split_regimes": 33
+          }
+        },
+        "sequences": 577
+      },
+      "F": {
+        "base_element_count": 3,
+        "changing_from_empty_violations": 0,
+        "changing_law_violations": 0,
+        "distinct_regimes": 1718,
+        "genesis_counts": {
+          "ADMITTING": 3,
+          "CHANGING": 3,
+          "EVERY": 7
+        },
+        "readings": {
+          "ADMITTING": {
+            "shortest_splitting_sequence": {
+              "count": 2,
+              "history": [
+                "Impose(0,1)",
+                "Impose(0,1)"
+              ],
+              "length": 2,
+              "splits_from": [
+                "Impose(0,1)"
+              ],
+              "splits_from_count": 1
+            },
+            "split_regimes": 259
+          },
+          "CHANGING": {
+            "shortest_splitting_sequence": null,
+            "split_regimes": 0
+          },
+          "EVERY": {
+            "shortest_splitting_sequence": {
+              "count": 1,
+              "history": [
+                "Supply(<z>)"
+              ],
+              "length": 1,
+              "splits_from": [],
+              "splits_from_count": 0
+            },
+            "split_regimes": 276
+          }
+        },
+        "sequences": 14293
+      },
+      "L": {
+        "base_element_count": 2,
+        "changing_from_empty_violations": 0,
+        "changing_law_violations": 0,
+        "distinct_regimes": 523,
+        "genesis_counts": {
+          "ADMITTING": 2,
+          "CHANGING": 2,
+          "EVERY": 6
+        },
+        "readings": {
+          "ADMITTING": {
+            "shortest_splitting_sequence": {
+              "count": 2,
+              "history": [
+                "Impose(0,1)",
+                "Impose(0,1)"
+              ],
+              "length": 2,
+              "splits_from": [
+                "Impose(0,1)"
+              ],
+              "splits_from_count": 1
+            },
+            "split_regimes": 100
+          },
+          "CHANGING": {
+            "shortest_splitting_sequence": null,
+            "split_regimes": 0
+          },
+          "EVERY": {
+            "shortest_splitting_sequence": {
+              "count": 1,
+              "history": [
+                "Supply(<z>)"
+              ],
+              "length": 1,
+              "splits_from": [],
+              "splits_from_count": 0
+            },
+            "split_regimes": 118
+          }
+        },
+        "sequences": 3928
+      }
+    },
+    "classes": {
+      "classes": 402,
+      "classes_shared_by_bases": 86,
+      "classes_with_two_changing_counts_within_a_base": {
+        "EMPTY": 0,
+        "F": 0,
+        "L": 0
+      },
+      "shared_classes_by_bases": {
+        "EMPTY+L": 14,
+        "EMPTY+L+F": 5,
+        "L+F": 67
+      },
+      "shared_classes_with_agreeing_relative_counts": 0,
+      "shared_classes_with_two_counts_from_empty": 0
+    },
+    "lean_witnesses": {
+      "admitting_splits": {
+        "claim_holds": true,
+        "counts": [
+          2,
+          3
+        ],
+        "reading": "ADMITTING",
+        "same_regime": true
+      },
+      "base_matters": {
+        "claim_holds": true,
+        "counts": [
+          3,
+          0
+        ],
+        "reading": "CHANGING",
+        "same_regime": true
+      },
+      "every_splits": {
+        "claim_holds": true,
+        "counts": [
+          0,
+          1
+        ],
+        "reading": "EVERY",
+        "same_regime": true
+      }
+    },
+    "replay_mismatches": 0
+  },
+  "rung": "six",
+  "write_root": "research/second_succession"
+}
