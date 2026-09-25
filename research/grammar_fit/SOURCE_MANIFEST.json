@@ -1,16 +1,12 @@
 {
   "schema": "grammar_fit-sources-v1",
   "authority_effect": null,
+  "note": "2026-09-24: the pins now name what this tree consumes, measured by importing every Python file of the tree in a child interpreter, running its tests under an audit hook, and following its Lake imports. Removed, because nothing in this tree imports, opens or builds against them: code/derivation/iso.py, code/derivation/model.py. Added 1 consumed input(s) that were unpinned. The verifier checks these pins at HEAD only; no snapshot identity is claimed. Each has the same blob at 2914032fb3, the commit that created this manifest.",
   "sources": [
     {
-      "path": "code/derivation/iso.py",
-      "git_blob": "f05399fe6bdfbd2311bf34fa6fe927af194f586f",
-      "sha256": "b0f1f3bcf05126111a07706f4388a9fff5e30455d4b8f127966cf99ab0d0886e"
-    },
-    {
-      "path": "code/derivation/model.py",
-      "git_blob": "b6f95a673853d423a0d73b4faa95b2cd22f306a3",
-      "sha256": "6a7fd2ba9688d47e9291514c623a811cde3c6b9e8fda1d12a608dc9bb0b1f3c2"
+      "path": "research/priced_admissions/receipts/priced_admissions.json",
+      "git_blob": "fbea304264b9e2c060c2ff90fec2dddd7f4f020f",
+      "sha256": "60ad3a4854eb303c1c6b3138822fa694eac7bf8e6c63dee3fa9ed0e5dac81dac"
     }
   ]
 }
