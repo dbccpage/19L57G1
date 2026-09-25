@@ -366,9 +366,13 @@ what actually runs.
       `python ci/check_tree_custody.py --write`, and commits their output.
       The custody pin may gain the rung's verifier, never an entry under
       `expected_failures`: a rung whose verifier fails is not registered
-      until it passes. Apart from the workflow registration, the rung
-      hand-edits nothing outside its write root, and it regenerates
-      nothing while an injection is live.
+      until it passes. By the author's ruling of 2026-09-25, the rung
+      also adds its own registered gate scripts to
+      `.claude/skills/gates/SKILL.md`, which
+      `tests/test_gates_skill_matches_workflow.py` requires to name every
+      workflow gate script. Apart from the workflow registration and
+      those skill lines, the rung hand-edits nothing outside its write
+      root, and it regenerates nothing while an injection is live.
 12. **Prose watchlist:** `python ci/check_prose_watchlist.py`. The census
     matches its pin. See Invariants.
 
