@@ -20,7 +20,7 @@
       "nonbipartite_odd_loop": 648
     }
   },
-  "family": "two occupants, sorted-pair basis, unit negative hopping",
+  "family": "two occupants, sorted-pair basis, unit negative move coefficient",
   "label_policy": "simple labelled site graphs; no isomorphism quotient",
   "linear_forest_matches_all_rows": true,
   "sites": [

@@ -1,10 +1,10 @@
-✔ [2/25] Built ClaimExample (1.5s)
-✔ [3/25] Built Derivation.PrimDiff (3.0s)
-✔ [4/25] Built Derivation.DiffInterface (4.1s)
-✔ [5/25] Built Derivation.PrimitiveCore (2.1s)
-✔ [6/25] Built Derivation.PrimitiveCats (2.2s)
-✔ [7/25] Built Derivation.Compression (3.4s)
-⚠ [8/25] Built Derivation.Apartness (3.4s)
+✔ [2/25] Built Derivation.DiffInterface (1.6s)
+✔ [3/25] Built Derivation.PrimDiff (1.6s)
+✔ [4/25] Built ClaimExample (1.6s)
+✔ [5/25] Built Derivation.PrimitiveCore (1.2s)
+✔ [6/25] Built Derivation.PrimitiveCats (1.3s)
+✔ [7/25] Built Derivation.Compression (1.5s)
+⚠ [8/25] Built Derivation.Apartness (1.5s)
 warning: pinned/Derivation/Apartness.lean:172:16: Variable name `x` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
@@ -17,18 +17,18 @@ Hint: The binding can be removed (if unused) or named `_` (if used implicitly). 
   [apply] _y
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-✔ [9/25] Built Derivation.PrimitivePassage (3.6s)
-✔ [10/25] Built Derivation.ObsDescent (2.0s)
-✔ [11/25] Built Derivation.ContactBridge (1.8s)
-✔ [12/25] Built Derivation.HigherStructure (3.8s)
-✔ [13/25] Built Derivation.PrimitiveContact (965ms)
-✔ [14/25] Built Derivation.LadderGeneral (2.3s)
-✔ [15/25] Built Derivation.ContactKernel (1.7s)
-✔ [16/25] Built Derivation.BoundaryCancellation (1.8s)
-✔ [17/25] Built Derivation.PresentationNaturality (1.6s)
-✔ [18/25] Built NaturalSections (970ms)
-✔ [19/25] Built NaturalSections.HopFixture (2.1s)
-⚠ [20/25] Built NaturalSections.PhaseReceiver (2.1s)
+✔ [9/25] Built Derivation.PrimitivePassage (1.5s)
+✔ [10/25] Built Derivation.ObsDescent (709ms)
+✔ [11/25] Built Derivation.ContactBridge (719ms)
+✔ [12/25] Built Derivation.HigherStructure (1.5s)
+✔ [13/25] Built Derivation.PrimitiveContact (505ms)
+✔ [14/25] Built Derivation.ContactKernel (874ms)
+✔ [15/25] Built Derivation.LadderGeneral (1.2s)
+✔ [16/25] Built Derivation.PresentationNaturality (924ms)
+✔ [17/25] Built Derivation.BoundaryCancellation (1.1s)
+✔ [18/25] Built NaturalSections (740ms)
+✔ [19/25] Built NaturalSections.HopFixture (1.4s)
+⚠ [20/25] Built NaturalSections.PhaseReceiver (1.4s)
 warning: pinned/NaturalSections/PhaseReceiver.lean:97:30: This simp argument is unused:
   Int.natCast_mul
 
@@ -476,7 +476,7 @@ Hint: Omit it from the simp argument list.
   [apply] simp [Int.neg_mul, Int.mul_neg, Int.mul_comm, Int.mul_left_comm] at hInt ⊢
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-⚠ [21/25] Built ExchangeCoefficients (4.4s)
+⚠ [21/25] Built ExchangeCoefficients (2.5s)
 warning: ExchangeCoefficients.lean:72:42: This simp argument is unused:
   Prod.fst
 
@@ -491,9 +491,9 @@ Hint: Omit it from the simp argument list.
   [apply] simp only [transportCoeff, hopB, flipB, Prod.fst, Bool.or_eq_true, Bool.and_eq_true, Nat.beq_eq_true_eq]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-✔ [22/25] Built NaturalSections.WeightedLayer (4.3s)
-✔ [23/25] Built NaturalSections.SlotExchange (1.2s)
-ℹ [24/25] Built ExamplesAudit (754ms)
+✔ [22/25] Built NaturalSections.WeightedLayer (2.5s)
+✔ [23/25] Built NaturalSections.SlotExchange (591ms)
+ℹ [24/25] Built ExamplesAudit (489ms)
 info: ExamplesAudit.lean:7:0: 'ExchangeCoefficients.insert_left' depends on axioms: [propext]
 info: ExamplesAudit.lean:8:0: 'ExchangeCoefficients.insert_right' depends on axioms: [propext]
 info: ExamplesAudit.lean:9:0: 'ExchangeCoefficients.insert_zero_off_target' depends on axioms: [propext]
