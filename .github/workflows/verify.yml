@@ -170,6 +170,10 @@ jobs:
       # log is not evidence of a build CI never performed.
       - name: Second derivation, rung 3, fresh Lean and axiom audit
         run: python3 research/second_index/verify_lean.py
+      # Rung four's package is separate again, with its own axiom log and
+      # its own FW-DEF census, for the same reason.
+      - name: Second derivation, rung 4, fresh Lean and axiom audit
+        run: python3 research/second_iso/verify_lean.py
       # The typed-translation joining tree has an independent one-module Lake
       # package.  Unlike the older manual research receipts, its two
       # obstruction targets and provenance theorem are rebuilt here and its
@@ -461,6 +465,26 @@ jobs:
           git diff --exit-code -- receipts
       - name: Second derivation, rung 3, strict typing
         working-directory: research/second_index
+        run: python -m mypy
+      # Rung four: the first-demand index up to the implemented isomorphism.
+      # Registered as rung three is, for the same reason (SEED.md, section
+      # 10); its clean Lean audit is in the lean job.
+      - name: Second derivation, rung 4, pins, spans, and frozen texts
+        run: python research/second_iso/verify_pins.py
+      - name: Second derivation, rung 4, replay, tests, and coverage
+        working-directory: research/second_iso
+        run: |
+          set -euo pipefail
+          log="$RUNNER_TEMP/second-iso-tests.log"
+          python -m coverage erase
+          python -m coverage run -m unittest discover -s . -p "test_*.py" 2>&1 | tee "$log"
+          python ../../ci/gate_support.py test-count "$log" --minimum 140
+          python -m coverage json -q
+          python check_coverage.py
+          python run_iso_index.py --check
+          git diff --exit-code -- receipts
+      - name: Second derivation, rung 4, strict typing
+        working-directory: research/second_iso
         run: python -m mypy
       # The limit and the second observer, priced in one tree.
       # An asserted minimum test count keeps the registration from being

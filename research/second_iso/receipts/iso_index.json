@@ -1,0 +1,454 @@
+{
+  "alphabet": {
+    "arities": [
+      1,
+      2
+    ],
+    "fresh_tokens": [
+      "<n0>",
+      "<n1>",
+      "<n2>",
+      "<n3>",
+      "<n4>"
+    ],
+    "max_data": 5,
+    "max_forms": 2,
+    "max_sequence_length": 4,
+    "supply_token": "<z>"
+  },
+  "authority_effect": "None",
+  "bases": [
+    "EMPTY",
+    "L",
+    "F"
+  ],
+  "input_count_claim": "none",
+  "orbit_bound": 240,
+  "predictions_scored": {
+    "J-1": {
+      "value": "scored elsewhere: the committed Lean package, checked by verify_lean.py",
+      "verdict": "ELSEWHERE"
+    },
+    "J-10": {
+      "value": {
+        "nodes": {
+          "EMPTY": 577,
+          "F": 14293,
+          "L": 3928
+        },
+        "replay_mismatches": 0
+      },
+      "verdict": "HIT"
+    },
+    "J-11": {
+      "value": {
+        "classes": 402,
+        "disagreements": 0,
+        "distinct_regimes": 2316
+      },
+      "verdict": "HIT"
+    },
+    "J-12": {
+      "value": {
+        "disagreements": 0,
+        "largest": 240,
+        "smallest": 1
+      },
+      "verdict": "MISSED"
+    },
+    "J-13": {
+      "value": {
+        "free": [
+          0,
+          0
+        ],
+        "one_sided_total": [
+          0,
+          0
+        ],
+        "total_apart": [
+          0,
+          0
+        ],
+        "total_same": [
+          0,
+          0
+        ]
+      },
+      "verdict": "HIT"
+    },
+    "J-14": {
+      "value": {
+        "chain": [
+          61,
+          61
+        ],
+        "parity": [
+          47,
+          47
+        ],
+        "residue_three": [
+          13,
+          13
+        ]
+      },
+      "verdict": "HIT"
+    },
+    "J-15": {
+      "value": {
+        "classes_with_two_members": 3042,
+        "varying": {
+          "chain": 0,
+          "free": 0,
+          "one_sided_total": 0,
+          "parity": 0,
+          "residue_three": 0,
+          "total_apart": 0,
+          "total_same": 0
+        }
+      },
+      "verdict": "HIT"
+    },
+    "J-16": {
+      "value": {
+        "chain": 19,
+        "free": 0,
+        "one_sided_total": 19,
+        "parity": 19,
+        "residue_three": 19,
+        "total_apart": 19,
+        "total_same": 226
+      },
+      "verdict": "HIT"
+    },
+    "J-17": {
+      "value": {
+        "changed_presentations": 7849,
+        "moved_classes": 0,
+        "moved_counts": 0
+      },
+      "verdict": "HIT"
+    },
+    "J-18": {
+      "value": {
+        "P": {
+          "data": 3,
+          "first_counts": {
+            "chain": {
+              "P1": null,
+              "P2": 8
+            },
+            "parity": {
+              "P1": null,
+              "P2": 8
+            }
+          },
+          "forms": 2,
+          "length": 8,
+          "prefix_pairs_in_two_classes": 0
+        },
+        "Q": {
+          "data": 4,
+          "first_counts": {
+            "residue_three": {
+              "Q1": null,
+              "Q2": 11
+            }
+          },
+          "forms": 3,
+          "length": 11,
+          "prefix_pairs_in_two_classes": 0
+        }
+      },
+      "verdict": "HIT"
+    },
+    "J-19": {
+      "value": "scored elsewhere: the receipt bytes, checked by --check and by test_iso_index.py",
+      "verdict": "ELSEWHERE"
+    },
+    "J-2": {
+      "value": "scored elsewhere: the committed Lean package, checked by verify_lean.py",
+      "verdict": "ELSEWHERE"
+    },
+    "J-20": {
+      "value": "scored elsewhere: receipts/lean_axioms.txt, checked by verify_lean.py",
+      "verdict": "ELSEWHERE"
+    },
+    "J-21": {
+      "value": "scored elsewhere: CLAIM_LEDGER.md, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "J-22": {
+      "value": "scored elsewhere: STATUS.md, measured by hand and recorded there",
+      "verdict": "ELSEWHERE"
+    },
+    "J-3": {
+      "value": "scored elsewhere: FWDEF_CENSUS.json, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "J-4": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "J-5": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "J-6": {
+      "value": "scored elsewhere: the committed Lean package, checked by verify_lean.py",
+      "verdict": "ELSEWHERE"
+    },
+    "J-7": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "J-8": {
+      "value": "scored elsewhere: CLAIM_LEDGER.md, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "J-9": {
+      "value": "scored elsewhere: FWDEF_CENSUS.json, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    }
+  },
+  "predictions_sha256": "dffe41d4084b7e5d56b2b5bcc8d34439a53969e5d10f8cb0f7c3225b6d7f2817",
+  "prompt_sha256": "833fb3b369636d7d166595442520032e2ce8540a6e1ff416968c6fc9e87802ab",
+  "renamed_supply_token": "<y>",
+  "reports": {
+    "automorphisms": {
+      "disagreements": 0,
+      "largest": 240,
+      "size_distribution": {
+        "1": 1120,
+        "12": 46,
+        "120": 10,
+        "2": 795,
+        "24": 33,
+        "240": 2,
+        "3": 2,
+        "4": 140,
+        "48": 4,
+        "6": 125,
+        "8": 39
+      },
+      "smallest": 1
+    },
+    "bases": {
+      "EMPTY": {
+        "distinct_regimes": 75,
+        "nodes": 577,
+        "replay_mismatches": 0
+      },
+      "F": {
+        "distinct_regimes": 1718,
+        "nodes": 14293,
+        "replay_mismatches": 0
+      },
+      "L": {
+        "distinct_regimes": 523,
+        "nodes": 3928,
+        "replay_mismatches": 0
+      }
+    },
+    "class_split": {
+      "classes": 402,
+      "classes_with_two_reached_members": 357,
+      "demand_procedure_disagreements": 0,
+      "orbit_misses_reached_status": 0,
+      "orbit_presentations_formed": 6128,
+      "orbit_split_classes": {
+        "chain": 61,
+        "free": 0,
+        "one_sided_total": 0,
+        "parity": 47,
+        "residue_three": 13,
+        "total_apart": 0,
+        "total_same": 0
+      },
+      "reached_split_classes": {
+        "chain": 61,
+        "free": 0,
+        "one_sided_total": 0,
+        "parity": 47,
+        "residue_three": 13,
+        "total_apart": 0,
+        "total_same": 0
+      },
+      "reached_split_witness": {
+        "chain": {
+          "carrying": {
+            "base": "F",
+            "history": [
+              "AdmitForm(1)",
+              "AdmitInst(0,[0])"
+            ],
+            "regime": {
+              "data": 3,
+              "forms": 1,
+              "insts": 1,
+              "reqs": 0,
+              "rules": 0
+            }
+          },
+          "quiet": {
+            "base": "F",
+            "history": [
+              "AdmitForm(1)",
+              "AdmitInst(0,[1])"
+            ],
+            "regime": {
+              "data": 3,
+              "forms": 1,
+              "insts": 1,
+              "reqs": 0,
+              "rules": 0
+            }
+          }
+        },
+        "free": null,
+        "one_sided_total": null,
+        "parity": {
+          "carrying": {
+            "base": "F",
+            "history": [
+              "AdmitForm(1)",
+              "AdmitInst(0,[0])"
+            ],
+            "regime": {
+              "data": 3,
+              "forms": 1,
+              "insts": 1,
+              "reqs": 0,
+              "rules": 0
+            }
+          },
+          "quiet": {
+            "base": "F",
+            "history": [
+              "AdmitForm(1)",
+              "AdmitInst(0,[1])"
+            ],
+            "regime": {
+              "data": 3,
+              "forms": 1,
+              "insts": 1,
+              "reqs": 0,
+              "rules": 0
+            }
+          }
+        },
+        "residue_three": {
+          "carrying": {
+            "base": "F",
+            "history": [
+              "AdmitDatum(<n0>)",
+              "AdmitForm(1)",
+              "AdmitForm(2)",
+              "AdmitInst(1,[0, 1])"
+            ],
+            "regime": {
+              "data": 4,
+              "forms": 2,
+              "insts": 1,
+              "reqs": 0,
+              "rules": 0
+            }
+          },
+          "quiet": {
+            "base": "F",
+            "history": [
+              "AdmitDatum(<n0>)",
+              "AdmitForm(1)",
+              "AdmitForm(2)",
+              "AdmitInst(1,[1, 2])"
+            ],
+            "regime": {
+              "data": 4,
+              "forms": 2,
+              "insts": 1,
+              "reqs": 0,
+              "rules": 0
+            }
+          }
+        },
+        "total_apart": null,
+        "total_same": null
+      }
+    },
+    "distinct_regimes": 2316,
+    "exhibited": {
+      "P": {
+        "data": 3,
+        "first_counts": {
+          "chain": {
+            "P1": null,
+            "P2": 8
+          },
+          "parity": {
+            "P1": null,
+            "P2": 8
+          }
+        },
+        "forms": 2,
+        "length": 8,
+        "prefix_pairs_in_two_classes": 0
+      },
+      "Q": {
+        "data": 4,
+        "first_counts": {
+          "residue_three": {
+            "Q1": null,
+            "Q2": 11
+          }
+        },
+        "forms": 3,
+        "length": 11,
+        "prefix_pairs_in_two_classes": 0
+      }
+    },
+    "key_partition_disagreements": 0,
+    "tokens": {
+      "fresh_tokens_reversed": true,
+      "renamed_supply_token": "<y>",
+      "sequences_whose_presentation_changed": 7849,
+      "sequences_with_a_moved_class": 0,
+      "sequences_with_a_moved_count": 0
+    },
+    "trajectory": {
+      "final_classes": 402,
+      "final_classes_with_two_counts": {
+        "chain": 19,
+        "free": 0,
+        "one_sided_total": 19,
+        "parity": 19,
+        "residue_three": 19,
+        "total_apart": 19,
+        "total_same": 226
+      },
+      "largest_trajectory_class": 72,
+      "sequences": 18798,
+      "trajectory_classes": 4368,
+      "trajectory_classes_with_two_members": 3042,
+      "trajectory_classes_with_varying_count": {
+        "chain": 0,
+        "free": 0,
+        "one_sided_total": 0,
+        "parity": 0,
+        "residue_three": 0,
+        "total_apart": 0,
+        "total_same": 0
+      }
+    }
+  },
+  "rung": "four",
+  "stakes": [
+    "free",
+    "total_apart",
+    "total_same",
+    "parity",
+    "residue_three",
+    "chain",
+    "one_sided_total"
+  ],
+  "write_root": "research/second_iso"
+}

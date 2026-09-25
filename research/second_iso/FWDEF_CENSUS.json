@@ -1,0 +1,351 @@
+{
+  "authority_effect": "None",
+  "classes": {
+    "R2F_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "R2F_wf": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "R2L_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "R2L_wf": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "admission_without_expressive_increase": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "chain_not_uniform": {
+      "class": "DEFINITION",
+      "module": "Countermodel.lean"
+    },
+    "colB_sound": {
+      "class": "THIN",
+      "module": "Check.lean"
+    },
+    "collapsed_fwd": {
+      "class": "RECONSTRUCTION",
+      "module": "IsoKernel.lean"
+    },
+    "collapsed_not_separable": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "collapsed_of_no_insts": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "collapsed_of_not_separable": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "collapsed_of_unary": {
+      "class": "CONTENT",
+      "module": "Check.lean"
+    },
+    "collapsed_symm": {
+      "class": "DEFINITION",
+      "module": "Transport.lean"
+    },
+    "collapsed_transport": {
+      "class": "RECONSTRUCTION",
+      "module": "IsoKernel.lean"
+    },
+    "demandCheck_sound": {
+      "class": "THIN",
+      "module": "Check.lean"
+    },
+    "demand_not_class_invariant": {
+      "class": "DEFINITION",
+      "module": "Countermodel.lean"
+    },
+    "demand_transport": {
+      "class": "CONTENT",
+      "module": "Transport.lean"
+    },
+    "demands_subset_labelled": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "derivable_imap": {
+      "class": "RECONSTRUCTION",
+      "module": "IsoKernel.lean"
+    },
+    "dishonourCheck_sound": {
+      "class": "THIN",
+      "module": "Check.lean"
+    },
+    "dmap_inj": {
+      "class": "THIN",
+      "module": "Transport.lean"
+    },
+    "first_count_not_trajectory_invariant": {
+      "class": "DEFINITION",
+      "module": "Countermodel.lean"
+    },
+    "first_demand_matched_of_uniform": {
+      "class": "THIN",
+      "module": "Trajectory.lean"
+    },
+    "first_demand_renameSupply": {
+      "class": "THIN",
+      "module": "Trajectory.lean"
+    },
+    "first_demand_transport": {
+      "class": "CONTENT",
+      "module": "Trajectory.lean"
+    },
+    "first_demand_unique": {
+      "class": "RECONSTRUCTION",
+      "module": "IndexSlice.lean"
+    },
+    "free_stake_no_demand": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "genesis_underivable": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "hasDemand_iff_of_uniform": {
+      "class": "THIN",
+      "module": "Transport.lean"
+    },
+    "hasDemand_transport_of_uniform": {
+      "class": "THIN",
+      "module": "Transport.lean"
+    },
+    "historyF_replays": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "historyL_replays": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "honourCheck_sound": {
+      "class": "THIN",
+      "module": "Check.lean"
+    },
+    "honour_symm": {
+      "class": "THIN",
+      "module": "Transport.lean"
+    },
+    "honour_transport": {
+      "class": "THIN",
+      "module": "Transport.lean"
+    },
+    "index_P2_chain": {
+      "class": "THIN",
+      "module": "Countermodel.lean"
+    },
+    "index_P2_parity": {
+      "class": "THIN",
+      "module": "Countermodel.lean"
+    },
+    "index_Q2_residue": {
+      "class": "THIN",
+      "module": "Countermodel.lean"
+    },
+    "index_of_check": {
+      "class": "THIN",
+      "module": "Check.lean"
+    },
+    "insertNew_nil": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "insertNew_of_mem": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "insertNew_of_not_mem": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "iso_index": {
+      "class": "DEFINITION",
+      "module": "Countermodel.lean"
+    },
+    "labelled_cases": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "map_eq_self_of_mem": {
+      "class": "RECONSTRUCTION",
+      "module": "IsoKernel.lean"
+    },
+    "matched_P": {
+      "class": "THIN",
+      "module": "Countermodel.lean"
+    },
+    "matched_Q": {
+      "class": "THIN",
+      "module": "Countermodel.lean"
+    },
+    "matched_symm": {
+      "class": "THIN",
+      "module": "Trajectory.lean"
+    },
+    "mem_insertNew": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "noDemandCheck_sound": {
+      "class": "THIN",
+      "module": "Check.lean"
+    },
+    "no_index_of_check": {
+      "class": "THIN",
+      "module": "Check.lean"
+    },
+    "parity_not_uniform": {
+      "class": "DEFINITION",
+      "module": "Countermodel.lean"
+    },
+    "plug_args_lt": {
+      "class": "RECONSTRUCTION",
+      "module": "IsoKernel.lean"
+    },
+    "plug_cmap": {
+      "class": "RECONSTRUCTION",
+      "module": "IsoKernel.lean"
+    },
+    "quiet_P1_chain": {
+      "class": "THIN",
+      "module": "Countermodel.lean"
+    },
+    "quiet_P1_parity": {
+      "class": "THIN",
+      "module": "Countermodel.lean"
+    },
+    "quiet_Q1_residue": {
+      "class": "THIN",
+      "module": "Countermodel.lean"
+    },
+    "quiet_before_the_index": {
+      "class": "RECONSTRUCTION",
+      "module": "IndexSlice.lean"
+    },
+    "related_of_relBy": {
+      "class": "DEFINITION",
+      "module": "Check.lean"
+    },
+    "related_some_left": {
+      "class": "DEFINITION",
+      "module": "Trajectory.lean"
+    },
+    "related_symm": {
+      "class": "THIN",
+      "module": "Trajectory.lean"
+    },
+    "replayE_append": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "replayE_renameSupply": {
+      "class": "THIN",
+      "module": "Trajectory.lean"
+    },
+    "residue_not_uniform": {
+      "class": "DEFINITION",
+      "module": "Countermodel.lean"
+    },
+    "sepB_sound": {
+      "class": "THIN",
+      "module": "Check.lean"
+    },
+    "separable_fwd": {
+      "class": "THIN",
+      "module": "Transport.lean"
+    },
+    "separable_not_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "separable_of_unary_witness": {
+      "class": "DEFINITION",
+      "module": "Check.lean"
+    },
+    "separable_symm": {
+      "class": "DEFINITION",
+      "module": "Transport.lean"
+    },
+    "separable_transport": {
+      "class": "THIN",
+      "module": "Transport.lean"
+    },
+    "stake_irrefl": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "stateAt_full": {
+      "class": "RECONSTRUCTION",
+      "module": "IndexSlice.lean"
+    },
+    "stateAt_renameSupply": {
+      "class": "THIN",
+      "module": "Trajectory.lean"
+    },
+    "stateAt_zero": {
+      "class": "RECONSTRUCTION",
+      "module": "IndexSlice.lean"
+    },
+    "stepE_renameSupply": {
+      "class": "DEFINITION",
+      "module": "Trajectory.lean"
+    },
+    "supply_no_op": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "symm_dmap": {
+      "class": "RECONSTRUCTION",
+      "module": "IsoKernel.lean"
+    },
+    "unary_ctx_slots": {
+      "class": "CONTENT",
+      "module": "Check.lean"
+    },
+    "underivable_of_empty": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "uniform_allApart": {
+      "class": "DEFINITION",
+      "module": "Transport.lean"
+    },
+    "uniform_allSame": {
+      "class": "DEFINITION",
+      "module": "Transport.lean"
+    },
+    "uniform_freeStake": {
+      "class": "DEFINITION",
+      "module": "Transport.lean"
+    },
+    "uniform_preserved": {
+      "class": "THIN",
+      "module": "Transport.lean"
+    },
+    "wfCtx_cmap": {
+      "class": "RECONSTRUCTION",
+      "module": "IsoKernel.lean"
+    }
+  },
+  "counts": {
+    "CONTENT": 4,
+    "DEFINITION": 15,
+    "RECONSTRUCTION": 35,
+    "THIN": 30
+  },
+  "long_but_definitional": {
+    "iso_index": "Twenty-three lines of which the statement is twenty and the proof is five: a five-clause conjunction, each clause quoted from a theorem proved elsewhere in the package and applied by name.  Its length measures the number of clauses, not the amount of work, so the line bound is the wrong instrument here.  The exception is listed rather than the bound raised, so that it is visible and countable; test_census.py requires this list to stay at or below one entry."
+  },
+  "note": "The FW-DEF census of this rung, TOTAL over every theorem of the package. The four classes are rung three's, with rung three's meanings. RECONSTRUCTION: not this rung's work, reproduced verbatim under a pin -- every theorem of Kernel.lean, IsoKernel.lean, Inherited.lean and IndexSlice.lean. DEFINITION: true by unfolding, by rfl, by a projection, by one rewrite, by kernel computation over a concrete regime, by pure case exhaustion, or by assembling neighbours into a conjunction or an existential; never counted as content. THIN: one genuine step, or a direct corollary of a neighbour, including a kernel computation read through a neighbour's soundness; counted apart from CONTENT so the headline is not inflated by one-liners. CONTENT: everything else. test_census.py checks this file is total over the package in both directions, that no row classed DEFINITION has a long proof outside long_but_definitional, and that the classes here are scored against the frozen prediction in PREDICTIONS.md."
+}

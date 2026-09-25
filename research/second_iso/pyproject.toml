@@ -1,0 +1,14 @@
+# Tree-local config.  The root pyproject scopes mypy and coverage to
+# code/, so this tree is outside both unless run from here.
+[tool.mypy]
+python_version = "3.14"
+strict = true
+mypy_path = "../../code:../../ci:../identification_dual:../two_sided_commitment:../second_nofirst:../second_index"
+files = ["."]
+
+# The measured set of this rung, declared here and asserted again by
+# check_coverage.py, so the configuration and the gate cannot drift apart.
+# The two exclusions and their reasons are recorded in check_coverage.py.
+[tool.coverage.run]
+branch = true
+include = ["iso_index.py", "run_iso_index.py", "verify_pins.py"]

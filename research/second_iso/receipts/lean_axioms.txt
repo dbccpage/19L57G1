@@ -1,0 +1,84 @@
+SecondIso.Check.colB_sound :: Quot.sound propext
+SecondIso.Check.collapsed_of_unary :: Quot.sound propext
+SecondIso.Check.demandCheck_sound :: Quot.sound propext
+SecondIso.Check.dishonourCheck_sound :: Quot.sound propext
+SecondIso.Check.honourCheck_sound :: Quot.sound propext
+SecondIso.Check.index_of_check :: Quot.sound propext
+SecondIso.Check.noDemandCheck_sound :: Quot.sound propext
+SecondIso.Check.no_index_of_check :: Quot.sound propext
+SecondIso.Check.related_of_relBy :: propext
+SecondIso.Check.sepB_sound :: Quot.sound propext
+SecondIso.Check.separable_of_unary_witness :: Quot.sound propext
+SecondIso.Check.unary_ctx_slots :: Quot.sound propext
+SecondIso.Countermodel.chain_not_uniform :: none
+SecondIso.Countermodel.demand_not_class_invariant :: Quot.sound propext
+SecondIso.Countermodel.first_count_not_trajectory_invariant :: Quot.sound propext
+SecondIso.Countermodel.index_P2_chain :: Quot.sound propext
+SecondIso.Countermodel.index_P2_parity :: Quot.sound propext
+SecondIso.Countermodel.index_Q2_residue :: Quot.sound propext
+SecondIso.Countermodel.iso_index :: Quot.sound propext
+SecondIso.Countermodel.matched_P :: Quot.sound propext
+SecondIso.Countermodel.matched_Q :: Quot.sound propext
+SecondIso.Countermodel.parity_not_uniform :: propext
+SecondIso.Countermodel.quiet_P1_chain :: Quot.sound propext
+SecondIso.Countermodel.quiet_P1_parity :: Quot.sound propext
+SecondIso.Countermodel.quiet_Q1_residue :: Quot.sound propext
+SecondIso.Countermodel.residue_not_uniform :: propext
+SecondIso.IndexSlice.first_demand_unique :: Quot.sound propext
+SecondIso.IndexSlice.quiet_before_the_index :: propext
+SecondIso.IndexSlice.stateAt_full :: propext
+SecondIso.IndexSlice.stateAt_zero :: propext
+SecondIso.Inherited.collapsed_not_separable :: propext
+SecondIso.Inherited.collapsed_of_not_separable :: Quot.sound propext
+SecondIso.Inherited.demands_subset_labelled :: propext
+SecondIso.Inherited.free_stake_no_demand :: propext
+SecondIso.Inherited.labelled_cases :: propext
+SecondIso.Inherited.stake_irrefl :: propext
+SecondIso.Sealed.Iso.collapsed_fwd :: Quot.sound propext
+SecondIso.Sealed.Iso.collapsed_transport :: Quot.sound propext
+SecondIso.Sealed.Iso.derivable_imap :: Quot.sound propext
+SecondIso.Sealed.Iso.plug_cmap :: Quot.sound propext
+SecondIso.Sealed.Iso.symm_dmap :: Quot.sound propext
+SecondIso.Sealed.Iso.wfCtx_cmap :: Quot.sound propext
+SecondIso.Sealed.R2F_collapsed :: propext
+SecondIso.Sealed.R2F_wf :: Quot.sound propext
+SecondIso.Sealed.R2L_collapsed :: propext
+SecondIso.Sealed.R2L_wf :: Quot.sound propext
+SecondIso.Sealed.admission_without_expressive_increase :: propext
+SecondIso.Sealed.collapsed_of_no_insts :: propext
+SecondIso.Sealed.genesis_underivable :: none
+SecondIso.Sealed.historyF_replays :: propext
+SecondIso.Sealed.historyL_replays :: propext
+SecondIso.Sealed.insertNew_nil :: propext
+SecondIso.Sealed.insertNew_of_mem :: propext
+SecondIso.Sealed.insertNew_of_not_mem :: propext
+SecondIso.Sealed.map_eq_self_of_mem :: propext
+SecondIso.Sealed.mem_insertNew :: propext
+SecondIso.Sealed.plug_args_lt :: Quot.sound propext
+SecondIso.Sealed.replayE_append :: Quot.sound propext
+SecondIso.Sealed.separable_not_collapsed :: propext
+SecondIso.Sealed.supply_no_op :: propext
+SecondIso.Sealed.underivable_of_empty :: none
+SecondIso.Trajectory.first_demand_matched_of_uniform :: Quot.sound propext
+SecondIso.Trajectory.first_demand_renameSupply :: Quot.sound propext
+SecondIso.Trajectory.first_demand_transport :: Quot.sound propext
+SecondIso.Trajectory.matched_symm :: Quot.sound propext
+SecondIso.Trajectory.related_some_left :: propext
+SecondIso.Trajectory.related_symm :: Quot.sound propext
+SecondIso.Trajectory.replayE_renameSupply :: propext
+SecondIso.Trajectory.stateAt_renameSupply :: propext
+SecondIso.Trajectory.stepE_renameSupply :: propext
+SecondIso.Transport.collapsed_symm :: propext
+SecondIso.Transport.demand_transport :: Quot.sound propext
+SecondIso.Transport.dmap_inj :: Quot.sound propext
+SecondIso.Transport.hasDemand_iff_of_uniform :: Quot.sound propext
+SecondIso.Transport.hasDemand_transport_of_uniform :: Quot.sound propext
+SecondIso.Transport.honour_symm :: propext
+SecondIso.Transport.honour_transport :: Quot.sound propext
+SecondIso.Transport.separable_fwd :: Quot.sound propext
+SecondIso.Transport.separable_symm :: propext
+SecondIso.Transport.separable_transport :: Quot.sound propext
+SecondIso.Transport.uniform_allApart :: propext
+SecondIso.Transport.uniform_allSame :: propext
+SecondIso.Transport.uniform_freeStake :: none
+SecondIso.Transport.uniform_preserved :: propext

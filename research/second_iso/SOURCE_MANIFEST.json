@@ -1,0 +1,194 @@
+{
+  "authority_effect": "None",
+  "rung": "four: the first-demand index up to the implemented isomorphism",
+  "snapshot_commit": "bdbe583289fd641e7399d46bf8769d8101efc3cc",
+  "snapshot_note": "Pinned at the tip of main this branch was cut from, which is an ancestor of HEAD.",
+  "sources": [
+    {
+      "path": "code/derivation/model.py",
+      "sha256": "6A7FD2BA9688D47E9291514C623A811CDE3C6B9E8FDA1D12A608DC9BB0B1F3C2",
+      "note": "sealed regime and events, consumed read-only by iso_index.py"
+    },
+    {
+      "path": "code/derivation/engine.py",
+      "sha256": "23803A3DCCE2ADF0DEE623CABA33791D41A25D2DA3FDFD226DA3CAD2EE140B5E",
+      "note": "sealed genesis readings, consumed read-only through rung three"
+    },
+    {
+      "path": "code/derivation/observe.py",
+      "sha256": "78443D67E613D9CC9924538FE2E0A5ACAF81F4654440BFE8586E16652F0317BA",
+      "note": "sealed profiles, consumed read-only by the second demand procedure"
+    },
+    {
+      "path": "code/derivation/iso.py",
+      "sha256": "B0F1F3BCF05126111A07706F4388A9FFF5E30455D4B8F127966CF99AB0D0886E",
+      "note": "sealed key procedure, brute-force minimum, automorphisms and renaming helper, consumed read-only"
+    },
+    {
+      "path": "lean4/Derivation/Basic.lean",
+      "sha256": "1520B392F4061AF568E00CA4FD235FEB03FACF6D3612C030C1D60018539E3EED",
+      "note": "sealed kernel: reconstructed verbatim in lean/SecondIso/Kernel.lean"
+    },
+    {
+      "path": "lean4/Derivation/Inertia.lean",
+      "sha256": "C62615CB3757474D20348F6507B8DEA4E2DE3E3A02268909194A2D0736BBE5CE",
+      "note": "sealed inertia: reconstructed verbatim in lean/SecondIso/Kernel.lean"
+    },
+    {
+      "path": "lean4/Derivation/Minimality.lean",
+      "sha256": "647E56FEE0F00F27E60FBE70BC8296083F075C48B40009979064C443744BC778",
+      "note": "sealed isomorphism structure: reconstructed verbatim in lean/SecondIso/IsoKernel.lean"
+    },
+    {
+      "path": "lean4/Derivation/IsoCollapse.lean",
+      "sha256": "0C4B5EDCA0F0F28105ACF76C757BBBDBC617C555D168D68DEB37E590E016E6E6",
+      "note": "sealed collapse transport, a parked module: reconstructed verbatim in lean/SecondIso/IsoKernel.lean"
+    },
+    {
+      "path": "research/second_nofirst/nofirst.py",
+      "sha256": "14951DF2CF163093D02465958CBF63A579A841B2422CF935B50A52A37133A90B",
+      "note": "the track-one sibling's rectangle, stakes and demand procedure, consumed through rung three and never copied"
+    },
+    {
+      "path": "research/second_nofirst/lean/SecondNoFirst/Stake.lean",
+      "sha256": "507B61BFF053FD940A7EA810D483F6EE5FDBC27E582BB6F6A7C9B66E76C9ECB8",
+      "note": "label, stake, honour and demand: reconstructed verbatim in lean/SecondIso/Inherited.lean"
+    },
+    {
+      "path": "research/second_nofirst/lean/SecondNoFirst/NoFirst.lean",
+      "sha256": "CFF00322C23D477CE73E9277F3BB22E9069329AD0F1454050F77F32AD652B5D1",
+      "note": "collapse against separability: reconstructed verbatim in lean/SecondIso/Inherited.lean"
+    },
+    {
+      "path": "research/two_sided_commitment/two_sided.py",
+      "sha256": "5AC587C2FDCB8057EC333A7FEF880B8E7C3EE6603432EBCD00947A158186C1CB",
+      "note": "the five declared two-sided stakes, consumed transitively"
+    },
+    {
+      "path": "research/second_index/index.py",
+      "sha256": "7F904AB9E6DE5A8B7D092036004E11406E3A3844882A14C03E033ABE348C0315",
+      "note": "rung three's rectangle and first-count procedure, consumed through its public functions and never copied"
+    },
+    {
+      "path": "research/second_index/receipts/index.json",
+      "sha256": "819000CC7D8D788A4D1AFF5C504445CC7B8967B7808FCC2538781F9F0AFA2D9A",
+      "note": "rung three's receipt whose sequence counts this rung replays"
+    },
+    {
+      "path": "research/second_index/lean/SecondIndex/Index.lean",
+      "sha256": "A6458915090BB1ACD3A93052F3FE16FFD7C0DCAF6BB6C5F2241ACFFF24CD9E11",
+      "note": "prefix reading and first count: reconstructed verbatim in lean/SecondIso/IndexSlice.lean"
+    },
+    {
+      "path": "research/second_index/STATUS.md",
+      "sha256": "88591675E59DD079384CCB63EEE74FADB4F1F11462C1FD80603BFE50850DE6FC",
+      "note": "rung three's leftover list, from which this rung's question is taken by the seed's rule"
+    },
+    {
+      "path": "research/second/SEED.md",
+      "sha256": "52439E5F75D1C599CE52DC716BEB88F1DD7BFC83856EE73CE85F3A7EEEC5E70E",
+      "note": "the seed of the second derivation"
+    },
+    {
+      "path": "research/second/PLAN.md",
+      "sha256": "36B66D7E819B7BC03FE51E2932A102E6E685F4589C68B99773D8C502BAC8D96D",
+      "note": "the plan of the second derivation"
+    }
+  ],
+  "spans": [
+    {
+      "path": "lean4/Derivation/Basic.lean",
+      "first_line": 20,
+      "last_line": 167,
+      "sha256": "3b9f40cb602833df8068f5a6cfc43b66802c9d87edb8f3a54f80fe40673a3d7d",
+      "note": "the reconstructed sealed slice: judgment instances through replay"
+    },
+    {
+      "path": "lean4/Derivation/Basic.lean",
+      "first_line": 202,
+      "last_line": 215,
+      "sha256": "079e225971ab8cadbec235ed3b45f97afee7be8121ff52c77c5a712d3e12ed72",
+      "note": "the reconstructed sealed reading regimes R2L and R2F"
+    },
+    {
+      "path": "lean4/Derivation/Inertia.lean",
+      "first_line": 13,
+      "last_line": 92,
+      "sha256": "75dec8e73f988a9de0c81a64bf5fc5e23087497eb0fc460b6872235e6192f560",
+      "note": "the reconstructed sealed inertia slice, genesis through replayE_append"
+    },
+    {
+      "path": "lean4/Derivation/Minimality.lean",
+      "first_line": 169,
+      "last_line": 224,
+      "sha256": "4856138d73612b815c15b6c25eb50b6289365b20826a3b5d610aedc46ca877ba",
+      "note": "the reconstructed sortPair, Iso, isoRefl and swap01"
+    },
+    {
+      "path": "lean4/Derivation/IsoCollapse.lean",
+      "first_line": 32,
+      "last_line": 176,
+      "sha256": "72ba6dbccd9f47df8bfcdaf0484aeae20c6ac75583f2353aff87d07672bbc4fc",
+      "note": "the reconstructed inverse isomorphism, images and collapse transport"
+    },
+    {
+      "path": "research/second_nofirst/lean/SecondNoFirst/Stake.lean",
+      "first_line": 41,
+      "last_line": 123,
+      "sha256": "b17e973e6da06c5d0469ff92bcc7447da986db35b1a5bba0f76a6c2de2a1f327",
+      "note": "the reconstructed label, stake, honour and demand predicate"
+    },
+    {
+      "path": "research/second_nofirst/lean/SecondNoFirst/NoFirst.lean",
+      "first_line": 191,
+      "last_line": 203,
+      "sha256": "1d72d67a464598abbc19b00d39d29bfbab93bc29fade7bf9a5d9bcab51b5df70",
+      "note": "the reconstructed collapsed_not_separable and collapsed_of_not_separable"
+    },
+    {
+      "path": "research/second_index/lean/SecondIndex/Index.lean",
+      "first_line": 43,
+      "last_line": 61,
+      "sha256": "c6238fb57ad13e5a095a6447511a20692172c58350390fe4002a8e7fc16a79f6",
+      "note": "the reconstructed stateAt and its values at zero and at full length"
+    },
+    {
+      "path": "research/second_index/lean/SecondIndex/Index.lean",
+      "first_line": 83,
+      "last_line": 120,
+      "sha256": "07b28197180178f3e1c8f3a96ca8e9e0fcf596f1f6758d3b128639ac8a0327da",
+      "note": "the reconstructed HasDemand, IsFirstDemand, quiet_before_the_index and first_demand_unique"
+    },
+    {
+      "path": "research/second_index/STATUS.md",
+      "first_line": 152,
+      "last_line": 156,
+      "sha256": "a5d76daac34952f566db55c0949acfc2890f54723dc3fb8a6e2e0cd9aa23862a",
+      "note": "the leftover this rung takes, quoted verbatim in CLAIM_LEDGER.md and never edited"
+    },
+    {
+      "path": "research/second_index/STATUS.md",
+      "first_line": 290,
+      "last_line": 294,
+      "sha256": "3ec9d5e2bd8c94d0808a7e6b7d65c90d12e805675b46243eb8f60df365ca41b2",
+      "note": "rung three's own application of the next-rung rule and the leftover it selects"
+    }
+  ],
+  "absent_at_snapshot": [
+    {
+      "path": "research/second_iso",
+      "present_at_snapshot": false,
+      "pull_request": "not opened at the snapshot: this rung's own tree did not exist there"
+    }
+  ],
+  "frozen_texts": [
+    {
+      "path": "research/second_iso/PROMPT.md",
+      "sha256": "833fb3b369636d7d166595442520032e2ce8540a6e1ff416968c6fc9e87802ab"
+    },
+    {
+      "path": "research/second_iso/PREDICTIONS.md",
+      "sha256": "dffe41d4084b7e5d56b2b5bcc8d34439a53969e5d10f8cb0f7c3225b6d7f2817"
+    }
+  ]
+}
