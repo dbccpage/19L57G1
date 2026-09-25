@@ -96,7 +96,7 @@
     },
     {
       "path": "ci/prose_watchlist.json",
-      "sha256": "c3e617d34220255ad25b56a12963c09d6c3ff8c5f9f5386f7bab162a20b5846b"
+      "sha256": "393d14b257be74c261502f730c1433836a016027a20fc9791088e973265b8666"
     },
     {
       "path": "ci/check_prose_watchlist.py",
