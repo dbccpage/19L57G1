@@ -1,0 +1,33 @@
+SecondDuration.Gaps.gap_not_from_genesis :: Quot.sound propext
+SecondDuration.Gaps.gap_splits :: propext
+SecondDuration.Gaps.lead_splits :: propext
+SecondDuration.Gaps.pinned_by_requirement :: Quot.sound propext
+SecondDuration.Gaps.segment_not_given_base :: Quot.sound propext
+SecondDuration.Gaps.tail_forced :: Quot.sound propext
+SecondDuration.Rounds.after_le_rest :: Quot.sound propext
+SecondDuration.Rounds.growths_counted :: Quot.sound propext
+SecondDuration.Rounds.growths_given_base :: Quot.sound propext
+SecondDuration.Rounds.insertNew_grows :: propext
+SecondDuration.Rounds.naming_bounded :: Quot.sound propext
+SecondDuration.Rounds.naming_step :: Quot.sound propext
+SecondDuration.Rounds.replayE_cons :: propext
+SecondDuration.Rounds.rest_counted :: Quot.sound propext
+SecondDuration.Rounds.rest_given_base :: Quot.sound propext
+SecondDuration.Rounds.step_parts :: Quot.sound propext
+SecondDuration.Sealed.R2F_collapsed :: propext
+SecondDuration.Sealed.R2F_wf :: Quot.sound propext
+SecondDuration.Sealed.R2L_collapsed :: propext
+SecondDuration.Sealed.R2L_wf :: Quot.sound propext
+SecondDuration.Sealed.admission_without_expressive_increase :: propext
+SecondDuration.Sealed.collapsed_of_no_insts :: propext
+SecondDuration.Sealed.genesis_underivable :: none
+SecondDuration.Sealed.historyF_replays :: propext
+SecondDuration.Sealed.historyL_replays :: propext
+SecondDuration.Sealed.insertNew_nil :: propext
+SecondDuration.Sealed.insertNew_of_mem :: propext
+SecondDuration.Sealed.insertNew_of_not_mem :: propext
+SecondDuration.Sealed.mem_insertNew :: propext
+SecondDuration.Sealed.replayE_append :: Quot.sound propext
+SecondDuration.Sealed.separable_not_collapsed :: propext
+SecondDuration.Sealed.supply_no_op :: propext
+SecondDuration.Sealed.underivable_of_empty :: none

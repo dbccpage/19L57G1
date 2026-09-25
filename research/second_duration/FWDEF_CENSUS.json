@@ -1,0 +1,145 @@
+{
+  "authority_effect": "None",
+  "classes": {
+    "R2F_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "R2F_wf": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "R2L_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "R2L_wf": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "admission_without_expressive_increase": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "after_le_rest": {
+      "class": "THIN",
+      "module": "Rounds.lean"
+    },
+    "collapsed_of_no_insts": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "gap_not_from_genesis": {
+      "class": "THIN",
+      "module": "Gaps.lean"
+    },
+    "gap_splits": {
+      "class": "DEFINITION",
+      "module": "Gaps.lean"
+    },
+    "genesis_underivable": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "growths_counted": {
+      "class": "CONTENT",
+      "module": "Rounds.lean"
+    },
+    "growths_given_base": {
+      "class": "THIN",
+      "module": "Rounds.lean"
+    },
+    "historyF_replays": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "historyL_replays": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "insertNew_grows": {
+      "class": "THIN",
+      "module": "Rounds.lean"
+    },
+    "insertNew_nil": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "insertNew_of_mem": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "insertNew_of_not_mem": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "lead_splits": {
+      "class": "DEFINITION",
+      "module": "Gaps.lean"
+    },
+    "mem_insertNew": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "naming_bounded": {
+      "class": "THIN",
+      "module": "Rounds.lean"
+    },
+    "naming_step": {
+      "class": "CONTENT",
+      "module": "Rounds.lean"
+    },
+    "pinned_by_requirement": {
+      "class": "THIN",
+      "module": "Gaps.lean"
+    },
+    "replayE_append": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "replayE_cons": {
+      "class": "DEFINITION",
+      "module": "Rounds.lean"
+    },
+    "rest_counted": {
+      "class": "CONTENT",
+      "module": "Rounds.lean"
+    },
+    "rest_given_base": {
+      "class": "THIN",
+      "module": "Rounds.lean"
+    },
+    "segment_not_given_base": {
+      "class": "THIN",
+      "module": "Gaps.lean"
+    },
+    "separable_not_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "step_parts": {
+      "class": "THIN",
+      "module": "Rounds.lean"
+    },
+    "supply_no_op": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "tail_forced": {
+      "class": "THIN",
+      "module": "Gaps.lean"
+    },
+    "underivable_of_empty": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    }
+  },
+  "counts": {
+    "CONTENT": 3,
+    "DEFINITION": 3,
+    "RECONSTRUCTION": 17,
+    "THIN": 10
+  },
+  "long_but_definitional": {},
+  "note": "The FW-DEF census of this rung, TOTAL over every theorem of the package. The four classes are rung six's, with rung six's meanings. RECONSTRUCTION: not this rung's work, reproduced verbatim under a pin -- every theorem of Kernel.lean. DEFINITION: true by unfolding, by rfl, by a projection, by one rewrite, by kernel computation over concrete histories, or by pure case exhaustion; never counted as content. THIN: one genuine step, or a direct corollary of a neighbour; counted apart from CONTENT so the headline is not inflated by one-liners. CONTENT: everything else. The rule applied to the inductions over histories, stated so it can be checked against rung six's precedent: an induction whose step needs a case analysis on the shape of the step (growth, rest round, no change) is CONTENT, as rung six classed changes_counted; an induction closed by a step lemma and arithmetic alone is THIN, as rung six classed changes_le_admitting. So growths_counted and rest_counted are CONTENT, and naming_bounded and after_le_rest are THIN. step_parts is a six-way case exhaustion with one length rewrite per case, THIN as rung six classed its step_grows. naming_step is a six-way case exhaustion too, but two of its cases carry the argument the lower bound rests on -- a new instance or requirement naming t or later names an admitted datum, so the regime already has more than t data, and the round is a rest round -- which is more than a length rewrite; it is CONTENT. These three classifications differ from the frozen prediction (growths_counted and naming_step promoted from THIN, naming_bounded demoted from CONTENT) and are recorded as misses in STATUS.md; the prediction is not edited. replayE_cons and insertNew_grows repeat, as statements, rung six's lemmas of the same names and are proved again here so that the package imports nothing; the statements are rung six's and are not counted as new to the run. test_census.py checks this file is total over the package in both directions, that no row classed DEFINITION has a long proof outside long_but_definitional, and that the classes here are scored against the frozen prediction in PREDICTIONS.md."
+}

@@ -434,3 +434,74 @@ are the right mathematical objects, or that the count up to the
 isomorphism behaves beyond the rectangle as it does inside it: the Lean of
 this rung never mentions the isomorphism, and the class-level answer is a
 finite computation until Z-1 is proved.
+
+## Session handoff, rung seven (2026-09-25)
+
+**Read at the start of a session; written at the end of one.**  As the
+earlier handoffs say, the next rung is carried in the LAST rung's
+`STATUS.md`, and this section says where to look rather than copying it.
+
+- The rungs on `main` at this session's start (`d6dca750`) are rung zero
+  (`second_inheritance`), rung one (`second_stream`), rung two track two
+  (`second_stake`), rung two track one (`second_nofirst`), rung three
+  (`second_index`), rung four (`second_iso`), rung five
+  (`second_symmetry`) and rung six (`second_succession`).  Rung seven
+  (`second_duration`) is this session's, and is not merged by an agent.
+- The next rung is named at the end of
+  `research/second_duration/STATUS.md`, under "The next rung, named so it
+  cannot be smuggled in later": Z-1, the element count across the
+  isomorphism.
+- **The refinement reading, applied to the carried rows.**  Rung six
+  recorded that a leftover refining a decided row is not eligible, but
+  kept Y-1 eligible for a row it had itself decided.  This rung applied
+  the reading to every carried row and marked Y-1 ineligible, saying so in
+  its table.  Had it not, Y-1 and Z-1 would tie at moderate, and "named
+  first" would have had to be read as first in time or first in the list;
+  that reading is still undeclared and is left for the author.
+- **A frozen census prediction can miss by a rule applied afterwards.**
+  Three FW-DEF classes differ from the frozen prediction.  The rule that
+  decided them is written into the census note, with the rung-six
+  precedent it follows, and `test_census.py` names each miss with its
+  direction; a later reclassification fails there by name.
+- **Shell heredocs are not safe for generator scripts on this machine.**
+  Two generator scripts passed through a Bash heredoc were truncated or
+  had their backslash escapes altered before Python saw them.  Write such
+  a script to the scratchpad as a file and run the file.
+- One rung per session at most.  Never merge a rung; the author merges.
+- Before writing anything in a new rung: freeze `PROMPT.md` by hash and
+  commit it, then freeze `PREDICTIONS.md` by hash and commit it, then
+  compute.  The commits are the evidence of the order.
+
+## Injection record, rung seven (2026-09-25)
+
+Twelve injections, each minimal and reversible, none live while any
+receipt was regenerated.  All were run in a throwaway worktree detached at
+`6cdfbbae`, the rung branch's head at the time, by one script that edited
+with line endings preserved and checked each recovery; the worktree was
+clean after the last reversal and was then removed.  Every one names the
+object it was given.
+
+<!-- markdownlint-disable MD013 -->
+
+| rung | gate | injection | observed failure |
+|---|---|---|---|
+| 7 | frozen-text pin (`second_duration/verify_pins.py`) | one line appended to `PROMPT.md` in a throwaway commit `c1ca5181` on top of `6cdfbbae` | `FAIL: frozen text moved: research/second_duration/PROMPT.md: expected 90ee1d22..., got 731ce6d3...`, exit 1; after `git reset --hard HEAD~1`, exit 0 |
+| 7 | span pin (same verifier) | the W-1 span's `last_line` moved from 167 to 168 in `SOURCE_MANIFEST.json`, uncommitted | `FAIL: span mismatch at the snapshot for research/second_succession/STATUS.md:161-168: expected c71eb45b..., got 18814e16...`, exit 1; exit 0 after restoring the manifest |
+| 7 | receipt comparison (`run_duration.py --check`) | `"vector_split_regimes": 47` in `receipts/duration.json` changed to 48 | `FAIL: ...receipts\duration.json differs from a fresh run`, exit 1; exit 0 after restoring the bytes.  The check writes nothing |
+| 7 | Lean axiom whitelist (`second_duration/verify_lean.py`) | a theorem `zzz_probe_choice` proved by `Classical.em`, appended to `Gaps.lean` with its report line | three failures naming it: no FW-DEF row; `depends on disallowed axioms ['Classical.choice']`; a fresh report the committed log lacks; exit 1, then `lean audit clean: 6 sources, 33 axiom reports` |
+| 7 | Lean compiler census (same verifier) | the `#print axioms` line for `SecondDuration.Rounds.naming_bounded` deleted from `AxiomReport.lean` | `FAIL: compiler declaration SecondDuration.Rounds.naming_bounded has no fresh #print axioms report`, exit 1; exit 0 after restoring |
+| 7 | FW-DEF census totality (`test_census.py`) | the `naming_bounded` row deleted and the THIN count decremented | `AssertionError: Lists differ: ['naming_bounded'] != []` from the totality and axiom-log tests, and the dated-count and prediction tests naming it; exit 1, then OK |
+| 7 | reconstruction comparison (`test_reconstruction.py`) | the binder of the reconstructed sealed `collapsed` renamed from `d d'` to `d dd` in `Kernel.lean` | `AssertionError: Lists differ: ['lean4/Derivation/Basic.lean -> Kernel.lean: collapsed'] != []`, exit 1; OK after restoring.  The comparison reads the sealed blob AT THE SNAPSHOT |
+| 7 | prose census over the write root (`test_forbidden.py`) | a probe `zz_probe.md` in the write root carrying the one term whose watchlist digest begins `67671a2f`, confirmed watched by `ci/check_prose_watchlist.py --probe` | `AssertionError: Lists differ: ['research/second_duration/zz_probe.md:1: <term elided>'] != []`, the term named in place of the elision; OK after deleting the probe.  The term is elided because this record is itself scanned |
+| 7 | write-root scope scan (`test_forbidden.py`) | an untracked `zz_outside_probe.md` at the repository root | `AssertionError: Lists differ: ['zz_outside_probe.md'] != []`, exit 1; OK after deleting it |
+| 7 | coverage module census (`second_duration/check_coverage.py`) | an undeclared production module `zz_helper.py` in the tree, after a report of the full suite had been generated and had passed | `FAIL: production module census differs: missing from declarations=['zz_helper.py'], declared but absent=[]`, exit 1; exit 0 after deleting it |
+| 7 | registration scan (`test_forbidden.py`) | the line `python run_duration.py --check` deleted from the rung's step in `.github/workflows/verify.yml` | `AssertionError: 'python run_duration.py --check' not found in` the rung's block, exit 1; OK after restoring |
+| 7 | the level law, through the receipt and the scoring (`run_duration.py --check`; `test_duration.py`) | `levels` in `duration.py` made to give every new requirement level zero | `FAIL: ...receipts\duration.json differs from a fresh run`, exit 1; and the scored-verdict test `AssertionError: Lists differ: ['N-11', 'N-13', 'N-8', 'N-9'] != ['N-10', 'N-11', 'N-12', 'N-13', 'N-14', 'N-8', 'N-9']`, naming N-10, N-12 and N-14 as the rows that fell; both recover after restoring the function |
+
+<!-- markdownlint-enable MD013 -->
+
+**What these injections do not prove.**  That the populations they pin
+are the right mathematical objects, or that the envelope is attained
+beyond the rectangle: the Lean of this rung proves the lower bounds and
+never their attainment, and attainment is a finite computation until V-1
+is proved.
