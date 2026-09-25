@@ -1,0 +1,184 @@
+{
+  "authority_effect": "None",
+  "rung": "eight: the element count across the isomorphism",
+  "snapshot_commit": "35e680ec35dfffb8a108ac88783645880eaabaf9",
+  "snapshot_note": "Pinned at the tip of main this branch was cut from, which is an ancestor of HEAD.",
+  "sources": [
+    {
+      "path": "code/derivation/model.py",
+      "sha256": "6A7FD2BA9688D47E9291514C623A811CDE3C6B9E8FDA1D12A608DC9BB0B1F3C2",
+      "note": "sealed regime, events, step and replay, consumed read-only by class_count.py"
+    },
+    {
+      "path": "code/derivation/engine.py",
+      "sha256": "23803A3DCCE2ADF0DEE623CABA33791D41A25D2DA3FDFD226DA3CAD2EE140B5E",
+      "note": "sealed genesis readings, consumed read-only through rung three"
+    },
+    {
+      "path": "code/derivation/observe.py",
+      "sha256": "78443D67E613D9CC9924538FE2E0A5ACAF81F4654440BFE8586E16652F0317BA",
+      "note": "sealed profiles, consumed transitively through rung four"
+    },
+    {
+      "path": "code/derivation/iso.py",
+      "sha256": "B0F1F3BCF05126111A07706F4388A9FFF5E30455D4B8F127966CF99AB0D0886E",
+      "note": "sealed key procedure and brute-force minimum, consumed through rung four's Keys; class_count.py imports only its CanonKey type"
+    },
+    {
+      "path": "lean4/Derivation/Basic.lean",
+      "sha256": "1520B392F4061AF568E00CA4FD235FEB03FACF6D3612C030C1D60018539E3EED",
+      "note": "sealed kernel: reconstructed verbatim in lean/SecondClass/Kernel.lean"
+    },
+    {
+      "path": "lean4/Derivation/Inertia.lean",
+      "sha256": "C62615CB3757474D20348F6507B8DEA4E2DE3E3A02268909194A2D0736BBE5CE",
+      "note": "sealed inertia: reconstructed verbatim in lean/SecondClass/Kernel.lean"
+    },
+    {
+      "path": "lean4/Derivation/Minimality.lean",
+      "sha256": "647E56FEE0F00F27E60FBE70BC8296083F075C48B40009979064C443744BC778",
+      "note": "sealed isomorphism structure: reconstructed verbatim in lean/SecondClass/IsoKernel.lean"
+    },
+    {
+      "path": "research/second_nofirst/nofirst.py",
+      "sha256": "14951DF2CF163093D02465958CBF63A579A841B2422CF935B50A52A37133A90B",
+      "note": "the track-one sibling's rectangle enumerator and alphabet, consumed through rungs three and four and never copied; its alphabet was read before the predictions were frozen"
+    },
+    {
+      "path": "research/two_sided_commitment/two_sided.py",
+      "sha256": "5AC587C2FDCB8057EC333A7FEF880B8E7C3EE6603432EBCD00947A158186C1CB",
+      "note": "the declared two-sided stakes, consumed transitively"
+    },
+    {
+      "path": "research/second_index/index.py",
+      "sha256": "7F904AB9E6DE5A8B7D092036004E11406E3A3844882A14C03E033ABE348C0315",
+      "note": "rung three's rectangle, bases and genesis histories, consumed read-only and never copied"
+    },
+    {
+      "path": "research/second_iso/iso_index.py",
+      "sha256": "27A2AF425A5D2AE54AE4007C10F7344B9872481A86D008F92D5346ADEC0880B9",
+      "note": "rung four's population, keys and partition comparison, consumed through its public functions and never copied"
+    },
+    {
+      "path": "research/second_iso/receipts/iso_index.json",
+      "sha256": "06E59997ADA10B6F1FCCEB81DB06E08FE0A0F573AA9F78DFB5F75CDE69BD09F0",
+      "note": "rung four's receipt, read before the predictions were frozen; its sequence, regime and class counts are replayed here"
+    },
+    {
+      "path": "research/second_succession/receipts/succession.json",
+      "sha256": "A91C537D3B043131C918CD9E206F14962E5EA2CF64DAF21AF98A8818351AD7B0",
+      "note": "rung six's receipt, read before the predictions were frozen"
+    },
+    {
+      "path": "research/second_duration/CLAIM_LEDGER.md",
+      "sha256": "65209961799683A14A8C90FB5E2EBB3EAF1725A9663904113B853B9660679CFE",
+      "note": "rung seven's ledger, whose row DUR-17 gave the within-base class counts read before the predictions were frozen"
+    },
+    {
+      "path": "research/second_duration/lean/SecondDuration/Kernel.lean",
+      "sha256": "0537288E5BC5C4E5B90E4BCCB624096C036F1BAFA067F2D3FDCB68E844DE9BC1",
+      "note": "rung seven's copy of the sealed kernel slice, from which Kernel.lean here was produced by changing only the outer namespace; compared against the SEALED blobs, not this copy"
+    },
+    {
+      "path": "research/second_duration/lean/SecondDuration/Rounds.lean",
+      "sha256": "B0F2636D4CA01C1261837D537F4A1C9F4AFFB5DB0C6529C7E05D7CFA240B348A",
+      "note": "rung seven's size, growths, rest, step_parts, growths_counted and rest_counted, whose statements this rung proves again so that its package imports nothing"
+    },
+    {
+      "path": "research/second_succession/lean/SecondSuccession/Count.lean",
+      "sha256": "400D025CB3562611E386054D4626BBE3D73B31127674CB9827DA1D576BFB4675",
+      "note": "rung six's changes and changes_counted, whose statements this rung proves again"
+    },
+    {
+      "path": "research/second_symmetry/lean/SecondSymmetry/IsoKernel.lean",
+      "sha256": "C3058EA36E3C90213B4681E6B0F0E9962255328C4A601DAABCB5F39B78D5D757",
+      "note": "rung five's copy of the sealed isomorphism structure, from which IsoKernel.lean here was produced by changing only the outer namespace; compared against the SEALED blob, not this copy"
+    },
+    {
+      "path": "research/second_symmetry/lean/SecondSymmetry/Grow.lean",
+      "sha256": "56F8E06FF031FF3269074E1D92D3FD7DE59EFE3C9CD458B004F7A1D225A0CC4B",
+      "note": "rung five's size, getD_append_lt and no_return, whose statements this rung proves again or carries to the class"
+    },
+    {
+      "path": "research/second_symmetry/STATUS.md",
+      "sha256": "54723A7FDE328650798DA425D08D9BDBBA1485DFC73F06946307820B0128E931",
+      "note": "rung five's leftover list, which names Z-1 and its obstacle"
+    },
+    {
+      "path": "research/second_duration/STATUS.md",
+      "sha256": "38454A290963E0DD720DCBCB27A802DD400772E009B3A744409E7ACFDA7C9305",
+      "note": "rung seven's application of the next-rung rule, from which this rung's question is taken"
+    },
+    {
+      "path": "research/second/SEED.md",
+      "sha256": "52439E5F75D1C599CE52DC716BEB88F1DD7BFC83856EE73CE85F3A7EEEC5E70E",
+      "note": "the seed of the second derivation"
+    },
+    {
+      "path": "research/second/PLAN.md",
+      "sha256": "36B66D7E819B7BC03FE51E2932A102E6E685F4589C68B99773D8C502BAC8D96D",
+      "note": "the plan of the second derivation"
+    }
+  ],
+  "spans": [
+    {
+      "path": "lean4/Derivation/Basic.lean",
+      "first_line": 20,
+      "last_line": 167,
+      "sha256": "3b9f40cb602833df8068f5a6cfc43b66802c9d87edb8f3a54f80fe40673a3d7d",
+      "note": "the reconstructed sealed slice: judgment instances through replay"
+    },
+    {
+      "path": "lean4/Derivation/Basic.lean",
+      "first_line": 202,
+      "last_line": 215,
+      "sha256": "079e225971ab8cadbec235ed3b45f97afee7be8121ff52c77c5a712d3e12ed72",
+      "note": "the reconstructed sealed reading regimes R2L and R2F"
+    },
+    {
+      "path": "lean4/Derivation/Inertia.lean",
+      "first_line": 13,
+      "last_line": 92,
+      "sha256": "75dec8e73f988a9de0c81a64bf5fc5e23087497eb0fc460b6872235e6192f560",
+      "note": "the reconstructed sealed inertia slice, genesis through replayE_append"
+    },
+    {
+      "path": "lean4/Derivation/Minimality.lean",
+      "first_line": 169,
+      "last_line": 224,
+      "sha256": "4856138d73612b815c15b6c25eb50b6289365b20826a3b5d610aedc46ca877ba",
+      "note": "the reconstructed sortPair, Iso, isoRefl and swap01"
+    },
+    {
+      "path": "research/second_symmetry/STATUS.md",
+      "first_line": 178,
+      "last_line": 188,
+      "sha256": "c461e6c65b8929062f7984a4e1e0c14eb8a265179a63831a3d15bc858123660c",
+      "note": "the leftover this rung takes, quoted verbatim in CLAIM_LEDGER.md and never edited"
+    },
+    {
+      "path": "research/second_duration/STATUS.md",
+      "first_line": 310,
+      "last_line": 314,
+      "sha256": "960b8ae601e0802ff7002c591767840b1c29638a76d6e1cdda99015870d551ef",
+      "note": "rung seven's own application of the next-rung rule and the leftover it selects"
+    }
+  ],
+  "absent_at_snapshot": [
+    {
+      "path": "research/second_class",
+      "present_at_snapshot": false,
+      "pull_request": "not opened at the snapshot: this rung's own tree did not exist there"
+    }
+  ],
+  "frozen_texts": [
+    {
+      "path": "research/second_class/PROMPT.md",
+      "sha256": "16b57c49057359fc931e35f4ec75441b9d51ece50c76d8a27500f5ec559709c6"
+    },
+    {
+      "path": "research/second_class/PREDICTIONS.md",
+      "sha256": "75f0dfca01023bcec3bd6da747035966812358eda24b126007aa71095be9ccef"
+    }
+  ]
+}

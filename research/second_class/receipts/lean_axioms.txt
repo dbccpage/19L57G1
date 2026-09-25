@@ -1,0 +1,58 @@
+SecondClass.Clean.R2F_clean :: propext
+SecondClass.Clean.R2L_clean :: propext
+SecondClass.Clean.clean_replay :: Quot.sound propext
+SecondClass.Clean.clean_step :: Quot.sound propext
+SecondClass.Clean.genesis_clean :: propext
+SecondClass.Clean.getD_append_lt :: propext
+SecondClass.Clean.nodup_insertNew :: Quot.sound propext
+SecondClass.Count.components_iso :: Quot.sound propext
+SecondClass.Count.count_le_of_inv :: Quot.sound propext
+SecondClass.Count.data_le :: Quot.sound propext
+SecondClass.Count.forms_le :: Quot.sound propext
+SecondClass.Count.insts_le :: Quot.sound propext
+SecondClass.Count.iso_data :: Quot.sound propext
+SecondClass.Count.iso_forms :: Quot.sound propext
+SecondClass.Count.length_le_of_nodup_sub :: Quot.sound propext
+SecondClass.Count.nodup_map_of_inv :: Quot.sound propext
+SecondClass.Count.range_nodup :: Quot.sound propext
+SecondClass.Count.reqs_le :: Quot.sound propext
+SecondClass.Count.rules_le :: Quot.sound propext
+SecondClass.Count.size_iso :: Quot.sound propext
+SecondClass.Count.sortPair_map :: Quot.sound propext
+SecondClass.Count.sortPair_of_le :: none
+SecondClass.Counter.counts_not_of_class :: Quot.sound propext
+SecondClass.Counter.insts_need_nodup :: Quot.sound propext
+SecondClass.Counter.insts_need_wf :: Quot.sound propext
+SecondClass.Counter.reqs_need_nodup :: Quot.sound propext
+SecondClass.Counter.reqs_need_wf :: Quot.sound propext
+SecondClass.Counter.rules_need_nodup :: Quot.sound propext
+SecondClass.Counter.rules_need_wf :: Quot.sound propext
+SecondClass.Recur.counts_of_class :: Quot.sound propext
+SecondClass.Recur.counts_of_class_genesis :: Quot.sound propext
+SecondClass.Recur.no_return_class :: Quot.sound propext
+SecondClass.Recur.recurrence_is_stutter :: Quot.sound propext
+SecondClass.Rounds.changes_counted :: Quot.sound propext
+SecondClass.Rounds.growths_counted :: Quot.sound propext
+SecondClass.Rounds.insertNew_grows :: propext
+SecondClass.Rounds.replayE_cons :: propext
+SecondClass.Rounds.replayE_split :: Quot.sound propext
+SecondClass.Rounds.rest_counted :: Quot.sound propext
+SecondClass.Rounds.step_parts :: Quot.sound propext
+SecondClass.Rounds.still_of_no_changes :: Quot.sound propext
+SecondClass.Sealed.R2F_collapsed :: propext
+SecondClass.Sealed.R2F_wf :: Quot.sound propext
+SecondClass.Sealed.R2L_collapsed :: propext
+SecondClass.Sealed.R2L_wf :: Quot.sound propext
+SecondClass.Sealed.admission_without_expressive_increase :: propext
+SecondClass.Sealed.collapsed_of_no_insts :: propext
+SecondClass.Sealed.genesis_underivable :: none
+SecondClass.Sealed.historyF_replays :: propext
+SecondClass.Sealed.historyL_replays :: propext
+SecondClass.Sealed.insertNew_nil :: propext
+SecondClass.Sealed.insertNew_of_mem :: propext
+SecondClass.Sealed.insertNew_of_not_mem :: propext
+SecondClass.Sealed.mem_insertNew :: propext
+SecondClass.Sealed.replayE_append :: Quot.sound propext
+SecondClass.Sealed.separable_not_collapsed :: propext
+SecondClass.Sealed.supply_no_op :: propext
+SecondClass.Sealed.underivable_of_empty :: none

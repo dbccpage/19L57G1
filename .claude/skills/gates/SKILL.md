@@ -192,6 +192,8 @@ python research/second_succession/verify_lean.py
 if ($LASTEXITCODE -ne 0) { throw "second_succession Lean audit failed" }
 python research/second_duration/verify_lean.py
 if ($LASTEXITCODE -ne 0) { throw "second_duration Lean audit failed" }
+python research/second_class/verify_lean.py
+if ($LASTEXITCODE -ne 0) { throw "second_class Lean audit failed" }
 python research/natural_sections/verify_lean.py
 if ($LASTEXITCODE -ne 0) { throw "natural_sections Lean audit failed" }
 python research/balance_carrier/verify_lean.py
@@ -360,6 +362,7 @@ The workflow also enumerates these registered trees by the same shape
 (pin verifier, then the tree's tests and typing from inside it):
 `research/boundary_seed/verify_pins.py`,
 `research/limit_and_observer/verify_pins.py`,
+`research/second_class/verify_pins.py`,
 `research/second_duration/verify_pins.py`,
 `research/second_index/verify_pins.py`,
 `research/second_inheritance/verify_pins.py`,

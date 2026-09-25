@@ -134,6 +134,7 @@ Lean layout. The first and last also have explicit build-recipe entries.
 | `represented_execution` | local receipt only |  |
 | `s9_obligations` | local receipt only |  |
 | `second` | local receipt only |  |
+| `second_class` | workflow (gate 11) |  |
 | `second_duration` | workflow (gate 11) |  |
 | `second_index` | workflow (gate 11) |  |
 | `second_inheritance` | workflow (gate 11) |  |

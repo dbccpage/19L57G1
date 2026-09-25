@@ -1,0 +1,295 @@
+{
+  "alphabet": {
+    "arities": [
+      1,
+      2
+    ],
+    "fresh_tokens": [
+      "<n0>",
+      "<n1>",
+      "<n2>",
+      "<n3>",
+      "<n4>"
+    ],
+    "max_data": 5,
+    "max_forms": 2,
+    "max_sequence_length": 4,
+    "supply_token": "<z>"
+  },
+  "authority_effect": "None",
+  "bases": [
+    "EMPTY",
+    "L",
+    "F"
+  ],
+  "input_count_claim": "none",
+  "predictions_scored": {
+    "P-1": {
+      "value": "scored elsewhere: the committed Lean package, checked by verify_lean.py and test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "P-10": {
+      "value": {
+        "classes_over_all_bases_with_two_component_tuples": 0,
+        "classes_with_two_component_tuples": {
+          "EMPTY": 0,
+          "F": 0,
+          "L": 0
+        }
+      },
+      "verdict": "HIT"
+    },
+    "P-11": {
+      "value": {
+        "EMPTY": {
+          "recurs_iff_unchanging_mismatches": 0,
+          "returns": 0,
+          "stutter_kinds": [
+            "AdmitInst",
+            "AdmitRuleAll",
+            "Impose",
+            "Supply"
+          ]
+        },
+        "F": {
+          "recurs_iff_unchanging_mismatches": 0,
+          "returns": 0,
+          "stutter_kinds": [
+            "AdmitInst",
+            "AdmitRuleAll",
+            "Impose",
+            "Supply"
+          ]
+        },
+        "L": {
+          "recurs_iff_unchanging_mismatches": 0,
+          "returns": 0,
+          "stutter_kinds": [
+            "AdmitInst",
+            "AdmitRuleAll",
+            "Impose",
+            "Supply"
+          ]
+        }
+      },
+      "verdict": "HIT"
+    },
+    "P-12": {
+      "value": {
+        "classes_at_more_than_one_base": 86,
+        "classes_at_more_than_one_base_with_two_changing_counts": 86
+      },
+      "verdict": "HIT"
+    },
+    "P-13": {
+      "value": {
+        "counts_not_of_class": false,
+        "insts_need_nodup": true,
+        "insts_need_wf": true,
+        "reqs_need_nodup": true,
+        "reqs_need_wf": true,
+        "rules_need_nodup": true,
+        "rules_need_wf": true
+      },
+      "verdict": "MISSED"
+    },
+    "P-14": {
+      "value": "scored elsewhere: CLAIM_LEDGER.md, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "P-15": {
+      "value": "scored elsewhere: CLAIM_LEDGER.md and this receipt's input_count_claim",
+      "verdict": "ELSEWHERE"
+    },
+    "P-16": {
+      "value": "scored elsewhere: the receipt bytes, --check and test_class.py; the time in STATUS.md",
+      "verdict": "ELSEWHERE"
+    },
+    "P-2": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "P-3": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py; written in the Python grammar in lean_witnesses",
+      "verdict": "ELSEWHERE"
+    },
+    "P-4": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "P-5": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "P-6": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "P-7": {
+      "value": "scored elsewhere: the committed Lean package, checked by test_census.py",
+      "verdict": "ELSEWHERE"
+    },
+    "P-8": {
+      "value": "scored elsewhere: receipts/lean_axioms.txt, checked by verify_lean.py",
+      "verdict": "ELSEWHERE"
+    },
+    "P-9": {
+      "value": {
+        "classes_over_all_bases": 402,
+        "classes_within_base": {
+          "EMPTY": 54,
+          "F": 265,
+          "L": 174
+        },
+        "distinct_regimes": {
+          "EMPTY": 75,
+          "F": 1718,
+          "L": 523
+        },
+        "distinct_regimes_over_all_bases": 2316,
+        "key_brute_disagreements": 0,
+        "replay_mismatches": 0,
+        "sequences": {
+          "EMPTY": 577,
+          "F": 14293,
+          "L": 3928
+        }
+      },
+      "verdict": "HIT"
+    }
+  },
+  "predictions_sha256": "75f0dfca01023bcec3bd6da747035966812358eda24b126007aa71095be9ccef",
+  "prompt_sha256": "16b57c49057359fc931e35f4ec75441b9d51ece50c76d8a27500f5ec559709c6",
+  "reports": {
+    "base_order": [
+      "EMPTY",
+      "L",
+      "F"
+    ],
+    "bases": {
+      "EMPTY": {
+        "distinct_regimes": 75,
+        "recurring_sequences": 339,
+        "recurs_iff_unchanging_mismatches": 0,
+        "returns": 0,
+        "sequences": 577,
+        "sequences_with_an_unchanging_event": 339,
+        "stutters": 454,
+        "stutters_by_kind": {
+          "AdmitInst": 4,
+          "AdmitRuleAll": 38,
+          "Impose": 1,
+          "Supply": 411
+        }
+      },
+      "F": {
+        "distinct_regimes": 1718,
+        "recurring_sequences": 4790,
+        "recurs_iff_unchanging_mismatches": 0,
+        "returns": 0,
+        "sequences": 14293,
+        "sequences_with_an_unchanging_event": 4790,
+        "stutters": 5583,
+        "stutters_by_kind": {
+          "AdmitInst": 658,
+          "AdmitRuleAll": 98,
+          "Impose": 1282,
+          "Supply": 3545
+        }
+      },
+      "L": {
+        "distinct_regimes": 523,
+        "recurring_sequences": 1597,
+        "recurs_iff_unchanging_mismatches": 0,
+        "returns": 0,
+        "sequences": 3928,
+        "sequences_with_an_unchanging_event": 1597,
+        "stutters": 1921,
+        "stutters_by_kind": {
+          "AdmitInst": 210,
+          "AdmitRuleAll": 64,
+          "Impose": 259,
+          "Supply": 1388
+        }
+      }
+    },
+    "classes": {
+      "classes_at_more_than_one_base": 86,
+      "classes_at_more_than_one_base_with_two_changing_counts": 86,
+      "classes_at_three_bases": 5,
+      "classes_over_all_bases": 402,
+      "classes_over_all_bases_with_two_component_tuples": 0,
+      "key_brute_disagreements": 0,
+      "within_base": {
+        "EMPTY": {
+          "classes": 54,
+          "classes_with_two_changing_counts": 0,
+          "classes_with_two_component_tuples": 0,
+          "classes_with_two_growth_counts": 0,
+          "classes_with_two_rest_counts": 0
+        },
+        "F": {
+          "classes": 265,
+          "classes_with_two_changing_counts": 0,
+          "classes_with_two_component_tuples": 0,
+          "classes_with_two_growth_counts": 0,
+          "classes_with_two_rest_counts": 0
+        },
+        "L": {
+          "classes": 174,
+          "classes_with_two_changing_counts": 0,
+          "classes_with_two_component_tuples": 0,
+          "classes_with_two_growth_counts": 0,
+          "classes_with_two_rest_counts": 0
+        }
+      }
+    },
+    "distinct_regimes_over_all_bases": 2316,
+    "lean_witnesses": {
+      "counts_not_of_class": {
+        "changing_counts": [
+          0,
+          3
+        ],
+        "claim_holds": false,
+        "one_class": false,
+        "one_python_regime": false
+      },
+      "insts_need_nodup": {
+        "claim_holds": true,
+        "one_python_regime": true
+      },
+      "insts_need_wf": {
+        "claim_holds": true,
+        "refused_by_the_sealed_step": true
+      },
+      "reqs_need_nodup": {
+        "claim_holds": true,
+        "one_python_regime": true
+      },
+      "reqs_need_wf": {
+        "claim_holds": true,
+        "refused_by_the_sealed_step": true
+      },
+      "rules_need_nodup": {
+        "claim_holds": true,
+        "one_python_regime": true
+      },
+      "rules_need_wf": {
+        "claim_holds": true,
+        "refused_by_the_sealed_step": true
+      }
+    },
+    "python_reading_witness": {
+      "changing_counts": [
+        0,
+        2
+      ],
+      "one_class": true,
+      "reading_l_requirements": 0
+    },
+    "replay_mismatches": 0
+  },
+  "rung": "eight",
+  "write_root": "research/second_class"
+}

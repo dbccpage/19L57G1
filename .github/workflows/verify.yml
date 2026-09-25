@@ -187,6 +187,8 @@ jobs:
         run: python3 research/second_succession/verify_lean.py
       - name: Second derivation, rung 7, fresh Lean and axiom audit
         run: python3 research/second_duration/verify_lean.py
+      - name: Second derivation, rung 8, fresh Lean and axiom audit
+        run: python3 research/second_class/verify_lean.py
       # The typed-translation joining tree has an independent one-module Lake
       # package.  Unlike the older manual research receipts, its two
       # obstruction targets and provenance theorem are rebuilt here and its
@@ -637,6 +639,23 @@ jobs:
           git diff --exit-code -- receipts
       - name: Second derivation, rung 7, strict typing
         working-directory: research/second_duration
+        run: python -m mypy
+      - name: Second derivation, rung 8, pins, spans, and frozen texts
+        run: python research/second_class/verify_pins.py
+      - name: Second derivation, rung 8, replay, tests, and coverage
+        working-directory: research/second_class
+        run: |
+          set -euo pipefail
+          log="$RUNNER_TEMP/second-class-tests.log"
+          python -m coverage erase
+          python -m coverage run -m unittest discover -s . -p "test_*.py" 2>&1 | tee "$log"
+          python ../../ci/gate_support.py test-count "$log" --minimum 130
+          python -m coverage json -q
+          python check_coverage.py
+          python run_class.py --check
+          git diff --exit-code -- receipts
+      - name: Second derivation, rung 8, strict typing
+        working-directory: research/second_class
         run: python -m mypy
       # The limit and the second observer, priced in one tree.
       # An asserted minimum test count keeps the registration from being
