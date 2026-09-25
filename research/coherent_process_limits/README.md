@@ -1,8 +1,13 @@
 # Coherent process limits: the represented process observed at finite scales
 
 AuthorityEffect: None.  Outside the sealed derivation; consumes it read-only.
-Not registered in `.github/workflows/verify.yml`: its checks run locally
-through `verify.py` (section 7).
+Its Lean audit runs in the `lean` job of `.github/workflows/verify.yml`
+(`verify_lean.py --check`); its other checks run locally through `verify.py`
+(section 7).  (2026-09-25: this paragraph used to say the tree was "Not
+registered in `.github/workflows/verify.yml`".  That is withdrawn: the lean
+job has run `verify_lean.py --check` since pull request #253.  No workflow
+step runs its Python tests; its custody verifier runs only inside the
+research job's tree custody census.)
 
 **Result.**  The process of the represented execution family — the merged
 `Control` machine run by its deterministic runner — is observed at finite

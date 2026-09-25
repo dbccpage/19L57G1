@@ -425,11 +425,17 @@ def verify_canonical_commutation_obstruction(N: int, c: Any) -> bool:
       Tr(c * I_N) = N * c.
       If N >= 1 and c != 0, then N * c != 0 != Tr([Q, P]).
       Therefore, [Q, P] = c * I_N has no finite-dimensional solutions.
+
+    At c = 0 the equation is not obstructed: Q = P = I_N solves [Q, P] = 0.
+    The function answers False there, checked on that witness.  (2026-09-25:
+    until then it returned True, "obstructed", at c = 0, although its own
+    comment named the commuting solutions; the claim covers nonzero c only.)
     """
     if N < 1:
         raise ValueError("Carrier dimension must be positive")
     if c == 0:
-        return True  # Trivial case c = 0 has commuting solutions
+        witness = identity_matrix(N)
+        return any(entry != 0 for row in matrix_commutator(witness, witness) for entry in row)
     expected_obstruction = c * N
     return bool(expected_obstruction != 0)
 

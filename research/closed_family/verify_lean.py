@@ -10,6 +10,12 @@ runs this file."  That is withdrawn.  The `lean` job of
 `ci/run_gates.py`.  The source census below covers `Closure.lean` only;
 the theorems of the reconstructed `Base.lean` are audited only where
 `AxiomReport.lean` lists them or a listed theorem uses them.
+
+2026-09-25: the previous sentence is withdrawn.  The source census now reads
+both `Closure.lean` and `Base.lean`, so every theorem written in either file
+must be listed in `AxiomReport.lean`; five `Base.lean` theorems were unlisted
+and now are.  Each file's namespace lines are checked too, so a new nested
+namespace cannot silently misname what the census expects.
 """
 
 from __future__ import annotations
@@ -80,23 +86,36 @@ def main() -> int:
     # silent removal -- the list was checking itself against the environment
     # it generates.  This enumerates the originating module from SOURCE and
     # requires every theorem it declares to be listed.
-    origin = LEAN / "ClosedFamily" / "Closure.lean"
-    declared = {
-        f"ClosedFamily.Closure.{m}"
-        for m in re.findall(r"^theorem ([A-Za-z_][\w'.]*)", origin.read_text("utf-8"), re.M)
-    }
-    for name in sorted(declared - wanted):
-        print(
-            f"FAIL: {name} is declared in {origin.name} but not listed in"
-            " AxiomReport.lean"
-        )
-        failures += 1
+    # 2026-09-25: Base.lean is censused too (it was not; five of its twelve
+    # theorems were unlisted).  The prefix each file's theorems carry is
+    # fixed by its namespace lines, which are checked rather than assumed.
+    origins = (
+        (LEAN / "ClosedFamily" / "Closure.lean", "ClosedFamily.Closure.",
+         ["ClosedFamily", "Closure"]),
+        (LEAN / "ClosedFamily" / "Base.lean", "ClosedFamily.", ["ClosedFamily"]),
+    )
+    declared: set[str] = set()
+    for origin, prefix, namespaces in origins:
+        text = origin.read_text("utf-8")
+        found = re.findall(r"^\s*namespace\s+(\S+)", text, re.M)
+        if found != namespaces:
+            print(f"FAIL: {origin.name} opens namespaces {found}, expected {namespaces}")
+            failures += 1
+        for m in re.findall(r"^\s*theorem ([A-Za-z_][\w'.]*)", text, re.M):
+            name = prefix + m
+            declared.add(name)
+            if name not in wanted:
+                print(
+                    f"FAIL: {name} is declared in {origin.name} but not listed in"
+                    " AxiomReport.lean"
+                )
+                failures += 1
     if failures:
         return 1
     print(
         f"lean audit clean: {len(sources)} sources, {len(reported)} axiom"
         f" reports ({len(no_ax)} axiom-free), axioms within {sorted(WHITELIST)},"
-        f" {len(declared)} originating theorems all listed"
+        f" {len(declared)} written theorems of Closure.lean and Base.lean all listed"
     )
     return 0
 

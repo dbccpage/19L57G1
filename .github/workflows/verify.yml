@@ -272,7 +272,8 @@ jobs:
       # Three self-contained core-Lean packages. The fresh reports must equal
       # the #print axioms lines of AxiomReport.lean, and every theorem the
       # source declares must be listed there (for closed family, every
-      # theorem of Closure.lean; its reconstructed Base.lean is not censused).
+      # theorem of Closure.lean and of its reconstructed Base.lean; until
+      # 2026-09-25 this said Base.lean was not censused, which is withdrawn).
       - name: Balance carrier, fresh Lean and axiom audit
         run: python3 research/balance_carrier/verify_lean.py
       - name: Closed family, fresh Lean and axiom audit
@@ -863,6 +864,13 @@ jobs:
       - name: P209c Pauli-string codes, strict typing
         working-directory: research/p209c_stabilizer_codes
         run: python -m mypy .
+      # The estate audit, registered 2026-09-25. Its suite reads this file's
+      # research and lean jobs step by step, independently of its own
+      # auditor, and fails naming any tree dropped from either job since its
+      # dated registration record. It writes no tracked file.
+      - name: Estate honesty tests
+        working-directory: research/estate_honesty
+        run: python -m unittest discover -s . -p "test_*.py"
       # Last in this job on purpose: it runs EVERY research tree's own custody
       # verifier, including the trees this job does not otherwise touch, and
       # compares the outcome set with ci/tree_custody_pin.json. Most trees are

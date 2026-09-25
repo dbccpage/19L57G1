@@ -16,6 +16,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import verify_sources as guard  # noqa: E402
 
 UNCONSUMED = ("prompt/input.md", "paper/claim.md", "artifacts/other.json")
+# A sealed Lean module beside the pinned ones that the tree does not import.
+UNCONSUMED_LEAN = "lean4/Derivation/Unconsumed.lean"
 
 
 def git(root: Path, *args: str) -> bytes:
@@ -32,12 +34,13 @@ class Fixture:
         git(root, "config", "core.autocrlf", "false")
         git(root, "config", "user.name", "Custody fixture")
         git(root, "config", "user.email", "fixture@example.invalid")
-        for relative in (*guard.RUNTIME_PATHS.values(), *guard.CONFIG_PATHS,
-                         "lean4/Derivation/Example.lean", *UNCONSUMED):
+        pinned = (*guard.RUNTIME_PATHS.values(), *guard.CONFIG_PATHS, *guard.LEAN_PATHS,
+                  *guard.OPENED_PATHS)
+        for relative in (*pinned, UNCONSUMED_LEAN, *UNCONSUMED):
             path = root / relative
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(b"# fixture source\n")
-        git(root, "add", "--", *guard.CONSUMED_TREES, *guard.CONFIG_PATHS, *UNCONSUMED)
+        git(root, "add", "--", *pinned, UNCONSUMED_LEAN, *UNCONSUMED)
         git(root, "commit", "--quiet", "-m", "Fixture baseline")
         self.baseline = git(root, "rev-parse", "HEAD").decode().strip()
         self.original_baseline = guard.BASELINE_COMMIT
@@ -47,17 +50,14 @@ class Fixture:
             "baseline_commit": self.baseline,
             "text_normalization": "CRLF_TO_LF_ONLY",
             "runtime_modules": guard.RUNTIME_PATHS,
-            "consumed_trees": {tree: git(root, "rev-parse", f"{self.baseline}:{tree}").decode().strip()
-                               for tree in guard.CONSUMED_TREES},
-            "tree_census": {tree: guard.tree_census(root, tree, suffix)[0]
-                            for tree, suffix in guard.CONSUMED_TREES.items()},
             "source_sha256": {path: hashlib.sha256(git(root, "show", f"{self.baseline}:{path}")).hexdigest()
-                              for path in (*guard.RUNTIME_PATHS.values(), *guard.CONFIG_PATHS)},
+                              for path in pinned},
             "artifact_sha256": {},
         }
         packet = root / guard.PACKET
         packet.mkdir(parents=True)
         self.manifest_path = packet / "SOURCE_MANIFEST.json"
+        self.manifest = manifest
         self.manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
 
     def close(self) -> None:
@@ -87,8 +87,17 @@ class CustodyTests(unittest.TestCase):
         path.write_bytes(original)
         self.assertIn("SOURCE_CHANGED: code/derivation/model.py", failures)
 
+    def test_changed_opened_file_is_named(self) -> None:
+        """2026-09-25: the sealed suite read by path is pinned, not only the trees."""
+        path = self.root / "tests/test_iso.py"
+        original = path.read_bytes()
+        path.write_bytes(b"# injected different payload\n")
+        failures = self.fixture.check()
+        path.write_bytes(original)
+        self.assertIn("SOURCE_CHANGED: tests/test_iso.py", failures)
+
     def test_assume_unchanged_lean_source_is_named(self) -> None:
-        relative = "lean4/Derivation/Example.lean"
+        relative = guard.LEAN_PATHS[0]
         path = self.root / relative
         original = path.read_bytes()
         git(self.root, "update-index", "--assume-unchanged", "--", relative)
@@ -103,12 +112,36 @@ class CustodyTests(unittest.TestCase):
             git(self.root, "update-index", "--no-assume-unchanged", "--", relative)
         self.assertEqual(self.fixture.check(), [])
 
-    def test_untracked_source_in_a_consumed_tree_is_named(self) -> None:
-        path = self.root / "code/derivation/new.py"
-        path.write_bytes(b"# injected source\n")
+    def test_changed_pinned_lean_source_is_named(self) -> None:
+        relative = guard.LEAN_PATHS[-1]
+        path = self.root / relative
+        original = path.read_bytes()
+        path.write_bytes(b"-- injected different payload\n")
         failures = self.fixture.check()
-        path.unlink()
-        self.assertTrue(any("SOURCE_CENSUS:" in f and "new.py" in f for f in failures), failures)
+        path.write_bytes(original)
+        self.assertIn(f"SOURCE_CHANGED: {relative}", failures)
+
+    def test_unconsumed_neighbours_are_not_failures(self) -> None:
+        """2026-09-25: the directory pins are retired, so a file the tree does not
+        consume may change or appear beside the pinned ones.  Until then both
+        failed, as SOURCE_CHANGED and SOURCE_CENSUS."""
+        neighbour = self.root / UNCONSUMED_LEAN
+        neighbour.write_bytes(b"-- an edit this tree does not read\n")
+        new = self.root / "code/derivation/new.py"
+        new.write_bytes(b"# a module nothing here imports\n")
+        try:
+            self.assertEqual(self.fixture.check(), [])
+        finally:
+            new.unlink()
+            git(self.root, "checkout", "--", UNCONSUMED_LEAN)
+
+    def test_a_manifest_with_directory_pins_is_refused(self) -> None:
+        manifest = dict(self.fixture.manifest, consumed_trees={"lean4/Derivation": "0" * 40})
+        self.fixture.manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+        self.assertEqual(
+            self.fixture.check(),
+            ["MANIFEST_TREE_PINS: whole-directory pins were retired on 2026-09-25"],
+        )
 
     def test_runtime_origin_is_independently_checked(self) -> None:
         modules: dict[str, ModuleType] = {}

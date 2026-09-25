@@ -97,6 +97,11 @@ def check_verify_yml(verify_yml_path: Path) -> tuple[set[str], set[str]]:
     lean_job_trees: set[str] = set()
     for match in re.finditer(r"research/([a-zA-Z0-9_-]+)/verify_lean\.py", lean_job_text):
         lean_job_trees.add(match.group(1))
+    # 2026-09-25: a lean-job step that enters its tree and runs `verify.py
+    # --check` (nine trees since 2026-09-23) was invisible to the line above,
+    # so this reading omitted them.  It now counts that form too.
+    for match in re.finditer(r"(?m)^\s+working-directory: research/([a-zA-Z0-9_-]+)\s*$", lean_job_text):
+        lean_job_trees.add(match.group(1))
 
     return gate_11_trees, lean_job_trees
 

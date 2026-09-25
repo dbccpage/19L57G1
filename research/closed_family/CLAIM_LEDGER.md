@@ -21,7 +21,7 @@ reconstruction bindings are in `SOURCE_MANIFEST.json` and are checked by
 | CF-13 | PROVED_THEOREM | **A section is natural for the closure exactly when it is natural for the declared family.** Closing under composition and inverses imposes no new obligation on a section. | `Closure.natural_iff_natural_closure` |
 | CF-14 | PROVED_THEOREM | A declared family carries a natural section exactly when its closure does: the obstruction is unchanged by closing. | `Closure.has_natural_section_iff` |
 | CF-15 | PROVED_THEOREM | Closing a closure imposes nothing further. | `Closure.natural_closure_closure` |
-| CF-16 | FINITE_COMPUTATION | 21 axiom reports, every one axiom-free — no `propext`, no `Quot.sound`. | `verify_lean.py`, `lean/ClosedFamily/AxiomReport.lean` |
+| CF-16 | FINITE_COMPUTATION | 26 axiom reports, every one axiom-free — no `propext`, no `Quot.sound`. (2026-09-25: this said 21; five `Base.lean` theorems were unlisted and are now reported, also axiom-free.) | `verify_lean.py`, `lean/ClosedFamily/AxiomReport.lean` |
 | CF-17 | METATHEORY | The operation laws are proved on the transported bundle map, which is the only thing naturality reads. They are not equalities of `PresIso` records. | declared reading 2 in `STATUS.md` |
 | CF-18 | OPEN | Record-level laws; families with declared relations among their arrows; the heterogeneous case; and whether the pinned fixed-point obstruction's witness data is invariant under closing. | `STATUS.md` leftovers |
 | CF-19 | REFUSED | That the closure is a structure of any named outside kind. It is the closure of a declared family under the operations the pinned isomorphisms already carry, and it is named that. | FW-NAME |

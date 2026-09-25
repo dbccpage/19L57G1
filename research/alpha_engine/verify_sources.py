@@ -9,6 +9,19 @@ configuration when the local proofs import them.  ``prompt/``,
 Working-tree bytes are compared to baseline blobs without consulting
 index flags.  This guard does not claim proved equivalence to
 ``code/derivation/``.
+
+2026-09-25: the two directory pins are retired.  ``code/derivation`` and
+``lean4/Derivation`` were pinned whole, by Git tree object and a suffix
+census, which covered every file of both directories whether or not this
+tree reads them.  The pins are now the files it consumes, measured by
+importing every module of the tree in a child interpreter and by the import
+closure of ``lean/Harness.lean`` and ``lean/Inventory.lean`` through their
+Lake require: the six runtime modules (unchanged), ``LEAN_PATHS`` and the
+Lean configuration, each by digest at the baseline and compared with the
+working tree.  An import of a file outside them has to edit a pinned file,
+which fails, and an extra ``derivation`` module fails the runtime census.
+The first sentence above, that ``code/derivation`` and ``lean4/Derivation``
+are pinned by Git tree, is withdrawn with them.
 """
 
 from __future__ import annotations
@@ -25,11 +38,11 @@ from typing import Mapping
 
 BASELINE_COMMIT = "a4dcddff1a8f8029beb9ec538d26150766dbbcd2"
 PACKET = Path("research/alpha_engine")
-SCHEMA = "alpha-engine-sources-v1"
-CONSUMED_TREES = {
-    "code/derivation": ".py",
-    "lean4/Derivation": ".lean",
-}
+SCHEMA = "alpha-engine-sources-v2"
+# 2026-09-25: the Lean import closure of the tree's own modules, measured.
+LEAN_PATHS = (
+    "lean4/Derivation/Basic.lean",
+)
 CONFIG_PATHS = (
     "lean4/Derivation.lean",
     "lean4/lean-toolchain",
@@ -127,23 +140,6 @@ def worktree_matches_blob(
     return None
 
 
-def tree_census(root: Path, tree: str, suffix: str) -> tuple[list[str], list[str]]:
-    """Baseline and current consumable files of one pinned tree."""
-    baseline = sorted(
-        path
-        for path in _git(
-            root, "ls-tree", "-r", "--name-only", BASELINE_COMMIT, "--", tree
-        ).decode().splitlines()
-        if path.endswith(suffix)
-    )
-    current = sorted(
-        path.relative_to(root).as_posix()
-        for path in (root / tree).rglob("*" + suffix)
-        if ".lake" not in path.relative_to(root).parts
-    )
-    return baseline, current
-
-
 def _read_manifest(root: Path) -> dict[str, object] | list[str]:
     try:
         manifest = json.loads(
@@ -160,11 +156,11 @@ def _read_manifest(root: Path) -> dict[str, object] | list[str]:
         return ["MANIFEST_NORMALIZATION: expected CRLF_TO_LF_ONLY"]
     if manifest.get("runtime_modules") != RUNTIME_PATHS:
         return ["MANIFEST_RUNTIME_CENSUS: runtime module paths differ"]
-    if set(manifest.get("consumed_trees", {})) != set(CONSUMED_TREES):
-        return ["MANIFEST_CONSUMED_CENSUS: consumed tree paths differ"]
-    if set(manifest.get("tree_census", {})) != set(CONSUMED_TREES):
-        return ["MANIFEST_TREE_CENSUS: censused tree paths differ"]
-    if set(manifest.get("source_sha256", {})) != set(RUNTIME_PATHS.values()) | set(CONFIG_PATHS):
+    if "consumed_trees" in manifest or "tree_census" in manifest:
+        return ["MANIFEST_TREE_PINS: whole-directory pins were retired on 2026-09-25"]
+    if set(manifest.get("source_sha256", {})) != (
+        set(RUNTIME_PATHS.values()) | set(CONFIG_PATHS) | set(LEAN_PATHS)
+    ):
         return ["MANIFEST_SOURCE_CENSUS: pinned source paths differ"]
     if set(manifest.get("artifact_sha256", {})) != set(ARTIFACT_PATHS):
         return ["MANIFEST_ARTIFACT_CENSUS: pinned artifact paths differ"]
@@ -190,26 +186,6 @@ def verify_sources(
     except (OSError, ValueError) as exc:
         return [f"BASELINE_UNAVAILABLE: {exc}"]
     try:
-        for tree, suffix in CONSUMED_TREES.items():
-            tree_oid = _git(root, "rev-parse", f"{BASELINE_COMMIT}:{tree}").decode().strip()
-            consumed = manifest["consumed_trees"]
-            if not isinstance(consumed, dict) or consumed.get(tree) != tree_oid:
-                errors.append(f"BASELINE_TREE_PIN: {tree}")
-            baseline, current = tree_census(root, tree, suffix)
-            census = manifest["tree_census"]
-            if not isinstance(census, dict) or census.get(tree) != baseline:
-                errors.append(f"MANIFEST_TREE_CENSUS: {tree} differs from baseline")
-            if current != baseline:
-                errors.append(
-                    f"SOURCE_CENSUS: {tree}: "
-                    f"missing={sorted(set(baseline) - set(current))} "
-                    f"unexpected={sorted(set(current) - set(baseline))}"
-                )
-            for relative in baseline:
-                blob = _git(root, "show", f"{BASELINE_COMMIT}:{relative}")
-                failure = worktree_matches_blob(root, relative, blob)
-                if failure:
-                    errors.append(failure)
         hashes = manifest["source_sha256"]
         if not isinstance(hashes, dict):
             return ["MANIFEST_SOURCE_CENSUS: pinned source paths differ"]
@@ -217,21 +193,10 @@ def verify_sources(
             blob = _git(root, "show", f"{BASELINE_COMMIT}:{relative}")
             if _sha(blob) != pinned_hash:
                 errors.append(f"BASELINE_SOURCE_PIN: {relative}")
-            census_map = manifest["tree_census"]
-            if not isinstance(census_map, dict):
-                return ["MANIFEST_TREE_CENSUS: censused tree paths differ"]
-            censused_paths = {
-                path
-                for paths in census_map.values()
-                if isinstance(paths, list)
-                for path in paths
-            }
-            if relative in censused_paths:
-                continue
             failure = worktree_matches_blob(root, relative, blob)
             if failure:
                 errors.append(failure)
-        consumed_args = (*CONSUMED_TREES, *CONFIG_PATHS)
+        consumed_args = (*RUNTIME_PATHS.values(), *CONFIG_PATHS, *LEAN_PATHS)
         changed = set(
             _git(
                 root,

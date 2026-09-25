@@ -72,6 +72,11 @@ of a pinned sealed source, checked at the snapshot and at `HEAD`.
 - **Axiom-free.** 21 `#print axioms` reports, and every one reads *does not
   depend on any axioms* — no `propext`, no `Quot.sound`. The whole
   construction, the reconstructed statements included, is axiom-free.
+  2026-09-25: 26 reports, all axiom-free. Five theorems written in
+  `Base.lean` (`refl_car`, `trans_car`, `symm_car_left`, `symm_car_right`,
+  `symm_symm_car`) had no report, and the source census read `Closure.lean`
+  only; both now cover every theorem of both files. "The reconstructed
+  statements included" was true only of the 7 of 12 that were listed.
 - **OB1_UNCHANGED, S66_UNCHANGED, S9_LAST_UNCHANGED, NS95_GROWTH_UNCHANGED**:
   this rung touches none of the protected opens. It proves nothing about the
   challenge source, nothing about the two paper items, and nothing about the
@@ -155,7 +160,8 @@ outside this write root.
 | command | exit | key line |
 |---|---|---|
 | `python verify_pins.py` | 0 | `pins clean: 4 sources and 1 spans at snapshot and HEAD; sealed prefixes unchanged; nothing outside the write root; 8 source projections exact; native PROMPT.md frozen; 0 predictions freezes reconstructed` |
-| `python verify_lean.py` | 0 | `lean audit clean: 5 sources, 21 axiom reports (21 axiom-free), axioms within ['Quot.sound', 'propext'], 14 originating theorems all listed` |
+| `python verify_lean.py` | 0 | `lean audit clean: 5 sources, 21 axiom reports (21 axiom-free), axioms within ['Quot.sound', 'propext'], 14 originating theorems all listed` (superseded 2026-09-25, below) |
+| `python verify_lean.py` (2026-09-25) | 0 | `lean audit clean: 5 sources, 26 axiom reports (26 axiom-free), axioms within ['Quot.sound', 'propext'], 26 written theorems of Closure.lean and Base.lean all listed` |
 | `python -m unittest discover -s . -p "test_*.py"` | 0 | refusal scans pass |
 | `python ci/check_prose_watchlist.py` (repository root) | 0 | clean without a repin |
 

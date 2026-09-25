@@ -347,6 +347,18 @@ def test_commutation_obstruction_refuses_an_empty_carrier() -> None:
             verify_canonical_commutation_obstruction(dim, Fraction(1))
 
 
+def test_commutation_at_zero_is_not_obstructed() -> None:
+    """At c = 0, Q = P = I_N solves [Q, P] = 0 * I_N, so nothing is obstructed.
+
+    Until 2026-09-25 the function answered True ("obstructed") here.
+    """
+    for dim in (1, 2, 3, 4, 10):
+        for zero in (0, Fraction(0)):
+            assert verify_canonical_commutation_obstruction(dim, zero) is False
+        witness = identity_matrix(dim)
+        assert matrix_commutator(witness, witness) == matrix_scale(Fraction(0), identity_matrix(dim))
+
+
 def test_overlap_check_refuses_a_biased_pair_of_bases() -> None:
     """CL-P208C-03 and 04 claim overlap exactly 1/d; a repeated basis is refused."""
     bases3 = construct_mubs_dim3()

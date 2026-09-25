@@ -24,6 +24,7 @@ from information import (
     LandauerAccounting,
     MemoryRetentionModel,
     OperationalCommunicationProtocol,
+    FloatProbabilityError,
     UnnormalizedDistributionError,
     coarse_grain_loss,
     exact_dyadic_cross_entropy,
@@ -338,3 +339,36 @@ class TestProbabilityRowRefusal:
             DiscreteDistribution({0: Fraction(3, 2), 1: Fraction(-1, 2)})
         with pytest.raises(ValueError, match="sum of probabilities equal to 0"):
             DiscreteDistribution({0: 0, 1: 0})
+
+
+class TestFloatRefusal:
+    """A float probability is refused by name, never approximated.
+
+    Until 2026-09-25 the constructor replaced a float by
+    ``Fraction(val).limit_denominator(10**9)``.
+    """
+
+    def test_a_float_that_is_not_its_decimal_is_refused(self) -> None:
+        """0.1 as a float is not 1/10; the old path silently chose 1/10 for it."""
+        with pytest.raises(FloatProbabilityError, match="Probability for 0 is the float 0.1"):
+            DiscreteDistribution({0: 0.1, 1: Fraction(9, 10)})
+
+    def test_an_exactly_representable_float_is_refused_too(self) -> None:
+        """The refusal is by type, not by whether the float happens to be dyadic."""
+        with pytest.raises(FloatProbabilityError, match="floats are refused, never approximated"):
+            DiscreteDistribution({0: 0.5, 1: 0.5})
+
+    def test_a_float_that_would_have_been_approximated_is_refused(self) -> None:
+        """1/3 as a float is 6004799503160661/2**54; limit_denominator turned it into 1/3."""
+        with pytest.raises(FloatProbabilityError):
+            DiscreteDistribution({0: 1 / 3, 1: Fraction(2, 3)})
+
+    def test_a_channel_row_with_a_float_is_refused(self) -> None:
+        with pytest.raises(FloatProbabilityError, match="Probability for 1 is the float 0.75"):
+            Channel({0: {0: Fraction(1)}, 1: {0: Fraction(1, 4), 1: 0.75}})
+
+    def test_refusal_is_a_type_error_and_exact_inputs_still_pass(self) -> None:
+        assert issubclass(FloatProbabilityError, TypeError)
+        d = DiscreteDistribution({0: "0.1", 1: (9, 10)})
+        assert d.prob(0) == Fraction(1, 10)
+        assert d.prob(1) == Fraction(9, 10)

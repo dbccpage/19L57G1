@@ -18,7 +18,15 @@ class SourceCustody(unittest.TestCase):
         manifest = json.loads((ROOT / "SOURCE_MANIFEST.json").read_text(encoding="utf-8"))
         self.assertEqual(manifest["schema"], verify_sources.SCHEMA)
         self.assertEqual(manifest["baseline_commit"], verify_sources.BASELINE_COMMIT)
-        self.assertEqual(set(manifest["consumed_trees"]), set(verify_sources.CONSUMED_TREES))
+        # 2026-09-25: the directory pins are retired; the Lean import closure is
+        # pinned file by file in source_sha256 instead of consumed_trees.
+        self.assertNotIn("consumed_trees", manifest)
+        self.assertNotIn("tree_census", manifest)
+        self.assertEqual(
+            set(manifest["source_sha256"]),
+            set(verify_sources.RUNTIME_PATHS.values()) | set(verify_sources.CONFIG_PATHS)
+            | set(verify_sources.LEAN_PATHS),
+        )
         self.assertEqual(set(manifest["artifact_sha256"]), set(verify_sources.ARTIFACT_PATHS))
         self.assertEqual(manifest["runtime_modules"], verify_sources.RUNTIME_PATHS)
 
