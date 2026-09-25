@@ -184,6 +184,8 @@ python research/typed_translation/verify_lean.py
 if ($LASTEXITCODE -ne 0) { throw "typed_translation Lean audit failed" }
 python research/second_index/verify_lean.py
 if ($LASTEXITCODE -ne 0) { throw "second_index Lean audit failed" }
+python research/second_iso/verify_lean.py
+if ($LASTEXITCODE -ne 0) { throw "second_iso Lean audit failed" }
 python research/natural_sections/verify_lean.py
 if ($LASTEXITCODE -ne 0) { throw "natural_sections Lean audit failed" }
 python research/balance_carrier/verify_lean.py
@@ -354,6 +356,7 @@ The workflow also enumerates these registered trees by the same shape
 `research/limit_and_observer/verify_pins.py`,
 `research/second_index/verify_pins.py`,
 `research/second_inheritance/verify_pins.py`,
+`research/second_iso/verify_pins.py`,
 `research/second_nofirst/verify_pins.py`,
 `research/second_stake/verify_pins.py`,
 `research/second_stream/verify_pins.py`,
