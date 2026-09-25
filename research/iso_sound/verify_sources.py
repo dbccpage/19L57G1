@@ -15,6 +15,11 @@ working-tree file.  That comparison does not consult Git's index flags, so
 ``assume-unchanged`` / ``skip-worktree`` cannot hide a byte change from the
 compiler.  Staged-but-restored edits are still named by ``git diff --cached``.
 
+2026-09-25: ``tests/test_iso.py``, the sealed isomorphism suite that
+``tests/test_space.py`` loads by path, is now pinned by digest
+(``OPENED_PATHS``).  It was read and not pinned; the directory pins above
+never covered it.
+
 ``prompt`` and ``paper`` are not pinned: this family reads neither.  Untracked
 files are refused only where a build or an import would pick them up: a ``.py``
 under ``code/derivation`` or a ``.lean`` under ``lean4/Derivation``.
@@ -52,6 +57,8 @@ RUNTIME_PATHS = {
     )},
 }
 ARTIFACT_PATHS: tuple[str, ...] = ()
+# Files outside the pinned trees that this family opens by path.
+OPENED_PATHS = ("tests/test_iso.py",)
 
 
 def canonical_text(raw: bytes) -> bytes:
@@ -171,7 +178,9 @@ def verify_sources(repo_root: Path | None = None, *, check_runtime: bool = True)
             return ["MANIFEST_CONSUMED_CENSUS: consumed tree paths differ"]
         if set(manifest.get("tree_census", {})) != set(CONSUMED_TREES):
             return ["MANIFEST_TREE_CENSUS: censused tree paths differ"]
-        if set(manifest.get("source_sha256", {})) != set(RUNTIME_PATHS.values()) | set(CONFIG_PATHS):
+        if set(manifest.get("source_sha256", {})) != (
+            set(RUNTIME_PATHS.values()) | set(CONFIG_PATHS) | set(OPENED_PATHS)
+        ):
             return ["MANIFEST_SOURCE_CENSUS: pinned source paths differ"]
         if set(manifest.get("artifact_sha256", {})) != set(ARTIFACT_PATHS):
             return ["MANIFEST_ARTIFACT_CENSUS: pinned artifact paths differ"]
@@ -222,7 +231,7 @@ def verify_sources(repo_root: Path | None = None, *, check_runtime: bool = True)
             failure = worktree_matches_blob(root, relative, blob, text=False)
             if failure:
                 errors.append(failure)
-        consumed = (*CONSUMED_TREES, *CONFIG_PATHS, *ARTIFACT_PATHS)
+        consumed = (*CONSUMED_TREES, *CONFIG_PATHS, *OPENED_PATHS, *ARTIFACT_PATHS)
         # Index only: worktree bytes are compared to blobs above, so that
         # assume-unchanged cannot hide a change.  Staged-but-restored
         # edits still have to fail.

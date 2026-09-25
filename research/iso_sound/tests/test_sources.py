@@ -32,12 +32,13 @@ class Fixture:
         git(root, "config", "core.autocrlf", "false")
         git(root, "config", "user.name", "Custody fixture")
         git(root, "config", "user.email", "fixture@example.invalid")
-        for relative in (*guard.RUNTIME_PATHS.values(), *guard.CONFIG_PATHS,
+        for relative in (*guard.RUNTIME_PATHS.values(), *guard.CONFIG_PATHS, *guard.OPENED_PATHS,
                          "lean4/Derivation/Example.lean", *UNCONSUMED):
             path = root / relative
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(b"# fixture source\n")
-        git(root, "add", "--", *guard.CONSUMED_TREES, *guard.CONFIG_PATHS, *UNCONSUMED)
+        git(root, "add", "--", *guard.CONSUMED_TREES, *guard.CONFIG_PATHS, *guard.OPENED_PATHS,
+            *UNCONSUMED)
         git(root, "commit", "--quiet", "-m", "Fixture baseline")
         self.baseline = git(root, "rev-parse", "HEAD").decode().strip()
         self.original_baseline = guard.BASELINE_COMMIT
@@ -52,7 +53,8 @@ class Fixture:
             "tree_census": {tree: guard.tree_census(root, tree, suffix)[0]
                             for tree, suffix in guard.CONSUMED_TREES.items()},
             "source_sha256": {path: hashlib.sha256(git(root, "show", f"{self.baseline}:{path}")).hexdigest()
-                              for path in (*guard.RUNTIME_PATHS.values(), *guard.CONFIG_PATHS)},
+                              for path in (*guard.RUNTIME_PATHS.values(), *guard.CONFIG_PATHS,
+                                           *guard.OPENED_PATHS)},
             "artifact_sha256": {},
         }
         packet = root / guard.PACKET
@@ -86,6 +88,15 @@ class CustodyTests(unittest.TestCase):
         failures = self.fixture.check()
         path.write_bytes(original)
         self.assertIn("SOURCE_CHANGED: code/derivation/model.py", failures)
+
+    def test_changed_opened_file_is_named(self) -> None:
+        """2026-09-25: the sealed suite read by path is pinned, not only the trees."""
+        path = self.root / "tests/test_iso.py"
+        original = path.read_bytes()
+        path.write_bytes(b"# injected different payload\n")
+        failures = self.fixture.check()
+        path.write_bytes(original)
+        self.assertIn("SOURCE_CHANGED: tests/test_iso.py", failures)
 
     def test_assume_unchanged_lean_source_is_named(self) -> None:
         relative = "lean4/Derivation/Example.lean"

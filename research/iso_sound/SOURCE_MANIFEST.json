@@ -2,7 +2,7 @@
   "schema": "iso-sound-sources-v1",
   "baseline_commit": "cea346d7f3603fd8da374947e76c9b3cd426d122",
   "text_normalization": "CRLF_TO_LF_ONLY",
-  "scope": "Exactly the sources this family consumes: the three derivation modules the hunt imports, the sealed Lean derivation tree lean/IsoSound.lean imports, and the Lean configuration of that package. prompt, paper and artifacts are not pinned. 2026-09-19 scope correction: whole-directory pins record custody; they do not assert that the computation imports or reads every pinned file. The tree census is not a compiled import closure.",
+  "scope": "Exactly the sources this family consumes: the three derivation modules the hunt imports, the sealed Lean derivation tree lean/IsoSound.lean imports, and the Lean configuration of that package. prompt, paper and artifacts are not pinned. 2026-09-19 scope correction: whole-directory pins record custody; they do not assert that the computation imports or reads every pinned file. The tree census is not a compiled import closure. 2026-09-25: tests/test_iso.py, the sealed suite tests/test_space.py loads by path, is now pinned by digest at the baseline; it was consumed and unpinned.",
   "runtime_modules": {
     "derivation": "code/derivation/__init__.py",
     "derivation.model": "code/derivation/model.py",
@@ -133,7 +133,8 @@
     "lean4/Derivation.lean": "97384b4ab806336332d6dceda984a77d6d407526311ef6027ce8b06f58a46b6e",
     "lean4/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
     "lean4/lakefile.toml": "e75cbde5829dc2efbb5612fbfdba9301c20ccbf2d21ab80bc87db52f4ead0f3c",
-    "lean4/lake-manifest.json": "df949b280480c0c2a766e8e6dd33245fe85923c517f6c0d121b79b6f2b2cab91"
+    "lean4/lake-manifest.json": "df949b280480c0c2a766e8e6dd33245fe85923c517f6c0d121b79b6f2b2cab91",
+    "tests/test_iso.py": "0931df10f77659288c251bfe7054e364aede88137daad24a535f3ec762c7a2aa"
   },
   "artifact_sha256": {}
 }
