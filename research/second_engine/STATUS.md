@@ -284,18 +284,19 @@ further attempt is authorized automatically.
 ## Gates and timing
 
 Measured on this machine, 2026-09-25, by `python ci/run_gates.py --step
-"continuation 1" --keep-going` at `c8655ef7`, which ran the four
+"continuation 1" --keep-going` at `7f069c7f`, which ran the four
 registered steps of this tree in the workflow's order:
 
 | gate | command | measured |
 |---|---|---|
-| clean Lean build and axiom audit | `python3 research/second_engine/verify_lean.py` | 16.2 s |
+| clean Lean build and axiom audit | `python3 research/second_engine/verify_lean.py` | 21.1 s |
 | pins, spans, frozen texts | `python research/second_engine/verify_pins.py` | 2.8 s |
-| tests under coverage (152 tests), coverage gate, receipt comparison | the tree's replay, tests and coverage step | 60.6 s |
-| strict typing | `python -m mypy` | 0.4 s |
+| tests under coverage (152 tests), coverage gate, receipt comparison | the tree's replay, tests and coverage step | 70.2 s |
+| strict typing | `python -m mypy` | 0.7 s |
 
-Grouped measured time **80.0 seconds**, inside the fifteen-minute
-ceiling the seed sets.  The registered test floor is 145.  Most of the
+Grouped measured time **94.8 seconds**, inside the fifteen-minute
+ceiling the seed sets; the same command at `c8655ef7`, before the last
+corrections of prose and one Lean comment, measured 80.0 seconds.  The registered test floor is 145.  Most of the
 test step is the pin battery; the receipt builds in under a second.
 Coverage over the declared measured set (`engine_decl.py`,
 `engine_probe.py`, `run_engine.py`, `verify_pins.py`): **line 99.48%,
@@ -359,7 +360,7 @@ census_prediction_scored: {named: 50, hit: 48, missed: 2, unpredicted_native: 0}
 input_count: {value: 2, proof: none, sentence: "This attempt neither reduces the count of declared inputs nor proves it at a floor."}
 census_rows_decided: []
 injections: 15
-gate_time_seconds: 80.0
+gate_time_seconds: 94.8
 authority_effect: None
 final_state: true
 ```
