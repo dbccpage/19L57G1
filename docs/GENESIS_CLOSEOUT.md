@@ -197,16 +197,266 @@ verdict.
 
 ## 7. Audit results
 
-*(Filled at the final audit.)*
+The audit ran on branch `closeout/alpha-audit` from the frozen scope
+(`ccd0ab06`). Its adversarial tests are in
+`research/alpha_engine/tests/test_admission_boundary.py`. Each test goes
+through the real path (`evaluate`, then `make_license`, then
+`apply_licensed` or `explore`) and is paired with a positive control that
+admits a legitimate transition.
+
+| hypothesis | guarantee | result | evidence |
+|---|---|---|---|
+| B1: a substituted member of a legitimate key | M1 | **REPRODUCED** | An empty substituted member produced a child that ends in a bare `Impose(0, 1)`. A member of another class produced a child whose key is not the authorized one. The same happened through `explore`, and a forged cost was accepted (`B1SubstitutedMember.*`). |
+| B2: a parent that does not replay | M2 | **REPRODUCED** | A `Node` with the F history and the L regime was accepted by both entry points (`B2NodeIntegrity.*`). |
+| B3: an authorization reused elsewhere | M3 | **REPRODUCED**, for all four fields | A license granted at L was accepted at a relabelled source that has the *same canonical keys* and evidence, so binding by canonical identity would not have caught it. It was also accepted at another history, for another target, for another measure and under other bounds (`B3LicenseBinding.*`). |
+| 4: uniqueness promoted to admission | M4 | **REFUTED** without a license. **REPRODUCED** with an inapplicable one | A unique mu2 class was admitted under a license granted for mu1. The root cause is B3's. |
+| 5: a retained alternative disappearing | M5 | **REFUTED** through `explore` (`CensusError`, `FabricatedClassError`). **REPRODUCED** through `apply_licensed` | `apply_licensed` accepted evidence from which two of the three retained classes had disappeared. |
+| 6: an inert proposal, and typed stops | M6 | **REFUTED** | Proposal and evaluation leave the declared base unchanged. Under `Bounds(1, 2)` the result is `found=False` with cost `None`, and nothing is admitted. |
+
+**Repairs.** One pass sufficed (commit `b698cf7f`); the second pass of the
+budget was not used. All repairs are inside `research/alpha_engine/`:
+
+- A `License` now records the source history digest, the target, the
+  measure and the bounds. `check_license_binding` refuses reuse and names
+  each field that does not match.
+- `check_node_integrity` refuses a parent that does not replay to its
+  regime, at the point of use.
+- `apply_licensed` and `explore` recompute the evaluation from the sealed
+  kernel. They refuse caller evidence that differs (`SubstitutedMemberError`,
+  `ForgedEvaluationError`) and execute the recomputed member, never the
+  caller's.
+- `make_license` still refuses an integer selector.
+- `evidence/three_phase.json` was regenerated deliberately with
+  `run.py --write`, with no injection live. Its only change is the added
+  license binding.
+
+**Live injections.** `python research/alpha_engine/inject_boundary.py`
+reverts each repair in the real `driver_a.py`, shows the named failure, and
+restores the file. The coordinator re-ran it at the final audit on the
+joined branch. Every injection fired and recovered, and the tree was clean
+afterwards:
+
+- B1: four failures, e.g. "apply_licensed executed an empty substituted
+  member of an authorized key";
+- H5: "apply_licensed accepted evidence from which two retained classes had
+  disappeared";
+- B2: two failures;
+- B3 and H4: seven failures, e.g. "a License granted at one source node was
+  accepted at a relabelled source".
+
+These injections are recorded in `research/alpha_engine/STATUS.md`. Their
+rows for `docs/injection_record.md` are a blocked write (§9.3).
+
+**Correction to the frozen trust-boundary hypothesis (§3).** §3 said that
+"the host constructs authorizations through `make_license`". The audit
+found that a `License` can be checked for *consistency* with the call, but
+not for *provenance*. **The host's call is the authorization**, so a host
+must never forward a license it did not build itself. The trusted parties
+are:
+
+- the six sealed runtime modules at the pinned baseline;
+- the harness's own code;
+- the host that calls `apply_licensed` or `explore`.
+
+Checked at use: the `EvalResult`, the parent `Node`, the license's binding
+and keys, the census, and proposer offerings (which are never executed).
+
+Excluded: process compromise (including objects that override equality or
+use `object.__setattr__`), tampering with the kernel or the harness,
+SHA-256 collisions, concurrent use, and any network or identity
+authentication. A scope string, digest or Python type is not
+authentication, and is not claimed to be.
+
+**Mandatory guarantees after the repair pass.** M1 to M8 all hold within
+that trust boundary. For M8, the one command is
+`cd research/alpha_engine; python verify.py`. At the final audit it passed
+all nine steps on the joined branch:
+
+- sources;
+- 169 tests;
+- coverage, statements 98.71% and branches 97.75%;
+- mypy strict (30 files);
+- the fresh Lean build and census;
+- the PEA record bytes;
+- the four handoff demonstrations;
+- the sealed kernel's 66 tests.
+
+It reported 0 skipped checks. A failed or skipped check fails the command;
+that was shown by injection (a changed byte in `evidence/handoff_demo.json`,
+and a moved `evidence/lean.json`). For M7, the demonstrations and the
+replay contact no model provider.
+
+**The frozen scope's test count.** §2.5 says 15 test files at the start.
+The audit added `test_admission_boundary.py` and `test_handoff.py`, so there
+are now 17.
 
 ## 8. Disposition of the second derivation
 
-*(Filled at the final audit.)*
+- **Original stage:** twelve research attempts under the unchanged seed,
+  with eleven ordinal labels (0 to 10). Counted by attempts, the budget is
+  exhausted (ruling #266). The next-rung rule selected no leftover after
+  rung ten.
+- **Continuation attempt 1 (Challenge 3): CLOSED.** It was merged by the
+  author as #267 (`dabe9a92`), with the tree `research/second_engine`. At
+  landing the operator regenerated `docs/index/pins.md`, a generated view
+  only.
+  - The attempt declared a 144-engine class (108 without the HALT member it
+    added) and counted capabilities (six to ten per engine).
+  - Minimal members exist in every subclass. None is unique up to
+    probe-isomorphism, and none is initial, a refusal stated for inclusion
+    of declarations only.
+  - No engine was run forward and no census row was decided. The input
+    count stays two, with no floor proved.
+- **Continuation attempt 2 (Challenge 4 and the FORCED census): NOT BEGUN.**
+  It became legally startable when the author integrated attempt 1. It was
+  not launched in this closeout session: this closeout starts no new
+  research, and whether and when to launch it is the author's call. No
+  third attempt is authorized.
+- **The run's reporting files** (`research/second/paper.md`,
+  `change_log.md`, `claim_ledger.md`) exist as an explicitly **UNFROZEN
+  DRAFT**.
+  - They include the Challenge 0 to 5 dispositions, every attempt, the
+    author interventions, and the operator acts. Acts not previously
+    committed are attested by the closeout coordinator.
+  - The ledger has about 108 claim rows, and every cited Lean statement was
+    read in source.
+  - The draft is finalized only after the authorized attempts stop, and
+    frozen only on the author's approval.
+- **Lean names whose wording outruns their statements** are flagged in the
+  ledger and stated exactly there:
+  - rung ten's `response_collapses_a_pair`, which is about one instance
+    admission, not a sealed-responder minimum;
+  - rung nine's `separable_iso` and `collapsed_iso`, which are one
+    direction only;
+  - rung two's `no_first_demand` and `grammar_carries_no_stake`;
+  - attempt 1's `minima_differ_at_genL`, whose non-isomorphism conclusion
+    goes through the Python probe;
+  - attempt 1's E3 and E4 invariance, proved in the Lean mirror only.
 
 ## 9. Residual ledger, manifest and freeze
 
-*(Filled at the final audit.)*
+### 9.1 Residual ledger at the final audit
+
+**CORE_BLOCKER:** none remains inside the frozen scope. B1, B2 and B3 were
+reproduced and repaired, and each repair was proved by live injection.
+
+**EVIDENCE_OR_REPORTING_DEBT**
+
+| id | status at the final audit |
+|---|---|
+| D1 | The run's paper, change log and ledger are drafted, and remain UNFROZEN until the attempts stop and the author approves. |
+| D2 | Open. G10, G13 and G14 are still not live injections, and are not relied on by the handoff. |
+| D3 | Open. `CL-ISO-SOUND` has no Lean evidence. |
+| D4 | Open. `python_driver_refinement` is NOT_PROVED, and the harness Lean does not model the new license binding. |
+| D5 | Open. The original completion gate is not satisfied (§10). |
+| D6 | Resolved: `B1SubstitutedMember` now covers a substituted member of a present key. |
+| D7 | New: the injection-record rows are a blocked write (§9.3). |
+| D8 | New: the Lean names whose wording outruns their statements (§8) are recorded exactly in the run's ledger. |
+| D9 | New: the operator acts for rungs four to ten and for attempt 1 were not in any committed file until the draft `change_log.md` recorded them as the coordinator's attestation. |
+
+**SUCCESSOR_RESEARCH**
+
+| id | status |
+|---|---|
+| S1 | Continuation attempt 2 is authorized (#266), legally startable, and not launched. |
+| S2 to S8 | Unchanged from §4. |
+
+### 9.2 Manifest
+
+- **Snapshot:** commit `dd39fac5d094708a6933aba6a7ddf2b59110d401` (root
+  tree `95eac073efede1eec3a0121fa2260970dfe7d9fb`), the joined closeout
+  branch immediately before the commit that adds this section.
+- **Self-exclusion:** this file, `docs/GENESIS_CLOSEOUT.md`, is excluded
+  from the manifest. The commit that adds this section changes only this
+  file.
+- **Hashes:** a git tree id binds every file beneath it. The SHA-256 values
+  are of LF-normalized bytes.
+
+| path | kind | git object id | files | sha256 (LF bytes) |
+|---|---|---|---:|---|
+| `research/alpha_engine/` | tree | `1a8802bd2693896b95380d82c696c943815dbde8` | 45 | (tree id binds every file) |
+| `research/second/` | tree | `91565ce086beb40ef3c53c28cb1b5184dfb4eadb` | 9 | (tree id binds every file) |
+| `research/second_class/` | tree | `7db5d3d9267046dd88a7020a5865b900214fa49e` | 32 | (tree id binds every file) |
+| `research/second_duration/` | tree | `1d114702799922c4066248517852c2895ad6e600` | 28 | (tree id binds every file) |
+| `research/second_engine/` | tree | `cfda4b00d240de163a3d61481f8b96d63edb31c3` | 34 | (tree id binds every file) |
+| `research/second_index/` | tree | `b44d5b9c7d18bf40a25749819c049bc7b46c72b7` | 29 | (tree id binds every file) |
+| `research/second_inheritance/` | tree | `5583714fd6f8b2b6e3a5f7f61c9d27dc27cc9254` | 12 | (tree id binds every file) |
+| `research/second_iso/` | tree | `00e5b2c1bfdcce8dc8b4e7c9d4fc31ac32389339` | 33 | (tree id binds every file) |
+| `research/second_nofirst/` | tree | `34a1a4fc5aee74998f0c092d688a4bbe397495b2` | 34 | (tree id binds every file) |
+| `research/second_profile/` | tree | `2b39622c94e1efd0727220e0a62c2b6b1e783e1f` | 31 | (tree id binds every file) |
+| `research/second_response/` | tree | `09f1ba8742086080d1377f023962cbaee2b9fa20` | 31 | (tree id binds every file) |
+| `research/second_stake/` | tree | `989eed925195c6cb7438bfc26b860e5c6b811fe5` | 18 | (tree id binds every file) |
+| `research/second_stream/` | tree | `58029f3c6a3db0f691eb660a58763e96ac7d8f08` | 15 | (tree id binds every file) |
+| `research/second_succession/` | tree | `ca8e6f65d5126b80dfeae480fd71a7e098c631b9` | 28 | (tree id binds every file) |
+| `research/second_symmetry/` | tree | `1c6f9fdf203ecfa8827b259c903726e1c18c1d43` | 31 | (tree id binds every file) |
+| `docs/ALPHA_HANDOFF.md` | blob | `d6b7d1f6d634f3aed33b88c648193fc39a3dc5fc` | 1 | `e2c99d7f61841b0475ac9e81fb37afb9f15fadb71aa1b9e06868b9774cfe36d8` |
+| `CLAUDE.md` | blob | `c4210d409880114ef11e9836ab3c9999d3428064` | 1 | `5c0c30ebba8aed2d9075287962096794314ab44d00921924b8a4f090882f19b0` |
+| `code/derivation/__init__.py` | blob | `8c239e66976fadaa9e5a04f9451ec4c500c266d4` | 1 | `0fabcb53dc46712447a727f6ceb661e5aab3267a3e8b50bdea11044b64f853af` |
+| `code/derivation/model.py` | blob | `b6f95a673853d423a0d73b4faa95b2cd22f306a3` | 1 | `6a7fd2ba9688d47e9291514c623a811cde3c6b9e8fda1d12a608dc9bb0b1f3c2` |
+| `code/derivation/observe.py` | blob | `2552c0412d472ae9ff5d31f9068684cfa531aad9` | 1 | `78443d67e613d9cc9924538fe2e0a5acaf81f4654440bfe8586e16652f0317ba` |
+| `code/derivation/candidates.py` | blob | `9fa609d8a797f74f1620ce39e377c7dc54ee53b7` | 1 | `856ce42faba2dc2ae1217207ecc8af893eac29b50ae8a374dc06d2ba22c957bb` |
+| `code/derivation/iso.py` | blob | `f05399fe6bdfbd2311bf34fa6fe927af194f586f` | 1 | `b0f1f3bcf05126111a07706f4388a9fff5e30455d4b8f127966cf99ab0d0886e` |
+| `code/derivation/engine.py` | blob | `343290d82a7fcda91f3ff85751af7af99f9a0359` | 1 | `23803a3dcce2adf0dee623caba33791d41a25d2da3fdfd226da3cad2ee140b5e` |
+| `lean4/Derivation.lean` | blob | `e28e855bd17460b86b08eacb169e0c00e4f9de08` | 1 | `97384b4ab806336332d6dceda984a77d6d407526311ef6027ce8b06f58a46b6e` |
+| `lean4/Derivation/Basic.lean` | blob | `610d8fc982853807eb892eaaf683fc4eb2959cc1` | 1 | `1520b392f4061af568e00ca4fd235feb03facf6d3612c030c1d60018539e3eed` |
+| `lean4/lakefile.toml` | blob | `7a714802e3af2c6a4ad362dfc073a4eb064f209a` | 1 | `e75cbde5829dc2efbb5612fbfdba9301c20ccbf2d21ab80bc87db52f4ead0f3c` |
+| `lean4/lake-manifest.json` | blob | `8e201944fa9d35190015955f1e21d458bc2cae14` | 1 | `df949b280480c0c2a766e8e6dd33245fe85923c517f6c0d121b79b6f2b2cab91` |
+| `lean4/lean-toolchain` | blob | `025e59548e48cf71f2744154e2890beefe30a258` | 1 | `302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b` |
+
+**Declared exclusions.** The following are not part of this closeout's
+frozen content:
+
+- the rest of the repository;
+- the sealed paper, artifacts and the Lean modules outside the pins above;
+- the passage-system and foundations trees;
+- every other research tree;
+- the_symbol_game, H3V7N5QF, the level engine and all companion material.
+
+**Proof and build evidence at the final audit:**
+
+- `python ci/run_gates.py --job python --keep-going --workers 8` passed
+  13 of 13 steps at `fdd63af6`, with 918 tests passed and 1 skipped. The
+  report files merged afterwards change no tested code.
+- The Alpha one command passed nine of nine steps at `fdd63af6`.
+- The injection script passed: every injection fired and recovered.
+- All 48 registered second-derivation steps passed at `ccd0ab06`.
+- Continuation attempt 1's four registered steps passed at `b205bb4e`. They
+  were run from the workflow text directly, because another session held
+  the runner lock.
+- The custody census matches its pin: 108 verifiers, 107 green, 1 pinned
+  red (`described_replay`, pinned before this work).
+- The prose watchlist and the refused-words test are clean.
+
+**Could not be reproduced here:**
+
+- a hosted CI run (none exists, by design);
+- the `lean` and `research` jobs in full (only their second-derivation and
+  Alpha steps ran);
+- the companion comparison (not written, and not permitted before the
+  freeze).
+
+### 9.3 Blocked writes
+
+- `docs/injection_record.md`: rows for the closeout's live injections
+  (B1, H5, B2, B3 and H4, plus the M8 command checks). This file is outside
+  the closeout scope recorded in `CLAUDE.md`. The rows are in
+  `research/alpha_engine/STATUS.md` until the author approves the write.
+
+### 9.4 Freeze
+
+This manifest is prepared, not applied. The author approves the freeze.
+The run's reporting files freeze only after the authorized continuation
+stops. The comparison follows the freeze, and only in the permitted
+companion repository.
 
 ## 10. The three axes
 
-*(Filled at the final audit.)*
+| axis | value | why |
+|---|---|---|
+| `research_phase` | **RUNNING** | Continuation attempt 2 is authorized and startable but has not begun. The run's report is an unfrozen draft. |
+| `alpha_reference` | **READY_WITHIN_DECLARED_SCOPE** | M1 to M8 hold within the trust boundary of §7. B1, B2 and B3 were repaired in one pass and proved by live injection. The one command passes nine of nine steps with no skips and no model provider. Not universal: the refinement to Lean is NOT_PROVED, demand generation is OPEN, and consumer bridges are OPEN. |
+| `original_seed_completion_gate` | **UNSATISFIED** | The declared-input count is two, with no floor proved. No engine has been run to bounds. Not every gate is proved by injection. The comparison is not written. Several further clauses are NOT_ESTABLISHED (see `research/second/paper.md`). |
+
+These axes are independent. A closed stage would not imply readiness,
+readiness does not imply universality, and an unmet clause of the original
+completion gate stays unmet.
