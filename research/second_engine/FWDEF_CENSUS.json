@@ -1,0 +1,282 @@
+{
+  "authority_effect": "None",
+  "classes": {
+    "R2F_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "R2F_wf": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "R2L_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "R2L_wf": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "admission_without_expressive_increase": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "carried_flip": {
+      "class": "DEFINITION",
+      "module": "Stake.lean"
+    },
+    "class_size": {
+      "class": "DEFINITION",
+      "module": "Census.lean"
+    },
+    "collapsed_iso": {
+      "class": "THIN",
+      "module": "Carry.lean"
+    },
+    "collapsed_iso_iff": {
+      "class": "THIN",
+      "module": "Orbit.lean"
+    },
+    "collapsed_of_no_insts": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "count_ge_six": {
+      "class": "DEFINITION",
+      "module": "Census.lean"
+    },
+    "count_six_members": {
+      "class": "DEFINITION",
+      "module": "Census.lean"
+    },
+    "demand_carried": {
+      "class": "THIN",
+      "module": "Stake.lean"
+    },
+    "derivable_bwd": {
+      "class": "THIN",
+      "module": "Carry.lean"
+    },
+    "derivable_fwd": {
+      "class": "DEFINITION",
+      "module": "Carry.lean"
+    },
+    "derivable_mapCtx": {
+      "class": "THIN",
+      "module": "Carry.lean"
+    },
+    "e1_carried": {
+      "class": "THIN",
+      "module": "Stake.lean"
+    },
+    "e1_engine_quiet": {
+      "class": "THIN",
+      "module": "Engine.lean"
+    },
+    "e1_flip_demands": {
+      "class": "DEFINITION",
+      "module": "Stake.lean"
+    },
+    "e1_flip_demands_at_genL": {
+      "class": "DEFINITION",
+      "module": "Genesis.lean"
+    },
+    "e1_halt_no_step": {
+      "class": "THIN",
+      "module": "Engine.lean"
+    },
+    "e1_never_demands": {
+      "class": "THIN",
+      "module": "Stake.lean"
+    },
+    "e3_carried": {
+      "class": "THIN",
+      "module": "Stake.lean"
+    },
+    "e3_flip_eq_e4": {
+      "class": "DEFINITION",
+      "module": "Stake.lean"
+    },
+    "e3_quiet_at_genL": {
+      "class": "THIN",
+      "module": "Genesis.lean"
+    },
+    "e4_carried": {
+      "class": "THIN",
+      "module": "Stake.lean"
+    },
+    "e4_demands_at_genL": {
+      "class": "DEFINITION",
+      "module": "Genesis.lean"
+    },
+    "e4_flip_eq_e3": {
+      "class": "DEFINITION",
+      "module": "Stake.lean"
+    },
+    "e8_carried": {
+      "class": "THIN",
+      "module": "Stake.lean"
+    },
+    "e8_quiet_without_reqs": {
+      "class": "DEFINITION",
+      "module": "Stake.lean"
+    },
+    "fixpoint_of_halt": {
+      "class": "DEFINITION",
+      "module": "Engine.lean"
+    },
+    "flip_flip": {
+      "class": "DEFINITION",
+      "module": "Stake.lean"
+    },
+    "genL_collapsed": {
+      "class": "DEFINITION",
+      "module": "Genesis.lean"
+    },
+    "genL_one_orbit": {
+      "class": "DEFINITION",
+      "module": "Genesis.lean"
+    },
+    "genL_replays": {
+      "class": "DEFINITION",
+      "module": "Genesis.lean"
+    },
+    "genesis_underivable": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "historyF_replays": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "historyL_replays": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "insertNew_nil": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "insertNew_of_mem": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "insertNew_of_not_mem": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "literal_count2_seven_members": {
+      "class": "DEFINITION",
+      "module": "Census.lean"
+    },
+    "literal_count_ge_seven": {
+      "class": "DEFINITION",
+      "module": "Census.lean"
+    },
+    "literal_count_seven_members": {
+      "class": "DEFINITION",
+      "module": "Census.lean"
+    },
+    "literal_size": {
+      "class": "DEFINITION",
+      "module": "Census.lean"
+    },
+    "map_inv": {
+      "class": "THIN",
+      "module": "Carry.lean"
+    },
+    "mem_insertNew": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "minima_differ_at_genL": {
+      "class": "THIN",
+      "module": "Genesis.lean"
+    },
+    "no_initial": {
+      "class": "THIN",
+      "module": "Census.lean"
+    },
+    "no_initial_of_two_measures": {
+      "class": "THIN",
+      "module": "Census.lean"
+    },
+    "no_one_declaration": {
+      "class": "THIN",
+      "module": "Census.lean"
+    },
+    "oneOrbit_iso": {
+      "class": "THIN",
+      "module": "Orbit.lean"
+    },
+    "plug_args_lt": {
+      "class": "THIN",
+      "module": "Carry.lean"
+    },
+    "plug_mapCtx": {
+      "class": "DEFINITION",
+      "module": "Carry.lean"
+    },
+    "replayE_append": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "reqMember_iso": {
+      "class": "THIN",
+      "module": "Orbit.lean"
+    },
+    "run_named": {
+      "class": "THIN",
+      "module": "Engine.lean"
+    },
+    "same_caps_e3_e4": {
+      "class": "DEFINITION",
+      "module": "Census.lean"
+    },
+    "separable_iso": {
+      "class": "THIN",
+      "module": "Carry.lean"
+    },
+    "separable_iso_iff": {
+      "class": "THIN",
+      "module": "Orbit.lean"
+    },
+    "separable_not_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "sortPair_map": {
+      "class": "THIN",
+      "module": "Orbit.lean"
+    },
+    "sortPair_swap": {
+      "class": "THIN",
+      "module": "Orbit.lean"
+    },
+    "step_at_demand_is_response": {
+      "class": "THIN",
+      "module": "Engine.lean"
+    },
+    "supply_no_op": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "underivable_of_empty": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "wfCtx_mapCtx": {
+      "class": "THIN",
+      "module": "Carry.lean"
+    }
+  },
+  "counts": {
+    "DEFINITION": 22,
+    "RECONSTRUCTION": 17,
+    "THIN": 28
+  },
+  "long_but_definitional": {
+    "e8_quiet_without_reqs": "Fourteen lines of ONE REWRITE AND PURE CASE EXHAUSTION: requirement membership is unfolded and rewritten by the hypothesis that the regime holds none, the membership is refuted by cases on the empty list, and each of the two conjuncts -- plain and flipped -- splits into its two disjuncts, each closed by that refutation or by False.  Its length measures the two symmetric conjuncts, not the amount of work, so the line bound is the wrong instrument here.  The exception is listed rather than the bound raised, so that it is visible and countable; test_census.py requires this list to stay at one entry."
+  },
+  "note": "The FW-DEF census of this tree, TOTAL over every theorem of the package. The four classes are rung six's, with rung six's meanings. RECONSTRUCTION: not this tree's work, reproduced verbatim under a pin -- every theorem of Kernel.lean; IsoKernel.lean reconstructs definitions only and carries no theorem. DEFINITION: true by unfolding, by rfl, by a projection, by one rewrite, by kernel computation over concrete objects, or by pure case exhaustion, including exhaustion over the declared finite class; never counted as content. THIN: one genuine step, or a direct corollary of a neighbour, or an assembly of carried pieces. CONTENT: everything else. No theorem of this package is CONTENT. Two rows differ from the frozen prediction. oneOrbit_iso was predicted CONTENT and is THIN: each direction exhibits the conjugate automorphism, built by isoTrans and isoSymm, and closes by one rewrite with dinv_dmap. The work of the carrying sits in the definition isoTrans, whose nineteen field proofs compose the two inhabitants' maps and rewrite through both inverse laws and sortPair_map; a definition is not a row of this census, and the census says so rather than counting an assembly as content, as rung nine did for collapsed_iso. sortPair_swap was predicted DEFINITION and is THIN: one of its cases is not closed by computation but by the antisymmetry of the order, one genuine step. The first miss is a DEMOTION, the direction rungs three, nine and ten recorded; the second is a PROMOTION. e8_quiet_without_reqs is DEFINITION and is listed in long_but_definitional. The census rows of Census.lean are DEFINITION by kernel computation or case exhaustion over the one hundred and forty-four declared members (decide, and decide +kernel for the list lengths, which the elaborator's recursion depth refuses); no_one_declaration, no_initial and no_initial_of_two_measures are THIN assemblies of such exhaustions. Several statements are credited, not counted as new to the run: map_inv, plug_mapCtx, plug_args_lt, wfCtx_mapCtx, derivable_fwd, derivable_bwd, derivable_mapCtx, separable_iso and collapsed_iso (rung nine, restated unedited but for the namespace); the definition isoSymm is rung eight's. test_census.py checks this file is total over the package in both directions, that no row classed DEFINITION has a long proof outside long_but_definitional, and that the classes here are scored against the frozen prediction in PREDICTIONS.md."
+}
