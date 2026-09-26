@@ -436,6 +436,16 @@ what actually runs.
       The final report and supporting files are frozen before comparison.
       The comparison is written only in the companion repository.
       ```
+    - *Genesis closeout scope (author, 2026-09-25):* the author ordered a
+      closeout of the current research stage and an Alpha handoff. For
+      that closeout session only, the permitted writes are:
+      `docs/GENESIS_CLOSEOUT.md`, `docs/ALPHA_HANDOFF.md`, the run's
+      reporting files `research/second/paper.md`,
+      `research/second/change_log.md` and `research/second/claim_ledger.md`,
+      and narrowly scoped repairs inside `research/alpha_engine/`. This
+      extends no blind rung's write root and overrides no sealed-path
+      restriction. The closeout session does not merge, tag, publish or
+      archive; the author approves the freeze.
 12. **Prose watchlist:** `python ci/check_prose_watchlist.py`. The census
     matches its pin. See Invariants.
 
