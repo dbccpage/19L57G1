@@ -1,10 +1,12 @@
 # UNFROZEN DRAFT -- change log of the second derivation
 
-**UNFROZEN DRAFT, dated 2026-09-25.  The research stage is still running.**
-Continuation attempt one (Challenge 3) was running when this draft was
-written, and continuation attempt two (Challenge 4) had not begun.  This
-log is finalized only after both continuation attempts close and the
-author approves the freeze; entries after this one are expected.
+**UNFROZEN DRAFT, dated 2026-09-25 and updated the same day.  The
+research stage is still running.**  Continuation attempt one (Challenge 3)
+has closed and the author merged it (pull request 267, merge `dabe9a92`).
+Continuation attempt two (Challenge 4) is startable and had not been
+launched when this draft was updated.  This log is finalized only after
+attempt two closes and the author approves the freeze; entries after this
+one are expected.
 
 `AuthorityEffect: None`.  The dated history of the run: rungs, author
 rulings, operator acts, supersessions and known defects.  Newest last.
@@ -18,10 +20,11 @@ Times are the committer's local times as Git records them.
 The rung trees' `STATUS.md` and `CLAIM_LEDGER.md` files, the injection
 record and handoffs in `research/second/MANUAL.md`, `CLAUDE.md` (gate 11),
 `docs/GENESIS_CLOSEOUT.md` sections 0, 1 and 4, the Git history of
-`main` up to `ccd0ab06`, and the closeout order of 2026-09-25.  Three
-operator acts below are stated in the closeout order and were not found
-in any committed file or in the pull-request bodies and comments read for
-this draft; they are marked so.
+`main` up to `dabe9a92`, and the closeout coordinator's attestation of
+2026-09-25.  The operator acts in the section "Operator acts attested by
+the closeout coordinator" below were not previously committed anywhere;
+this log is their first committed record, and they rest on that
+attestation.
 
 ## 2026-09-03: seed, plan, rung zero
 
@@ -155,9 +158,11 @@ this draft; they are marked so.
   rung four's landing branch.  **Found live:** nineteen theorems reached
   `Classical.choice` through two `simp` calls; repaired before any
   injection.
-- **Operator act, stated in the closeout order and not found in a
-  committed file:** during rung four, a process listing exposed the name
-  of another repository.  No content of it was seen.
+- **Operator acts at rung four** (attested; see the section below): the
+  rung was launched headless from `bdbe5832` after a memory canary; it
+  listed running processes and saw another repository's name and paths,
+  with no content; at landing the operator merged `main` in, regenerated
+  `docs/index/pins.md` and folded in the skill lines of pull request 256.
 - **Author ruling, pull request 257 (`630622da`, 00:23):** a rung adds its
   own registered gate scripts to `.claude/skills/gates/SKILL.md`.
 - Rung five, `research/second_symmetry/`, pull request 258 (`144d9c2b`,
@@ -169,6 +174,8 @@ this draft; they are marked so.
   rung six's reading (a leftover refining a decided row is not eligible)
   to every carried row and marked Y-1 ineligible, which removed a tie
   that would have turned on the meaning of "named first".
+- **Operator act** (attested): the rung sequence was paused after rung
+  seven, pending the author's "named first" ruling, and resumed after it.
 - **Author ruling, pull request 261 (`35e680ec`, 10:34):** "named first"
   in the next-rung rule means first in the list of leftovers as the
   applying rung writes it, never earliest in time.
@@ -191,14 +198,11 @@ this draft; they are marked so.
   a non-arithmetic goal reached `Classical.choice`; rewritten.
 - `fbc804ab` (13:28), `16aeba85` (13:32): rung ten freezes its question
   and predictions.
-- **Operator act, stated in the closeout order and not found in a
-  committed file:** rung ten's session was paused at 13:38 and resumed
-  with a bare "continue".  The commit history is consistent with it: the
-  predictions froze at 13:32 and the next rung-ten commit, `081085d3`, is
-  at 18:55.
-- **Operator act, stated in the closeout order and not found in a
-  committed file:** rung sessions were launched headless with a fixed
-  one-line prompt.
+- **Author and operator act** (attested): the author paused all work at
+  13:38, while rung ten had frozen its question and predictions; rung ten
+  was resumed at 18:32 with a bare "continue" into the same session.  The
+  commit history is consistent with it: the predictions froze at 13:32 and
+  the next rung-ten commit, `081085d3`, is at 18:55.
 - Rung ten, `research/second_response/`, pull request 265 (`4c785017`,
   19:21).  R-11 missed (no refusal within two items).  X-6 closed; the
   next-rung rule, as rungs three to nine read it, selects no leftover.
@@ -216,11 +220,10 @@ this draft; they are marked so.
   the paper and the claim ledger; budget exhaustion is not completion.
   `3a95a976` pins the watched word the ruling's verbatim copies carry;
   `3a60ed2b` repins rung one's HEAD-only pin of the watchlist census.
-- Continuation attempt one (Challenge 3) is launched headless from
-  `01876f3a` on branch `research/second-engine-continuation`.  When this
-  draft was written the branch carried two freeze commits, `03b67607`
-  (question) and `596e2c6e` (predictions), and no result.  No content of
-  it is read or reported here.  Continuation attempt two has not begun.
+- Continuation attempt one (Challenge 3) is launched headless by the
+  coordinator from `01876f3a` on branch
+  `research/second-engine-continuation` (attested).  It freezes its
+  question at `03b67607` (20:08) and its predictions at `596e2c6e` (20:14).
 - `2e8ba8cf`: the author's Genesis closeout scope is recorded in
   `CLAUDE.md`; `ccd0ab06`: the closeout acceptance scope is frozen in
   `docs/GENESIS_CLOSEOUT.md`.
@@ -229,17 +232,86 @@ this draft; they are marked so.
   `closeout/second-report` from `ccd0ab06`.  Reporting consumes no
   research attempt.  Before the files were written, every registered
   step of the run was re-run at `ccd0ab06` on a clean worktree: 48 of 48
-  passed (`research/second/paper.md`, section 9.2).
+  passed (`research/second/paper.md`, section 9.2).  Committed as
+  `4c528d3e` (20:59), while attempt one was still open.
+- Continuation attempt one, `research/second_engine/`: the result at
+  `cfeb1b81` (20:47); the generated views at `d746c185` (20:49); the
+  custody pin, handoff and fifteen injections at `c8655ef7` (20:56).
+- **Self-correction before the merge, `7f069c7f` (21:05).**  The attempt's
+  `STATUS.md` had described the composite of two isomorphisms as something
+  "which no earlier tree had".  The attempt replaced that clause with a
+  credit to the sealed estate's `Iso.trans` in
+  `lean4/Derivation/IsoCanon.lean`, pinned that module as a source,
+  credited it in the module comment, census note and ledger, and corrected
+  two counts: the plan item that assigns the engine (four, not three) and
+  the FORCED rows among the thirteen computed ones (three, not four).  The
+  replaced clause is quoted here because the attempt's `STATUS.md` does not
+  quote it.  `e23a3fa6` (21:07) records the gate time.
+- **Operator landing repair, `9fc917ad` (21:13).**  The correction commit
+  pinned `IsoCanon.lean` without regenerating `docs/index/pins.md`, so the
+  root test that the lookup indexes are current failed; the operator
+  regenerated that generated view only.  No research content changed.
+- **Pull request 267 merged by the author, `dabe9a92` (21:13).**
+  Continuation attempt one is closed: a 144-member engine class (108
+  without its HALT member) declared, counted and probed to depth two;
+  minimal members exist, none unique up to probe-isomorphism, none initial
+  under inclusions of declarations; E1, E3, E4 and E8 carried in its Lean
+  mirror, E6 OPEN; no census row decided; the input count stays two.
+  Thirteen of thirteen computed predictions hit, which the attempt calls
+  weak evidence; forty-eight of fifty Lean class predictions hit.
+- `b205bb4e`: the coordinator merges `main` at `dabe9a92` into
+  `closeout/second-report`.  This draft is then updated for attempt one
+  and for the attested operator acts.  Continuation attempt two is
+  startable and had not been launched.
+
+## Operator acts attested by the closeout coordinator (2026-09-25)
+
+Attested to this closeout by the closeout coordinator, the session that
+ran them, on 2026-09-25, and not previously committed:
+
+- Rungs four to ten and continuation attempt one were launched headless
+  by the coordinator, with Claude Code 2.1.281, auto-memory off, project
+  settings only, no MCP servers, no slash commands and a fixed tool list.
+  The prompt in every case was exactly `Follow research/second/SEED.md.`.
+  Each launched from `main` at: rung four `bdbe5832`, rung five
+  `630622da`, rung six `144d9c2b`, rung seven `d6dca750`, rung eight
+  `35e680ec`, rung nine `ff584d44`, rung ten `77ad2a78`, continuation
+  attempt one `01876f3a`.  Each launch commit is the snapshot commit that
+  tree's `SOURCE_MANIFEST.json` records, which this draft checked.
+- Before rung four, a memory canary run with the same flags answered
+  "MEMORY: NONE", with no skills and no MCP servers.
+- Rung four listed running processes while checking machine load, and saw
+  another repository's name and paths in command lines.  It saw no
+  content, and nothing of it reached the rung's output or diff.
+- The author paused all work at 13:38 on 2026-09-25, while rung ten had
+  frozen its question and predictions.  Rung ten was resumed at 18:32
+  with a bare "continue" into the same session.
+- The rung sequence was paused after rung seven, pending the author's
+  "named first" ruling (pull request 261), then resumed.
+- Operator landing repairs, all generated views, skill lines or merges of
+  `main`, never research content: at rung four, `main` merged in,
+  `docs/index/pins.md` regenerated and the skill lines of pull request 256
+  folded in; at continuation attempt one, `docs/index/pins.md` regenerated
+  (`9fc917ad`).
+- Rungs zero to three were not launched by this coordinator.  Rungs one
+  and two were launched with an operator packet held outside the
+  repository, as their own files disclose (2026-09-04 above).
 
 ## Known defects and open process gaps, standing at this draft
 
 - Rung zero carries no coverage gate; its line and branch coverage were
   never measured by any registered step (rung one records this).
 - Several registered gates carry no recorded injection: rung zero's tests
-  and typing, and strict typing in rungs one, two track one, and three to
-  ten.  Only track two injected its strict-typing gate.
-- The three operator acts marked above are not recorded in any committed
-  file of the run.
+  and typing, and strict typing in rungs one, two track one, three to ten
+  and continuation attempt one.  Only rung two track two injected its
+  strict-typing gate.
+- The operator acts above had no committed record before this draft; they
+  rest on the coordinator's attestation, and the prompts and launch
+  settings themselves are not committed anywhere.
+- Continuation attempt one's Lean orbit (an inhabitant of the sealed
+  isomorphism structure) and the Python orbit its rules read (the sealed
+  serialization's automorphisms) are not checked against each other
+  (its G-9).
 - The continuation ruling's verbatim copies carry a watched word, pinned
   by `3a95a976`; this draft paraphrases the ruling rather than quoting it.
 - The Lean reading regimes and the Python genesis readings differ by the
