@@ -1,0 +1,67 @@
+SecondEngine.Carry.collapsed_iso :: Quot.sound propext
+SecondEngine.Carry.derivable_bwd :: Quot.sound propext
+SecondEngine.Carry.derivable_fwd :: propext
+SecondEngine.Carry.derivable_mapCtx :: Quot.sound propext
+SecondEngine.Carry.map_inv :: none
+SecondEngine.Carry.plug_args_lt :: Quot.sound propext
+SecondEngine.Carry.plug_mapCtx :: Quot.sound propext
+SecondEngine.Carry.separable_iso :: Quot.sound propext
+SecondEngine.Carry.wfCtx_mapCtx :: Quot.sound propext
+SecondEngine.Census.class_size :: none
+SecondEngine.Census.count_ge_six :: none
+SecondEngine.Census.count_six_members :: none
+SecondEngine.Census.literal_count2_seven_members :: none
+SecondEngine.Census.literal_count_ge_seven :: none
+SecondEngine.Census.literal_count_seven_members :: none
+SecondEngine.Census.literal_size :: none
+SecondEngine.Census.no_initial :: propext
+SecondEngine.Census.no_initial_of_two_measures :: propext
+SecondEngine.Census.no_one_declaration :: none
+SecondEngine.Census.same_caps_e3_e4 :: none
+SecondEngine.EngineDef.e1_engine_quiet :: propext
+SecondEngine.EngineDef.e1_halt_no_step :: propext
+SecondEngine.EngineDef.fixpoint_of_halt :: none
+SecondEngine.EngineDef.run_named :: none
+SecondEngine.EngineDef.step_at_demand_is_response :: none
+SecondEngine.Genesis.e1_flip_demands_at_genL :: propext
+SecondEngine.Genesis.e3_quiet_at_genL :: propext
+SecondEngine.Genesis.e4_demands_at_genL :: propext
+SecondEngine.Genesis.genL_collapsed :: propext
+SecondEngine.Genesis.genL_one_orbit :: propext
+SecondEngine.Genesis.genL_replays :: propext
+SecondEngine.Genesis.minima_differ_at_genL :: propext
+SecondEngine.Orbit.collapsed_iso_iff :: Quot.sound propext
+SecondEngine.Orbit.oneOrbit_iso :: Quot.sound propext
+SecondEngine.Orbit.reqMember_iso :: Quot.sound propext
+SecondEngine.Orbit.separable_iso_iff :: Quot.sound propext
+SecondEngine.Orbit.sortPair_map :: propext
+SecondEngine.Orbit.sortPair_swap :: propext
+SecondEngine.Sealed.R2F_collapsed :: propext
+SecondEngine.Sealed.R2F_wf :: Quot.sound propext
+SecondEngine.Sealed.R2L_collapsed :: propext
+SecondEngine.Sealed.R2L_wf :: Quot.sound propext
+SecondEngine.Sealed.admission_without_expressive_increase :: propext
+SecondEngine.Sealed.collapsed_of_no_insts :: propext
+SecondEngine.Sealed.genesis_underivable :: none
+SecondEngine.Sealed.historyF_replays :: propext
+SecondEngine.Sealed.historyL_replays :: propext
+SecondEngine.Sealed.insertNew_nil :: propext
+SecondEngine.Sealed.insertNew_of_mem :: propext
+SecondEngine.Sealed.insertNew_of_not_mem :: propext
+SecondEngine.Sealed.mem_insertNew :: propext
+SecondEngine.Sealed.replayE_append :: Quot.sound propext
+SecondEngine.Sealed.separable_not_collapsed :: propext
+SecondEngine.Sealed.supply_no_op :: propext
+SecondEngine.Sealed.underivable_of_empty :: none
+SecondEngine.Stake.carried_flip :: propext
+SecondEngine.Stake.demand_carried :: Quot.sound propext
+SecondEngine.Stake.e1_carried :: Quot.sound propext
+SecondEngine.Stake.e1_flip_demands :: propext
+SecondEngine.Stake.e1_never_demands :: propext
+SecondEngine.Stake.e3_carried :: Quot.sound propext
+SecondEngine.Stake.e3_flip_eq_e4 :: propext
+SecondEngine.Stake.e4_carried :: Quot.sound propext
+SecondEngine.Stake.e4_flip_eq_e3 :: propext
+SecondEngine.Stake.e8_carried :: Quot.sound propext
+SecondEngine.Stake.e8_quiet_without_reqs :: propext
+SecondEngine.Stake.flip_flip :: none
