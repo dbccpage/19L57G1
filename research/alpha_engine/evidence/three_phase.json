@@ -8,6 +8,18 @@
   {
    "authorization": {
     "authorized_count": 1,
+    "binding": {
+     "bounds": [
+      2,
+      2
+     ],
+     "measure": "mu1",
+     "source_history_sha256": "91923223f76339cf1fe9c7f9e754284ebf2cb8e7bee6c6f456769330d563deb4",
+     "target": [
+      0,
+      1
+     ]
+    },
     "granter": "declared-first-key-explored",
     "scope": "C3-L-mu1",
     "score_is_not_license": true,
@@ -127,6 +139,18 @@
   {
    "authorization": {
     "authorized_count": 1,
+    "binding": {
+     "bounds": [
+      2,
+      2
+     ],
+     "measure": "mu1",
+     "source_history_sha256": "4e52b6780e70930b1825061372ed2381fbabd48bcf7698b7dbf037ef3e83e105",
+     "target": [
+      1,
+      2
+     ]
+    },
     "granter": "declared-first-key-explored",
     "scope": "C3-F-mu1",
     "score_is_not_license": true,

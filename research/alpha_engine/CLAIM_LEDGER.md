@@ -84,6 +84,10 @@ below are not proofs.
 - **Python**: `tests/test_no_auto_apply.py::test_licensed_sole_class_is_still_an_apply`.
 - **Falsifier**: a licensed sole class that `explore` refuses because it
   is unique.
+- **2026-09-25, narrowed**: "uniqueness with a `License` is
+  authorization" holds only for a `License` bound to the declaration in
+  use.  The closeout audit admitted the sole mu2 class under a License
+  granted for mu1 at `ccd0ab06`; see AE-LICENSE-BOUND.
 
 ### AE-NO-INTEGER-SELECTOR
 
@@ -94,6 +98,12 @@ below are not proofs.
 - **Python**: `harness.make_license`, `harness.key_by_index`;
   `tests/test_denied_license.py`.
 - **Falsifier**: a `License` that selects a tied class by integer index.
+- **2026-09-25, superseded in part**: "`License` fields are exactly
+  granter, scope, and authorized keys" is superseded.  The fields are
+  those three plus the binding fields `source`, `target`, `measure` and
+  `bounds` (AE-LICENSE-BOUND).  The rest of the statement stands: no
+  integer selector field, and `make_license` refuses an `index` of any
+  sign.
 
 ### AE-GRADE-NOT-LICENSE
 
@@ -114,6 +124,12 @@ below are not proofs.
   `tests/test_fabricated_class.py`.
 - **Falsifier**: Driver A expanding a key present only on a forged
   `EvalResult` and absent from a fresh sealed re-quotient.
+- **2026-09-25, narrowed**: this claim is about keys only, and it was
+  read as more.  Until pass 1 of the closeout audit, Driver A executed
+  the first member stored in the caller's `EvalResult` once the keys
+  checked out, so a forged `EvalResult` with a legitimate key and a
+  substituted or empty member produced a child (B1, reproduced at
+  `ccd0ab06`).  The member guarantee is AE-MEMBER-CHECKED.
 
 ### AE-LEFTOVER-OBS
 
@@ -186,6 +202,108 @@ below are not proofs.
   `Harness.eval_carries_no_events`.
 - **Falsifier**: a changed `runEval` whose first projection is not
   `base`.
+
+*2026-09-25, scope note for the four AE-LEAN claims:* the Lean
+`License` has only granter, scope and authorized keys.  It does not
+model the binding (AE-LICENSE-BOUND), node integrity
+(AE-NODE-INTEGRITY) or the member check (AE-MEMBER-CHECKED), and no
+Lean statement is claimed for them.  `python_driver_refinement` stays
+`NOT_PROVED`.
+
+### AE-MEMBER-CHECKED
+
+- **Statement** (2026-09-25): `apply_licensed` and `explore` execute
+  only the first member of the authorized class as freshly recomputed
+  from the sealed kernel (`min_responses`, `canonical`) for the
+  License's declaration.  A caller's `EvalResult` whose claimed members
+  for that class differ is refused (`SubstitutedMemberError`); one that
+  differs in any other way, including an omitted class, a cost or the
+  raw minima, is refused (`ForgedEvaluationError`).
+- **Class**: declared harness invariant, checked by finite tests on the
+  Challenge-3 fixtures; not a theorem.
+- **Python**: `driver_a.bound_evaluation`, `driver_a.check_evidence`;
+  `tests/test_admission_boundary.py::B1SubstitutedMember`,
+  `::H5Dispositions::test_h5_apply_evidence_omitting_a_class_is_refused`.
+- **Injection**: live; `inject_boundary.py` rows B1 and H5 (`STATUS.md`).
+- **Falsifier**: a forged `EvalResult` with a legitimate key and a
+  substituted or empty member that produces a child.
+
+### AE-NODE-INTEGRITY
+
+- **Statement** (2026-09-25): an admission step refuses a parent `Node`
+  whose history carries a constructor outside the six sealed kinds,
+  does not replay, or replays to a regime other than the one it states
+  (`NodeIntegrityError`).  The check runs at use; constructing such a
+  `Node` is not refused.
+- **Class**: declared harness invariant.
+- **Python**: `harness.check_node_integrity`;
+  `tests/test_admission_boundary.py::B2NodeIntegrity`.
+- **Injection**: live; `inject_boundary.py` row B2.
+- **Falsifier**: a `Node(history=h, regime=r)` with `replay(h) != r`
+  accepted as a parent.
+
+### AE-LICENSE-BOUND
+
+- **Statement** (2026-09-25): a `License` records the declaration it
+  authorizes (the SHA-256 `history_digest` of the source node's
+  history, the target pair, the measure and the bounds), and
+  `apply_licensed` and `explore` refuse it, naming each mismatched
+  field, when any of the four differs from the call
+  (`LicenseBindingError`).  The binding is to the exact history, not to
+  canonical identity: a relabelled source with the same canonical keys
+  and the same evidence is refused.  The binding is not authentication:
+  the harness checks a License's consistency with the call, not who
+  built it.
+- **Class**: declared harness invariant.
+- **Python**: `harness.make_license`, `harness.history_digest`,
+  `harness.check_license_binding`;
+  `tests/test_admission_boundary.py::B3LicenseBinding`,
+  `::H4UniquenessIsNotAuthorization`.
+- **Injection**: live; `inject_boundary.py` row B3.
+- **Falsifier**: a License granted for one source node, target, measure
+  or bounds that admits under another.
+
+### AE-OFFLINE
+
+- **Statement** (2026-09-25): no module of this tree imports a model
+  provider or network module, and the reference slice, its
+  demonstrations and its replay run with none.
+- **Class**: deterministic computation plus a static import scan.
+- **Python**: `tests/test_handoff.py::HandoffDemonstrations::test_no_provider_or_network_import_in_the_tree`;
+  `handoff_demo.py`.
+- **Falsifier**: an import of a provider or network module in this tree.
+
+### AE-ONE-COMMAND
+
+- **Statement** (2026-09-25): `python verify.py` in this directory runs
+  every required check of the reference slice in order (sources, tests
+  under coverage, the coverage gate, mypy, Lean, the PEA record, the
+  handoff demonstrations, the sealed kernel's own tests of the six
+  consumed modules), exits non-zero when any fails, lists the steps
+  after a failure as `NOT RUN`, and reports every skipped test by name
+  as a failed check.
+- **Class**: declared scope of a local receipt; not hosted CI and not
+  gate 11.
+- **Python**: `verify.py`; `tests/test_handoff.py::VerifyCommand`.
+- **Injection**: live, by hand (`STATUS.md`, two M8 rows).
+- **Falsifier**: `verify.py` exiting 0 with a required check failing or
+  skipped.
+
+### AE-HANDOFF-DEMOS
+
+- **Statement** (2026-09-25): on the Challenge-3 fixtures,
+  `handoff_demo.py` shows an accepted transition (L, mu1), retained ties
+  (three classes for L, five for F, each with one disposition), four
+  refused requests (a substituted member, a License reused for another
+  measure, a key the License does not name, a parent that does not
+  replay), and a bounded stop (`Bounds(1, 2)`: no valid response, the
+  unresolved demand exported as the frontier).  Each is checked by
+  sealed replay and by a recomputation that does not use the harness's
+  `evaluate`.
+- **Class**: finite computation; a local receipt, not a proof.
+- **Python**: `handoff_demo.py`; `evidence/handoff_demo.json`
+  `independent_checks`; `tests/test_handoff.py::HandoffDemonstrations`.
+- **Falsifier**: an independent check of the record that is false.
 
 ### AE-RECEIPT-NOT-PROOF
 

@@ -377,6 +377,10 @@ class TestDriverAMultiKeyIntegration(unittest.TestCase):
             granter=policy.policy_id,
             scope="C3-L-mu1-multi",
             authorized=policy.subset(),
+            source=self.node,
+            target=READING_L.target,
+            measure="mu1",
+            bounds=Bounds(2, 2),
         )
         out = explore(self.node, self.result, license, policy.census(), READING_L.target)
         self.assertEqual(len(out.children), 2)
@@ -403,6 +407,10 @@ class TestDriverAMultiKeyIntegration(unittest.TestCase):
             granter=policy.policy_id,
             scope="C3-L-mu1-pruned",
             authorized=policy.subset(),
+            source=self.node,
+            target=READING_L.target,
+            measure="mu1",
+            bounds=Bounds(2, 2),
         )
         out = explore(self.node, self.result, license, policy.census(), READING_L.target)
         self.assertEqual(len(out.children), 2)
@@ -416,6 +424,10 @@ class TestDriverAMultiKeyIntegration(unittest.TestCase):
             granter=policy.policy_id,
             scope="C3-L-mu1-cost",
             authorized=policy.subset(),
+            source=self.node,
+            target=READING_L.target,
+            measure="mu1",
+            bounds=Bounds(2, 2),
         )
         out = explore(self.node, self.result, license, policy.census(), READING_L.target)
         self.assertEqual(len(out.children), 2)
@@ -426,6 +438,10 @@ class TestDriverAMultiKeyIntegration(unittest.TestCase):
             granter=policy.policy_id,
             scope="C3-L-mu1-all",
             authorized=policy.subset(),
+            source=self.node,
+            target=READING_L.target,
+            measure="mu1",
+            bounds=Bounds(2, 2),
         )
         out = explore(self.node, self.result, license, policy.census(), READING_L.target)
         self.assertEqual(len(out.children), 3)
@@ -436,6 +452,10 @@ class TestDriverAMultiKeyIntegration(unittest.TestCase):
             granter=policy.policy_id,
             scope="C3-L-mu1-zero",
             authorized=policy.subset(),
+            source=self.node,
+            target=READING_L.target,
+            measure="mu1",
+            bounds=Bounds(2, 2),
         )
         out = explore(self.node, self.result, license, policy.census(), READING_L.target)
         self.assertEqual(len(out.children), 0)
@@ -449,6 +469,10 @@ class TestDriverAMultiKeyIntegration(unittest.TestCase):
             granter=policy.policy_id,
             scope="C3-L-mu1-partial-auth",
             authorized=policy.subset()[:1],
+            source=self.node,
+            target=READING_L.target,
+            measure="mu1",
+            bounds=Bounds(2, 2),
         )
         with self.assertRaises(UnlicensedExploreError) as ctx:
             explore(self.node, self.result, license, policy.census(), READING_L.target)
@@ -461,6 +485,10 @@ class TestDriverAMultiKeyIntegration(unittest.TestCase):
             granter=policy.policy_id,
             scope="C3-L-mu1-forged",
             authorized=(fake_key,),
+            source=self.node,
+            target=READING_L.target,
+            measure="mu1",
+            bounds=Bounds(2, 2),
         )
         with self.assertRaises(FabricatedClassError):
             explore(self.node, self.result, license, policy.census(), READING_L.target)

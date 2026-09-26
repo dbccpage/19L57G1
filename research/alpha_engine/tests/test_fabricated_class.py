@@ -43,6 +43,7 @@ class FabricatedClass(unittest.TestCase):
             granter="test",
             scope="fabricated",
             authorized=(fake,),
+            source=node, target=READING_L.target, measure="mu1", bounds=Bounds(2, 2),
         )
         with self.assertRaises(FabricatedClassError):
             apply_licensed(node, result, license, fake, READING_L.target)
@@ -57,6 +58,7 @@ class FabricatedClass(unittest.TestCase):
             granter="test",
             scope="fabricated",
             authorized=tuple(sorted((valid, fake))),
+            source=node, target=READING_L.target, measure="mu1", bounds=Bounds(2, 2),
         )
         with self.assertRaises(FabricatedClassError):
             apply_licensed(
@@ -85,6 +87,7 @@ class FabricatedClass(unittest.TestCase):
             granter="test",
             scope="fabricated",
             authorized=tuple(sorted(keys + (fake,))),
+            source=node, target=READING_L.target, measure="mu1", bounds=Bounds(2, 2),
         )
         with self.assertRaises(FabricatedClassError):
             explore(node, result, license, census, READING_L.target)
@@ -117,6 +120,7 @@ class FabricatedClass(unittest.TestCase):
             granter="test",
             scope="forged",
             authorized=tuple(sorted((genuine.retained[0].key, fake))),
+            source=node, target=READING_L.target, measure="mu1", bounds=Bounds(2, 2),
         )
         with self.assertRaises(FabricatedClassError):
             apply_licensed(

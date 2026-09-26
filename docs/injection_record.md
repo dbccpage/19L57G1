@@ -384,3 +384,24 @@ regenerated while an injection was live.
 | iso_sound opened file (2026-09-25) | one line appended to `tests/test_iso.py` | `FAIL: SOURCE_CHANGED: tests/test_iso.py` (no pin on origin/main named it) | passes |
 | unboundedness Lake config (2026-09-25) | one line appended to `research/magnification/lean/lakefile.toml` | `FAIL: SOURCE_CHANGED: ...` and `FAIL: CONSUMED_TRACKED_DIFF: ...` for that file (no pin on origin/main named it) | passes |
 | ignition file pins (2026-09-25) | one line appended to the consumed `research/local_reuse/lean/LocalReuse.lean` | `FAIL: SOURCE_CHANGED: ...LocalReuse.lean` and `FAIL: CONSUMED_TRACKED_DIFF: ...LocalReuse.lean` | passes |
+
+## Genesis closeout: the Alpha admission boundary (2026-09-25)
+
+The closeout audit of `research/alpha_engine` (PR #268, `docs/GENESIS_CLOSEOUT.md`
+section 7) reproduced three admission defects through the real path and
+repaired them in one pass. `python research/alpha_engine/inject_boundary.py`
+reverts each repair in the real `driver_a.py`, shows the named failure,
+and restores the file; the coordinator re-ran it at the final audit. The
+last two rows were run by hand against `python verify.py`. No receipt was
+regenerated while any injection was live. These rows are written here at
+the author's instruction of 2026-09-25 to finish the closeout; they also
+stand in `research/alpha_engine/STATUS.md`.
+
+| Gate | Injection | Observed failure | Recovery |
+|---|---|---|---|
+| B1 member (M1) | `apply_licensed` executes `representative_delta(result, key)` again and both `check_evidence` calls are removed | `B1 REPRODUCED: apply_licensed executed an empty substituted member of an authorized key`; the same for a member of an unauthorized class, through `explore`, and for a forged cost (4 tests) | 4 tests pass with the bytes restored |
+| H5 evidence (M5) | the `check_evidence` call in `apply_licensed` removed and the caller's member executed | `H5 REPRODUCED: apply_licensed accepted evidence from which two retained classes had disappeared` | 1 test passes |
+| B2 node integrity (M2) | `check_node_integrity(node)` removed from `bound_evaluation` | `B2 REPRODUCED: apply_licensed accepted a parent whose history does not replay to its stated regime`; the same through `explore` | 2 tests pass |
+| B3 binding (M3, M4) | `check_license_binding` removed and the fresh evaluation taken from the call (target, the evidence's measure and bounds), as before the repair | `B3 REPRODUCED: a License granted at one source node was accepted at a relabelled source`; also another history, target `(1, 2)` used at `(0, 1)`, mu1 used for mu2, `Bounds(2, 2)` used under `(2, 3)` and `(2, 1)`, through `explore`; and `H4 REPRODUCED: a unique mu2 class was admitted under a License granted for mu1` (8 lines, 7 tests) | 7 tests pass |
+| One command, failing check (M8) | one byte of `evidence/handoff_demo.json` changed | `FAIL: test_committed_record_matches (test_handoff.HandoffDemonstrations...)`, `FAIL: tests exited 1`, the seven later steps listed `NOT RUN`, exit 1 | exit 0, all nine steps PASS |
+| One command, skipped check (M8) | `evidence/lean.json` moved aside, so a unit test skips | `SKIPPED CHECK: tests: test_lean_gate.CommittedRecord.test_record_is_within_the_whitelist_and_not_a_proof`, `FAIL: tests skipped a check`, later steps `NOT RUN`, exit 1 | exit 0 |
