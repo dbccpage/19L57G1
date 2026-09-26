@@ -24,6 +24,11 @@ Proposal, evaluation, and authorization are distinct.
 - A `License` names a granter, a scope, and authorized `CanonKey`s.  It
   is not an `Event`.  There is no revoke API and no integer class
   selector.  A License of a sole class is still an apply.
+  *2026-09-25:* a `License` also records the declaration it authorizes
+  (source history digest, target, measure, bounds) and applies only
+  there; Driver A checks the parent's replay, recomputes the evaluation
+  from the sealed kernel and executes the recomputed member, never the
+  caller's.  See the closeout audit in `STATUS.md`.
 
 The PEA JSON keys are a record layout, not a proof of temporal
 order.  The fold's recorded `compute_order` is evaluate, wrap minima as
@@ -46,3 +51,12 @@ injection: `python run.py --write`.  Local Lean about this harness
 (License is not Event; SearchPolicy is a subset; uniqueness does not
 apply) is `python verify_lean.py --check`.  Those lemmas are not a
 proved equivalence to `code/derivation/`.
+
+2026-09-25: `python verify.py` is the one command that verifies the Alpha
+reference slice described in `docs/ALPHA_HANDOFF.md`.  It also runs
+`python handoff_demo.py --check` (four demonstrations on the
+Challenge-3 fixtures, each independently checked; regenerate with
+`--write`, never under a live injection) and the sealed kernel's own
+tests of the six consumed modules.  The live injections of the
+closeout repairs are `python inject_boundary.py`, run on a clean
+worktree; `verify.py` never runs them.
