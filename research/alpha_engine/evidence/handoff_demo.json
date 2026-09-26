@@ -1,0 +1,398 @@
+{
+ "authority_effect": "None",
+ "demand_policy": "host-supplied: each reading's Challenge-3 target; endogenous demand generation is OPEN",
+ "demonstrations": {
+  "accepted_transition": {
+   "authorized_key": [
+    2,
+    [
+     1
+    ],
+    [
+     [
+      0,
+      [
+       0
+      ]
+     ]
+    ],
+    [],
+    [
+     [
+      0,
+      1
+     ]
+    ]
+   ],
+   "child_history_length": 9,
+   "child_history_sha256": "46f9a2b589c513452c70d0cf60126229fcbca496cfea04cd4112b0be0686438f",
+   "declaration": {
+    "bounds": [
+     2,
+     2
+    ],
+    "measure": "mu1",
+    "source_history_sha256": "91923223f76339cf1fe9c7f9e754284ebf2cb8e7bee6c6f456769330d563deb4",
+    "target": [
+     0,
+     1
+    ]
+   },
+   "executed_delta": [
+    {
+     "arity": 1,
+     "kind": "form"
+    },
+    {
+     "args": [
+      0
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "executed_events": [
+    [
+     "Impose",
+     0,
+     1
+    ],
+    [
+     "AdmitForm",
+     1
+    ],
+    [
+     "AdmitInst",
+     0,
+     [
+      0
+     ]
+    ]
+   ],
+   "leftover_pairs_are_observations": true,
+   "open_alternatives": [
+    [
+     2,
+     [
+      2
+     ],
+     [
+      [
+       0,
+       [
+        0,
+        0
+       ]
+      ]
+     ],
+     [],
+     [
+      [
+       0,
+       1
+      ]
+     ]
+    ],
+    [
+     2,
+     [
+      2
+     ],
+     [
+      [
+       0,
+       [
+        0,
+        1
+       ]
+      ]
+     ],
+     [],
+     [
+      [
+       0,
+       1
+      ]
+     ]
+    ]
+   ],
+   "parent_history_length": 6,
+   "reading": "L"
+  },
+  "bounded_stop": {
+   "children": 0,
+   "frontier": [
+    {
+     "bounds": [
+      1,
+      2
+     ],
+     "measure": "mu1",
+     "source_history_sha256": "91923223f76339cf1fe9c7f9e754284ebf2cb8e7bee6c6f456769330d563deb4",
+     "status": "open_beyond_declared_bounds",
+     "target": [
+      0,
+      1
+     ]
+    }
+   ],
+   "outcome": "no_response_within_bounds"
+  },
+  "refused": {
+   "key_not_named_by_the_license": {
+    "error": null,
+    "message": "apply_licensed returned None",
+    "outcome": "not_authorized"
+   },
+   "license_reused_for_another_measure": {
+    "error": "LicenseBindingError",
+    "message": "license applied away from its declaration: measure",
+    "outcome": "refused"
+   },
+   "parent_that_does_not_replay": {
+    "error": "NodeIntegrityError",
+    "message": "node history does not replay to its stated regime",
+    "outcome": "refused"
+   },
+   "substituted_empty_member": {
+    "error": "SubstitutedMemberError",
+    "message": "claimed members differ from the fresh sealed class",
+    "outcome": "refused"
+   }
+  },
+  "retained_ties": {
+   "F": {
+    "class_keys": [
+     [
+      3,
+      [
+       1
+      ],
+      [
+       [
+        0,
+        [
+         0
+        ]
+       ]
+      ],
+      [],
+      [
+       [
+        0,
+        2
+       ]
+      ]
+     ],
+     [
+      3,
+      [
+       2
+      ],
+      [
+       [
+        0,
+        [
+         0,
+         0
+        ]
+       ]
+      ],
+      [],
+      [
+       [
+        0,
+        2
+       ]
+      ]
+     ],
+     [
+      3,
+      [
+       2
+      ],
+      [
+       [
+        0,
+        [
+         0,
+         1
+        ]
+       ]
+      ],
+      [],
+      [
+       [
+        0,
+        1
+       ]
+      ]
+     ],
+     [
+      3,
+      [
+       2
+      ],
+      [
+       [
+        0,
+        [
+         0,
+         1
+        ]
+       ]
+      ],
+      [],
+      [
+       [
+        0,
+        2
+       ]
+      ]
+     ],
+     [
+      3,
+      [
+       2
+      ],
+      [
+       [
+        0,
+        [
+         0,
+         1
+        ]
+       ]
+      ],
+      [],
+      [
+       [
+        1,
+        2
+       ]
+      ]
+     ]
+    ],
+    "class_sizes": [
+     2,
+     2,
+     2,
+     2,
+     2
+    ],
+    "explored_count": 1,
+    "open_count": 4,
+    "pruned_count": 0,
+    "retained_class_count": 5
+   },
+   "L": {
+    "class_keys": [
+     [
+      2,
+      [
+       1
+      ],
+      [
+       [
+        0,
+        [
+         0
+        ]
+       ]
+      ],
+      [],
+      [
+       [
+        0,
+        1
+       ]
+      ]
+     ],
+     [
+      2,
+      [
+       2
+      ],
+      [
+       [
+        0,
+        [
+         0,
+         0
+        ]
+       ]
+      ],
+      [],
+      [
+       [
+        0,
+        1
+       ]
+      ]
+     ],
+     [
+      2,
+      [
+       2
+      ],
+      [
+       [
+        0,
+        [
+         0,
+         1
+        ]
+       ]
+      ],
+      [],
+      [
+       [
+        0,
+        1
+       ]
+      ]
+     ]
+    ],
+    "class_sizes": [
+     2,
+     2,
+     2
+    ],
+    "explored_count": 1,
+    "open_count": 2,
+    "pruned_count": 0,
+    "retained_class_count": 3
+   }
+  }
+ },
+ "independent_checks": {
+  "accepted.child_history_extends_parent": true,
+  "accepted.child_key_is_the_authorized_key": true,
+  "accepted.child_replays_from_genesis": true,
+  "accepted.child_satisfies_every_imposed_requirement": true,
+  "accepted.executed_delta_is_a_fresh_class_member": true,
+  "accepted.one_child_per_explored_class": true,
+  "accepted.parent_unchanged": true,
+  "bounded.no_valid_response_within_the_bound": true,
+  "bounded.nothing_admitted": true,
+  "bounded.parent_unchanged": true,
+  "bounded.the_bound_not_absence_stops_it": true,
+  "bounded.typed_unfound_evaluation": true,
+  "refused.bad_parent_does_not_replay": true,
+  "refused.forged_member_is_not_a_fresh_class_member": true,
+  "refused.forged_member_would_not_satisfy": true,
+  "refused.none_admitted": true,
+  "refused.other_measure_has_other_classes": true,
+  "refused.parent_unchanged": true,
+  "refused.unlicensed_key_is_retained_but_not_authorized": true,
+  "ties.F.class_sizes_match_sealed_engine_quotient": true,
+  "ties.F.every_class_has_one_disposition": true,
+  "ties.F.keys_and_members_match_fresh_recomputation": true,
+  "ties.L.class_sizes_match_sealed_engine_quotient": true,
+  "ties.L.every_class_has_one_disposition": true,
+  "ties.L.keys_and_members_match_fresh_recomputation": true
+ },
+ "model_provider": "none",
+ "receipt_is_not_proof": true,
+ "schema": "alpha-handoff-demo-v1"
+}

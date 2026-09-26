@@ -17,6 +17,8 @@ files = [
   "verify_sources.py",
   "verify_lean.py",
   "check_coverage.py",
+  "inject_boundary.py",
+  "handoff_demo.py",
   "tests",
 ]
 mypy_path = ".:../../code"
@@ -25,7 +27,7 @@ explicit_package_bases = true
 [tool.coverage.run]
 branch = true
 source = ["."]
-omit = ["tests/*", "lean/*", ".lake/*", "verify.py", "verify_lean.py", "verify_sources.py", "run.py"]
+omit = ["tests/*", "lean/*", ".lake/*", "verify.py", "verify_lean.py", "verify_sources.py", "run.py", "inject_boundary.py", "handoff_demo.py"]
 
 [tool.coverage.report]
 # fail_under is not used: coverage.py's percent_covered mixes statements
