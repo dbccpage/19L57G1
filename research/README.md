@@ -136,6 +136,7 @@ Lean layout. The first and last also have explicit build-recipe entries.
 | `second` | local receipt only |  |
 | `second_class` | workflow (gate 11) |  |
 | `second_duration` | workflow (gate 11) |  |
+| `second_engine` | workflow (gate 11) |  |
 | `second_index` | workflow (gate 11) |  |
 | `second_inheritance` | workflow (gate 11) |  |
 | `second_iso` | workflow (gate 11) |  |
