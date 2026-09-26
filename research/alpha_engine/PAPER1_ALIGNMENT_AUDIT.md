@@ -8,6 +8,17 @@
 **Baseline Pin:** `a4dcddff1a8f8029beb9ec538d26150766dbbcd2` (`SOURCE_MANIFEST.json`, `STATUS.md`)  
 **Scope:** Line-by-line verification comparing Paper 1 (*No Free Conclusions*, draft v0.3, `01_paper/paper.md`) narrative claims against the executable contracts, test receipts, and constructive Lean 4 proofs in `research/alpha_engine/`.
 
+**2026-09-25 (closeout audit):** this report describes the code as of
+2026-09-11.  Its rows for the `License` dataclass (three fields),
+`apply_licensed` and `explore`, and the G1 guard, predate the closeout
+audit, which reproduced three defects they do not mention: the
+executed member was read from the caller's `EvalResult` (B1), a parent
+`Node` was not checked to replay (B2), and a `License` was not bound
+to its declaration (B3).  The rows are kept as written.  The current
+behaviour and the repairs are recorded in `STATUS.md` and
+`CLAIM_LEDGER.md` (AE-MEMBER-CHECKED, AE-NODE-INTEGRITY,
+AE-LICENSE-BOUND); the line numbers cited below no longer match.
+
 ---
 
 ## 1. Executive Summary & Claim Discipline Posture
