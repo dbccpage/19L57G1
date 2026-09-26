@@ -813,3 +813,89 @@ unmet status, including the input-count floor.
 The final report and supporting files are frozen before comparison.
 The comparison is written only in the companion repository.
 ```
+
+## Session handoff, continuation one (2026-09-25)
+
+**Read at the start of a session; written at the end of one.**  As the
+earlier handoffs say, what comes next is carried in the LAST tree's
+`STATUS.md`, and this section says where to look rather than copying it.
+
+- The trees on `main` at this session's start (`01876f3a`) are rungs
+  zero to ten, twelve trees, and the author's continuation ruling of
+  2026-09-25, recorded above and in `CLAUDE.md`.  Continuation one
+  (`research/second_engine`) is this session's, the first of the two
+  attempts the ruling authorizes, and is not merged by an agent.
+- **What comes next is not chosen by the seed's rule.**  The ruling
+  authorizes a second attempt, challenge four with its engine-dependent
+  census evaluations, once this one closes.  It is named at the end of
+  `research/second_engine/STATUS.md` as G-1, with G-2 and G-7 inside it.
+  No attempt after it is authorized, and the closeout of the paper,
+  change log and claim ledger belongs to a designated closeout session,
+  not to a research attempt.
+- **Thirteen of thirteen computational predictions hit, and that is weak
+  evidence.**  The probe was declared to level two so that challenge four
+  would run the engines, and hand reasoning from the sealed definitions
+  reaches level two.  The second attempt should freeze predictions about
+  what lies deeper, where hand reasoning runs out.
+- **`decide` refuses a list of one hundred and forty-four structures.**
+  The elaborator's recursion depth fails first; `decide +kernel` leaves
+  the check to the kernel and, as the fresh axiom census confirmed, adds
+  no axiom.  `native_decide` is forbidden and was not needed.
+- **A `where` clause declares a theorem.**  A lemma proved in the `where`
+  clause of a definition is an auxiliary declaration the compiler census
+  sees, and it would have been an unpredicted row; lift such a lemma to
+  top level before the census is written.
+- **This machine's default text encoding is not UTF-8.**  A script that
+  reads a Lean or Markdown file without `encoding="utf-8"` fails on the
+  first non-ASCII character.
+- **The gate runner's lock is shared by every session on the machine.**
+  Another session's run held it for most of this session; the run here
+  waited for it in a retry loop and never touched the lock.
+- One attempt per session at most.  Never merge; the author merges.
+- Before writing anything in a new tree: freeze `PROMPT.md` by hash and
+  commit it, then freeze `PREDICTIONS.md` by hash and commit it, then
+  compute.  The commits are the evidence of the order.
+
+## Injection record, continuation one (2026-09-25)
+
+Fifteen injections, each minimal and reversible, none live while any
+receipt was regenerated.  All were run in a throwaway worktree detached
+at `cfeb1b81`, the branch's head at the time, checked out with line
+endings as stored, by one script written to the scratchpad as a file,
+which edited with line endings preserved, refused any edit whose anchor
+did not occur exactly once, and checked each recovery and the worktree's
+status after each reversal.  The worktree was clean after the last
+reversal, apart from ignored build and coverage outputs, and was then
+removed.  Every one names the object it was given, except where the
+table says otherwise.
+
+<!-- markdownlint-disable MD013 -->
+
+| attempt | gate | injection | observed failure |
+|---|---|---|---|
+| C1 | frozen-text pin (`second_engine/verify_pins.py`) | one line appended to `PROMPT.md` in a throwaway commit on top of `cfeb1b81` | `FAIL: frozen text moved: research/second_engine/PROMPT.md: expected 7a276807..., got 65482dd5...`, exit 1; after `git reset --hard HEAD~1`, exit 0 |
+| C1 | span pin (same verifier) | the rung-ten X-5 span's `last_line` moved from 372 to 373 in `SOURCE_MANIFEST.json`, uncommitted | `FAIL: span mismatch at the snapshot for research/second_response/STATUS.md:366-373: expected dc5167f7..., got f3fa311c...`, exit 1; exit 0 after restoring the manifest |
+| C1 | receipt comparison (`run_engine.py --check`) | `"member_classes_by_signature": 10` in `receipts/engine.json` changed to 11, a value that occurs once | `FAIL: ...receipts\engine.json differs from a fresh run`, exit 1; exit 0 after restoring the bytes.  The check writes nothing |
+| C1 | Lean axiom whitelist (`second_engine/verify_lean.py`) | a theorem `zzz_probe_choice` proved by `Classical.em`, appended to `Census.lean` with its report line | three failures naming it: no FW-DEF row; `depends on disallowed axioms ['Classical.choice']`; a fresh report the committed log lacks; exit 1, then exit 0 |
+| C1 | Lean compiler census (same verifier) | the `#print axioms` line for `SecondEngine.Census.no_initial` deleted from `AxiomReport.lean` | `FAIL: compiler declaration SecondEngine.Census.no_initial has no fresh #print axioms report`, exit 1; exit 0 after restoring |
+| C1 | FW-DEF census totality (`test_census.py`) | the `oneOrbit_iso` row deleted and the THIN count decremented | `AssertionError: Lists differ: ['oneOrbit_iso'] != []` from the totality and axiom-log tests, and `KeyError: 'oneOrbit_iso'` from the prediction tests; exit 1, then OK |
+| C1 | reconstruction comparison (`test_reconstruction.py`) | the binder `d'` of the reconstructed sealed `collapsed` renamed to `dd` in `Kernel.lean` | `AssertionError: Lists differ: ['lean4/Derivation/Basic.lean -> Kernel.lean: collapsed'] != []`, exit 1; OK after restoring.  The comparison reads the sealed blob AT THE SNAPSHOT |
+| C1 | prose census over the write root (`test_forbidden.py`) | a probe `zz_probe.md` in the write root carrying the one term whose watchlist digest begins `67671a2f`, confirmed watched by `ci/check_prose_watchlist.py --probe` | `AssertionError: Lists differ: ['research/second_engine/zz_probe.md:1: <term elided>'] != []`, the term named in place of the elision; OK after deleting the probe.  The term is elided because this record is itself scanned |
+| C1 | write-root scope scan (`test_forbidden.py`) | an untracked `zz_outside_probe.md` at the repository root | `AssertionError: Lists differ: ['zz_outside_probe.md'] != []`, exit 1; OK after deleting it |
+| C1 | coverage module census (`second_engine/check_coverage.py`) | an undeclared production module `zz_helper.py` in the tree, after a report of the full suite had been generated and had passed | `FAIL: production module census differs: missing from declarations=['zz_helper.py'], declared but absent=[]`, exit 1; exit 0 after deleting it |
+| C1 | registration scan (`test_forbidden.py`) | the line `python run_engine.py --check` deleted from this tree's step in `.github/workflows/verify.yml` | `AssertionError: 'python run_engine.py --check' not found in` the tree's block, exit 1; OK after restoring |
+| C1 | the flip, through the receipt (`run_engine.py --check`) | the flip in `engine_decl.py` made to leave apart as apart | `FAIL: ...receipts\engine.json differs from a fresh run`, exit 1; exit 0 after restoring the line |
+| C1 | the flip, through the scoring (`test_engine.py`) | the same edit, run separately | `AssertionError: Items in the first set but not the second: 'MISSED'` from the scored-verdict test: rows that were HIT fall; OK after restoring |
+| C1 | the one-declaration refusal (`test_engine.py`) | the refusal in `check_declaration_label` weakened to fire only ten below the count | `AssertionError: BundleRefused not raised`, from the single-member and the every-member tests; OK after restoring |
+| C1 | the naming of an edge carrying a requirement (`test_engine.py`) | the requirement test in `attribution_violations` removed | `AssertionError: 'Impose' not found in "E4/mu1/V1/halt@L: edge 0 holds events other than its delta's admissions"`; OK after restoring.  RECORDED BESIDE IT: the injected edge is still refused, by the next check, which compares the edge's events with its delta's admissions; what the injection removes is the NAME of the event, and the test catches that |
+
+<!-- markdownlint-enable MD013 -->
+
+**What these injections do not prove.**  That the populations they pin
+are the right mathematical objects, or that the Python and Lean speak of
+one engine: the Lean defines an engine over any state type and proves
+statements about readings of rung two's rules, and the Python enumerates
+a declared class and probes it; neither checks the other's reading of
+"engine", of "orbit" (G-9), or of "capability".  That thirteen of
+thirteen computational predictions hit is not proved to be insight by
+any injection: the scorer is shown able to say MISSED, and no more.
