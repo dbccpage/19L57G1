@@ -350,7 +350,7 @@ reproduced and repaired, and each repair was proved by live injection.
 | D4 | Open. `python_driver_refinement` is NOT_PROVED, and the harness Lean does not model the new license binding. |
 | D5 | Open. The original completion gate is not satisfied (§10). |
 | D6 | Resolved: `B1SubstitutedMember` now covers a substituted member of a present key. |
-| D7 | New: the injection-record rows are a blocked write (§9.3). |
+| D7 | Resolved: the injection-record rows were written after the author's instruction to finish (§9.3). |
 | D8 | New: the Lean names whose wording outruns their statements (§8) are recorded exactly in the run's ledger. |
 | D9 | New: the operator acts for rungs four to ten and for attempt 1 were not in any committed file until the draft `change_log.md` recorded them as the coordinator's attestation. |
 
@@ -439,8 +439,11 @@ frozen content:
 
 - `docs/injection_record.md`: rows for the closeout's live injections
   (B1, H5, B2, B3 and H4, plus the M8 command checks). This file is outside
-  the closeout scope recorded in `CLAUDE.md`. The rows are in
-  `research/alpha_engine/STATUS.md` until the author approves the write.
+  the closeout scope recorded in `CLAUDE.md`, so it was first held as a
+  blocked write. **Resolved:** the author instructed on 2026-09-25 that
+  the closeout be finished and merged, and the six rows were then
+  written. The file is not in the §9.2 manifest, so the manifest is
+  unaffected.
 
 ### 9.4 Freeze
 
