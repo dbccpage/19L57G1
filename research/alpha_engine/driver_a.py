@@ -6,6 +6,14 @@ Explores only licensed keys.  Expansion uses sealed Admit*/Impose replay
 onto a new Node; evaluation's declared base is not mutated.  Unique
 minima remain proposals.  Leftover collapsed pairs after a licensed
 apply are observations, not a next demand.  Driver B is not implemented.
+
+2026-09-25 (closeout audit, pass 1): before any admission, the parent
+Node must replay to its stated regime and the License must be bound to
+this declaration (source history, target, measure, bounds).  The
+evaluation is then recomputed from the sealed kernel for that
+declaration.  The caller's ``EvalResult`` is evidence only: it must
+equal the fresh recomputation, and the executed member is taken from
+the fresh recomputation, never from the caller's evidence.
 """
 
 from __future__ import annotations
@@ -21,17 +29,20 @@ from derivation.observe import collapsed_pairs
 from evaluate import (
     declared_base_mutated,
     evaluate,
-    fresh_retained_keys,
 )
 from harness import (
     EvalResult,
+    ForgedEvaluationError,
     HarnessError,
     LeftoverIsNotDemandError,
     License,
     Node,
     Proposal,
+    SubstitutedMemberError,
     UniqueDeltaAutoApplyError,
     apply_unique_delta,
+    check_license_binding,
+    check_node_integrity,
     jsonable,
     leftover_as_demand,
     make_license,
@@ -69,6 +80,54 @@ def representative_delta(result: EvalResult, key: CanonKey) -> Delta:
     )
 
 
+def bound_evaluation(
+    node: Node,
+    result: EvalResult,
+    license: License,
+    target: Pair,
+) -> EvalResult:
+    """Check the parent and the License binding, then recompute from the sealed kernel.
+
+    Refuses a parent whose history does not replay to its regime
+    (``NodeIntegrityError``) and a License used away from its declaration
+    (``LicenseBindingError``).  Returns the fresh sealed evaluation of the
+    License's declaration; the caller's ``result`` is compared, not trusted.
+    """
+    check_node_integrity(node)
+    check_license_binding(
+        license,
+        node,
+        target,
+        result.measure,
+        Bounds(max_items=result.max_items, max_arity=result.max_arity),
+    )
+    return evaluate(node.regime, license.target, license.measure, license.bounds)
+
+
+def check_evidence(
+    result: EvalResult,
+    fresh: EvalResult,
+    keys: tuple[CanonKey, ...],
+) -> None:
+    """The caller's evidence must equal the fresh sealed recomputation.
+
+    A class whose claimed members differ from the fresh class raises
+    ``SubstitutedMemberError``; any other difference (an omitted class,
+    a cost, the raw minima, the found flag) raises ``ForgedEvaluationError``.
+    """
+    claimed = {item.key: item.members for item in result.retained}
+    recomputed = {item.key: item.members for item in fresh.retained}
+    for key in keys:
+        if claimed.get(key) != recomputed.get(key):
+            raise SubstitutedMemberError(
+                "claimed members differ from the fresh sealed class"
+            )
+    if result != fresh:
+        raise ForgedEvaluationError(
+            "evaluation evidence differs from the fresh sealed recomputation"
+        )
+
+
 def apply_licensed(
     node: Node,
     result: EvalResult,
@@ -76,20 +135,21 @@ def apply_licensed(
     key: CanonKey,
     target: Pair,
 ) -> Node | None:
-    """Replay Impose plus the class member onto a new Node.
+    """Replay Impose plus a freshly recomputed class member onto a new Node.
 
     Returns None when the key is not authorized.  A denied call does not
-    write ``node.license``.
+    write ``node.license``.  The parent must replay to its regime and the
+    License must be bound to this declaration.  The executed member is
+    the first member of the class as freshly recomputed from the sealed
+    kernel, and the caller's evidence must equal that recomputation.
     """
+    fresh = bound_evaluation(node, result, license, target)
     authorized = frozenset(license.authorized)
     if key not in authorized:
         return None
-    bounds = Bounds(max_items=result.max_items, max_arity=result.max_arity)
-    sealed_keys = fresh_retained_keys(
-        node.regime, target, result.measure, bounds
-    )
+    sealed_keys = frozenset(item.key for item in fresh.retained)
     claimed = frozenset(item.key for item in result.retained)
-    if key not in sealed_keys or claimed - sealed_keys:
+    if key not in sealed_keys or key not in claimed or claimed - sealed_keys:
         raise FabricatedClassError(
             "class key absent from the sealed quotient"
         )
@@ -98,7 +158,8 @@ def apply_licensed(
         raise FabricatedClassError(
             "class key absent from the sealed quotient"
         )
-    delta = representative_delta(result, key)
+    check_evidence(result, fresh, (key,))
+    delta = representative_delta(fresh, key)
     extra: list[Event] = [Impose(target[0], target[1])]
     extra.extend(delta_events(node.regime, delta))
     new_history = node.history + tuple(extra)
@@ -113,13 +174,13 @@ def explore(
     census: PolicyCensus,
     target: Pair,
 ) -> ExploreResult:
-    """Expand licensed explored keys; a License of a sole class is still an apply."""
-    bounds = Bounds(max_items=result.max_items, max_arity=result.max_arity)
-    sealed_keys = tuple(
-        sorted(
-            fresh_retained_keys(node.regime, target, result.measure, bounds)
-        )
-    )
+    """Expand licensed explored keys; a License of a sole class is still an apply.
+
+    The parent, the License binding and the evidence are checked as in
+    ``apply_licensed`` before any class is expanded, even when none is.
+    """
+    fresh = bound_evaluation(node, result, license, target)
+    sealed_keys = tuple(sorted(item.key for item in fresh.retained))
     claimed = tuple(item.key for item in result.retained)
     if frozenset(claimed) != frozenset(sealed_keys):
         raise FabricatedClassError(
@@ -133,6 +194,7 @@ def explore(
         raise FabricatedClassError(
             "class key absent from the sealed quotient"
         )
+    check_evidence(result, fresh, sealed_keys)
     children: list[Node] = []
     leftovers: list[tuple[Pair, ...]] = []
     leftover_obs = True
@@ -189,6 +251,10 @@ def _fold_reading(reading: Reading, bounds: Bounds) -> dict[str, object]:
         granter=policy.policy_id,
         scope=f"C3-{reading.name}-mu1",
         authorized=policy.subset(),
+        source=node,
+        target=reading.target,
+        measure="mu1",
+        bounds=bounds,
     )
     explored = explore(node, result, license, census, reading.target)
     leftover_pairs = explored.leftover_pairs
@@ -220,6 +286,12 @@ def _fold_reading(reading: Reading, bounds: Bounds) -> dict[str, object]:
             "granter": license.granter,
             "scope": license.scope,
             "authorized_count": len(license.authorized),
+            "binding": {
+                "source_history_sha256": license.source,
+                "target": list(license.target),
+                "measure": license.measure,
+                "bounds": [license.bounds.max_items, license.bounds.max_arity],
+            },
             "score_is_not_license": True,
             "sole_class_license_is_apply": len(result.retained) == 1,
         },

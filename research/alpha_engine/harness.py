@@ -7,24 +7,38 @@ EvalResult carries raw minima, retained iso classes, and mu1/mu2 costs.
 It is never Tie, UniqueClass, UniqueDelta, or None.  License is not an
 Event, has no revoke API, and does not select among tied classes by an
 integer index.  Node carries history, regime, and an optional license.
+
+2026-09-25 (closeout audit, pass 1): a License is bound to the
+declaration it authorizes: the SHA-256 digest of the source node's
+history, the target pair, the measure and the bounds.  Reuse away from
+that declaration is refused by ``check_license_binding``.  A Node's
+integrity (its history replays to its stated regime) is checked at use
+by ``check_node_integrity``.  The digest is a binding, not
+authentication: whoever calls the admission path with a License is the
+authorizing host (see ``docs/ALPHA_HANDOFF.md``).
 """
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, fields
+import hashlib
+import json
 from typing import Sequence, cast
 
-from derivation.candidates import Delta
+from derivation.candidates import Bounds, Delta
 from derivation.iso import CanonKey
 from derivation.model import (
+    AdmissionError,
     AdmitDatum,
     AdmitForm,
     AdmitInst,
     AdmitRuleAll,
     Event,
     Impose,
+    Pair,
     Regime,
     Supply,
+    replay,
 )
 
 SEALED_EVENT_TYPES: tuple[type[object], ...] = (
@@ -71,6 +85,22 @@ class EvaluationPersistedEventError(HarnessError):
 
 class LeftoverIsNotDemandError(HarnessError):
     """Collapsed pairs after a licensed apply are observations."""
+
+
+class NodeIntegrityError(HarnessError):
+    """A Node whose history does not replay to its stated regime is refused."""
+
+
+class LicenseBindingError(HarnessError):
+    """A License applies only at the declaration it was granted for."""
+
+
+class SubstitutedMemberError(HarnessError):
+    """A claimed class member that is not the fresh sealed class member is refused."""
+
+
+class ForgedEvaluationError(HarnessError):
+    """Evaluation evidence that differs from a fresh sealed recomputation is refused."""
 
 
 @dataclass(frozen=True)
@@ -130,18 +160,31 @@ class License:
     """Metatheoretic authorization record.  Not an Event.
 
     ``authorized`` is a subset of retained iso-class keys.  There is no
-    integer-index selector field and no revoke API.
+    integer-index selector field and no revoke API.  ``source``,
+    ``target``, ``measure`` and ``bounds`` bind the License to the
+    declaration it authorizes; ``source`` is ``history_digest`` of the
+    source node's history.  The binding is not authentication.
     """
 
     granter: str
     scope: str
     authorized: tuple[CanonKey, ...]
+    source: str
+    target: Pair
+    measure: str
+    bounds: Bounds
 
     def __post_init__(self) -> None:
         if len(set(self.authorized)) != len(self.authorized):
             raise ValueError("authorized keys must be distinct")
         if tuple(sorted(self.authorized)) != self.authorized:
             raise ValueError("authorized keys must be in sealed-key order")
+        if self.measure not in ("mu1", "mu2"):
+            raise ValueError(f"unknown measure: {self.measure}")
+        if not 0 <= self.target[0] < self.target[1]:
+            raise ValueError("a target is a pair (i, j) with 0 <= i < j")
+        if self.bounds.max_items < 0 or self.bounds.max_arity < 0:
+            raise ValueError("bounds cannot be negative")
 
 
 @dataclass(frozen=True)
@@ -184,19 +227,89 @@ def as_event(license: License) -> Event:
     )
 
 
+def history_digest(history: tuple[Event, ...]) -> str:
+    """SHA-256 of a canonical JSON encoding of a sealed event history.
+
+    A binding for License reuse, not authentication.  A constructor
+    outside the six sealed Event kinds is refused.
+    """
+    encoded: list[list[object]] = []
+    for event in history:
+        if type(event) not in SEALED_EVENT_TYPES:
+            raise SeventhEventError(f"refused constructor {type(event).__name__}")
+        encoded.append(
+            [type(event).__name__, *(getattr(event, item.name) for item in fields(event))]
+        )
+    raw = json.dumps(encoded, separators=(",", ":"), ensure_ascii=True)
+    return hashlib.sha256(raw.encode("ascii")).hexdigest()
+
+
+def check_node_integrity(node: Node) -> None:
+    """Refuse a Node whose history does not replay to its stated regime."""
+    for event in node.history:
+        if type(event) not in SEALED_EVENT_TYPES:
+            raise NodeIntegrityError(
+                f"node history carries a non-sealed constructor {type(event).__name__}"
+            )
+    try:
+        replayed = replay(node.history)
+    except AdmissionError as exc:
+        raise NodeIntegrityError(f"node history does not replay: {exc}") from exc
+    if replayed != node.regime:
+        raise NodeIntegrityError("node history does not replay to its stated regime")
+
+
+def check_license_binding(
+    license: License,
+    node: Node,
+    target: Pair,
+    measure: str,
+    bounds: Bounds,
+) -> None:
+    """Refuse a License used away from its declaration; name each mismatch."""
+    used: tuple[tuple[str, object, object], ...] = (
+        ("source", license.source, history_digest(node.history)),
+        ("target", license.target, target),
+        ("measure", license.measure, measure),
+        ("bounds", license.bounds, bounds),
+    )
+    mismatched = [name for name, granted, actual in used if granted != actual]
+    if mismatched:
+        raise LicenseBindingError(
+            "license applied away from its declaration: " + ", ".join(mismatched)
+        )
+
+
 def make_license(
     *,
     granter: str,
     scope: str,
     authorized: tuple[CanonKey, ...],
+    source: Node,
+    target: Pair,
+    measure: str,
+    bounds: Bounds,
     **rejected: object,
 ) -> License:
-    """Build a License.  Extra fields, including an integer index, are refused."""
+    """Build a License bound to one declaration.
+
+    Extra fields, including an integer index, are refused.  ``source`` is
+    the node the host authorizes at; the License records its history
+    digest, not the node.
+    """
     if rejected:
         raise LicenseSelectorError(
             "unknown license field: " + ", ".join(sorted(str(name) for name in rejected))
         )
-    return License(granter=granter, scope=scope, authorized=authorized)
+    return License(
+        granter=granter,
+        scope=scope,
+        authorized=authorized,
+        source=history_digest(source.history),
+        target=target,
+        measure=measure,
+        bounds=bounds,
+    )
 
 
 def key_by_index(retained: Sequence[CanonKey], index: int) -> CanonKey:

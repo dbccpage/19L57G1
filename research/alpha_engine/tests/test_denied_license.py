@@ -23,6 +23,10 @@ from harness import (  # noqa: E402
 )
 from search_policy import record_census  # noqa: E402
 
+_NODE = Node(
+    history=READING_L.genesis, regime=replay(READING_L.genesis), license=None
+)
+
 
 class DeniedLicense(unittest.TestCase):
     def test_denied_license_writes_no_node_license(self) -> None:
@@ -30,7 +34,10 @@ class DeniedLicense(unittest.TestCase):
         node = Node(history=READING_L.genesis, regime=base, license=None)
         result = evaluate(base, READING_L.target, "mu1", Bounds(2, 2))
         key = result.retained[0].key
-        denied = make_license(granter="test", scope="denied", authorized=())
+        denied = make_license(
+            granter="test", scope="denied", authorized=(),
+            source=node, target=READING_L.target, measure="mu1", bounds=Bounds(2, 2),
+        )
         out = apply_licensed(node, result, denied, key, READING_L.target)
         self.assertIsNone(out)
         self.assertIsNone(node.license)
@@ -44,7 +51,10 @@ class DeniedLicense(unittest.TestCase):
         result = evaluate(base, READING_L.target, "mu1", Bounds(2, 2))
         keys = tuple(item.key for item in result.retained)
         census = record_census(keys, (keys[0],), (), keys[1:])
-        denied = make_license(granter="test", scope="denied", authorized=())
+        denied = make_license(
+            granter="test", scope="denied", authorized=(),
+            source=node, target=READING_L.target, measure="mu1", bounds=Bounds(2, 2),
+        )
         with self.assertRaises(UnlicensedExploreError):
             explore(node, result, denied, census, READING_L.target)
         self.assertIsNone(node.license)
@@ -55,6 +65,10 @@ class DeniedLicense(unittest.TestCase):
                 granter="test",
                 scope="c3",
                 authorized=(),
+                source=_NODE,
+                target=READING_L.target,
+                measure="mu1",
+                bounds=Bounds(2, 2),
                 index=0,
             )
         with self.assertRaises(LicenseSelectorError):
@@ -62,6 +76,10 @@ class DeniedLicense(unittest.TestCase):
                 granter="test",
                 scope="c3",
                 authorized=(),
+                source=_NODE,
+                target=READING_L.target,
+                measure="mu1",
+                bounds=Bounds(2, 2),
                 index=1,
             )
         with self.assertRaises(LicenseSelectorError):
@@ -69,6 +87,10 @@ class DeniedLicense(unittest.TestCase):
                 granter="test",
                 scope="c3",
                 authorized=(),
+                source=_NODE,
+                target=READING_L.target,
+                measure="mu1",
+                bounds=Bounds(2, 2),
                 index=-1,
             )
 
@@ -84,6 +106,10 @@ class DeniedLicense(unittest.TestCase):
                 granter="test",
                 scope="c3",
                 authorized=(),
+                source=_NODE,
+                target=READING_L.target,
+                measure="mu1",
+                bounds=Bounds(2, 2),
                 score=1,
             )
 

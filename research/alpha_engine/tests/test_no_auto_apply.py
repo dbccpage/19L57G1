@@ -56,7 +56,10 @@ class NoAutoApply(unittest.TestCase):
         self.assertEqual(len(result.retained), 1)
         keys = tuple(item.key for item in result.retained)
         census = record_census(keys, (), (), keys)
-        denied = make_license(granter="test", scope="mu2", authorized=())
+        denied = make_license(
+            granter="test", scope="mu2", authorized=(),
+            source=node, target=READING_L.target, measure="mu2", bounds=Bounds(2, 2),
+        )
         explored = explore(node, result, denied, census, READING_L.target)
         self.assertEqual(explored.children, ())
         self.assertEqual(node.regime, base)
@@ -72,7 +75,10 @@ class NoAutoApply(unittest.TestCase):
         key = result.retained[0].key
         keys = (key,)
         census = record_census(keys, keys, (), ())
-        license = make_license(granter="test", scope="mu2", authorized=keys)
+        license = make_license(
+            granter="test", scope="mu2", authorized=keys,
+            source=node, target=READING_L.target, measure="mu2", bounds=Bounds(2, 2),
+        )
         explored = explore(node, result, license, census, READING_L.target)
         self.assertEqual(len(explored.children), 1)
         self.assertEqual(node.regime, base)

@@ -31,6 +31,7 @@ class DriverA(unittest.TestCase):
             granter=policy.policy_id,
             scope="C3-L-mu1",
             authorized=policy.subset(),
+            source=node, target=READING_L.target, measure="mu1", bounds=Bounds(2, 2),
         )
         child = apply_licensed(
             node, result, license, policy.subset()[0], READING_L.target
@@ -57,6 +58,7 @@ class DriverA(unittest.TestCase):
             granter="test",
             scope="C3-L-mu1",
             authorized=(keys[0],),
+            source=node, target=READING_L.target, measure="mu1", bounds=Bounds(2, 2),
         )
         out = explore(node, result, license, census, READING_L.target)
         self.assertEqual(len(out.children), 1)
