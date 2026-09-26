@@ -27,7 +27,7 @@ challenge three, then challenge four.  **This tree is the first.**  It is
 a protocol intervention by the author, not a result of the seed's rule;
 `SEED.md` is unchanged.  It closes before the second opens.
 
-`research/second/PLAN.md` item three assigns "the engine as a declared
+`research/second/PLAN.md` item four assigns "the engine as a declared
 class" to rung three.  As in rungs three to ten, the plan is not edited:
 a plan committed before substantive work is not rewritten to match what
 happened.
@@ -94,7 +94,9 @@ and no `Classical.choice` anywhere):
   by every inhabitant of the sealed isomorphism between any two regimes,
   forward and back, with only the admission of the two data assumed; the
   orbit statement conjugates through `isoTrans`, the composite of two
-  inhabitants, which no earlier tree had;
+  inhabitants -- the construction the sealed estate already has as
+  `Iso.trans` in `lean4/Derivation/IsoCanon.lean`, written again here
+  because that module is not reconstructed, and credited, not claimed;
 - so the labels and demands of E-one, E-three, E-four and E-eight, in
   both modes, are invariant under renaming for every regime; rung two
   left E-three and E-four OPEN at transport replay, and in the Lean
@@ -176,10 +178,10 @@ log; C-20 and C-21 by `CLAIM_LEDGER.md` and `test_census.py`; C-23 by
 `run_engine.py --check`, `test_engine.py` and the measured time below.
 Each is met.
 
-**Thirteen of thirteen, and what that is worth.**  Four rows were
-labelled FORCED (C-8, C-9, C-10, C-23), and a hit on them evidences the
-order of the work.  The nine others were reasoned by hand before the
-run from the sealed definitions and rung two's code, and the probe is
+**Thirteen of thirteen, and what that is worth.**  Three of the thirteen
+were labelled FORCED (C-8, C-9, C-10; the fourth FORCED row, C-23, is
+scored elsewhere), and a hit on them evidences the order of the work.
+The ten others were reasoned by hand before the run from the sealed definitions and rung two's code, and the probe is
 shallow enough that such reasoning reaches it: its genesis regimes hold
 no form, every rule reads them symmetrically, and every response is the
 first separation.  So the hits say the hand reasoning about level one
@@ -281,7 +283,36 @@ further attempt is authorized automatically.
 
 ## Gates and timing
 
-GATE_TIMING_PLACEHOLDER
+Measured on this machine, 2026-09-25, by `python ci/run_gates.py --step
+"continuation 1" --keep-going` at `c8655ef7`, which ran the four
+registered steps of this tree in the workflow's order:
+
+| gate | command | measured |
+|---|---|---|
+| clean Lean build and axiom audit | `python3 research/second_engine/verify_lean.py` | 16.2 s |
+| pins, spans, frozen texts | `python research/second_engine/verify_pins.py` | 2.8 s |
+| tests under coverage (152 tests), coverage gate, receipt comparison | the tree's replay, tests and coverage step | 60.6 s |
+| strict typing | `python -m mypy` | 0.4 s |
+
+Grouped measured time **80.0 seconds**, inside the fifteen-minute
+ceiling the seed sets.  The registered test floor is 145.  Most of the
+test step is the pin battery; the receipt builds in under a second.
+Coverage over the declared measured set (`engine_decl.py`,
+`engine_probe.py`, `run_engine.py`, `verify_pins.py`): **line 99.48%,
+branch 97.92%**, both above the 95% floor.  The runner reported that the
+interpreter's pytest (9.1.1) differs from the pin in `requirements.txt`
+(9.0.3); this tree's tests run under `unittest` and do not import pytest.
+An earlier run of the same command reported its HEAD moving mid-run --
+this session committed while it ran -- refused to mix the two, and did
+not run the typing step; it was run again with HEAD still, as above.
+
+Fifteen injections proved the gates this tree adds, each failing by name
+on its defect and recovering; they are recorded in
+`research/second/MANUAL.md`.  The estate custody census, run on the
+clean worktree when its pin was rewritten, reports 108 verifiers, 107
+green and one pinned red that this attempt did not add.  The root prose
+watchlist is clean and matches its pin; the root identifier firewall and
+the gates-skill test pass; the generated views are current.
 
 These are local receipts.  Hosted CI is permanently disabled by author
 decision; the workflow is the written contract and its steps were run
@@ -327,6 +358,8 @@ predictions_scored: {hit: 13, missed: 0, elsewhere: 10}
 census_prediction_scored: {named: 50, hit: 48, missed: 2, unpredicted_native: 0}
 input_count: {value: 2, proof: none, sentence: "This attempt neither reduces the count of declared inputs nor proves it at a floor."}
 census_rows_decided: []
+injections: 15
+gate_time_seconds: 80.0
 authority_effect: None
 final_state: true
 ```

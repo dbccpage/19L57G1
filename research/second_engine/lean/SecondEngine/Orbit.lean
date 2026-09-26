@@ -20,7 +20,10 @@ regimes, with the only hypothesis that the two data are admitted in the
 source.
 
 * `isoTrans σ τ`: the composite of two inhabitants of the sealed
-  isomorphism, its maps composed.
+  isomorphism, its maps composed.  The sealed estate has the same
+  composite as `Iso.trans` in `Derivation/IsoCanon.lean`; that module is
+  not reconstructed here, so the composite is written again, and the
+  ledger credits it.
 * `oneOrbit_iso`: two data lie in one orbit exactly when their images do.
   The automorphism of the target is the source's conjugated by `σ`.
 * `reqMember_iso`: the sorted pair is a requirement exactly when the

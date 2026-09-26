@@ -123,6 +123,11 @@
       "path": "research/second/PLAN.md",
       "sha256": "36B66D7E819B7BC03FE51E2932A102E6E685F4589C68B99773D8C502BAC8D96D",
       "note": "the plan of the second derivation"
+    },
+    {
+      "path": "lean4/Derivation/IsoCanon.lean",
+      "sha256": "B1C85BA330B70ADE10D8FADF4448DD5BD90F2659A63077A80AC5D71754ACEBA1",
+      "note": "the sealed Iso.trans, the composite that isoTrans in lean/SecondEngine/Orbit.lean writes again; not reconstructed and not compared, credited in the ledger"
     }
   ],
   "spans": [
