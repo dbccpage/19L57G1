@@ -127,7 +127,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `research/second/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
 | `research/second_class/SOURCE_MANIFEST.json` | 7 | 18 | 0 |
 | `research/second_duration/SOURCE_MANIFEST.json` | 6 | 13 | 0 |
-| `research/second_engine/SOURCE_MANIFEST.json` | 8 | 19 | 0 |
+| `research/second_engine/SOURCE_MANIFEST.json` | 9 | 19 | 0 |
 | `research/second_index/SOURCE_MANIFEST.json` | 5 | 12 | 0 |
 | `research/second_inheritance/SOURCE_MANIFEST.json` | 10 | 13 | 0 |
 | `research/second_iso/SOURCE_MANIFEST.json` | 8 | 12 | 0 |
@@ -331,7 +331,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `lean4/Derivation/InterpreterBoundary.lean` | 21 | `coherent_process_limits` (tree), `endogenous_demand` (tree), `g010_primitive_removal` (file), `represented_execution` (tree), `setting_translation` (tree) | all 16 |
 | `lean4/Derivation/IsoBridge.lean` | 20 | `coherent_process_limits` (tree), `endogenous_demand` (tree), `represented_execution` (tree), `setting_translation` (tree) | all 16 |
 | `lean4/Derivation/IsoBridgeCompat.lean` | 20 | `coherent_process_limits` (tree), `endogenous_demand` (tree), `represented_execution` (tree), `setting_translation` (tree) | all 16 |
-| `lean4/Derivation/IsoCanon.lean` | 20 | `coherent_process_limits` (tree), `endogenous_demand` (tree), `represented_execution` (tree), `setting_translation` (tree) | all 16 |
+| `lean4/Derivation/IsoCanon.lean` | 21 | `coherent_process_limits` (tree), `endogenous_demand` (tree), `represented_execution` (tree), `second_engine` (file), `setting_translation` (tree) | all 16 |
 | `lean4/Derivation/IsoCanonCompat.lean` | 20 | `coherent_process_limits` (tree), `endogenous_demand` (tree), `represented_execution` (tree), `setting_translation` (tree) | all 16 |
 | `lean4/Derivation/IsoCollapse.lean` | 21 | `coherent_process_limits` (tree), `endogenous_demand` (tree), `represented_execution` (tree), `second_iso` (file, span), `setting_translation` (tree) | all 16 |
 | `lean4/Derivation/IsoCollapseCompat.lean` | 20 | `coherent_process_limits` (tree), `endogenous_demand` (tree), `represented_execution` (tree), `setting_translation` (tree) | all 16 |
