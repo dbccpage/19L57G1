@@ -1,0 +1,141 @@
+{
+  "authority_effect": "None",
+  "classes": {
+    "R2F_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "R2F_wf": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "R2L_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "R2L_wf": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "admission_without_expressive_increase": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "collapsed_of_no_insts": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "collapsed_through": {
+      "class": "DEFINITION",
+      "module": "Run.lean"
+    },
+    "cycle_regime_const": {
+      "class": "THIN",
+      "module": "Run.lean"
+    },
+    "ereplay_elems_le": {
+      "class": "THIN",
+      "module": "Run.lean"
+    },
+    "ereplay_elems_lt_of_ne": {
+      "class": "THIN",
+      "module": "Run.lean"
+    },
+    "ereplay_regime_eq_of_elems_eq": {
+      "class": "CONTENT",
+      "module": "Run.lean"
+    },
+    "estep_elems_le": {
+      "class": "THIN",
+      "module": "Run.lean"
+    },
+    "estep_elems_lt_of_ne": {
+      "class": "THIN",
+      "module": "Run.lean"
+    },
+    "genesis_underivable": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "historyF_replays": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "historyL_replays": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "insertNew_eq_or_succ": {
+      "class": "DEFINITION",
+      "module": "Run.lean"
+    },
+    "insertNew_length_le": {
+      "class": "DEFINITION",
+      "module": "Run.lean"
+    },
+    "insertNew_nil": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "insertNew_of_mem": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "insertNew_of_not_mem": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "mem_insertNew": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "no_return": {
+      "class": "THIN",
+      "module": "Run.lean"
+    },
+    "not_separable_through": {
+      "class": "THIN",
+      "module": "Run.lean"
+    },
+    "replayE_append": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "separable_not_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "stepE_elems_le": {
+      "class": "THIN",
+      "module": "Run.lean"
+    },
+    "stepE_elems_lt_of_ne": {
+      "class": "THIN",
+      "module": "Run.lean"
+    },
+    "supply_no_op": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "switch_keeps_regime": {
+      "class": "DEFINITION",
+      "module": "Run.lean"
+    },
+    "switch_switch": {
+      "class": "DEFINITION",
+      "module": "Run.lean"
+    },
+    "underivable_of_empty": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    }
+  },
+  "counts": {
+    "CONTENT": 1,
+    "DEFINITION": 5,
+    "RECONSTRUCTION": 17,
+    "THIN": 9
+  },
+  "long_but_definitional": [],
+  "note": "Classified 2026-09-28 by the session that froze the prediction, after the compile; the classifier and the predictor are the same session, as in the sibling trees, and the census records a judgement, not a measurement.  Every class matches the frozen prediction.  stepE_elems_le and stepE_elems_lt_of_ne are case exhaustions over the six sealed event kinds that lean on the two insertion lemmas, so THIN, not DEFINITION.  ereplay_regime_eq_of_elems_eq is the one CONTENT row: an induction over histories that needs both step lemmas and a case split on the element count, more than a step lemma alone.  The seventeen RECONSTRUCTION rows are the sealed kernel's, reproduced under a pin and not this tree's work.  Two native theorems were added after the prediction and are unpredicted work, recorded in STATUS.md: collapsed_through (DEFINITION, one composition of the two equivalences) and not_separable_through (THIN, its corollary), added so that the structural shape of the refused apart demands rests on a proof rather than on prose."
+}
