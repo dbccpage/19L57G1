@@ -494,9 +494,10 @@ closed and the run's reporting files were reconciled. It supersedes §9.2
 as the snapshot the author is asked to freeze; §9.2 stands as the record
 of the 2026-09-25 closeout.
 
-- **Snapshot:** commit `cf7abb0acdf0fafc8d453ececcd8d65b08237b48` (root tree `db75160c0888ef63aa07e53afe88cacd4ccc4962`), the
-  reconciliation commit immediately before the commit that adds this
-  section. Its first parent is `d67523f9`, the merge of #269.
+- **Snapshot:** commit `90ab34a056d80bb1048d926abcfdfef81e578fe1` (root tree `a82d22d5981713b566767972024a581ae1beb190`), the
+  head of the closeout branch immediately before the commit that writes
+  this section. The branch's base on `main` is `d67523f9`, the merge of
+  #269.
 - **Self-exclusion:** this file, `docs/GENESIS_CLOSEOUT.md`, is excluded.
   The commit that adds this section changes only this file.
 - **Hashes:** a git tree id binds every file beneath it. The SHA-256 values
@@ -507,7 +508,7 @@ of the 2026-09-25 closeout.
 | path | kind | git object id | files | sha256 (LF bytes) |
 |---|---|---|---:|---|
 | `research/alpha_engine/` | tree | `1a8802bd2693896b95380d82c696c943815dbde8` | 45 | (tree id binds every file) |
-| `research/second/` | tree | `8b71ac727ee3a79a942a8bf8c6c07c10291241ca` | 9 | (tree id binds every file) |
+| `research/second/` | tree | `165c64904ebc38ecf522a8dc850a51bb20eab013` | 9 | (tree id binds every file) |
 | `research/second_class/` | tree | `7db5d3d9267046dd88a7020a5865b900214fa49e` | 32 | (tree id binds every file) |
 | `research/second_duration/` | tree | `1d114702799922c4066248517852c2895ad6e600` | 28 | (tree id binds every file) |
 | `research/second_engine/` | tree | `cfda4b00d240de163a3d61481f8b96d63edb31c3` | 34 | (tree id binds every file) |
@@ -522,7 +523,7 @@ of the 2026-09-25 closeout.
 | `research/second_stream/` | tree | `58029f3c6a3db0f691eb660a58763e96ac7d8f08` | 15 | (tree id binds every file) |
 | `research/second_succession/` | tree | `ca8e6f65d5126b80dfeae480fd71a7e098c631b9` | 28 | (tree id binds every file) |
 | `research/second_symmetry/` | tree | `1c6f9fdf203ecfa8827b259c903726e1c18c1d43` | 31 | (tree id binds every file) |
-| `research/second/paper.md` | blob | `7354558f39cafbaa2937bfd183f05cfcb5db2ef0` | 1 | `139457a1a7e0750e496377c05ded0032319c8b1240a93ecd5fe0574343a0d65a` |
+| `research/second/paper.md` | blob | `11b64eef6ba4fc51c34fd0e77ba1dd65a2a30589` | 1 | `7e774b9a5cd0b326f884716c49a18055df522968e659438910dceeaa332b73ad` |
 | `research/second/change_log.md` | blob | `1a86de272a4a8e8e7d0ec7741005308e290e69f9` | 1 | `b6833db2cd140d5ed5e8fab7e7ff3e425f222bd28eae5342736efefe32f8e2e4` |
 | `research/second/claim_ledger.md` | blob | `f4023e1eefb10057a6b18de03568154d77f0eb23` | 1 | `8d333fcc077d9ff33d73644f6172f637bf8ef70e9a7392dca02bc6c6b0451a5b` |
 | `research/second/SEED.md` | blob | `bc27dccdd4497197922e5f72723fcee9a38347e1` | 1 | `52439e5f75d1c599ce52dc716beb88f1dd7bfc83856ee73ce85f3a7eeec5e70e` |
