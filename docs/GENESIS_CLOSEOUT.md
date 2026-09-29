@@ -374,7 +374,7 @@ reproduced and repaired, and each repair was proved by live injection.
 
 | id | status at the final audit |
 |---|---|
-| D1 | Updated 2026-09-28: the run's paper, change log and ledger are reconciled with both continuation attempts and are a FREEZE CANDIDATE. The freeze is the author's act (§9.5). |
+| D1 | Resolved 2026-09-28: the run's paper, change log and ledger were reconciled with both continuation attempts, and the author approved the freeze of the §9.5 snapshot (§9.4). |
 | D2 | Open. G10, G13 and G14 are still not live injections, and are not relied on by the handoff. |
 | D3 | Open. `CL-ISO-SOUND` has no Lean evidence. |
 | D4 | Open. `python_driver_refinement` is NOT_PROVED, and the harness Lean does not model the new license binding. |
@@ -383,7 +383,7 @@ reproduced and repaired, and each repair was proved by live injection.
 | D7 | Resolved: the injection-record rows were written after the author's instruction to finish (§9.3). |
 | D8 | New: the Lean names whose wording outruns their statements (§8) are recorded exactly in the run's ledger. |
 | D9 | New: the operator acts for rungs four to ten and for attempt 1 were not in any committed file until the draft `change_log.md` recorded them as the coordinator's attestation. The acts for attempt 2 are recorded the same way (2026-09-28). |
-| D10 | New (2026-09-28): the completion gate's input-count clause admits two readings of attempt 2's bounded one-input carriers. The run's paper records NOT_ESTABLISHED and leaves the reading to the author at the freeze. |
+| D10 | New (2026-09-28): the completion gate's input-count clause admits two readings of attempt 2's bounded one-input carriers. The run's paper records NOT_ESTABLISHED and leaves the reading to the author at the freeze. Frozen as NOT_ESTABLISHED: the author approved the freeze without a separate ruling (§9.4). |
 
 **SUCCESSOR_RESEARCH**
 
@@ -487,6 +487,30 @@ companion repository.
 attempts are closed and merged. The final manifest the author is asked
 to approve is §9.5. It is prepared, not applied.
 
+**FREEZE APPLIED, 2026-09-28.** The author approved the freeze of the §9.5
+snapshot on 2026-09-28, in the words "merge #270 and approve the freeze".
+#270 was merged at `50d15a44`. At that commit the coordinator checked all
+33 entries of §9.5 against `main`: every git object id and every
+LF-normalized SHA-256 matches, with no mismatch. What the freeze means:
+
+- **What is frozen:** every file bound by §9.5. That is the three
+  reporting files, and everything else under `research/second/` (the seed,
+  the plan and the manual included). It is also every `research/second_*`
+  tree, the Alpha tree, and the other pinned blobs, as they stand at
+  snapshot `90ab34a0`. None of them may change.
+- **The headers:** the three reporting files still say "FREEZE
+  CANDIDATE ... Not frozen" in their headers. That describes their state
+  before this approval. They are left byte-identical, because the freeze
+  fixes their bytes. This record, which §9.5 excludes by construction,
+  is where the freeze is stated.
+- **What follows:** the comparison may now be written, and only in the
+  companion repository. It may cause no revision here.
+- **D10 was not ruled on separately.** The frozen paper's reading of the
+  input-count clause, NOT_ESTABLISHED, stands as frozen.
+- **Enforcement:** no gate enforces the freeze. The trees' own pin
+  verifiers and the custody census cover their own sources. Nothing fails
+  if `research/second/` changes after this commit.
+
 ### 9.5 Final manifest for the author's freeze (2026-09-28)
 
 This section is prepared after both authorized continuation attempts
@@ -559,7 +583,7 @@ floor, whose reading at the freeze is the author's (D10).
 
 | axis | value | why |
 |---|---|---|
-| `research_phase` | **CLOSED_WITH_OPEN_OBSTRUCTIONS** | *(Updated 2026-09-28; it was RUNNING at the closeout of 2026-09-25.)* The original budget is spent, and both authorized continuation attempts have closed and been merged (#267, #269). No further attempt is authorized. Obstructions remain OPEN: runs past the declared bounds, the 970 refused same demands, Challenge 1 at four items, the responder in Lean, and the input-count floor. The run's report is a freeze candidate, not yet frozen. |
+| `research_phase` | **CLOSED_WITH_OPEN_OBSTRUCTIONS** | *(Updated 2026-09-28; it was RUNNING at the closeout of 2026-09-25.)* The original budget is spent, and both authorized continuation attempts have closed and been merged (#267, #269). No further attempt is authorized. Obstructions remain OPEN: runs past the declared bounds, the 970 refused same demands, Challenge 1 at four items, the responder in Lean, and the input-count floor. The run's report was frozen on 2026-09-28 at the §9.5 snapshot, by the author's approval (§9.4). |
 | `alpha_reference` | **READY_WITHIN_DECLARED_SCOPE** | M1 to M8 hold within the trust boundary of §7. B1, B2 and B3 were repaired in one pass and proved by live injection. The one command passes nine of nine steps with no skips and no model provider. Not universal: the refinement to Lean is NOT_PROVED, demand generation is OPEN, and consumer bridges are OPEN. |
 | `original_seed_completion_gate` | **UNSATISFIED** | *(Updated 2026-09-28.)* Two clauses are UNMET: not every gate is proved by injection, and the comparison is not written. Several clauses are NOT_ESTABLISHED, including the input-count floor. No floor is proved; a bounded one-input carrier exists and its reading is the author's. Two clauses moved to MET at the computed scope after attempt 2: every engine run to bounds, and every census row decided. See `research/second/paper.md` §14. |
 
