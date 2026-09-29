@@ -1,14 +1,15 @@
-# UNFROZEN DRAFT -- the second derivation: report of the research stage
+# FREEZE CANDIDATE -- the second derivation: report of the research stage
 
-**UNFROZEN DRAFT, dated 2026-09-25 and updated the same day.  The
-research stage is still running.**  Continuation attempt one (Challenge 3)
-has closed: the author merged it as pull request 267 (merge `dabe9a92`),
-tree `research/second_engine/`.  Continuation attempt two (Challenge 4)
-may now open, because the author has integrated attempt one, but it had
-not been launched when this draft was updated.  This paper is finalized
-only after attempt two closes and the author approves the freeze.
-Nothing here is a frozen result, and no comparison has been written or
-may be written from it.
+**FREEZE CANDIDATE, first drafted 2026-09-25 and reconciled 2026-09-28.
+Not frozen.**  Both continuation attempts the author authorized have
+closed and been merged: attempt one (Challenge 3), pull request 267
+(merge `dabe9a92`), tree `research/second_engine/`; and attempt two
+(Challenge 4 with the census's FORCED column), pull request 269 (merge
+`d67523f9`), tree
+`research/second_run/`.  No further research attempt is authorized.  The
+freeze is the author's act: until the author approves the final
+snapshot, nothing here is a frozen result, and no comparison has been
+written or may be written from it.
 
 `AuthorityEffect: None`.  Companion files: `research/second/claim_ledger.md`
 (one row per retained claim, cited below as `SD-...`) and
@@ -23,8 +24,10 @@ reports the original stage of the run: twelve research attempts under the
 unchanged seed, carrying eleven ordinal labels, zero to ten, because rung
 two ran as two separately scoped tracks.  Counted by attempts, as the
 author's ruling of 2026-09-25 counts them, the original budget of twelve is
-exhausted.  It also reports the first of the two continuation attempts
-that ruling authorizes, which has closed (section 12).
+exhausted.  It also reports both continuation attempts that ruling
+authorizes, which have closed (section 12).  The draft was written on
+2026-09-25 after attempt one and reconciled on 2026-09-28 after attempt
+two, by the closeout the author ordered finished that day.
 
 The draft runs no new research and proves nothing new.  It reads each rung
 tree, verifies the Lean statements it cites by reading their source, and
@@ -33,8 +36,9 @@ and this draft differ, the rung's receipts and ledger are the record.
 Reporting and replay consume no research attempt.
 
 The draft keeps four things apart, as the ruling requires: results of the
-original stage (sections 4 to 8), results of the continuation (attempt
-one, section 12), protocol deviations (section 12), and unresolved obstructions
+original stage (sections 4 to 8), results of the continuation (attempts
+one and two, section 12, and the continuation columns of sections 4, 7
+and 10), protocol deviations (section 12), and unresolved obstructions
 (section 13).  Budget exhaustion is not reported as satisfying any clause
 of the completion gate (section 14).
 
@@ -47,8 +51,10 @@ of the completion gate (section 14).
   `52439e5f75d1c599ce52dc716beb88f1dd7bfc83856ee73ce85f3a7eeec5e70e`,
   Git blob `bc27dccdd4497197922e5f72723fcee9a38347e1`.  It is marked
   `-text` and has not changed.  Every one of the twelve rung manifests,
-  and continuation attempt one's, pins that sha256, and the pin verifiers
-  re-ran green on 2026-09-25 (section 9).
+  and each continuation attempt's, pins that sha256, and the pin
+  verifiers re-ran green on 2026-09-25 and, for attempt two, on
+  2026-09-28 (section 9).  Attempt two's manifest records the seed by the
+  coordinator's landing repair (`938b91fc`; section 12).
 - The supplied input is the repository itself at each rung's snapshot:
   the sealed kernel, proofs, artifacts, paper and claim ledger, and every
   earlier research tree, all read-only.  The seal contract of `CLAUDE.md`
@@ -61,8 +67,10 @@ of the completion gate (section 14).
 ### 1.2 The supplied tree at each attempt
 
 A snapshot is the commit at which a rung pins its consumed sources as Git
-blobs; it is an ancestor of `ccd0ab06`, the commit this draft was written
-on.  The tree hash is the Git tree of that commit.
+blobs.  Every snapshot of the original stage is an ancestor of `ccd0ab06`,
+the commit this draft was first written on; attempt one's and attempt
+two's are the `main` commits they launched from.  The tree hash is the Git
+tree of that commit.
 
 <!-- markdownlint-disable MD013 -->
 
@@ -81,6 +89,7 @@ on.  The tree hash is the Git tree of that commit.
 | 11 | 9 | `second_profile` | `ff584d441caad8300d01cbfda8b316846a8b5fc4` | `c14f9db9` | `df68d1cc735c3bfc…` | `7fc9a68c6447a7df…` |
 | 12 | 10 | `second_response` | `77ad2a7839aff8c9ec9b0204a5e9d6927fe8ae38` | `ac13e411` | `09e9df8c4349b1ef…` | `2fc139d7f455da1a…` |
 | C1 | continuation one | `second_engine` | `01876f3a43490c3518e5c2c03c975ea9d21f49c0` | `28ac749d` | `7a2768078d63dd22…` | `a225c07593edaea9…` |
+| C2 | continuation two | `second_run` | `b368f28c39ec85798ddc5c1bb2dfe3106770bc72` | `02d6f5a3` | `3fd06a04a81e39ee…` | `086bcee42d86e31f…` |
 
 <!-- markdownlint-enable MD013 -->
 
@@ -88,7 +97,10 @@ The full digests are in each tree's `STATUS.md` and `SOURCE_MANIFEST.json`;
 the verifiers compare them with the committed bytes.  Continuation
 attempt one's snapshot is the continuation's starting commit; besides the
 sealed kernel slice it pins the sealed `lean4/Derivation/IsoCanon.lean`,
-whose `Iso.trans` it credits (section 12).
+whose `Iso.trans` it credits (section 12).  Continuation attempt two's
+snapshot is the merge of the Genesis closeout (pull request 268); it pins
+the sealed kernel slice again, and consumes continuation one's, rung two
+track two's and rung ten's public functions, each pinned by blob.
 
 ## 2. Metatheory and object language
 
@@ -110,7 +122,12 @@ rung six); the choice of the sealed responder as "the response" of the
 census rows (a declaration of rung ten); the engine class of
 continuation attempt one, with its HALT member, its reading of the switch
 as a flip of labels, its capability list, its morphisms (inclusions of
-declarations) and its probe; the author's rulings; the operator's acts.
+declarations) and its probe; continuation attempt two's bounds (two items
+and arity two, unpruned; growth below four data; fifteen rounds; a node
+guard of two hundred and fifty per run), its run-isomorphism, and the
+seven readings it froze with its predictions, among them carrying forward
+read literally on the recorded history of a frontier node, and the run
+readings of the census rows; the author's rulings; the operator's acts.
 None of these is an object-language conclusion.
 
 **Carriers, kept apart.**  In the terms of `docs/GENESIS_CLOSEOUT.md`
@@ -122,7 +139,10 @@ passage system is claimed.  Inside the run, three carriers matter:
   through its public functions, whose regimes keep sets;
 - each rung's Lean package, a verbatim reconstruction of the sealed kernel
   slice (lists, which may hold a repeated entry) with the rung's own
-  definitions, importing nothing sealed;
+  definitions, importing nothing sealed; continuation attempt two's adds
+  an engine state (a regime and a mode flag), the switch marker and the
+  engine's replay, and speaks of every history of those events, not of
+  the Python runs;
 - the sibling research trees consumed read-only (the two-sided commitment
   tree, the one-sided tree's represented state).
 
@@ -239,8 +259,8 @@ Each definition is the sealed one unless a rung is named.
 | 1, the stream as a response | **OPEN.**  Scoped finite results only: no retained V1 minimum of 1680 carries a datum; 32 of them were selected at three items; all fourteen recorded refusal situations are answered at exactly three items; two new first refusals appear.  1039 nodes stopped at the guard and targets after a first refusal were not searched.  Four items not computed (R1-X PENDING).  `SD-01-1` to `SD-01-10` | not authorized |
 | 2, the stake from the state | **Answered within a declared menu and rectangle, by finite computation only.**  Nine rules on six observables; six CHECKED invariant over 1,345,706 cases; three OPEN at transport replay; three index-reading controls refuted; E4 alone generates both demand kinds, and its invariance is OPEN; no member is both; all nine retained.  No Lean.  `SD-02b-1` to `SD-02b-7` | not authorized |
 | 3, the engine | **Unrun in the original stage.**  Named as leftover X-5 at rung three; the next-rung rule, as rungs three to ten read it, never selected it.  `SD-RUN-2` | **Closed by attempt one** (pull request 267): an engine declared; a class of 144 members, 108 without the HALT member the attempt added, enumerated and its capabilities counted (six to ten; none is one declaration); a minimal member exists in every declared subclass, none of the minima is unique up to the declared probe-isomorphism, and none is initial under inclusions of declarations; no engine run forward.  `SD-E-1` to `SD-E-18` |
-| 4, run forward | **Unrun.**  The rectangle of rungs three to ten enumerates histories supplied from outside; no run is generated.  `SD-RUN-3` | attempt two **not begun**: startable since the author integrated attempt one, and not launched when this draft was updated |
-| 5, the census | **DEFINABLE and USEFUL REALIZATION columns decided for all twelve rows**, over histories of the sealed step: in Lean for every history where cited, and by finite computation on rung three's rectangle.  **FORCED column undecided for all twelve rows.**  Stages are rectangle stages, not stages of an engine's run.  Section 7 | attempt one decided no row in any column; the FORCED evaluations belong to attempt two |
+| 4, run forward | **Unrun.**  The rectangle of rungs three to ten enumerates histories supplied from outside; no run is generated.  `SD-RUN-3` | **Closed by attempt two** (pull request 269), at declared bounds: every one of the 144 engines run from both readings, 288 runs to fifteen rounds with a node guard of 250, every node and edge replayed, quotiented by the implemented isomorphism, every frontier exported and every terminal recorded by kind; in Lean, for every history of every engine, no step lowers the element count, no run returns to a regime it has left, and every cycle holds one regime.  `SD-R-1` to `SD-R-22` |
+| 5, the census | **DEFINABLE and USEFUL REALIZATION columns decided for all twelve rows**, over histories of the sealed step: in Lean for every history where cited, and by finite computation on rung three's rectangle.  **FORCED column undecided for all twelve rows.**  Stages are rectangle stages, not stages of an engine's run.  Section 7 | attempt one decided no row in any column.  **Attempt two decided the FORCED column for all twelve rows** over the declared class at its bounds: the element count and irreversibility FORCED, at the bounds by computation and beyond them by proof; two-ness FORCED over the LIVE members; every other row NOT FORCED over the class, each with an executable countermodel.  Section 7 |
 
 <!-- markdownlint-enable MD013 -->
 
@@ -271,7 +291,7 @@ census (rung six, applied to every carried row at rung seven), and "named
 first" means first in the applying rung's list (author, 2026-09-25).  No
 leftover ever reduced the count of declared inputs.
 
-### 5.2 The twelve attempts of the original stage, and continuation attempt one
+### 5.2 The twelve attempts of the original stage, and the two continuation attempts
 
 <!-- markdownlint-disable MD013 -->
 
@@ -290,6 +310,7 @@ leftover ever reduced the count of declared inputs.
 | 11 | 9 | `second_profile` | 264 | 2026-09-25 | X-6, two-ness and observational classes | both definable; first stage four and two events; the class count as a number OPEN in Lean |
 | 12 | 10 | `second_response` | 265 | 2026-09-25 | X-6, adjacency, reach, branching, exhaustion | three useful realizations at two declared capabilities; exhaustion definable |
 | C1 | continuation one | `second_engine` | 267 | 2026-09-25 | Challenge 3, the engine (X-5) | a 144-member class declared, counted and probed to depth two; minimal members exist, none unique, none initial under inclusion |
+| C2 | continuation two | `second_run` | 269 | 2026-09-28 | Challenge 4 with the FORCED column (G-1, with G-2 and G-7) | 288 runs to declared bounds; the element count and irreversibility proved for every history; the FORCED column decided for all twelve rows; four engines carry forward with the stake and not the stream, at the bounds only |
 
 <!-- markdownlint-enable MD013 -->
 
@@ -310,9 +331,11 @@ that X-5 is eligible as a named prerequisite, that the twelve attempts
 exhaust the original budget, and that at most two continuation attempts
 are authorized.  The ruling is recorded verbatim in `CLAUDE.md` and
 `research/second/MANUAL.md`; it is paraphrased here.  Continuation attempt
-one then took Challenge 3 (section 12).  Its tree is a result of that
-intervention, not of the seed's rule, and it is not counted in the
-original budget.
+one then took Challenge 3, and continuation attempt two Challenge 4 with
+the census's FORCED column (section 12).  Their trees are results of that
+intervention, not of the seed's rule, and they are not counted in the
+original budget.  With both closed, the continuation is spent, and no
+third attempt is authorized.
 
 ## 6. Results by attempt: bounds, frontiers, proofs and countermodels
 
@@ -442,33 +465,46 @@ is about a minimum, a cost or a tie.
 
 ## 7. The census of definability
 
-"Stage" is the length of a history in rung three's rectangle, or every
-history where a Lean statement is cited.  No row is evaluated at the
-stages of a run generated by an engine, because none was run.
+In the DEFINABLE, USEFUL REALIZATION and first-stage columns, "stage" is
+the length of a history in rung three's rectangle, or every history where
+a Lean statement is cited.  The FORCED column was decided by continuation
+attempt two over the runs of the declared engine class, from both sealed
+readings, at its declared bounds; its stages are rounds of a run, zero to
+fifteen.  A stage reading is read off every node of a round; a run
+reading is read off every run.  A NOT FORCED verdict names a first
+failing engine and a path of its run, and a FORCED verdict that holds
+before any bound or guard node, or that is proved for every history,
+does not depend on the bounds.
 
 <!-- markdownlint-disable MD013 -->
 
 | row | DEFINABLE | USEFUL REALIZATION | FORCED | first stage | evidence |
 |---|---|---|---|---|---|
-| two-ness | yes, as holding two | none needed | undecided | four events from the empty regime; two from each Lean reading regime | `SD-C-1` |
-| count of observational classes | the classes, as a relation and as representative lists | none needed | undecided | as two-ness | `SD-C-2`; the number is a finite computation, OPEN in Lean |
-| succession of accepted rounds | under CHANGING: from base and regime; from the regime when counted from the empty regime; from the class within a clean base.  Not under EVERY or ADMITTING; the first-demand index not from the regime | none | undecided | every stage | `SD-C-3` |
-| duration, as rounds between growths | the number of segments and their sum; lower bounds; not each duration between growths | none | undecided | every stage | `SD-C-4` |
-| adjacency | not established | yes: the sealed responder under one measure, two declared capabilities | undecided | three events from EMPTY, one from L, zero from F | `SD-C-5` |
-| reach | not established | yes: same declaration and price | undecided | as adjacency | `SD-C-6` |
-| an invariant | the element count (monotone, +1 per change); the fixer set of an added element | none | undecided | every stage | `SD-C-7` |
-| irreversibility | no return to a regime; from a clean base, to a class | none | undecided | every stage | `SD-C-8` |
-| symmetry | the automorphism count at every regime reached; which automorphisms survive each kind | none | undecided | every stage | `SD-C-9` |
-| branching | not established | yes: same declaration and price; finite computation only | undecided | two events from EMPTY under `mu1`, three under `mu2` | `SD-C-10` |
-| exhaustion | yes | none needed | undecided | one event | `SD-C-11` |
-| recurrence | from a clean base: only as a stutter | none | undecided | every stage | `SD-C-12` |
+| two-ness | yes, as holding two | none needed | stage: FORCED at round zero (false), NOT FORCED from round one; run: NOT FORCED over the class, FORCED over the 64 LIVE members (`SD-CF-1`) | four events from the empty regime; two from each Lean reading regime | `SD-C-1` |
+| count of observational classes | the classes, as a relation and as representative lists | none needed | stage: FORCED at round zero (one), NOT FORCED from round one; "no edge lowers it": NOT FORCED (`SD-CF-2`) | as two-ness | `SD-C-2`; the number is a finite computation, OPEN in Lean |
+| succession of accepted rounds | under CHANGING: from base and regime; from the regime when counted from the empty regime; from the class within a clean base.  Not under EVERY or ADMITTING; the first-demand index not from the regime | none | NOT FORCED under EVERY and CHANGING: one state is reached in five rounds and in six (`SD-CF-3`) | every stage | `SD-C-3` |
+| duration, as rounds between growths | the number of segments and their sum; lower bounds; not each duration between growths | none | NOT FORCED, by the same countermodel (`SD-CF-4`) | every stage | `SD-C-4` |
+| adjacency | not established | yes: the sealed responder under one measure, two declared capabilities | NOT FORCED over the class and over the LIVE members; holds in every LIVE run at F (`SD-CF-5`) | three events from EMPTY, one from L, zero from F | `SD-C-5` |
+| reach | not established | yes: same declaration and price | as adjacency (`SD-CF-6`) | as adjacency | `SD-C-6` |
+| an invariant | the element count (monotone, +1 per change); the fixer set of an added element | none | the element count FORCED, at the bounds by computation and beyond them by proof (`SD-CF-7`) | every stage | `SD-C-7` |
+| irreversibility | no return to a regime; from a clean base, to a class | none | FORCED, at the bounds by computation and beyond them by proof; every cycle is of switch edges (`SD-CF-8`) | every stage | `SD-C-8` |
+| symmetry | the automorphism count at every regime reached; which automorphisms survive each kind | none | FORCED at round zero (two at L, six at F), NOT FORCED from round one (`SD-CF-9`) | every stage | `SD-C-9` |
+| branching | not established | yes: same declaration and price; finite computation only | NOT FORCED at every round (`SD-CF-10`) | two events from EMPTY under `mu1`, three under `mu2` | `SD-C-10` |
+| exhaustion | yes | none needed | FORCED at rounds zero and one (zero), NOT FORCED from round two (`SD-CF-11`) | one event | `SD-C-11` |
+| recurrence | from a clean base: only as a stutter | none | NOT FORCED over the class and over the LIVE members (`SD-CF-12`) | every stage | `SD-C-12` |
 
 <!-- markdownlint-enable MD013 -->
 
-"Undecided" in the FORCED column is an OPEN obligation, not a decision.
-By the author's ruling of 2026-09-25, recording OPEN is not an evidential
-resolution.  No notion was added to the census by a logged declaration.
-Continuation attempt one decided no row in any column (`SD-E-15`).
+Every FORCED cell is a decision, positive or negative, as the author's
+ruling of 2026-09-25 requires; none is a recorded OPEN.  The positive
+decisions that hold beyond the bounds are those for the element count and
+irreversibility, which are proved for every history (`SD-R-3`), and for
+two-ness over the LIVE members, which holds on every run path before any
+bound or guard node; the others are computations at the bounds.  No
+notion was added to the census by a logged declaration.  Continuation
+attempt one decided no row in any column (`SD-E-15`); continuation attempt
+two decided no row's DEFINABLE or USEFUL REALIZATION column beyond
+recording, as a declared policy, how its runs read them (`SD-R-14`).
 
 ## 8. Predictions, and every miss
 
@@ -494,12 +530,19 @@ clean sheets.
 | 9 | 7 hit of 7 | 29 of 33, 4 demotions | the four class demotions | none |
 | 10 | 11 hit, 1 missed | 37 of 39, 2 demotions | R-11: no demand refused within two items, predicted a refusal at L and F | none |
 | C1 | 13 hit of 13; three FORCED; the attempt calls the hits weak evidence | 48 of 50; no theorem CONTENT | `oneOrbit_iso` demoted CONTENT to THIN; `sortPair_swap` promoted DEFINITION to THIN | none |
+| C2 | 15 hit, 4 missed, of 19; five more scored where their evidence lives, all met; three FORCED | 13 of 13 named targets; two native theorems added after the prediction | R-6: 28 merges unchecked; R-16: 35 run classes, predicted 36; R-18: succession under CHANGING and duration NOT FORCED, predicted OPEN; R-20: the first failing LIVE member E3, predicted E4 | none frozen; X and I-X still PENDING |
 
 <!-- markdownlint-enable MD013 -->
 
 Two misses (J-12, P-13) came from reasoning about the Lean reading regimes
 while computing on the Python readings, whose receipt already showed the
-difference.  Four extrapolations remain PENDING (`SD-RUN-8`).
+difference.  Four extrapolations remain PENDING (`SD-RUN-8`).  Continuation
+attempt two's four misses all lie at reading F, beyond the chains of E4 at
+L that were reasoned by hand to depth fifteen and hit exactly; the attempt
+reads each as a finding about the object, not a defect of the run.  Its
+first full run scored R-13 MISSED on a list-order comparison in the
+scorer, with the predicted values; the correction is recorded beside it
+(`SD-R-17`).
 
 ## 9. Python and Lean receipts
 
@@ -522,6 +565,7 @@ difference.  Four extrapolations remain PENDING (`SD-RUN-8`).
 | 9 | 141 | 99.07% / 95.95% | `receipts/profile.json` | 50 (17) | 231 s |
 | 10 | 150 | 99.41% / 97.73% | `receipts/response.json` | 56 (17) | 177 s |
 | C1 | 152 | 99.48% / 97.92% | `receipts/engine.json` | 67 (17) | 94.8 s |
+| C2 | 161; registered floor 150 | 99.77% / 99.03% | `receipts/forward.json`, `receipts/forward_full.json.gz` | 32 (17) | 468.0 s grouped; 944.9 s at the first measurement, over the ceiling (`SD-R-18`) |
 
 <!-- markdownlint-enable MD013 -->
 
@@ -591,20 +635,51 @@ of 145, coverage 99.48% line and 97.92% branch, and the receipt matching a
 fresh run with a clean `git diff`; and strict typing.  The worktree was
 clean afterwards.
 
+Before continuation attempt two was merged, the coordinator ran, on
+2026-09-28, the repository's full `python` job and the attempt's four
+registered steps on its branch at `2fae623e`, on a clean worktree, with
+the repository's own runner:
+
+```text
+python ci/run_gates.py --job python --keep-going --workers 8
+python ci/run_gates.py --job research --job lean --step "continuation 2" --keep-going
+```
+
+The four steps passed: the clean Lean audit (26.0 s); the pins, spans and
+frozen texts (4.6 s, no drift); the replay, tests and coverage (382.9 s);
+and strict typing (1.2 s).  The `python` job passed 12 of 13 steps.  Its
+test step failed on one root test, the new-tree contract, because the
+attempt's manifest recorded no pin of the seed.  After the coordinator's
+landing repair (`938b91fc`, section 12), the contract check, the root
+contract, index and custody tests, the tree's pin tests (47) and
+write-root tests (21), its pin verifier, the estate custody census (109
+verifiers, 108 green, 1 pinned red), the generated views, the prose
+watchlist and the refused-words test all passed, and the attempt was
+merged at `d67523f9`.  The rest of the `python` job was not re-run after
+the repair, which touched only the manifest and a generated view.  The
+runner again reported the interpreter's pytest 9.1.1 against the pinned
+9.0.3.
+
 ## 10. The seed's required questions
 
 1. **Is two the floor of declared inputs within the declared bounds?**
-   Not established.  The count stays two; no rung and no continuation
-   attempt reduced it or proved a floor (`SD-RUN-1`).  OPEN.  Continuation
-   attempt one records 32 LIVE members that carry the stake and not the
-   stream and still answer a demand within its depth-two probe; whether
-   any carries the grammar forward is its leftover G-2, for attempt two.
-   That is a question, not a reduction.
+   Within continuation attempt two's declared bounds, and under its
+   literal reading of carrying forward (a run not closed, every frontier
+   node reached with no switch marker in its history), no: eight engines
+   carry forward at both readings, and four of them, the E4 members with
+   HALT, declare the stake and not the stream (`SD-R-11`).  The attempt
+   calls this neither a floor proof nor a reduction of the seed's count
+   outside those bounds, and neither does this paper: whether the four
+   carry forward past fifteen rounds and two hundred and fifty nodes is
+   OPEN (H-1), and each declares six or seven capabilities.  No rung or
+   attempt proved two to be the floor (`SD-RUN-1`).
 2. **Can the stream be a response, and at which bound?**  In the measured
    V1 tree at three items no selected minimum carries a datum, and a fresh
    datum is valid but priced out in 219 two-item rows.  Whether it is ever
    part of a minimum response is OPEN at three items (guard and
-   short-circuit) and uncomputed at four (`SD-01-*`).
+   short-circuit) and uncomputed at four (`SD-01-*`).  In continuation
+   attempt two's runs no response edge carries a datum at two items
+   (`SD-R-8`); three items were not computed there.
 3. **Can the stake be read off the state, by which rules, and are they
    invariant under renaming?**  Within the declared menu: six rules are
    invariant on the rectangle by finite computation, three are OPEN, and
@@ -626,40 +701,64 @@ clean afterwards.
    unique up to the declared probe-isomorphism; and no member is initial
    under inclusions of declarations, so the universal property is
    refused for that reading of morphism and undecided for any other
-   (`SD-E-12` to `SD-E-14`).
+   (`SD-E-12` to `SD-E-14`).  Among the engines that carry forward in
+   continuation attempt two's runs, the count-minimal and
+   inclusion-minimal members are E4 with `mu1` and E4 with `mu2`, each
+   with member one and HALT, at count six; they are not run-isomorphic,
+   and none is initial under inclusions of declarations (`SD-R-12`).
 5. **Is a quantity preserved or monotone across every accepted round?**
    Over every history of the sealed step: the element count rises by
    exactly one at each changing event, and the fixer set of an added
    element is the same before and after (`SD-05-3`, `SD-05-5`).  These hold
-   for every history, not only within a bound; whether they are invariants
-   of an engine is OPEN.
+   for every history, not only within a bound.  Continuation attempt two
+   proves the element count monotone, and raised by every changing round,
+   for every history of sealed events and switch markers, so for every
+   run of every engine of the class (`SD-R-3`); the numbers of data,
+   forms, instances and uniform rules are never lowered in any run
+   computed, and four other candidate counts are lowered in some run
+   (`SD-CF-7`).
 6. **Can a state count its own rounds?**  Under CHANGING, yes, from the
    base and the regime through the element count, and from the regime
    alone when counted from the empty regime; within a clean base also from
    the class.  Under EVERY and ADMITTING, no.  Durations between growths,
-   no; their number and sum, yes (`SD-C-3`, `SD-C-4`).
+   no; their number and sum, yes (`SD-C-3`, `SD-C-4`).  Within a run of an
+   engine, no, in general: in continuation attempt two one state of one
+   run is reached in five rounds and in six, four and five of them
+   changing (`SD-CF-3`, `SD-CF-4`); within the runs where the CHANGING
+   reading holds, the count is read through the trace of changing rounds.
 7. **Is adjacency definable, and is its distance definable?**  Adjacency
    is a useful realization under a declaration priced at two capabilities;
    the distance is derived from it with no further declaration and, on the
-   rectangle, never exceeds two (`SD-C-5`).
+   rectangle, never exceeds two (`SD-C-5`).  On continuation attempt two's
+   runs adjacency is exhibited and NOT FORCED (`SD-CF-5`); no distance on
+   it was declared there (H-5).
 8. **Does the process have an arrow?**  No history of the sealed step
    returns to a regime it left by a changing event, and from a clean base
    none returns to a class; a class is revisited only as a stutter
-   (`SD-C-8`, `SD-C-12`).  Whether a run of an engine has more is OPEN.
-9. **What recurs across engines?**  Not answerable from runs: no
-   engine was run forward.  Within continuation attempt one's depth-two
-   probe the 144 members fall into ten classes, by label signature and
-   by exact content alike; nothing says the partition holds deeper.
-   Across rungs, recorded and not interpreted: every FORCED column waits
-   on running the engines; a decision procedure over contexts (X-1)
-   blocks several Lean statements; the Lean and Python reading regimes
-   differ; the FW-DEF census misses are almost all demotions.
+   (`SD-C-8`, `SD-C-12`).  Every run of every engine of the class has an
+   arrow in that sense, proved for every history: no run returns to a
+   regime it has left, and a run revisits a state only through switch
+   markers, every cycle of every run being made of them (`SD-R-3`,
+   `SD-CF-8`).
+9. **What recurs across engines?**  At continuation attempt two's
+   bounds: the element count, as a proved invariant of every engine; one
+   refusal shape, under E3 and E4, which is every refused apart demand
+   (a pair collapsed with a common third datum); every member-one engine
+   shares its run with its member-two twin; E1 and E5 under `mu2` with
+   switch alone share one run; and the thirty-five run classes refine
+   continuation one's ten probe classes (`SD-R-9`, `SD-R-10`, `SD-R-21`).
+   Across rungs, recorded and not interpreted: a decision procedure over
+   contexts (X-1) blocks several Lean statements; the Lean and Python
+   reading regimes differ; the FW-DEF census misses are almost all
+   demotions.
 10. **Is the surviving engine minimal or initial among engines meeting the
     same challenges?**  Answered by continuation attempt one only for the
     LIVE and TWO-KINDED members of its probe, read as the members meeting
     Challenge 2's filters there: minimal members exist, none unique up to
     probe-isomorphism, none initial under inclusion.  No engine is called
-    the surviving one (`SD-E-14`).
+    the surviving one (`SD-E-14`).  Over the runs of continuation attempt
+    two, read over the engines that carry forward, the same holds up to
+    run-isomorphism (`SD-R-12`).
 11. Answered only in the sealed comparison, after the freeze, in the
     companion repository, and nowhere here.
 
@@ -690,15 +789,36 @@ clean afterwards.
 > minimal member exists in every declared subclass, none of those minima
 > is unique up to the declared probe-isomorphism, and none is initial
 > under the declared morphisms, inclusions of declarations; no other
-> reading of morphism is decided.  No engine was run forward to the
-> bounds of Challenge 4, and the continuation decided no census row.  The
-> count of declared inputs remains two; it was neither reduced below two
-> nor proved to be the floor.  Challenge 4, the second authorized
-> attempt, had not been launched when this was written.
+> reading of morphism is decided.  The second continuation attempt ran
+> every one of the 144 engines forward from both sealed readings to its
+> declared bounds (two items, growth below four data, fifteen rounds, a
+> node guard of two hundred and fifty nodes per run), 288 runs in all,
+> replaying every node and edge and quotienting by the implemented
+> isomorphism.  It proved, for every history of sealed events and switch
+> markers and so for every run of every engine of the class at any
+> bound, that no step lowers the element count, that no run returns to a
+> regime it has left, and that every cycle of a run holds one regime.  It
+> decided the FORCED column of all twelve census rows over the class at
+> its bounds: the element count and irreversibility are FORCED, beyond
+> the bounds by those proofs; two-ness is FORCED over the sixty-four
+> engines that respond, on every path of every run; and every other row
+> is NOT FORCED, each by an executable countermodel, among them one state
+> of one run reached in five rounds and in six, so that succession and
+> duration are not functions of the state.  Within those bounds, and
+> under its literal reading of carrying forward, four engines carry the
+> grammar forward declaring the stake and not the stream; whether they
+> do so past the bounds is OPEN.  The seed's count of declared inputs was
+> not reduced outside those bounds, and two was not proved to be the
+> floor.  Both authorized continuation attempts have closed, and no
+> further attempt is authorized.
 
-This is a statement of what was derived and of how the stage has so far
-terminated.  It is not a floor theorem, not a reduction, and not a
-result about any run of an engine.
+This is a statement of what was derived and of how the stage terminated:
+on the exhaustion of its original budget and an empty next-rung
+selection, and then of the two continuation attempts the author
+authorized, not on meeting the completion gate (section 14).  It is not a
+floor theorem and not a reduction beyond declared bounds.  Of its results
+about runs, only those proved for every history hold beyond the bounds;
+the rest are computations at the bounds or countermodels.
 
 ## 12. Original stage, continuation, deviations, obstructions
 
@@ -778,10 +898,74 @@ none CONTENT.
   branch; fifteen injections recorded in `research/second/MANUAL.md`, none
   into strict typing.
 
-**Attempt two.**  Challenge 4 with its engine-dependent census
-evaluations.  It is startable, because the author has integrated attempt
-one, and it had not been launched when this draft was updated.  No
-further attempt is authorized.
+**Continuation results: attempt two, run forward
+(`research/second_run/`, pull request 269).**  Launched from `b368f28c`;
+question frozen at `c2530b12` (18:40, 2026-09-28), predictions at
+`c6b82249` (18:53), the runs and census at `702a4ab8` (19:50), the
+attempt's last commit `2fae623e` (20:58).  It took continuation one's
+G-1, with G-2 and G-7 inside it.  Every Lean statement below was read in
+its source; the attempt's FW-DEF census classes its fifteen native
+theorems five DEFINITION, nine THIN and one CONTENT.
+
+- *What no run can undo, in Lean* (`SD-R-2`, `SD-R-3`).  An engine state
+  is a regime and a mode flag; an engine event is a sealed event or the
+  switch marker, which keeps the regime and flips the mode.  For every
+  history of such events from any state, whoever chose it: the element
+  count (data plus the lengths of forms, instances, rules and
+  requirements) never falls; a history that leaves it unchanged leaves
+  the regime unchanged, the attempt's one CONTENT theorem; after a
+  history that changes the regime, no further history reaches the first
+  regime (`no_return`); and on a history returning to its starting
+  state, every state part of the way holds the starting regime
+  (`cycle_regime_const`).  The package does not reconstruct the
+  responder or the generators, and no theorem ties it to the Python
+  runs: that each run edge is such a history is read, not proved.
+- *The runs* (`SD-R-4` to `SD-R-10`).  288 runs, 25,932 nodes, 69,490
+  edges, 43,846 merges; terminal nodes 370 FIXPOINT, 758 REFUSAL, 368
+  BOUND and 11,266 GUARD; 128 runs terminate, 44 cycle and 116 are not
+  closed.  Every node and edge replays.  At every merge the sealed
+  isomorphism witness carries the generator's labels, over the 43,818
+  merges that could be read; 28 merges, in four E4 runs at F, were not
+  readable within rung two's observable budget and are named.  The
+  eighty quiet engines never respond; the sixty-four that respond are
+  exactly continuation one's LIVE members.  The run of E4 with HALT at L
+  is a chain that separates and collapses the two data again and again,
+  reasoned by hand to depth fifteen before the run and matched exactly.
+  No response carries a datum.  Thirty-five run-isomorphism classes
+  refine continuation one's ten probe classes.
+- *Refusals* (`SD-R-9`).  Every one of the 772 refused apart demands has
+  one shape: a third datum collapsed with both members of the pair.  In
+  Lean a pair collapsed with a common third datum is not separable in
+  that regime (`not_separable_through`, added after the prediction);
+  that the validity clause's no-regress then keeps it so after any
+  response is the attempt's reading of the Python clause, not a Lean
+  statement.  The 970 refused same demands are counted and not
+  classified.
+- *The census's FORCED column* (`SD-CF-1` to `SD-CF-12`; section 7).
+  Decided for every row.
+- *Carrying forward and the input count* (`SD-R-11`, `SD-R-12`).  Under
+  the literal reading, eight engines carry forward at both readings, and
+  four of them, the E4 members with HALT, declare the stake and not the
+  stream.  At the bounds only; the attempt calls it neither a floor
+  proof nor a reduction outside them.  The minimal carriers are E4 with
+  `mu1` and E4 with `mu2`, each with member one and HALT; they are not
+  run-isomorphic, and none is initial under inclusions.
+- *Predictions* (`SD-R-16`, `SD-R-17`).  Fifteen of nineteen computed
+  rows hit; four missed, all at reading F.  Thirteen of thirteen named
+  Lean targets exist with the predicted class.  One scorer defect was
+  corrected after it had spoken, on a list-order comparison with the
+  predicted values, and is recorded.
+- *Receipts* (`SD-R-18`, `SD-R-19`).  32 Lean reports, 17 of them
+  reconstructions, within `{propext, Quot.sound}`; 161 tests; coverage
+  99.77% line and 99.03% branch; the four registered steps in 468.0 s,
+  after a first measurement of 944.9 s over the ceiling and three
+  changes that weaken no check; sixteen injections recorded in
+  `research/second/MANUAL.md`, two of which fail by the test's name
+  rather than the injected edit, and none into strict typing.
+- *What it leaves* (`SD-R-22`).  H-1 to H-9, section 13.
+
+No further research attempt is authorized.  Both continuation attempts
+have closed, so the continuation is spent.
 
 **Protocol deviations and interventions, each disclosed where it happened:**
 
@@ -828,25 +1012,62 @@ further attempt is authorized.
     regenerated and the skill lines of pull request 256 folded in; at
     continuation attempt one, the pin index regenerated (`9fc917ad`);
   - rungs zero to three were not launched by this coordinator.
+- Operator acts for continuation attempt two, attested by the same
+  coordinator on 2026-09-28 (the full list is in the change log):
+  - the author instructed on 2026-09-28 that the pending work be
+    completed; the coordinator launched attempt two headless from
+    `b368f28c` at about 18:18 that day, with the same binary, flags and
+    prompt as before; the session's init record lists the nine allowed
+    tools, no MCP servers, no skills and no slash commands;
+  - before launch the coordinator copied the main checkout's
+    `lean4/.lake` build directory into the fresh worktree, a build cache
+    and not an input;
+  - the session ran once to its end, with no resume and no operator
+    message, and exited 0 after about 162 minutes;
+  - at landing the coordinator made one repair inside the tree
+    (`938b91fc`): the manifest recorded no pin of the seed, so the root
+    new-tree contract test failed; the seed's path and sha256 were added
+    to its sources, as every earlier rung manifest records them, and the
+    pin index regenerated, with no research content, receipt, prediction
+    or frozen text changed; the author had instructed that it be merged
+    when its gates were green, and it was merged at `d67523f9`.
 
 **Unresolved obstructions.**  Section 13.
 
 ## 13. Limitations and open obstructions
 
-- **The run forward** (Challenge 4): unrun.  The engines are declared,
-  counted and probed to depth two (continuation attempt one), and none is
-  run to any deeper bound.  Every FORCED column waits on attempt two.
-- **Continuation attempt one's leftovers**: running every member forward
-  (G-1), whether a member without the stream carries the grammar forward
-  (G-2), the other five rules in Lean and E6's invariance (G-3), the
-  responder in Lean (G-4), another reading of morphism (G-5), a finer
-  count that separates rules reading one observable (G-6), the probe
-  beyond depth two (G-7), the two constant controls as stakes (G-8), and
-  a check of the Python orbit against the Lean orbit (G-9).
-- **The declared-input floor**: neither a reduction nor a floor proof.
+- **The run forward past its bounds.**  Challenge 4 was run to declared
+  bounds only (continuation attempt two): fifteen rounds, a node guard of
+  two hundred and fifty per run, growth below four data, two items.
+  11,266 nodes stopped at the guard and 368 at the bound; 116 runs are not
+  closed.  Every FORCED verdict other than the two proved rows and
+  two-ness over the LIVE members is a computation at those bounds.
+- **Continuation attempt two's leftovers**, named and priced by it: the
+  four streamless carriers past the bounds (H-1, which needs the
+  responder in Lean); the 970 refused same demands, by bound or by
+  structure (H-2); the twenty-eight merges rung two's observable budget
+  refused (H-3); the 482 regimes above the brute-force limit of the key
+  cross-check (H-4); a distance on adjacency (H-5); a reading of carrying
+  forward that admits switch (H-6); the forty-four closed runs with
+  switch cycles that are UNDECIDED under ONE VALUE PER NODE (H-7); why E1
+  and E5 share one run under `mu2` (H-8); and five data (H-9).
+- **Continuation attempt one's leftovers not taken by attempt two**: the
+  other five rules in Lean and E6's invariance (G-3), the responder in
+  Lean (G-4), another reading of morphism (G-5), a finer count that
+  separates rules reading one observable (G-6), the two constant controls
+  as stakes (G-8), and a check of the Python orbit against the Lean orbit
+  (G-9).  G-1, G-2 and G-7 were taken by attempt two.
+- **The carrier bridge for the runs**: attempt two's Lean package speaks
+  of every history of sealed events and switch markers; that each edge of
+  a Python run is such a history is read, not proved, and no refinement
+  joins the two.
+- **The declared-input floor**: no floor proof.  A one-input carrier
+  exists at attempt two's bounds under its literal reading of carrying
+  forward (`SD-R-11`); that is not a reduction outside the bounds.
 - **The stream as a response** (rung one): 1039 guard-stopped nodes, the
   first-refusal short-circuit, the four-item bound, V2 beyond nineteen
-  situations, and the narrow-versus-wide comparison are OPEN.
+  situations, and the narrow-versus-wide comparison are OPEN.  Attempt
+  two's runs add only that no response carries a datum at two items.
 - **Stake invariance** for E3, E4, E6: OPEN at target-regime transport
   replay.  No Lean statement concerns any menu rule.
 - **A decision procedure over contexts** (X-1): not built.  Existence of a
@@ -877,6 +1098,10 @@ further attempt is authorized.
   the first count is constant on every trajectory class under every
   stake, while its Lean witnesses of eight and eleven events show it is
   not constant under the three stakes that are not uniform.
+- **Supersessions within the run, dated 2026-09-28 and left standing**:
+  continuation attempt two answers continuation one's G-1, G-2 and G-7 at
+  its declared bounds; continuation one's receipt, probe and sentence "No
+  engine is run forward" stand as written at its attempt (`SD-R-20`).
 - **Supersessions within the run, dated 2026-09-25 and left standing**:
   rung five's SYM-14, rung six's class-level OPEN and the sum part of rung
   seven's class-level OPEN are closed for clean regimes and bases by rung
@@ -897,26 +1122,27 @@ Budget exhaustion satisfies no clause.
 |---|---|---|
 | every introduced notion has a source classification | NOT_ESTABLISHED | each rung ledger classifies its rows and each Lean rung's FW-DEF census is total and checked both ways; no run-level census of notions is checked by any gate, and this draft's ledger is unfrozen and judged by reading |
 | every state change has a replayable admission history | MET at the computed scope | rungs three to ten record zero replay mismatches over the rectangle, with the counter shown able to fire at rung three; rung two track two replays every stored node and every edge certificate; rungs zero, one and two track one build every state by replaying its history through the sealed or sibling replay; state changes only through sealed events |
-| the count of declared inputs is reduced below two or proved at its floor, with the bounds stated | UNMET | the count stays two; no reduction and no floor proof (`SD-RUN-1`) |
-| every engine in the declared class is run to bounds, refuted, or recorded OPEN | NOT_ESTABLISHED (UNMET in the first draft) | The class now exists: continuation attempt one declared 144 members (108 seed-literal), counted them, and probed every member to depth two at the sealed bounds from both readings (`SD-E-2`, `SD-E-10`).  None was run forward to the bounds of Challenge 4 (the attempt says so of its own probe), and none was refuted: every member is retained.  The only status covering every member is leftover G-1, "run every member forward", recorded OPEN and assigned to the authorized second attempt, which is startable and not launched.  By the clause's letter a recorded OPEN would satisfy it; this draft does not count it, because an OPEN whose discharging attempt is authorized and pending is a scheduled obligation, not a terminal status, and the author's ruling declines to count a mere OPEN as a resolution (said there of the census; applied here by analogy, as this draft's reading).  Neither MET nor UNMET is shown until attempt two closes; if the author freezes the stage without it, this row falls back to the letter and is the author's to decide |
-| every row of the definability census is proved, countermodelled, or OPEN at every stage reached | NOT_ESTABLISHED | DEFINABLE and USEFUL REALIZATION columns decided for all twelve rows over histories of the sealed step; the FORCED column is only recorded OPEN, which the author's ruling does not count as resolution; continuation attempt one decided no row; no stage of an engine's run exists beyond its depth-two probe (section 7) |
-| every theorem-level claim used by the paper has Lean evidence or is downgraded | MET for this draft | every theorem-level claim cited names a Lean theorem whose statement was read in source (the original stage at `ccd0ab06`, continuation attempt one at `b205bb4e`) and whose axiom report the registered audit re-checked on a clean build (section 9.2); every other claim is marked finite computation, countermodel, OPEN or prediction |
-| every computational claim has deterministic Python evidence | MET at the computed scope | every rung's receipts regenerate byte-identically under its registered comparison, re-run green on 2026-09-25 (section 9.2); every computational claim of the ledger names a receipt field or test |
-| all tied minimum branches are retained unless eliminated by proof | NOT_ESTABLISHED | the computed trees of rungs one and two track two retain ties under the implemented quotient, rung ten counts every tie, and continuation attempt one retains every tied minimum member in every subclass and every tied minimum response of its probe; but rung one does not search targets after a node's first refusal, and no run of the class to the bounds of Challenge 4 exists |
-| Python line and branch coverage each meet 95% | NOT_ESTABLISHED | rungs one to ten and continuation attempt one each gate 95% line and branch from a fresh report; rung zero has no coverage gate and its coverage was never measured by a registered step |
-| Lean builds without forbidden proof gaps and every module is audited | MET | the ten Lean packages (rung two track one, rungs three to ten, continuation attempt one) each pass their registered clean-build audit: compiler census of every module, whitelist `{propext, Quot.sound}`, committed log equal to the fresh build (section 9.2) |
-| every gate is proved by injection | UNMET | the manual records no injection for rung zero's tests and typing, nor for strict typing in rungs one, two track one, three to ten and continuation attempt one (whose fifteen injections cover its other gates); only rung two track two injected its typing gate |
-| all intentional files committed, working tree clean, `SEED.md` byte-identical to its pinned hash, every sealed path untouched | NOT_ESTABLISHED | `SEED.md` hashes to `52439e5f…` and every pin verifier passes (section 9.2); none of the 100 non-merge commits up to `dabe9a92` that touch `research/second/`, a rung tree or the continuation's tree touches a sealed path (checked with `git diff-tree` for this draft; the trees' own sealed-path tests are branch-scoped and skipped on this replay); continuation attempt one is committed and merged, attempt two has not begun, and this draft's worktree is clean at its commit.  But the stage is still running and these reporting files are unfrozen drafts, so the final state the clause speaks of does not exist yet |
+| the count of declared inputs is reduced below two or proved at its floor, with the bounds stated | NOT_ESTABLISHED (UNMET in the draft of 2026-09-25) | No floor proof exists.  Continuation attempt two found, at its stated bounds (fifteen rounds, a node guard of 250 per run, growth below four data, two items) and under its literal reading of carrying forward, four engines that carry the grammar forward declaring the stake and not the stream (`SD-R-11`).  By the clause's letter, a reduction "with the bounds stated" might be read into that.  The attempt itself declines: it calls the finding neither a floor proof nor a reduction of the seed's count outside those bounds, and whether the four carry forward past them is OPEN (H-1).  This draft follows the attempt and does not count the clause MET; since the letter admits the other reading, the row is the author's to decide at the freeze |
+| every engine in the declared class is run to bounds, refuted, or recorded OPEN | MET at the declared bounds (NOT_ESTABLISHED in the draft of 2026-09-25) | Continuation attempt two ran every one of the 144 members from both sealed readings to its declared bounds: 288 runs, every node and edge replayed, every terminal recorded by kind (FIXPOINT, REFUSAL, BOUND, GUARD), every frontier exported (`SD-R-4`).  None was refuted; every member is retained.  The bounds are the attempt's declarations, not the seed's own, and runs past them are OPEN (H-1) |
+| every row of the definability census is proved, countermodelled, or OPEN at every stage reached | MET at the computed scope (NOT_ESTABLISHED in the draft of 2026-09-25) | DEFINABLE and USEFUL REALIZATION columns decided for all twelve rows over histories of the sealed step (the original stage); the FORCED column decided for all twelve rows at every round from zero to fifteen of the runs, over the class and its named subsets, each NOT FORCED verdict with an executable countermodel and two FORCED verdicts proved for every history (continuation attempt two, `SD-CF-1` to `SD-CF-12`).  No cell is a recorded OPEN.  Stages beyond fifteen rounds were not reached |
+| every theorem-level claim used by the paper has Lean evidence or is downgraded | MET for this draft | every theorem-level claim cited names a Lean theorem whose statement was read in source (the original stage at `ccd0ab06`, continuation attempt one at `b205bb4e`, continuation attempt two at `2fae623e`) and whose axiom report the registered audit re-checked on a clean build (section 9.2); every other claim is marked finite computation, countermodel, OPEN or prediction.  Where a statement is narrower than the prose built on it, the ledger says so (`SD-R-3`, `SD-R-9`) |
+| every computational claim has deterministic Python evidence | MET at the computed scope | every rung's and attempt's receipts regenerate byte-identically under its registered comparison, re-run green on 2026-09-25 and, for continuation attempt two, on 2026-09-28 (section 9.2); every computational claim of the ledger names a receipt field or test |
+| all tied minimum branches are retained unless eliminated by proof | NOT_ESTABLISHED | the computed trees of rungs one and two track two retain ties under the implemented quotient, rung ten counts every tie, continuation attempt one retains every tied minimum member and every tied minimum response of its probe, and continuation attempt two expands every minimum response as an edge and retains the 11,266 nodes stopped at its node guard as exported frontier; but rung one does not search targets after a node's first refusal, and nodes past the guard are retained unexpanded, not explored |
+| Python line and branch coverage each meet 95% | NOT_ESTABLISHED | rungs one to ten and both continuation attempts each gate 95% line and branch from a fresh report; rung zero has no coverage gate and its coverage was never measured by a registered step |
+| Lean builds without forbidden proof gaps and every module is audited | MET | the eleven Lean packages (rung two track one, rungs three to ten, both continuation attempts) each pass their registered clean-build audit: compiler census of every module, whitelist `{propext, Quot.sound}`, committed log equal to the fresh build (section 9.2) |
+| every gate is proved by injection | UNMET | the manual records no injection for rung zero's tests and typing, nor for strict typing in rungs one, two track one, three to ten and both continuation attempts (continuation one's fifteen injections and continuation two's sixteen cover their other gates, and two of continuation two's fail by the test's name rather than the injected edit); only rung two track two injected its typing gate |
+| all intentional files committed, working tree clean, `SEED.md` byte-identical to its pinned hash, every sealed path untouched | NOT_ESTABLISHED | `SEED.md` hashes to `52439e5f…` and every pin verifier passes (section 9.2); no non-merge commit that touches `research/second/`, a rung tree or a continuation tree touches a sealed path (checked with `git diff-tree` up to `dabe9a92` for the draft of 2026-09-25, and over continuation attempt two's commits from `b368f28c` to `2fae623e` for this reconciliation); both continuation attempts are committed and merged, and this reconciliation's worktree is clean at its commit.  The clause speaks of the final state, and that is the freeze the author approves; until then these files are a freeze candidate |
 | the comparison is written after the freeze, in the companion repository only, and has caused no revision here | UNMET | the freeze has not happened and no comparison exists |
-| the paper states what was actually derived, including termination or failure, without targeting a predetermined conclusion | NOT_ESTABLISHED | this draft attempts it (sections 11 and 12); it is unfrozen, and the judgement is the author's at the freeze |
+| the paper states what was actually derived, including termination or failure, without targeting a predetermined conclusion | NOT_ESTABLISHED | this draft attempts it (sections 11 and 12), including how the stage terminated; the judgement is the author's at the freeze |
 
 <!-- markdownlint-enable MD013 -->
 
 ## 15. What this draft does not do
 
-It does not freeze anything, merge, tag or publish.  It does not write the
+It does not freeze anything, tag or publish; the reconciliation of
+2026-09-28 is merged at the author's instruction to finish the closeout,
+and the freeze remains the author's act.  It does not write the
 comparison, name any known theory, or answer the seed's eleventh question.
 It does not edit the seed, the plan, the manual, any rung tree or any
-sealed path.  It reads continuation attempt one only as merged, and
-attempt two had not begun.  It does not treat a receipt, a pin or a green
+sealed path.  It reads both continuation attempts only as merged.  It does not treat a receipt, a pin or a green
 gate as proof of a mathematical payload.

@@ -307,21 +307,45 @@ are now 17.
     of declarations only.
   - No engine was run forward and no census row was decided. The input
     count stays two, with no floor proved.
-- **Continuation attempt 2 (Challenge 4 and the FORCED census): NOT BEGUN.**
-  It became legally startable when the author integrated attempt 1. It was
-  not launched in this closeout session: this closeout starts no new
-  research, and whether and when to launch it is the author's call. No
-  third attempt is authorized.
+- **Continuation attempt 2 (Challenge 4 and the FORCED census): CLOSED.**
+  *(Updated 2026-09-28.)* At the closeout of 2026-09-25 it was legally
+  startable and not begun. On 2026-09-28 the author instructed that the
+  pending work be completed, and the coordinator launched it headless from
+  `b368f28c` with the same isolated recipe. It opened #269 (tree
+  `research/second_run`), which was merged at the author's instruction
+  after the full `python` job and its four registered steps ran on the
+  branch. The full job failed one test: the attempt's manifest recorded no
+  pin of the seed, so the new-tree contract applied to it. The
+  coordinator made one landing repair (`938b91fc`), adding the seed's
+  path and sha256 to the manifest as every earlier rung records them and
+  regenerating the pin index. It changed no research content. After the
+  repair the targeted checks and the custody census passed, and #269 was
+  merged at `d67523f9`.
+  - It ran all 144 engines from both readings to declared bounds (288
+    runs; fifteen rounds; a node guard of 250 per run; growth below four
+    data), replaying every node and edge.
+  - In Lean, for every history of every engine, no step lowers the
+    element count and no run returns to a regime it has left.
+  - It decided the FORCED column for all twelve census rows at its bounds.
+    The element count and irreversibility are FORCED, beyond the bounds
+    by proof. Two-ness is FORCED over the 64 LIVE engines. Every other
+    row is NOT FORCED, each with a countermodel.
+  - At its bounds only, four engines carry the grammar forward declaring
+    the stake and not the stream. The attempt calls this neither a floor
+    proof nor a reduction outside the bounds.
+  - No third attempt is authorized, so the continuation is spent.
 - **The run's reporting files** (`research/second/paper.md`,
-  `change_log.md`, `claim_ledger.md`) exist as an explicitly **UNFROZEN
-  DRAFT**.
+  `change_log.md`, `claim_ledger.md`) were drafted on 2026-09-25 as an
+  explicitly **UNFROZEN DRAFT**. On 2026-09-28 they were reconciled with
+  attempt 2 and are now a **FREEZE CANDIDATE**, not frozen.
   - They include the Challenge 0 to 5 dispositions, every attempt, the
     author interventions, and the operator acts. Acts not previously
     committed are attested by the closeout coordinator.
   - The ledger has about 108 claim rows, and every cited Lean statement was
     read in source.
-  - The draft is finalized only after the authorized attempts stop, and
-    frozen only on the author's approval.
+  - The reconciliation added thirty-four rows: `SD-R-1` to `SD-R-22` for
+    attempt 2, and `SD-CF-1` to `SD-CF-12` for the FORCED column.
+  - The files are frozen only on the author's approval (§9.5).
 - **Lean names whose wording outruns their statements** are flagged in the
   ledger and stated exactly there:
   - rung ten's `response_collapses_a_pair`, which is about one instance
@@ -331,7 +355,13 @@ are now 17.
   - rung two's `no_first_demand` and `grammar_carries_no_stake`;
   - attempt 1's `minima_differ_at_genL`, whose non-isomorphism conclusion
     goes through the Python probe;
-  - attempt 1's E3 and E4 invariance, proved in the Lean mirror only.
+  - attempt 1's E3 and E4 invariance, proved in the Lean mirror only;
+  - attempt 2's `not_separable_through`, which is about one regime; that no
+    response of any size separates the pair rests on the Python validity
+    clause, not on Lean;
+  - attempt 2's history theorems, which speak of every history of sealed
+    events and switch markers. That each edge of a Python run is such a
+    history is read, not proved.
 
 ## 9. Residual ledger, manifest and freeze
 
@@ -344,7 +374,7 @@ reproduced and repaired, and each repair was proved by live injection.
 
 | id | status at the final audit |
 |---|---|
-| D1 | The run's paper, change log and ledger are drafted, and remain UNFROZEN until the attempts stop and the author approves. |
+| D1 | Updated 2026-09-28: the run's paper, change log and ledger are reconciled with both continuation attempts and are a FREEZE CANDIDATE. The freeze is the author's act (§9.5). |
 | D2 | Open. G10, G13 and G14 are still not live injections, and are not relied on by the handoff. |
 | D3 | Open. `CL-ISO-SOUND` has no Lean evidence. |
 | D4 | Open. `python_driver_refinement` is NOT_PROVED, and the harness Lean does not model the new license binding. |
@@ -352,13 +382,14 @@ reproduced and repaired, and each repair was proved by live injection.
 | D6 | Resolved: `B1SubstitutedMember` now covers a substituted member of a present key. |
 | D7 | Resolved: the injection-record rows were written after the author's instruction to finish (§9.3). |
 | D8 | New: the Lean names whose wording outruns their statements (§8) are recorded exactly in the run's ledger. |
-| D9 | New: the operator acts for rungs four to ten and for attempt 1 were not in any committed file until the draft `change_log.md` recorded them as the coordinator's attestation. |
+| D9 | New: the operator acts for rungs four to ten and for attempt 1 were not in any committed file until the draft `change_log.md` recorded them as the coordinator's attestation. The acts for attempt 2 are recorded the same way (2026-09-28). |
+| D10 | New (2026-09-28): the completion gate's input-count clause admits two readings of attempt 2's bounded one-input carriers. The run's paper records NOT_ESTABLISHED and leaves the reading to the author at the freeze. |
 
 **SUCCESSOR_RESEARCH**
 
 | id | status |
 |---|---|
-| S1 | Continuation attempt 2 is authorized (#266), legally startable, and not launched. |
+| S1 | Resolved 2026-09-28: continuation attempt 2 ran and was merged (#269). No further attempt is authorized. Its leftovers H-1 to H-9 are successor research, unassigned. |
 | S2 to S8 | Unchanged from §4. |
 
 ### 9.2 Manifest
@@ -456,10 +487,10 @@ companion repository.
 
 | axis | value | why |
 |---|---|---|
-| `research_phase` | **RUNNING** | Continuation attempt 2 is authorized and startable but has not begun. The run's report is an unfrozen draft. |
+| `research_phase` | **CLOSED_WITH_OPEN_OBSTRUCTIONS** | *(Updated 2026-09-28; it was RUNNING at the closeout of 2026-09-25.)* The original budget is spent, and both authorized continuation attempts have closed and been merged (#267, #269). No further attempt is authorized. Obstructions remain OPEN: runs past the declared bounds, the 970 refused same demands, Challenge 1 at four items, the responder in Lean, and the input-count floor. The run's report is a freeze candidate, not yet frozen. |
 | `alpha_reference` | **READY_WITHIN_DECLARED_SCOPE** | M1 to M8 hold within the trust boundary of §7. B1, B2 and B3 were repaired in one pass and proved by live injection. The one command passes nine of nine steps with no skips and no model provider. Not universal: the refinement to Lean is NOT_PROVED, demand generation is OPEN, and consumer bridges are OPEN. |
-| `original_seed_completion_gate` | **UNSATISFIED** | The declared-input count is two, with no floor proved. No engine has been run to bounds. Not every gate is proved by injection. The comparison is not written. Several further clauses are NOT_ESTABLISHED (see `research/second/paper.md`). |
+| `original_seed_completion_gate` | **UNSATISFIED** | *(Updated 2026-09-28.)* Two clauses are UNMET: not every gate is proved by injection, and the comparison is not written. Several clauses are NOT_ESTABLISHED, including the input-count floor. No floor is proved; a bounded one-input carrier exists and its reading is the author's. Two clauses moved to MET at the computed scope after attempt 2: every engine run to bounds, and every census row decided. See `research/second/paper.md` §14. |
 
-These axes are independent. A closed stage would not imply readiness,
+These axes are independent. A closed stage does not imply readiness,
 readiness does not imply universality, and an unmet clause of the original
 completion gate stays unmet.
