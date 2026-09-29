@@ -55,6 +55,11 @@
       "note": "the identification tree's automorphisms, consumed transitively through rung two's O4 observable"
     },
     {
+      "path": "research/second/SEED.md",
+      "sha256": "52439E5F75D1C599CE52DC716BEB88F1DD7BFC83856EE73CE85F3A7EEEC5E70E",
+      "note": "the seed of the second derivation; added at landing by the coordinator, as every earlier rung manifest records it"
+    },
+    {
       "path": "research/second/claim_ledger.md",
       "sha256": "7671B3BBE5EC10EC487190B4D0930B656FFFCF7E6622CFA54CBF40BCCF4E3A2F",
       "note": "the run's unfrozen draft ledger, read before the predictions were frozen"

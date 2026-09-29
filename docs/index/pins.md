@@ -134,7 +134,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `research/second_nofirst/SOURCE_MANIFEST.json` | 6 | 10 | 0 |
 | `research/second_profile/SOURCE_MANIFEST.json` | 7 | 17 | 0 |
 | `research/second_response/SOURCE_MANIFEST.json` | 8 | 19 | 0 |
-| `research/second_run/SOURCE_MANIFEST.json` | 9 | 27 | 0 |
+| `research/second_run/SOURCE_MANIFEST.json` | 9 | 28 | 0 |
 | `research/second_stake/SOURCE_MANIFEST.json` | 7 | 10 | 0 |
 | `research/second_stream/SOURCE_MANIFEST.json` | 9 | 15 | 0 |
 | `research/second_succession/SOURCE_MANIFEST.json` | 6 | 13 | 0 |
@@ -575,7 +575,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `research/s9_obligations/PROMPT.md` | 1 | `s9_obligations` (file) | none |
 | `research/second/MANUAL.md` | 2 | `second_engine` (span), `second_run` (span) | none |
 | `research/second/PLAN.md` | 11 | `second_class` (file), `second_duration` (file), `second_engine` (file), `second_index` (file, span), `second_iso` (file), `second_nofirst` (file, span), `second_profile` (file), `second_response` (file), `second_stake` (file, span), `second_succession` (file), `second_symmetry` (file) | none |
-| `research/second/SEED.md` | 13 | `second_class` (file), `second_duration` (file), `second_engine` (file), `second_index` (file), `second_inheritance` (file), `second_iso` (file), `second_nofirst` (file), `second_profile` (file), `second_response` (file), `second_stake` (file, span), `second_stream` (file), `second_succession` (file), `second_symmetry` (file) | none |
+| `research/second/SEED.md` | 14 | `second_class` (file), `second_duration` (file), `second_engine` (file), `second_index` (file), `second_inheritance` (file), `second_iso` (file), `second_nofirst` (file), `second_profile` (file), `second_response` (file), `second_run` (file), `second_stake` (file, span), `second_stream` (file), `second_succession` (file), `second_symmetry` (file) | none |
 | `research/second/claim_ledger.md` | 1 | `second_run` (file) | none |
 | `research/second/paper.md` | 1 | `second_run` (file) | none |
 | `research/second_class/PREDICTIONS.md` | 1 | `second_class` (file) | none |
