@@ -483,6 +483,77 @@ The run's reporting files freeze only after the authorized continuation
 stops. The comparison follows the freeze, and only in the permitted
 companion repository.
 
+*(Updated 2026-09-28.)* The authorized continuation has stopped: both
+attempts are closed and merged. The final manifest the author is asked
+to approve is §9.5. It is prepared, not applied.
+
+### 9.5 Final manifest for the author's freeze (2026-09-28)
+
+This section is prepared after both authorized continuation attempts
+closed and the run's reporting files were reconciled. It supersedes §9.2
+as the snapshot the author is asked to freeze; §9.2 stands as the record
+of the 2026-09-25 closeout.
+
+- **Snapshot:** commit `cf7abb0acdf0fafc8d453ececcd8d65b08237b48` (root tree `db75160c0888ef63aa07e53afe88cacd4ccc4962`), the
+  reconciliation commit immediately before the commit that adds this
+  section. Its first parent is `d67523f9`, the merge of #269.
+- **Self-exclusion:** this file, `docs/GENESIS_CLOSEOUT.md`, is excluded.
+  The commit that adds this section changes only this file.
+- **Hashes:** a git tree id binds every file beneath it. The SHA-256 values
+  are of LF-normalized bytes. The three reporting files are also bound by
+  the `research/second/` tree id, and are listed separately so they can be
+  checked on their own.
+
+| path | kind | git object id | files | sha256 (LF bytes) |
+|---|---|---|---:|---|
+| `research/alpha_engine/` | tree | `1a8802bd2693896b95380d82c696c943815dbde8` | 45 | (tree id binds every file) |
+| `research/second/` | tree | `8b71ac727ee3a79a942a8bf8c6c07c10291241ca` | 9 | (tree id binds every file) |
+| `research/second_class/` | tree | `7db5d3d9267046dd88a7020a5865b900214fa49e` | 32 | (tree id binds every file) |
+| `research/second_duration/` | tree | `1d114702799922c4066248517852c2895ad6e600` | 28 | (tree id binds every file) |
+| `research/second_engine/` | tree | `cfda4b00d240de163a3d61481f8b96d63edb31c3` | 34 | (tree id binds every file) |
+| `research/second_index/` | tree | `b44d5b9c7d18bf40a25749819c049bc7b46c72b7` | 29 | (tree id binds every file) |
+| `research/second_inheritance/` | tree | `5583714fd6f8b2b6e3a5f7f61c9d27dc27cc9254` | 12 | (tree id binds every file) |
+| `research/second_iso/` | tree | `00e5b2c1bfdcce8dc8b4e7c9d4fc31ac32389339` | 33 | (tree id binds every file) |
+| `research/second_nofirst/` | tree | `34a1a4fc5aee74998f0c092d688a4bbe397495b2` | 34 | (tree id binds every file) |
+| `research/second_profile/` | tree | `2b39622c94e1efd0727220e0a62c2b6b1e783e1f` | 31 | (tree id binds every file) |
+| `research/second_response/` | tree | `09f1ba8742086080d1377f023962cbaee2b9fa20` | 31 | (tree id binds every file) |
+| `research/second_run/` | tree | `7c9b11df24534f78ee693c98f7e436c30c87012f` | 29 | (tree id binds every file) |
+| `research/second_stake/` | tree | `989eed925195c6cb7438bfc26b860e5c6b811fe5` | 18 | (tree id binds every file) |
+| `research/second_stream/` | tree | `58029f3c6a3db0f691eb660a58763e96ac7d8f08` | 15 | (tree id binds every file) |
+| `research/second_succession/` | tree | `ca8e6f65d5126b80dfeae480fd71a7e098c631b9` | 28 | (tree id binds every file) |
+| `research/second_symmetry/` | tree | `1c6f9fdf203ecfa8827b259c903726e1c18c1d43` | 31 | (tree id binds every file) |
+| `research/second/paper.md` | blob | `7354558f39cafbaa2937bfd183f05cfcb5db2ef0` | 1 | `139457a1a7e0750e496377c05ded0032319c8b1240a93ecd5fe0574343a0d65a` |
+| `research/second/change_log.md` | blob | `1a86de272a4a8e8e7d0ec7741005308e290e69f9` | 1 | `b6833db2cd140d5ed5e8fab7e7ff3e425f222bd28eae5342736efefe32f8e2e4` |
+| `research/second/claim_ledger.md` | blob | `f4023e1eefb10057a6b18de03568154d77f0eb23` | 1 | `8d333fcc077d9ff33d73644f6172f637bf8ef70e9a7392dca02bc6c6b0451a5b` |
+| `research/second/SEED.md` | blob | `bc27dccdd4497197922e5f72723fcee9a38347e1` | 1 | `52439e5f75d1c599ce52dc716beb88f1dd7bfc83856ee73ce85f3a7eeec5e70e` |
+| `docs/ALPHA_HANDOFF.md` | blob | `d6b7d1f6d634f3aed33b88c648193fc39a3dc5fc` | 1 | `e2c99d7f61841b0475ac9e81fb37afb9f15fadb71aa1b9e06868b9774cfe36d8` |
+| `CLAUDE.md` | blob | `c4210d409880114ef11e9836ab3c9999d3428064` | 1 | `5c0c30ebba8aed2d9075287962096794314ab44d00921924b8a4f090882f19b0` |
+| `code/derivation/__init__.py` | blob | `8c239e66976fadaa9e5a04f9451ec4c500c266d4` | 1 | `0fabcb53dc46712447a727f6ceb661e5aab3267a3e8b50bdea11044b64f853af` |
+| `code/derivation/model.py` | blob | `b6f95a673853d423a0d73b4faa95b2cd22f306a3` | 1 | `6a7fd2ba9688d47e9291514c623a811cde3c6b9e8fda1d12a608dc9bb0b1f3c2` |
+| `code/derivation/observe.py` | blob | `2552c0412d472ae9ff5d31f9068684cfa531aad9` | 1 | `78443d67e613d9cc9924538fe2e0a5acaf81f4654440bfe8586e16652f0317ba` |
+| `code/derivation/candidates.py` | blob | `9fa609d8a797f74f1620ce39e377c7dc54ee53b7` | 1 | `856ce42faba2dc2ae1217207ecc8af893eac29b50ae8a374dc06d2ba22c957bb` |
+| `code/derivation/iso.py` | blob | `f05399fe6bdfbd2311bf34fa6fe927af194f586f` | 1 | `b0f1f3bcf05126111a07706f4388a9fff5e30455d4b8f127966cf99ab0d0886e` |
+| `code/derivation/engine.py` | blob | `343290d82a7fcda91f3ff85751af7af99f9a0359` | 1 | `23803a3dcce2adf0dee623caba33791d41a25d2da3fdfd226da3cad2ee140b5e` |
+| `lean4/Derivation.lean` | blob | `e28e855bd17460b86b08eacb169e0c00e4f9de08` | 1 | `97384b4ab806336332d6dceda984a77d6d407526311ef6027ce8b06f58a46b6e` |
+| `lean4/Derivation/Basic.lean` | blob | `610d8fc982853807eb892eaaf683fc4eb2959cc1` | 1 | `1520b392f4061af568e00ca4fd235feb03facf6d3612c030c1d60018539e3eed` |
+| `lean4/lakefile.toml` | blob | `7a714802e3af2c6a4ad362dfc073a4eb064f209a` | 1 | `e75cbde5829dc2efbb5612fbfdba9301c20ccbf2d21ab80bc87db52f4ead0f3c` |
+| `lean4/lake-manifest.json` | blob | `8e201944fa9d35190015955f1e21d458bc2cae14` | 1 | `df949b280480c0c2a766e8e6dd33245fe85923c517f6c0d121b79b6f2b2cab91` |
+| `lean4/lean-toolchain` | blob | `025e59548e48cf71f2744154e2890beefe30a258` | 1 | `302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b` |
+
+**Declared exclusions:** as in §9.2, plus the_symbol_game's level engine
+and every companion comparison.
+
+**What the freeze would fix.** The author's approval of this snapshot
+freezes the three reporting files and the trees above as the record of
+the second derivation's research stage. After the freeze the comparison
+may be written, and only in the companion repository. No file in this
+repository is revised because of it.
+
+**What remains unmet at this snapshot** (`research/second/paper.md` §14):
+every gate proved by injection (UNMET) and the post-freeze comparison
+(UNMET). Several clauses are NOT_ESTABLISHED, including the input-count
+floor, whose reading at the freeze is the author's (D10).
+
 ## 10. The three axes
 
 | axis | value | why |
