@@ -363,7 +363,10 @@ class CensusScan(unittest.TestCase):
         hits: list[str] = []
         for rel, text in readable(tracked_write_root_files()):
             for name in denylist:
-                if identifier_token(name).search(text):
+                # The substring test is a filter, not a weakening: a token
+                # match contains the name, so a text without the name has
+                # no match; it spares the regex a pass over the full export.
+                if name in text and identifier_token(name).search(text):
                     hits.append(f"{rel}: {name}")
         self.assertEqual(hits, [])
 

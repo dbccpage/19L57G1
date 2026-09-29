@@ -1092,7 +1092,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--workers",
         type=int,
-        default=min(8, os.cpu_count() or 1),
+        default=min(16, os.cpu_count() or 1),
         help="worker processes; the receipts do not depend on it",
     )
     parser.add_argument(

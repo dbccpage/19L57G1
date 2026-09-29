@@ -5,7 +5,8 @@ Usage: python research/second_run/verify_pins.py [--repin | --require-current]
 A hand copy of `research/second_engine/verify_pins.py`, itself a copy of
 rung ten's and so of rung nine's, with this tree's usage line and
 description; the checks are unchanged.  A defect repaired in one copy
-stays live in the others until carried by hand.
+stays live in the others until carried by hand.  One departure, recorded
+in STATUS.md: a `git show` at a full commit id is cached per process.
 
 Checks, none implying the others:
 
@@ -55,6 +56,7 @@ import argparse
 import hashlib
 import json
 import pathlib
+import re
 import subprocess
 import sys
 from pathlib import PurePosixPath
@@ -67,13 +69,26 @@ REPO = HERE.parents[1]
 MANIFEST = HERE / "SOURCE_MANIFEST.json"
 
 
+_IMMUTABLE: dict[tuple[str, ...], bytes] = {}
+_COMMIT_READ = re.compile(r"[0-9a-f]{40}:.+")
+
+
 def _git_bytes(*args: str) -> bytes:
+    """Run git.  A `git show` of a path at a full forty-digit commit id is
+    content-addressed and cannot change, so it is read once per process;
+    every other read, HEAD's included, goes to git each time.  The cache
+    is this copy's only departure from its source."""
+    immutable = len(args) == 2 and args[0] == "show" and bool(_COMMIT_READ.fullmatch(args[1]))
+    if immutable and args in _IMMUTABLE:
+        return _IMMUTABLE[args]
     result = subprocess.run(["git", *args], cwd=REPO, capture_output=True, check=False)
     if result.returncode != 0:
         raise ValueError(
             f"git {' '.join(args)} failed: "
             f"{result.stderr.decode('utf-8', errors='replace').strip()}"
         )
+    if immutable:
+        _IMMUTABLE[args] = result.stdout
     return result.stdout
 
 
