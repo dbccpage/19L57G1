@@ -1,12 +1,13 @@
-# UNFROZEN DRAFT -- change log of the second derivation
+# FREEZE CANDIDATE -- change log of the second derivation
 
-**UNFROZEN DRAFT, dated 2026-09-25 and updated the same day.  The
-research stage is still running.**  Continuation attempt one (Challenge 3)
-has closed and the author merged it (pull request 267, merge `dabe9a92`).
-Continuation attempt two (Challenge 4) is startable and had not been
-launched when this draft was updated.  This log is finalized only after
-attempt two closes and the author approves the freeze; entries after this
-one are expected.
+**FREEZE CANDIDATE, first drafted 2026-09-25 and reconciled 2026-09-28.
+Not frozen.**  Both continuation attempts the author authorized have
+closed and been merged: attempt one (Challenge 3; pull request 267, merge
+`dabe9a92`) and attempt two (Challenge 4 with the census's FORCED column;
+pull request 269, merge `d67523f9`).  No further research attempt is
+authorized.  The
+freeze is the author's act; the only entry expected after this
+reconciliation is the author's freeze.
 
 `AuthorityEffect: None`.  The dated history of the run: rungs, author
 rulings, operator acts, supersessions and known defects.  Newest last.
@@ -20,8 +21,9 @@ Times are the committer's local times as Git records them.
 The rung trees' `STATUS.md` and `CLAIM_LEDGER.md` files, the injection
 record and handoffs in `research/second/MANUAL.md`, `CLAUDE.md` (gate 11),
 `docs/GENESIS_CLOSEOUT.md` sections 0, 1 and 4, the Git history of
-`main` up to `dabe9a92`, and the closeout coordinator's attestation of
-2026-09-25.  The operator acts in the section "Operator acts attested by
+`main` up to `dabe9a92` and, for the reconciliation, of continuation
+attempt two's branch up to `2fae623e`, and the closeout coordinator's
+attestations of 2026-09-25 and 2026-09-28.  The operator acts in the section "Operator acts attested by
 the closeout coordinator" below were not previously committed anywhere;
 this log is their first committed record, and they rest on that
 attestation.
@@ -264,6 +266,59 @@ attestation.
   and for the attested operator acts.  Continuation attempt two is
   startable and had not been launched.
 
+## 2026-09-25 to 2026-09-28: the closeout merged, continuation attempt two
+
+- `b368f28c` (2026-09-25 21:39): pull request 268, the Genesis closeout,
+  merged by the coordinator at the author's instruction to finish it.  It
+  carried the first draft of this log, the paper and the claim ledger,
+  unfrozen, saying that continuation attempt two had not begun.
+- 2026-09-28: the author instructed the coordinator to complete the
+  pending work.  Continuation attempt two was launched headless from
+  `b368f28c` at about 18:18 (see the operator acts below).
+- `c2530b12` (18:40): attempt two freezes its question, Challenge 4 with
+  the census's FORCED column, taking continuation one's G-1 with G-2 and
+  G-7 inside it.  `PROMPT.md` sha256 `3fd06a04…`.
+- `c6b82249` (18:53): attempt two freezes its predictions and seven
+  readings of what the prompt left open.  `PREDICTIONS.md` sha256
+  `086bcee4…`.  One act of apparatus preceded it and is disclosed there:
+  rung two's tree builder was timed on E4 to choose the node guard.
+- `702a4ab8` (19:50): every engine run forward and the census read off
+  the runs: 288 runs; the element count and irreversibility proved for
+  every history; the FORCED column decided for all twelve rows; four
+  engines carry forward with the stake and not the stream, at the bounds
+  only.  Fifteen of nineteen computed predictions hit.  The first full
+  run scored R-13 MISSED on a list-order comparison in the scorer, with
+  the predicted values; the comparison was corrected and the correction
+  recorded.
+- `6b85f3f0` (20:19): the registered steps measured 944.9 s at
+  `702a4ab8`, over the seed's fifteen-minute ceiling; three changes that
+  weaken no check bring them to 468.0 s.
+- `5c6bdd35` (20:28): the generated views its registration changes.
+- `9e1c60e0` (20:54): `STATUS.md`, and the session handoff and injection
+  record appended to `research/second/MANUAL.md` (sixteen injections).
+- `2fae623e` (20:58): its verifier added to the estate custody pin.  The
+  attempt opens pull request 269 and does not merge it.
+- 2026-09-28: the coordinator checks the write root (every file outside
+  `research/second_run/` is an append-only registration or a generated
+  view; no sealed path; `SEED.md` at its pinned hash) and runs the full
+  Python job and the attempt's four registered steps on the branch at
+  `2fae623e`.  The four steps pass; the Python job passes 12 of 13, failing
+  on `tests/test_new_research_tree_contract.py`, because the attempt's
+  manifest records no pin of the seed and so the new-tree contract
+  applies to it.
+- `938b91fc`: operator landing repair.  The seed's path and sha256 are
+  added to the manifest's `sources`, as every earlier rung manifest
+  records them, and `docs/index/pins.md` is regenerated.  The contract,
+  the tree's pin and write-root tests, the custody census (109 verifiers,
+  108 green, 1 pinned red) and the generated views then pass.
+- `d67523f9`: pull request 269 merged by the coordinator at the author's
+  instruction to merge it when green (section 9.2 of the paper).
+- 2026-09-28: the closeout coordinator reconciles this log, the paper and
+  the claim ledger with attempt two, at the author's instruction to
+  finish the closeout, and updates `docs/GENESIS_CLOSEOUT.md`.  The
+  reconciliation runs no research; the three files become a freeze
+  candidate, and the freeze is left to the author.
+
 ## Operator acts attested by the closeout coordinator (2026-09-25)
 
 Attested to this closeout by the closeout coordinator, the session that
@@ -297,14 +352,35 @@ ran them, on 2026-09-25, and not previously committed:
   and two were launched with an operator packet held outside the
   repository, as their own files disclose (2026-09-04 above).
 
+## Operator acts attested by the closeout coordinator (2026-09-28)
+
+Attested by the same coordinator, the session that ran them, on
+2026-09-28:
+
+- Continuation attempt two was launched headless from `b368f28c`, the
+  snapshot its `SOURCE_MANIFEST.json` records, at about 18:18 on
+  2026-09-28, with Claude Code 2.1.281, auto-memory off, project settings
+  only, no MCP servers, no slash commands and the same fixed tool list,
+  and with the prompt exactly `Follow research/second/SEED.md.`.  The
+  session's init record lists the nine allowed tools, no MCP servers, no
+  skills and no slash commands.
+- Before launch the coordinator copied the main checkout's `lean4/.lake`
+  build directory into the fresh worktree.  It is a build cache, not an
+  input, and the attempt's Lean package builds from its own sources.
+- The session ran once to its end, with no resume and no operator
+  message, and exited 0 after about 162 minutes.
+- At landing the coordinator made one repair inside the tree, `938b91fc`: the manifest recorded no pin of `research/second/SEED.md`, so the root new-tree contract test failed in the full `python` job; the coordinator added the seed's path and sha256 to its `sources`, as every earlier rung manifest records it, verified against the blob at the snapshot, and regenerated `docs/index/pins.md`; no research content, receipt, prediction or frozen text changed.
+
 ## Known defects and open process gaps, standing at this draft
 
 - Rung zero carries no coverage gate; its line and branch coverage were
   never measured by any registered step (rung one records this).
 - Several registered gates carry no recorded injection: rung zero's tests
   and typing, and strict typing in rungs one, two track one, three to ten
-  and continuation attempt one.  Only rung two track two injected its
-  strict-typing gate.
+  and both continuation attempts.  Only rung two track two injected its
+  strict-typing gate.  Two of continuation attempt two's sixteen
+  injections fail by the test's name rather than by naming the injected
+  edit.
 - The operator acts above had no committed record before this draft; they
   rest on the coordinator's attestation, and the prompts and launch
   settings themselves are not committed anywhere.
@@ -318,3 +394,13 @@ ran them, on 2026-09-25, and not previously committed:
   requirement imposed at the sealed Challenge 3; two frozen predictions
   missed on it (J-12 at rung four, P-13 at rung eight), and no bridge
   between the two carriers is claimed.
+- Continuation attempt two's Lean package speaks of every history of
+  sealed events and switch markers; that each edge of its Python runs is
+  such a history is read, not proved.  Twenty-eight of its merges were
+  not label-checked (rung two's observable budget refused them), and 482
+  regimes above the brute-force limit were not key-checked.
+- Continuation attempt two's bounded one-input carriers (`SD-R-11`) are
+  read by the attempt, and by this reconciliation, as neither a floor
+  proof nor a reduction outside the bounds; the letter of the completion
+  gate's input-count clause admits another reading, which is the author's
+  to decide at the freeze.
