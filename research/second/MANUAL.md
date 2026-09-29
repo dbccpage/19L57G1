@@ -899,3 +899,85 @@ a declared class and probes it; neither checks the other's reading of
 "engine", of "orbit" (G-9), or of "capability".  That thirteen of
 thirteen computational predictions hit is not proved to be insight by
 any injection: the scorer is shown able to say MISSED, and no more.
+
+## Session handoff, continuation two (2026-09-28)
+
+**Read at the start of a session; written at the end of one.**  As the
+earlier handoffs say, what comes next is carried in the LAST tree's
+`STATUS.md`, and this section says where to look rather than copying it.
+
+- The trees on `main` at this session's start (`b368f28c`) are rungs
+  zero to ten, continuation one (`research/second_engine`), and the
+  Genesis closeout of pull request 268, which left the run's paper,
+  change log and claim ledger as unfrozen drafts saying that attempt two
+  had not begun.  Continuation two (`research/second_run`) is this
+  session's, the second and last of the two attempts the author's ruling
+  of 2026-09-25 authorizes, and is not merged by an agent.
+- **No further research attempt is authorized.**  What remains is the
+  designated closeout session's: reconciling `research/second/paper.md`,
+  `change_log.md` and `claim_ledger.md` with this tree, and the author's
+  approval of the freeze.  This tree writes none of the three.
+- **The gate is expensive, and the cost is a sibling's.**  Rung two's
+  observable O-four enumerates every datum and form bijection with no
+  refinement; nearly all of the receipt's twelve serial minutes are spent
+  there.  The receipt check therefore builds its runs in worker
+  processes (up to sixteen), and the receipts do not depend on the
+  number.  Another session's processes on the machine stretch the wall
+  time; the first measurement of the registered steps, before three
+  speedups that weaken no check, was 944.9 seconds, over the ceiling.
+- **A scorer corrected after it has spoken is recorded, not hidden.**
+  The first full run scored R-13 MISSED on a list-order comparison; the
+  values were the predicted ones.  `STATUS.md` records the correction.
+- **A prose argument became a lemma.**  The claim that every refused
+  apart demand is structural first rested on prose; two native theorems
+  were added after the prediction to carry it, and are recorded as
+  unpredicted work.
+- **Heredocs in this shell break on long Python patches.**  Twice a
+  quoted heredoc failed with an unmatched quote; writing the patch to a
+  scratch file and running it worked.
+- One attempt per session at most.  Never merge; the author merges.
+
+## Injection record, continuation two (2026-09-28)
+
+Sixteen injections, each minimal and reversible, none live while any
+receipt was regenerated.  All were run in a throwaway worktree detached
+at `6b85f3f0`, the branch's head at the time, checked out with line
+endings as stored, by one script written to the scratchpad as a file,
+which edited with line endings preserved, refused any edit whose anchor
+did not occur exactly once, ran the gate again after each reversal, and
+checked the worktree's status after each.  The worktree was clean after
+the last reversal, apart from ignored build and coverage outputs, and
+was then removed.  Every one names the object it was given, except where
+the table says otherwise.
+
+<!-- markdownlint-disable MD013 -->
+
+| attempt | gate | injection | observed failure |
+|---|---|---|---|
+| C2 | frozen-text pin (`second_run/verify_pins.py`) | one line appended to `PROMPT.md` in a throwaway commit on top of `6b85f3f0` | `FAIL: frozen text moved: research/second_run/PROMPT.md: expected 3fd06a04..., got 9950514c...`, exit 1; after `git reset --hard HEAD~1`, exit 0 |
+| C2 | span pin (same verifier) | the G-7 span's `last_line` moved from 256 to 257 in `SOURCE_MANIFEST.json`, uncommitted | `FAIL: span mismatch at the snapshot for research/second_engine/STATUS.md:255-257: expected 2aac2695..., got f2cfb091...`, exit 1; exit 0 after restoring the manifest |
+| C2 | Lean axiom whitelist (`second_run/verify_lean.py`) | a theorem `zzz_probe_choice` proved by `Classical.em`, appended to `Run.lean` with its report line | three failures naming it: no FW-DEF row; `depends on disallowed axioms ['Classical.choice']`; a fresh report the committed log lacks; exit 1, then exit 0 |
+| C2 | Lean compiler census (same verifier) | the `#print axioms` line for `SecondRun.Run.no_return` deleted from `AxiomReport.lean` | `FAIL: compiler declaration SecondRun.Run.no_return has no fresh #print axioms report`, exit 1; exit 0 after restoring |
+| C2 | FW-DEF census totality (`test_census.py`) | the `no_return` row deleted and the THIN count decremented | `AssertionError: Lists differ: ['no_return'] != []` from the totality and axiom-log tests, the dated-count test naming THIN 8 against 9, and `KeyError: 'no_return'` from the prediction test; exit 1, then OK |
+| C2 | reconstruction comparison (`test_reconstruction.py`) | the binder `d'` of the reconstructed sealed `collapsed` renamed to `dd` in `Kernel.lean` | `AssertionError: Lists differ: ['lean4/Derivation/Basic.lean -> Kernel.lean: collapsed'] != []`, exit 1; OK after restoring.  The comparison reads the sealed blob AT THE SNAPSHOT |
+| C2 | prose census over the write root (`test_forbidden.py`) | a probe `zz_probe.md` in the write root carrying the one term whose watchlist digest begins `326020dd`, confirmed watched by `ci/check_prose_watchlist.py --probe` | `AssertionError: Lists differ: ['research/second_run/zz_probe.md:1: <term elided>'] != []`, the term named in place of the elision; OK after deleting the probe.  The term is elided because this record is itself scanned |
+| C2 | write-root scope scan (`test_forbidden.py`) | an untracked `zz_outside_probe.md` at the repository root | `AssertionError: Lists differ: ['zz_outside_probe.md'] != []`, exit 1; OK after deleting it |
+| C2 | registration scan (`test_forbidden.py`) | the line `python run_forward.py --check` deleted from this tree's step in `.github/workflows/verify.yml` | `AssertionError: 'python run_forward.py --check' not found in` the tree's block, exit 1; OK after restoring |
+| C2 | the quotient check (`test_fwd.py`) | `_label_defects` in `fwd_runs.py` made to return no defect before reading any label | `AssertionError: [] is not true` from `test_a_merge_whose_labels_disagree_is_a_named_defect`; OK after restoring.  RECORDED BESIDE IT: the failure names the test and not the injected edit |
+| C2 | the replay check (`test_fwd.py`) | `replay_mismatches` in `fwd_runs.py` made to return before replaying anything | `AssertionError: False is not true` from `test_replay_mismatches_are_named`; OK after restoring.  RECORDED BESIDE IT: the failure names the test and not the injected edit |
+| C2 | the FORCED decision over a set (`test_fwd.py`) | `forced_over` in `fwd_census.py` made to count an UNDECIDED run with the ones that hold | `AssertionError: {'verdict': 'FORCED_AT_BOUND', 'at_bound': 0} != {'verdict': 'OPEN', 'undecided': 1}`; OK after restoring |
+| C2 | the changing-cycle check of ONE VALUE PER NODE (`test_fwd.py`) | the list of changing cycle edges in `one_value_per_node` emptied | `AssertionError: 'UNDECIDED' != 'FAILS'` from `test_a_changing_cycle_beyond_fifteen_fails`; OK after restoring |
+| C2 | coverage module census (`second_run/check_coverage.py`) | an undeclared production module `zz_helper.py` in the tree, after a report of the full suite had been generated and had passed | `FAIL: production module census differs: missing from declarations=['zz_helper.py'], declared but absent=[]`, exit 1; exit 0 after deleting it |
+| C2 | receipt comparison, the summary (`run_forward.py --check`) | `"count": 35,` in `receipts/forward.json` changed to 36, a value that occurs once | `FAIL: ...receipts\forward.json differs from a fresh run`, exit 1; exit 0 after restoring the bytes, the whole class rebuilt.  The check writes nothing |
+| C2 | receipt comparison, the full export (same check) | one byte appended to `receipts/forward_full.json.gz` | `FAIL: ...receipts\forward_full.json.gz differs from a fresh run`, exit 1; exit 0 after restoring the bytes, the whole class rebuilt |
+
+<!-- markdownlint-enable MD013 -->
+
+**What these injections do not prove.**  That the populations they pin
+are the right mathematical objects, or that the Python runs and the Lean
+statements speak of one process: the Lean proves what no history of
+sealed events and switch markers can undo, whatever chose it, and the
+Python builds the runs of a declared class at declared bounds; neither
+checks the other's reading of a run.  That fifteen of nineteen
+computational predictions hit is not proved to be insight by any
+injection: the scorer is shown able to say MISSED, and no more.
