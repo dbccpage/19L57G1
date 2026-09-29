@@ -1139,10 +1139,10 @@ Budget exhaustion satisfies no clause.
 
 ## 15. What this draft does not do
 
-It does not freeze anything, tag or publish; the reconciliation of
-2026-09-28 is merged at the author's instruction to finish the closeout,
-and the freeze remains the author's act.  It does not write the
-comparison, name any known theory, or answer the seed's eleventh question.
-It does not edit the seed, the plan, the manual, any rung tree or any
-sealed path.  It reads both continuation attempts only as merged.  It does not treat a receipt, a pin or a green
-gate as proof of a mathematical payload.
+It does not freeze anything, merge, tag or publish: the reconciliation of
+2026-09-28 is offered for the author's merge, and the freeze remains the
+author's act.  It does not write the comparison, name any known theory,
+or answer the seed's eleventh question.  It does not edit the seed, the
+plan, the manual, any rung tree or any sealed path.  It reads both
+continuation attempts only as merged.  It does not treat a receipt, a pin
+or a green gate as proof of a mathematical payload.
