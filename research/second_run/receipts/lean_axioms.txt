@@ -1,0 +1,32 @@
+SecondRun.Run.collapsed_through :: propext
+SecondRun.Run.cycle_regime_const :: Quot.sound propext
+SecondRun.Run.ereplay_elems_le :: Quot.sound propext
+SecondRun.Run.ereplay_elems_lt_of_ne :: Quot.sound propext
+SecondRun.Run.ereplay_regime_eq_of_elems_eq :: Quot.sound propext
+SecondRun.Run.estep_elems_le :: Quot.sound propext
+SecondRun.Run.estep_elems_lt_of_ne :: Quot.sound propext
+SecondRun.Run.insertNew_eq_or_succ :: propext
+SecondRun.Run.insertNew_length_le :: Quot.sound propext
+SecondRun.Run.no_return :: Quot.sound propext
+SecondRun.Run.not_separable_through :: propext
+SecondRun.Run.stepE_elems_le :: Quot.sound propext
+SecondRun.Run.stepE_elems_lt_of_ne :: Quot.sound propext
+SecondRun.Run.switch_keeps_regime :: propext
+SecondRun.Run.switch_switch :: propext
+SecondRun.Sealed.R2F_collapsed :: propext
+SecondRun.Sealed.R2F_wf :: Quot.sound propext
+SecondRun.Sealed.R2L_collapsed :: propext
+SecondRun.Sealed.R2L_wf :: Quot.sound propext
+SecondRun.Sealed.admission_without_expressive_increase :: propext
+SecondRun.Sealed.collapsed_of_no_insts :: propext
+SecondRun.Sealed.genesis_underivable :: none
+SecondRun.Sealed.historyF_replays :: propext
+SecondRun.Sealed.historyL_replays :: propext
+SecondRun.Sealed.insertNew_nil :: propext
+SecondRun.Sealed.insertNew_of_mem :: propext
+SecondRun.Sealed.insertNew_of_not_mem :: propext
+SecondRun.Sealed.mem_insertNew :: propext
+SecondRun.Sealed.replayE_append :: Quot.sound propext
+SecondRun.Sealed.separable_not_collapsed :: propext
+SecondRun.Sealed.supply_no_op :: propext
+SecondRun.Sealed.underivable_of_empty :: none

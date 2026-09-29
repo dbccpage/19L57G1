@@ -1,0 +1,246 @@
+{
+  "authority_effect": "None",
+  "rung": "continuation two: run forward (challenge four with its engine-dependent census evaluations), under the author's ruling of 2026-09-25",
+  "snapshot_commit": "b368f28c39ec85798ddc5c1bb2dfe3106770bc72",
+  "snapshot_note": "Pinned at the tip of main this branch was cut from, which is an ancestor of HEAD.",
+  "sources": [
+    {
+      "path": "code/derivation/__init__.py",
+      "sha256": "0FABCB53DC46712447A727F6CEB661E5AAB3267A3E8B50BDEA11044B64F853AF",
+      "note": "sealed package root, imported transitively"
+    },
+    {
+      "path": "code/derivation/candidates.py",
+      "sha256": "856CE42FABA2DC2AE1217207ECC8AF893EAC29B50AE8A374DC06D2BA22C957BB",
+      "note": "sealed candidate space, measures, delta events and application, consumed through continuation one's responder"
+    },
+    {
+      "path": "code/derivation/engine.py",
+      "sha256": "23803A3DCCE2ADF0DEE623CABA33791D41A25D2DA3FDFD226DA3CAD2EE140B5E",
+      "note": "sealed genesis readings L and F, consumed by fwd_runs.py; read before the predictions were frozen"
+    },
+    {
+      "path": "code/derivation/export.py",
+      "sha256": "202B2FBA9CB99864BAE52D2463864C67064BB0F85E27B78C3371D930B5BF7BDD",
+      "note": "sealed regime JSON, consumed by run_forward.py for the full export"
+    },
+    {
+      "path": "code/derivation/iso.py",
+      "sha256": "B0F1F3BCF05126111A07706F4388A9FFF5E30455D4B8F127966CF99AB0D0886E",
+      "note": "sealed key procedure, isomorphism witness, automorphisms and brute-force minimum, consumed by fwd_runs.py and run_forward.py"
+    },
+    {
+      "path": "code/derivation/model.py",
+      "sha256": "6A7FD2BA9688D47E9291514C623A811CDE3C6B9E8FDA1D12A608DC9BB0B1F3C2",
+      "note": "sealed regime, events, step and replay, consumed read-only; the engine's replay rule extends the sealed replay"
+    },
+    {
+      "path": "code/derivation/observe.py",
+      "sha256": "78443D67E613D9CC9924538FE2E0A5ACAF81F4654440BFE8586E16652F0317BA",
+      "note": "sealed profiles and contexts, consumed transitively through rung ten's and rung two's readings"
+    },
+    {
+      "path": "lean4/Derivation/Basic.lean",
+      "sha256": "1520B392F4061AF568E00CA4FD235FEB03FACF6D3612C030C1D60018539E3EED",
+      "note": "the sealed source of the reconstructed kernel slice in lean/SecondRun/Kernel.lean"
+    },
+    {
+      "path": "lean4/Derivation/Inertia.lean",
+      "sha256": "C62615CB3757474D20348F6507B8DEA4E2DE3E3A02268909194A2D0736BBE5CE",
+      "note": "the sealed source of the reconstructed inertia slice in lean/SecondRun/Kernel.lean"
+    },
+    {
+      "path": "research/identification_dual/dual.py",
+      "sha256": "17C6D723FA32212530D59A209B66E6FA9C82761C74A2E5B7ED5EB8F30EBAD95B",
+      "note": "the identification tree's automorphisms, consumed transitively through rung two's O4 observable"
+    },
+    {
+      "path": "research/second/SEED.md",
+      "sha256": "52439E5F75D1C599CE52DC716BEB88F1DD7BFC83856EE73CE85F3A7EEEC5E70E",
+      "note": "the seed of the second derivation; added at landing by the coordinator, as every earlier rung manifest records it"
+    },
+    {
+      "path": "research/second/claim_ledger.md",
+      "sha256": "7671B3BBE5EC10EC487190B4D0930B656FFFCF7E6622CFA54CBF40BCCF4E3A2F",
+      "note": "the run's unfrozen draft ledger, read before the predictions were frozen"
+    },
+    {
+      "path": "research/second/paper.md",
+      "sha256": "75F6F275D3D8777C338F92D6E36E358903F99FBB767064FA1F5BF6F25C314CE0",
+      "note": "the run's unfrozen draft paper, read before the predictions were frozen"
+    },
+    {
+      "path": "research/second_engine/PREDICTIONS.md",
+      "sha256": "A225C07593EDAEA9C0CFFBB5AE4E12625191CD9935F83ACE066B9D3806FABEE9",
+      "note": "continuation one's frozen predictions, read before the predictions were frozen"
+    },
+    {
+      "path": "research/second_engine/PROMPT.md",
+      "sha256": "7A2768078D63DD222398C9D3F1B3B953EE753AC094A8A01228E3ADC7DBFBA919",
+      "note": "continuation one's frozen question, read before the predictions were frozen"
+    },
+    {
+      "path": "research/second_engine/STATUS.md",
+      "sha256": "43825BC562DAC7B8E5735CE75F1397091B04C848C7382AAE86C096B4FE48F92D",
+      "note": "continuation one's status and leftovers, read before the predictions were frozen; its leftovers are also spanned"
+    },
+    {
+      "path": "research/second_engine/engine_decl.py",
+      "sha256": "0F4A67E8BB997446691FF4444255620C40DE0B69FFB72222F3F890EE3B8A7F41",
+      "note": "continuation one's engine class, generator, responder, growth, switch marker and replay rule, consumed through its public functions"
+    },
+    {
+      "path": "research/second_engine/engine_probe.py",
+      "sha256": "2EC4F2B3C3FEF3BAC54556155D2216AC3A3D5BA7E8B692732D611858A682557C",
+      "note": "continuation one's enabled continuations, readings, JSON helpers and key cross-check, consumed through its public functions"
+    },
+    {
+      "path": "research/second_engine/lean/SecondEngine/Engine.lean",
+      "sha256": "AAC93DD1A89E7BEE1A2931656CFA97DA0ECB5D12AAFD605368EA7E55350B2ADD",
+      "note": "continuation one's engine definition, read before the predictions were frozen"
+    },
+    {
+      "path": "research/second_engine/lean/SecondEngine/Kernel.lean",
+      "sha256": "7A1C074E51B78C7DC8D648DE4418FE6B19E13BF5FDB11257AD7D62F735D38167",
+      "note": "the file lean/SecondRun/Kernel.lean was produced from, by changing only the outer namespace"
+    },
+    {
+      "path": "research/second_engine/receipts/engine.json",
+      "sha256": "8880E2A3797E1D63C1115AC1E4B3D94B359BCB33E76C219E1F52E4613944CB7F",
+      "note": "continuation one's committed receipt, replayed by run_forward.py before use"
+    },
+    {
+      "path": "research/second_engine/run_engine.py",
+      "sha256": "D3E0EB43D0B1D9ED931D7CF983CFBEEB4E5ABDAEFDEF3AB89BBD6B828F17C719",
+      "note": "continuation one's runner; its public analyse() is rebuilt and compared with its committed receipt before its LIVE and TWO-KINDED sets and probe signatures are used"
+    },
+    {
+      "path": "research/second_index/PREDICTIONS.md",
+      "sha256": "410C6FF9D17D449F0FBE03E09E6433F3756939615BB7DBAB0A44E34F0C59CBA3",
+      "note": "rung three's frozen extrapolation I-X, recorded PENDING here"
+    },
+    {
+      "path": "research/second_index/index.py",
+      "sha256": "7F904AB9E6DE5A8B7D092036004E11406E3A3844882A14C03E033ABE348C0315",
+      "note": "rung three's module, imported transitively by rung ten's"
+    },
+    {
+      "path": "research/second_iso/iso_index.py",
+      "sha256": "27A2AF425A5D2AE54AE4007C10F7344B9872481A86D008F92D5346ADEC0880B9",
+      "note": "rung four's module, imported transitively by rung ten's"
+    },
+    {
+      "path": "research/second_nofirst/nofirst.py",
+      "sha256": "14951DF2CF163093D02465958CBF63A579A841B2422CF935B50A52A37133A90B",
+      "note": "rung two track one's module, imported transitively by rung ten's"
+    },
+    {
+      "path": "research/second_response/response_rows.py",
+      "sha256": "9A360464DE0C797506E6A2EE7B6DC1A6DC838AB602ADB249FC1BBC8111B59E2B",
+      "note": "rung ten's holding two, exhausted forms and moved pairs, consumed through its public functions"
+    },
+    {
+      "path": "research/second_stake/PREDICTIONS.md",
+      "sha256": "EFD3893006B4B59E80A10A4A1B067AFE0453101987CA51CF6AE54A3CC9B6C07F",
+      "note": "rung two track two's frozen extrapolation X, recorded PENDING here"
+    },
+    {
+      "path": "research/second_stake/STATUS.md",
+      "sha256": "7E07A002A63B11EF5A57CD87B07C0F8789376AF1136DD101D0BA903F7AD2E6A9",
+      "note": "rung two track two's status, read before the predictions were frozen"
+    },
+    {
+      "path": "research/second_stake/generation.py",
+      "sha256": "8AE307E776BEF37FF5C6E8A7A9F8412A72D5D26503DE2A2BFCA5D1CA5DE466E0",
+      "note": "rung two track two's dynamic no-regress validity, consumed through continuation one's responder"
+    },
+    {
+      "path": "research/second_stake/observables.py",
+      "sha256": "3252D835E9168684D3A0575FDA10F97CE9D087652DC991CFBB01626F0AC080C2",
+      "note": "rung two track two's profile class count and observable guard, consumed by fwd_runs.py"
+    },
+    {
+      "path": "research/second_stake/rules.py",
+      "sha256": "2491BA0C5E0C2546228FC0727068115162710A18A1D4E0CDADCA35FAD108F09F",
+      "note": "rung two track two's rule class and label function, consumed by fwd_runs.py for the quotient check"
+    },
+    {
+      "path": "research/second_stream/stream.py",
+      "sha256": "3D92C3A39B2468FD8009EC5D63AC18B4B89331D27D49606020BF30D3B062DCB1",
+      "note": "rung one's no-op filter and delta order, consumed through continuation one's responder"
+    },
+    {
+      "path": "research/two_sided_commitment/two_sided.py",
+      "sha256": "5AC587C2FDCB8057EC333A7FEF880B8E7C3EE6603432EBCD00947A158186C1CB",
+      "note": "the two-sided tree's honour relation, consumed through continuation one's generator"
+    }
+  ],
+  "spans": [
+    {
+      "path": "lean4/Derivation/Basic.lean",
+      "first_line": 20,
+      "last_line": 167,
+      "sha256": "3b9f40cb602833df8068f5a6cfc43b66802c9d87edb8f3a54f80fe40673a3d7d",
+      "note": "the reconstructed sealed slice: judgment instances through replay"
+    },
+    {
+      "path": "lean4/Derivation/Basic.lean",
+      "first_line": 202,
+      "last_line": 215,
+      "sha256": "079e225971ab8cadbec235ed3b45f97afee7be8121ff52c77c5a712d3e12ed72",
+      "note": "the reconstructed sealed reading regimes R2L and R2F"
+    },
+    {
+      "path": "lean4/Derivation/Inertia.lean",
+      "first_line": 13,
+      "last_line": 92,
+      "sha256": "75dec8e73f988a9de0c81a64bf5fc5e23087497eb0fc460b6872235e6192f560",
+      "note": "the reconstructed sealed inertia slice, genesis through replayE_append"
+    },
+    {
+      "path": "research/second/MANUAL.md",
+      "first_line": 764,
+      "last_line": 815,
+      "sha256": "cdbad96aaed29dfd3cefb877c3d5cd0f1db9c41025cf665002df549ef694ec93",
+      "note": "the author's continuation ruling of 2026-09-25, verbatim, which authorizes this attempt"
+    },
+    {
+      "path": "research/second_engine/STATUS.md",
+      "first_line": 234,
+      "last_line": 242,
+      "sha256": "f42761b2c123e12bca14f31f28864acfb8ac26dcbbde88074e77dc60089d96fd",
+      "note": "continuation one's leftovers G-1 and G-2, quoted in CLAIM_LEDGER.md and never edited"
+    },
+    {
+      "path": "research/second_engine/STATUS.md",
+      "first_line": 255,
+      "last_line": 256,
+      "sha256": "2aac2695dc814bc8264fb9737cf5f71e50e49c113e5469227a0753464c7ba559",
+      "note": "continuation one's leftover G-7, inside G-1"
+    },
+    {
+      "path": "research/second_engine/STATUS.md",
+      "first_line": 368,
+      "last_line": 375,
+      "sha256": "ee47180e6c6f4e0b269279cef02eb2f31d4e82dbdd529a543f22589f40422582",
+      "note": "continuation one's naming of this attempt"
+    }
+  ],
+  "absent_at_snapshot": [
+    {
+      "path": "research/second_run",
+      "present_at_snapshot": false,
+      "pull_request": "not opened at the snapshot: this tree did not exist there"
+    }
+  ],
+  "frozen_texts": [
+    {
+      "path": "research/second_run/PROMPT.md",
+      "sha256": "3fd06a04a81e39ee3e9b650fd34f76e0d01788559c7d7f21472ee9a2967a9810"
+    },
+    {
+      "path": "research/second_run/PREDICTIONS.md",
+      "sha256": "086bcee42d86e31f7d488626c814005a7e5da263310d1aa6866f0c498e79e594"
+    }
+  ]
+}

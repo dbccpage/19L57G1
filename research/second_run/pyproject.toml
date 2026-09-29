@@ -1,0 +1,14 @@
+# Tree-local config.  The root pyproject scopes mypy and coverage to
+# code/, so this tree is outside both unless run from here.
+[tool.mypy]
+python_version = "3.14"
+strict = true
+mypy_path = "../../code:../../ci:../identification_dual:../two_sided_commitment:../second_stream:../second_stake:../second_engine:../second_response:../second_iso:../second_index:../second_nofirst"
+files = ["."]
+
+# The measured set of this tree, declared here and asserted again by
+# check_coverage.py, so the configuration and the gate cannot drift apart.
+# The exclusions and their reasons are recorded in check_coverage.py.
+[tool.coverage.run]
+branch = true
+include = ["fwd_census.py", "fwd_runs.py", "run_forward.py", "verify_pins.py"]
