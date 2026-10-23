@@ -21,10 +21,10 @@ derivation.
 |---|---|
 | **19L57G1** (this repository), Genesis | A blind, sealed, finite derivation from an opaque seed, and the point where it stops: the minimum response is tied across readings L and F. |
 | [**H3V7N5QF**](https://github.com/dbccpage/H3V7N5QF), Genesis-Ongoing | 25 further blind derivations, each from its own seed, on terms, assertions and a short list of changes: obstruction and answer, fewest changes, counted assertions, two relations, an admission gate, and three operator-targeted climbing rounds. |
-| [**theory_of_finite_quantum_mechanics**](https://github.com/dbccpage/theory_of_finite_quantum_mechanics), finite QM | A derivation graph of 880 nodes in 34 stages. It starts from the inert inscription `<>`, passes through Pre-Genesis, Genesis, S(n) and MSS-N, the witnessed-difference programme (WDP), L1 and L1 to L2, and asks how far finite exact constructions reach toward finite QM. Every node carries a status and an evidence grade E0 to E4. |
+| [**theory_of_finite_quantum_mechanics**](https://github.com/dbccpage/theory_of_finite_quantum_mechanics), finite QM | A derivation graph of 892 nodes in 35 stages. It starts from the inert inscription `<>`, passes through Pre-Genesis, Genesis, S(n) and MSS-N, the witnessed-difference programme (WDP), L1 and L1 to L2, and asks how far finite exact constructions reach toward finite QM. Every node carries a status and an evidence grade E0 to E4. |
 
 **How they connect.** The early stages of the finite QM graph are built from
-results in this repository and in H3V7N5QF. At finite QM commit `5bb9635`
+results in this repository and in H3V7N5QF. At finite QM commit `8f1f7ca`
 (2026-10-22), 106 nodes cite one or both: 90 cite this repository, and 16
 cite H3V7N5QF. By stage, 71 of the 90 are in GENESIS, 9 in PREGENESIS, 8 in
 MSSN_SN, and 1 each in IMPLEMENTATION and AUTHORIZATION.
@@ -57,7 +57,10 @@ MSSN_SN, and 1 each in IMPLEMENTATION and AUTHORIZATION.
   pinned commit.
 * **The gap.** The three routes from GENESIS to WDP are
   `GAP_NO_DERIVATION`. Five bridge obligations (`GEN-WDP-O01` to `O05`) are
-  open in `PG-WDP-GENESIS-BRIDGE-OBLIGATIONS`. The sealed derivation does
+  open in `PG-WDP-GENESIS-BRIDGE-OBLIGATIONS`. The newer stage
+  GENESIS_TO_HIGHER (higher-categorical language over Genesis) is open steps
+  and named imports, and its three routes from GENESIS and MSSN_SN are also
+  `GAP_NO_DERIVATION`. The sealed derivation does
   not derive a Born rule, a complex field, an inner product or any other
   structure of finite QM. The finite QM graph records each of those as
   conditional, imported or open, with its price.
