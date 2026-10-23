@@ -10,6 +10,81 @@ layers that each constrain the others.
 
 ---
 
+## Part of a three-repository programme
+
+This is the first of three public repositories by the same author. They use
+different methods and make different kinds of claim. This section says how
+they connect, and where the connection is a recorded gap and not a
+derivation.
+
+| Repository | Role |
+|---|---|
+| **19L57G1** (this repository), Genesis | A blind, sealed, finite derivation from an opaque seed, and the point where it stops: the minimum response is tied across readings L and F. |
+| [**H3V7N5QF**](https://github.com/dbccpage/H3V7N5QF), Genesis-Ongoing | 25 further blind derivations, each from its own seed, on terms, assertions and a short list of changes: obstruction and answer, fewest changes, counted assertions, two relations, an admission gate, and three operator-targeted climbing rounds. |
+| [**theory_of_finite_quantum_mechanics**](https://github.com/dbccpage/theory_of_finite_quantum_mechanics), finite QM | A derivation graph of 880 nodes in 34 stages. It starts from the inert inscription `<>`, passes through Pre-Genesis, Genesis, S(n) and MSS-N, the witnessed-difference programme (WDP), L1 and L1 to L2, and asks how far finite exact constructions reach toward finite QM. Every node carries a status and an evidence grade E0 to E4. |
+
+**How they connect.** The early stages of the finite QM graph are built from
+results in this repository and in H3V7N5QF. At finite QM commit `5bb9635`
+(2026-10-22), 106 nodes cite one or both: 90 cite this repository, and 16
+cite H3V7N5QF. By stage, 71 of the 90 are in GENESIS, 9 in PREGENESIS, 8 in
+MSSN_SN, and 1 each in IMPLEMENTATION and AUTHORIZATION.
+
+* **Pre-Genesis and Genesis.** The inert inscription `<>` is this
+  repository's Challenge 0 (paper section 4; `PG-INERT-DIAMOND`).
+  `PG-SIX-OPERATIONS` keeps six operations apart, among them supply and
+  admission, which paper section 2 also separates. Supply is a no-op
+  (`PG-GEN-SUPPLY-NO-OP`), and the first separation costs two items with
+  tied minima (`PGW-MU1-MINIMUM-NOT-UNIQUE-L`). The terminal statement of
+  paper section 11 is `PGW-SEALED-TERMINAL-STATEMENT`.
+* **What stays open at the join.** Paper section 11, clause (f), says no
+  endogenous demand generator was derived. In the finite QM graph that is
+  `PGW-ENDOGENOUS-DEMAND-OB1`, status `OPEN`. Its computation chain then
+  declares unbounded supply of fresh marks as an import
+  (`COMP-C4-UNBOUNDED-SUPPLY-IMPORT`), not as a result.
+* **Second derivation.** The rung results under `research/second*` (stake,
+  first-demand index, symmetry, succession, duration, engine class and
+  others) are recorded as `PGW-RUNG*`, `PGW-C1-ENGINE-CLASS-144` and
+  `PGW-C2-RUN-FORWARD-EVERY-HISTORY`. Most are `CONDITIONAL`, and their Lean
+  is cited only at this repository.
+* **Authorization.** The Alpha harness and its License binding
+  (`docs/ALPHA_HANDOFF.md`) are recorded as `PGW-ALPHA-LICENSE-BINDING-M1-M8`
+  and feed `TFQ-0506`, a law that keeps repair, extension and promotion of
+  evidence apart.
+* **Genesis-Ongoing.** The 16 H3V7N5QF nodes record its obstruction and
+  fewest-changes results and its contraction, counted-assertion,
+  two-relation, admission-gate and leftover derivations (`PG-GEN-ONGOING-*`,
+  `PGW-GO-*`). They cite that repository by a sibling path and not by a
+  pinned commit.
+* **The gap.** The three routes from GENESIS to WDP are
+  `GAP_NO_DERIVATION`. Five bridge obligations (`GEN-WDP-O01` to `O05`) are
+  open in `PG-WDP-GENESIS-BRIDGE-OBLIGATIONS`. The sealed derivation does
+  not derive a Born rule, a complex field, an inner product or any other
+  structure of finite QM. The finite QM graph records each of those as
+  conditional, imported or open, with its price.
+
+**What the evidence map says about this repository.** Of the 106 nodes, 100
+are grade E0 in the finite QM evidence map. E0 means that map's checkout has
+no counted evidence file for the node. For these nodes that is mostly because
+the Lean and code they cite are here, not there. All 43 Lean references that
+finite QM pins to commit `85a83ae` (the head of `main` here when this section
+was written) name a file that exists here and a last name component that
+occurs in it. That is a citation check. It is not a replay of the Lean and
+not a review that each theorem states its node's claim. The checks that bear
+on this repository are the gates below.
+
+* Finite QM [README](https://github.com/dbccpage/theory_of_finite_quantum_mechanics#readme)
+  and [evidence map](https://github.com/dbccpage/theory_of_finite_quantum_mechanics/blob/main/docs/evidence/README.md),
+  with the [GENESIS stage table](https://github.com/dbccpage/theory_of_finite_quantum_mechanics/blob/main/docs/evidence/stages/GENESIS.md).
+  Its status page is built by a workflow in that repository for GitHub Pages
+  and is not published yet; [`docs/index.md`](https://github.com/dbccpage/theory_of_finite_quantum_mechanics/blob/main/docs/index.md)
+  is its source.
+
+This section is navigation for readers. It is not a derivational input, a
+citation of an outside result or a comparison. It adds nothing to the sealed
+paths, and nothing in them refers to it.
+
+---
+
 ## What is actually here
 
 A finite object language (data, forms, instances, rules, requirements)
@@ -20,15 +95,20 @@ proved, and — stated with equal precision — what was not.
 | | |
 |---|---|
 | Python | 60 typed source files; the computational object language and its studies |
-| Lean 4 | 75 modules, 63 in the root's import closure, 12 parked and audited separately |
-| Tests | 55 files, 787 collected: 786 passed / 1 skipped; line 99.10% / branch 96.71% |
+| Lean 4 | 75 modules, 63 in the root's import closure, 12 parked and audited separately; toolchain `leanprover/lean4:v4.33.0`, no Mathlib dependency |
+| Tests | 61 files, 919 tests collected at `85a83ae` (`pytest --collect-only`, 2026-10-22) |
 | Artifacts | 40 deterministic JSON exports plus 6 full gzipped trees |
 | Claims | 140 `CL-*` headings; schema and evidence ratchets expose the remaining legacy gaps |
 | Axioms | 1530 axiom reports, all within `{propext, Quot.sound}` |
+| Research | 118 registered trees under `research/`, outside the seal; 31 are enumerated by the `research` job (gate 11) and the rest are local receipts, per `research/README.md` |
 
-The Tests row records the local Python-job run of 2026-09-19. The earlier
-claim of a current census of 41 files and 481 collected tests is withdrawn
-as of that date; it was a historical count.
+The Tests row is a collection count, not a pass count. The last recorded
+passes are local receipts and were not re-run for this row: 786 passed and 1
+skipped (55 files, 787 collected; line 99.10% / branch 96.71%) on 2026-09-19,
+and 918 passed and 1 skipped at `fdd63af6` in `docs/GENESIS_CLOSEOUT.md`. The
+earlier claim of a current census of 41 files and 481 collected tests was
+withdrawn on 2026-09-19; it was a historical count. The row above supersedes
+the 2026-09-19 row.
 
 The derivation's result is not that some structure was built. It is
 that at the first point where the system had to answer, **the
@@ -156,10 +236,15 @@ code/derivation/model.py       regimes, events, replay
 invariants that break CI, and an injection record for the gate failure modes
 that have actually been tested.
 
+**The hand-off** — `docs/ALPHA_HANDOFF.md` states what code built on the
+sealed kernel may rely on, what stays host-supplied, and what is not
+provided. `docs/GENESIS_CLOSEOUT.md` records the closeout of the research
+stage. The finite QM graph cites both.
+
 ## Quick start
 
 ```powershell
-python -m pytest                    # 786 passed, 1 skipped in the 2026-09-19 local run
+python -m pytest                    # 919 collected at 85a83ae; last recorded run: 918 passed, 1 skipped (fdd63af6)
 python -m mypy                      # strict, over code/
 cd lean4; lake build; cd ..         # default targets; the census elaborates all 75 modules
 ```
