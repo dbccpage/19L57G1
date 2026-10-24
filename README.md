@@ -286,3 +286,5 @@ withdraws the identified broad readings and lists the finite evidence and
 open proof obligations for the affected research trees.
 
 `AuthorityEffect: None` — this repository records. It does not certify.
+
+Support this research: [Buy Me a Coffee](https://buymeacoffee.com/ooutwire).
