@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "lean_root": "ResearchUncollapse",
+  "pin_files": [
+    "input.json"
+  ],
+  "axiom_scope": "explicit_reports",
+  "axiom_declarations": [
+    "ResearchUncollapse.uncollapse_by_delta",
+    "ResearchUncollapse.collapsed_ruleAll",
+    "ResearchUncollapse.uncollapse_only_by_mention",
+    "ResearchUncollapse.recollapse_by_rule",
+    "ResearchUncollapse.recollapse_by_instance",
+    "ResearchUncollapse.collapsedIn_cons",
+    "ResearchUncollapse.uncollapse_family",
+    "ResearchUncollapse.separable_isApart",
+    "ResearchUncollapse.collapsed_iff_indist",
+    "ResearchUncollapse.collapsed_equivalence",
+    "ResearchUncollapse.familyApart_isApart",
+    "ResearchUncollapse.collapsedIn_iff_indist",
+    "ResearchUncollapse.recollapse_not_validResponse",
+    "ResearchUncollapse.separable_unadmitted",
+    "ResearchUncollapse.uncollapse_family_iff",
+    "ResearchUncollapse.family_index_dependence",
+    "ResearchUncollapse.uncollapse_only_by_mention_delta",
+    "ResearchUncollapse.mention_not_sufficient",
+    "ResearchUncollapse.recollapse_breaks_requirement",
+    "ResearchUncollapse.separable_of_not_collapsed",
+    "ResearchUncollapse.uncollapse_family_sep_iff",
+    "ResearchUncollapse.collapsedInR_cons",
+    "ResearchUncollapse.family_index_repaired",
+    "ResearchUncollapse.collapsedInR_rename_cons"
+  ]
+}
