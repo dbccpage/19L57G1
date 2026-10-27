@@ -21,6 +21,14 @@
     "ResearchUncollapse.recollapse_not_validResponse",
     "ResearchUncollapse.separable_unadmitted",
     "ResearchUncollapse.uncollapse_family_iff",
-    "ResearchUncollapse.family_index_dependence"
+    "ResearchUncollapse.family_index_dependence",
+    "ResearchUncollapse.uncollapse_only_by_mention_delta",
+    "ResearchUncollapse.mention_not_sufficient",
+    "ResearchUncollapse.recollapse_breaks_requirement",
+    "ResearchUncollapse.separable_of_not_collapsed",
+    "ResearchUncollapse.uncollapse_family_sep_iff",
+    "ResearchUncollapse.collapsedInR_cons",
+    "ResearchUncollapse.family_index_repaired",
+    "ResearchUncollapse.collapsedInR_rename_cons"
   ]
 }

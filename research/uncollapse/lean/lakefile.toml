@@ -7,5 +7,11 @@ defaultTargets = ["ResearchUncollapse"]
 name = "derivation"
 path = "../../../lean4"
 
+# applyItem_wf, ctxList and mem_ctxList of the ignition tree, consumed
+# read-only rather than re-proved.
+[[require]]
+name = "ignition"
+path = "../../ignition/lean"
+
 [[lean_lib]]
 name = "ResearchUncollapse"

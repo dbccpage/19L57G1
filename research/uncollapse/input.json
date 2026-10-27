@@ -6,7 +6,11 @@
     "Derivation.CountTransport",
     "Derivation.Inertia",
     "Derivation.Mention",
-    "Derivation.Minimality"
+    "Derivation.Minimality",
+    "Derivation.TransitionTransport"
   ],
-  "source_revision_note": "The commit this tree was first built against. Not verified: the Lean dependency is the working tree's ../../../lean4, and no digest of the consumed modules is pinned here."
+  "source_revision_note": "The commit this tree was first built against. Not verified: the Lean dependencies are the working tree's ../../../lean4 and ../../ignition/lean, and no digest of the consumed modules is pinned here, so the tests check that the modules exist, not that they are unchanged.",
+  "consumed_research_modules": {
+    "Ignition": "research/ignition/lean/Ignition.lean"
+  }
 }

@@ -4,6 +4,8 @@ import Derivation.Mention
 import Derivation.Inertia
 import Derivation.Minimality
 import Derivation.Apartness
+import Derivation.TransitionTransport
+import Ignition
 
 /-!
 # Can a new regime "uncollapse" `collapsed r a b`?
@@ -19,10 +21,15 @@ one of two readings:
 * (E) extension: `r'` is `r` after admissions (`applyItem` / `applyDelta`);
 * (F) family: collapse quantified over a set of regimes, and `r'` joins it.
 
-Under (E) the answer is yes, and exactly one item kind can do it.
-Under (F) the answer is yes exactly when `r'` itself fails to collapse the
-pair (a witnessed separation in `r'` suffices), provided the members share
-indices (see `family_index_dependence`).
+Under (E) the answer is yes (witness: a two-item delta, `uncollapse_by_delta`).
+On a well-formed regime, a delta keeps a collapsed pair collapsed unless one
+of its items is an instance mentioning a target datum
+(`uncollapse_only_by_mention_delta`); without well-formedness this fails.
+Under (F) the answer is yes exactly when `r'` separates the pair
+(`uncollapse_family_sep_iff`), provided the members share indices
+(`family_index_dependence`); with correspondence maps the family is
+presentation-relative and a renamed copy cannot uncollapse
+(`collapsedInR_rename_cons`).
 Section 3 ties both to `Apartness.lean`: `collapsed r` is `Indist` of the
 regime's own apartness `separable r`.
 -/
@@ -98,6 +105,28 @@ theorem uncollapse_only_by_mention (r : Regime) (hwf : r.wf) (it : Item)
         · intro p hp; rw [List.mem_singleton.mp hp]; exact hd'
     · cases hs
 
+/-- **The delta-level form.**  On a well-formed regime, a delta none of whose
+items is an instance mentioning `d` or `d'` keeps `collapsed r d d'`.  Each
+step stays well-formed by `Ignition.applyItem_wf`. -/
+theorem uncollapse_only_by_mention_delta {d d' : Nat} :
+    ∀ (δ : List Item) (r s : Regime), r.wf → applyDelta r δ = some s →
+      collapsed r d d' →
+      (∀ it ∈ δ, ¬ ∃ f args, it = .newInst f args ∧ (d ∈ args ∨ d' ∈ args)) →
+      collapsed s d d'
+  | [], r, s, _, hs, h, _ => by
+      have : s = r := (Option.some.inj hs).symm
+      subst this; exact h
+  | it :: rest, r, s, hwf, hs, h, hno => by
+      rw [applyDelta_cons] at hs
+      cases happ : applyItem r it with
+      | none => rw [happ] at hs; cases hs
+      | some t =>
+          rw [happ] at hs
+          exact uncollapse_only_by_mention_delta rest t s
+            (Ignition.applyItem_wf hwf happ) hs
+            (uncollapse_only_by_mention r hwf it t happ h (hno it List.mem_cons_self))
+            (fun it' hm => hno it' (List.mem_cons_of_mem _ hm))
+
 /-! Extension is not monotone in the other direction either: a pair that
 is separated can be collapsed again by a later admission.  So neither
 `collapsed` nor `separable` is preserved along extension in general. -/
@@ -123,6 +152,20 @@ theorem ctx_unary {r : Regime} (hf : r.forms = [1]) {c : Ctx}
       have : x = none := by simp at h3; exact h3.symm
       subst this; rfl
 
+/-- A regime whose one form carries the uniform rule. -/
+def Rall : Regime := ⟨2, [1], [], [0], []⟩
+/-- `Rall` with the instance `0 [0]`. -/
+def Rall0 : Regime := ⟨2, [1], [(0, [0])], [0], []⟩
+
+/-- **Mentioning is not sufficient.**  A collapsed pair, a newly admitted
+instance that mentions datum 0, and the pair is still collapsed (the rule
+already derives every plug). -/
+theorem mention_not_sufficient :
+    collapsed Rall 0 1 ∧ applyItem Rall (.newInst 0 [0]) = some Rall0 ∧
+      (0, [0]) ∉ Rall.insts ∧ collapsed Rall0 0 1 := by
+  refine ⟨?_, by decide, by decide, ?_⟩ <;>
+  · intro c hc; rw [ctx_unary rfl hc]; decide
+
 theorem recollapse_by_rule :
     separable U0 0 1 ∧ applyItem U0 (.newRuleAll 0) = some U0rule ∧
       collapsed U0rule 0 1 := by
@@ -139,21 +182,40 @@ theorem recollapse_by_instance :
   rw [ctx_unary rfl hc]
   decide
 
-/-- The rule re-collapse is an admissible operation but not an admissible
-RESPONSE: `U0` imposes the requirement `(0, 1)`, and `validResponse` demands
-that every imposed requirement stay separated.  Erasing a protected
-distinction by `applyItem` is not authorized by `validResponse`. -/
+/-- The rule re-collapse is not a valid response to the target `(0, 1)`:
+the target clause of `validResponse` fails, because the rule collapses the
+target itself.  The requirement clause plays no part here (this target is
+the protected pair); `recollapse_breaks_requirement` is the case where it
+does. -/
 theorem recollapse_not_validResponse :
-    applyDelta U0 [.newRuleAll 0] = some U0rule ∧ (0, 1) ∈ U0.reqs ∧
+    applyDelta U0 [.newRuleAll 0] = some U0rule ∧
       ¬ validResponse U0 0 1 [.newRuleAll 0] := by
-  have hc : collapsed U0rule 0 1 := recollapse_by_rule.2.2
-  refine ⟨by decide, by decide, ?_⟩
+  have hd : applyDelta U0 [.newRuleAll 0] = some U0rule := by decide
+  refine ⟨hd, ?_⟩
   intro ⟨s, hs, hsep, _⟩
-  have : s = U0rule := by
-    have h2 : applyDelta U0 [.newRuleAll 0] = some U0rule := by decide
-    rw [h2] at hs; exact (Option.some.inj hs).symm
-  subst this
-  exact separable_not_collapsed hsep hc
+  rw [hd] at hs
+  cases hs
+  exact separable_not_collapsed hsep recollapse_by_rule.2.2
+
+/-- `U0` after a fresh datum and the mark on datum 1. -/
+def U0new : Regime := ⟨3, [1], [(0, [0]), (0, [1])], [], [(0, 1)]⟩
+
+/-- **The requirement clause bites.**  The delta `newDatum, newInst 0 [1]`
+separates its target `(1, 2)` but collapses the imposed requirement
+`(0, 1)`, so it is not a valid response: erasing a protected distinction is
+not authorized by `validResponse`. -/
+theorem recollapse_breaks_requirement :
+    applyDelta U0 [.newDatum, .newInst 0 [1]] = some U0new ∧ (0, 1) ∈ U0.reqs ∧
+      separable U0new 1 2 ∧ collapsed U0new 0 1 ∧
+      ¬ validResponse U0 1 2 [.newDatum, .newInst 0 [1]] := by
+  have hd : applyDelta U0 [.newDatum, .newInst 0 [1]] = some U0new := by decide
+  have hc : collapsed U0new 0 1 := by
+    intro c hc; rw [ctx_unary rfl hc]; decide
+  refine ⟨hd, by decide, ⟨⟨0, [none]⟩, by decide, by decide⟩, hc, ?_⟩
+  intro ⟨s, hs, _, hreq⟩
+  rw [hd] at hs
+  cases hs
+  exact separable_not_collapsed (hreq (0, 1) (by decide)) hc
 
 /-- **Scope of `separable`.**  Its indices are bare naturals, not admitted
 data: `U0` admits data `0, 1` only, yet `separable U0 0 99` holds (the mark
@@ -173,33 +235,49 @@ presupposes that index `d` names one datum across all members.  Nothing in
 `Regime` supplies that correspondence; indices are presentation.  Single-regime
 collapse is rename-invariant (`Derivation.collapsed_rename`), but `collapsedIn`
 is not: see `family_index_dependence`.  A family over regimes with distinct
-presentations needs witnessed correspondence maps, which this tree does not
-build. -/
+presentations needs correspondence maps: `collapsedInR`. -/
 def collapsedIn (S : List Regime) (d d' : Nat) : Prop :=
   ∀ r ∈ S, collapsed r d d'
 
-/-- Adding `r'` to the family uncollapses exactly when `r'` separates
-(given the old family collapsed the pair). -/
+/-- Collapse in the extended family is collapse in `r'` and in the old
+family. -/
 theorem collapsedIn_cons (r' : Regime) (S : List Regime) (d d' : Nat) :
     collapsedIn (r' :: S) d d' ↔ collapsed r' d d' ∧ collapsedIn S d d' :=
-  ⟨fun h => ⟨h r' List.mem_cons_self, fun r hr => h r (List.mem_cons_of_mem _ hr)⟩,
-   fun h r hr => (List.mem_cons.mp hr).elim (fun e => e ▸ h.1) (fun hr => h.2 r hr)⟩
+  List.forall_mem_cons
 
 theorem uncollapse_family (r' : Regime) (S : List Regime) {d d' : Nat}
     (hs : separable r' d d') : ¬ collapsedIn (r' :: S) d d' :=
   fun h => separable_not_collapsed hs ((collapsedIn_cons r' S d d').mp h).1
 
-/-- The proved biconditional: given that the old family collapses the pair,
-the new family fails to collapse it exactly when `r'` fails to collapse it.
-Turning `¬ collapsed r'` into a witnessed `separable r'` is NOT proved here:
-constructively that needs an enumeration of the well-formed contexts.  What
-is available is `¬ collapsed r' ↔ ¬¬ separable r'` (from
-`collapsed_iff_indist`). -/
+/-- Given that the old family collapses the pair, the new family fails to
+collapse it exactly when `r'` fails to collapse it. -/
 theorem uncollapse_family_iff (r' : Regime) (S : List Regime) {d d' : Nat}
     (hS : collapsedIn S d d') :
     ¬ collapsedIn (r' :: S) d d' ↔ ¬ collapsed r' d d' :=
   ⟨fun h hc => h ((collapsedIn_cons r' S d d').mpr ⟨hc, hS⟩),
    fun h hc => h ((collapsedIn_cons r' S d d').mp hc).1⟩
+
+/-- **A witness from non-collapse.**  The well-formed contexts are enumerated
+by `Ignition.ctxList`, so a failure of collapse yields a separating context
+by a finite decidable search. -/
+theorem separable_of_not_collapsed (r : Regime) {d d' : Nat}
+    (h : ¬ collapsed r d d') : separable r d d' := by
+  by_cases hx : ∃ c ∈ Ignition.ctxList r,
+      ¬ (derivable r (plug c d) ↔ derivable r (plug c d'))
+  · obtain ⟨c, hc, hne⟩ := hx
+    exact ⟨c, Ignition.mem_ctxList.mp hc, hne⟩
+  · refine absurd (fun c hc => ?_) h
+    by_cases hi : derivable r (plug c d) ↔ derivable r (plug c d')
+    · exact hi
+    · exact absurd ⟨c, Ignition.mem_ctxList.mpr hc, hi⟩ hx
+
+/-- **U5 in full.**  Given that the old family collapses the pair, adding
+`r'` uncollapses it exactly when `r'` separates it. -/
+theorem uncollapse_family_sep_iff (r' : Regime) (S : List Regime) {d d' : Nat}
+    (hS : collapsedIn S d d') :
+    ¬ collapsedIn (r' :: S) d d' ↔ separable r' d d' :=
+  ⟨fun h => separable_of_not_collapsed r' ((uncollapse_family_iff r' S hS).mp h),
+   uncollapse_family r' S⟩
 
 /-- Three data, one unary mark on datum 0. -/
 def A3 : Regime := ⟨3, [1], [(0, [0])], [], []⟩
@@ -222,6 +300,34 @@ theorem family_index_dependence :
   refine ⟨by decide, hA, hB, ?_, ?_⟩
   · intro c hc; rw [ctx_unary rfl hc]; decide
   · intro h; exact separable_not_collapsed hB (h B3 (by simp))
+
+/-- **Presentation-relative family.**  Each member carries the map that sends
+the family's indices to its own presentation. -/
+def collapsedInR (S : List (Regime × (Nat → Nat))) (d d' : Nat) : Prop :=
+  ∀ p ∈ S, collapsed p.1 (p.2 d) (p.2 d')
+
+theorem collapsedInR_cons (p : Regime × (Nat → Nat))
+    (S : List (Regime × (Nat → Nat))) (d d' : Nat) :
+    collapsedInR (p :: S) d d' ↔ collapsed p.1 (p.2 d) (p.2 d') ∧ collapsedInR S d d' :=
+  List.forall_mem_cons
+
+/-- With its map, the renamed copy no longer breaks the family:
+`[(A3, id), (B3, swap01)]` collapses `1, 2`. -/
+theorem family_index_repaired : collapsedInR [(A3, id), (B3, swap01)] 1 2 := by
+  intro p hp
+  simp only [List.mem_cons, List.mem_nil_iff, or_false] at hp
+  rcases hp with rfl | rfl <;>
+  · intro c hc; rw [ctx_unary rfl hc]; decide
+
+/-- **A renamed copy cannot uncollapse.**  Adding a member's renaming by a
+bijection, carried with the composed map, keeps the family's collapse
+(`Derivation.collapsed_rename`). -/
+theorem collapsedInR_rename_cons {S : List (Regime × (Nat → Nat))} {d d' : Nat}
+    (hS : collapsedInR S d d') {r : Regime} {ρ : Nat → Nat} (hm : (r, ρ) ∈ S)
+    {n : Nat} (σ : DRen n) (hn : r.data = n) :
+    collapsedInR ((renameRegime σ.f r, σ.f ∘ ρ) :: S) d d' :=
+  (collapsedInR_cons _ _ d d').mpr
+    ⟨(collapsed_rename σ r hn (ρ d) (ρ d')).mpr (hS _ hm), hS⟩
 
 /-! ## 3. The apartness reading (`Apartness.lean`)
 
@@ -248,16 +354,18 @@ theorem collapsed_iff_indist (r : Regime) (d d' : Nat) :
     · exact hi
     · exact absurd ⟨c, hc, hi⟩ h
 
-/-- Hence `collapsed r` is an equivalence by `Apartness.indist_equivalence`,
-with transitivity paid for by cotransitivity of `separable r`. -/
-theorem collapsed_equivalence (r : Regime) :
-    (∀ x, Apartness.Indist (separable r) x x) ∧
-    (∀ x y, Apartness.Indist (separable r) x y →
-      Apartness.Indist (separable r) y x) ∧
-    (∀ x y z, Apartness.Indist (separable r) x y →
-      Apartness.Indist (separable r) y z →
-      Apartness.Indist (separable r) x z) :=
-  Apartness.indist_equivalence (separable_isApart r)
+/-- `collapsed r` is an equivalence, obtained here by transport through
+`collapsed_iff_indist` from `Apartness.indist_equivalence`.  This is a
+consistency check between the two notions, not the cheapest proof: collapse
+is an equivalence directly, context by context, by `Iff.refl`, `Iff.symm`
+and `Iff.trans` (`Derivation.collapsed_symm`, `Ignition.collapsed_trans`),
+without cotransitivity. -/
+theorem collapsed_equivalence (r : Regime) : Equivalence (collapsed r) := by
+  obtain ⟨hr, hs, ht⟩ := Apartness.indist_equivalence (separable_isApart r)
+  have e := collapsed_iff_indist r
+  exact ⟨fun x => (e x x).mpr (hr x),
+    fun h => (e _ _).mpr (hs _ _ ((e _ _).mp h)),
+    fun h1 h2 => (e _ _).mpr (ht _ _ _ ((e _ _).mp h1) ((e _ _).mp h2))⟩
 
 /-- The family apartness: separated by some member.  A union of
 apartnesses is an apartness, and its indistinguishability is `collapsedIn`. -/
