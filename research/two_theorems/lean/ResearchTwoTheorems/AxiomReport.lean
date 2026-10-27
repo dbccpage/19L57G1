@@ -1,0 +1,97 @@
+import ResearchTwoTheorems
+
+/-!
+Axiom report for every declaration CLAIMS.md cites.  Compiled by
+`verify.py` with `lake env lean`; never a census module.
+-/
+
+-- Theorem I: Observer
+#print axioms ResearchTwoTheorems.verdictB_false_iff_sigEq
+#print axioms ResearchTwoTheorems.sep_irrefl
+#print axioms ResearchTwoTheorems.sep_witness_ne
+#print axioms ResearchTwoTheorems.verdict_irrefl
+#print axioms ResearchTwoTheorems.separation_fact_not_law
+#print axioms ResearchTwoTheorems.sharp_iff_fiberIdentity
+#print axioms ResearchTwoTheorems.sharp_iff_presentationIdentity
+#print axioms ResearchTwoTheorems.verdict_ceiling
+#print axioms ResearchTwoTheorems.resolution_ceiling
+#print axioms ResearchTwoTheorems.not_sharp_of_many_fibers
+#print axioms ResearchTwoTheorems.bitObserver_sharp
+#print axioms ResearchTwoTheorems.sharp_observable_of_fibers_le
+#print axioms ResearchTwoTheorems.not_sharp_observable_of_fibers_gt
+#print axioms ResearchTwoTheorems.sharp_observable_iff
+#print axioms ResearchTwoTheorems.absolute_observer_iff
+#print axioms ResearchTwoTheorems.no_absolute_observer_of_large_carrier
+-- Theorem I(d): Capacity
+#print axioms ResearchTwoTheorems.Capacity.tight_1_0
+#print axioms ResearchTwoTheorems.Capacity.tight_2_0
+#print axioms ResearchTwoTheorems.Capacity.tight_3_0
+#print axioms ResearchTwoTheorems.Capacity.tight_2_1
+#print axioms ResearchTwoTheorems.Capacity.tight_3_1
+#print axioms ResearchTwoTheorems.Capacity.tight_2_2
+#print axioms ResearchTwoTheorems.Capacity.exact_threshold
+-- Theorem II: Institution
+#print axioms ResearchTwoTheorems.Institution.knows_iff_determined
+#print axioms ResearchTwoTheorems.Institution.knows_member
+#print axioms ResearchTwoTheorems.Institution.knows_actor
+#print axioms ResearchTwoTheorems.Institution.knows_comp
+#print axioms ResearchTwoTheorems.Institution.knows_join
+#print axioms ResearchTwoTheorems.Institution.knows_mono
+#print axioms ResearchTwoTheorems.Institution.information_le_carrier
+#print axioms ResearchTwoTheorems.Institution.information_known_le
+#print axioms ResearchTwoTheorems.Institution.information_mono
+#print axioms ResearchTwoTheorems.Institution.information_append_of_knows
+#print axioms ResearchTwoTheorems.Institution.know_or_witness
+#print axioms ResearchTwoTheorems.Institution.not_knows_iff_witness
+#print axioms ResearchTwoTheorems.Institution.not_knows_iff_split
+#print axioms ResearchTwoTheorems.Institution.information_lt_of_not_knows
+#print axioms ResearchTwoTheorems.Institution.knows_iff_information_eq
+#print axioms ResearchTwoTheorems.Institution.known_extension_inert
+#print axioms ResearchTwoTheorems.Institution.self_inclusion_inert
+#print axioms ResearchTwoTheorems.Institution.self_inclusion_information
+#print axioms ResearchTwoTheorems.Institution.institution_is_actor
+#print axioms ResearchTwoTheorems.Institution.member_sharp_iff
+#print axioms ResearchTwoTheorems.Institution.institution_exceeds_members
+#print axioms ResearchTwoTheorems.Institution.sharp_institution_iff_mutual_knowledge
+#print axioms ResearchTwoTheorems.Institution.pooled_merges_iff
+#print axioms ResearchTwoTheorems.Institution.pooled_merges_iff_certNeg
+#print axioms ResearchTwoTheorems.Institution.certPos_imp_pooled
+#print axioms ResearchTwoTheorems.Institution.pooled_not_certPos
+#print axioms ResearchTwoTheorems.Institution.information_le_resolution
+#print axioms ResearchTwoTheorems.Institution.wise_of_represented
+-- Theorem II, interpreter level: Diagonal
+#print axioms ResearchTwoTheorems.Diagonal.no_closed_self_interpreter
+#print axioms ResearchTwoTheorems.Diagonal.catalogue_incomplete
+#print axioms ResearchTwoTheorems.Diagonal.diag_not_member
+#print axioms ResearchTwoTheorems.Diagonal.diag_known_witness
+#print axioms ResearchTwoTheorems.Diagonal.diag_unknown_witness
+#print axioms ResearchTwoTheorems.Diagonal.membership_vs_knowledge
+#print axioms ResearchTwoTheorems.Diagonal.tower_persists_operational
+#print axioms ResearchTwoTheorems.Correspondence.collapsed_of_merged
+#print axioms ResearchTwoTheorems.Correspondence.constant_collapses_all
+#print axioms ResearchTwoTheorems.Correspondence.constant_not_faithful
+#print axioms ResearchTwoTheorems.Correspondence.faithful_iff_fiberIdentity
+#print axioms ResearchTwoTheorems.Correspondence.faithful_actor_iff
+#print axioms ResearchTwoTheorems.Correspondence.empty_actor_constant
+#print axioms ResearchTwoTheorems.Correspondence.empty_actor_not_faithful
+#print axioms ResearchTwoTheorems.Correspondence.verdict_pullback
+#print axioms ResearchTwoTheorems.Correspondence.sharp_pullback_iff
+#print axioms ResearchTwoTheorems.Correspondence.fiberConstant_of_sharp_pullback
+#print axioms ResearchTwoTheorems.Correspondence.faithful_of_sharp_identity
+#print axioms ResearchTwoTheorems.Correspondence.sharp_identity_pullback
+#print axioms ResearchTwoTheorems.RegimeBridge.mem_admitted
+#print axioms ResearchTwoTheorems.RegimeBridge.mem_ctxView
+#print axioms ResearchTwoTheorems.RegimeBridge.not_mem_ctxView_of_unadmitted
+#print axioms ResearchTwoTheorems.RegimeBridge.verdict_regime_iff
+#print axioms ResearchTwoTheorems.RegimeBridge.collapsed_iff_verdict_false
+#print axioms ResearchTwoTheorems.RegimeBridge.collapsed_iff_sigEq
+#print axioms ResearchTwoTheorems.RegimeBridge.sharp_regime_iff
+#print axioms ResearchTwoTheorems.RegimeBridge.regime_knows_iff
+#print axioms ResearchTwoTheorems.RegimeBridge.regimeInformation_le
+#print axioms ResearchTwoTheorems.RegimeBridge.verdict_mono
+#print axioms ResearchTwoTheorems.RegimeBridge.recollapse_changes_views
+#print axioms ResearchTwoTheorems.RegimeBridge.unary_enumeration
+#print axioms ResearchTwoTheorems.RegimeBridge.R0_separable
+#print axioms ResearchTwoTheorems.RegimeBridge.R0rule_collapsed
+#print axioms ResearchTwoTheorems.RegimeBridge.recollapse_witness
+#print axioms ResearchTwoTheorems.RegimeBridge.recollapse_witness_changes_views

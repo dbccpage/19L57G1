@@ -1,0 +1,13 @@
+{
+  "source_revision": "fc6349e05fb135fe0bdc0613f2ea1cc16390de00",
+  "consumed_modules": [
+    "Derivation.Basic",
+    "Derivation.CapacityBound",
+    "Derivation.Compression",
+    "Derivation.InterpreterBoundary",
+    "Derivation.NoOutside",
+    "Derivation.PresentationRelativity",
+    "Derivation.Represented"
+  ],
+  "source_revision_note": "The main commit this tree was built against (research/uncollapse merged). Not verified by any gate: the Lean dependency is the working tree's ../../../lean4, and no digest of the consumed modules is pinned here."
+}
