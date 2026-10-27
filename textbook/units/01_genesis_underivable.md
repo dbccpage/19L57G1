@@ -3,6 +3,7 @@
 **Claim.** In the starting ledger, no judgment instance is derivable.
 **Status:** derived. **Lean:** `Derivation.genesis_underivable`
 (`lean4/Derivation/Inertia.lean`, line 21). **Axioms:** none.
+**Depends on (admitted):** `Inst`, `Regime`, `genesis`, `derivable`.
 
 This is the first theorem of Genesis and the smallest one. It is worth
 reading slowly, because every later proof uses the same three moves: unfold
@@ -125,6 +126,25 @@ logic beyond these two lookups. **Status:** admitted (paper §3 item 4).
 The Python checks the two halves in the other order. `or` does not care
 about order, so the two definitions agree.
 
+## Where the theorem lives
+
+Three things must be kept apart before reading the theorem.
+
+1. **The inscription.** The seed gives one opaque whole, `<>` (Unit 00).
+   Nothing in it supplies a regime, a form, an instance or a notion of
+   derivation.
+2. **The admitted representation.** `Inst`, `Regime`, `genesis` and
+   `derivable` above are mathematical apparatus supplied from outside, in
+   Lean's metatheory. They are chosen, and the choice is marked admitted.
+3. **The theorem.** `genesis_underivable` is proved *inside* that
+   representation, about the regime `genesis` and the relation `derivable`.
+
+**We have not derived a regime from ⟨⟩. We have chosen a formal
+representation in which to investigate what the initial mark can and cannot
+establish.** The theorem needs no extra hypothesis, but it is a theorem about
+the chosen representation. It does not show that this representation was
+forced, and nothing later in the book shows that either.
+
 ## The theorem
 
 ```lean
@@ -186,8 +206,9 @@ reads Genesis's committed report.
 Python cannot quantify over every instance; there are infinitely many. The
 check below tries every instance with form number at most 3 and argument
 lists of length at most 3 over data numbers 0 to 3, and confirms none is
-derivable in `EMPTY`. That is a finite sample, not a proof. The proof is the
-Lean above.
+derivable in `EMPTY`. That is a finite sample, not a proof and not an
+exhaustive verification either: the instances are infinite and the script
+tries 340 of them. The proof is the Lean above.
 
 ```
 python textbook/checks/u01_genesis_underivable.py
@@ -199,9 +220,12 @@ at Challenge 0 is empty.
 
 ## What it shows, and what it does not
 
-It shows that the starting ledger supports no judgment at all. There is no
-"true" statement yet, not even about ⟨⟩, because there is no form to state
-anything with and no instance to state.
+It shows that the starting ledger supports no judgment instance: none is
+derivable under the declared inference mechanism, not even one about ⟨⟩,
+because there is no admitted instance and no admitted rule. This is a claim
+about derivability inside the admitted judgment system. It is not a claim
+about truth outside it, and Lean's own metatheory, in which the theorem is
+proved, is full of true statements.
 
 It does not show that nothing will ever follow. Later events can admit forms
 and instances. That nothing *must* follow, that no next step is forced, is a
@@ -211,6 +235,10 @@ different claim, and Genesis marks it admitted rather than proved
 It does not show that the room is empty because ⟨⟩ is "nothing". The ledger
 is empty because no admission event has happened. Whether ⟨⟩ belongs in it
 is the open question of Unit 05.
+
+It does not show that the representation is the right one. The theorem is
+exact inside `Regime` and `derivable`; why the starting point should be
+modelled this way at all is admitted, not proved (Unit 00).
 
 It is a statement about one regime. Unit 02 proves the general version: any
 regime with no instances and no rules derives nothing, however many data and
