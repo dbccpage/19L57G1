@@ -18,8 +18,11 @@ stated. It has content under two readings, both answered here.
   (`uncollapse_only_by_mention`, assembled from R1, R2 and R3 of
   `Derivation/Mention.lean` and `collapsed_ruleAll`), and so does a whole
   delta (`uncollapse_only_by_mention_delta`, chained by
-  `Ignition.applyItem_wf`). Well-formedness is needed: on a regime with an
-  instance argument beyond its data, a fresh datum can uncollapse. Mentioning
+  `Ignition.applyItem_wf`). Well-formedness is a hypothesis of both. That it
+  is needed rests on a counterexample worked by hand and not in Lean: in
+  `⟨1, [2], [(0, [1, 0])], [], []⟩`, whose one instance names datum 1 beyond
+  its single datum, `collapsed 0 2` holds, and after a fresh datum the context
+  `0 [1, _]` separates the pair. Mentioning
   is necessary, not sufficient (`mention_not_sufficient`). Extension is non-monotone in both directions: a
   rule or a second mark collapses a separated pair again
   (`recollapse_by_rule`, `recollapse_by_instance`).
