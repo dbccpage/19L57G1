@@ -17,6 +17,10 @@
     "ResearchUncollapse.collapsed_iff_indist",
     "ResearchUncollapse.collapsed_equivalence",
     "ResearchUncollapse.familyApart_isApart",
-    "ResearchUncollapse.collapsedIn_iff_indist"
+    "ResearchUncollapse.collapsedIn_iff_indist",
+    "ResearchUncollapse.recollapse_not_validResponse",
+    "ResearchUncollapse.separable_unadmitted",
+    "ResearchUncollapse.uncollapse_family_iff",
+    "ResearchUncollapse.family_index_dependence"
   ]
 }

@@ -3,8 +3,10 @@
   "consumed_modules": [
     "Derivation.Apartness",
     "Derivation.Basic",
+    "Derivation.CountTransport",
     "Derivation.Inertia",
     "Derivation.Mention",
     "Derivation.Minimality"
-  ]
+  ],
+  "source_revision_note": "The commit this tree was first built against. Not verified: the Lean dependency is the working tree's ../../../lean4, and no digest of the consumed modules is pinned here."
 }

@@ -20,8 +20,22 @@ stated. It has content under two readings, both answered here.
   rule or a second mark collapses a separated pair again
   (`recollapse_by_rule`, `recollapse_by_instance`).
 - **Family** (collapse in every member of a list of regimes; `r'` joins).
-  Yes, exactly when `r'` separates the pair (`collapsedIn_cons`,
-  `uncollapse_family`).
+  Yes, exactly when `r'` does not collapse the pair
+  (`uncollapse_family_iff`); a witnessed separation in `r'` suffices
+  (`uncollapse_family`). This compares the same indices in every member, so
+  it presupposes that an index names one datum across the family. Indices
+  are presentation: a regime and its renaming disagree on a raw pair
+  (`family_index_dependence`). Families of differently presented regimes
+  need witnessed correspondence maps, not built here.
+
+Re-collapse is an operation, not an authorized response: the rule that
+re-collapses `U0` fails `validResponse`, because `U0` imposes `(0, 1)`
+(`recollapse_not_validResponse`). Erasing a distinction and being licensed
+to erase it are different.
+
+`separable` and `collapsed` take bare naturals, not admitted data
+(`separable_unadmitted`: `separable U0 0 99` with 99 unadmitted). Nothing
+here is restricted to `d, d' < r.data`.
 
 Link to `Derivation/Apartness.lean`: `separable r` is an `IsApart`
 (`separable_isApart`, constructive), and
@@ -33,7 +47,9 @@ every member.
 Not claimed: anything about the observation-based collapse of
 `ContactBridge.lean` or collapse under renaming; that `applyItem` preserves
 `Regime.wf` (needed to chain the single-item result along a delta); that the
-regime structure itself is forced by primitive difference.
+regime structure itself is forced by primitive difference; that
+`input.json`'s `source_revision` is checked (the Lean dependency is the
+working tree's `lean4/`, and no module digests are pinned).
 
 `python verify.py --check` runs the input pin, tests, strict typing, the Lean
 build and the named axiom reports. `python verify.py --write-pins`

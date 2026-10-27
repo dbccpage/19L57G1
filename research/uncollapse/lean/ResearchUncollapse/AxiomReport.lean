@@ -13,3 +13,7 @@ import ResearchUncollapse
 #print axioms ResearchUncollapse.collapsed_equivalence
 #print axioms ResearchUncollapse.familyApart_isApart
 #print axioms ResearchUncollapse.collapsedIn_iff_indist
+#print axioms ResearchUncollapse.recollapse_not_validResponse
+#print axioms ResearchUncollapse.separable_unadmitted
+#print axioms ResearchUncollapse.uncollapse_family_iff
+#print axioms ResearchUncollapse.family_index_dependence
