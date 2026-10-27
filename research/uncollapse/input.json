@@ -1,0 +1,10 @@
+{
+  "source_revision": "23979a46308219b4cc9e7e172e4e32511f8efdb0",
+  "consumed_modules": [
+    "Derivation.Apartness",
+    "Derivation.Basic",
+    "Derivation.Inertia",
+    "Derivation.Mention",
+    "Derivation.Minimality"
+  ]
+}

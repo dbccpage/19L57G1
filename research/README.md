@@ -163,6 +163,7 @@ Lean layout. The first and last also have explicit build-recipe entries.
 | `two_sided_commitment` | local receipt only |  |
 | `typed_translation` | workflow (gate 11) |  |
 | `unboundedness` | local receipt only |  |
+| `uncollapse` | local receipt only |  |
 | `x300_observer_information` | local receipt only |  |
 | `x301_formal_semantics` | local receipt only |  |
 | `x302_operational_reasoning` | local receipt only |  |

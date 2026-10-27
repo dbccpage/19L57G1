@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "lean_root": "ResearchUncollapse",
+  "pin_files": [
+    "input.json"
+  ],
+  "axiom_scope": "explicit_reports",
+  "axiom_declarations": [
+    "ResearchUncollapse.uncollapse_by_delta",
+    "ResearchUncollapse.collapsed_ruleAll",
+    "ResearchUncollapse.uncollapse_only_by_mention",
+    "ResearchUncollapse.recollapse_by_rule",
+    "ResearchUncollapse.recollapse_by_instance",
+    "ResearchUncollapse.collapsedIn_cons",
+    "ResearchUncollapse.uncollapse_family",
+    "ResearchUncollapse.separable_isApart",
+    "ResearchUncollapse.collapsed_iff_indist",
+    "ResearchUncollapse.collapsed_equivalence",
+    "ResearchUncollapse.familyApart_isApart",
+    "ResearchUncollapse.collapsedIn_iff_indist"
+  ]
+}

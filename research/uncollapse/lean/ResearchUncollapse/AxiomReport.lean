@@ -1,0 +1,15 @@
+import ResearchUncollapse
+
+-- Exact reach is the declaration list in TREE_CONTRACT.json.
+#print axioms ResearchUncollapse.uncollapse_by_delta
+#print axioms ResearchUncollapse.collapsed_ruleAll
+#print axioms ResearchUncollapse.uncollapse_only_by_mention
+#print axioms ResearchUncollapse.recollapse_by_rule
+#print axioms ResearchUncollapse.recollapse_by_instance
+#print axioms ResearchUncollapse.collapsedIn_cons
+#print axioms ResearchUncollapse.uncollapse_family
+#print axioms ResearchUncollapse.separable_isApart
+#print axioms ResearchUncollapse.collapsed_iff_indist
+#print axioms ResearchUncollapse.collapsed_equivalence
+#print axioms ResearchUncollapse.familyApart_isApart
+#print axioms ResearchUncollapse.collapsedIn_iff_indist
