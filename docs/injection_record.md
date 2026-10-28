@@ -405,3 +405,12 @@ stand in `research/alpha_engine/STATUS.md`.
 | B3 binding (M3, M4) | `check_license_binding` removed and the fresh evaluation taken from the call (target, the evidence's measure and bounds), as before the repair | `B3 REPRODUCED: a License granted at one source node was accepted at a relabelled source`; also another history, target `(1, 2)` used at `(0, 1)`, mu1 used for mu2, `Bounds(2, 2)` used under `(2, 3)` and `(2, 1)`, through `explore`; and `H4 REPRODUCED: a unique mu2 class was admitted under a License granted for mu1` (8 lines, 7 tests) | 7 tests pass |
 | One command, failing check (M8) | one byte of `evidence/handoff_demo.json` changed | `FAIL: test_committed_record_matches (test_handoff.HandoffDemonstrations...)`, `FAIL: tests exited 1`, the seven later steps listed `NOT RUN`, exit 1 | exit 0, all nine steps PASS |
 | One command, skipped check (M8) | `evidence/lean.json` moved aside, so a unit test skips | `SKIPPED CHECK: tests: test_lean_gate.CommittedRecord.test_record_is_within_the_whitelist_and_not_a_proof`, `FAIL: tests skipped a check`, later steps `NOT RUN`, exit 1 | exit 0 |
+
+## Textbook verification gate (2026-10-28, PR #287 review)
+
+| Gate | Injection | Observed failure | Recovery |
+|---|---|---|---|
+| `lean` job Python setup (`tests/test_run_gates.py`) | `actions/setup-python@v5` or `Install pinned dependencies` removed from `lean:` in `.github/workflows/verify.yml` | `AssertionError: job 'lean' is missing actions/setup-python@v5` | passes with both steps present before the first Python command |
+| `textbook` job book-Lean gate (`ci/check_textbook.py --lean-only`) | `freshTok s12 = 3 := rfl` changed to `freshTok s12 = 99 := rfl` in `textbook/checks/u59_lean.py` | `FAIL: textbook/checks/u59_lean.py exited 1` (`U59.lean:7:0: error: Not a definitional equality ... lean exit code 1`), exit 1 | exit 0 (`textbook book-Lean checks: 71 passed`) |
+| `textbook` video pacing gate (`ci/check_textbook.py --python-only`) | first segment in `textbook/video_script_15s.md` changed to 11 words in 3 s (220 wpm) | `FAIL: video_script_15s.md: segment 0:00-0:03: pace 220.0 wpm exceeds 160.0 wpm`, exit 1 | exit 0 (`video_script_15s.md pacing: ok (4 segments, 15s total, all <= 160 wpm)`) |
+
