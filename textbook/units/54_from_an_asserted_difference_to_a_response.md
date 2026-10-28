@@ -1,6 +1,6 @@
 # Unit 54. From an asserted difference to a response
 
-**Claim.** The declared passage machine keeps assertion, retention, protection, observation, and execution distinct. Under the stated obstruction hypotheses it offers repair or extension proposals. Their execution still depends on the relevant guards.
+**Claim.** The declared passage machine keeps assertion, retention, protection, observation, and execution distinct. Under the stated obstruction hypotheses it offers an observation repair or a funded column creation.
 
 **Status:** FROZEN; ADMITTED (the convention that gate 4 reads `true`
 before any observation is declared, `zeroDeclP`, and the policy
@@ -19,7 +19,7 @@ history by `foldl`), Unit 44 (a zero relation as an equivalence).
 
 Assert a pair first; retain it separately; then record protection and declare the observer. These steps have different fields and effects.
 
-If a retained protected pair is still merged by the observer, inspect the response family. A structural repair can still be available. Executing an existing-column refinement needs budget; creating a column also needs the license. Both require the machine not to be halted.
+If a retained protected pair is still merged by the observer, inspect the response family. Proposing a response and executing it are separate: execution checks its budget, license, and other guards.
 
 ## Detailed claim and formal anchors
 

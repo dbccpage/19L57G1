@@ -1,23 +1,8 @@
 # Unit 48. Generating the stream from the state, and describing the kernel to itself: the one thing that stays outside
 
-**Claim.** `Constitution` replaces the supplied stream of Unit 45 by a
-generated one. A policy datum (`Policy`: idle, tower, close) sits beside
-the world; a fixed interpreter `nextFamily` maps the pair to the
-complete family of next event blocks (empty, one tower block, or every
-accepted repair and extension of every violated requirement:
-`closeBlocks_complete_repair`, `closeBlocks_complete_aug`); a quiescent
-world generates the empty family (`nextFamily_stop`); the driver
-`towerGen` appends the tower family's unique member at each stage and
-reproduces the supplied stream exactly (`driver_reproduces_tower`). The
-fresh name is the carrier length, fresh along the tower
-(`freshName_fresh_on_tower`) and not in general
-(`freshName_not_fresh_generally`). The driver is assessed on a
-nine-level ladder (`tower_driver_autonomy`) whose level 4, internal
-triggering, is stated as not attained. The kernel's guards are written
-as a six-bit descriptor (`ConstitutionDesc`); a fixed family interpreter
-`interpStep` executes any descriptor; the all-on descriptor executes to
-exactly the sealed step (`interp_describe`); the family is completely
-enumerated (`allDescs_complete`, 64 members). **Status:** derived
+**Claim.** A stored policy and fixed interpreter generate the declared next-event families. The tower driver reproduces its supplied stream, while the interpreter and its iteration remain part of the declared apparatus.
+
+**Status:** derived
 relative to the fixed interpreter and its metatheoretic iteration; the
 interpreter is not a member of the family it interprets, the module's
 named irreducible obligation and the one OPEN row of the dependency
@@ -28,6 +13,41 @@ thirteen `{propext, Quot.sound}`. **Depends on:** Unit 45 (`histUpTo`,
 `worldAt`, `blockEvents`, `worldAt_growth`,
 `worldAt_three_quiescent`), Unit 46 (`augFamily`,
 `augFamily_retains_ties`).
+
+## First pass
+
+A policy tells the interpreter which next-event family to produce. A driver then selects or appends the specified block according to its declared rule.
+
+Read those roles separately. Storing the policy does not derive the interpreter, and the tower's fresh-name rule is proved fresh only along its specified run.
+
+## Detailed claim and formal anchors
+
+`Constitution` replaces the supplied stream of Unit 45 by a
+generated one.
+
+A policy datum (`Policy`: idle, tower, close) sits beside
+the world; a fixed interpreter `nextFamily` maps the pair to the
+complete family of next event blocks (empty, one tower block, or every
+accepted repair and extension of every violated requirement:
+`closeBlocks_complete_repair`, `closeBlocks_complete_aug`); a quiescent
+world generates the empty family (`nextFamily_stop`); the driver
+`towerGen` appends the tower family's unique member at each stage and
+reproduces the supplied stream exactly (`driver_reproduces_tower`).
+
+The
+fresh name is the carrier length, fresh along the tower
+(`freshName_fresh_on_tower`) and not in general
+(`freshName_not_fresh_generally`).
+
+The driver is assessed on a
+nine-level ladder (`tower_driver_autonomy`) whose level 4, internal
+triggering, is stated as not attained.
+
+The kernel's guards are written
+as a six-bit descriptor (`ConstitutionDesc`); a fixed family interpreter
+`interpStep` executes any descriptor; the all-on descriptor executes to
+exactly the sealed step (`interp_describe`); the family is completely
+enumerated (`allDescs_complete`, 64 members).
 
 ## Question
 

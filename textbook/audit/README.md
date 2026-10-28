@@ -51,7 +51,7 @@ the paper and the ledger, and reproducible from the files named.
 | Command | `lake build` in `lean4/` (both default targets, `Derivation` and `ParkedAudit`) |
 | Toolchain | Lean 4.33.0 (`d8b18978322de05a8f3dba51ef03cf5461676c17`), Lake from the same release tarball, Linux x86_64 |
 | Tree | `461e6d47ee53cf89b7fac57f6e1b653f3ec6eadf`; sealed paths byte-identical to `33100245` |
-| Exit code | 0 (last line of [`lake_build_receipt.log`](lake_build_receipt.log)) |
+| Exit code | 0 (last line of `lake_build_receipt.log` (historical local log; not tracked in this checkout)) |
 | Build | 80 jobs, replayed from this session's earlier full build of the same sources; one pre-existing linter warning (`Progress.lean:31`, `simpa`) |
 | Axiom reports | 1 530 `#print axioms` lines in the log |
 | `python ci/check_lean_audit.py textbook/audit/lake_build_receipt.log` | exit 0: "77 sources, 1530 axiom reports, axioms within ['Quot.sound', 'propext']" |
@@ -285,3 +285,7 @@ substantive theorems, a title and the question answered, and the theorems
 to omit as immediate corollaries. `textbook/derivation_coverage.md` will
 map every module to its lesson or to a reason for omission, and the lesson
 dependency graph is built from the §10 prerequisites.
+
+**Availability note, 2026-10-28.** The log named in the historical receipt above is not tracked in this checkout. Its recorded outcomes remain historical reports; the missing log is not linked as downloadable evidence. A fresh build produces a separate local receipt.
+
+**Census correction, 2026-10-28.** Direct imports and the transitive import closure are different populations. The local parked-module checker reports 63 modules in the root closure and 12 parked, totaling 75; the earlier statement of 13 parked modules was incorrect.

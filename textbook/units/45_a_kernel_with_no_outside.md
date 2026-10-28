@@ -1,29 +1,8 @@
 # Unit 45. A kernel with no outside: what must be in the state for progress to be replayable?
 
-**Claim.** `Represented` answers an external challenge of 2026-08-12
-with one small kernel. A `World` holds admitted tokens, view columns,
-recorded requirements, recorded refusals, a budget, an augmentation
-license and an inert `notes` field; eight kinds of `Event` carry their
-own content; a guarded `step` takes the world and the event and nothing
-else; `replay` folds a history. Relative to this fixed constitution
-(grammar, separation law, response menu, guards, history producer),
-the step factors through the represented support
-(`support_determines`), is invariant under replay-equivalence
-(`equiv_step`, `equiv_replay`, `equiv_repairFamily`), keeps all tied
-repairs (`repairFamily_retains_ties`), and an accepted repair or
-augmentation is sound (`step_mark_sound`, `satB_aug`, `aug_increases`).
-On a well-formed world every violation has a non-empty repair family or
-is a certified obstruction whose canonical one-column augmentation is
-accepted and discharges it (`represented_progress`); budget and license
-gate the application (`progress_needs_budget`, `progress_needs_license`);
-violations arise only from `require` (`violation_only_from_require`,
-`quiescent_stable`); a supplied stream gives a prefix-compatible
-unbounded run (`productive_run`); a refusal needs the certificate
-(`refusal_needs_certificate`). Certification by a panel of represented
-evaluators is exactly joint separation by the panel's own columns
-(`cert_scope`) and is not correspondence (`cert_not_correspondence`,
-`cert_panel_relative`). Eight countermodels fail exactly one theorem
-each. **Status:** derived relative to the declared constitution;
+**Claim.** In the declared represented kernel, operational results depend on the stored support and supplied events. The notes field is inert; progress also depends on the stated guards and well-formedness conditions.
+
+**Status:** derived relative to the declared constitution;
 `represented_progress` conditional on `WF`, which is an invariant of
 replay; `step_mark_sound` and `aug_increases` conditional on their
 guards; the productive run is about a supplied stream; the countermodels
@@ -34,6 +13,48 @@ lines 58-1362, core Lean only. **Axioms:** `wf_genesis` and
 17 congruence helpers are not in the report. **Depends on:** nothing in
 Genesis; the discipline of Units 29 and 44 (recorded requirement,
 exhaustive menu, three separate conditions).
+
+## First pass
+
+Separate the state from the event. The state records what is present; an event requests one specified operation.
+
+The step function checks the guards and returns the next state. Replaying the same history reconstructs that sequence. Certification remains relative to the supplied evaluator panel.
+
+## Detailed claim and formal anchors
+
+`Represented` answers an external challenge of 2026-08-12
+with one small kernel.
+
+A `World` holds admitted tokens, view columns,
+recorded requirements, recorded refusals, a budget, an augmentation
+license and an inert `notes` field; eight kinds of `Event` carry their
+own content; a guarded `step` takes the world and the event and nothing
+else; `replay` folds a history.
+
+Relative to this fixed constitution
+(grammar, separation law, response menu, guards, history producer),
+the step factors through the represented support
+(`support_determines`), is invariant under replay-equivalence
+(`equiv_step`, `equiv_replay`, `equiv_repairFamily`), keeps all tied
+repairs (`repairFamily_retains_ties`), and an accepted repair or
+augmentation is sound (`step_mark_sound`, `satB_aug`, `aug_increases`).
+
+On a well-formed world every violation has a non-empty repair family or
+is a certified obstruction whose canonical one-column augmentation is
+accepted and discharges it (`represented_progress`); budget and license
+gate the application (`progress_needs_budget`, `progress_needs_license`);
+violations arise only from `require` (`violation_only_from_require`,
+`quiescent_stable`); a supplied stream gives a prefix-compatible
+unbounded run (`productive_run`); a refusal needs the certificate
+(`refusal_needs_certificate`).
+
+Certification by a panel of represented
+evaluators is exactly joint separation by the panel's own columns
+(`cert_scope`) and is not correspondence (`cert_not_correspondence`,
+`cert_panel_relative`).
+
+Eight countermodels fail exactly one theorem
+each.
 
 ## Question
 

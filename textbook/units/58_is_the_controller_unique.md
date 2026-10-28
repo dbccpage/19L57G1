@@ -1,38 +1,8 @@
 # Unit 58. Is the controller unique? Simulations, the absorbing halt, and uniqueness only along replay
 
-**Claim.** Unit 49 showed the kernel's descriptor unique among 64
-guard-toggle descriptors under six probes, and its scope note said that
-uniqueness was relative to that class. `ControllerCategory` widens the
-class: a *controller* is one enable bit per event kind of the passage
-dynamics (Unit 54), the supply event always on; an enabled event runs
-the sealed `step`, a disabled one is inert. There are 1024 controllers
-(`allKinds_complete`), the all-on one is the sealed step
-(`interpK_full`), and 128 of them enable the three response kinds
-(`live_census`). Every live controller resolves the funded obstruction
-`OBST5` by the two-rule block (`tworule_executable_of_live`); disabling
-`addCol`, `setBudget` or `refineCol` leaves an obstruction standing on a
-state where that kind is load-bearing, over the kernel's own battery of
-blocks (`dead_without_addcol`, `dead_without_budget`,
-`dead_without_refine`). Two live controllers, all-on and refusal-free,
-agree on every refusal-free event at every state (`nonrefuse_agree`)
-and differ at a certified obstruction (`refuse_distinguishes`): probe
-compliance does not pin a controller. A *simulation* between
-controllers is a state map commuting with the controlled step; the
-category laws hold (`comp_id`, `id_comp`, `comp_assoc`); refusal
-erasure is a simulation from the all-on to the refusal-free controller
-(`erase_sim`). But the halted state absorbs every event, so every
-constant map to a halted state is a simulation between any two
-controllers: every pair is connected (`every_pair_connected`), no pair
-has a unique simulation (`sims_never_unique`), and no controller is
-initial, in the whole class or among the live ones (`no_initial_ctrl`,
-`no_initial_live_ctrl`). Demanding that a simulation fix genesis and
-preserve liveness excludes the constants (`const_not_strict`) but not
-non-uniqueness: a twist keyed to a step-invariant that genesis lacks is
-a second strict simulation (`strict_not_unique`). What survives is
-agreement on the replay orbit: any two strict simulations from the
-all-on to the refusal-free controller agree on every state replayed
-from genesis (`strict_agree_on_reachable`, via `sim_pinned` and
-`reachable_no_dup`). **Status:** FROZEN; VERIFIED_FINITE (the 1024
+**Claim.** Controller uniqueness depends on the comparison and simulation requirements. The stated strict-controller result gives agreement along replay; unrestricted simulations allow many alternatives.
+
+**Status:** FROZEN; VERIFIED_FINITE (the 1024
 census, the 128, the three batteries); REFUTED (initiality; strict
 global uniqueness); CONDITIONAL (the orbit agreement, for the one
 hom-set the theorem names). **Lean:**
@@ -42,6 +12,62 @@ hom-set the theorem names). **Lean:**
 the `setRef` field lemmas). **Depends on:** Unit 54 (`PState`, `PEvent`,
 `step`, `replayP`, `genesisP`, `obstP`, `nextFamilyP`, `step_halted`),
 Unit 49 (the six-toggle uniqueness and its scope note).
+
+## First pass
+
+A controller enables or disables specified kinds of event. A simulation is a state map that commutes with the controlled transition.
+
+A constant map into an absorbing halted state can satisfy a weak simulation condition. Read the additional strictness requirements before interpreting uniqueness, and keep agreement on the reachable replay orbit separate from agreement on every state.
+
+## Detailed claim and formal anchors
+
+Unit 49 showed the kernel's descriptor unique among 64
+guard-toggle descriptors under six probes, and its scope note said that
+uniqueness was relative to that class. `ControllerCategory` widens the
+class: a *controller* is one enable bit per event kind of the passage
+dynamics (Unit 54), the supply event always on; an enabled event runs
+the sealed `step`, a disabled one is inert.
+
+There are 1024 controllers
+(`allKinds_complete`), the all-on one is the sealed step
+(`interpK_full`), and 128 of them enable the three response kinds
+(`live_census`).
+
+Every live controller resolves the funded obstruction
+`OBST5` by the two-rule block (`tworule_executable_of_live`); disabling
+`addCol`, `setBudget` or `refineCol` leaves an obstruction standing on a
+state where that kind is load-bearing, over the kernel's own battery of
+blocks (`dead_without_addcol`, `dead_without_budget`,
+`dead_without_refine`).
+
+Two live controllers, all-on and refusal-free,
+agree on every refusal-free event at every state (`nonrefuse_agree`)
+and differ at a certified obstruction (`refuse_distinguishes`): probe
+compliance does not pin a controller.
+
+A *simulation* between
+controllers is a state map commuting with the controlled step; the
+category laws hold (`comp_id`, `id_comp`, `comp_assoc`); refusal
+erasure is a simulation from the all-on to the refusal-free controller
+(`erase_sim`).
+
+But the halted state absorbs every event, so every
+constant map to a halted state is a simulation between any two
+controllers: every pair is connected (`every_pair_connected`), no pair
+has a unique simulation (`sims_never_unique`), and no controller is
+initial, in the whole class or among the live ones (`no_initial_ctrl`,
+`no_initial_live_ctrl`).
+
+Demanding that a simulation fix genesis and
+preserve liveness excludes the constants (`const_not_strict`) but not
+non-uniqueness: a twist keyed to a step-invariant that genesis lacks is
+a second strict simulation (`strict_not_unique`).
+
+What survives is
+agreement on the replay orbit: any two strict simulations from the
+all-on to the refusal-free controller agree on every state replayed
+from genesis (`strict_agree_on_reachable`, via `sim_pinned` and
+`reachable_no_dup`).
 
 ## Question
 

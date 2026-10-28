@@ -1,20 +1,8 @@
 # Unit 50. From stage 3 to every stage: characterising the generated run
 
-**Claim.** `Horizon` writes down the complete record of the generated
-world at stage `k` (`specWorld k`: carrier `0..k`, one singleton column
-`[i+1]` and one requirement `(0, i+1)` per earlier stage, no refusals,
-budget spent to zero, licensed) and proves by induction that the supplied
-run equals it at every stage (`worldAt_spec`). From the characterisation
-it reads off quiescence (`worldAt_quiescent`), well-formedness
-(`worldAt_wf`) and the acceptance of each of the four events of every
-block (`block_all_accepted`, `genesis_accepted`), and lifts the first two
-to the driver's generated run (`gen_quiescent`, `gen_wf`) through Unit
-48's `driver_reproduces_tower`. A second theorem pins the budget
-semantics shared with the Python mirror: for every descriptor and every
-event the family interpreter leaves the budget alone, applies the
-saturating `Nat` decrement, or sets it by an explicit `setBudget`
-(`interp_budget_bound`); the audit's countermodel at budget zero is a
-no-op in Lean, decided over all 64 descriptors. **Status:** FROZEN (the
+**Claim.** The characterized generated run is well formed and quiescent at every stage under its declared construction. The theorem extends the earlier finite examples by induction on the stage.
+
+**Status:** FROZEN (the
 every-stage theorems), VERIFIED_FINITE (the two saturation instances);
 correction module of the second review (C6 repaired upward, C10
 repaired). **Lean:** `lean4/Derivation/Horizon.lean` lines 45-422,
@@ -23,6 +11,34 @@ Quot.sound}`. **Depends on:** Unit 45 (`histUpTo`, `worldAt`,
 `blockEvents`, `worldAt_three_quiescent`, `WF`), Unit 48 (`towerGen`,
 `genWorld`, `driver_reproduces_tower`, `interpStep`), Unit 49 (the probe
 worlds, reused for the budget pin).
+
+## First pass
+
+A check at stage 3 establishes only that instance. An induction first checks the initial stage and then proves that one round preserves the full state description.
+
+The resulting every-stage theorem concerns this specified driver and state formula. It does not replace them with an arbitrary future process.
+
+## Detailed claim and formal anchors
+
+`Horizon` writes down the complete record of the generated
+world at stage `k` (`specWorld k`: carrier `0..k`, one singleton column
+`[i+1]` and one requirement `(0, i+1)` per earlier stage, no refusals,
+budget spent to zero, licensed) and proves by induction that the supplied
+run equals it at every stage (`worldAt_spec`).
+
+From the characterisation
+it reads off quiescence (`worldAt_quiescent`), well-formedness
+(`worldAt_wf`) and the acceptance of each of the four events of every
+block (`block_all_accepted`, `genesis_accepted`), and lifts the first two
+to the driver's generated run (`gen_quiescent`, `gen_wf`) through Unit
+48's `driver_reproduces_tower`.
+
+A second theorem pins the budget
+semantics shared with the Python mirror: for every descriptor and every
+event the family interpreter leaves the budget alone, applies the
+saturating `Nat` decrement, or sets it by an explicit `setBudget`
+(`interp_budget_bound`); the audit's countermodel at budget zero is a
+no-op in Lean, decided over all 64 descriptors.
 
 ## Question
 

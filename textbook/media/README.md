@@ -21,6 +21,9 @@ derivation.
 | [`build_wiki_textbook.py`](build_wiki_textbook.py) | Mirrors all Part 1 units (`U00`–`U74+`), all Part 2 institution units (`I00`–`I17+`), the synced research trees page (`textbook_research_trees.md`), and 6 hub/map pages into `19L57G1.wiki.git`, placing `## Textbook` as the second subsection in `_Sidebar.md`. |
 | [`verify_wiki_textbook.py`](verify_wiki_textbook.py) | Verifies the `_Sidebar.md` heading order, all mirrored unit pages, all synced research trees on `main`, all internal Wiki page links, and the `<= 15.0s` duration cap on all 12 Manim animations. |
 | [`genesis_15s_explorer.html`](genesis_15s_explorer.html) | Self-contained interactive HTML widget providing a 12-Act fifteen-second soundbite tour, a prediction challenge with streak counter, a live Part 1 Regime simulator, and a Part 2 Actor/Institution sandbox. |
+| [`check_manim_layout.py`](check_manim_layout.py) | Checks actual text bounds and text intersections at each settled animation state, and saves final frames for visual inspection. Requires Manim. |
+| [`test_wiki_textbook.py`](test_wiki_textbook.py) | Regression checks for complete claims, classification extraction, bounded previews, relative links, and the Unit 71 example. |
+| `wiki_guides/` | Source-controlled explanations copied into the Wiki on regeneration; historical source links retain their original pins. |
 
 ---
 
@@ -49,7 +52,7 @@ Whenever new textbook units (`textbook/units/*.md` or `textbook/institutions/uni
 
 ```powershell
 # 1. Render all 12 Manim scenes (requires Python 3.12 with manim 0.19.2 and ffmpeg)
-py -3.12 textbook/media/render_manim_suite.py
+py -3.12 textbook/media/render_manim_suite.py --output-dir path/to/19L57G1.wiki/media/manim
 
 # 2. Build all mirrored Wiki pages, research tree sync page, and _Sidebar.md
 python textbook/media/build_wiki_textbook.py --wiki-root path/to/19L57G1.wiki
@@ -57,3 +60,20 @@ python textbook/media/build_wiki_textbook.py --wiki-root path/to/19L57G1.wiki
 # 3. Verify _Sidebar.md heading order, research tree sync, internal links, and <=15.0s video durations
 python textbook/media/verify_wiki_textbook.py --wiki-root path/to/19L57G1.wiki
 ```
+
+The renderer defaults to `artifacts2/manim` and `artifacts2/manim_build`.
+Use `--work-dir` to change its scratch location, or repeat `--scene SLUG`
+to render selected scenes. It does not publish the Wiki.
+
+Check layout and generator regressions locally:
+
+```powershell
+py -3.12 textbook/media/check_manim_layout.py
+python -m unittest discover -s textbook/media -p test_wiki_textbook.py
+```
+
+Inspect the saved frames as well as the geometry results. The layout check
+covers settled states; it does not certify every intermediate frame or
+reading speed. Captions fade out before replacements fade in, and outline
+highlights preserve text colors. Fifteen seconds is the overview-video
+duration, not an expected learning time for a complete lesson.

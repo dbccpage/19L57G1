@@ -1,28 +1,8 @@
 # Unit 56. Sameness earned from difference, and what orientation adds
 
-**Claim.** `Apartness` takes a relation `r` read as "apart" and asks what
-laws on `r` make its negation, *indistinguishable*, behave as sameness
-should. The answer is three admitted laws, bundled as `IsApart r`:
-irreflexive, symmetric, cotransitive. Under them `Indist r` is an
-equivalence (`indist_equivalence`), and each law is spent at exactly
-one clause: irreflexivity buys reflexivity, symmetry buys symmetry,
-cotransitivity buys transitivity. Each omission is refuted by a minimal
-finite countermodel: bare assertion on one point breaks reflexivity
-(`bare_breaks_refl`); the oriented two-point relation breaks symmetry
-(`irrefl_alone_breaks_symm`), and no one-point relation can
-(`subsingleton_indist_total`); one symmetrised edge on three points
-breaks transitivity (`symm_without_cotrans_breaks_trans`), and no
-two-point relation can (`two_point_indist_trans`). The oriented relation
-`D2` and its reverse generate the same apartness and so the same
-sameness (`orientations_same_apartness`) while remaining different data
-(`orientations_differ`); the swap fixes the apartness and moves the
-retained witness (`retained_orientation_not_swap_invariant`). On two
-points, exactly the identity preserves the oriented witness
-(`oriented_preserver_unique`), exactly the identity and the swap preserve
-the apartness (`apart_preserver_pair`), the two constants preserve
-neither (`collapse_preserves_neither`), and the closure of an admitted
-family preserves the orientation exactly when every generator does
-(`clos_oriented_iff`). **Status:** FROZEN (every theorem);
+**Claim.** Under admitted irreflexivity, symmetry, and cotransitivity, the negation of apartness is an equivalence relation. Countermodels show why each law matters.
+
+**Status:** FROZEN (every theorem);
 ADMITTED (the three laws of `IsApart`, each a priced admission);
 VERIFIED_FINITE (the equivalence on every relation of carriers 1-3, the
 censuses to carrier 4). **Lean:** `lean4/Derivation/Apartness.lean`
@@ -31,6 +11,48 @@ lines 55-336, imports `PrimitiveCore`. **Axioms:** 28 exported reports;
 function-equality facts, none otherwise. **Depends on:** Unit 24
 (`irrefl_witness_ne`), Unit 51 (`Cotrans`, `cotrans_auto_on_two`),
 Unit 52 (`D2`, `S2`, the swap), Unit 37 (`Clos`).
+
+## First pass
+
+Read apartness as the relation the system positively records. Indistinguishability means that this apartness relation does not hold.
+
+Irreflexivity makes each item indistinguishable from itself. Symmetry gives symmetry of indistinguishability. Cotransitivity supplies its transitivity. The lesson tests what fails when each assumption is removed.
+
+## Detailed claim and formal anchors
+
+`Apartness` takes a relation `r` read as "apart" and asks what
+laws on `r` make its negation, *indistinguishable*, behave as sameness
+should.
+
+The answer is three admitted laws, bundled as `IsApart r`:
+irreflexive, symmetric, cotransitive.
+
+Under them `Indist r` is an
+equivalence (`indist_equivalence`), and each law is spent at exactly
+one clause: irreflexivity buys reflexivity, symmetry buys symmetry,
+cotransitivity buys transitivity.
+
+Each omission is refuted by a minimal
+finite countermodel: bare assertion on one point breaks reflexivity
+(`bare_breaks_refl`); the oriented two-point relation breaks symmetry
+(`irrefl_alone_breaks_symm`), and no one-point relation can
+(`subsingleton_indist_total`); one symmetrised edge on three points
+breaks transitivity (`symm_without_cotrans_breaks_trans`), and no
+two-point relation can (`two_point_indist_trans`).
+
+The oriented relation
+`D2` and its reverse generate the same apartness and so the same
+sameness (`orientations_same_apartness`) while remaining different data
+(`orientations_differ`); the swap fixes the apartness and moves the
+retained witness (`retained_orientation_not_swap_invariant`).
+
+On two
+points, exactly the identity preserves the oriented witness
+(`oriented_preserver_unique`), exactly the identity and the swap preserve
+the apartness (`apart_preserver_pair`), the two constants preserve
+neither (`collapse_preserves_neither`), and the closure of an admitted
+family preserves the orientation exactly when every generator does
+(`clos_oriented_iff`).
 
 ## Question
 

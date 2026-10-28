@@ -1,32 +1,8 @@
 # Unit 57. The interpreter is not in its own family: what a notes-diagonal does and does not show
 
-**Claim.** The sealed constitution (Unit 48) has a 64-member family of
-codes `ConstitutionDesc`, one fixed evaluator `interpStep` that runs any
-code, and a verified self-description: the all-on code executes to the
-sealed step (`interp_describe`). The evaluator is a function over the
-codes and is not one of them. `InterpreterBoundary` studies that
-boundary and proves exactly this much. **I1**, `tower_persists`: for any
-finite list of codes and any evaluation map into step functions, some
-step function differs from every coded one. The witness is a diagonal
-that, at the world whose datum count is the code's index, runs that
-code and appends one element to the operationally inert `notes` field.
-**I2**, `i2_universal_in_class`: the pair of `allDescs_complete` and
-`interp_describe`. **I3**, `evalOpt`: one evaluator on
-`Option ConstitutionDesc` that returns `none` for the uncoded input, by
-definition. **I4**, `family_missed`: I1 at the sealed family. **I5**: a
-`PrimitiveCore.Setting` on the 65-element carrier whose asserted,
-retained and protected relation is the single ordered pair (kernel
-code, uncoded role); it satisfies A and F (`i5_boundary_is_A`,
-`i5_boundary_is_F`) and identifying its two endpoints is obstructed
-under irreflexivity (`i5_collapse_obstructed`). What is *not* proved,
-and is recorded as such: that the uncoded role means anything, that the
-missed function is "the interpreter", or that the boundary difference
-changes any accessible verdict. `arbitrary_uncoded_assignment` proves
-that any function at all can be assigned to the uncoded role, so the
-existence of such an assignment grounds nothing. The denotational
-bridge is the OPEN label `openDenotationalBridge`; the identification
-of the boundary with a primitive difference is the retained conjecture
-`frontierConjecture`. **Status:** FROZEN (the thirteen theorems);
+**Claim.** A notes-diagonal step differs from every member of the finite constitution-code family. Because notes are operationally inert, this does not establish the meaning of an uncoded interpreter role.
+
+**Status:** FROZEN (the thirteen theorems);
 VERIFIED_FINITE (the 65-count, the Python diagonal over 64 indices);
 ADMITTED (the relation, retention and protection of `boundarySetting`,
 inserted by definition); OPEN (the denotational bridge; absolute
@@ -38,6 +14,50 @@ on:** Unit 45 (`World`, `step`, `supp`, `notes_inert`), Unit 48
 (`ConstitutionDesc`, `interpStep`, `kernelDesc`, `allDescs`,
 `interp_describe`), Unit 25 (`FidelityObstruction`,
 `obstruction_under_irrefl`), Unit 51 (`Setting`, A, F).
+
+## First pass
+
+There are 64 constitution descriptors and one fixed interpreter that executes them. A descriptor and the function interpreting descriptors have different types and roles.
+
+The diagonal witness changes notes to differ from every coded step. That proves the stated difference of functions; the operational meaning of an uncoded role remains an open bridge.
+
+## Detailed claim and formal anchors
+
+The sealed constitution (Unit 48) has a 64-member family of
+codes `ConstitutionDesc`, one fixed evaluator `interpStep` that runs any
+code, and a verified self-description: the all-on code executes to the
+sealed step (`interp_describe`).
+
+The evaluator is a function over the
+codes and is not one of them. `InterpreterBoundary` studies that
+boundary and proves exactly this much. **I1**, `tower_persists`: for any
+finite list of codes and any evaluation map into step functions, some
+step function differs from every coded one.
+
+The witness is a diagonal
+that, at the world whose datum count is the code's index, runs that
+code and appends one element to the operationally inert `notes` field.
+**I2**, `i2_universal_in_class`: the pair of `allDescs_complete` and
+`interp_describe`. **I3**, `evalOpt`: one evaluator on
+`Option ConstitutionDesc` that returns `none` for the uncoded input, by
+definition. **I4**, `family_missed`: I1 at the sealed family. **I5**: a
+`PrimitiveCore.Setting` on the 65-element carrier whose asserted,
+retained and protected relation is the single ordered pair (kernel
+code, uncoded role); it satisfies A and F (`i5_boundary_is_A`,
+`i5_boundary_is_F`) and identifying its two endpoints is obstructed
+under irreflexivity (`i5_collapse_obstructed`).
+
+What is *not* proved,
+and is recorded as such: that the uncoded role means anything, that the
+missed function is "the interpreter", or that the boundary difference
+changes any accessible verdict. `arbitrary_uncoded_assignment` proves
+that any function at all can be assigned to the uncoded role, so the
+existence of such an assignment grounds nothing.
+
+The denotational
+bridge is the OPEN label `openDenotationalBridge`; the identification
+of the boundary with a primitive difference is the retained conjecture
+`frontierConjecture`.
 
 ## Question
 

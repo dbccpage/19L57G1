@@ -1,15 +1,38 @@
 # Unit 61: Compressing a presentation against a question list
 
+**Claim.** On a supplied finite domain, compression may merge data only when they agree on the declared questions. A first-match representative preserves exactly those answer signatures.
+
 | field | value |
 |---|---|
-| **Claim** | Over a represented finite domain `D : List Nat` and a declared question family `Q : List (Nat → Nat)`, a question `q` factors through a presentation `p : Nat → Nat` on `D` if and only if the fibers of `p` over `D` are `q`-constant (`factors_iff_fiberConstant`), with the factoring map unique on the `p`-image of `D` (`factor_unique_on_image`) and not unique off it (`factor_not_unique_off_image`). The first-match signature quotient `pQ D Q` has fibers on `D` equal to the `Q`-signature classes (`pQ_exact`), is `Q`-adequate (`pQ_adequate`), and factors through every `Q`-adequate presentation on `D` (`pQ_coarsest`). Every adequacy failure on `D` is witnessed by an explicit question in `Q` (`descent_witness`). A class splits under a new family `Q'` if and only if `Q'` contains a separator across an old `Q`-agreement (`splits_iff_new_separator`), which cannot be a function of the old signature (`refine_requires_separator`), whereas duplicating `Q` (`dup_no_refine`) or appending a function of `sigList Q` (`postcompose_no_refine`) refines nothing. Adequacy for all families `Q` is equivalent to injectivity on `D` (`absolute_adequacy_iff_injective`). Splitting enlargements are neither unique (`refinement_not_unique`) nor unique among equal-length families (`refinement_tie`), and every strict split under a subfamily enlargement strictly increases `classCount D Q ≤ D.length` (`strict_split_increases`, `refine_bounded`), bounding any strict refinement chain on a nonempty domain `D` to fewer than `D.length` steps (`strict_steps_lt`). |
 | **Mark** | `FROZEN` for `sigEq_iff_sigList`, `factors_iff_fiberConstant`, `factor_unique_on_image`, `pQ_exact`, `pQ_adequate`, `pQ_unique_on_image`, `enlarge_refines`, `splits_iff_new_separator`, `absolute_adequacy_iff_injective`, `dup_no_refine`, `postcompose_no_refine`, `refine_bounded`, and the 16 list/counting helper lemmas; `CONDITIONAL` for `pQ_coarsest` (on `Adequate D Q p`), `descent_witness` (on `p x = p x'` and `¬ SigEq Q x x'`), `refine_requires_separator` (on `SplitsAt D Q Q' x`), `classCount_pos`, `chain_bounded`, and `strict_steps_lt` (on `D ≠ []`), and `strict_split_increases` (on `Q ⊆ Q'`, `x ∈ D`, `SplitsAt D Q Q' x`); `REFUTED` for off-image factoring uniqueness (`factor_not_unique_off_image`), refinement uniqueness (`refinement_not_unique`), and minimum-length refinement uniqueness (`refinement_tie`). |
 | **Role** | Target-relative presentation compression (`lean4/Derivation/Compression.lean`, `code/derivation/compression.py`), imported downstream by `ObsDescent`, `ContactKernel`, `ClosureSymmetry`, `PresentationRelativity`, and `ResidualClosure`. |
-| **AuthorityEffect** | `None`. Neither `PrimitiveCore.Step` nor `DiffObs` appears in `Compression.lean`; the connection between presentations `p : Nat → Nat` and observer projections is established later in `ObsDescent` (Unit 63). |
+| **AuthorityEffect** | `None`. Neither `PrimitiveCore.Step` nor `DiffObs` appears in `Compression.lean`; the connection between presentations `p : Nat → Nat` and observer projections is established later in `ObsDescent` (Unit 67). |
 | **Source** | `lean4/Derivation/Compression.lean` (787 lines; 14 definitions, 38 theorems, 22 in `artifacts/lean_axioms.txt`); `code/derivation/compression.py` (509 lines); `code/run_compression.py` (117 lines); `artifacts/compression.json`; `textbook/audit/modules/Compression.md`. |
-| **Axioms** | 13 of the 22 artifact theorems use no axioms (`sigEq_iff_sigList`, `factor_unique_on_image`, `factor_not_unique_off_image`, `pQ_unique_on_image`, `descent_witness`, `enlarge_refines`, `splits_iff_new_separator`, `absolute_adequacy_iff_injective`, `refine_requires_separator`, `refinement_not_unique`, `refinement_tie`, `classCount_pos`, plus all 3 book theorems in `Textbook.U61`); 4 use `[Quot.sound]` (`factors_iff_fiberConstant`, `pQ_exact`, `pQ_adequate`, `pQ_coarsest`); 2 use `[propext]` (`dup_no_refine`, `postcompose_no_refine`); 4 use `[propext, Quot.sound]` (`refine_bounded`, `strict_split_increases`, `chain_bounded`, `strict_steps_lt`). |
+| **Axioms** | 12 of the 22 artifact theorems use no axioms (`sigEq_iff_sigList`, `factor_unique_on_image`, `factor_not_unique_off_image`, `pQ_unique_on_image`, `descent_witness`, `enlarge_refines`, `splits_iff_new_separator`, `absolute_adequacy_iff_injective`, `refine_requires_separator`, `refinement_not_unique`, `refinement_tie`, `classCount_pos`; separately, all 3 book theorems in `Textbook.U61` use no axioms); 4 use `[Quot.sound]` (`factors_iff_fiberConstant`, `pQ_exact`, `pQ_adequate`, `pQ_coarsest`); 2 use `[propext]` (`dup_no_refine`, `postcompose_no_refine`); 4 use `[propext, Quot.sound]` (`refine_bounded`, `strict_split_increases`, `chain_bounded`, `strict_steps_lt`). |
 
 ---
+
+## First pass
+
+A presentation assigns a label to each datum. A fiber is the group of data with one label.
+
+A question factors through the presentation when its answer can be recovered from that label alone. If two merged data need different answers, recovery fails.
+
+For D = [0, 1, 2] and one question with answers [0, 0, 1], the first-match representative is [0, 0, 2]. Data 0 and 1 share a representative; datum 2 stays separate.
+
+## Detailed claim and formal anchors
+
+Over a represented finite domain `D : List Nat` and a declared question family `Q : List (Nat → Nat)`, a question `q` factors through a presentation `p : Nat → Nat` on `D` if and only if the fibers of `p` over `D` are `q`-constant (`factors_iff_fiberConstant`), with the factoring map unique on the `p`-image of `D` (`factor_unique_on_image`) and not unique off it (`factor_not_unique_off_image`).
+
+The first-match signature quotient `pQ D Q` has fibers on `D` equal to the `Q`-signature classes (`pQ_exact`), is `Q`-adequate (`pQ_adequate`), and factors through every `Q`-adequate presentation on `D` (`pQ_coarsest`).
+
+Every adequacy failure on `D` is witnessed by an explicit question in `Q` (`descent_witness`).
+
+A class splits under a new family `Q'` if and only if `Q'` contains a separator across an old `Q`-agreement (`splits_iff_new_separator`), which cannot be a function of the old signature (`refine_requires_separator`), whereas duplicating `Q` (`dup_no_refine`) or appending a function of `sigList Q` (`postcompose_no_refine`) refines nothing.
+
+Adequacy for all families `Q` is equivalent to injectivity on `D` (`absolute_adequacy_iff_injective`).
+
+Splitting enlargements are neither unique (`refinement_not_unique`) nor unique among equal-length families (`refinement_tie`), and every strict split under a subfamily enlargement strictly increases `classCount D Q ≤ D.length` (`strict_split_increases`, `refine_bounded`), bounding any strict refinement chain on a nonempty domain `D` to fewer than `D.length` steps (`strict_steps_lt`).
 
 ## Question
 
@@ -563,3 +586,5 @@ Unit 61 Compression check: factorization_iff=True; quotient_exact_adequate_coars
 $ python textbook/checks/u61_lean.py
 Unit 61 Lean check: exit=0; axiom reports as expected: 25 of 25; failures: []
 ```
+
+**Count correction, 2026-10-28.** The artifact contains 12 axiom-free Compression reports, not 13. The three book theorems are a separate population.

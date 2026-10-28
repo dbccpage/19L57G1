@@ -6,11 +6,12 @@ post-freeze research extensions. Every animation is strictly <= 15.0 seconds.
 
 from __future__ import annotations
 
+import argparse
 import subprocess
 import sys
 from pathlib import Path
 from manim import (
-     Scene,
+    Scene,
     Text,
     VGroup,
     RoundedRectangle,
@@ -21,10 +22,11 @@ from manim import (
     DashedLine,
     FadeIn,
     FadeOut,
+    Succession,
     Write,
     Create,
     Transform,
-    Indicate,
+    Circumscribe,
     UP,
     DOWN,
     LEFT,
@@ -45,6 +47,24 @@ MUTED = "#94A3B8"
 WHITE_HEX = "#F8FAFC"
 
 
+def fitted_text(text: str, width: float, height: float, **kwargs) -> Text:
+    """Wrap at word boundaries before fitting text inside its reserved region."""
+    lines = []
+    for paragraph in text.split("\n"):
+        line = ""
+        for word in paragraph.split():
+            candidate = f"{line} {word}".strip()
+            if line and Text(candidate, **kwargs).width > width:
+                lines.append(line)
+                line = word
+            else:
+                line = candidate
+        lines.append(line)
+    result = Text("\n".join(lines), line_spacing=0.8, **kwargs)
+    scale = min(1.0, width / max(result.width, 0.001), height / max(result.height, 0.001))
+    return result.scale(scale)
+
+
 def header_banner(act_label: str, title: str, badge: str) -> VGroup:
     bar = RoundedRectangle(
         width=13.2,
@@ -55,14 +75,14 @@ def header_banner(act_label: str, title: str, badge: str) -> VGroup:
         fill_color=CARD_BG,
         fill_opacity=0.95,
     ).to_edge(UP, buff=0.25)
-    t_act = Text(act_label, font_size=18, color=GOLD, weight="BOLD").move_to(
-        bar.get_left() + RIGHT * 1.5 + UP * 0.16
+    t_act = fitted_text(act_label, 3.0, 0.60, font_size=18, color=GOLD, weight="BOLD").move_to(
+        bar.get_left() + RIGHT * 1.7
     )
-    t_title = Text(title, font_size=22, color=WHITE_HEX, weight="BOLD").move_to(
-        bar.get_center() + UP * 0.16
+    t_title = fitted_text(title, 9.1, 0.38, font_size=22, color=WHITE_HEX, weight="BOLD").move_to(
+        bar.get_center() + RIGHT * 1.7 + UP * 0.18
     )
-    t_badge = Text(badge, font_size=15, color=CYAN).move_to(
-        bar.get_center() + DOWN * 0.22
+    t_badge = fitted_text(badge, 9.1, 0.22, font_size=12, color=CYAN).move_to(
+        bar.get_center() + RIGHT * 1.7 + DOWN * 0.23
     )
     return VGroup(bar, t_act, t_title, t_badge)
 
@@ -77,7 +97,7 @@ def footer_caption(text_str: str, color: str = WHITE_HEX) -> VGroup:
         fill_color=CARD_BG,
         fill_opacity=0.95,
     ).to_edge(DOWN, buff=0.25)
-    txt = Text(text_str, font_size=19, color=color).move_to(box.get_center())
+    txt = fitted_text(text_str, 12.6, 0.56, font_size=19, color=color).move_to(box.get_center())
     return VGroup(box, txt)
 
 
@@ -97,11 +117,11 @@ def make_card(
         fill_color=CARD_BG,
         fill_opacity=0.95,
     )
-    t1 = Text(title, font_size=22, color=stroke, weight="BOLD").move_to(
-        rect.get_center() + UP * 0.28
+    t1 = fitted_text(title, width - 0.35, height * 0.36, font_size=22, color=stroke, weight="BOLD").move_to(
+        rect.get_center() + UP * height * 0.24
     )
-    t2 = Text(subtitle, font_size=16, color=WHITE_HEX).move_to(
-        rect.get_center() + DOWN * 0.24
+    t2 = fitted_text(subtitle, width - 0.35, height * 0.38, font_size=16, color=WHITE_HEX).move_to(
+        rect.get_center() + DOWN * height * 0.22
     )
     return VGroup(rect, t1, t2)
 
@@ -163,7 +183,8 @@ class Act00PreGenesisMark(Scene):
                 for n in notions
             ]
         )
-        self.play(Transform(c1, c2), FadeIn(notions), run_time=1.5)
+        self.play(Succession(FadeOut(c1), FadeIn(c2)), FadeIn(notions), run_time=1.5)
+        c1 = c2
         self.play(Create(strikes), run_time=1.5)
         self.wait(1.0)
 
@@ -171,7 +192,8 @@ class Act00PreGenesisMark(Scene):
         c3 = footer_caption(
             "0:07-0:11 | genesis_underivable & supply_no_op: empty ledger derives nothing."
         )
-        self.play(FadeOut(notions), FadeOut(strikes), mark_grp.animate.move_to(LEFT * 4.2 + UP * 0.3), Transform(c1, c3), run_time=1.2)
+        self.play(FadeOut(notions), FadeOut(strikes), mark_grp.animate.move_to(LEFT * 4.2 + UP * 0.3), Succession(FadeOut(c1), FadeIn(c3)), run_time=1.2)
+        c1 = c3
         ledger = make_card(
             "Genesis Ledger",
             "data: 0 | forms: [] | insts: []",
@@ -195,7 +217,8 @@ class Act00PreGenesisMark(Scene):
             "0:11-0:14 | Every structure is either ADMITTED at a stated price or DERIVED.",
             GOLD,
         )
-        self.play(Transform(c1, c4), Indicate(ledger, color=GOLD), run_time=1.5)
+        self.play(Succession(FadeOut(c1), FadeIn(c4)), Circumscribe(ledger, color=GOLD), run_time=1.5)
+        c1 = c4
         self.wait(1.5)
 
 
@@ -221,16 +244,19 @@ class Act01TokensErasureCollapse(Scene):
         c2 = footer_caption("0:03-0:07 | A 1-hole context C plugs datum 0 or datum 1 into a relation slot.")
         d0 = make_card("Datum 0", "plug(C, 0) -> False", 3.6, 1.3, PURPLE).move_to(LEFT * 3.2 + DOWN * 0.9)
         d1 = make_card("Datum 1", "plug(C, 1) -> False", 3.6, 1.3, PURPLE).move_to(RIGHT * 3.2 + DOWN * 0.9)
-        self.play(Transform(c1, c2), FadeIn(d0), FadeIn(d1), run_time=2.0)
+        self.play(Succession(FadeOut(c1), FadeIn(c2)), FadeIn(d0), FadeIn(d1), run_time=2.0)
+        c1 = c2
         self.wait(1.0)
 
         c3 = footer_caption("0:07-0:11 | With zero recorded instances, every context gives the same answer.")
         col_badge = make_card("collapsed(R2L, 0, 1)", "Outside labels differ; inside tests agree", 6.2, 1.3, RED).move_to(ORIGIN + DOWN * 0.9)
-        self.play(Transform(c1, c3), Transform(VGroup(d0, d1), col_badge), run_time=2.0)
+        self.play(Succession(FadeOut(c1), FadeIn(c3)), FadeOut(d0), FadeOut(d1), FadeIn(col_badge), run_time=2.0)
+        c1 = c3
         self.wait(1.2)
 
         c4 = footer_caption("0:11-0:13 | Two distinct labels do not automatically create an internal separation.", GOLD)
-        self.play(Transform(c1, c4), Indicate(col_badge, color=GOLD), run_time=1.5)
+        self.play(Succession(FadeOut(c1), FadeIn(c4)), Circumscribe(col_badge, color=GOLD), run_time=1.5)
+        c1 = c4
         self.wait(1.0)
 
 
@@ -249,19 +275,22 @@ class Act02SeparationAndMinimality(Scene):
         self.play(FadeIn(hdr), FadeIn(c1), FadeIn(cost1), run_time=2.2)
         self.wait(0.8)
 
-        c2 = footer_caption("0:03-0:07 | Cost 2 repairs: admit a form + an instance mentioning 0 but not 1.")
+        c2 = footer_caption("0:03-0:07 | Cost 2: add a form and a fact. A context then distinguishes 0 from 1.")
         bl = make_card("Link BL: (0, [0, 1])", "Context [_, 1]: holds on 0, fails on 1", 4.1, 1.4, GREEN).move_to(LEFT * 4.2 + DOWN * 0.5)
         bd = make_card("Loop BD: (0, [0, 0])", "Context [_, 0]: holds on 0, fails on 1", 4.1, 1.4, CYAN).move_to(ORIGIN + DOWN * 0.5)
-        u1 = make_card("Unary: (0, [0])", "mu2 cost = 3 (Unique minimum under mu2)", 4.1, 1.4, GOLD).move_to(RIGHT * 4.2 + DOWN * 0.5)
-        self.play(Transform(c1, c2), FadeIn(bl), FadeIn(bd), FadeIn(u1), run_time=2.2)
+        u1 = make_card("Unary: (0, [0])", "mu2 = (2, 1): unique minimum in reading L", 4.1, 1.4, GOLD).move_to(RIGHT * 4.2 + DOWN * 0.5)
+        self.play(Succession(FadeOut(c1), FadeIn(c2)), FadeIn(bl), FadeIn(bd), FadeIn(u1), run_time=2.2)
+        c1 = c2
         self.wait(1.2)
 
         c3 = footer_caption("0:07-0:11 | mu1 ties 3 classes (in L); mu2 selects the unary witness uniquely.")
-        self.play(Transform(c1, c3), Indicate(u1, color=GOLD), run_time=1.8)
+        self.play(Succession(FadeOut(c1), FadeIn(c3)), Circumscribe(u1, color=GOLD), run_time=1.8)
+        c1 = c3
         self.wait(1.0)
 
-        c4 = footer_caption("0:11-0:13 | Bridge.irrefl_law_not_entailed: a single fact never forces a general law.", GOLD)
-        self.play(Transform(c1, c4), Indicate(bd, color=CYAN), run_time=1.8)
+        c4 = footer_caption("0:11-0:13 | Positive facts alone do not entail a global irreflexivity law.", GOLD)
+        self.play(Succession(FadeOut(c1), FadeIn(c4)), Circumscribe(bd, color=CYAN), run_time=1.8)
+        c1 = c4
         self.wait(1.0)
 
 
@@ -281,17 +310,20 @@ class Act03QuotientsCountingTransport(Scene):
         self.play(FadeIn(hdr), FadeIn(c1), FadeIn(q_card), run_time=2.0)
 
         c2 = footer_caption("0:03-0:07 | Without new supply, strict demand rounds halt within n(n-1)/2 steps.")
-        self.play(Transform(c1, c2), FadeIn(r_card), run_time=2.0)
+        self.play(Succession(FadeOut(c1), FadeIn(c2)), FadeIn(r_card), run_time=2.0)
+        c1 = c2
         self.wait(1.0)
 
-        c3 = footer_caption("0:07-0:11 | Injective renaming preserves separation; uniform rules never pay for themselves.")
+        c3 = footer_caption("0:07-0:11 | Renaming preserves separation. A uniform rule alone distinguishes no data.")
         t_card = make_card("Injective Renaming f", "collapsed_rename: preserves all context verdicts", 5.8, 1.4, GREEN).move_to(DOWN * 0.8 + LEFT * 3.1)
         rb_card = make_card("RuleBridge", "Uniform rule holds on all data -> separates nothing", 5.4, 1.4, GOLD).move_to(DOWN * 0.8 + RIGHT * 3.2)
-        self.play(Transform(c1, c3), FadeIn(t_card), FadeIn(rb_card), run_time=2.2)
+        self.play(Succession(FadeOut(c1), FadeIn(c3)), FadeIn(t_card), FadeIn(rb_card), run_time=2.2)
+        c1 = c3
         self.wait(1.2)
 
-        c4 = footer_caption("0:11-0:13 | Progress.mark_progress: every imposed pair has a finite separating response.", GOLD)
-        self.play(Transform(c1, c4), Indicate(t_card, color=GREEN), run_time=1.5)
+        c4 = footer_caption("0:11-0:13 | Progress.mark_progress: every valid imposed pair has a finite separating response.", GOLD)
+        self.play(Succession(FadeOut(c1), FadeIn(c4)), Circumscribe(t_card, color=GREEN), run_time=1.5)
+        c1 = c4
         self.wait(1.0)
 
 
@@ -318,15 +350,18 @@ class Act04RefusalGeneratorCapacity(Scene):
         c2 = footer_caption("0:03-0:07 | Pigeonhole capacity bound: k boolean views yield at most 2^k signatures.")
         cap = make_card("k Views -> 2^k Signatures", "When carrier > 2^k, two distinct points share a signature", 6.2, 1.5, RED).move_to(DOWN * 0.8 + LEFT * 3.0)
         g1 = make_card("G1Class Exclusion", "No bounded local alphabet clears an unbounded demand stream", 5.6, 1.5, PURPLE).move_to(DOWN * 0.8 + RIGHT * 3.2)
-        self.play(Transform(c1, c2), FadeIn(cap), run_time=2.0)
+        self.play(Succession(FadeOut(c1), FadeIn(c2)), FadeIn(cap), run_time=2.0)
+        c1 = c2
         self.wait(1.0)
 
         c3 = footer_caption("0:07-0:11 | Looking radius-d steps ahead still hits the finite capacity ceiling.")
-        self.play(Transform(c1, c3), FadeIn(g1), run_time=2.0)
+        self.play(Succession(FadeOut(c1), FadeIn(c3)), FadeIn(g1), run_time=2.0)
+        c1 = c3
         self.wait(1.2)
 
         c4 = footer_caption("0:11-0:13 | Unbounded separation demands force either carrier growth or refusal.", GOLD)
-        self.play(Transform(c1, c4), Indicate(g1, color=GOLD), run_time=1.5)
+        self.play(Succession(FadeOut(c1), FadeIn(c4)), Circumscribe(g1, color=GOLD), run_time=1.5)
+        c1 = c4
         self.wait(1.0)
 
 
@@ -346,17 +381,20 @@ class Act05RepresentedKernelHorizon(Scene):
         self.play(FadeIn(hdr), FadeIn(c1), FadeIn(st), run_time=2.0)
 
         c2 = footer_caption("0:03-0:07 | Rule 1: either a single-column repair clears the obstruction, or extension fires.")
-        self.play(Transform(c1, c2), FadeIn(r1), run_time=2.0)
+        self.play(Succession(FadeOut(c1), FadeIn(c2)), FadeIn(r1), run_time=2.0)
+        c1 = c2
         self.wait(1.0)
 
         c3 = footer_caption("0:07-0:11 | NoOutside: negative certification coincides with the panel quotient.")
         no_out = make_card("NoOutside Quotient", "certNeg_iff_panelEquiv (notes invisible until promoted)", 5.8, 1.4, PURPLE).move_to(DOWN * 0.8 + LEFT * 3.1)
         hor = make_card("Horizon (Every Stage n)", "worldAt_spec & worldAt_quiescent proved for all n", 5.8, 1.4, GREEN).move_to(DOWN * 0.8 + RIGHT * 3.1)
-        self.play(Transform(c1, c3), FadeIn(no_out), FadeIn(hor), run_time=2.2)
+        self.play(Succession(FadeOut(c1), FadeIn(c3)), FadeIn(no_out), FadeIn(hor), run_time=2.2)
+        c1 = c3
         self.wait(1.2)
 
         c4 = footer_caption("0:11-0:13 | Initiality.unique_compliant: 1 of 64 candidate controllers passes all 6 probes.", GOLD)
-        self.play(Transform(c1, c4), Indicate(hor, color=GREEN), run_time=1.5)
+        self.play(Succession(FadeOut(c1), FadeIn(c4)), Circumscribe(hor, color=GREEN), run_time=1.5)
+        c1 = c4
         self.wait(1.0)
 
 
@@ -376,17 +414,20 @@ class Act06PrimitiveDifferenceApartness(Scene):
         self.play(FadeIn(hdr), FadeIn(c1), FadeIn(p_core), run_time=2.0)
 
         c2 = footer_caption("0:03-0:07 | PrimitiveCats: the 2-point witness D2 is initial, and no terminal object exists.")
-        self.play(Transform(c1, c2), FadeIn(d2), run_time=2.0)
+        self.play(Succession(FadeOut(c1), FadeIn(c2)), FadeIn(d2), run_time=2.0)
+        c1 = c2
         self.wait(1.0)
 
         c3 = footer_caption("0:07-0:11 | Apartness: irreflexivity + symmetry + cotransitivity earn equivalence.")
         hs = make_card("HigherStructure Rounds", "First graph supplied; observer created by round closure", 5.8, 1.4, PURPLE).move_to(DOWN * 0.8 + LEFT * 3.1)
         ap = make_card("Apartness -> Sameness", "indist_equivalence requires all 3 apartness laws", 5.8, 1.4, GREEN).move_to(DOWN * 0.8 + RIGHT * 3.1)
-        self.play(Transform(c1, c3), FadeIn(hs), FadeIn(ap), run_time=2.2)
+        self.play(Succession(FadeOut(c1), FadeIn(c3)), FadeIn(hs), FadeIn(ap), run_time=2.2)
+        c1 = c3
         self.wait(1.2)
 
         c4 = footer_caption("0:11-0:13 | Dropping cotransitivity breaks transitivity of indistinguishability.", GOLD)
-        self.play(Transform(c1, c4), Indicate(ap, color=GREEN), run_time=1.5)
+        self.play(Succession(FadeOut(c1), FadeIn(c4)), Circumscribe(ap, color=GREEN), run_time=1.5)
+        c1 = c4
         self.wait(1.0)
 
 
@@ -397,26 +438,29 @@ class Act07InterpreterControllerBoundary(Scene):
         self.camera.background_color = BG_COLOR
         hdr = header_banner(
             "ACT VIII (U57-U58, U65-U66)",
-            "Thirteen Codes, Trace Idempotence & The Interpreter Boundary",
+            "Effect Classes, Repeated Events & Interpreter Boundary",
             "Lean: InterpreterBoundary.family_missed, TransitionAlphabet, TraceAlgebra | Status: FROZEN / OPEN",
         )
-        c1 = footer_caption("0:00-0:03 | TransitionAlphabet: 13 transition codes partition into guard/effect classes.")
-        codes = make_card("13 Transition Codes", "Every single code is idempotent: step(c, step(c, w)) = step(c, w)", 6.0, 1.4, CYAN).move_to(UP * 1.2 + LEFT * 3.0)
-        alg = make_card("TraceAlgebra", "132 non-commuting pairs | No inverses | No right identity", 5.6, 1.4, PURPLE).move_to(UP * 1.2 + RIGHT * 3.2)
+        c1 = footer_caption("0:00-0:03 | Thirteen effect classes summarize individual steps; they are not an event alphabet.")
+        codes = make_card("13 One-Step Effect Classes", "A common suffix can distinguish equal class signatures", 6.0, 1.4, CYAN).move_to(UP * 1.2 + LEFT * 3.0)
+        alg = make_card("Idempotent Concrete Events", "Repeat the same event: step(step(s, e), e) = step(s, e)", 5.6, 1.4, PURPLE).move_to(UP * 1.2 + RIGHT * 3.2)
         self.play(FadeIn(hdr), FadeIn(c1), FadeIn(codes), run_time=2.0)
 
-        c2 = footer_caption("0:03-0:07 | TraceAlgebra: every step is idempotent, but 132 code pairs do not commute.")
-        self.play(Transform(c1, c2), FadeIn(alg), run_time=2.0)
+        c2 = footer_caption("0:03-0:07 | Repeating one event adds no effect. Different events can fail to commute.")
+        self.play(Succession(FadeOut(c1), FadeIn(c2)), FadeIn(alg), run_time=2.0)
+        c1 = c2
         self.wait(1.0)
 
-        c3 = footer_caption("0:07-0:11 | InterpreterBoundary.family_missed: the interpreter is not one of its 13 codes.")
-        ib = make_card("InterpreterBoundary", "family_missed: diagonal action differs from all 13 codes", 6.0, 1.4, GOLD).move_to(DOWN * 0.8 + LEFT * 3.0)
-        op = make_card("Open Boundary (Preserved)", "Coded diagonal proved; absolute self-interpreter remains OPEN", 5.6, 1.4, RED).move_to(DOWN * 0.8 + RIGHT * 3.2)
-        self.play(Transform(c1, c3), FadeIn(ib), FadeIn(op), run_time=2.2)
+        c3 = footer_caption("0:07-0:11 | A notes-diagonal differs from all 64 coded steps; its notes change is inert.")
+        ib = make_card("64 Constitution Descriptors", "A fixed interpreter runs this separate finite family", 6.0, 1.4, GOLD).move_to(DOWN * 0.8 + LEFT * 3.0)
+        op = make_card("Denotational Bridge: OPEN", "The notes diagonal does not establish an uncoded interpreter's meaning", 5.6, 1.4, RED).move_to(DOWN * 0.8 + RIGHT * 3.2)
+        self.play(Succession(FadeOut(c1), FadeIn(c3)), FadeIn(ib), FadeIn(op), run_time=2.2)
+        c1 = c3
         self.wait(1.2)
 
         c4 = footer_caption("0:11-0:13 | ControllerCategory: strict controllers agree on the reachable replay orbit.", GOLD)
-        self.play(Transform(c1, c4), Indicate(op, color=RED), run_time=1.5)
+        self.play(Succession(FadeOut(c1), FadeIn(c4)), Circumscribe(op, color=RED), run_time=1.5)
+        c1 = c4
         self.wait(1.0)
 
 
@@ -436,17 +480,20 @@ class Act08AttachmentLadderCompression(Scene):
         self.play(FadeIn(hdr), FadeIn(c1), FadeIn(att), run_time=2.0)
 
         c2 = footer_caption("0:03-0:07 | BoundaryCancellation: d^2 = 0 holds unrestrictedly; signless version fails.")
-        self.play(Transform(c1, c2), FadeIn(bd2), run_time=2.0)
+        self.play(Succession(FadeOut(c1), FadeIn(c2)), FadeIn(bd2), run_time=2.0)
+        c1 = c2
         self.wait(1.0)
 
         c3 = footer_caption("0:07-0:11 | Compression & StableContent: quotient by signature preserves all Q-answers.")
         cmp = make_card("Compression & StableContent", "quotient_coarsest: merges only Q-indistinguishable points", 5.8, 1.4, GOLD).move_to(DOWN * 0.8 + LEFT * 3.1)
-        wp = make_card("WeightProfile (No Division)", "Cross-multiplied integer rays: w1*v2 = w2*v1", 5.8, 1.4, PURPLE).move_to(DOWN * 0.8 + RIGHT * 3.1)
-        self.play(Transform(c1, c3), FadeIn(cmp), FadeIn(wp), run_time=2.2)
+        wp = make_card("WeightProfile (No Division)", "Natural-number weights compared by cross-multiplication", 5.8, 1.4, PURPLE).move_to(DOWN * 0.8 + RIGHT * 3.1)
+        self.play(Succession(FadeOut(c1), FadeIn(c3)), FadeIn(cmp), FadeIn(wp), run_time=2.2)
+        c1 = c3
         self.wait(1.2)
 
-        c4 = footer_caption("0:11-0:13 | Protected pairs survive every live non-refusing step; unprotected pairs can collapse.", GOLD)
-        self.play(Transform(c1, c4), Indicate(cmp, color=GOLD), run_time=1.5)
+        c4 = footer_caption("0:11-0:13 | Protected separation persists across replay in the declared passage machine.", GOLD)
+        self.play(Succession(FadeOut(c1), FadeIn(c4)), Circumscribe(cmp, color=GOLD), run_time=1.5)
+        c1 = c4
         self.wait(1.0)
 
 
@@ -466,17 +513,20 @@ class Act09DescentRelativityFidelity(Scene):
         self.play(FadeIn(hdr), FadeIn(c1), FadeIn(od), run_time=2.0)
 
         c2 = footer_caption("0:03-0:07 | Breaking symmetry: a side can be imposed from outside, not chosen equivariantly.")
-        self.play(Transform(c1, c2), FadeIn(pn), run_time=2.0)
+        self.play(Succession(FadeOut(c1), FadeIn(c2)), FadeIn(pn), run_time=2.0)
+        c1 = c2
         self.wait(1.0)
 
         c3 = footer_caption("0:07-0:11 | FidelityClosure & IsoBridge: round-trip coherence and canonical keys.")
         fc = make_card("PresentationRelativity & Fidelity", "Failed factorization forces a joint split; coherent paths", 5.8, 1.4, GOLD).move_to(DOWN * 0.8 + LEFT * 3.1)
         iso = make_card("Parked Iso / Form Family (U74)", "collapsed_transport & iso_of_relabel_eq on ordered reqs", 5.8, 1.4, GREEN).move_to(DOWN * 0.8 + RIGHT * 3.1)
-        self.play(Transform(c1, c3), FadeIn(fc), FadeIn(iso), run_time=2.2)
+        self.play(Succession(FadeOut(c1), FadeIn(c3)), FadeIn(fc), FadeIn(iso), run_time=2.2)
+        c1 = c3
         self.wait(1.2)
 
-        c4 = footer_caption("0:11-0:13 | All 75 frozen modules in lean4/Derivation/ are audited and verified.", GOLD)
-        self.play(Transform(c1, c4), Indicate(iso, color=GREEN), run_time=1.5)
+        c4 = footer_caption("0:11-0:13 | Ordered requirements are a hypothesis of the relabel-to-isomorphism bridge.", GOLD)
+        self.play(Succession(FadeOut(c1), FadeIn(c4)), Circumscribe(iso, color=GREEN), run_time=1.5)
+        c1 = c4
         self.wait(1.0)
 
 
@@ -490,24 +540,27 @@ class Act10InstitutionsSynergyPolicy(Scene):
             "Actors, Institutions, Joint Knowledge & Assert-or-Demur Policy",
             "Lean: Inst.exceeds_iff, Correspondence, Policy.demur_carries_witness | Status: POST_FREEZE_PROVED",
         )
-        c1 = footer_caption("0:00-0:03 | On carrier [0, 1, 2], Actor p1=(0,1,0) merges (0,2); Actor p2=(0,0,1) merges (0,1).")
+        c1 = footer_caption("0:00-0:03 | On carrier [0, 1, 2], Actor p1=(0,1,0) merges (0,2); Actor p2=(0,1,1) merges (1,2).")
         a1 = make_card("Actor 1: p1 = (0, 1, 0)", "Tells 0!=1, 1!=2 | Merges (0, 2)", 4.1, 1.4, CYAN).move_to(UP * 1.2 + LEFT * 4.2)
-        a2 = make_card("Actor 2: p2 = (0, 0, 1)", "Tells 0!=2, 1!=2 | Merges (0, 1)", 4.1, 1.4, PURPLE).move_to(UP * 1.2 + ORIGIN)
-        inst = make_card("Institution Q = [p1, p2]", "Signatures: (0,0), (1,0), (0,1) -> All 3 apart!", 4.3, 1.4, GREEN).move_to(UP * 1.2 + RIGHT * 4.2)
+        a2 = make_card("Actor 2: p2 = (0, 1, 1)", "Tells 0!=1, 0!=2 | Merges (1, 2)", 4.1, 1.4, PURPLE).move_to(UP * 1.2 + ORIGIN)
+        inst = make_card("Institution Q = [p1, p2]", "Signatures: (0,0), (1,1), (0,1) -> All 3 apart!", 4.3, 1.4, GREEN).move_to(UP * 1.2 + RIGHT * 4.2)
         self.play(FadeIn(hdr), FadeIn(c1), FadeIn(a1), FadeIn(a2), run_time=2.2)
 
         c2 = footer_caption("0:03-0:07 | Exceeding (I04): together [p1, p2] know a 3-way claim neither actor knows alone.")
-        self.play(Transform(c1, c2), FadeIn(inst), run_time=2.0)
+        self.play(Succession(FadeOut(c1), FadeIn(c2)), FadeIn(inst), run_time=2.0)
+        c1 = c2
         self.wait(1.0)
 
         c3 = footer_caption("0:07-0:11 | Correspondence across actors is an admission; unknown claims force a witnessed Demur.")
-        corr = make_card("Correspondence (I05-I08)", "Permuting one actor's labels changes what Q knows", 5.8, 1.4, GOLD).move_to(DOWN * 0.8 + LEFT * 3.1)
+        corr = make_card("Correspondence (I05-I08)", "Re-indexing one actor's data can change what Q knows", 5.8, 1.4, GOLD).move_to(DOWN * 0.8 + LEFT * 3.1)
         pol = make_card("Assert or Demur (I09-I11)", "demur_carries_witness: names exact pair (x, y) merged by Q", 5.8, 1.4, RED).move_to(DOWN * 0.8 + RIGHT * 3.1)
-        self.play(Transform(c1, c3), FadeIn(corr), FadeIn(pol), run_time=2.2)
+        self.play(Succession(FadeOut(c1), FadeIn(c3)), FadeIn(corr), FadeIn(pol), run_time=2.2)
+        c1 = c3
         self.wait(1.2)
 
         c4 = footer_caption("0:11-0:13 | Determination is factoring through Q's signatures; truth requires admitting the target.", GOLD)
-        self.play(Transform(c1, c4), Indicate(pol, color=GOLD), run_time=1.5)
+        self.play(Succession(FadeOut(c1), FadeIn(c4)), Circumscribe(pol, color=GOLD), run_time=1.5)
+        c1 = c4
         self.wait(1.0)
 
 
@@ -527,17 +580,20 @@ class Act11ProbingUncollapseVerdict(Scene):
         self.play(FadeIn(hdr), FadeIn(c1), FadeIn(prb), run_time=2.0)
 
         c2 = footer_caption("0:03-0:07 | Once acquired, a k-class partition compresses into ceil(log2 k) binary views.")
-        self.play(Transform(c1, c2), FadeIn(ref), run_time=2.0)
+        self.play(Succession(FadeOut(c1), FadeIn(c2)), FadeIn(ref), run_time=2.0)
+        c1 = c2
         self.wait(1.0)
 
         c3 = footer_caption("0:07-0:11 | Uncollapse requires a mentioning instance; later admissions can recollapse views.")
         unc = make_card("Uncollapse & Recollapse (I16)", "uncollapse_only_by_mention_delta | recollapse_changes_views", 6.0, 1.4, CYAN).move_to(DOWN * 0.8 + LEFT * 3.0)
         vrd = make_card("Verdict Boundary (I17)", "lawful_unique_at reflective worlds; diagonal escapes iff no code lawful", 5.6, 1.4, GREEN).move_to(DOWN * 0.8 + RIGHT * 3.2)
-        self.play(Transform(c1, c3), FadeIn(unc), FadeIn(vrd), run_time=2.2)
+        self.play(Succession(FadeOut(c1), FadeIn(c3)), FadeIn(unc), FadeIn(vrd), run_time=2.2)
+        c1 = c3
         self.wait(1.2)
 
         c4 = footer_caption("0:11-0:13 | Every claim is paired with its Lean theorem, Python check, and scope boundary.", GOLD)
-        self.play(Transform(c1, c4), Indicate(vrd, color=GREEN), run_time=1.5)
+        self.play(Succession(FadeOut(c1), FadeIn(c4)), Circumscribe(vrd, color=GREEN), run_time=1.5)
+        c1 = c4
         self.wait(1.0)
 
 
@@ -558,13 +614,14 @@ SCENES = [
 
 
 def main() -> None:
-    out_dir = Path(
-        r"C:\Users\a343o\.gemini\antigravity\brain\e6748031-e61e-45da-8c81-267c0b199e5b\scratch\19L57G1.wiki\media\manim"
-    )
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output-dir", type=Path, default=Path("artifacts2/manim"))
+    parser.add_argument("--work-dir", type=Path, default=Path("artifacts2/manim_build"))
+    parser.add_argument("--scene", choices=[slug for _, slug in SCENES], action="append")
+    args = parser.parse_args()
+    out_dir = args.output_dir.resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
-    work_dir = Path(
-        r"C:\Users\a343o\.gemini\antigravity\brain\e6748031-e61e-45da-8c81-267c0b199e5b\scratch\manim_build"
-    )
+    work_dir = args.work_dir.resolve()
     work_dir.mkdir(parents=True, exist_ok=True)
 
     config.media_dir = str(work_dir)
@@ -572,6 +629,7 @@ def main() -> None:
     config.pixel_height = 540
     config.frame_rate = 15
     config.verbosity = "WARNING"
+    config.disable_caching = True
 
     cls_map = {
         "Act00PreGenesisMark": Act00PreGenesisMark,
@@ -589,6 +647,8 @@ def main() -> None:
     }
 
     for cls_name, slug in SCENES:
+        if args.scene and slug not in args.scene:
+            continue
         config.output_file = slug
         scene_cls = cls_map[cls_name]
         scene = scene_cls()

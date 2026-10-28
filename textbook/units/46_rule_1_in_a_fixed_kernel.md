@@ -1,32 +1,7 @@
 # Unit 46. Rule 1 in a fixed kernel: repair, or certified exhaustion plus a tied extension family
 
-**Claim.** `Completion` builds one common state whose fields keep apart
-what the programme refuses to merge: the admitted carrier,
-metatheoretic inequality facts, positive witnessed difference, view
-columns, retained pairs, protected pairs, budget, license, refusals.
-Observer separation reads only the columns (`sepC`); the active
-obstruction is retained ∧ protected ∧ observer-zero (`obstC`), and each
-condition is necessary (`obstC_conditions_independent`). The
-represented kernel transports exactly (`ofWorld_sep`,
-`ofWorld_obstruction`), feeding retention and protection from one
-store, a stated identification; the reflective chain transports
-(`chain_transport`); the oriented two-element object is not
-swap-invariant, the symmetric one is in its relation store only
-(`d2_transport_oriented`, `s2_transport_symmetric`,
-`s2_state_not_swap_invariant`). A witness is not a separation and a
-separation is not a witness (`witness_not_separation`,
-`separation_not_witness`); inequality bookkeeping moves nothing
-(`meta_distinctness_inert`). Rule 1 for the fixed kernel: under
-well-formedness and a recorded violation, the repair family is
-non-empty, or the exhaustion certificate holds and both orientation
-singletons are in the extension family (`augFamily_retains_ties`,
-`rule1_repair_or_extension`). Refusal is recordable exactly under the
-certificate, touches no object field and changes no verdict
-(`refusal_recordable`, `refusal_object_inert`,
-`refusal_non_absorbing`); every event keeps the presentation signature
-or strictly grows it (`action_dichotomy`); with no requirement there is
-no obstruction (`rule1_needs_fidelity`); a retraction keeps the
-signature and breaks preservation (`retraction_breaks_preservation`).
+**Claim.** For a well-formed state with a recorded violation, the fixed kernel offers a repair or certified exhaustion with a tied extension family. This result depends on that declared response menu.
+
 **Status:** derived for the fixed kernel; Rule 1 conditional on `WF`,
 a replay invariant; the common state is a declared interface; the
 transport facts about two-element objects are decided instances.
@@ -36,6 +11,51 @@ and `s2_state_not_swap_invariant` none; `chain_transport` `propext`;
 the other 19 `{propext, Quot.sound}`. **Depends on:** Unit 45 (the
 kernel), Unit 39 (the reflective chain), Unit 44 (three separate
 conditions), Units 09-10 (the two-element objects).
+
+## First pass
+
+First check the current views against the retained, protected requirements. If they merge a required pair, there is an obstruction.
+
+Next inspect the allowed repairs. Exhausting that menu supports the stated certificate and extension alternatives. It does not rule out repairs from an undeclared menu.
+
+## Detailed claim and formal anchors
+
+`Completion` builds one common state whose fields keep apart
+what the programme refuses to merge: the admitted carrier,
+metatheoretic inequality facts, positive witnessed difference, view
+columns, retained pairs, protected pairs, budget, license, refusals.
+
+Observer separation reads only the columns (`sepC`); the active
+obstruction is retained ∧ protected ∧ observer-zero (`obstC`), and each
+condition is necessary (`obstC_conditions_independent`).
+
+The
+represented kernel transports exactly (`ofWorld_sep`,
+`ofWorld_obstruction`), feeding retention and protection from one
+store, a stated identification; the reflective chain transports
+(`chain_transport`); the oriented two-element object is not
+swap-invariant, the symmetric one is in its relation store only
+(`d2_transport_oriented`, `s2_transport_symmetric`,
+`s2_state_not_swap_invariant`).
+
+A witness is not a separation and a
+separation is not a witness (`witness_not_separation`,
+`separation_not_witness`); inequality bookkeeping moves nothing
+(`meta_distinctness_inert`).
+
+Rule 1 for the fixed kernel: under
+well-formedness and a recorded violation, the repair family is
+non-empty, or the exhaustion certificate holds and both orientation
+singletons are in the extension family (`augFamily_retains_ties`,
+`rule1_repair_or_extension`).
+
+Refusal is recordable exactly under the
+certificate, touches no object field and changes no verdict
+(`refusal_recordable`, `refusal_object_inert`,
+`refusal_non_absorbing`); every event keeps the presentation signature
+or strictly grows it (`action_dichotomy`); with no requirement there is
+no obstruction (`rule1_needs_fidelity`); a retraction keeps the
+signature and breaks preservation (`retraction_breaks_preservation`).
 
 ## Question
 
