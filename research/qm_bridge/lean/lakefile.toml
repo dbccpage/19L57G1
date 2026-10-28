@@ -1,0 +1,14 @@
+name = "qm_bridge"
+version = "0.1.0"
+defaultTargets = ["ResearchQmBridge"]
+
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+[[require]]
+name = "two_theorems"
+path = "../../two_theorems/lean"
+
+[[lean_lib]]
+name = "ResearchQmBridge"

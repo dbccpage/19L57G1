@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "lean_root": "ResearchQmBridge",
+  "pin_files": [
+    "input.json"
+  ],
+  "axiom_scope": "explicit_reports",
+  "axiom_declarations": [
+    "ResearchQmBridge.Residual.challenge_iff_not_knows",
+    "ResearchQmBridge.Residual.challenge_information_lt",
+    "ResearchQmBridge.Residual.challenge_iff_information_ne",
+    "ResearchQmBridge.Residual.challenge_or_knows",
+    "ResearchQmBridge.Gauss.GI.polarization",
+    "ResearchQmBridge.Gauss.separates_iff_cross",
+    "ResearchQmBridge.Gauss.fiber_necessary",
+    "ResearchQmBridge.Gauss.sign_pair",
+    "ResearchQmBridge.Gauss.mu4_triple",
+    "ResearchQmBridge.Gauss.mu4_readout_invariant",
+    "ResearchQmBridge.Gauss.mu4_readout_values",
+    "ResearchQmBridge.Multiplicity.readout_factors",
+    "ResearchQmBridge.Multiplicity.nodup_le",
+    "ResearchQmBridge.Multiplicity.multiplicity_bound",
+    "ResearchQmBridge.Multiplicity.rep_separates",
+    "ResearchQmBridge.Multiplicity.realizable_iff",
+    "ResearchQmBridge.Multiplicity.signs_iff",
+    "ResearchQmBridge.Multiplicity.three_needs_four",
+    "ResearchQmBridge.Multiplicity.finite_order_suffices",
+    "ResearchQmBridge.Instance.instance_information",
+    "ResearchQmBridge.Instance.instance_not_knows",
+    "ResearchQmBridge.Instance.instance_challenge"
+  ]
+}

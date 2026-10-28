@@ -400,6 +400,45 @@
     "research/observer_visibility/test_decide.py": {
       "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 16
     },
+    "research/qm_bridge/CLAIMS.md": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 5,
+      "4fea05be302d325b69a315f0a78f0c40420b48b10b56f08920b77191b94c0d7e": 4,
+      "a90fd9a9a1e66597ae124f542f73ac08d3112e7d6f5e1781163be07ccae5be0d": 1,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 1,
+      "e3b1f58e9bd1e8b95067072e7b4f9590ef9d8265489e775c73b7f8d5102b79ad": 2
+    },
+    "research/qm_bridge/README.md": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 6,
+      "4fea05be302d325b69a315f0a78f0c40420b48b10b56f08920b77191b94c0d7e": 7,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 1,
+      "e3b1f58e9bd1e8b95067072e7b4f9590ef9d8265489e775c73b7f8d5102b79ad": 4
+    },
+    "research/qm_bridge/input.json": {
+      "4fea05be302d325b69a315f0a78f0c40420b48b10b56f08920b77191b94c0d7e": 1
+    },
+    "research/qm_bridge/lean/ResearchQmBridge/Gauss.lean": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 2,
+      "4fea05be302d325b69a315f0a78f0c40420b48b10b56f08920b77191b94c0d7e": 4,
+      "e3b1f58e9bd1e8b95067072e7b4f9590ef9d8265489e775c73b7f8d5102b79ad": 2
+    },
+    "research/qm_bridge/lean/ResearchQmBridge/Instance.lean": {
+      "4fea05be302d325b69a315f0a78f0c40420b48b10b56f08920b77191b94c0d7e": 2,
+      "e3b1f58e9bd1e8b95067072e7b4f9590ef9d8265489e775c73b7f8d5102b79ad": 1
+    },
+    "research/qm_bridge/lean/ResearchQmBridge/Multiplicity.lean": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 17,
+      "e3b1f58e9bd1e8b95067072e7b4f9590ef9d8265489e775c73b7f8d5102b79ad": 1
+    },
+    "research/qm_bridge/lean/ResearchQmBridge/Residual.lean": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1,
+      "4fea05be302d325b69a315f0a78f0c40420b48b10b56f08920b77191b94c0d7e": 1,
+      "e3b1f58e9bd1e8b95067072e7b4f9590ef9d8265489e775c73b7f8d5102b79ad": 1
+    },
+    "research/qm_bridge/model.py": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 2,
+      "4fea05be302d325b69a315f0a78f0c40420b48b10b56f08920b77191b94c0d7e": 2,
+      "e3b1f58e9bd1e8b95067072e7b4f9590ef9d8265489e775c73b7f8d5102b79ad": 1
+    },
     "research/s9_obligations/CLAIM_LEDGER.md": {
       "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 20
     },
