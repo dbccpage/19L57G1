@@ -71,6 +71,27 @@ Not claimed: locatedness (candidate `Bl`) of `VSep`; retention and
 protection of the pair other than by declaring the stores to be `VSep`
 (`boundary_F`, same status as `i5_boundary_is_F`); anything about
 evaluators of other types; an absolute no-outside.
+
+What is metatheory and what is represented.  The represented objects are
+the sealed module's: a world (finite lists), an event, a code (six
+booleans, 64 in all) and the verdicts `quiescentB`, `obstructedB`,
+`nextFamily` read off a world.  A reflective world is a world paired
+with the code it runs under, as the sealed `Constitution.GWorld` pairs a
+world with its represented policy.  The carrier of `verdictBoundary` is
+the 65 occurrences, never a function type.  The meaning of the uncoded
+role, `rstep`, is defined from `interpStep` and has the same status as
+`interpStep` in the sealed module: constitution, fixed metatheory, not
+represented state.  The statements that quantify over every step
+function `s : World → Event → World` (`interp_not_step`, `rstep_not_lift`,
+`identification_with_step_changes_quiescence`) and over every reading
+`I` are schemata of the metatheory: each instance is about one `s` or
+one `I`, the witness code is computed from one evaluation of `s` at
+`genesis` under `require 0 0`, and no collection of step functions,
+readings or worlds is formed or admitted anywhere.  Existentials are
+witnessed by concrete finite objects.  Hypotheses about readings are
+stated value by value, and `lawful_unique_at` is the pointwise form of
+the uniqueness; the one function equation, `lawful_unique`, is a
+metatheoretic packaging by `funext` that nothing else uses.
 -/
 
 namespace ResearchInterpreterVerdict
@@ -182,16 +203,29 @@ theorem rstep_interprets : Interprets rstep := fun _ _ _ => rfl
 
 theorem rstep_quotes : Quotes rstep := fun _ _ _ => rfl
 
-/-- **The two laws leave no freedom.**  Any reflective step that
-interprets and quotes is `rstep`.  Contrast `arbitrary_uncoded_assignment`
-in the sealed module: at step-function type the uncoded role can be
-given any meaning; at reflective type the laws fix it. -/
+/-- **The two laws leave no freedom, at every reflective world.**  Any
+reflective step that interprets and quotes agrees with `rstep` wherever
+it is evaluated.  This is the pointwise content — the value at the world
+and event one is at — and it is all that the rest of the file uses.  No
+function extensionality enters the proof.  Contrast
+`arbitrary_uncoded_assignment` in the sealed module: at step-function
+type the uncoded role can be given any meaning; at reflective type the
+laws fix it. -/
+theorem lawful_unique_at (g : RWorld → Event → RWorld)
+    (h1 : Interprets g) (h2 : Quotes g)
+    (c : ConstitutionDesc) (w : World) (e : Event) :
+    g (c, w) e = rstep (c, w) e := by
+  calc g (c, w) e = ((g (c, w) e).1, (g (c, w) e).2) := rfl
+    _ = (c, interpStep c w e) := by rw [h1 c w e, h2 c w e]
+
+/-- The extensional packaging of `lawful_unique_at` as one function
+equation.  Metatheory only: `funext` (`Quot.sound`) turns "the same value
+everywhere" into "one function"; nothing below depends on this form. -/
 theorem lawful_unique (g : RWorld → Event → RWorld)
     (h1 : Interprets g) (h2 : Quotes g) : g = rstep := by
   funext p e
   obtain ⟨c, w⟩ := p
-  calc g (c, w) e = ((g (c, w) e).1, (g (c, w) e).2) := rfl
-    _ = (c, interpStep c w e) := by rw [h1 c w e, h2 c w e]
+  exact lawful_unique_at g h1 h2 c w e
 
 /-- Under the lawful meaning the kernel's own code still runs to the
 sealed step (`Constitution.interp_describe`, unchanged). -/
@@ -310,37 +344,42 @@ theorem collapse_obstructed {β : Type} (d : ConstitutionDesc)
     PrimDiff.FidelityObstruction PrimDiff.Irrefl VSep q :=
   PrimDiff.obstruction_under_irrefl (vsep_uncoded d) hq
 
-/-- A reading of the carrier that keeps every coded member's meaning. -/
+/-- A reading of the carrier that keeps every coded member's meaning,
+value by value: no equation between whole functions is assumed. -/
 def Reading (I : Option ConstitutionDesc → RWorld → Event → RWorld) :
     Prop :=
-  ∀ d, I (some d) = meaning (some d)
+  ∀ (d : ConstitutionDesc) (p : RWorld) (e : Event),
+    I (some d) p e = meaning (some d) p e
 
 /-- **Identifying the uncoded role with any coded member changes a
 quiescence verdict.**  Any reading that keeps the coded meanings and
-reads `none` as some coded member reports, at an accessible reflective
+reads `none` as some coded member — value by value, which is weaker
+than identifying the functions — reports, at an accessible reflective
 world, a quiescence verdict different from the lawful meaning's. -/
 theorem identification_changes_quiescence
     (I : Option ConstitutionDesc → RWorld → Event → RWorld)
-    (hI : Reading I) (d : ConstitutionDesc) (hid : I none = I (some d)) :
+    (hI : Reading I) (d : ConstitutionDesc)
+    (hid : ∀ (p : RWorld) (e : Event), I none p e = I (some d) p e) :
     ∃ (p : RWorld) (e : Event),
       quiescentB (I none p e).2 ≠ quiescentB (rstep p e).2 := by
   obtain ⟨p, e, h⟩ := rstep_not_lift (interpStep d)
   refine ⟨p, e, ?_⟩
-  rw [hid, hI d]
+  rw [hid p e, hI d p e]
   exact fun h' => h h'.symm
 
-/-- Stronger: reading `none` as the lift of ANY step function — a coded
-member, the missed function of `tower_persists`, any other — changes a
-quiescence verdict.  The occurrence the coding omits is not of step
-type. -/
+/-- Stronger: reading `none`, value by value, as the lift of ANY step
+function — a coded member, the missed function of `tower_persists`, any
+other — changes a quiescence verdict.  The occurrence the coding omits
+is not of step type. -/
 theorem identification_with_step_changes_quiescence
     (I : Option ConstitutionDesc → RWorld → Event → RWorld)
-    (s : World → Event → World) (hid : I none = liftStep s) :
+    (s : World → Event → World)
+    (hid : ∀ (p : RWorld) (e : Event), I none p e = liftStep s p e) :
     ∃ (p : RWorld) (e : Event),
       quiescentB (I none p e).2 ≠ quiescentB (rstep p e).2 := by
   obtain ⟨p, e, h⟩ := rstep_not_lift s
   refine ⟨p, e, ?_⟩
-  rw [hid]
+  rw [hid p e]
   exact fun h' => h h'.symm
 
 /-! ## 6. Limits -/

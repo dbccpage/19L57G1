@@ -10,6 +10,7 @@ import ResearchInterpreterVerdict
 #print axioms ResearchInterpreterVerdict.verdict_entails_supp
 #print axioms ResearchInterpreterVerdict.rstep_interprets
 #print axioms ResearchInterpreterVerdict.rstep_quotes
+#print axioms ResearchInterpreterVerdict.lawful_unique_at
 #print axioms ResearchInterpreterVerdict.lawful_unique
 #print axioms ResearchInterpreterVerdict.rstep_self_description
 #print axioms ResearchInterpreterVerdict.liftStep_quotes

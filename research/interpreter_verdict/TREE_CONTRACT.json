@@ -15,6 +15,7 @@
     "ResearchInterpreterVerdict.verdict_entails_supp",
     "ResearchInterpreterVerdict.rstep_interprets",
     "ResearchInterpreterVerdict.rstep_quotes",
+    "ResearchInterpreterVerdict.lawful_unique_at",
     "ResearchInterpreterVerdict.lawful_unique",
     "ResearchInterpreterVerdict.rstep_self_description",
     "ResearchInterpreterVerdict.liftStep_quotes",

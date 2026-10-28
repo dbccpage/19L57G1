@@ -29,8 +29,11 @@ module's tags, are stated as predicates on reflective steps:
   part of `g` does what `c` means, `interpStep c`;
 - quotation (`Quotes g`): the carried code is inert data.
 
-Exactly one reflective step satisfies both (`lawful_unique`): `rstep`, "run
-the code the world carries". That is the meaning given to `none`
+Exactly one reflective step satisfies both: `rstep`, "run the code the world
+carries". The content is pointwise (`lawful_unique_at`: at every reflective
+world and event, any step that interprets and quotes gives `rstep`'s value);
+`lawful_unique` packages it as one function equation by `funext` and is used
+by nothing else. That is the meaning given to `none`
 (`meaning none = rstep`). A coded member `d` means the canonical lift of its
 step, `liftStep (interpStep d)`, which quotes but does not interpret
 (`liftStep_not_interprets`). Under this meaning the kernel's own code still
@@ -78,6 +81,32 @@ meanings and reads `none` as a coded member reports, at an accessible
 reflective world, a quiescence verdict the lawful meaning does not
 (`identification_changes_quiescence`); the same for reading `none` as the
 lift of any step function at all (`identification_with_step_changes_quiescence`).
+
+## Metatheory and represented structure
+
+The represented objects are the sealed module's: a world (finite lists), an
+event, a code (six booleans, 64 in all) and the verdicts read off a world. A
+reflective world pairs a world with the code it runs under, as the sealed
+`Constitution.GWorld` pairs a world with its represented policy. The carrier
+of `verdictBoundary` is the 65 occurrences of `Option ConstitutionDesc`,
+never a function type. `rstep` is defined from `interpStep` and has
+`interpStep`'s status: constitution, fixed metatheory, not represented state.
+
+The statements quantified over every step function `s : World → Event →
+World` (`interp_not_step`, `verdict_entails_supp`, `rstep_not_lift`,
+`rstep_ne_lift`, `liftStep_not_interprets`, `interp_not_step_family`,
+`identification_with_step_changes_quiescence`) and over every reading `I`
+(`identification_changes_quiescence`) are schemata of the metatheory. Each
+instance is about one `s` or one `I`; the witness code is computed from one
+evaluation of `s` at `genesis` under `require 0 0`; no collection of step
+functions, readings or worlds is formed or admitted anywhere. Every
+existential is witnessed by a concrete finite object (`genesis` or
+`twoWorld`, `require 0 0`, a code). Hypotheses about readings are stated
+value by value, and the uniqueness of the lawful meaning is proved pointwise
+(`lawful_unique_at`); the one function equation (`lawful_unique`) is a
+`funext` packaging that nothing else uses. The tree admits no observer,
+container, continuum or infinite family of presentations; the only infinite
+type in play is the sealed `World`, which Genesis already has.
 
 ## Limits
 
