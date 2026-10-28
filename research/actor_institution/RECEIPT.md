@@ -137,9 +137,11 @@ on this branch here, for causes outside this branch's diff.
 
 ## Correction, 2026-10-28
 
-`README.md` (the chain, link 2, and the information paragraph) and
-`CLAIMS.md` row AI-22 said that a question not yet known raises information
-"by exactly one class". `information_lt_of_not_knows` proves a strict
-increase, by at least one class; on `[0, 1, 2, 3]` the empty family has one
-class and the identity question four. Both texts now say "strictly, by at
-least one class". No theorem changed.
+`README.md` (the vocabulary table's information row, the chain, link 2, and
+the information paragraph) and `CLAIMS.md` row AI-22 said that a question
+not yet known raises information "by exactly one class".
+`information_lt_of_not_knows` proves a strict increase, by at least one
+class; on `[0, 1, 2, 3]` the empty family has one class and the identity
+question four. All three texts now say "strictly, by at least one class".
+The vocabulary row was corrected one commit after the other two. No theorem
+changed.

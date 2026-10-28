@@ -22,7 +22,7 @@ because it has a name.
 |---|---|---|---|
 | actor, presentation | `p : Nat → Nat`, read on a carrier `D : List Nat` (two_theorems `Presentation`) | admitted | A function is the metatheory's; on `D` it is a finite table (TT-41). Nothing reads `p` off `D`. |
 | institution, family | `Q : List (Nat → Nat)` (two_theorems `Institution`): retention is the list, comparison is `SigEq Q x y`, combination is the representative `pQ D Q` | admitted | The three operations are the sealed `Compression` definitions. |
-| information | `information D Q = classCount D Q`: the number of signature classes on `D` | derived definition; the *word* is a proposal | Monotone, bounded by `|D|`, raised by exactly one by an unknown question (sealed and TT theorems, listed below). |
+| information | `information D Q = classCount D Q`: the number of signature classes on `D` | derived definition; the *word* is a proposal | Monotone, bounded by `|D|`, raised strictly, by at least one class, by an unknown question (sealed and TT theorems, listed below). |
 | knowledge | `Knows D Q q := FactorsOn D (pQ D Q) q`: `q` factors through the representative | derived definition; the *word* is a proposal | Equivalent to determination (`knows_iff_determined`) and to stationarity (`knows_iff_information_eq`), both TT. |
 | witnessed difference | `¬ SigEq Q x y`, with its separator (`Compression.exists_separator_of_not_sigEq`) | derived | A pair is apart only by a member that separates it. |
 | observation | a view `c : List Nat` and its verdict `verdictB E x y` (sealed `Represented`); a probe `p x = p y` (`Acquisition.entry`) | admitted grammar | The probe grammar is the admission of this tree; TT-43o left it to be chosen. |
