@@ -81,6 +81,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `research/instance_demand/SOURCE_MANIFEST.json` | 5 | 5 | 0 |
 | `research/instance_demand/STAGE3_SOURCE_MANIFEST.json` | 13 | 12 | 0 |
 | `research/internal_syntax_logic/SOURCE_MANIFEST.json` | 0 | 0 | 0 |
+| `research/interpreter_verdict/SOURCE_MANIFEST.json` | 0 | 1 | 0 |
 | `research/iso_sound/SOURCE_MANIFEST.json` | 6 | 4 | 0 |
 | `research/iso_sound_lean/SOURCE_MANIFEST.json` | 3 | 0 | 0 |
 | `research/limit_and_observer/SOURCE_MANIFEST.json` | 15 | 4 | 0 |
@@ -491,6 +492,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `research/ignition/lean/Inventory.lean` | 3 | `coherent_process_limits` (tree), `represented_execution` (tree), `setting_translation` (tree) | none |
 | `research/ignition/lean/lakefile.toml` | 7 | `coherent_process_limits` (tree, file), `instance_demand/STAGE3_SOURCE_MANIFEST.json` (file), `magnification` (file), `record_reading` (file), `represented_execution` (tree, file), `setting_translation` (tree, file), `unboundedness` (file) | none |
 | `research/ignition/lean/lean-toolchain` | 7 | `coherent_process_limits` (tree, file), `instance_demand/STAGE3_SOURCE_MANIFEST.json` (file), `magnification` (file), `record_reading` (file), `represented_execution` (tree, file), `setting_translation` (tree, file), `unboundedness` (file) | none |
+| `research/interpreter_verdict/input.json` | 1 | `interpreter_verdict` (file) | none |
 | `research/limit_and_observer/PREDICTIONS.md` | 1 | `limit_and_observer` (file) | none |
 | `research/limit_and_observer/REQUIREMENTS.md` | 2 | `limit_and_observer` (file), `typed_translation` (file) | none |
 | `research/limit_and_observer/receipts/price.json` | 1 | `typed_translation` (file) | none |

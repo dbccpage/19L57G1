@@ -201,6 +201,7 @@ Invoke-InDir 'research/endogenous_demand/lean' 'lake' @('build')
 Invoke-InDir 'research/f_class_distinctness/lean' 'lake' @('build')
 Invoke-InDir 'research/g010_primitive_removal/lean' 'lake' @('build')
 Invoke-InDir 'research/g012_typed_translation/lean' 'lake' @('build')
+Invoke-InDir 'research/interpreter_verdict/lean' 'lake' @('build')
 Invoke-InDir 'research/iso_sound/lean' 'lake' @('build')
 Invoke-InDir 'research/m105_number_tower/lean' 'lake' @('build')
 Invoke-InDir 'research/primitive_difference_tower/lean' 'lake' @('build')
@@ -309,13 +310,13 @@ Invoke-InDir 'research/symmetry_floor/lean' 'lean' @('SymmetryFloor.lean')
 | 22 | `research/f_class_distinctness/lean` | `f_class_distinctness` | `derivation` | 1 | yes | none |
 | 23 | `research/g010_primitive_removal/lean` | `g010_primitive_removal` | `derivation` | 1 | yes | none |
 | 24 | `research/g012_typed_translation/lean` | `g012_typed_translation` | `derivation` | 1 | yes | none |
-| 25 | `research/iso_sound/lean` | `iso_sound` | `derivation` | 1 | yes | none |
-| 26 | `research/m105_number_tower/lean` | `m105_number_tower` | `g011_finitary_substrate` | 1 | no | none |
-| 27 | `research/primitive_difference_tower/lean` | `primitive_difference_tower` | `derivation` | 1 | yes | none |
-| 28 | `research/reachable/lean` | `reachable` | `derivation` | 1 | yes | none |
-| 29 | `research/reading_f_iso` | `reading_f_iso` | `derivation` | 1 | yes | none |
-| 30 | `research/target_a_execution/lean` | `target_a_execution` | `derivation` | 1 | yes | none |
-| 31 | `research/two_theorems/lean` | `two_theorems` | `derivation` | 1 | yes | none |
+| 25 | `research/interpreter_verdict/lean` | `interpreter_verdict` | `derivation` | 1 | yes | none |
+| 26 | `research/iso_sound/lean` | `iso_sound` | `derivation` | 1 | yes | none |
+| 27 | `research/m105_number_tower/lean` | `m105_number_tower` | `g011_finitary_substrate` | 1 | no | none |
+| 28 | `research/primitive_difference_tower/lean` | `primitive_difference_tower` | `derivation` | 1 | yes | none |
+| 29 | `research/reachable/lean` | `reachable` | `derivation` | 1 | yes | none |
+| 30 | `research/reading_f_iso` | `reading_f_iso` | `derivation` | 1 | yes | none |
+| 31 | `research/target_a_execution/lean` | `target_a_execution` | `derivation` | 1 | yes | none |
 | 32 | `research/admission_sign_shadow/lean` | `admission_sign_shadow` | none | 0 | no | `python verify_frozen_compatibility.py --check` in `research/admission_sign_shadow`, after `lake build`: `lake build` compiles only the two roots and what they import; the three modules named here compile only through this script, against a frozen copy of the sealed package that it builds in a temporary directory (`AdmissionSignShadow.FrozenPairBridge`, `AdmissionSignShadow.ReplayOccurrence`, `AdmissionSignShadow.ActualSectionAdapter`) |
 | 33 | `research/balance_carrier/lean` | `balance_carrier` | none | 0 | no | none |
 | 34 | `research/boundary_seed/lean` | `boundaryseed` | none | 0 | no | none |
