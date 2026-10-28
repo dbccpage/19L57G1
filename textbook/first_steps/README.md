@@ -1,6 +1,6 @@
 # First steps: what can a question reveal?
 
-AuthorityEffect: None. This is a beginner reading route outside the sealed
+This is a beginner reading route outside the sealed
 derivation. The examples are supplied teaching models. Their objects,
 questions, answer tables, and rules are declared here; they are not
 derived from the opaque mark.

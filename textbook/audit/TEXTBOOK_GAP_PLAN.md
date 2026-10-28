@@ -19,9 +19,14 @@ pages, theorems, links, or passing software checks.
 - Published Wiki: `28035b60c9b73ce98b050be5c9e0739b4c2356ab`.
 - Source edition used by that Wiki: `cd3d202c5742e7c0aa3083c92bad86ff03d1d3cf`.
 - PR #291 remains open, draft, and unmerged for the author.
-- Current fetched `main`: `e0faff5a55823181a8bd84fa30800e558e9432c0`.
+- Base `main` for the initial audit: `e0faff5a55823181a8bd84fa30800e558e9432c0`.
 - The new first-steps work is an independent source change based on main.
   It does not extend PR #291 or edit the sealed derivation.
+
+Subsequent update, 2026-10-28: the author merged PRs #291 and #292.
+The Path lab is prepared directly against the resulting main
+`e00781389fb4e6b07170fe7aae748c7c57ba517f`. The initial custody bullets
+above record the earlier publication, not current open-PR status.
 
 ## What is present, and what that establishes
 
