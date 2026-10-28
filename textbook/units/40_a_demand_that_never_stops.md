@@ -533,14 +533,15 @@ include the seed or the tip.
 
 The obstructions are the interior pairs, so there are `C(n − 1, 2)` of
 them: `0, 0, 1, 3, 6, …` for `n = 1, 2, 3, 4, 5`, matching the check's
-list at length 4. At round `n ≥ 4` every interior element up to `n − 2`
-carries a mark from an earlier round, each distinct (marks are minted
-fresh, so the per-pair views of marked elements differ), and the new
-interior element `n − 1` carries none; the one unseparated pair is
-`(n − 2, n − 1)`, since `n − 2`'s mark set is nonempty only if it was the
-larger element of an earlier pair, which it was at round `n − 1`. The
+list at length 4. At round `n ≥ 4` the one unseparated pair is `(1, n − 1)`.
+The repair always marks the *larger* element of the first pair, so
+element `1` is never marked; each of `2, …, n − 2` received its own
+fresh mark in the round it became interior, and those marks are
+pairwise distinct; the new interior element `n − 1` carries none, so it
+and `1` are the two interior elements with an empty mark set. The
 check's per-pair row `(n, 1, 1, 0)` confirms one obstruction and one
-import per round from round 3. The seed and the tip are never
+import per round from round 3, and `run_branch` records the first pair
+as `(1, 2), (1, 3), (1, 4), …`. The seed and the tip are never
 obstructions because the iff's right-hand side requires `1 ≤ i < n` of
 both elements, and `0` fails the first inequality while `n` fails the
 second: their profiles `(false, false, true)` and `(true, true, false)`
