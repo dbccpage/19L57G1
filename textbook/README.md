@@ -253,12 +253,14 @@ in one template or the other, and this table says which.
 | 39 | Refusal routes and their prices | `RefusalFrontier.silent_repetition_inert`, `RefusalFrontier.min_witnessed_route_closes`, `RefusalFrontier.reflective_chain_is_initial_segment` | derived (cores); minimality and uniqueness computed in class | yes |
 | 40 | A demand that never stops, and the three ways to pay | `Generator.depth1_obstructions_are_exactly_middle_pairs`, `Generator.generation_never_dries`, `Generator.finite_marks_outrun` | derived (depth 1); two instances (depth 2); exclusion computed in class | yes |
 | 41 | Looking farther does not help: the radius-`d` outrun | `SeparationCapacity.depth_d_outrun`, `SeparationCapacity.depth_d_obstruction`, `SeparationCapacity.radius_one_agrees_with_sealed_depth2` | derived (structural profile; interior only) | yes |
+| 42 | Counting without choosing, and how many things a bounded window can tell apart | `Pigeonhole.pigeonhole`, `CapacityBound.capacity_bound`, `CapacityBound.local_view_can_separate` | derived; Pigeonhole declared apparatus; tightness not claimed | yes |
 
-The order follows the derivation. Units 27-41 follow the root import order
+The order follows the derivation. Units 27-42 follow the root import order
 of `lean4/Derivation.lean` (Quot, Counting, CountTransport, Mention,
 TransitionTransport, MinimalityF, RuleBridge, Rounds, Progress, Ext,
-ObserverInventory, Refusal, RefusalFrontier, Generator, SeparationCapacity);
-units after 41 continue with Pigeonhole and CapacityBound.
+ObserverInventory, Refusal, RefusalFrontier, Generator, SeparationCapacity,
+Pigeonhole, CapacityBound); units after 42 continue with LocalStrategy and
+G1Class.
 
 ## Parts
 
