@@ -28,7 +28,10 @@ This file does both, in six steps.
    `s : World → Event → World` there is a code `c` on which the
    interpreter and `s` disagree at that verdict (`interp_not_step`).
    Every coded member is such an `s` (`coded_member_separated`), and
-   so is the diagonal function of `tower_persists`.
+   so is the diagonal function of `tower_persists`.  This is a fact of
+   typing — a step function takes no code — made concrete by one
+   guard; at a reflective world carrying `d`, the coded member `d` and
+   the interpreter coincide (step 7).
 3. The lawful meaning of the uncoded role.  On reflective worlds
    (`RWorld`, a world carrying its code), two laws stated in the sealed
    module's own vocabulary — interpretation (`Interprets`: the world
@@ -42,7 +45,9 @@ This file does both, in six steps.
    and `y` disagree on quiescence at some reflective world and event.
    Irreflexivity, symmetry and cotransitivity are theorems
    (`vsep_irrefl`, `vsep_symm`, `vsep_cotrans`); the uncoded role is
-   separated from every coded member (`vsep_uncoded`).  The setting
+   separated from every coded member (`vsep_uncoded`) — at a reflective
+   world carrying another code, never at an aligned one (step 7).  The
+   setting
    `verdictBoundary` therefore satisfies candidates A, Bs, Bc, D of
    `Derivation.PrimitiveCore` by proof (`boundary_A`, `boundary_Bs`,
    `boundary_Bc`, `boundary_D`), where `boundarySetting` satisfied A by
@@ -66,11 +71,34 @@ This file does both, in six steps.
    `nextFamily` is empty either way (`nextFamily_blind_at_genesis`);
    the two-token world `twoWorld`, reached by two admissions, separates
    it (`family_reads_guard`, `interp_not_step_family`).
+7. The aligned code, the guards and well-formedness (section 7, added
+   after the review of 2026-10-28).  At a reflective world carrying `d`
+   the coded member `d` and the uncoded role coincide definitionally,
+   under every function of the outcome and along every event sequence
+   (`aligned_coded_equals_uncoded`, `aligned_no_verdict`,
+   `aligned_trajectory`); `VSep (some d) none` is witnessed exactly at a
+   world carrying another code (`vsep_uncoded_iff`).  Two codes differ
+   only where a guard decides (`codes_agree_of_guardsPass`,
+   `codes_separated_needs_guard`, `vsep_uncoded_needs_guard`).  The
+   `genesis` witness is a rejected challenge whose unguarded outcome is
+   not well formed (`genesis_witness_unguarded_not_wf`); every guard
+   but `guardRequire` preserves well-formedness (`wf_interpStep`), and
+   the well-formed, kernel-reachable world `accWorld` under `mark [0] 1`
+   separates the interpreter from every step function and every coded
+   member with both outcomes well formed (`quiescent_reads_accept`,
+   `interp_not_step_wf`, `vsep_uncoded_wf`).
+
+Admitted, not derived: the two laws `Interprets` and `Quotes` are the
+reading of the sealed tags chosen here; `lawful_unique_at` is relative
+to them.
 
 Not claimed: locatedness (candidate `Bl`) of `VSep`; retention and
 protection of the pair other than by declaring the stores to be `VSep`
 (`boundary_F`, same status as `i5_boundary_is_F`); anything about
-evaluators of other types; an absolute no-outside.
+evaluators of other types; an absolute no-outside; any difference
+between a code and the interpreter at a reflective world carrying that
+code (refuted, `aligned_no_verdict`); any separation at which no guard
+decides (impossible, `codes_separated_needs_guard`).
 
 What is metatheory and what is represented.  The represented objects are
 the sealed module's: a world (finite lists), an event, a code (six
@@ -461,5 +489,281 @@ theorem interp_not_step_family (s : World → Event → World) :
       have := of_decide_eq_false hL
       simp only [Bool.not_false, ite_true]
       exact fun h => this h.symm
+
+/-! ## 7. The aligned code, the guards, and well-formedness
+
+Two findings of the review of 2026-10-28 are answered here with
+theorems.
+
+**Alignment.**  At a reflective world carrying the code `d`, the coded
+member `some d` and the uncoded role `none` have the same meaning,
+definitionally, at every event (`aligned_coded_equals_uncoded`), under
+every function of the outcome (`aligned_no_verdict`) and along every
+event sequence (`aligned_trajectory`).  So the separation `VSep (some d)
+none` is witnessed only at a reflective world carrying another code
+(`vsep_uncoded_iff`): the interpreter is told from a coded member by
+nothing but its reading of the other codes.  No "self-representational"
+difference exists at this type; the claim that one does is refuted.
+
+**Guards.**  Two codes can differ at `(w, e)` only when a guard decides
+there: when every guard of the kernel passes (`guardsPass w e = true`),
+every code performs the sealed step (`codes_agree_of_guardsPass`), so a
+quiescence difference between two codes needs a guard to decide
+(`codes_separated_needs_guard`), and so does every separation of the
+uncoded role (`vsep_uncoded_needs_guard`).  The reviewer's requested
+lemma is the `require` instance (`require_guard_irrelevant`).
+
+**Well-formedness.**  The `genesis` witness is a rejected challenge:
+`reqOkB genesis 0 0 = false`, the kernel's outcome is well formed, and
+the unguarded outcome is not (`genesis_witness_rejected`,
+`genesis_witness_kernel_wf`, `genesis_witness_unguarded_not_wf`).  Every
+other guard preserves well-formedness (`wf_interpStep`), and a second
+witness uses one: `accWorld`, reached from `genesis` by five kernel
+steps, is well formed; the event `mark [0] 1` is rejected by the
+kernel's acceptance guard because it discharges nothing, while a code
+with `guardAccept` off applies it and breaks the one requirement.  Both
+outcomes are well formed and they disagree on quiescence
+(`quiescent_reads_accept`, `accWorld_outputs_wf`); so the separation of
+the interpreter from every step function (`interp_not_step_wf`) and
+from every coded member (`vsep_uncoded_wf`) survives the requirement
+that both executions preserve well-formedness.  What no witness can
+remove is the deciding guard, by `codes_separated_needs_guard`. -/
+
+/-- At a reflective world carrying `d`, the coded member `d` and the
+uncoded role agree, definitionally. -/
+theorem aligned_coded_equals_uncoded (d : ConstitutionDesc) (w : World)
+    (e : Event) :
+    meaning (some d) (d, w) e = meaning none (d, w) e := rfl
+
+/-- Hence no function of the outcome, of any type, tells them apart
+there. -/
+theorem aligned_no_verdict {β : Type} (d : ConstitutionDesc) (w : World)
+    (e : Event) (q : RWorld → β) :
+    q (meaning (some d) (d, w) e) = q (meaning none (d, w) e) := rfl
+
+/-- Along every event sequence from an aligned reflective world the two
+trajectories coincide. -/
+theorem aligned_trajectory (d : ConstitutionDesc) (w : World)
+    (es : List Event) :
+    es.foldl (meaning (some d)) (d, w) = es.foldl (meaning none) (d, w) := by
+  induction es generalizing w with
+  | nil => rfl
+  | cons e es ih =>
+      simp only [List.foldl]
+      exact ih (interpStep d w e)
+
+/-- The separation of the uncoded role from `some d` is witnessed
+exactly at a reflective world carrying a code other than `d`. -/
+theorem vsep_uncoded_iff (d : ConstitutionDesc) :
+    VSep (some d) none ↔
+      ∃ (c : ConstitutionDesc) (w : World) (e : Event),
+        c ≠ d ∧ quiescentB (interpStep d w e) ≠ quiescentB (interpStep c w e) := by
+  constructor
+  · rintro ⟨⟨c, w⟩, e, h⟩
+    refine ⟨c, w, e, ?_, h⟩
+    intro hcd
+    subst hcd
+    exact h rfl
+  · rintro ⟨c, w, e, _, h⟩
+    exact ⟨(c, w), e, h⟩
+
+/-- The kernel's guards at `(w, e)`: every condition the sealed step
+tests before acting (the duplicate test of `admitTok`, `reqOkB`,
+`markOkB` with the budget, `augOkB` with licence and budget, the
+obstruction certificate of `refuse`).  The three inert events have no
+guard. -/
+def guardsPass (w : World) : Event → Bool
+  | .admitTok t => !(decide (t ∈ w.data))
+  | .require i j => reqOkB w i j
+  | .mark v p => markOkB w v p && decide (0 < w.budget)
+  | .addView c => augOkB w c && w.augLicensed && decide (0 < w.budget)
+  | .refuse i j => obstructedB w (i, j)
+  | .note _ => true
+  | .setBudget _ => true
+  | .setAugLicense _ => true
+
+/-- When every guard passes, every code performs the sealed step. -/
+theorem codes_agree_of_guardsPass (c : ConstitutionDesc) (w : World)
+    (e : Event) (h : guardsPass w e = true) :
+    interpStep c w e = step w e := by
+  cases e with
+  | admitTok t =>
+      have hmem : ¬ t ∈ w.data := by
+        simpa [guardsPass] using h
+      simp [interpStep, step, hmem]
+  | require i j =>
+      simp only [guardsPass] at h
+      simp [interpStep, step, h]
+  | mark v p =>
+      simp only [guardsPass, Bool.and_eq_true] at h
+      simp [interpStep, step, h.1, h.2]
+  | addView v =>
+      simp only [guardsPass, Bool.and_eq_true] at h
+      simp [interpStep, step, h.1.1, h.1.2, h.2]
+  | refuse i j =>
+      simp only [guardsPass] at h
+      simp [interpStep, step, h]
+  | note n => rfl
+  | setBudget n => rfl
+  | setAugLicense b => rfl
+
+/-- The reviewer's requested instance: when `reqOkB w i j` holds, the
+`guardRequire` toggle is irrelevant to `require i j`. -/
+theorem require_guard_irrelevant (c : ConstitutionDesc) (w : World)
+    (i j : Nat) (h : reqOkB w i j = true) :
+    interpStep c w (.require i j) = step w (.require i j) :=
+  codes_agree_of_guardsPass c w _ h
+
+/-- A quiescence difference between two codes needs a guard to decide. -/
+theorem codes_separated_needs_guard (c d : ConstitutionDesc) (w : World)
+    (e : Event)
+    (h : quiescentB (interpStep c w e) ≠ quiescentB (interpStep d w e)) :
+    guardsPass w e = false := by
+  cases hg : guardsPass w e with
+  | false => rfl
+  | true =>
+      rw [codes_agree_of_guardsPass c w e hg,
+        codes_agree_of_guardsPass d w e hg] at h
+      exact absurd rfl h
+
+/-- Every separation of the uncoded role from a coded member is at a
+reflective world carrying another code, at an event where a guard
+decides. -/
+theorem vsep_uncoded_needs_guard (d : ConstitutionDesc)
+    (h : VSep (some d) none) :
+    ∃ (c : ConstitutionDesc) (w : World) (e : Event),
+      c ≠ d ∧ guardsPass w e = false ∧
+        quiescentB (interpStep d w e) ≠ quiescentB (interpStep c w e) := by
+  obtain ⟨c, w, e, hne, hq⟩ := (vsep_uncoded_iff d).1 h
+  exact ⟨c, w, e, hne, codes_separated_needs_guard d c w e hq, hq⟩
+
+/-! ### The `genesis` witness is a rejected challenge -/
+
+theorem genesis_witness_rejected : reqOkB genesis 0 0 = false := by decide
+
+theorem genesis_witness_guard_decides :
+    guardsPass genesis (.require 0 0) = false := by decide
+
+theorem genesis_witness_kernel_wf : WF (step genesis (.require 0 0)) :=
+  wf_step wf_genesis _
+
+/-- With `guardRequire` off the recorded self-requirement breaks the
+sealed well-formedness invariant. -/
+theorem genesis_witness_unguarded_not_wf (c : ConstitutionDesc)
+    (h : c.guardRequire = false) :
+    ¬ WF (interpStep c genesis (.require 0 0)) := by
+  intro hwf
+  have hmem : ((0, 0) : Req) ∈ (interpStep c genesis (.require 0 0)).reqs := by
+    simp [interpStep, h, genesis]
+  exact (hwf _ hmem).1 rfl
+
+/-! ### Well-formedness under every other guard -/
+
+/-- `WF` reads only the requirement list and the number of data. -/
+theorem wf_of_reqs_data {w w' : World} (hwf : WF w) (hr : w'.reqs = w.reqs)
+    (hd : w.data.length ≤ w'.data.length) : WF w' := by
+  intro r hr'
+  rw [hr] at hr'
+  obtain ⟨h1, h2, h3⟩ := hwf r hr'
+  exact ⟨h1, Nat.lt_of_lt_of_le h2 hd, Nat.lt_of_lt_of_le h3 hd⟩
+
+/-- Every code preserves well-formedness at every event, except a code
+with `guardRequire` off at a `require`. -/
+theorem wf_interpStep (c : ConstitutionDesc) {w : World} (hwf : WF w)
+    (e : Event) (hreq : ∀ i j, e = .require i j → c.guardRequire = true) :
+    WF (interpStep c w e) := by
+  cases e with
+  | admitTok t =>
+      simp only [interpStep]
+      split
+      · exact hwf
+      · exact wf_of_reqs_data hwf rfl (by simp)
+  | require i j =>
+      have hg := hreq i j rfl
+      have : interpStep c w (.require i j) = step w (.require i j) := by
+        simp [interpStep, step, hg]
+      rw [this]
+      exact wf_step hwf _
+  | mark v p =>
+      simp only [interpStep]
+      split <;> exact wf_of_reqs_data hwf rfl (Nat.le_refl _)
+  | addView v =>
+      simp only [interpStep]
+      split <;> exact wf_of_reqs_data hwf rfl (Nat.le_refl _)
+  | refuse i j =>
+      simp only [interpStep]
+      split <;> exact wf_of_reqs_data hwf rfl (Nat.le_refl _)
+  | note n => exact wf_of_reqs_data hwf rfl (Nat.le_refl _)
+  | setBudget n => exact wf_of_reqs_data hwf rfl (Nat.le_refl _)
+  | setAugLicense b => exact wf_of_reqs_data hwf rfl (Nat.le_refl _)
+
+/-! ### A well-formedness-preserving witness -/
+
+/-- Two tokens, one view `[0]`, one requirement `(0, 1)` that the view
+satisfies, one unit of budget. -/
+def accWorld : World :=
+  { data := [0, 1], views := [[0]], reqs := [(0, 1)], refusals := [],
+    budget := 1, augLicensed := true, notes := [] }
+
+theorem accWorld_reached :
+    replay [.admitTok 0, .admitTok 1, .require 0 1, .setBudget 2,
+      .addView [0]] genesis = accWorld := by decide
+
+theorem accWorld_wf : WF accWorld := by
+  unfold WF
+  decide
+
+/-- The kernel rejects `mark [0] 1`: it discharges no requirement. -/
+theorem accWorld_kernel_rejects : markOkB accWorld [0] 1 = false := by decide
+
+theorem accWorld_guard_decides :
+    guardsPass accWorld (.mark [0] 1) = false := by decide
+
+theorem accWorld_step_fixed : step accWorld (.mark [0] 1) = accWorld := by
+  decide
+
+/-- One verdict reads the acceptance guard: a code with it off applies
+the mark, which puts `1` into the view and so stops separating `0`
+from `1`. -/
+theorem quiescent_reads_accept (c : ConstitutionDesc) :
+    quiescentB (interpStep c accWorld (.mark [0] 1)) = c.guardAccept := by
+  cases c with
+  | mk a b cc d e f =>
+    cases a <;> cases b <;> cases cc <;> cases d <;> cases e <;> cases f
+      <;> decide
+
+/-- Both outcomes are well formed, under every code. -/
+theorem accWorld_outputs_wf (c : ConstitutionDesc) :
+    WF (interpStep c accWorld (.mark [0] 1)) :=
+  wf_interpStep c accWorld_wf _ (fun _ _ h => nomatch h)
+
+def flipAccept (c : ConstitutionDesc) : ConstitutionDesc :=
+  { c with guardAccept := !c.guardAccept }
+
+/-- The interpreter is separated from every step function at a
+well-formed world reached by the kernel, by a well-formed outcome. -/
+theorem interp_not_step_wf (s : World → Event → World) :
+    ∃ c : ConstitutionDesc,
+      WF (interpStep c accWorld (.mark [0] 1)) ∧
+        quiescentB (interpStep c accWorld (.mark [0] 1)) ≠
+          quiescentB (s accWorld (.mark [0] 1)) := by
+  refine ⟨{ kernelDesc with
+    guardAccept := !(quiescentB (s accWorld (.mark [0] 1))) },
+    accWorld_outputs_wf _, ?_⟩
+  rw [quiescent_reads_accept]
+  generalize quiescentB (s accWorld (.mark [0] 1)) = b
+  cases b <;> decide
+
+/-- The uncoded role is separated from every coded member at a
+well-formed world, with both outcomes well formed. -/
+theorem vsep_uncoded_wf (d : ConstitutionDesc) :
+    ∃ (c : ConstitutionDesc) (w : World) (e : Event),
+      WF w ∧ WF (interpStep d w e) ∧ WF (interpStep c w e) ∧
+        quiescentB (interpStep d w e) ≠ quiescentB (interpStep c w e) := by
+  refine ⟨flipAccept d, accWorld, .mark [0] 1, accWorld_wf,
+    accWorld_outputs_wf d, accWorld_outputs_wf _, ?_⟩
+  rw [quiescent_reads_accept, quiescent_reads_accept]
+  show d.guardAccept ≠ (!d.guardAccept)
+  cases d.guardAccept <;> decide
 
 end ResearchInterpreterVerdict

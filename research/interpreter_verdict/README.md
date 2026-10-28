@@ -29,7 +29,9 @@ module's tags, are stated as predicates on reflective steps:
   part of `g` does what `c` means, `interpStep c`;
 - quotation (`Quotes g`): the carried code is inert data.
 
-Exactly one reflective step satisfies both: `rstep`, "run the code the world
+Both laws are admitted here as the reading of those tags; nothing derives
+them, and everything below is relative to them. Exactly one reflective step
+satisfies both: `rstep`, "run the code the world
 carries". The content is pointwise (`lawful_unique_at`: at every reflective
 world and event, any step that interprets and quotes gives `rstep`'s value);
 `lawful_unique` packages it as one function equation by `funext` and is used
@@ -62,6 +64,12 @@ the verdict difference is a support difference (`verdict_entails_supp`); the
 scratch result `tower_persists_operational` of 2026-10-27 gave the support
 half, this is the verdict half.
 
+The quantifier in `interp_not_step` is a fact of typing: a step function
+takes no code, so the interpreter, which reads one, is matched against it at
+every code. The content is the one-guard witness, not the quantifier. At a
+reflective world carrying the code `d`, the coded member `d` and the
+interpreter coincide; see the section on the aligned code below.
+
 ## The derived relation
 
 `VSep x y`: the meanings of `x` and `y` disagree on quiescence at some
@@ -81,6 +89,64 @@ meanings and reads `none` as a coded member reports, at an accessible
 reflective world, a quiescence verdict the lawful meaning does not
 (`identification_changes_quiescence`); the same for reading `none` as the
 lift of any step function at all (`identification_with_step_changes_quiescence`).
+
+## The aligned code, the guards and well-formedness
+
+Added after the review of 2026-10-28, which asked two questions. Does any
+difference between a code and the interpreter survive when the reflective
+world carries that very code? Does the separation survive when both
+executions preserve the sealed well-formedness invariant?
+
+**Alignment: no, by definition.** At a reflective world carrying `d`,
+`meaning (some d) (d, w) e = meaning none (d, w) e` is `rfl`
+(`aligned_coded_equals_uncoded`); no function of the outcome, of any type,
+tells them apart (`aligned_no_verdict`); the two trajectories coincide along
+every event sequence (`aligned_trajectory`). So `VSep (some d) none` is
+witnessed exactly at a reflective world carrying a code other than `d`
+(`vsep_uncoded_iff`). The interpreter is told from a coded member by nothing
+but its reading of the other codes. A difference that survives alignment
+does not exist at this type; the sentence "even when a code is the one being
+interpreted, an irreducible difference remains" is refuted here, not left
+open.
+
+**Guards: every separation needs one.** `guardsPass w e` collects the
+conditions the sealed step tests before acting. When they all pass, every
+code performs the sealed step (`codes_agree_of_guardsPass`), so two codes
+can disagree on quiescence only where a guard decides
+(`codes_separated_needs_guard`), and so can the uncoded role and a coded
+member (`vsep_uncoded_needs_guard`). The `require` instance is
+`require_guard_irrelevant`: with `reqOkB w i j` true, the `guardRequire`
+toggle changes nothing. This is the recurrence test the review asked for,
+as a theorem: a separation certificate always names a deciding guard.
+
+**Well-formedness: the separation survives it.** The `genesis` witness is a
+rejected challenge: `reqOkB genesis 0 0 = false`, the kernel's outcome is
+well formed, and a code with `guardRequire` off records the self-requirement
+and breaks `Represented.WF` (`genesis_witness_rejected`,
+`genesis_witness_kernel_wf`, `genesis_witness_unguarded_not_wf`). Every
+other guard preserves well-formedness at every event (`wf_interpStep`). The
+second witness uses one. `accWorld` (two tokens, the view `[0]`, the
+requirement `(0, 1)`, one unit of budget) is reached from `genesis` by five
+kernel steps and is well formed (`accWorld_reached`, `accWorld_wf`). The
+event `mark [0] 1` is rejected by the kernel's acceptance guard because it
+discharges nothing (`accWorld_kernel_rejects`); a code with `guardAccept`
+off applies it, which puts `1` into the only view and breaks the one
+requirement. Both outcomes are well formed and they disagree on quiescence
+(`quiescent_reads_accept`, `accWorld_outputs_wf`). So the interpreter is
+separated from every step function (`interp_not_step_wf`) and from every
+coded member (`vsep_uncoded_wf`) at a well-formed, kernel-reachable world
+with both outcomes well formed. The certificate of each witness is explicit:
+whether the kernel's guard passes (`genesis_witness_guard_decides`,
+`accWorld_guard_decides`), whether each outcome is well formed, and which
+guard decides (`guardRequire` at `genesis`, `guardAccept` at `accWorld`).
+
+**What Genesis is entitled to conclude.** The interpreter is a primitive
+difference from every coded member in the sense proved: at some reflective
+world carrying another code, at an event where a guard decides, the two
+report different quiescence verdicts, and this survives the requirement that
+both executions stay well formed. The difference is the admitted ability to
+interpret alternative codes, exercised where a guard decides, and nothing
+else.
 
 ## Metatheory and represented structure
 
@@ -110,6 +176,18 @@ type in play is the sealed `World`, which Genesis already has.
 
 ## Limits
 
+- The separation of the uncoded role from a coded member is extensional
+  across codes: witnessed at a reflective world carrying another code, never
+  at an aligned one (`aligned_no_verdict`). Nothing here separates a code
+  from the interpreter running that code.
+- The `genesis` witness compares a guarded execution with one that records a
+  rejected requirement and leaves well-formedness; `accWorld` is the witness
+  to cite where both outcomes must be well formed. The family witness at
+  `twoWorld` has the `genesis` character.
+- The two laws that fix the meaning of `none` are admitted, not derived.
+- The tree's Python checks custody (pins and imports) only; every claim about
+  behaviour is a Lean theorem.
+
 - Not every presentational difference among codes is a verdict difference: a
   code and its `dedupAdmit` flip are never separated by one quiescence
   verdict (`coded_pair_not_vsep`). `VSep` is strictly coarser than `≠` on the
@@ -132,5 +210,5 @@ type in play is the sealed `World`, which Genesis already has.
   their files exist).
 
 `python verify.py --check` runs the input pin, tests, strict typing, the Lean
-build and the named axiom reports (all 35 within `{propext, Quot.sound}`).
+build and the named axiom reports (all 59 within `{propext, Quot.sound}`).
 `python verify.py --write-pins` regenerates the input digest.
