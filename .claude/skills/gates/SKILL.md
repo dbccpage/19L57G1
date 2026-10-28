@@ -421,6 +421,15 @@ This gate reads prose only; identifiers stay with the firewall in
 `tests/test_primitive_contact.py`. Expect `prose watchlist clean: N watched
 terms, M files with pinned hits, K hits, census matches its pin`.
 
+### Textbook verification (outside the sealed authority boundary)
+
+```powershell
+python ci/check_textbook.py --python-only
+python ci/check_textbook.py --lean-only
+```
+
+Runs in the separate `textbook` job (`AuthorityEffect: None`), checking all Part 1 and Part 2 textbook Python scripts, `textbook/video_script_15s.md` pacing, and all Part 1 book-Lean scripts against `lean4/`.
+
 ## Registration and receipt freshness
 
 2026-09-19: the earlier claim that no gate compares this file with the

@@ -33,6 +33,9 @@ lines 451–630; `research/two_theorems/lean/ResearchTwoTheorems/Observer.lean`
 lines 132–133, 238–239, 438–439, 518–526;
 `research/two_theorems/lean/ResearchTwoTheorems/Sufficiency.lean` lines 44–221.
 
+> **Scope warning — pairwise equality-query complexity vs. general information-acquisition complexity.**
+> The exact threshold $\frac{n(n - 1)}{2}$ in `acquisition_cost_exact` holds **specifically for the unpromised pairwise equality-query model** (`Acquisition.Protocol` and `Acquisition.entry`), where each step probes a single pair `(x, y)` and receives only the Boolean equality bit `decide (p x = p y)`. It does **not** establish that every institution or observation model requires $\frac{n(n - 1)}{2}$ observations to identify an unknown partition. Under richer query models — such as a **fiber-reveal (class-membership) oracle** that returns the entire equivalence class of a queried element $x$ in at most $n - 1$ queries, or a promised restriction on the candidate family (Unit 15) — the same partition is acquired with strictly fewer queries (`i14_acquisition_exact.py`).
+
 Unit 13 proved that fewer than `n(n - 1)/2` probes cannot acquire every actor on
 `List.range n`. This unit derives the matching upper bound: the non-adaptive
 protocol `scripted (allPairs n)` asks all `n(n - 1)/2` pairs and builds an
@@ -215,6 +218,11 @@ The check verifies:
    `sharp(D, E, p)` matches `sufficient(D, E, p) and consistent(D, E, p)` across
    all `3699` `(E, p)` pairs (`0` violations), both one-sided witnesses exist,
    and `sharpObserver` depends only on `p`'s partition (`0` violations).
+3. **Countermodel to query-model overgeneralization (stronger query oracle):** on
+   `range(4)`, while pairwise equality queries require `6` probes in the worst
+   case (`fullT`), a fiber-reveal oracle that returns the equivalence class of a
+   queried element acquires every partition in at most `3 < 6` queries and feeds
+   the exact same `m = 2`-view binary compression `logE` (`0` violations).
 
 ```
 python textbook/institutions/checks/i14_acquisition_exact.py
@@ -260,8 +268,11 @@ It shows that `Sharp` is the conjunction of `Sufficient` and `Consistent`
 (`sharp_iff_sufficient_and_consistent`), and that `sharpObserver D p m` is a
 function of `p`'s partition alone (`sharpObserver_congr`).
 
-It does not claim that `n(n - 1)/2` probes are needed when the actor is promised
-to come from a restricted class; Unit 15 examines promised class counts.
+It does not claim that `n(n - 1)/2` probes are needed when the observation
+interface allows stronger queries than pairwise equality (for instance, a
+fiber-reveal oracle acquires any partition on `n` elements in at most `n - 1`
+queries), or when the actor is promised to come from a restricted class; Unit 15
+examines promised class counts.
 
 ## Sources
 

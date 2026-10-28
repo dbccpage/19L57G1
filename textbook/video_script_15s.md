@@ -1,28 +1,28 @@
 # Fifteen-Second Video Introduction Script: Pre-Genesis and Genesis
 
-**AuthorityEffect: None.** A short spoken introduction (15 seconds at 150 words
-per minute, 38 spoken words) communicating the starting question of Pre-Genesis
-and Genesis without overclaiming.
+**AuthorityEffect: None.** A short spoken introduction (15 seconds total, 32
+spoken words at 128 words per minute overall, with every individual segment
+paced between 120 and 135 words per minute) communicating the starting question
+of Pre-Genesis and Genesis without overclaiming.
 
 ---
 
-## Script (15 seconds total)
+## Script and Segment Pacing (15 seconds total)
 
-| Time | Visual on screen | Spoken audio |
-|---|---|---|
-| `0:00–0:03` | The single mark `<>` appears on a blank screen. | "Suppose we start with a single mark: nothing else assumed." |
-| `0:03–0:07` | Labels (`set`, `number`, `container`, `rule`) appear around `<>` and are crossed out. | "Before Genesis, a mark gives you no numbers, no containers, and no rules." |
-| `0:07–0:11` | Two marks `<a>` and `<ab>` appear; a ledger line records an explicit admission and a separating test. | "Genesis asks: what must you explicitly admit before two things can even be told apart?" |
-| `0:11–0:15` | `textbook/START_HERE.md` and `Unit 00` open beside a short Python check and a Lean proof. | "Every admission has a price — and you can test and challenge every step yourself." |
+| Time | Duration | Words | Pace (WPM) | Visual on screen | Spoken audio |
+|---|---|---|---|---|---|
+| `0:00–0:03` | `3 s` | `6` | `120 wpm` | The single mark `<>` appears on a blank screen. | "We begin with one mark alone." |
+| `0:03–0:07` | `4 s` | `8` | `120 wpm` | Labels (`set`, `number`, `container`, `rule`) appear around `<>` and are crossed out. | "A mark gives no numbers, containers, or rules." |
+| `0:07–0:11` | `4 s` | `9` | `135 wpm` | Two marks `<a>` and `<ab>` appear; a ledger line records an explicit admission and a separating test. | "What must we admit to tell two things apart?" |
+| `0:11–0:15` | `4 s` | `9` | `135 wpm` | `textbook/START_HERE.md` and `Unit 00` open beside a short Python check and a Lean proof. | "Every step is priced, runnable, and open to challenge." |
 
 ---
 
-## Full spoken text (38 words)
+## Full spoken text (32 words, 128 WPM)
 
-> "Suppose we start with a single mark: nothing else assumed. Before Genesis, a
-> mark gives you no numbers, no containers, and no rules. Genesis asks: what
-> must you explicitly admit before two things can even be told apart? Every
-> admission has a price — and you can test and challenge every step yourself."
+> "We begin with one mark alone. A mark gives no numbers, containers, or rules.
+> What must we admit to tell two things apart? Every step is priced, runnable,
+> and open to challenge."
 
 ---
 
@@ -30,8 +30,8 @@ and Genesis without overclaiming.
 
 1. **What it supports:** Communicates the distinction between an uninterpreted
    inscription (Pre-Genesis) and an explicit ledger of priced admissions and
-   witnessed distinctions (Genesis), and invites the viewer to inspect the
-   executable lessons.
+   witnessed distinctions (Genesis), with per-segment narration pacing verified
+   at 120–135 words per minute.
 2. **What it does not support:** Does not claim that the mark generates a
    mathematical universe on its own, and makes no claim about the physical
    universe or natural science.

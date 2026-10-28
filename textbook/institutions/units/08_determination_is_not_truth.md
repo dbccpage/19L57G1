@@ -27,6 +27,13 @@ truth: `information D Q` (how many equivalence classes `Q` carves on `D`) and
    `agreeQ q t`, which the institution need not know even when it knows `q`
    (`truth_is_a_further_question`); what makes a claim that agrees with `t`
    known—and makes `agreeQ q t` known—is admitting `t` as a member of `Q`.
+4. **Report count is not independent witness count (multi-level correlated
+   blind spots):** three subordinate actors $p_1, p_2, p_3$ that share the same
+   observational blind spot can submit three unanimous reports (even in
+   distinct surface encodings and through intermediate regional supervisors),
+   raising the **report count** to $3$ while keeping the **independent
+   information** (`information D Q`) frozen at the single-actor level and leaving
+   the aggregated verdict wrong (`Agreement ≠ Correctness`, `Determination ≠ Truth`).
 
 ## What you need first
 
@@ -147,6 +154,42 @@ Assume the target `t` is admitted (`ht : t ∈ Q`).
   `agreeQ q t x = agreeQ q t y`. By `knows_iff_determined`,
   `Knows D Q (agreeQ q t)` (`agreement_known_of_admitted`).
 
+### Worked institutional example: Correlated errors across levels of authority (`Report Count ≠ Independent Witnesses`)
+
+Consider carrier $D = [0, 1, 2, 3]$ and target table $t = \mathrm{half} = (0, 0, 1, 1)$.
+Suppose three subordinate actors $p_1, p_2, p_3$ observe $D$ using distinct
+codebooks that all suffer from the **same observational blind spot**: none of
+them can distinguish datum $1$ from datum $2$ (each merges $\{0, 1, 2\}$ into one
+fiber and places $\{3\}$ in the other):
+
+- $p_1 = (0, 0, 0, 1)$
+- $p_2 = (10, 10, 10, 11)$
+- $p_3 = (20, 20, 20, 21)$
+
+Each subordinate determines the defective binary assessment
+$q_{\text{err}} = (0, 0, 0, 1)$, which misclassifies datum $2$ ($q_{\text{err}}(2) = 0 \neq 1 = t(2)$).
+Now trace this through two levels of institutional authority:
+
+1. **First-level aggregation (`Q = [p_1, p_2, p_3]`):** A supervisor collects all
+   three reports. The **report count** is $3$, and all three subordinates
+   unanimously support $q_{\text{err}}$. Yet because $p_1, p_2, p_3$ induce the
+   exact same partition $\{\{0, 1, 2\}, \{3\}\}$ on $D$, adding $p_2$ and $p_3$
+   contributes **zero new independent distinctions**:
+   $$\mathrm{information}(D, [p_1]) = \mathrm{information}(D, [p_1, p_2]) = \mathrm{information}(D, [p_1, p_2, p_3]) = 2.$$
+   The institution $Q$ determines $q_{\text{err}}$ (`Knows D Q q_err`), fails to
+   determine the target $t$ (`¬ Knows D Q t`), and disagrees with $t$ at datum $2$
+   (`corrB D q_err t = false`).
+2. **Second-level hierarchy (`Q_top = [S_A, S_B]`):** Suppose division $A$
+   combines $[p_1, p_2]$ into its canonical summary $S_A = \mathrm{pQ}(D, [p_1, p_2])$
+   and division $B$ combines $[p_2, p_3]$ into $S_B = \mathrm{pQ}(D, [p_2, p_3])$,
+   and both divisions report up to a director $Q_{\text{top}} = [S_A, S_B]$.
+   The director sees two concurring division-level assessments backed by three
+   field reports, yet $\mathrm{information}(D, Q_{\text{top}}) = 2$,
+   $\mathrm{Knows}(D, Q_{\text{top}}, q_{\text{err}})$ still holds, and the error at
+   datum $2$ is untouched. Repetition across levels of authority increases the
+   **report count** without increasing the **number of independent witnesses**
+   (compare Unit 11's `unanimous_wrong_not_corrected_by_same_blind_spot`).
+
 ## The same fact in Python
 
 The check verifies:
@@ -160,6 +203,12 @@ The check verifies:
    range(3)`: whenever `t in Q` and `q == t`, `knows(3, Q, q)` holds; and
    whenever `t in Q` and `knows(3, Q, q)` holds, `knows(3, Q, agreeQ(q, t))`
    holds (`0` violations).
+4. **Three-actor correlated blind-spot and multi-level hierarchy check:** three
+   actors `p1, p2, p3` on `range(4)` sharing the blind spot `p(0) == p(1) == p(2)`
+   yield `report_count = 3` while `information(4, (p1,)) == information(4, (p1, p2, p3)) == 2`
+   (only `1` independent witness partition), and neither direct aggregation
+   `Q = (p1, p2, p3)` nor two-tier supervisory aggregation `Q_top = (S_A, S_B)`
+   eliminates the error against target `HALF4 = (0, 0, 1, 1)`.
 
 ```
 python textbook/institutions/checks/i08_determination_not_truth.py

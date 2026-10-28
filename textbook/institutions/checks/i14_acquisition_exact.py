@@ -5,7 +5,10 @@ Checks:
      6 probes builds `tableE` sharp for `p`, and `logE` of `m = 2` views built
      from `acquired` is sharp for `p`;
   2. `sufficiency_checks` and `sharp_fixes_partition_check` from
-     `two_theorems/model.py` on `D = (0, 1, 2)` and `D = (0, 1, 2, 3)`.
+     `two_theorems/model.py` on `D = (0, 1, 2)` and `D = (0, 1, 2, 3)`;
+  3. Scope countermodel: a stronger fiber-reveal query oracle acquires every
+     partition on `range(4)` in at most `3 < 6` queries and feeds the same
+     `m = 2`-view binary compression `logE`.
 The proofs for every carrier are the Lean. AuthorityEffect: None.
 Run from the repository root: python textbook/institutions/checks/i14_acquisition_exact.py
 """
@@ -48,12 +51,33 @@ def table_e(n: int, T: tuple[tuple[int, int, bool], ...]) -> tuple[tuple[int, ..
     return tuple(tuple(b for b in range(n) if same_t(T, a, b)) for a in range(n))
 
 
+def fiber_oracle_acquire(n: int, p: tuple[int, ...]) -> tuple[int, tuple[tuple[int, ...], ...]]:
+    covered: set[int] = set()
+    views: list[tuple[int, ...]] = []
+    queries = 0
+    for x in range(n):
+        if len(covered) >= n - 1:
+            break
+        if x in covered:
+            continue
+        queries += 1
+        fiber = tuple(y for y in range(n) if p[x] == p[y])
+        views.append(fiber)
+        covered.update(fiber)
+    remaining = tuple(y for y in range(n) if y not in covered)
+    if remaining:
+        views.append(remaining)
+    return queries, tuple(views)
+
+
 def main() -> int:
     tt_model = load_two_theorems_model()
     D4 = (0, 1, 2, 3)
     parts4 = partitions(4)
     table_bad = 0
     log_bad = 0
+    fiber_max_q = 0
+    fiber_log_bad = 0
     for p in parts4:
         T = full_t(4, p)
         E = table_e(4, T)
@@ -63,7 +87,17 @@ def main() -> int:
         log_e = tt_model.bit_observer(D4, tt_model.fiber_index(D4, acq_p), 2)
         if not sharp(4, log_e, p):
             log_bad += 1
+        q_count, fiber_E = fiber_oracle_acquire(4, p)
+        fiber_max_q = max(fiber_max_q, q_count)
+        fiber_acq_p = tt_model.joint_presentation(D4, tt_model.questions(fiber_E))
+        fiber_log_e = tt_model.bit_observer(D4, tt_model.fiber_index(D4, fiber_acq_p), 2)
+        if not sharp(4, fiber_E, p) or not sharp(4, fiber_log_e, p) or fiber_log_e != log_e:
+            fiber_log_bad += 1
     print(f"partitions on range(4) checked: {len(parts4)}; tableE bad: {table_bad}; logE(m=2) bad: {log_bad}")
+    print(
+        f"fiber-reveal oracle on range(4): max queries = {fiber_max_q} (< 6 pairwise queries); "
+        f"compressed logE(m=2) mismatches: {fiber_log_bad}"
+    )
 
     s3_1 = tt_model.sufficiency_checks((0, 1, 2), 1)
     s3_2 = tt_model.sufficiency_checks((0, 1, 2), 2)
@@ -76,6 +110,8 @@ def main() -> int:
     ok = (
         table_bad == 0
         and log_bad == 0
+        and fiber_max_q == 3
+        and fiber_log_bad == 0
         and s3_1["violations"] == 0
         and s3_2["violations"] == 0
         and s4_2["violations"] == 0

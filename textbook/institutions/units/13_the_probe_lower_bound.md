@@ -30,6 +30,9 @@ consistent with `E` while one merges `(x, y)` and the other splits it
 lines 155–423; `research/two_theorems/lean/ResearchTwoTheorems/Reading.lean`
 lines 99–156.
 
+> **Scope warning — pairwise equality-query complexity vs. general information-acquisition complexity.**
+> The $\frac{n(n - 1)}{2}$ lower bound proved in this unit applies **specifically to the unpromised pairwise equality-query model**, in which each query asks a single pair `(x, y)` and learns only the one-bit answer `decide (p x = p y)` (`Acquisition.entry`). It does **not** establish that every institution or observation model needs $\frac{n(n - 1)}{2}$ observations to identify an unknown partition. Stronger query models carry strictly more information per query and acquire the same partition in fewer steps: for example, a **fiber-reveal (class-membership) oracle** that returns the entire equivalence class $\{y \in D \mid p(x) = p(y)\}$ of a queried element $x$ acquires every partition on `List.range n` in at most $n - 1$ queries (at most $3 < 6$ queries on `n = 4`), because revealing the fibers of at most $n - 1$ class representatives forces the remaining elements (`i13_lower_bound.py`).
+
 Unit 12 showed `run_congr`: two actors that answer every asked probe alike have
 identical transcripts. This unit constructs the adversary that exploits
 `run_congr`. On `List.range n` there are `(allPairs n).length = n(n - 1)/2`
@@ -197,6 +200,13 @@ The check verifies:
    and `D = (0, 1, 2, 3)` (`m = 2`): across all `111` merged-pair cases, `p₀`
    and `p₁ = markOne(p₀, x)` are both consistent with `E` while `p₀(x) == p₀(y)`
    and `p₁(x) != p₁(y)` (`0` failures).
+4. **Countermodel to query-model overgeneralization (fiber-reveal oracle):** on
+   `range(4)` (all `15` partitions), an adaptive fiber-reveal oracle that
+   queries the smallest uncovered element `x` and receives its full class
+   `{y in range(4) : p[x] == p[y]}` uniquely acquires every partition in at most
+   `n - 1 = 3` queries (`max_queries = 3 < 6 = n(n - 1)/2`, `0` failures),
+   showing that the `n(n - 1)/2` lower bound is specific to pairwise equality
+   queries rather than all observation models.
 
 ```
 python textbook/institutions/checks/i13_lower_bound.py
@@ -245,8 +255,11 @@ It shows that whenever a static observer `E` merges `x ≠ y ∈ D`, two actors
 consistent with `E` disagree on `(x, y)` (`observer_cannot_read_resolution`).
 
 It does not show that acquisition is unachievable at budget `n(n - 1)/2` (Unit
-14 shows it is achieved there), and it does not support unrestricted
-impossibility claims beyond the stated step budget or merged pairs.
+14 shows it is achieved there), it does not apply to stronger query oracles that
+return more than one pairwise equality bit per query (such as a class-membership
+oracle, which acquires any partition on `n` points in at most `n - 1` queries),
+and it does not support unrestricted impossibility claims beyond the stated step
+budget or merged pairs.
 
 ## Sources
 

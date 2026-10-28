@@ -67,7 +67,26 @@ jobs:
 def test_the_workflow_parses_and_the_names_the_runner_holds_match() -> None:
     steps = rg.parse_workflow(rg.WORKFLOW.read_text(encoding="utf-8"))
     rg.check_contract(steps)
-    assert {"python", "lean", "research"} <= {s.job for s in steps}
+    assert {"python", "lean", "research", "textbook"} <= {s.job for s in steps}
+
+
+def test_every_job_sets_up_python_and_pinned_dependencies_before_python_commands() -> None:
+    steps = rg.parse_workflow(rg.WORKFLOW.read_text(encoding="utf-8"))
+    jobs = sorted({s.job for s in steps})
+    for job in jobs:
+        job_steps = [s for s in steps if s.job == job]
+        setup_idx = next((i for i, s in enumerate(job_steps) if s.uses == "actions/setup-python@v5"), None)
+        deps_idx = next((i for i, s in enumerate(job_steps) if s.name == "Install pinned dependencies"), None)
+        first_py = next(
+            (i for i, s in enumerate(job_steps) if s.run and not s.is_setup and re.search(r"\bpython3?\b", s.run)),
+            None,
+        )
+        assert setup_idx is not None, f"job {job!r} is missing actions/setup-python@v5"
+        assert deps_idx is not None, f"job {job!r} is missing Install pinned dependencies"
+        if first_py is not None:
+            assert setup_idx < deps_idx < first_py, (
+                f"job {job!r} runs Python at step {first_py} before setup-python ({setup_idx}) / deps ({deps_idx})"
+            )
     chosen = rg.select(steps, [], False, None)
     assert chosen and not any(s.is_setup for s in chosen)
     assert {s.uses for s in chosen if s.uses} <= set(rg.ACTIONS)

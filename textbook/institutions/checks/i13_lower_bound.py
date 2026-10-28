@@ -7,7 +7,12 @@ Checks:
      `(x, y)` yields `merge(x, y)` agreeing with `id` on all probed pairs while
      merging `(x, y)`;
   3. `cannot_read_checks` from `two_theorems/model.py` on `D = (0, 1, 2)`
-     (`m = 1`) and `D = (0, 1, 2, 3)` (`m = 2`).
+     (`m = 1`) and `D = (0, 1, 2, 3)` (`m = 2`);
+  4. Scope countermodel: a stronger fiber-reveal (class-membership) query oracle
+     `fiber_oracle(p, x) = tuple(y for y in range(n) if p[x] == p[y])` acquires
+     every partition on `range(4)` in at most `n - 1 = 3` queries (`< 6`),
+     showing that the `n(n - 1)/2` lower bound is specific to pairwise equality
+     queries and does not apply to richer observation models.
 The proofs for every carrier are the Lean. AuthorityEffect: None.
 Run from the repository root: python textbook/institutions/checks/i13_lower_bound.py
 """
@@ -18,7 +23,7 @@ import sys
 from pathlib import Path
 
 import _tree  # noqa: F401
-from model import acquisition_values  # noqa: E402
+from model import acquisition_values, partitions, sharp  # noqa: E402
 
 TWO_THEOREMS = Path(__file__).resolve().parents[3] / "research" / "two_theorems"
 
@@ -38,6 +43,26 @@ def load_two_theorems_model():
 
 def merge_actor(n: int, x: int, y: int) -> tuple[int, ...]:
     return tuple(x if z == y else z for z in range(n))
+
+
+def fiber_oracle_acquire(n: int, p: tuple[int, ...]) -> tuple[int, tuple[tuple[int, ...], ...]]:
+    """Query the smallest uncovered element's full fiber until >= n - 1 points are covered."""
+    covered: set[int] = set()
+    views: list[tuple[int, ...]] = []
+    queries = 0
+    for x in range(n):
+        if len(covered) >= n - 1:
+            break
+        if x in covered:
+            continue
+        queries += 1
+        fiber = tuple(y for y in range(n) if p[x] == p[y])
+        views.append(fiber)
+        covered.update(fiber)
+    remaining = tuple(y for y in range(n) if y not in covered)
+    if remaining:
+        views.append(remaining)
+    return queries, tuple(views)
 
 
 def main() -> int:
@@ -70,11 +95,27 @@ def main() -> int:
     cr4 = tt_model.cannot_read_checks((0, 1, 2, 3), 2)
     print(f"cannot_read_checks D=(0,1,2), m=1: {cr3}; D=(0,1,2,3), m=2: {cr4}")
 
+    parts4 = partitions(4)
+    fiber_max_q = 0
+    fiber_bad = 0
+    for p in parts4:
+        q_count, E_views = fiber_oracle_acquire(4, p)
+        fiber_max_q = max(fiber_max_q, q_count)
+        if not sharp(4, E_views, p):
+            fiber_bad += 1
+    print(
+        f"fiber-reveal oracle on range(4) ({len(parts4)} partitions): "
+        f"max queries = {fiber_max_q} (< 6 pairwise bound); sharp violations = {fiber_bad}"
+    )
+
     ok = (
         unp == half_sq
         and short_bad == 0
         and cr3["failures"] == 0
         and cr4["failures"] == 0
+        and fiber_max_q == 3
+        and fiber_max_q < half_sq["4"]
+        and fiber_bad == 0
     )
     return 0 if ok else 1
 
