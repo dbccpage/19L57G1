@@ -577,12 +577,12 @@ def build_all(repo_root: Path, wiki_root: Path) -> dict[str, int]:
 ---
 
 > [!IMPORTANT]
-> ### ⚡ Post-Seal Research Trees Synced to `main` (`{commit_short}`)
-> This page is regenerated automatically by `python textbook/media/build_wiki_textbook.py` whenever new textbook units or research trees are added to `main`. It inventories all **{len(research_trees)}** research trees currently under [`research/`]({blob_base}/research) and links the trees taught in [Part 2: Actors & Institutions](textbook_institutions). `AuthorityEffect: None`.
+> ### ⚡ Post-Seal Research Trees at source snapshot (`{commit_short}`)
+> This page is regenerated automatically by `python textbook/media/build_wiki_textbook.py` whenever new textbook units or research trees are added to `main`. It inventories all **{len(research_trees)}** research trees listed under [`research/`]({blob_base}/research) and links the trees taught in [Part 2: Actors & Institutions](textbook_institutions). `AuthorityEffect: None`.
 
 ---
 
-## Research Trees on `main` (`{len(research_trees)}` Trees)
+## Research Trees at the source snapshot (`{len(research_trees)}` Trees)
 
 | Research Tree | Contract | Formalization | Textbook Coverage |
 | :--- | :--- | :--- | :--- |
