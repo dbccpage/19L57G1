@@ -400,7 +400,8 @@ class PinRepinTests(unittest.TestCase):
         original = json.loads(
             (HERE / "SOURCE_MANIFEST.json").read_text(encoding="utf-8")
         )
-        lines, _ = self._repin_of(copy.deepcopy(original))
+        _, current = self._repin_of(copy.deepcopy(original))
+        lines, _ = self._repin_of(copy.deepcopy(current))
         self.assertEqual(len(lines), 1)
         self.assertIn("re-read by hand", lines[0])
 
@@ -488,10 +489,27 @@ class HeadDriftTests(unittest.TestCase):
             self.assertTrue(any(line.startswith("DRIFT: ") for line in lines), path)
 
     def test_main_accepts_require_current(self) -> None:
+        from unittest import mock
+
+        original = vp._git_bytes
+        manifest = json.loads((HERE / "SOURCE_MANIFEST.json").read_text(encoding="utf-8"))
+        snapshot = manifest["snapshot_commit"]
+
+        def at_snapshot(*args: str) -> bytes:
+            if (
+                len(args) == 2
+                and args[0] == "show"
+                and args[1].startswith("HEAD:")
+                and not args[1].startswith("HEAD:research/second_run/")
+            ):
+                return original("show", f"{snapshot}:{args[1][5:]}")
+            return original(*args)
+
         argv = sys.argv
         sys.argv = ["verify_pins.py", "--require-current"]
         try:
-            self.assertEqual(vp.main(), 0)
+            with mock.patch.object(vp, "_git_bytes", side_effect=at_snapshot):
+                self.assertEqual(vp.main(), 0)
         finally:
             sys.argv = argv
 
