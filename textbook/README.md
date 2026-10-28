@@ -254,13 +254,14 @@ in one template or the other, and this table says which.
 | 40 | A demand that never stops, and the three ways to pay | `Generator.depth1_obstructions_are_exactly_middle_pairs`, `Generator.generation_never_dries`, `Generator.finite_marks_outrun` | derived (depth 1); two instances (depth 2); exclusion computed in class | yes |
 | 41 | Looking farther does not help: the radius-`d` outrun | `SeparationCapacity.depth_d_outrun`, `SeparationCapacity.depth_d_obstruction`, `SeparationCapacity.radius_one_agrees_with_sealed_depth2` | derived (structural profile; interior only) | yes |
 | 42 | Counting without choosing, and how many things a bounded window can tell apart | `Pigeonhole.pigeonhole`, `CapacityBound.capacity_bound`, `CapacityBound.local_view_can_separate` | derived; Pigeonhole declared apparatus; tightness not claimed | yes |
+| 43 | No bounded local repair clears a growing demand: G1 inside a declared class, and what G3 would need | `LocalFiniteAlphabet.finite_local_not_clears`, `G1Class.g1_class_exclusion`, `G1Class.clears_does_not_imply_not_fires` | derived, conditional on `FiniteDeclaration`; class-relative; G3, G4 conjectures | yes |
 
-The order follows the derivation. Units 27-42 follow the root import order
+The order follows the derivation. Units 27-43 follow the root import order
 of `lean4/Derivation.lean` (Quot, Counting, CountTransport, Mention,
 TransitionTransport, MinimalityF, RuleBridge, Rounds, Progress, Ext,
 ObserverInventory, Refusal, RefusalFrontier, Generator, SeparationCapacity,
-Pigeonhole, CapacityBound); units after 42 continue with LocalStrategy and
-G1Class.
+Pigeonhole, CapacityBound, LocalStrategy, G1Class); units after 43 continue
+with DiffInterface.
 
 ## Parts
 
