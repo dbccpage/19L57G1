@@ -69,7 +69,7 @@ Five theorems use `propext` only (from `simp [genesis]`); `notes_fiber_has_no_op
 
 - Built in this session: yes (lake build of the whole library succeeded on 2026-10-28, exit 0, Lean 4.33.0).
 - All six theorems in `artifacts/lean_axioms.txt` (ledger: "six `NoOutsideFidelity.*` … theorem reports").
-- Probe: `/tmp/claude-0/-home-claude/47be43b5-43cb-5429-bc31-b53a81ca595d/scratchpad/probes/F2/fid_probe.lean`, exit 0: `no_support_inverse_faithfully_erases_index` depends on `[propext]`.
+- Probe: `textbook/audit/probes/F2/fid_probe.lean`, exit 0: `no_support_inverse_faithfully_erases_index` depends on `[propext]`.
 
 ## 9. Related Python implementations
 

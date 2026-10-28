@@ -132,7 +132,7 @@ The module asks whether an observer's admissible pair (a pair of carrier element
 - Built in this session: yes (lake build of the whole library succeeded on 2026-10-28, exit 0, Lean 4.33.0).
 - All 30 theorems appear in `artifacts/lean_axioms.txt` at `Derivation.lean:1336`–`1365` (the inventory JSON missed `Bij.fwd_injective` because of its dotted name; the artifact line is 1217).
 - Paper: not cited in `paper/paper.md`; cited in `paper/paper_claim_ledger.md` (CL-PN-NATURAL-SELECTION, CL-PN-HETEROGENEOUS-TRANSPORT) and `paper/paper_change_log.md` (two 2026-08-14 entries); listed in `artifacts/completion_dependency_graph.json`.
-- Probe run: `/tmp/claude-0/-home-claude/47be43b5-43cb-5429-bc31-b53a81ca595d/scratchpad/probes/F2/pn_probe.lean` via `lake env lean` inside `lean4/`, exit 0. Output: `no_natural_section_of_fixed_point_free` — no axioms; `bool_obstruction_and_sealed_selector` — `[Quot.sound]`; `heterogeneous_naturality_separates` — no axioms. The probe also checked (and Lean accepted) that over `autoFamily O F` the existence of a natural section is *equivalent* to the existence of an admissible pair fixed by `F.mapPair`, confirming the docstring's "near-definitional" self-assessment.
+- Probe run: `textbook/audit/probes/F2/pn_probe.lean` via `lake env lean` inside `lean4/`, exit 0. Output: `no_natural_section_of_fixed_point_free` — no axioms; `bool_obstruction_and_sealed_selector` — `[Quot.sound]`; `heterogeneous_naturality_separates` — no axioms. The probe also checked (and Lean accepted) that over `autoFamily O F` the existence of a natural section is *equivalent* to the existence of an admissible pair fixed by `F.mapPair`, confirming the docstring's "near-definitional" self-assessment.
 
 ## 9. Related Python implementations
 

@@ -59,7 +59,7 @@ All three theorems: `[propext, Quot.sound]`. None exceeds.
 
 - Built in this session: yes (lake build of the whole library succeeded on 2026-10-28, exit 0, Lean 4.33.0; parked modules are built via `ParkedAudit.lean`, the second default target).
 - Its theorems appear in `artifacts/lean_axioms.txt` at `ParkedAudit.lean:265:0` (artifact lines 1490–1492). The paper does not cite them.
-- Probe: `/tmp/claude-0/-home-claude/47be43b5-43cb-5429-bc31-b53a81ca595d/scratchpad/probes/F2/fid_probe.lean`, exit 0: `#print axioms DiffAnchor.colObs_deltaConstant` → `[propext, Quot.sound]`; `#eval PrimitivePassage.zeroP [] 0 1 = true` (with no declared columns everything is zero-related, so `colObs []` collapses all of `Nat` to one class), `zeroP [[0]] 0 1 = false`, `zeroP [[0,1]] 0 1 = true` — confirming the declared-observation dependence.
+- Probe: `textbook/audit/probes/F2/fid_probe.lean`, exit 0: `#print axioms DiffAnchor.colObs_deltaConstant` → `[propext, Quot.sound]`; `#eval PrimitivePassage.zeroP [] 0 1 = true` (with no declared columns everything is zero-related, so `colObs []` collapses all of `Nat` to one class), `zeroP [[0]] 0 1 = false`, `zeroP [[0,1]] 0 1 = true` — confirming the declared-observation dependence.
 
 ## 9. Related Python implementations
 

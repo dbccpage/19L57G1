@@ -63,7 +63,7 @@ All within {propext, Quot.sound} (inherited from Compression's `factors_iff_fibe
 - Built in this session: yes (lake build of the whole library succeeded on 2026-10-28, exit 0, Lean 4.33.0).
 - All seven theorems are in `artifacts/lean_axioms.txt`.
 - Paper cites the module by count only (see §5).
-- Probe: `/tmp/claude-0/-home-claude/47be43b5-43cb-5429-bc31-b53a81ca595d/scratchpad/probes/F2/cs_qr_probe.lean`, exit 0: `common_refinement_closes_current_obstruction` depends on `[propext, Quot.sound]`.
+- Probe: `textbook/audit/probes/F2/cs_qr_probe.lean`, exit 0: `common_refinement_closes_current_obstruction` depends on `[propext, Quot.sound]`.
 
 ## 9. Related Python implementations
 

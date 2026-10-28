@@ -107,7 +107,7 @@ All 37 theorems are in the artifact; axioms within {propext, Quot.sound}; `coeff
 
 ## 8. Verification status
 
-Built in this session: yes (lake build of the whole library succeeded on 2026-10-28, exit 0, Lean 4.33.0). All 37 theorems appear in the axiom artifact (`Derivation.lean` inventory). The ledger cites 22 of them. Probe: the signless probe written for `LadderGeneral` (`/tmp/claude-0/-home-claude/47be43b5-43cb-5429-bc31-b53a81ca595d/scratchpad/probes/E/lg_vacuity.lean`, exit 0) independently reproduces `signless_countermodel`'s content (a signless composite with nonzero coefficient at dimension 2 and on the 5-vertex cell). No further probe was needed: the main theorem is a general proof, read in full; `coeff_rect`'s use of `List.length_eraseIdx_of_lt` is the only place a library length lemma enters, and the hypothesis `i < σ.length` is supplied by `sumTo_congr`.
+Built in this session: yes (lake build of the whole library succeeded on 2026-10-28, exit 0, Lean 4.33.0). All 37 theorems appear in the axiom artifact (`Derivation.lean` inventory). The ledger cites 22 of them. Probe: the signless probe written for `LadderGeneral` (`textbook/audit/probes/E/lg_vacuity.lean`, exit 0) independently reproduces `signless_countermodel`'s content (a signless composite with nonzero coefficient at dimension 2 and on the 5-vertex cell). No further probe was needed: the main theorem is a general proof, read in full; `coeff_rect`'s use of `List.length_eraseIdx_of_lt` is the only place a library length lemma enters, and the hypothesis `i < σ.length` is supplied by `sumTo_congr`.
 
 ## 9. Related Python implementations
 

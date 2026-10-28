@@ -73,7 +73,7 @@ All 12 within `{propext, Quot.sound}` (11 in the artifact; `exists_not_of_not_ba
 
 ## 8. Verification status
 
-Built in this session: yes (lake build of the whole library succeeded on 2026-10-28, exit 0, Lean 4.33.0). Eleven theorems are in `artifacts/lean_axioms.txt` and in the root inventory; `exists_not_of_not_ball` is not (it is an unnamed helper in the paper). Paper cites all eleven. Probe `/tmp/claude-0/-home-claude/47be43b5-43cb-5429-bc31-b53a81ca595d/scratchpad/probes/B/p2.lean` (`lake env lean`, exit 0): `example : ∀ x y : Bool, (Bool.not x, Bool.not y) ≠ (x, y) := by decide` succeeds (the off-diagonal hypothesis is unnecessary); `#print axioms Bridge.exists_not_of_not_ball` → none; `#check` of `second_token_required` confirms the universal `t0`; `#eval replayT hist01/hist10 empty` → `tokens := [0, 1]` and `tokens := [1, 0]` respectively.
+Built in this session: yes (lake build of the whole library succeeded on 2026-10-28, exit 0, Lean 4.33.0). Eleven theorems are in `artifacts/lean_axioms.txt` and in the root inventory; `exists_not_of_not_ball` is not (it is an unnamed helper in the paper). Paper cites all eleven. Probe `textbook/audit/probes/B/p2.lean` (`lake env lean`, exit 0): `example : ∀ x y : Bool, (Bool.not x, Bool.not y) ≠ (x, y) := by decide` succeeds (the off-diagonal hypothesis is unnecessary); `#print axioms Bridge.exists_not_of_not_ball` → none; `#check` of `second_token_required` confirms the universal `t0`; `#eval replayT hist01/hist10 empty` → `tokens := [0, 1]` and `tokens := [1, 0]` respectively.
 
 ## 9. Related Python implementations
 

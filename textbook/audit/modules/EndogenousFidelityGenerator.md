@@ -65,7 +65,7 @@ Three theorems axiom-free; `universalCollapse_surjective` uses `Quot.sound`; the
 
 - Built in this session: yes (lake build of the whole library succeeded on 2026-10-28, exit 0, Lean 4.33.0).
 - All six theorems in `artifacts/lean_axioms.txt` (ledger: "six `EndogenousFidelityGenerator.*` … theorem reports").
-- Probe: `/tmp/claude-0/-home-claude/47be43b5-43cb-5429-bc31-b53a81ca595d/scratchpad/probes/F2/fid_probe.lean`, exit 0: `generated_structure_is_failed_erasure` depends on `[propext, Quot.sound]`; `NoCoherentPath emptyNet false true` is provable for a network with `Attempt := Empty` (so the hypothesis is satisfiable).
+- Probe: `textbook/audit/probes/F2/fid_probe.lean`, exit 0: `generated_structure_is_failed_erasure` depends on `[propext, Quot.sound]`; `NoCoherentPath emptyNet false true` is provable for a network with `Attempt := Empty` (so the hypothesis is satisfiable).
 
 ## 9. Related Python implementations
 

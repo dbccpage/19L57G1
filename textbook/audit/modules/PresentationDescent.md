@@ -79,7 +79,7 @@ Six theorems axiom-free; `translation_gap_refuses_totalization` uses `propext` o
 
 - Built in this session: yes (lake build of the whole library succeeded on 2026-10-28, exit 0, Lean 4.33.0).
 - All seven theorems are in `artifacts/lean_axioms.txt`; the ledger cites "the seven `PresentationDescent.*` theorem reports".
-- Probe: `/tmp/claude-0/-home-claude/47be43b5-43cb-5429-bc31-b53a81ca595d/scratchpad/probes/F2/cs_qr_probe.lean` (shared with ClosureSymmetry/QuotientRetention), exit 0: `#print axioms PresentationDescent.faithful_descent_iff_round_trip_coherent` → no axioms.
+- Probe: `textbook/audit/probes/F2/cs_qr_probe.lean` (shared with ClosureSymmetry/QuotientRetention), exit 0: `#print axioms PresentationDescent.faithful_descent_iff_round_trip_coherent` → no axioms.
 
 ## 9. Related Python implementations
 

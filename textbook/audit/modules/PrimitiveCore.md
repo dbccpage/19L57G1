@@ -184,7 +184,7 @@ Built in this session: yes (lake build of the whole library succeeded on 2026-10
 ## 10. Textbook placement proposal
 
 - Prerequisites: relations on a type, irreflexivity/symmetry, `PrimDiff.Irred`/`Clos` (closure of an operation family), the two-point realizations `D2`/`S2`, the distinction between a metatheoretic inequality `a ≠ b` and an asserted relation `r a b`.
-- Substantive: `Setting` and the nine predicates; `D_iff_ne`; `imp_a_d` with `nimp_w_d`; `nimp_c_a`/`nimp_c_d` (demand does not create difference); `imp_e_d`, `nimp_d_e`, `nimp_a_e`, `e_empty_iff_d` (family-relativity of irreducibility); `nimp_a_bc` with `cotrans_auto_on_two` and `tri_not_bc` (cotransitivity first bites at three points); `prot_not_from_witness`/`ret_not_from_witness`; `located_of_decidable` and the OPEN scope; `bool_class`.
+- Substantive: `Setting` and the nine predicates; `D_iff_ne`; `imp_a_d` with `nimp_w_d`; `nimp_c_a`/`nimp_c_d` (demand does not create difference); `imp_e_d`, `nimp_d_e`, `nimp_a_e`, `e_empty_iff_d` (family-dependence of irreducibility); `nimp_a_bc` with `cotrans_auto_on_two` and `tri_not_bc` (cotransitivity first bites at three points); `prot_not_from_witness`/`ret_not_from_witness`; `located_of_decidable` and the OPEN scope; `bool_class`.
 - Auxiliary: all model facts, the `not_*_of_not_a` helpers, the remaining 40-odd routine cells, `f_ops_irrelevant`, `matrixCells(_length)`.
 - Lesson title: "Nine readings of one difference". Question answered: which of the nine readings forces the two endpoints apart, and what each extra law or store costs.
 - Omit: the `open_cell_*` strings (teach the OPEN scope in prose instead); the per-row routine cells can be summarised as a matrix figure rather than taught one by one.

@@ -68,7 +68,7 @@ All within {propext, Quot.sound}; `Quot.sound` is intrinsic to any quotient argu
 
 - Built in this session: yes (lake build of the whole library succeeded on 2026-10-28, exit 0, Lean 4.33.0).
 - All nine theorems in `artifacts/lean_axioms.txt` (the ledger: "the nine `QuotientRetention.*` theorem reports").
-- Probe: `/tmp/claude-0/-home-claude/47be43b5-43cb-5429-bc31-b53a81ca595d/scratchpad/probes/F2/cs_qr_probe.lean`, exit 0: `collapseMap_injective_iff_reverse_refinement` depends on `[propext, Quot.sound]`; the `Bool` instance of `failed_identification_makes_collapse_noninjective` typechecks with `fine := (· = ·)`, `coarse := indiscrete`.
+- Probe: `textbook/audit/probes/F2/cs_qr_probe.lean`, exit 0: `collapseMap_injective_iff_reverse_refinement` depends on `[propext, Quot.sound]`; the `Bool` instance of `failed_identification_makes_collapse_noninjective` typechecks with `fine := (· = ·)`, `coarse := indiscrete`.
 
 ## 9. Related Python implementations
 

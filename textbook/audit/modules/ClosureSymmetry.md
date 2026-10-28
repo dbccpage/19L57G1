@@ -72,7 +72,7 @@ All within {propext, Quot.sound}: `propext` from `simp`/`if`, `Quot.sound` inher
 
 - Built in this session: yes (lake build of the whole library succeeded on 2026-10-28, exit 0, Lean 4.33.0).
 - All seven theorems are in `artifacts/lean_axioms.txt`; the ledger cites "the seven `ClosureSymmetry.*` theorem reports".
-- Probe: `/tmp/claude-0/-home-claude/47be43b5-43cb-5429-bc31-b53a81ca595d/scratchpad/probes/F2/cs_qr_probe.lean`, exit 0: `closure_failure_iff_internal_symmetry_break` depends on `[propext, Quot.sound]`; a concrete `InternalSymmetryBreak [0,1,2] (fun _ => 0) id` with `symmetry := transpose 0 1`, `point := 0` was constructed; and `r.left ≠ r.right` for every `DirectionalResidual` was checked (so the generated transposition is never the identity).
+- Probe: `textbook/audit/probes/F2/cs_qr_probe.lean`, exit 0: `closure_failure_iff_internal_symmetry_break` depends on `[propext, Quot.sound]`; a concrete `InternalSymmetryBreak [0,1,2] (fun _ => 0) id` with `symmetry := transpose 0 1`, `point := 0` was constructed; and `r.left ≠ r.right` for every `DirectionalResidual` was checked (so the generated transposition is never the identity).
 
 ## 9. Related Python implementations
 

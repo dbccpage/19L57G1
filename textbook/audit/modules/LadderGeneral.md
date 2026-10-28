@@ -93,7 +93,7 @@ All 13 theorems in the artifact; axioms within {propext, Quot.sound}; `wf_empty`
 
 ## 8. Verification status
 
-Built in this session: yes (lake build of the whole library succeeded on 2026-10-28, exit 0, Lean 4.33.0). All 13 theorems appear in the axiom artifact. The ledger cites nine by name. Probe run (file `/tmp/claude-0/-home-claude/47be43b5-43cb-5429-bc31-b53a81ca595d/scratchpad/probes/E/lg_vacuity.lean`, command `lake env lean <file>` inside `lean4/`, exit 0): with the sign function replaced by the constant `1` (a signless, wrong calculus) the first two conjuncts of `d2_zero_dims_2_3_4` still `decide` to `true`, while the genuine codimension-two check at dimension 2 and the third conjunct at dimension 4 `decide` to `false`; and `(pushN (bdN [0,1,2])).map (·.2) = [[2],[1],[2],[0],[1],[0]]` (the composite chain of a triangle is supported on 1-element lists, so coefficients on 2-element facets are trivially 0).
+Built in this session: yes (lake build of the whole library succeeded on 2026-10-28, exit 0, Lean 4.33.0). All 13 theorems appear in the axiom artifact. The ledger cites nine by name. Probe run (file `textbook/audit/probes/E/lg_vacuity.lean`, command `lake env lean <file>` inside `lean4/`, exit 0): with the sign function replaced by the constant `1` (a signless, wrong calculus) the first two conjuncts of `d2_zero_dims_2_3_4` still `decide` to `true`, while the genuine codimension-two check at dimension 2 and the third conjunct at dimension 4 `decide` to `false`; and `(pushN (bdN [0,1,2])).map (·.2) = [[2],[1],[2],[0],[1],[0]]` (the composite chain of a triangle is supported on 1-element lists, so coefficients on 2-element facets are trivially 0).
 
 ## 9. Related Python implementations
 
