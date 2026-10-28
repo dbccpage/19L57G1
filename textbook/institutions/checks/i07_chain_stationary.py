@@ -1,0 +1,82 @@
+"""Unit 07 check: long chains go stationary, and nesting is inert.
+
+Checks:
+  1. `chain_check(3)` from `actor_institution/model.py`: every extension chain
+     of 4 institutions on `range(3)` has a stationary step, and a chain of 3
+     institutions exists with none;
+  2. `stationary_step_known` and `stationary_step_inert` on all stationary
+     extension steps among families of partitions of `range(3)`;
+  3. `nest_checks` on `D = (0, 1, 2, 3)` from `two_theorems/model.py`.
+The proofs for every carrier are the Lean. AuthorityEffect: None.
+Run from the repository root: python textbook/institutions/checks/i07_chain_stationary.py
+"""
+from __future__ import annotations
+
+import itertools
+import sys
+from pathlib import Path
+
+import _tree  # noqa: F401
+from model import chain_check, information, knows, partitions  # noqa: E402
+
+TWO_THEOREMS = Path(__file__).resolve().parents[3] / "research" / "two_theorems"
+
+
+def load_two_theorems_model():
+    saved = sys.modules.get("model")
+    sys.path.insert(0, str(TWO_THEOREMS))
+    try:
+        del sys.modules["model"]
+        import model as tt_model  # type: ignore[no-redef]
+        return tt_model
+    finally:
+        sys.path.pop(0)
+        if saved is not None:
+            sys.modules["model"] = saved
+
+
+def main() -> int:
+    cc = chain_check(3)
+    print(f"chain_check(3): {cc}")
+
+    parts = partitions(3)
+    fams = [()] + [(p,) for p in parts] + list(itertools.combinations(parts, 2))
+    stat_steps = 0
+    stat_bad = 0
+    for Q in fams:
+        for p in parts:
+            Qp = Q + (p,)
+            if information(3, Qp) == information(3, Q):
+                stat_steps += 1
+                if not knows(3, Q, p):
+                    stat_bad += 1
+                for q in parts:
+                    if knows(3, Qp, q) != knows(3, Q, q):
+                        stat_bad += 1
+    print(f"stationary steps checked: {stat_steps}; disagreements: {stat_bad}")
+
+    tt_model = load_two_theorems_model()
+    D4 = (0, 1, 2, 3)
+    pool4 = [
+        tt_model.Table({x: x % 2 for x in D4}),
+        tt_model.Table({x: x // 2 for x in D4}),
+        tt_model.Table({x: (x == 1) * 1 for x in D4}),
+        tt_model.Table({x: 0 for x in D4}),
+    ]
+    nest = tt_model.nest_checks(D4, pool4, 2)
+    print(f"two_theorems nest_checks on D=(0,1,2,3): {nest}")
+
+    ok = (
+        cc["chains"] == 4000
+        and cc["violations"] == 0
+        and cc["shorter_chain_without_stationary_step"] is True
+        and stat_bad == 0
+        and nest["knows_violations"] == 0
+        and nest["information_violations"] == 0
+        and nest["collapse_violations"] == 0
+    )
+    return 0 if ok else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
