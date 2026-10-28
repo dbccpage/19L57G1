@@ -12,10 +12,15 @@ what it does and does not establish.
 
 ## Source
 
-Every unit is written against `main` at
-`23979a46308219b4cc9e7e172e4e32511f8efdb0` (2026-10-24). Lean is quoted from
+Units 00 to 03 were written against `main` at
+`23979a46308219b4cc9e7e172e4e32511f8efdb0` (2026-10-24); Units 04 onward
+against `main` at `33100245` (2026-10-28, after #283). The sealed files the
+units quote are the same at both commits. Lean is quoted from
 `lean4/Derivation/`. Axiom reports are read from the committed
-`artifacts/lean_axioms.txt`; a unit says so when it did not rebuild Lean.
+`artifacts/lean_axioms.txt` and, for the book's own Lean, from a local
+Lean 4.33.0 build of `lean4/`; a unit says so when it did not rebuild Lean.
+Part 2 of the book (`textbook/institutions/`, see **Parts**) is written on
+draft pull request #284 and is not in `main` at either commit.
 
 ## Status marks
 
@@ -60,6 +65,14 @@ runs Genesis's own Python. Run it from the repository root:
 ```
 python textbook/checks/u01_genesis_underivable.py
 ```
+
+From Unit 04 on, each unit also has a `checks/uNN_lean.py` holding its
+Lean (book) source and the axiom report it expects. These scripts share
+the runner `checks/booklean.py`, which writes the source to a temporary
+file, runs `lake env lean` inside `lean4/` (or a given Lean binary with
+`--lean PATH --lean-path DIR`), prints the `#print axioms` lines, and exits
+0 only when every report matches. A unit's Verification table records
+what each script found when it was written.
 
 ## Notation
 
@@ -176,6 +189,24 @@ which.
 7. **What it shows and what it does not.**
 8. **Sources**: file, theorem, axiom report, ledger entry, test.
 
+Units 00 to 03 follow this eight-part template. From Unit 04 on, by the
+author's brief of 2026-10-28, each unit keeps the **Claim** header (status,
+Lean name, axioms, dependencies) and then runs through fifteen fixed
+sections in this order: Question; What we already possess; New concept;
+Plain-language interpretation; Pseudocode; Python; Line-by-line Python
+explanation; Lean 4; Line-by-line Lean explanation; What has been proved;
+What has not been proved; Outside the system; Student exercise; Answer;
+Verification. The two templates carry the same obligations: the admitted
+definitions are named before the theorem, no proof step is skipped, the
+metatheory is listed under Outside the system, and the Verification table
+plays the part of Sources. The sections were not mixed: a unit is written
+in one template or the other, and this table says which.
+
+| Units | Template |
+|---|---|
+| 00–03 | eight parts, above |
+| 04 onward | Claim header plus the fifteen sections |
+
 ## Contents
 
 | Unit | Claim | Lean | Status | Written |
@@ -184,14 +215,14 @@ which.
 | 01 | Nothing is derivable at genesis | `Inertia.genesis_underivable` | derived | yes |
 | 02 | Nothing is derivable without instances or rules (and one admitted rule makes unadmitted instances derivable) | `Inertia.underivable_of_empty` | derived | yes |
 | 03 | Supplying a token changes nothing | `Inertia.supply_no_op` | derived | yes |
-| 04 | No successor is internally forced (by the declared grammar) | (none; paper §4) | admitted | |
-| 05 | Is ⟨⟩ admitted? Readings L and F | `Inertia.historyL_replays`, `historyF_replays` | open | |
-| 06 | Re-admitting a token designates, it does not add | `Erasure.stepT` | admitted | |
-| 07 | Forgetting tokens loses nothing the room can use | `Erasure.erase_replay` | derived | |
-| 08 | Contexts, plugging, collapsed, separable | `Basic.collapsed`, `Basic.separable` | admitted | |
-| 09 | Separable and collapsed exclude each other | `Basic.separable_not_collapsed` | derived | |
-| 10 | With no instances, every pair is collapsed | `Inertia.collapsed_of_no_insts` | derived | |
-| 11 | One token gives at most one datum | `Bridge.single_token_carrier_bound` | derived | |
+| 04 | No successor is internally forced (by the declared grammar) | (none; paper §4) | admitted | yes |
+| 05 | Is ⟨⟩ admitted? Readings L and F | `Inertia.historyL_replays`, `historyF_replays` | open | yes |
+| 06 | Re-admitting a token designates, it does not add | `Erasure.stepT` | admitted | yes |
+| 07 | Forgetting tokens loses nothing the room can use | `Erasure.erase_replay` | derived | yes |
+| 08 | Contexts, plugging, collapsed, separable | `Basic.collapsed`, `Basic.separable` | admitted | yes |
+| 09 | Separable and collapsed exclude each other | `Basic.separable_not_collapsed` | derived | yes |
+| 10 | With no instances, every pair is collapsed | `Inertia.collapsed_of_no_insts` | derived | yes |
+| 11 | One token gives at most one datum | `Bridge.single_token_carrier_bound` | derived | yes |
 | 12 | A fresh datum adds no power | `Inertia.admission_without_expressive_increase`, `Mention.collapsed_fresh_datum` | derived | |
 | 13 | Two data need a second, different token | `Bridge.second_token_required` | derived | |
 | 14 | Factoring through a point is equality | `PrimDiff.factors_through_point_iff` | derived | |
