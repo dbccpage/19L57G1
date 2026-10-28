@@ -8,8 +8,7 @@ the paper and the ledger, and reproducible from the files named.
 ## Scope and method
 
 - **Population.** The 75 tracked modules under `lean4/Derivation/` plus the
-  root `lean4/Derivation.lean`. The root directly imports 62 modules; its
-  transitive import closure contains 63. The other 12 are
+  root `lean4/Derivation.lean`. The root directly imports 62 modules; its import closure contains 63. The remaining 12 are
   parked (imported by `lean4/ParkedAudit.lean`, the second default target,
   so they build and report axioms under plain `lake build`). All 75 have a
   record in [`modules/`](modules/); none is omitted.

@@ -1091,7 +1091,6 @@ Source edition: [{commit_short}](https://github.com/dbccpage/19L57G1/commit/{com
 """
     (wiki_root / "_Footer.md").write_text(footer_md, encoding="utf-8", newline="\n")
 
-
     return {
         "part1": len(part1_entries),
         "part2": len(part2_entries),
