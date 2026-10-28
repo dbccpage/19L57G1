@@ -91,6 +91,7 @@ Lean layout. The first and last also have explicit build-recipe entries.
 | `ignition` | local receipt only |  |
 | `instance_demand` | local receipt only |  |
 | `internal_syntax_logic` | local receipt only |  |
+| `interpreter_verdict` | local receipt only |  |
 | `iso_sound` | local receipt only |  |
 | `iso_sound_lean` | local receipt only |  |
 | `limit_and_observer` | workflow (gate 11) |  |
@@ -161,6 +162,7 @@ Lean layout. The first and last also have explicit build-recipe entries.
 | `thinghood` | local receipt only |  |
 | `twin_pricing` | local receipt only |  |
 | `two_sided_commitment` | local receipt only |  |
+| `two_theorems` | local receipt only |  |
 | `typed_translation` | workflow (gate 11) |  |
 | `unboundedness` | local receipt only |  |
 | `uncollapse` | local receipt only |  |

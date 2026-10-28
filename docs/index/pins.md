@@ -81,6 +81,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `research/instance_demand/SOURCE_MANIFEST.json` | 5 | 5 | 0 |
 | `research/instance_demand/STAGE3_SOURCE_MANIFEST.json` | 13 | 12 | 0 |
 | `research/internal_syntax_logic/SOURCE_MANIFEST.json` | 0 | 0 | 0 |
+| `research/interpreter_verdict/SOURCE_MANIFEST.json` | 0 | 1 | 0 |
 | `research/iso_sound/SOURCE_MANIFEST.json` | 6 | 4 | 0 |
 | `research/iso_sound_lean/SOURCE_MANIFEST.json` | 3 | 0 | 0 |
 | `research/limit_and_observer/SOURCE_MANIFEST.json` | 15 | 4 | 0 |
@@ -152,6 +153,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `research/thinghood/SOURCE_MANIFEST.json` | 0 | 0 | 0 |
 | `research/twin_pricing/SOURCE_MANIFEST.json` | 3 | 1 | 0 |
 | `research/two_sided_commitment/SOURCE_MANIFEST.json` | 6 | 3 | 0 |
+| `research/two_theorems/SOURCE_MANIFEST.json` | 0 | 1 | 0 |
 | `research/typed_translation/SOURCE_MANIFEST.json` | 4 | 27 | 0 |
 | `research/unboundedness/SOURCE_MANIFEST.json` | 39 | 34 | 0 |
 | `research/uncollapse/SOURCE_MANIFEST.json` | 0 | 1 | 0 |
@@ -490,6 +492,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `research/ignition/lean/Inventory.lean` | 3 | `coherent_process_limits` (tree), `represented_execution` (tree), `setting_translation` (tree) | none |
 | `research/ignition/lean/lakefile.toml` | 7 | `coherent_process_limits` (tree, file), `instance_demand/STAGE3_SOURCE_MANIFEST.json` (file), `magnification` (file), `record_reading` (file), `represented_execution` (tree, file), `setting_translation` (tree, file), `unboundedness` (file) | none |
 | `research/ignition/lean/lean-toolchain` | 7 | `coherent_process_limits` (tree, file), `instance_demand/STAGE3_SOURCE_MANIFEST.json` (file), `magnification` (file), `record_reading` (file), `represented_execution` (tree, file), `setting_translation` (tree, file), `unboundedness` (file) | none |
+| `research/interpreter_verdict/input.json` | 1 | `interpreter_verdict` (file) | none |
 | `research/limit_and_observer/PREDICTIONS.md` | 1 | `limit_and_observer` (file) | none |
 | `research/limit_and_observer/REQUIREMENTS.md` | 2 | `limit_and_observer` (file), `typed_translation` (file) | none |
 | `research/limit_and_observer/receipts/price.json` | 1 | `typed_translation` (file) | none |
@@ -732,6 +735,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `research/two_sided_commitment/receipts/two_sided_commitment.json` | 4 | `second_inheritance` (file), `second_nofirst` (file), `second_stake` (file), `second_stream` (file) | none |
 | `research/two_sided_commitment/run_two_sided.py` | 2 | `second_inheritance` (file), `second_stream` (file) | none |
 | `research/two_sided_commitment/two_sided.py` | 14 | `second_class` (file), `second_duration` (file), `second_engine` (file), `second_index` (file), `second_inheritance` (file), `second_iso` (file), `second_nofirst` (file, span), `second_profile` (file), `second_response` (file), `second_run` (file), `second_stake` (file, span), `second_stream` (file), `second_succession` (file), `second_symmetry` (file) | none |
+| `research/two_theorems/input.json` | 1 | `two_theorems` (file) | none |
 | `research/typed_translation/code/typed_translation/__init__.py` | 1 | `g012_typed_translation` (file) | none |
 | `research/typed_translation/code/typed_translation/enumerate.py` | 1 | `g012_typed_translation` (file) | none |
 | `research/typed_translation/code/typed_translation/model.py` | 1 | `g012_typed_translation` (file) | none |
