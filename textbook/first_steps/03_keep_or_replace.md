@@ -23,9 +23,10 @@ With both questions, the patterns are:
 All three cards are separated. The old **blue?** answer is still present.
 Whenever that answer distinguished two cards, it still does.
 
-Splitting an old group while retaining its old distinctions is called a
-**refinement**. Here adding a question refines the grouping because every
-old question and every old answer is retained unchanged.
+A new grouping is a **refinement** when it keeps every old distinction.
+It may split an old group or leave that group as it was. Here adding a
+question refines the grouping because every old question and every old
+answer is retained unchanged.
 
 ## Replacing can lose an old distinction
 
