@@ -165,11 +165,15 @@ they are about different things. Three remarks keep them apart:
    only the form number, in Lean and in Python, so the extension also
    contains instances that are not well formed. The comment is narrower
    than the definition; the definition governs.
-3. Genesis's observation apparatus never asks about those instances. It
-   plugs only admitted data into contexts whose filled slots name admitted
-   data (`contexts` and `profile` in `code/derivation/observe.py`, `wfCtx`
-   in `Basic.lean`). In `R` there is one context, `(0, (None,))`, and no
-   datum to plug in, so it asks nothing.
+3. Genesis's observation is built to ask only about admitted data. A
+   context's filled slots name admitted data (`contexts` in
+   `code/derivation/observe.py`; `wfCtx` in `Basic.lean`; paper §3 item
+   3), a profile is a profile of a datum (paper §3 item 5), and `profiles`
+   plugs only data numbers below the data count. (`profile`, `separable`
+   and `witness` take their data numbers from the caller.) In `R` there is
+   one context, `(0, (None,))`, and no datum to plug in, so `profiles`
+   asks nothing. That is a fact about how observation calls `derivable`,
+   not a restriction on `derivable` itself.
 
 None of this bears on `genesis`, which has no rule; it is here because the
 definition is introduced here. Unit 02 uses `R` as the witness that its
@@ -285,7 +289,7 @@ at Challenge 0 is empty.
 | `List`, `×` | the fields of a regime; an instance as a pair | metatheory (finite data structures) |
 | `Prop`, `¬`, `∨`, `∈` | the statement "is derivable" and its negation | metatheory (Lean's logic) |
 | `(i : Inst)` | the universal quantifier over the Lean type `Inst`, discharged once for an arbitrary instance | metatheory quantifier |
-| Lean's kernel, `cases`, `rfl` | checking the proof | metatheory (Unit 00, the external constructor) |
+| Lean's kernel, `intro`, `cases` | checking the proof | metatheory (Unit 00, the external constructor) |
 
 `Nat` and `List Nat` are unbounded types, and so is `Inst`. That is a
 property of Lean, not of the system.

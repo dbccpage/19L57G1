@@ -22,7 +22,7 @@ def main() -> int:
     r = replay([AdmitForm(1), AdmitRuleAll(0)])
     print(f"R: data={r.data} forms={r.forms} insts={sorted(r.insts)} "
           f"rules={sorted(r.rules)} reqs={sorted(r.reqs)}")
-    failures = []
+    failures: list[object] = []
 
     expect_true = [
         (0, (99,)),       # names datum 99; R admits no datum at all
@@ -46,10 +46,11 @@ def main() -> int:
     if r.n_data() != 0:
         failures.append(("n_data", r.n_data()))
 
-    # The observation apparatus only plugs admitted data into contexts.
+    # profiles() plugs only admitted data into contexts.
     # R has one context, (0, (None,)), but no admitted datum to plug in.
     queried = [plug(c, d) for c in contexts(r) for d in range(r.n_data())]
-    print(f"instances the observation apparatus queries in R: {queried}")
+    print(f"contexts in R: {list(contexts(r))}")
+    print(f"instances profiles() would query in R: {queried}")
     if queried:
         failures.append(("queried", queried))
 
