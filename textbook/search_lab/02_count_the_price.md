@@ -40,8 +40,9 @@ when they tie does it compare the total slots in the newly admitted forms.
 Thus the one-slot mark costs `(2, 1)` and a two-slot link costs `(2, 2)`.
 The first number is checked first; if it ties, the smaller second number wins.
 
-These are declared price rules. Neither measures money, time, or physical
-energy unless a separate application supplies and checks that interpretation.
+These are declared price rules counting items and form arities. An
+application must separately supply and check any interpretation as a
+measured resource.
 
 ## Your turn
 

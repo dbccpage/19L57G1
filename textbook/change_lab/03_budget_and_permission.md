@@ -4,10 +4,10 @@
 
 ## Possible is a different question from executable now
 
-A **budget** is a number stored in this machine. A permitted observation
-change needs a positive budget and subtracts one unit when it executes.
-The unit is part of the model. It is not automatically a unit of money,
-time, or physical energy.
+A **budget** is a number stored in this machine. An accepted column
+refinement or append needs a positive budget and subtracts one unit when
+it executes. The unit is part of the model. An application must supply
+and check any interpretation as a measured resource.
 
 A **permission switch**, called `licensed` in the source, controls creation
 of new columns. It is a supplied program setting, not a proof of authority

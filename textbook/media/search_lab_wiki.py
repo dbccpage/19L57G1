@@ -34,6 +34,7 @@ def build_search_lab(repo: Path, wiki: Path, commit: str) -> int:
         for filename, target in pages.items():
             text = text.replace(f"]({filename})", f"]({target})")
         text = text.replace("](../first_steps/README.md)", "](textbook_first_steps)")
+        text = text.replace("](../reasoning_lab/README.md)", "](textbook_reasoning_lab)")
         text = text.replace("](../change_lab/README.md)", "](textbook_change_lab)")
         text = text.replace("](results.html)", f"]({DESK_URL})")
         prefix = f"[Genesis Wiki](Home) · [Search lab](textbook_search_lab) · [Results desk]({DESK_URL})\n\n"

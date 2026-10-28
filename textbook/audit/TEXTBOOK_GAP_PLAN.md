@@ -50,6 +50,11 @@ classifications still need semantic teaching review.
    only if,” “every,” “some,” a counterexample, and a hypothesis. Existing
    chapters use these ideas; a zero-background route must teach their use
    before presenting long formal statements.
+   The new [Reasoning lab](../reasoning_lab/README.md) supplies eight
+   short lessons on these prerequisites, including functions, implication,
+   equivalence, finite quantifiers, witness order, hypotheses, and evidence.
+   Separate packet practice and answers test new labels and columns.
+   Its finite calculations and book proofs do not establish novice mastery.
 2. **Distinctions between formal systems.** Give a persistent map of the
    token-aware Python regime, token-erased Lean regime, relational
    difference setting, passage state, represented world, and institutional
@@ -106,7 +111,7 @@ source and scope check. Full tree-by-tree placement is in
 | Numbers, addresses, and algebra | `g011_finitary_substrate`, `m104_equality_order`, `m105_number_tower`, `m108_internal_algebra` | How do counting, negative quantities, and fractions work when we build their rules explicitly? | The grammars, constructors, equivalences, and domains must be admitted and named. A numerical development in research does not make numbers derived from the opaque mark. |
 | Observation, information loss, and limits | `natural_sections`, `observer_visibility`, `limit_and_observer`, `x300_observer_information` | When can a lost distinction be recovered? When is a consistent choice impossible? | Natural-section criteria concern particular families and admissible pairs. Channel and uncertainty results retain their declared finite and exact-arithmetic domains. |
 | Measurement, units, protocols, and composite systems | `p200_operational_protocols`, `p201_relational_spacetime`, `p203_composite_systems`, `p204_operational_valuations` | What changes when we change units, combine two systems, or repeat a measurement protocol? | These are admitted operational models. Calibration laws and finite constructions need an explicit bridge before a physical interpretation is claimed. |
-| Finite interference and the amplitude bridge | `qm_bridge`, `p208a_path_interference` | Can two preparations with equal individual weights give different combined readouts? | The latest bridge recovers an information residual. Its amplitude form is separately admitted. Under that form, explicit pairs give readouts 4 and 0; three examples give 4, 2, 0. The general real-part row is conditional, and the later holonomy/native-source rows remain open. |
+| Finite combination effects and the readout bridge | `qm_bridge`, `p208a_path_interference` | Can two preparations with equal individual weights give different combined readouts? | The latest bridge recovers an information residual. Its readout formula is separately admitted. Under that formula, explicit pairs give readouts 4 and 0; three examples give 4, 2, 0. The general real-part row is conditional, and the later transport/native-source rows remain open. |
 | Context, correlations, finite transformations, and codes | `p208b_contextuality_nonlocality`, `p208c_commutator_tomography`, `p209a_wigner_phase_space` through `p209d_nonclassical_horizons` | Can all context-dependent answers fit one shared assignment? Which mistakes can a code detect? | Teach the exact finite exhibits and their corrections. Matrix examples, parity arguments, and finite codes do not automatically supply a general physical theory. |
 | Meaning, intervention, reasoning, and agency | `x301_formal_semantics`, `x302_operational_reasoning`, `x303_bounded_agency`, `m114_solver_adapter`, `alpha_engine` | What observation would distinguish two claims? Why does a good proposal still need authorization? | Interventions and target valuations are supplied in the toy models. The agency Lean carrier does not transport the Python controller. Alpha evaluation, authorization, and replay remain separate. |
 | The research casebook | `second` and its fourteen rung trees, `post_seal_walk`, `evidence_graph`, `estate_honesty` | How do we learn from failed attempts and revise a claim without losing its evidence? | The second derivation is a frozen research-stage record with open obstructions and an unsatisfied original completion gate. Later freeze records govern preserved draft headers. |
@@ -156,7 +161,7 @@ smaller lessons, with a slow main explanation and optional formal detail.
 6. **Building mathematical tools.** Counting constructions, maps, graphs,
    numbers, algebra, probability models, and signed boundaries, in the
    prerequisite order needed for the next applications.
-7. **Models tested by observations.** Protocols, calibration, interference,
+7. **Models tested by observations.** Protocols, calibration, combination effects,
    context, conserved quantities, and intervention. Every application
    names which correspondence is assumed and what could test it.
 8. **Institutions and research practice.** Combined knowledge, probing,
@@ -225,7 +230,7 @@ the reader-facing criteria have been met.
 | 3 | Create the entrance and transfer assessment with separate answers | Unseen examples test the five stated abilities; no answer leakage in the learner route |
 | 4 | Run and record a novice pilot when readers are available | Record comprehension and time; revise specific failed explanations |
 | 5 | Add boundary/order/growth and native-path/cost research modules | Read owner ledgers and corrections; keep analytic proposals, finite calculations, conditional theorems, and open bridges distinct |
-| 6 | Add the numerical and operational prerequisites, then the finite amplitude bridge | Each mathematical tool is taught before use; no general quantum or physical claim is inferred from the finite exhibits |
+| 6 | Add the numerical and operational prerequisites, then the finite readout bridge | Each mathematical tool is taught before use; no general physical claim is inferred from the finite exhibits |
 | 7 | Expand the research casebook and application route | Show successful results, counterexamples, failures, custody, and remaining questions with their actual evidence |
 
 ## First deliverable and audit limits
@@ -265,7 +270,7 @@ Primary semantic reading for the proposed clusters includes source
 README/status/claim records for the native bridge, native structure,
 conservation, domain adapters, boundary/side-free/oriented-boundary work,
 standing commitments, natural sections, the second-derivation freeze,
-the finite amplitude bridge, and selected numerical, operational, and
+the finite readout bridge, and selected numerical, operational, and
 information packages. This is a curriculum audit, not a revalidation of all
 123 research trees. Each future lesson must read its owner's current
 claim ledger and corrections before importing any claim.

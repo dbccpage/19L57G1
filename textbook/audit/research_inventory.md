@@ -20,7 +20,7 @@ Group assignments below are proposed curriculum organization; they assert no mat
 | Boundary, orientation, and commitment | `symmetry_floor` | Not yet established | [research/symmetry_floor/STATUS.md](../../research/symmetry_floor/STATUS.md) |
 | Boundary, orientation, and commitment | `two_sided_commitment` | Not yet established | [research/two_sided_commitment/STATUS.md](../../research/two_sided_commitment/STATUS.md) |
 | Execution, authorization, and evidence | `alpha_engine` | Not yet established | [research/alpha_engine/README.md](../../research/alpha_engine/README.md) |
-| Finite amplitude bridge | `qm_bridge` | Not yet established | [research/qm_bridge/CLAIMS.md](../../research/qm_bridge/CLAIMS.md) |
+| Finite readout bridge | `qm_bridge` | Not yet established | [research/qm_bridge/CLAIMS.md](../../research/qm_bridge/CLAIMS.md) |
 | Institutions: dedicated lessons exist | `actor_institution` | Institutions lessons | [research/actor_institution/CLAIMS.md](../../research/actor_institution/CLAIMS.md) |
 | Institutions: dedicated lessons exist | `interpreter_verdict` | Institutions lessons | [research/interpreter_verdict/CLAIMS.md](../../research/interpreter_verdict/CLAIMS.md) |
 | Institutions: dedicated lessons exist | `two_theorems` | Institutions lessons | [research/two_theorems/CLAIMS.md](../../research/two_theorems/CLAIMS.md) |

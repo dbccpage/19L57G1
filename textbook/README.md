@@ -27,6 +27,8 @@ For a concrete example before the formal development, begin with
 [`First steps: three cards, two questions`](first_steps/README.md): five
 short lessons, a prediction-first explorer, and separate practice answers.
 No previous mathematics or philosophy is assumed.
+The [`Reasoning lab`](reasoning_lab/README.md) supplies the next toolkit:
+rules, functions, if-then claims, witnesses, counterexamples, and hypotheses.
 Continue with the [`Search lab`](search_lab/README.md) for a complete
 worked demand, candidate search, price comparison, protection example,
 and portable event replay.

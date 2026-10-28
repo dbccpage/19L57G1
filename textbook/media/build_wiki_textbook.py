@@ -20,6 +20,7 @@ from research_population import research_trees
 from first_steps_wiki import build_first_steps
 from search_lab_wiki import build_search_lab
 from change_lab_wiki import build_change_lab
+from reasoning_lab_wiki import build_reasoning_lab
 
 DEFAULT_REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 DEFAULT_WIKI_ROOT = Path(
@@ -1047,6 +1048,7 @@ Source edition: [{commit_short}](https://github.com/dbccpage/19L57G1/commit/{com
         "first_steps": build_first_steps(repo_root, wiki_root, commit_sha),
         "search_lab": build_search_lab(repo_root, wiki_root, commit_sha),
         "change_lab": build_change_lab(repo_root, wiki_root, commit_sha),
+        "reasoning_lab": build_reasoning_lab(repo_root, wiki_root, commit_sha),
     }
 
 

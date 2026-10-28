@@ -4,7 +4,9 @@ Start with two entries and no questions that distinguish them. You are
 asked to make a distinction available. What could you add? What would
 count as the cheapest repair? What evidence would let someone check it?
 
-Read [First steps](../first_steps/README.md) first. Here we build a new
+Read [First steps](../first_steps/README.md), then use the
+[Reasoning lab](../reasoning_lab/README.md) for functions, hypotheses,
+and witness scope. Here we build a new
 ledger; we do not reuse the cards' supplied colors or shapes. The whole
 worked example is small enough to inspect.
 

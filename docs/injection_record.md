@@ -464,3 +464,24 @@ negative tokens, endpoints, column members, and budgets in the teaching
 encoding. These tests do not change the sealed Python API's integer domain
 or establish a general Python-to-Lean refinement.
 
+## Reasoning prerequisite route (2026-10-28)
+
+Injections changed only generated scratch-Wiki files, temporary teaching
+records, or generated Lean source in memory. Original Wiki bytes were
+restored between checks; no regeneration ran with a live defect. No
+sealed source or research receipt was edited.
+
+| Gate | Injection | Observed failure | Recovery |
+|---|---|---|---|
+| Wiki reasoning record consistency | Forge a common witness from the default pairwise witnesses | Actual Wiki verifier exits 1: `stale reasoning-lab record` | Restore bytes; exit 0, 2,180 generated internal links pass |
+| Wiki reasoning desk consistency | Bind the copied desk's packet to `null` | Actual Wiki verifier exits 1: `stale reasoning-lab desk or links` | Restore bytes; exit 0 |
+| Book-Lean counterexample | Change `round 1 ≠ 1` to `round 1 = 1` in `reverse_fails_at_b` | Lean reports that `blue 1 = 1 ∧ round 1 = 1` is false; shared runner exits 1 | Original twelve kernel/axiom reports pass |
+| Full reasoning record | Adopt the failed reverse, invent an empty-domain witness, conflate pairwise/common witnesses, or remove a recovery blocking pair | `check_recorded` rejects each source/record disagreement | Original packet passes |
+| Reasoning population table | Enlarge the recorded conditional-comparison count from 147456 to 999999 in a temporary source map | `check_population` rejects the lesson population table after recomputation | Original eight-row table passes |
+
+The false-proof injection initially encountered a Windows output encoding
+failure while printing the Lean error. Repeating it with UTF-8 subprocess
+output exposed the actual named proof failure above. It was not accepted
+as a Lean rejection until that diagnostic was captured. The six authoring
+tests and record/desk checks pass after restoration.
+
