@@ -88,6 +88,72 @@ when datum 1 does, so the regime distinguishes the two data. Every later
 mapping from informal notation to a Genesis structure lists the admissions
 it needs, as this table does.
 
+## No imports from nowhere
+
+This is a standing rule of the book (author, 2026-10-28). Nothing enters the
+system unless it is derived inside the system or admitted at a stated price.
+In particular, the book never brings in from nowhere:
+
+- an **observer**: a viewpoint, reader, measurer or classifier that the
+  system has not admitted;
+- a **container**: a background space, set, universe or totality in which
+  the system's things are supposed to sit;
+- a **continuum**, or any **infinity**: an infinite set of data, of
+  instances, of presentations, of presentation families, of observers, or an
+  unbounded supply of any of them;
+- an **empty thing** treated as present: "the empty set", "the space of all
+  possibilities", or a limit that has not been reached.
+
+The system is never allowed past where it is. At each step it has exactly
+what has been admitted so far: a finite ledger, built by a finite history of
+events. What has not been derived or admitted is not "there but unknown"; it
+is not there.
+
+**Lean is outside the system.** Lean's types (`Nat`, `List`, `Prop`,
+`Type`), its quantifiers (`∀`, `∃`), its equality and its proof checker
+belong to the declared metatheory (`paper/paper.md` §2; Unit 00). `Nat` has
+no largest element and `List Nat` has no longest list, but that is a fact
+about the metatheory's apparatus, not something the system possesses. When
+a theorem says "for every instance `i : Inst`", it is a genuine universal
+statement, proved once and uniformly for an arbitrary instance; it is not a
+collection of separate checks. What matters is where that quantifier lives:
+it ranges over a Lean type, so it is a statement the metatheory makes
+*about* the system. It puts no collection of instances, and no universal
+quantifier, into the system's ledger. Every unit that discusses a universal
+theorem keeps those two apart: the theorem's own quantifier, at full
+strength, and what the system has admitted.
+
+**A finite ledger does not bound what its definitions reach.** The ledger
+stores finitely many admitted items, but an admitted definition can have an
+unbounded extension when the metatheory reads it. The uniform rule is the
+first case. In the well-formed regime `⟨0, [1], [], [0], []⟩` (one unary
+form, the all-instances rule on it, no data, no instances),
+`derivable` holds of `(0, [99])`, though datum 99 was never admitted, and
+of `(0, [])` and `(0, [1, 2, 3])`, though form 0 has arity 1 (Unit 01;
+`checks/u01_rule_extension.py`). Nothing infinite is stored: the rule is one
+admitted item, a form number in a list. The unbounded part is the
+metatheory's reading of `derivable`, and a unit that uses it says so. If a
+later unit needs derivability restricted to admitted data, it introduces a
+separate, named predicate outside the seal rather than reading the
+restriction into the sealed one.
+
+So every unit has a section **Outside the system** that lists:
+
+1. each Lean type, quantifier or construction the unit uses that is
+   metatheory, and what it is used for;
+2. what the system itself holds at that point (always a finite ledger),
+   and, where a definition's extension read in Lean is unbounded, that it
+   is;
+3. any admission the unit relies on, with its price (the events or
+   hypotheses it needs);
+4. any phrase in the unit that would import an observer, container or
+   infinity if read as a claim about the system, and how to read it
+   instead.
+
+If a later unit needs something unbounded inside the system, it must either
+derive it or admit it as a named, priced admission, and the unit must say
+which.
+
 ## Unit template
 
 1. **Claim**, with its status mark and its Lean name.
@@ -97,8 +163,11 @@ it needs, as this table does.
 3. **The theorem** in Lean.
 4. **The proof, step by step**, with no step skipped.
 5. **The same fact in Python**, with the check script.
-6. **What it shows and what it does not.**
-7. **Sources**: file, theorem, axiom report, ledger entry, test.
+6. **Outside the system**: the metatheory's types and quantifiers the unit
+   uses, what the system holds, and the price of every admission (see No
+   imports from nowhere).
+7. **What it shows and what it does not.**
+8. **Sources**: file, theorem, axiom report, ledger entry, test.
 
 ## Contents
 
@@ -106,7 +175,7 @@ it needs, as this table does.
 |---|---|---|---|---|
 | 00 | The mark and the external constructor | (none; seed §1, paper §2) | admitted | yes |
 | 01 | Nothing is derivable at genesis | `Inertia.genesis_underivable` | derived | yes |
-| 02 | Nothing is derivable without instances or rules | `Inertia.underivable_of_empty` | derived | |
+| 02 | Nothing is derivable without instances or rules (and one admitted rule makes unadmitted instances derivable) | `Inertia.underivable_of_empty` | derived | |
 | 03 | Supplying a token changes nothing | `Inertia.supply_no_op` | derived | |
 | 04 | No successor is internally forced (by the declared grammar) | (none; paper §4) | admitted | |
 | 05 | Is ⟨⟩ admitted? Readings L and F | `Inertia.historyL_replays`, `historyF_replays` | open | |
