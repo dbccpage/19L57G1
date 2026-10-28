@@ -200,7 +200,10 @@ def verify_wiki(
 
     # 5. Verify all 12 Manim MP4 and GIF files if present and not skipped
     manim_dir = wiki_root / "media" / "manim"
-    if not skip_manim_media and manim_dir.is_dir():
+    if not skip_manim_media:
+        if not manim_dir.is_dir():
+            print(f"FAIL: Missing media directory {manim_dir}", file=sys.stderr)
+            return 1
         for slug in EXPECTED_MANIM:
             mp4 = manim_dir / f"{slug}.mp4"
             gif = manim_dir / f"{slug}.gif"
@@ -231,6 +234,15 @@ def verify_wiki(
                     f"FAIL: {slug}.mp4 duration {dur:.2f}s > 15.0s!",
                     file=sys.stderr,
                 )
+                return 1
+            gif_probe = subprocess.run(
+                ["ffprobe", "-v", "error", "-show_entries", "format=duration",
+                 "-of", "default=noprint_wrappers=1:nokey=1", str(gif)],
+                capture_output=True, text=True, check=True,
+            )
+            gif_duration = float(gif_probe.stdout.strip())
+            if not 0 < gif_duration <= 15.0:
+                print(f"FAIL: {slug}.gif duration {gif_duration:.2f}s outside (0, 15.0]", file=sys.stderr)
                 return 1
             print(
                 f"PASS: {slug}.mp4 = {dur:.2f}s (<= 15.0s) | GIF = {gif.stat().st_size // 1024} KB"

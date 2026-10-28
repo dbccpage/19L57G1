@@ -18,6 +18,18 @@ Unit 08 is about truth and Unit 09 about asserting.
 
 Unit 00 (`SigEq`) and Unit 01 (`pQ`, `pQ_exact`, `pick`).
 
+## A three-item example before the formula
+
+Suppose a presentation p reports [0, 0, 1] on data [0, 1, 2]. It gives
+the same label to data 0 and 1, so a lookup using p cannot tell them apart.
+
+- A claim q = [7, 7, 9] is recoverable: label 0 means answer 7, and label 1 means answer 9.
+- A claim q = [7, 8, 9] is not recoverable: label 0 would have to mean both 7 and 8.
+
+“Factors through” names this recoverability condition. “Knows” applies
+the condition to the family's combined presentation. It does not assert
+that the claim is true.
+
 ### 1. Factoring
 
 ```lean

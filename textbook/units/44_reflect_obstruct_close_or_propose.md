@@ -1,28 +1,8 @@
 # Unit 44. Reflect, obstruct, close, or propose: a typed interface for primitive difference
 
-**Claim.** `DiffInterface` is a self-contained package, written to an
-external request of 2026-08-12, that types the pipeline *reflection
-certificate → retained, protected, observer-zero pair → active
-obstruction → same-carrier closure step, or an extension proposal*. A
-difference observer is `δ : X → X → R` with a zero predicate and the
-three equivalence laws as fields; `ZeroRel` is proved an equivalence
-(`zeroRel_equivalence`) before the quotient is built. A stage has
-liveness, retention, protection (`guarded`) and an observer; an active
-obstruction is the conjunction retained ∧ observer-zero ∧ guarded, and
-dropping any conjunct blocks it. A `BareReflection` certificate contains
-an active obstruction on its parent/fresh pair
-(`bare_reflection_certifies_active_obstruction`). A `ClosureStep`
-refines the observer over the same carrier: it keeps every old
-distinction, kills every demanded pair, and creates no new obstruction.
-An `ExtensionProposal` is data, never applied. A fuel driver reaches
-`closed` or `proposal` when fuel exceeds a strictly decreasing measure
-(`drive_terminates`). The tower `mkStage s h` (horizon-capped rank
-views) realizes every piece at every `n` (`tower_obstruction`,
-`tower_step_composes`, `closed_measure_zero`, `tower_fuel_terminates`).
-Three protected points under Boolean views are never closed
-(`bool_grammar_obstruction`), and five countermodels (freshness, tagging,
-an edge, a hash, repetition) show a feature without observer-visible
-difference. **Status:** derived; the abstract theorems are conditional
+**Claim.** An active obstruction requires a retained pair, protection, and observer-zero agreement. The declared interface then describes a same-carrier closure or an extension proposal under its stated hypotheses.
+
+**Status:** derived; the abstract theorems are conditional
 on declared bundles; the tower driver closes in one step, so the
 concrete termination instance is degenerate; the countermodels' `¬
 Active` conjunct is the removal of protection, by construction.
@@ -32,6 +12,52 @@ only. **Axioms:** 17 theorems use none; `obsQuotient_eq_of_zero`
 `{propext, Quot.sound}`. **Depends on:** nothing in Genesis; the
 closure-policy discipline of Unit 29 (three separate conditions) is the
 reason for the shape.
+
+## First pass
+
+Read the three tests separately. Is the pair retained? Is it protected? Does the current observer still merge it?
+
+Only their conjunction is an active obstruction. A proposal for extending the carrier records possible work; it does not execute that work.
+
+## Detailed claim and formal anchors
+
+`DiffInterface` is a self-contained package, written to an
+external request of 2026-08-12, that types the pipeline *reflection
+certificate → retained, protected, observer-zero pair → active
+obstruction → same-carrier closure step, or an extension proposal*.
+
+A
+difference observer is `δ : X → X → R` with a zero predicate and the
+three equivalence laws as fields; `ZeroRel` is proved an equivalence
+(`zeroRel_equivalence`) before the quotient is built.
+
+A stage has
+liveness, retention, protection (`guarded`) and an observer; an active
+obstruction is the conjunction retained ∧ observer-zero ∧ guarded, and
+dropping any conjunct blocks it.
+
+A `BareReflection` certificate contains
+an active obstruction on its parent/fresh pair
+(`bare_reflection_certifies_active_obstruction`).
+
+A `ClosureStep`
+refines the observer over the same carrier: it keeps every old
+distinction, kills every demanded pair, and creates no new obstruction.
+
+An `ExtensionProposal` is data, never applied.
+
+A fuel driver reaches
+`closed` or `proposal` when fuel exceeds a strictly decreasing measure
+(`drive_terminates`).
+
+The tower `mkStage s h` (horizon-capped rank
+views) realizes every piece at every `n` (`tower_obstruction`,
+`tower_step_composes`, `closed_measure_zero`, `tower_fuel_terminates`).
+
+Three protected points under Boolean views are never closed
+(`bool_grammar_obstruction`), and five countermodels (freshness, tagging,
+an edge, a hash, repetition) show a feature without observer-visible
+difference.
 
 ## Question
 

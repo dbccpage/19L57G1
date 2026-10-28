@@ -1,13 +1,31 @@
 # Unit 74 — Renaming Forms, Transporting Collapse, and Canonical Keys
 
-**Claim.** In the parked form-renaming and isomorphism modules (`lean4/Derivation/FormRenaming.lean`, `FormTransport.lean`, `IsoCollapse.lean`, `IsoCanon.lean`, `IsoBridge.lean`, and their five `*Compat.lean` companions), permuting a regime's form-arity list via `permForms` and relabelling instance and rule form indices via `renameForms` preserves form arities (`renameForms_arity`), has a two-sided inverse on fixed-form-length fibres (`renameForms_gf`), and transports `wfCtx`, `derivable`, and observational collapse (`collapsed_renameForms`, `collapsed_renameDataForm`). Across the membership-based isomorphism relation `Minimality.Iso`, `Iso.symm` and `Iso.trans` establish symmetry and transitivity, `Iso.collapsed_transport` transports observational collapse along `h.dmap`, `relabel_iso` establishes that the combined datum-and-form relabelling action produces an isomorphic regime when requirements are ordered, `iso_of_relabel_eq` establishes the canonical-key soundness kernel, and `Iso.of_components` bridges componentwise membership equality to `Iso`. Finally, `lean4/Derivation.lean` (62 modules, 1 482 axiom reports) together with `lean4/ParkedAudit.lean` (12 parked modules, 48 axiom reports) and `ci/check_declaration_axioms.py` (which also audits `Type`-valued definitions such as `Iso.symm`, `Iso.trans`, `relabel_iso`, `iso_of_relabel_eq`, and `Iso.of_components`) account for all 75 modules in `lean4/Derivation/` and all 1 530 lines of `artifacts/lean_axioms.txt`.
+**Claim.** Form renaming transports the stated observations. The bridge from record relabeling to isomorphism requires ordered requirements; list equality, membership equality, and Python search results remain distinct.
 
-- **Status:** `FROZEN` / `CONDITIONAL` (ordered requirements `∀ q ∈ r.reqs, q.1 ≤ q.2` required for `relabel_iso`, `iso_of_relabel_eq`, `Iso.of_components`, and `isoRefl`)
+**Status:** `FROZEN` / `CONDITIONAL` (ordered requirements `∀ q ∈ r.reqs, q.1 ≤ q.2` required for `relabel_iso`, `iso_of_relabel_eq`, `Iso.of_components`, and `isoRefl`)
 - **Lean:** `Derivation.renameForms_arity`, `Derivation.renameForms_gf`, `Derivation.collapsed_renameForms`, `Derivation.collapsed_renameDataForm`, `Derivation.Iso.symm`, `Derivation.Iso.collapsed_transport`, `Derivation.Iso.trans`, `Derivation.relabel_iso`, `Derivation.iso_of_relabel_eq`, `Derivation.Iso.of_components`
 - **Axioms:** Within `{propext, Quot.sound}` (`mapInstForm_gf` and `plug_mapCtxForm` are `none`; `Regime.ext'`, `permForms_getD`, `renameForms_arity`, `collapsed_congr`, `mapReq_eq_sortPair`, `sortPair_*`, `relabel_*` use `propext`; the remaining declarations use `{propext, Quot.sound}`)
 - **Depends on:** Unit 07 (`Erasure`), Unit 29 (`CountTransport`), Unit 31 (`TransitionTransport`), Unit 59 (`RenamingStructure`)
 
 ---
+
+## First pass
+
+A form index names a relation shape; a datum index names an item. Renaming either index must also update every place that refers to it.
+
+First check that a context remains well formed. Then check that plugging and derivability are preserved. Only then compare collapse.
+
+The later bridge uses its ordered-requirement hypothesis. A bounded Python search and a Lean transport theorem have different scopes; a search budget refusal establishes no inequality.
+
+## Detailed claim and formal anchors
+
+In the parked form-renaming and isomorphism modules (`lean4/Derivation/FormRenaming.lean`, `FormTransport.lean`, `IsoCollapse.lean`, `IsoCanon.lean`, `IsoBridge.lean`, and their five `*Compat.lean` companions), permuting a regime's form-arity list via `permForms` and relabelling instance and rule form indices via `renameForms` preserves form arities (`renameForms_arity`), has a two-sided inverse on fixed-form-length fibres (`renameForms_gf`), and transports `wfCtx`, `derivable`, and observational collapse (`collapsed_renameForms`, `collapsed_renameDataForm`).
+
+Across the membership-based isomorphism relation `Minimality.Iso`, `Iso.symm` and `Iso.trans` establish symmetry and transitivity, `Iso.collapsed_transport` transports observational collapse along `h.dmap`, `relabel_iso` establishes that the combined datum-and-form relabelling action produces an isomorphic regime when requirements are ordered, `iso_of_relabel_eq` establishes the canonical-key soundness kernel, and `Iso.of_components` bridges componentwise membership equality to `Iso`.
+
+Finally, `lean4/Derivation.lean` (62 direct module imports, 1 482 axiom reports) together with `lean4/ParkedAudit.lean` (12 parked modules, 48 axiom reports) and `ci/check_declaration_axioms.py` (which also audits `Type`-valued definitions such as `Iso.symm`, `Iso.trans`, `relabel_iso`, `iso_of_relabel_eq`, and `Iso.of_components`) account for all 75 modules in `lean4/Derivation/` and all 1 530 lines of `artifacts/lean_axioms.txt`.
+
+-
 
 ## Question
 

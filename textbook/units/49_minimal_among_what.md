@@ -1,17 +1,8 @@
 # Unit 49. Minimal among what? A six-probe singleton in a 64-member class
 
-**Claim.** `Initiality` declares a comparison class, the 64 descriptors
-of Unit 48 run by the family interpreter, and a compliance battery of
-six probes, one per guard, each a single world and event on which the
-sealed kernel is a no-op. Switching any one guard off fails its probe
-(`dedup_load_bearing`, `require_guard_load_bearing`,
-`accept_guard_load_bearing`, `budget_gate_load_bearing`,
-`license_gate_load_bearing`, `refusal_certificate_load_bearing`); the
-kernel's descriptor is the unique compliant member (`unique_compliant`,
-`minimum_unique_in_class`); the panel-extended kernel of Unit 47
-projects back onto the kernel along every base event and history
-(`extension_retract`, `extension_retract_replay`, split by
-`retract_section`). **Status:** VERIFIED_FINITE, class- and
+**Claim.** Among the declared 64 guard-toggle descriptors, exactly one passes the six stated probes. This is uniqueness within a finite comparison class and test battery.
+
+**Status:** VERIFIED_FINITE, class- and
 battery-relative; categorical initiality is not claimed and the
 terminal was renamed to say so. **Lean:** `lean4/Derivation/Initiality.lean`
 lines 52-169, imports `Constitution` and `NoOutside`. **Axioms:**
@@ -20,6 +11,29 @@ lines 52-169, imports `Constitution` and `NoOutside`. **Axioms:**
 `kernelDesc`, `allDescs`, `allDescs_complete`), Unit 47 (`CWorld`,
 `stepC`, `replayC`), Unit 45 (the sealed theorems the probes
 instantiate).
+
+## First pass
+
+A probe supplies one world and one event, then checks the resulting behavior. Each of the six probes targets one guard.
+
+Passing all six identifies one descriptor in the declared list of 64. It does not compare every possible controller or establish categorical initiality.
+
+## Detailed claim and formal anchors
+
+`Initiality` declares a comparison class, the 64 descriptors
+of Unit 48 run by the family interpreter, and a compliance battery of
+six probes, one per guard, each a single world and event on which the
+sealed kernel is a no-op.
+
+Switching any one guard off fails its probe
+(`dedup_load_bearing`, `require_guard_load_bearing`,
+`accept_guard_load_bearing`, `budget_gate_load_bearing`,
+`license_gate_load_bearing`, `refusal_certificate_load_bearing`); the
+kernel's descriptor is the unique compliant member (`unique_compliant`,
+`minimum_unique_in_class`); the panel-extended kernel of Unit 47
+projects back onto the kernel along every base event and history
+(`extension_retract`, `extension_retract_replay`, split by
+`retract_section`).
 
 ## Question
 

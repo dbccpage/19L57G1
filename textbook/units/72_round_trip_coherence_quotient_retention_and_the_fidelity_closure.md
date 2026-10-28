@@ -1,8 +1,26 @@
 # Unit 72 — Round-Trip Coherence, Quotient Retention, and the Fidelity Closure
 
-**Claim.** Across the five-module fidelity family (`PresentationDescent`, `QuotientRetention`, `FidelityClosure`, `NoOutsideFidelity`, and `EndogenousFidelityGenerator`), two presentation carriers `P` and `Q` connected by a totalized translation pair `u : Totalization t` admit a faithful common descent `FaithfulCommonDescent u` (injective embeddings `left : P → Carrier`, `right : Q → Carrier` satisfying the identification equations `left p = right (u.forward p)` and `right q = left (u.backward q)`) if and only if `u` is round-trip coherent (`faithful_descent_iff_round_trip_coherent`). When a relation refinement `RelationRefinement fine coarse` loses a coarse identification `coarse.r x y` (`¬ fine.r x y`), `failed_identification_retains_two_classes` retains two distinct `Quotient fine` classes over one `Quotient coarse` class and makes `collapseMap` non-injective (`collapseMap_injective_iff_reverse_refinement`). Over a `TranslationNetwork`, coherent steps generate the least equivalence relation `FidelityRel` (`fidelity_is_least_equivalence_containing_admitted_steps`) with quotient `FidelityQuotient` (`GeneratedMultiplicity`), labels descend to `FidelityQuotient` if and only if they are `FidelityRel`-invariant (`label_descends_iff_fidelity_invariant`), any nontrivial loop transport (`HolonomyResidual`) refutes global carrier descent (`holonomy_residual_refuses_faithful_network_descent`), and on `World` the operational projection `supportView` cannot be round-trip coherent with any candidate inverse because `noteVariantA` and `noteVariantB` share `support` while differing in `notes` (`no_support_inverse_faithfully_erases_index`).
+**Claim.** For a totalized translation pair, faithful common descent exists exactly when both round trips return each input unchanged. A nontrivial loop transport blocks faithful descent of the whole network.
+
+
 
 ---
+
+## First pass
+
+Translate an item from P to Q, then translate it back. Does it return to the same item? Check the other direction too.
+
+If both round trips succeed, the two carriers can be represented together with the stated faithful identifications. If a round trip changes an item, that identification would lose a distinction.
+
+For a network, check paths as well as individual steps. A closed path that changes an item is the loop obstruction studied later in the lesson.
+
+## Detailed claim and formal anchors
+
+Across the five-module fidelity family (`PresentationDescent`, `QuotientRetention`, `FidelityClosure`, `NoOutsideFidelity`, and `EndogenousFidelityGenerator`), two presentation carriers `P` and `Q` connected by a totalized translation pair `u : Totalization t` admit a faithful common descent `FaithfulCommonDescent u` (injective embeddings `left : P → Carrier`, `right : Q → Carrier` satisfying the identification equations `left p = right (u.forward p)` and `right q = left (u.backward q)`) if and only if `u` is round-trip coherent (`faithful_descent_iff_round_trip_coherent`).
+
+When a relation refinement `RelationRefinement fine coarse` loses a coarse identification `coarse.r x y` (`¬ fine.r x y`), `failed_identification_retains_two_classes` retains two distinct `Quotient fine` classes over one `Quotient coarse` class and makes `collapseMap` non-injective (`collapseMap_injective_iff_reverse_refinement`).
+
+Over a `TranslationNetwork`, coherent steps generate the least equivalence relation `FidelityRel` (`fidelity_is_least_equivalence_containing_admitted_steps`) with quotient `FidelityQuotient` (`GeneratedMultiplicity`), labels descend to `FidelityQuotient` if and only if they are `FidelityRel`-invariant (`label_descends_iff_fidelity_invariant`), any nontrivial loop transport (`HolonomyResidual`) refutes global carrier descent (`holonomy_residual_refuses_faithful_network_descent`), and on `World` the operational projection `supportView` cannot be round-trip coherent with any candidate inverse because `noteVariantA` and `noteVariantB` share `support` while differing in `notes` (`no_support_inverse_faithfully_erases_index`).
 
 ## Question
 

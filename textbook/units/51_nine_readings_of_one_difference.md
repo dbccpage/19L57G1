@@ -1,20 +1,8 @@
 # Unit 51. Nine readings of one difference
 
-**Claim.** `PrimitiveCore` puts every datum the candidate readings of a
-primitive difference mention into one signature `Setting` (a carrier, an
-asserted relation, two endpoints, a retention store, a protected-demand
-store, an admitted operation family) and defines nine predicates on it:
-W (bare witnessed pair), A (witnessed irreflexive), Bs, Bc, Bl (A plus
-symmetry, cotransitivity, locatedness), C (witness plus demand), D
-(endpoints do not factor through a point), E (no admitted composite
-identifies the endpoints), F (A plus retention plus demand). Each of the
-72 ordered cells (P, Q), P ≠ Q, is settled by a named theorem: 17
-implications `imp_P_Q` for every Setting, 51 countermodels `nimp_P_Q` on
-carriers of one, two or three points, and 4 cells targeting Bl recorded
-OPEN. Beside the matrix: `D_iff_ne` (D is metatheoretic inequality),
-`cotrans_auto_on_two` (irreflexive on two points implies cotransitive),
-`located_of_decidable`, `e_empty_iff_d`, `prot_not_from_witness`,
-`ret_not_from_witness`, `bool_class`. **Status:** FROZEN (implications,
+**Claim.** Nine declared readings place different requirements on a witnessed relation. The comparison records scoped implications, finite countermodels, and four open locatedness cells.
+
+**Status:** FROZEN (implications,
 countermodels), OPEN (four located cells, scoped), VERIFIED_FINITE (the
 Python scan of 56 088 settings agrees cell by cell). **Lean:**
 `lean4/Derivation/PrimitiveCore.lean` lines 36-916, imports `PrimDiff`.
@@ -23,6 +11,34 @@ none. **Depends on:** Unit 14 (`factors_through_point_iff`), Unit 23
 (`selfdiff_consistent`), Unit 24 (`irrefl_witness_ne`), Unit 25
 (`obstruction_under_irrefl`), the two-point carriers `D2`, `S2` and the
 closure `Clos` / `Irred` of `PrimDiff`.
+
+## First pass
+
+Begin with two named endpoints and an asserted relation between them. Then ask which extra conditions are being added: irreflexivity, symmetry, retention, protection, or restrictions on admitted operations.
+
+Read one comparison at a time. An implication says every setting satisfying one reading satisfies another. A countermodel supplies one setting where that implication fails. An open cell is neither of those results.
+
+## Detailed claim and formal anchors
+
+`PrimitiveCore` puts every datum the candidate readings of a
+primitive difference mention into one signature `Setting` (a carrier, an
+asserted relation, two endpoints, a retention store, a protected-demand
+store, an admitted operation family) and defines nine predicates on it:
+W (bare witnessed pair), A (witnessed irreflexive), Bs, Bc, Bl (A plus
+symmetry, cotransitivity, locatedness), C (witness plus demand), D
+(endpoints do not factor through a point), E (no admitted composite
+identifies the endpoints), F (A plus retention plus demand).
+
+Each of the
+72 ordered cells (P, Q), P ≠ Q, is settled by a named theorem: 17
+implications `imp_P_Q` for every Setting, 51 countermodels `nimp_P_Q` on
+carriers of one, two or three points, and 4 cells targeting Bl recorded
+OPEN.
+
+Beside the matrix: `D_iff_ne` (D is metatheoretic inequality),
+`cotrans_auto_on_two` (irreflexive on two points implies cotransitive),
+`located_of_decidable`, `e_empty_iff_d`, `prot_not_from_witness`,
+`ret_not_from_witness`, `bool_class`.
 
 ## Question
 

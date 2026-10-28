@@ -1,24 +1,7 @@
 # Unit 47. Putting the viewer on the books: certification as a replayed, panel-relative quotient
 
-**Claim.** `NoOutside` extends the one-step support factorization of
-Unit 45 to whole histories (`support_replay`), to the repair family
-(`support_repairFamily`), to the obstruction certificate
-(`support_obstructed`) and to the quiescence verdict
-(`support_quiescent`), and bundles the four as the effectual-outside
-dichotomy (`effectual_outside_dichotomy`): two worlds that agree on the
-represented support and receive the same history agree on every
-operational result, so whatever changes a result already differs in the
-support, and what changes no result has no operational authority. The
-invariance ceiling is restated for list-valued constructions
-(`equivariant_family_invariant`). The evaluator panel, a free argument
-in Unit 45, becomes a field of an extended state `CWorld` admitted by an
-event; base events act as the sealed step and never touch the panel
-(`stepC_conservative`), admission never touches the base
-(`admitEvaluator_base_inert`), and the certificate is a function of the
-replayed state (`certNegC`). Joint non-separation by a panel is an
-equivalence (`panel_equiv`), the negative certificate is exactly
-non-emptiness plus joint non-separation (`certNeg_iff_panelEquiv`), and
-the ceiling of Unit 45 carries over verbatim (`certC_ceiling`).
+**Claim.** For the fixed kernel, matching operational support and the same history give matching operational results. A replayed evaluator panel certifies agreement only relative to that panel.
+
 **Status:** derived for the fixed kernel; the "outside" is the one
 field `supp` forgets; the absolute form is recorded as unformulable, not
 proved. **Lean:** `lean4/Derivation/NoOutside.lean` lines 32-268,
@@ -27,6 +10,40 @@ imports `Represented`. **Axioms:** `equivariant_family_invariant` and
 **Depends on:** Unit 45 (the kernel, `supp`, `support_determines`,
 `certNegB`, `cert_not_correspondence`), Unit 39 (the single-output
 ceiling).
+
+## First pass
+
+The support contains the fields that the transition reads. The notes field is omitted because it does not affect those transitions.
+
+Putting the evaluator panel into an extended state makes its admission replayable. Agreement with that panel remains a claim about its declared tests, rather than correspondence with an outside interpretation.
+
+## Detailed claim and formal anchors
+
+`NoOutside` extends the one-step support factorization of
+Unit 45 to whole histories (`support_replay`), to the repair family
+(`support_repairFamily`), to the obstruction certificate
+(`support_obstructed`) and to the quiescence verdict
+(`support_quiescent`), and bundles the four as the effectual-outside
+dichotomy (`effectual_outside_dichotomy`): two worlds that agree on the
+represented support and receive the same history agree on every
+operational result, so whatever changes a result already differs in the
+support, and what changes no result has no operational authority.
+
+The
+invariance ceiling is restated for list-valued constructions
+(`equivariant_family_invariant`).
+
+The evaluator panel, a free argument
+in Unit 45, becomes a field of an extended state `CWorld` admitted by an
+event; base events act as the sealed step and never touch the panel
+(`stepC_conservative`), admission never touches the base
+(`admitEvaluator_base_inert`), and the certificate is a function of the
+replayed state (`certNegC`).
+
+Joint non-separation by a panel is an
+equivalence (`panel_equiv`), the negative certificate is exactly
+non-emptiness plus joint non-separation (`certNeg_iff_panelEquiv`), and
+the ceiling of Unit 45 carries over verbatim (`certC_ceiling`).
 
 ## Question
 

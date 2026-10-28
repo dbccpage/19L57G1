@@ -1,8 +1,9 @@
 # Unit 62: What protection buys
 
+**Claim.** Protected separation is sufficient for stability across every event replay in the declared passage machine. Stability along a trace and membership in the protection store are separate conditions.
+
 | field | value |
 |---|---|
-| **Claim** | On the passage state machine (`PrimitivePassage.PState`, `step`, `replayP`), protected separation `protSep s i j = true` is sufficient for trace stability `TraceStableSep s i j` across every event replay (`protSep_trace_stable`, via `prot_mono`, `sep_preserved`, `protSep_persists`, `protSep_replays`). The converse over all `PState` (and over genesis-reachable `PState`) is false: on a halted state every replay is inert (`replay_halted`), so an unprotected separation is trace-stable (`halted_stable_not_protected`, `Textbook.U62.reachable_halted_stable_not_protected`). On a live unfunded state (`budget = 0`), an unprotected separation is stable over the syntactic fragment `RestrictedTrace` that omits `admitOcc`, `setBudget`, and `setLicense` (`unfunded_restricted_stable_not_protected`), but can be broken under the full grammar once `setBudget` funds a refinement (`Textbook.U62.reachable_unfunded_restricted_but_not_trace_stable`). Whenever a live funded state carries an accepted refinement witness that merges the pair on its separating column, that single step destroys `SepHere` (`separation_breakable`, instantiated at `sUnprot` by `unprotected_separation_unstable`). Whether `TraceStableSep` implies `protSep = true` on all live funded states is open (`openExactStabilityCharacterization : Prop`). On any declared state (`s.obs = some cols`), quiescence (`∀ i j, obstP s i j = false`) holds if and only if every retained protected pair is separated (`quiescent_iff_protected_separated`, `quiescence_is_protected_separation`), making every retained protected pair of a quiescent declared state trace-stable (`quiescent_retained_protected_trace_stable`). |
 | **Mark** | `CONDITIONAL` for `sepP_append`, `sepP_refine`, `prot_mono`, `sep_preserved`, `protSep_persists`, `protSep_replays`, `protSep_trace_stable`, `trace_stable_restricted_stable`, `replay_halted`, `restricted_step_inert_unfunded`, `restricted_replay_inert_unfunded`, `separation_breakable`, `quiescent_iff_protected_separated`, `quiescence_is_protected_separation`, `quiescent_retained_protected_trace_stable`; `REFUTED` for the converse of sufficiency (`halted_stable_not_protected` and `Textbook.U62.reachable_halted_stable_not_protected`); `VERIFIED_FINITE` for `unfunded_restricted_stable_not_protected`, `unprotected_separation_unstable`, and `Textbook.U62.reachable_unfunded_restricted_but_not_trace_stable`; `OPEN` (`ADMITTED` as a `Prop` definition, unproved) for `openExactStabilityCharacterization`. |
 | **Role** | Audit-repaired trace-stability and quiescence analysis on `PrimitivePassage` (`lean4/Derivation/StableContent.lean`, `code/derivation/stable_content.py`), superseding the withdrawn draft claim `CL-PD2-STABLE-CONTENT` with `CL-PD2-TRACE-STABILITY`. |
 | **AuthorityEffect** | `None`. No state fields or transition rules are added to `PrimitivePassage.PState` or `PrimitivePassage.step`. |
@@ -10,6 +11,28 @@
 | **Axioms** | `[propext, Quot.sound]` on all 18 theorems in `StableContent` and both book theorems in `Textbook.U62`. |
 
 ---
+
+## First pass
+
+Protection records a promise about a pair. An observation records which pairs the current views distinguish.
+
+Protected separation combines the recorded protection with a currently observed distinction. The sufficiency theorem preserves that combination across every event replay in this machine.
+
+A distinction can also survive without being stored as protected. Survival alone does not put a pair into the protection store.
+
+## Detailed claim and formal anchors
+
+On the passage state machine (`PrimitivePassage.PState`, `step`, `replayP`), protected separation `protSep s i j = true` is sufficient for trace stability `TraceStableSep s i j` across every event replay (`protSep_trace_stable`, via `prot_mono`, `sep_preserved`, `protSep_persists`, `protSep_replays`).
+
+The converse over all `PState` (and over genesis-reachable `PState`) is false: on a halted state every replay is inert (`replay_halted`), so an unprotected separation is trace-stable (`halted_stable_not_protected`, `Textbook.U62.reachable_halted_stable_not_protected`).
+
+On a live unfunded state (`budget = 0`), an unprotected separation is stable over the syntactic fragment `RestrictedTrace` that omits `admitOcc`, `setBudget`, and `setLicense` (`unfunded_restricted_stable_not_protected`), but can be broken under the full grammar once `setBudget` funds a refinement (`Textbook.U62.reachable_unfunded_restricted_but_not_trace_stable`).
+
+Whenever a live funded state carries an accepted refinement witness that merges the pair on its separating column, that single step destroys `SepHere` (`separation_breakable`, instantiated at `sUnprot` by `unprotected_separation_unstable`).
+
+Whether `TraceStableSep` implies `protSep = true` on all live funded states is open (`openExactStabilityCharacterization : Prop`).
+
+On any declared state (`s.obs = some cols`), quiescence (`∀ i j, obstP s i j = false`) holds if and only if every retained protected pair is separated (`quiescent_iff_protected_separated`, `quiescence_is_protected_separation`), making every retained protected pair of a quiescent declared state trace-stable (`quiescent_retained_protected_trace_stable`).
 
 ## Question
 

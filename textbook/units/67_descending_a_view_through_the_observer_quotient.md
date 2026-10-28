@@ -1,41 +1,8 @@
 # Unit 67. Descending a view through the observer quotient: exactness, the pair obstruction, and the compression dictionary
 
-**Claim.** Unit 44 introduced the observer record `DiffObs X R` (a typed
-difference map `delta : X → X → R`, a zero predicate `Zero : R → Prop`,
-and three proof fields making `ZeroRel O x y := O.Zero (O.delta x y)` an
-equivalence) together with the quotient `ObsQuotient O` and the soundness
-half `obsQuotient_eq_of_zero`. `ObsDescent` completes the quotient-descent
-theory that quotient earns: two points have equal classes if and only if
-they form a zero-pair (`obsQuotient_exact`, `obsQuotient_mk_eq_iff`), and
-every quotient class is the class of some point (`obsQuotient_mk_surjective`).
-A view `f : X → Y` factors through `ObsQuotient.mk O` if and only if it is
-constant on zero-classes (`ClassConstant`, `descend_exists_iff`), uniquely
-on the entire quotient because the projection is surjective (`descend_unique`),
-and a single zero-pair on which `f` disagrees blocks descent
-(`descend_blocked_of_witness`). The same three facts hold for the binary
-difference map itself (`DeltaConstant`, `deltaDescend_exists_iff`,
-`deltaDescend_unique`, `deltaDescend_blocked_of_witness`). Pairing splits
-componentwise (`classConstant_pair_iff`, `pair_descend_exists_iff`), yielding
-the flagship witness shape: a class-constant view `f` descends alone while
-its pairing `(f, g)` with a component that disagrees on a zero-pair is
-blocked (`view_descends_pair_blocked`). Descending into a further quotient
-`Quotient S` of the value side reduces to ordinary equality descent for
-`Quotient.mk S ∘ f` (`classConstant_comp_mk_iff`, `descendMod_exists_iff`,
-`deltaDescendMod_exists_iff`, `coarsenMap`, `pairSetoid_mk_eq_iff`,
-`descendMod_exists_of_coarsen`). Two concrete non-kernel observers bound what
-the interface allows: the integer subtraction observer `intDiffObs`, whose
-difference values keep orientation while its zero relation cannot
-(`value_orientation_survives`), and the all-zero observer `collapseAllObs` on
-`Bool`, whose zero relation identifies everything while its difference map
-still separates `true` from `false`, so neither its difference map nor the
-identity view descends (`collapseAllObs_not_deltaConstant`,
-`collapseAllObs_no_delta_descend`, `collapseAllObs_id_not_classConstant`,
-`collapseAllObs_no_view_descend`). Finally, for a kernel observer
-`kernelObs p` on `Nat`, global quotient descent is equivalent to the
-domain-relative factorization of Unit 61 quantified over every finite list
-domain `D : List Nat` (`classConstant_iff_fiberConstant_all`,
-`descend_iff_factorsOn_all`), and the quantifier `∀ D` cannot be
-dropped (`fiberConstant_fixed_D_not_classConstant`). **Status:** FROZEN (the
+**Claim.** A view descends to an observer quotient exactly when it agrees on every pair the observer identifies. One identified pair with different view values blocks descent.
+
+**Status:** FROZEN (the
 descent theorems and the dictionary); CONDITIONAL (`view_descends_pair_blocked`,
 on a compatible view and a blocking witness); REFUTED (descent of the
 difference map and identity view on `collapseAllObs`; dropping `∀ D` in the
@@ -46,6 +13,64 @@ imports `DiffInterface`, `Compression`. **Axioms:** 37 reports in
 12 use `Quot.sound`, 12 use `propext, Quot.sound`. **Depends on:** Unit 44
 (`DiffObs`, `ZeroRel`, `ObsQuotient`, `obsQuotient_eq_of_zero`, `kernelObs`),
 Unit 61 (`FiberConstant`, `FactorsOn`, `factors_iff_fiberConstant`, `SigEq`).
+
+## First pass
+
+A quotient replaces each group of identified items with one class. Descending a view means computing its answer from that class alone.
+
+Suppose the observer groups a and b together. A view with f(a) = f(b) can assign that shared answer to the class. A view with f(a) ≠ f(b) cannot.
+
+For several classes, the view must agree within every class. For a pair of views, both components must pass this test. The formal sections extend this idea to difference maps and further quotients.
+
+## Detailed claim and formal anchors
+
+Unit 44 introduced the observer record `DiffObs X R` (a typed
+difference map `delta : X → X → R`, a zero predicate `Zero : R → Prop`,
+and three proof fields making `ZeroRel O x y := O.Zero (O.delta x y)` an
+equivalence) together with the quotient `ObsQuotient O` and the soundness
+half `obsQuotient_eq_of_zero`. `ObsDescent` completes the quotient-descent
+theory that quotient earns: two points have equal classes if and only if
+they form a zero-pair (`obsQuotient_exact`, `obsQuotient_mk_eq_iff`), and
+every quotient class is the class of some point (`obsQuotient_mk_surjective`).
+
+A view `f : X → Y` factors through `ObsQuotient.mk O` if and only if it is
+constant on zero-classes (`ClassConstant`, `descend_exists_iff`), uniquely
+on the entire quotient because the projection is surjective (`descend_unique`),
+and a single zero-pair on which `f` disagrees blocks descent
+(`descend_blocked_of_witness`).
+
+The same three facts hold for the binary
+difference map itself (`DeltaConstant`, `deltaDescend_exists_iff`,
+`deltaDescend_unique`, `deltaDescend_blocked_of_witness`).
+
+Pairing splits
+componentwise (`classConstant_pair_iff`, `pair_descend_exists_iff`), yielding
+the flagship witness shape: a class-constant view `f` descends alone while
+its pairing `(f, g)` with a component that disagrees on a zero-pair is
+blocked (`view_descends_pair_blocked`).
+
+Descending into a further quotient
+`Quotient S` of the value side reduces to ordinary equality descent for
+`Quotient.mk S ∘ f` (`classConstant_comp_mk_iff`, `descendMod_exists_iff`,
+`deltaDescendMod_exists_iff`, `coarsenMap`, `pairSetoid_mk_eq_iff`,
+`descendMod_exists_of_coarsen`).
+
+Two concrete non-kernel observers bound what
+the interface allows: the integer subtraction observer `intDiffObs`, whose
+difference values keep orientation while its zero relation cannot
+(`value_orientation_survives`), and the all-zero observer `collapseAllObs` on
+`Bool`, whose zero relation identifies everything while its difference map
+still separates `true` from `false`, so neither its difference map nor the
+identity view descends (`collapseAllObs_not_deltaConstant`,
+`collapseAllObs_no_delta_descend`, `collapseAllObs_id_not_classConstant`,
+`collapseAllObs_no_view_descend`).
+
+Finally, for a kernel observer
+`kernelObs p` on `Nat`, global quotient descent is equivalent to the
+domain-relative factorization of Unit 61 quantified over every finite list
+domain `D : List Nat` (`classConstant_iff_fiberConstant_all`,
+`descend_iff_factorsOn_all`), and the quantifier `∀ D` cannot be
+dropped (`fiberConstant_fixed_D_not_classConstant`).
 
 ## Question
 

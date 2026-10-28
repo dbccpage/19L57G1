@@ -1,14 +1,32 @@
 # Unit 08. Contexts, profiles, collapse and separability
 
-**Claim.** Genesis declares what it means for the system to tell two data
-apart: there is a well-formed context that is derivable when plugged with
-one datum and not when plugged with the other. Two data with no such
-context are *collapsed*. These are definitions, chosen by the external
-constructor. **Status:** admitted. **Lean:** `Derivation.Ctx`, `plug`,
+**Claim.** A context is a test with an empty slot. Two admitted data are separable when some well-formed context succeeds for one and fails for the other.
+
+**Status:** admitted. **Lean:** `Derivation.Ctx`, `plug`,
 `derivable`, `wfCtx`, `collapsed`, `separable`
 (`lean4/Derivation/Basic.lean` lines 74-125). **Axioms:** `propext` in
 the definitions (through `List.getD`). **Depends on:** `Regime`, `Inst`
 (Unit 01); `derivable` was first met in Unit 01.
+
+## First pass
+
+Start with a unary form called marked. The context marked(_) has one hole.
+
+With no uniform rule and only marked(0) admitted, plugging in 0 succeeds and plugging in 1 fails. This context witnesses separation.
+
+A profile collects all successful contexts for one datum. Equal profiles mean observational collapse at this stage; the datum indices remain distinct.
+
+## Detailed claim and formal anchors
+
+Genesis declares what it means for the system to tell two data
+apart: there is a well-formed context that is derivable when plugged with
+one datum and not when plugged with the other.
+
+Two data with no such
+context are *collapsed*.
+
+These are definitions, chosen by the external
+constructor.
 
 ## Question
 
@@ -35,9 +53,19 @@ fills every hole with that datum, producing an instance. A context is a
 question the system can be asked about any datum: "is this instance, with
 you in the holes, derivable?"
 
+### Profile: collect the successful tests
+
 The **profile** of a datum is the set of well-formed contexts whose
-plugging with it is derivable. Two data are **collapsed** when every
-well-formed context answers the same for both. They are **separable**
+plugging with it is derivable.
+
+### Collapse: all available tests agree
+
+Two data are **collapsed** when every
+well-formed context answers the same for both.
+
+### Separation: one test disagrees
+
+They are **separable**
 when some well-formed context answers differently; that context is the
 **witness**.
 
@@ -50,8 +78,7 @@ A form with a hole is a stencil: "___ is marked", or "___ is linked to
 datum 1". Holding the stencil over a datum gives a sentence; the system
 either derives that sentence or does not. Two data are told apart when
 some stencil gives a derived sentence for one and not for the other. If
-every stencil treats them the same, they are, for the system, the same
-datum twice over, however different their tokens look from outside.
+every stencil treats them the same, they have the same observable profile at that stage. Their admitted indices can still be distinct.
 
 This is the only sense of "different" the derivation ever grants the
 system. The paper calls it "behavioral separation by positive

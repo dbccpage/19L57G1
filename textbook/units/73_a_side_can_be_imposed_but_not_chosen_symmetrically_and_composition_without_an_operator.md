@@ -1,8 +1,28 @@
 # Unit 73 — A Side Can Be Imposed, Not Chosen Symmetrically, and Composition Without an Operator
 
-**Claim.** In `lean4/Derivation/Breaking.lean`, an action `act : Sym → W → W` on an inhabited carrier `w : W` admits an endomap `s : W → W` that is simultaneously orbit-constant (`∀ g w, s (act g w) = s w`) and equivariant (`∀ g w, s (act g w) = act g (s w)`) if and only if `act` has a common fixed point (`∃ p, ∀ g, act g p = p`) (`selector_iff_common_fixed_point`). Consequently, for any fixed-point-free involution `B : Break` (`no_orbit_constant_equivariant_endomap`) or any fixed-point-free family `S : Symmetry` (`no_orbit_constant_equivariant_selector`), no inhabited carrier admits an orbit-constant equivariant selector, although a side can be imposed without equivariance (`imposable_but_not_equivariant` on `boolBreak` via `constFalse`); and on the 3-element type `Tri`, no fixed-point-free involution exists at all (`no_fixed_point_free_involution_on_Tri`), whereas the 3-cycle `rot` forms a valid `Symmetry` (`triSymmetry`). In the parked companion module `lean4/Derivation/Composing.lean`, a relational `Web` (`Composes : (a b c : Node) → Arr a b → Arr b c → Arr a c → Prop`) can fail totality (`composition_may_fail`), fail identity existence (`noneCompose_no_identity`), have non-unique composites (`composite_may_be_nonunique`) while still admitting a total composite-selection function (`selection_is_possible`), and fail both one-way and full relational associativity (`skew_not_relAssocLeft`, `skew_not_relAssoc`). Every theorem in both modules is axiom-free (`none`), and neither module defines a Layer 3 bridge to `Regime`, `DiffObs`, `PresIso`, `NonZeroPair`, or `HFamily`.
+**Claim.** On an inhabited carrier, an orbit-constant equivariant endomap exists exactly when the action has a common fixed point. A separate composition relation need not supply uniqueness or associativity.
+
+
 
 ---
+
+## First pass
+
+Orbit-constant means the chosen output is the same throughout an orbit. Equivariant means changing the input by a symmetry changes the output by that symmetry.
+
+Requiring both makes each chosen output a fixed point of every symmetry. With no common fixed point, such an endomap cannot exist.
+
+The second half starts a separate question: a relation saying which composites are allowed does not by itself choose a unique composite. Read it after the selection example.
+
+## Detailed claim and formal anchors
+
+In `lean4/Derivation/Breaking.lean`, an action `act : Sym → W → W` on an inhabited carrier `w : W` admits an endomap `s : W → W` that is simultaneously orbit-constant (`∀ g w, s (act g w) = s w`) and equivariant (`∀ g w, s (act g w) = act g (s w)`) if and only if `act` has a common fixed point (`∃ p, ∀ g, act g p = p`) (`selector_iff_common_fixed_point`).
+
+Consequently, for any fixed-point-free involution `B : Break` (`no_orbit_constant_equivariant_endomap`) or any fixed-point-free family `S : Symmetry` (`no_orbit_constant_equivariant_selector`), no inhabited carrier admits an orbit-constant equivariant selector, although a side can be imposed without equivariance (`imposable_but_not_equivariant` on `boolBreak` via `constFalse`); and on the 3-element type `Tri`, no fixed-point-free involution exists at all (`no_fixed_point_free_involution_on_Tri`), whereas the 3-cycle `rot` forms a valid `Symmetry` (`triSymmetry`).
+
+In the parked companion module `lean4/Derivation/Composing.lean`, a relational `Web` (`Composes : (a b c : Node) → Arr a b → Arr b c → Arr a c → Prop`) can fail totality (`composition_may_fail`), fail identity existence (`noneCompose_no_identity`), have non-unique composites (`composite_may_be_nonunique`) while still admitting a total composite-selection function (`selection_is_possible`), and fail both one-way and full relational associativity (`skew_not_relAssocLeft`, `skew_not_relAssoc`).
+
+Every theorem in both modules is axiom-free (`none`), and neither module defines a Layer 3 bridge to `Regime`, `DiffObs`, `PresIso`, `NonZeroPair`, or `HFamily`.
 
 ## Question
 

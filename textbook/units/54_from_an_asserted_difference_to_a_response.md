@@ -1,28 +1,7 @@
 # Unit 54. From an asserted difference to a response
 
-**Claim.** `PrimitivePassage` replays a difference through a small
-machine and proves, store by store, when it becomes an *obstruction* and
-what the machine must then offer. A state `PState` holds nine stores:
-occurrences, asserted pairs, retained pairs, protected pairs, an optional
-declared observation, a budget, a licence flag, a refusal record and a
-halt flag. A difference is *obstructed* exactly when four gates hold at
-once: retained, protected, an observation declared, and that observation
-blind to the pair (`obstP_factors`); no three gates entail the fourth
-(`gate_zero_independent`, `gate_declared_independent`,
-`gate_protection_independent`, `gate_retention_independent`, witnessed by
-five named states). Assertion is not retention
-(`assertion_not_retained`), retention needs an assertion
-(`retention_requires_assertion`) and persists (`retention_persists`), and
-without protection nothing obstructs (`no_protection_no_obstruction`). At
-an obstruction with an in-bounds protected pair the machine never runs
-dry: repair the observation at the same level, or create a column
-(`two_rule`, via `extension_always_available`). Proposing is free;
-executing needs a licence and a budget (`proposal_not_execution`,
-`budget_gates_execution`); an executed extension clears the obstruction
-(`extension_resolves`); a refusal records and moves nothing
-(`refusal_object_inert`) while a halt absorbs everything
-(`terminal_absorbing`); and the represented next family is empty exactly
-when nothing is obstructed (`nextFamilyP_stop`, `nextFamilyP_nonempty`).
+**Claim.** The declared passage machine keeps assertion, retention, protection, observation, and execution distinct. Under the stated obstruction hypotheses it offers an observation repair or a funded column creation.
+
 **Status:** FROZEN; ADMITTED (the convention that gate 4 reads `true`
 before any observation is declared, `zeroDeclP`, and the policy
 `obst_requires_observation` that an undeclared observation obstructs
@@ -35,6 +14,48 @@ exported reports, all `propext, Quot.sound` except `wit_independent_of_obs`
 and `quotient_no_recovery` (none). **Depends on:** Unit 51 (`Setting`,
 reading A, D), Unit 53 (`nativeKernelWitness`), Unit 03 (replay of a
 history by `foldl`), Unit 44 (a zero relation as an equivalence).
+
+## First pass
+
+Assert a pair first; retain it separately; then record protection and declare the observer. These steps have different fields and effects.
+
+If a retained protected pair is still merged by the observer, inspect the response family. Proposing a response and executing it are separate: execution checks its budget, license, and other guards.
+
+## Detailed claim and formal anchors
+
+`PrimitivePassage` replays a difference through a small
+machine and proves, store by store, when it becomes an *obstruction* and
+what the machine must then offer.
+
+A state `PState` holds nine stores:
+occurrences, asserted pairs, retained pairs, protected pairs, an optional
+declared observation, a budget, a licence flag, a refusal record and a
+halt flag.
+
+A difference is *obstructed* exactly when four gates hold at
+once: retained, protected, an observation declared, and that observation
+blind to the pair (`obstP_factors`); no three gates entail the fourth
+(`gate_zero_independent`, `gate_declared_independent`,
+`gate_protection_independent`, `gate_retention_independent`, witnessed by
+five named states).
+
+Assertion is not retention
+(`assertion_not_retained`), retention needs an assertion
+(`retention_requires_assertion`) and persists (`retention_persists`), and
+without protection nothing obstructs (`no_protection_no_obstruction`).
+
+At
+an obstruction with an in-bounds protected pair the machine never runs
+dry: repair the observation at the same level, or create a column
+(`two_rule`, via `extension_always_available`).
+
+Proposing is free;
+executing needs a licence and a budget (`proposal_not_execution`,
+`budget_gates_execution`); an executed extension clears the obstruction
+(`extension_resolves`); a refusal records and moves nothing
+(`refusal_object_inert`) while a halt absorbs everything
+(`terminal_absorbing`); and the represented next family is empty exactly
+when nothing is obstructed (`nextFamilyP_stop`, `nextFamilyP_nonempty`).
 
 ## Question
 

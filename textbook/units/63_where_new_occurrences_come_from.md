@@ -1,12 +1,23 @@
 # Unit 63. Where new occurrences come from
 
-**Claim.** On the nine-field primitive-passage ledger `PState`, every block emitted by the internal controller `nextFamilyP` is either a single same-level repair `[.refineCol v p]` or a funded column creation `[.setBudget 1, .addCol c]` whose newly mentioned positions lie strictly below `s.occ.length`, and replaying any finite trace over the internal fragment `IsInternal` (or over `IsResponseEvent`) leaves the four graph stores (`occ`, `asserted`, `wit`, `prot`) untouched; by contrast, the attached-continuation block `Attachment.upBlock s p` grows `occ`, `asserted`, `wit`, and `prot` by one entry each when replayed from a live store-bounded state with `p < s.occ.length`, packaged as an inert `ProposalRecord` whose family transports under renaming, retains equal-cost non-isomorphic branches on `tri`, and whose carrier-growth demand is not forced by internal pair obstruction (`GraphGenesis.graph_growth_is_supplied`, `GraphGenesis.nextFamilyP_block_fixes_graph`, `GraphGenesis.internal_family_cannot_grow_carrier`, `GraphGenesis.proposal_confers_no_execution`, `GraphGenesis.upProposal_executes`, `GraphGenesis.proposal_transports`, `GraphGenesis.proposal_family_retains_ties`, `GraphGenesis.obstruction_resolved_in_carrier`, `GraphGenesis.family_never_grows_carrier`, `GraphGenesis.growth_demand_not_obstruction_consequence`).
+**Claim.** The declared internal response fragment leaves the graph stores fixed. The separately supplied attachment block grows those stores under its execution hypotheses.
+
 **Status:** FROZEN (the field-invariance theorems, the `nextFamilyP` graph-fixing theorem, the `ProposalRecord` packaging of `upBlock`, the renaming transport theorem, the tie witness on `tri`, and the separation of carrier growth from internal obstruction); ADMITTED (the predicates `MentionsOnlyExisting`, `IsInternal`, `IsResponseEvent`, `GraphStoresFixed`, and the structure `ProposalRecord` with its unconstrained `.cost : Nat` field); VERIFIED_FINITE (`artifacts/graph_genesis.json`); OPEN (whether any response family other than the fixed `nextFamilyP` could grow the carrier).
 **Lean:** `lean4/Derivation/GraphGenesis.lean` lines 59–720.
 **Axioms:** `propext`, `Quot.sound` on 26 of 28 public theorem reports; `none` on `GraphGenesis.IsInternal_exact` and `GraphGenesis.internal_is_response` (`artifacts/lean_axioms.txt` lines 793–820).
 **Depends on:** Unit 54 (`PrimitivePassage.PState`, `PEvent`, `step`, `replayP`, `obstP`, `sepP`, `nextFamilyP`, `extensionProposals`, `repairFamily`, `nextFamilyP_nonempty`, `extension_always_available`, `extension_resolves`, `obst_requires_observation`), Unit 55 (`HigherStructure.pstep_budget`), Unit 59 (`Attachment.upFamily`, `upBlock`, `up_iff_legal`, `up_executes`, `halted_up_inert`, `act_up_comm`, `treeAt`, `WFStores`).
 
 ---
+
+## First pass
+
+Track the occurrence list and edge stores separately from the observation columns. An internal observation repair can change the columns while leaving the graph unchanged.
+
+Growing the graph requires the supplied attachment construction. Packaging it as a proposal does not grant execution or make its growth demand follow from an internal pair obstruction.
+
+## Detailed claim and formal anchors
+
+On the nine-field primitive-passage ledger `PState`, every block emitted by the internal controller `nextFamilyP` is either a single same-level repair `[.refineCol v p]` or a funded column creation `[.setBudget 1, .addCol c]` whose newly mentioned positions lie strictly below `s.occ.length`, and replaying any finite trace over the internal fragment `IsInternal` (or over `IsResponseEvent`) leaves the four graph stores (`occ`, `asserted`, `wit`, `prot`) untouched; by contrast, the attached-continuation block `Attachment.upBlock s p` grows `occ`, `asserted`, `wit`, and `prot` by one entry each when replayed from a live store-bounded state with `p < s.occ.length`, packaged as an inert `ProposalRecord` whose family transports under renaming, retains equal-cost non-isomorphic branches on `tri`, and whose carrier-growth demand is not forced by internal pair obstruction (`GraphGenesis.graph_growth_is_supplied`, `GraphGenesis.nextFamilyP_block_fixes_graph`, `GraphGenesis.internal_family_cannot_grow_carrier`, `GraphGenesis.proposal_confers_no_execution`, `GraphGenesis.upProposal_executes`, `GraphGenesis.proposal_transports`, `GraphGenesis.proposal_family_retains_ties`, `GraphGenesis.obstruction_resolved_in_carrier`, `GraphGenesis.family_never_grows_carrier`, `GraphGenesis.growth_demand_not_obstruction_consequence`).
 
 ## Question
 

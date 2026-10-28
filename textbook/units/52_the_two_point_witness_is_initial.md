@@ -1,6 +1,26 @@
 # Unit 52. The two-point witness is initial, and that is all initiality says
 
-**Claim.** `PrimitiveCats` packages a witnessed pointed relation as an
+**Claim.** The oriented two-point witnessed object is initial for the declared point-and-edge-preserving maps. Initiality concerns those maps and does not select irreflexivity among the candidate readings.
+
+**Status:**
+FROZEN; `s2_initial_sym` and `phom2_unique_of_epi` CONDITIONAL on their
+hypotheses; terminality of `idPres2` among surjective presentations
+neither proved nor refuted. **Lean:** `lean4/Derivation/PrimitiveCats.lean`
+lines 36-721, imports `PrimDiff`. **Axioms:** 49 exported reports within
+`{propext, Quot.sound}`; the initiality proofs use `Quot.sound` through
+`funext`. **Depends on:** Units 23-24 (`D2`, `S2`, irreflexivity,
+`irrefl_witness_ne`, `oriented_rigid`, `swap_is_S2_automorphism`), Unit 51
+(readings W and A, `imp_a_d`, `nimp_w_d`).
+
+## First pass
+
+An object contains two distinguished points and an asserted edge. A permitted map must carry both points and that edge to their designated targets.
+
+Initial means there is exactly one permitted map from this object to each target object. The target need not be irreflexive, so this statement alone does not choose reading A.
+
+## Detailed claim and formal anchors
+
+`PrimitiveCats` packages a witnessed pointed relation as an
 object (`PtdRel`: carrier, relation, two points, one asserted edge) and
 point-and-edge-preserving maps as morphisms (`Hom`), proves the category
 laws, and settles: the oriented two-point object `d2Obj` is initial among
@@ -13,19 +33,13 @@ and need not be the same presentation (`two_initials_not_identical`); a
 three-point object admits two maps into `d2Obj` and is not initial
 (`larger_not_initial`); every pointed endomorphism of either two-point
 object fixes both points (`pointed_rigid`) while the swap is an unpointed
-automorphism of `S2` only. For presentations of the three-point source the
+automorphism of `S2` only.
+
+For presentations of the three-point source the
 two maximal cuts are incomparable and nothing is weakly terminal
 (`no_terminal_pres`); for the two-point source unrestricted terminality
 fails at a free point (`no_terminal_pres2`) and uniqueness survives
-against surjective presentations (`phom2_unique_of_epi`). **Status:**
-FROZEN; `s2_initial_sym` and `phom2_unique_of_epi` CONDITIONAL on their
-hypotheses; terminality of `idPres2` among surjective presentations
-neither proved nor refuted. **Lean:** `lean4/Derivation/PrimitiveCats.lean`
-lines 36-721, imports `PrimDiff`. **Axioms:** 49 exported reports within
-`{propext, Quot.sound}`; the initiality proofs use `Quot.sound` through
-`funext`. **Depends on:** Units 23-24 (`D2`, `S2`, irreflexivity,
-`irrefl_witness_ne`, `oriented_rigid`, `swap_is_S2_automorphism`), Unit 51
-(readings W and A, `imp_a_d`, `nimp_w_d`).
+against surjective presentations (`phom2_unique_of_epi`).
 
 ## Question
 
