@@ -39,13 +39,20 @@ this book proves that its own definitions were the necessary ones. Each unit
 lists, under **What you need first**, the admitted definitions its claim
 depends on.
 
-## Three kinds of code
+## Kinds of code
 
 | Label | What it is | Trust |
 |---|---|---|
 | Lean (Genesis) | Copied from `lean4/Derivation/`. | Checked by Lean's kernel when Genesis builds. The authority. |
 | Python (Genesis) | Copied from `code/derivation/`. | Tested in Genesis. Tied to the Lean by executable checks, not by proof (ledger entry `CL-TOKEN-ERASURE`). |
+| Lean (book) | Written for this book, held in a check script, and kernel-checked against Genesis's compiled `Derivation` library when that script runs. | Checked by Lean's kernel when the script runs; not part of Genesis's build, gates or `artifacts/lean_axioms.txt`. The script prints its own axiom report. |
 | Gloss | Pseudocode written for this book. | Unchecked. Read it as a translation aid only. |
+
+A claim proved only in the book's Lean is marked **derived (book Lean)**:
+derived from the same admitted definitions, but checked by the book's
+script rather than by Genesis's build. The book's Lean lives inside Python
+scripts, not `.lean` files, so that it stays out of Genesis's Lean census
+and toolchain tests.
 
 Each unit that makes a computational point has a script in `checks/` that
 runs Genesis's own Python. Run it from the repository root:
@@ -175,7 +182,7 @@ which.
 |---|---|---|---|---|
 | 00 | The mark and the external constructor | (none; seed §1, paper §2) | admitted | yes |
 | 01 | Nothing is derivable at genesis | `Inertia.genesis_underivable` | derived | yes |
-| 02 | Nothing is derivable without instances or rules (and one admitted rule makes unadmitted instances derivable) | `Inertia.underivable_of_empty` | derived | |
+| 02 | Nothing is derivable without instances or rules (and one admitted rule makes unadmitted instances derivable) | `Inertia.underivable_of_empty` | derived | yes |
 | 03 | Supplying a token changes nothing | `Inertia.supply_no_op` | derived | |
 | 04 | No successor is internally forced (by the declared grammar) | (none; paper §4) | admitted | |
 | 05 | Is ⟨⟩ admitted? Readings L and F | `Inertia.historyL_replays`, `historyF_replays` | open | |
