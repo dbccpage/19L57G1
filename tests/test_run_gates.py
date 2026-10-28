@@ -92,6 +92,13 @@ def test_every_job_sets_up_python_and_pinned_dependencies_before_python_commands
     assert {s.uses for s in chosen if s.uses} <= set(rg.ACTIONS)
 
 
+def test_textbook_job_builds_all_default_lean_targets_before_book_lean() -> None:
+    steps = rg.parse_workflow(rg.WORKFLOW.read_text(encoding="utf-8"))
+    tb = [s for s in steps if s.job == "textbook" and s.run is not None and not s.is_setup]
+    assert tb[0].working_directory == "lean4"
+    assert tb[0].run.strip() == "lake build"
+
+
 def test_lean_census_stays_last_after_the_declaration_audit() -> None:
     steps = rg.parse_workflow(rg.WORKFLOW.read_text(encoding="utf-8"))
     lean = [s for s in steps if s.job == "lean" and s.run is not None and not s.is_setup]

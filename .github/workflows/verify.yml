@@ -981,9 +981,9 @@ jobs:
             if [ "$attempt" -eq 6 ]; then exit 1; fi
             sleep $((attempt * 10))
           done
-      - name: Build Derivation library for book Lean
+      - name: Build Derivation and ParkedAudit libraries for book Lean
         working-directory: lean4
-        run: lake build Derivation
+        run: lake build
       - name: Textbook Python checks and video pacing
         run: python ci/check_textbook.py --python-only
       - name: Textbook book-Lean kernel and axiom checks
