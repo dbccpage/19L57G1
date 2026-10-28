@@ -1,0 +1,14 @@
+{
+  "source_revision": "b8b3ab431a8f82b110fc5b42d8a6698d733953e6",
+  "consumed_modules": [
+    "Derivation.Counting",
+    "Derivation.Represented"
+  ],
+  "source_revision_note": "The commit of main this tree was first built against. Not verified: the Lean dependencies are the working tree's ../../../lean4 and ../../two_theorems/lean, and no digest of the consumed modules is pinned here, so the tests check that the modules exist, not that they are unchanged.",
+  "consumed_research_modules": {
+    "ResearchTwoTheorems.Institution": "research/two_theorems/lean/ResearchTwoTheorems/Institution.lean",
+    "ResearchTwoTheorems.Observer": "research/two_theorems/lean/ResearchTwoTheorems/Observer.lean",
+    "ResearchTwoTheorems.Reading": "research/two_theorems/lean/ResearchTwoTheorems/Reading.lean",
+    "ResearchTwoTheorems.Sufficiency": "research/two_theorems/lean/ResearchTwoTheorems/Sufficiency.lean"
+  }
+}

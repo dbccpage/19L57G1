@@ -210,3 +210,10 @@ which.
 
 The order follows the derivation. Units after 26 continue with the map of
 Genesis from the mention lemma onward.
+
+## Parts
+
+| Part | Folder | Teaches |
+|---|---|---|
+| 1 | `textbook/units/` | the sealed derivation, from the mark forward (the contents table above) |
+| 2 | `textbook/institutions/` | actors, institutions, information, knowledge, authorization and acquisition: the research trees `two_theorems` and `actor_institution`, outside the seal, with their own README and contents table |

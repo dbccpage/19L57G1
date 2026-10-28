@@ -1,0 +1,17 @@
+name = "actor_institution"
+version = "0.1.0"
+defaultTargets = ["ResearchActorInstitution"]
+
+# The sealed derivation package, consumed read-only.
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+# The two-theorems tree (institutions, knowledge, observers, residuals,
+# sharp observers), consumed read-only rather than re-proved.
+[[require]]
+name = "two_theorems"
+path = "../../two_theorems/lean"
+
+[[lean_lib]]
+name = "ResearchActorInstitution"
