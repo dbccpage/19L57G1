@@ -4,6 +4,10 @@
 met this repository, formal logic, Python, or the Lean proof checker before.
 It introduces the question the book studies and points you to the first lesson.
 
+If these ideas are new to you, try [three cards and two questions](first_steps/README.md)
+first. You will predict what a small machine can tell apart, then use that
+example to understand the words below.
+
 ---
 
 ## 1. We begin with a mark

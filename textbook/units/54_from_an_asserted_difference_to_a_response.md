@@ -49,13 +49,18 @@ an obstruction with an in-bounds protected pair the machine never runs
 dry: repair the observation at the same level, or create a column
 (`two_rule`, via `extension_always_available`).
 
-Proposing is free;
-executing needs a licence and a budget (`proposal_not_execution`,
-`budget_gates_execution`); an executed extension clears the obstruction
+Listing a proposal spends no budget. Executing a new-column event needs
+a licence and a positive budget (`proposal_not_execution`,
+`budget_gates_execution`); an existing-column refinement needs a positive
+budget but does not consult the licence flag. Both events are inert after
+halt. An executed extension clears the obstruction
 (`extension_resolves`); a refusal records and moves nothing
 (`refusal_object_inert`) while a halt absorbs everything
-(`terminal_absorbing`); and the represented next family is empty exactly
-when nothing is obstructed (`nextFamilyP_stop`, `nextFamilyP_nonempty`).
+(`terminal_absorbing`). With no active protected pair the next family is
+empty; an active protected pair contributes a block under the stated
+off-diagonal and in-range hypotheses (`nextFamilyP_stop`,
+`nextFamilyP_nonempty`). A listed block is not a guarantee that its events
+will execute under the current licence and halt settings.
 
 ## Question
 
@@ -96,12 +101,16 @@ retained, it is protected, an observation is declared, and that
 observation is zero on it. Each fact is one gate, a Boolean function of
 the state. The module proves that the obstruction predicate `obstP` is
 the conjunction of the four gates, and then, separately, that no three
-gates force the fourth.
+gates force the fourth over raw state records. This does not say that
+every combination is reachable by events: protection requires retention,
+which persists. The declared and total-zero gates also share the
+observation field and cannot both be false.
 
 A *response* is one of two families: *repair*, which refines an existing
 column by one position so that it separates the pair; or *extension*,
 which proposes a new column. Proposals are lists; they execute only
-through events that are gated by a licence and a budget. A *refusal* is
+through their actual guarded events. A refinement needs budget; adding
+a column needs budget and licence; halt blocks both. A *refusal* is
 an event that records the pair, with the obstruction as its certificate,
 and changes nothing else. A *halt* is an event after which every event is
 inert.
@@ -118,20 +127,23 @@ sees nothing at all, an empty list of columns.
 
 Now, and only now, the pair is obstructed: it is retained, a demand sits
 on it, an observation is open, and the observation cannot tell the two
-apart. Four trays, four gates. Take any one tray away and the obstruction
-is gone; the module exhibits a state for each of the four removals.
+apart. Four conditions are required. The module compares raw records
+omitting each condition; this is not a demonstration that an event can
+remove retention or protection from a state reached from genesis.
 
-Being obstructed is not a dead end. The module proves that at every
-obstruction there is something to do: either refine a column that is
-already there, or, when no column can be refined, add a fresh column with
-the first endpoint in it. That fresh column always separates the pair,
-because the observation was blind to it. Doing it costs one unit of
-budget and needs the licence flag on; proposing it costs nothing. Once
-done, the obstruction is gone on re-evaluation.
+Being active does not mean that the existing repair menu is exhausted.
+At an active, off-diagonal pair satisfying the source's bounds, the
+module supplies the repair-or-extension alternative. The singleton on
+the first endpoint qualifies as a new-column proposal; the family can
+also retain other singleton proposals. Appending an eligible column
+requires an unhalted state, one budget unit, and the licence flag.
+Proposing it changes no state. Once the guarded addition executes, the
+pair's obstruction is gone on re-evaluation.
 
 Two other answers exist and are kept apart by type. A refusal is a line
-in the refusal register that cites the obstruction; it moves nothing and
-the obstruction remains. A halt closes the room: after it, every event,
+in the refusal register that cites the active obstruction; it does not
+require repair-menu exhaustion and changes no observation. The active
+pair remains until another event resolves it. A halt closes the room: after it, every event,
 including a second halt, leaves the state as it is.
 
 Two things in this story are conventions, not theorems, and the module
@@ -551,8 +563,9 @@ theorem block_resolves :
   all lists.
 - The budget and licence are numbers and flags set by events
   (`setBudget`, `setLicense`) that have no guard but the halt. Who sets
-  them is not modelled: the machine records that execution was funded
-  and licensed, not by whom. This is where the derivation's authority
+  them is not modelled: the machine records funding for either column
+  change and permission for a new column, without identifying their
+  supplier. Existing-column refinement has no licence gate. This is where the derivation's authority
   boundary sits in this module.
 - Column *meaning* is outside. A column is a list of positions; that it
   "observes" anything is the reader's gloss. The module uses only

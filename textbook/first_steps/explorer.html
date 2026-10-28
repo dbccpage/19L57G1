@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Three cards, two questions · Genesis first steps</title>
+  <link rel="stylesheet" href="explorer.css">
+  <script type="module" src="explorer.mjs?lesson=1"></script>
+</head>
+<body>
+  <a class="skip" href="#machine">Skip to the question machine</a>
+  <header class="page-header">
+    <a class="wordmark" href="README.md">GENESIS <span>/ first steps</span></a>
+    <nav aria-label="Reading route"><a href="00_names_and_answers.md">Read the lessons</a><a href="PRACTICE.md">Try a new example</a></nav>
+  </header>
+  <main>
+    <section class="intro" aria-labelledby="title">
+      <p class="eyebrow">LOOK · PREDICT · TRY · EXPLAIN</p>
+      <h1 id="title">What can a question reveal?</h1>
+      <p class="lead">You can see three cards. This little machine reads only the questions you give it. Predict what it can tell apart.</p>
+      <p class="model-note">A supplied teaching model: three cards, two selectable questions, and fixed answers. Color and shape are provided in the example.</p>
+    </section>
+
+    <section aria-labelledby="cards-title" class="cards-section">
+      <div class="section-heading"><h2 id="cards-title">Meet the cards</h2><p>A name identifies a card. A question gives an answer.</p></div>
+      <div id="cards" class="cards"></div>
+      <details class="rename-panel">
+        <summary>Try changing a name</summary>
+        <form id="rename-form">
+          <label for="rename-card">Card <select id="rename-card"><option value="A">A</option><option value="B">B</option><option value="C">C</option></select></label>
+          <label for="new-name">New display name <input id="new-name" maxlength="28" placeholder="For example, Sun" required></label>
+          <button class="secondary" type="submit">Rename</button>
+        </form>
+        <p id="rename-notice" class="hint" role="status">The machine has no question about these display names.</p>
+      </details>
+    </section>
+
+    <section id="machine" class="machine" aria-labelledby="machine-title">
+      <div class="section-heading"><h2 id="machine-title">Give the machine its questions</h2><button id="reset" class="text-button" type="button">Reset the example</button></div>
+      <div class="workspace">
+        <div class="controls">
+          <fieldset>
+            <legend><span class="step-number">1</span> Select questions</legend>
+            <label class="question"><input id="blue" type="checkbox" value="blue" checked><span><strong>blue?</strong><small>Read the supplied color answer.</small></span></label>
+            <label class="question"><input id="triangle" type="checkbox" value="triangle"><span><strong>triangle?</strong><small>Read the supplied shape answer.</small></span></label>
+          </fieldset>
+          <fieldset>
+            <legend><span class="step-number">2</span> Make a prediction</legend>
+            <label for="pair">Compare these cards <select id="pair"><option value="A,B">A and B</option><option value="A,C">A and C</option><option value="B,C">B and C</option></select></label>
+            <label for="prediction">What will the selected questions give them?
+              <select id="prediction"><option value="">Choose a prediction…</option><option value="same">The same answer pattern</option><option value="different">Different answer patterns</option></select>
+            </label>
+          </fieldset>
+          <button id="run" type="button" class="primary">Run the questions <span aria-hidden="true">→</span></button>
+          <p id="run-notice" class="hint" role="status">Make your prediction before running the machine.</p>
+        </div>
+        <div class="output">
+          <div id="empty-output" class="empty-output"><span aria-hidden="true">?</span><h3>What do you expect?</h3><p>Select questions and predict first.<br>The answers will appear here.</p></div>
+          <section id="results" hidden aria-labelledby="answers-title">
+            <h3 id="answers-title">The answers we kept</h3>
+            <div class="table-scroll"><table id="answer-table"></table></div>
+            <h3>The machine's groups</h3><div id="groups" class="groups"></div>
+            <div id="verdict" class="verdict" aria-live="polite"></div>
+            <p id="scope" class="hint"></p>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="recovery" aria-labelledby="recovery-title">
+      <p class="eyebrow">ONE STEP FURTHER</p><h2 id="recovery-title">Could you recover another answer?</h2>
+      <p>Keep only the selected answer pattern. Can one rule always recover the requested answer for these three cards?</p>
+      <div class="recovery-controls"><label for="target">Requested answer <select id="target"><option value="triangle">triangle?</option><option value="blue">blue?</option><option value="listed">one of these three cards?</option></select></label><button id="recover" class="secondary" type="button">Check recovery</button></div>
+      <div id="recovery-result" aria-live="polite"><p class="hint">Run the selected questions before checking recovery.</p></div>
+    </section>
+    <section class="reflect" aria-labelledby="reflect-title"><h2 id="reflect-title">Explain it in your own words</h2><p>Which question witnessed a separation? Which cards shared a pattern? What changed when you kept an old question and added another?</p><a href="03_keep_or_replace.md">Read the worked explanation <span aria-hidden="true">→</span></a></section>
+  </main>
+  <footer><p>These results concern the supplied table. A real device's answers and measurement reliability need their own checks.</p><a href="SOURCE_MAP.md">Definitions, sources, and assumptions</a></footer>
+  <noscript><p class="error">This explorer needs JavaScript. The <a href="README.md">complete reading route</a> works without it.</p></noscript>
+</body>
+</html>

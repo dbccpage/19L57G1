@@ -3,8 +3,9 @@
 **AuthorityEffect: None.** This document is the mathematical map of the
 Genesis Textbook. It records:
 
-1. Every frozen module under `lean4/Derivation/` (all 75 modules: 62 imported
-   by `lean4/Derivation.lean` and 13 parked modules imported by
+1. Every frozen module under `lean4/Derivation/` (all 75 modules: 62 directly
+   imported by `lean4/Derivation.lean`, 63 in its transitive import closure,
+   and the remaining 12 parked modules imported by
    `lean4/ParkedAudit.lean`) and its mapping to Part 1 textbook units
    (`Unit 00`–`Unit 74`) and module audit records (`textbook/audit/modules/`).
 2. Every significant definition, structure, theorem, and lemma across all 75
@@ -23,9 +24,12 @@ Genesis Textbook. It records:
 
 Every declaration in this matrix carries one or more of the seven status marks:
 
-- `FROZEN` — Proved in the sealed derivation (`lean4/Derivation/`) with
-  unconditional hypotheses over its declared types, kernel-checked in Lean
-  4.33.0 with axioms within `{propext, Quot.sound}`.
+- `FROZEN` — Historical source custody: the declaration belongs to the
+  sealed derivation (`lean4/Derivation/`). This mark alone does not say
+  that a declaration is a theorem or that its hypotheses hold. Definitions
+  remain admitted choices; theorems establish their stated conclusions
+  under their exact hypotheses. Kernel and axiom-audit evidence is separate
+  from that custody mark.
 - `POST_FREEZE_PROVED` — Proved in a post-freeze research tree under
   `research/` (`uncollapse`, `two_theorems`, `interpreter_verdict`,
   `actor_institution`), kernel-checked in Lean 4.33.0 with zero `sorry` and

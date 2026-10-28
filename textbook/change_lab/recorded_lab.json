@@ -1,0 +1,15531 @@
+{
+ "authority_effect": "None",
+ "base": {
+  "active": true,
+  "answers": [
+   [
+    true
+   ],
+   [
+    false
+   ],
+   [
+    false
+   ]
+  ],
+  "declared": true,
+  "next_blocks": [
+   [
+    [
+     "refineCol",
+     [
+      0
+     ],
+     2
+    ]
+   ],
+   [
+    [
+     "setBudget",
+     1
+    ],
+    [
+     "addCol",
+     [
+      1
+     ]
+    ]
+   ],
+   [
+    [
+     "setBudget",
+     1
+    ],
+    [
+     "addCol",
+     [
+      2
+     ]
+    ]
+   ]
+  ],
+  "protected": true,
+  "reachable_store_invariant": true,
+  "repairs": [
+   [
+    [
+     0
+    ],
+    2
+   ]
+  ],
+  "response_menu": [
+   [
+    [
+     0
+    ],
+    0
+   ],
+   [
+    [
+     0
+    ],
+    1
+   ],
+   [
+    [
+     0
+    ],
+    2
+   ]
+  ],
+  "retained": true,
+  "singleton_proposals": [
+   [
+    1
+   ],
+   [
+    2
+   ]
+  ],
+  "state": {
+   "asserted": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   "budget": 1,
+   "halted": false,
+   "licensed": true,
+   "obs": [
+    [
+     0
+    ]
+   ],
+   "occ": [
+    10,
+    20,
+    30
+   ],
+   "prot": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   "refusals": [],
+   "wit": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ]
+   ]
+  },
+  "zero_on_target": true
+ },
+ "canonical_columns": [
+  {
+   "accepted": false,
+   "after": {
+    "asserted": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 1,
+    "halted": false,
+    "licensed": true,
+    "obs": [
+     [
+      0
+     ]
+    ],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "column": [],
+   "in_singleton_family": false,
+   "resolves": false,
+   "structural_ok": false
+  },
+  {
+   "accepted": false,
+   "after": {
+    "asserted": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 1,
+    "halted": false,
+    "licensed": true,
+    "obs": [
+     [
+      0
+     ]
+    ],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "column": [
+    0
+   ],
+   "in_singleton_family": false,
+   "resolves": false,
+   "structural_ok": false
+  },
+  {
+   "accepted": true,
+   "after": {
+    "asserted": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": [
+     [
+      0
+     ],
+     [
+      1
+     ]
+    ],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "column": [
+    1
+   ],
+   "in_singleton_family": true,
+   "resolves": true,
+   "structural_ok": true
+  },
+  {
+   "accepted": true,
+   "after": {
+    "asserted": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": [
+     [
+      0
+     ],
+     [
+      2
+     ]
+    ],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "column": [
+    2
+   ],
+   "in_singleton_family": true,
+   "resolves": true,
+   "structural_ok": true
+  },
+  {
+   "accepted": true,
+   "after": {
+    "asserted": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": [
+     [
+      0
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "column": [
+    0,
+    1
+   ],
+   "in_singleton_family": false,
+   "resolves": true,
+   "structural_ok": true
+  },
+  {
+   "accepted": true,
+   "after": {
+    "asserted": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": [
+     [
+      0
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "column": [
+    0,
+    2
+   ],
+   "in_singleton_family": false,
+   "resolves": true,
+   "structural_ok": true
+  },
+  {
+   "accepted": false,
+   "after": {
+    "asserted": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 1,
+    "halted": false,
+    "licensed": true,
+    "obs": [
+     [
+      0
+     ]
+    ],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "column": [
+    1,
+    2
+   ],
+   "in_singleton_family": false,
+   "resolves": false,
+   "structural_ok": false
+  },
+  {
+   "accepted": false,
+   "after": {
+    "asserted": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 1,
+    "halted": false,
+    "licensed": true,
+    "obs": [
+     [
+      0
+     ]
+    ],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "column": [
+    0,
+    1,
+    2
+   ],
+   "in_singleton_family": false,
+   "resolves": false,
+   "structural_ok": false
+  }
+ ],
+ "carrier": [
+  10,
+  20,
+  30
+ ],
+ "column_counts": {
+  "base": 4,
+  "strong": 4
+ },
+ "digest_mode": "UTF-8 source text with LF normalization",
+ "gate_records": [
+  {
+   "active": false,
+   "answers": null,
+   "declared": false,
+   "next_blocks": [],
+   "protected": false,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [],
+   "retained": false,
+   "singleton_proposals": [],
+   "state": {
+    "asserted": [
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": null,
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [],
+    "refusals": [],
+    "wit": []
+   },
+   "zero_on_target": null,
+   "zero_total_convention": true
+  },
+  {
+   "active": false,
+   "answers": [
+    [],
+    [],
+    []
+   ],
+   "declared": true,
+   "next_blocks": [],
+   "protected": false,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [],
+   "retained": false,
+   "singleton_proposals": [],
+   "state": {
+    "asserted": [
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": [],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [],
+    "refusals": [],
+    "wit": []
+   },
+   "zero_on_target": true,
+   "zero_total_convention": true
+  },
+  {
+   "active": false,
+   "answers": [
+    [
+     true
+    ],
+    [
+     false
+    ],
+    [
+     false
+    ]
+   ],
+   "declared": true,
+   "next_blocks": [],
+   "protected": false,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [
+    [
+     [
+      0
+     ],
+     0
+    ],
+    [
+     [
+      0
+     ],
+     1
+    ],
+    [
+     [
+      0
+     ],
+     2
+    ]
+   ],
+   "retained": false,
+   "singleton_proposals": [],
+   "state": {
+    "asserted": [
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": [
+     [
+      0
+     ]
+    ],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [],
+    "refusals": [],
+    "wit": []
+   },
+   "zero_on_target": true,
+   "zero_total_convention": true
+  },
+  {
+   "active": false,
+   "answers": [
+    [
+     true,
+     false
+    ],
+    [
+     false,
+     true
+    ],
+    [
+     false,
+     false
+    ]
+   ],
+   "declared": true,
+   "next_blocks": [],
+   "protected": false,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [
+    [
+     [
+      0
+     ],
+     0
+    ],
+    [
+     [
+      0
+     ],
+     1
+    ],
+    [
+     [
+      0
+     ],
+     2
+    ],
+    [
+     [
+      1
+     ],
+     0
+    ],
+    [
+     [
+      1
+     ],
+     1
+    ],
+    [
+     [
+      1
+     ],
+     2
+    ]
+   ],
+   "retained": false,
+   "singleton_proposals": [],
+   "state": {
+    "asserted": [
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": [
+     [
+      0
+     ],
+     [
+      1
+     ]
+    ],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [],
+    "refusals": [],
+    "wit": []
+   },
+   "zero_on_target": false,
+   "zero_total_convention": false
+  },
+  {
+   "active": false,
+   "answers": null,
+   "declared": false,
+   "next_blocks": [],
+   "protected": true,
+   "reachable_store_invariant": false,
+   "repairs": [],
+   "response_menu": [],
+   "retained": false,
+   "singleton_proposals": [],
+   "state": {
+    "asserted": [
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": null,
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      1,
+      2
+     ]
+    ],
+    "refusals": [],
+    "wit": []
+   },
+   "zero_on_target": null,
+   "zero_total_convention": true
+  },
+  {
+   "active": false,
+   "answers": [
+    [],
+    [],
+    []
+   ],
+   "declared": true,
+   "next_blocks": [],
+   "protected": true,
+   "reachable_store_invariant": false,
+   "repairs": [],
+   "response_menu": [],
+   "retained": false,
+   "singleton_proposals": [],
+   "state": {
+    "asserted": [
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": [],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      1,
+      2
+     ]
+    ],
+    "refusals": [],
+    "wit": []
+   },
+   "zero_on_target": true,
+   "zero_total_convention": true
+  },
+  {
+   "active": false,
+   "answers": [
+    [
+     true
+    ],
+    [
+     false
+    ],
+    [
+     false
+    ]
+   ],
+   "declared": true,
+   "next_blocks": [],
+   "protected": true,
+   "reachable_store_invariant": false,
+   "repairs": [],
+   "response_menu": [
+    [
+     [
+      0
+     ],
+     0
+    ],
+    [
+     [
+      0
+     ],
+     1
+    ],
+    [
+     [
+      0
+     ],
+     2
+    ]
+   ],
+   "retained": false,
+   "singleton_proposals": [],
+   "state": {
+    "asserted": [
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": [
+     [
+      0
+     ]
+    ],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      1,
+      2
+     ]
+    ],
+    "refusals": [],
+    "wit": []
+   },
+   "zero_on_target": true,
+   "zero_total_convention": true
+  },
+  {
+   "active": false,
+   "answers": [
+    [
+     true,
+     false
+    ],
+    [
+     false,
+     true
+    ],
+    [
+     false,
+     false
+    ]
+   ],
+   "declared": true,
+   "next_blocks": [],
+   "protected": true,
+   "reachable_store_invariant": false,
+   "repairs": [],
+   "response_menu": [
+    [
+     [
+      0
+     ],
+     0
+    ],
+    [
+     [
+      0
+     ],
+     1
+    ],
+    [
+     [
+      0
+     ],
+     2
+    ],
+    [
+     [
+      1
+     ],
+     0
+    ],
+    [
+     [
+      1
+     ],
+     1
+    ],
+    [
+     [
+      1
+     ],
+     2
+    ]
+   ],
+   "retained": false,
+   "singleton_proposals": [],
+   "state": {
+    "asserted": [
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": [
+     [
+      0
+     ],
+     [
+      1
+     ]
+    ],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      1,
+      2
+     ]
+    ],
+    "refusals": [],
+    "wit": []
+   },
+   "zero_on_target": false,
+   "zero_total_convention": false
+  },
+  {
+   "active": false,
+   "answers": null,
+   "declared": false,
+   "next_blocks": [],
+   "protected": false,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [],
+   "retained": true,
+   "singleton_proposals": [],
+   "state": {
+    "asserted": [
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": null,
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [],
+    "refusals": [],
+    "wit": [
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "zero_on_target": null,
+   "zero_total_convention": true
+  },
+  {
+   "active": false,
+   "answers": [
+    [],
+    [],
+    []
+   ],
+   "declared": true,
+   "next_blocks": [],
+   "protected": false,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [],
+   "retained": true,
+   "singleton_proposals": [],
+   "state": {
+    "asserted": [
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": [],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [],
+    "refusals": [],
+    "wit": [
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "zero_on_target": true,
+   "zero_total_convention": true
+  },
+  {
+   "active": false,
+   "answers": [
+    [
+     true
+    ],
+    [
+     false
+    ],
+    [
+     false
+    ]
+   ],
+   "declared": true,
+   "next_blocks": [],
+   "protected": false,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [
+    [
+     [
+      0
+     ],
+     0
+    ],
+    [
+     [
+      0
+     ],
+     1
+    ],
+    [
+     [
+      0
+     ],
+     2
+    ]
+   ],
+   "retained": true,
+   "singleton_proposals": [],
+   "state": {
+    "asserted": [
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": [
+     [
+      0
+     ]
+    ],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [],
+    "refusals": [],
+    "wit": [
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "zero_on_target": true,
+   "zero_total_convention": true
+  },
+  {
+   "active": false,
+   "answers": [
+    [
+     true,
+     false
+    ],
+    [
+     false,
+     true
+    ],
+    [
+     false,
+     false
+    ]
+   ],
+   "declared": true,
+   "next_blocks": [],
+   "protected": false,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [
+    [
+     [
+      0
+     ],
+     0
+    ],
+    [
+     [
+      0
+     ],
+     1
+    ],
+    [
+     [
+      0
+     ],
+     2
+    ],
+    [
+     [
+      1
+     ],
+     0
+    ],
+    [
+     [
+      1
+     ],
+     1
+    ],
+    [
+     [
+      1
+     ],
+     2
+    ]
+   ],
+   "retained": true,
+   "singleton_proposals": [],
+   "state": {
+    "asserted": [
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": [
+     [
+      0
+     ],
+     [
+      1
+     ]
+    ],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [],
+    "refusals": [],
+    "wit": [
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "zero_on_target": false,
+   "zero_total_convention": false
+  },
+  {
+   "active": false,
+   "answers": null,
+   "declared": false,
+   "next_blocks": [],
+   "protected": true,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [],
+   "retained": true,
+   "singleton_proposals": [],
+   "state": {
+    "asserted": [
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": null,
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      1,
+      2
+     ]
+    ],
+    "refusals": [],
+    "wit": [
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "zero_on_target": null,
+   "zero_total_convention": true
+  },
+  {
+   "active": true,
+   "answers": [
+    [],
+    [],
+    []
+   ],
+   "declared": true,
+   "next_blocks": [
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       1
+      ]
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       2
+      ]
+     ]
+    ]
+   ],
+   "protected": true,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [],
+   "retained": true,
+   "singleton_proposals": [
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "state": {
+    "asserted": [
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": [],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      1,
+      2
+     ]
+    ],
+    "refusals": [],
+    "wit": [
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "zero_on_target": true,
+   "zero_total_convention": true
+  },
+  {
+   "active": true,
+   "answers": [
+    [
+     true
+    ],
+    [
+     false
+    ],
+    [
+     false
+    ]
+   ],
+   "declared": true,
+   "next_blocks": [
+    [
+     [
+      "refineCol",
+      [
+       0
+      ],
+      1
+     ]
+    ],
+    [
+     [
+      "refineCol",
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       1
+      ]
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       2
+      ]
+     ]
+    ]
+   ],
+   "protected": true,
+   "reachable_store_invariant": true,
+   "repairs": [
+    [
+     [
+      0
+     ],
+     1
+    ],
+    [
+     [
+      0
+     ],
+     2
+    ]
+   ],
+   "response_menu": [
+    [
+     [
+      0
+     ],
+     0
+    ],
+    [
+     [
+      0
+     ],
+     1
+    ],
+    [
+     [
+      0
+     ],
+     2
+    ]
+   ],
+   "retained": true,
+   "singleton_proposals": [
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "state": {
+    "asserted": [
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": [
+     [
+      0
+     ]
+    ],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      1,
+      2
+     ]
+    ],
+    "refusals": [],
+    "wit": [
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "zero_on_target": true,
+   "zero_total_convention": true
+  },
+  {
+   "active": false,
+   "answers": [
+    [
+     true,
+     false
+    ],
+    [
+     false,
+     true
+    ],
+    [
+     false,
+     false
+    ]
+   ],
+   "declared": true,
+   "next_blocks": [],
+   "protected": true,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [
+    [
+     [
+      0
+     ],
+     0
+    ],
+    [
+     [
+      0
+     ],
+     1
+    ],
+    [
+     [
+      0
+     ],
+     2
+    ],
+    [
+     [
+      1
+     ],
+     0
+    ],
+    [
+     [
+      1
+     ],
+     1
+    ],
+    [
+     [
+      1
+     ],
+     2
+    ]
+   ],
+   "retained": true,
+   "singleton_proposals": [],
+   "state": {
+    "asserted": [
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": [
+     [
+      0
+     ],
+     [
+      1
+     ]
+    ],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      1,
+      2
+     ]
+    ],
+    "refusals": [],
+    "wit": [
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "zero_on_target": false,
+   "zero_total_convention": false
+  }
+ ],
+ "generated_unlicensed_blocks": [
+  {
+   "after": {
+    "active": true,
+    "answers": [
+     [
+      true
+     ],
+     [
+      false
+     ],
+     [
+      false
+     ]
+    ],
+    "declared": true,
+    "next_blocks": [
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        1
+       ]
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        2
+       ]
+      ]
+     ]
+    ],
+    "protected": true,
+    "reachable_store_invariant": true,
+    "repairs": [],
+    "response_menu": [
+     [
+      [
+       0
+      ],
+      0
+     ],
+     [
+      [
+       0
+      ],
+      1
+     ],
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "retained": true,
+    "singleton_proposals": [
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "state": {
+     "asserted": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "budget": 1,
+     "halted": false,
+     "licensed": false,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      10,
+      20,
+      30
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       0,
+       2
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "zero_on_target": true
+   },
+   "changed": true,
+   "events": [
+    [
+     "setBudget",
+     1
+    ],
+    [
+     "addCol",
+     [
+      1
+     ]
+    ]
+   ]
+  },
+  {
+   "after": {
+    "active": true,
+    "answers": [
+     [
+      true
+     ],
+     [
+      false
+     ],
+     [
+      false
+     ]
+    ],
+    "declared": true,
+    "next_blocks": [
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        1
+       ]
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        2
+       ]
+      ]
+     ]
+    ],
+    "protected": true,
+    "reachable_store_invariant": true,
+    "repairs": [],
+    "response_menu": [
+     [
+      [
+       0
+      ],
+      0
+     ],
+     [
+      [
+       0
+      ],
+      1
+     ],
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "retained": true,
+    "singleton_proposals": [
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "state": {
+     "asserted": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "budget": 1,
+     "halted": false,
+     "licensed": false,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      10,
+      20,
+      30
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       0,
+       2
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "zero_on_target": true
+   },
+   "changed": true,
+   "events": [
+    [
+     "setBudget",
+     1
+    ],
+    [
+     "addCol",
+     [
+      2
+     ]
+    ]
+   ]
+  }
+ ],
+ "halt_trace": [
+  {
+   "active": true,
+   "answers": [
+    [
+     true
+    ],
+    [
+     false
+    ],
+    [
+     false
+    ]
+   ],
+   "declared": true,
+   "event": null,
+   "next_blocks": [
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       1
+      ]
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       2
+      ]
+     ]
+    ]
+   ],
+   "protected": true,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [
+    [
+     [
+      0
+     ],
+     0
+    ],
+    [
+     [
+      0
+     ],
+     1
+    ],
+    [
+     [
+      0
+     ],
+     2
+    ]
+   ],
+   "retained": true,
+   "singleton_proposals": [
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "state": {
+    "asserted": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": false,
+    "obs": [
+     [
+      0
+     ]
+    ],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "zero_on_target": true
+  },
+  {
+   "active": true,
+   "answers": [
+    [
+     true
+    ],
+    [
+     false
+    ],
+    [
+     false
+    ]
+   ],
+   "changed": true,
+   "declared": true,
+   "event": [
+    "halt"
+   ],
+   "next_blocks": [
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       1
+      ]
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       2
+      ]
+     ]
+    ]
+   ],
+   "protected": true,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [
+    [
+     [
+      0
+     ],
+     0
+    ],
+    [
+     [
+      0
+     ],
+     1
+    ],
+    [
+     [
+      0
+     ],
+     2
+    ]
+   ],
+   "retained": true,
+   "singleton_proposals": [
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "state": {
+    "asserted": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": true,
+    "licensed": false,
+    "obs": [
+     [
+      0
+     ]
+    ],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "zero_on_target": true
+  },
+  {
+   "active": true,
+   "answers": [
+    [
+     true
+    ],
+    [
+     false
+    ],
+    [
+     false
+    ]
+   ],
+   "changed": false,
+   "declared": true,
+   "event": [
+    "setLicense",
+    true
+   ],
+   "next_blocks": [
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       1
+      ]
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       2
+      ]
+     ]
+    ]
+   ],
+   "protected": true,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [
+    [
+     [
+      0
+     ],
+     0
+    ],
+    [
+     [
+      0
+     ],
+     1
+    ],
+    [
+     [
+      0
+     ],
+     2
+    ]
+   ],
+   "retained": true,
+   "singleton_proposals": [
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "state": {
+    "asserted": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": true,
+    "licensed": false,
+    "obs": [
+     [
+      0
+     ]
+    ],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "zero_on_target": true
+  },
+  {
+   "active": true,
+   "answers": [
+    [
+     true
+    ],
+    [
+     false
+    ],
+    [
+     false
+    ]
+   ],
+   "changed": false,
+   "declared": true,
+   "event": [
+    "setBudget",
+    1
+   ],
+   "next_blocks": [
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       1
+      ]
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       2
+      ]
+     ]
+    ]
+   ],
+   "protected": true,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [
+    [
+     [
+      0
+     ],
+     0
+    ],
+    [
+     [
+      0
+     ],
+     1
+    ],
+    [
+     [
+      0
+     ],
+     2
+    ]
+   ],
+   "retained": true,
+   "singleton_proposals": [
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "state": {
+    "asserted": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": true,
+    "licensed": false,
+    "obs": [
+     [
+      0
+     ]
+    ],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "zero_on_target": true
+  },
+  {
+   "active": true,
+   "answers": [
+    [
+     true
+    ],
+    [
+     false
+    ],
+    [
+     false
+    ]
+   ],
+   "changed": false,
+   "declared": true,
+   "event": [
+    "addCol",
+    [
+     1
+    ]
+   ],
+   "next_blocks": [
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       1
+      ]
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       2
+      ]
+     ]
+    ]
+   ],
+   "protected": true,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [
+    [
+     [
+      0
+     ],
+     0
+    ],
+    [
+     [
+      0
+     ],
+     1
+    ],
+    [
+     [
+      0
+     ],
+     2
+    ]
+   ],
+   "retained": true,
+   "singleton_proposals": [
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "state": {
+    "asserted": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": true,
+    "licensed": false,
+    "obs": [
+     [
+      0
+     ]
+    ],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "zero_on_target": true
+  }
+ ],
+ "history": [
+  [
+   "admitOcc",
+   10
+  ],
+  [
+   "admitOcc",
+   20
+  ],
+  [
+   "admitOcc",
+   30
+  ],
+  [
+   "assertWit",
+   0,
+   1
+  ],
+  [
+   "admitWit",
+   0,
+   1
+  ],
+  [
+   "assertWit",
+   0,
+   2
+  ],
+  [
+   "admitWit",
+   0,
+   2
+  ],
+  [
+   "assertWit",
+   1,
+   2
+  ],
+  [
+   "admitWit",
+   1,
+   2
+  ],
+  [
+   "protect",
+   0,
+   1
+  ],
+  [
+   "protect",
+   1,
+   2
+  ],
+  [
+   "declareObs"
+  ],
+  [
+   "setBudget",
+   2
+  ],
+  [
+   "addCol",
+   [
+    0
+   ]
+  ]
+ ],
+ "model_comparison": [
+  {
+   "case": "repair_available",
+   "passage_active": true,
+   "passage_refusal_recorded": true,
+   "world_exhausted_obstruction": false,
+   "world_refusal_recorded": false
+  },
+  {
+   "case": "existing_menu_exhausted",
+   "passage_active": true,
+   "passage_refusal_recorded": true,
+   "world_exhausted_obstruction": true,
+   "world_refusal_recorded": true
+  }
+ ],
+ "operations": {
+  "all_pairs_0_0_0": {
+   "add_B": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 0,
+      "halted": false,
+      "licensed": false,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "gates": {
+     "budget_positive": false,
+     "not_halted": true,
+     "permission_on": false,
+     "permission_required": true,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "before": {
+    "active": true,
+    "answers": [
+     [
+      true
+     ],
+     [
+      false
+     ],
+     [
+      false
+     ]
+    ],
+    "declared": true,
+    "next_blocks": [
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        1
+       ]
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        2
+       ]
+      ]
+     ]
+    ],
+    "protected": true,
+    "reachable_store_invariant": true,
+    "repairs": [],
+    "response_menu": [
+     [
+      [
+       0
+      ],
+      0
+     ],
+     [
+      [
+       0
+      ],
+      1
+     ],
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "retained": true,
+    "singleton_proposals": [
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "state": {
+     "asserted": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "budget": 0,
+     "halted": false,
+     "licensed": false,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      10,
+      20,
+      30
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       0,
+       2
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "zero_on_target": true
+   },
+   "refine_C": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 0,
+      "halted": false,
+      "licensed": false,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "refineCol",
+     [
+      0
+     ],
+     2
+    ],
+    "gates": {
+     "budget_positive": false,
+     "not_halted": true,
+     "permission_on": false,
+     "permission_required": false,
+     "structural_ok": false
+    },
+    "resolved_target": false
+   },
+   "variations": [
+    [
+     "setBudget",
+     0
+    ],
+    [
+     "setLicense",
+     false
+    ]
+   ]
+  },
+  "all_pairs_0_0_1": {
+   "add_B": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 0,
+      "halted": true,
+      "licensed": false,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "gates": {
+     "budget_positive": false,
+     "not_halted": false,
+     "permission_on": false,
+     "permission_required": true,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "before": {
+    "active": true,
+    "answers": [
+     [
+      true
+     ],
+     [
+      false
+     ],
+     [
+      false
+     ]
+    ],
+    "declared": true,
+    "next_blocks": [
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        1
+       ]
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        2
+       ]
+      ]
+     ]
+    ],
+    "protected": true,
+    "reachable_store_invariant": true,
+    "repairs": [],
+    "response_menu": [
+     [
+      [
+       0
+      ],
+      0
+     ],
+     [
+      [
+       0
+      ],
+      1
+     ],
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "retained": true,
+    "singleton_proposals": [
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "state": {
+     "asserted": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "budget": 0,
+     "halted": true,
+     "licensed": false,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      10,
+      20,
+      30
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       0,
+       2
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "zero_on_target": true
+   },
+   "refine_C": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 0,
+      "halted": true,
+      "licensed": false,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "refineCol",
+     [
+      0
+     ],
+     2
+    ],
+    "gates": {
+     "budget_positive": false,
+     "not_halted": false,
+     "permission_on": false,
+     "permission_required": false,
+     "structural_ok": false
+    },
+    "resolved_target": false
+   },
+   "variations": [
+    [
+     "setBudget",
+     0
+    ],
+    [
+     "setLicense",
+     false
+    ],
+    [
+     "halt"
+    ]
+   ]
+  },
+  "all_pairs_0_1_0": {
+   "add_B": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 0,
+      "halted": false,
+      "licensed": true,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "gates": {
+     "budget_positive": false,
+     "not_halted": true,
+     "permission_on": true,
+     "permission_required": true,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "before": {
+    "active": true,
+    "answers": [
+     [
+      true
+     ],
+     [
+      false
+     ],
+     [
+      false
+     ]
+    ],
+    "declared": true,
+    "next_blocks": [
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        1
+       ]
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        2
+       ]
+      ]
+     ]
+    ],
+    "protected": true,
+    "reachable_store_invariant": true,
+    "repairs": [],
+    "response_menu": [
+     [
+      [
+       0
+      ],
+      0
+     ],
+     [
+      [
+       0
+      ],
+      1
+     ],
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "retained": true,
+    "singleton_proposals": [
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "state": {
+     "asserted": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      10,
+      20,
+      30
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       0,
+       2
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "zero_on_target": true
+   },
+   "refine_C": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 0,
+      "halted": false,
+      "licensed": true,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "refineCol",
+     [
+      0
+     ],
+     2
+    ],
+    "gates": {
+     "budget_positive": false,
+     "not_halted": true,
+     "permission_on": true,
+     "permission_required": false,
+     "structural_ok": false
+    },
+    "resolved_target": false
+   },
+   "variations": [
+    [
+     "setBudget",
+     0
+    ],
+    [
+     "setLicense",
+     true
+    ]
+   ]
+  },
+  "all_pairs_0_1_1": {
+   "add_B": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 0,
+      "halted": true,
+      "licensed": true,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "gates": {
+     "budget_positive": false,
+     "not_halted": false,
+     "permission_on": true,
+     "permission_required": true,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "before": {
+    "active": true,
+    "answers": [
+     [
+      true
+     ],
+     [
+      false
+     ],
+     [
+      false
+     ]
+    ],
+    "declared": true,
+    "next_blocks": [
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        1
+       ]
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        2
+       ]
+      ]
+     ]
+    ],
+    "protected": true,
+    "reachable_store_invariant": true,
+    "repairs": [],
+    "response_menu": [
+     [
+      [
+       0
+      ],
+      0
+     ],
+     [
+      [
+       0
+      ],
+      1
+     ],
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "retained": true,
+    "singleton_proposals": [
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "state": {
+     "asserted": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "budget": 0,
+     "halted": true,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      10,
+      20,
+      30
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       0,
+       2
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "zero_on_target": true
+   },
+   "refine_C": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 0,
+      "halted": true,
+      "licensed": true,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "refineCol",
+     [
+      0
+     ],
+     2
+    ],
+    "gates": {
+     "budget_positive": false,
+     "not_halted": false,
+     "permission_on": true,
+     "permission_required": false,
+     "structural_ok": false
+    },
+    "resolved_target": false
+   },
+   "variations": [
+    [
+     "setBudget",
+     0
+    ],
+    [
+     "setLicense",
+     true
+    ],
+    [
+     "halt"
+    ]
+   ]
+  },
+  "all_pairs_1_0_0": {
+   "add_B": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 1,
+      "halted": false,
+      "licensed": false,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": true,
+     "permission_on": false,
+     "permission_required": true,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "before": {
+    "active": true,
+    "answers": [
+     [
+      true
+     ],
+     [
+      false
+     ],
+     [
+      false
+     ]
+    ],
+    "declared": true,
+    "next_blocks": [
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        1
+       ]
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        2
+       ]
+      ]
+     ]
+    ],
+    "protected": true,
+    "reachable_store_invariant": true,
+    "repairs": [],
+    "response_menu": [
+     [
+      [
+       0
+      ],
+      0
+     ],
+     [
+      [
+       0
+      ],
+      1
+     ],
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "retained": true,
+    "singleton_proposals": [
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "state": {
+     "asserted": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "budget": 1,
+     "halted": false,
+     "licensed": false,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      10,
+      20,
+      30
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       0,
+       2
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "zero_on_target": true
+   },
+   "refine_C": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 1,
+      "halted": false,
+      "licensed": false,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "refineCol",
+     [
+      0
+     ],
+     2
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": true,
+     "permission_on": false,
+     "permission_required": false,
+     "structural_ok": false
+    },
+    "resolved_target": false
+   },
+   "variations": [
+    [
+     "setBudget",
+     1
+    ],
+    [
+     "setLicense",
+     false
+    ]
+   ]
+  },
+  "all_pairs_1_0_1": {
+   "add_B": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 1,
+      "halted": true,
+      "licensed": false,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": false,
+     "permission_on": false,
+     "permission_required": true,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "before": {
+    "active": true,
+    "answers": [
+     [
+      true
+     ],
+     [
+      false
+     ],
+     [
+      false
+     ]
+    ],
+    "declared": true,
+    "next_blocks": [
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        1
+       ]
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        2
+       ]
+      ]
+     ]
+    ],
+    "protected": true,
+    "reachable_store_invariant": true,
+    "repairs": [],
+    "response_menu": [
+     [
+      [
+       0
+      ],
+      0
+     ],
+     [
+      [
+       0
+      ],
+      1
+     ],
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "retained": true,
+    "singleton_proposals": [
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "state": {
+     "asserted": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "budget": 1,
+     "halted": true,
+     "licensed": false,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      10,
+      20,
+      30
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       0,
+       2
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "zero_on_target": true
+   },
+   "refine_C": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 1,
+      "halted": true,
+      "licensed": false,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "refineCol",
+     [
+      0
+     ],
+     2
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": false,
+     "permission_on": false,
+     "permission_required": false,
+     "structural_ok": false
+    },
+    "resolved_target": false
+   },
+   "variations": [
+    [
+     "setBudget",
+     1
+    ],
+    [
+     "setLicense",
+     false
+    ],
+    [
+     "halt"
+    ]
+   ]
+  },
+  "all_pairs_1_1_0": {
+   "add_B": {
+    "after": {
+     "active": false,
+     "answers": [
+      [
+       true,
+       false
+      ],
+      [
+       false,
+       true
+      ],
+      [
+       false,
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ],
+      [
+       [
+        1
+       ],
+       0
+      ],
+      [
+       [
+        1
+       ],
+       1
+      ],
+      [
+       [
+        1
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 0,
+      "halted": false,
+      "licensed": true,
+      "obs": [
+       [
+        0
+       ],
+       [
+        1
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": false
+    },
+    "changed": true,
+    "event": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": true,
+     "permission_on": true,
+     "permission_required": true,
+     "structural_ok": true
+    },
+    "resolved_target": true
+   },
+   "before": {
+    "active": true,
+    "answers": [
+     [
+      true
+     ],
+     [
+      false
+     ],
+     [
+      false
+     ]
+    ],
+    "declared": true,
+    "next_blocks": [
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        1
+       ]
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        2
+       ]
+      ]
+     ]
+    ],
+    "protected": true,
+    "reachable_store_invariant": true,
+    "repairs": [],
+    "response_menu": [
+     [
+      [
+       0
+      ],
+      0
+     ],
+     [
+      [
+       0
+      ],
+      1
+     ],
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "retained": true,
+    "singleton_proposals": [
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "state": {
+     "asserted": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      10,
+      20,
+      30
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       0,
+       2
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "zero_on_target": true
+   },
+   "refine_C": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 1,
+      "halted": false,
+      "licensed": true,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "refineCol",
+     [
+      0
+     ],
+     2
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": true,
+     "permission_on": true,
+     "permission_required": false,
+     "structural_ok": false
+    },
+    "resolved_target": false
+   },
+   "variations": [
+    [
+     "setBudget",
+     1
+    ],
+    [
+     "setLicense",
+     true
+    ]
+   ]
+  },
+  "all_pairs_1_1_1": {
+   "add_B": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 1,
+      "halted": true,
+      "licensed": true,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": false,
+     "permission_on": true,
+     "permission_required": true,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "before": {
+    "active": true,
+    "answers": [
+     [
+      true
+     ],
+     [
+      false
+     ],
+     [
+      false
+     ]
+    ],
+    "declared": true,
+    "next_blocks": [
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        1
+       ]
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        2
+       ]
+      ]
+     ]
+    ],
+    "protected": true,
+    "reachable_store_invariant": true,
+    "repairs": [],
+    "response_menu": [
+     [
+      [
+       0
+      ],
+      0
+     ],
+     [
+      [
+       0
+      ],
+      1
+     ],
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "retained": true,
+    "singleton_proposals": [
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "state": {
+     "asserted": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "budget": 1,
+     "halted": true,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      10,
+      20,
+      30
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       0,
+       2
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "zero_on_target": true
+   },
+   "refine_C": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 1,
+      "halted": true,
+      "licensed": true,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "refineCol",
+     [
+      0
+     ],
+     2
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": false,
+     "permission_on": true,
+     "permission_required": false,
+     "structural_ok": false
+    },
+    "resolved_target": false
+   },
+   "variations": [
+    [
+     "setBudget",
+     1
+    ],
+    [
+     "setLicense",
+     true
+    ],
+    [
+     "halt"
+    ]
+   ]
+  },
+  "all_pairs_2_0_0": {
+   "add_B": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 2,
+      "halted": false,
+      "licensed": false,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": true,
+     "permission_on": false,
+     "permission_required": true,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "before": {
+    "active": true,
+    "answers": [
+     [
+      true
+     ],
+     [
+      false
+     ],
+     [
+      false
+     ]
+    ],
+    "declared": true,
+    "next_blocks": [
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        1
+       ]
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        2
+       ]
+      ]
+     ]
+    ],
+    "protected": true,
+    "reachable_store_invariant": true,
+    "repairs": [],
+    "response_menu": [
+     [
+      [
+       0
+      ],
+      0
+     ],
+     [
+      [
+       0
+      ],
+      1
+     ],
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "retained": true,
+    "singleton_proposals": [
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "state": {
+     "asserted": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "budget": 2,
+     "halted": false,
+     "licensed": false,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      10,
+      20,
+      30
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       0,
+       2
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "zero_on_target": true
+   },
+   "refine_C": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 2,
+      "halted": false,
+      "licensed": false,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "refineCol",
+     [
+      0
+     ],
+     2
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": true,
+     "permission_on": false,
+     "permission_required": false,
+     "structural_ok": false
+    },
+    "resolved_target": false
+   },
+   "variations": [
+    [
+     "setBudget",
+     2
+    ],
+    [
+     "setLicense",
+     false
+    ]
+   ]
+  },
+  "all_pairs_2_0_1": {
+   "add_B": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 2,
+      "halted": true,
+      "licensed": false,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": false,
+     "permission_on": false,
+     "permission_required": true,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "before": {
+    "active": true,
+    "answers": [
+     [
+      true
+     ],
+     [
+      false
+     ],
+     [
+      false
+     ]
+    ],
+    "declared": true,
+    "next_blocks": [
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        1
+       ]
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        2
+       ]
+      ]
+     ]
+    ],
+    "protected": true,
+    "reachable_store_invariant": true,
+    "repairs": [],
+    "response_menu": [
+     [
+      [
+       0
+      ],
+      0
+     ],
+     [
+      [
+       0
+      ],
+      1
+     ],
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "retained": true,
+    "singleton_proposals": [
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "state": {
+     "asserted": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "budget": 2,
+     "halted": true,
+     "licensed": false,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      10,
+      20,
+      30
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       0,
+       2
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "zero_on_target": true
+   },
+   "refine_C": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 2,
+      "halted": true,
+      "licensed": false,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "refineCol",
+     [
+      0
+     ],
+     2
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": false,
+     "permission_on": false,
+     "permission_required": false,
+     "structural_ok": false
+    },
+    "resolved_target": false
+   },
+   "variations": [
+    [
+     "setBudget",
+     2
+    ],
+    [
+     "setLicense",
+     false
+    ],
+    [
+     "halt"
+    ]
+   ]
+  },
+  "all_pairs_2_1_0": {
+   "add_B": {
+    "after": {
+     "active": false,
+     "answers": [
+      [
+       true,
+       false
+      ],
+      [
+       false,
+       true
+      ],
+      [
+       false,
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ],
+      [
+       [
+        1
+       ],
+       0
+      ],
+      [
+       [
+        1
+       ],
+       1
+      ],
+      [
+       [
+        1
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 1,
+      "halted": false,
+      "licensed": true,
+      "obs": [
+       [
+        0
+       ],
+       [
+        1
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": false
+    },
+    "changed": true,
+    "event": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": true,
+     "permission_on": true,
+     "permission_required": true,
+     "structural_ok": true
+    },
+    "resolved_target": true
+   },
+   "before": {
+    "active": true,
+    "answers": [
+     [
+      true
+     ],
+     [
+      false
+     ],
+     [
+      false
+     ]
+    ],
+    "declared": true,
+    "next_blocks": [
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        1
+       ]
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        2
+       ]
+      ]
+     ]
+    ],
+    "protected": true,
+    "reachable_store_invariant": true,
+    "repairs": [],
+    "response_menu": [
+     [
+      [
+       0
+      ],
+      0
+     ],
+     [
+      [
+       0
+      ],
+      1
+     ],
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "retained": true,
+    "singleton_proposals": [
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "state": {
+     "asserted": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "budget": 2,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      10,
+      20,
+      30
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       0,
+       2
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "zero_on_target": true
+   },
+   "refine_C": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 2,
+      "halted": false,
+      "licensed": true,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "refineCol",
+     [
+      0
+     ],
+     2
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": true,
+     "permission_on": true,
+     "permission_required": false,
+     "structural_ok": false
+    },
+    "resolved_target": false
+   },
+   "variations": [
+    [
+     "setBudget",
+     2
+    ],
+    [
+     "setLicense",
+     true
+    ]
+   ]
+  },
+  "all_pairs_2_1_1": {
+   "add_B": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 2,
+      "halted": true,
+      "licensed": true,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": false,
+     "permission_on": true,
+     "permission_required": true,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "before": {
+    "active": true,
+    "answers": [
+     [
+      true
+     ],
+     [
+      false
+     ],
+     [
+      false
+     ]
+    ],
+    "declared": true,
+    "next_blocks": [
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        1
+       ]
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        2
+       ]
+      ]
+     ]
+    ],
+    "protected": true,
+    "reachable_store_invariant": true,
+    "repairs": [],
+    "response_menu": [
+     [
+      [
+       0
+      ],
+      0
+     ],
+     [
+      [
+       0
+      ],
+      1
+     ],
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "retained": true,
+    "singleton_proposals": [
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "state": {
+     "asserted": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "budget": 2,
+     "halted": true,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      10,
+      20,
+      30
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       0,
+       2
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "zero_on_target": true
+   },
+   "refine_C": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 2,
+      "halted": true,
+      "licensed": true,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "refineCol",
+     [
+      0
+     ],
+     2
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": false,
+     "permission_on": true,
+     "permission_required": false,
+     "structural_ok": false
+    },
+    "resolved_target": false
+   },
+   "variations": [
+    [
+     "setBudget",
+     2
+    ],
+    [
+     "setLicense",
+     true
+    ],
+    [
+     "halt"
+    ]
+   ]
+  },
+  "two_pairs_0_0_0": {
+   "add_B": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "refineCol",
+        [
+         0
+        ],
+        2
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 0,
+      "halted": false,
+      "licensed": false,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "gates": {
+     "budget_positive": false,
+     "not_halted": true,
+     "permission_on": false,
+     "permission_required": true,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "before": {
+    "active": true,
+    "answers": [
+     [
+      true
+     ],
+     [
+      false
+     ],
+     [
+      false
+     ]
+    ],
+    "declared": true,
+    "next_blocks": [
+     [
+      [
+       "refineCol",
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        1
+       ]
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        2
+       ]
+      ]
+     ]
+    ],
+    "protected": true,
+    "reachable_store_invariant": true,
+    "repairs": [
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "response_menu": [
+     [
+      [
+       0
+      ],
+      0
+     ],
+     [
+      [
+       0
+      ],
+      1
+     ],
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "retained": true,
+    "singleton_proposals": [
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "state": {
+     "asserted": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "budget": 0,
+     "halted": false,
+     "licensed": false,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      10,
+      20,
+      30
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "zero_on_target": true
+   },
+   "refine_C": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "refineCol",
+        [
+         0
+        ],
+        2
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 0,
+      "halted": false,
+      "licensed": false,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "refineCol",
+     [
+      0
+     ],
+     2
+    ],
+    "gates": {
+     "budget_positive": false,
+     "not_halted": true,
+     "permission_on": false,
+     "permission_required": false,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "variations": [
+    [
+     "setBudget",
+     0
+    ],
+    [
+     "setLicense",
+     false
+    ]
+   ]
+  },
+  "two_pairs_0_0_1": {
+   "add_B": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "refineCol",
+        [
+         0
+        ],
+        2
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 0,
+      "halted": true,
+      "licensed": false,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "gates": {
+     "budget_positive": false,
+     "not_halted": false,
+     "permission_on": false,
+     "permission_required": true,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "before": {
+    "active": true,
+    "answers": [
+     [
+      true
+     ],
+     [
+      false
+     ],
+     [
+      false
+     ]
+    ],
+    "declared": true,
+    "next_blocks": [
+     [
+      [
+       "refineCol",
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        1
+       ]
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        2
+       ]
+      ]
+     ]
+    ],
+    "protected": true,
+    "reachable_store_invariant": true,
+    "repairs": [
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "response_menu": [
+     [
+      [
+       0
+      ],
+      0
+     ],
+     [
+      [
+       0
+      ],
+      1
+     ],
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "retained": true,
+    "singleton_proposals": [
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "state": {
+     "asserted": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "budget": 0,
+     "halted": true,
+     "licensed": false,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      10,
+      20,
+      30
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "zero_on_target": true
+   },
+   "refine_C": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "refineCol",
+        [
+         0
+        ],
+        2
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 0,
+      "halted": true,
+      "licensed": false,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "refineCol",
+     [
+      0
+     ],
+     2
+    ],
+    "gates": {
+     "budget_positive": false,
+     "not_halted": false,
+     "permission_on": false,
+     "permission_required": false,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "variations": [
+    [
+     "setBudget",
+     0
+    ],
+    [
+     "setLicense",
+     false
+    ],
+    [
+     "halt"
+    ]
+   ]
+  },
+  "two_pairs_0_1_0": {
+   "add_B": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "refineCol",
+        [
+         0
+        ],
+        2
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 0,
+      "halted": false,
+      "licensed": true,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "gates": {
+     "budget_positive": false,
+     "not_halted": true,
+     "permission_on": true,
+     "permission_required": true,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "before": {
+    "active": true,
+    "answers": [
+     [
+      true
+     ],
+     [
+      false
+     ],
+     [
+      false
+     ]
+    ],
+    "declared": true,
+    "next_blocks": [
+     [
+      [
+       "refineCol",
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        1
+       ]
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        2
+       ]
+      ]
+     ]
+    ],
+    "protected": true,
+    "reachable_store_invariant": true,
+    "repairs": [
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "response_menu": [
+     [
+      [
+       0
+      ],
+      0
+     ],
+     [
+      [
+       0
+      ],
+      1
+     ],
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "retained": true,
+    "singleton_proposals": [
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "state": {
+     "asserted": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      10,
+      20,
+      30
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "zero_on_target": true
+   },
+   "refine_C": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "refineCol",
+        [
+         0
+        ],
+        2
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 0,
+      "halted": false,
+      "licensed": true,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "refineCol",
+     [
+      0
+     ],
+     2
+    ],
+    "gates": {
+     "budget_positive": false,
+     "not_halted": true,
+     "permission_on": true,
+     "permission_required": false,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "variations": [
+    [
+     "setBudget",
+     0
+    ],
+    [
+     "setLicense",
+     true
+    ]
+   ]
+  },
+  "two_pairs_0_1_1": {
+   "add_B": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "refineCol",
+        [
+         0
+        ],
+        2
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 0,
+      "halted": true,
+      "licensed": true,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "gates": {
+     "budget_positive": false,
+     "not_halted": false,
+     "permission_on": true,
+     "permission_required": true,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "before": {
+    "active": true,
+    "answers": [
+     [
+      true
+     ],
+     [
+      false
+     ],
+     [
+      false
+     ]
+    ],
+    "declared": true,
+    "next_blocks": [
+     [
+      [
+       "refineCol",
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        1
+       ]
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        2
+       ]
+      ]
+     ]
+    ],
+    "protected": true,
+    "reachable_store_invariant": true,
+    "repairs": [
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "response_menu": [
+     [
+      [
+       0
+      ],
+      0
+     ],
+     [
+      [
+       0
+      ],
+      1
+     ],
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "retained": true,
+    "singleton_proposals": [
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "state": {
+     "asserted": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "budget": 0,
+     "halted": true,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      10,
+      20,
+      30
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "zero_on_target": true
+   },
+   "refine_C": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "refineCol",
+        [
+         0
+        ],
+        2
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 0,
+      "halted": true,
+      "licensed": true,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "refineCol",
+     [
+      0
+     ],
+     2
+    ],
+    "gates": {
+     "budget_positive": false,
+     "not_halted": false,
+     "permission_on": true,
+     "permission_required": false,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "variations": [
+    [
+     "setBudget",
+     0
+    ],
+    [
+     "setLicense",
+     true
+    ],
+    [
+     "halt"
+    ]
+   ]
+  },
+  "two_pairs_1_0_0": {
+   "add_B": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "refineCol",
+        [
+         0
+        ],
+        2
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 1,
+      "halted": false,
+      "licensed": false,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": true,
+     "permission_on": false,
+     "permission_required": true,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "before": {
+    "active": true,
+    "answers": [
+     [
+      true
+     ],
+     [
+      false
+     ],
+     [
+      false
+     ]
+    ],
+    "declared": true,
+    "next_blocks": [
+     [
+      [
+       "refineCol",
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        1
+       ]
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        2
+       ]
+      ]
+     ]
+    ],
+    "protected": true,
+    "reachable_store_invariant": true,
+    "repairs": [
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "response_menu": [
+     [
+      [
+       0
+      ],
+      0
+     ],
+     [
+      [
+       0
+      ],
+      1
+     ],
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "retained": true,
+    "singleton_proposals": [
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "state": {
+     "asserted": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "budget": 1,
+     "halted": false,
+     "licensed": false,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      10,
+      20,
+      30
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "zero_on_target": true
+   },
+   "refine_C": {
+    "after": {
+     "active": false,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       true
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        2,
+        0
+       ],
+       0
+      ],
+      [
+       [
+        2,
+        0
+       ],
+       1
+      ],
+      [
+       [
+        2,
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 0,
+      "halted": false,
+      "licensed": false,
+      "obs": [
+       [
+        2,
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": false
+    },
+    "changed": true,
+    "event": [
+     "refineCol",
+     [
+      0
+     ],
+     2
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": true,
+     "permission_on": false,
+     "permission_required": false,
+     "structural_ok": true
+    },
+    "resolved_target": true
+   },
+   "variations": [
+    [
+     "setBudget",
+     1
+    ],
+    [
+     "setLicense",
+     false
+    ]
+   ]
+  },
+  "two_pairs_1_0_1": {
+   "add_B": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "refineCol",
+        [
+         0
+        ],
+        2
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 1,
+      "halted": true,
+      "licensed": false,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": false,
+     "permission_on": false,
+     "permission_required": true,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "before": {
+    "active": true,
+    "answers": [
+     [
+      true
+     ],
+     [
+      false
+     ],
+     [
+      false
+     ]
+    ],
+    "declared": true,
+    "next_blocks": [
+     [
+      [
+       "refineCol",
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        1
+       ]
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        2
+       ]
+      ]
+     ]
+    ],
+    "protected": true,
+    "reachable_store_invariant": true,
+    "repairs": [
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "response_menu": [
+     [
+      [
+       0
+      ],
+      0
+     ],
+     [
+      [
+       0
+      ],
+      1
+     ],
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "retained": true,
+    "singleton_proposals": [
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "state": {
+     "asserted": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "budget": 1,
+     "halted": true,
+     "licensed": false,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      10,
+      20,
+      30
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "zero_on_target": true
+   },
+   "refine_C": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "refineCol",
+        [
+         0
+        ],
+        2
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 1,
+      "halted": true,
+      "licensed": false,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "refineCol",
+     [
+      0
+     ],
+     2
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": false,
+     "permission_on": false,
+     "permission_required": false,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "variations": [
+    [
+     "setBudget",
+     1
+    ],
+    [
+     "setLicense",
+     false
+    ],
+    [
+     "halt"
+    ]
+   ]
+  },
+  "two_pairs_1_1_0": {
+   "add_B": {
+    "after": {
+     "active": false,
+     "answers": [
+      [
+       true,
+       false
+      ],
+      [
+       false,
+       true
+      ],
+      [
+       false,
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ],
+      [
+       [
+        1
+       ],
+       0
+      ],
+      [
+       [
+        1
+       ],
+       1
+      ],
+      [
+       [
+        1
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 0,
+      "halted": false,
+      "licensed": true,
+      "obs": [
+       [
+        0
+       ],
+       [
+        1
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": false
+    },
+    "changed": true,
+    "event": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": true,
+     "permission_on": true,
+     "permission_required": true,
+     "structural_ok": true
+    },
+    "resolved_target": true
+   },
+   "before": {
+    "active": true,
+    "answers": [
+     [
+      true
+     ],
+     [
+      false
+     ],
+     [
+      false
+     ]
+    ],
+    "declared": true,
+    "next_blocks": [
+     [
+      [
+       "refineCol",
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        1
+       ]
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        2
+       ]
+      ]
+     ]
+    ],
+    "protected": true,
+    "reachable_store_invariant": true,
+    "repairs": [
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "response_menu": [
+     [
+      [
+       0
+      ],
+      0
+     ],
+     [
+      [
+       0
+      ],
+      1
+     ],
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "retained": true,
+    "singleton_proposals": [
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "state": {
+     "asserted": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      10,
+      20,
+      30
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "zero_on_target": true
+   },
+   "refine_C": {
+    "after": {
+     "active": false,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       true
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        2,
+        0
+       ],
+       0
+      ],
+      [
+       [
+        2,
+        0
+       ],
+       1
+      ],
+      [
+       [
+        2,
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 0,
+      "halted": false,
+      "licensed": true,
+      "obs": [
+       [
+        2,
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": false
+    },
+    "changed": true,
+    "event": [
+     "refineCol",
+     [
+      0
+     ],
+     2
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": true,
+     "permission_on": true,
+     "permission_required": false,
+     "structural_ok": true
+    },
+    "resolved_target": true
+   },
+   "variations": [
+    [
+     "setBudget",
+     1
+    ],
+    [
+     "setLicense",
+     true
+    ]
+   ]
+  },
+  "two_pairs_1_1_1": {
+   "add_B": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "refineCol",
+        [
+         0
+        ],
+        2
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 1,
+      "halted": true,
+      "licensed": true,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": false,
+     "permission_on": true,
+     "permission_required": true,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "before": {
+    "active": true,
+    "answers": [
+     [
+      true
+     ],
+     [
+      false
+     ],
+     [
+      false
+     ]
+    ],
+    "declared": true,
+    "next_blocks": [
+     [
+      [
+       "refineCol",
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        1
+       ]
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        2
+       ]
+      ]
+     ]
+    ],
+    "protected": true,
+    "reachable_store_invariant": true,
+    "repairs": [
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "response_menu": [
+     [
+      [
+       0
+      ],
+      0
+     ],
+     [
+      [
+       0
+      ],
+      1
+     ],
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "retained": true,
+    "singleton_proposals": [
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "state": {
+     "asserted": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "budget": 1,
+     "halted": true,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      10,
+      20,
+      30
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "zero_on_target": true
+   },
+   "refine_C": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "refineCol",
+        [
+         0
+        ],
+        2
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 1,
+      "halted": true,
+      "licensed": true,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "refineCol",
+     [
+      0
+     ],
+     2
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": false,
+     "permission_on": true,
+     "permission_required": false,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "variations": [
+    [
+     "setBudget",
+     1
+    ],
+    [
+     "setLicense",
+     true
+    ],
+    [
+     "halt"
+    ]
+   ]
+  },
+  "two_pairs_2_0_0": {
+   "add_B": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "refineCol",
+        [
+         0
+        ],
+        2
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 2,
+      "halted": false,
+      "licensed": false,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": true,
+     "permission_on": false,
+     "permission_required": true,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "before": {
+    "active": true,
+    "answers": [
+     [
+      true
+     ],
+     [
+      false
+     ],
+     [
+      false
+     ]
+    ],
+    "declared": true,
+    "next_blocks": [
+     [
+      [
+       "refineCol",
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        1
+       ]
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        2
+       ]
+      ]
+     ]
+    ],
+    "protected": true,
+    "reachable_store_invariant": true,
+    "repairs": [
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "response_menu": [
+     [
+      [
+       0
+      ],
+      0
+     ],
+     [
+      [
+       0
+      ],
+      1
+     ],
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "retained": true,
+    "singleton_proposals": [
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "state": {
+     "asserted": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "budget": 2,
+     "halted": false,
+     "licensed": false,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      10,
+      20,
+      30
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "zero_on_target": true
+   },
+   "refine_C": {
+    "after": {
+     "active": false,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       true
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        2,
+        0
+       ],
+       0
+      ],
+      [
+       [
+        2,
+        0
+       ],
+       1
+      ],
+      [
+       [
+        2,
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 1,
+      "halted": false,
+      "licensed": false,
+      "obs": [
+       [
+        2,
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": false
+    },
+    "changed": true,
+    "event": [
+     "refineCol",
+     [
+      0
+     ],
+     2
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": true,
+     "permission_on": false,
+     "permission_required": false,
+     "structural_ok": true
+    },
+    "resolved_target": true
+   },
+   "variations": [
+    [
+     "setBudget",
+     2
+    ],
+    [
+     "setLicense",
+     false
+    ]
+   ]
+  },
+  "two_pairs_2_0_1": {
+   "add_B": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "refineCol",
+        [
+         0
+        ],
+        2
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 2,
+      "halted": true,
+      "licensed": false,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": false,
+     "permission_on": false,
+     "permission_required": true,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "before": {
+    "active": true,
+    "answers": [
+     [
+      true
+     ],
+     [
+      false
+     ],
+     [
+      false
+     ]
+    ],
+    "declared": true,
+    "next_blocks": [
+     [
+      [
+       "refineCol",
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        1
+       ]
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        2
+       ]
+      ]
+     ]
+    ],
+    "protected": true,
+    "reachable_store_invariant": true,
+    "repairs": [
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "response_menu": [
+     [
+      [
+       0
+      ],
+      0
+     ],
+     [
+      [
+       0
+      ],
+      1
+     ],
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "retained": true,
+    "singleton_proposals": [
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "state": {
+     "asserted": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "budget": 2,
+     "halted": true,
+     "licensed": false,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      10,
+      20,
+      30
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "zero_on_target": true
+   },
+   "refine_C": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "refineCol",
+        [
+         0
+        ],
+        2
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 2,
+      "halted": true,
+      "licensed": false,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "refineCol",
+     [
+      0
+     ],
+     2
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": false,
+     "permission_on": false,
+     "permission_required": false,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "variations": [
+    [
+     "setBudget",
+     2
+    ],
+    [
+     "setLicense",
+     false
+    ],
+    [
+     "halt"
+    ]
+   ]
+  },
+  "two_pairs_2_1_0": {
+   "add_B": {
+    "after": {
+     "active": false,
+     "answers": [
+      [
+       true,
+       false
+      ],
+      [
+       false,
+       true
+      ],
+      [
+       false,
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ],
+      [
+       [
+        1
+       ],
+       0
+      ],
+      [
+       [
+        1
+       ],
+       1
+      ],
+      [
+       [
+        1
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 1,
+      "halted": false,
+      "licensed": true,
+      "obs": [
+       [
+        0
+       ],
+       [
+        1
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": false
+    },
+    "changed": true,
+    "event": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": true,
+     "permission_on": true,
+     "permission_required": true,
+     "structural_ok": true
+    },
+    "resolved_target": true
+   },
+   "before": {
+    "active": true,
+    "answers": [
+     [
+      true
+     ],
+     [
+      false
+     ],
+     [
+      false
+     ]
+    ],
+    "declared": true,
+    "next_blocks": [
+     [
+      [
+       "refineCol",
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        1
+       ]
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        2
+       ]
+      ]
+     ]
+    ],
+    "protected": true,
+    "reachable_store_invariant": true,
+    "repairs": [
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "response_menu": [
+     [
+      [
+       0
+      ],
+      0
+     ],
+     [
+      [
+       0
+      ],
+      1
+     ],
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "retained": true,
+    "singleton_proposals": [
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "state": {
+     "asserted": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "budget": 2,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      10,
+      20,
+      30
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "zero_on_target": true
+   },
+   "refine_C": {
+    "after": {
+     "active": false,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       true
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [],
+     "response_menu": [
+      [
+       [
+        2,
+        0
+       ],
+       0
+      ],
+      [
+       [
+        2,
+        0
+       ],
+       1
+      ],
+      [
+       [
+        2,
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 1,
+      "halted": false,
+      "licensed": true,
+      "obs": [
+       [
+        2,
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": false
+    },
+    "changed": true,
+    "event": [
+     "refineCol",
+     [
+      0
+     ],
+     2
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": true,
+     "permission_on": true,
+     "permission_required": false,
+     "structural_ok": true
+    },
+    "resolved_target": true
+   },
+   "variations": [
+    [
+     "setBudget",
+     2
+    ],
+    [
+     "setLicense",
+     true
+    ]
+   ]
+  },
+  "two_pairs_2_1_1": {
+   "add_B": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "refineCol",
+        [
+         0
+        ],
+        2
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 2,
+      "halted": true,
+      "licensed": true,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": false,
+     "permission_on": true,
+     "permission_required": true,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "before": {
+    "active": true,
+    "answers": [
+     [
+      true
+     ],
+     [
+      false
+     ],
+     [
+      false
+     ]
+    ],
+    "declared": true,
+    "next_blocks": [
+     [
+      [
+       "refineCol",
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        1
+       ]
+      ]
+     ],
+     [
+      [
+       "setBudget",
+       1
+      ],
+      [
+       "addCol",
+       [
+        2
+       ]
+      ]
+     ]
+    ],
+    "protected": true,
+    "reachable_store_invariant": true,
+    "repairs": [
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "response_menu": [
+     [
+      [
+       0
+      ],
+      0
+     ],
+     [
+      [
+       0
+      ],
+      1
+     ],
+     [
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    "retained": true,
+    "singleton_proposals": [
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "state": {
+     "asserted": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "budget": 2,
+     "halted": true,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      10,
+      20,
+      30
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    },
+    "zero_on_target": true
+   },
+   "refine_C": {
+    "after": {
+     "active": true,
+     "answers": [
+      [
+       true
+      ],
+      [
+       false
+      ],
+      [
+       false
+      ]
+     ],
+     "declared": true,
+     "next_blocks": [
+      [
+       [
+        "refineCol",
+        [
+         0
+        ],
+        2
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         1
+        ]
+       ]
+      ],
+      [
+       [
+        "setBudget",
+        1
+       ],
+       [
+        "addCol",
+        [
+         2
+        ]
+       ]
+      ]
+     ],
+     "protected": true,
+     "reachable_store_invariant": true,
+     "repairs": [
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "response_menu": [
+      [
+       [
+        0
+       ],
+       0
+      ],
+      [
+       [
+        0
+       ],
+       1
+      ],
+      [
+       [
+        0
+       ],
+       2
+      ]
+     ],
+     "retained": true,
+     "singleton_proposals": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ],
+     "state": {
+      "asserted": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "budget": 2,
+      "halted": true,
+      "licensed": true,
+      "obs": [
+       [
+        0
+       ]
+      ],
+      "occ": [
+       10,
+       20,
+       30
+      ],
+      "prot": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "refusals": [],
+      "wit": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     "zero_on_target": true
+    },
+    "changed": false,
+    "event": [
+     "refineCol",
+     [
+      0
+     ],
+     2
+    ],
+    "gates": {
+     "budget_positive": true,
+     "not_halted": false,
+     "permission_on": true,
+     "permission_required": false,
+     "structural_ok": true
+    },
+    "resolved_target": false
+   },
+   "variations": [
+    [
+     "setBudget",
+     2
+    ],
+    [
+     "setLicense",
+     true
+    ],
+    [
+     "halt"
+    ]
+   ]
+  }
+ },
+ "refusal_trace": [
+  {
+   "active": true,
+   "answers": [
+    [
+     true
+    ],
+    [
+     false
+    ],
+    [
+     false
+    ]
+   ],
+   "declared": true,
+   "event": null,
+   "next_blocks": [
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       1
+      ]
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       2
+      ]
+     ]
+    ]
+   ],
+   "protected": true,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [
+    [
+     [
+      0
+     ],
+     0
+    ],
+    [
+     [
+      0
+     ],
+     1
+    ],
+    [
+     [
+      0
+     ],
+     2
+    ]
+   ],
+   "retained": true,
+   "singleton_proposals": [
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "state": {
+    "asserted": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": false,
+    "obs": [
+     [
+      0
+     ]
+    ],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "zero_on_target": true
+  },
+  {
+   "active": true,
+   "answers": [
+    [
+     true
+    ],
+    [
+     false
+    ],
+    [
+     false
+    ]
+   ],
+   "changed": true,
+   "declared": true,
+   "event": [
+    "refuse",
+    1,
+    2
+   ],
+   "next_blocks": [
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       1
+      ]
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       2
+      ]
+     ]
+    ]
+   ],
+   "protected": true,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [
+    [
+     [
+      0
+     ],
+     0
+    ],
+    [
+     [
+      0
+     ],
+     1
+    ],
+    [
+     [
+      0
+     ],
+     2
+    ]
+   ],
+   "retained": true,
+   "singleton_proposals": [
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "state": {
+    "asserted": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": false,
+    "obs": [
+     [
+      0
+     ]
+    ],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "refusals": [
+     [
+      1,
+      2
+     ]
+    ],
+    "wit": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "zero_on_target": true
+  },
+  {
+   "active": true,
+   "answers": [
+    [
+     true
+    ],
+    [
+     false
+    ],
+    [
+     false
+    ]
+   ],
+   "changed": true,
+   "declared": true,
+   "event": [
+    "setLicense",
+    true
+   ],
+   "next_blocks": [
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       1
+      ]
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       2
+      ]
+     ]
+    ]
+   ],
+   "protected": true,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [
+    [
+     [
+      0
+     ],
+     0
+    ],
+    [
+     [
+      0
+     ],
+     1
+    ],
+    [
+     [
+      0
+     ],
+     2
+    ]
+   ],
+   "retained": true,
+   "singleton_proposals": [
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "state": {
+    "asserted": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": [
+     [
+      0
+     ]
+    ],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "refusals": [
+     [
+      1,
+      2
+     ]
+    ],
+    "wit": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "zero_on_target": true
+  },
+  {
+   "active": true,
+   "answers": [
+    [
+     true
+    ],
+    [
+     false
+    ],
+    [
+     false
+    ]
+   ],
+   "changed": true,
+   "declared": true,
+   "event": [
+    "setBudget",
+    1
+   ],
+   "next_blocks": [
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       1
+      ]
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       2
+      ]
+     ]
+    ]
+   ],
+   "protected": true,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [
+    [
+     [
+      0
+     ],
+     0
+    ],
+    [
+     [
+      0
+     ],
+     1
+    ],
+    [
+     [
+      0
+     ],
+     2
+    ]
+   ],
+   "retained": true,
+   "singleton_proposals": [
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "state": {
+    "asserted": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 1,
+    "halted": false,
+    "licensed": true,
+    "obs": [
+     [
+      0
+     ]
+    ],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "refusals": [
+     [
+      1,
+      2
+     ]
+    ],
+    "wit": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "zero_on_target": true
+  },
+  {
+   "active": false,
+   "answers": [
+    [
+     true,
+     false
+    ],
+    [
+     false,
+     true
+    ],
+    [
+     false,
+     false
+    ]
+   ],
+   "changed": true,
+   "declared": true,
+   "event": [
+    "addCol",
+    [
+     1
+    ]
+   ],
+   "next_blocks": [],
+   "protected": true,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [
+    [
+     [
+      0
+     ],
+     0
+    ],
+    [
+     [
+      0
+     ],
+     1
+    ],
+    [
+     [
+      0
+     ],
+     2
+    ],
+    [
+     [
+      1
+     ],
+     0
+    ],
+    [
+     [
+      1
+     ],
+     1
+    ],
+    [
+     [
+      1
+     ],
+     2
+    ]
+   ],
+   "retained": true,
+   "singleton_proposals": [],
+   "state": {
+    "asserted": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": [
+     [
+      0
+     ],
+     [
+      1
+     ]
+    ],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "refusals": [
+     [
+      1,
+      2
+     ]
+    ],
+    "wit": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "zero_on_target": false
+  }
+ ],
+ "schema": 1,
+ "source_text_sha256": {
+  "code/derivation/primitive_passage.py": "ce263503fd67c4c3740db26796f42e3e011b67cf4a9d6383aa7093a2a1435531",
+  "code/derivation/represented.py": "1ea752ef021cde06fec1b7e3f451a31d05e3a965820666a954623add6f00fcb3"
+ },
+ "strong": {
+  "active": true,
+  "answers": [
+   [
+    true
+   ],
+   [
+    false
+   ],
+   [
+    false
+   ]
+  ],
+  "declared": true,
+  "next_blocks": [
+   [
+    [
+     "setBudget",
+     1
+    ],
+    [
+     "addCol",
+     [
+      1
+     ]
+    ]
+   ],
+   [
+    [
+     "setBudget",
+     1
+    ],
+    [
+     "addCol",
+     [
+      2
+     ]
+    ]
+   ]
+  ],
+  "protected": true,
+  "reachable_store_invariant": true,
+  "repairs": [],
+  "response_menu": [
+   [
+    [
+     0
+    ],
+    0
+   ],
+   [
+    [
+     0
+    ],
+    1
+   ],
+   [
+    [
+     0
+    ],
+    2
+   ]
+  ],
+  "retained": true,
+  "singleton_proposals": [
+   [
+    1
+   ],
+   [
+    2
+   ]
+  ],
+  "state": {
+   "asserted": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   "budget": 1,
+   "halted": false,
+   "licensed": true,
+   "obs": [
+    [
+     0
+    ]
+   ],
+   "occ": [
+    10,
+    20,
+    30
+   ],
+   "prot": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     0,
+     2
+    ]
+   ],
+   "refusals": [],
+   "wit": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ]
+   ]
+  },
+  "zero_on_target": true
+ },
+ "timeline": [
+  {
+   "active": false,
+   "answers": null,
+   "declared": false,
+   "event": null,
+   "next_blocks": [],
+   "protected": false,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [],
+   "retained": false,
+   "singleton_proposals": [],
+   "state": {
+    "asserted": [],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": null,
+    "occ": [],
+    "prot": [],
+    "refusals": [],
+    "wit": []
+   },
+   "zero_on_target": null
+  },
+  {
+   "active": false,
+   "answers": null,
+   "changed": true,
+   "declared": false,
+   "event": [
+    "admitOcc",
+    10
+   ],
+   "next_blocks": [],
+   "protected": false,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [],
+   "retained": false,
+   "singleton_proposals": [],
+   "state": {
+    "asserted": [],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": null,
+    "occ": [
+     10
+    ],
+    "prot": [],
+    "refusals": [],
+    "wit": []
+   },
+   "zero_on_target": null
+  },
+  {
+   "active": false,
+   "answers": null,
+   "changed": true,
+   "declared": false,
+   "event": [
+    "admitOcc",
+    20
+   ],
+   "next_blocks": [],
+   "protected": false,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [],
+   "retained": false,
+   "singleton_proposals": [],
+   "state": {
+    "asserted": [],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": null,
+    "occ": [
+     10,
+     20
+    ],
+    "prot": [],
+    "refusals": [],
+    "wit": []
+   },
+   "zero_on_target": null
+  },
+  {
+   "active": false,
+   "answers": null,
+   "changed": true,
+   "declared": false,
+   "event": [
+    "admitOcc",
+    30
+   ],
+   "next_blocks": [],
+   "protected": false,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [],
+   "retained": false,
+   "singleton_proposals": [],
+   "state": {
+    "asserted": [],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": null,
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [],
+    "refusals": [],
+    "wit": []
+   },
+   "zero_on_target": null
+  },
+  {
+   "active": false,
+   "answers": null,
+   "changed": true,
+   "declared": false,
+   "event": [
+    "assertWit",
+    0,
+    1
+   ],
+   "next_blocks": [],
+   "protected": false,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [],
+   "retained": false,
+   "singleton_proposals": [],
+   "state": {
+    "asserted": [
+     [
+      0,
+      1
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": null,
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [],
+    "refusals": [],
+    "wit": []
+   },
+   "zero_on_target": null
+  },
+  {
+   "active": false,
+   "answers": null,
+   "changed": true,
+   "declared": false,
+   "event": [
+    "admitWit",
+    0,
+    1
+   ],
+   "next_blocks": [],
+   "protected": false,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [],
+   "retained": false,
+   "singleton_proposals": [],
+   "state": {
+    "asserted": [
+     [
+      0,
+      1
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": null,
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   "zero_on_target": null
+  },
+  {
+   "active": false,
+   "answers": null,
+   "changed": true,
+   "declared": false,
+   "event": [
+    "assertWit",
+    0,
+    2
+   ],
+   "next_blocks": [],
+   "protected": false,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [],
+   "retained": false,
+   "singleton_proposals": [],
+   "state": {
+    "asserted": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": null,
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   "zero_on_target": null
+  },
+  {
+   "active": false,
+   "answers": null,
+   "changed": true,
+   "declared": false,
+   "event": [
+    "admitWit",
+    0,
+    2
+   ],
+   "next_blocks": [],
+   "protected": false,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [],
+   "retained": false,
+   "singleton_proposals": [],
+   "state": {
+    "asserted": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": null,
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ]
+    ]
+   },
+   "zero_on_target": null
+  },
+  {
+   "active": false,
+   "answers": null,
+   "changed": true,
+   "declared": false,
+   "event": [
+    "assertWit",
+    1,
+    2
+   ],
+   "next_blocks": [],
+   "protected": false,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [],
+   "retained": false,
+   "singleton_proposals": [],
+   "state": {
+    "asserted": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": null,
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ]
+    ]
+   },
+   "zero_on_target": null
+  },
+  {
+   "active": false,
+   "answers": null,
+   "changed": true,
+   "declared": false,
+   "event": [
+    "admitWit",
+    1,
+    2
+   ],
+   "next_blocks": [],
+   "protected": false,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [],
+   "retained": true,
+   "singleton_proposals": [],
+   "state": {
+    "asserted": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": null,
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "zero_on_target": null
+  },
+  {
+   "active": false,
+   "answers": null,
+   "changed": true,
+   "declared": false,
+   "event": [
+    "protect",
+    0,
+    1
+   ],
+   "next_blocks": [],
+   "protected": false,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [],
+   "retained": true,
+   "singleton_proposals": [],
+   "state": {
+    "asserted": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": null,
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ]
+    ],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "zero_on_target": null
+  },
+  {
+   "active": false,
+   "answers": null,
+   "changed": true,
+   "declared": false,
+   "event": [
+    "protect",
+    1,
+    2
+   ],
+   "next_blocks": [],
+   "protected": true,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [],
+   "retained": true,
+   "singleton_proposals": [],
+   "state": {
+    "asserted": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": null,
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "zero_on_target": null
+  },
+  {
+   "active": true,
+   "answers": [
+    [],
+    [],
+    []
+   ],
+   "changed": true,
+   "declared": true,
+   "event": [
+    "declareObs"
+   ],
+   "next_blocks": [
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       0
+      ]
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       1
+      ]
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       1
+      ]
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       2
+      ]
+     ]
+    ]
+   ],
+   "protected": true,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [],
+   "retained": true,
+   "singleton_proposals": [
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "state": {
+    "asserted": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": [],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "zero_on_target": true
+  },
+  {
+   "active": true,
+   "answers": [
+    [],
+    [],
+    []
+   ],
+   "changed": true,
+   "declared": true,
+   "event": [
+    "setBudget",
+    2
+   ],
+   "next_blocks": [
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       0
+      ]
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       1
+      ]
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       1
+      ]
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       2
+      ]
+     ]
+    ]
+   ],
+   "protected": true,
+   "reachable_store_invariant": true,
+   "repairs": [],
+   "response_menu": [],
+   "retained": true,
+   "singleton_proposals": [
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "state": {
+    "asserted": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 2,
+    "halted": false,
+    "licensed": true,
+    "obs": [],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "zero_on_target": true
+  },
+  {
+   "active": true,
+   "answers": [
+    [
+     true
+    ],
+    [
+     false
+    ],
+    [
+     false
+    ]
+   ],
+   "changed": true,
+   "declared": true,
+   "event": [
+    "addCol",
+    [
+     0
+    ]
+   ],
+   "next_blocks": [
+    [
+     [
+      "refineCol",
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       1
+      ]
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       2
+      ]
+     ]
+    ]
+   ],
+   "protected": true,
+   "reachable_store_invariant": true,
+   "repairs": [
+    [
+     [
+      0
+     ],
+     2
+    ]
+   ],
+   "response_menu": [
+    [
+     [
+      0
+     ],
+     0
+    ],
+    [
+     [
+      0
+     ],
+     1
+    ],
+    [
+     [
+      0
+     ],
+     2
+    ]
+   ],
+   "retained": true,
+   "singleton_proposals": [
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "state": {
+    "asserted": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "budget": 1,
+    "halted": false,
+    "licensed": true,
+    "obs": [
+     [
+      0
+     ]
+    ],
+    "occ": [
+     10,
+     20,
+     30
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "zero_on_target": true
+  }
+ ]
+}

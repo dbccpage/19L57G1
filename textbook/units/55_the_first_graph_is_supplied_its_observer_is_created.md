@@ -1,6 +1,6 @@
 # Unit 55. The first graph is supplied, its observer is created
 
-**Claim.** In the declared growth driver, supplied occurrences and edges create the graph, while each obstructed round creates an observation column. Higher-cell and boundary conventions are separate admissions.
+**Claim.** In the declared growth driver, supplied events admit occurrences and edges and explicitly attempt a chosen observation column. The guards and round theorems verify the column's execution and resolution. Higher-cell and boundary conventions are separate admissions.
 
 **Status:** FROZEN (the round schema and `graphAt_spec`, horizon-free);
 ADMITTED (the driver, the cell calculus, the boundary conventions:
@@ -17,7 +17,7 @@ Quot.sound`. **Depends on:** Unit 54 (`PState`, `step`, `replayP`,
 
 Follow one round before considering the whole run. The driver supplies an occurrence and an edge, retains and protects the pair, and supplies the required budget.
 
-The obstruction is then resolved by adding an observation column. The induction describes repetitions of this supplied growth pattern; it does not derive the supply of graph edges from observation alone.
+The driver also supplies the final `addCol` event. Its funded, licensed execution resolves the obstruction. The induction describes repetitions of this supplied growth pattern; it does not derive the driver, its column choice, or graph edges from the obstruction alone.
 
 ## Detailed claim and formal anchors
 
@@ -39,8 +39,11 @@ state (`round_resolution`); the last event of every round is that
 (`graphAt_quiescent`); the counts grow by one each
 (`graph_growth`).
 
-So the *driver* supplies the graph, occurrences and
-edges, and the *obstruction* creates the observation.
+The *driver* supplies the occurrence, pair-record, protection, budget,
+and chosen column events. The obstruction supplies the condition under
+which the chosen column qualifies; the step function checks the other
+guards and executes the supplied event. It does not choose or issue
+`addCol` by itself.
 
 Above dimension
 one nothing is forced: a declared cell calculus `cstep` admits a
@@ -55,7 +58,8 @@ so does a second, different convention (`boundary_not_forced`).
 
 ## Question
 
-Unit 54 showed one obstruction forced to one response. What happens
+Unit 54 gives a repair-or-extension family under its stated hypotheses,
+without selecting a unique response. What happens
 when the response is taken and the machine is fed again, and again? What
 is created each time, and by whom: the thing that feeds the machine, or
 the obstruction itself? And once the first graph is there, is anything
@@ -104,20 +108,24 @@ boundary down twice gives coefficient zero at every vertex or edge.
 
 Imagine a clerk who every morning brings one new item, declares it
 different from yesterday's, insists the difference be kept, and leaves
-one coin on the counter. The machine from Unit 54 does the rest: the new
+one budget unit in the state. The new
 pair is retained, protected, and the observation it already has cannot
 tell the new item from yesterday's, so the pair is obstructed. The
-machine proposes the only fresh column, the clerk's coin pays for it,
-the column is added, and the obstruction is gone. The theorem
+chosen singleton qualifies as a fresh-column proposal. The driver
+explicitly supplies its column event, the budget funds it, the column is
+added under the guards, and the obstruction is gone. The theorem
 `graphAt_spec` says that after `k + 1` mornings the room holds exactly:
 items `0` to `k + 1`, a kept difference between each item and the next,
 a demand on each, and one column per difference. That is a path, drawn
 as a graph: items are points, kept differences are edges.
 
 The provenance matters. The clerk brought the points and the edges. The
-obstruction brought the columns. The paper says it in one line: the
+guarded execution admitted the driver's chosen columns. The paper uses
+the shorthand:
 driver creates graph structure, the obstruction creates observation
-structure. Nothing in the machine conjures an edge; a driver in which
+structure. Here that shorthand means guarded execution of a column event
+that the driver explicitly supplies; an obstruction does not choose or
+execute that event by itself. Nothing in the machine conjures an edge; a driver in which
 edges themselves arise from obstructions is recorded as a conjecture,
 not a result (Unit 63).
 
@@ -481,11 +489,12 @@ theorem altNum_not_invariant :
 ## What has not been proved
 
 - That the graph was forced. The driver supplies every occurrence,
-  assertion, retention, protection and coin by declaration. What the
-  obstruction forces is the column. The paper's line "the driver creates
-  graph structure; the obstruction creates observation structure" is
-  the exact provenance, and the book's check prints the two creation
-  sources separately.
+  assertion, retention, protection, budget, and chosen column event by
+  declaration. The obstruction establishes eligibility of an extension
+  under the stated hypotheses; it does not select a unique column or
+  cause an event to occur. The paper's line "the driver creates graph
+  structure; the obstruction creates observation structure" is shorthand
+  for the declared driver and its guarded execution, not an autonomy theorem.
 - Audit finding 1. The module docstring calls `altNum` "a
   stage-invariant of the growth" which "the declared boundary calculus
   turns into" an invariant. No theorem relates `altNum` to the boundary

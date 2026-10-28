@@ -414,3 +414,74 @@ stand in `research/alpha_engine/STATUS.md`.
 | `textbook` job book-Lean gate (`ci/check_textbook.py --lean-only`) | `freshTok s12 = 3 := rfl` changed to `freshTok s12 = 99 := rfl` in `textbook/checks/u59_lean.py` | `FAIL: textbook/checks/u59_lean.py exited 1` (`U59.lean:7:0: error: Not a definitional equality ... lean exit code 1`), exit 1 | exit 0 (`textbook book-Lean checks: 71 passed`) |
 | `textbook` video pacing gate (`ci/check_textbook.py --python-only`) | first segment in `textbook/video_script_15s.md` changed to 11 words in 3 s (220 wpm) | `FAIL: video_script_15s.md: segment 0:00-0:03: pace 220.0 wpm exceeds 160.0 wpm`, exit 1 | exit 0 (`video_script_15s.md pacing: ok (4 segments, 15s total, all <= 160 wpm)`) |
 
+## First-steps route and research inventory (2026-10-28)
+
+No sealed file or research receipt was changed. The inventory injection
+used a generated scratch Wiki; the load injection used a disposable copy
+of the explorer. No receipt was regenerated while either defect was live.
+
+| Gate | Injection | Observed failure | Recovery |
+|---|---|---|---|
+| `textbook/media/verify_wiki_textbook.py` | Remove the `boundary_seed` table row and insert an excluded `notes` row in a generated research index | exit 1: `research inventory mismatch; missing research tree: boundary_seed; unexpected research tree: notes` | Restore the original bytes; exit 0, all 123 trees and 1,964 internal Wiki links checked |
+| First-steps browser load | Serve a copied explorer with its `cards.json` absent | Visible supplied-table load error; Run, Check recovery, and Reset disabled | Remove the temporary fixture; the ordinary explorer and single-file bundle display the declared cards, groups, and blocking pair |
+
+## Search-lab records and results desk (2026-10-28)
+
+Only generated scratch Wiki files and temporary/in-memory teaching copies
+were changed. No sealed source or receipt was rewritten. No regeneration
+ran while either scratch-Wiki injection was live.
+
+| Gate | Injection | Observed failure | Recovery |
+|---|---|---|---|
+| Wiki search-lab asset consistency | Remove one mu1 minimum from the copied `media/search_lab/recorded_lab.json` | Actual Wiki verifier exits 1: `stale search-lab record: recorded_lab.json` | Restore bytes; exit 0, 2,034 generated internal links pass |
+| Wiki search-lab desk consistency | Substitute `null` for the embedded packet in a copied `results.html` | Actual Wiki verifier exits 1: `stale search-lab results desk or unresolved reading/download links` | Restore bytes; exit 0 |
+| Full lesson-record check | Drop a raw minimum or change an exported price to `[999,999]` in temporary records | `check_recorded` raises the named record/export mismatch; both unit tests pass only on this refusal | Unchanged source-backed records pass |
+| Lesson population table | Change the arity-two reading-L class count from 3 to 99 in a temporary lesson source | `check_recorded` raises `The lesson population table differs from the computed cases` | Original six-row table passes |
+
+The lesson also evaluates separate in-memory export copies. Wrong root
+hash and missing merge map fail `verify_full_export`; changed cost metadata
+passes that narrower replay contract. The latter is an expected scope
+boundary, not a claim that event replay validates prices. The full
+lesson-record check separately rejects that price change.
+
+## Passage teaching route (2026-10-28)
+
+No sealed file was edited. Wiki injections used the generated scratch
+Wiki; original bytes were restored before the next check, without
+regenerating assets while a defect was live. The Lean injection altered
+only generated source in memory and used the actual book-Lean runner.
+
+| Gate | Injection | Observed failure | Recovery |
+|---|---|---|---|
+| Wiki passage record consistency | Drop one singleton proposal from the copied packet | Actual Wiki verifier exits 1: `stale change-lab record` | Restore original bytes; exit 0, 2,109 generated internal links pass |
+| Wiki passage desk consistency | Replace the embedded packet binding with `null` in the copied desk | Actual Wiki verifier exits 1: `stale change-lab desk or links` | Restore bytes; exit 0 |
+| Book-Lean event equality | Change only the expected after-state budget from zero to 99 in `operation_0_refine_C` | Lean rejects the equality; shared book-Lean runner exits 1 | Original 120 kernel/axiom reports pass, exactly `{propext, Quot.sound}` |
+| Full passage teaching record | Forge refinement's recorded outcome or drop a singleton proposal | `check_recorded` rejects the source/record mismatch | Original packet passes |
+| Passage population table | Replace the all-pairs repair count zero with 99 in a temporary source map | `check_recorded` rejects the population table | Original two-row table passes |
+
+The five authoring tests also check the fresh single-file desk and refuse
+negative tokens, endpoints, column members, and budgets in the teaching
+encoding. These tests do not change the sealed Python API's integer domain
+or establish a general Python-to-Lean refinement.
+
+## Reasoning prerequisite route (2026-10-28)
+
+Injections changed only generated scratch-Wiki files, temporary teaching
+records, or generated Lean source in memory. Original Wiki bytes were
+restored between checks; no regeneration ran with a live defect. No
+sealed source or research receipt was edited.
+
+| Gate | Injection | Observed failure | Recovery |
+|---|---|---|---|
+| Wiki reasoning record consistency | Forge a common witness from the default pairwise witnesses | Actual Wiki verifier exits 1: `stale reasoning-lab record` | Restore bytes; exit 0, 2,180 generated internal links pass |
+| Wiki reasoning desk consistency | Bind the copied desk's packet to `null` | Actual Wiki verifier exits 1: `stale reasoning-lab desk or links` | Restore bytes; exit 0 |
+| Book-Lean counterexample | Change `round 1 ≠ 1` to `round 1 = 1` in `reverse_fails_at_b` | Lean reports that `blue 1 = 1 ∧ round 1 = 1` is false; shared runner exits 1 | Original twelve kernel/axiom reports pass |
+| Full reasoning record | Adopt the failed reverse, invent an empty-domain witness, conflate pairwise/common witnesses, or remove a recovery blocking pair | `check_recorded` rejects each source/record disagreement | Original packet passes |
+| Reasoning population table | Enlarge the recorded conditional-comparison count from 147456 to 999999 in a temporary source map | `check_population` rejects the lesson population table after recomputation | Original eight-row table passes |
+
+The false-proof injection initially encountered a Windows output encoding
+failure while printing the Lean error. Repeating it with UTF-8 subprocess
+output exposed the actual named proof failure above. It was not accepted
+as a Lean rejection until that diagnostic was captured. The six authoring
+tests and record/desk checks pass after restoration.
+

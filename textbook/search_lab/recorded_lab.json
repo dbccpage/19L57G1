@@ -1,0 +1,5426 @@
+{
+ "all_main_two_item_plans": [
+  {
+   "delta": [
+    {
+     "kind": "datum"
+    },
+    {
+     "kind": "datum"
+    }
+   ],
+   "valid": false,
+   "witness": null
+  },
+  {
+   "delta": [
+    {
+     "kind": "datum"
+    },
+    {
+     "arity": 1,
+     "kind": "form"
+    }
+   ],
+   "valid": false,
+   "witness": null
+  },
+  {
+   "delta": [
+    {
+     "kind": "datum"
+    },
+    {
+     "arity": 2,
+     "kind": "form"
+    }
+   ],
+   "valid": false,
+   "witness": null
+  },
+  {
+   "delta": [
+    {
+     "arity": 1,
+     "kind": "form"
+    },
+    {
+     "arity": 1,
+     "kind": "form"
+    }
+   ],
+   "valid": false,
+   "witness": null
+  },
+  {
+   "delta": [
+    {
+     "arity": 1,
+     "kind": "form"
+    },
+    {
+     "arity": 2,
+     "kind": "form"
+    }
+   ],
+   "valid": false,
+   "witness": null
+  },
+  {
+   "delta": [
+    {
+     "arity": 1,
+     "kind": "form"
+    },
+    {
+     "form": 0,
+     "kind": "rule_all"
+    }
+   ],
+   "valid": false,
+   "witness": null
+  },
+  {
+   "delta": [
+    {
+     "arity": 1,
+     "kind": "form"
+    },
+    {
+     "args": [
+      0
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "valid": true,
+   "witness": {
+    "derivable": [
+     true,
+     false
+    ],
+    "form": 0,
+    "slots": [
+     null
+    ]
+   }
+  },
+  {
+   "delta": [
+    {
+     "arity": 1,
+     "kind": "form"
+    },
+    {
+     "args": [
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "valid": true,
+   "witness": {
+    "derivable": [
+     false,
+     true
+    ],
+    "form": 0,
+    "slots": [
+     null
+    ]
+   }
+  },
+  {
+   "delta": [
+    {
+     "arity": 2,
+     "kind": "form"
+    },
+    {
+     "arity": 2,
+     "kind": "form"
+    }
+   ],
+   "valid": false,
+   "witness": null
+  },
+  {
+   "delta": [
+    {
+     "arity": 2,
+     "kind": "form"
+    },
+    {
+     "form": 0,
+     "kind": "rule_all"
+    }
+   ],
+   "valid": false,
+   "witness": null
+  },
+  {
+   "delta": [
+    {
+     "arity": 2,
+     "kind": "form"
+    },
+    {
+     "args": [
+      0,
+      0
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "valid": true,
+   "witness": {
+    "derivable": [
+     true,
+     false
+    ],
+    "form": 0,
+    "slots": [
+     null,
+     null
+    ]
+   }
+  },
+  {
+   "delta": [
+    {
+     "arity": 2,
+     "kind": "form"
+    },
+    {
+     "args": [
+      0,
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "valid": true,
+   "witness": {
+    "derivable": [
+     true,
+     false
+    ],
+    "form": 0,
+    "slots": [
+     null,
+     1
+    ]
+   }
+  },
+  {
+   "delta": [
+    {
+     "arity": 2,
+     "kind": "form"
+    },
+    {
+     "args": [
+      1,
+      0
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "valid": true,
+   "witness": {
+    "derivable": [
+     false,
+     true
+    ],
+    "form": 0,
+    "slots": [
+     null,
+     0
+    ]
+   }
+  },
+  {
+   "delta": [
+    {
+     "arity": 2,
+     "kind": "form"
+    },
+    {
+     "args": [
+      1,
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "valid": true,
+   "witness": {
+    "derivable": [
+     false,
+     true
+    ],
+    "form": 0,
+    "slots": [
+     null,
+     null
+    ]
+   }
+  }
+ ],
+ "authority_effect": "None",
+ "cases": {
+  "F_arity_1": {
+   "base": {
+    "data": [
+     "<>",
+     "<a>",
+     "<ab>"
+    ],
+    "forms": [],
+    "insts": [],
+    "reqs": [],
+    "rules": []
+   },
+   "bounds": {
+    "max_arity": 1,
+    "max_items": 2
+   },
+   "layers": [
+    {
+     "items": 0,
+     "valid": 0,
+     "well_formed": 1
+    },
+    {
+     "items": 1,
+     "valid": 0,
+     "well_formed": 2
+    },
+    {
+     "items": 2,
+     "valid": 2,
+     "well_formed": 7
+    }
+   ],
+   "results": {
+    "mu1": {
+     "api_cost": [
+      2,
+      -1
+     ],
+     "classes": [
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1,
+          2
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 0
+        },
+        {
+         "dmap": [
+          0,
+          2,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 1
+        }
+       ],
+       "members": [
+        0,
+        1
+       ],
+       "representative": [
+        {
+         "arity": 1,
+         "kind": "form"
+        },
+        {
+         "args": [
+          1
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null
+        ]
+       }
+      }
+     ],
+     "display_cost": 2,
+     "raw_minima": [
+      [
+       {
+        "arity": 1,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 1,
+        "kind": "form"
+       },
+       {
+        "args": [
+         2
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ]
+     ]
+    },
+    "mu2": {
+     "api_cost": [
+      2,
+      1
+     ],
+     "classes": [
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1,
+          2
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 0
+        },
+        {
+         "dmap": [
+          0,
+          2,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 1
+        }
+       ],
+       "members": [
+        0,
+        1
+       ],
+       "representative": [
+        {
+         "arity": 1,
+         "kind": "form"
+        },
+        {
+         "args": [
+          1
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null
+        ]
+       }
+      }
+     ],
+     "display_cost": [
+      2,
+      1
+     ],
+     "raw_minima": [
+      [
+       {
+        "arity": 1,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 1,
+        "kind": "form"
+       },
+       {
+        "args": [
+         2
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ]
+     ]
+    }
+   },
+   "target": [
+    1,
+    2
+   ]
+  },
+  "F_arity_2": {
+   "base": {
+    "data": [
+     "<>",
+     "<a>",
+     "<ab>"
+    ],
+    "forms": [],
+    "insts": [],
+    "reqs": [],
+    "rules": []
+   },
+   "bounds": {
+    "max_arity": 2,
+    "max_items": 2
+   },
+   "layers": [
+    {
+     "items": 0,
+     "valid": 0,
+     "well_formed": 1
+    },
+    {
+     "items": 1,
+     "valid": 0,
+     "well_formed": 3
+    },
+    {
+     "items": 2,
+     "valid": 10,
+     "well_formed": 20
+    }
+   ],
+   "results": {
+    "mu1": {
+     "api_cost": [
+      2,
+      -1
+     ],
+     "classes": [
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1,
+          2
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 0
+        },
+        {
+         "dmap": [
+          0,
+          2,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 1
+        }
+       ],
+       "members": [
+        0,
+        1
+       ],
+       "representative": [
+        {
+         "arity": 1,
+         "kind": "form"
+        },
+        {
+         "args": [
+          1
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1,
+          2
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 2
+        },
+        {
+         "dmap": [
+          0,
+          2,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 3
+        }
+       ],
+       "members": [
+        2,
+        3
+       ],
+       "representative": [
+        {
+         "arity": 2,
+         "kind": "form"
+        },
+        {
+         "args": [
+          0,
+          1
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         0,
+         null
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1,
+          2
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 4
+        },
+        {
+         "dmap": [
+          0,
+          2,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 7
+        }
+       ],
+       "members": [
+        4,
+        7
+       ],
+       "representative": [
+        {
+         "arity": 2,
+         "kind": "form"
+        },
+        {
+         "args": [
+          1,
+          0
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null,
+         0
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1,
+          2
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 5
+        },
+        {
+         "dmap": [
+          0,
+          2,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 9
+        }
+       ],
+       "members": [
+        5,
+        9
+       ],
+       "representative": [
+        {
+         "arity": 2,
+         "kind": "form"
+        },
+        {
+         "args": [
+          1,
+          1
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null,
+         null
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1,
+          2
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 6
+        },
+        {
+         "dmap": [
+          0,
+          2,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 8
+        }
+       ],
+       "members": [
+        6,
+        8
+       ],
+       "representative": [
+        {
+         "arity": 2,
+         "kind": "form"
+        },
+        {
+         "args": [
+          1,
+          2
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null,
+         2
+        ]
+       }
+      }
+     ],
+     "display_cost": 2,
+     "raw_minima": [
+      [
+       {
+        "arity": 1,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 1,
+        "kind": "form"
+       },
+       {
+        "args": [
+         2
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 2,
+        "kind": "form"
+       },
+       {
+        "args": [
+         0,
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 2,
+        "kind": "form"
+       },
+       {
+        "args": [
+         0,
+         2
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 2,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1,
+         0
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 2,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1,
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 2,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1,
+         2
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 2,
+        "kind": "form"
+       },
+       {
+        "args": [
+         2,
+         0
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 2,
+        "kind": "form"
+       },
+       {
+        "args": [
+         2,
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 2,
+        "kind": "form"
+       },
+       {
+        "args": [
+         2,
+         2
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ]
+     ]
+    },
+    "mu2": {
+     "api_cost": [
+      2,
+      1
+     ],
+     "classes": [
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1,
+          2
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 0
+        },
+        {
+         "dmap": [
+          0,
+          2,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 1
+        }
+       ],
+       "members": [
+        0,
+        1
+       ],
+       "representative": [
+        {
+         "arity": 1,
+         "kind": "form"
+        },
+        {
+         "args": [
+          1
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null
+        ]
+       }
+      }
+     ],
+     "display_cost": [
+      2,
+      1
+     ],
+     "raw_minima": [
+      [
+       {
+        "arity": 1,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 1,
+        "kind": "form"
+       },
+       {
+        "args": [
+         2
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ]
+     ]
+    }
+   },
+   "target": [
+    1,
+    2
+   ]
+  },
+  "F_arity_3": {
+   "base": {
+    "data": [
+     "<>",
+     "<a>",
+     "<ab>"
+    ],
+    "forms": [],
+    "insts": [],
+    "reqs": [],
+    "rules": []
+   },
+   "bounds": {
+    "max_arity": 3,
+    "max_items": 2
+   },
+   "layers": [
+    {
+     "items": 0,
+     "valid": 0,
+     "well_formed": 1
+    },
+    {
+     "items": 1,
+     "valid": 0,
+     "well_formed": 4
+    },
+    {
+     "items": 2,
+     "valid": 36,
+     "well_formed": 52
+    }
+   ],
+   "results": {
+    "mu1": {
+     "api_cost": [
+      2,
+      -1
+     ],
+     "classes": [
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1,
+          2
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 0
+        },
+        {
+         "dmap": [
+          0,
+          2,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 1
+        }
+       ],
+       "members": [
+        0,
+        1
+       ],
+       "representative": [
+        {
+         "arity": 1,
+         "kind": "form"
+        },
+        {
+         "args": [
+          1
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1,
+          2
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 2
+        },
+        {
+         "dmap": [
+          0,
+          2,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 3
+        }
+       ],
+       "members": [
+        2,
+        3
+       ],
+       "representative": [
+        {
+         "arity": 2,
+         "kind": "form"
+        },
+        {
+         "args": [
+          0,
+          1
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         0,
+         null
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1,
+          2
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 4
+        },
+        {
+         "dmap": [
+          0,
+          2,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 7
+        }
+       ],
+       "members": [
+        4,
+        7
+       ],
+       "representative": [
+        {
+         "arity": 2,
+         "kind": "form"
+        },
+        {
+         "args": [
+          1,
+          0
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null,
+         0
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1,
+          2
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 5
+        },
+        {
+         "dmap": [
+          0,
+          2,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 9
+        }
+       ],
+       "members": [
+        5,
+        9
+       ],
+       "representative": [
+        {
+         "arity": 2,
+         "kind": "form"
+        },
+        {
+         "args": [
+          1,
+          1
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null,
+         null
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1,
+          2
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 6
+        },
+        {
+         "dmap": [
+          0,
+          2,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 8
+        }
+       ],
+       "members": [
+        6,
+        8
+       ],
+       "representative": [
+        {
+         "arity": 2,
+         "kind": "form"
+        },
+        {
+         "args": [
+          1,
+          2
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null,
+         2
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1,
+          2
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 10
+        },
+        {
+         "dmap": [
+          0,
+          2,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 11
+        }
+       ],
+       "members": [
+        10,
+        11
+       ],
+       "representative": [
+        {
+         "arity": 3,
+         "kind": "form"
+        },
+        {
+         "args": [
+          0,
+          0,
+          1
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         0,
+         0,
+         null
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1,
+          2
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 12
+        },
+        {
+         "dmap": [
+          0,
+          2,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 15
+        }
+       ],
+       "members": [
+        12,
+        15
+       ],
+       "representative": [
+        {
+         "arity": 3,
+         "kind": "form"
+        },
+        {
+         "args": [
+          0,
+          1,
+          0
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         0,
+         null,
+         0
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1,
+          2
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 13
+        },
+        {
+         "dmap": [
+          0,
+          2,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 17
+        }
+       ],
+       "members": [
+        13,
+        17
+       ],
+       "representative": [
+        {
+         "arity": 3,
+         "kind": "form"
+        },
+        {
+         "args": [
+          0,
+          1,
+          1
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         0,
+         null,
+         null
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1,
+          2
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 14
+        },
+        {
+         "dmap": [
+          0,
+          2,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 16
+        }
+       ],
+       "members": [
+        14,
+        16
+       ],
+       "representative": [
+        {
+         "arity": 3,
+         "kind": "form"
+        },
+        {
+         "args": [
+          0,
+          1,
+          2
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         0,
+         null,
+         2
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1,
+          2
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 18
+        },
+        {
+         "dmap": [
+          0,
+          2,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 27
+        }
+       ],
+       "members": [
+        18,
+        27
+       ],
+       "representative": [
+        {
+         "arity": 3,
+         "kind": "form"
+        },
+        {
+         "args": [
+          1,
+          0,
+          0
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null,
+         0,
+         0
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1,
+          2
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 19
+        },
+        {
+         "dmap": [
+          0,
+          2,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 29
+        }
+       ],
+       "members": [
+        19,
+        29
+       ],
+       "representative": [
+        {
+         "arity": 3,
+         "kind": "form"
+        },
+        {
+         "args": [
+          1,
+          0,
+          1
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null,
+         0,
+         null
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1,
+          2
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 20
+        },
+        {
+         "dmap": [
+          0,
+          2,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 28
+        }
+       ],
+       "members": [
+        20,
+        28
+       ],
+       "representative": [
+        {
+         "arity": 3,
+         "kind": "form"
+        },
+        {
+         "args": [
+          1,
+          0,
+          2
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null,
+         0,
+         2
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1,
+          2
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 21
+        },
+        {
+         "dmap": [
+          0,
+          2,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 33
+        }
+       ],
+       "members": [
+        21,
+        33
+       ],
+       "representative": [
+        {
+         "arity": 3,
+         "kind": "form"
+        },
+        {
+         "args": [
+          1,
+          1,
+          0
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null,
+         null,
+         0
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1,
+          2
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 22
+        },
+        {
+         "dmap": [
+          0,
+          2,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 35
+        }
+       ],
+       "members": [
+        22,
+        35
+       ],
+       "representative": [
+        {
+         "arity": 3,
+         "kind": "form"
+        },
+        {
+         "args": [
+          1,
+          1,
+          1
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null,
+         null,
+         null
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1,
+          2
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 23
+        },
+        {
+         "dmap": [
+          0,
+          2,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 34
+        }
+       ],
+       "members": [
+        23,
+        34
+       ],
+       "representative": [
+        {
+         "arity": 3,
+         "kind": "form"
+        },
+        {
+         "args": [
+          1,
+          1,
+          2
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null,
+         null,
+         2
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1,
+          2
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 24
+        },
+        {
+         "dmap": [
+          0,
+          2,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 30
+        }
+       ],
+       "members": [
+        24,
+        30
+       ],
+       "representative": [
+        {
+         "arity": 3,
+         "kind": "form"
+        },
+        {
+         "args": [
+          1,
+          2,
+          0
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null,
+         2,
+         0
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1,
+          2
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 25
+        },
+        {
+         "dmap": [
+          0,
+          2,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 32
+        }
+       ],
+       "members": [
+        25,
+        32
+       ],
+       "representative": [
+        {
+         "arity": 3,
+         "kind": "form"
+        },
+        {
+         "args": [
+          1,
+          2,
+          1
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null,
+         2,
+         null
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1,
+          2
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 26
+        },
+        {
+         "dmap": [
+          0,
+          2,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 31
+        }
+       ],
+       "members": [
+        26,
+        31
+       ],
+       "representative": [
+        {
+         "arity": 3,
+         "kind": "form"
+        },
+        {
+         "args": [
+          1,
+          2,
+          2
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null,
+         2,
+         2
+        ]
+       }
+      }
+     ],
+     "display_cost": 2,
+     "raw_minima": [
+      [
+       {
+        "arity": 1,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 1,
+        "kind": "form"
+       },
+       {
+        "args": [
+         2
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 2,
+        "kind": "form"
+       },
+       {
+        "args": [
+         0,
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 2,
+        "kind": "form"
+       },
+       {
+        "args": [
+         0,
+         2
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 2,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1,
+         0
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 2,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1,
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 2,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1,
+         2
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 2,
+        "kind": "form"
+       },
+       {
+        "args": [
+         2,
+         0
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 2,
+        "kind": "form"
+       },
+       {
+        "args": [
+         2,
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 2,
+        "kind": "form"
+       },
+       {
+        "args": [
+         2,
+         2
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         0,
+         0,
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         0,
+         0,
+         2
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         0,
+         1,
+         0
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         0,
+         1,
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         0,
+         1,
+         2
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         0,
+         2,
+         0
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         0,
+         2,
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         0,
+         2,
+         2
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1,
+         0,
+         0
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1,
+         0,
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1,
+         0,
+         2
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1,
+         1,
+         0
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1,
+         1,
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1,
+         1,
+         2
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1,
+         2,
+         0
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1,
+         2,
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1,
+         2,
+         2
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         2,
+         0,
+         0
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         2,
+         0,
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         2,
+         0,
+         2
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         2,
+         1,
+         0
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         2,
+         1,
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         2,
+         1,
+         2
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         2,
+         2,
+         0
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         2,
+         2,
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         2,
+         2,
+         2
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ]
+     ]
+    },
+    "mu2": {
+     "api_cost": [
+      2,
+      1
+     ],
+     "classes": [
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1,
+          2
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 0
+        },
+        {
+         "dmap": [
+          0,
+          2,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 1
+        }
+       ],
+       "members": [
+        0,
+        1
+       ],
+       "representative": [
+        {
+         "arity": 1,
+         "kind": "form"
+        },
+        {
+         "args": [
+          1
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null
+        ]
+       }
+      }
+     ],
+     "display_cost": [
+      2,
+      1
+     ],
+     "raw_minima": [
+      [
+       {
+        "arity": 1,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 1,
+        "kind": "form"
+       },
+       {
+        "args": [
+         2
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ]
+     ]
+    }
+   },
+   "target": [
+    1,
+    2
+   ]
+  },
+  "L_arity_1": {
+   "base": {
+    "data": [
+     "<a>",
+     "<ab>"
+    ],
+    "forms": [],
+    "insts": [],
+    "reqs": [],
+    "rules": []
+   },
+   "bounds": {
+    "max_arity": 1,
+    "max_items": 2
+   },
+   "layers": [
+    {
+     "items": 0,
+     "valid": 0,
+     "well_formed": 1
+    },
+    {
+     "items": 1,
+     "valid": 0,
+     "well_formed": 2
+    },
+    {
+     "items": 2,
+     "valid": 2,
+     "well_formed": 6
+    }
+   ],
+   "results": {
+    "mu1": {
+     "api_cost": [
+      2,
+      -1
+     ],
+     "classes": [
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 0
+        },
+        {
+         "dmap": [
+          1,
+          0
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 1
+        }
+       ],
+       "members": [
+        0,
+        1
+       ],
+       "representative": [
+        {
+         "arity": 1,
+         "kind": "form"
+        },
+        {
+         "args": [
+          0
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null
+        ]
+       }
+      }
+     ],
+     "display_cost": 2,
+     "raw_minima": [
+      [
+       {
+        "arity": 1,
+        "kind": "form"
+       },
+       {
+        "args": [
+         0
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 1,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ]
+     ]
+    },
+    "mu2": {
+     "api_cost": [
+      2,
+      1
+     ],
+     "classes": [
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 0
+        },
+        {
+         "dmap": [
+          1,
+          0
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 1
+        }
+       ],
+       "members": [
+        0,
+        1
+       ],
+       "representative": [
+        {
+         "arity": 1,
+         "kind": "form"
+        },
+        {
+         "args": [
+          0
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null
+        ]
+       }
+      }
+     ],
+     "display_cost": [
+      2,
+      1
+     ],
+     "raw_minima": [
+      [
+       {
+        "arity": 1,
+        "kind": "form"
+       },
+       {
+        "args": [
+         0
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 1,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ]
+     ]
+    }
+   },
+   "target": [
+    0,
+    1
+   ]
+  },
+  "L_arity_2": {
+   "base": {
+    "data": [
+     "<a>",
+     "<ab>"
+    ],
+    "forms": [],
+    "insts": [],
+    "reqs": [],
+    "rules": []
+   },
+   "bounds": {
+    "max_arity": 2,
+    "max_items": 2
+   },
+   "layers": [
+    {
+     "items": 0,
+     "valid": 0,
+     "well_formed": 1
+    },
+    {
+     "items": 1,
+     "valid": 0,
+     "well_formed": 3
+    },
+    {
+     "items": 2,
+     "valid": 6,
+     "well_formed": 14
+    }
+   ],
+   "results": {
+    "mu1": {
+     "api_cost": [
+      2,
+      -1
+     ],
+     "classes": [
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 0
+        },
+        {
+         "dmap": [
+          1,
+          0
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 1
+        }
+       ],
+       "members": [
+        0,
+        1
+       ],
+       "representative": [
+        {
+         "arity": 1,
+         "kind": "form"
+        },
+        {
+         "args": [
+          0
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 2
+        },
+        {
+         "dmap": [
+          1,
+          0
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 5
+        }
+       ],
+       "members": [
+        2,
+        5
+       ],
+       "representative": [
+        {
+         "arity": 2,
+         "kind": "form"
+        },
+        {
+         "args": [
+          0,
+          0
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null,
+         null
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 3
+        },
+        {
+         "dmap": [
+          1,
+          0
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 4
+        }
+       ],
+       "members": [
+        3,
+        4
+       ],
+       "representative": [
+        {
+         "arity": 2,
+         "kind": "form"
+        },
+        {
+         "args": [
+          0,
+          1
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null,
+         1
+        ]
+       }
+      }
+     ],
+     "display_cost": 2,
+     "raw_minima": [
+      [
+       {
+        "arity": 1,
+        "kind": "form"
+       },
+       {
+        "args": [
+         0
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 1,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 2,
+        "kind": "form"
+       },
+       {
+        "args": [
+         0,
+         0
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 2,
+        "kind": "form"
+       },
+       {
+        "args": [
+         0,
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 2,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1,
+         0
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 2,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1,
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ]
+     ]
+    },
+    "mu2": {
+     "api_cost": [
+      2,
+      1
+     ],
+     "classes": [
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 0
+        },
+        {
+         "dmap": [
+          1,
+          0
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 1
+        }
+       ],
+       "members": [
+        0,
+        1
+       ],
+       "representative": [
+        {
+         "arity": 1,
+         "kind": "form"
+        },
+        {
+         "args": [
+          0
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null
+        ]
+       }
+      }
+     ],
+     "display_cost": [
+      2,
+      1
+     ],
+     "raw_minima": [
+      [
+       {
+        "arity": 1,
+        "kind": "form"
+       },
+       {
+        "args": [
+         0
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 1,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ]
+     ]
+    }
+   },
+   "target": [
+    0,
+    1
+   ]
+  },
+  "L_arity_3": {
+   "base": {
+    "data": [
+     "<a>",
+     "<ab>"
+    ],
+    "forms": [],
+    "insts": [],
+    "reqs": [],
+    "rules": []
+   },
+   "bounds": {
+    "max_arity": 3,
+    "max_items": 2
+   },
+   "layers": [
+    {
+     "items": 0,
+     "valid": 0,
+     "well_formed": 1
+    },
+    {
+     "items": 1,
+     "valid": 0,
+     "well_formed": 4
+    },
+    {
+     "items": 2,
+     "valid": 14,
+     "well_formed": 27
+    }
+   ],
+   "results": {
+    "mu1": {
+     "api_cost": [
+      2,
+      -1
+     ],
+     "classes": [
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 0
+        },
+        {
+         "dmap": [
+          1,
+          0
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 1
+        }
+       ],
+       "members": [
+        0,
+        1
+       ],
+       "representative": [
+        {
+         "arity": 1,
+         "kind": "form"
+        },
+        {
+         "args": [
+          0
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 2
+        },
+        {
+         "dmap": [
+          1,
+          0
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 5
+        }
+       ],
+       "members": [
+        2,
+        5
+       ],
+       "representative": [
+        {
+         "arity": 2,
+         "kind": "form"
+        },
+        {
+         "args": [
+          0,
+          0
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null,
+         null
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 3
+        },
+        {
+         "dmap": [
+          1,
+          0
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 4
+        }
+       ],
+       "members": [
+        3,
+        4
+       ],
+       "representative": [
+        {
+         "arity": 2,
+         "kind": "form"
+        },
+        {
+         "args": [
+          0,
+          1
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null,
+         1
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 6
+        },
+        {
+         "dmap": [
+          1,
+          0
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 13
+        }
+       ],
+       "members": [
+        6,
+        13
+       ],
+       "representative": [
+        {
+         "arity": 3,
+         "kind": "form"
+        },
+        {
+         "args": [
+          0,
+          0,
+          0
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null,
+         null,
+         null
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 7
+        },
+        {
+         "dmap": [
+          1,
+          0
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 12
+        }
+       ],
+       "members": [
+        7,
+        12
+       ],
+       "representative": [
+        {
+         "arity": 3,
+         "kind": "form"
+        },
+        {
+         "args": [
+          0,
+          0,
+          1
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null,
+         null,
+         1
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 8
+        },
+        {
+         "dmap": [
+          1,
+          0
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 11
+        }
+       ],
+       "members": [
+        8,
+        11
+       ],
+       "representative": [
+        {
+         "arity": 3,
+         "kind": "form"
+        },
+        {
+         "args": [
+          0,
+          1,
+          0
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null,
+         1,
+         null
+        ]
+       }
+      },
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 9
+        },
+        {
+         "dmap": [
+          1,
+          0
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 10
+        }
+       ],
+       "members": [
+        9,
+        10
+       ],
+       "representative": [
+        {
+         "arity": 3,
+         "kind": "form"
+        },
+        {
+         "args": [
+          0,
+          1,
+          1
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null,
+         1,
+         1
+        ]
+       }
+      }
+     ],
+     "display_cost": 2,
+     "raw_minima": [
+      [
+       {
+        "arity": 1,
+        "kind": "form"
+       },
+       {
+        "args": [
+         0
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 1,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 2,
+        "kind": "form"
+       },
+       {
+        "args": [
+         0,
+         0
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 2,
+        "kind": "form"
+       },
+       {
+        "args": [
+         0,
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 2,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1,
+         0
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 2,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1,
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         0,
+         0,
+         0
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         0,
+         0,
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         0,
+         1,
+         0
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         0,
+         1,
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1,
+         0,
+         0
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1,
+         0,
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1,
+         1,
+         0
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 3,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1,
+         1,
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ]
+     ]
+    },
+    "mu2": {
+     "api_cost": [
+      2,
+      1
+     ],
+     "classes": [
+      {
+       "mappings_to_representative": [
+        {
+         "dmap": [
+          0,
+          1
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 0
+        },
+        {
+         "dmap": [
+          1,
+          0
+         ],
+         "fmap": [
+          0
+         ],
+         "member": 1
+        }
+       ],
+       "members": [
+        0,
+        1
+       ],
+       "representative": [
+        {
+         "arity": 1,
+         "kind": "form"
+        },
+        {
+         "args": [
+          0
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ],
+       "witness": {
+        "derivable": [
+         true,
+         false
+        ],
+        "form": 0,
+        "slots": [
+         null
+        ]
+       }
+      }
+     ],
+     "display_cost": [
+      2,
+      1
+     ],
+     "raw_minima": [
+      [
+       {
+        "arity": 1,
+        "kind": "form"
+       },
+       {
+        "args": [
+         0
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      [
+       {
+        "arity": 1,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ]
+     ]
+    }
+   },
+   "target": [
+    0,
+    1
+   ]
+  }
+ },
+ "extended_export": {
+  "file": "reading_L_mu1_rounds5.json",
+  "merge_edges": 3,
+  "replay_checks": {
+   "changed_cost_metadata": true,
+   "missing_merge_map": false,
+   "ordinary_export": true,
+   "wrong_root_hash": false
+  },
+  "sha256": "059643a89c5ec9a70263879673efde48687f3b03c51dc1b02ee9e1fdf1b2be84",
+  "stats": {
+   "all_certified": true,
+   "by_status": {
+    "completed": 92,
+    "expanded": 36
+   },
+   "edges": 130,
+   "expansions_with_multiple_orbits": 0,
+   "expansions_with_ties": 12,
+   "max_depth": 5,
+   "nodes": 128,
+   "roles": {
+    "discrimination": 99,
+    "innovation": 8,
+    "supply": 23
+   }
+  }
+ },
+ "main_bounds": {
+  "max_arity": 2,
+  "max_items": 2
+ },
+ "main_reading": "L",
+ "malformed_instance_error": "unknown form 0",
+ "preservation": {
+  "AB_and_AC_protected": {
+   "alternatives": [
+    {
+     "admission_well_formed": true,
+     "delta": [
+      {
+       "args": [
+        1
+       ],
+       "form": 0,
+       "kind": "inst"
+      }
+     ],
+     "items": 1,
+     "name": "mark_B_on_old_form",
+     "separated_AB_AC_BC": [
+      false,
+      true,
+      true
+     ],
+     "valid_response": false
+    },
+    {
+     "admission_well_formed": true,
+     "delta": [
+      {
+       "args": [
+        2
+       ],
+       "form": 0,
+       "kind": "inst"
+      }
+     ],
+     "items": 1,
+     "name": "mark_C_on_old_form",
+     "separated_AB_AC_BC": [
+      true,
+      false,
+      true
+     ],
+     "valid_response": false
+    },
+    {
+     "admission_well_formed": true,
+     "delta": [
+      {
+       "arity": 1,
+       "kind": "form"
+      },
+      {
+       "args": [
+        1
+       ],
+       "form": 1,
+       "kind": "inst"
+      }
+     ],
+     "items": 2,
+     "name": "new_unary_form_marking_B",
+     "separated_AB_AC_BC": [
+      true,
+      true,
+      true
+     ],
+     "valid_response": true
+    }
+   ],
+   "before": {
+    "data": [
+     "<a>",
+     "<ab>",
+     "C"
+    ],
+    "forms": [
+     1
+    ],
+    "insts": [
+     [
+      0,
+      [
+       0
+      ]
+     ]
+    ],
+    "reqs": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "rules": []
+   },
+   "search_one_item": {
+    "base": {
+     "data": [
+      "<a>",
+      "<ab>",
+      "C"
+     ],
+     "forms": [
+      1
+     ],
+     "insts": [
+      [
+       0,
+       [
+        0
+       ]
+      ]
+     ],
+     "reqs": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ]
+     ],
+     "rules": []
+    },
+    "bounds": {
+     "max_arity": 2,
+     "max_items": 1
+    },
+    "layers": [
+     {
+      "items": 0,
+      "valid": 0,
+      "well_formed": 1
+     },
+     {
+      "items": 1,
+      "valid": 0,
+      "well_formed": 7
+     }
+    ],
+    "results": {
+     "mu1": null,
+     "mu2": null
+    },
+    "target": [
+     1,
+     2
+    ]
+   },
+   "search_two_items": {
+    "base": {
+     "data": [
+      "<a>",
+      "<ab>",
+      "C"
+     ],
+     "forms": [
+      1
+     ],
+     "insts": [
+      [
+       0,
+       [
+        0
+       ]
+      ]
+     ],
+     "reqs": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ]
+     ],
+     "rules": []
+    },
+    "bounds": {
+     "max_arity": 2,
+     "max_items": 2
+    },
+    "layers": [
+     {
+      "items": 0,
+      "valid": 0,
+      "well_formed": 1
+     },
+     {
+      "items": 1,
+      "valid": 0,
+      "well_formed": 7
+     },
+     {
+      "items": 2,
+      "valid": 10,
+      "well_formed": 43
+     }
+    ],
+    "results": {
+     "mu1": {
+      "api_cost": [
+       2,
+       -1
+      ],
+      "classes": [
+       {
+        "mappings_to_representative": [
+         {
+          "dmap": [
+           0,
+           1,
+           2
+          ],
+          "fmap": [
+           0,
+           1
+          ],
+          "member": 0
+         },
+         {
+          "dmap": [
+           0,
+           2,
+           1
+          ],
+          "fmap": [
+           0,
+           1
+          ],
+          "member": 1
+         }
+        ],
+        "members": [
+         0,
+         1
+        ],
+        "representative": [
+         {
+          "arity": 1,
+          "kind": "form"
+         },
+         {
+          "args": [
+           1
+          ],
+          "form": 1,
+          "kind": "inst"
+         }
+        ],
+        "witness": {
+         "derivable": [
+          true,
+          false
+         ],
+         "form": 1,
+         "slots": [
+          null
+         ]
+        }
+       },
+       {
+        "mappings_to_representative": [
+         {
+          "dmap": [
+           0,
+           1,
+           2
+          ],
+          "fmap": [
+           0,
+           1
+          ],
+          "member": 2
+         },
+         {
+          "dmap": [
+           0,
+           2,
+           1
+          ],
+          "fmap": [
+           0,
+           1
+          ],
+          "member": 3
+         }
+        ],
+        "members": [
+         2,
+         3
+        ],
+        "representative": [
+         {
+          "arity": 2,
+          "kind": "form"
+         },
+         {
+          "args": [
+           0,
+           1
+          ],
+          "form": 1,
+          "kind": "inst"
+         }
+        ],
+        "witness": {
+         "derivable": [
+          true,
+          false
+         ],
+         "form": 1,
+         "slots": [
+          0,
+          null
+         ]
+        }
+       },
+       {
+        "mappings_to_representative": [
+         {
+          "dmap": [
+           0,
+           1,
+           2
+          ],
+          "fmap": [
+           0,
+           1
+          ],
+          "member": 4
+         },
+         {
+          "dmap": [
+           0,
+           2,
+           1
+          ],
+          "fmap": [
+           0,
+           1
+          ],
+          "member": 7
+         }
+        ],
+        "members": [
+         4,
+         7
+        ],
+        "representative": [
+         {
+          "arity": 2,
+          "kind": "form"
+         },
+         {
+          "args": [
+           1,
+           0
+          ],
+          "form": 1,
+          "kind": "inst"
+         }
+        ],
+        "witness": {
+         "derivable": [
+          true,
+          false
+         ],
+         "form": 1,
+         "slots": [
+          null,
+          0
+         ]
+        }
+       },
+       {
+        "mappings_to_representative": [
+         {
+          "dmap": [
+           0,
+           1,
+           2
+          ],
+          "fmap": [
+           0,
+           1
+          ],
+          "member": 5
+         },
+         {
+          "dmap": [
+           0,
+           2,
+           1
+          ],
+          "fmap": [
+           0,
+           1
+          ],
+          "member": 9
+         }
+        ],
+        "members": [
+         5,
+         9
+        ],
+        "representative": [
+         {
+          "arity": 2,
+          "kind": "form"
+         },
+         {
+          "args": [
+           1,
+           1
+          ],
+          "form": 1,
+          "kind": "inst"
+         }
+        ],
+        "witness": {
+         "derivable": [
+          true,
+          false
+         ],
+         "form": 1,
+         "slots": [
+          null,
+          null
+         ]
+        }
+       },
+       {
+        "mappings_to_representative": [
+         {
+          "dmap": [
+           0,
+           1,
+           2
+          ],
+          "fmap": [
+           0,
+           1
+          ],
+          "member": 6
+         },
+         {
+          "dmap": [
+           0,
+           2,
+           1
+          ],
+          "fmap": [
+           0,
+           1
+          ],
+          "member": 8
+         }
+        ],
+        "members": [
+         6,
+         8
+        ],
+        "representative": [
+         {
+          "arity": 2,
+          "kind": "form"
+         },
+         {
+          "args": [
+           1,
+           2
+          ],
+          "form": 1,
+          "kind": "inst"
+         }
+        ],
+        "witness": {
+         "derivable": [
+          true,
+          false
+         ],
+         "form": 1,
+         "slots": [
+          null,
+          2
+         ]
+        }
+       }
+      ],
+      "display_cost": 2,
+      "raw_minima": [
+       [
+        {
+         "arity": 1,
+         "kind": "form"
+        },
+        {
+         "args": [
+          1
+         ],
+         "form": 1,
+         "kind": "inst"
+        }
+       ],
+       [
+        {
+         "arity": 1,
+         "kind": "form"
+        },
+        {
+         "args": [
+          2
+         ],
+         "form": 1,
+         "kind": "inst"
+        }
+       ],
+       [
+        {
+         "arity": 2,
+         "kind": "form"
+        },
+        {
+         "args": [
+          0,
+          1
+         ],
+         "form": 1,
+         "kind": "inst"
+        }
+       ],
+       [
+        {
+         "arity": 2,
+         "kind": "form"
+        },
+        {
+         "args": [
+          0,
+          2
+         ],
+         "form": 1,
+         "kind": "inst"
+        }
+       ],
+       [
+        {
+         "arity": 2,
+         "kind": "form"
+        },
+        {
+         "args": [
+          1,
+          0
+         ],
+         "form": 1,
+         "kind": "inst"
+        }
+       ],
+       [
+        {
+         "arity": 2,
+         "kind": "form"
+        },
+        {
+         "args": [
+          1,
+          1
+         ],
+         "form": 1,
+         "kind": "inst"
+        }
+       ],
+       [
+        {
+         "arity": 2,
+         "kind": "form"
+        },
+        {
+         "args": [
+          1,
+          2
+         ],
+         "form": 1,
+         "kind": "inst"
+        }
+       ],
+       [
+        {
+         "arity": 2,
+         "kind": "form"
+        },
+        {
+         "args": [
+          2,
+          0
+         ],
+         "form": 1,
+         "kind": "inst"
+        }
+       ],
+       [
+        {
+         "arity": 2,
+         "kind": "form"
+        },
+        {
+         "args": [
+          2,
+          1
+         ],
+         "form": 1,
+         "kind": "inst"
+        }
+       ],
+       [
+        {
+         "arity": 2,
+         "kind": "form"
+        },
+        {
+         "args": [
+          2,
+          2
+         ],
+         "form": 1,
+         "kind": "inst"
+        }
+       ]
+      ]
+     },
+     "mu2": {
+      "api_cost": [
+       2,
+       1
+      ],
+      "classes": [
+       {
+        "mappings_to_representative": [
+         {
+          "dmap": [
+           0,
+           1,
+           2
+          ],
+          "fmap": [
+           0,
+           1
+          ],
+          "member": 0
+         },
+         {
+          "dmap": [
+           0,
+           2,
+           1
+          ],
+          "fmap": [
+           0,
+           1
+          ],
+          "member": 1
+         }
+        ],
+        "members": [
+         0,
+         1
+        ],
+        "representative": [
+         {
+          "arity": 1,
+          "kind": "form"
+         },
+         {
+          "args": [
+           1
+          ],
+          "form": 1,
+          "kind": "inst"
+         }
+        ],
+        "witness": {
+         "derivable": [
+          true,
+          false
+         ],
+         "form": 1,
+         "slots": [
+          null
+         ]
+        }
+       }
+      ],
+      "display_cost": [
+       2,
+       1
+      ],
+      "raw_minima": [
+       [
+        {
+         "arity": 1,
+         "kind": "form"
+        },
+        {
+         "args": [
+          1
+         ],
+         "form": 1,
+         "kind": "inst"
+        }
+       ],
+       [
+        {
+         "arity": 1,
+         "kind": "form"
+        },
+        {
+         "args": [
+          2
+         ],
+         "form": 1,
+         "kind": "inst"
+        }
+       ]
+      ]
+     }
+    },
+    "target": [
+     1,
+     2
+    ]
+   }
+  },
+  "only_AB_protected": {
+   "alternatives": [
+    {
+     "admission_well_formed": true,
+     "delta": [
+      {
+       "args": [
+        1
+       ],
+       "form": 0,
+       "kind": "inst"
+      }
+     ],
+     "items": 1,
+     "name": "mark_B_on_old_form",
+     "separated_AB_AC_BC": [
+      false,
+      true,
+      true
+     ],
+     "valid_response": false
+    },
+    {
+     "admission_well_formed": true,
+     "delta": [
+      {
+       "args": [
+        2
+       ],
+       "form": 0,
+       "kind": "inst"
+      }
+     ],
+     "items": 1,
+     "name": "mark_C_on_old_form",
+     "separated_AB_AC_BC": [
+      true,
+      false,
+      true
+     ],
+     "valid_response": true
+    },
+    {
+     "admission_well_formed": true,
+     "delta": [
+      {
+       "arity": 1,
+       "kind": "form"
+      },
+      {
+       "args": [
+        1
+       ],
+       "form": 1,
+       "kind": "inst"
+      }
+     ],
+     "items": 2,
+     "name": "new_unary_form_marking_B",
+     "separated_AB_AC_BC": [
+      true,
+      true,
+      true
+     ],
+     "valid_response": true
+    }
+   ],
+   "before": {
+    "data": [
+     "<a>",
+     "<ab>",
+     "C"
+    ],
+    "forms": [
+     1
+    ],
+    "insts": [
+     [
+      0,
+      [
+       0
+      ]
+     ]
+    ],
+    "reqs": [
+     [
+      0,
+      1
+     ]
+    ],
+    "rules": []
+   },
+   "search_one_item": {
+    "base": {
+     "data": [
+      "<a>",
+      "<ab>",
+      "C"
+     ],
+     "forms": [
+      1
+     ],
+     "insts": [
+      [
+       0,
+       [
+        0
+       ]
+      ]
+     ],
+     "reqs": [
+      [
+       0,
+       1
+      ]
+     ],
+     "rules": []
+    },
+    "bounds": {
+     "max_arity": 2,
+     "max_items": 1
+    },
+    "layers": [
+     {
+      "items": 0,
+      "valid": 0,
+      "well_formed": 1
+     },
+     {
+      "items": 1,
+      "valid": 1,
+      "well_formed": 7
+     }
+    ],
+    "results": {
+     "mu1": {
+      "api_cost": [
+       1,
+       -1
+      ],
+      "classes": [
+       {
+        "mappings_to_representative": [
+         {
+          "dmap": [
+           0,
+           1,
+           2
+          ],
+          "fmap": [
+           0
+          ],
+          "member": 0
+         }
+        ],
+        "members": [
+         0
+        ],
+        "representative": [
+         {
+          "args": [
+           2
+          ],
+          "form": 0,
+          "kind": "inst"
+         }
+        ],
+        "witness": {
+         "derivable": [
+          false,
+          true
+         ],
+         "form": 0,
+         "slots": [
+          null
+         ]
+        }
+       }
+      ],
+      "display_cost": 1,
+      "raw_minima": [
+       [
+        {
+         "args": [
+          2
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ]
+      ]
+     },
+     "mu2": {
+      "api_cost": [
+       1,
+       0
+      ],
+      "classes": [
+       {
+        "mappings_to_representative": [
+         {
+          "dmap": [
+           0,
+           1,
+           2
+          ],
+          "fmap": [
+           0
+          ],
+          "member": 0
+         }
+        ],
+        "members": [
+         0
+        ],
+        "representative": [
+         {
+          "args": [
+           2
+          ],
+          "form": 0,
+          "kind": "inst"
+         }
+        ],
+        "witness": {
+         "derivable": [
+          false,
+          true
+         ],
+         "form": 0,
+         "slots": [
+          null
+         ]
+        }
+       }
+      ],
+      "display_cost": [
+       1,
+       0
+      ],
+      "raw_minima": [
+       [
+        {
+         "args": [
+          2
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ]
+      ]
+     }
+    },
+    "target": [
+     1,
+     2
+    ]
+   },
+   "search_two_items": {
+    "base": {
+     "data": [
+      "<a>",
+      "<ab>",
+      "C"
+     ],
+     "forms": [
+      1
+     ],
+     "insts": [
+      [
+       0,
+       [
+        0
+       ]
+      ]
+     ],
+     "reqs": [
+      [
+       0,
+       1
+      ]
+     ],
+     "rules": []
+    },
+    "bounds": {
+     "max_arity": 2,
+     "max_items": 2
+    },
+    "layers": [
+     {
+      "items": 0,
+      "valid": 0,
+      "well_formed": 1
+     },
+     {
+      "items": 1,
+      "valid": 1,
+      "well_formed": 7
+     },
+     {
+      "items": 2,
+      "valid": 15,
+      "well_formed": 43
+     }
+    ],
+    "results": {
+     "mu1": {
+      "api_cost": [
+       1,
+       -1
+      ],
+      "classes": [
+       {
+        "mappings_to_representative": [
+         {
+          "dmap": [
+           0,
+           1,
+           2
+          ],
+          "fmap": [
+           0
+          ],
+          "member": 0
+         }
+        ],
+        "members": [
+         0
+        ],
+        "representative": [
+         {
+          "args": [
+           2
+          ],
+          "form": 0,
+          "kind": "inst"
+         }
+        ],
+        "witness": {
+         "derivable": [
+          false,
+          true
+         ],
+         "form": 0,
+         "slots": [
+          null
+         ]
+        }
+       }
+      ],
+      "display_cost": 1,
+      "raw_minima": [
+       [
+        {
+         "args": [
+          2
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ]
+      ]
+     },
+     "mu2": {
+      "api_cost": [
+       1,
+       0
+      ],
+      "classes": [
+       {
+        "mappings_to_representative": [
+         {
+          "dmap": [
+           0,
+           1,
+           2
+          ],
+          "fmap": [
+           0
+          ],
+          "member": 0
+         }
+        ],
+        "members": [
+         0
+        ],
+        "representative": [
+         {
+          "args": [
+           2
+          ],
+          "form": 0,
+          "kind": "inst"
+         }
+        ],
+        "witness": {
+         "derivable": [
+          false,
+          true
+         ],
+         "form": 0,
+         "slots": [
+          null
+         ]
+        }
+       }
+      ],
+      "display_cost": [
+       1,
+       0
+      ],
+      "raw_minima": [
+       [
+        {
+         "args": [
+          2
+         ],
+         "form": 0,
+         "kind": "inst"
+        }
+       ]
+      ]
+     }
+    },
+    "target": [
+     1,
+     2
+    ]
+   }
+  }
+ },
+ "root_history": [
+  {
+   "event": "supply",
+   "token": "<>"
+  },
+  {
+   "event": "supply",
+   "token": "<a>"
+  },
+  {
+   "event": "supply",
+   "token": "<a>"
+  },
+  {
+   "event": "supply",
+   "token": "<ab>"
+  },
+  {
+   "event": "admit_datum",
+   "token": "<a>"
+  },
+  {
+   "event": "admit_datum",
+   "token": "<ab>"
+  }
+ ],
+ "schema": 1,
+ "source_digest_mode": "SHA-256 of UTF-8 decoded text with LF line endings",
+ "source_text_sha256": {
+  "code/derivation/candidates.py": "856ce42faba2dc2ae1217207ecc8af893eac29b50ae8a374dc06d2ba22c957bb",
+  "code/derivation/engine.py": "23803a3dcce2adf0dee623caba33791d41a25d2da3fdfd226da3cad2ee140b5e",
+  "code/derivation/export.py": "202b2fba9cb99864bae52d2463864c67064bb0f85e27b78c3371d930b5bf7bdd",
+  "code/derivation/iso.py": "b0f1f3bcf05126111a07706f4388a9fff5e30455d4b8f127966cf99ab0d0886e",
+  "code/derivation/model.py": "6a7fd2ba9688d47e9291514c623a811cde3c6b9e8fda1d12a608dc9bb0b1f3c2",
+  "code/derivation/observe.py": "78443d67e613d9cc9924538fe2e0a5acaf81f4654440bfe8586e16652f0317ba"
+ },
+ "stopping": {
+  "all_separated": {
+   "settings": {
+    "bounds": {
+     "max_arity": 2,
+     "max_items": 2
+    },
+    "max_rounds": 1,
+    "pre_expansion_node_guard": 40,
+    "supply": false
+   },
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 1,
+     "terminal_all_separated": 3
+    },
+    "edges": 3,
+    "expansions_with_multiple_orbits": 0,
+    "expansions_with_ties": 1,
+    "max_depth": 1,
+    "nodes": 4,
+    "roles": {
+     "innovation": 3
+    }
+   }
+  },
+  "guard_40_is_not_a_hard_cap": {
+   "settings": {
+    "bounds": {
+     "max_arity": 2,
+     "max_items": 2
+    },
+    "max_rounds": 5,
+    "pre_expansion_node_guard": 40,
+    "supply": true
+   },
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "completed": 5,
+     "expanded": 22,
+     "frontier_guard": 14
+    },
+    "edges": 40,
+    "expansions_with_multiple_orbits": 0,
+    "expansions_with_ties": 4,
+    "max_depth": 5,
+    "nodes": 41,
+    "roles": {
+     "discrimination": 15,
+     "innovation": 8,
+     "supply": 17
+    }
+   }
+  },
+  "no_response_with_one_item": {
+   "settings": {
+    "bounds": {
+     "max_arity": 2,
+     "max_items": 1
+    },
+    "max_rounds": 1,
+    "pre_expansion_node_guard": 40,
+    "supply": false
+   },
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "terminal_no_response": 1
+    },
+    "edges": 0,
+    "expansions_with_multiple_orbits": 0,
+    "expansions_with_ties": 0,
+    "max_depth": 0,
+    "nodes": 1,
+    "roles": {}
+   }
+  },
+  "node_guard": {
+   "settings": {
+    "bounds": {
+     "max_arity": 2,
+     "max_items": 2
+    },
+    "max_rounds": 5,
+    "pre_expansion_node_guard": 0,
+    "supply": true
+   },
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "frontier_guard": 1
+    },
+    "edges": 0,
+    "expansions_with_multiple_orbits": 0,
+    "expansions_with_ties": 0,
+    "max_depth": 0,
+    "nodes": 1,
+    "roles": {}
+   }
+  },
+  "round_limit": {
+   "settings": {
+    "bounds": {
+     "max_arity": 2,
+     "max_items": 2
+    },
+    "max_rounds": 0,
+    "pre_expansion_node_guard": 40,
+    "supply": true
+   },
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "completed": 1
+    },
+    "edges": 0,
+    "expansions_with_multiple_orbits": 0,
+    "expansions_with_ties": 0,
+    "max_depth": 0,
+    "nodes": 1,
+    "roles": {}
+   }
+  }
+ }
+}

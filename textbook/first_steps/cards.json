@@ -1,0 +1,14 @@
+{
+  "authority_effect": "None",
+  "classification": "supplied teaching model",
+  "cards": [
+    {"id": "A", "color": "blue", "shape": "circle"},
+    {"id": "B", "color": "blue", "shape": "triangle"},
+    {"id": "C", "color": "amber", "shape": "triangle"}
+  ],
+  "questions": [
+    {"id": "blue", "title": "blue?", "selectable": true, "answers": [true, true, false]},
+    {"id": "triangle", "title": "triangle?", "selectable": true, "answers": [false, true, true]},
+    {"id": "listed", "title": "one of these three cards?", "selectable": false, "answers": [true, true, true]}
+  ]
+}
