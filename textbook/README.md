@@ -35,6 +35,8 @@ and portable event replay.
 The [`Change lab`](change_lab/README.md) then separates retained pair
 records, protected demands, observation, budget, permission, refusal,
 and halt, with a map of the different formal settings.
+The [`Path lab`](path_lab/README.md) supplies the next visual toolkit:
+points, connections, walks, signed counts, faces, and cancelling boundaries.
 
 New readers can then read [`START_HERE.md`](START_HERE.md) (see also the
 short spoken introduction in [`video_script_15s.md`](video_script_15s.md)).

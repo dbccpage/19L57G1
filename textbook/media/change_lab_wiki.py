@@ -31,7 +31,7 @@ def build_change_lab(repo, wiki, commit):
         text = (source / name).read_text(encoding="utf-8")
         for filename, target in page_map(source).items():
             text = text.replace(f"]({filename})", f"]({target})")
-        for folder, target in (("first_steps", "textbook_first_steps"), ("search_lab", "textbook_search_lab")):
+        for folder, target in (("first_steps", "textbook_first_steps"), ("search_lab", "textbook_search_lab"), ("path_lab", "textbook_path_lab")):
             text = text.replace(f"](../{folder}/README.md)", f"]({target})")
         text = text.replace("](results.html)", f"]({DESK})")
         prefix = f"[Genesis Wiki](Home) · [Change lab](textbook_change_lab) · [Passage desk]({DESK})\n\n"

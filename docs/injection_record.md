@@ -485,3 +485,23 @@ output exposed the actual named proof failure above. It was not accepted
 as a Lean rejection until that diagnostic was captured. The six authoring
 tests and record/desk checks pass after restoration.
 
+## Path and boundary route (2026-10-28)
+
+Only generated scratch-Wiki files, temporary teaching records, and a
+generated Lean source string were injected. Original Wiki bytes were
+restored between checks. No regeneration ran with a live defect; no
+sealed source or research receipt was edited.
+
+| Gate | Injection | Observed failure | Recovery |
+|---|---|---|---|
+| Wiki path record | Invent an admitted ABC face when no face step was requested | Actual Wiki verifier exits 1: `stale path-lab record` | Restore bytes; exit 0, 2244 generated internal links pass |
+| Wiki path desk | Bind the copied embedded packet to `null` | Actual Wiki verifier exits 1: `stale path-lab desk or links` | Restore bytes; exit 0 |
+| Wiki path diagram | Change the shared AC coefficient from zero to 99 in the copied two-face SVG | Actual Wiki verifier exits 1: `stale or missing path-lab figure: 04_two_faces.svg` | Restore bytes; exit 0 |
+| Book-Lean history | Replace the expected fourth vertex 3 by 99 in `faces_0_0` | Lean reports the vertex-store equality is false; shared runner exits 1 | Original 164 kernel/axiom reports pass |
+| Source-backed path record | Invent a missing-edge closed walk, invent a face without its event, erase an edge with zero coefficient, retain cancellation after reversing a face, or zero the all-positive control | `check_recorded` rejects each recomputation mismatch | Original packet passes |
+| Source population and figures | Enlarge face settings 256→999, or change the source figure's AC coefficient to 99 | The actual record check rejects the named population/figure mismatch | Original six-row table and five figures pass |
+
+Nine authoring tests include those refusals, a fresh standalone desk,
+and rejection of empty or out-of-domain walk sequences in the teaching
+wrapper. Native cell admission and boundary cancellation remain separate.
+

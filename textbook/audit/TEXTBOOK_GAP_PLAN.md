@@ -14,7 +14,7 @@ reader comprehension and transfer, as well as correct and reproducible
 content. The target is an ability the reader develops, not a number of
 pages, theorems, links, or passing software checks.
 
-## Published state and custody
+## Initial publication and custody
 
 - Published Wiki: `28035b60c9b73ce98b050be5c9e0739b4c2356ab`.
 - Source edition used by that Wiki: `cd3d202c5742e7c0aa3083c92bad86ff03d1d3cf`.
@@ -83,6 +83,12 @@ classifications still need semantic teaching review.
    paths, loops, signed boundaries, and descent need diagrams that grow
    from a familiar example over several steps. A twelve-second overview
    cannot carry the whole derivation of these notions for a new reader.
+   The new [Path lab](../path_lab/README.md) supplies seven visual lessons
+   on graphs, walks, signed endpoint counts, face guards, alternating
+   boundaries, and shared-edge cancellation. Its diagrams keep cell
+   membership separate from coefficient sums. The transfer exercise changes
+   the shared facet's default signs. Later maps, descent, and the research
+   curriculum remain open; novice comprehension remains unmeasured.
 6. **Semantic reconciliation of the coverage map.** This change corrects
    the opening to distinguish 62 direct imports, the 63-module import
    closure, and 12 parked modules, and separates the `FROZEN` custody

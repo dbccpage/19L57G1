@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 430" role="img" aria-label="ABC admitted by a face step">
+<title>ABC admitted by a face step</title>
+<rect width="440" height="430" fill="#fafbf7"/>
+<defs><marker id="ref" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#52645d"/></marker><marker id="walk" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#19694e"/></marker></defs>
+<polygon points="70,290 70,70 370,70" fill="#cfe6d6"/>
+<text x="170.0" y="143.33333333333334" text-anchor="middle" fill="#19322c" font-family="sans-serif" font-size="18">+ABC</text>
+<line x1="70.0" y1="268.0" x2="70.0" y2="95.0" stroke="#52645d" stroke-width="2" marker-end="url(#ref)"/>
+<line x1="92.0" y1="70.0" x2="345.0" y2="70.0" stroke="#52645d" stroke-width="2" marker-end="url(#ref)"/>
+<line x1="87.74090990882553" y1="276.9899994001946" x2="349.83987510360737" y2="84.78409159068794" stroke="#52645d" stroke-width="2" marker-end="url(#ref)"/>
+<line x1="370.0" y1="92.0" x2="370.0" y2="265.0" stroke="#52645d" stroke-width="2" marker-end="url(#ref)"/>
+<line x1="92.0" y1="290.0" x2="345.0" y2="290.0" stroke="#52645d" stroke-width="2" marker-end="url(#ref)"/>
+<circle cx="70" cy="290" r="20" fill="white" stroke="#19322c" stroke-width="2"/>
+<text x="70" y="296" text-anchor="middle" fill="#19322c" font-family="sans-serif" font-size="20">A</text>
+<circle cx="70" cy="70" r="20" fill="white" stroke="#19322c" stroke-width="2"/>
+<text x="70" y="76" text-anchor="middle" fill="#19322c" font-family="sans-serif" font-size="20">B</text>
+<circle cx="370" cy="70" r="20" fill="white" stroke="#19322c" stroke-width="2"/>
+<text x="370" y="76" text-anchor="middle" fill="#19322c" font-family="sans-serif" font-size="20">C</text>
+<circle cx="370" cy="290" r="20" fill="white" stroke="#19322c" stroke-width="2"/>
+<text x="370" y="296" text-anchor="middle" fill="#19322c" font-family="sans-serif" font-size="20">D</text>
+<text x="220" y="345" text-anchor="middle" fill="#19322c" font-family="sans-serif" font-size="16">Admitted faces: ABC</text>
+<text x="220" y="375" text-anchor="middle" fill="#19322c" font-family="sans-serif" font-size="15">AC stays admitted. Its boundary coefficient: -1.</text>
+<text x="220" y="405" text-anchor="middle" fill="#19322c" font-family="sans-serif" font-size="14">Supplied diagram; placement is not a measured distance.</text>
+</svg>
