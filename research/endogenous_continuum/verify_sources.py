@@ -23,9 +23,12 @@ _HEX = frozenset("0123456789abcdef")
 
 
 def check_sha256(data: bytes, expected: str) -> bool:
+    lf_data = data.replace(b"\r\n", b"\n")
+    crlf_data = lf_data.replace(b"\n", b"\r\n")
     h_raw = hashlib.sha256(data).hexdigest().lower()
-    h_norm = hashlib.sha256(data.replace(b"\r\n", b"\n")).hexdigest().lower()
-    return expected.lower() in (h_raw, h_norm)
+    h_norm = hashlib.sha256(lf_data).hexdigest().lower()
+    h_crlf = hashlib.sha256(crlf_data).hexdigest().lower()
+    return expected.lower() in (h_raw, h_norm, h_crlf)
 
 
 def check_git_blob(data: bytes, expected: str) -> bool:
