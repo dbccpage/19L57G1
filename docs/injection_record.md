@@ -444,3 +444,23 @@ passes that narrower replay contract. The latter is an expected scope
 boundary, not a claim that event replay validates prices. The full
 lesson-record check separately rejects that price change.
 
+## Passage teaching route (2026-10-28)
+
+No sealed file was edited. Wiki injections used the generated scratch
+Wiki; original bytes were restored before the next check, without
+regenerating assets while a defect was live. The Lean injection altered
+only generated source in memory and used the actual book-Lean runner.
+
+| Gate | Injection | Observed failure | Recovery |
+|---|---|---|---|
+| Wiki passage record consistency | Drop one singleton proposal from the copied packet | Actual Wiki verifier exits 1: `stale change-lab record` | Restore original bytes; exit 0, 2,109 generated internal links pass |
+| Wiki passage desk consistency | Replace the embedded packet binding with `null` in the copied desk | Actual Wiki verifier exits 1: `stale change-lab desk or links` | Restore bytes; exit 0 |
+| Book-Lean event equality | Change only the expected after-state budget from zero to 99 in `operation_0_refine_C` | Lean rejects the equality; shared book-Lean runner exits 1 | Original 120 kernel/axiom reports pass, exactly `{propext, Quot.sound}` |
+| Full passage teaching record | Forge refinement's recorded outcome or drop a singleton proposal | `check_recorded` rejects the source/record mismatch | Original packet passes |
+| Passage population table | Replace the all-pairs repair count zero with 99 in a temporary source map | `check_recorded` rejects the population table | Original two-row table passes |
+
+The five authoring tests also check the fresh single-file desk and refuse
+negative tokens, endpoints, column members, and budgets in the teaching
+encoding. These tests do not change the sealed Python API's integer domain
+or establish a general Python-to-Lean refinement.
+

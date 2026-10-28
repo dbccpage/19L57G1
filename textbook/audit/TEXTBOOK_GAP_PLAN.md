@@ -54,6 +54,9 @@ classifications still need semantic teaching review.
    token-aware Python regime, token-erased Lean regime, relational
    difference setting, passage state, represented world, and institutional
    presentation. A shared term such as “observer” does not supply a bridge.
+   The new [model map](../change_lab/MODEL_MAP.md) supplies these owners
+   and boundaries. Its two worked passage/world comparisons show why
+   activity and exhausted-menu obstruction cannot be silently identified.
 3. **A complete worked search.** The new [search lab](../search_lab/README.md)
    follows one separation demand through
    candidate generation, both cost measures, all tied alternatives,
@@ -64,11 +67,13 @@ classifications still need semantic teaching review.
    of that laboratory still requires testing.
 4. **A complete worked obstruction and repair.** The search lab now varies
    protected pair demands and item budgets on one three-entry ledger,
-   exhibiting both refused responses and a two-item repair. Further lessons
-   must keep the same tiny
-   carrier while the reader changes retention, protection, observations,
-   budget, and license one at a time. Show which change creates or clears
-   the obstruction, and which proposed action is refused.
+   exhibiting both refused responses and a two-item repair. The new
+   [change lab](../change_lab/README.md) holds three positions fixed while
+   varying retention, protection, observation, budget, permission, and halt.
+   It records 48 event applications, distinguishes proposal from execution,
+   and compares refusal followed by repair with an absorbing halt. These
+   are supplied passage rules, not an authorization protocol or a general
+   bridge to the search grammar. Novice comprehension remains unmeasured.
 5. **A connected visual account of later mathematics.** Classes, maps,
    paths, loops, signed boundaries, and descent need diagrams that grow
    from a familiar example over several steps. A twelve-second overview
@@ -241,6 +246,15 @@ edges. A changed price still passes the limited replay verifier; a separate
 full lesson-record check rejects it. This makes evidence scope itself a
 worked lesson. The lab does not supply a general Python-to-Lean refinement
 proof, a license protocol, or the later research curriculum.
+
+The change lab adds eight short lessons, separate practice answers, a
+model map, and a recorded passage desk. Its book-Lean checks prove 118
+concrete equalities and two general protection-within-retention invariants.
+It also corrects Units 54–55: refinement has no licence gate; activity
+does not imply menu exhaustion; singleton proposals need not be unique;
+and the driver supplies the selected event and funding. The displayed
+columns do not create their own execution. Neither passing software
+checks nor the new book invariant establishes reader comprehension.
 
 The research table records the canonical indexed population at the audit
 snapshot and a proposed teaching placement. It does not run research

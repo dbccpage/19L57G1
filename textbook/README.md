@@ -30,6 +30,9 @@ No previous mathematics or philosophy is assumed.
 Continue with the [`Search lab`](search_lab/README.md) for a complete
 worked demand, candidate search, price comparison, protection example,
 and portable event replay.
+The [`Change lab`](change_lab/README.md) then separates retained pair
+records, protected demands, observation, budget, permission, refusal,
+and halt, with a map of the different formal settings.
 
 New readers can then read [`START_HERE.md`](START_HERE.md) (see also the
 short spoken introduction in [`video_script_15s.md`](video_script_15s.md)).

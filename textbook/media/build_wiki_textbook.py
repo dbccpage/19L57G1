@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import os
+import posixpath
 import re
 import subprocess
 from pathlib import Path
@@ -18,6 +19,7 @@ from pathlib import Path
 from research_population import research_trees
 from first_steps_wiki import build_first_steps
 from search_lab_wiki import build_search_lab
+from change_lab_wiki import build_change_lab
 
 DEFAULT_REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 DEFAULT_WIKI_ROOT = Path(
@@ -42,54 +44,23 @@ def resolve_commit_sha(repo_root: Path) -> str:
             return sha
     except Exception:
         pass
-    return "c9ef6d4842c14d00fc4da88110db91b2ca98d1b6"
-
-
-def sanitize_claim_hygiene(text: str) -> str:
-    """Replace any forbidden hype word in generated soundbite/widget text."""
-    replacements = {
-        r"\bproves\b": "shows in this model",
-        r"\bProves\b": "Shows in this model",
-        r"\bguarantees\b": "ensures under the declared assumptions",
-        r"\bGuarantees\b": "Ensures under the declared assumptions",
-        r"\bmathematically verifies\b": "checks in this formalization",
-        r"\bfundamentally\b": "at the level of the declared rules",
-        r"\bFundamentally\b": "At the level of the declared rules",
-        r"\btrue intelligence\b": "bounded evaluator",
-        r"\bimpossible\b": "blocked under these rules",
-        r"\bImpossible\b": "Blocked under these rules",
-        r"\buniversal\b": "all-instances",
-        r"\bUniversal\b": "All-instances",
-        r"\bflawless\b": "consistent with the specification",
-        r"\bperfectly\b": "exactingly",
-        r"\bPerfectly\b": "Exactingly",
-        r"\bclearly\b": "explicitly",
-        r"\bClearly\b": "Explicitly",
-        r"\bobviously\b": "by inspection of the definition",
-        r"\bObviously\b": "By inspection of the definition",
-        r"\bsimply\b": "directly",
-        r"\bSimply\b": "Directly",
-        r"\bmerely\b": "only",
-        r"\bMerely\b": "Only",
-        r"\bweaponized\b": "applied",
-    }
-    out = text
-    for pat, rep in replacements.items():
-        out = re.sub(pat, rep, out)
-    return out
+    raise RuntimeError(f"Cannot resolve the source commit for {repo_root}; refusing to invent a snapshot pin")
 
 
 def first_sentences(text: str, max_words: int = 34) -> str:
-    """Trim a paragraph to a <=15-second soundbite (<= max_words words)."""
-    clean = re.sub(r"\s+", " ", text.strip())
-    clean = sanitize_claim_hygiene(clean)
-    words = clean.split(" ")
-    if len(words) <= max_words:
-        return clean
-    trimmed = " ".join(words[:max_words]).rstrip(",;:")
-    if not trimmed.endswith("."):
-        trimmed += "..."
-    return trimmed
+    """Keep complete prose sentences; never truncate a hypothesis or Markdown."""
+    prose = re.sub(r"```.*?```", "", text, flags=re.DOTALL)
+    prose = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", prose)
+    prose = re.sub(r"`+", "", prose).replace("|", "&#124;")
+    prose = re.sub(r"(?m)^\s*(?:[-*>]+|\d+\.)\s+", "", prose)
+    clean = re.sub(r"\s+", " ", prose.strip())
+    sentences = re.split(r"(?<=[.!?])\s+(?=[A-Z])", clean)
+    selected: list[str] = []
+    for sentence in sentences:
+        if len(" ".join([*selected, sentence]).split()) > max_words:
+            break
+        selected.append(sentence)
+    return " ".join(selected) or "Read the complete statement below for its definitions, hypotheses, and scope."
 
 
 def act_for_part1(unit_num: int) -> tuple[str, str, str]:
@@ -139,8 +110,8 @@ def act_for_part1(unit_num: int) -> tuple[str, str, str]:
     if unit_num in (57, 58, 65, 66):
         return (
             "act07_interpreter_controller_boundary",
-            "Act VIII · Thirteen Codes, Trace Idempotence & Interpreter Boundary (Units 57–58, 65–66)",
-            "All 13 transition codes are idempotent with 132 non-commuting pairs, strict controllers agree on the replay orbit, and the coded interpreter lies outside its 13-code family.",
+            "Act VIII · Effect Classes, Repeated Events & Interpreter Boundary (Units 57–58, 65–66)",
+            "Thirteen effect classes summarize individual transitions; repeated concrete events are idempotent. A notes-diagonal escapes the separate 64-descriptor family without establishing an operational interpreter bridge.",
         )
     if unit_num <= 64:
         return (
@@ -166,7 +137,7 @@ def act_for_part2(unit_num: int) -> tuple[str, str, str]:
     return (
         "act11_probing_uncollapse_verdict",
         "Part 2 · Act XII · Discovery Tax n(n-1)/2, Uncollapse & Verdict Boundary (Institutions 12+)",
-        "Acquiring an unknown actor partition over n data takes n(n-1)/2 pair probes, refutes the promised-count shortcut at n = N, characterizes uncollapse by mention delta, and locates the verdict-level interpreter boundary.",
+        "Exact acquisition of an arbitrary unknown actor partition has worst-case cost n(n-1)/2 pair probes, refutes the promised-count shortcut at n = N, characterizes uncollapse by mention delta, and locates the verdict-level interpreter boundary.",
     )
 
 
@@ -191,24 +162,26 @@ def extract_header_meta(md: str) -> dict[str, str]:
     """Extract Title, Claim, Status, Lean from top of unit."""
     lines = md.splitlines()
     title = lines[0].lstrip("# ").strip() if lines else "Unit"
-    top_block = "\n".join(lines[1:25])
+    top_block = re.split(r"(?m)^## ", "\n".join(lines[1:]), maxsplit=1)[0]
 
     claim_m = re.search(
         r"\*\*Claim\.\*\*\s*(.+?)(?=\n\*\*|\n\n|\Z)", top_block, re.DOTALL
     )
-    claim = claim_m.group(1).strip() if claim_m else ""
+    table_claim = re.search(r"(?m)^\|\s*\*\*Claim\*\*\s*\|\s*(.*?)\s*\|$", top_block)
+    claim = claim_m.group(1).strip() if claim_m else (table_claim.group(1) if table_claim else "See the complete claim below.")
     claim = re.sub(r"\s+", " ", claim)
 
-    status_m = re.search(r"\*\*Status:\*\*\s*([^\n*]+)", top_block)
-    status = status_m.group(1).strip().rstrip(".") if status_m else "derived"
+    status_m = re.search(r"\*\*Status:\*\*\s*(.+?)(?=\s+\*\*|\n\n|\Z)", top_block, re.DOTALL)
+    table_status = re.search(r"(?m)^\|\s*\*\*Mark\*\*\s*\|\s*(.*?)\s*\|$", top_block)
+    status = re.sub(r"\s+", " ", status_m.group(1)).strip().rstrip(".") if status_m else (table_status.group(1) if table_status else "See unit classification")
 
-    lean_m = re.search(r"\*\*Lean:\*\*\s*([^\n*]+)", top_block)
-    lean = lean_m.group(1).strip().rstrip(".") if lean_m else "see unit"
+    lean_m = re.search(r"\*\*Lean:\*\*\s*(.+?)(?=\s+\*\*|\n\n|\Z)", top_block, re.DOTALL)
+    lean = re.sub(r"\s+", " ", lean_m.group(1)).strip().rstrip(".") if lean_m else "See formal sources in the complete unit"
 
     return {
         "title": title,
-        "claim": sanitize_claim_hygiene(claim),
-        "status": sanitize_claim_hygiene(status),
+        "claim": claim,
+        "status": status,
         "lean": lean,
     }
 
@@ -219,68 +192,34 @@ def rewrite_links_for_wiki(
     part2_map: dict[str, str],
     blob_base: str,
     is_part2: bool,
+    source_dir: str = "textbook",
 ) -> str:
-    """Rewrite relative markdown links inside textbook files so they work on GitHub Wiki."""
-    out = md
+    """Resolve links against the source directory before mapping Wiki pages."""
+    targets = {f"textbook/units/{name}": slug for name, slug in part1_map.items()}
+    targets.update({f"textbook/institutions/units/{name}": slug for name, slug in part2_map.items()})
+    targets.update({"textbook/START_HERE.md": "textbook_start_here",
+                    "textbook/README.md": "textbook_overview",
+                    "textbook/institutions/README.md": "textbook_institutions",
+                    "textbook/video_script_15s.md": "textbook_video_15s",
+                    "textbook/derivation_coverage.md": "textbook_coverage",
+                    "textbook/audit/README.md": "textbook_audit"})
 
-    for fname, wname in part1_map.items():
-        out = out.replace(f"](units/{fname})", f"]({wname})")
-        out = out.replace(f"](../units/{fname})", f"]({wname})")
-        out = out.replace(f"]({fname})", f"]({wname})")
+    def rewrite(match: re.Match[str]) -> str:
+        target = match.group(1).strip()
+        if target.startswith(("https://", "http://", "mailto:", "#", "textbook_")):
+            return match.group(0)
+        if target in ("Home", "genesis_overview", "getting_started", "worked_examples",
+                      "concepts_and_glossary", "repository_map"):
+            return match.group(0)
+        path, sep, anchor = target.partition("#")
+        resolved = posixpath.normpath(posixpath.join(source_dir, path))
+        dest = targets.get(resolved, f"{blob_base}/{resolved}")
+        return f"]({dest}{sep}{anchor})"
 
-    for fname, wname in part2_map.items():
-        out = out.replace(f"](institutions/units/{fname})", f"]({wname})")
-        out = out.replace(f"](units/{fname})", f"]({wname})")
-        out = out.replace(f"]({fname})", f"]({wname})")
-
-    out = out.replace("](START_HERE.md)", "](textbook_start_here)")
-    out = out.replace("](../START_HERE.md)", "](textbook_start_here)")
-    out = out.replace("](video_script_15s.md)", "](textbook_video_15s)")
-    out = out.replace("](../video_script_15s.md)", "](textbook_video_15s)")
-    out = out.replace("](derivation_coverage.md)", "](textbook_coverage)")
-    out = out.replace("](../derivation_coverage.md)", "](textbook_coverage)")
-    out = out.replace("](audit/README.md)", "](textbook_audit)")
-    out = out.replace("](../audit/README.md)", "](textbook_audit)")
-    out = out.replace("]( audit/AUDIT.md )", f"]({blob_base}/textbook/audit/AUDIT.md)")
-    out = out.replace("](AUDIT.md)", f"]({blob_base}/textbook/audit/AUDIT.md)")
-    out = out.replace("](inventory.json)", f"]({blob_base}/textbook/audit/inventory.json)")
-    out = out.replace("](institutions/README.md)", "](textbook_institutions)")
-    out = out.replace("](../institutions/README.md)", "](textbook_institutions)")
-    if is_part2:
-        out = out.replace("](README.md)", "](textbook_institutions)")
-        out = out.replace("](../README.md)", "](textbook_overview)")
-    else:
-        out = out.replace("](README.md)", "](textbook_overview)")
-        out = out.replace("](../README.md)", "](textbook_overview)")
-
-    def repl_link(m: re.Match[str]) -> str:
-        target = m.group(1).strip()
-        if (
-            target.startswith("http://")
-            or target.startswith("https://")
-            or target.startswith("#")
-            or target.startswith("mailto:")
-            or target.startswith("textbook_")
-            or target
-            in (
-                "Home",
-                "genesis_overview",
-                "getting_started",
-                "worked_examples",
-                "concepts_and_glossary",
-                "repository_map",
-            )
-        ):
-            return m.group(0)
-        clean_t = target.lstrip("./")
-        if clean_t.startswith("../"):
-            clean_t = "textbook/" + clean_t[3:]
-        elif clean_t.startswith(("checks/", "units/", "institutions/", "audit/")):
-            clean_t = "textbook/" + clean_t
-        return f"]({blob_base}/{clean_t})"
-
-    out = re.sub(r"\]\(([^)]+)\)", repl_link, out)
-    return out
+    # Examples inside fenced code are literal text, not navigable links.
+    pieces = re.split(r"(```.*?```)", md, flags=re.DOTALL)
+    return "".join(piece if piece.startswith("```") else re.sub(r"\]\(([^)]+)\)", rewrite, piece)
+                   for piece in pieces)
 
 
 def build_unit_wiki_page(
@@ -304,20 +243,18 @@ def build_unit_wiki_page(
     proved_sec = extract_section(
         raw_md, r"(What has been proved|What it shows|What this unit establishes)"
     )
-    not_proved_sec = extract_section(
-        raw_md, r"(What has not been proved|What it shows|Outside the system)"
-    )
+    not_proved_sec = extract_section(raw_md, r"^(What has not been proved|Outside the system)")
     outside_sec = extract_section(raw_md, r"Outside the system")
     plain_sec = extract_section(
         raw_md,
-        r"(Plain-language interpretation|The proof, step by step|The external constructor)",
+        r"(First pass|Plain-language interpretation|The proof, step by step|The external constructor)",
     )
     ex_sec = extract_section(raw_md, r"Student exercise")
     ans_sec = extract_section(raw_md, r"Answer")
 
     bite_q = first_sentences(q_sec or meta["claim"], 32)
     bite_mech = first_sentences(plain_sec or meta["claim"], 32)
-    bite_proved = first_sentences(proved_sec or meta["claim"], 32)
+    bite_proved = first_sentences(meta["claim"], 34)
     bite_limits = first_sentences(
         not_proved_sec
         or outside_sec
@@ -343,13 +280,14 @@ def build_unit_wiki_page(
 
     if ex_sec and ans_sec:
         pred_prompt = first_sentences(ex_sec, 42)
-        pred_reveal = first_sentences(ans_sec, 48)
+        pred_reveal = "Read the worked answer in the complete lesson below; it includes the reasoning and qualifications."
     else:
         pred_prompt = f"Before reading the proof of `{unit_code}`, ask: does `{meta['title']}` follow from the mark ⟨⟩ alone, or does it depend on the admitted representation and hypotheses listed below?"
-        pred_reveal = f"{meta['claim']} — Status: **{meta['status']}**. In Genesis, every derived step holds relative to the explicitly admitted definitions and carries zero authority over the physical universe."
+        pred_reveal = "Check the complete claim and classification below. A definition is an admission; a theorem depends on its stated hypotheses."
 
     rewritten_body = rewrite_links_for_wiki(
-        raw_md, part1_map, part2_map, blob_base, is_part2
+        raw_md, part1_map, part2_map, blob_base, is_part2,
+        "textbook/institutions/units" if is_part2 else "textbook/units",
     )
 
     return f"""<!-- markdownlint-disable MD041 MD033 -->
@@ -362,21 +300,23 @@ def build_unit_wiki_page(
 
 > [!IMPORTANT]
 > ### ⚡ 15-Second Soundbite (`{unit_code}`) — Read This First
-> **Core Claim:** {meta['claim']}
+> **Core idea:** {bite_proved}
 >
-> - **Evidence Status:** `{meta['status']}`
-> - **Formal Anchor:** {meta['lean']}
+> - **Classification:** Read the complete unit's status and hypotheses below.
+> - **Formal sources:** Read the complete unit's Lean anchors below.
 > - **15-Second Takeaway:** {bite_proved}
 
 ---
 
-## 🎬 15-Second Manim Visual (`<= 15.0s`)
+## 🎬 Act overview (`<= 15.0s`)
+
+This video previews several lessons. Pause it as needed; the complete definition and worked examples are below.
 
 ![{act_title} — 15s Manim Visual]({RAW_WIKI_MEDIA}/{act_slug}.gif)
 
 **[▶ Watch / Download High-Resolution 15s MP4 Video]({RAW_WIKI_MEDIA}/{act_slug}.mp4)** · *Duration verified `<= 15.0s` via `ffprobe` · Built with Manim 0.19.2*
 
-| Beat | Window | Visual & Pedagogical Beat (15s Total) |
+| Reading step | Suggested pause | Unit guide (independent of the Act video's timing) |
 | :--- | :--- | :--- |
 | **1. Setup** | `0:00–0:03` | **Starting Ledger:** {bite_q} |
 | **2. Move** | `0:03–0:07` | **Mechanism:** {bite_mech} |
@@ -395,18 +335,18 @@ def build_unit_wiki_page(
 **Challenge:** {pred_prompt}
 
 <details>
-<summary><b>✨ Click to Reveal the Verdict (5-Second Dopamine Check)</b></summary>
+<summary><b>Read the answer guide</b></summary>
 
 <br>
 
-> **Verdict (`{meta['status']}`):** {pred_reveal}
+> **Answer guide:** {pred_reveal}
 
 </details>
 
 </details>
 
 <details>
-<summary><b>⏱️ Step 2 · The Entire Lesson in Four 15-Second Soundbites (60-Second Skim)</b></summary>
+<summary><b>Step 2 · Four reading prompts (take the time you need)</b></summary>
 
 <br>
 
@@ -426,9 +366,9 @@ def build_unit_wiki_page(
 
 ```mermaid
 flowchart LR
-    A["Admitted Ledger & Prerequisites<br/>({unit_code})"] --> B["Formal Check<br/>(Python + Lean 4.33.0)"]
-    B --> C["Verdict: {meta['status'][:28]}"]
-    C --> D["Boundary: Finite Ledger Scope<br/>(AuthorityEffect: None)"]
+    A["Admitted Ledger & Prerequisites<br/>({unit_code})"] --> B["Study the Python and Lean sources"]
+    B --> C["Classification and hypotheses: see complete unit"]
+    C --> D["Boundary: the unit's stated carrier and hypotheses<br/>(AuthorityEffect: None)"]
 ```
 
 </details>
@@ -440,7 +380,7 @@ flowchart LR
 
 1. **What it supports:** {bite_proved}
 2. **What it does not support:** {bite_limits}
-3. **Narrowest defensible claim:** {meta['claim']} (Status: `{meta['status']}`, checked at revision `{commit_short}`).
+3. **Complete statement:** Read the claim, classification, and hypotheses in the mirrored unit below. Source snapshot: `{commit_short}`. Generation does not rerun the unit's checks.
 4. **Next test / unit needed:** Proceed to {nav_next} or run the unit's Python and Lean check scripts in [`textbook/`]({blob_base}/textbook).
 
 </details>
@@ -606,10 +546,10 @@ def build_all(repo_root: Path, wiki_root: Path) -> dict[str, int]:
 
 > [!IMPORTANT]
 > ### ⚡ The 15-Second Soundbite: Welcome to Genesis (`AuthorityEffect: None`)
-> **We erase every preconceived notion.** We start with one opaque mark `<>`—no numbers, no sets, no containers, no rules. Every step that follows is either **admitted** at a stated price or **derived** in Lean 4 and checked in Python.
+> **Begin with one opaque mark `<>`.** Its shape supplies no internal numbers, sets, containers, or rules. The lessons track which structures are admitted and which conclusions follow from them.
 >
 > - **Zero Prerequisites:** Written for a patient reader with no background in math, formal logic, Python, or Lean.
-> - **15-Second Bites:** Every lesson opens with a 15-second soundbite, a `<= 15s` Manim visual, and interactive click-to-reveal stepping stones.
+> - **Read at your own pace:** Short Act videos preview several lessons. Definitions, examples, formal statements, and scope limits follow below.
 
 ---
 
@@ -668,7 +608,7 @@ def build_all(repo_root: Path, wiki_root: Path) -> dict[str, int]:
 
 <br>
 
-- **15s Soundbite:** Nine readings of difference separate via 51 countermodels (`PrimitiveCore`), signed boundary cancellation gives `d² = 0` (`BoundaryCancellation`), presentations compress via signature quotients (`Compression`), and the coded interpreter sits outside its 13-code family (`InterpreterBoundary`).
+- **15s Soundbite:** Nine readings of difference have scoped countermodels. Signed boundaries cancel twice. Signature quotients preserve declared answers. The notes-diagonal result concerns a separate 64-descriptor family and leaves its denotational bridge open.
 - **Jump In:** [Unit 51: Nine readings]({part1_entries[51][2]}) → [Unit 60: Boundary cancellation]({part1_entries[60][2]}) → [Unit 74: Canonical keys]({part1_entries[74][2]})
 
 </details>
@@ -788,7 +728,7 @@ def build_all(repo_root: Path, wiki_root: Path) -> dict[str, int]:
         repo_root / "textbook" / "institutions" / "README.md"
     ).read_text(encoding="utf-8")
     inst_readme_rewritten = rewrite_links_for_wiki(
-        inst_readme_raw, part1_map, part2_map, blob_base, True
+        inst_readme_raw, part1_map, part2_map, blob_base, True, "textbook/institutions"
     )
     for idx, _, slug, _ in part2_entries:
         inst_readme_rewritten = re.sub(
@@ -848,7 +788,7 @@ def build_all(repo_root: Path, wiki_root: Path) -> dict[str, int]:
         encoding="utf-8"
     )
     audit_rewritten = rewrite_links_for_wiki(
-        audit_raw, part1_map, part2_map, blob_base, False
+        audit_raw, part1_map, part2_map, blob_base, False, "textbook/audit"
     )
     audit_page = f"""<!-- markdownlint-disable MD041 MD033 -->
 
@@ -1030,7 +970,7 @@ This Wiki is an explanatory map and mirrored textbook of the published repositor
 
 > [!IMPORTANT]
 > ### ⚡ New to Genesis? Start with the 15-Second Textbook Entrance
-> **Zero prerequisites required.** Every preconceived notion (sets, numbers, containers, rules) is erased at the door so any patient reader can follow the ledger from the single mark `<>` through all 75 frozen Lean 4 modules and post-freeze research suites—one **15-second soundbite**, **Manim visual (`<= 15s`)**, and **interactive stepping stone** at a time.
+> **No prior study is assumed.** Start with concrete examples, then read the definitions and formal statements in order. The short videos preview groups of lessons; pause them and take as much time as each explanation needs.
 >
 > 👉 **[🚀 Start Here (15-Second Entrance)](textbook_start_here)** · **[📚 Textbook Hub (Units 00–{part1_entries[-1][0]:02d})](textbook_overview)** · **[🏛️ Part 2: Actors & Institutions (00–{part2_entries[-1][0]:02d})](textbook_institutions)** · **[🎬 15s Manim Video Gallery](textbook_video_15s)** · **[🌲 Synced Research Trees ({len(research_trees)})](textbook_research_trees)**
 
@@ -1068,7 +1008,7 @@ A proposal is not an admission. A computed minimum is not authorization. An obse
 ## Explore the repository
 
 - [Textbook Hub](textbook_overview) and [Derivation Coverage Matrix](textbook_coverage): all 75 frozen modules (`Units 00–{part1_entries[-1][0]:02d}`) and post-freeze research trees (`Institutions 00–{part2_entries[-1][0]:02d}`) with 15-second soundbites and `<= 15s` Manim animations.
-- [Synced Research Trees](textbook_research_trees): all {len(research_trees)} research directories currently on `main`.
+- [Synced Research Trees](textbook_research_trees): all {len(research_trees)} research directories at this source snapshot.
 - [Repository map](repository_map): every top-level area and complete tracked-file indexes.
 - [Python module reference](python_module_reference): public top-level definitions across the computational modules.
 - [Research tree index](research_tree_index): every tree in the canonical generated research index, with per-tree source, test, Lean, report, and verifier maps.
@@ -1077,7 +1017,7 @@ A proposal is not an admission. A computed minimum is not authorization. An obse
 
 ## Snapshot and current status
 
-Textbook & Audit edition synced to `main` at [`{commit_short}`](https://github.com/dbccpage/19L57G1/commit/{commit_sha}) (2026-10-28); core repository reference pages reflect [`85a83ae7ce64`](https://github.com/dbccpage/19L57G1/commit/85a83ae7ce64dc2123ff218568a4ecd37e566d33) (2026-10-23). All tracked toolchain files pin Lean 4.33.0.
+Textbook & Audit edition generated from source snapshot [`{commit_short}`](https://github.com/dbccpage/19L57G1/commit/{commit_sha}) (2026-10-28); core repository reference pages reflect [`85a83ae7ce64`](https://github.com/dbccpage/19L57G1/commit/85a83ae7ce64dc2123ff218568a4ecd37e566d33) (2026-10-23). All tracked toolchain files pin Lean 4.33.0.
 
 The closeout records three independent axes: research program **CLOSED_WITH_OPEN_OBSTRUCTIONS**, Alpha reference **READY_WITHIN_DECLARED_SCOPE**, and original seed completion gate **UNSATISFIED**. These are attributed closeout dispositions, not a new whole-repository verification run. [Review scope and findings](review_scope_and_findings) explains the dated evidence, documentation discrepancies, and checks actually performed for this Wiki.
 """
@@ -1092,6 +1032,13 @@ Source edition: [{commit_short}](https://github.com/dbccpage/19L57G1/commit/{com
 """
     (wiki_root / "_Footer.md").write_text(footer_md, encoding="utf-8", newline="\n")
 
+    # Curated explanations live beside this generator so regeneration keeps
+    # their wording fixes. Their historical source links retain their pins.
+    for guide in sorted((repo_root / "textbook/media/wiki_guides").glob("*.md")):
+        (wiki_root / guide.name).write_text(
+            guide.read_text(encoding="utf-8"), encoding="utf-8", newline="\n"
+        )
+
     return {
         "part1": len(part1_entries),
         "part2": len(part2_entries),
@@ -1099,6 +1046,7 @@ Source edition: [{commit_short}](https://github.com/dbccpage/19L57G1/commit/{com
         "hubs": 7,
         "first_steps": build_first_steps(repo_root, wiki_root, commit_sha),
         "search_lab": build_search_lab(repo_root, wiki_root, commit_sha),
+        "change_lab": build_change_lab(repo_root, wiki_root, commit_sha),
     }
 
 

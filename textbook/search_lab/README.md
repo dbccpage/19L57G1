@@ -40,3 +40,6 @@ tested correspondence.
 AuthorityEffect: None. This is explanatory apparatus outside the sealed
 derivation. The kernel is consumed read-only. Learning outcomes and
 reading time still require novice testing.
+
+Continue with the [Change lab](../change_lab/README.md) to separate
+retention, protection, permission, execution, refusal, and halt.
