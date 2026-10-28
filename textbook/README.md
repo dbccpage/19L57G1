@@ -267,6 +267,7 @@ in one template or the other, and this table says which.
 | 53 | The fixed interface a collision meets | `PrimitiveContact.NativeKernel`, `PrimitiveContact.native_kernel_initial`, `PrimitiveContact.native_interface_not_representable`, `PrimitiveContact.contact_status_count` | FROZEN (re-exports); ADMITTED (interface, status strings); VERIFIED_FINITE | yes |
 | 54 | From an asserted difference to a response | `PrimitivePassage.obstP_factors`, `PrimitivePassage.gate_zero_independent`, `PrimitivePassage.assertion_not_retained`, `PrimitivePassage.retention_requires_assertion`, `PrimitivePassage.two_rule`, `PrimitivePassage.extension_resolves`, `PrimitivePassage.terminal_absorbing`, `PrimitivePassage.nextFamilyP_stop` | FROZEN; ADMITTED (the pre-declaration convention and the observation policy, priced by `obst_policies_differ`); VERIFIED_FINITE (fourteen arrow witnesses) | yes |
 | 55 | The first graph is supplied, its observer is created | `HigherStructure.graphAt_spec`, `HigherStructure.round_obstruction`, `HigherStructure.round_two_rule`, `HigherStructure.round_resolution`, `HigherStructure.graphAt_quiescent`, `HigherStructure.ladder_dim2`, `HigherStructure.filling_not_forced`, `HigherStructure.boundary_not_forced` | FROZEN (horizon-free round schema); ADMITTED (driver, cell calculus, sign conventions); VERIFIED_FINITE (`k4`, census, 15 mirrored rounds); OPEN (the ladder as a two-rule statement at every dimension) | yes |
+| 56 | Sameness earned from difference, and what orientation adds | `Apartness.indist_equivalence`, `Apartness.irrefl_alone_breaks_symm`, `Apartness.symm_without_cotrans_breaks_trans`, `Apartness.two_point_indist_trans`, `Apartness.orientations_same_apartness`, `Apartness.orientations_differ`, `Apartness.oriented_preserver_unique`, `Apartness.apart_preserver_pair`, `Apartness.clos_oriented_iff` | FROZEN; ADMITTED (the three laws); VERIFIED_FINITE (carriers 1-3 exhaustive, censuses to 4) | yes |
 
 The order follows the derivation. Units 27-53 follow the root import order
 of `lean4/Derivation.lean` (Quot, Counting, CountTransport, Mention,
@@ -274,7 +275,7 @@ TransitionTransport, MinimalityF, RuleBridge, Rounds, Progress, Ext,
 ObserverInventory, Refusal, RefusalFrontier, Generator, SeparationCapacity,
 Pigeonhole, CapacityBound, LocalStrategy, G1Class, DiffInterface, Represented,
 Completion, NoOutside,
-Constitution, Initiality, Horizon, PrimitiveCore, PrimitiveCats, PrimitiveContact, PrimitivePassage, HigherStructure); units after 55 continue with Apartness.
+Constitution, Initiality, Horizon, PrimitiveCore, PrimitiveCats, PrimitiveContact, PrimitivePassage, HigherStructure, Apartness); units after 56 continue with InterpreterBoundary.
 
 ## Parts
 
