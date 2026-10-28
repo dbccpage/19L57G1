@@ -571,11 +571,13 @@ satisfied and no requirement is violated; the world is quiescent, so
 `nextFamily_stop` applies and the family is `[]`. Had the requirement
 been violated, say with no column, `closeBlocks` would hold one block
 per accepted mark in the repair family and one per accepted extension
-in `augFamily`, which here would be `[[.addView [0]], [.addView [1]]]`
-under a positive budget, and nothing at budget 0, since `augOkB`
-requires budget through `increaseB` only indirectly; the check is the
-kernel's, not the family's, and the family lists what the kernel
-accepts.
+in `augFamily`: with data `[0, 1]`, no column and budget 0 the family
+is `[[.addView [0]], [.addView [1]]]`, both orientations, because
+`augOkB` reads bounds, novelty and increase and not the budget. The
+budget gate is the kernel's, in `step`, which would reject both blocks
+at budget 0 (Unit 45, `progress_needs_budget`). The family lists what
+`augOkB` accepts; whether the kernel then performs it is a separate
+check, and Unit 50 proves that along the tower it always does.
 
 ## Verification
 
