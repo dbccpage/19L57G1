@@ -1,0 +1,17 @@
+name = "uncollapse"
+version = "0.1.0"
+defaultTargets = ["ResearchUncollapse"]
+
+# The sealed derivation package, consumed read-only.
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+# applyItem_wf, ctxList and mem_ctxList of the ignition tree, consumed
+# read-only rather than re-proved.
+[[require]]
+name = "ignition"
+path = "../../ignition/lean"
+
+[[lean_lib]]
+name = "ResearchUncollapse"

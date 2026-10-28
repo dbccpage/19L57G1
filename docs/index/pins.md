@@ -154,6 +154,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `research/two_sided_commitment/SOURCE_MANIFEST.json` | 6 | 3 | 0 |
 | `research/typed_translation/SOURCE_MANIFEST.json` | 4 | 27 | 0 |
 | `research/unboundedness/SOURCE_MANIFEST.json` | 39 | 34 | 0 |
+| `research/uncollapse/SOURCE_MANIFEST.json` | 0 | 1 | 0 |
 | `research/x300_observer_information/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
 | `research/x301_formal_semantics/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
 | `research/x302_operational_reasoning/SOURCE_MANIFEST.json` | 0 | 0 | 0 |
@@ -735,6 +736,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `research/typed_translation/code/typed_translation/enumerate.py` | 1 | `g012_typed_translation` (file) | none |
 | `research/typed_translation/code/typed_translation/model.py` | 1 | `g012_typed_translation` (file) | none |
 | `research/unboundedness/lean/Continuum.lean` | 1 | `diagonal_identity` (file) | none |
+| `research/uncollapse/input.json` | 1 | `uncollapse` (file) | none |
 | `research/x300_observer_information/information.py` | 1 | `x310_vertical_integration` (file) | none |
 | `research/x301_formal_semantics/formulas.py` | 2 | `x303_bounded_agency` (file), `x310_vertical_integration` (file) | none |
 | `research/x301_formal_semantics/intervention.py` | 2 | `x303_bounded_agency` (file), `x310_vertical_integration` (file) | none |
