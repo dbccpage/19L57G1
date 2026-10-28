@@ -38,6 +38,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 
 | pin file | sealed paths | other paths | paths not in the git index |
 |---|---|---|---|
+| `research/actor_institution/SOURCE_MANIFEST.json` | 0 | 1 | 0 |
 | `research/admission_sign_shadow/SOURCE_MANIFEST.json` | 7 | 1 | 0 |
 | `research/admit_leftover/SOURCE_MANIFEST.json` | 2 | 0 | 0 |
 | `research/alpha_engine/SOURCE_MANIFEST.json` | 8 | 3 | 0 |
@@ -419,6 +420,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `lean4/lake-manifest.json` | 17 | `alpha_engine` (file), `coherent_process_limits` (file), `endogenous_demand` (file), `f_class_distinctness` (file), `g010_primitive_removal` (file), `g012_typed_translation` (file), `ignition` (file), `iso_sound` (file), `local_reuse` (file), `magnification` (file), `reachable` (file), `reading_f_iso` (file), `record_reading` (file), `represented_execution` (file), `setting_translation` (file), `target_a_execution` (file), `unboundedness` (file) | none |
 | `lean4/lakefile.toml` | 18 | `alpha_engine` (file), `coherent_process_limits` (file), `endogenous_demand` (file), `f_class_distinctness` (file), `g010_primitive_removal` (file), `g012_typed_translation` (file), `ignition` (file), `instance_demand` (file), `iso_sound` (file), `local_reuse` (file), `magnification` (file), `reachable` (file), `reading_f_iso` (file), `record_reading` (file), `represented_execution` (file), `setting_translation` (file), `target_a_execution` (file), `unboundedness` (file) | none |
 | `lean4/lean-toolchain` | 16 | `admission_sign_shadow` (file), `alpha_engine` (file), `coherent_process_limits` (file), `described_replay` (file), `endogenous_demand` (file), `f_class_distinctness` (file), `ignition` (file), `instance_demand` (file), `iso_sound` (file), `local_reuse` (file), `magnification` (file), `reachable` (file), `record_reading` (file), `represented_execution` (file), `setting_translation` (file), `unboundedness` (file) | none |
+| `research/actor_institution/input.json` | 1 | `actor_institution` (file) | none |
 | `research/admission_sign_shadow/STATUS.md` | 1 | `described_replay` (file, span) | none |
 | `research/balance_carrier/STATUS.md` | 1 | `fresh_characters` (file, span) | none |
 | `research/balance_carrier/lean/BalanceCarrier/LayerObserver.lean` | 1 | `fresh_characters` (file) | none |
