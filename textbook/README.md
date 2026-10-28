@@ -246,11 +246,16 @@ in one template or the other, and this table says which.
 | 32 | The same proof with one more datum | `MinimalityF.mu2_unique_F`, `MinimalityF.genesis_mark_not_separable` | derived | yes |
 | 33 | A rule never pays for itself | `RuleBridge.applyDelta_dropRules`, `RuleBridge.rule_item_never_minimal` | derived | yes |
 | 34 | How many demands can a closed system meet? | `Rounds.round_reqs_succ`, `Rounds.closedRun_round_bound_from_empty` | derived under the declared round shape | yes |
+| 35 | A demand can always be met | `Progress.mark_progress`, `Progress.derivable_extend` | derived (response existence only) | yes |
+| 36 | Lists that mean sets | `Ext.RegimeExt`, `Ext.validResponse_ext` | derived (per observable) | yes |
+| 37 | An inventory is not a derivation | `ObserverInventory.bool_irrefl_full_classification`, `ObserverInventory.residuals_not_unique` | derived; slot names declared | yes |
+| 38 | Refusal as a source of difference: four rungs and one price | `Refusal.nonreify_carrier_bound`, `Refusal.reifyUntagged_eq_occurrence`, `Refusal.tagged_translation_separable` | derived per discipline; the hierarchy as one theorem OPEN | yes |
 
-The order follows the derivation. Units 27-34 follow the root import order
+The order follows the derivation. Units 27-38 follow the root import order
 of `lean4/Derivation.lean` (Quot, Counting, CountTransport, Mention,
-TransitionTransport, MinimalityF, RuleBridge, Rounds); units after 34
-continue with Progress, Ext and ObserverInventory.
+TransitionTransport, MinimalityF, RuleBridge, Rounds, Progress, Ext,
+ObserverInventory, Refusal); units after 38 continue with RefusalFrontier,
+Generator and SeparationCapacity.
 
 ## Parts
 
