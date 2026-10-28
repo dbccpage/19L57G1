@@ -232,12 +232,12 @@ in one template or the other, and this table says which.
 | 18 | One item never answers the demand | `Minimality.cost1_insufficient_general` | derived | yes |
 | 19 | The link regime `BL` (realizing ⟨ARB⟩) separates | `Minimality.BL_separable` | derived | yes |
 | 20 | The self-loop regime `BD` (realizing ⟨ARA⟩) separates | `Minimality.BD_separable` | derived | yes |
-| 21 | The cheapest answer is not unique under mu1 | `Minimality.mu1_minimum_not_unique` | derived | |
-| 22 | It is unique under mu2 | `Minimality.mu2_unique` | derived | |
-| 23 | A related pair r a b alone does not give a ≠ b (countermodel) | `PrimDiff.selfdiff_consistent` | derived | |
-| 24 | Under irreflexivity, r a b gives a ≠ b | `PrimDiff.irrefl_witness_ne` | conditional | |
-| 25 | Under irreflexivity, collapsing a related pair is obstructed | `PrimDiff.obstruction_under_irrefl` | conditional | |
-| 26 | Facts never entail the irreflexivity law | `Bridge.irrefl_law_not_entailed` | derived | |
+| 21 | The cheapest answer is not unique under mu1 | `Minimality.mu1_minimum_not_unique` | derived | yes |
+| 22 | It is unique under mu2 | `Minimality.mu2_unique` | derived | yes |
+| 23 | A related pair r a b alone does not give a ≠ b (countermodel) | `PrimDiff.selfdiff_consistent` | derived | yes |
+| 24 | Under irreflexivity, r a b gives a ≠ b | `PrimDiff.irrefl_witness_ne` | conditional | yes |
+| 25 | Under irreflexivity, collapsing a related pair is obstructed | `PrimDiff.obstruction_under_irrefl` | conditional | yes |
+| 26 | Facts never entail the irreflexivity law | `Bridge.irrefl_law_not_entailed` | derived | yes |
 
 The order follows the derivation. Units after 26 continue with the map of
 Genesis from the mention lemma onward.

@@ -178,11 +178,10 @@ landing equation `applyDelta R2L deltaBD = some BD`.
 
 ## What has not been proved
 
-- `Iso BD BL → False`, the other direction. Genesis proves the direction
-  it needs for `mu1_minimum_not_unique`'s companion facts; the relation
-  is symmetric in fact (an `Iso` carries its inverse), but no theorem in
-  the frozen derivation states `Iso BD BL → False`, and the book does not
-  add one.
+- `Iso BD BL → False` in the frozen derivation. Genesis proves the
+  direction it needs; no Genesis theorem states the other. The book
+  proves it in Unit 21 (`isoSymm`, then `BL_not_iso_BD`), as book Lean
+  outside the frozen inventory.
 - That the loop is a *good* answer. Under `mu2` (Unit 22) it is not
   minimal, for the same reason as the link.
 - That the system "knows" 0 is related to itself. It holds the list
@@ -222,10 +221,10 @@ Use `insts_fwd` on the loop's instance `(0, [0, 0])`: it must be carried
 to an instance of `BL`, that is to `(0, [0, 1])`, so `dmap 0 = 0` from
 the first argument and `dmap 0 = 1` from the second; `0 = 1`,
 contradiction. This time the clash is already in `dmap` at one datum,
-and the inverse field is not needed. The book leaves this direction
-unformalized on purpose: the frozen derivation did not need it, and the
-book does not add theorems to Genesis's inventory, only to its own
-checks.
+and the inverse field is not needed. Unit 21 gives a second route that
+needs no new case analysis: every `Iso` can be reversed (`isoSymm`), so
+`Iso BD BL → False` follows from `BL_not_iso_BD` in one line. Both are
+book Lean; the frozen derivation did not need either.
 
 ## Verification
 
