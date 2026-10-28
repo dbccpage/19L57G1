@@ -269,6 +269,7 @@ in one template or the other, and this table says which.
 | 55 | The first graph is supplied, its observer is created | `HigherStructure.graphAt_spec`, `HigherStructure.round_obstruction`, `HigherStructure.round_two_rule`, `HigherStructure.round_resolution`, `HigherStructure.graphAt_quiescent`, `HigherStructure.ladder_dim2`, `HigherStructure.filling_not_forced`, `HigherStructure.boundary_not_forced` | FROZEN (horizon-free round schema); ADMITTED (driver, cell calculus, sign conventions); VERIFIED_FINITE (`k4`, census, 15 mirrored rounds); OPEN (the ladder as a two-rule statement at every dimension) | yes |
 | 56 | Sameness earned from difference, and what orientation adds | `Apartness.indist_equivalence`, `Apartness.irrefl_alone_breaks_symm`, `Apartness.symm_without_cotrans_breaks_trans`, `Apartness.two_point_indist_trans`, `Apartness.orientations_same_apartness`, `Apartness.orientations_differ`, `Apartness.oriented_preserver_unique`, `Apartness.apart_preserver_pair`, `Apartness.clos_oriented_iff` | FROZEN; ADMITTED (the three laws); VERIFIED_FINITE (carriers 1-3 exhaustive, censuses to 4) | yes |
 | 57 | The interpreter is not in its own family: what a notes-diagonal does and does not show | `InterpreterBoundary.tower_persists`, `InterpreterBoundary.family_missed`, `InterpreterBoundary.i5_boundary_is_A`, `InterpreterBoundary.i5_boundary_is_F`, `InterpreterBoundary.i5_collapse_obstructed`, `InterpreterBoundary.arbitrary_uncoded_assignment` | FROZEN; ADMITTED (the declared setting); OPEN (the denotational bridge, taught as OPEN) | yes |
+| 58 | Is the controller unique? Simulations, the absorbing halt, and uniqueness only along replay | `ControllerCategory.live_census`, `ControllerCategory.tworule_executable_of_live`, `ControllerCategory.dead_without_addcol`, `ControllerCategory.refuse_distinguishes`, `ControllerCategory.erase_sim`, `ControllerCategory.no_initial_ctrl`, `ControllerCategory.strict_not_unique`, `ControllerCategory.strict_agree_on_reachable` | FROZEN; REFUTED (initiality, strict global uniqueness); CONDITIONAL (orbit agreement, one hom-set) | yes |
 
 The order follows the derivation. Units 27-53 follow the root import order
 of `lean4/Derivation.lean` (Quot, Counting, CountTransport, Mention,
@@ -276,7 +277,7 @@ TransitionTransport, MinimalityF, RuleBridge, Rounds, Progress, Ext,
 ObserverInventory, Refusal, RefusalFrontier, Generator, SeparationCapacity,
 Pigeonhole, CapacityBound, LocalStrategy, G1Class, DiffInterface, Represented,
 Completion, NoOutside,
-Constitution, Initiality, Horizon, PrimitiveCore, PrimitiveCats, PrimitiveContact, PrimitivePassage, HigherStructure, Apartness, InterpreterBoundary); units after 57 continue with ControllerCategory.
+Constitution, Initiality, Horizon, PrimitiveCore, PrimitiveCats, PrimitiveContact, PrimitivePassage, HigherStructure, Apartness, InterpreterBoundary, ControllerCategory); units after 58 continue with Attachment.
 
 ## Parts
 
