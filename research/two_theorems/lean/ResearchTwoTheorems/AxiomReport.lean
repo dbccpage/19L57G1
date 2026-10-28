@@ -138,3 +138,30 @@ Axiom report for every declaration CLAIMS.md cites.  Compiled by
 #print axioms ResearchTwoTheorems.Reading.guess_visible_iff
 #print axioms ResearchTwoTheorems.Reading.shared_guess
 #print axioms ResearchTwoTheorems.Reading.guess_witness
+
+-- Finite tables for questions (2026-10-28, second review)
+#print axioms ResearchTwoTheorems.FiniteQuestions.ofTable_tabulate
+#print axioms ResearchTwoTheorems.FiniteQuestions.tabulate_pQ_mem
+#print axioms ResearchTwoTheorems.FiniteQuestions.tabulate_length
+#print axioms ResearchTwoTheorems.FiniteQuestions.decode_encode_length
+#print axioms ResearchTwoTheorems.FiniteQuestions.sigList_decode_encode
+#print axioms ResearchTwoTheorems.FiniteQuestions.sigEq_decode_encode
+#print axioms ResearchTwoTheorems.FiniteQuestions.pick_congr
+#print axioms ResearchTwoTheorems.FiniteQuestions.actor_decode_encode
+#print axioms ResearchTwoTheorems.FiniteQuestions.knows_decode_encode
+#print axioms ResearchTwoTheorems.FiniteQuestions.knows_tabulated
+#print axioms ResearchTwoTheorems.FiniteQuestions.information_decode_encode
+#print axioms ResearchTwoTheorems.FiniteQuestions.encoding_faithful
+
+-- Sharp against sufficient; representation against acquisition (2026-10-28)
+#print axioms ResearchTwoTheorems.Sufficiency.sufficient_iff
+#print axioms ResearchTwoTheorems.Sufficiency.sharp_iff_sufficient_and_consistent
+#print axioms ResearchTwoTheorems.Sufficiency.sufficient_not_sharp
+#print axioms ResearchTwoTheorems.Sufficiency.consistent_not_sufficient
+#print axioms ResearchTwoTheorems.Sufficiency.sufficient_consistent_independent
+#print axioms ResearchTwoTheorems.Sufficiency.sharp_fixes_partition
+#print axioms ResearchTwoTheorems.Sufficiency.sharpObserver_sharp
+#print axioms ResearchTwoTheorems.Sufficiency.sharpObserver_views
+#print axioms ResearchTwoTheorems.Sufficiency.posOf_dedupL_congr
+#print axioms ResearchTwoTheorems.Sufficiency.fiberIdx_congr
+#print axioms ResearchTwoTheorems.Sufficiency.sharpObserver_congr

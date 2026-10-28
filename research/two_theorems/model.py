@@ -881,6 +881,105 @@ def guess_checks(D: Carrier) -> dict[str, int | bool]:
 
 
 
+# ------------------------------------------------- second review, 2026-10-28
+
+
+FiniteTable = tuple[tuple[int, int], ...]
+
+
+def tabulate(D: Carrier, q: Presentation) -> FiniteTable:
+    """Lean ``FiniteQuestions.tabulate``: the table of ``q`` over ``D``."""
+    return tuple((x, q(x)) for x in D)
+
+
+def of_table(t: FiniteTable) -> Presentation:
+    """Lean ``FiniteQuestions.ofTable``: first match, ``0`` off the table."""
+    values: dict[int, int] = {}
+    for k, v in t:
+        values.setdefault(k, v)
+    return Table(values)
+
+
+def encode_family(D: Carrier, Q: Sequence[Presentation]) -> tuple[FiniteTable, ...]:
+    return tuple(tabulate(D, q) for q in Q)
+
+
+def decode_family(T: Sequence[FiniteTable]) -> tuple[Presentation, ...]:
+    return tuple(of_table(t) for t in T)
+
+
+def encoding_checks(D: Carrier, pool: Sequence[Presentation], size: int) -> dict[str, int]:
+    """``encoding_faithful``: over every family of at most ``size`` pool
+    members, storing the family as finite tables over ``D`` and reading it
+    back preserves knowledge of every question of the pool, knowledge of
+    each question's own table, information, and the actor on ``D``."""
+    cases = violations = 0
+    for Q in reading_families(pool, size):
+        Qd = decode_family(encode_family(D, Q))
+        cases += 1
+        if information(D, Qd) != information(D, Q):
+            violations += 1
+        a, ad = joint_presentation(D, Q), joint_presentation(D, Qd)
+        if any(a(x) != ad(x) for x in D):
+            violations += 1
+        for q in pool:
+            cases += 1
+            if knows(D, Qd, q) != knows(D, Q, q):
+                violations += 1
+            if knows(D, Q, of_table(tabulate(D, q))) != knows(D, Q, q):
+                violations += 1
+    return {"cases": cases, "violations": violations}
+
+
+def sufficient(D: Carrier, E: Evaluator, p: Presentation) -> bool:
+    """``Sufficient D E p``: the observer's questions know the actor."""
+    return knows(D, questions(E), p)
+
+
+def sufficiency_checks(D: Carrier, m: int) -> dict[str, int]:
+    """``sharp_iff_sufficient_and_consistent`` on every ``m``-view observer
+    and every actor on ``D``, with the counts of the two one-sided cases:
+    sufficient and not sharp (over-informative), consistent and not
+    sufficient (under-informative)."""
+    cases = violations = over = under = 0
+    for E in all_evaluators(D, m):
+        for p in all_presentations(D):
+            cases += 1
+            s, k, c = sharp(D, E, p), sufficient(D, E, p), consistent(D, E, p)
+            if s != (k and c):
+                violations += 1
+            if k and not s:
+                over += 1
+            if c and not k:
+                under += 1
+    return {"cases": cases, "violations": violations,
+            "sufficient_not_sharp": over, "consistent_not_sufficient": under}
+
+
+def sharp_fixes_partition_check(D: Carrier, m: int) -> dict[str, int]:
+    """``sharp_fixes_partition``: two actors sharply observed by one observer
+    have the same partition on ``D``; and ``sharpObserver_congr``: the
+    exhibited observer of two actors with the same partition is the same
+    evaluator."""
+    pairs = violations = congr_pairs = congr_violations = 0
+    actors = list(all_presentations(D))
+    for E in all_evaluators(D, m):
+        sharp_actors = [p for p in actors if sharp(D, E, p)]
+        for p in sharp_actors:
+            for q in sharp_actors:
+                pairs += 1
+                if not fiber_identity(D, p, q):
+                    violations += 1
+    for p in actors:
+        for q in actors:
+            if fiber_identity(D, p, q):
+                congr_pairs += 1
+                if bit_observer(D, fiber_index(D, p), m) != bit_observer(D, fiber_index(D, q), m):
+                    congr_violations += 1
+    return {"sharp_pairs": pairs, "violations": violations,
+            "same_partition_pairs": congr_pairs, "observer_differs": congr_violations}
+
+
 def run_all() -> dict[str, object]:
     D4: Carrier = (0, 1, 2, 3)
     D3: Carrier = (0, 1, 2)
@@ -937,6 +1036,25 @@ def run_all() -> dict[str, object]:
             "finite_question_space_D3": finite_question_space(D3, pool3, 2),
             "grounding_D3": grounding_checks(D3, pool3, 2),
             "guess_D4": guess_checks(D4),
+        },
+        "second_review_2026_10_28": {
+            "encoding_D4": encoding_checks(D4, pool, 2),
+            "encoding_D3": encoding_checks(D3, pool3, 2),
+            "sufficiency_D3_m1": sufficiency_checks(D3, 1),
+            "sufficiency_D3_m2": sufficiency_checks(D3, 2),
+            "sufficiency_D4_m2": sufficiency_checks(D4, 2),
+            "witness_sufficient_not_sharp": {
+                "sufficient": sufficient((0, 1), ((0,),), Table({0: 0, 1: 0})),
+                "sharp": sharp((0, 1), ((0,),), Table({0: 0, 1: 0})),
+                "consistent": consistent((0, 1), ((0,),), Table({0: 0, 1: 0})),
+            },
+            "witness_consistent_not_sufficient": {
+                "sufficient": sufficient((0, 1), (), Table({0: 0, 1: 1})),
+                "sharp": sharp((0, 1), (), Table({0: 0, 1: 1})),
+                "consistent": consistent((0, 1), (), Table({0: 0, 1: 1})),
+            },
+            "partition_D3_m2": sharp_fixes_partition_check(D3, 2),
+            "partition_D4_m2": sharp_fixes_partition_check(D4, 2),
         },
     }
 

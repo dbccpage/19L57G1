@@ -5,3 +5,5 @@ import ResearchTwoTheorems.Diagonal
 import ResearchTwoTheorems.Correspondence
 import ResearchTwoTheorems.RegimeBridge
 import ResearchTwoTheorems.Reading
+import ResearchTwoTheorems.FiniteQuestions
+import ResearchTwoTheorems.Sufficiency

@@ -261,3 +261,36 @@ def test_absolute_observer_is_carrier_relative() -> None:
     assert small["cases"] > 0 and small["violations"] == 0 and small["absolute"] == 0
     large = model.absolute_checks(D4, 2)
     assert large["violations"] == 0 and large["absolute"] > 0
+
+
+# ------------------------------------------------- second review, 2026-10-28
+
+
+def test_encoding_preserves_knowledge_information_and_actor() -> None:
+    for D, pool in ((D4, POOL), (D3, [model.Table({x: p(x) for x in D3}) for p in POOL])):
+        out = model.encoding_checks(D, pool, 2)
+        assert out["cases"] > 0 and out["violations"] == 0
+    q = POOL[1]
+    assert model.of_table(model.tabulate(D4, q))(2) == q(2)
+    assert model.of_table(model.tabulate(D4, q))(99) == 0
+
+
+def test_sharp_is_sufficient_and_consistent() -> None:
+    for D, m in ((D3, 1), (D3, 2), (D4, 2)):
+        out = model.sufficiency_checks(D, m)
+        assert out["violations"] == 0
+        assert out["sufficient_not_sharp"] > 0
+        assert out["consistent_not_sufficient"] > 0
+    const = model.Table({0: 0, 1: 0})
+    assert model.sufficient((0, 1), ((0,),), const)
+    assert not model.sharp((0, 1), ((0,),), const)
+    ident = model.Table({0: 0, 1: 1})
+    assert model.consistent((0, 1), (), ident)
+    assert not model.sufficient((0, 1), (), ident)
+
+
+def test_sharp_observer_carries_exactly_the_partition() -> None:
+    for D, m in ((D3, 2), (D4, 2)):
+        out = model.sharp_fixes_partition_check(D, m)
+        assert out["sharp_pairs"] > 0 and out["violations"] == 0
+        assert out["same_partition_pairs"] > 0 and out["observer_differs"] == 0

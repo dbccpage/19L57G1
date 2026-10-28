@@ -6,7 +6,7 @@ A research tree outside the sealed derivation.  It consumes seven sealed
 modules read-only (`input.json`), adds nothing to `lean4/`, and proves its
 statements in core Lean 4.33 with no library beyond the sealed package.  Every
 `#print axioms` report lies within `{propext, Quot.sound}`; the tree uses no
-choice principle anywhere (`verify.py --check`, 127 declarations).
+choice principle anywhere (`verify.py --check`, 150 declarations).
 
 This tree proves nothing about minds, intelligences or institutions in the
 world.  It fixes a reading of two proposed theorems in Genesis's own objects
@@ -47,6 +47,8 @@ TT-R2); nothing here derives it.
 | grounded report (proposal, 2026-10-28; named `Honest` until the review of that day) | `Grounded D Q s := Knows D Q s`: the report claims no distinction the institution's questions cannot make; silence and under-claiming are permitted.  Relative to the questions and the carrier; a report is grounded by being admitted; not truth, honesty or wisdom | `Reading.lean` |
 | guess | `Guess D p s := ¬ Knows D [p] s`: a report the actor's own question does not determine | `Reading.lean` |
 | consistent actor | `Consistent D E p`: every separation the observer reports is one of the actor's | `Reading.lean` |
+| sufficient observation (2026-10-28, second review) | `Sufficient D E p := Knows D (questions E) p`: every merge the observer reports is one of the actor's.  Sharp is sufficient and consistent together | `Sufficiency.lean` |
+| institution as tables (2026-10-28, second review) | `encode D Q`, a list of finite tables over `D`; `decode` reads them back; nothing the tree says tells the two apart on `D` | `FiniteQuestions.lean` |
 | residuals of ignorance | `residuals D Q q`: the pairs the institution merges on which the question differs | `Reading.lean` |
 | admitted carrier of a regime | `admitted r := List.range r.data` | `RegimeBridge.lean` |
 | faithful correspondence | `Faithful D f`: `f` merges no two points of `D` | `Correspondence.lean` |
@@ -70,6 +72,24 @@ claim with its evidence.
   observer exactly when it has at most `2^m` fibers (`sharp_observable_iff`,
   with the witness `bitObserver_sharp` and the refutation
   `not_sharp_observable_of_fibers_gt`).
+- Representation, not acquisition (2026-10-28, second review): the observer
+  the resolution theorem exhibits is `bitObserver D (fiberIdx D p) m`, each
+  view `D` cut by one bit of the actor's own fiber index
+  (`Sufficiency.sharpObserver_views`); it depends on `p` only through its
+  partition on `D` (`sharpObserver_congr`, via `fiberIdx_congr`), and any
+  sharp observer carries exactly that partition (`sharp_fixes_partition`).
+  The theorem says `m` views can *carry* a partition of at most `2^m`
+  fibers.  It does not say how an observer that lacks the partition comes
+  to hold it; that is acquisition, OPEN (TT-43o, drafted below).
+- Sharp against sufficient (2026-10-28, second review):
+  `Sharp D E p ↔ Sufficient D E p ∧ Consistent D E p`
+  (`sharp_iff_sufficient_and_consistent`), where `Sufficient` is
+  `Knows D (questions E) p`, whatever the observer merges the actor merges,
+  and `Consistent` the other direction.  The conjuncts are independent:
+  on `[0, 1]` the one-view observer `[[0]]` is sufficient for the constant
+  actor and not sharp (`sufficient_not_sharp`, the over-informative
+  observer), and the empty observer is consistent with the identity and
+  not sufficient (`consistent_not_sufficient`).
 - Absolute observation is carrier-relative: an observer is adequate for
   every question exactly when it separates every pair of distinct carrier
   points (`absolute_observer_iff`).  On the two-point carrier the one-view
@@ -258,6 +278,18 @@ over every table against separation of every pair, for every one-view
 observer on three points and every two-view observer on four; the two-point
 witness and its three-point failure) is under `run_all()["absolute"]`.
 
+The second review's checks (2026-10-28) are under
+`run_all()["second_review_2026_10_28"]`: the table encoding over the eleven
+families on three and on four points (knowledge of every pool question and
+of its own table, information and the actor agree after the round trip; 55
+cases each, no violation); sharp against sufficient and consistent over
+every one- and two-view observer and every actor on three points and every
+two-view observer on four (no violation; 18, 612 and 11664 over-informative
+cases, 84, 312 and 11664 under-informative); and the partition checks
+(every pair of actors sharply observed by one observer has the same fibers,
+2196 and 108928 pairs; the exhibited observer of two actors with the same
+partition is the same evaluator, 153 and 5056 pairs).
+
 ## What is conditional
 
 - The regime bridge takes an enumeration `cs` with `∀ c, c ∈ cs ↔ wfCtx r c`
@@ -281,6 +313,7 @@ quantifier in the tree was audited against it.
 |---|---|---|
 | `Nat` as the name of a token | metatheory | Genesis's own token names; the sealed modules use them |
 | `Nat → Nat` as the name of a presentation | metatheory | a presentation is read only on `D` (`knows_congr`); no theorem consults a value off `D` |
+| `Institution := List (Nat → Nat)`, total functions stored | internal after encoding | `FiniteQuestions`: the institution of finite tables over `D` has the same signatures, agreement, actor, knowledge and information on `D` (`encoding_faithful`); the table of a representative lies in `D × D` (`tabulate_pQ_mem`) |
 | `D`, `admitted r`, views, evaluators, institutions, `catalogue code n`, `classes`, every count | internal, finite | lists; every theorem is guarded by `x ∈ D` or `a < r.data` |
 | `∀ q : Nat → Nat` in `Knows`, `Wise`, `absolute_observer_iff` | internal after reduction | `knows_iff_knows_pQ` and `pQ_mem` reduce it to the `\|D\|^\|D\|` tables `D → D`, which the model enumerates |
 | the type variable `C` in `no_closed_self_interpreter`, `tower_persists_operational`, `lawful_escape_iff` | metatheory | a parameter of the statement, ranging over every type, infinite ones included; the internal forms are `no_closed_self_interpreter_fin` on codes `Fin n` and the finite code lists the other two take.  (Corrected 2026-10-28: this row said nothing was asserted of an infinite `C`, which is false of the general theorem.) |
@@ -296,6 +329,15 @@ points.  One artifact is named and given no reading: `verdictB` is defined
 on all of `Nat`, so the model can print a verdict on an unadmitted datum
 (`verdict(R0, 0, 99)`); no theorem reads such a verdict, and
 `not_mem_ctxView_of_unadmitted` says the datum lies in no view.
+
+The second review (2026-10-28) asked that the total functions stored in
+`Institution` be shown dispensable, not only unread.  `FiniteQuestions.lean`
+stores an institution as finite tables over `D` (`encode D Q`, one pair
+`(x, q x)` per `x ∈ D` and member `q`) and reads them back (`decode`); on
+`D` the signatures, agreement, actor, knowledge of every question and
+information of the two institutions coincide (`encoding_faithful`), and
+knowledge of a question is knowledge of its table (`knows_tabulated`).  The
+function type is notation for its table on `D`.
 
 ## Wisdom, re-examined (2026-10-28)
 
@@ -466,6 +508,15 @@ here converts a witnessed off-diagonal separation into a universal one.
 - That how intelligent another actor is can be read off a finite observer;
   under the reading, `observer_cannot_read_resolution` says the opposite.
 - That the capacity threshold is exact beyond the tested parameters.
+- That the resolution theorem says how an observer acquires a partition.  It
+  is representation capacity: the exhibited observer is cut from the
+  actor's own fiber index (`sharpObserver_views`, `sharpObserver_congr`);
+  acquisition is TT-43o.  Standing check, from the second review: an
+  observer constructed with complete access to the target presentation is
+  never evidence that an observer can discover that presentation.
+- That sufficiency is a weaker sharpness; it is one direction of it
+  (`sharp_iff_sufficient_and_consistent`), and the other direction fails
+  on its own (`sufficient_not_sharp`).
 - That any statement here is a theorem of the sealed derivation: the tree
   consumes the seal and adds to nothing inside it.
 - A denotational bridge to interpreters remains open, as in the seal.
@@ -517,6 +568,93 @@ statement is kept above with a dated note where it stood.
    corrections.  Reds in that suite not caused by this tree are listed in the
    pull request.
 
+## Second review of 2026-10-28
+
+A second review (relayed by the author; of the tree at `67fcfe1`, before the
+corrections above) raised three new points and re-raised three that
+`ca1223d` had already settled.  Each was checked against the source.
+
+1. *Total functions in `Institution`* (new).  Settled by `FiniteQuestions.lean`
+   (TT-41, TT-41c): an institution stored as finite tables over `D` has the
+   same signatures, agreement, actor, knowledge and information on `D`
+   (`encoding_faithful`), the table of a representative lies in `D × D`
+   (`tabulate_pQ_mem`), and knowledge of a question is knowledge of its table
+   (`knows_tabulated`).  See the Finitude table.
+2. *The sharp observer is built from the partition it observes* (new).
+   Accepted and made exact: `sharpObserver_views` shows each view of the
+   exhibited observer cut from `D` by a bit of the actor's own fiber index,
+   `sharpObserver_congr` that the construction depends on the actor only
+   through its partition on `D`, and `sharp_fixes_partition` that any sharp
+   observer carries exactly that partition (TT-44, TT-44c).  TT-05 is
+   relabelled a theorem of representation capacity; acquisition is TT-43o,
+   with the draft below.  The review's standing check is recorded under Not
+   claimed.
+3. *Sharp against sufficient* (new).  `Sharp` is unchanged;
+   `sharp_iff_sufficient_and_consistent` separates exact observation from
+   sufficient observation, and `sufficient_not_sharp`,
+   `consistent_not_sufficient` show the two directions independent (TT-42,
+   TT-42c).
+4. *`opDiag` is not an interpreter; the lawful version is open* (re-raised).
+   Settled at `ca1223d`: `opDiag_not_lawful`, `lawful_escape_iff`,
+   `lawful_no_escape` (TT-18L), TT-40o for weaker contracts.
+5. *Rename `extension_forced`* (re-raised).  Settled at `ca1223d`:
+   `knowledge_gain_requires_refinement`, TT-38o.
+6. *Absolute observation is carrier-relative* (re-raised).  Settled at
+   `ca1223d`: `absolute_observer_two_points`, `absolute_checks`, TT-06c.
+7. *Downstream obligations* (the review's §8: accuracy, justification,
+   certificate, authorization).  Not addressed and not claimed: `Knows` is a
+   factorization fact about represented data, `Grounded` is relative to the
+   admitted questions, and nothing in the tree is a certificate or an
+   authorization (AuthorityEffect: None).  Of the review's three levels,
+   representation is proved (TT-05, TT-44), acquisition is open (TT-43o) and
+   justification is open (no claim names it).
+
+Rejected: nothing.
+
+### Proposed next target (not started): the Sharp Observer-Acquisition Theorem
+
+Status: a statement and an estimate, drafted at the review's suggestion.  No
+proof, no model and no Lean is started; the grammar and its costs below are
+admissions the author has to make, and different admissions give different
+theorems.
+
+*Given.*  An admitted carrier `D` of `n` points, each listed once; an actor
+`p`, read on `D` only, with `N = classCount D [p]` fibers; and a finite
+grammar of observation operations, each with an admitted cost.  Candidate
+grammar: `probe x y` for `x, y ∈ D`, answered by the Boolean `p x = p y` at
+cost `1`; `admit c` for a view `c ⊆ D`, which adds `c` to the observer at cost
+`1`.  A protocol is a finite decision tree over the grammar: each next
+operation is chosen from the earlier answers alone, and the actor is reached
+only through the probes.  A protocol *acquires* `p` when the observer it has
+admitted is sharp for every actor on `D` consistent with every answer it
+received.  Its cost on `p` is the sum of the admitted costs along the branch
+`p` selects.
+
+*To prove or refute.*  (i) With no promise on `N`, the least worst-case probe
+count of a protocol that acquires every actor on `D` is `n(n − 1)/2`, met by
+the actor with `n` fibers: every unprobed pair of a separated actor could be
+merged by an actor consistent with all answers.  (ii) With `N` promised, the
+least worst-case probe count is `N(N − 1)/2 + (n − N)(N − 1)`: a protocol
+that probes each new point against one representative of each known fiber
+meets it, and an adversary answering "different" while a consistent actor
+remains forces it.  (iii) Once the partition is held, `⌈log₂ N⌉` admitted
+views are sufficient and necessary for a sharp observer (TT-05), so the least
+admission cost under the candidate grammar is the probe count plus
+`⌈log₂ N⌉`.  (iv) Each probe answer is a witnessed fact about one pair; the
+acquired partition is the finite conjunction of those facts, and sharpness
+is certified only when the conjunction fixes the partition (TT-44).  Nothing
+in (i) to (iv) is a law; every bound is on an admitted carrier.
+
+*Feasibility.*  A finite model that computes the game value over every
+protocol on `n ≤ 5` points (minimax over the answer histories consistent
+with some actor) is a few hours of work and minutes of computation.  The
+upper bounds in Lean (the protocol and its probe count) are a few days.  The
+lower bounds in Lean need protocols as an inductive type of decision trees
+and an adversary against every tree; that is the hard part, about a week,
+and may land CONDITIONAL on the grammar.  What the author decides first:
+which operations exist (pairwise probes, value reads, views only), their
+costs, and whether `N` is promised.
+
 ## Layout and how to run
 
 ```
@@ -526,7 +664,8 @@ research/two_theorems/
   lean/lakefile.toml  lean/lean-toolchain  lean/lake-manifest.json
   lean/ResearchTwoTheorems.lean
   lean/ResearchTwoTheorems/{Observer,Capacity,Institution,Diagonal,
-                            Correspondence,RegimeBridge,Reading,AxiomReport}.lean
+                            Correspondence,RegimeBridge,Reading,
+                            FiniteQuestions,Sufficiency,AxiomReport}.lean
 ```
 
 `verify.py --check` is the tree's own receipt.  The repository suite
