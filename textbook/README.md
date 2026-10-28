@@ -262,14 +262,15 @@ in one template or the other, and this table says which.
 | 48 | Generating the stream from the state, and describing the kernel to itself | `Constitution.driver_reproduces_tower`, `Constitution.nextFamily_stop`, `Constitution.interp_describe`, `Constitution.allDescs_complete` | derived relative to the fixed interpreter under metatheoretic iteration; level 4 not attained; the interpreter is not a member of its family (OPEN) | yes |
 | 49 | Minimal among what? A six-probe singleton in a 64-member class | `Initiality.unique_compliant`, `Initiality.accept_guard_load_bearing`, `Initiality.extension_retract_replay` | VERIFIED_FINITE, class- and battery-relative; categorical initiality not claimed | yes |
 | 50 | From stage 3 to every stage: characterising the generated run | `Horizon.worldAt_spec`, `Horizon.worldAt_quiescent`, `Horizon.block_all_accepted`, `Horizon.interp_budget_bound` | FROZEN (every-stage theorems); VERIFIED_FINITE (saturation instances); correction module C6/C10 | yes |
+| 51 | Nine readings of one difference | `PrimitiveCore.imp_a_d`, `PrimitiveCore.nimp_w_d`, `PrimitiveCore.nimp_a_bc`, `PrimitiveCore.e_empty_iff_d`, `PrimitiveCore.located_of_decidable` | FROZEN (17 implications, 51 countermodels); OPEN (4 located cells, scoped); VERIFIED_FINITE (the scan) | yes |
 
-The order follows the derivation. Units 27-50 follow the root import order
+The order follows the derivation. Units 27-51 follow the root import order
 of `lean4/Derivation.lean` (Quot, Counting, CountTransport, Mention,
 TransitionTransport, MinimalityF, RuleBridge, Rounds, Progress, Ext,
 ObserverInventory, Refusal, RefusalFrontier, Generator, SeparationCapacity,
 Pigeonhole, CapacityBound, LocalStrategy, G1Class, DiffInterface, Represented,
 Completion, NoOutside,
-Constitution, Initiality, Horizon); units after 50 continue with InterpreterBoundary.
+Constitution, Initiality, Horizon, PrimitiveCore); units after 51 continue with PrimitiveCats.
 
 ## Parts
 
