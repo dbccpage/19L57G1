@@ -605,6 +605,17 @@ PINNED_COLLISIONS: dict[tuple[str, str], tuple[str, ...]] = {
         "research/setting_translation/lean",
         "research/unboundedness/lean",
     ),
+    # Accepted 2026-10-28, argued in its pull request: uncollapse requires
+    # ignition for applyItem_wf and ctxList (reused, as its code review
+    # asked, rather than re-proved), so it inherits ignition's own pinned
+    # pair of `Inventory` suppliers unchanged.  The tree supplies no
+    # `Inventory`, nothing in its closure imports one (assertion 3 holds),
+    # and its verifier compiles its AxiomReport.lean by file path, never an
+    # `import Inventory` script (assertion 2 holds).
+    ("Inventory", "research/uncollapse/lean"): (
+        "research/ignition/lean",
+        "research/local_reuse/lean",
+    ),
 }
 
 
