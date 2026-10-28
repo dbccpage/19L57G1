@@ -272,9 +272,20 @@ So neither premise can be weakened to "well-formed" or "reachable".
 
 **Status:** derived (book Lean). Reported axioms: none for `R_derives`,
 `R'_derives`, `R'_not_derives`, `R_insts`, `R'_rules`; `propext` and
-`Quot.sound` for `R_wf` and `R'_wf` (from `simp`); `propext` for the two
-replay lines (from `decide`). All lie inside Genesis's own axiom boundary
-`{propext, Quot.sound}`.
+`Quot.sound` for `R_wf` and `R'_wf`; `propext` for the two replay lines.
+All lie inside Genesis's own axiom boundary `{propext, Quot.sound}`.
+Where they come from: `propext` is already in the definitions these
+statements mention, `Regime.wf` (through `List.getD`) and `replayE`
+(through `stepE`, which uses `List.getD` and `insertNew`), so any proof of
+those statements reports it (Unit 03, **Axioms**). `Quot.sound` comes from
+the `simp` proofs of `R_wf` and `R'_wf`.
+
+*Corrected 2026-10-28.* The first version of this paragraph said `propext`
+came "from `simp`" for the two well-formedness lines and "from `decide`"
+for the two replay lines. That was wrong as to `propext`: `#print axioms`
+reports `propext` for `Regime.wf`, `stepE` and `replayE` themselves,
+whatever the proof. The reported axioms were right; only their sources
+were misattributed.
 
 **What the two witnesses teach.** The two halves of `derivable` reach very
 differently.

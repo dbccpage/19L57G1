@@ -183,7 +183,7 @@ which.
 | 00 | The mark and the external constructor | (none; seed §1, paper §2) | admitted | yes |
 | 01 | Nothing is derivable at genesis | `Inertia.genesis_underivable` | derived | yes |
 | 02 | Nothing is derivable without instances or rules (and one admitted rule makes unadmitted instances derivable) | `Inertia.underivable_of_empty` | derived | yes |
-| 03 | Supplying a token changes nothing | `Inertia.supply_no_op` | derived | |
+| 03 | Supplying a token changes nothing | `Inertia.supply_no_op` | derived | yes |
 | 04 | No successor is internally forced (by the declared grammar) | (none; paper §4) | admitted | |
 | 05 | Is ⟨⟩ admitted? Readings L and F | `Inertia.historyL_replays`, `historyF_replays` | open | |
 | 06 | Re-admitting a token designates, it does not add | `Erasure.stepT` | admitted | |
