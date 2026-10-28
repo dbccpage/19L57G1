@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Genesis Textbook — 15-Second Soundbite & Ledger Explorer</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+</head>
+<body class="bg-[var(--background)] text-[var(--foreground)] antialiased p-6">
+  <div class="max-w-5xl mx-auto space-y-6">
+    <!-- Top Header Card -->
+    <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-2 mb-1">
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[var(--primary)] text-[var(--primary-foreground)]">15s Soundbite Engine</span>
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-medium border border-[var(--border)] text-[var(--muted-foreground)]">AuthorityEffect: None</span>
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-medium border border-[var(--border)] text-[var(--muted-foreground)]">93 Wiki Units Live</span>
+        </div>
+        <h1 class="text-xl font-bold text-[var(--foreground)]">The Genesis Textbook — Interactive 15-Second Explorer</h1>
+        <p class="text-sm text-[var(--muted-foreground)]">Zero prerequisites. Erase every preconceived notion and explore the frozen derivation (Units 00–74) &amp; institutions (00–17) in 15-second bites.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="text-right">
+          <div class="text-xs text-[var(--muted-foreground)]">Quiz Streak</div>
+          <div id="streak-counter" class="text-lg font-bold text-[var(--primary)]">0 / 12 ⚡</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mode Tabs -->
+    <div class="flex flex-wrap gap-2">
+      <button onclick="switchTab('acts')" id="tab-acts" class="px-4 py-2 rounded-lg text-sm font-semibold bg-[var(--primary)] text-[var(--primary-foreground)] transition">1. 12-Act 15s Soundbite Tour</button>
+      <button onclick="switchTab('sim')" id="tab-sim" class="px-4 py-2 rounded-lg text-sm font-semibold bg-[var(--card)] text-[var(--foreground)] border border-[var(--border)] transition">2. Live Ledger Simulator (Part 1)</button>
+      <button onclick="switchTab('inst')" id="tab-inst" class="px-4 py-2 rounded-lg text-sm font-semibold bg-[var(--card)] text-[var(--foreground)] border border-[var(--border)] transition">3. Actor &amp; Institution Sandbox (Part 2)</button>
+    </div>
+
+    <!-- TAB 1: 12-Act Soundbite Tour -->
+    <div id="panel-acts" class="space-y-5">
+      <!-- Act Selector Pills -->
+      <div id="act-pills" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2"></div>
+
+      <!-- Active Act Card -->
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 shadow-sm space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border)] pb-3">
+          <div>
+            <span id="act-badge" class="text-xs font-bold uppercase tracking-wider text-[var(--primary)]"></span>
+            <h2 id="act-title" class="text-lg font-bold text-[var(--foreground)]"></h2>
+          </div>
+          <span id="act-status" class="px-3 py-1 rounded-md text-xs font-semibold border border-[var(--border)] bg-[var(--secondary)] text-[var(--secondary-foreground)]"></span>
+        </div>
+
+        <!-- 4 x 15s Soundbite Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div class="p-3.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+            <div class="text-xs font-bold text-[var(--primary)] mb-1">⏱️ 0:00–0:03 · THE QUESTION (3s)</div>
+            <p id="bite-1" class="text-sm text-[var(--foreground)]"></p>
+          </div>
+          <div class="p-3.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+            <div class="text-xs font-bold text-[var(--primary)] mb-1">⏱️ 0:03–0:07 · THE MECHANISM (4s)</div>
+            <p id="bite-2" class="text-sm text-[var(--foreground)]"></p>
+          </div>
+          <div class="p-3.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+            <div class="text-xs font-bold text-[var(--primary)] mb-1">⏱️ 0:07–0:11 · WHAT IS ESTABLISHED (4s)</div>
+            <p id="bite-3" class="text-sm text-[var(--foreground)]"></p>
+          </div>
+          <div class="p-3.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+            <div class="text-xs font-bold text-[var(--primary)] mb-1">⏱️ 0:11–0:15 · WHERE EVIDENCE STOPS (4s)</div>
+            <p id="bite-4" class="text-sm text-[var(--foreground)]"></p>
+          </div>
+        </div>
+
+        <!-- Dopamine Prediction Challenge -->
+        <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--secondary)]/40 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-[var(--primary)]">🧠 15-Second Dopamine Challenge</span>
+            <span id="quiz-feedback" class="text-xs font-semibold"></span>
+          </div>
+          <p id="quiz-question" class="text-sm font-medium text-[var(--foreground)]"></p>
+          <div id="quiz-options" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
+          <div id="quiz-explanation" class="hidden text-xs text-[var(--muted-foreground)] pt-2 border-t border-[var(--border)]"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: Live Ledger Simulator -->
+    <div id="panel-sim" class="hidden bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 shadow-sm space-y-4">
+      <div>
+        <h2 class="text-lg font-bold text-[var(--foreground)]">Live Genesis Admission &amp; Separation Ledger (Units 00–22)</h2>
+        <p class="text-sm text-[var(--muted-foreground)]">Click events below to replay them on the finite ledger and watch when datum 0 and datum 1 remain collapsed vs. become witnessed-separable.</p>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <button onclick="simEvent('supply')" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-[var(--border)] bg-[var(--secondary)] text-[var(--secondary-foreground)]">+ Supply("a") [U03]</button>
+        <button onclick="simEvent('datum')" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-[var(--border)] bg-[var(--secondary)] text-[var(--secondary-foreground)]">+ AdmitDatum [U06]</button>
+        <button onclick="simEvent('form1')" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-[var(--border)] bg-[var(--secondary)] text-[var(--secondary-foreground)]">+ AdmitForm(arity=1) [U18]</button>
+        <button onclick="simEvent('form2')" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-[var(--border)] bg-[var(--secondary)] text-[var(--secondary-foreground)]">+ AdmitForm(arity=2) [U19]</button>
+        <button onclick="simEvent('inst_u')" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-[var(--border)] bg-[var(--secondary)] text-[var(--secondary-foreground)]">+ AdmitInst(0, [0]) [U22]</button>
+        <button onclick="simEvent('inst_bl')" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-[var(--border)] bg-[var(--secondary)] text-[var(--secondary-foreground)]">+ AdmitInst(0, [0,1]) (BL) [U19]</button>
+        <button onclick="simEvent('inst_bd')" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-[var(--border)] bg-[var(--secondary)] text-[var(--secondary-foreground)]">+ AdmitInst(0, [0,0]) (BD) [U20]</button>
+        <button onclick="simEvent('reset')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--primary)] text-[var(--primary-foreground)]">Reset to &lt;&gt;</button>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div class="p-3.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+          <div class="text-xs text-[var(--muted-foreground)]">Regime State</div>
+          <div id="sim-state" class="text-sm font-mono font-semibold mt-1"></div>
+        </div>
+        <div class="p-3.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+          <div class="text-xs text-[var(--muted-foreground)]">Costs (mu1 / mu2)</div>
+          <div id="sim-cost" class="text-sm font-mono font-semibold mt-1"></div>
+        </div>
+        <div class="p-3.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+          <div class="text-xs text-[var(--muted-foreground)]">Observational Verdict on (0, 1)</div>
+          <div id="sim-verdict" class="text-sm font-semibold mt-1"></div>
+        </div>
+      </div>
+      <div id="sim-log" class="text-xs text-[var(--muted-foreground)] font-mono p-3 rounded-lg border border-[var(--border)] bg-[var(--background)]"></div>
+    </div>
+
+    <!-- TAB 3: Actor & Institution Sandbox -->
+    <div id="panel-inst" class="hidden bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 shadow-sm space-y-4">
+      <div>
+        <h2 class="text-lg font-bold text-[var(--foreground)]">Part 2 Sandbox: Actors, Institutions &amp; Exceeding (Institutions 00–11)</h2>
+        <p class="text-sm text-[var(--muted-foreground)]">On carrier D = [0, 1, 2], toggle the values of Actor 1, Actor 2, and a target claim q to test when the institution Q = [p1, p2] determines q and whether Q exceeds its members.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="p-3.5 rounded-lg border border-[var(--border)] bg-[var(--background)] space-y-2">
+          <div class="text-xs font-bold text-[var(--primary)]">Actor 1: p1 on [0, 1, 2]</div>
+          <div class="flex gap-2" id="p1-btns"></div>
+        </div>
+        <div class="p-3.5 rounded-lg border border-[var(--border)] bg-[var(--background)] space-y-2">
+          <div class="text-xs font-bold text-[var(--primary)]">Actor 2: p2 on [0, 1, 2]</div>
+          <div class="flex gap-2" id="p2-btns"></div>
+        </div>
+        <div class="p-3.5 rounded-lg border border-[var(--border)] bg-[var(--background)] space-y-2">
+          <div class="text-xs font-bold text-[var(--primary)]">Target Claim: q on [0, 1, 2]</div>
+          <div class="flex gap-2" id="q-btns"></div>
+        </div>
+      </div>
+      <div id="inst-output" class="p-4 rounded-lg border border-[var(--border)] bg-[var(--background)] text-sm space-y-2"></div>
+    </div>
+  </div>
+
+  <script>
+    const ACTS = [
+      {
+        code: "Act I (U00–U04)",
+        title: "The Mark <> & Inertia",
+        status: "ADMITTED / DERIVED",
+        b1: "Does writing the single mark <> give us an empty set, a container, or a rule of logic?",
+        b2: "No. Inside the system <> is one undivided opaque item. Lean 4 checks that from the empty regime, derivable holds for zero instances.",
+        b3: "Inertia.genesis_underivable and Inertia.supply_no_op show that nothing is derivable at genesis and Supply alone changes nothing.",
+        b4: "Does not derive the formal language from <>; the metatheory and representation are explicitly admitted from outside.",
+        q: "What happens when you run step(EMPTY, Supply('a')) in Genesis?",
+        opts: ["It returns EMPTY unchanged (supply is not admission)", "It creates a 1-element set containing 'a'"],
+        correct: 0,
+        explain: "Supply('a') only presents a token; until AdmitDatum('a') is authorized and replayed, the regime state remains EMPTY."
+      },
+      {
+        code: "Act II (U05–U16)",
+        title: "Token Erasure & Collapse",
+        status: "DERIVED (lean4/Derivation/Erasure.lean)",
+        b1: "If we admit two different tokens <a> and <ab>, can the system automatically tell datum 0 and datum 1 apart?",
+        b2: "Erasure strips string names to indices 0 and 1. A 1-hole context C plugs 0 or 1 into a recorded instance to test them.",
+        b3: "With zero recorded instances (R2L / R2F), every context test returns False on both 0 and 1, so collapsed(0, 1) holds.",
+        b4: "Having distinct labels in the outside metatheory does not create an internal witnessed distinction.",
+        q: "After admitting <a> and <ab> with no forms or instances, are datum 0 and datum 1 separable?",
+        opts: ["No — they are observationally collapsed", "Yes — because 'a' and 'ab' are different strings"],
+        correct: 0,
+        explain: "Inertia.R2L_collapsed shows in this model that without a recorded instance, every context test gives the same verdict on 0 and 1."
+      },
+      {
+        code: "Act III (U17–U26)",
+        title: "Separation, Cost & Irreflexivity",
+        status: "DERIVED / CONDITIONAL",
+        b1: "When Challenge 3 demands separating datum 0 and datum 1, what is the cheapest addition that works?",
+        b2: "A single item (cost 1) fails: a form without an instance is empty, and an instance without a form is ill-formed.",
+        b3: "Cost 2 separates via a form + instance (e.g. unary (0,[0]), link BL (0,[0,1]), or loop BD (0,[0,0])). Under mu2, the unary repair is unique.",
+        b4: "Recording a single link fact never forces the general law of irreflexivity (Bridge.irrefl_law_not_entailed).",
+        q: "Can a cost-1 addition (mu1 = 1) ever separate two collapsed data in an instance-free regime?",
+        opts: ["Never (Minimality.cost1_insufficient_general)", "Yes, by adding a single binary form"],
+        correct: 0,
+        explain: "Adding a form without an instance leaves insts empty, and adding an instance without an admitted form violates well-formedness."
+      },
+      {
+        code: "Act IV (U27–U36)",
+        title: "Quotients, Counting & Transport",
+        status: "DERIVED",
+        b1: "How many strict separation rounds can run on n fixed data without new supply, and what do quotients preserve?",
+        b2: "A quotient map q that merges x and y blocks any test factoring through q from separating them (Quot.quot_barrier).",
+        b3: "On n fixed data there are n(n-1)/2 unordered pairs, bounding strict demand rounds; injective renamings preserve separation.",
+        b4: "Non-injective maps do not preserve separation, and uniform all-instances rules never reduce minimal repair cost (RuleBridge).",
+        q: "On n = 4 fixed data with no new supply, at most how many strict new-pair demand rounds can occur?",
+        opts: ["4 * 3 / 2 = 6 rounds", "Unboundedly many rounds"],
+        correct: 0,
+        explain: "Counting.no_supply_round_bound bounds strict rounds by the number of unordered distinct pairs n(n-1)/2 = 6."
+      },
+      {
+        code: "Act V (U37–U43)",
+        title: "Refusal, Generator & Capacity",
+        status: "DERIVED / CONDITIONAL",
+        b1: "What happens when a protected law blocks repair on the current carrier, or when demands grow past a bounded view?",
+        b2: "Refusal prices four disciplines (silent, untagged, occurrence-tagged, tagged-translation). Pigeonhole bounds k boolean views to 2^k classes.",
+        b3: "When the carrier exceeds 2^k points, two distinct elements share a signature, so no bounded local alphabet clears an unbounded demand stream (G1Class).",
+        b4: "The exclusion is relative to the declared FiniteDeclaration class; broader G3/G4 statements remain open conjectures.",
+        q: "With k = 3 boolean views, at most how many elements can be pairwise separated?",
+        opts: ["At most 2^3 = 8 elements", "Any finite number of elements"],
+        correct: 0,
+        explain: "By Pigeonhole and CapacityBound.capacity_bound, 3 binary views produce at most 8 distinct bit-signatures."
+      },
+      {
+        code: "Act VI (U44–U50)",
+        title: "Represented Kernel & Horizon",
+        status: "FROZEN / VERIFIED_FINITE",
+        b1: "What must be stored in the kernel state so that repair, exhaustion, and extension replay deterministically at every stage?",
+        b2: "The state separates active support from unindexed notes. Rule 1 repairs in-panel when possible or certifies exhaustion and extends.",
+        b3: "NoOutside equates negative certification with the panel quotient, and Horizon establishes worldAt_spec and quiescence at every stage n.",
+        b4: "Initiality.unique_compliant is relative to the 6-probe battery and 64-controller class, not categorical initiality over all functions.",
+        q: "In NoOutside, what does negative certification (certNeg) characterize?",
+        opts: ["Equivalence under the active panel (panel_equiv)", "Absolute identity across all possible outside observers"],
+        correct: 0,
+        explain: "NoOutside.certNeg_iff_panelEquiv shows that two items pass negative certification iff no active panel column separates them."
+      },
+      {
+        code: "Act VII (U51–U56)",
+        title: "Primitive Difference & Apartness",
+        status: "FROZEN",
+        b1: "Do all informal ways of saying 'two things differ' mean the same thing in Lean?",
+        b2: "PrimitiveCore tests 9 readings of difference across 72 pairs: 17 implications hold and 51 are separated by explicit finite countermodels.",
+        b3: "In PrimitiveCats, the 2-point witness D2 is initial; in Apartness, irreflexivity + symmetry + cotransitivity make indistinguishability an equivalence.",
+        b4: "Dropping cotransitivity breaks transitivity of indistinguishability (symm_without_cotrans_breaks_trans).",
+        q: "If an apartness relation is irreflexive and symmetric but NOT cotransitive, is indistinguishability always transitive?",
+        opts: ["No — a 3-point countermodel breaks transitivity", "Yes — symmetry alone suffices"],
+        correct: 0,
+        explain: "Apartness.symm_without_cotrans_breaks_trans exhibits a 3-point relation where 0~1 and 1~2 hold but 0 and 2 are apart."
+      },
+      {
+        code: "Act VIII (U57–58, U65–66)",
+        title: "13 Codes, Trace Algebra & Interpreter",
+        status: "FROZEN / OPEN BOUNDARY",
+        b1: "Do the 13 transition codes form a group, and is the interpreter one of the 13 codes it runs?",
+        b2: "In TraceAlgebra, every single code is idempotent (step c (step c w) = step c w), with 132 non-commuting pairs and no inverses.",
+        b3: "InterpreterBoundary.family_missed shows the notes-diagonal action differs from all 13 codes in the family.",
+        b4: "This establishes a coded behavioral separation in the declared model; the absolute denotational self-interpreter boundary remains OPEN.",
+        q: "In TraceAlgebra, what happens when you apply the same transition code c twice in a row?",
+        opts: ["It equals applying c once (step_idempotent)", "It inverts the transition back to the start"],
+        correct: 0,
+        explain: "TraceAlgebra.step_idempotent shows every code c in the 13-code alphabet satisfies step c (step c w) = step c w."
+      },
+      {
+        code: "Act IX (U59–U64)",
+        title: "Attachment, d²=0 & Compression",
+        status: "FROZEN",
+        b1: "Where do new graph vertices come from, why does boundary-of-boundary vanish, and how do presentations compress?",
+        b2: "GraphGenesis shows internal repairs keep the carrier fixed; growth requires external supply. BoundaryCancellation proves d² = 0 with signs.",
+        b3: "Compression.quotient_coarsest factors a presentation through its signature classes, and StableContent preserves protected pairs.",
+        b4: "Unit 60 explicitly documents the vacuous filter in the first two conjuncts of LadderGeneral.d2_zero_dims_2_3_4, superseded by BoundaryCancellation.",
+        q: "Can an internal repair code in internalFamily ever add a new vertex to the graph?",
+        opts: ["No — internal_family_cannot_grow_carrier", "Yes — any repair step adds a vertex"],
+        correct: 0,
+        explain: "GraphGenesis.internal_family_cannot_grow_carrier shows all internal repair codes preserve the occurrence list."
+      },
+      {
+        code: "Act X (U67–U74)",
+        title: "Descent, Naturality, Fidelity & Iso",
+        status: "FROZEN",
+        b1: "When can a view descend through an observer quotient, and can a pair be chosen naturally under a fixed-point-free swap?",
+        b2: "ObsDescent shows a view descends iff it is constant on observer fibers. PresentationNaturality shows fixed-point-free swaps block natural sections.",
+        b3: "FidelityClosure characterizes coherent round-trip paths, and Unit 74's IsoBridge certifies isomorphism via canonical keys on ordered requirements.",
+        b4: "Breaking.imposable_but_not_equivariant shows a side can be imposed from outside, not selected symmetrically from inside.",
+        q: "On a 2-element set with the swap involution (0 <-> 1), is there an equivariant selector picking one element?",
+        opts: ["No — fixed-point-free involution blocks equivariant selection", "Yes — always pick index 0"],
+        correct: 0,
+        explain: "Picking 0 is an externally imposed choice; under the swap 0 <-> 1, an equivariant selector would have to map 0 to 1, a contradiction."
+      },
+      {
+        code: "Act XI · Part 2 (I00–I11)",
+        title: "Actors, Institutions & Demurral",
+        status: "POST_FREEZE_PROVED (#284)",
+        b1: "How can an institution of actors know a claim that no single member actor knows on its own?",
+        b2: "On D=[0,1,2], Actor p1=(0,1,0) merges (0,2) and Actor p2=(0,0,1) merges (0,1), but their joint signature [(0,0),(1,0),(0,1)] separates all 3.",
+        b3: "Inst.exceeds_iff characterizes exceeding; Policy.demur_carries_witness ensures every demurral produces a concrete merged witness pair (x, y).",
+        b4: "Correspondence across actors is an admission (Inst.correspondence_matters), and determination by Q does not imply truth without admitting the target.",
+        q: "When an institution Q demurs on a claim q, what certificate does Policy.demur_carries_witness provide?",
+        opts: ["Two carrier points x, y with the same Q-signature where q(x) != q(y)", "A probabilistic confidence score"],
+        correct: 0,
+        explain: "A demurral is witnessed by a concrete pair (x, y) in the carrier that every actor in Q merges but the claim q tells apart."
+      },
+      {
+        code: "Act XII · Part 2 (I12–I17)",
+        title: "Probe Tax n(n-1)/2 & Uncollapse",
+        status: "POST_FREEZE_PROVED (#275, #277, #278)",
+        b1: "How many pair queries are needed to acquire an unknown actor's partition on n data, and how do collapsed atoms uncollapse?",
+        b2: "Acquisition.lower_bound shows that with fewer than n(n-1)/2 pair probes, some pair goes unasked and two distinct actors share a transcript.",
+        b3: "At n = N, the 'promised N classes' shortcut is refuted (0 probes needed, not N-1). Uncollapse requires a mentioning instance delta.",
+        b4: "At reflective worlds, lawful verdict behavior fixes rstep, while the uncoded diagonal boundary remains scoped to the declared model.",
+        q: "To distinguish every possible actor partition on n = 5 data by pair queries, how many probes are required in the worst case?",
+        opts: ["5 * 4 / 2 = 10 pair probes", "4 probes"],
+        correct: 0,
+        explain: "Acquisition.acquisition_cost_exact establishes that n(n-1)/2 = 10 pair queries are both necessary and sufficient."
+      }
+    ];
+
+    let currentAct = 0;
+    let answeredActs = new Set();
+
+    function renderActPills() {
+      const container = document.getElementById("act-pills");
+      container.innerHTML = "";
+      ACTS.forEach((act, idx) => {
+        const btn = document.createElement("button");
+        const active = idx === currentAct;
+        const done = answeredActs.has(idx);
+        btn.className = `px-2.5 py-2 rounded-lg text-xs font-semibold text-left border transition ${
+          active
+            ? "bg-[var(--primary)] text-[var(--primary-foreground)] border-[var(--primary)]"
+            : "bg-[var(--card)] text-[var(--foreground)] border-[var(--border)]"
+        }`;
+        btn.innerHTML = `<div class="truncate">${done ? "✅ " : ""}${act.code}</div><div class="truncate opacity-80">${act.title}</div>`;
+        btn.onclick = () => {
+          currentAct = idx;
+          renderCurrentAct();
+          renderActPills();
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    function renderCurrentAct() {
+      const act = ACTS[currentAct];
+      document.getElementById("act-badge").textContent = act.code;
+      document.getElementById("act-title").textContent = act.title;
+      document.getElementById("act-status").textContent = act.status;
+      document.getElementById("bite-1").textContent = act.b1;
+      document.getElementById("bite-2").textContent = act.b2;
+      document.getElementById("bite-3").textContent = act.b3;
+      document.getElementById("bite-4").textContent = act.b4;
+      document.getElementById("quiz-question").textContent = act.q;
+      document.getElementById("quiz-feedback").textContent = "";
+      const exp = document.getElementById("quiz-explanation");
+      exp.classList.add("hidden");
+      exp.textContent = act.explain;
+
+      const optsDiv = document.getElementById("quiz-options");
+      optsDiv.innerHTML = "";
+      act.opts.forEach((optText, oIdx) => {
+        const b = document.createElement("button");
+        b.className = "p-2.5 rounded-lg text-xs font-semibold text-left border border-[var(--border)] bg-[var(--card)] text-[var(--foreground)] transition";
+        b.textContent = optText;
+        b.onclick = () => {
+          const fb = document.getElementById("quiz-feedback");
+          exp.classList.remove("hidden");
+          if (oIdx === act.correct) {
+            fb.textContent = "⚡ Exact! +1 Streak";
+            fb.className = "text-xs font-bold text-[var(--primary)]";
+            answeredActs.add(currentAct);
+            document.getElementById("streak-counter").textContent = `${answeredActs.size} / 12 ⚡`;
+            renderActPills();
+          } else {
+            fb.textContent = "Not quite — inspect the explanation below!";
+            fb.className = "text-xs font-bold text-[var(--muted-foreground)]";
+          }
+        };
+        optsDiv.appendChild(b);
+      });
+    }
+
+    function switchTab(tab) {
+      ["acts", "sim", "inst"].forEach(t => {
+        document.getElementById(`panel-${t}`).classList.toggle("hidden", t !== tab);
+        const btn = document.getElementById(`tab-${t}`);
+        if (t === tab) {
+          btn.className = "px-4 py-2 rounded-lg text-sm font-semibold bg-[var(--primary)] text-[var(--primary-foreground)] transition";
+        } else {
+          btn.className = "px-4 py-2 rounded-lg text-sm font-semibold bg-[var(--card)] text-[var(--foreground)] border border-[var(--border)] transition";
+        }
+      });
+    }
+
+    // Simulator state
+    let sim = { n_data: 0, forms: [], insts: [], lastMsg: "Started at <> (EMPTY regime)." };
+    function simEvent(kind) {
+      if (kind === "reset") {
+        sim = { n_data: 0, forms: [], insts: [], lastMsg: "Reset to <> (EMPTY). Nothing is derivable." };
+      } else if (kind === "supply") {
+        sim.lastMsg = "Supply('a') executed: Inertia.supply_no_op -> state unchanged! Supply is not admission.";
+      } else if (kind === "datum") {
+        sim.n_data += 1;
+        sim.lastMsg = `AdmitDatum: carrier now has ${sim.n_data} data (0..${sim.n_data - 1}).`;
+      } else if (kind === "form1") {
+        sim.forms.push(1);
+        sim.lastMsg = `AdmitForm(1): unary form added at form index ${sim.forms.length - 1}.`;
+      } else if (kind === "form2") {
+        sim.forms.push(2);
+        sim.lastMsg = `AdmitForm(2): binary form added at form index ${sim.forms.length - 1}.`;
+      } else if (kind === "inst_u") {
+        sim.insts.push("(0,[0])");
+        sim.lastMsg = "AdmitInst(0, [0]): unary instance holds on datum 0 and fails on datum 1.";
+      } else if (kind === "inst_bl") {
+        sim.insts.push("(0,[0,1])");
+        sim.lastMsg = "AdmitInst(0, [0,1]) (BL): 1-hole context [_, 1] holds on 0 and fails on 1.";
+      } else if (kind === "inst_bd") {
+        sim.insts.push("(0,[0,0])");
+        sim.lastMsg = "AdmitInst(0, [0,0]) (BD): 1-hole context [_, 0] holds on 0 and fails on 1.";
+      }
+      renderSim();
+    }
+
+    function renderSim() {
+      document.getElementById("sim-state").textContent = `data: ${sim.n_data} | forms: [${sim.forms.join(",")}] | insts: [${sim.insts.join(", ")}]`;
+      const mu1 = sim.forms.length + sim.insts.length;
+      const mu2 = mu1 + sim.forms.reduce((a, b) => a + b, 0) + sim.insts.length;
+      document.getElementById("sim-cost").textContent = `mu1 = ${mu1} items | mu2 = ${mu2}`;
+      const v = document.getElementById("sim-verdict");
+      if (sim.n_data < 2) {
+        v.textContent = "Need >= 2 admitted data to test (0, 1)";
+      } else if (sim.forms.length === 0 || sim.insts.length === 0) {
+        v.textContent = "COLLAPSED: 0 and 1 cannot be told apart";
+      } else {
+        v.textContent = "SEPARABLE: Witnessed context tells 0 and 1 apart!";
+      }
+      document.getElementById("sim-log").textContent = sim.lastMsg;
+    }
+
+    // Institution sandbox
+    let p1 = [0, 1, 0];
+    let p2 = [0, 0, 1];
+    let qClaim = [0, 1, 2];
+
+    function renderInst() {
+      const makeBtns = (arr, id, setter) => {
+        const el = document.getElementById(id);
+        el.innerHTML = "";
+        arr.forEach((val, idx) => {
+          const b = document.createElement("button");
+          b.className = "px-3 py-1.5 rounded border border-[var(--border)] bg-[var(--secondary)] text-[var(--secondary-foreground)] text-xs font-mono font-bold";
+          b.textContent = `d${idx}=${val}`;
+          b.onclick = () => {
+            arr[idx] = (arr[idx] + 1) % 3;
+            renderInst();
+          };
+          el.appendChild(b);
+        });
+      };
+      makeBtns(p1, "p1-btns");
+      makeBtns(p2, "p2-btns");
+      makeBtns(qClaim, "q-btns");
+
+      const sigs = [0, 1, 2].map(x => `(${p1[x]},${p2[x]})`);
+      const knows = (actor) => {
+        for (let i = 0; i < 3; i++) {
+          for (let j = i + 1; j < 3; j++) {
+            if (actor[i] === actor[j] && qClaim[i] !== qClaim[j]) return [false, [i, j]];
+          }
+        }
+        return [true, null];
+      };
+      const [k1] = knows(p1);
+      const [k2] = knows(p2);
+      const [kInst, witness] = knows(sigs);
+      const exceeds = kInst && !k1 && !k2;
+
+      const out = document.getElementById("inst-output");
+      out.innerHTML = `
+        <div><strong>Signatures under Q = [p1, p2]:</strong> <code>d0: ${sigs[0]}</code>, <code>d1: ${sigs[1]}</code>, <code>d2: ${sigs[2]}</code></div>
+        <div><strong>Does Actor 1 know q?</strong> ${k1 ? "✅ Yes" : "❌ No (merges a pair q separates)"} · <strong>Does Actor 2 know q?</strong> ${k2 ? "✅ Yes" : "❌ No"}</div>
+        <div><strong>Institution Policy Verdict:</strong> ${
+          kInst
+            ? `<span class="font-bold text-[var(--primary)]">ASSERT</span> — Q determines q${exceeds ? " (⚡ EXCEEDS: Q knows what neither actor knows alone!)" : ""}`
+            : `<span class="font-bold">DEMUR</span> — Witness pair <code>(d${witness[0]}, d${witness[1]})</code> has equal signature <code>${sigs[witness[0]]}</code> but <code>q(d${witness[0]})=${qClaim[witness[0]]} != q(d${witness[1]})=${qClaim[witness[1]]}</code>`
+        }</div>
+      `;
+    }
+
+    renderActPills();
+    renderCurrentAct();
+    renderSim();
+    renderInst();
+  </script>
+</body>
+</html>
