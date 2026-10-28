@@ -259,13 +259,15 @@ in one template or the other, and this table says which.
 | 45 | A kernel with no outside: what must be in the state for progress to be replayable? | `Represented.support_determines`, `Represented.equiv_replay`, `Represented.represented_progress`, `Represented.cert_scope` | derived relative to the declared constitution; progress conditional on `WF` (a replay invariant); budget refill unguarded | yes |
 | 46 | Rule 1 in a fixed kernel: repair, or certified exhaustion plus a tied extension family | `Completion.ofWorld_obstruction`, `Completion.rule1_repair_or_extension`, `Completion.refusal_non_absorbing`, `Completion.action_dichotomy` | derived for the fixed kernel; conditional on `WF`; common state declared, retention/protection fed from one store by stated identification | yes |
 | 47 | Putting the viewer on the books: certification as a replayed, panel-relative quotient | `NoOutside.effectual_outside_dichotomy`, `NoOutside.panel_equiv`, `NoOutside.certNeg_iff_panelEquiv`, `NoOutside.certC_ceiling` | derived for the fixed kernel; the outside is the `notes` field; the absolute form recorded as unformulable | yes |
+| 48 | Generating the stream from the state, and describing the kernel to itself | `Constitution.driver_reproduces_tower`, `Constitution.nextFamily_stop`, `Constitution.interp_describe`, `Constitution.allDescs_complete` | derived relative to the fixed interpreter under metatheoretic iteration; level 4 not attained; the interpreter is not a member of its family (OPEN) | yes |
 
-The order follows the derivation. Units 27-47 follow the root import order
+The order follows the derivation. Units 27-48 follow the root import order
 of `lean4/Derivation.lean` (Quot, Counting, CountTransport, Mention,
 TransitionTransport, MinimalityF, RuleBridge, Rounds, Progress, Ext,
 ObserverInventory, Refusal, RefusalFrontier, Generator, SeparationCapacity,
 Pigeonhole, CapacityBound, LocalStrategy, G1Class, DiffInterface, Represented,
-Completion, NoOutside); units after 47 continue with Constitution.
+Completion, NoOutside,
+Constitution); units after 48 continue with Initiality.
 
 ## Parts
 
