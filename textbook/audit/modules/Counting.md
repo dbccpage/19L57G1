@@ -18,15 +18,15 @@ Counting states the abstract termination law behind the closed-system (no-supply
 ## 2. Definitions and structures
 | name | line | kind | what it is | mark |
 |---|---|---|---|---|
-| `allPairs` | 192 | def | `allPairs 0 = []`, `allPairs (n+1) = allPairs n ++ (range n).map (·, n)`: all `(i, j)` with `i < j < n` | ADMITTED (the declared requirement language) |
+| `allPairs` | 61 | def | `allPairs 0 = []`, `allPairs (n+1) = allPairs n ++ (range n).map (·, n)`: all `(i, j)` with `i < j < n` | ADMITTED (the declared requirement language) |
 
 ## 3. Theorems and lemmas
 | name | line | informal statement | mark | axioms | S/A |
 |---|---|---|---|---|---|
-| `index_le_strict_mono` | 146 | if `f : Nat → Nat` satisfies `f i < f (i+1)` for all `i+1 < L`, then `i ≤ f i` for all `i < L` | CONDITIONAL: `hstrict` (a law about an arbitrary measure) | propext, Quot.sound | A |
-| `strict_bounded_length` | 161 | if additionally `f i ≤ B` for all `i < L`, then `L ≤ B + 1` | CONDITIONAL: `hstrict`, `hbound` | propext, Quot.sound | S |
-| `no_supply_round_bound` | 184 | same with `B = n*(n-1)/2`: `L ≤ n*(n-1)/2 + 1` | CONDITIONAL: `hstrict`, `hbound` (docstring itself says "Conditional") | propext, Quot.sound | S |
-| `allPairs_length` | 200 | `2 * (allPairs n).length = n * (n - 1)` for every `n` | FROZEN | propext, Quot.sound | S |
+| `index_le_strict_mono` | 15 | if `f : Nat → Nat` satisfies `f i < f (i+1)` for all `i+1 < L`, then `i ≤ f i` for all `i < L` | CONDITIONAL: `hstrict` (a law about an arbitrary measure) | propext, Quot.sound | A |
+| `strict_bounded_length` | 30 | if additionally `f i ≤ B` for all `i < L`, then `L ≤ B + 1` | CONDITIONAL: `hstrict`, `hbound` | propext, Quot.sound | S |
+| `no_supply_round_bound` | 53 | same with `B = n*(n-1)/2`: `L ≤ n*(n-1)/2 + 1` | CONDITIONAL: `hstrict`, `hbound` (docstring itself says "Conditional") | propext, Quot.sound | S |
+| `allPairs_length` | 69 | `2 * (allPairs n).length = n * (n - 1)` for every `n` | FROZEN | propext, Quot.sound | S |
 
 ## 4. External and admitted assumptions
 - Hypotheses recurring: strict growth of a `Nat`-valued measure along a run and its boundedness; both are premises, not proved here for the engine.

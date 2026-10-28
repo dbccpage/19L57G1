@@ -18,14 +18,14 @@ Quot answers the seed's required question 5: if the current abstraction identifi
 ## 2. Definitions and structures
 | name | line | kind | what it is | mark |
 |---|---|---|---|---|
-| `collapseRel` | 125 | def | `collapseRel r d d' := collapsed r d d'`, the relation to quotient by | ADMITTED (no `Setoid` instance is built; `Quot` is used, so no equivalence proof is needed) |
+| `collapseRel` | 31 | def | `collapseRel r d d' := collapsed r d d'`, the relation to quotient by | ADMITTED (no `Setoid` instance is built; `Quot` is used, so no equivalence proof is needed) |
 
 ## 3. Theorems and lemmas
 | name | line | informal statement | mark | axioms | S/A |
 |---|---|---|---|---|---|
-| `quotient_barrier` | 111 | for any setoid `s` on `α : Sort u`, any `f : Quotient s → β` and `a ≈ b`, `f ⟦a⟧ = f ⟦b⟧` | FROZEN (a general Lean fact: `congrArg f (Quotient.sound h)`) | Quot.sound | S |
-| `quot_barrier` | 117 | same for `Quot rel` and any relation `rel` with `rel a b` | FROZEN | Quot.sound | S |
-| `barrier_R2L` | 127 | for any `f : Quot (collapseRel R2L) → β`, `f (mk 0) = f (mk 1)` | FROZEN (instance at a concrete regime, via `R2L_collapsed`) | propext, Quot.sound | S |
+| `quotient_barrier` | 17 | for any setoid `s` on `α : Sort u`, any `f : Quotient s → β` and `a ≈ b`, `f ⟦a⟧ = f ⟦b⟧` | FROZEN (a general Lean fact: `congrArg f (Quotient.sound h)`) | Quot.sound | S |
+| `quot_barrier` | 23 | same for `Quot rel` and any relation `rel` with `rel a b` | FROZEN | Quot.sound | S |
+| `barrier_R2L` | 33 | for any `f : Quot (collapseRel R2L) → β`, `f (mk 0) = f (mk 1)` | FROZEN (instance at a concrete regime, via `R2L_collapsed`) | propext, Quot.sound | S |
 
 ## 4. External and admitted assumptions
 - Structures: Lean's `Quot`/`Quotient` and `Quot.sound`. These are metatheory: the system has no quotient object; the quotient is the auditor's formalisation of "an abstraction that identifies two cases".
