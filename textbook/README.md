@@ -265,6 +265,7 @@ in one template or the other, and this table says which.
 | 51 | Nine readings of one difference | `PrimitiveCore.imp_a_d`, `PrimitiveCore.nimp_w_d`, `PrimitiveCore.nimp_a_bc`, `PrimitiveCore.e_empty_iff_d`, `PrimitiveCore.located_of_decidable` | FROZEN (17 implications, 51 countermodels); OPEN (4 located cells, scoped); VERIFIED_FINITE (the scan) | yes |
 | 52 | The two-point witness is initial, and that is all initiality says | `PrimitiveCats.d2_initial`, `PrimitiveCats.s2_no_hom_to_d2`, `PrimitiveCats.initials_iso`, `PrimitiveCats.two_initials_not_identical`, `PrimitiveCats.larger_not_initial`, `PrimitiveCats.no_terminal_pres`, `PrimitiveCats.no_terminal_pres2` | FROZEN; CONDITIONAL (`s2_initial_sym`, `phom2_unique_of_epi`); OPEN (terminality among surjective presentations) | yes |
 | 53 | The fixed interface a collision meets | `PrimitiveContact.NativeKernel`, `PrimitiveContact.native_kernel_initial`, `PrimitiveContact.native_interface_not_representable`, `PrimitiveContact.contact_status_count` | FROZEN (re-exports); ADMITTED (interface, status strings); VERIFIED_FINITE | yes |
+| 54 | From an asserted difference to a response | `PrimitivePassage.obstP_factors`, `PrimitivePassage.gate_zero_independent`, `PrimitivePassage.assertion_not_retained`, `PrimitivePassage.retention_requires_assertion`, `PrimitivePassage.two_rule`, `PrimitivePassage.extension_resolves`, `PrimitivePassage.terminal_absorbing`, `PrimitivePassage.nextFamilyP_stop` | FROZEN; ADMITTED (the pre-declaration convention and the observation policy, priced by `obst_policies_differ`); VERIFIED_FINITE (fourteen arrow witnesses) | yes |
 
 The order follows the derivation. Units 27-53 follow the root import order
 of `lean4/Derivation.lean` (Quot, Counting, CountTransport, Mention,
@@ -272,7 +273,7 @@ TransitionTransport, MinimalityF, RuleBridge, Rounds, Progress, Ext,
 ObserverInventory, Refusal, RefusalFrontier, Generator, SeparationCapacity,
 Pigeonhole, CapacityBound, LocalStrategy, G1Class, DiffInterface, Represented,
 Completion, NoOutside,
-Constitution, Initiality, Horizon, PrimitiveCore, PrimitiveCats, PrimitiveContact); units after 53 continue with PrimitivePassage.
+Constitution, Initiality, Horizon, PrimitiveCore, PrimitiveCats, PrimitiveContact, PrimitivePassage); units after 54 continue with HigherStructure.
 
 ## Parts
 
