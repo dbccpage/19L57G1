@@ -252,12 +252,13 @@ in one template or the other, and this table says which.
 | 38 | Refusal as a source of difference: four rungs and one price | `Refusal.nonreify_carrier_bound`, `Refusal.reifyUntagged_eq_occurrence`, `Refusal.tagged_translation_separable` | derived per discipline; the hierarchy as one theorem OPEN | yes |
 | 39 | Refusal routes and their prices | `RefusalFrontier.silent_repetition_inert`, `RefusalFrontier.min_witnessed_route_closes`, `RefusalFrontier.reflective_chain_is_initial_segment` | derived (cores); minimality and uniqueness computed in class | yes |
 | 40 | A demand that never stops, and the three ways to pay | `Generator.depth1_obstructions_are_exactly_middle_pairs`, `Generator.generation_never_dries`, `Generator.finite_marks_outrun` | derived (depth 1); two instances (depth 2); exclusion computed in class | yes |
+| 41 | Looking farther does not help: the radius-`d` outrun | `SeparationCapacity.depth_d_outrun`, `SeparationCapacity.depth_d_obstruction`, `SeparationCapacity.radius_one_agrees_with_sealed_depth2` | derived (structural profile; interior only) | yes |
 
-The order follows the derivation. Units 27-40 follow the root import order
+The order follows the derivation. Units 27-41 follow the root import order
 of `lean4/Derivation.lean` (Quot, Counting, CountTransport, Mention,
 TransitionTransport, MinimalityF, RuleBridge, Rounds, Progress, Ext,
-ObserverInventory, Refusal, RefusalFrontier, Generator); units after 40
-continue with SeparationCapacity.
+ObserverInventory, Refusal, RefusalFrontier, Generator, SeparationCapacity);
+units after 41 continue with Pigeonhole and CapacityBound.
 
 ## Parts
 
