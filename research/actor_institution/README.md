@@ -241,7 +241,7 @@ theorem (AI-22):
 1. A witnessed difference is a separating question (`exists_separator_of_not_sigEq`,
    sealed): without a member that separates `x` from `y`, nothing witnesses
    their difference.
-2. A question not yet known raises information by exactly one class
+2. A question not yet known raises information strictly, by at least one class
    (`information_lt_of_not_knows`, `knows_iff_information_eq`, TT).
 3. Information does not give determination (`information_without_determination`).
    The step from a count to a factoring is a further fact about the claim.
@@ -259,7 +259,7 @@ exist here. Truth is relative to an admitted target and costs its admission
 
 **Information** is `classCount D Q`, the number of distinguishable classes the
 institution's questions cut the carrier into. The theorems about it
-(monotone, bounded, raised by one by an unknown question, inert under known
+(monotone, bounded, raised by an unknown question, inert under known
 members, stationary along long chains) are derived. That this number is what
 "information" should mean is a proposal; TT-41 shows it is the same number
 whether the questions are functions or tables.

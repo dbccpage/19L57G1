@@ -102,3 +102,44 @@ content did not change.
 - The other research trees' verifiers: not run; nothing here changes them.
 - The mathematics. `CLAIMS.md` says what is proved, what is computed, what
   is refuted and what is open; `AUDIT.md` says what each result depends on.
+
+## Addendum, 2026-10-28: the full root `pytest`
+
+The pull request body promised this. Command, from the repository root on
+this branch at `16634e3`, with the tools listed above:
+
+```
+python -m pytest -q
+```
+
+Exit status 1. Counted from the progress lines of the captured log (the
+run's own summary line was not captured): 919 tests ran; 891 passed, 1
+skipped, 19 failed, 8 errored at setup.
+
+The same 27 outcomes occur on `origin/main`
+(`b8b3ab431a8f82b110fc5b42d8a6698d733953e6`) in this environment. The three
+files holding the 19 failures and the file holding the 8 setup errors were
+run on a detached worktree of that commit
+(`python -m pytest -q -p no:cacheprovider <files>`), and the sets of failing
+and erroring test ids are identical (`diff` empty). None of the 27 touches a
+path this branch changes. The observed causes:
+
+| Tests | Count | Observed cause |
+|---|---|---|
+| `tests/test_pin_head_git_errors.py`: `test_present_head_source_git_error_fails[*]`, `test_absent_head_source_is_reported[*]`, `test_present_head_span_git_error_fails` | 17 | the clone here is shallow (`git rev-parse --is-shallow-repository` prints `true`), so each custody verifier reports `snapshot … is not an ancestor of HEAD` before reaching the injected git error under test |
+| `tests/test_side_free_custody.py::HistoricalIsolationTests` (errors at `setUpClass`) | 8 | `git show c0c4ac505…:research/side_free/CLAIM_LEDGER.md` fails here with `path … exists on disk, but not in` that commit; the historical lookup is not reproduced in this clone |
+| `tests/test_research_pin_consumption.py::test_template_tree_pins_exactly_the_python_it_loads[x310_vertical_integration]` | 1 | the test's child interpreter runs with that tree as its working directory, where the tree's `types.py` shadows the standard library's `types` on this Python 3.13 (`enum` imports `types`; circular import) |
+| `tests/test_run_gates.py::test_a_failure_stops_its_own_job_and_not_the_others` | 1 | `coverage` is not installed here (`No module named coverage`), so a step fails for a reason unrelated to the job isolation under test |
+
+What this addendum does not cover: it does not show that these 27 pass on
+the author's machine, only that they fail identically on `origin/main` and
+on this branch here, for causes outside this branch's diff.
+
+## Correction, 2026-10-28
+
+`README.md` (the chain, link 2, and the information paragraph) and
+`CLAIMS.md` row AI-22 said that a question not yet known raises information
+"by exactly one class". `information_lt_of_not_knows` proves a strict
+increase, by at least one class; on `[0, 1, 2, 3]` the empty family has one
+class and the identity question four. Both texts now say "strictly, by at
+least one class". No theorem changed.
