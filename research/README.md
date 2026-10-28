@@ -126,6 +126,7 @@ Lean layout. The first and last also have explicit build-recipe entries.
 | `post_seal_walk` | local receipt only |  |
 | `priced_admissions` | local receipt only |  |
 | `primitive_difference_tower` | workflow (gate 11) |  |
+| `qm_bridge` | local receipt only |  |
 | `reach_additivity` | local receipt only |  |
 | `reach_measure` | local receipt only |  |
 | `reachable` | local receipt only |  |

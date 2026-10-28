@@ -117,6 +117,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `research/portable_interface/SOURCE_PINS.json` | 3 | 0 | 0 |
 | `research/priced_admissions/SOURCE_MANIFEST.json` | 0 | 0 | 0 |
 | `research/primitive_difference_tower/SOURCE_MANIFEST.json` | 12 | 0 | 0 |
+| `research/qm_bridge/SOURCE_MANIFEST.json` | 0 | 1 | 0 |
 | `research/reach_additivity/SOURCE_MANIFEST.json` | 4 | 1 | 0 |
 | `research/reach_measure/SOURCE_MANIFEST.json` | 5 | 4 | 0 |
 | `research/reachable/SOURCE_MANIFEST.json` | 29 | 3 | 0 |
@@ -541,6 +542,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `research/path_dependent_cost/exactness.py` | 1 | `m109_obstruction_homology` (file) | none |
 | `research/path_dependent_cost/movegraph.py` | 1 | `m109_obstruction_homology` (file) | none |
 | `research/priced_admissions/receipts/priced_admissions.json` | 1 | `grammar_fit` (file) | none |
+| `research/qm_bridge/input.json` | 1 | `qm_bridge` (file) | none |
 | `research/represented_execution/.gitattributes` | 1 | `coherent_process_limits` (tree) | none |
 | `research/represented_execution/.gitignore` | 1 | `coherent_process_limits` (tree) | none |
 | `research/represented_execution/CLAIMS.md` | 1 | `coherent_process_limits` (tree) | none |
