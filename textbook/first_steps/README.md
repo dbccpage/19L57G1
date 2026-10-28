@@ -74,3 +74,7 @@ The intended outcome is that a new reader can make and explain predictions
 in an unfamiliar example. Passing software checks establishes the declared
 calculations; comprehension requires reader feedback and transfer tasks.
 No novice learning result is claimed for this route yet.
+
+When you are ready, continue to the [search lab](../search_lab/README.md).
+It starts a new ledger and follows a separation demand through proposed
+repairs, costs, ties, and independently replayed events.

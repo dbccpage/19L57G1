@@ -17,6 +17,7 @@ from pathlib import Path
 
 from research_population import research_trees
 from first_steps_wiki import build_first_steps
+from search_lab_wiki import build_search_lab
 
 DEFAULT_REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 DEFAULT_WIKI_ROOT = Path(
@@ -1097,6 +1098,7 @@ Source edition: [{commit_short}](https://github.com/dbccpage/19L57G1/commit/{com
         "research_trees": len(research_trees),
         "hubs": 7,
         "first_steps": build_first_steps(repo_root, wiki_root, commit_sha),
+        "search_lab": build_search_lab(repo_root, wiki_root, commit_sha),
     }
 
 

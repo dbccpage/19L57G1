@@ -27,6 +27,9 @@ For a concrete example before the formal development, begin with
 [`First steps: three cards, two questions`](first_steps/README.md): five
 short lessons, a prediction-first explorer, and separate practice answers.
 No previous mathematics or philosophy is assumed.
+Continue with the [`Search lab`](search_lab/README.md) for a complete
+worked demand, candidate search, price comparison, protection example,
+and portable event replay.
 
 New readers can then read [`START_HERE.md`](START_HERE.md) (see also the
 short spoken introduction in [`video_script_15s.md`](video_script_15s.md)).

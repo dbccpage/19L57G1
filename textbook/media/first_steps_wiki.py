@@ -33,6 +33,7 @@ def build_first_steps(repo: Path, wiki: Path, commit: str) -> int:
         for filename, target in pages.items():
             text = text.replace(f"]({filename})", f"]({target})")
         text = text.replace("](explorer.html)", f"]({EXPLORER_URL})")
+        text = text.replace("](../search_lab/README.md)", "](textbook_search_lab)")
         prefix = f"[Genesis Wiki](Home) · [First steps](textbook_first_steps) · [Card explorer]({EXPLORER_URL})\n\n"
         suffix = f"\n\n---\n\nSource snapshot: [`{commit[:12]}`](https://github.com/dbccpage/19L57G1/blob/{commit}/textbook/first_steps/{name}). Teaching examples and apparatus; `AuthorityEffect: None`.\n"
         (wiki / f"{slug}.md").write_text(prefix + text + suffix, encoding="utf-8", newline="\n")

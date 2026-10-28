@@ -54,13 +54,18 @@ classifications still need semantic teaching review.
    token-aware Python regime, token-erased Lean regime, relational
    difference setting, passage state, represented world, and institutional
    presentation. A shared term such as “observer” does not supply a bridge.
-3. **A complete worked search.** Follow one separation demand through
+3. **A complete worked search.** The new [search lab](../search_lab/README.md)
+   follows one separation demand through
    candidate generation, both cost measures, all tied alternatives,
    isomorphism witnesses, stopping bounds, export, and independent replay.
-   Part 1's lesson text does not name `verify_full_export`, `find_iso`, or
-   `complete_within`; these interfaces need an explicit worked laboratory,
-   even though Wiki reference guides describe some of them.
-4. **A complete worked obstruction and repair.** Keep the same tiny
+   Its worked laboratory now uses `verify_full_export`, `find_iso`, and
+   `complete_within`, reproduces both seed readings, and checks bounded
+   minimum responses against unpruned enumeration. Reader comprehension
+   of that laboratory still requires testing.
+4. **A complete worked obstruction and repair.** The search lab now varies
+   protected pair demands and item budgets on one three-entry ledger,
+   exhibiting both refused responses and a two-item repair. Further lessons
+   must keep the same tiny
    carrier while the reader changes retention, protection, observations,
    budget, and license one at a time. Show which change creates or clears
    the obstruction, and which proposed action is refused.
@@ -226,6 +231,16 @@ keys, and an exact source map. Its finite model check covers 64 tables;
 the sealed Python replay covers all four question subsets (256 histories).
 The lookup check independently enumerates possible recovery rules.
 These are computational checks, not evidence of reader comprehension.
+
+The search lab adds eight short lessons, a results desk, and separate
+practice answers. It records all fourteen well-formed two-item plans in
+the main case, all minimum ties, explicit relabeling maps, protection and
+budget changes, and distinct stopping reasons. Its longer portable export
+has 128 nodes and 130 edges, including three independently checked merge
+edges. A changed price still passes the limited replay verifier; a separate
+full lesson-record check rejects it. This makes evidence scope itself a
+worked lesson. The lab does not supply a general Python-to-Lean refinement
+proof, a license protocol, or the later research curriculum.
 
 The research table records the canonical indexed population at the audit
 snapshot and a proposed teaching placement. It does not run research

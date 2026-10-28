@@ -425,3 +425,22 @@ of the explorer. No receipt was regenerated while either defect was live.
 | `textbook/media/verify_wiki_textbook.py` | Remove the `boundary_seed` table row and insert an excluded `notes` row in a generated research index | exit 1: `research inventory mismatch; missing research tree: boundary_seed; unexpected research tree: notes` | Restore the original bytes; exit 0, all 123 trees and 1,964 internal Wiki links checked |
 | First-steps browser load | Serve a copied explorer with its `cards.json` absent | Visible supplied-table load error; Run, Check recovery, and Reset disabled | Remove the temporary fixture; the ordinary explorer and single-file bundle display the declared cards, groups, and blocking pair |
 
+## Search-lab records and results desk (2026-10-28)
+
+Only generated scratch Wiki files and temporary/in-memory teaching copies
+were changed. No sealed source or receipt was rewritten. No regeneration
+ran while either scratch-Wiki injection was live.
+
+| Gate | Injection | Observed failure | Recovery |
+|---|---|---|---|
+| Wiki search-lab asset consistency | Remove one mu1 minimum from the copied `media/search_lab/recorded_lab.json` | Actual Wiki verifier exits 1: `stale search-lab record: recorded_lab.json` | Restore bytes; exit 0, 2,034 generated internal links pass |
+| Wiki search-lab desk consistency | Substitute `null` for the embedded packet in a copied `results.html` | Actual Wiki verifier exits 1: `stale search-lab results desk or unresolved reading/download links` | Restore bytes; exit 0 |
+| Full lesson-record check | Drop a raw minimum or change an exported price to `[999,999]` in temporary records | `check_recorded` raises the named record/export mismatch; both unit tests pass only on this refusal | Unchanged source-backed records pass |
+| Lesson population table | Change the arity-two reading-L class count from 3 to 99 in a temporary lesson source | `check_recorded` raises `The lesson population table differs from the computed cases` | Original six-row table passes |
+
+The lesson also evaluates separate in-memory export copies. Wrong root
+hash and missing merge map fail `verify_full_export`; changed cost metadata
+passes that narrower replay contract. The latter is an expected scope
+boundary, not a claim that event replay validates prices. The full
+lesson-record check separately rejects that price change.
+

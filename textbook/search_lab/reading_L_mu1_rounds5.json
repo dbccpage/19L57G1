@@ -1,0 +1,6188 @@
+{
+ "bounds": {
+  "max_arity": 2,
+  "max_items": 2
+ },
+ "edges": [
+  {
+   "challenge": "separate(0, 1)",
+   "child": 1,
+   "class_size": 2,
+   "cost": [
+    2,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 0,
+     "j": 1
+    },
+    {
+     "arity": 1,
+     "event": "admit_form"
+    },
+    {
+     "args": [
+      0
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 0,
+   "response": [
+    {
+     "arity": 1,
+     "kind": "form"
+    },
+    {
+     "args": [
+      0
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "form1+inst1",
+   "round": 1,
+   "tie_classes": 3
+  },
+  {
+   "challenge": "separate(0, 1)",
+   "child": 2,
+   "class_size": 2,
+   "cost": [
+    2,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 0,
+     "j": 1
+    },
+    {
+     "arity": 2,
+     "event": "admit_form"
+    },
+    {
+     "args": [
+      0,
+      0
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 0,
+   "response": [
+    {
+     "arity": 2,
+     "kind": "form"
+    },
+    {
+     "args": [
+      0,
+      0
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "form2+inst2diag",
+   "round": 1,
+   "tie_classes": 3
+  },
+  {
+   "challenge": "separate(0, 1)",
+   "child": 3,
+   "class_size": 2,
+   "cost": [
+    2,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 0,
+     "j": 1
+    },
+    {
+     "arity": 2,
+     "event": "admit_form"
+    },
+    {
+     "args": [
+      0,
+      1
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 0,
+   "response": [
+    {
+     "arity": 2,
+     "kind": "form"
+    },
+    {
+     "args": [
+      0,
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "form2+inst2",
+   "round": 1,
+   "tie_classes": 3
+  },
+  {
+   "challenge": "supply",
+   "child": 4,
+   "class_size": 1,
+   "cost": [
+    0,
+    0
+   ],
+   "events": [
+    {
+     "event": "supply",
+     "token": "g2"
+    },
+    {
+     "event": "admit_datum",
+     "token": "g2"
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 1,
+   "response": [],
+   "response_label": "supply",
+   "round": 2,
+   "tie_classes": 1
+  },
+  {
+   "challenge": "supply",
+   "child": 5,
+   "class_size": 1,
+   "cost": [
+    0,
+    0
+   ],
+   "events": [
+    {
+     "event": "supply",
+     "token": "g2"
+    },
+    {
+     "event": "admit_datum",
+     "token": "g2"
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 2,
+   "response": [],
+   "response_label": "supply",
+   "round": 2,
+   "tie_classes": 1
+  },
+  {
+   "challenge": "supply",
+   "child": 6,
+   "class_size": 1,
+   "cost": [
+    0,
+    0
+   ],
+   "events": [
+    {
+     "event": "supply",
+     "token": "g2"
+    },
+    {
+     "event": "admit_datum",
+     "token": "g2"
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 3,
+   "response": [],
+   "response_label": "supply",
+   "round": 2,
+   "tie_classes": 1
+  },
+  {
+   "challenge": "separate(1, 2)",
+   "child": 7,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 2
+    },
+    {
+     "args": [
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 4,
+   "response": [
+    {
+     "args": [
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst1",
+   "round": 3,
+   "tie_classes": 1
+  },
+  {
+   "challenge": "separate(1, 2)",
+   "child": 8,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 2
+    },
+    {
+     "args": [
+      0,
+      1
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 5,
+   "response": [
+    {
+     "args": [
+      0,
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 3,
+   "tie_classes": 8
+  },
+  {
+   "challenge": "separate(1, 2)",
+   "child": 9,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 2
+    },
+    {
+     "args": [
+      0,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 5,
+   "response": [
+    {
+     "args": [
+      0,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 3,
+   "tie_classes": 8
+  },
+  {
+   "challenge": "separate(1, 2)",
+   "child": 10,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 2
+    },
+    {
+     "args": [
+      1,
+      0
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 5,
+   "response": [
+    {
+     "args": [
+      1,
+      0
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 3,
+   "tie_classes": 8
+  },
+  {
+   "challenge": "separate(1, 2)",
+   "child": 11,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 2
+    },
+    {
+     "args": [
+      2,
+      0
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 5,
+   "response": [
+    {
+     "args": [
+      2,
+      0
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 3,
+   "tie_classes": 8
+  },
+  {
+   "challenge": "separate(1, 2)",
+   "child": 12,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 2
+    },
+    {
+     "args": [
+      1,
+      1
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 5,
+   "response": [
+    {
+     "args": [
+      1,
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2diag",
+   "round": 3,
+   "tie_classes": 8
+  },
+  {
+   "challenge": "separate(1, 2)",
+   "child": 13,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 2
+    },
+    {
+     "args": [
+      2,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 5,
+   "response": [
+    {
+     "args": [
+      2,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2diag",
+   "round": 3,
+   "tie_classes": 8
+  },
+  {
+   "challenge": "separate(1, 2)",
+   "child": 14,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 2
+    },
+    {
+     "args": [
+      1,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 5,
+   "response": [
+    {
+     "args": [
+      1,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 3,
+   "tie_classes": 8
+  },
+  {
+   "challenge": "separate(1, 2)",
+   "child": 15,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 2
+    },
+    {
+     "args": [
+      2,
+      1
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 5,
+   "response": [
+    {
+     "args": [
+      2,
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 3,
+   "tie_classes": 8
+  },
+  {
+   "challenge": "supply",
+   "child": 16,
+   "class_size": 1,
+   "cost": [
+    0,
+    0
+   ],
+   "events": [
+    {
+     "event": "supply",
+     "token": "g3"
+    },
+    {
+     "event": "admit_datum",
+     "token": "g3"
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 6,
+   "response": [],
+   "response_label": "supply",
+   "round": 3,
+   "tie_classes": 1
+  },
+  {
+   "challenge": "separate(0, 2)",
+   "child": 17,
+   "class_size": 2,
+   "cost": [
+    2,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 0,
+     "j": 2
+    },
+    {
+     "arity": 1,
+     "event": "admit_form"
+    },
+    {
+     "args": [
+      0
+     ],
+     "event": "admit_inst",
+     "form": 1
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 7,
+   "response": [
+    {
+     "arity": 1,
+     "kind": "form"
+    },
+    {
+     "args": [
+      0
+     ],
+     "form": 1,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "form1+inst1",
+   "round": 4,
+   "tie_classes": 5
+  },
+  {
+   "challenge": "separate(0, 2)",
+   "child": 18,
+   "class_size": 2,
+   "cost": [
+    2,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 0,
+     "j": 2
+    },
+    {
+     "arity": 2,
+     "event": "admit_form"
+    },
+    {
+     "args": [
+      0,
+      0
+     ],
+     "event": "admit_inst",
+     "form": 1
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 7,
+   "response": [
+    {
+     "arity": 2,
+     "kind": "form"
+    },
+    {
+     "args": [
+      0,
+      0
+     ],
+     "form": 1,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "form2+inst2diag",
+   "round": 4,
+   "tie_classes": 5
+  },
+  {
+   "challenge": "separate(0, 2)",
+   "child": 19,
+   "class_size": 2,
+   "cost": [
+    2,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 0,
+     "j": 2
+    },
+    {
+     "arity": 2,
+     "event": "admit_form"
+    },
+    {
+     "args": [
+      0,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 1
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 7,
+   "response": [
+    {
+     "arity": 2,
+     "kind": "form"
+    },
+    {
+     "args": [
+      0,
+      2
+     ],
+     "form": 1,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "form2+inst2",
+   "round": 4,
+   "tie_classes": 5
+  },
+  {
+   "challenge": "separate(0, 2)",
+   "child": 20,
+   "class_size": 2,
+   "cost": [
+    2,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 0,
+     "j": 2
+    },
+    {
+     "arity": 2,
+     "event": "admit_form"
+    },
+    {
+     "args": [
+      0,
+      1
+     ],
+     "event": "admit_inst",
+     "form": 1
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 7,
+   "response": [
+    {
+     "arity": 2,
+     "kind": "form"
+    },
+    {
+     "args": [
+      0,
+      1
+     ],
+     "form": 1,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "form2+inst2",
+   "round": 4,
+   "tie_classes": 5
+  },
+  {
+   "challenge": "separate(0, 2)",
+   "child": 21,
+   "class_size": 2,
+   "cost": [
+    2,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 0,
+     "j": 2
+    },
+    {
+     "arity": 2,
+     "event": "admit_form"
+    },
+    {
+     "args": [
+      1,
+      0
+     ],
+     "event": "admit_inst",
+     "form": 1
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 7,
+   "response": [
+    {
+     "arity": 2,
+     "kind": "form"
+    },
+    {
+     "args": [
+      1,
+      0
+     ],
+     "form": 1,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "form2+inst2",
+   "round": 4,
+   "tie_classes": 5
+  },
+  {
+   "challenge": "supply",
+   "child": 22,
+   "class_size": 1,
+   "cost": [
+    0,
+    0
+   ],
+   "events": [
+    {
+     "event": "supply",
+     "token": "g3"
+    },
+    {
+     "event": "admit_datum",
+     "token": "g3"
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 8,
+   "response": [],
+   "response_label": "supply",
+   "round": 4,
+   "tie_classes": 1
+  },
+  {
+   "challenge": "supply",
+   "child": 23,
+   "class_size": 1,
+   "cost": [
+    0,
+    0
+   ],
+   "events": [
+    {
+     "event": "supply",
+     "token": "g3"
+    },
+    {
+     "event": "admit_datum",
+     "token": "g3"
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 9,
+   "response": [],
+   "response_label": "supply",
+   "round": 4,
+   "tie_classes": 1
+  },
+  {
+   "challenge": "supply",
+   "child": 24,
+   "class_size": 1,
+   "cost": [
+    0,
+    0
+   ],
+   "events": [
+    {
+     "event": "supply",
+     "token": "g3"
+    },
+    {
+     "event": "admit_datum",
+     "token": "g3"
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 10,
+   "response": [],
+   "response_label": "supply",
+   "round": 4,
+   "tie_classes": 1
+  },
+  {
+   "challenge": "supply",
+   "child": 25,
+   "class_size": 1,
+   "cost": [
+    0,
+    0
+   ],
+   "events": [
+    {
+     "event": "supply",
+     "token": "g3"
+    },
+    {
+     "event": "admit_datum",
+     "token": "g3"
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 11,
+   "response": [],
+   "response_label": "supply",
+   "round": 4,
+   "tie_classes": 1
+  },
+  {
+   "challenge": "supply",
+   "child": 26,
+   "class_size": 1,
+   "cost": [
+    0,
+    0
+   ],
+   "events": [
+    {
+     "event": "supply",
+     "token": "g3"
+    },
+    {
+     "event": "admit_datum",
+     "token": "g3"
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 12,
+   "response": [],
+   "response_label": "supply",
+   "round": 4,
+   "tie_classes": 1
+  },
+  {
+   "challenge": "supply",
+   "child": 27,
+   "class_size": 1,
+   "cost": [
+    0,
+    0
+   ],
+   "events": [
+    {
+     "event": "supply",
+     "token": "g3"
+    },
+    {
+     "event": "admit_datum",
+     "token": "g3"
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 13,
+   "response": [],
+   "response_label": "supply",
+   "round": 4,
+   "tie_classes": 1
+  },
+  {
+   "challenge": "supply",
+   "child": 28,
+   "class_size": 1,
+   "cost": [
+    0,
+    0
+   ],
+   "events": [
+    {
+     "event": "supply",
+     "token": "g3"
+    },
+    {
+     "event": "admit_datum",
+     "token": "g3"
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 14,
+   "response": [],
+   "response_label": "supply",
+   "round": 4,
+   "tie_classes": 1
+  },
+  {
+   "challenge": "supply",
+   "child": 29,
+   "class_size": 1,
+   "cost": [
+    0,
+    0
+   ],
+   "events": [
+    {
+     "event": "supply",
+     "token": "g3"
+    },
+    {
+     "event": "admit_datum",
+     "token": "g3"
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 15,
+   "response": [],
+   "response_label": "supply",
+   "round": 4,
+   "tie_classes": 1
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 30,
+   "class_size": 2,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      2,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 16,
+   "response": [
+    {
+     "args": [
+      2,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2diag",
+   "round": 4,
+   "tie_classes": 6
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 31,
+   "class_size": 2,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      0,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 16,
+   "response": [
+    {
+     "args": [
+      0,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 4,
+   "tie_classes": 6
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 32,
+   "class_size": 2,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      1,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 16,
+   "response": [
+    {
+     "args": [
+      1,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 4,
+   "tie_classes": 6
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 33,
+   "class_size": 2,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      2,
+      0
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 16,
+   "response": [
+    {
+     "args": [
+      2,
+      0
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 4,
+   "tie_classes": 6
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 34,
+   "class_size": 2,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      2,
+      1
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 16,
+   "response": [
+    {
+     "args": [
+      2,
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 4,
+   "tie_classes": 6
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 35,
+   "class_size": 2,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      2,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 16,
+   "response": [
+    {
+     "args": [
+      2,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 4,
+   "tie_classes": 6
+  },
+  {
+   "challenge": "supply",
+   "child": 36,
+   "class_size": 1,
+   "cost": [
+    0,
+    0
+   ],
+   "events": [
+    {
+     "event": "supply",
+     "token": "g3"
+    },
+    {
+     "event": "admit_datum",
+     "token": "g3"
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 17,
+   "response": [],
+   "response_label": "supply",
+   "round": 5,
+   "tie_classes": 1
+  },
+  {
+   "challenge": "supply",
+   "child": 37,
+   "class_size": 1,
+   "cost": [
+    0,
+    0
+   ],
+   "events": [
+    {
+     "event": "supply",
+     "token": "g3"
+    },
+    {
+     "event": "admit_datum",
+     "token": "g3"
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 18,
+   "response": [],
+   "response_label": "supply",
+   "round": 5,
+   "tie_classes": 1
+  },
+  {
+   "challenge": "supply",
+   "child": 38,
+   "class_size": 1,
+   "cost": [
+    0,
+    0
+   ],
+   "events": [
+    {
+     "event": "supply",
+     "token": "g3"
+    },
+    {
+     "event": "admit_datum",
+     "token": "g3"
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 19,
+   "response": [],
+   "response_label": "supply",
+   "round": 5,
+   "tie_classes": 1
+  },
+  {
+   "challenge": "supply",
+   "child": 39,
+   "class_size": 1,
+   "cost": [
+    0,
+    0
+   ],
+   "events": [
+    {
+     "event": "supply",
+     "token": "g3"
+    },
+    {
+     "event": "admit_datum",
+     "token": "g3"
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 20,
+   "response": [],
+   "response_label": "supply",
+   "round": 5,
+   "tie_classes": 1
+  },
+  {
+   "challenge": "supply",
+   "child": 40,
+   "class_size": 1,
+   "cost": [
+    0,
+    0
+   ],
+   "events": [
+    {
+     "event": "supply",
+     "token": "g3"
+    },
+    {
+     "event": "admit_datum",
+     "token": "g3"
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 21,
+   "response": [],
+   "response_label": "supply",
+   "round": 5,
+   "tie_classes": 1
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 41,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      0,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 22,
+   "response": [
+    {
+     "args": [
+      0,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 42,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      1,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 22,
+   "response": [
+    {
+     "args": [
+      1,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 43,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      1,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 22,
+   "response": [
+    {
+     "args": [
+      1,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 44,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      2,
+      0
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 22,
+   "response": [
+    {
+     "args": [
+      2,
+      0
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 45,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      3,
+      0
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 22,
+   "response": [
+    {
+     "args": [
+      3,
+      0
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 46,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      2,
+      1
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 22,
+   "response": [
+    {
+     "args": [
+      2,
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 47,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      3,
+      1
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 22,
+   "response": [
+    {
+     "args": [
+      3,
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 48,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      2,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 22,
+   "response": [
+    {
+     "args": [
+      2,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 49,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      3,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 22,
+   "response": [
+    {
+     "args": [
+      3,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 50,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      2,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 22,
+   "response": [
+    {
+     "args": [
+      2,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2diag",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 51,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      3,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 22,
+   "response": [
+    {
+     "args": [
+      3,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2diag",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 52,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      0,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 23,
+   "response": [
+    {
+     "args": [
+      0,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 53,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      2,
+      1
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 23,
+   "response": [
+    {
+     "args": [
+      2,
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 54,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      2,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 23,
+   "response": [
+    {
+     "args": [
+      2,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 55,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      1,
+      0
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 23,
+   "response": [
+    {
+     "args": [
+      1,
+      0
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 56,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      3,
+      0
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 23,
+   "response": [
+    {
+     "args": [
+      3,
+      0
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 57,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      1,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 23,
+   "response": [
+    {
+     "args": [
+      1,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 58,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      3,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 23,
+   "response": [
+    {
+     "args": [
+      3,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 59,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      1,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 23,
+   "response": [
+    {
+     "args": [
+      1,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 60,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      3,
+      1
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 23,
+   "response": [
+    {
+     "args": [
+      3,
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 61,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      1,
+      1
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 23,
+   "response": [
+    {
+     "args": [
+      1,
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2diag",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 62,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      3,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 23,
+   "response": [
+    {
+     "args": [
+      3,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2diag",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 63,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      0,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 24,
+   "response": [
+    {
+     "args": [
+      0,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 64,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      0,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 24,
+   "response": [
+    {
+     "args": [
+      0,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 65,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      1,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 24,
+   "response": [
+    {
+     "args": [
+      1,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 66,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      1,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 24,
+   "response": [
+    {
+     "args": [
+      1,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 67,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      3,
+      0
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 24,
+   "response": [
+    {
+     "args": [
+      3,
+      0
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 68,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      2,
+      1
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 24,
+   "response": [
+    {
+     "args": [
+      2,
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 69,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      3,
+      1
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 24,
+   "response": [
+    {
+     "args": [
+      3,
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 70,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      2,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 24,
+   "response": [
+    {
+     "args": [
+      2,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 71,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      3,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 24,
+   "response": [
+    {
+     "args": [
+      3,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 72,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      2,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 24,
+   "response": [
+    {
+     "args": [
+      2,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2diag",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 73,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      3,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 24,
+   "response": [
+    {
+     "args": [
+      3,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2diag",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 74,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      0,
+      1
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 25,
+   "response": [
+    {
+     "args": [
+      0,
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 56,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      0,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "merge",
+   "merge_iso": {
+    "dmap": [
+     0,
+     1,
+     3,
+     2
+    ],
+    "fmap": [
+     0
+    ]
+   },
+   "orbits": 1,
+   "parent": 25,
+   "response": [
+    {
+     "args": [
+      0,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 75,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      2,
+      1
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 25,
+   "response": [
+    {
+     "args": [
+      2,
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 76,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      2,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 25,
+   "response": [
+    {
+     "args": [
+      2,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 77,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      3,
+      0
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 25,
+   "response": [
+    {
+     "args": [
+      3,
+      0
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 78,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      1,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 25,
+   "response": [
+    {
+     "args": [
+      1,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 79,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      3,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 25,
+   "response": [
+    {
+     "args": [
+      3,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 80,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      3,
+      1
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 25,
+   "response": [
+    {
+     "args": [
+      3,
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 81,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      1,
+      1
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 25,
+   "response": [
+    {
+     "args": [
+      1,
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2diag",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 82,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      3,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 25,
+   "response": [
+    {
+     "args": [
+      3,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2diag",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 83,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      1,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 25,
+   "response": [
+    {
+     "args": [
+      1,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 11
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 84,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      0,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 26,
+   "response": [
+    {
+     "args": [
+      0,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 12
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 85,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      0,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 26,
+   "response": [
+    {
+     "args": [
+      0,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 12
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 86,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      1,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 26,
+   "response": [
+    {
+     "args": [
+      1,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 12
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 87,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      1,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 26,
+   "response": [
+    {
+     "args": [
+      1,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 12
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 88,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      2,
+      1
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 26,
+   "response": [
+    {
+     "args": [
+      2,
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 12
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 89,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      3,
+      1
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 26,
+   "response": [
+    {
+     "args": [
+      3,
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 12
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 90,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      2,
+      0
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 26,
+   "response": [
+    {
+     "args": [
+      2,
+      0
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 12
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 91,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      3,
+      0
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 26,
+   "response": [
+    {
+     "args": [
+      3,
+      0
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 12
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 92,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      2,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 26,
+   "response": [
+    {
+     "args": [
+      2,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2diag",
+   "round": 5,
+   "tie_classes": 12
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 93,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      3,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 26,
+   "response": [
+    {
+     "args": [
+      3,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2diag",
+   "round": 5,
+   "tie_classes": 12
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 94,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      2,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 26,
+   "response": [
+    {
+     "args": [
+      2,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 12
+  },
+  {
+   "challenge": "separate(2, 3)",
+   "child": 95,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 2,
+     "j": 3
+    },
+    {
+     "args": [
+      3,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 26,
+   "response": [
+    {
+     "args": [
+      3,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 12
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 96,
+   "class_size": 2,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      0,
+      1
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 27,
+   "response": [
+    {
+     "args": [
+      0,
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 8
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 62,
+   "class_size": 2,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      0,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "merge",
+   "merge_iso": {
+    "dmap": [
+     0,
+     1,
+     3,
+     2
+    ],
+    "fmap": [
+     0
+    ]
+   },
+   "orbits": 1,
+   "parent": 27,
+   "response": [
+    {
+     "args": [
+      0,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 8
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 97,
+   "class_size": 2,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      1,
+      0
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 27,
+   "response": [
+    {
+     "args": [
+      1,
+      0
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 8
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 82,
+   "class_size": 2,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      3,
+      0
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "merge",
+   "merge_iso": {
+    "dmap": [
+     0,
+     1,
+     3,
+     2
+    ],
+    "fmap": [
+     0
+    ]
+   },
+   "orbits": 1,
+   "parent": 27,
+   "response": [
+    {
+     "args": [
+      3,
+      0
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 8
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 98,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      1,
+      1
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 27,
+   "response": [
+    {
+     "args": [
+      1,
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2diag",
+   "round": 5,
+   "tie_classes": 8
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 99,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      3,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 27,
+   "response": [
+    {
+     "args": [
+      3,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2diag",
+   "round": 5,
+   "tie_classes": 8
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 100,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      1,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 27,
+   "response": [
+    {
+     "args": [
+      1,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 8
+  },
+  {
+   "challenge": "separate(1, 3)",
+   "child": 101,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 3
+    },
+    {
+     "args": [
+      3,
+      1
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 27,
+   "response": [
+    {
+     "args": [
+      3,
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 8
+  },
+  {
+   "challenge": "supply",
+   "child": 102,
+   "class_size": 1,
+   "cost": [
+    0,
+    0
+   ],
+   "events": [
+    {
+     "event": "supply",
+     "token": "g4"
+    },
+    {
+     "event": "admit_datum",
+     "token": "g4"
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 28,
+   "response": [],
+   "response_label": "supply",
+   "round": 5,
+   "tie_classes": 1
+  },
+  {
+   "challenge": "supply",
+   "child": 103,
+   "class_size": 1,
+   "cost": [
+    0,
+    0
+   ],
+   "events": [
+    {
+     "event": "supply",
+     "token": "g4"
+    },
+    {
+     "event": "admit_datum",
+     "token": "g4"
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 29,
+   "response": [],
+   "response_label": "supply",
+   "round": 5,
+   "tie_classes": 1
+  },
+  {
+   "challenge": "supply",
+   "child": 104,
+   "class_size": 1,
+   "cost": [
+    0,
+    0
+   ],
+   "events": [
+    {
+     "event": "supply",
+     "token": "g4"
+    },
+    {
+     "event": "admit_datum",
+     "token": "g4"
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 30,
+   "response": [],
+   "response_label": "supply",
+   "round": 5,
+   "tie_classes": 1
+  },
+  {
+   "challenge": "separate(1, 2)",
+   "child": 105,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 2
+    },
+    {
+     "args": [
+      1,
+      1
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 31,
+   "response": [
+    {
+     "args": [
+      1,
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2diag",
+   "round": 5,
+   "tie_classes": 10
+  },
+  {
+   "challenge": "separate(1, 2)",
+   "child": 106,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 2
+    },
+    {
+     "args": [
+      2,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 31,
+   "response": [
+    {
+     "args": [
+      2,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2diag",
+   "round": 5,
+   "tie_classes": 10
+  },
+  {
+   "challenge": "separate(1, 2)",
+   "child": 107,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 2
+    },
+    {
+     "args": [
+      1,
+      0
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 31,
+   "response": [
+    {
+     "args": [
+      1,
+      0
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 10
+  },
+  {
+   "challenge": "separate(1, 2)",
+   "child": 108,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 2
+    },
+    {
+     "args": [
+      2,
+      0
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 31,
+   "response": [
+    {
+     "args": [
+      2,
+      0
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 10
+  },
+  {
+   "challenge": "separate(1, 2)",
+   "child": 109,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 2
+    },
+    {
+     "args": [
+      1,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 31,
+   "response": [
+    {
+     "args": [
+      1,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 10
+  },
+  {
+   "challenge": "separate(1, 2)",
+   "child": 110,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 2
+    },
+    {
+     "args": [
+      2,
+      1
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 31,
+   "response": [
+    {
+     "args": [
+      2,
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 10
+  },
+  {
+   "challenge": "separate(1, 2)",
+   "child": 111,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 2
+    },
+    {
+     "args": [
+      1,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 31,
+   "response": [
+    {
+     "args": [
+      1,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 10
+  },
+  {
+   "challenge": "separate(1, 2)",
+   "child": 112,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 2
+    },
+    {
+     "args": [
+      2,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 31,
+   "response": [
+    {
+     "args": [
+      2,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 10
+  },
+  {
+   "challenge": "separate(1, 2)",
+   "child": 113,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 2
+    },
+    {
+     "args": [
+      3,
+      1
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 31,
+   "response": [
+    {
+     "args": [
+      3,
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 10
+  },
+  {
+   "challenge": "separate(1, 2)",
+   "child": 114,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 2
+    },
+    {
+     "args": [
+      3,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 31,
+   "response": [
+    {
+     "args": [
+      3,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 10
+  },
+  {
+   "challenge": "supply",
+   "child": 115,
+   "class_size": 1,
+   "cost": [
+    0,
+    0
+   ],
+   "events": [
+    {
+     "event": "supply",
+     "token": "g4"
+    },
+    {
+     "event": "admit_datum",
+     "token": "g4"
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 32,
+   "response": [],
+   "response_label": "supply",
+   "round": 5,
+   "tie_classes": 1
+  },
+  {
+   "challenge": "supply",
+   "child": 116,
+   "class_size": 1,
+   "cost": [
+    0,
+    0
+   ],
+   "events": [
+    {
+     "event": "supply",
+     "token": "g4"
+    },
+    {
+     "event": "admit_datum",
+     "token": "g4"
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 33,
+   "response": [],
+   "response_label": "supply",
+   "round": 5,
+   "tie_classes": 1
+  },
+  {
+   "challenge": "separate(0, 2)",
+   "child": 117,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 0,
+     "j": 2
+    },
+    {
+     "args": [
+      0,
+      0
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 34,
+   "response": [
+    {
+     "args": [
+      0,
+      0
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2diag",
+   "round": 5,
+   "tie_classes": 10
+  },
+  {
+   "challenge": "separate(0, 2)",
+   "child": 118,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 0,
+     "j": 2
+    },
+    {
+     "args": [
+      2,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 34,
+   "response": [
+    {
+     "args": [
+      2,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2diag",
+   "round": 5,
+   "tie_classes": 10
+  },
+  {
+   "challenge": "separate(0, 2)",
+   "child": 119,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 0,
+     "j": 2
+    },
+    {
+     "args": [
+      0,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 34,
+   "response": [
+    {
+     "args": [
+      0,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 10
+  },
+  {
+   "challenge": "separate(0, 2)",
+   "child": 120,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 0,
+     "j": 2
+    },
+    {
+     "args": [
+      2,
+      0
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 34,
+   "response": [
+    {
+     "args": [
+      2,
+      0
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 10
+  },
+  {
+   "challenge": "separate(0, 2)",
+   "child": 121,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 0,
+     "j": 2
+    },
+    {
+     "args": [
+      1,
+      0
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 34,
+   "response": [
+    {
+     "args": [
+      1,
+      0
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 10
+  },
+  {
+   "challenge": "separate(0, 2)",
+   "child": 122,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 0,
+     "j": 2
+    },
+    {
+     "args": [
+      1,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 34,
+   "response": [
+    {
+     "args": [
+      1,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 10
+  },
+  {
+   "challenge": "separate(0, 2)",
+   "child": 123,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 0,
+     "j": 2
+    },
+    {
+     "args": [
+      0,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 34,
+   "response": [
+    {
+     "args": [
+      0,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 10
+  },
+  {
+   "challenge": "separate(0, 2)",
+   "child": 124,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 0,
+     "j": 2
+    },
+    {
+     "args": [
+      2,
+      3
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 34,
+   "response": [
+    {
+     "args": [
+      2,
+      3
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 10
+  },
+  {
+   "challenge": "separate(0, 2)",
+   "child": 125,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 0,
+     "j": 2
+    },
+    {
+     "args": [
+      3,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 34,
+   "response": [
+    {
+     "args": [
+      3,
+      2
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 10
+  },
+  {
+   "challenge": "separate(0, 2)",
+   "child": 126,
+   "class_size": 1,
+   "cost": [
+    1,
+    -1
+   ],
+   "events": [
+    {
+     "event": "impose_separation",
+     "i": 0,
+     "j": 2
+    },
+    {
+     "args": [
+      3,
+      0
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 34,
+   "response": [
+    {
+     "args": [
+      3,
+      0
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "inst2",
+   "round": 5,
+   "tie_classes": 10
+  },
+  {
+   "challenge": "supply",
+   "child": 127,
+   "class_size": 1,
+   "cost": [
+    0,
+    0
+   ],
+   "events": [
+    {
+     "event": "supply",
+     "token": "g4"
+    },
+    {
+     "event": "admit_datum",
+     "token": "g4"
+    }
+   ],
+   "kind": "creation",
+   "merge_iso": null,
+   "orbits": 1,
+   "parent": 35,
+   "response": [],
+   "response_label": "supply",
+   "round": 5,
+   "tie_classes": 1
+  }
+ ],
+ "max_rounds": 5,
+ "measure": "mu1",
+ "nodes": [
+  {
+   "certified": true,
+   "depth": 0,
+   "id": 0,
+   "merged_count": 1,
+   "regime_sha256": "451d8d7fc4340686052187c8c82cfc596158923ffaccce06775e6c3da17ce15b",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 1,
+   "id": 1,
+   "merged_count": 1,
+   "regime_sha256": "2572a1df8b019c1992325219ba486bdec0fa75a2f788615232c1e33d4622205d",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 1,
+   "id": 2,
+   "merged_count": 1,
+   "regime_sha256": "3d3f62f37fcda28ace29e56a84e793daba5e0e6ede7def2517d20d68fd87c448",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 1,
+   "id": 3,
+   "merged_count": 1,
+   "regime_sha256": "5b6e930fc90e9d3c87ab595dcd55ccd535932ff04c7f25e55f2d9a90618f6650",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 2,
+   "id": 4,
+   "merged_count": 1,
+   "regime_sha256": "9764fb28f5876b808af29cdd7017fbbf326dc11220077ceb7a62bb08114031ca",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 2,
+   "id": 5,
+   "merged_count": 1,
+   "regime_sha256": "7554c6212c36f207f447dcdfa0e5ec013b8e6d66131a433dc6cfea7b65366c67",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 2,
+   "id": 6,
+   "merged_count": 1,
+   "regime_sha256": "c52d6aad21b49e8abbd2c42a90f0199775f636407d3ffed60900d63d5808048e",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 3,
+   "id": 7,
+   "merged_count": 1,
+   "regime_sha256": "f29ddfc9b8cd72c60c9208e845be72641edec515866b384f4f3dd0ef17a2f5f7",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 3,
+   "id": 8,
+   "merged_count": 1,
+   "regime_sha256": "a30cc12bff157a9d4e461fd020162b1e02aaa4862c1a0932c56efebc41c166c2",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 3,
+   "id": 9,
+   "merged_count": 1,
+   "regime_sha256": "2a08702fcabb08d3a68e2194d50988d3e99892735f80a33d6b82e0bacb9b8af9",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 3,
+   "id": 10,
+   "merged_count": 1,
+   "regime_sha256": "bd3cfc60870e6a1aa681466f6727f1f46f849827b3f3bb61b06d989ff880612f",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 3,
+   "id": 11,
+   "merged_count": 1,
+   "regime_sha256": "79da0d7d8a7dab5a244b93133bb36e0b3d44421763aaef615b8df0e12f65100d",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 3,
+   "id": 12,
+   "merged_count": 1,
+   "regime_sha256": "747cf2ecd41c8e8e5943ff1151f11e67b1bb7181cf05132b08efbe5209ce0f01",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 3,
+   "id": 13,
+   "merged_count": 1,
+   "regime_sha256": "0bdab0d0b252665f800652a08e77c4b35d4452c75a67d36a617ea44eb258c326",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 3,
+   "id": 14,
+   "merged_count": 1,
+   "regime_sha256": "743ece7e132fb4fd7a03003fa972a8a774be633b90c6776bbde068ed85ea882b",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 3,
+   "id": 15,
+   "merged_count": 1,
+   "regime_sha256": "852387791adf4b8ea8d1cd8995ae94980b4b5c773b82f3415f99d86db7a8fd3a",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 3,
+   "id": 16,
+   "merged_count": 1,
+   "regime_sha256": "28966ad21cb97cd14770322bc0b6b71bd09919b57a7643279bdbc9c4fa2a8f26",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 4,
+   "id": 17,
+   "merged_count": 1,
+   "regime_sha256": "729c1426b18c12da6cec8209b01700c0e0722f1d3161949f59abc24376317cc2",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 4,
+   "id": 18,
+   "merged_count": 1,
+   "regime_sha256": "ede4472bd709f2a69b1fa387ab4b461106dc68f6cc8b19f609f8c9a67e9283ae",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 4,
+   "id": 19,
+   "merged_count": 1,
+   "regime_sha256": "d1f54f09af2c7be30226ebe77fe2d39534baa7fc59e9f6748afd0d1cb563cee8",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 4,
+   "id": 20,
+   "merged_count": 1,
+   "regime_sha256": "386a8d8afebb42dba515722cf0921bdb3403597a848ea96bd45419b13f3ab428",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 4,
+   "id": 21,
+   "merged_count": 1,
+   "regime_sha256": "80e1c2b6685618e0b75fa783908de531b9f8e31e4090c21403705df351b9861b",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 4,
+   "id": 22,
+   "merged_count": 1,
+   "regime_sha256": "58aecc8e51915c7db7c9981e6b766a3c4b17dba894aa69fcc266c06f60567f83",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 4,
+   "id": 23,
+   "merged_count": 1,
+   "regime_sha256": "9d1514402dd6277ed80ac9e7d93e7f3e42a7cedd198460cac902ac95dc49d590",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 4,
+   "id": 24,
+   "merged_count": 1,
+   "regime_sha256": "fc28d76ddb72ea398e640a0c45a45fc166df0b3e511a816b5ed4f09b12bcc61d",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 4,
+   "id": 25,
+   "merged_count": 1,
+   "regime_sha256": "a631fbeacf87f281cb109b9e12ede06c7c362043a2fe7a8acf05cb827fcab223",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 4,
+   "id": 26,
+   "merged_count": 1,
+   "regime_sha256": "0ad0b557354d14d1c8742ce92a7e84c2437a5f3db50c2a223454709ea034ce0a",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 4,
+   "id": 27,
+   "merged_count": 1,
+   "regime_sha256": "be77b4ace4b4d562f88f16ed0e6d86816c8c14bba871579eebd5799aff2e5960",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 4,
+   "id": 28,
+   "merged_count": 1,
+   "regime_sha256": "85bf828979fa120bee43c4ad349b5cbb9d68de18f70e81a454088a819c5a0b6c",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 4,
+   "id": 29,
+   "merged_count": 1,
+   "regime_sha256": "c5e22404b59a9c58fde8bdd672acf26d5a66d377820b01261447f7f8758484d2",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 4,
+   "id": 30,
+   "merged_count": 1,
+   "regime_sha256": "13aacc47cf69e8b5fac328edaeeae256b709a24b39eae75772207a747cd4913a",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 4,
+   "id": 31,
+   "merged_count": 1,
+   "regime_sha256": "216212ae69f265a1fb9458d9deb4bc625ba8161b6a0b3843d6bf15f9f56272ed",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 4,
+   "id": 32,
+   "merged_count": 1,
+   "regime_sha256": "31139d45276510ea15dd68499436a82df60d3de57a087ae3a7522133db652a51",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 4,
+   "id": 33,
+   "merged_count": 1,
+   "regime_sha256": "547bf5729491239fd03ffeaa25b81175802424df951b9d25b36887128fca0c67",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 4,
+   "id": 34,
+   "merged_count": 1,
+   "regime_sha256": "86ada74be8851d80d75d088c1196b85b446201196817bc57e35c72f767c2ee1c",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 4,
+   "id": 35,
+   "merged_count": 1,
+   "regime_sha256": "2210b5c7ffcc1a1e1fbdbed210d232ed44fc50645980477f66f2b1799387467b",
+   "status": "expanded"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 36,
+   "merged_count": 1,
+   "regime_sha256": "4e06fcb63686c26e035d6d81b06d132a56ad8dfdd78a04311d26627943421529",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 37,
+   "merged_count": 1,
+   "regime_sha256": "9ac6fee13ca91aea9ed46686b4c997cfa2aaf8851a26158106486367741eb72c",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 38,
+   "merged_count": 1,
+   "regime_sha256": "fbd42a8b9a42a15b2a262964c133b1d051665bea074e1048eb4095e0f88272ba",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 39,
+   "merged_count": 1,
+   "regime_sha256": "dcf06cc7afb34f61a50713508c7238f981a758064c1face93e9d390a920097a1",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 40,
+   "merged_count": 1,
+   "regime_sha256": "994d5c345eac9604b2f2e55c0a62c0a911c9f0729700e7415d46e97fa152760a",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 41,
+   "merged_count": 1,
+   "regime_sha256": "2305d0740800ad0447b3dd73893aa481c204ffd2d824b57e110f7cbac7cc9a5b",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 42,
+   "merged_count": 1,
+   "regime_sha256": "3557da234e939d4e3b7dedf7d527e624a5b5ea4dcc7cdf97114d0a68246b3fca",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 43,
+   "merged_count": 1,
+   "regime_sha256": "1295b1eb2fe728484610dbac6f4996ff651327afdd5e250804e97be8e21910ee",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 44,
+   "merged_count": 1,
+   "regime_sha256": "b329dc6b0638f72a2a9e93d318a2df6c0cd951f7c71c0a1f8e5b0d65c98d826e",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 45,
+   "merged_count": 1,
+   "regime_sha256": "fbd2678a6af51508b04fae02f90022c2d9fe3c264c495a930dfe0fed70345d0c",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 46,
+   "merged_count": 1,
+   "regime_sha256": "b61c51c74acc0848d662e2266c42193cbb5843e7a6e2ce1c075d5a1894fd3501",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 47,
+   "merged_count": 1,
+   "regime_sha256": "dab1f540ca82e5d88e05c8b918ab9b312565afdb8fc2ba73fc26ae39d4385bcd",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 48,
+   "merged_count": 1,
+   "regime_sha256": "76c255cf56d1054c90df24fbbb77a1946f312c002122fc741cc1d8a92968eeb6",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 49,
+   "merged_count": 1,
+   "regime_sha256": "cee475d9ec021b156be2da863196bacd415155eddaceef37a9e89c7606c58fa1",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 50,
+   "merged_count": 1,
+   "regime_sha256": "ca6e4300f357aafbfc204d857bae61a3f17136d2a796aac8bc236d04914df6ee",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 51,
+   "merged_count": 1,
+   "regime_sha256": "869fca39d15436ee9b972a449af1435391ee48265a4bcf753b54c11231ff54fa",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 52,
+   "merged_count": 1,
+   "regime_sha256": "b8ef476f3ea4e27c9b0efdb9e082a10a981022df0d8c4497306bd39aaf91452b",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 53,
+   "merged_count": 1,
+   "regime_sha256": "9e667af9d87213ec36a18a7c018b26047545484b9c1d03e31ca922ab02f30b17",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 54,
+   "merged_count": 1,
+   "regime_sha256": "6c33c87470dd399efb4c53fad437d3fcc62cf2786c4b34aaf30ade3fb836d206",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 55,
+   "merged_count": 1,
+   "regime_sha256": "4da5615aaafb95d3b1b06a3edf58f9191ce02b4c711e7da8533f96c7fcb9ec16",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 56,
+   "merged_count": 2,
+   "regime_sha256": "e25bb4d51bf644e9a7bd82d2ad8d1590f02b2a102d3958e09d1234cdf3d44033",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 57,
+   "merged_count": 1,
+   "regime_sha256": "224ec68cb38d5285b1b0a9e7b718e5f7de752d0780763994d3edd12e509888c9",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 58,
+   "merged_count": 1,
+   "regime_sha256": "e4b86695e86c456cc45ba3f2413ce393ef3868b69027eb638e16a1fb29df8127",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 59,
+   "merged_count": 1,
+   "regime_sha256": "f41a8951e56db32b696642702b5ffdb3998a3a338f8342b7073bbfd1e5ce7f6f",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 60,
+   "merged_count": 1,
+   "regime_sha256": "b71fa0b68947a9c76c16976f36c4a9d632f10469a6c48c7d3caa537800efe95e",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 61,
+   "merged_count": 1,
+   "regime_sha256": "944a0ce120c0a337a9b05b248bb791a8d383ffdc5b885c02be538f64de2361d2",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 62,
+   "merged_count": 2,
+   "regime_sha256": "c1cbd22a4aaa5f074b4e67f3657fd9c0c97810c7c907db1a4b3fb95dd5f4884c",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 63,
+   "merged_count": 1,
+   "regime_sha256": "45bef79efb080357a9edd9da0c4d72c291046dc076c03890addd3c13b236c0f3",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 64,
+   "merged_count": 1,
+   "regime_sha256": "20300c7840c52807742aa4886a2165f3b97ff019db834d68eb5681030d372352",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 65,
+   "merged_count": 1,
+   "regime_sha256": "e598254e117846505a9b47ca107a025aa331b4a8a5935a6091fc9f5de6e27165",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 66,
+   "merged_count": 1,
+   "regime_sha256": "19fe1cdba7a1032b5e8b897b4243e12af4807755f13b4b5f3766ad31f88ddce4",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 67,
+   "merged_count": 1,
+   "regime_sha256": "2a091f83323a4603dd7c6f6bd5a52a0b3268ab053fb2203c5a3cb1655455cce3",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 68,
+   "merged_count": 1,
+   "regime_sha256": "834abd4af29253699cd92a18903c940a0e64e30156dd4be553c891b8c2d70a90",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 69,
+   "merged_count": 1,
+   "regime_sha256": "1ac313f26012ecb149b01fc65311606019fea757ef8df8674349272005338dd6",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 70,
+   "merged_count": 1,
+   "regime_sha256": "41858d433a31f21b4e2083537fbd482bc2cd4aee06a49715c531852cdef24ef3",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 71,
+   "merged_count": 1,
+   "regime_sha256": "d5921e0c446c363cb18fe9448f4ad8bebe293736248a107e59ad7a23b949e079",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 72,
+   "merged_count": 1,
+   "regime_sha256": "3e0fc0b6f0c9aa3dea271fee737d3268006fb5cbdc38629691871f3930a9122b",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 73,
+   "merged_count": 1,
+   "regime_sha256": "858c1fe87948001804dc9e9c59478a2f0189ba16673b3c64d48ffc4234ea38d1",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 74,
+   "merged_count": 1,
+   "regime_sha256": "eae4602817dff072bbc44b53d6e39f4af79e3070322dce3164a832a673d1b7b8",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 75,
+   "merged_count": 1,
+   "regime_sha256": "61d07db0488410377178ecc8a0c3639bbac706ea8083e30692deb04160e380fc",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 76,
+   "merged_count": 1,
+   "regime_sha256": "cf68c82caf3a444c608aac49865a04ef19a86d8cb26fe2d67fd6bd621e3e5257",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 77,
+   "merged_count": 1,
+   "regime_sha256": "edda507bd126595308750ce6b6865dadd8aba78fc899e19a03015ac991506bcd",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 78,
+   "merged_count": 1,
+   "regime_sha256": "3c3e7ef17df9125f9991eeba2304e970d7aa8fafed74a7e1295c00ea2a5dbbb6",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 79,
+   "merged_count": 1,
+   "regime_sha256": "d118e980cba8ade90b9d73f812600b407ffe16790f8151e9a4d0f9700d86c4d5",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 80,
+   "merged_count": 1,
+   "regime_sha256": "ffaa289121b74e181a6666a9c1119cef2a1082c1b687ae006855ec1229e05e9e",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 81,
+   "merged_count": 1,
+   "regime_sha256": "0c65218695ee2f516d51b4bf11514178943e9530d8dcdf18523ef56f671739b6",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 82,
+   "merged_count": 2,
+   "regime_sha256": "952560739513f3adc6d81269d826774725eeafc79124d6936c0ae331d3af8356",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 83,
+   "merged_count": 1,
+   "regime_sha256": "757f4e2ca0be23c757035fb56d7b0752523a919e188e0bb814ab755e61ef4c9f",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 84,
+   "merged_count": 1,
+   "regime_sha256": "30094c7160ccd19cc587db5d2df8fdd3bee74f8b7fdc5262a5a47ea120c7e4b4",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 85,
+   "merged_count": 1,
+   "regime_sha256": "ba8d9452cd6249820429ffe36f6d083d3dc2dcc6bbe8d5dc1636b11c2189ae3b",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 86,
+   "merged_count": 1,
+   "regime_sha256": "e63658b2fa393309898ff6e3d7158e6d111dc3915efa5da35bda55853a207c0f",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 87,
+   "merged_count": 1,
+   "regime_sha256": "0ff509042919e7dff2dab42eda57dd8e495020cfee8128f52ae4beb26d660b24",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 88,
+   "merged_count": 1,
+   "regime_sha256": "5533d89f64a546b8aeba95363c3a3d429a221cf03bf46bf0d44de66c5f2b094a",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 89,
+   "merged_count": 1,
+   "regime_sha256": "22a0791aef1794338f8f0a3665764ba01fc5e4bfaab25b68472d6c52fe6e7caf",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 90,
+   "merged_count": 1,
+   "regime_sha256": "6d36a887fdf94ce4dee5eba4ad7149e1a709e0b0498bc70aa5e740ad4a681f80",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 91,
+   "merged_count": 1,
+   "regime_sha256": "893f246bb8df41204fb6aa584dc61f9d35e9f461d49cf075edf9d3086e20b378",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 92,
+   "merged_count": 1,
+   "regime_sha256": "518eaa34486ebfe602f7dfd68a6a4fed52c9dc6844a611461c5de365cfc4796d",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 93,
+   "merged_count": 1,
+   "regime_sha256": "3f17a23d4f2dd891b876e314483424d11515e9a2b47900dd4923e73db0ca4bc7",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 94,
+   "merged_count": 1,
+   "regime_sha256": "0b1a6c6f0d0d20cd423caca5fa0726650eefd2e6bd129fa618b921a0ca29335f",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 95,
+   "merged_count": 1,
+   "regime_sha256": "6b79d5fb1fc88e8f7a85b5b2bccee17d637667ddfcc583d54ccb7a979be5c19f",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 96,
+   "merged_count": 1,
+   "regime_sha256": "8bc0e990918e4bd4826257db8696c795d6d953ad0b2e76809aa418fdac4100db",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 97,
+   "merged_count": 1,
+   "regime_sha256": "fa87a5838c277b07b804e5e143ae7cc749c7fc95a0290ea10ac1e68031dc37ee",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 98,
+   "merged_count": 1,
+   "regime_sha256": "4146f56bf92bf31f5333dce57bc3c67bbd8f59e365884ddd5cc00f9bcfe4eb56",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 99,
+   "merged_count": 1,
+   "regime_sha256": "ca369a56e0722bc80dcf0ade881df665c91e748c364d1090207e4e5795f13787",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 100,
+   "merged_count": 1,
+   "regime_sha256": "b5e37241836b08cb0182f5a5b5ca74b29790b02c6dd3746cf53e331b08ba5080",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 101,
+   "merged_count": 1,
+   "regime_sha256": "f39ce35d3c45ba2dfa5ac7db20c96210901cc25ecd9fc8e03787a497c2abece8",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 102,
+   "merged_count": 1,
+   "regime_sha256": "f82c37aa46087be97ae086a868592f15bd89c6d494e4f5906c8349a8d58a90e4",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 103,
+   "merged_count": 1,
+   "regime_sha256": "cac5a2b7244210c9b4598696bc996f967656b05d378f00041a4b9006c5a8c901",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 104,
+   "merged_count": 1,
+   "regime_sha256": "cc22af927e89dfd824a141aaa72b83ec79c6852af86a57a5f9d4d1922bb99efc",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 105,
+   "merged_count": 1,
+   "regime_sha256": "44aa0983f26c2b9d91e48b4c75ef91048d48cb8a9ff993c7d3a65500c64ad37c",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 106,
+   "merged_count": 1,
+   "regime_sha256": "5f51af1bccc217ddf336a7697e4b300f7b55ad740e6ff36af02c2ec384becdb7",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 107,
+   "merged_count": 1,
+   "regime_sha256": "412abf303b4737a705b7e8504ad275dd4b4adb324165c5cbde0c0cd38ef0b67a",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 108,
+   "merged_count": 1,
+   "regime_sha256": "33e553b6eefb7ba8eae1aab0692d93042d3269eb2eac7ea9005b70ee88fdb573",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 109,
+   "merged_count": 1,
+   "regime_sha256": "12ab5502667fd9d3103c4f6a4d19ec5a63074d546fcebc114cec7f219c84647b",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 110,
+   "merged_count": 1,
+   "regime_sha256": "45bf5d7b358d0cae77e9be49050ed80ad24acb2006cc3fd2df9f6410c498e48f",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 111,
+   "merged_count": 1,
+   "regime_sha256": "bcd51b3986403870030fe156661e02c405d0c8f379ded2e5a1392d85ec5042a8",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 112,
+   "merged_count": 1,
+   "regime_sha256": "8d4740b564a767f55525ed046d92d059b7ce1844974b1ac04688a5d739aeb8d1",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 113,
+   "merged_count": 1,
+   "regime_sha256": "9bd8250fa641b8168f1a3c15e4b8a1a92ac8be0c82b8ce335e9274351f2e6205",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 114,
+   "merged_count": 1,
+   "regime_sha256": "f8e3967b9f1c597638a2850441fb654019c7fa706711d948740a7ac79c99a637",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 115,
+   "merged_count": 1,
+   "regime_sha256": "f6ef5dad13c4b68fa81db99d6b6268ee223dd1d004c7c2fd94b29578b7b7ac75",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 116,
+   "merged_count": 1,
+   "regime_sha256": "a7c0be6fdff11572b571f9e58396cbe3e8769960e964ec36626d618df289d63f",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 117,
+   "merged_count": 1,
+   "regime_sha256": "88be830fd40c1806b52c5c47a0361e30b2a3d0506b218bca41125d52b649cc81",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 118,
+   "merged_count": 1,
+   "regime_sha256": "0f8a375f0e7b7c97494ca724e2359fdd8d654404bb19563805f3a12da781c6fe",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 119,
+   "merged_count": 1,
+   "regime_sha256": "4776e54937742531f8a1c4a38ce90bd15e91c4706a7ec5bd7bc79a795070693d",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 120,
+   "merged_count": 1,
+   "regime_sha256": "92e8d5d0839aaa64b623b47d20bdbd7c6c4878774663103fdcac0dd5801b24bc",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 121,
+   "merged_count": 1,
+   "regime_sha256": "905f96375b9d976e57620eda9bd3a2480e26ef76a8dce108df9dbfc937404936",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 122,
+   "merged_count": 1,
+   "regime_sha256": "4141e21f87d51f0f85e054ecb2a6361b1eea953eeae1e8bc907ada59279f1f1a",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 123,
+   "merged_count": 1,
+   "regime_sha256": "64870db1f6da1128e8d0dfb42ac2e6620e71e240498968a0cdb9f80608d2ded0",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 124,
+   "merged_count": 1,
+   "regime_sha256": "fe6dd57bc88397393a2b2cdefe73c07ea7186eb7b5f90fe8c63ce55c7d605db2",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 125,
+   "merged_count": 1,
+   "regime_sha256": "6d6139e78c59caff5b1206389a8c3a2f7684a3fc4932e5b32ee551e6e7647286",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 126,
+   "merged_count": 1,
+   "regime_sha256": "a5c63e6a67de3efcee3163374348ea9aa4de23b7bbe25d86d3ec9bba2353503a",
+   "status": "completed"
+  },
+  {
+   "certified": true,
+   "depth": 5,
+   "id": 127,
+   "merged_count": 1,
+   "regime_sha256": "b292a0573c4a3ea9564500fd94959e4db50e91b6139845f65600e1e50a0d6140",
+   "status": "completed"
+  }
+ ],
+ "pre_expansion_node_guard": 400,
+ "reading": "L",
+ "root_history": [
+  {
+   "event": "supply",
+   "token": "<>"
+  },
+  {
+   "event": "supply",
+   "token": "<a>"
+  },
+  {
+   "event": "supply",
+   "token": "<a>"
+  },
+  {
+   "event": "supply",
+   "token": "<ab>"
+  },
+  {
+   "event": "admit_datum",
+   "token": "<a>"
+  },
+  {
+   "event": "admit_datum",
+   "token": "<ab>"
+  }
+ ],
+ "root_regime": {
+  "data": [
+   "<a>",
+   "<ab>"
+  ],
+  "forms": [],
+  "insts": [],
+  "reqs": [],
+  "rules": []
+ },
+ "stats": {
+  "all_certified": true,
+  "by_status": {
+   "completed": 92,
+   "expanded": 36
+  },
+  "edges": 130,
+  "expansions_with_multiple_orbits": 0,
+  "expansions_with_ties": 12,
+  "max_depth": 5,
+  "nodes": 128,
+  "roles": {
+   "discrimination": 99,
+   "innovation": 8,
+   "supply": 23
+  }
+ },
+ "supply_enabled": true
+}
