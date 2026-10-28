@@ -25,8 +25,9 @@ under these rules**; it is not a proved negative fact about a physical item.
 
 ## Another answer uses two slots
 
-Admit a two-slot form G and record `G(A, B)`. The test `G(_, B)` succeeds
-on A and fails on B. This also meets the demand.
+Return to the original ledger, with no forms or instances. For an
+alternative two-item answer, admit a two-slot form G and record `G(A, B)`.
+The test `G(_, B)` succeeds on A and fails on B. This also meets the demand.
 
 The two-slot form records ordered positions: `G(A, B)` and `G(B, A)` are
 different instances. The positions and their order are supplied by this

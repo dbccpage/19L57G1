@@ -41,6 +41,18 @@ python -c "import sys,json; sys.path.insert(0,'code'); from derivation.export im
 The replay checker is separate from the search, sharing the admitted
 kernel. Its limited scope is demonstrated in Lesson 07.
 
+For the repository's entire local textbook job under its required Python
+version and pinned dependencies:
+
+```text
+uv run --isolated --no-project --python 3.14.7 --with-requirements requirements.txt python ci/run_gates.py --job textbook --receipt artifacts2/search_lab/textbook_gates_314.json
+```
+
+An existing uv-managed Python 3.14.7 ran this job successfully. Its five
+selected steps include the library build, 97 Python checks, and 71
+book-Lean checks. This is the textbook job only, not all twelve local gate
+families. The earlier bundled-Python 3.12 setup failure is historical.
+
 Build and preview the results desk:
 
 ```text
