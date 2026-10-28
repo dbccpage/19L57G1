@@ -1,0 +1,730 @@
+##### Basic
+--- insertNew_nil: 0 hits
+--- insertNew_of_not_mem: 1 hits
+    paper/paper_claim_ledger.md 570 - **Lean**: `insertNew` (+ `mem_insertNew`, `insertNew_of_not_mem`,
+--- insertNew_of_mem: 1 hits
+    paper/paper_claim_ledger.md 571 `insertNew_of_mem`), `erase_step`, `erase_replay` (with
+--- mem_insertNew: 1 hits
+    paper/paper_claim_ledger.md 570 - **Lean**: `insertNew` (+ `mem_insertNew`, `insertNew_of_not_mem`,
+--- separable_not_collapsed: 2 hits
+    paper/paper_claim_ledger.md 120 `separable_not_collapsed`.
+    artifacts/completion_dependency_graph.json 527 "name": "Derivation.separable_not_collapsed",
+--- R2L_wf: 0 hits
+--- R2F_wf: 0 hits
+##### Inertia
+--- supply_no_op: 19 hits
+    paper/computation_declarations.md 40 | **C1** persistent carrier | a declared state shape | `Regime` is a **declared** frozen shape. State changes only through admission events; `Supply` provably does not change it (`supply_no_op`). Nothing derives the carr
+    paper/cost_bill.md 35 | **C1** persistent carrier | a declared state shape | declared `Regime`; `supply_no_op` shows presentation alone changes nothing |
+    paper/cost_bill.md 83 `supply_no_op`.
+    paper/native_derivation_completion.md 380 → (nothing follows: genesis_underivable; supply_no_op)
+    paper/native_derivation_map.md 13 | seed | forces successor state | admission | FALSE | `genesis_underivable`, `supply_no_op` | nothing follows from the seed alone |
+    paper/native_derivation_map.md 14 | supply | is | admission | FALSE | `supply_no_op` | supply never mutates admitted state |
+    paper/paper.md 203 * **[theorem]** (`supply_no_op`) Bare supply does not change the admitted
+    paper/paper.md 215 language.  The bare-supply case is **[theorem]** (`supply_no_op`).  (An
+    paper/paper.md 229 is not an admission (by `supply_no_op` it cannot change state).
+    paper/paper.md 579 rule?*  **No** — **[theorem]** `supply_no_op` plus the structural fact
+    paper/paper_claim_ledger.md 36 - **Lean**: `supply_no_op`, `genesis_underivable`, `underivable_of_empty`.
+    paper/paper_claim_ledger.md 37 - **Axioms**: `propext` (supply_no_op); none (the other two).
+    ... more
+--- genesis_underivable: 6 hits
+    paper/native_derivation_completion.md 380 → (nothing follows: genesis_underivable; supply_no_op)
+    paper/native_derivation_map.md 13 | seed | forces successor state | admission | FALSE | `genesis_underivable`, `supply_no_op` | nothing follows from the seed alone |
+    paper/paper.md 205 * **[theorem]** (`genesis_underivable`, `underivable_of_empty`) Nothing is
+    paper/paper_claim_ledger.md 36 - **Lean**: `supply_no_op`, `genesis_underivable`, `underivable_of_empty`.
+    artifacts/completion_dependency_graph.json 7 "Derivation.genesis_underivable",
+    artifacts/completion_dependency_graph.json 386 "name": "Derivation.genesis_underivable",
+--- underivable_of_empty: 3 hits
+    paper/paper.md 205 * **[theorem]** (`genesis_underivable`, `underivable_of_empty`) Nothing is
+    paper/paper_claim_ledger.md 36 - **Lean**: `supply_no_op`, `genesis_underivable`, `underivable_of_empty`.
+    artifacts/completion_dependency_graph.json 398 "name": "Derivation.underivable_of_empty",
+--- collapsed_of_no_insts: 5 hits
+    paper/paper.md 235 * **[theorem]** (`collapsed_of_no_insts`) No internal observable
+    paper/paper_claim_ledger.md 62 - **Lean**: `supply_no_op`, `collapsed_of_no_insts`.
+    paper/paper_claim_ledger.md 92 `collapsed_of_no_insts`, which carries `propext`; an earlier version
+    paper/paper_claim_ledger.md 625 `collapsed_of_no_insts`).
+    artifacts/completion_dependency_graph.json 418 "name": "Derivation.collapsed_of_no_insts",
+--- R2L_collapsed: 5 hits
+    paper/paper.md 246 * **[theorem]** (`R2L_collapsed`, `R2F_collapsed`) Every pair of admitted
+    paper/paper.md 270 **[theorem]** (`R2L_collapsed` / `R2F_collapsed` instantiated) The current
+    paper/paper_claim_ledger.md 88 - **Lean**: `R2L_collapsed`, `R2F_collapsed`, `historyL_replays`,
+    paper/paper_claim_ledger.md 119 - **Lean**: `R2L_collapsed`, `R2F_collapsed` with
+    artifacts/completion_dependency_graph.json 435 "name": "Derivation.R2L_collapsed",
+--- R2F_collapsed: 5 hits
+    paper/paper.md 246 * **[theorem]** (`R2L_collapsed`, `R2F_collapsed`) Every pair of admitted
+    paper/paper.md 270 **[theorem]** (`R2L_collapsed` / `R2F_collapsed` instantiated) The current
+    paper/paper_claim_ledger.md 88 - **Lean**: `R2L_collapsed`, `R2F_collapsed`, `historyL_replays`,
+    paper/paper_claim_ledger.md 119 - **Lean**: `R2L_collapsed`, `R2F_collapsed` with
+    artifacts/completion_dependency_graph.json 450 "name": "Derivation.R2F_collapsed",
+--- historyL_replays: 6 hits
+    paper/native_derivation_map.md 15 | admission | changes state via event | retention | PROVED | `historyL_replays`, `historyF_replays` | event-indexed, replayable |
+    paper/paper.md 253 * **[theorem]** (`historyL_replays`, `historyF_replays`) The recorded
+    paper/paper_claim_ledger.md 88 - **Lean**: `R2L_collapsed`, `R2F_collapsed`, `historyL_replays`,
+    paper/paper_claim_ledger.md 608 - **Lean**: `replayE_append`, `historyL_replays`, `historyF_replays`.
+    artifacts/completion_dependency_graph.json 28 "Derivation.historyL_replays",
+    artifacts/completion_dependency_graph.json 465 "name": "Derivation.historyL_replays",
+--- historyF_replays: 6 hits
+    paper/native_derivation_map.md 15 | admission | changes state via event | retention | PROVED | `historyL_replays`, `historyF_replays` | event-indexed, replayable |
+    paper/paper.md 253 * **[theorem]** (`historyL_replays`, `historyF_replays`) The recorded
+    paper/paper_claim_ledger.md 89 `historyF_replays`.
+    paper/paper_claim_ledger.md 608 - **Lean**: `replayE_append`, `historyL_replays`, `historyF_replays`.
+    artifacts/completion_dependency_graph.json 29 "Derivation.historyF_replays"
+    artifacts/completion_dependency_graph.json 480 "name": "Derivation.historyF_replays",
+--- admission_without_expressive_increase: 3 hits
+    paper/paper.md 249 * **[counterexample]** (`admission_without_expressive_increase`) To the
+    paper/paper_claim_ledger.md 105 - **Lean**: `admission_without_expressive_increase`.
+    artifacts/completion_dependency_graph.json 494 "name": "Derivation.admission_without_expressive_increase",
+--- replayE_append: 2 hits
+    paper/paper_claim_ledger.md 608 - **Lean**: `replayE_append`, `historyL_replays`, `historyF_replays`.
+    artifacts/completion_dependency_graph.json 509 "name": "Derivation.replayE_append",
+##### Quot
+--- quotient_barrier: 3 hits
+    paper/paper.md 590 (`quotient_barrier`, `quot_barrier`, `barrier_R2L`): every function out
+    paper/paper_claim_ledger.md 621 - **Lean**: `quotient_barrier`, `quot_barrier`, `barrier_R2L`.
+    artifacts/completion_dependency_graph.json 541 "name": "Derivation.quotient_barrier",
+--- quot_barrier: 8 hits
+    paper/paper.md 590 (`quotient_barrier`, `quot_barrier`, `barrier_R2L`): every function out
+    paper/paper_change_log.md 1155 other two conjuncts being sealed constants; `quot_barrier` is more
+    paper/paper_claim_ledger.md 621 - **Lean**: `quotient_barrier`, `quot_barrier`, `barrier_R2L`.
+    paper/paper_claim_ledger.md 2669 SETOID-BASED machinery can state (`Derivation.quot_barrier`) —
+    paper/paper_claim_ledger.md 2677 quot_barrier note: `obstP` conjoins retention, protection and
+    paper/paper_claim_ledger.md 2706 `quot_barrier`, `pairing_dict`, `flagship_vs_obstP`;
+    paper/primitive_difference_map.md 491 `phom2_unique_of_epi`).  `Derivation.quot_barrier` remains strictly
+    artifacts/completion_dependency_graph.json 556 "name": "Derivation.quot_barrier",
+--- barrier_R2L: 3 hits
+    paper/paper.md 590 (`quotient_barrier`, `quot_barrier`, `barrier_R2L`): every function out
+    paper/paper_claim_ledger.md 621 - **Lean**: `quotient_barrier`, `quot_barrier`, `barrier_R2L`.
+    artifacts/completion_dependency_graph.json 571 "name": "Derivation.barrier_R2L",
+##### Counting
+--- index_le_strict_mono: 2 hits
+    paper/paper_claim_ledger.md 365 - **Lean**: `index_le_strict_mono`, `strict_bounded_length`,
+    artifacts/completion_dependency_graph.json 586 "name": "Derivation.index_le_strict_mono",
+--- strict_bounded_length: 4 hits
+    paper/paper.md 499 **[theorem]** (`strict_bounded_length`, `no_supply_round_bound`,
+    paper/paper_change_log.md 101 8. The counting laws (`strict_bounded_length`, `no_supply_round_bound`)
+    paper/paper_claim_ledger.md 365 - **Lean**: `index_le_strict_mono`, `strict_bounded_length`,
+    artifacts/completion_dependency_graph.json 601 "name": "Derivation.strict_bounded_length",
+--- no_supply_round_bound: 4 hits
+    paper/paper.md 499 **[theorem]** (`strict_bounded_length`, `no_supply_round_bound`,
+    paper/paper_change_log.md 101 8. The counting laws (`strict_bounded_length`, `no_supply_round_bound`)
+    paper/paper_claim_ledger.md 366 `no_supply_round_bound`, `allPairs_length`; and, 2026-08-18, the
+    artifacts/completion_dependency_graph.json 616 "name": "Derivation.no_supply_round_bound",
+--- allPairs_length: 8 hits
+    paper/paper.md 500 `allPairs_length`) The counting laws behind this are *conditional*
+    paper/paper.md 566 `allPairs_length`); generating any further requirement would need a
+    paper/paper.md 612 requirement-language size law is **[theorem]** (`allPairs_length`).
+    paper/paper_change_log.md 59 n(n-1)/2 rounds (new Lean lemma `allPairs_length`; closed-system
+    paper/paper_claim_ledger.md 366 `no_supply_round_bound`, `allPairs_length`; and, 2026-08-18, the
+    paper/paper_claim_ledger.md 395 - **Lean**: `allPairs_length`.
+    paper/paper_claim_ledger.md 674 law `allPairs_length` as before.  Under the full two-bijection
+    artifacts/completion_dependency_graph.json 635 "name": "Derivation.allPairs_length",
+##### CountTransport
+--- f_inj: 1 hits
+    artifacts/completion_dependency_graph.json 9206 "name": "Attachment.Renaming.f_inj",
+--- list_map_inj: 0 hits
+--- mapInst_inj: 0 hits
+--- plug_mapCtx: 3 hits
+    paper/paper_change_log.md 1756 regimes, and the chain `plug_mapCtx` → `derivable_rename` →
+    paper/paper_claim_ledger.md 672 candidate pair list is preserved), with `plug_mapCtx`,
+    artifacts/completion_dependency_graph.json 18736 "name": "Derivation.plug_mapCtx",
+--- derivable_rename: 3 hits
+    paper/paper_change_log.md 1756 regimes, and the chain `plug_mapCtx` → `derivable_rename` →
+    paper/paper_claim_ledger.md 673 `derivable_rename`, `wfCtx_rename` as the supporting steps; language-size
+    artifacts/completion_dependency_graph.json 18753 "name": "Derivation.derivable_rename",
+--- wfCtx_rename: 5 hits
+    paper/paper_change_log.md 1757 `wfCtx_rename` → `collapsed_rename` → `collapsedCount_rename`. Six new
+    paper/paper_change_log.md 1774 `wfCtx_rename`. `collapsedCount_rename` takes the decision procedure as
+    paper/paper_claim_ledger.md 673 `derivable_rename`, `wfCtx_rename` as the supporting steps; language-size
+    paper/paper_claim_ledger.md 683 `wfCtx_rename`. `collapsedCount_rename` takes the decision procedure as
+    artifacts/completion_dependency_graph.json 18770 "name": "Derivation.wfCtx_rename",
+--- mapCtx_f_g: 0 hits
+--- collapsed_rename: 10 hits
+    paper/paper.md 614 datum-index bijections as of 2026-08-17 (`collapsed_rename`,
+    paper/paper.md 751 now exists: `collapsed_rename` in `lean4/Derivation/CountTransport.lean`
+    paper/paper.md 759 Scope of R6, stated 2026-09-08: `collapsed_rename` and
+    paper/paper.md 787 | ~~R6~~ | **Count-invariance** transport under datum renaming, forms fixed — **DISCHARGED 2026-08-17** (full-isomorphism collapse transport: `collapsed_transport`, `collapsed_renameDataForm`; the executable count and pa
+    paper/paper_change_log.md 1757 `wfCtx_rename` → `collapsed_rename` → `collapsedCount_rename`. Six new
+    paper/paper_change_log.md 1772 Scope stated rather than implied: `collapsed_rename` needs only
+    paper/paper_claim_ledger.md 670 - **Lean**: `collapsed_rename` (observational collapse transports under a
+    paper/paper_claim_ledger.md 681 - **Scope, exactly**: `collapsed_rename` is unconditional in the renaming's
+    paper/paper_claim_ledger.md 3913 - **Lean**: `collapsed_rename`, `collapsedCount_rename`,
+    artifacts/completion_dependency_graph.json 18789 "name": "Derivation.collapsed_rename",
+--- collapsedCount_rename: 10 hits
+    paper/paper.md 615 `collapsedCount_rename`); token renaming is inexpressible in the
+    paper/paper.md 753 datum indices, and `collapsedCount_rename` carries it to the count.
+    paper/paper.md 760 `collapsedCount_rename` act on the datum indices with the forms fixed,
+    paper/paper.md 787 | ~~R6~~ | **Count-invariance** transport under datum renaming, forms fixed — **DISCHARGED 2026-08-17** (full-isomorphism collapse transport: `collapsed_transport`, `collapsed_renameDataForm`; the executable count and pa
+    paper/paper_change_log.md 1757 `wfCtx_rename` → `collapsed_rename` → `collapsedCount_rename`. Six new
+    paper/paper_change_log.md 1774 `wfCtx_rename`. `collapsedCount_rename` takes the decision procedure as
+    paper/paper_claim_ledger.md 671 datum renaming) and `collapsedCount_rename` (the count over any
+    paper/paper_claim_ledger.md 683 `wfCtx_rename`. `collapsedCount_rename` takes the decision procedure as
+    paper/paper_claim_ledger.md 3913 - **Lean**: `collapsed_rename`, `collapsedCount_rename`,
+    artifacts/completion_dependency_graph.json 18805 "name": "Derivation.collapsedCount_rename",
+--- rename_insts_wf: 1 hits
+    artifacts/completion_dependency_graph.json 18818 "name": "Derivation.rename_insts_wf",
+--- cmRegime_wf: 0 hits
+--- cm_separable: 1 hits
+    artifacts/completion_dependency_graph.json 18831 "name": "Derivation.cm_separable",
+--- non_injective_does_not_transport: 1 hits
+    artifacts/completion_dependency_graph.json 18844 "name": "Derivation.non_injective_does_not_transport",
+##### Mention
+--- mem_plug_of_hole: 2 hits
+    paper/paper_claim_ledger.md 291 `collapsed_append_unmentioning` (R3), with `mem_plug_of_hole`,
+    artifacts/completion_dependency_graph.json 18859 "name": "Derivation.mem_plug_of_hole",
+--- not_mem_of_arg_out_of_range: 2 hits
+    paper/paper_claim_ledger.md 292 `not_mem_of_arg_out_of_range`, `exists_out_of_range_slot` and
+    artifacts/completion_dependency_graph.json 18871 "name": "Derivation.not_mem_of_arg_out_of_range",
+--- exists_out_of_range_slot: 3 hits
+    paper/paper_change_log.md 1813 so `exists_out_of_range_slot` extracts its witness by induction instead.
+    paper/paper_claim_ledger.md 292 `not_mem_of_arg_out_of_range`, `exists_out_of_range_slot` and
+    artifacts/completion_dependency_graph.json 18885 "name": "Derivation.exists_out_of_range_slot",
+--- collapsed_append_unmentioning: 7 hits
+    paper/paper.md 430 `collapsed_append_unmentioning`; an earlier version of this sentence
+    paper/paper.md 738 `collapsed_append_unmentioning` (R3) with `collapsed_fresh_datum` (R1)
+    paper/paper.md 784 | ~~R3~~ | DISCHARGED 2026-08-17 — **Mention lemma**: an instance-only delta changes the target pair's profiles only if some instance mentions a target datum | a | same test; `collapsed_append_unmentioning` (Lean) | noth
+    paper/paper_change_log.md 1792 (`collapsed_append_unmentioning`).
+    paper/paper_claim_ledger.md 243 (`collapsed_append_unmentioning`): its instance mentions neither
+    paper/paper_claim_ledger.md 291 `collapsed_append_unmentioning` (R3), with `mem_plug_of_hole`,
+    artifacts/completion_dependency_graph.json 18903 "name": "Derivation.collapsed_append_unmentioning",
+--- collapsed_fresh_datum: 5 hits
+    paper/paper.md 429 2026-08-17 (`collapsed_fresh_datum`, `collapsed_fresh_form`,
+    paper/paper.md 738 `collapsed_append_unmentioning` (R3) with `collapsed_fresh_datum` (R1)
+    paper/paper.md 782 | ~~R1~~ | DISCHARGED 2026-08-17 — Unreferenced fresh **data** never affect a minimum response | a | `test_pruned_cost2_contains_every_valid_full_delta`, cross-checked against the *unpruned* space over bare, marked, and 
+    paper/paper_claim_ledger.md 290 `collapsed_fresh_datum` (R1), `collapsed_fresh_form` (R2),
+    artifacts/completion_dependency_graph.json 18918 "name": "Derivation.collapsed_fresh_datum",
+--- getD_append_left: 2 hits
+    paper/paper_claim_ledger.md 293 `getD_append_left` as the supporting steps (2026-08-17).
+    artifacts/completion_dependency_graph.json 18932 "name": "Derivation.getD_append_left",
+--- collapsed_fresh_form: 5 hits
+    paper/paper.md 429 2026-08-17 (`collapsed_fresh_datum`, `collapsed_fresh_form`,
+    paper/paper.md 739 and `collapsed_fresh_form` (R2) as corollaries; the hypotheses of the
+    paper/paper.md 783 | ~~R2~~ | DISCHARGED 2026-08-17 — Unreferenced fresh **forms** never affect a minimum response | a | same test, same cross-check; `collapsed_fresh_form` (Lean) | nothing; closed |
+    paper/paper_claim_ledger.md 290 `collapsed_fresh_datum` (R1), `collapsed_fresh_form` (R2),
+    artifacts/completion_dependency_graph.json 18946 "name": "Derivation.collapsed_fresh_form",
+##### Erasure
+--- erase_step: 4 hits
+    paper/paper.md 109 * **Erasure simulation** (`erase_step` / `erase_replay`,
+    paper/paper_change_log.md 84 theorems `erase_step` / `erase_replay` (a duplicate admission erases
+    paper/paper_claim_ledger.md 571 `insertNew_of_mem`), `erase_step`, `erase_replay` (with
+    artifacts/completion_dependency_graph.json 996 "name": "Derivation.erase_step",
+--- replayT_cons: 1 hits
+    paper/paper_claim_ledger.md 572 `replayT_cons`, `replayE_cons`) in `Derivation/Erasure.lean`;
+--- replayE_cons: 1 hits
+    paper/paper_claim_ledger.md 572 `replayT_cons`, `replayE_cons`) in `Derivation/Erasure.lean`;
+--- erase_replay: 4 hits
+    paper/paper.md 109 * **Erasure simulation** (`erase_step` / `erase_replay`,
+    paper/paper_change_log.md 84 theorems `erase_step` / `erase_replay` (a duplicate admission erases
+    paper/paper_claim_ledger.md 571 `insertNew_of_mem`), `erase_step`, `erase_replay` (with
+    artifacts/completion_dependency_graph.json 1011 "name": "Derivation.erase_replay",
+##### Ext
+--- SetEq.rfl': 0 hits
+--- SetEq.symm': 0 hits
+--- SetEq.insertNew': 0 hits
+--- RegimeExt.refl': 0 hits
+--- RegimeExt.symm': 0 hits
+--- derivable_ext: 3 hits
+    paper/paper.md 120 validity (`derivable_ext` … `validResponse_ext`).  Two list
+    paper/paper_claim_ledger.md 573 `derivable_ext`, `wfCtx_ext`, `collapsed_ext`, `separable_ext`,
+    artifacts/completion_dependency_graph.json 1023 "name": "Derivation.derivable_ext",
+--- wfCtx_ext: 2 hits
+    paper/paper_claim_ledger.md 573 `derivable_ext`, `wfCtx_ext`, `collapsed_ext`, `separable_ext`,
+    artifacts/completion_dependency_graph.json 1037 "name": "Derivation.wfCtx_ext",
+--- collapsed_ext: 2 hits
+    paper/paper_claim_ledger.md 573 `derivable_ext`, `wfCtx_ext`, `collapsed_ext`, `separable_ext`,
+    artifacts/completion_dependency_graph.json 1051 "name": "Derivation.collapsed_ext",
+--- separable_ext: 2 hits
+    paper/paper_claim_ledger.md 573 `derivable_ext`, `wfCtx_ext`, `collapsed_ext`, `separable_ext`,
+    artifacts/completion_dependency_graph.json 1065 "name": "Derivation.separable_ext",
+--- applyItem_ext: 2 hits
+    paper/paper_claim_ledger.md 574 `applyItem_ext`, `applyDelta_ext`, `validResponse_ext` in
+    artifacts/completion_dependency_graph.json 1079 "name": "Derivation.applyItem_ext",
+--- applyDelta_ext: 2 hits
+    paper/paper_claim_ledger.md 574 `applyItem_ext`, `applyDelta_ext`, `validResponse_ext` in
+    artifacts/completion_dependency_graph.json 1093 "name": "Derivation.applyDelta_ext",
+--- validResponse_ext: 3 hits
+    paper/paper.md 120 validity (`derivable_ext` … `validResponse_ext`).  Two list
+    paper/paper_claim_ledger.md 574 `applyItem_ext`, `applyDelta_ext`, `validResponse_ext` in
+    artifacts/completion_dependency_graph.json 1107 "name": "Derivation.validResponse_ext",
+##### Minimality
+--- applyDelta_single: 0 hits
+--- applyDelta_pair: 0 hits
+--- U0_separable: 1 hits
+    artifacts/completion_dependency_graph.json 648 "name": "Derivation.U0_separable",
+--- U1_separable: 1 hits
+    artifacts/completion_dependency_graph.json 661 "name": "Derivation.U1_separable",
+--- BL_separable: 1 hits
+    artifacts/completion_dependency_graph.json 674 "name": "Derivation.BL_separable",
+--- BD_separable: 1 hits
+    artifacts/completion_dependency_graph.json 687 "name": "Derivation.BD_separable",
+--- validResponse_R2L: 0 hits
+--- deltaU0_valid: 4 hits
+    paper/paper.md 285 **[theorem]** (`deltaU0_valid`, `deltaU0F_valid`) Two-item responses
+    paper/paper_claim_ledger.md 148 - **Lean**: existence — `deltaU0_valid`, `deltaU0F_valid`; floor —
+    paper/representative_selection.md 109 | `Derivation.deltaU0_valid` | `propext, Quot.sound` |
+    artifacts/completion_dependency_graph.json 702 "name": "Derivation.deltaU0_valid",
+--- deltaU1_valid: 1 hits
+    artifacts/completion_dependency_graph.json 715 "name": "Derivation.deltaU1_valid",
+--- deltaBL_valid: 1 hits
+    artifacts/completion_dependency_graph.json 728 "name": "Derivation.deltaBL_valid",
+--- deltaBD_valid: 1 hits
+    artifacts/completion_dependency_graph.json 741 "name": "Derivation.deltaBD_valid",
+--- no_insts_no_separation: 0 hits
+--- cost1_insufficient_general: 3 hits
+    paper/paper.md 275 **[theorem]** (`cost1_insufficient_general`, instantiated as
+    paper/paper_claim_ledger.md 136 - **Lean**: `cost1_insufficient_general`, `cost1_insufficient`,
+    artifacts/completion_dependency_graph.json 755 "name": "Derivation.cost1_insufficient_general",
+--- cost1_insufficient: 6 hits
+    paper/paper.md 276 `cost1_insufficient` for reading L and `cost1_insufficient_F` for
+    paper/paper_change_log.md 68 Also in this pass: `cost1_insufficient` generalized in Lean to any
+    paper/paper_change_log.md 2244 `Derivation.cost1_insufficient`, which the claim ledger cites.  Both
+    paper/paper_claim_ledger.md 136 - **Lean**: `cost1_insufficient_general`, `cost1_insufficient`,
+    paper/representative_selection.md 110 | `Derivation.cost1_insufficient` | `propext` |
+    artifacts/completion_dependency_graph.json 769 "name": "Derivation.cost1_insufficient",
+--- cost1_insufficient_F: 6 hits
+    paper/paper.md 276 `cost1_insufficient` for reading L and `cost1_insufficient_F` for
+    paper/paper_claim_ledger.md 137 `cost1_insufficient_F`.
+    paper/paper_claim_ledger.md 246 `cost1_insufficient_F` and `deltaU0F_valid` were already in place.
+    paper/paper_claim_ledger.md 3871 `cost1_insufficient_F` (no one-item response); the collapse of 0 and
+    paper/representative_selection.md 111 | `Derivation.cost1_insufficient_F` | `propext` |
+    artifacts/completion_dependency_graph.json 785 "name": "Derivation.cost1_insufficient_F",
+--- deltaU0F_valid: 6 hits
+    paper/paper.md 285 **[theorem]** (`deltaU0_valid`, `deltaU0F_valid`) Two-item responses
+    paper/paper_change_log.md 71 `deltaU0F_valid` added; exported theorem count 42.
+    paper/paper_claim_ledger.md 148 - **Lean**: existence — `deltaU0_valid`, `deltaU0F_valid`; floor —
+    paper/paper_claim_ledger.md 246 `cost1_insufficient_F` and `deltaU0F_valid` were already in place.
+    paper/paper_claim_ledger.md 3870 - **Lean**: `deltaU0F_valid` (the response is valid), `U0F` (its result),
+    artifacts/completion_dependency_graph.json 802 "name": "Derivation.deltaU0F_valid",
+--- U0_not_iso_BL: 4 hits
+    paper/paper_claim_ledger.md 169 - **Lean**: `mu1_minimum_not_unique`, `U0_not_iso_BL` (both reading L).
+    paper/paper_claim_ledger.md 189 - **Lean**: class distinctness — `U0_not_iso_BL`, `U0_not_iso_BD`,
+    paper/representative_selection.md 202 **isomorphism invariant** — `U0_not_iso_BL`, `U0_not_iso_BD`,
+    artifacts/completion_dependency_graph.json 818 "name": "Derivation.U0_not_iso_BL",
+--- U0_not_iso_BD: 3 hits
+    paper/paper_claim_ledger.md 189 - **Lean**: class distinctness — `U0_not_iso_BL`, `U0_not_iso_BD`,
+    paper/representative_selection.md 202 **isomorphism invariant** — `U0_not_iso_BL`, `U0_not_iso_BD`,
+    artifacts/completion_dependency_graph.json 833 "name": "Derivation.U0_not_iso_BD",
+--- BL_not_iso_BD: 3 hits
+    paper/paper_claim_ledger.md 190 `BL_not_iso_BD`; class collapse — `isoU1U0`.  All four are stated
+    paper/representative_selection.md 203 `BL_not_iso_BD`, and `markK_pairwise_noniso` for the arity family — so an
+    artifacts/completion_dependency_graph.json 848 "name": "Derivation.BL_not_iso_BD",
+--- mu1_minimum_not_unique: 3 hits
+    paper/paper.md 295 **[theorem]** (`mu1_minimum_not_unique`) — *bounds: none for the
+    paper/paper_claim_ledger.md 169 - **Lean**: `mu1_minimum_not_unique`, `U0_not_iso_BL` (both reading L).
+    artifacts/completion_dependency_graph.json 863 "name": "Derivation.mu1_minimum_not_unique",
+--- deltaK_applies: 2 hits
+    paper/paper_claim_ledger.md 212 `deltaK_applies`, `markK_separable`.
+    artifacts/completion_dependency_graph.json 878 "name": "Derivation.deltaK_applies",
+--- markK_separable: 2 hits
+    paper/paper_claim_ledger.md 212 `deltaK_applies`, `markK_separable`.
+    artifacts/completion_dependency_graph.json 893 "name": "Derivation.markK_separable",
+--- deltaK_valid: 3 hits
+    paper/paper.md 320 **[theorem]** (`deltaK_valid`, `deltaK_length`, `markK_pairwise_noniso`) —
+    paper/paper_claim_ledger.md 211 - **Lean**: `deltaK_valid`, `deltaK_length`, `markK_pairwise_noniso`,
+    artifacts/completion_dependency_graph.json 908 "name": "Derivation.deltaK_valid",
+--- deltaK_length: 3 hits
+    paper/paper.md 320 **[theorem]** (`deltaK_valid`, `deltaK_length`, `markK_pairwise_noniso`) —
+    paper/paper_claim_ledger.md 211 - **Lean**: `deltaK_valid`, `deltaK_length`, `markK_pairwise_noniso`,
+    artifacts/completion_dependency_graph.json 920 "name": "Derivation.deltaK_length",
+--- markK_pairwise_noniso: 4 hits
+    paper/paper.md 320 **[theorem]** (`deltaK_valid`, `deltaK_length`, `markK_pairwise_noniso`) —
+    paper/paper_claim_ledger.md 211 - **Lean**: `deltaK_valid`, `deltaK_length`, `markK_pairwise_noniso`,
+    paper/representative_selection.md 203 `BL_not_iso_BD`, and `markK_pairwise_noniso` for the arity family — so an
+    artifacts/completion_dependency_graph.json 934 "name": "Derivation.markK_pairwise_noniso",
+--- mu2_unique: 7 hits
+    paper/paper.md 332 **[theorem]** (`mu2_unique`, reading L) — *bounds: item grammar-wide
+    paper/paper_change_log.md 2118 tie it was said to reinforce is refuted by `mu2_unique` and
+    paper/paper_claim_ledger.md 227 - **Lean**: `mu2_unique` (with `isoRefl`, `isoU1U0`).
+    paper/representative_selection.md 112 | `Derivation.mu2_unique` | `propext, Quot.sound` |
+    paper/representative_selection.md 206 selects uniquely, grammar-wide (`mu2_unique`, `mu2_unique_F`). Any claim
+    paper/representative_selection.md 219 tie is already refuted by `mu2_unique` and `mu2_unique_F`, which are
+    artifacts/completion_dependency_graph.json 949 "name": "Derivation.mu2_unique",
+##### MinimalityF
+--- genesis_mark_not_separable: 3 hits
+    paper/paper.md 786 | ~~R5~~ | **Grammar-wide mu2 uniqueness for reading F** — **DISCHARGED 2026-08-18** | — | `mu2_unique_F`, the reading-F analogue asked for, with `genesis_mark_not_separable` closing the one new case via the R3 mention l
+    paper/paper_claim_ledger.md 240 - **Lean**: `mu2_unique_F`, with `genesis_mark_not_separable` closing
+    artifacts/completion_dependency_graph.json 19632 "name": "Derivation.genesis_mark_not_separable",
+--- mu2_unique_F: 12 hits
+    paper/cost_bill.md 67 (the reading-F bound was removed 2026-08-18 by `mu2_unique_F`).
+    paper/paper.md 341 **[theorem]** (`mu2_unique_F`, 2026-08-18) Reading F: exactly one mu2
+    paper/paper.md 596 bound was removed 2026-08-18 by `mu2_unique_F`).
+    paper/paper.md 677 `mu2_unique_F`; an earlier version of this clause read "within bounds
+    paper/paper.md 786 | ~~R5~~ | **Grammar-wide mu2 uniqueness for reading F** — **DISCHARGED 2026-08-18** | — | `mu2_unique_F`, the reading-F analogue asked for, with `genesis_mark_not_separable` closing the one new case via the R3 mention l
+    paper/paper_change_log.md 1843 **R5** (`lean4/Derivation/MinimalityF.lean`): `mu2_unique_F`,
+    paper/paper_change_log.md 2119 `mu2_unique_F`, which are proved — so it is removed, not repaired.
+    paper/paper_claim_ledger.md 240 - **Lean**: `mu2_unique_F`, with `genesis_mark_not_separable` closing
+    paper/representative_selection.md 206 selects uniquely, grammar-wide (`mu2_unique`, `mu2_unique_F`). Any claim
+    paper/representative_selection.md 219 tie is already refuted by `mu2_unique` and `mu2_unique_F`, which are
+    paper/succession_declarations.md 75 reading-F bound was removed 2026-08-18 by `mu2_unique_F`). The tie
+    artifacts/completion_dependency_graph.json 19647 "name": "Derivation.mu2_unique_F",
+##### Progress
+--- old_inst_form_lt: 0 hits
+--- getD_concat_self: 1 hits
+    paper/paper_claim_ledger.md 322 `getD_concat_self`, `getD_append_lt`).
+--- getD_append_lt: 3 hits
+    paper/paper_change_log.md 78 including a new `getD_append_lt` lemma, `separable_of_subrules`); the
+    paper/paper_claim_ledger.md 322 `getD_concat_self`, `getD_append_lt`).
+    artifacts/completion_dependency_graph.json 9274 "name": "Attachment.getD_append_lt",
+--- derivable_extend: 1 hits
+    paper/paper_claim_ledger.md 321 - **Lean**: `mark_progress` (with `derivable_extend`,
+--- mark_progress: 9 hits
+    paper/paper.md 404 **[theorem]** (`mark_progress`) Response existence: on any well-formed
+    paper/paper.md 476 (`mark_progress`); the behavior of the external continuation policy
+    paper/paper.md 552 `mark_progress` exhibits a preserving response), and the requirement
+    paper/paper.md 605 response (**[theorem]** `mark_progress`).  Whether the sequence is
+    paper/paper_change_log.md 77 Affected Lean proofs repaired (separation witnesses, `mark_progress`
+    paper/paper_change_log.md 93 `mark_progress` is response existence for a supplied demand only;
+    paper/paper_claim_ledger.md 321 - **Lean**: `mark_progress` (with `derivable_extend`,
+    paper/paper_claim_ledger.md 515 - **Lean**: supporting core — `mark_progress` (response existence for a
+    artifacts/completion_dependency_graph.json 965 "name": "Derivation.mark_progress",
+--- separable_of_subrules: 8 hits
+    paper/paper.md 416 * **[theorem]** (`separable_of_subrules`; delta-level corollary
+    paper/paper.md 422 silently charged to `separable_of_subrules` alone.
+    paper/paper.md 785 | ~~R4~~ | **Delta-level rule-removal bridge** — **DISCHARGED 2026-08-18** | — | `applyDelta_dropRules`, `validResponse_dropRules`, `rule_item_never_minimal` (Lean); `separable_of_subrules` as before | nothing; closed |
+    paper/paper_change_log.md 78 including a new `getD_append_lt` lemma, `separable_of_subrules`); the
+    paper/paper_change_log.md 105 9. `separable_of_subrules` docstring and ledger weakened to exactly what
+    paper/paper_change_log.md 1858 only at the final `separable_of_subrules` call).
+    paper/paper_claim_ledger.md 266 - **Lean**: (i) `separable_of_subrules`; (ii) `applyDelta_dropRules`
+    artifacts/completion_dependency_graph.json 981 "name": "Derivation.separable_of_subrules",
+##### RuleBridge
+--- applyItem_rules_mono: 1 hits
+    artifacts/completion_dependency_graph.json 19659 "name": "Derivation.applyItem_rules_mono",
+--- applyDelta_rules_mono: 2 hits
+    paper/paper_claim_ledger.md 272 `applyDelta_rules_mono`, `dropRules_length_lt`, `aritySum_dropRules`
+    artifacts/completion_dependency_graph.json 19673 "name": "Derivation.applyDelta_rules_mono",
+--- applyDelta_dropRules: 7 hits
+    paper/paper.md 421 (`applyDelta_dropRules`), which an earlier version of this bullet
+    paper/paper.md 785 | ~~R4~~ | **Delta-level rule-removal bridge** — **DISCHARGED 2026-08-18** | — | `applyDelta_dropRules`, `validResponse_dropRules`, `rule_item_never_minimal` (Lean); `separable_of_subrules` as before | nothing; closed |
+    paper/paper_change_log.md 1857 (`applyDelta_dropRules`, parametrized so the subset condition enters
+    paper/paper_change_log.md 2635 says proved, naming `applyDelta_dropRules`.
+    paper/paper_claim_ledger.md 257 regime with a smaller rule set — proved (`applyDelta_dropRules`,
+    paper/paper_claim_ledger.md 266 - **Lean**: (i) `separable_of_subrules`; (ii) `applyDelta_dropRules`
+    artifacts/completion_dependency_graph.json 19687 "name": "Derivation.applyDelta_dropRules",
+--- dropRules_length_le: 1 hits
+    artifacts/completion_dependency_graph.json 19699 "name": "Derivation.dropRules_length_le",
+--- dropRules_length_lt: 2 hits
+    paper/paper_claim_ledger.md 272 `applyDelta_rules_mono`, `dropRules_length_lt`, `aritySum_dropRules`
+    artifacts/completion_dependency_graph.json 19713 "name": "Derivation.dropRules_length_lt",
+--- aritySum_dropRules: 2 hits
+    paper/paper_claim_ledger.md 272 `applyDelta_rules_mono`, `dropRules_length_lt`, `aritySum_dropRules`
+    artifacts/completion_dependency_graph.json 19727 "name": "Derivation.aritySum_dropRules",
+--- validResponse_dropRules: 3 hits
+    paper/paper.md 785 | ~~R4~~ | **Delta-level rule-removal bridge** — **DISCHARGED 2026-08-18** | — | `applyDelta_dropRules`, `validResponse_dropRules`, `rule_item_never_minimal` (Lean); `separable_of_subrules` as before | nothing; closed |
+    paper/paper_claim_ledger.md 269 field, and only `newRuleAll` writes it), `validResponse_dropRules`,
+    artifacts/completion_dependency_graph.json 19741 "name": "Derivation.validResponse_dropRules",
+--- rule_item_never_minimal: 5 hits
+    paper/paper.md 417 `rule_item_never_minimal`, 2026-08-18) A separation witness never
+    paper/paper.md 785 | ~~R4~~ | **Delta-level rule-removal bridge** — **DISCHARGED 2026-08-18** | — | `applyDelta_dropRules`, `validResponse_dropRules`, `rule_item_never_minimal` (Lean); `separable_of_subrules` as before | nothing; closed |
+    paper/paper_change_log.md 1859 `rule_item_never_minimal`: valid, strictly shorter, arity sum
+    paper/paper_claim_ledger.md 270 `rule_item_never_minimal` (valid, strictly shorter, arity sum
+    artifacts/completion_dependency_graph.json 19755 "name": "Derivation.rule_item_never_minimal",
+##### Rounds
+--- filter_length_split: 1 hits
+    artifacts/completion_dependency_graph.json 19768 "name": "Derivation.filter_length_split",
+--- nodup_head': 0 hits
+--- nodup_tail': 0 hits
+--- filter_none_of_all_false: 1 hits
+    artifacts/completion_dependency_graph.json 19798 "name": "Derivation.filter_none_of_all_false",
+--- filter_nodup': 0 hits
+--- nodup_filter_self_length: 1 hits
+    artifacts/completion_dependency_graph.json 19822 "name": "Derivation.nodup_filter_self_length",
+--- nodup_subset_length: 3 hits
+    paper/paper_change_log.md 1870 subset-counting lemma (`nodup_subset_length`) built with the
+    paper/paper_claim_ledger.md 375 (`nodup_subset_length`).  What remains computational is narrowed to
+    artifacts/completion_dependency_graph.json 19837 "name": "Derivation.nodup_subset_length",
+--- nodup_append_singleton: 1 hits
+    artifacts/completion_dependency_graph.json 19849 "name": "Derivation.nodup_append_singleton",
+--- allPairs_mem_bound: 1 hits
+    artifacts/completion_dependency_graph.json 19862 "name": "Derivation.allPairs_mem_bound",
+--- mem_allPairs: 1 hits
+    artifacts/completion_dependency_graph.json 19875 "name": "Derivation.mem_allPairs",
+--- nodup_map_of_inj: 1 hits
+    artifacts/completion_dependency_graph.json 19888 "name": "Derivation.nodup_map_of_inj",
+--- range_nodup': 0 hits
+--- nodup_append_disjoint: 1 hits
+    artifacts/completion_dependency_graph.json 19913 "name": "Derivation.nodup_append_disjoint",
+--- allPairs_nodup: 1 hits
+    artifacts/completion_dependency_graph.json 19926 "name": "Derivation.allPairs_nodup",
+--- applyItem_data_eq: 1 hits
+    artifacts/completion_dependency_graph.json 19938 "name": "Derivation.applyItem_data_eq",
+--- applyDelta_data_eq: 1 hits
+    artifacts/completion_dependency_graph.json 19950 "name": "Derivation.applyDelta_data_eq",
+--- respond_anatomy: 1 hits
+    artifacts/completion_dependency_graph.json 19962 "name": "Derivation.respond_anatomy",
+--- round_reqs_succ: 5 hits
+    paper/paper.md 511 most n(n-1)/2 rounds (`round_reqs_succ`, `round_data_eq`,
+    paper/paper.md 789 | ~~R8~~ | Counting-law **hypotheses** connected to the transition system — **DISCHARGED 2026-08-18** (under the declared round shape; that exported rounds have that shape stays computational) | — | `ClosedRun`, `round_r
+    paper/paper_change_log.md 1867 (`round_reqs_succ`), datum fixity (`round_data_eq`), and
+    paper/paper_claim_ledger.md 370 requirement count by exactly one (`round_reqs_succ`) over a fixed
+    artifacts/completion_dependency_graph.json 19976 "name": "Derivation.round_reqs_succ",
+--- round_data_eq: 5 hits
+    paper/paper.md 511 most n(n-1)/2 rounds (`round_reqs_succ`, `round_data_eq`,
+    paper/paper.md 789 | ~~R8~~ | Counting-law **hypotheses** connected to the transition system — **DISCHARGED 2026-08-18** (under the declared round shape; that exported rounds have that shape stays computational) | — | `ClosedRun`, `round_r
+    paper/paper_change_log.md 1867 (`round_reqs_succ`), datum fixity (`round_data_eq`), and
+    paper/paper_claim_ledger.md 371 datum count (`round_data_eq`), requirements stay ordered, bounded and
+    artifacts/completion_dependency_graph.json 19990 "name": "Derivation.round_data_eq",
+--- closedRun_data_eq: 1 hits
+    artifacts/completion_dependency_graph.json 20002 "name": "Derivation.closedRun_data_eq",
+--- closedRun_reqs_length: 1 hits
+    artifacts/completion_dependency_graph.json 20015 "name": "Derivation.closedRun_reqs_length",
+--- closedRun_reqs_nodup: 1 hits
+    artifacts/completion_dependency_graph.json 20027 "name": "Derivation.closedRun_reqs_nodup",
+--- closedRun_reqs_wf: 1 hits
+    artifacts/completion_dependency_graph.json 20039 "name": "Derivation.closedRun_reqs_wf",
+--- closedRun_round_bound: 1 hits
+    artifacts/completion_dependency_graph.json 20052 "name": "Derivation.closedRun_round_bound",
+--- closedRun_round_bound_from_empty: 5 hits
+    paper/paper.md 512 `closedRun_round_bound_from_empty`).  **[finite computation]** What
+    paper/paper.md 789 | ~~R8~~ | Counting-law **hypotheses** connected to the transition system — **DISCHARGED 2026-08-18** (under the declared round shape; that exported rounds have that shape stays computational) | — | `ClosedRun`, `round_r
+    paper/paper_change_log.md 1868 `closedRun_round_bound_from_empty` — 2 * rounds bounded by
+    paper/paper_claim_ledger.md 372 duplicate-free, and `closedRun_round_bound_from_empty` proves
+    artifacts/completion_dependency_graph.json 20067 "name": "Derivation.closedRun_round_bound_from_empty",
+##### TransitionTransport
+--- padF_lt: 1 hits
+    artifacts/completion_dependency_graph.json 18958 "name": "Derivation.padF_lt",
+--- padF_ge: 1 hits
+    artifacts/completion_dependency_graph.json 18970 "name": "Derivation.padF_ge",
+--- padF_fg: 1 hits
+    artifacts/completion_dependency_graph.json 18982 "name": "Derivation.padF_fg",
+--- padF_gf: 1 hits
+    artifacts/completion_dependency_graph.json 18994 "name": "Derivation.padF_gf",
+--- padF_inj: 1 hits
+    artifacts/completion_dependency_graph.json 19006 "name": "Derivation.padF_inj",
+--- padF_bound: 1 hits
+    artifacts/completion_dependency_graph.json 19018 "name": "Derivation.padF_bound",
+--- mapReq_cases: 1 hits
+    artifacts/completion_dependency_graph.json 19030 "name": "Derivation.mapReq_cases",
+--- mapReq_ordered: 1 hits
+    artifacts/completion_dependency_graph.json 19042 "name": "Derivation.mapReq_ordered",
+--- mapReq_inj_ordered: 1 hits
+    artifacts/completion_dependency_graph.json 19054 "name": "Derivation.mapReq_inj_ordered",
+--- mapReq_g_f: 1 hits
+    artifacts/completion_dependency_graph.json 19066 "name": "Derivation.mapReq_g_f",
+--- renameR_reqs_wf: 1 hits
+    artifacts/completion_dependency_graph.json 19079 "name": "Derivation.renameR_reqs_wf",
+--- collapsed_reqs_irrel: 1 hits
+    artifacts/completion_dependency_graph.json 19091 "name": "Derivation.collapsed_reqs_irrel",
+--- separable_reqs_irrel: 1 hits
+    artifacts/completion_dependency_graph.json 19103 "name": "Derivation.separable_reqs_irrel",
+--- collapsed_renameR: 1 hits
+    artifacts/completion_dependency_graph.json 19116 "name": "Derivation.collapsed_renameR",
+--- collapsed_symm: 1 hits
+    artifacts/completion_dependency_graph.json 19128 "name": "Derivation.collapsed_symm",
+--- separable_rename: 1 hits
+    artifacts/completion_dependency_graph.json 19141 "name": "Derivation.separable_rename",
+--- separable_renameR: 1 hits
+    artifacts/completion_dependency_graph.json 19154 "name": "Derivation.separable_renameR",
+--- separable_symm: 1 hits
+    artifacts/completion_dependency_graph.json 19166 "name": "Derivation.separable_symm",
+--- mapItem_pad_f_g: 1 hits
+    artifacts/completion_dependency_graph.json 19179 "name": "Derivation.mapItem_pad_f_g",
+--- insertNew_map_on: 1 hits
+    artifacts/completion_dependency_graph.json 19192 "name": "Derivation.insertNew_map_on",
+--- applyItem_data_mono: 1 hits
+    artifacts/completion_dependency_graph.json 19204 "name": "Derivation.applyItem_data_mono",
+--- applyItem_reqs: 1 hits
+    artifacts/completion_dependency_graph.json 19216 "name": "Derivation.applyItem_reqs",
+--- applyDelta_nil: 1 hits
+    artifacts/completion_dependency_graph.json 19228 "name": "Derivation.applyDelta_nil",
+--- applyDelta_cons: 1 hits
+    artifacts/completion_dependency_graph.json 19243 "name": "Derivation.applyDelta_cons",
+--- applyDelta_data_mono: 1 hits
+    artifacts/completion_dependency_graph.json 19255 "name": "Derivation.applyDelta_data_mono",
+--- applyDelta_reqs: 1 hits
+    artifacts/completion_dependency_graph.json 19269 "name": "Derivation.applyDelta_reqs",
+--- applyItem_rename: 1 hits
+    artifacts/completion_dependency_graph.json 19282 "name": "Derivation.applyItem_rename",
+--- applyDelta_rename: 2 hits
+    paper/paper_claim_ledger.md 434 `validResponse_rename`, `stepE_impose_rename`, `applyDelta_rename` as
+    artifacts/completion_dependency_graph.json 19297 "name": "Derivation.applyDelta_rename",
+--- map_congr_mem: 1 hits
+    artifacts/completion_dependency_graph.json 19307 "name": "Derivation.map_congr_mem",
+--- DRen.inv_f: 1 hits
+    artifacts/completion_dependency_graph.json 19317 "name": "Derivation.DRen.inv_f",
+--- DRen.inv_g: 1 hits
+    artifacts/completion_dependency_graph.json 19327 "name": "Derivation.DRen.inv_g",
+--- mapReq_inv_pair: 1 hits
+    artifacts/completion_dependency_graph.json 19339 "name": "Derivation.mapReq_inv_pair",
+--- renameRegimeR_inv_pair: 1 hits
+    artifacts/completion_dependency_graph.json 19352 "name": "Derivation.renameRegimeR_inv_pair",
+--- renameRegimeR_g_f: 1 hits
+    artifacts/completion_dependency_graph.json 19365 "name": "Derivation.renameRegimeR_g_f",
+--- renameRegimeR_pad_f_g: 1 hits
+    artifacts/completion_dependency_graph.json 19378 "name": "Derivation.renameRegimeR_pad_f_g",
+--- renameRegimeR_padF_agree: 1 hits
+    artifacts/completion_dependency_graph.json 19390 "name": "Derivation.renameRegimeR_padF_agree",
+--- rename_insts_bound: 1 hits
+    artifacts/completion_dependency_graph.json 19403 "name": "Derivation.rename_insts_bound",
+--- stepE_impose_rename: 2 hits
+    paper/paper_claim_ledger.md 434 `validResponse_rename`, `stepE_impose_rename`, `applyDelta_rename` as
+    artifacts/completion_dependency_graph.json 19418 "name": "Derivation.stepE_impose_rename",
+--- respond_reqs_ordered: 1 hits
+    artifacts/completion_dependency_graph.json 19430 "name": "Derivation.respond_reqs_ordered",
+--- respond_rename: 2 hits
+    paper/paper_claim_ledger.md 433 transition — unlike collapse — reads them) with `respond_rename`,
+    artifacts/completion_dependency_graph.json 19445 "name": "Derivation.respond_rename",
+--- validResponse_symm: 1 hits
+    artifacts/completion_dependency_graph.json 19457 "name": "Derivation.validResponse_symm",
+--- validResponse_rename: 2 hits
+    paper/paper_claim_ledger.md 434 `validResponse_rename`, `stepE_impose_rename`, `applyDelta_rename` as
+    artifacts/completion_dependency_graph.json 19472 "name": "Derivation.validResponse_rename",
+--- transStep_rename_fwd: 6 hits
+    paper/paper.md 387 **[theorem]** at the relation level (`transStep_rename_fwd`,
+    paper/paper.md 788 | ~~R7~~ | **Transition-congruence** transport under datum renaming, forms fixed — **DISCHARGED 2026-08-18** (relation level; form-action transport, minimum-family transport and the class-set conversion stay computationa
+    paper/paper_change_log.md 1831 (`transStep_rename_fwd`) plus image totality (`transStep_image_total`)
+    paper/paper_claim_ledger.md 428 - **Lean**: `transStep_rename_fwd` (every step maps to a step of the
+    paper/paper_claim_ledger.md 3914 `transStep_rename_fwd`, `collapsed_transport`, `collapsed_renameForms`,
+    artifacts/completion_dependency_graph.json 19488 "name": "Derivation.transStep_rename_fwd",
+--- transStep_image_total: 5 hits
+    paper/paper.md 388 `transStep_image_total`, `validCount_rename`); the conversion to equal
+    paper/paper.md 788 | ~~R7~~ | **Transition-congruence** transport under datum renaming, forms fixed — **DISCHARGED 2026-08-18** (relation level; form-action transport, minimum-family transport and the class-set conversion stay computationa
+    paper/paper_change_log.md 1831 (`transStep_rename_fwd`) plus image totality (`transStep_image_total`)
+    paper/paper_claim_ledger.md 430 `transStep_image_total` (every step of the renamed regime is such an
+    artifacts/completion_dependency_graph.json 19503 "name": "Derivation.transStep_image_total",
+--- mapItem_length: 2 hits
+    paper/paper_claim_ledger.md 435 the chain; `validCount_rename` + `mapItem_length` + `formAritySum_map`
+    artifacts/completion_dependency_graph.json 19517 "name": "Derivation.mapItem_length",
+--- formAritySum_map: 2 hits
+    paper/paper_claim_ledger.md 435 the chain; `validCount_rename` + `mapItem_length` + `formAritySum_map`
+    artifacts/completion_dependency_graph.json 19529 "name": "Derivation.formAritySum_map",
+--- validCount_rename: 5 hits
+    paper/paper.md 388 `transStep_image_total`, `validCount_rename`); the conversion to equal
+    paper/paper.md 788 | ~~R7~~ | **Transition-congruence** transport under datum renaming, forms fixed — **DISCHARGED 2026-08-18** (relation level; form-action transport, minimum-family transport and the class-set conversion stay computationa
+    paper/paper_change_log.md 1834 on disordered-requirement regimes. `validCount_rename` carries minima
+    paper/paper_claim_ledger.md 435 the chain; `validCount_rename` + `mapItem_length` + `formAritySum_map`
+    artifacts/completion_dependency_graph.json 19544 "name": "Derivation.validCount_rename",
+--- regSwapFun_invol: 1 hits
+    artifacts/completion_dependency_graph.json 19554 "name": "Derivation.regSwapFun_invol",
+--- regSwapFun_bound: 1 hits
+    artifacts/completion_dependency_graph.json 19564 "name": "Derivation.regSwapFun_bound",
+--- one_unary_form_ctx_char: 1 hits
+    artifacts/completion_dependency_graph.json 19576 "name": "Derivation.one_unary_form_ctx_char",
+--- reg_collapsed_01: 1 hits
+    artifacts/completion_dependency_graph.json 19589 "name": "Derivation.reg_collapsed_01",
+--- reg_renamed_collapsed_01: 1 hits
+    artifacts/completion_dependency_graph.json 19602 "name": "Derivation.reg_renamed_collapsed_01",
+--- least_pair_selection_not_congruent: 3 hits
+    paper/paper_change_log.md 1836 `least_pair_selection_not_congruent` witnesses in Lean, on the
+    paper/paper_claim_ledger.md 437 `least_pair_selection_not_congruent` witnesses the boundary in Lean on
+    artifacts/completion_dependency_graph.json 19617 "name": "Derivation.least_pair_selection_not_congruent",
+##### FormRenaming
+--- permForms_length: 1 hits
+    artifacts/completion_dependency_graph.json 20297 "name": "Derivation.permForms_length",
+--- permForms_getD: 1 hits
+    artifacts/completion_dependency_graph.json 20282 "name": "Derivation.permForms_getD",
+--- renameForms_data: 1 hits
+    artifacts/completion_dependency_graph.json 20325 "name": "Derivation.renameForms_data",
+--- renameForms_reqs: 1 hits
+    artifacts/completion_dependency_graph.json 20363 "name": "Derivation.renameForms_reqs",
+--- renameForms_forms_length: 1 hits
+    artifacts/completion_dependency_graph.json 20338 "name": "Derivation.renameForms_forms_length",
+--- renameForms_arity: 1 hits
+    artifacts/completion_dependency_graph.json 20311 "name": "Derivation.renameForms_arity",
+--- Regime.ext': 0 hits
+--- mapInstForm_gf: 1 hits
+    artifacts/completion_dependency_graph.json 20268 "name": "Derivation.mapInstForm_gf",
+--- renameForms_gf: 1 hits
+    artifacts/completion_dependency_graph.json 20351 "name": "Derivation.renameForms_gf",
+##### FormTransport
+--- renameForms_forms: 1 hits
+    artifacts/completion_dependency_graph.json 20466 "name": "Derivation.renameForms_forms",
+--- renameForms_insts: 1 hits
+    artifacts/completion_dependency_graph.json 20478 "name": "Derivation.renameForms_insts",
+--- renameForms_rules: 1 hits
+    artifacts/completion_dependency_graph.json 20490 "name": "Derivation.renameForms_rules",
+--- plug_mapCtxForm: 1 hits
+    artifacts/completion_dependency_graph.json 20454 "name": "Derivation.plug_mapCtxForm",
+--- mapCtxForm_f_g: 1 hits
+    artifacts/completion_dependency_graph.json 20432 "name": "Derivation.mapCtxForm_f_g",
+--- mapInstForm_inj: 1 hits
+    artifacts/completion_dependency_graph.json 20444 "name": "Derivation.mapInstForm_inj",
+--- derivable_renameForms: 1 hits
+    artifacts/completion_dependency_graph.json 20420 "name": "Derivation.derivable_renameForms",
+--- wfCtx_renameForms: 1 hits
+    artifacts/completion_dependency_graph.json 20503 "name": "Derivation.wfCtx_renameForms",
+--- collapsed_renameForms: 6 hits
+    paper/paper.md 765 and `collapsed_renameForms`, `collapsed_renameDataForm` in
+    paper/paper_change_log.md 2588 credited to `collapsed_transport`, `collapsed_renameForms`,
+    paper/paper_claim_ledger.md 676 (in `lean4/Derivation/IsoCollapse.lean`) and `collapsed_renameForms`,
+    paper/paper_claim_ledger.md 3901 separately (`collapsed_transport`, `collapsed_renameForms`,
+    paper/paper_claim_ledger.md 3914 `transStep_rename_fwd`, `collapsed_transport`, `collapsed_renameForms`,
+    artifacts/completion_dependency_graph.json 20407 "name": "Derivation.collapsed_renameForms",
+--- collapsed_congr: 1 hits
+    artifacts/completion_dependency_graph.json 20375 "name": "Derivation.collapsed_congr",
+--- collapsed_renameDataForm: 8 hits
+    paper/paper.md 765 and `collapsed_renameForms`, `collapsed_renameDataForm` in
+    paper/paper.md 787 | ~~R6~~ | **Count-invariance** transport under datum renaming, forms fixed — **DISCHARGED 2026-08-17** (full-isomorphism collapse transport: `collapsed_transport`, `collapsed_renameDataForm`; the executable count and pa
+    paper/paper.md 985 `collapsed_renameDataForm`) and the partial canonical-key bridges of
+    paper/paper_change_log.md 2589 `collapsed_renameDataForm`; withdrawn "the count is a component of the
+    paper/paper_claim_ledger.md 677 `collapsed_renameDataForm` (in `lean4/Derivation/FormTransport.lean`);
+    paper/paper_claim_ledger.md 3902 `collapsed_renameDataForm`), and the executable components — the
+    paper/paper_claim_ledger.md 3915 `collapsed_renameDataForm`.
+    artifacts/completion_dependency_graph.json 20391 "name": "Derivation.collapsed_renameDataForm",
+##### IsoCollapse
+--- map_eq_self_of_mem: 1 hits
+    artifacts/completion_dependency_graph.json 20720 "name": "Derivation.map_eq_self_of_mem",
+--- plug_args_lt: 1 hits
+    artifacts/completion_dependency_graph.json 20733 "name": "Derivation.plug_args_lt",
+--- symm_dmap: 1 hits
+    artifacts/completion_dependency_graph.json 20693 "name": "Derivation.Iso.symm_dmap",
+--- plug_cmap: 1 hits
+    artifacts/completion_dependency_graph.json 20680 "name": "Derivation.Iso.plug_cmap",
+--- wfCtx_cmap: 1 hits
+    artifacts/completion_dependency_graph.json 20706 "name": "Derivation.Iso.wfCtx_cmap",
+--- derivable_imap: 1 hits
+    artifacts/completion_dependency_graph.json 20667 "name": "Derivation.Iso.derivable_imap",
+--- collapsed_fwd: 1 hits
+    artifacts/completion_dependency_graph.json 20638 "name": "Derivation.Iso.collapsed_fwd",
+--- collapsed_transport: 8 hits
+    paper/paper.md 764 separately — `collapsed_transport` in `lean4/Derivation/IsoCollapse.lean`
+    paper/paper.md 787 | ~~R6~~ | **Count-invariance** transport under datum renaming, forms fixed — **DISCHARGED 2026-08-17** (full-isomorphism collapse transport: `collapsed_transport`, `collapsed_renameDataForm`; the executable count and pa
+    paper/paper.md 984 two-bijection collapse transport (`collapsed_transport`,
+    paper/paper_change_log.md 2588 credited to `collapsed_transport`, `collapsed_renameForms`,
+    paper/paper_claim_ledger.md 675 isomorphism, collapse transport is proved by `collapsed_transport`
+    paper/paper_claim_ledger.md 3901 separately (`collapsed_transport`, `collapsed_renameForms`,
+    paper/paper_claim_ledger.md 3914 `transStep_rename_fwd`, `collapsed_transport`, `collapsed_renameForms`,
+    artifacts/completion_dependency_graph.json 20654 "name": "Derivation.Iso.collapsed_transport",
+##### IsoCanon
+--- sortPair_eq_minmax: 1 hits
+    artifacts/completion_dependency_graph.json 20599 "name": "Derivation.sortPair_eq_minmax",
+--- sortPair_comm: 1 hits
+    artifacts/completion_dependency_graph.json 20587 "name": "Derivation.sortPair_comm",
+--- mapReq_eq_sortPair: 1 hits
+    artifacts/completion_dependency_graph.json 20515 "name": "Derivation.mapReq_eq_sortPair",
+--- sortPair_map_sortPair: 1 hits
+    artifacts/completion_dependency_graph.json 20611 "name": "Derivation.sortPair_map_sortPair",
+--- sortPair_of_le: 1 hits
+    artifacts/completion_dependency_graph.json 20625 "name": "Derivation.sortPair_of_le",
+--- relabel_data: 1 hits
+    artifacts/completion_dependency_graph.json 20527 "name": "Derivation.relabel_data",
+--- relabel_forms: 1 hits
+    artifacts/completion_dependency_graph.json 20539 "name": "Derivation.relabel_forms",
+--- relabel_insts: 1 hits
+    artifacts/completion_dependency_graph.json 20551 "name": "Derivation.relabel_insts",
+--- relabel_rules: 1 hits
+    artifacts/completion_dependency_graph.json 20575 "name": "Derivation.relabel_rules",
+--- relabel_reqs: 1 hits
+    artifacts/completion_dependency_graph.json 20563 "name": "Derivation.relabel_reqs",
+##### IsoBridge
+##### Composing
+--- composition_may_fail: 2 hits
+    paper/primitive_difference_ascent.md 148 * `composition_may_fail` — not total;
+    artifacts/completion_dependency_graph.json 20157 "name": "Composing.composition_may_fail",
+--- noneCompose_no_identity: 2 hits
+    paper/primitive_difference_ascent.md 151 * `noneCompose_no_identity` — no identity.
+    artifacts/completion_dependency_graph.json 20167 "name": "Composing.noneCompose_no_identity",
+--- composite_may_be_nonunique: 2 hits
+    paper/primitive_difference_ascent.md 149 * `composite_may_be_nonunique` — not single-valued;
+    artifacts/completion_dependency_graph.json 20147 "name": "Composing.composite_may_be_nonunique",
+--- selection_is_possible: 1 hits
+    artifacts/completion_dependency_graph.json 20187 "name": "Composing.selection_is_possible",
+--- relAssocLeft_of_relAssoc: 1 hits
+    artifacts/completion_dependency_graph.json 20177 "name": "Composing.relAssocLeft_of_relAssoc",
+--- skew_not_relAssocLeft: 1 hits
+    artifacts/completion_dependency_graph.json 20207 "name": "Composing.skew_not_relAssocLeft",
+--- skew_not_relAssoc: 2 hits
+    paper/primitive_difference_ascent.md 150 * `skew_not_relAssoc` — not associative;
+    artifacts/completion_dependency_graph.json 20197 "name": "Composing.skew_not_relAssoc",
+##### IsoCollapseCompat
+##### IsoCanonCompat
+##### IsoBridgeCompat
+##### FormTransportCompat
+##### DiffAnchorCompat

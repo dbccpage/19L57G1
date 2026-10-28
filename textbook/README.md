@@ -12,10 +12,15 @@ what it does and does not establish.
 
 ## Source
 
-Every unit is written against `main` at
-`23979a46308219b4cc9e7e172e4e32511f8efdb0` (2026-10-24). Lean is quoted from
+Units 00 to 03 were written against `main` at
+`23979a46308219b4cc9e7e172e4e32511f8efdb0` (2026-10-24); Units 04 onward
+against `main` at `33100245` (2026-10-28, after #283). The sealed files the
+units quote are the same at both commits. Lean is quoted from
 `lean4/Derivation/`. Axiom reports are read from the committed
-`artifacts/lean_axioms.txt`; a unit says so when it did not rebuild Lean.
+`artifacts/lean_axioms.txt` and, for the book's own Lean, from a local
+Lean 4.33.0 build of `lean4/`; a unit says so when it did not rebuild Lean.
+Part 2 of the book (`textbook/institutions/`, see **Parts**) is written on
+draft pull request #284 and is not in `main` at either commit.
 
 ## Status marks
 
@@ -60,6 +65,14 @@ runs Genesis's own Python. Run it from the repository root:
 ```
 python textbook/checks/u01_genesis_underivable.py
 ```
+
+From Unit 04 on, each unit also has a `checks/uNN_lean.py` holding its
+Lean (book) source and the axiom report it expects. These scripts share
+the runner `checks/booklean.py`, which writes the source to a temporary
+file, runs `lake env lean` inside `lean4/` (or a given Lean binary with
+`--lean PATH --lean-path DIR`), prints the `#print axioms` lines, and exits
+0 only when every report matches. A unit's Verification table records
+what each script found when it was written.
 
 ## Notation
 
@@ -176,6 +189,24 @@ which.
 7. **What it shows and what it does not.**
 8. **Sources**: file, theorem, axiom report, ledger entry, test.
 
+Units 00 to 03 follow this eight-part template. From Unit 04 on, by the
+author's brief of 2026-10-28, each unit keeps the **Claim** header (status,
+Lean name, axioms, dependencies) and then runs through fifteen fixed
+sections in this order: Question; What we already possess; New concept;
+Plain-language interpretation; Pseudocode; Python; Line-by-line Python
+explanation; Lean 4; Line-by-line Lean explanation; What has been proved;
+What has not been proved; Outside the system; Student exercise; Answer;
+Verification. The two templates carry the same obligations: the admitted
+definitions are named before the theorem, no proof step is skipped, the
+metatheory is listed under Outside the system, and the Verification table
+plays the part of Sources. The sections were not mixed: a unit is written
+in one template or the other, and this table says which.
+
+| Units | Template |
+|---|---|
+| 00–03 | eight parts, above |
+| 04 onward | Claim header plus the fifteen sections |
+
 ## Contents
 
 | Unit | Claim | Lean | Status | Written |
@@ -184,32 +215,69 @@ which.
 | 01 | Nothing is derivable at genesis | `Inertia.genesis_underivable` | derived | yes |
 | 02 | Nothing is derivable without instances or rules (and one admitted rule makes unadmitted instances derivable) | `Inertia.underivable_of_empty` | derived | yes |
 | 03 | Supplying a token changes nothing | `Inertia.supply_no_op` | derived | yes |
-| 04 | No successor is internally forced (by the declared grammar) | (none; paper §4) | admitted | |
-| 05 | Is ⟨⟩ admitted? Readings L and F | `Inertia.historyL_replays`, `historyF_replays` | open | |
-| 06 | Re-admitting a token designates, it does not add | `Erasure.stepT` | admitted | |
-| 07 | Forgetting tokens loses nothing the room can use | `Erasure.erase_replay` | derived | |
-| 08 | Contexts, plugging, collapsed, separable | `Basic.collapsed`, `Basic.separable` | admitted | |
-| 09 | Separable and collapsed exclude each other | `Basic.separable_not_collapsed` | derived | |
-| 10 | With no instances, every pair is collapsed | `Inertia.collapsed_of_no_insts` | derived | |
-| 11 | One token gives at most one datum | `Bridge.single_token_carrier_bound` | derived | |
-| 12 | A fresh datum adds no power | `Inertia.admission_without_expressive_increase`, `Mention.collapsed_fresh_datum` | derived | |
-| 13 | Two data need a second, different token | `Bridge.second_token_required` | derived | |
-| 14 | Factoring through a point is equality | `PrimDiff.factors_through_point_iff` | derived | |
-| 15 | An outside difference is not an asserted one | `PrimDiff.meta_diff_without_assertion` | derived | |
-| 16 | ⟨A⟩ and ⟨AB⟩ are collapsed | `Inertia.R2L_collapsed`, `R2F_collapsed` | derived | |
-| 17 | Demands are irreflexive by guard | `Basic.stepE` (impose) | admitted | |
-| 18 | One item never answers the demand | `Minimality.cost1_insufficient_general` | derived | |
-| 19 | The link regime `BL` (realizing ⟨ARB⟩) separates | `Minimality.BL_separable` | derived | |
-| 20 | The self-loop regime `BD` (realizing ⟨ARA⟩) separates | `Minimality.BD_separable` | derived | |
-| 21 | The cheapest answer is not unique under mu1 | `Minimality.mu1_minimum_not_unique` | derived | |
-| 22 | It is unique under mu2 | `Minimality.mu2_unique` | derived | |
-| 23 | A related pair r a b alone does not give a ≠ b (countermodel) | `PrimDiff.selfdiff_consistent` | derived | |
-| 24 | Under irreflexivity, r a b gives a ≠ b | `PrimDiff.irrefl_witness_ne` | conditional | |
-| 25 | Under irreflexivity, collapsing a related pair is obstructed | `PrimDiff.obstruction_under_irrefl` | conditional | |
-| 26 | Facts never entail the irreflexivity law | `Bridge.irrefl_law_not_entailed` | derived | |
+| 04 | No successor is internally forced (by the declared grammar) | (none; paper §4) | admitted | yes |
+| 05 | Is ⟨⟩ admitted? Readings L and F | `Inertia.historyL_replays`, `historyF_replays` | open | yes |
+| 06 | Re-admitting a token designates, it does not add | `Erasure.stepT` | admitted | yes |
+| 07 | Forgetting tokens loses nothing the room can use | `Erasure.erase_replay` | derived | yes |
+| 08 | Contexts, plugging, collapsed, separable | `Basic.collapsed`, `Basic.separable` | admitted | yes |
+| 09 | Separable and collapsed exclude each other | `Basic.separable_not_collapsed` | derived | yes |
+| 10 | With no instances, every pair is collapsed | `Inertia.collapsed_of_no_insts` | derived | yes |
+| 11 | One token gives at most one datum | `Bridge.single_token_carrier_bound` | derived | yes |
+| 12 | A fresh datum adds no power | `Inertia.admission_without_expressive_increase`, `Mention.collapsed_fresh_datum` | derived | yes |
+| 13 | Two data need a second, different token | `Bridge.second_token_required` | derived | yes |
+| 14 | Factoring through a point is equality | `PrimDiff.factors_through_point_iff` | derived | yes |
+| 15 | An outside difference is not an asserted one | `PrimDiff.meta_diff_without_assertion` | derived | yes |
+| 16 | ⟨A⟩ and ⟨AB⟩ are collapsed | `Inertia.R2L_collapsed`, `R2F_collapsed` | derived | yes |
+| 17 | Demands are irreflexive by guard | `Basic.stepE` (impose) | admitted | yes |
+| 18 | One item never answers the demand | `Minimality.cost1_insufficient_general` | derived | yes |
+| 19 | The link regime `BL` (realizing ⟨ARB⟩) separates | `Minimality.BL_separable` | derived | yes |
+| 20 | The self-loop regime `BD` (realizing ⟨ARA⟩) separates | `Minimality.BD_separable` | derived | yes |
+| 21 | The cheapest answer is not unique under mu1 | `Minimality.mu1_minimum_not_unique` | derived | yes |
+| 22 | It is unique under mu2 | `Minimality.mu2_unique` | derived | yes |
+| 23 | A related pair r a b alone does not give a ≠ b (countermodel) | `PrimDiff.selfdiff_consistent` | derived | yes |
+| 24 | Under irreflexivity, r a b gives a ≠ b | `PrimDiff.irrefl_witness_ne` | conditional | yes |
+| 25 | Under irreflexivity, collapsing a related pair is obstructed | `PrimDiff.obstruction_under_irrefl` | conditional | yes |
+| 26 | Facts never entail the irreflexivity law | `Bridge.irrefl_law_not_entailed` | derived | yes |
+| 27 | An abstraction cannot see what it identifies | `Quot.quot_barrier`, `Quot.barrier_R2L` | derived | yes |
+| 28 | Closure over fixed data must stop within n(n-1)/2 rounds | `Counting.strict_bounded_length`, `Counting.allPairs_length`, `Counting.no_supply_round_bound` | derived / conditional | yes |
+| 29 | Renaming the data changes nothing a context can see | `CountTransport.collapsed_rename`, `CountTransport.non_injective_does_not_transport` | derived | yes |
+| 30 | A context that reaches outside the regime separates nothing | `Mention.collapsed_append_unmentioning`, `Mention.collapsed_fresh_form` | derived | yes |
+| 31 | Renaming carries every transition; index-least selection is not congruent | `TransitionTransport.transStep_rename_fwd`, `TransitionTransport.least_pair_selection_not_congruent` | derived | yes |
+| 32 | The same proof with one more datum | `MinimalityF.mu2_unique_F`, `MinimalityF.genesis_mark_not_separable` | derived | yes |
+| 33 | A rule never pays for itself | `RuleBridge.applyDelta_dropRules`, `RuleBridge.rule_item_never_minimal` | derived | yes |
+| 34 | How many demands can a closed system meet? | `Rounds.round_reqs_succ`, `Rounds.closedRun_round_bound_from_empty` | derived under the declared round shape | yes |
+| 35 | A demand can always be met | `Progress.mark_progress`, `Progress.derivable_extend` | derived (response existence only) | yes |
+| 36 | Lists that mean sets | `Ext.RegimeExt`, `Ext.validResponse_ext` | derived (per observable) | yes |
+| 37 | An inventory is not a derivation | `ObserverInventory.bool_irrefl_full_classification`, `ObserverInventory.residuals_not_unique` | derived; slot names declared | yes |
+| 38 | Refusal as a source of difference: four rungs and one price | `Refusal.nonreify_carrier_bound`, `Refusal.reifyUntagged_eq_occurrence`, `Refusal.tagged_translation_separable` | derived per discipline; the hierarchy as one theorem OPEN | yes |
+| 39 | Refusal routes and their prices | `RefusalFrontier.silent_repetition_inert`, `RefusalFrontier.min_witnessed_route_closes`, `RefusalFrontier.reflective_chain_is_initial_segment` | derived (cores); minimality and uniqueness computed in class | yes |
+| 40 | A demand that never stops, and the three ways to pay | `Generator.depth1_obstructions_are_exactly_middle_pairs`, `Generator.generation_never_dries`, `Generator.finite_marks_outrun` | derived (depth 1); two instances (depth 2); exclusion computed in class | yes |
+| 41 | Looking farther does not help: the radius-`d` outrun | `SeparationCapacity.depth_d_outrun`, `SeparationCapacity.depth_d_obstruction`, `SeparationCapacity.radius_one_agrees_with_sealed_depth2` | derived (structural profile; interior only) | yes |
+| 42 | Counting without choosing, and how many things a bounded window can tell apart | `Pigeonhole.pigeonhole`, `CapacityBound.capacity_bound`, `CapacityBound.local_view_can_separate` | derived; Pigeonhole declared apparatus; tightness not claimed | yes |
+| 43 | No bounded local repair clears a growing demand: G1 inside a declared class, and what G3 would need | `LocalFiniteAlphabet.finite_local_not_clears`, `G1Class.g1_class_exclusion`, `G1Class.clears_does_not_imply_not_fires` | derived, conditional on `FiniteDeclaration`; class-relative; G3, G4 conjectures | yes |
+| 44 | Reflect, obstruct, close, or propose: a typed interface for primitive difference | `DiffInterface.zeroRel_equivalence`, `DiffInterface.bare_reflection_certifies_active_obstruction`, `DiffInterface.drive_terminates`, `DiffInterface.bool_grammar_obstruction` | derived; abstract parts conditional on declared bundles; tower driver one-step; countermodels unprotected by construction | yes |
+| 45 | A kernel with no outside: what must be in the state for progress to be replayable? | `Represented.support_determines`, `Represented.equiv_replay`, `Represented.represented_progress`, `Represented.cert_scope` | derived relative to the declared constitution; progress conditional on `WF` (a replay invariant); budget refill unguarded | yes |
+| 46 | Rule 1 in a fixed kernel: repair, or certified exhaustion plus a tied extension family | `Completion.ofWorld_obstruction`, `Completion.rule1_repair_or_extension`, `Completion.refusal_non_absorbing`, `Completion.action_dichotomy` | derived for the fixed kernel; conditional on `WF`; common state declared, retention/protection fed from one store by stated identification | yes |
+| 47 | Putting the viewer on the books: certification as a replayed, panel-relative quotient | `NoOutside.effectual_outside_dichotomy`, `NoOutside.panel_equiv`, `NoOutside.certNeg_iff_panelEquiv`, `NoOutside.certC_ceiling` | derived for the fixed kernel; the outside is the `notes` field; the absolute form recorded as unformulable | yes |
+| 48 | Generating the stream from the state, and describing the kernel to itself | `Constitution.driver_reproduces_tower`, `Constitution.nextFamily_stop`, `Constitution.interp_describe`, `Constitution.allDescs_complete` | derived relative to the fixed interpreter under metatheoretic iteration; level 4 not attained; the interpreter is not a member of its family (OPEN) | yes |
+| 49 | Minimal among what? A six-probe singleton in a 64-member class | `Initiality.unique_compliant`, `Initiality.accept_guard_load_bearing`, `Initiality.extension_retract_replay` | VERIFIED_FINITE, class- and battery-relative; categorical initiality not claimed | yes |
+| 50 | From stage 3 to every stage: characterising the generated run | `Horizon.worldAt_spec`, `Horizon.worldAt_quiescent`, `Horizon.block_all_accepted`, `Horizon.interp_budget_bound` | FROZEN (every-stage theorems); VERIFIED_FINITE (saturation instances); correction module C6/C10 | yes |
+| 51 | Nine readings of one difference | `PrimitiveCore.imp_a_d`, `PrimitiveCore.nimp_w_d`, `PrimitiveCore.nimp_a_bc`, `PrimitiveCore.e_empty_iff_d`, `PrimitiveCore.located_of_decidable` | FROZEN (17 implications, 51 countermodels); OPEN (4 located cells, scoped); VERIFIED_FINITE (the scan) | yes |
+| 52 | The two-point witness is initial, and that is all initiality says | `PrimitiveCats.d2_initial`, `PrimitiveCats.s2_no_hom_to_d2`, `PrimitiveCats.initials_iso`, `PrimitiveCats.two_initials_not_identical`, `PrimitiveCats.larger_not_initial`, `PrimitiveCats.no_terminal_pres`, `PrimitiveCats.no_terminal_pres2` | FROZEN; CONDITIONAL (`s2_initial_sym`, `phom2_unique_of_epi`); OPEN (terminality among surjective presentations) | yes |
+| 53 | The fixed interface a collision meets | `PrimitiveContact.NativeKernel`, `PrimitiveContact.native_kernel_initial`, `PrimitiveContact.native_interface_not_representable`, `PrimitiveContact.contact_status_count` | FROZEN (re-exports); ADMITTED (interface, status strings); VERIFIED_FINITE | yes |
+| 54 | From an asserted difference to a response | `PrimitivePassage.obstP_factors`, `PrimitivePassage.gate_zero_independent`, `PrimitivePassage.assertion_not_retained`, `PrimitivePassage.retention_requires_assertion`, `PrimitivePassage.two_rule`, `PrimitivePassage.extension_resolves`, `PrimitivePassage.terminal_absorbing`, `PrimitivePassage.nextFamilyP_stop` | FROZEN; ADMITTED (the pre-declaration convention and the observation policy, priced by `obst_policies_differ`); VERIFIED_FINITE (fourteen arrow witnesses) | yes |
+| 55 | The first graph is supplied, its observer is created | `HigherStructure.graphAt_spec`, `HigherStructure.round_obstruction`, `HigherStructure.round_two_rule`, `HigherStructure.round_resolution`, `HigherStructure.graphAt_quiescent`, `HigherStructure.ladder_dim2`, `HigherStructure.filling_not_forced`, `HigherStructure.boundary_not_forced` | FROZEN (horizon-free round schema); ADMITTED (driver, cell calculus, sign conventions); VERIFIED_FINITE (`k4`, census, 15 mirrored rounds); OPEN (the ladder as a two-rule statement at every dimension) | yes |
+| 56 | Sameness earned from difference, and what orientation adds | `Apartness.indist_equivalence`, `Apartness.irrefl_alone_breaks_symm`, `Apartness.symm_without_cotrans_breaks_trans`, `Apartness.two_point_indist_trans`, `Apartness.orientations_same_apartness`, `Apartness.orientations_differ`, `Apartness.oriented_preserver_unique`, `Apartness.apart_preserver_pair`, `Apartness.clos_oriented_iff` | FROZEN; ADMITTED (the three laws); VERIFIED_FINITE (carriers 1-3 exhaustive, censuses to 4) | yes |
+| 57 | The interpreter is not in its own family: what a notes-diagonal does and does not show | `InterpreterBoundary.tower_persists`, `InterpreterBoundary.family_missed`, `InterpreterBoundary.i5_boundary_is_A`, `InterpreterBoundary.i5_boundary_is_F`, `InterpreterBoundary.i5_collapse_obstructed`, `InterpreterBoundary.arbitrary_uncoded_assignment` | FROZEN; ADMITTED (the declared setting); OPEN (the denotational bridge, taught as OPEN) | yes |
+| 58 | Is the controller unique? Simulations, the absorbing halt, and uniqueness only along replay | `ControllerCategory.live_census`, `ControllerCategory.tworule_executable_of_live`, `ControllerCategory.dead_without_addcol`, `ControllerCategory.refuse_distinguishes`, `ControllerCategory.erase_sim`, `ControllerCategory.no_initial_ctrl`, `ControllerCategory.strict_not_unique`, `ControllerCategory.strict_agree_on_reachable` | FROZEN; REFUTED (initiality, strict global uniqueness); CONDITIONAL (orbit agreement, one hom-set) | yes |
 
-The order follows the derivation. Units after 26 continue with the map of
-Genesis from the mention lemma onward.
+The order follows the derivation. Units 27-53 follow the root import order
+of `lean4/Derivation.lean` (Quot, Counting, CountTransport, Mention,
+TransitionTransport, MinimalityF, RuleBridge, Rounds, Progress, Ext,
+ObserverInventory, Refusal, RefusalFrontier, Generator, SeparationCapacity,
+Pigeonhole, CapacityBound, LocalStrategy, G1Class, DiffInterface, Represented,
+Completion, NoOutside,
+Constitution, Initiality, Horizon, PrimitiveCore, PrimitiveCats, PrimitiveContact, PrimitivePassage, HigherStructure, Apartness, InterpreterBoundary, ControllerCategory); units after 58 continue with Attachment.
 
 ## Parts
 
