@@ -4,6 +4,7 @@ from pathlib import Path
 import shutil
 import tempfile
 import unittest
+from xml.etree import ElementTree
 from unittest.mock import patch
 
 from run_lab import SOURCE, check_recorded, walk_case
@@ -66,6 +67,14 @@ class PathRecords(unittest.TestCase):
         self.assertEqual(html, render(SOURCE))
         self.assertNotIn('fetch(', html)
         self.assertNotIn('__LAB_PACKET__', html)
+
+    def test_figures_have_readable_intrinsic_dimensions(self):
+        figures = list((SOURCE / 'figures').glob('*.svg'))
+        self.assertEqual(len(figures), 5)
+        for path in figures:
+            root = ElementTree.fromstring(path.read_text(encoding='utf-8'))
+            self.assertGreaterEqual(int(root.attrib['width']), 440)
+            self.assertGreaterEqual(int(root.attrib['height']), 430)
 
 
 if __name__ == '__main__':

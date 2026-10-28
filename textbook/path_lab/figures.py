@@ -16,7 +16,7 @@ def render_figures(packet):
     positions = ((70, 290), (70, 70), (370, 70), (370, 290))
     for name, (title, key, walk_key) in SCENES.items():
         case = packet["face_cases"][key]
-        pieces = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 430" role="img" aria-label="{escape(title)}">',
+        pieces = [f'<svg xmlns="http://www.w3.org/2000/svg" width="660" height="645" viewBox="0 0 440 430" role="img" aria-label="{escape(title)}">',
                   f'<title>{escape(title)}</title>', '<rect width="440" height="430" fill="#fafbf7"/>',
                   '<defs><marker id="ref" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#52645d"/></marker><marker id="walk" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#19694e"/></marker></defs>']
         def text(x, y, value, size=18):
