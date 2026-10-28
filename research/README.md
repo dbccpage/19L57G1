@@ -162,6 +162,7 @@ Lean layout. The first and last also have explicit build-recipe entries.
 | `thinghood` | local receipt only |  |
 | `twin_pricing` | local receipt only |  |
 | `two_sided_commitment` | local receipt only |  |
+| `two_theorems` | local receipt only |  |
 | `typed_translation` | workflow (gate 11) |  |
 | `unboundedness` | local receipt only |  |
 | `uncollapse` | local receipt only |  |

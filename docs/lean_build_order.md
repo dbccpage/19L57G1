@@ -208,6 +208,7 @@ Invoke-InDir 'research/primitive_difference_tower/lean' 'lake' @('build')
 Invoke-InDir 'research/reachable/lean' 'lake' @('build')
 Invoke-InDir 'research/reading_f_iso' 'lake' @('build')
 Invoke-InDir 'research/target_a_execution/lean' 'lake' @('build')
+Invoke-InDir 'research/two_theorems/lean' 'lake' @('build')
 # Packages that require nothing; they do not read lean4/.lake/.
 Invoke-InDir 'research/admission_sign_shadow/lean' 'lake' @('build')
 Invoke-InDir 'research/admission_sign_shadow' 'python' @('verify_frozen_compatibility.py', '--check')

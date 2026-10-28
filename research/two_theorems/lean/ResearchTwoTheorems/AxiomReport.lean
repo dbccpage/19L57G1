@@ -1,0 +1,167 @@
+import ResearchTwoTheorems
+
+/-!
+Axiom report for every declaration CLAIMS.md cites.  Compiled by
+`verify.py` with `lake env lean`; never a census module.
+-/
+
+-- Theorem I: Observer
+#print axioms ResearchTwoTheorems.verdictB_false_iff_sigEq
+#print axioms ResearchTwoTheorems.sep_irrefl
+#print axioms ResearchTwoTheorems.sep_witness_ne
+#print axioms ResearchTwoTheorems.verdict_irrefl
+#print axioms ResearchTwoTheorems.separation_fact_not_law
+#print axioms ResearchTwoTheorems.sharp_iff_fiberIdentity
+#print axioms ResearchTwoTheorems.sharp_iff_presentationIdentity
+#print axioms ResearchTwoTheorems.verdict_ceiling
+#print axioms ResearchTwoTheorems.resolution_ceiling
+#print axioms ResearchTwoTheorems.not_sharp_of_many_fibers
+#print axioms ResearchTwoTheorems.bitObserver_sharp
+#print axioms ResearchTwoTheorems.sharp_observable_of_fibers_le
+#print axioms ResearchTwoTheorems.not_sharp_observable_of_fibers_gt
+#print axioms ResearchTwoTheorems.sharp_observable_iff
+#print axioms ResearchTwoTheorems.absolute_observer_iff
+#print axioms ResearchTwoTheorems.no_absolute_observer_of_large_carrier
+#print axioms ResearchTwoTheorems.absolute_observer_two_points
+-- Theorem I(d): Capacity
+#print axioms ResearchTwoTheorems.Capacity.tight_1_0
+#print axioms ResearchTwoTheorems.Capacity.tight_2_0
+#print axioms ResearchTwoTheorems.Capacity.tight_3_0
+#print axioms ResearchTwoTheorems.Capacity.tight_2_1
+#print axioms ResearchTwoTheorems.Capacity.tight_3_1
+#print axioms ResearchTwoTheorems.Capacity.tight_2_2
+#print axioms ResearchTwoTheorems.Capacity.exact_threshold
+-- Theorem II: Institution
+#print axioms ResearchTwoTheorems.Institution.knows_iff_determined
+#print axioms ResearchTwoTheorems.Institution.knows_member
+#print axioms ResearchTwoTheorems.Institution.knows_actor
+#print axioms ResearchTwoTheorems.Institution.knows_comp
+#print axioms ResearchTwoTheorems.Institution.knows_join
+#print axioms ResearchTwoTheorems.Institution.knows_mono
+#print axioms ResearchTwoTheorems.Institution.information_le_carrier
+#print axioms ResearchTwoTheorems.Institution.information_known_le
+#print axioms ResearchTwoTheorems.Institution.information_mono
+#print axioms ResearchTwoTheorems.Institution.information_append_of_knows
+#print axioms ResearchTwoTheorems.Institution.know_or_witness
+#print axioms ResearchTwoTheorems.Institution.not_knows_iff_witness
+#print axioms ResearchTwoTheorems.Institution.not_knows_iff_split
+#print axioms ResearchTwoTheorems.Institution.information_lt_of_not_knows
+#print axioms ResearchTwoTheorems.Institution.knows_iff_information_eq
+#print axioms ResearchTwoTheorems.Institution.known_extension_inert
+#print axioms ResearchTwoTheorems.Institution.self_inclusion_inert
+#print axioms ResearchTwoTheorems.Institution.self_inclusion_information
+#print axioms ResearchTwoTheorems.Institution.institution_is_actor
+#print axioms ResearchTwoTheorems.Institution.member_sharp_iff
+#print axioms ResearchTwoTheorems.Institution.institution_exceeds_members
+#print axioms ResearchTwoTheorems.Institution.sharp_institution_iff_mutual_knowledge
+#print axioms ResearchTwoTheorems.Institution.pooled_merges_iff
+#print axioms ResearchTwoTheorems.Institution.pooled_merges_iff_certNeg
+#print axioms ResearchTwoTheorems.Institution.certPos_imp_pooled
+#print axioms ResearchTwoTheorems.Institution.pooled_not_certPos
+#print axioms ResearchTwoTheorems.Institution.information_le_resolution
+#print axioms ResearchTwoTheorems.Institution.wise_of_represented
+-- Theorem II, interpreter level: Diagonal
+#print axioms ResearchTwoTheorems.Diagonal.no_closed_self_interpreter
+#print axioms ResearchTwoTheorems.Diagonal.no_closed_self_interpreter_fin
+#print axioms ResearchTwoTheorems.Diagonal.diag_not_member
+#print axioms ResearchTwoTheorems.Diagonal.diag_known_witness
+#print axioms ResearchTwoTheorems.Diagonal.diag_unknown_witness
+#print axioms ResearchTwoTheorems.Diagonal.membership_vs_knowledge
+#print axioms ResearchTwoTheorems.Diagonal.tower_persists_operational
+#print axioms ResearchTwoTheorems.Diagonal.step_lawful
+#print axioms ResearchTwoTheorems.Diagonal.step_note_data
+#print axioms ResearchTwoTheorems.Diagonal.opDiag_appends
+#print axioms ResearchTwoTheorems.Diagonal.opDiag_not_lawful
+#print axioms ResearchTwoTheorems.Diagonal.lawful_escape_iff
+#print axioms ResearchTwoTheorems.Diagonal.lawful_no_escape
+#print axioms ResearchTwoTheorems.Correspondence.collapsed_of_merged
+#print axioms ResearchTwoTheorems.Correspondence.constant_collapses_all
+#print axioms ResearchTwoTheorems.Correspondence.constant_not_faithful
+#print axioms ResearchTwoTheorems.Correspondence.faithful_iff_fiberIdentity
+#print axioms ResearchTwoTheorems.Correspondence.faithful_actor_iff
+#print axioms ResearchTwoTheorems.Correspondence.empty_actor_constant
+#print axioms ResearchTwoTheorems.Correspondence.empty_actor_not_faithful
+#print axioms ResearchTwoTheorems.Correspondence.verdict_pullback
+#print axioms ResearchTwoTheorems.Correspondence.sharp_pullback_iff
+#print axioms ResearchTwoTheorems.Correspondence.fiberConstant_of_sharp_pullback
+#print axioms ResearchTwoTheorems.Correspondence.faithful_of_sharp_identity
+#print axioms ResearchTwoTheorems.Correspondence.sharp_identity_pullback
+#print axioms ResearchTwoTheorems.RegimeBridge.mem_admitted
+#print axioms ResearchTwoTheorems.RegimeBridge.mem_ctxView
+#print axioms ResearchTwoTheorems.RegimeBridge.not_mem_ctxView_of_unadmitted
+#print axioms ResearchTwoTheorems.RegimeBridge.verdict_regime_iff
+#print axioms ResearchTwoTheorems.RegimeBridge.collapsed_iff_verdict_false
+#print axioms ResearchTwoTheorems.RegimeBridge.collapsed_iff_sigEq
+#print axioms ResearchTwoTheorems.RegimeBridge.sharp_regime_iff
+#print axioms ResearchTwoTheorems.RegimeBridge.regime_knows_iff
+#print axioms ResearchTwoTheorems.RegimeBridge.regimeInformation_le
+#print axioms ResearchTwoTheorems.RegimeBridge.verdict_mono
+#print axioms ResearchTwoTheorems.RegimeBridge.recollapse_changes_views
+#print axioms ResearchTwoTheorems.RegimeBridge.unary_enumeration
+#print axioms ResearchTwoTheorems.RegimeBridge.R0_separable
+#print axioms ResearchTwoTheorems.RegimeBridge.R0rule_collapsed
+#print axioms ResearchTwoTheorems.RegimeBridge.recollapse_witness
+#print axioms ResearchTwoTheorems.RegimeBridge.recollapse_witness_changes_views
+
+-- The author's statements of 2026-10-28: Reading
+#print axioms ResearchTwoTheorems.Reading.knowledge_gain_requires_refinement
+#print axioms ResearchTwoTheorems.Reading.member_ignorant_of_family
+#print axioms ResearchTwoTheorems.Reading.finder_separates
+#print axioms ResearchTwoTheorems.Reading.actor_consistent
+#print axioms ResearchTwoTheorems.Reading.sharp_consistent
+#print axioms ResearchTwoTheorems.Reading.observer_cannot_read_resolution
+#print axioms ResearchTwoTheorems.Reading.mem_residuals
+#print axioms ResearchTwoTheorems.Reading.residuals_nil_iff
+#print axioms ResearchTwoTheorems.Reading.residuals_antitone
+#print axioms ResearchTwoTheorems.Reading.residual_removed_iff
+#print axioms ResearchTwoTheorems.Reading.nest_inert
+#print axioms ResearchTwoTheorems.Reading.nest_information
+#print axioms ResearchTwoTheorems.Reading.participation_collapse
+#print axioms ResearchTwoTheorems.Reading.knows_congr
+#print axioms ResearchTwoTheorems.Reading.knows_member_congr
+#print axioms ResearchTwoTheorems.Reading.pQ_mem
+#print axioms ResearchTwoTheorems.Reading.knows_iff_knows_pQ
+#print axioms ResearchTwoTheorems.Reading.grounded_iff_no_overclaim
+#print axioms ResearchTwoTheorems.Reading.ungrounded_iff_witness
+#print axioms ResearchTwoTheorems.Reading.silence_grounded
+#print axioms ResearchTwoTheorems.Reading.self_report_grounded
+#print axioms ResearchTwoTheorems.Reading.member_report_grounded
+#print axioms ResearchTwoTheorems.Reading.grounded_mono
+#print axioms ResearchTwoTheorems.Reading.grounded_antitone_carrier
+#print axioms ResearchTwoTheorems.Reading.knows_iff_knowsB
+#print axioms ResearchTwoTheorems.Reading.grounded_iff_groundedB
+#print axioms ResearchTwoTheorems.Reading.grounded_or_demur
+#print axioms ResearchTwoTheorems.Reading.reports_do_not_certify
+#print axioms ResearchTwoTheorems.Reading.grounded_here_not_there
+#print axioms ResearchTwoTheorems.Reading.guess_iff_witness
+#print axioms ResearchTwoTheorems.Reading.own_guess_invisible
+#print axioms ResearchTwoTheorems.Reading.guess_visible_iff
+#print axioms ResearchTwoTheorems.Reading.shared_guess
+#print axioms ResearchTwoTheorems.Reading.guess_witness
+
+-- Finite tables for questions (2026-10-28, second review)
+#print axioms ResearchTwoTheorems.FiniteQuestions.ofTable_tabulate
+#print axioms ResearchTwoTheorems.FiniteQuestions.tabulate_pQ_mem
+#print axioms ResearchTwoTheorems.FiniteQuestions.tabulate_length
+#print axioms ResearchTwoTheorems.FiniteQuestions.decode_encode_length
+#print axioms ResearchTwoTheorems.FiniteQuestions.sigList_decode_encode
+#print axioms ResearchTwoTheorems.FiniteQuestions.sigEq_decode_encode
+#print axioms ResearchTwoTheorems.FiniteQuestions.pick_congr
+#print axioms ResearchTwoTheorems.FiniteQuestions.actor_decode_encode
+#print axioms ResearchTwoTheorems.FiniteQuestions.knows_decode_encode
+#print axioms ResearchTwoTheorems.FiniteQuestions.knows_tabulated
+#print axioms ResearchTwoTheorems.FiniteQuestions.information_decode_encode
+#print axioms ResearchTwoTheorems.FiniteQuestions.encoding_faithful
+
+-- Sharp against sufficient; representation against acquisition (2026-10-28)
+#print axioms ResearchTwoTheorems.Sufficiency.sufficient_iff
+#print axioms ResearchTwoTheorems.Sufficiency.sharp_iff_sufficient_and_consistent
+#print axioms ResearchTwoTheorems.Sufficiency.sufficient_not_sharp
+#print axioms ResearchTwoTheorems.Sufficiency.consistent_not_sufficient
+#print axioms ResearchTwoTheorems.Sufficiency.sufficient_consistent_independent
+#print axioms ResearchTwoTheorems.Sufficiency.sharp_fixes_partition
+#print axioms ResearchTwoTheorems.Sufficiency.sharpObserver_sharp
+#print axioms ResearchTwoTheorems.Sufficiency.sharpObserver_views
+#print axioms ResearchTwoTheorems.Sufficiency.posOf_dedupL_congr
+#print axioms ResearchTwoTheorems.Sufficiency.fiberIdx_congr
+#print axioms ResearchTwoTheorems.Sufficiency.sharpObserver_congr

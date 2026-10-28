@@ -153,6 +153,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `research/thinghood/SOURCE_MANIFEST.json` | 0 | 0 | 0 |
 | `research/twin_pricing/SOURCE_MANIFEST.json` | 3 | 1 | 0 |
 | `research/two_sided_commitment/SOURCE_MANIFEST.json` | 6 | 3 | 0 |
+| `research/two_theorems/SOURCE_MANIFEST.json` | 0 | 1 | 0 |
 | `research/typed_translation/SOURCE_MANIFEST.json` | 4 | 27 | 0 |
 | `research/unboundedness/SOURCE_MANIFEST.json` | 39 | 34 | 0 |
 | `research/uncollapse/SOURCE_MANIFEST.json` | 0 | 1 | 0 |
@@ -734,6 +735,7 @@ committed; `python ci/lookup_indexes.py --summary` prints the totals.
 | `research/two_sided_commitment/receipts/two_sided_commitment.json` | 4 | `second_inheritance` (file), `second_nofirst` (file), `second_stake` (file), `second_stream` (file) | none |
 | `research/two_sided_commitment/run_two_sided.py` | 2 | `second_inheritance` (file), `second_stream` (file) | none |
 | `research/two_sided_commitment/two_sided.py` | 14 | `second_class` (file), `second_duration` (file), `second_engine` (file), `second_index` (file), `second_inheritance` (file), `second_iso` (file), `second_nofirst` (file, span), `second_profile` (file), `second_response` (file), `second_run` (file), `second_stake` (file, span), `second_stream` (file), `second_succession` (file), `second_symmetry` (file) | none |
+| `research/two_theorems/input.json` | 1 | `two_theorems` (file) | none |
 | `research/typed_translation/code/typed_translation/__init__.py` | 1 | `g012_typed_translation` (file) | none |
 | `research/typed_translation/code/typed_translation/enumerate.py` | 1 | `g012_typed_translation` (file) | none |
 | `research/typed_translation/code/typed_translation/model.py` | 1 | `g012_typed_translation` (file) | none |
