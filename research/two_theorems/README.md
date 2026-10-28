@@ -469,10 +469,11 @@ here converts a witnessed off-diagonal separation into a universal one.
 - `research/x300_observer_information`: information in an observer, with
   bounds of its own.  This tree's information is Genesis's `classCount` and
   does not restate that tree's results.
-- `research/interpreter_verdict`: proves the interpreter boundary is a
-  *primitive difference* for quiescence (`lawful_unique`, `interp_not_step`,
-  `identification_changes_quiescence`).  The two trees use the words the
-  same way.  *Primitive* is Genesis's primitive difference: a witnessed
+- `research/interpreter_verdict` (a draft on another branch, not on this one;
+  cited for its words, nothing here imports it): proves the interpreter
+  boundary is a *primitive difference* for quiescence (`lawful_unique`,
+  `interp_not_step`, `identification_changes_quiescence`).  The two trees
+  use the words the same way.  *Primitive* is Genesis's primitive difference: a witnessed
   difference that identification cannot remove without changing a verdict.
   *Absolute* is adequate for every question on the carrier, which is
   separating every pair of distinct carrier points (`absolute_observer_iff`):
