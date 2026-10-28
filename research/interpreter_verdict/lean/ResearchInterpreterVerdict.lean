@@ -17,7 +17,7 @@ free choice of step function proves nothing), and show that identifying
 that occurrence with a coded member changes an accessible operational
 verdict, not only an inert field.
 
-This file does both, in six steps.
+This file does both, in seven steps.
 
 1. One verdict reads one guard.  At `genesis`, under the event
    `require 0 0`, the quiescence verdict of the world the interpreter
@@ -61,8 +61,9 @@ This file does both, in six steps.
    (`identification_changes_quiescence`,
    `identification_with_step_changes_quiescence`).  By
    `NoOutside.support_quiescent` the verdict difference is a support
-   difference (`verdict_entails_supp`); the scratch result
-   `tower_persists_operational` of 2026-10-27 gave the support half.
+   difference (`verdict_entails_supp`), which re-proves the support half
+   first shown by the scratch result `tower_persists_operational` of
+   2026-10-27 (outside this repository, not an input here).
 6. Limits.  Not every presentational difference among codes is a
    verdict difference: a code and the code with `dedupAdmit` flipped are
    never separated by one quiescence verdict
@@ -114,7 +115,8 @@ function `s : World → Event → World` (`interp_not_step`, `rstep_not_lift`,
 `identification_with_step_changes_quiescence`) and over every reading
 `I` are schemata of the metatheory: each instance is about one `s` or
 one `I`, the witness code is computed from one evaluation of `s` at
-`genesis` under `require 0 0`, and no collection of step functions,
+`genesis` under `require 0 0` (at `accWorld` under `mark [0] 1` in
+`interp_not_step_wf`), and no collection of step functions,
 readings or worlds is formed or admitted anywhere.  Existentials are
 witnessed by concrete finite objects.  Hypotheses about readings are
 stated value by value, and `lawful_unique_at` is the pointwise form of
@@ -127,8 +129,6 @@ namespace ResearchInterpreterVerdict
 open Represented Constitution InterpreterBoundary
 
 /-! ## 1. One verdict reads one guard -/
-
-theorem reqOkB_genesis_zero : reqOkB genesis 0 0 = false := by decide
 
 /-- At genesis, `require 0 0` — a demand that datum 0 be separated from
 itself — is admitted exactly when the code does not guard requirements.
@@ -639,6 +639,8 @@ theorem vsep_uncoded_needs_guard (d : ConstitutionDesc)
 
 /-! ### The `genesis` witness is a rejected challenge -/
 
+/-- The kernel rejects `require 0 0`: a datum is never required to be
+separated from itself. -/
 theorem genesis_witness_rejected : reqOkB genesis 0 0 = false := by decide
 
 theorem genesis_witness_guard_decides :
@@ -737,6 +739,7 @@ theorem accWorld_outputs_wf (c : ConstitutionDesc) :
     WF (interpStep c accWorld (.mark [0] 1)) :=
   wf_interpStep c accWorld_wf _ (fun _ _ h => nomatch h)
 
+/-- The code with the acceptance guard flipped. -/
 def flipAccept (c : ConstitutionDesc) : ConstitutionDesc :=
   { c with guardAccept := !c.guardAccept }
 

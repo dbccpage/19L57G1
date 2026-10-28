@@ -60,9 +60,10 @@ disagree on quiescence there (`interp_not_step`; pick the code whose guard is
 the opposite of the verdict `s` gives). Every coded member is such an `s`
 (`coded_member_separated`, also for the obstruction certificate), and so is
 the diagonal function of `tower_persists`. By `NoOutside.support_quiescent`
-the verdict difference is a support difference (`verdict_entails_supp`); the
-scratch result `tower_persists_operational` of 2026-10-27 gave the support
-half, this is the verdict half.
+the verdict difference is a support difference (`verdict_entails_supp`), so
+the support half, first shown by a scratch result of 2026-10-27
+(`tower_persists_operational`, outside this repository and not an input
+here), is re-proved from the verdict half.
 
 The quantifier in `interp_not_step` is a fact of typing: a step function
 takes no code, so the interpreter, which reads one, is matched against it at
@@ -202,8 +203,8 @@ type in play is the sealed `World`, which Genesis already has.
   (`family_reads_guard`, `interp_not_step_family`).
 - The witnesses are one-step. Nothing here is about evaluators of other
   types, about a 65th code (a code of evaluator type is not a code of this
-  family), or about an absolute no-outside; `tower_persists` and
-  `no_closed_self_interpreter` are untouched.
+  family), or about an absolute no-outside; the sealed `tower_persists`,
+  `family_missed` and `i5_family_not_extensionally_complete` are untouched.
 - Not verified by this tree: that `input.json`'s `source_revision` matches,
   or that the consumed modules are unchanged (no module digests are pinned;
   the tests check that the pinned modules are exactly the imports and that
