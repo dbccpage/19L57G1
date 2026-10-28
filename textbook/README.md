@@ -23,11 +23,18 @@ Part 2 of the book (`textbook/institutions/`, see **Parts**) covers the
 post-freeze research trees `actor_institution` (#284), `two_theorems` (#277),
 `uncollapse` (#275), and `interpreter_verdict` (#278), outside the seal.
 
-New readers should start at [`START_HERE.md`](START_HERE.md) (see also the
+For a concrete example before the formal development, begin with
+[`First steps: three cards, two questions`](first_steps/README.md): five
+short lessons, a prediction-first explorer, and separate practice answers.
+No previous mathematics or philosophy is assumed.
+
+New readers can then read [`START_HERE.md`](START_HERE.md) (see also the
 short spoken introduction in [`video_script_15s.md`](video_script_15s.md)).
 For the complete theorem-to-lesson coverage matrix and lesson dependency DAG,
 see [`derivation_coverage.md`](derivation_coverage.md); for the 75-module
 audit records, see [`audit/README.md`](audit/README.md).
+For the remaining teaching work and the research-to-curriculum inventory,
+see [`audit/TEXTBOOK_GAP_PLAN.md`](audit/TEXTBOOK_GAP_PLAN.md).
 
 ## Status marks
 

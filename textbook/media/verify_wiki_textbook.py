@@ -16,6 +16,9 @@ import sys
 import tempfile
 from pathlib import Path
 
+from research_population import inventory_errors, research_trees
+from first_steps_wiki import first_steps_errors
+
 DEFAULT_REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 DEFAULT_WIKI_ROOT = Path(
     os.environ.get(
@@ -142,24 +145,11 @@ def verify_wiki(
         print("FAIL: Missing textbook_research_trees.md", file=sys.stderr)
         return 1
     res_trees_text = res_trees_page.read_text(encoding="utf-8")
-    res_dir = repo_root / "research"
-    synced_tree_count = 0
-    if res_dir.is_dir():
-        for child in sorted(res_dir.iterdir()):
-            if not child.is_dir() or child.name.startswith((".", "_")):
-                continue
-            if (
-                (child / "TREE_CONTRACT.json").is_file()
-                or (child / "README.md").is_file()
-                or (child / "STATUS.md").is_file()
-            ):
-                if f"research/{child.name}/" not in res_trees_text:
-                    print(
-                        f"FAIL: Research tree research/{child.name}/ missing from textbook_research_trees.md",
-                        file=sys.stderr,
-                    )
-                    return 1
-                synced_tree_count += 1
+    errors = inventory_errors(repo_root, res_trees_text)
+    if errors:
+        print("FAIL: research inventory mismatch; " + "; ".join(errors), file=sys.stderr)
+        return 1
+    synced_tree_count = len(research_trees(repo_root))
     print(
         f"PASS: textbook_research_trees.md synced with all {synced_tree_count} research trees on main"
     )
@@ -197,6 +187,13 @@ def verify_wiki(
                     return 1
                 checked_links += 1
     print(f"PASS: {checked_links} internal Wiki page links verified.")
+
+    route_errors = first_steps_errors(repo_root, wiki_root)
+    if route_errors:
+        print("FAIL: " + "; ".join(route_errors), file=sys.stderr)
+        return 1
+    if (repo_root / "textbook/first_steps").is_dir():
+        print("PASS: beginner lesson pages, sidebar entry, and self-contained explorer exist.")
 
     # 5. Verify all 12 Manim MP4 and GIF files if present and not skipped
     manim_dir = wiki_root / "media" / "manim"

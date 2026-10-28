@@ -414,3 +414,14 @@ stand in `research/alpha_engine/STATUS.md`.
 | `textbook` job book-Lean gate (`ci/check_textbook.py --lean-only`) | `freshTok s12 = 3 := rfl` changed to `freshTok s12 = 99 := rfl` in `textbook/checks/u59_lean.py` | `FAIL: textbook/checks/u59_lean.py exited 1` (`U59.lean:7:0: error: Not a definitional equality ... lean exit code 1`), exit 1 | exit 0 (`textbook book-Lean checks: 71 passed`) |
 | `textbook` video pacing gate (`ci/check_textbook.py --python-only`) | first segment in `textbook/video_script_15s.md` changed to 11 words in 3 s (220 wpm) | `FAIL: video_script_15s.md: segment 0:00-0:03: pace 220.0 wpm exceeds 160.0 wpm`, exit 1 | exit 0 (`video_script_15s.md pacing: ok (4 segments, 15s total, all <= 160 wpm)`) |
 
+## First-steps route and research inventory (2026-10-28)
+
+No sealed file or research receipt was changed. The inventory injection
+used a generated scratch Wiki; the load injection used a disposable copy
+of the explorer. No receipt was regenerated while either defect was live.
+
+| Gate | Injection | Observed failure | Recovery |
+|---|---|---|---|
+| `textbook/media/verify_wiki_textbook.py` | Remove the `boundary_seed` table row and insert an excluded `notes` row in a generated research index | exit 1: `research inventory mismatch; missing research tree: boundary_seed; unexpected research tree: notes` | Restore the original bytes; exit 0, all 123 trees and 1,964 internal Wiki links checked |
+| First-steps browser load | Serve a copied explorer with its `cards.json` absent | Visible supplied-table load error; Run, Check recovery, and Reset disabled | Remove the temporary fixture; the ordinary explorer and single-file bundle display the declared cards, groups, and blocking pair |
+
