@@ -243,11 +243,14 @@ in one template or the other, and this table says which.
 | 29 | Renaming the data changes nothing a context can see | `CountTransport.collapsed_rename`, `CountTransport.non_injective_does_not_transport` | derived | yes |
 | 30 | A context that reaches outside the regime separates nothing | `Mention.collapsed_append_unmentioning`, `Mention.collapsed_fresh_form` | derived | yes |
 | 31 | Renaming carries every transition; index-least selection is not congruent | `TransitionTransport.transStep_rename_fwd`, `TransitionTransport.least_pair_selection_not_congruent` | derived | yes |
+| 32 | The same proof with one more datum | `MinimalityF.mu2_unique_F`, `MinimalityF.genesis_mark_not_separable` | derived | yes |
+| 33 | A rule never pays for itself | `RuleBridge.applyDelta_dropRules`, `RuleBridge.rule_item_never_minimal` | derived | yes |
+| 34 | How many demands can a closed system meet? | `Rounds.round_reqs_succ`, `Rounds.closedRun_round_bound_from_empty` | derived under the declared round shape | yes |
 
-The order follows the derivation. Units 27-31 follow the root import order
+The order follows the derivation. Units 27-34 follow the root import order
 of `lean4/Derivation.lean` (Quot, Counting, CountTransport, Mention,
-TransitionTransport); units after 31 continue with MinimalityF, RuleBridge
-and Rounds.
+TransitionTransport, MinimalityF, RuleBridge, Rounds); units after 34
+continue with Progress, Ext and ObserverInventory.
 
 ## Parts
 
