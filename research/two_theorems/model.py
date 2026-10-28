@@ -179,6 +179,39 @@ def resolution_check(D: Carrier, m: int) -> dict[str, int]:
             "bit_observer_sharp": attained}
 
 
+def adequate(D: Carrier, Q: Sequence[Presentation], p: Presentation) -> bool:
+    """Genesis ``Adequate D Q p``: two points ``p`` merges have the same
+    signature on ``Q``."""
+    return all(sig(Q, x) == sig(Q, y) for x in D for y in D if p(x) == p(y))
+
+
+def absolute(D: Carrier, E: Evaluator) -> bool:
+    """Absolute on ``D``: the observer's compression is adequate for every
+    question, checked over every table on ``D`` (the identity is among
+    them, so this is exhaustive for the carrier)."""
+    p = joint_presentation(D, questions(E))
+    return all(adequate(D, [q], p) for q in all_presentations(D))
+
+
+def separates_all_pairs(D: Carrier, E: Evaluator) -> bool:
+    return all(verdict(E, x, y) for x in D for y in D if x != y)
+
+
+def absolute_checks(D: Carrier, m: int) -> dict[str, int]:
+    """``absolute_observer_iff`` over every ``m``-view observer on ``D``:
+    absolute exactly when every pair of distinct points is separated; and
+    how many observers are absolute (``0`` when ``2 ** m < len(D)``, by
+    ``no_absolute_observer_of_large_carrier``)."""
+    cases = violations = count = 0
+    for E in all_evaluators(D, m):
+        cases += 1
+        a = absolute(D, E)
+        count += int(a)
+        if a != separates_all_pairs(D, E):
+            violations += 1
+    return {"cases": cases, "violations": violations, "absolute": count}
+
+
 def verdict_ceiling_check(D: Carrier, m: int) -> bool:
     """Theorem I(b): any Boolean of two signatures is constant on the verdict
     kernel.  Checked for every observer and every point pair on ``D`` by
@@ -680,9 +713,10 @@ def subfamily(Q: Sequence[Presentation], Qp: Sequence[Presentation]) -> bool:
 
 
 def extension_checks(D: Carrier, pool: Sequence[Presentation], size: int) -> dict[str, int]:
-    """``extension_forced``: over every nested pair of families from the
-    pool and every pool question, a question unknown to the smaller family
-    and known to the larger one forces a strict rise of information;
+    """``knowledge_gain_requires_refinement``: over every nested pair of
+    families from the pool and every pool question, a question unknown to the
+    smaller family and known to the larger one is known only at a strict rise
+    of information;
     ``member_ignorant_of_family``: no member knows what the family does not;
     ``finder_separates``: a question that knows the unknown one splits a pair
     the family merges.  Counts cases and violations (expected 0)."""
@@ -705,7 +739,7 @@ def extension_checks(D: Carrier, pool: Sequence[Presentation], size: int) -> dic
                     finder_cases += 1
                     if not any(sig(Q, x) == sig(Q, y) and f(x) != f(y) for x in D for y in D):
                         finder_violations += 1
-    return {"forced_cases": forced, "forced_violations": violations,
+    return {"refinement_cases": forced, "refinement_violations": violations,
             "member_knows_what_family_does_not": member_violations,
             "finder_cases": finder_cases, "finder_violations": finder_violations}
 
@@ -797,31 +831,32 @@ def finite_question_space(D: Carrier, pool: Sequence[Presentation], size: int) -
             "know_or_witness_over_all_tables": wise}
 
 
-def honest(D: Carrier, Q: Sequence[Presentation], s: Presentation) -> bool:
-    """``Honest D Q s``: the report is known, so it claims no distinction
-    the questions cannot make."""
+def grounded(D: Carrier, Q: Sequence[Presentation], s: Presentation) -> bool:
+    """``Grounded D Q s``: the report is known, so it claims no distinction
+    the questions cannot make.  Relative to the questions and the carrier;
+    not truth, honesty or wisdom (provisional vocabulary, 2026-10-28)."""
     return knows(D, Q, s)
 
 
-def honesty_checks(D: Carrier, pool: Sequence[Presentation], size: int) -> dict[str, int | bool]:
-    """Silence, the actor and every member report honestly; listening never
-    makes an honest report dishonest; a smaller carrier never does; the two
+def grounding_checks(D: Carrier, pool: Sequence[Presentation], size: int) -> dict[str, int | bool]:
+    """Silence, the actor and every member report grounded; listening never
+    makes a grounded report ungrounded; a smaller carrier never does; the two
     certification witnesses."""
     fams = reading_families(pool, size)
     tables = list(all_presentations(D))
-    silence = all(honest(D, Q, Table({x: 0 for x in D})) for Q in fams)
-    self_report = all(honest(D, Q, joint_presentation(D, Q)) for Q in fams)
-    members = all(honest(D, Q, p) for Q in fams for p in Q)
+    silence = all(grounded(D, Q, Table({x: 0 for x in D})) for Q in fams)
+    self_report = all(grounded(D, Q, joint_presentation(D, Q)) for Q in fams)
+    members = all(grounded(D, Q, p) for Q in fams for p in Q)
     mono_violations = sum(1 for Q in fams for Qp in fams if subfamily(Q, Qp)
-                          for t in tables if honest(D, Q, t) and not honest(D, Qp, t))
+                          for t in tables if grounded(D, Q, t) and not grounded(D, Qp, t))
     sub = D[:-1]
-    carrier_violations = sum(1 for Q in fams for t in tables if honest(D, Q, t) and not honest(sub, Q, t))
+    carrier_violations = sum(1 for Q in fams for t in tables if grounded(D, Q, t) and not grounded(sub, Q, t))
     ident = Table({0: 0, 1: 1, 2: 2})
     par = Table({0: 0, 1: 1, 2: 0})
-    return {"silence_honest": silence, "self_report_honest": self_report, "members_honest": members,
+    return {"silence_grounded": silence, "self_report_grounded": self_report, "members_grounded": members,
             "mono_violations": mono_violations, "carrier_violations": carrier_violations,
-            "reports_do_not_certify": honest((0, 1), [ident], ident) and not honest((0, 1), [], ident),
-            "honest_here_not_there": honest((0, 1), [par], ident) and not honest((0, 1, 2), [par], ident)}
+            "reports_do_not_certify": grounded((0, 1), [ident], ident) and not grounded((0, 1), [], ident),
+            "grounded_here_not_there": grounded((0, 1), [par], ident) and not grounded((0, 1, 2), [par], ident)}
 
 
 def guess_checks(D: Carrier) -> dict[str, int | bool]:
@@ -841,8 +876,8 @@ def guess_checks(D: Carrier) -> dict[str, int | bool]:
     return {"guess": not knows(D, [half], ident), "witness_x": x, "witness_y": y,
             "own_guess_invisible": invisible, "visible_to_family": visible,
             "another_member_splits": another_member,
-            "honest_for_family": honest(D, [half, parity], ident),
-            "shared_by_half_alone": not honest(D, [half], ident)}
+            "grounded_for_family": grounded(D, [half, parity], ident),
+            "shared_by_half_alone": not grounded(D, [half], ident)}
 
 
 
@@ -876,6 +911,12 @@ def run_all() -> dict[str, object]:
             "mutual_knowledge_disagreements_D3": mutual_knowledge_check(D3, 1, pool[:3], 2),
             "panels_D3": panel_checks(D3, 1, 2),
         },
+        "absolute": {
+            "two_points_one_view": absolute((0, 1), ((0,),)),
+            "three_points_one_view": absolute((0, 1, 2), ((0,),)),
+            "D3_m1": absolute_checks(D3, 1),
+            "D4_m2": absolute_checks(D4, 2),
+        },
         "diagonal": {
             "mod_catalogue_D4": diagonal_checks(D4, 5),
             "self_evaluator_2": self_evaluator_check(2),
@@ -894,7 +935,7 @@ def run_all() -> dict[str, object]:
             "residuals_D4": residual_checks(D4, pool, 2),
             "nest_D4": nest_checks(D4, pool, 2),
             "finite_question_space_D3": finite_question_space(D3, pool3, 2),
-            "honesty_D3": honesty_checks(D3, pool3, 2),
+            "grounding_D3": grounding_checks(D3, pool3, 2),
             "guess_D4": guess_checks(D4),
         },
     }

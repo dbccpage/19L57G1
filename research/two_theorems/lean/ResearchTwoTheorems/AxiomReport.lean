@@ -22,6 +22,7 @@ Axiom report for every declaration CLAIMS.md cites.  Compiled by
 #print axioms ResearchTwoTheorems.sharp_observable_iff
 #print axioms ResearchTwoTheorems.absolute_observer_iff
 #print axioms ResearchTwoTheorems.no_absolute_observer_of_large_carrier
+#print axioms ResearchTwoTheorems.absolute_observer_two_points
 -- Theorem I(d): Capacity
 #print axioms ResearchTwoTheorems.Capacity.tight_1_0
 #print axioms ResearchTwoTheorems.Capacity.tight_2_0
@@ -61,11 +62,18 @@ Axiom report for every declaration CLAIMS.md cites.  Compiled by
 #print axioms ResearchTwoTheorems.Institution.wise_of_represented
 -- Theorem II, interpreter level: Diagonal
 #print axioms ResearchTwoTheorems.Diagonal.no_closed_self_interpreter
+#print axioms ResearchTwoTheorems.Diagonal.no_closed_self_interpreter_fin
 #print axioms ResearchTwoTheorems.Diagonal.diag_not_member
 #print axioms ResearchTwoTheorems.Diagonal.diag_known_witness
 #print axioms ResearchTwoTheorems.Diagonal.diag_unknown_witness
 #print axioms ResearchTwoTheorems.Diagonal.membership_vs_knowledge
 #print axioms ResearchTwoTheorems.Diagonal.tower_persists_operational
+#print axioms ResearchTwoTheorems.Diagonal.step_lawful
+#print axioms ResearchTwoTheorems.Diagonal.step_note_data
+#print axioms ResearchTwoTheorems.Diagonal.opDiag_appends
+#print axioms ResearchTwoTheorems.Diagonal.opDiag_not_lawful
+#print axioms ResearchTwoTheorems.Diagonal.lawful_escape_iff
+#print axioms ResearchTwoTheorems.Diagonal.lawful_no_escape
 #print axioms ResearchTwoTheorems.Correspondence.collapsed_of_merged
 #print axioms ResearchTwoTheorems.Correspondence.constant_collapses_all
 #print axioms ResearchTwoTheorems.Correspondence.constant_not_faithful
@@ -96,7 +104,7 @@ Axiom report for every declaration CLAIMS.md cites.  Compiled by
 #print axioms ResearchTwoTheorems.RegimeBridge.recollapse_witness_changes_views
 
 -- The author's statements of 2026-10-28: Reading
-#print axioms ResearchTwoTheorems.Reading.extension_forced
+#print axioms ResearchTwoTheorems.Reading.knowledge_gain_requires_refinement
 #print axioms ResearchTwoTheorems.Reading.member_ignorant_of_family
 #print axioms ResearchTwoTheorems.Reading.finder_separates
 #print axioms ResearchTwoTheorems.Reading.actor_consistent
@@ -113,18 +121,18 @@ Axiom report for every declaration CLAIMS.md cites.  Compiled by
 #print axioms ResearchTwoTheorems.Reading.knows_member_congr
 #print axioms ResearchTwoTheorems.Reading.pQ_mem
 #print axioms ResearchTwoTheorems.Reading.knows_iff_knows_pQ
-#print axioms ResearchTwoTheorems.Reading.honest_iff_no_overclaim
-#print axioms ResearchTwoTheorems.Reading.self_deceived_iff_witness
-#print axioms ResearchTwoTheorems.Reading.silence_honest
-#print axioms ResearchTwoTheorems.Reading.self_report_honest
-#print axioms ResearchTwoTheorems.Reading.member_report_honest
-#print axioms ResearchTwoTheorems.Reading.honest_mono
-#print axioms ResearchTwoTheorems.Reading.honest_antitone_carrier
+#print axioms ResearchTwoTheorems.Reading.grounded_iff_no_overclaim
+#print axioms ResearchTwoTheorems.Reading.ungrounded_iff_witness
+#print axioms ResearchTwoTheorems.Reading.silence_grounded
+#print axioms ResearchTwoTheorems.Reading.self_report_grounded
+#print axioms ResearchTwoTheorems.Reading.member_report_grounded
+#print axioms ResearchTwoTheorems.Reading.grounded_mono
+#print axioms ResearchTwoTheorems.Reading.grounded_antitone_carrier
 #print axioms ResearchTwoTheorems.Reading.knows_iff_knowsB
-#print axioms ResearchTwoTheorems.Reading.honest_iff_honestB
-#print axioms ResearchTwoTheorems.Reading.honest_or_demur
+#print axioms ResearchTwoTheorems.Reading.grounded_iff_groundedB
+#print axioms ResearchTwoTheorems.Reading.grounded_or_demur
 #print axioms ResearchTwoTheorems.Reading.reports_do_not_certify
-#print axioms ResearchTwoTheorems.Reading.honest_here_not_there
+#print axioms ResearchTwoTheorems.Reading.grounded_here_not_there
 #print axioms ResearchTwoTheorems.Reading.guess_iff_witness
 #print axioms ResearchTwoTheorems.Reading.own_guess_invisible
 #print axioms ResearchTwoTheorems.Reading.guess_visible_iff

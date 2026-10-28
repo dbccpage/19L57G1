@@ -207,9 +207,9 @@ POOL3 = [model.Table({x: x % 2 for x in D3}), model.Table({x: x // 2 for x in D3
          model.Table({x: (x == 1) * 1 for x in D3}), model.Table({x: 0 for x in D3})]
 
 
-def test_extension_forced() -> None:
+def test_knowledge_gain_requires_refinement() -> None:
     r = model.extension_checks(D4, POOL4, 2)
-    assert r["forced_cases"] > 0 and r["forced_violations"] == 0
+    assert r["refinement_cases"] > 0 and r["refinement_violations"] == 0
     assert r["member_knows_what_family_does_not"] == 0
     assert r["finder_cases"] > 0 and r["finder_violations"] == 0
 
@@ -240,15 +240,24 @@ def test_finite_question_space() -> None:
     assert r["know_or_witness_over_all_tables"] is True
 
 
-def test_honesty() -> None:
-    r = model.honesty_checks(D3, POOL3, 2)
-    assert r["silence_honest"] and r["self_report_honest"] and r["members_honest"]
+def test_grounding() -> None:
+    r = model.grounding_checks(D3, POOL3, 2)
+    assert r["silence_grounded"] and r["self_report_grounded"] and r["members_grounded"]
     assert r["mono_violations"] == 0 and r["carrier_violations"] == 0
-    assert r["reports_do_not_certify"] is True and r["honest_here_not_there"] is True
+    assert r["reports_do_not_certify"] is True and r["grounded_here_not_there"] is True
 
 
 def test_guess() -> None:
     r = model.guess_checks(D4)
     assert r["guess"] and (r["witness_x"], r["witness_y"]) == (0, 1)
     assert r["own_guess_invisible"] and r["visible_to_family"] and r["another_member_splits"]
-    assert r["honest_for_family"] and r["shared_by_half_alone"]
+    assert r["grounded_for_family"] and r["shared_by_half_alone"]
+
+
+def test_absolute_observer_is_carrier_relative() -> None:
+    assert model.absolute((0, 1), ((0,),)) is True
+    assert model.absolute((0, 1, 2), ((0,),)) is False
+    small = model.absolute_checks(D3, 1)
+    assert small["cases"] > 0 and small["violations"] == 0 and small["absolute"] == 0
+    large = model.absolute_checks(D4, 2)
+    assert large["violations"] == 0 and large["absolute"] > 0

@@ -15,10 +15,13 @@ carrier `D` and finite families; nothing ranges over an infinite object
 except where a universal over the metatheory's function type is explicitly
 reduced to a finite one (`knows_iff_knows_pQ`).
 
-1. **A hidden pattern forces extension.**  `extension_forced`: a family that
-   does not know a question can come to know it only by a strictly more
-   informative family; `finder_separates`: whatever finds the pattern
-   separates two data the family merges.
+1. **Knowledge gain requires refinement.**
+   `knowledge_gain_requires_refinement` (named `extension_forced` until
+   2026-10-28; renamed after review, since it compels nothing): a family
+   that does not know a question can come to know it only by a strictly
+   more informative family; `finder_separates`: whatever finds the pattern
+   separates two data the family merges.  Whether a family *must* extend
+   is not decided here; it may hold the residual (item 3).
 2. **An observer cannot read another's resolution.**
    `observer_cannot_read_resolution`: wherever an observer merges two data,
    two actors agree with every separation it reports, one merging the pair
@@ -34,17 +37,20 @@ reduced to a finite one (`knows_iff_knows_pQ`).
    matter; `pQ_mem`, `knows_iff_knows_pQ`: knowledge of a question is
    knowledge of its representative, a table `D → D`, so the question space
    that matters is finite.
-6. **Wisdom as honesty.**  `Honest D Q s := Knows D Q s`: a self-report that
-   claims no distinction the questions cannot make.  Silence is honest, the
-   actor's own presentation is honest and every honest report factors through
-   it, listening never makes an honest report dishonest, a larger carrier can
-   (`honest_here_not_there`), and the same report is honest for one
-   institution and self-deception for another (`reports_do_not_certify`).
+6. **Grounded reports.**  `Grounded D Q s := Knows D Q s`: a self-report
+   that claims no distinction the questions cannot make.  This is the tree's
+   provisional reading of the author's "not deceiving oneself"; it was named
+   `Honest` until 2026-10-28 and renamed after review, since it says nothing
+   of truth beyond the admitted questions.  Silence is grounded, the actor's
+   own presentation is grounded and every grounded report factors through
+   it, listening never makes a grounded report ungrounded, a larger carrier
+   can (`grounded_here_not_there`), and the same report is grounded for one
+   institution and ungrounded for another (`reports_do_not_certify`).
 7. **A guess and who sees it.**  `Guess D p s := ¬ Knows D [p] s`: a report
    not determined by the member's own question.  The member never locates it
    (`own_guess_invisible`); the family locates it exactly when another member
    separates the pair (`guess_visible_iff`); a family that merges the pair
-   and endorses the report is self-deceived too (`shared_guess`).
+   and endorses the report holds an ungrounded report too (`shared_guess`).
 -/
 
 namespace ResearchTwoTheorems
@@ -52,13 +58,15 @@ namespace Reading
 
 open Represented Compression PresentationRelativity Institution
 
-/-! ## 1. A hidden pattern forces extension -/
+/-! ## 1. Knowledge gain requires refinement -/
 
-/-- **Extension is forced.**  If the family does not know `q`, every larger
-family that knows `q` splits a pair the first merged, so its information is
-strictly larger.  Learning the hidden pattern is never free and never
-internal to the family that missed it. -/
-theorem extension_forced {D : List Nat} {Q Q' : Institution} {q : Nat → Nat}
+/-- **Knowledge gain requires refinement.**  If the family does not know
+`q`, every larger family that knows `q` splits a pair the first merged, so
+its information is strictly larger.  Learning the hidden pattern is never
+free and never internal to the family that missed it.  The theorem compels
+nothing: it assumes the larger family and prices it; it does not say the
+family must extend. -/
+theorem knowledge_gain_requires_refinement {D : List Nat} {Q Q' : Institution} {q : Nat → Nat}
     (hsub : ∀ p, p ∈ Q → p ∈ Q') (hn : ¬ Knows D Q q) (hk : Knows D Q' q) :
     information D Q < information D Q' := by
   obtain ⟨x, hx, y, hy, hs, hne⟩ := (not_knows_iff_witness D Q q).mp hn
@@ -338,20 +346,21 @@ theorem knows_iff_knows_pQ (D : List Nat) (Q : Institution) (q : Nat → Nat) :
     exact (pQ_exact D [q] x hx y hy).mp (h x hx y hy hs) q
       (List.mem_singleton_self q)
 
-/-! ## 6. Wisdom as honesty -/
+/-! ## 6. Grounded reports -/
 
-/-- A self-report `s` of the institution is **honest** when the institution
-knows it: the report claims no distinction the questions cannot make.
-Under-claiming (merging what the questions separate) is permitted: that is
-demurral. -/
-def Honest (D : List Nat) (Q : Institution) (s : Nat → Nat) : Prop :=
+/-- A self-report `s` of the institution is **grounded** when the
+institution knows it: the report claims no distinction the questions cannot
+make.  Under-claiming (merging what the questions separate) is permitted:
+that is demurral.  Grounding is relative to the admitted questions and the
+carrier; it is not truth, honesty or wisdom (provisional vocabulary). -/
+def Grounded (D : List Nat) (Q : Institution) (s : Nat → Nat) : Prop :=
   Knows D Q s
 
-theorem honest_iff_no_overclaim (D : List Nat) (Q : Institution)
+theorem grounded_iff_no_overclaim (D : List Nat) (Q : Institution)
     (s : Nat → Nat) :
-    Honest D Q s ↔
+    Grounded D Q s ↔
       ∀ x, x ∈ D → ∀ y, y ∈ D → s x ≠ s y → ¬ SigEq Q x y := by
-  unfold Honest
+  unfold Grounded
   rw [knows_iff_determined]
   constructor
   · intro h x hx y hy hne hs; exact hne (h x hx y hy hs)
@@ -360,40 +369,40 @@ theorem honest_iff_no_overclaim (D : List Nat) (Q : Institution)
     | isTrue he => exact he
     | isFalse hne => exact absurd hs (h x hx y hy hne)
 
-/-- **Self-deception has a witness**: two data the questions cannot tell
-apart on which the report differs. -/
-theorem self_deceived_iff_witness (D : List Nat) (Q : Institution)
+/-- **An ungrounded report has a witness**: two data the questions cannot
+tell apart on which the report differs. -/
+theorem ungrounded_iff_witness (D : List Nat) (Q : Institution)
     (s : Nat → Nat) :
-    ¬ Honest D Q s ↔ ∃ x, x ∈ D ∧ ∃ y, y ∈ D ∧ SigEq Q x y ∧ s x ≠ s y :=
+    ¬ Grounded D Q s ↔ ∃ x, x ∈ D ∧ ∃ y, y ∈ D ∧ SigEq Q x y ∧ s x ≠ s y :=
   not_knows_iff_witness D Q s
 
-/-- Silence is honest: a report that claims nothing deceives no one. -/
-theorem silence_honest (D : List Nat) (Q : Institution) (c : Nat) :
-    Honest D Q (fun _ => c) :=
+/-- Silence is grounded: a report that claims nothing over-claims nothing. -/
+theorem silence_grounded (D : List Nat) (Q : Institution) (c : Nat) :
+    Grounded D Q (fun _ => c) :=
   knows_const D Q c
 
-/-- Reporting one's own presentation is honest; by definition every honest
-report factors through it. -/
-theorem self_report_honest (D : List Nat) (Q : Institution) :
-    Honest D Q (pQ D Q) :=
+/-- Reporting one's own presentation is grounded; by definition every
+grounded report factors through it. -/
+theorem self_report_grounded (D : List Nat) (Q : Institution) :
+    Grounded D Q (pQ D Q) :=
   knows_actor D Q
 
-/-- Reporting a member's answers is honest. -/
-theorem member_report_honest {D : List Nat} {Q : Institution} {p : Nat → Nat}
-    (hp : p ∈ Q) : Honest D Q p :=
+/-- Reporting a member's answers is grounded. -/
+theorem member_report_grounded {D : List Nat} {Q : Institution} {p : Nat → Nat}
+    (hp : p ∈ Q) : Grounded D Q p :=
   knows_member hp
 
-/-- Listening more never makes an honest report dishonest. -/
-theorem honest_mono {D : List Nat} {Q Q' : Institution} {s : Nat → Nat}
-    (hsub : ∀ p, p ∈ Q → p ∈ Q') (h : Honest D Q s) : Honest D Q' s :=
+/-- Listening more never makes a grounded report ungrounded. -/
+theorem grounded_mono {D : List Nat} {Q Q' : Institution} {s : Nat → Nat}
+    (hsub : ∀ p, p ∈ Q → p ∈ Q') (h : Grounded D Q s) : Grounded D Q' s :=
   knows_mono hsub h
 
-/-- Honest on a larger carrier, honest on a smaller one; not conversely
-(`honest_here_not_there`). -/
-theorem honest_antitone_carrier {D D' : List Nat} {Q : Institution}
-    {s : Nat → Nat} (hsub : ∀ x, x ∈ D → x ∈ D') (h : Honest D' Q s) :
-    Honest D Q s := by
-  unfold Honest at h ⊢
+/-- Grounded on a larger carrier, grounded on a smaller one; not conversely
+(`grounded_here_not_there`). -/
+theorem grounded_antitone_carrier {D D' : List Nat} {Q : Institution}
+    {s : Nat → Nat} (hsub : ∀ x, x ∈ D → x ∈ D') (h : Grounded D' Q s) :
+    Grounded D Q s := by
+  unfold Grounded at h ⊢
   rw [knows_iff_determined] at h ⊢
   intro x hx y hy hs
   exact h x (hsub x hx) y (hsub y hy) hs
@@ -428,36 +437,36 @@ theorem knows_iff_knowsB (D : List Nat) (Q : Institution) (q : Nat → Nat) :
     rw [decide_eq_true hs, Bool.not_true, Bool.false_or] at h2
     exact of_decide_eq_true h2
 
-/-- Honesty of a given report is decided from the questions and the report,
-by a list computation: an auditor holding both can certify that report. -/
-def honestB (D : List Nat) (Q : Institution) (s : Nat → Nat) : Bool :=
+/-- Grounding of a given report is decided from the questions and the
+report, by a list computation: an auditor holding both can certify it. -/
+def groundedB (D : List Nat) (Q : Institution) (s : Nat → Nat) : Bool :=
   knowsB D Q s
 
-theorem honest_iff_honestB (D : List Nat) (Q : Institution) (s : Nat → Nat) :
-    Honest D Q s ↔ honestB D Q s = true :=
+theorem grounded_iff_groundedB (D : List Nat) (Q : Institution) (s : Nat → Nat) :
+    Grounded D Q s ↔ groundedB D Q s = true :=
   knows_iff_knowsB D Q s
 
-/-- For every question the honest answer exists: report it, or demur with the
-witness pair. -/
-theorem honest_or_demur (D : List Nat) (Q : Institution) (q : Nat → Nat) :
-    Honest D Q q ∨ ∃ x, x ∈ D ∧ ∃ y, y ∈ D ∧ SigEq Q x y ∧ q x ≠ q y :=
+/-- For every question a grounded answer exists: report it, or demur with
+the witness pair. -/
+theorem grounded_or_demur (D : List Nat) (Q : Institution) (q : Nat → Nat) :
+    Grounded D Q q ∨ ∃ x, x ∈ D ∧ ∃ y, y ∈ D ∧ SigEq Q x y ∧ q x ≠ q y :=
   know_or_witness D Q q
 
-/-- **Reports alone certify nothing.**  The same report is honest for one
-institution and self-deception for another; certification is relative to the
+/-- **Reports alone certify nothing.**  The same report is grounded for one
+institution and ungrounded for another; certification is relative to the
 presented questions. -/
 theorem reports_do_not_certify :
-    Honest [0, 1] [fun x => x] (fun x => x) ∧
-    ¬ Honest [0, 1] [] (fun x => x) := by
-  unfold Honest
+    Grounded [0, 1] [fun x => x] (fun x => x) ∧
+    ¬ Grounded [0, 1] [] (fun x => x) := by
+  unfold Grounded
   decide
 
-/-- **Honesty is never certified ahead of the carrier.**  A report honest on
-`[0, 1]` is self-deception once `2` is admitted. -/
-theorem honest_here_not_there :
-    Honest [0, 1] [fun x => x % 2] (fun x => x) ∧
-    ¬ Honest [0, 1, 2] [fun x => x % 2] (fun x => x) := by
-  unfold Honest
+/-- **Grounding is never certified ahead of the carrier.**  A report
+grounded on `[0, 1]` is ungrounded once `2` is admitted. -/
+theorem grounded_here_not_there :
+    Grounded [0, 1] [fun x => x % 2] (fun x => x) ∧
+    ¬ Grounded [0, 1, 2] [fun x => x % 2] (fun x => x) := by
+  unfold Grounded
   decide
 
 /-! ## 7. A guess, and who sees it -/
@@ -513,20 +522,20 @@ theorem guess_visible_iff {Q : Institution} {p : Nat → Nat} {x y : Nat}
     exact hne (hs r hr)
 
 /-- **A shared guess.**  If no member splits the pair, a family endorsing the
-report is self-deceived too: nobody steps back. -/
+report is ungrounded too: nobody steps back. -/
 theorem shared_guess {D : List Nat} {Q : Institution} {s : Nat → Nat}
     {x y : Nat} (hx : x ∈ D) (hy : y ∈ D) (hs : SigEq Q x y)
-    (hne : s x ≠ s y) : ¬ Honest D Q s :=
-  (self_deceived_iff_witness D Q s).mpr ⟨x, hx, y, hy, hs, hne⟩
+    (hne : s x ≠ s y) : ¬ Grounded D Q s :=
+  (ungrounded_iff_witness D Q s).mpr ⟨x, hx, y, hy, hs, hne⟩
 
 /-- Witness on four points: `half` guesses the identity, the family with
-`parity` checks it and holds it honestly, the family of `half` alone shares
+`parity` checks it and holds it grounded, the family of `half` alone shares
 the guess. -/
 theorem guess_witness :
     Guess [0, 1, 2, 3] half (fun x => x) ∧
-    Honest [0, 1, 2, 3] [half, parity] (fun x => x) ∧
-    ¬ Honest [0, 1, 2, 3] [half] (fun x => x) := by
-  unfold Guess Honest
+    Grounded [0, 1, 2, 3] [half, parity] (fun x => x) ∧
+    ¬ Grounded [0, 1, 2, 3] [half] (fun x => x) := by
+  unfold Guess Grounded
   decide
 
 end Reading

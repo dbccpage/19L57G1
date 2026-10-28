@@ -2,24 +2,54 @@
 
 AuthorityEffect: None.
 
-Statuses: READING (a declared reading of a word, not derived); PROVED_THEOREM
-(a Lean declaration named in `TREE_CONTRACT.json`, axioms within
-`{propext, Quot.sound}`); VERIFIED_FINITE (checked by `model.py` on the
-instances named, nothing beyond them); OPEN; REFUTED (a reading shown not to
-say what its word says, with the witness).  A withdrawn statement keeps its
-row with a dated note; nothing recorded here is silently rewritten.
+Statuses, as the research-tree contract (`ci/check_new_research_trees.py`)
+admits them: PROVED_THEOREM (a Lean declaration named in
+`TREE_CONTRACT.json`, axioms within `{propext, Quot.sound}`);
+VERIFIED_FINITE (checked by `model.py` on the instances named, nothing
+beyond them); CONDITIONAL (not used in this ledger); OPEN; REFUTED (a reading
+shown not to say what its word says, with the witness).  A withdrawn
+statement keeps its row with a dated note; nothing recorded here is silently
+rewritten.
+
+## Declared readings (not claims)
+
+The two readings below were carried as table rows with the status READING
+until 2026-10-28.  READING is not a status of the contract, and the
+contract's gate rejected the rows when the repository suite was first run on
+this tree that day.  They stand here in prose, unchanged in substance except
+for the rename recorded in TT-R2.
+
+**TT-R1.**  An actor is a presentation `Nat → Nat` on a carrier `D`; an
+observer is an evaluator; an institution is a question family; information
+is `classCount`; knowledge is `FactorsOn D (pQ D Q) q`; wisdom at question
+level is know-or-witness; the admitted carrier is `List.range r.data`.
+Withdrawn in part, 2026-10-28: know-or-witness is not a reading of wisdom,
+see TT-34; the rest stands.  Evidence: `README.md`, Declared vocabulary.
+
+**TT-R2.**  2026-10-28, from the author's statements: a grounded report is a
+known one, `Grounded D Q s := Knows D Q s` (named `Honest` until the review
+of the same day; `Grounded` is provisional vocabulary); a guess is a report
+the actor's own question does not determine, `Guess D p s := ¬ Knows D [p] s`;
+an actor is consistent with an observer when every reported separation is
+the actor's (one direction only); the residuals of a question are the merged
+pairs on which it differs.  Grounding is a proposal for the author's "not
+deceiving oneself", not a derivation of it, and not a notion of truth: a
+report is grounded by being admitted (`self_report_grounded`,
+`member_report_grounded`), whatever it says of anything outside the
+questions.  Evidence: `README.md`, Wisdom, re-examined; `Reading.lean`.
+
+## Claims
 
 | Claim | Status | Statement | Evidence |
 |---|---|---|---|
-| TT-R1 | READING | An actor is a presentation `Nat → Nat` on a carrier `D`; an observer is an evaluator; an institution is a question family; information is `classCount`; knowledge is `FactorsOn D (pQ D Q) q`; wisdom at question level is know-or-witness; the admitted carrier is `List.range r.data`.  (Withdrawn in part, 2026-10-28: know-or-witness is not a reading of wisdom, see TT-34; the rest stands.) | `README.md`, Declared vocabulary |
-| TT-R2 | READING | 2026-10-28, from the author's statements: an honest report is a known one, `Honest D Q s := Knows D Q s`; a guess is a report the actor's own question does not determine, `Guess D p s := ¬ Knows D [p] s`; an actor is consistent with an observer when every reported separation is the actor's; the residuals of a question are the merged pairs on which it differs.  Honesty is a proposal for the author's "not deceiving oneself", not a derivation of it. | `README.md`, Wisdom, re-examined; `Reading.lean` |
 | TT-01 | PROVED_THEOREM | An observer merges two points exactly when they have the same signature on its questions. | `verdictB_false_iff_sigEq` |
 | TT-02 | PROVED_THEOREM | Observed separation never holds of a point and itself; a separating view says nothing of a third point. | `sep_irrefl`, `verdict_irrefl`, `sep_witness_ne`, `separation_fact_not_law` |
 | TT-03 | PROVED_THEOREM | `Sharp D E p` is Genesis fiber identity, and presentation identity, between `p` and the observer's canonical compression. | `sharp_iff_fiberIdentity`, `sharp_iff_presentationIdentity` |
 | TT-04 | PROVED_THEOREM | Any Boolean an observer computes of two points depends only on their signatures; among any `2^m + 1` points an `m`-view observer merges a pair. | `verdict_ceiling`, `resolution_ceiling`, `not_sharp_of_many_fibers` |
 | TT-05 | PROVED_THEOREM | An actor on `D` has a sharp `m`-view observer exactly when it has at most `2^m` fibers; the bit observer of its fiber index is one. | `sharp_observable_iff`, `sharp_observable_of_fibers_le`, `not_sharp_observable_of_fibers_gt`, `bitObserver_sharp` |
-| TT-05c | VERIFIED_FINITE | TT-05 over every presentation and every `m`-view observer, `|D| ∈ {3, 4}`, `m ∈ {1, 2}`; `bitObserver` sharp in every admitted case. | `model.resolution_check`, `tests/test_model.py::test_resolution` |
-| TT-06 | PROVED_THEOREM | An observer is adequate for every question exactly when it separates all distinct carrier points; `m` views cannot on more than `2^m` points. | `absolute_observer_iff`, `no_absolute_observer_of_large_carrier` |
+| TT-05c | VERIFIED_FINITE | TT-05 over every presentation and every `m`-view observer, `D` of size 3 or 4, `m` of 1 or 2; `bitObserver` sharp in every admitted case. | `model.resolution_check`, `tests/test_model.py::test_resolution` |
+| TT-06 | PROVED_THEOREM | Absolute observation is carrier-relative: an observer is adequate for every question exactly when it separates all distinct carrier points; on the two-point carrier the one-view observer `[[0]]` is absolute; `m` views cannot be on more than `2^m` points.  There is no observer absolute on every carrier.  (Reworded 2026-10-28: the README's heading "no absolute observer" overstated the theorem.) | `absolute_observer_iff`, `absolute_observer_two_points`, `no_absolute_observer_of_large_carrier` |
+| TT-06c | VERIFIED_FINITE | TT-06 with adequacy checked over every table: every one-view observer on three points (none absolute), every two-view observer on four points (24 of 256 absolute), the two-point witness and its three-point failure. | `model.absolute`, `model.absolute_checks`, `tests/test_model.py::test_absolute_observer_is_carrier_relative` |
 | TT-07 | PROVED_THEOREM | At `(k, d) ∈ {(1,0), (2,0), (3,0), (2,1), (3,1), (2,2)}` Genesis's capacity size `k^(2d+1) + 2d + 2` is exact: forced collision at it, an interior-injective `d`-local view one below it. | `tight_1_0` … `tight_2_2`, `exact_threshold` |
 | TT-07c | VERIFIED_FINITE | The window-distinct construction gives an interior-injective colouring one below the size for every `k ≤ 4`, `d ≤ 2` with `k^(2d+1) ≤ 1100`; exhaustive forced collision at the size for `(2,0)`, `(3,0)`, `(2,1)`; the six Lean lists are the construction's output. | `model.tight`, `model.forced_collision_exhaustive`, `test_lean_lists_are_the_construction` |
 | TT-07o | OPEN | Exactness of the capacity size for all `k ≥ 1`, `d ≥ 0`. | not in Lean; the construction is general but unproved |
@@ -32,9 +62,10 @@ row with a dated note; nothing recorded here is silently rewritten.
 | TT-14 | PROVED_THEOREM | The information of `m` views is at most `2^m`. | `information_le_resolution` |
 | TT-15 | PROVED_THEOREM | For every question, knowledge or a witness pair of ignorance, constructively, on every represented carrier.  (Note, 2026-10-28: this holds for every institution, so it is witness availability, not wisdom; see TT-34.) | `know_or_witness`, `wise_of_represented` |
 | TT-15c | VERIFIED_FINITE | TT-08 to TT-13 and TT-15 over eleven families from a four-question pool on four points; panels over every pair of one-view observers on three points. | `model.knowledge_checks`, `model.panel_checks`, `model.mutual_knowledge_check` |
-| TT-16 | PROVED_THEOREM | No evaluator on a code set realises every Boolean function of the codes; a finite catalogue misses its diagonal.  (Note, 2026-10-28: `catalogue_incomplete`, which quantified over an infinite enumeration of catalogues, was removed under the author's finitude rule; the finite statement carries the claim.) | `no_closed_self_interpreter`, `diag_not_member` |
+| TT-16 | PROVED_THEOREM | No evaluator on a code set realises every Boolean function of the codes; the finite form on codes `Fin n` is a corollary; a finite catalogue misses its diagonal.  (Note, 2026-10-28: `catalogue_incomplete`, which quantified over an infinite enumeration of catalogues, was removed under the author's finitude rule.  `no_closed_self_interpreter` itself is metatheory over any type `C`, infinite ones included; `no_closed_self_interpreter_fin` is the internal form.) | `no_closed_self_interpreter`, `no_closed_self_interpreter_fin`, `diag_not_member` |
 | TT-17 | PROVED_THEOREM | The diagonal of the `mod` catalogue is known on `[0,1,2,3]` to the catalogue of size 3 and unknown to the one of size 2: membership incompleteness is universal, knowledge incompleteness contingent. | `diag_known_witness`, `diag_unknown_witness`, `membership_vs_knowledge` |
-| TT-18 | PROVED_THEOREM | For every list of codes there is a world function that differs in support from every coded one (the tower persists operationally). | `tower_persists_operational` |
+| TT-18 | PROVED_THEOREM | For every list of codes there is a world function that differs in support from every coded one.  The function is unrestricted: `opDiag` appends a datum under `.note`, which the declared transition `step` never does, so it is no interpreter and no lawful transition.  (Qualified 2026-10-28: the earlier row and the README read it as "the operational tower statement".) | `tower_persists_operational`, `opDiag_appends`, `opDiag_not_lawful`, `step_note_data` |
+| TT-18L | PROVED_THEOREM | A function lawful on the represented support (agreeing with `step` there everywhere) escapes a catalogue exactly when no code of the catalogue is lawful, the escaping function being `step` itself; one lawful code closes the escape.  So a lawful diagonal exists only against catalogues that implement the transition nowhere. | `Lawful`, `step_lawful`, `lawful_escape_iff`, `lawful_no_escape` |
 | TT-18o | OPEN | A denotational bridge to interpreters. | as in the sealed `InterpreterBoundary` |
 | TT-19 | PROVED_THEOREM | A merged pair is collapsed under every observer; the constant map collapses every pair and is not faithful on two points. | `collapsed_of_merged`, `constant_collapses_all`, `constant_not_faithful` |
 | TT-20 | PROVED_THEOREM | Faithfulness is fiber identity with the identity; the institution's actor is faithful exactly when the institution knows the identity; the empty institution's actor is constant. | `faithful_iff_fiberIdentity`, `faithful_actor_iff`, `empty_actor_constant`, `empty_actor_not_faithful` |
@@ -46,19 +77,22 @@ row with a dated note; nothing recorded here is silently rewritten.
 | TT-24 | PROVED_THEOREM | Verdicts are monotone in views; a regime that collapses a pair an earlier regime separated has lost or altered a view; one rule admission does so on two data. | `verdict_mono`, `recollapse_changes_views`, `R0_separable`, `R0rule_collapsed`, `recollapse_witness`, `recollapse_witness_changes_views` |
 | TT-24c | VERIFIED_FINITE | TT-22 to TT-24 on five small regimes with contexts enumerated in Python; view monotonicity over every one-view observer on three points. | `model.bridge_checks`, `model.recollapse_witness`, `model.verdict_mono_check` |
 | TT-25 | OPEN | The author's own statements of the two theorems; this ledger is to be re-mapped against them when received. | `README.md`, The two statements |
-| TT-26 | PROVED_THEOREM | A question unknown to a family and known to a larger one forces a strict rise of information; no member knows what the family does not; whoever knows the unknown question splits a pair the family merges. | `extension_forced`, `member_ignorant_of_family`, `finder_separates` |
-| TT-27 | PROVED_THEOREM | An observer that merges two distinct points cannot read the actor's resolution there: two actors consistent with all its verdicts exist, one merging the pair and one splitting it; the institution's actor and every sharp actor are consistent. | `observer_cannot_read_resolution`, `actor_consistent`, `markOne_consistent`, `sharp_consistent` |
+| TT-26 | PROVED_THEOREM | A question unknown to a family and known to a larger one is known only at a strict rise of information: the theorem prices an extension and compels none (renamed from `extension_forced` on 2026-10-28, after review); no member knows what the family does not; whoever knows the unknown question splits a pair the family merges. | `knowledge_gain_requires_refinement`, `member_ignorant_of_family`, `finder_separates` |
+| TT-27 | PROVED_THEOREM | An observer that merges two distinct points cannot read the actor's resolution there: two actors consistent with all its verdicts exist, one merging the pair and one splitting it; the institution's actor and every sharp actor are consistent.  `Consistent` is one-directional (every reported separation is the actor's), and the statement is about verdicts on the carrier, not about an interaction through a transcript (TT-39o). | `observer_cannot_read_resolution`, `actor_consistent`, `markOne_consistent`, `sharp_consistent` |
 | TT-28 | PROVED_THEOREM | The residuals of a question are the merged pairs on which it differs; they are empty exactly when it is known; listening never adds one; a residual goes exactly when some new question splits its pair. | `mem_residuals`, `residuals_nil_iff`, `residuals_antitone`, `residual_removed_iff` |
 | TT-29 | PROVED_THEOREM | A sub-family nested as its own actor is the flat family, in knowledge and in information; a family one member of which knows every other has that member's information. | `nest_inert`, `nest_information`, `participation_collapse` |
-| TT-30 | PROVED_THEOREM | Knowledge depends only on values on the carrier; the institution's actor stays on the carrier; knowing a question is knowing its canonical representative, a table `D → D`, so quantifiers over all questions range over finitely many tables. | `knows_congr`, `knows_member_congr`, `pQ_mem`, `knows_iff_knows_pQ` |
-| TT-31 | PROVED_THEOREM | A report is honest exactly when it claims no distinction the questions cannot make; self-deception is a merged pair the report splits; silence, the actor and every member report honestly; honesty is monotone in the questions, antitone in the carrier, decided by `honestB`, and every report is honest or has a witness of its over-claim. | `honest_iff_no_overclaim`, `self_deceived_iff_witness`, `silence_honest`, `self_report_honest`, `member_report_honest`, `honest_mono`, `honest_antitone_carrier`, `knows_iff_knowsB`, `honest_iff_honestB`, `honest_or_demur` |
-| TT-32 | PROVED_THEOREM | No external certificate of honesty: the identity is honest for the institution that asks it and dishonest for the empty one; honest on two points and dishonest on three. | `reports_do_not_certify`, `honest_here_not_there` |
-| TT-33 | PROVED_THEOREM | A guess has a witness pair; the guessing actor never locates its own guess; the family locates it exactly when another member splits the pair; a shared guess is the family's self-deception; `half` guesses the identity on four points and `parity` locates it. | `guess_iff_witness`, `own_guess_invisible`, `guess_visible_iff`, `shared_guess`, `guess_witness` |
-| TT-33c | VERIFIED_FINITE | TT-26, TT-28, TT-29 over the eleven families of the four-question pool on four points; TT-27 over every one-view observer on three points and every two-view observer on four; TT-30 and know-or-witness over all `27` tables on three points; TT-31, TT-32 on three points over all tables; TT-33 on four points. | `model.extension_checks`, `model.cannot_read_checks`, `model.residual_checks`, `model.nest_checks`, `model.finite_question_space`, `model.honesty_checks`, `model.guess_checks` |
+| TT-30 | PROVED_THEOREM | Knowledge depends only on values on the carrier; the institution's actor stays on the carrier; knowing a question is knowing its canonical representative, a table `D → D`, so quantifiers over all questions range over finitely many tables (as many as functions on the carrier when it lists each point once). | `knows_congr`, `knows_member_congr`, `pQ_mem`, `knows_iff_knows_pQ` |
+| TT-31 | PROVED_THEOREM | A report is grounded exactly when it claims no distinction the questions cannot make; an ungrounded report splits a merged pair, its witness; silence, the actor and every member report grounded, so admission grounds; grounding is monotone in the questions, antitone in the carrier, decided by `groundedB`, and every report is grounded or has a witness of its over-claim.  (Named `Honest` until 2026-10-28; `Grounded` is provisional vocabulary, not truth and not honesty.) | `grounded_iff_no_overclaim`, `ungrounded_iff_witness`, `silence_grounded`, `self_report_grounded`, `member_report_grounded`, `grounded_mono`, `grounded_antitone_carrier`, `knows_iff_knowsB`, `grounded_iff_groundedB`, `grounded_or_demur` |
+| TT-32 | PROVED_THEOREM | No external certificate of grounding: the identity is grounded for the institution that asks it and ungrounded for the empty one; grounded on two points and ungrounded on three. | `reports_do_not_certify`, `grounded_here_not_there` |
+| TT-33 | PROVED_THEOREM | A guess has a witness pair; the guessing actor never locates its own guess; the family locates it exactly when another member splits the pair; a guess every member shares is the family's own ungrounded report; `half` guesses the identity on four points and `parity` locates it. | `guess_iff_witness`, `own_guess_invisible`, `guess_visible_iff`, `shared_guess`, `guess_witness` |
+| TT-33c | VERIFIED_FINITE | TT-26, TT-28, TT-29 over the eleven families of the four-question pool on four points; TT-27 over every one-view observer on three points and every two-view observer on four; TT-30 and know-or-witness over all `27` tables on three points; TT-31, TT-32 on three points over all tables; TT-33 on four points. | `model.extension_checks`, `model.cannot_read_checks`, `model.residual_checks`, `model.nest_checks`, `model.finite_question_space`, `model.grounding_checks`, `model.guess_checks` |
 | TT-34 | REFUTED | `Wise D Q` reads wisdom.  Witness: it holds for every institution on every represented carrier, so it distinguishes no institution from another; it is witness availability.  Recorded 2026-10-28 against the author's statement that wisdom is knowing when to demur and not deceiving oneself. | `wise_of_represented`; `README.md`, Wisdom, re-examined |
-| TT-35o | OPEN | A chain of families longer than the carrier has an inert level (information monotone along the chain and bounded by `\|D\|`); whether this is the author's "crash by compression" of a self-similar hierarchy. | not in Lean; `information_mono`, `information_le_carrier` are the ingredients |
+| TT-35o | OPEN | A chain of families longer than the carrier has an inert level (information monotone along the chain and bounded by the size of `D`); whether this is the author's "crash by compression" of a self-similar hierarchy. | not in Lean; `information_mono`, `information_le_carrier` are the ingredients |
 | TT-36o | OPEN | The author's hypotheses of 2026-10-28, degradation by guessing without an institution and intelligence requiring institutional structure, as statements about minds or institutions in the world. | `README.md`, The author's hypotheses; proved fragments TT-29, TT-33 |
-| TT-37o | OPEN | Whether an actor can run `honestB` on its own reports; the quotation boundary of `research/interpreter_verdict`. | not decided here |
+| TT-37o | OPEN | Whether an actor can run `groundedB` on its own reports; the quotation boundary of `research/interpreter_verdict`. | not decided here |
+| TT-38o | OPEN | An admitted fidelity condition under which an unresolved question *requires* extending the family.  TT-26 prices such an extension and compels none; what would force it is not stated in Genesis's objects here. | not in Lean; raised by the review of 2026-10-28 |
+| TT-39o | OPEN | An interaction protocol (actor, interaction, transcript) under which "one cannot know how intelligent another is" becomes a statement about transcripts rather than about verdicts on the carrier. | not in Lean; raised by the review of 2026-10-28 |
+| TT-40o | OPEN | A diagonal under a transition contract weaker than support-lawfulness (agreement with `step` on some events, or on the data alone), and whether any such contract admits a diagonal that escapes every catalogue with a lawful code. | not in Lean; TT-18L settles the support-lawful case |
 
 Lean reach: only the declarations named in `TREE_CONTRACT.json` are
 checked by `verify.py`; every one of them reports axioms within

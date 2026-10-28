@@ -6,7 +6,7 @@ A research tree outside the sealed derivation.  It consumes seven sealed
 modules read-only (`input.json`), adds nothing to `lean4/`, and proves its
 statements in core Lean 4.33 with no library beyond the sealed package.  Every
 `#print axioms` report lies within `{propext, Quot.sound}`; the tree uses no
-choice principle anywhere (`verify.py --check`, 119 declarations).
+choice principle anywhere (`verify.py --check`, 127 declarations).
 
 This tree proves nothing about minds, intelligences or institutions in the
 world.  It fixes a reading of two proposed theorems in Genesis's own objects
@@ -29,7 +29,8 @@ reading differs is to be marked.
 ## Declared vocabulary
 
 Each word on the left is read as the Genesis object on the right.  The
-reading is a choice (status READING in `CLAIMS.md`); nothing here derives it.
+reading is a choice, declared in `CLAIMS.md` above its claims table (TT-R1,
+TT-R2); nothing here derives it.
 
 | word | object | where |
 |---|---|---|
@@ -43,7 +44,7 @@ reading is a choice (status READING in `CLAIMS.md`); nothing here derives it.
 | information | `classCount D Q`, the number of signature classes on the carrier | sealed `Compression` |
 | knowledge | `Knows D Q q := FactorsOn D (pQ D Q) q`: the question is a function of the institution's actor | `Institution.lean` |
 | wisdom (question level; withdrawn as a reading of wisdom, 2026-10-28) | `Wise D Q`: for every question, knowledge or a witness pair of the ignorance.  It holds for every institution (`wise_of_represented`), so it names witness availability, not a virtue; see Wisdom, re-examined | `Institution.lean` |
-| honest report (proposal, 2026-10-28) | `Honest D Q s := Knows D Q s`: the report claims no distinction the institution's questions cannot make; silence and under-claiming are permitted | `Reading.lean` |
+| grounded report (proposal, 2026-10-28; named `Honest` until the review of that day) | `Grounded D Q s := Knows D Q s`: the report claims no distinction the institution's questions cannot make; silence and under-claiming are permitted.  Relative to the questions and the carrier; a report is grounded by being admitted; not truth, honesty or wisdom | `Reading.lean` |
 | guess | `Guess D p s := ¬ Knows D [p] s`: a report the actor's own question does not determine | `Reading.lean` |
 | consistent actor | `Consistent D E p`: every separation the observer reports is one of the actor's | `Reading.lean` |
 | residuals of ignorance | `residuals D Q q`: the pairs the institution merges on which the question differs | `Reading.lean` |
@@ -69,10 +70,15 @@ claim with its evidence.
   observer exactly when it has at most `2^m` fibers (`sharp_observable_iff`,
   with the witness `bitObserver_sharp` and the refutation
   `not_sharp_observable_of_fibers_gt`).
-- No absolute observer: an observer is adequate for every question exactly
-  when it separates every pair of distinct carrier points, which `m` views
-  cannot do on more than `2^m` points (`absolute_observer_iff`,
-  `no_absolute_observer_of_large_carrier`).
+- Absolute observation is carrier-relative: an observer is adequate for
+  every question exactly when it separates every pair of distinct carrier
+  points (`absolute_observer_iff`).  On the two-point carrier the one-view
+  observer `[[0]]` is absolute (`absolute_observer_two_points`); `m` views
+  cannot be on more than `2^m` points
+  (`no_absolute_observer_of_large_carrier`).  No observer is absolute on
+  every carrier, and none is once the carrier outgrows its views.  (The
+  heading "no absolute observer" that stood here overstated the theorem;
+  corrected 2026-10-28.)
 
 **Capacity.lean, Theorem I(d).**  Genesis's capacity bound says a `d`-local
 view over `k` colours collides on the interior of any carrier of size
@@ -115,12 +121,24 @@ statement for all `k`, `d` is not in Lean (see Open).
 
 **Diagonal.lean, the interpreter level.**  No evaluator on a code set
 realises every Boolean function of the codes
-(`no_closed_self_interpreter`); a finite catalogue of presentations misses
+(`no_closed_self_interpreter`; the finite form on codes `Fin n` is
+`no_closed_self_interpreter_fin`); a finite catalogue of presentations misses
 its own diagonal (`diag_not_member`), yet the diagonal can be known or
 unknown to the catalogue depending on its size (`diag_known_witness`,
 `diag_unknown_witness`, `membership_vs_knowledge`): membership
-incompleteness is universal, knowledge incompleteness is contingent.  The
-operational tower statement is ported (`tower_persists_operational`).  A
+incompleteness is universal, knowledge incompleteness is contingent.
+`tower_persists_operational` is a diagonal over *unrestricted* world
+functions: `opDiag` appends a datum under `.note`, which the declared
+transition `step` never does (`opDiag_appends`, `opDiag_not_lawful`,
+`step_note_data`), so it is no interpreter and no lawful transition, and the
+statement is weaker than the words "the operational tower statement" that
+stood here (qualified 2026-10-28).  Under the contract that a function agree
+with `step` on the represented support (`Lawful`, `step_lawful`), a lawful
+function escapes a catalogue exactly when no code of the catalogue is lawful
+(`lawful_escape_iff`; the escaping function is `step` itself), and one
+lawful code closes the escape (`lawful_no_escape`).  So the lawful tower
+statement is no theorem against a catalogue that implements the transition
+anywhere; contracts weaker than support-lawfulness are open (TT-40o).  A
 statement quantifying over an infinite enumeration of catalogues was removed
 on 2026-10-28 under the finitude rule (see Finitude); nothing cited it.
 
@@ -164,16 +182,24 @@ declared reading.
 
 - *An intelligence bigger than its sources finds a pattern no actor and no
   institution knew, and forces the presentation family to extend.*  A
-  question unknown to a family and known to a larger one forces a strict
-  rise of information (`extension_forced`); no member knows what the family
-  does not (`member_ignorant_of_family`); whoever knows the unknown question
-  splits a pair the family merges (`finder_separates`).
+  question unknown to a family and known to a larger one is known only at a
+  strict rise of information (`knowledge_gain_requires_refinement`, named
+  `extension_forced` until 2026-10-28: the theorem prices an extension and
+  compels none); no member knows what the family does not
+  (`member_ignorant_of_family`); whoever knows the unknown question splits a
+  pair the family merges (`finder_separates`).  What would make the
+  extension *forced*, an admitted fidelity condition under which an
+  unresolved question requires it, is open (TT-38o).
 - *One cannot know how intelligent another being is.*  An observer that
   merges two points cannot read the actor's resolution there: two actors
   consistent with every verdict it gives exist, one merging the pair and one
   splitting it (`observer_cannot_read_resolution`, with `Consistent`,
   `actor_consistent`, `markOne_consistent`).  A sharp observer is consistent
   (`sharp_consistent`); the converse fails by the same witness.
+  `Consistent` is one-directional (every reported separation is the actor's;
+  the actor may separate more), and the theorem is about verdicts on the
+  carrier, not about an actor interacting with an observer through a
+  transcript.  That protocol is not modelled here (TT-39o).
 - *A quality institution can listen and not judge, hold the obstructions and
   let them stay.*  The residuals of a question are the merged pairs on which
   it differs (`residuals`, `mem_residuals`); they are empty exactly when the
@@ -191,12 +217,13 @@ declared reading.
   institution's actor stays on the carrier (`pQ_mem`); knowing a question is
   knowing its canonical representative (`knows_iff_knows_pQ`), a table
   `D → D`.  So every quantifier over "all questions" in this tree ranges, up
-  to this equivalence, over the `|D|^|D|` tables on the carrier.
-- Honesty (see Wisdom, re-examined): `honest_iff_no_overclaim`,
-  `self_deceived_iff_witness`, `silence_honest`, `self_report_honest`,
-  `member_report_honest`, `honest_mono`, `honest_antitone_carrier`,
-  `knows_iff_knowsB`, `honest_iff_honestB`, `honest_or_demur`,
-  `reports_do_not_certify`, `honest_here_not_there`.
+  to this equivalence, over the tables on the carrier, `|D|^|D|` of them
+  when `D` lists each point once.
+- Grounded reports (see Wisdom, re-examined): `grounded_iff_no_overclaim`,
+  `ungrounded_iff_witness`, `silence_grounded`, `self_report_grounded`,
+  `member_report_grounded`, `grounded_mono`, `grounded_antitone_carrier`,
+  `knows_iff_knowsB`, `grounded_iff_groundedB`, `grounded_or_demur`,
+  `reports_do_not_certify`, `grounded_here_not_there`.
 - Guessing (see The author's hypotheses): `guess_iff_witness`,
   `own_guess_invisible`, `guess_visible_iff`, `shared_guess`,
   `guess_witness`.
@@ -223,10 +250,13 @@ four-question pool on four points (extension, residuals, nesting,
 participation collapse); over every one- and two-view observer on three and
 four points (for every merged pair, a consistent actor that merges it and
 one that splits it); over every table on three points (the finite question
-space, know-or-witness over all `27` tables, honesty monotone in the
+space, know-or-witness over all `27` tables, grounding monotone in the
 questions and antitone in the carrier); and on the guess witness (`half`,
 `parity` and the identity on four points).  The results are under
-`run_all()["reading_2026_10_28"]`.
+`run_all()["reading_2026_10_28"]`.  The absolute-observer check (adequacy
+over every table against separation of every pair, for every one-view
+observer on three points and every two-view observer on four; the two-point
+witness and its three-point failure) is under `run_all()["absolute"]`.
 
 ## What is conditional
 
@@ -253,7 +283,7 @@ quantifier in the tree was audited against it.
 | `Nat → Nat` as the name of a presentation | metatheory | a presentation is read only on `D` (`knows_congr`); no theorem consults a value off `D` |
 | `D`, `admitted r`, views, evaluators, institutions, `catalogue code n`, `classes`, every count | internal, finite | lists; every theorem is guarded by `x ∈ D` or `a < r.data` |
 | `∀ q : Nat → Nat` in `Knows`, `Wise`, `absolute_observer_iff` | internal after reduction | `knows_iff_knows_pQ` and `pQ_mem` reduce it to the `\|D\|^\|D\|` tables `D → D`, which the model enumerates |
-| the type variable `C` in `no_closed_self_interpreter`, `tower_persists_operational` | metatheory | a parameter of the statement, instantiated at finite code lists; nothing is asserted of an infinite `C` |
+| the type variable `C` in `no_closed_self_interpreter`, `tower_persists_operational`, `lawful_escape_iff` | metatheory | a parameter of the statement, ranging over every type, infinite ones included; the internal forms are `no_closed_self_interpreter_fin` on codes `Fin n` and the finite code lists the other two take.  (Corrected 2026-10-28: this row said nothing was asserted of an infinite `C`, which is false of the general theorem.) |
 | `sep_irrefl`, `verdict_irrefl`, `collapsed_of_merged`, `constant_collapses_all` over all of `Nat` | metatheory | `Bool` computations on the construction, true pointwise; they assert no law of a regime (see Fact against law) |
 | `code : Nat → Nat → Nat` in `Diagonal.lean` | metatheory | an enumeration scheme of which only `List.range n` is ever used |
 
@@ -278,25 +308,36 @@ a judgment was good; wisdom is not deceiving oneself.
   distinguishes nothing; it names witness availability, for every question
   either knowledge or a pair that shows the ignorance.  TT-15 stays proved;
   its vocabulary row is withdrawn.
-- **Proposal** (READING, TT-R2): `Honest D Q s := Knows D Q s`.  A report is
-  honest when it claims no distinction the institution's questions cannot
-  make (`honest_iff_no_overclaim`); self-deception is a merged pair the
-  report splits (`self_deceived_iff_witness`).  Demurral is honest: silence,
-  the institution's own actor and every member's report are honest
-  (`silence_honest`, `self_report_honest`, `member_report_honest`).
-  Listening never makes an honest report dishonest (`honest_mono`); nor does
-  a smaller carrier (`honest_antitone_carrier`).  Honesty is decided from the
-  carrier (`honestB`, `honest_iff_honestB`), and every report is honest or
-  has a witness of its over-claim (`honest_or_demur`).
-- **No external verdict certifies it.**  Honesty is relative to the presented
-  questions: the identity is honest for the institution that asks it and
-  dishonest for the empty institution (`reports_do_not_certify`); and
-  relative to the carrier: honest on two points, dishonest on three
-  (`honest_here_not_there`).  A certificate of honesty says "no over-claim
-  against these questions on this carrier", never "good judgment".  Whether
-  a judgment was good has no measure in this tree, as the author says; the
-  tree claims none.
-- Whether an actor can run `honestB` on its own reports is the quotation
+- **Proposal** (declared reading TT-R2): `Grounded D Q s := Knows D Q s`.
+  A report is grounded when it claims no distinction the institution's
+  questions cannot make (`grounded_iff_no_overclaim`); an ungrounded report
+  splits a merged pair, its witness (`ungrounded_iff_witness`).  Demurral is
+  grounded: silence, the institution's own actor and every member's report
+  are grounded (`silence_grounded`, `self_report_grounded`,
+  `member_report_grounded`).  Listening never makes a grounded report
+  ungrounded (`grounded_mono`); nor does a smaller carrier
+  (`grounded_antitone_carrier`).  Grounding is decided from the carrier
+  (`groundedB`, `grounded_iff_groundedB`), and every report is grounded or
+  has a witness of its over-claim (`grounded_or_demur`).
+- **The vocabulary is provisional.**  The predicate was named `Honest` until
+  the review of 2026-10-28, which observed that a member's report is
+  grounded by admission whatever it says of anything outside the questions
+  (`member_report_grounded`): the predicate is non-overclaiming relative to
+  admitted questions, not honesty and not truth.  In this reading a question
+  is not true or false, so "a false report" has no referent; the limitation
+  is the theorem `reports_do_not_certify`, not a gap beside it.  `Grounded`
+  (determined by the admitted questions) is the tree's word; the author's
+  "not deceiving oneself" is what it proposes to read, and the proposal
+  stands or falls with him.
+- **No external verdict certifies it.**  Grounding is relative to the
+  presented questions: the identity is grounded for the institution that asks
+  it and ungrounded for the empty institution (`reports_do_not_certify`);
+  and relative to the carrier: grounded on two points, ungrounded on three
+  (`grounded_here_not_there`).  A certificate of grounding says "no
+  over-claim against these questions on this carrier", never "good
+  judgment".  Whether a judgment was good has no measure in this tree, as the
+  author says; the tree claims none.
+- Whether an actor can run `groundedB` on its own reports is the quotation
   boundary studied in `research/interpreter_verdict` and is not decided
   here.
 
@@ -315,7 +356,7 @@ splits the pair (`guess_visible_iff`); a guess every member shares is the
 family's own self-deception (`shared_guess`); on four points `half` guesses
 the identity and `parity` locates it (`guess_witness`).  Proposed, not
 proved as a reading: health is growth by views or members, which never loses
-a distinction (`verdict_mono`, `knows_mono`, `honest_mono`,
+a distinction (`verdict_mono`, `knows_mono`, `grounded_mono`,
 `information_mono`); degradation is acting by admission, which can
 (`recollapse_changes_views`, `recollapse_witness`).  Not claimed: that any of
 this is what brains or institutions in the world do.
@@ -334,8 +375,13 @@ begins until he names it and confirms the scope.
 
 ## What does not follow
 
-- No observer is absolute: adequacy for every question needs every pair of
-  distinct points separated, beyond `m` views on more than `2^m` points.
+- No observer is absolute on every carrier: adequacy for every question
+  needs every pair of distinct points separated, beyond `m` views on more
+  than `2^m` points.  On a carrier the views cover an observer can be
+  absolute (`absolute_observer_two_points`).
+- A diagonal over unrestricted world functions is not a diagonal over
+  interpreters (`opDiag_not_lawful`); a lawful diagonal exists only against
+  a catalogue with no lawful code (`lawful_escape_iff`).
 - Unanimous separation is not pooled separation's converse
   (`pooled_not_certPos`).
 - Membership of a catalogue and knowledge by it come apart
@@ -350,9 +396,9 @@ begins until he names it and confirms the scope.
   (`separation_fact_not_law`).
 - An observer's verdicts do not fix the actor's resolution on a merged pair
   (`observer_cannot_read_resolution`); a member does not see its own guess
-  (`own_guess_invisible`); a certificate of honesty does not travel to other
-  questions or a larger carrier (`reports_do_not_certify`,
-  `honest_here_not_there`).
+  (`own_guess_invisible`); a certificate of grounding does not travel to
+  other questions or a larger carrier (`reports_do_not_certify`,
+  `grounded_here_not_there`).
 - Know-or-witness does not single out any institution
   (`wise_of_represented`).
 
@@ -386,19 +432,35 @@ here converts a witnessed off-diagonal separation into a universal one.
   `identification_changes_quiescence`).  The two trees use the words the
   same way.  *Primitive* is Genesis's primitive difference: a witnessed
   difference that identification cannot remove without changing a verdict.
-  *Absolute* is sharp for every presentation, the view from nowhere, which no
-  finite observer is (`absolute_observer_iff`,
-  `no_absolute_observer_of_large_carrier`).  *Closed* is an evaluator
-  realising every Boolean function of its own codes, which none is
+  *Absolute* is adequate for every question on the carrier, which is
+  separating every pair of distinct carrier points (`absolute_observer_iff`):
+  possible on a carrier the views cover (`absolute_observer_two_points`),
+  impossible once the carrier outgrows them
+  (`no_absolute_observer_of_large_carrier`), and nothing is absolute on
+  every carrier.  (Corrected 2026-10-28: the gloss "sharp for every
+  presentation, the view from nowhere" that stood here names a property no
+  observer has on two or more points, since distinct presentations have
+  distinct fiber partitions; it was not the theorem.)  *Closed* is an
+  evaluator realising every Boolean function of its own codes, which none is
   (`no_closed_self_interpreter`).  An interpreter can be primitive without
   being absolute or closed; the trees are compatible, and neither collapses
-  the cosmos to one system.
+  the cosmos to one system.  The two trees' notions of a *lawful* function
+  differ: that tree's `lawful_unique` is the uniqueness of a reflective step
+  under its interpretation and quotation laws, this tree's `Lawful` is
+  agreement with `step` on the represented support; `lawful_escape_iff` is
+  about the second and says nothing of the first.
 
 ## Not claimed
 
 - That the readings above are forced by the author's words.
-- That `Sharp`, `Knows`, `Wise` or `Honest` say anything about intelligence,
-  knowledge, wisdom or honesty beyond the finite objects they name.
+- That `Sharp`, `Knows`, `Wise` or `Grounded` say anything about
+  intelligence, knowledge, wisdom, honesty or truth beyond the finite objects
+  they name; `Grounded` is non-overclaiming relative to admitted questions,
+  and a report is grounded by admission.
+- That `opDiag` is an interpreter or a lawful transition; it is a diagonal
+  over unrestricted world functions (`opDiag_not_lawful`).
+- That `knowledge_gain_requires_refinement` forces anything; it prices a
+  gain of knowledge, and what would force an extension is open (TT-38o).
 - That the author's hypotheses of 2026-10-28 are established; each is
   labelled above with its proved fragment and its proposal.
 - That how intelligent another actor is can be read off a finite observer;
@@ -407,6 +469,53 @@ here converts a witnessed off-diagonal separation into a universal one.
 - That any statement here is a theorem of the sealed derivation: the tree
   consumes the seal and adds to nothing inside it.
 - A denotational bridge to interpreters remains open, as in the seal.
+
+## Corrections of 2026-10-28, after review
+
+A review of the tree at `67fcfe1` (relayed by the author; its findings were
+checked against the source one by one) led to these changes.  Each earlier
+statement is kept above with a dated note where it stood.
+
+1. *Absolute observation.*  "No absolute observer" overstated
+   `absolute_observer_iff`: adequacy for every question is separation of
+   every pair, which an observer can achieve on a carrier its views cover.
+   Added `absolute_observer_two_points` and the model's `absolute_checks`;
+   the gloss "sharp for every presentation" in Relation to other trees was
+   wrong on its own terms and is replaced.
+2. *The diagonal.*  `opDiag` appends a datum under `.note`, which `step`
+   never does; `tower_persists_operational` is a diagonal over unrestricted
+   world functions, not the operational tower statement.  Added
+   `opDiag_appends`, `opDiag_not_lawful`, `step_note_data`, and the lawful
+   form `Lawful`, `step_lawful`, `lawful_escape_iff`, `lawful_no_escape`
+   (TT-18L): a lawful function escapes a catalogue exactly when no code of
+   it is lawful.  Weaker contracts are open (TT-40o).
+3. *Names.*  `extension_forced` is `knowledge_gain_requires_refinement`; it
+   compels no extension.  `Honest` and its theorems are `Grounded`,
+   `grounded_*`, `ungrounded_iff_witness`, `groundedB`; the vocabulary is
+   provisional and is not honesty or truth.  The model's keys and functions
+   follow (`grounding_checks`, `refinement_cases`, `refinement_violations`).
+4. *Finitude.*  `no_closed_self_interpreter` is metatheory over every type
+   `C`, infinite ones included; the row that said nothing was asserted of an
+   infinite `C` is corrected, and `no_closed_self_interpreter_fin` is the
+   internal form.
+5. *Counting tables.*  `|D|^|D|` counts the tables when `D` lists each point
+   once; said so in both places.
+6. *Open questions recorded.*  TT-38o (what would force an extension),
+   TT-39o (an interaction protocol behind "one cannot know how intelligent
+   another is"; `Consistent` is one-directional and the theorem is about
+   verdicts on the carrier), TT-40o (diagonals under weaker transition
+   contracts).
+7. *The claims ledger and the receipts.*  READING was never a status of the
+   research-tree contract; the two readings are now prose above the table,
+   and two rows that carried `|` inside a cell are reworded.  The gate that
+   caught this, `tests/test_new_research_tree_contract.py`, runs in the
+   repository suite, which had **not** been run on this tree at `67fcfe1`
+   although the pull request then said the repository gates had been run
+   locally.  Running it found three reds caused by this tree: the ledger
+   rows above and two stale generated pages (`docs/index/pins.md`,
+   `docs/lean_build_order.md`), all fixed in the same change as these
+   corrections.  Reds in that suite not caused by this tree are listed in the
+   pull request.
 
 ## Layout and how to run
 
@@ -419,6 +528,11 @@ research/two_theorems/
   lean/ResearchTwoTheorems/{Observer,Capacity,Institution,Diagonal,
                             Correspondence,RegimeBridge,Reading,AxiomReport}.lean
 ```
+
+`verify.py --check` is the tree's own receipt.  The repository suite
+(`python -m pytest` at the root) holds the gates that see this tree from
+outside: the research-tree contract, the generated index pages and the
+identifier firewall.
 
 From this directory, with Lean 4.33.0 on the path:
 

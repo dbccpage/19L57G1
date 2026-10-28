@@ -525,7 +525,7 @@ theorem sharp_observable_iff (D : List Nat) (p : Presentation) (m : Nat) :
     exact not_sharp_observable_of_fibers_gt D p m hlt hE
   · exact sharp_observable_of_fibers_le D p m
 
-/-! ## No absolute observer -/
+/-! ## Absolute observation is carrier-relative -/
 
 /-- An observer adequate for every declared question family separates
 every pair of `D` it is asked about — absolute observation is exactly
@@ -559,5 +559,14 @@ theorem no_absolute_observer_of_large_carrier (D : List Nat) (E : Evaluator)
       rw [hxy']
       exact verdict_irrefl E y
   exact not_sharp_observable_of_fibers_gt D (fun x => x) E.length h ⟨E, rfl, hsharp⟩
+
+/-- Absoluteness is carrier-relative.  On two points one view is adequate
+for every question, so "no absolute observer" is false without a carrier;
+what holds is `no_absolute_observer_of_large_carrier`: every `m`-view
+observer fails on a carrier of more than `2 ^ m` points.  (Added
+2026-10-28 after review.) -/
+theorem absolute_observer_two_points :
+    ∀ Q : List (Nat → Nat), Adequate [0, 1] Q (pQ [0, 1] (questions [[0]])) :=
+  (absolute_observer_iff [0, 1] [[0]]).mpr (by decide)
 
 end ResearchTwoTheorems
