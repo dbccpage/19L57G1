@@ -266,6 +266,7 @@ in one template or the other, and this table says which.
 | 52 | The two-point witness is initial, and that is all initiality says | `PrimitiveCats.d2_initial`, `PrimitiveCats.s2_no_hom_to_d2`, `PrimitiveCats.initials_iso`, `PrimitiveCats.two_initials_not_identical`, `PrimitiveCats.larger_not_initial`, `PrimitiveCats.no_terminal_pres`, `PrimitiveCats.no_terminal_pres2` | FROZEN; CONDITIONAL (`s2_initial_sym`, `phom2_unique_of_epi`); OPEN (terminality among surjective presentations) | yes |
 | 53 | The fixed interface a collision meets | `PrimitiveContact.NativeKernel`, `PrimitiveContact.native_kernel_initial`, `PrimitiveContact.native_interface_not_representable`, `PrimitiveContact.contact_status_count` | FROZEN (re-exports); ADMITTED (interface, status strings); VERIFIED_FINITE | yes |
 | 54 | From an asserted difference to a response | `PrimitivePassage.obstP_factors`, `PrimitivePassage.gate_zero_independent`, `PrimitivePassage.assertion_not_retained`, `PrimitivePassage.retention_requires_assertion`, `PrimitivePassage.two_rule`, `PrimitivePassage.extension_resolves`, `PrimitivePassage.terminal_absorbing`, `PrimitivePassage.nextFamilyP_stop` | FROZEN; ADMITTED (the pre-declaration convention and the observation policy, priced by `obst_policies_differ`); VERIFIED_FINITE (fourteen arrow witnesses) | yes |
+| 55 | The first graph is supplied, its observer is created | `HigherStructure.graphAt_spec`, `HigherStructure.round_obstruction`, `HigherStructure.round_two_rule`, `HigherStructure.round_resolution`, `HigherStructure.graphAt_quiescent`, `HigherStructure.ladder_dim2`, `HigherStructure.filling_not_forced`, `HigherStructure.boundary_not_forced` | FROZEN (horizon-free round schema); ADMITTED (driver, cell calculus, sign conventions); VERIFIED_FINITE (`k4`, census, 15 mirrored rounds); OPEN (the ladder as a two-rule statement at every dimension) | yes |
 
 The order follows the derivation. Units 27-53 follow the root import order
 of `lean4/Derivation.lean` (Quot, Counting, CountTransport, Mention,
@@ -273,7 +274,7 @@ TransitionTransport, MinimalityF, RuleBridge, Rounds, Progress, Ext,
 ObserverInventory, Refusal, RefusalFrontier, Generator, SeparationCapacity,
 Pigeonhole, CapacityBound, LocalStrategy, G1Class, DiffInterface, Represented,
 Completion, NoOutside,
-Constitution, Initiality, Horizon, PrimitiveCore, PrimitiveCats, PrimitiveContact, PrimitivePassage); units after 54 continue with HigherStructure.
+Constitution, Initiality, Horizon, PrimitiveCore, PrimitiveCats, PrimitiveContact, PrimitivePassage, HigherStructure); units after 55 continue with Apartness.
 
 ## Parts
 
