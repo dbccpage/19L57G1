@@ -79,6 +79,23 @@ choice. That is not a defect of Lean or of Genesis. It is the boundary the
 programme investigates: how little must be admitted before anything can be
 established, and what each admission buys.
 
+## Outside the system
+
+This whole unit is about what sits outside. Two parties are outside, and
+the book counts both as admitted, never as derived: the external
+constructor (the metatheory and the chosen representation) and the caller
+who presents challenges.
+
+**What the system holds.** Nothing yet. Not even ⟨⟩ is in the ledger in
+reading L (Unit 05).
+
+**What the outside does not bring with it.** Admitting a metatheory does not
+admit its totalities into the system. Lean has unbounded types such as
+`Nat`; the system gets none of them. The constructor is not an observer
+inside the system, and the system gets no viewpoint from it. Whatever the
+system later holds arrives by named admission events, one at a time, each
+with its price (README, **No imports from nowhere**).
+
 ## What this unit establishes, and what it does not
 
 It establishes no mathematical fact. It fixes the reading of every later

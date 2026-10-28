@@ -88,6 +88,51 @@ when datum 1 does, so the regime distinguishes the two data. Every later
 mapping from informal notation to a Genesis structure lists the admissions
 it needs, as this table does.
 
+## No imports from nowhere
+
+This is a standing rule of the book (author, 2026-10-28). Nothing enters the
+system unless it is derived inside the system or admitted at a stated price.
+In particular, the book never brings in from nowhere:
+
+- an **observer**: a viewpoint, reader, measurer or classifier that the
+  system has not admitted;
+- a **container**: a background space, set, universe or totality in which
+  the system's things are supposed to sit;
+- a **continuum**, or any **infinity**: an infinite set of data, of
+  instances, of presentations, of presentation families, of observers, or an
+  unbounded supply of any of them;
+- an **empty thing** treated as present: "the empty set", "the space of all
+  possibilities", or a limit that has not been reached.
+
+The system is never allowed past where it is. At each step it has exactly
+what has been admitted so far: a finite ledger, built by a finite history of
+events. What has not been derived or admitted is not "there but unknown"; it
+is not there.
+
+**Lean is outside the system.** Lean's types (`Nat`, `List`, `Prop`,
+`Type`), its quantifiers (`∀`, `∃`), its equality and its proof checker
+belong to the declared metatheory (`paper/paper.md` §2; Unit 00). `Nat` has
+no largest element and `List Nat` has no longest list, but that is a fact
+about the metatheory's apparatus, not something the system possesses. When
+a theorem says "for every instance `i : Inst`", the quantifier ranges over a
+Lean type: it is a statement the metatheory makes *about* the system, one
+case at a time, and it gives the system no totality of instances.
+
+So every unit has a section **Outside the system** that lists:
+
+1. each Lean type, quantifier or construction the unit uses that is
+   metatheory, and what it is used for;
+2. what the system itself holds at that point (always a finite ledger);
+3. any admission the unit relies on, with its price (the events or
+   hypotheses it needs);
+4. any phrase in the unit that would import an observer, container or
+   infinity if read as a claim about the system, and how to read it
+   instead.
+
+If a later unit needs something unbounded inside the system, it must either
+derive it or admit it as a named, priced admission, and the unit must say
+which.
+
 ## Unit template
 
 1. **Claim**, with its status mark and its Lean name.
@@ -97,8 +142,11 @@ it needs, as this table does.
 3. **The theorem** in Lean.
 4. **The proof, step by step**, with no step skipped.
 5. **The same fact in Python**, with the check script.
-6. **What it shows and what it does not.**
-7. **Sources**: file, theorem, axiom report, ledger entry, test.
+6. **Outside the system**: the metatheory's types and quantifiers the unit
+   uses, what the system holds, and the price of every admission (see No
+   imports from nowhere).
+7. **What it shows and what it does not.**
+8. **Sources**: file, theorem, axiom report, ledger entry, test.
 
 ## Contents
 
