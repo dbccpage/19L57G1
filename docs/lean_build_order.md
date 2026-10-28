@@ -194,9 +194,9 @@ Invoke-InDir 'research/native_bridge/lean' 'lake' @('build')
 Invoke-InDir 'research/conservation_ladder/lean' 'lake' @('build')
 Invoke-InDir 'research/domain_adapters/lean' 'lake' @('build')
 Invoke-InDir 'research/native_structure/lean' 'lake' @('build')
-# Require group 3: its longest chain, one at a time: two_theorems -> actor_institution.
+# Require group 3: its longest chain, one at a time: two_theorems -> qm_bridge.
 Invoke-InDir 'research/two_theorems/lean' 'lake' @('build')
-Invoke-InDir 'research/actor_institution/lean' 'lake' @('build')
+Invoke-InDir 'research/qm_bridge/lean' 'lake' @('build')
 # Packages that require only a base package, one at a time, any order.
 Invoke-InDir 'research/alpha_engine/lean' 'lake' @('build')
 Invoke-InDir 'research/endogenous_continuum/lean' 'lake' @('build')
@@ -307,7 +307,7 @@ Invoke-InDir 'research/symmetry_floor/lean' 'lean' @('SymmetryFloor.lean')
 | 17 | `research/domain_adapters/lean` | `domain_adapters` | `derivation`, `native_bridge`, `conservation_ladder`, `p209b_clifford_symplectic` | 3 | yes | none |
 | 18 | `research/native_structure/lean` | `native_structure` | `derivation`, `native_bridge` | 2 | yes | none |
 | 19 | `research/two_theorems/lean` | `two_theorems` | `derivation` | 1 | yes | none |
-| 20 | `research/actor_institution/lean` | `actor_institution` | `derivation`, `two_theorems` | 2 | yes | none |
+| 20 | `research/qm_bridge/lean` | `qm_bridge` | `derivation`, `two_theorems` | 2 | yes | none |
 | 21 | `research/alpha_engine/lean` | `harness` | `derivation` | 1 | yes | none |
 | 22 | `research/endogenous_continuum/lean` | `endogenous_continuum` | `derivation` | 1 | yes | none |
 | 23 | `research/endogenous_demand/lean` | `endogenous_demand` | `derivation` | 1 | yes | none |
