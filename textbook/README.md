@@ -227,11 +227,11 @@ in one template or the other, and this table says which.
 | 13 | Two data need a second, different token | `Bridge.second_token_required` | derived | yes |
 | 14 | Factoring through a point is equality | `PrimDiff.factors_through_point_iff` | derived | yes |
 | 15 | An outside difference is not an asserted one | `PrimDiff.meta_diff_without_assertion` | derived | yes |
-| 16 | ⟨A⟩ and ⟨AB⟩ are collapsed | `Inertia.R2L_collapsed`, `R2F_collapsed` | derived | |
-| 17 | Demands are irreflexive by guard | `Basic.stepE` (impose) | admitted | |
-| 18 | One item never answers the demand | `Minimality.cost1_insufficient_general` | derived | |
-| 19 | The link regime `BL` (realizing ⟨ARB⟩) separates | `Minimality.BL_separable` | derived | |
-| 20 | The self-loop regime `BD` (realizing ⟨ARA⟩) separates | `Minimality.BD_separable` | derived | |
+| 16 | ⟨A⟩ and ⟨AB⟩ are collapsed | `Inertia.R2L_collapsed`, `R2F_collapsed` | derived | yes |
+| 17 | Demands are irreflexive by guard | `Basic.stepE` (impose) | admitted | yes |
+| 18 | One item never answers the demand | `Minimality.cost1_insufficient_general` | derived | yes |
+| 19 | The link regime `BL` (realizing ⟨ARB⟩) separates | `Minimality.BL_separable` | derived | yes |
+| 20 | The self-loop regime `BD` (realizing ⟨ARA⟩) separates | `Minimality.BD_separable` | derived | yes |
 | 21 | The cheapest answer is not unique under mu1 | `Minimality.mu1_minimum_not_unique` | derived | |
 | 22 | It is unique under mu2 | `Minimality.mu2_unique` | derived | |
 | 23 | A related pair r a b alone does not give a ≠ b (countermodel) | `PrimDiff.selfdiff_consistent` | derived | |
