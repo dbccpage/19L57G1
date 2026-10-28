@@ -91,6 +91,7 @@ Lean layout. The first and last also have explicit build-recipe entries.
 | `ignition` | local receipt only |  |
 | `instance_demand` | local receipt only |  |
 | `internal_syntax_logic` | local receipt only |  |
+| `interpreter_verdict` | local receipt only |  |
 | `iso_sound` | local receipt only |  |
 | `iso_sound_lean` | local receipt only |  |
 | `limit_and_observer` | workflow (gate 11) |  |

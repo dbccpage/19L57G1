@@ -1,0 +1,9 @@
+{
+  "source_revision": "fc6349e05fb135fe0bdc0613f2ea1cc16390de00",
+  "consumed_modules": [
+    "Derivation.InterpreterBoundary",
+    "Derivation.NoOutside"
+  ],
+  "source_revision_note": "The commit this tree was first built against. Not verified: the Lean dependency is the working tree's ../../../lean4, and no digest of the consumed modules is pinned here, so the tests check that the modules exist, not that they are unchanged.",
+  "consumed_research_modules": {}
+}

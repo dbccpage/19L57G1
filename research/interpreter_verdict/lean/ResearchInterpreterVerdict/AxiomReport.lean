@@ -1,0 +1,38 @@
+import ResearchInterpreterVerdict
+
+-- Exact reach is the declaration list in TREE_CONTRACT.json.
+#print axioms ResearchInterpreterVerdict.quiescent_reads_guard
+#print axioms ResearchInterpreterVerdict.obstructed_reads_guard
+#print axioms ResearchInterpreterVerdict.interp_not_step
+#print axioms ResearchInterpreterVerdict.coded_member_separated
+#print axioms ResearchInterpreterVerdict.coded_member_separated_obstructed
+#print axioms ResearchInterpreterVerdict.supp_ne_of_quiescent_ne
+#print axioms ResearchInterpreterVerdict.verdict_entails_supp
+#print axioms ResearchInterpreterVerdict.rstep_interprets
+#print axioms ResearchInterpreterVerdict.rstep_quotes
+#print axioms ResearchInterpreterVerdict.lawful_unique
+#print axioms ResearchInterpreterVerdict.rstep_self_description
+#print axioms ResearchInterpreterVerdict.liftStep_quotes
+#print axioms ResearchInterpreterVerdict.liftStep_not_interprets
+#print axioms ResearchInterpreterVerdict.rstep_ne_lift
+#print axioms ResearchInterpreterVerdict.rstep_not_lift
+#print axioms ResearchInterpreterVerdict.vsep_irrefl
+#print axioms ResearchInterpreterVerdict.vsep_symm
+#print axioms ResearchInterpreterVerdict.vsep_cotrans
+#print axioms ResearchInterpreterVerdict.vsep_uncoded
+#print axioms ResearchInterpreterVerdict.vsep_kernel
+#print axioms ResearchInterpreterVerdict.boundary_A
+#print axioms ResearchInterpreterVerdict.boundary_Bs
+#print axioms ResearchInterpreterVerdict.boundary_Bc
+#print axioms ResearchInterpreterVerdict.boundary_D
+#print axioms ResearchInterpreterVerdict.boundary_F
+#print axioms ResearchInterpreterVerdict.declared_le_derived
+#print axioms ResearchInterpreterVerdict.collapse_obstructed
+#print axioms ResearchInterpreterVerdict.identification_changes_quiescence
+#print axioms ResearchInterpreterVerdict.identification_with_step_changes_quiescence
+#print axioms ResearchInterpreterVerdict.quiescent_admitTok
+#print axioms ResearchInterpreterVerdict.coded_pair_not_vsep
+#print axioms ResearchInterpreterVerdict.nextFamily_blind_at_genesis
+#print axioms ResearchInterpreterVerdict.twoWorld_reached
+#print axioms ResearchInterpreterVerdict.family_reads_guard
+#print axioms ResearchInterpreterVerdict.interp_not_step_family
