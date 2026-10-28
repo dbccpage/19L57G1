@@ -126,6 +126,61 @@ logic beyond these two lookups. **Status:** admitted (paper §3 item 4).
 The Python checks the two halves in the other order. `or` does not care
 about order, so the two definitions agree.
 
+**A finite ledger, an unbounded extension.** Neither half looks at the
+instance's arguments. The right half asks only whether the instance's form
+number is in `rules`. So once a rule is admitted, `derivable` holds of
+instances the ledger never admitted anything for. Take the well-formed
+regime
+
+```lean
+-- one unary form, the all-instances rule on it, no data, no instances
+⟨0, [1], [], [0], []⟩
+```
+
+Call it `R`. It is reached from `genesis` by two admission events: admit a
+form of arity 1, then admit the rule on form 0. In `R`:
+
+- `derivable R (0, [99])` holds, though datum 99 was never admitted (`R`
+  admits no datum at all);
+- `derivable R (0, [])` and `derivable R (0, [1, 2, 3])` hold, though form 0
+  has arity 1;
+- `derivable R (1, [0])` does not hold: form 1 was never admitted and
+  carries no rule.
+
+The proof of the first is one line from the definition: the right half
+needs `0 ∈ [0]`, which holds. (Proved by hand from the definition above;
+no Lean file in the repository states this example.) Genesis's own Python
+agrees: `python textbook/checks/u01_rule_extension.py` builds `R` by
+Genesis's `replay` and evaluates all four.
+
+So the ledger is finite (one form, one rule) while the set of instances
+`derivable` holds of, read in Lean, is unbounded. Both are true at once;
+they are about different things. Three remarks keep them apart:
+
+1. Nothing infinite is stored. The rule is one admitted item, the number 0
+   in a list. The unbounded part is the metatheory's reading of
+   `derivable`.
+2. The comment on `rules` in `code/derivation/model.py` says "every
+   well-formed instance of the form counts as derivable". The code checks
+   only the form number, in Lean and in Python, so the extension also
+   contains instances that are not well formed. The comment is narrower
+   than the definition; the definition governs.
+3. Genesis's observation is built to ask only about admitted data. A
+   context's filled slots name admitted data (`contexts` in
+   `code/derivation/observe.py`; `wfCtx` in `Basic.lean`; paper §3 item
+   3), a profile is a profile of a datum (paper §3 item 5), and `profiles`
+   plugs only data numbers below the data count. (`profile`, `separable`
+   and `witness` take their data numbers from the caller.) In `R` there is
+   one context, `(0, (None,))`, and no datum to plug in, so `profiles`
+   asks nothing. That is a fact about how observation calls `derivable`,
+   not a restriction on `derivable` itself.
+
+None of this bears on `genesis`, which has no rule; it is here because the
+definition is introduced here. Unit 02 uses `R` as the witness that its
+no-rules hypothesis cannot be dropped. If a later unit needs derivability
+restricted to admitted data, it introduces a separate, named predicate
+outside the seal; the sealed `derivable` stays as it is.
+
 ## Where the theorem lives
 
 Three things must be kept apart before reading the theorem.
@@ -157,10 +212,15 @@ theorem genesis_underivable (i : Inst) : ¬ derivable genesis i := by
   | inr h => cases h
 ```
 
-Read the statement aloud: "for every instance `i`, it is not the case that
-`i` is derivable in `genesis`." The `(i : Inst)` before the colon means the
-theorem holds for an arbitrary instance: any form number, any list of data,
-including data that were never admitted.
+Read the statement aloud: "for each instance `i`, it is not the case that
+`i` is derivable in `genesis`." The `(i : Inst)` before the colon makes `i`
+a parameter, so the theorem is a genuine universal statement: it holds of
+every instance of Lean's type `Inst`, any form number and any list of data
+numbers, including numbers that name no admitted datum. It is proved once,
+for an arbitrary `i`, by a proof that never looks at which instance it has;
+it is not a collection of separate checks. The quantifier is Lean's, not the
+system's: it ranges over a Lean type, and proving it puts no collection of
+instances into the system (see **Outside the system** below).
 
 ## The proof, step by step
 
@@ -203,12 +263,13 @@ reads Genesis's committed report.
 
 ## The same fact in Python
 
-Python cannot quantify over every instance; there are infinitely many. The
-check below tries every instance with form number at most 3 and argument
-lists of length at most 3 over data numbers 0 to 3, and confirms none is
-derivable in `EMPTY`. That is a finite sample, not a proof and not an
-exhaustive verification either: the instances are infinite and the script
-tries 340 of them. The proof is the Lean above.
+The Lean statement covers whatever instance is written down; a script can
+only write down a finite list. The check below tries every instance with
+form number at most 3 and argument lists of length at most 3 over data
+numbers 0 to 3, 340 in all, and confirms none is derivable in `EMPTY`. That
+is a sample, not a proof and not an exhaustive verification: the Lean type
+`Inst` has no bound, so no finite list exhausts it. The proof is the Lean
+above.
 
 ```
 python textbook/checks/u01_genesis_underivable.py
@@ -217,6 +278,49 @@ python textbook/checks/u01_genesis_underivable.py
 Genesis's own test of the same point is `tests/test_engine.py::
 test_challenge0_inertia`, which checks that the list of derivable instances
 at Challenge 0 is empty.
+
+## Outside the system
+
+**Metatheory used by this unit.**
+
+| Lean | Used for | Status |
+|---|---|---|
+| `Nat` | the data count `data`, form numbers, arities, data numbers in an instance | metatheory (paper §2: indices, arithmetic) |
+| `List`, `×` | the fields of a regime; an instance as a pair | metatheory (finite data structures) |
+| `Prop`, `¬`, `∨`, `∈` | the statement "is derivable" and its negation | metatheory (Lean's logic) |
+| `(i : Inst)` | the universal quantifier over the Lean type `Inst`, discharged once for an arbitrary instance | metatheory quantifier |
+| Lean's kernel, `intro`, `cases` | checking the proof | metatheory (Unit 00, the external constructor) |
+
+`Nat` and `List Nat` are unbounded types, and so is `Inst`. That is a
+property of Lean, not of the system.
+
+**What the system holds.** At `genesis`: a data count of 0 and four empty
+lists. No datum, no form, no instance, no rule, no demand. In particular it
+holds no collection of "all instances" for the theorem to range over; the
+range belongs to Lean. Because `rules` is empty, the right half of
+`derivable` holds of nothing here. That is a fact about this regime, not
+about finite ledgers in general: the regime `R` above holds one form and
+one rule, and `derivable R` holds of an unbounded set of instances when
+read in Lean.
+
+**Admissions relied on, and their price.** The four definitions `Inst`,
+`Regime`, `genesis`, `derivable` (admitted, paper §3). No event, no
+hypothesis, no axiom.
+
+**Phrases to read with care.**
+
+- "No instance is derivable" is the metatheory's universal statement about
+  the system, at full strength: proved once, uniformly, for an arbitrary
+  instance of a Lean type. What sits outside the system is the quantifier
+  and its range, not any weakness in the statement. It does not give the
+  system a totality of instances that are all underivable.
+- "The ledger is finite" means what is stored is finite. It does not mean
+  `derivable` holds of finitely many instances: with one admitted rule it
+  holds of an unbounded set read in Lean (regime `R` above).
+- "Any form number, any list of data" names Lean's numbers. The system has
+  no form numbers yet.
+- "However many data and forms it holds" (in Unit 02) means however many a
+  finite history has admitted, never an unbounded supply.
 
 ## What it shows, and what it does not
 
@@ -256,3 +360,5 @@ forms it holds.
 | Ledger | `paper/paper_claim_ledger.md`, `CL-0-INERTIA` |
 | Test | `tests/test_engine.py::test_challenge0_inertia` |
 | Check | `textbook/checks/u01_genesis_underivable.py` |
+| Check (rule extension) | `textbook/checks/u01_rule_extension.py`; uses `replay`, `AdmitForm`, `AdmitRuleAll` (`model.py`) and `contexts`, `plug` (`observe.py`) |
+| Context well-formedness | `lean4/Derivation/Basic.lean` line 106, `wfCtx` |
