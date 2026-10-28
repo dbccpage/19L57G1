@@ -1,9 +1,10 @@
-"""Verify the Genesis Textbook Python checks, book-Lean checks, and video script pacing.
+"""Verify the Genesis Textbook Python checks, book-Lean checks, video script pacing,
+and the GitHub Wiki Textbook mirror builder/verifier.
 
-AuthorityEffect: None. This gate checks the textbook's executable scripts and
-book-Lean reconstructions outside the sealed derivation's authority boundary.
-Nothing in textbook/ is an input to prompt/, paper/, code/, lean4/Derivation/,
-or artifacts/.
+AuthorityEffect: None. This gate checks the textbook's executable scripts,
+book-Lean reconstructions, and Wiki textbook mirror outside the sealed
+derivation's authority boundary. Nothing in textbook/ is an input to prompt/,
+paper/, code/, lean4/Derivation/, or artifacts/.
 """
 from __future__ import annotations
 
@@ -15,11 +16,14 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 
 REPO = Path(__file__).resolve().parent.parent
 PART1_CHECKS = REPO / "textbook" / "checks"
 PART2_CHECKS = REPO / "textbook" / "institutions" / "checks"
 VIDEO_SCRIPT = REPO / "textbook" / "video_script_15s.md"
+WIKI_BUILDER = REPO / "textbook" / "media" / "build_wiki_textbook.py"
+WIKI_VERIFIER = REPO / "textbook" / "media" / "verify_wiki_textbook.py"
 
 MIN_PART1_PY = 74
 MIN_PART1_LEAN = 71
@@ -81,6 +85,56 @@ def check_video_pacing(path: Path = VIDEO_SCRIPT) -> list[str]:
     return problems
 
 
+def check_wiki_textbook_sync() -> list[str]:
+    if not WIKI_BUILDER.is_file():
+        return [f"missing {WIKI_BUILDER.relative_to(REPO)}"]
+    if not WIKI_VERIFIER.is_file():
+        return [f"missing {WIKI_VERIFIER.relative_to(REPO)}"]
+    with tempfile.TemporaryDirectory() as tmp:
+        build_proc = subprocess.run(
+            [
+                sys.executable,
+                str(WIKI_BUILDER),
+                "--repo-root",
+                str(REPO),
+                "--wiki-root",
+                tmp,
+            ],
+            cwd=REPO,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            check=False,
+        )
+        if build_proc.returncode != 0:
+            return [
+                f"build_wiki_textbook.py exited {build_proc.returncode}: {(build_proc.stdout + build_proc.stderr).strip()}"
+            ]
+        verify_proc = subprocess.run(
+            [
+                sys.executable,
+                str(WIKI_VERIFIER),
+                "--repo-root",
+                str(REPO),
+                "--wiki-root",
+                tmp,
+                "--skip-manim-media",
+            ],
+            cwd=REPO,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            check=False,
+        )
+        if verify_proc.returncode != 0:
+            return [
+                f"verify_wiki_textbook.py exited {verify_proc.returncode}: {(verify_proc.stdout + verify_proc.stderr).strip()}"
+            ]
+    return []
+
+
 def resolve_lean_env() -> tuple[str | None, str | None]:
     lake = shutil.which("lake")
     if lake is None:
@@ -124,7 +178,7 @@ def run_one(script: Path, extra_args: list[str] | None = None) -> tuple[Path, in
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--python-only", action="store_true", help="run only Python check scripts and video pacing")
+    ap.add_argument("--python-only", action="store_true", help="run only Python check scripts, video pacing, and Wiki sync check")
     ap.add_argument("--lean-only", action="store_true", help="run only book-Lean check scripts")
     ap.add_argument("--unit", help="filter scripts by substring (e.g. u59 or i13)")
     ap.add_argument("--workers", type=int, default=4, help="parallel worker count (default: 4)")
@@ -160,6 +214,14 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"FAIL: video_script_15s.md: {err}", file=sys.stderr)
             return 1
         print("video_script_15s.md pacing: ok (4 segments, 15s total, all <= 160 wpm)")
+
+        if not args.unit:
+            wiki_errors = check_wiki_textbook_sync()
+            if wiki_errors:
+                for err in wiki_errors:
+                    print(f"FAIL: wiki textbook sync: {err}", file=sys.stderr)
+                return 1
+            print("wiki textbook build & verify: ok (all Part 1/Part 2 units, research trees, _Sidebar.md, and internal links verified)")
 
         py_scripts = [*part1_py, *part2_py]
         with ThreadPoolExecutor(max_workers=max(1, args.workers)) as pool:

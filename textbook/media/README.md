@@ -18,8 +18,8 @@ derivation.
 | File | Purpose |
 |---|---|
 | [`render_manim_suite.py`](render_manim_suite.py) | Renders the 12 Act animations (`act00`–`act11`) in Manim 0.19.2 as `.mp4` and looping `.gif` files, and checks with `ffprobe` that every animation is `<= 15.0` seconds. |
-| [`build_wiki_textbook.py`](build_wiki_textbook.py) | Mirrors all 75 Part 1 units (`U00`–`U74`), all 18 Part 2 institution units (`I00`–`I17`), and 6 hub/map pages into `19L57G1.wiki.git`, placing `## Textbook` as the second subsection in `_Sidebar.md`. |
-| [`verify_wiki_textbook.py`](verify_wiki_textbook.py) | Verifies the `_Sidebar.md` heading order, all 93 mirrored unit pages, all 1,690 internal Wiki page links, and the `<= 15.0s` duration cap on all 12 Manim animations. |
+| [`build_wiki_textbook.py`](build_wiki_textbook.py) | Mirrors all Part 1 units (`U00`–`U74+`), all Part 2 institution units (`I00`–`I17+`), the synced research trees page (`textbook_research_trees.md`), and 6 hub/map pages into `19L57G1.wiki.git`, placing `## Textbook` as the second subsection in `_Sidebar.md`. |
+| [`verify_wiki_textbook.py`](verify_wiki_textbook.py) | Verifies the `_Sidebar.md` heading order, all mirrored unit pages, all synced research trees on `main`, all internal Wiki page links, and the `<= 15.0s` duration cap on all 12 Manim animations. |
 | [`genesis_15s_explorer.html`](genesis_15s_explorer.html) | Self-contained interactive HTML widget providing a 12-Act fifteen-second soundbite tour, a prediction challenge with streak counter, a live Part 1 Regime simulator, and a Part 2 Actor/Institution sandbox. |
 
 ---
@@ -45,13 +45,15 @@ derivation.
 
 ## Reproducing the Animations and Wiki Mirror
 
+Whenever new textbook units (`textbook/units/*.md` or `textbook/institutions/units/*.md`) or research trees (`research/*/`) are added to `main`, `python ci/check_textbook.py` (part of `python ci/run_gates.py`) automatically runs `build_wiki_textbook.py` and `verify_wiki_textbook.py`. To update the live GitHub Wiki checkout (`19L57G1.wiki.git`):
+
 ```powershell
 # 1. Render all 12 Manim scenes (requires Python 3.12 with manim 0.19.2 and ffmpeg)
-py -3.12 textbook/media/render_manim_suite.py --out-dir path/to/19L57G1.wiki/media/manim
+py -3.12 textbook/media/render_manim_suite.py
 
-# 2. Build all 99 mirrored Wiki pages and _Sidebar.md
+# 2. Build all mirrored Wiki pages, research tree sync page, and _Sidebar.md
 python textbook/media/build_wiki_textbook.py --wiki-root path/to/19L57G1.wiki
 
-# 3. Verify _Sidebar.md heading order, 1,690 internal links, and <=15.0s video durations
+# 3. Verify _Sidebar.md heading order, research tree sync, internal links, and <=15.0s video durations
 python textbook/media/verify_wiki_textbook.py --wiki-root path/to/19L57G1.wiki
 ```

@@ -1,40 +1,44 @@
 """Build the customer-facing Genesis Textbook Wiki pages with 15-second soundbites,
 interactive GFM stepping-stone widgets, and embedded <=15s Manim animations.
 
-AuthorityEffect: None. Mirrors textbook/ into 19L57G1.wiki.git without altering
-any sealed derivation file. Follows Claim Hygiene strictly.
+AuthorityEffect: None. Mirrors textbook/ and research tree metadata into
+19L57G1.wiki.git without altering any sealed derivation file. Follows Claim
+Hygiene strictly. Re-run whenever new textbook units or research trees are added
+to main.
 """
 
 from __future__ import annotations
 
+import argparse
+import os
 import re
+import subprocess
 from pathlib import Path
 
-REPO_ROOT = Path(r"C:\Users\a343o\source\repos\19L57G1")
-WIKI_ROOT = Path(
-    r"C:\Users\a343o\.gemini\antigravity\brain\e6748031-e61e-45da-8c81-267c0b199e5b\scratch\19L57G1.wiki"
+DEFAULT_REPO_ROOT = Path(__file__).resolve().parent.parent.parent
+DEFAULT_WIKI_ROOT = Path(
+    os.environ.get(
+        "GENESIS_WIKI_ROOT",
+        str(DEFAULT_REPO_ROOT.parent / "19L57G1.wiki"),
+    )
 )
-COMMIT_SHA = "f07625c503032b85768a9098e82ce881cc3e396c"
-COMMIT_SHORT = "f07625c50303"
 RAW_WIKI_MEDIA = "https://raw.githubusercontent.com/wiki/dbccpage/19L57G1/media/manim"
-BLOB_BASE = f"https://github.com/dbccpage/19L57G1/blob/{COMMIT_SHA}"
 
-FORBIDDEN_WORDS = [
-    "proves",
-    "guarantees",
-    "mathematically verifies",
-    "fundamentally",
-    "true intelligence",
-    "impossible",
-    "universal",
-    "flawless",
-    "perfectly",
-    "clearly",
-    "obviously",
-    "simply",
-    "merely",
-    "weaponized",
-]
+
+def resolve_commit_sha(repo_root: Path) -> str:
+    try:
+        res = subprocess.run(
+            ["git", "-C", str(repo_root), "rev-parse", "HEAD"],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        sha = res.stdout.strip()
+        if len(sha) == 40:
+            return sha
+    except Exception:
+        pass
+    return "c9ef6d4842c14d00fc4da88110db91b2ca98d1b6"
 
 
 def sanitize_claim_hygiene(text: str) -> str:
@@ -53,7 +57,8 @@ def sanitize_claim_hygiene(text: str) -> str:
         r"\buniversal\b": "all-instances",
         r"\bUniversal\b": "All-instances",
         r"\bflawless\b": "consistent with the specification",
-        r"\bperfectly\b": "точно",
+        r"\bperfectly\b": "exactingly",
+        r"\bPerfectly\b": "Exactingly",
         r"\bclearly\b": "explicitly",
         r"\bClearly\b": "Explicitly",
         r"\bobviously\b": "by inspection of the definition",
@@ -65,11 +70,8 @@ def sanitize_claim_hygiene(text: str) -> str:
         r"\bweaponized\b": "applied",
     }
     out = text
-    out = re.sub(r"\bperfectly\b", "exactingly", out)
-    out = re.sub(r"\bPerfectly\b", "Exactingly", out)
     for pat, rep in replacements.items():
-        if pat not in (r"\bperfectly\b",):
-            out = re.sub(pat, rep, out)
+        out = re.sub(pat, rep, out)
     return out
 
 
@@ -144,7 +146,7 @@ def act_for_part1(unit_num: int) -> tuple[str, str, str]:
         )
     return (
         "act09_descent_relativity_fidelity",
-        "Act X · Observer Descent, Naturality, Fidelity & Canonical Iso (Units 67–74)",
+        "Act X · Observer Descent, Naturality, Fidelity & Canonical Iso (Units 67+)",
         "Views descend iff constant on observer fibers, fixed-point-free swaps block natural pair choice, failed factorization forces splits, and canonical keys certify ordered isomorphism.",
     )
 
@@ -159,7 +161,7 @@ def act_for_part2(unit_num: int) -> tuple[str, str, str]:
         )
     return (
         "act11_probing_uncollapse_verdict",
-        "Part 2 · Act XII · Discovery Tax n(n-1)/2, Uncollapse & Verdict Boundary (Institutions 12–17)",
+        "Part 2 · Act XII · Discovery Tax n(n-1)/2, Uncollapse & Verdict Boundary (Institutions 12+)",
         "Acquiring an unknown actor partition over n data takes n(n-1)/2 pair probes, refutes the promised-count shortcut at n = N, characterizes uncollapse by mention delta, and locates the verdict-level interpreter boundary.",
     )
 
@@ -182,7 +184,7 @@ def extract_section(md: str, heading_pattern: str) -> str:
 
 
 def extract_header_meta(md: str) -> dict[str, str]:
-    """Extract Title, Claim, Status, Lean, Axioms, Dependencies from top of unit."""
+    """Extract Title, Claim, Status, Lean from top of unit."""
     lines = md.splitlines()
     title = lines[0].lstrip("# ").strip() if lines else "Unit"
     top_block = "\n".join(lines[1:25])
@@ -211,12 +213,12 @@ def rewrite_links_for_wiki(
     md: str,
     part1_map: dict[str, str],
     part2_map: dict[str, str],
+    blob_base: str,
     is_part2: bool,
 ) -> str:
     """Rewrite relative markdown links inside textbook files so they work on GitHub Wiki."""
     out = md
 
-    # Map unit filenames to wiki page names
     for fname, wname in part1_map.items():
         out = out.replace(f"](units/{fname})", f"]({wname})")
         out = out.replace(f"](../units/{fname})", f"]({wname})")
@@ -227,7 +229,6 @@ def rewrite_links_for_wiki(
         out = out.replace(f"](units/{fname})", f"]({wname})")
         out = out.replace(f"]({fname})", f"]({wname})")
 
-    # Map README / START_HERE / coverage / audit / video links
     out = out.replace("](START_HERE.md)", "](textbook_start_here)")
     out = out.replace("](../START_HERE.md)", "](textbook_start_here)")
     out = out.replace("](video_script_15s.md)", "](textbook_video_15s)")
@@ -236,9 +237,9 @@ def rewrite_links_for_wiki(
     out = out.replace("](../derivation_coverage.md)", "](textbook_coverage)")
     out = out.replace("](audit/README.md)", "](textbook_audit)")
     out = out.replace("](../audit/README.md)", "](textbook_audit)")
-    out = out.replace("]( audit/AUDIT.md )", f"]({BLOB_BASE}/textbook/audit/AUDIT.md)")
-    out = out.replace("](AUDIT.md)", f"]({BLOB_BASE}/textbook/audit/AUDIT.md)")
-    out = out.replace("](inventory.json)", f"]({BLOB_BASE}/textbook/audit/inventory.json)")
+    out = out.replace("]( audit/AUDIT.md )", f"]({blob_base}/textbook/audit/AUDIT.md)")
+    out = out.replace("](AUDIT.md)", f"]({blob_base}/textbook/audit/AUDIT.md)")
+    out = out.replace("](inventory.json)", f"]({blob_base}/textbook/audit/inventory.json)")
     out = out.replace("](institutions/README.md)", "](textbook_institutions)")
     out = out.replace("](../institutions/README.md)", "](textbook_institutions)")
     if is_part2:
@@ -248,7 +249,6 @@ def rewrite_links_for_wiki(
         out = out.replace("](README.md)", "](textbook_overview)")
         out = out.replace("](../README.md)", "](textbook_overview)")
 
-    # Rewrite relative check scripts and repo paths to GitHub blob URLs
     def repl_link(m: re.Match[str]) -> str:
         target = m.group(1).strip()
         if (
@@ -257,7 +257,15 @@ def rewrite_links_for_wiki(
             or target.startswith("#")
             or target.startswith("mailto:")
             or target.startswith("textbook_")
-            or target in ("Home", "genesis_overview", "getting_started", "worked_examples", "concepts_and_glossary", "repository_map")
+            or target
+            in (
+                "Home",
+                "genesis_overview",
+                "getting_started",
+                "worked_examples",
+                "concepts_and_glossary",
+                "repository_map",
+            )
         ):
             return m.group(0)
         clean_t = target.lstrip("./")
@@ -265,7 +273,7 @@ def rewrite_links_for_wiki(
             clean_t = "textbook/" + clean_t[3:]
         elif clean_t.startswith(("checks/", "units/", "institutions/", "audit/")):
             clean_t = "textbook/" + clean_t
-        return f"]({BLOB_BASE}/{clean_t})"
+        return f"]({blob_base}/{clean_t})"
 
     out = re.sub(r"\]\(([^)]+)\)", repl_link, out)
     return out
@@ -274,20 +282,20 @@ def rewrite_links_for_wiki(
 def build_unit_wiki_page(
     unit_idx: int,
     total_units: int,
-    wiki_name: str,
     raw_md: str,
     prev_link: tuple[str, str] | None,
     next_link: tuple[str, str] | None,
     part1_map: dict[str, str],
     part2_map: dict[str, str],
+    blob_base: str,
+    commit_short: str,
     is_part2: bool = False,
 ) -> str:
     meta = extract_header_meta(raw_md)
-    act_slug, act_title, act_summary = (
+    act_slug, act_title, _ = (
         act_for_part2(unit_idx) if is_part2 else act_for_part1(unit_idx)
     )
 
-    # Extract key sections for the 15-second soundbite strip
     q_sec = extract_section(raw_md, r"(Question|The mark|What you need first)")
     proved_sec = extract_section(
         raw_md, r"(What has been proved|What it shows|What this unit establishes)"
@@ -297,7 +305,8 @@ def build_unit_wiki_page(
     )
     outside_sec = extract_section(raw_md, r"Outside the system")
     plain_sec = extract_section(
-        raw_md, r"(Plain-language interpretation|The proof, step by step|The external constructor)"
+        raw_md,
+        r"(Plain-language interpretation|The proof, step by step|The external constructor)",
     )
     ex_sec = extract_section(raw_md, r"Student exercise")
     ans_sec = extract_section(raw_md, r"Answer")
@@ -306,12 +315,13 @@ def build_unit_wiki_page(
     bite_mech = first_sentences(plain_sec or meta["claim"], 32)
     bite_proved = first_sentences(proved_sec or meta["claim"], 32)
     bite_limits = first_sentences(
-        not_proved_sec or outside_sec or "Scoped to the declared definitions and finite ledger; does not establish claims outside the admitted representation.",
+        not_proved_sec
+        or outside_sec
+        or "Scoped to the declared definitions and finite ledger; does not establish claims outside the admitted representation.",
         32,
     )
 
-    # Progress bar
-    filled = max(1, round((unit_idx + 1) / total_units * 12))
+    filled = max(1, round((unit_idx + 1) / max(1, total_units) * 12))
     bar_str = "█" * filled + "░" * (12 - filled)
     part_label = "Part 2 (Institutions)" if is_part2 else "Part 1 (Frozen Derivation)"
     unit_code = f"I{unit_idx:02d}" if is_part2 else f"U{unit_idx:02d}"
@@ -327,7 +337,6 @@ def build_unit_wiki_page(
         else "[Part 2: Institutions ▶](textbook_institutions)"
     )
 
-    # Prediction widget content
     if ex_sec and ans_sec:
         pred_prompt = first_sentences(ex_sec, 42)
         pred_reveal = first_sentences(ans_sec, 48)
@@ -335,11 +344,13 @@ def build_unit_wiki_page(
         pred_prompt = f"Before reading the proof of `{unit_code}`, ask: does `{meta['title']}` follow from the mark ⟨⟩ alone, or does it depend on the admitted representation and hypotheses listed below?"
         pred_reveal = f"{meta['claim']} — Status: **{meta['status']}**. In Genesis, every derived step holds relative to the explicitly admitted definitions and carries zero authority over the physical universe."
 
-    rewritten_body = rewrite_links_for_wiki(raw_md, part1_map, part2_map, is_part2)
+    rewritten_body = rewrite_links_for_wiki(
+        raw_md, part1_map, part2_map, blob_base, is_part2
+    )
 
-    page = f"""<!-- markdownlint-disable MD041 MD033 -->
+    return f"""<!-- markdownlint-disable MD041 MD033 -->
 
-{nav_prev} · [🏠 Textbook Hub](textbook_overview) · [🚀 Start Here](textbook_start_here) · [🎬 15s Videos](textbook_video_15s) · [🗺️ Coverage Map](textbook_coverage) · {nav_next}
+{nav_prev} · [🏠 Textbook Hub](textbook_overview) · [🚀 Start Here](textbook_start_here) · [🎬 15s Videos](textbook_video_15s) · [🗺️ Coverage Map](textbook_coverage) · [🌲 Research Trees](textbook_research_trees) · {nav_next}
 
 `{part_label}` · **{act_title}** · Progress: `[{bar_str}]` (`{unit_idx + 1} / {total_units}`) · `AuthorityEffect: None`
 
@@ -425,8 +436,8 @@ flowchart LR
 
 1. **What it supports:** {bite_proved}
 2. **What it does not support:** {bite_limits}
-3. **Narrowest defensible claim:** {meta['claim']} (Status: `{meta['status']}`, checked at revision `{COMMIT_SHORT}`).
-4. **Next test / unit needed:** Proceed to {nav_next} or run the unit's Python and Lean check scripts in [`textbook/`]({BLOB_BASE}/textbook).
+3. **Narrowest defensible claim:** {meta['claim']} (Status: `{meta['status']}`, checked at revision `{commit_short}`).
+4. **Next test / unit needed:** Proceed to {nav_next} or run the unit's Python and Lean check scripts in [`textbook/`]({blob_base}/textbook).
 
 </details>
 
@@ -438,26 +449,47 @@ flowchart LR
 
 ---
 
-{nav_prev} · [🏠 Textbook Hub](textbook_overview) · [🚀 Start Here](textbook_start_here) · [🎬 15s Videos](textbook_video_15s) · [🗺️ Coverage Map](textbook_coverage) · {nav_next}
+{nav_prev} · [🏠 Textbook Hub](textbook_overview) · [🚀 Start Here](textbook_start_here) · [🎬 15s Videos](textbook_video_15s) · [🗺️ Coverage Map](textbook_coverage) · [🌲 Research Trees](textbook_research_trees) · {nav_next}
 """
-    return page
 
 
-def main() -> None:
-    units_dir = REPO_ROOT / "textbook" / "units"
-    inst_dir = REPO_ROOT / "textbook" / "institutions" / "units"
+def discover_research_trees(repo_root: Path) -> list[tuple[str, bool, bool]]:
+    """Return sorted list of (tree_name, has_contract, has_lean) under research/."""
+    res_dir = repo_root / "research"
+    trees: list[tuple[str, bool, bool]] = []
+    if not res_dir.is_dir():
+        return trees
+    for child in sorted(res_dir.iterdir()):
+        if not child.is_dir() or child.name.startswith((".", "_")):
+            continue
+        has_contract = (child / "TREE_CONTRACT.json").is_file()
+        has_lean = (child / "lean").is_dir() or any(child.glob("*.lean"))
+        if has_contract or (child / "README.md").is_file() or (child / "STATUS.md").is_file():
+            trees.append((child.name, has_contract, has_lean))
+    return trees
+
+
+def build_all(repo_root: Path, wiki_root: Path) -> dict[str, int]:
+    wiki_root.mkdir(parents=True, exist_ok=True)
+    commit_sha = resolve_commit_sha(repo_root)
+    commit_short = commit_sha[:12]
+    blob_base = f"https://github.com/dbccpage/19L57G1/blob/{commit_sha}"
+
+    units_dir = repo_root / "textbook" / "units"
+    inst_dir = repo_root / "textbook" / "institutions" / "units"
 
     p1_files = sorted(units_dir.glob("*.md"))
     p2_files = sorted(inst_dir.glob("*.md"))
 
-    assert len(p1_files) == 75, f"Expected 75 Part 1 units, found {len(p1_files)}"
-    assert len(p2_files) == 18, f"Expected 18 Part 2 units, found {len(p2_files)}"
+    assert len(p1_files) >= 75, f"Expected >= 75 Part 1 units, found {len(p1_files)}"
+    assert len(p2_files) >= 18, f"Expected >= 18 Part 2 units, found {len(p2_files)}"
 
     part1_map: dict[str, str] = {}
     part1_entries: list[tuple[int, Path, str, str]] = []
     for f in p1_files:
         m = re.match(r"^(\d+)_(.+)\.md$", f.name)
-        assert m, f"Unexpected filename {f.name}"
+        if not m:
+            continue
         idx = int(m.group(1))
         slug = f"textbook_u{idx:02d}_{m.group(2)}"
         part1_map[f.name] = slug
@@ -468,15 +500,16 @@ def main() -> None:
     part2_entries: list[tuple[int, Path, str, str]] = []
     for f in p2_files:
         m = re.match(r"^(\d+)_(.+)\.md$", f.name)
-        assert m, f"Unexpected filename {f.name}"
+        if not m:
+            continue
         idx = int(m.group(1))
         slug = f"textbook_i{idx:02d}_{m.group(2)}"
         part2_map[f.name] = slug
         meta = extract_header_meta(f.read_text(encoding="utf-8"))
         part2_entries.append((idx, f, slug, meta["title"]))
 
-    # 1. Build all 75 Part 1 unit wiki pages
-    for i, (idx, fpath, slug, title) in enumerate(part1_entries):
+    # 1. Build all Part 1 unit wiki pages
+    for i, (idx, fpath, slug, _) in enumerate(part1_entries):
         prev_link = (
             (f"Unit {part1_entries[i-1][0]:02d}", part1_entries[i - 1][2])
             if i > 0
@@ -490,23 +523,24 @@ def main() -> None:
         raw_md = fpath.read_text(encoding="utf-8")
         wiki_md = build_unit_wiki_page(
             idx,
-            75,
-            slug,
+            len(part1_entries),
             raw_md,
             prev_link,
             next_link,
             part1_map,
             part2_map,
+            blob_base,
+            commit_short,
             is_part2=False,
         )
-        (WIKI_ROOT / f"{slug}.md").write_text(wiki_md, encoding="utf-8", newline="\n")
+        (wiki_root / f"{slug}.md").write_text(wiki_md, encoding="utf-8", newline="\n")
 
-    # 2. Build all 18 Part 2 institution unit wiki pages
-    for i, (idx, fpath, slug, title) in enumerate(part2_entries):
+    # 2. Build all Part 2 institution unit wiki pages
+    for i, (idx, fpath, slug, _) in enumerate(part2_entries):
         prev_link = (
             (f"Inst {part2_entries[i-1][0]:02d}", part2_entries[i - 1][2])
             if i > 0
-            else ("Unit 74 (Part 1)", part1_entries[-1][2])
+            else (f"Unit {part1_entries[-1][0]:02d} (Part 1)", part1_entries[-1][2])
         )
         next_link = (
             (f"Inst {part2_entries[i+1][0]:02d}", part2_entries[i + 1][2])
@@ -516,23 +550,64 @@ def main() -> None:
         raw_md = fpath.read_text(encoding="utf-8")
         wiki_md = build_unit_wiki_page(
             idx,
-            18,
-            slug,
+            len(part2_entries),
             raw_md,
             prev_link,
             next_link,
             part1_map,
             part2_map,
+            blob_base,
+            commit_short,
             is_part2=True,
         )
-        (WIKI_ROOT / f"{slug}.md").write_text(wiki_md, encoding="utf-8", newline="\n")
+        (wiki_root / f"{slug}.md").write_text(wiki_md, encoding="utf-8", newline="\n")
 
-    # 3. Build textbook_start_here.md
-    start_raw = (REPO_ROOT / "textbook" / "START_HERE.md").read_text(encoding="utf-8")
-    start_rewritten = rewrite_links_for_wiki(start_raw, part1_map, part2_map, False)
+    # 3. Build textbook_research_trees.md (syncs all research trees on main)
+    research_trees = discover_research_trees(repo_root)
+    taught_trees = {
+        "uncollapse": f"[Inst 16]({part2_entries[16][2]})",
+        "two_theorems": f"[Inst 12]({part2_entries[12][2]})–[Inst 15]({part2_entries[15][2]})",
+        "interpreter_verdict": f"[Inst 17]({part2_entries[17][2]})",
+        "actor_institution": f"[Inst 00]({part2_entries[0][2]})–[Inst 11]({part2_entries[11][2]})",
+    }
+    tree_rows = []
+    for t_name, has_contract, has_lean in research_trees:
+        t_link = f"[`research/{t_name}/`]({blob_base}/research/{t_name})"
+        c_tag = "`TREE_CONTRACT.json`" if has_contract else "directory"
+        l_tag = "Lean + Python" if has_lean else "Python / Docs"
+        tb_col = taught_trees.get(t_name, "Post-seal research tree")
+        tree_rows.append(f"| {t_link} | {c_tag} | {l_tag} | {tb_col} |")
+
+    res_page = f"""<!-- markdownlint-disable MD041 MD033 -->
+
+[🏠 Genesis Wiki Home](Home) · [🚀 Start Here](textbook_start_here) · [📚 Textbook Hub](textbook_overview) · [🏛️ Part 2: Institutions](textbook_institutions) · [🗺️ Coverage Matrix](textbook_coverage) · **[🌲 Research Trees Sync](textbook_research_trees)**
+
+---
+
+> [!IMPORTANT]
+> ### ⚡ Post-Seal Research Trees Synced to `main` (`{commit_short}`)
+> This page is regenerated automatically by `python textbook/media/build_wiki_textbook.py` whenever new textbook units or research trees are added to `main`. It inventories all **{len(research_trees)}** research trees currently under [`research/`]({blob_base}/research) and links the trees taught in [Part 2: Actors & Institutions](textbook_institutions). `AuthorityEffect: None`.
+
+---
+
+## Research Trees on `main` (`{len(research_trees)}` Trees)
+
+| Research Tree | Contract | Formalization | Textbook Coverage |
+| :--- | :--- | :--- | :--- |
+{chr(10).join(tree_rows)}
+"""
+    (wiki_root / "textbook_research_trees.md").write_text(
+        res_page, encoding="utf-8", newline="\n"
+    )
+
+    # 4. Build textbook_start_here.md
+    start_raw = (repo_root / "textbook" / "START_HERE.md").read_text(encoding="utf-8")
+    start_rewritten = rewrite_links_for_wiki(
+        start_raw, part1_map, part2_map, blob_base, False
+    )
     start_page = f"""<!-- markdownlint-disable MD041 MD033 -->
 
-[🏠 Genesis Wiki Home](Home) · **[🚀 Start Here](textbook_start_here)** · [📚 Textbook Hub](textbook_overview) · [🎬 15s Video Gallery](textbook_video_15s) · [🏛️ Part 2: Institutions](textbook_institutions) · [🗺️ Coverage Matrix](textbook_coverage) · [Unit 00 ▶]({part1_entries[0][2]})
+[🏠 Genesis Wiki Home](Home) · **[🚀 Start Here](textbook_start_here)** · [📚 Textbook Hub](textbook_overview) · [🎬 15s Video Gallery](textbook_video_15s) · [🏛️ Part 2: Institutions](textbook_institutions) · [🗺️ Coverage Matrix](textbook_coverage) · [🌲 Research Trees](textbook_research_trees) · [Unit 00 ▶]({part1_entries[0][2]})
 
 ---
 
@@ -619,15 +694,17 @@ def main() -> None:
 
 {start_rewritten}
 """
-    (WIKI_ROOT / "textbook_start_here.md").write_text(
+    (wiki_root / "textbook_start_here.md").write_text(
         start_page, encoding="utf-8", newline="\n"
     )
 
-    # 4. Build textbook_video_15s.md (15s Video Script + All 12 Manim <=15s Gallery)
-    vid_raw = (REPO_ROOT / "textbook" / "video_script_15s.md").read_text(
+    # 5. Build textbook_video_15s.md
+    vid_raw = (repo_root / "textbook" / "video_script_15s.md").read_text(
         encoding="utf-8"
     )
-    vid_rewritten = rewrite_links_for_wiki(vid_raw, part1_map, part2_map, False)
+    vid_rewritten = rewrite_links_for_wiki(
+        vid_raw, part1_map, part2_map, blob_base, False
+    )
 
     act_gallery_rows = [
         ("Act I (`U00–U04`)", "act00_pre_genesis_mark", "The Mark `<>` & Inertia", f"[Unit 00]({part1_entries[0][2]})–[Unit 04]({part1_entries[4][2]})"),
@@ -648,7 +725,7 @@ def main() -> None:
     for act_lbl, slug, desc, u_links in act_gallery_rows:
         gallery_md_blocks.append(
             f"""### {act_lbl}: {desc}
-- **Units covered:** {u_links} · **Duration:** `13.0s` (`<= 15.0s` verified) · **[▶ Download MP4]({RAW_WIKI_MEDIA}/{slug}.mp4)**
+- **Units covered:** {u_links} · **Duration:** `<= 15.0s` verified · **[▶ Download MP4]({RAW_WIKI_MEDIA}/{slug}.mp4)**
 
 ![{desc}]({RAW_WIKI_MEDIA}/{slug}.gif)
 """
@@ -656,13 +733,13 @@ def main() -> None:
 
     vid_page = f"""<!-- markdownlint-disable MD041 MD033 -->
 
-[🏠 Genesis Wiki Home](Home) · [🚀 Start Here](textbook_start_here) · [📚 Textbook Hub](textbook_overview) · **[🎬 15s Video Gallery](textbook_video_15s)** · [🗺️ Coverage Matrix](textbook_coverage)
+[🏠 Genesis Wiki Home](Home) · [🚀 Start Here](textbook_start_here) · [📚 Textbook Hub](textbook_overview) · **[🎬 15s Video Gallery](textbook_video_15s)** · [🗺️ Coverage Matrix](textbook_coverage) · [🌲 Research Trees](textbook_research_trees)
 
 ---
 
 > [!IMPORTANT]
 > ### 🎬 Hard Rule: Every Animation and Soundbite Is Strictly `<= 15 Seconds`
-> All 12 Manim animations below are rendered with **Manim 0.19.2** and verified with `ffprobe` at **`12.5s–13.0s` (`<= 15.0s`)**. Each animation auto-plays inline in the Wiki and pairs with a downloadable `.mp4`. `AuthorityEffect: None`.
+> All 12 Manim animations below are rendered with **Manim 0.19.2** and verified with `ffprobe` at **`10.93s–14.07s` (`<= 15.0s`)**. Each animation auto-plays inline in the Wiki and pairs with a downloadable `.mp4`. `AuthorityEffect: None`.
 
 ---
 
@@ -674,14 +751,15 @@ def main() -> None:
 
 {chr(10).join(gallery_md_blocks)}
 """
-    (WIKI_ROOT / "textbook_video_15s.md").write_text(
+    (wiki_root / "textbook_video_15s.md").write_text(
         vid_page, encoding="utf-8", newline="\n"
     )
 
-    # 5. Build textbook_overview.md (Mirrors textbook/README.md + interactive index)
-    readme_raw = (REPO_ROOT / "textbook" / "README.md").read_text(encoding="utf-8")
-    readme_rewritten = rewrite_links_for_wiki(readme_raw, part1_map, part2_map, False)
-    # Also link unit numbers in the Contents table of textbook/README.md
+    # 6. Build textbook_overview.md
+    readme_raw = (repo_root / "textbook" / "README.md").read_text(encoding="utf-8")
+    readme_rewritten = rewrite_links_for_wiki(
+        readme_raw, part1_map, part2_map, blob_base, False
+    )
     for idx, _, slug, _ in part1_entries:
         readme_rewritten = re.sub(
             rf"^\|\s*{idx:02d}\s*\|",
@@ -692,14 +770,14 @@ def main() -> None:
 
     overview_page = f"""<!-- markdownlint-disable MD041 MD033 -->
 
-[🏠 Genesis Wiki Home](Home) · [🚀 Start Here](textbook_start_here) · **[📚 Textbook Hub](textbook_overview)** · [🏛️ Part 2: Institutions](textbook_institutions) · [🎬 15s Video Gallery](textbook_video_15s) · [🗺️ Coverage Matrix](textbook_coverage) · [🔍 75-Module Audit](textbook_audit)
+[🏠 Genesis Wiki Home](Home) · [🚀 Start Here](textbook_start_here) · **[📚 Textbook Hub](textbook_overview)** · [🏛️ Part 2: Institutions](textbook_institutions) · [🎬 15s Video Gallery](textbook_video_15s) · [🗺️ Coverage Matrix](textbook_coverage) · [🔍 75-Module Audit](textbook_audit) · [🌲 Research Trees](textbook_research_trees)
 
 ---
 
 > [!IMPORTANT]
 > ### ⚡ The Genesis Textbook in 15 Seconds (`AuthorityEffect: None`)
-> - **Part 1 ([Units 00–74](textbook_u00_mark_and_constructor)):** Every definition, theorem, countermodel, and open boundary across all **75 frozen Lean 4 modules** in `lean4/Derivation/`.
-> - **Part 2 ([Institutions 00–17](textbook_institutions)):** The four post-freeze research suites (`actor_institution`, `two_theorems`, `uncollapse`, `interpreter_verdict`).
+> - **Part 1 ([Units 00–{part1_entries[-1][0]:02d}](textbook_u00_mark_and_constructor)):** Every definition, theorem, countermodel, and open boundary across all **75 frozen Lean 4 modules** in `lean4/Derivation/`.
+> - **Part 2 ([Institutions 00–{part2_entries[-1][0]:02d}](textbook_institutions)):** Post-freeze research suites (`actor_institution`, `two_theorems`, `uncollapse`, `interpreter_verdict`) plus the synced [Research Trees Index](textbook_research_trees).
 > - **How to study:** Start at **[Start Here](textbook_start_here)** or **[Unit 00](textbook_u00_mark_and_constructor)**. Every unit page has a 15-second soundbite, an embedded `<= 15s` Manim animation, interactive prediction widgets, and the full line-by-line Python + Lean 4 lesson.
 
 ![Act I — The Mark and Inertia]({RAW_WIKI_MEDIA}/act00_pre_genesis_mark.gif)
@@ -708,16 +786,16 @@ def main() -> None:
 
 {readme_rewritten}
 """
-    (WIKI_ROOT / "textbook_overview.md").write_text(
+    (wiki_root / "textbook_overview.md").write_text(
         overview_page, encoding="utf-8", newline="\n"
     )
 
-    # 6. Build textbook_institutions.md (Mirrors textbook/institutions/README.md)
+    # 7. Build textbook_institutions.md
     inst_readme_raw = (
-        REPO_ROOT / "textbook" / "institutions" / "README.md"
+        repo_root / "textbook" / "institutions" / "README.md"
     ).read_text(encoding="utf-8")
     inst_readme_rewritten = rewrite_links_for_wiki(
-        inst_readme_raw, part1_map, part2_map, True
+        inst_readme_raw, part1_map, part2_map, blob_base, True
     )
     for idx, _, slug, _ in part2_entries:
         inst_readme_rewritten = re.sub(
@@ -729,12 +807,12 @@ def main() -> None:
 
     inst_page = f"""<!-- markdownlint-disable MD041 MD033 -->
 
-[🏠 Genesis Wiki Home](Home) · [🚀 Start Here](textbook_start_here) · [📚 Part 1: Frozen Derivation](textbook_overview) · **[🏛️ Part 2: Actors & Institutions](textbook_institutions)** · [🎬 15s Video Gallery](textbook_video_15s) · [🗺️ Coverage Matrix](textbook_coverage)
+[🏠 Genesis Wiki Home](Home) · [🚀 Start Here](textbook_start_here) · [📚 Part 1: Frozen Derivation](textbook_overview) · **[🏛️ Part 2: Actors & Institutions](textbook_institutions)** · [🎬 15s Video Gallery](textbook_video_15s) · [🗺️ Coverage Matrix](textbook_coverage) · [🌲 Research Trees](textbook_research_trees)
 
 ---
 
 > [!IMPORTANT]
-> ### ⚡ Part 2 in 15 Seconds: Actors & Institutions (`Units 00–17`)
+> ### ⚡ Part 2 in 15 Seconds: Actors & Institutions (`Units 00–{part2_entries[-1][0]:02d}`)
 > When several presentations (**actors**) combine into a family (**an institution**), they can jointly determine claims no single member knows (`exceeds_three_two_resolution`). Correspondence across actors is a priced admission, unknown claims force a witnessed **Demur**, and probing an unknown partition over `n` data costs `n(n-1)/2` pair queries.
 
 ![Part 2 — Actors and Institutions]({RAW_WIKI_MEDIA}/act10_institutions_synergy_policy.gif)
@@ -743,41 +821,45 @@ def main() -> None:
 
 {inst_readme_rewritten}
 """
-    (WIKI_ROOT / "textbook_institutions.md").write_text(
+    (wiki_root / "textbook_institutions.md").write_text(
         inst_page, encoding="utf-8", newline="\n"
     )
 
-    # 7. Build textbook_coverage.md (Mirrors textbook/derivation_coverage.md)
-    cov_raw = (REPO_ROOT / "textbook" / "derivation_coverage.md").read_text(
+    # 8. Build textbook_coverage.md
+    cov_raw = (repo_root / "textbook" / "derivation_coverage.md").read_text(
         encoding="utf-8"
     )
-    cov_rewritten = rewrite_links_for_wiki(cov_raw, part1_map, part2_map, False)
+    cov_rewritten = rewrite_links_for_wiki(
+        cov_raw, part1_map, part2_map, blob_base, False
+    )
     cov_page = f"""<!-- markdownlint-disable MD041 MD033 -->
 
-[🏠 Genesis Wiki Home](Home) · [🚀 Start Here](textbook_start_here) · [📚 Textbook Hub](textbook_overview) · [🏛️ Part 2: Institutions](textbook_institutions) · **[🗺️ Coverage Matrix](textbook_coverage)** · [🔍 75-Module Audit](textbook_audit)
+[🏠 Genesis Wiki Home](Home) · [🚀 Start Here](textbook_start_here) · [📚 Textbook Hub](textbook_overview) · [🏛️ Part 2: Institutions](textbook_institutions) · **[🗺️ Coverage Matrix](textbook_coverage)** · [🔍 75-Module Audit](textbook_audit) · [🌲 Research Trees](textbook_research_trees)
 
 ---
 
 > [!IMPORTANT]
 > ### ⚡ Derivation Coverage Matrix in 15 Seconds (`AuthorityEffect: None`)
-> Accounts for all **75 frozen Lean 4 modules** (`779` definitions/structures and `1,585` theorem/lemma declarations), all Part 2 research theorems, their exact evidence statuses (`FROZEN`, `POST_FREEZE_PROVED`, `CONDITIONAL`, `VERIFIED_FINITE`, `REFUTED`, `ADMITTED`, `OPEN`), and the **93-node acyclic lesson dependency DAG (`0` cycles)**.
+> Accounts for all **75 frozen Lean 4 modules** (`779` definitions/structures and `1,585` theorem/lemma declarations), all Part 2 research theorems, their exact evidence statuses (`FROZEN`, `POST_FREEZE_PROVED`, `CONDITIONAL`, `VERIFIED_FINITE`, `REFUTED`, `ADMITTED`, `OPEN`), and the **acyclic lesson dependency DAG (`0` cycles)**.
 
 ---
 
 {cov_rewritten}
 """
-    (WIKI_ROOT / "textbook_coverage.md").write_text(
+    (wiki_root / "textbook_coverage.md").write_text(
         cov_page, encoding="utf-8", newline="\n"
     )
 
-    # 8. Build textbook_audit.md (Mirrors textbook/audit/README.md)
-    audit_raw = (REPO_ROOT / "textbook" / "audit" / "README.md").read_text(
+    # 9. Build textbook_audit.md
+    audit_raw = (repo_root / "textbook" / "audit" / "README.md").read_text(
         encoding="utf-8"
     )
-    audit_rewritten = rewrite_links_for_wiki(audit_raw, part1_map, part2_map, False)
+    audit_rewritten = rewrite_links_for_wiki(
+        audit_raw, part1_map, part2_map, blob_base, False
+    )
     audit_page = f"""<!-- markdownlint-disable MD041 MD033 -->
 
-[🏠 Genesis Wiki Home](Home) · [🚀 Start Here](textbook_start_here) · [📚 Textbook Hub](textbook_overview) · [🗺️ Coverage Matrix](textbook_coverage) · **[🔍 75-Module Source Audit](textbook_audit)**
+[🏠 Genesis Wiki Home](Home) · [🚀 Start Here](textbook_start_here) · [📚 Textbook Hub](textbook_overview) · [🗺️ Coverage Matrix](textbook_coverage) · **[🔍 75-Module Source Audit](textbook_audit)** · [🌲 Research Trees](textbook_research_trees)
 
 ---
 
@@ -789,15 +871,14 @@ def main() -> None:
 
 {audit_rewritten}
 """
-    (WIKI_ROOT / "textbook_audit.md").write_text(
+    (wiki_root / "textbook_audit.md").write_text(
         audit_page, encoding="utf-8", newline="\n"
     )
 
-    # 9. Update _Sidebar.md so the SECOND subsection is "## Textbook"
+    # 10. Update _Sidebar.md so the SECOND subsection is "## Textbook"
     def fmt_unit_links(entries: list[tuple[int, Path, str, str]], prefix: str) -> str:
         lines = []
         for idx, _, slug, title in entries:
-            # Strip leading "Unit NN. " or "Unit NN: "
             short_t = re.sub(r"^Unit\s+\d+[\.:]\s*", "", title)
             if len(short_t) > 42:
                 short_t = short_t[:39].rstrip() + "..."
@@ -818,11 +899,12 @@ def main() -> None:
 ## Textbook
 
 - [🚀 Start Here (15s Entrance)](textbook_start_here)
-- [📚 Textbook Hub (Units 00–74)](textbook_overview)
-- [🏛️ Part 2: Institutions (00–17)](textbook_institutions)
+- [📚 Textbook Hub (Units 00–{part1_entries[-1][0]:02d})](textbook_overview)
+- [🏛️ Part 2: Institutions (00–{part2_entries[-1][0]:02d})](textbook_institutions)
 - [🎬 15s Manim Video Gallery](textbook_video_15s)
 - [🗺️ Derivation Coverage Matrix](textbook_coverage)
 - [🔍 75-Module Source Audit](textbook_audit)
+- [🌲 Synced Research Trees ({len(research_trees)})](textbook_research_trees)
 
 <details>
 <summary><b>Act I · Mark & Inertia (U00–U04)</b></summary>
@@ -888,14 +970,14 @@ def main() -> None:
 </details>
 
 <details>
-<summary><b>Act X · Codes, Descent & Iso (U65–U74)</b></summary>
+<summary><b>Act X · Codes, Descent & Iso (U65–U{part1_entries[-1][0]:02d})</b></summary>
 
-{fmt_unit_links(part1_entries[65:75], "U")}
+{fmt_unit_links(part1_entries[65:], "U")}
 
 </details>
 
 <details>
-<summary><b>Part 2 · Institutions (I00–I17)</b></summary>
+<summary><b>Part 2 · Institutions (I00–I{part2_entries[-1][0]:02d})</b></summary>
 
 {fmt_unit_links(part2_entries, "I")}
 
@@ -940,14 +1022,14 @@ def main() -> None:
 - [Review scope and findings](review_scope_and_findings)
 - [Wiki maintenance](wiki_maintenance)
 """
-    (WIKI_ROOT / "_Sidebar.md").write_text(
+    (wiki_root / "_Sidebar.md").write_text(
         sidebar_md, encoding="utf-8", newline="\n"
     )
 
-    # 10. Update Home.md to feature the 15-second customer-facing Textbook entrance
+    # 11. Update Home.md
     home_md = f"""# Genesis: A Reader's and Developer's Guide
 
-Genesis (`19L57G1`) studies what follows from an opaque seed `<>` under declared finite challenges, what has to be admitted separately, and where the evidence stops. It contains a replayable admission kernel, deterministic searches, Lean 4 proofs, claim ledgers, a complete **93-unit introductory Textbook**, and a post-seal research estate.
+Genesis (`19L57G1`) studies what follows from an opaque seed `<>` under declared finite challenges, what has to be admitted separately, and where the evidence stops. It contains a replayable admission kernel, deterministic searches, Lean 4 proofs, claim ledgers, a complete **{len(part1_entries) + len(part2_entries)}-unit introductory Textbook**, and a post-seal research estate.
 
 This Wiki is an explanatory map and mirrored textbook of the published repository, not an amendment to its sealed experiment, a new derivation, or a certification of all its claims. `AuthorityEffect: None`.
 
@@ -955,9 +1037,9 @@ This Wiki is an explanatory map and mirrored textbook of the published repositor
 
 > [!IMPORTANT]
 > ### ⚡ New to Genesis? Start with the 15-Second Textbook Entrance
-> **Zero prerequisites required.** Every preconceived notion (sets, numbers, containers, rules) is erased at the door so any patient reader can follow the ledger from the single mark `<>` through all 75 frozen Lean 4 modules and 4 research suites—one **15-second soundbite**, **Manim visual (`<= 15s`)**, and **interactive stepping stone** at a time.
+> **Zero prerequisites required.** Every preconceived notion (sets, numbers, containers, rules) is erased at the door so any patient reader can follow the ledger from the single mark `<>` through all 75 frozen Lean 4 modules and post-freeze research suites—one **15-second soundbite**, **Manim visual (`<= 15s`)**, and **interactive stepping stone** at a time.
 >
-> 👉 **[🚀 Start Here (15-Second Entrance)](textbook_start_here)** · **[📚 Textbook Hub (Units 00–74)](textbook_overview)** · **[🏛️ Part 2: Actors & Institutions (00–17)](textbook_institutions)** · **[🎬 15s Manim Video Gallery](textbook_video_15s)**
+> 👉 **[🚀 Start Here (15-Second Entrance)](textbook_start_here)** · **[📚 Textbook Hub (Units 00–{part1_entries[-1][0]:02d})](textbook_overview)** · **[🏛️ Part 2: Actors & Institutions (00–{part2_entries[-1][0]:02d})](textbook_institutions)** · **[🎬 15s Manim Video Gallery](textbook_video_15s)** · **[🌲 Synced Research Trees ({len(research_trees)})](textbook_research_trees)**
 
 ![Pre-Genesis and the Opaque Mark <> (15s Manim Visual)]({RAW_WIKI_MEDIA}/act00_pre_genesis_mark.gif)
 
@@ -968,7 +1050,7 @@ This Wiki is an explanatory map and mirrored textbook of the published repositor
 | I want to... | Start here | Continue with |
 | --- | --- | --- |
 | **Learn from scratch in 15-second soundbites (no math/code background needed)** | **[🚀 Textbook: Start Here](textbook_start_here)** | **[Unit 00: The mark](textbook_u00_mark_and_constructor)**, **[Textbook Hub](textbook_overview)**, **[15s Video Gallery](textbook_video_15s)** |
-| **Study Actors, Institutions, Probing & Uncollapse** | **[🏛️ Part 2: Institutions](textbook_institutions)** | **[Inst 00: Signatures]({part2_entries[0][2]})**, **[Coverage Matrix](textbook_coverage)** |
+| **Study Actors, Institutions, Probing & Uncollapse** | **[🏛️ Part 2: Institutions](textbook_institutions)** | **[Inst 00: Signatures]({part2_entries[0][2]})**, **[Coverage Matrix](textbook_coverage)**, **[Synced Research Trees](textbook_research_trees)** |
 | Understand the result without running anything | [Overview](genesis_overview) | [Concepts and glossary](concepts_and_glossary), [Reading the papers](papers_and_claim_ledgers) |
 | Run a small, concrete example | [Getting started](getting_started) | [Admission kernel](admission_kernel), [Worked examples](worked_examples) |
 | Understand finite search and tied answers | [Candidates and costs](candidates_costs_and_ties) | [Isomorphism](isomorphism_and_quotients), [Engine and frontiers](engine_and_frontiers) |
@@ -992,7 +1074,8 @@ A proposal is not an admission. A computed minimum is not authorization. An obse
 
 ## Explore the repository
 
-- [Textbook Hub](textbook_overview) and [Derivation Coverage Matrix](textbook_coverage): all 75 frozen modules (`Units 00–74`) and 4 post-freeze research trees (`Institutions 00–17`) with 15-second soundbites and `<= 15s` Manim animations.
+- [Textbook Hub](textbook_overview) and [Derivation Coverage Matrix](textbook_coverage): all 75 frozen modules (`Units 00–{part1_entries[-1][0]:02d}`) and post-freeze research trees (`Institutions 00–{part2_entries[-1][0]:02d}`) with 15-second soundbites and `<= 15s` Manim animations.
+- [Synced Research Trees](textbook_research_trees): all {len(research_trees)} research directories currently on `main`.
 - [Repository map](repository_map): every top-level area and complete tracked-file indexes.
 - [Python module reference](python_module_reference): public top-level definitions across the computational modules.
 - [Research tree index](research_tree_index): every tree in the canonical generated research index, with per-tree source, test, Lean, report, and verifier maps.
@@ -1001,25 +1084,51 @@ A proposal is not an admission. A computed minimum is not authorization. An obse
 
 ## Snapshot and current status
 
-Textbook & Audit edition synced to `main` at [`{COMMIT_SHORT}`](https://github.com/dbccpage/19L57G1/commit/{COMMIT_SHA}) (2026-10-28, following PRs #286 and #287); core repository reference pages reflect [`85a83ae7ce64`](https://github.com/dbccpage/19L57G1/commit/85a83ae7ce64dc2123ff218568a4ecd37e566d33) (2026-10-23). All tracked toolchain files pin Lean 4.33.0.
+Textbook & Audit edition synced to `main` at [`{commit_short}`](https://github.com/dbccpage/19L57G1/commit/{commit_sha}) (2026-10-28); core repository reference pages reflect [`85a83ae7ce64`](https://github.com/dbccpage/19L57G1/commit/85a83ae7ce64dc2123ff218568a4ecd37e566d33) (2026-10-23). All tracked toolchain files pin Lean 4.33.0.
 
 The closeout records three independent axes: research program **CLOSED_WITH_OPEN_OBSTRUCTIONS**, Alpha reference **READY_WITHIN_DECLARED_SCOPE**, and original seed completion gate **UNSATISFIED**. These are attributed closeout dispositions, not a new whole-repository verification run. [Review scope and findings](review_scope_and_findings) explains the dated evidence, documentation discrepancies, and checks actually performed for this Wiki.
 """
-    (WIKI_ROOT / "Home.md").write_text(home_md, encoding="utf-8", newline="\n")
+    (wiki_root / "Home.md").write_text(home_md, encoding="utf-8", newline="\n")
 
-    # 11. Update _Footer.md
+    # 12. Update _Footer.md
     footer_md = f"""<!-- markdownlint-disable MD041 -->
 
-[Genesis Home](Home) · [Textbook Start Here](textbook_start_here) · [Textbook Hub](textbook_overview) · [15s Videos](textbook_video_15s) · [Research Index](research_tree_index) · [Source Contract](source_contract)
+[Genesis Home](Home) · [Textbook Start Here](textbook_start_here) · [Textbook Hub](textbook_overview) · [15s Videos](textbook_video_15s) · [Synced Research Trees](textbook_research_trees) · [Source Contract](source_contract)
 
-Source edition: [{COMMIT_SHORT}](https://github.com/dbccpage/19L57G1/commit/{COMMIT_SHA}), updated 2026-10-28. Separate explanatory documentation and textbook mirror. `AuthorityEffect: None`. No new derivation, source amendment, or whole-repository certification is implied.
+Source edition: [{commit_short}](https://github.com/dbccpage/19L57G1/commit/{commit_sha}), updated 2026-10-28. Separate explanatory documentation and textbook mirror. `AuthorityEffect: None`. No new derivation, source amendment, or whole-repository certification is implied.
 """
-    (WIKI_ROOT / "_Footer.md").write_text(footer_md, encoding="utf-8", newline="\n")
+    (wiki_root / "_Footer.md").write_text(footer_md, encoding="utf-8", newline="\n")
 
-    print(
-        f"Built {len(part1_entries)} Part 1 pages, {len(part2_entries)} Part 2 pages, and 6 hub pages in {WIKI_ROOT}"
+    return {
+        "part1": len(part1_entries),
+        "part2": len(part2_entries),
+        "research_trees": len(research_trees),
+        "hubs": 7,
+    }
+
+
+def main(argv: list[str] | None = None) -> int:
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument(
+        "--repo-root",
+        type=Path,
+        default=DEFAULT_REPO_ROOT,
+        help="Path to 19L57G1 repository root",
     )
+    ap.add_argument(
+        "--wiki-root",
+        type=Path,
+        default=DEFAULT_WIKI_ROOT,
+        help="Path to 19L57G1.wiki checkout or output directory",
+    )
+    args = ap.parse_args(argv)
+    counts = build_all(args.repo_root.resolve(), args.wiki_root.resolve())
+    print(
+        f"Built {counts['part1']} Part 1 pages, {counts['part2']} Part 2 pages, "
+        f"{counts['hubs']} hub pages, and synced {counts['research_trees']} research trees in {args.wiki_root}"
+    )
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
