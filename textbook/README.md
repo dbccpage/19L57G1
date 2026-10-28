@@ -257,13 +257,14 @@ in one template or the other, and this table says which.
 | 43 | No bounded local repair clears a growing demand: G1 inside a declared class, and what G3 would need | `LocalFiniteAlphabet.finite_local_not_clears`, `G1Class.g1_class_exclusion`, `G1Class.clears_does_not_imply_not_fires` | derived, conditional on `FiniteDeclaration`; class-relative; G3, G4 conjectures | yes |
 | 44 | Reflect, obstruct, close, or propose: a typed interface for primitive difference | `DiffInterface.zeroRel_equivalence`, `DiffInterface.bare_reflection_certifies_active_obstruction`, `DiffInterface.drive_terminates`, `DiffInterface.bool_grammar_obstruction` | derived; abstract parts conditional on declared bundles; tower driver one-step; countermodels unprotected by construction | yes |
 | 45 | A kernel with no outside: what must be in the state for progress to be replayable? | `Represented.support_determines`, `Represented.equiv_replay`, `Represented.represented_progress`, `Represented.cert_scope` | derived relative to the declared constitution; progress conditional on `WF` (a replay invariant); budget refill unguarded | yes |
+| 46 | Rule 1 in a fixed kernel: repair, or certified exhaustion plus a tied extension family | `Completion.ofWorld_obstruction`, `Completion.rule1_repair_or_extension`, `Completion.refusal_non_absorbing`, `Completion.action_dichotomy` | derived for the fixed kernel; conditional on `WF`; common state declared, retention/protection fed from one store by stated identification | yes |
 
-The order follows the derivation. Units 27-45 follow the root import order
+The order follows the derivation. Units 27-46 follow the root import order
 of `lean4/Derivation.lean` (Quot, Counting, CountTransport, Mention,
 TransitionTransport, MinimalityF, RuleBridge, Rounds, Progress, Ext,
 ObserverInventory, Refusal, RefusalFrontier, Generator, SeparationCapacity,
-Pigeonhole, CapacityBound, LocalStrategy, G1Class, DiffInterface, Represented); units after 45 continue
-with Completion.
+Pigeonhole, CapacityBound, LocalStrategy, G1Class, DiffInterface, Represented,
+Completion); units after 46 continue with NoOutside.
 
 ## Parts
 
