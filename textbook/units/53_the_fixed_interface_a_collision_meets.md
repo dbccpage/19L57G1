@@ -1,18 +1,8 @@
 # Unit 53. The fixed interface a collision meets
 
-**Claim.** `PrimitiveContact` fixes, before any outside development is
-read, what the native side puts on the table: `NativeKernel`, the class
-of settings carrying a pointed witnessed irreflexive relation (reading A
-of Unit 51), inhabited by `nativeKernelWitness` (Unit 51's `d2Bare`); and
-two re-exported facts under contact-facing names, `native_kernel_initial`
-(Unit 52's `d2_initial`) and `native_interface_not_representable`
-(ContactBridge's `d2_not_obs_complement`: no difference observer's
-apartness on `Bool` is the oriented witness, because an observer's
-apartness is symmetric). The rest of the module is protocol record: the
-sealed pre-contact terminal `CONTACT_INPUT_ABSENT`, the current status
-`CONTACT_PROCESSED_LEAN_ONLY`, the primary verdict
-`CONTACT_INCOMPARABLE_WITH_COUNTERMODELS`, and a two-entry history whose
-length is `rfl`. **Status:** FROZEN (the two re-exports, proved in their
+**Claim.** The native interface packages a witnessed irreflexive relation and two scoped results. Its contact verdict and protocol history record the comparison; they do not add a new derivation.
+
+**Status:** FROZEN (the two re-exports, proved in their
 home modules); ADMITTED (the interface definition and the status strings,
 declared policy); VERIFIED_FINITE (`contact_status_count`, and the Python
 mirror's agreement with the strings). **Lean:**
@@ -22,6 +12,30 @@ reports; `native_kernel_initial` uses `Quot.sound` through `d2_initial`,
 the other two none. **Depends on:** Unit 51 (`Setting`, A, `imp_a_d`,
 `e_empty_iff_d`), Unit 52 (`d2Obj`, `d2_initial`), Unit 44 (`DiffObs`
 and its zero relation); the refutation itself is taught in Unit 67.
+
+## First pass
+
+Separate the mathematical package from its protocol record. The package specifies the native settings and the proved interfaces available for comparison.
+
+The status labels then record what contact processed and what remains incomparable. A recorded status is not an additional theorem connecting the two sides.
+
+## Detailed claim and formal anchors
+
+`PrimitiveContact` fixes, before any outside development is
+read, what the native side puts on the table: `NativeKernel`, the class
+of settings carrying a pointed witnessed irreflexive relation (reading A
+of Unit 51), inhabited by `nativeKernelWitness` (Unit 51's `d2Bare`); and
+two re-exported facts under contact-facing names, `native_kernel_initial`
+(Unit 52's `d2_initial`) and `native_interface_not_representable`
+(ContactBridge's `d2_not_obs_complement`: no difference observer's
+apartness on `Bool` is the oriented witness, because an observer's
+apartness is symmetric).
+
+The rest of the module is protocol record: the
+sealed pre-contact terminal `CONTACT_INPUT_ABSENT`, the current status
+`CONTACT_PROCESSED_LEAN_ONLY`, the primary verdict
+`CONTACT_INCOMPARABLE_WITH_COUNTERMODELS`, and a two-entry history whose
+length is `rfl`.
 
 ## Question
 

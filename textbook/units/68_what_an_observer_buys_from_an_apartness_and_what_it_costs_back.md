@@ -1,45 +1,8 @@
 # Unit 68. What an observer buys from an apartness, and what it costs back
 
-**Claim.** `ContactBridge` compares the observer presentation of difference
-(`DiffInterface.DiffObs`, Unit 44) with the relational candidate readings
-(`PrimitiveCore`, Unit 51) and positive apartness (`Apartness.IsApart`,
-Unit 56), in both directions. From any observer `O : DiffObs X R`, the
-zero-complement `obsApart O x y := ¬ ZeroRel O x y` gets irreflexivity,
-symmetry, and double-negation stability for free by contraposing `O`'s law
-fields (`obsApart_irrefl`, `obsApart_symm`, `obsApart_stable`,
-`zeroRel_indist`). Given a complement-witnessed pair `hab : obsApart O a b`,
-the empty-store setting `obsSetting O a b` satisfies candidate readings W, A,
-Bs, D, and E-at-empty-stores outright (`obsSetting_w`, `obsSetting_a`,
-`obsSetting_bs`, `obsSetting_d`, `obsSetting_e`), while Bc, Bl, and positive
-apartness of `obsApart O` hold under an explicit pointwise decidability
-hypothesis `[∀ x y, Decidable (ZeroRel O x y)]` (`obsApart_cotrans`,
-`obsSetting_bc`, `obsSetting_bl`, `obsApart_isApart`, `indist_obsApart_iff`;
-under that hypothesis indistinguishability of `obsApart O` is transitive,
-`obsApart_indist_trans`). In the converse direction, an admitted apartness
-`h : IsApart r` builds a Prop-valued observer `apartObs r h` by spending its
-three admitted laws one for one (`apartObs_zeroRel`), and recovers
-`obsApart (apartObs r h) x y ↔ r x y` under a *different*, non-interchangeable
-decidability hypothesis `[∀ x y, Decidable (r x y)]` (`apartObs_roundtrip`,
-`isApart_repr`). A relation `r : X → X → Prop` is the zero-complement of some
-`DiffObs X Prop` if and only if `¬ r` is an equivalence and `r` is
-double-negation stable (`obsApart_repr_iff`); four finite countermodels
-refute representability or witness transport at carriers 1, 2, 3, and 2
-(`unit_total_not_repr`, `d2_not_obs_complement`, `triSym_not_obs_complement`,
-`d_not_witnessed_repr`), with carrier 3 proved minimal for Bs by
-`bool_bs_repr`. Dropping decidability across all observers is priced against
-constructive logic: the unconditional cotransitivity schema is equivalent to
-the weak law of excluded middle (`cotrans_schema_iff_wlem`), the stability
-schema is equivalent to double-negation elimination (`stability_schema_iff_dne`),
-and the locatedness schema implies the weak law (`located_schema_implies_wlem`).
-At the passage's declared observation stage, the Boolean zero predicate
-`zeroP cols` equals the zero relation of `kernelObs (colView cols)`
-(`declared_zero_as_view`, `observation_stage_realizes_observer`), where the
-parked `DiffAnchor` module names `colObs cols := kernelObs (colView cols)`
-and establishes exact quotient identification (`colObs_quotient_eq_iff_zeroP`) and
-binary difference descent (`colObs_deltaConstant`), guarded against root
-name collisions by the parked probe `DiffAnchorCompat`. Finally, a zero-pair
-separated by a view is equivalent to a `CollapseCollision` at the quotient
-projection (`pair_blocked_iff_collapse_collision`). **Status:** FROZEN
+**Claim.** Passing between an observer's zero relation and a positive apartness relation requires explicit laws. Some converse and round-trip results additionally require their own stated decidability hypotheses.
+
+**Status:** FROZEN
 (free laws, representability crown, pricing schemas, passage placement,
 `DiffAnchor` corollaries); CONDITIONAL (candidate cells and round trips under
 `hab` and the two decidability admissions); REFUTED (the four countermodels;
@@ -56,6 +19,70 @@ lines 39-73 and `lean4/Derivation/DiffAnchorCompat.lean` lines 1-17.
 (`Setting`, W..F, `Cotrans`, `Located`), Unit 54 (`zeroP`), Unit 56
 (`IsApart`, `Indist`, `triSymRel`), Unit 67 (`ObsQuotient`,
 `obsQuotient_mk_eq_iff`, `DeltaConstant`).
+
+## First pass
+
+An observer says which differences count as zero. Its zero-complement says that a pair does not count as zero.
+
+A positive apartness relation has additional laws. Do not assume that taking a complement automatically supplies all of them.
+
+Follow the two directions separately: observer to relation, then relation to observer. Record the decidability assumption used in each direction; the assumptions are not interchangeable.
+
+## Detailed claim and formal anchors
+
+`ContactBridge` compares the observer presentation of difference
+(`DiffInterface.DiffObs`, Unit 44) with the relational candidate readings
+(`PrimitiveCore`, Unit 51) and positive apartness (`Apartness.IsApart`,
+Unit 56), in both directions.
+
+From any observer `O : DiffObs X R`, the
+zero-complement `obsApart O x y := ¬ ZeroRel O x y` gets irreflexivity,
+symmetry, and double-negation stability for free by contraposing `O`'s law
+fields (`obsApart_irrefl`, `obsApart_symm`, `obsApart_stable`,
+`zeroRel_indist`).
+
+Given a complement-witnessed pair `hab : obsApart O a b`,
+the empty-store setting `obsSetting O a b` satisfies candidate readings W, A,
+Bs, D, and E-at-empty-stores outright (`obsSetting_w`, `obsSetting_a`,
+`obsSetting_bs`, `obsSetting_d`, `obsSetting_e`), while Bc, Bl, and positive
+apartness of `obsApart O` hold under an explicit pointwise decidability
+hypothesis `[∀ x y, Decidable (ZeroRel O x y)]` (`obsApart_cotrans`,
+`obsSetting_bc`, `obsSetting_bl`, `obsApart_isApart`, `indist_obsApart_iff`;
+under that hypothesis indistinguishability of `obsApart O` is transitive,
+`obsApart_indist_trans`).
+
+In the converse direction, an admitted apartness
+`h : IsApart r` builds a Prop-valued observer `apartObs r h` by spending its
+three admitted laws one for one (`apartObs_zeroRel`), and recovers
+`obsApart (apartObs r h) x y ↔ r x y` under a *different*, non-interchangeable
+decidability hypothesis `[∀ x y, Decidable (r x y)]` (`apartObs_roundtrip`,
+`isApart_repr`).
+
+A relation `r : X → X → Prop` is the zero-complement of some
+`DiffObs X Prop` if and only if `¬ r` is an equivalence and `r` is
+double-negation stable (`obsApart_repr_iff`); four finite countermodels
+refute representability or witness transport at carriers 1, 2, 3, and 2
+(`unit_total_not_repr`, `d2_not_obs_complement`, `triSym_not_obs_complement`,
+`d_not_witnessed_repr`), with carrier 3 proved minimal for Bs by
+`bool_bs_repr`.
+
+Dropping decidability across all observers is priced against
+constructive logic: the unconditional cotransitivity schema is equivalent to
+the weak law of excluded middle (`cotrans_schema_iff_wlem`), the stability
+schema is equivalent to double-negation elimination (`stability_schema_iff_dne`),
+and the locatedness schema implies the weak law (`located_schema_implies_wlem`).
+
+At the passage's declared observation stage, the Boolean zero predicate
+`zeroP cols` equals the zero relation of `kernelObs (colView cols)`
+(`declared_zero_as_view`, `observation_stage_realizes_observer`), where the
+parked `DiffAnchor` module names `colObs cols := kernelObs (colView cols)`
+and establishes exact quotient identification (`colObs_quotient_eq_iff_zeroP`) and
+binary difference descent (`colObs_deltaConstant`), guarded against root
+name collisions by the parked probe `DiffAnchorCompat`.
+
+Finally, a zero-pair
+separated by a view is equivalent to a `CollapseCollision` at the quotient
+projection (`pair_blocked_iff_collapse_collision`).
 
 ## Question
 

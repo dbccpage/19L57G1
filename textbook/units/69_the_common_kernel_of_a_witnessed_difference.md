@@ -1,6 +1,18 @@
 # Unit 69: The Common Kernel of a Witnessed Difference
 
-**Claim**: `CL-PD2-CONTACT-KERNEL`, `CL-PD2-CONTACT-COUNTERMODELS`, `CL-PD2-CONTACT-ENTRY` (`FROZEN` / `VERIFIED_FINITE` / `CONDITIONAL` / `REFUTED` / `OPEN`) — `lean4/Derivation/ContactKernel.lean`, `code/run_primitive_contact.py`, `artifacts/primitive_contact.json`  
+**Claim.** A witnessed difference records a difference map, a zero test, and a pair whose difference is nonzero. This common interface does not supply every law of an observer or native relation.
+
+## First pass
+
+Read the record as a checklist: a way to compare two items, a test for zero, and one pair that fails that zero test.
+
+The record establishes that particular witnessed distinction. Symmetry, transitivity, and other stronger laws must be supplied separately.
+
+The lesson compares constructions into this common interface. Sharing the interface does not make the source constructions identical.
+
+## Detailed claim and formal anchors
+
+`CL-PD2-CONTACT-KERNEL`, `CL-PD2-CONTACT-COUNTERMODELS`, `CL-PD2-CONTACT-ENTRY` (`FROZEN` / `VERIFIED_FINITE` / `CONDITIONAL` / `REFUTED` / `OPEN`) — `lean4/Derivation/ContactKernel.lean`, `code/run_primitive_contact.py`, `artifacts/primitive_contact.json`
 **Prerequisites**: Unit 44 (`DiffInterface`: `DiffObs`, `ZeroRel`), Unit 51 (`PrimitiveCore`: `Setting`, candidates `W`–`F`, `Cotrans`, `Located`, `located_of_decidable`, `imp_a_d`, `e_empty_iff_d`), Unit 52 (`PrimitiveCats`: `PtdRel`, `Hom`, `Initial`, `d2Obj`, `d2_initial`, `d2_map_injective`, `SymObj`, `IrreflObj`), Unit 53 (`PrimitiveContact`: `NativeKernel`), Unit 54 (`PrimitivePassage`: `preRetained`, `inducedSetting`, `obstP`, `kernel_enters_preretained`, `obst_requires_observation`), Unit 56 (`Apartness`: `triSymRel`, `symm_without_cotrans_breaks_trans`), Unit 67 (`ObsDescent`: `collapseAllObs`), Unit 68 (`ContactBridge`: `obsApart`)
 
 ## Question

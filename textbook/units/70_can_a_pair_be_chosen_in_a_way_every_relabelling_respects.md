@@ -1,6 +1,18 @@
 # Unit 70: Can a Pair Be Chosen in a Way Every Relabelling Respects?
 
-**Claim**: `CL-PN-NATURAL-SELECTION`, `CL-PN-HETEROGENEOUS-TRANSPORT` (`FROZEN` / `VERIFIED_FINITE` / `OPEN`) — `lean4/Derivation/PresentationNaturality.lean`  
+**Claim.** A selector required to respect every permitted relabeling may be blocked by symmetry. The obstruction depends on the stated action and selection requirements.
+
+## First pass
+
+Imagine two points exchanged by a swap. A choice that treats both presentations alike must still choose after the swap.
+
+If the chosen point must also be unchanged by the swap, neither point works: each is moved to the other.
+
+Separate the carrier, the allowed relabelings, and the required kind of choice before reading the general obstruction.
+
+## Detailed claim and formal anchors
+
+`CL-PN-NATURAL-SELECTION`, `CL-PN-HETEROGENEOUS-TRANSPORT` (`FROZEN` / `VERIFIED_FINITE` / `OPEN`) — `lean4/Derivation/PresentationNaturality.lean`
 **Prerequisites**: Unit 44 (`DiffInterface`: `DiffObs`, `ZeroRel`, `kernelObs`), Unit 69 (`ContactKernel`: `NonZeroPair`, `boolEqObs`, `swapObs`, `no_equivariant_pair_valued_map`)
 
 ## Question

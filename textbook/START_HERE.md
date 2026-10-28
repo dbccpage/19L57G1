@@ -115,10 +115,18 @@ its own terms.
 
 ## How to read this book
 
-You do not need any background in mathematics, logic, Python, or Lean. Every
-lesson introduces one small question, explains every symbol and every line of
-code in plain English, states both what has been proved and what has **not**
-been proved, and ends with a short exercise and its worked answer.
+No prior study of mathematics, logic, Python, or Lean is assumed. Later
+lessons contain longer formal statements, so work through their examples
+before trying to read every theorem name.
+
+Use three passes for a difficult lesson:
+
+1. Read the question and first-pass example. Say what changes in your own words.
+2. Read one definition at a time. Check its symbols against the example.
+3. Read the formal statement, its hypotheses, and the limits of the result.
+
+The short videos preview groups of lessons. Pause or replay them as needed;
+their fifteen-second duration is not a target for understanding a definition.
 
 1. **First lesson:** Start at [`Unit 00: The mark and the external constructor`](units/00_mark_and_constructor.md),
    then proceed in order to [`Unit 01: Nothing is derivable at genesis`](units/01_genesis_underivable.md),

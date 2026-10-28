@@ -1,28 +1,7 @@
 # Unit 55. The first graph is supplied, its observer is created
 
-**Claim.** `HigherStructure` runs Unit 54's round forever and says
-exactly what each round creates. A *growth driver* `growBlock k` feeds
-the passage one occurrence, one asserted and retained difference, one
-protection and one unit of budget per round; `graphAt_spec` proves by
-induction that the state after round `k + 1` is exactly `pathState k`,
-the path graph on `k + 2` occurrences with every edge protected and one
-observation column per edge. Inside every round the new pair is
-obstructed (`round_obstruction`), the singleton column is proposed
-(`round_two_rule`) and executing it lands on the next characterised
-state (`round_resolution`); the last event of every round is that
-`addCol` (`round_creation_record`); quiescence is restored
-(`graphAt_quiescent`); the counts grow by one each
-(`graph_growth`). So the *driver* supplies the graph, occurrences and
-edges, and the *obstruction* creates the observation. Above dimension
-one nothing is forced: a declared cell calculus `cstep` admits a
-triangle only over three present edges and a solid cell only over four
-present triangles (`ladder_dim2`, `ladder_dim3`), refuses otherwise
-(`shell_guard_load_bearing`), and never fills a shell by itself
-(`filling_not_forced`); the four-occurrence demonstration `k4` is built
-in creation order with its edges equal to the passage's witness store
-(`k4_builds`, `k4_skeleton_agrees`); the declared integer boundary
-composes to zero on its cells (`d2_zero_triangles`, `d2_zero_tet`), and
-so does a second, different convention (`boundary_not_forced`).
+**Claim.** In the declared growth driver, supplied occurrences and edges create the graph, while each obstructed round creates an observation column. Higher-cell and boundary conventions are separate admissions.
+
 **Status:** FROZEN (the round schema and `graphAt_spec`, horizon-free);
 ADMITTED (the driver, the cell calculus, the boundary conventions:
 declared content); VERIFIED_FINITE (`k4`, the alternating statistic, the
@@ -33,6 +12,46 @@ ladder at every dimension as a two-rule statement; see Unit 60).
 `propext` only, `round_creation_record` none, the rest `propext,
 Quot.sound`. **Depends on:** Unit 54 (`PState`, `step`, `replayP`,
 `obstP`, `extension_always_available`, `two_rule`), Unit 03 (replay).
+
+## First pass
+
+Follow one round before considering the whole run. The driver supplies an occurrence and an edge, retains and protects the pair, and supplies the required budget.
+
+The obstruction is then resolved by adding an observation column. The induction describes repetitions of this supplied growth pattern; it does not derive the supply of graph edges from observation alone.
+
+## Detailed claim and formal anchors
+
+`HigherStructure` runs Unit 54's round forever and says
+exactly what each round creates.
+
+A *growth driver* `growBlock k` feeds
+the passage one occurrence, one asserted and retained difference, one
+protection and one unit of budget per round; `graphAt_spec` proves by
+induction that the state after round `k + 1` is exactly `pathState k`,
+the path graph on `k + 2` occurrences with every edge protected and one
+observation column per edge.
+
+Inside every round the new pair is
+obstructed (`round_obstruction`), the singleton column is proposed
+(`round_two_rule`) and executing it lands on the next characterised
+state (`round_resolution`); the last event of every round is that
+`addCol` (`round_creation_record`); quiescence is restored
+(`graphAt_quiescent`); the counts grow by one each
+(`graph_growth`).
+
+So the *driver* supplies the graph, occurrences and
+edges, and the *obstruction* creates the observation.
+
+Above dimension
+one nothing is forced: a declared cell calculus `cstep` admits a
+triangle only over three present edges and a solid cell only over four
+present triangles (`ladder_dim2`, `ladder_dim3`), refuses otherwise
+(`shell_guard_load_bearing`), and never fills a shell by itself
+(`filling_not_forced`); the four-occurrence demonstration `k4` is built
+in creation order with its edges equal to the passage's witness store
+(`k4_builds`, `k4_skeleton_agrees`); the declared integer boundary
+composes to zero on its cells (`d2_zero_triangles`, `d2_zero_tet`), and
+so does a second, different convention (`boundary_not_forced`).
 
 ## Question
 

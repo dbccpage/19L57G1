@@ -233,16 +233,16 @@
       },
       {
         code: "Act VIII (U57–58, U65–66)",
-        title: "13 Codes, Trace Algebra & Interpreter",
+        title: "Effect Classes, Events & Interpreter",
         status: "FROZEN / OPEN BOUNDARY",
-        b1: "Do the 13 transition codes form a group, and is the interpreter one of the 13 codes it runs?",
-        b2: "In TraceAlgebra, every single code is idempotent (step c (step c w) = step c w), with 132 non-commuting pairs and no inverses.",
-        b3: "InterpreterBoundary.family_missed shows the notes-diagonal action differs from all 13 codes in the family.",
-        b4: "This establishes a coded behavioral separation in the declared model; the absolute denotational self-interpreter boundary remains OPEN.",
-        q: "In TraceAlgebra, what happens when you apply the same transition code c twice in a row?",
-        opts: ["It equals applying c once (step_idempotent)", "It inverts the transition back to the start"],
+        b1: "Thirteen effect classes summarize one-step transitions. Equal class signatures can behave differently under a common suffix, so they do not form an event alphabet.",
+        b2: "TraceAlgebra.step_idem concerns concrete events: step(step(s, e), e) = step(s, e). Different events can fail to commute.",
+        b3: "InterpreterBoundary.family_missed concerns a separate family of 64 constitution descriptors. Its notes-diagonal function differs from every coded step.",
+        b4: "The diagonal changes an operationally inert notes field. It does not establish the meaning of an uncoded interpreter role; the denotational bridge remains OPEN.",
+        q: "What happens when the same concrete event e is applied twice in a row?",
+        opts: ["The result equals applying e once (step_idem)", "It inverts the transition back to the start"],
         correct: 0,
-        explain: "TraceAlgebra.step_idempotent shows every code c in the 13-code alphabet satisfies step c (step c w) = step c w."
+        explain: "TraceAlgebra.step_idem states step(step(s, e), e) = step(s, e) for each concrete passage event. The 13 effect classes and 64 constitution descriptors are separate populations."
       },
       {
         code: "Act IX (U59–U64)",

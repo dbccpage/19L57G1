@@ -1,24 +1,7 @@
 # Unit 17. The interpreter boundary at verdict level
 
-**Claim.** On reflective worlds `RWorld := ConstitutionDesc × World`, the two
-sealed laws `Interprets` and `Quotes` uniquely fix the reflective step `rstep`
-at every point without function extensionality (`lawful_unique_at`), whereas any
-step function `s : World → Event → World` lifted to `RWorld` ignores the carried
-code and disagrees with `rstep` on quiescence at `genesis` under `.require 0 0`
-(`quiescent_reads_guard`, `interp_not_step`) and at the well-formed reached
-world `accWorld` under `.mark [0] 1` with both outcomes well-formed
-(`quiescent_reads_accept`, `interp_not_step_wf`, `vsep_uncoded_wf`). Identifying
-the uncoded role `none` with any coded member `some d` or lifted step function
-changes a quiescence verdict (`identification_changes_quiescence`), while at an
-aligned world `(d, w)` carrying `d` itself the coded member `some d` and the
-uncoded role `none` are definitionally equal (`aligned_coded_equals_uncoded`,
-`vsep_uncoded_iff`), and two codes can differ on quiescence at `(w, e)` only
-when a kernel guard fails (`codes_agree_of_guardsPass`,
-`codes_separated_needs_guard`). Alongside this, on `World → Event → World` the
-support-level diagonal `opDiag` misses every finite catalogue on represented
-support (`tower_persists_operational`) by violating the declared transition
-(`opDiag_not_lawful`), and a `Lawful` function escapes a catalogue iff no code
-in the catalogue is `Lawful` (`lawful_escape_iff`, `lawful_no_escape`).
+**Claim.** A reflective step reads the carried constitution code. The stated aligned roles agree; changing guards can give separating verdicts. The support-diagonal and lawful-escape results retain their separate hypotheses.
+
 **Status:** derived (`V11` refutes aligned self-difference; `Bl` and
 `openDenotationalBridge` (`TT-18o`) remain open). **Lean:**
 `ResearchInterpreterVerdict.quiescent_reads_guard`,
@@ -85,6 +68,39 @@ precisely delimit their scope:
   `codes_separated_needs_guard`), and upgrades the witness from the unguarded
   self-requirement at `genesis` to the well-formedness-preserving acceptance
   guard at `accWorld` (`interp_not_step_wf`, `vsep_uncoded_wf`).
+
+## First pass
+
+A reflective world stores both a constitution descriptor and a world.
+Its reflective step reads that stored descriptor. A lifted step that
+ignores the descriptor can therefore give a different verdict.
+
+When the coded member matches the descriptor carried by the world, the
+stated aligned roles agree. Keep that aligned case separate from the
+witnesses where changing a guard changes quiescence. The later support
+diagonal and lawful-escape results have their own explicit hypotheses.
+
+## Detailed claim and formal anchors
+
+On reflective worlds `RWorld := ConstitutionDesc × World`, the two
+sealed laws `Interprets` and `Quotes` uniquely fix the reflective step `rstep`
+at every point without function extensionality (`lawful_unique_at`), whereas any
+step function `s : World → Event → World` lifted to `RWorld` ignores the carried
+code and disagrees with `rstep` on quiescence at `genesis` under `.require 0 0`
+(`quiescent_reads_guard`, `interp_not_step`) and at the well-formed reached
+world `accWorld` under `.mark [0] 1` with both outcomes well-formed
+(`quiescent_reads_accept`, `interp_not_step_wf`, `vsep_uncoded_wf`). Identifying
+the uncoded role `none` with any coded member `some d` or lifted step function
+changes a quiescence verdict (`identification_changes_quiescence`), while at an
+aligned world `(d, w)` carrying `d` itself the coded member `some d` and the
+uncoded role `none` are definitionally equal (`aligned_coded_equals_uncoded`,
+`vsep_uncoded_iff`), and two codes can differ on quiescence at `(w, e)` only
+when a kernel guard fails (`codes_agree_of_guardsPass`,
+`codes_separated_needs_guard`). Alongside this, on `World → Event → World` the
+support-level diagonal `opDiag` misses every finite catalogue on represented
+support (`tower_persists_operational`) by violating the declared transition
+(`opDiag_not_lawful`), and a `Lawful` function escapes a catalogue iff no code
+in the catalogue is `Lawful` (`lawful_escape_iff`, `lawful_no_escape`).
 
 ## What you need first
 
