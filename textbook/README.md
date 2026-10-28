@@ -114,15 +114,36 @@ is not there.
 belong to the declared metatheory (`paper/paper.md` §2; Unit 00). `Nat` has
 no largest element and `List Nat` has no longest list, but that is a fact
 about the metatheory's apparatus, not something the system possesses. When
-a theorem says "for every instance `i : Inst`", the quantifier ranges over a
-Lean type: it is a statement the metatheory makes *about* the system, one
-case at a time, and it gives the system no totality of instances.
+a theorem says "for every instance `i : Inst`", it is a genuine universal
+statement, proved once and uniformly for an arbitrary instance; it is not a
+collection of separate checks. What matters is where that quantifier lives:
+it ranges over a Lean type, so it is a statement the metatheory makes
+*about* the system. It puts no collection of instances, and no universal
+quantifier, into the system's ledger. Every unit that discusses a universal
+theorem keeps those two apart: the theorem's own quantifier, at full
+strength, and what the system has admitted.
+
+**A finite ledger does not bound what its definitions reach.** The ledger
+stores finitely many admitted items, but an admitted definition can have an
+unbounded extension when the metatheory reads it. The uniform rule is the
+first case. In the well-formed regime `⟨0, [1], [], [0], []⟩` (one unary
+form, the all-instances rule on it, no data, no instances),
+`derivable` holds of `(0, [99])`, though datum 99 was never admitted, and
+of `(0, [])` and `(0, [1, 2, 3])`, though form 0 has arity 1 (Unit 01;
+`checks/u01_rule_extension.py`). Nothing infinite is stored: the rule is one
+admitted item, a form number in a list. The unbounded part is the
+metatheory's reading of `derivable`, and a unit that uses it says so. If a
+later unit needs derivability restricted to admitted data, it introduces a
+separate, named predicate outside the seal rather than reading the
+restriction into the sealed one.
 
 So every unit has a section **Outside the system** that lists:
 
 1. each Lean type, quantifier or construction the unit uses that is
    metatheory, and what it is used for;
-2. what the system itself holds at that point (always a finite ledger);
+2. what the system itself holds at that point (always a finite ledger),
+   and, where a definition's extension read in Lean is unbounded, that it
+   is;
 3. any admission the unit relies on, with its price (the events or
    hypotheses it needs);
 4. any phrase in the unit that would import an observer, container or
@@ -154,7 +175,7 @@ which.
 |---|---|---|---|---|
 | 00 | The mark and the external constructor | (none; seed §1, paper §2) | admitted | yes |
 | 01 | Nothing is derivable at genesis | `Inertia.genesis_underivable` | derived | yes |
-| 02 | Nothing is derivable without instances or rules | `Inertia.underivable_of_empty` | derived | |
+| 02 | Nothing is derivable without instances or rules (and one admitted rule makes unadmitted instances derivable) | `Inertia.underivable_of_empty` | derived | |
 | 03 | Supplying a token changes nothing | `Inertia.supply_no_op` | derived | |
 | 04 | No successor is internally forced (by the declared grammar) | (none; paper §4) | admitted | |
 | 05 | Is ⟨⟩ admitted? Readings L and F | `Inertia.historyL_replays`, `historyF_replays` | open | |
