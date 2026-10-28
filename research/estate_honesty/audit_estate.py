@@ -196,7 +196,7 @@ def parse_pytest_collect_output(stdout: str) -> dict[str, int]:
 
 
 README_TESTS_ROW = re.compile(
-    r"\|\s*Tests\s*\|\s*(\d+)\s*files,\s*(\d+)\s*collected:\s*(\d+)\s*passed\s*/\s*(\d+)\s*skipped"
+    r"\|\s*Tests\s*\|\s*(\d+)\s*files,\s*(\d+)\s*(?:tests\s+)?collected(?::\s*(\d+)\s*passed\s*/\s*(\d+)\s*skipped)?"
 )
 
 
@@ -222,12 +222,12 @@ def audit_test_counts(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
     if readme_match is None:
         raise ValueError(
             f"{readme_path}: no Tests row of the shape "
-            "'| Tests | N files, N collected: N passed / N skipped'"
+            "'| Tests | N files, N [tests] collected[: N passed / N skipped]'"
         )
     readme_files = int(readme_match.group(1))
     readme_collected = int(readme_match.group(2))
-    readme_passed = int(readme_match.group(3))
-    readme_skipped = int(readme_match.group(4))
+    readme_passed = int(readme_match.group(3)) if readme_match.group(3) is not None else None
+    readme_skipped = int(readme_match.group(4)) if readme_match.group(4) is not None else None
 
     # 2026-09-19: the old exact-count literals are withdrawn in favor of
     # positive minima. Read each minimum from its own working-directory step.

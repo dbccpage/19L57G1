@@ -407,7 +407,7 @@
   },
   "pytest": {
     "exit_code": 0,
-    "passed": 142,
+    "passed": 143,
     "status": "PASS"
   },
   "schema_version": 1,
@@ -419,7 +419,7 @@
     ".gitattributes": "8d3cbb5c8e466acc37bd53780fb2f2564a6f2d41663b6a0bf22f8ae1dfb02b5d",
     "CLAIMS.md": "e0341321cd0b79a5ab0cf79a97b85248f39d7c4b5103b2d9fe357254eaa9e89a",
     "README.md": "9277a096b0c73e4afcb8d2f63fc304170cc20ad711ac5c033013c1e9a4d61605",
-    "SOURCE_MANIFEST.json": "5814cdddf1dba62886ded8409e094d38467744ea4ff5e9e3f0630a2d9c0a1cc8",
+    "SOURCE_MANIFEST.json": "6274c0bb6524c89a7515b25b64dd1b6c199aae36c770133e16334c40f224de9d",
     "__init__.py": "91411ad32aa7ea905e94c75c901e1ba7a228d1384655ff51c94b09fc781e0202",
     "benchmark_hierarchical.py": "c446679e543ff9434236e57886cd3aef1b10e9a1f2025eccefffaa10fbd3b75b",
     "dissipative_cycle.py": "335d91526080afaf7836833fa2451e2ec720afb20b73bd4e3b8053b0557aa29f",
@@ -454,9 +454,9 @@
     "tests/test_observer_enclosure.py": "d84b478ba835f01c19bde73469322c68bc8d16843afe03b26276233d97c964b3",
     "tests/test_projective_system.py": "7da04bad7fc914a9f53e6e221f7a9c01e20d4157ea5a8361ddbdadf770e15e10",
     "tests/test_reasoning_agent.py": "67386080755fe4f360d59ee6462a4e41194651c8839dc37e173f0d367849103f",
-    "tests/test_scaffold.py": "9d4436d4539126bcb686d0f101bd740ec2d20942e1009bb8f9ff46e6b53f957b",
+    "tests/test_scaffold.py": "b3e05ebde6c7c4763a857cbf2538edbfbcf678672271e9f915da16e21afcd7e5",
     "verify.py": "00e0c3ed7219bb788be710b60d4ced9b53fd1dcd460016a4399dce762aa9fe09",
-    "verify_sources.py": "f123e65e95765c9aa93b6b31f1b100be925ab18a69b3accd875d234f70fd4b2b"
+    "verify_sources.py": "d35c30301c9bf93222ef9a1edca83ddecc3e766bd1a0bef72fa78abfd6d9d3cc"
   },
   "status": "PASS",
   "target": "Target: Endogenous Continuum"

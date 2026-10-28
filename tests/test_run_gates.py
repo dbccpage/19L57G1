@@ -92,6 +92,16 @@ def test_every_job_sets_up_python_and_pinned_dependencies_before_python_commands
     assert {s.uses for s in chosen if s.uses} <= set(rg.ACTIONS)
 
 
+def test_every_checkout_step_fetches_full_history() -> None:
+    steps = rg.parse_workflow(rg.WORKFLOW.read_text(encoding="utf-8"))
+    checkouts = [s for s in steps if s.uses == "actions/checkout@v4"]
+    assert checkouts
+    for step in checkouts:
+        assert dict(step.with_) == {"fetch-depth": "0"}, (
+            f"job {step.job!r} checkout must set fetch-depth: 0 so git-history tests pass on hosted runners"
+        )
+
+
 def test_textbook_job_builds_all_default_lean_targets_before_book_lean() -> None:
     steps = rg.parse_workflow(rg.WORKFLOW.read_text(encoding="utf-8"))
     tb = [s for s in steps if s.job == "textbook" and s.run is not None and not s.is_setup]

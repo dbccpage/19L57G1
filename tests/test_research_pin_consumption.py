@@ -61,7 +61,9 @@ CUSTODY_VERIFIERS = ("verify_pins.py", "verify_sources.py", "verify_manifest.py"
                      "source_manifest.py")
 
 CHILD = r'''
-import ast, importlib, importlib.util, json, os, sys
+import sys
+sys.path[:] = [p for p in sys.path if p]
+import ast, importlib, importlib.util, json, os, types
 from pathlib import Path
 repo, tree = Path(sys.argv[1]).resolve(), Path(sys.argv[2]).resolve()
 skip = set(sys.argv[3].split(","))

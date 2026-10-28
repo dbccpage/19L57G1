@@ -157,7 +157,7 @@ package instead.
 
 ### Build sequence
 
-100 build entries: 4 base, 16 in 3 require group(s), 13 requiring only a base package, 67 requiring nothing.  Run the block from the repository root.  Each command throws when it fails, so a run of the block saved as a script stops at the first failure.
+101 build entries: 4 base, 17 in 3 require group(s), 13 requiring only a base package, 67 requiring nothing.  Run the block from the repository root.  Each command throws when it fails, so a run of the block saved as a script stops at the first failure.
 
 ```powershell
 $env:PYTHONUTF8 = '1'
@@ -194,8 +194,10 @@ Invoke-InDir 'research/native_bridge/lean' 'lake' @('build')
 Invoke-InDir 'research/conservation_ladder/lean' 'lake' @('build')
 Invoke-InDir 'research/domain_adapters/lean' 'lake' @('build')
 Invoke-InDir 'research/native_structure/lean' 'lake' @('build')
-# Require group 3: its longest chain, one at a time: two_theorems -> qm_bridge.
+# Require group 3: its longest chain, one at a time: two_theorems -> actor_institution.
+# Require group 3: other members sit after what each one requires.
 Invoke-InDir 'research/two_theorems/lean' 'lake' @('build')
+Invoke-InDir 'research/actor_institution/lean' 'lake' @('build')
 Invoke-InDir 'research/qm_bridge/lean' 'lake' @('build')
 # Packages that require only a base package, one at a time, any order.
 Invoke-InDir 'research/alpha_engine/lean' 'lake' @('build')
@@ -307,91 +309,92 @@ Invoke-InDir 'research/symmetry_floor/lean' 'lean' @('SymmetryFloor.lean')
 | 17 | `research/domain_adapters/lean` | `domain_adapters` | `derivation`, `native_bridge`, `conservation_ladder`, `p209b_clifford_symplectic` | 3 | yes | none |
 | 18 | `research/native_structure/lean` | `native_structure` | `derivation`, `native_bridge` | 2 | yes | none |
 | 19 | `research/two_theorems/lean` | `two_theorems` | `derivation` | 1 | yes | none |
-| 20 | `research/qm_bridge/lean` | `qm_bridge` | `derivation`, `two_theorems` | 2 | yes | none |
-| 21 | `research/alpha_engine/lean` | `harness` | `derivation` | 1 | yes | none |
-| 22 | `research/endogenous_continuum/lean` | `endogenous_continuum` | `derivation` | 1 | yes | none |
-| 23 | `research/endogenous_demand/lean` | `endogenous_demand` | `derivation` | 1 | yes | none |
-| 24 | `research/f_class_distinctness/lean` | `f_class_distinctness` | `derivation` | 1 | yes | none |
-| 25 | `research/g010_primitive_removal/lean` | `g010_primitive_removal` | `derivation` | 1 | yes | none |
-| 26 | `research/g012_typed_translation/lean` | `g012_typed_translation` | `derivation` | 1 | yes | none |
-| 27 | `research/interpreter_verdict/lean` | `interpreter_verdict` | `derivation` | 1 | yes | none |
-| 28 | `research/iso_sound/lean` | `iso_sound` | `derivation` | 1 | yes | none |
-| 29 | `research/m105_number_tower/lean` | `m105_number_tower` | `g011_finitary_substrate` | 1 | no | none |
-| 30 | `research/primitive_difference_tower/lean` | `primitive_difference_tower` | `derivation` | 1 | yes | none |
-| 31 | `research/reachable/lean` | `reachable` | `derivation` | 1 | yes | none |
-| 32 | `research/reading_f_iso` | `reading_f_iso` | `derivation` | 1 | yes | none |
-| 33 | `research/target_a_execution/lean` | `target_a_execution` | `derivation` | 1 | yes | none |
-| 34 | `research/admission_sign_shadow/lean` | `admission_sign_shadow` | none | 0 | no | `python verify_frozen_compatibility.py --check` in `research/admission_sign_shadow`, after `lake build`: `lake build` compiles only the two roots and what they import; the three modules named here compile only through this script, against a frozen copy of the sealed package that it builds in a temporary directory (`AdmissionSignShadow.FrozenPairBridge`, `AdmissionSignShadow.ReplayOccurrence`, `AdmissionSignShadow.ActualSectionAdapter`) |
-| 35 | `research/balance_carrier/lean` | `balance_carrier` | none | 0 | no | none |
-| 36 | `research/boundary_seed/lean` | `boundaryseed` | none | 0 | no | none |
-| 37 | `research/closed_family/lean` | `closed_family` | none | 0 | no | none |
-| 38 | `research/concurrency/lean` | `concurrency` | none | 0 | no | none |
-| 39 | `research/convention_price/lean` | `convention_price` | none | 0 | no | none |
-| 40 | `research/described_replay/lean` | `described_replay` | none | 0 | no | none |
-| 41 | `research/diagonal_identity/lean` | `diagonal_identity` | none | 0 | no | `python verify_lean.py` in `research/diagonal_identity`, instead of `lake build`: stages the gitignored `lean/sealed/` from pinned blobs, then runs `lake build`; a fresh clone has no `lean/sealed/`, so a bare `lake build` has no source for it |
-| 42 | `research/evidence_graph/lean` | `evidence_graph` | none | 0 | no | none |
-| 43 | `research/exchange_coefficients/lean` | `exchange_coefficients` | none | 0 | no | `python verify.py` in `research/exchange_coefficients`, instead of `lake build`: stages the gitignored `lean/pinned/` from pinned blobs, then runs `lake build`; it also rewrites the tree's tracked `evidence/` files, so check `git status` after it |
-| 44 | `research/family_embedding/lean` | `family_embedding` | none | 0 | no | `python verify_lean.py` in `research/family_embedding`, instead of `lake build`: stages the gitignored `lean/sealed/` from pinned blobs, then runs `lake build`; a fresh clone has no `lean/sealed/`, so a bare `lake build` has no source for it |
-| 45 | `research/fresh_characters/lean` | `fresh_characters` | none | 0 | no | none |
-| 46 | `research/g001_target_charter/lean` | `g001_target_charter` | none | 0 | no | none |
-| 47 | `research/g014_observer_descent/lean` | `g014_observer_descent` | none | 0 | no | none |
-| 48 | `research/g015_autonomous_stepping/lean` | `g015_autonomous_stepping` | none | 0 | no | none |
-| 49 | `research/g018_self_hosting/lean` | `g018_self_hosting` | none | 0 | no | none |
-| 50 | `research/higher_order_diagonalization/lean` | `higher_order_diagonalization` | none | 0 | no | none |
-| 51 | `research/internal_syntax_logic/lean` | `internal_syntax_logic` | none | 0 | no | none |
-| 52 | `research/iso_sound_lean/lean` | `iso_sound_lean` | none | 0 | no | none |
-| 53 | `research/limit_and_observer/lean` | `limit_observer` | none | 0 | no | none |
-| 54 | `research/m104_equality_order/lean` | `m104_equality_order` | none | 0 | no | none |
-| 55 | `research/m108_internal_algebra/lean` | `m108_internal_algebra` | none | 0 | no | none |
-| 56 | `research/m109_obstruction_homology/lean` | `m109_obstruction_homology` | none | 0 | no | none |
-| 57 | `research/m114_solver_adapter/lean` | `m114_solver_adapter` | none | 0 | no | none |
-| 58 | `research/multi_depth/lean` | `multi_depth` | none | 0 | no | none |
-| 59 | `research/natural_sections/lean` | `natural_sections` | none | 0 | no | `python verify_lean.py` in `research/natural_sections`, instead of `lake build`: stages the gitignored `lean/sealed/` from pinned blobs, then runs `lake build`; a fresh clone has no `lean/sealed/`, so a bare `lake build` has no source for it |
-| 60 | `research/observer_visibility/lean` | `observer_visibility` | none | 0 | no | none |
-| 61 | `research/oriented_boundary/lean` | `orientedboundary` | none | 0 | no | none |
-| 62 | `research/p200_operational_protocols/lean` | `p200_operational_protocols` | none | 0 | no | none |
-| 63 | `research/p201_relational_spacetime/lean` | `p201_relational_spacetime` | none | 0 | no | none |
-| 64 | `research/p203_composite_systems/lean` | `p203_composite_systems` | none | 0 | no | none |
-| 65 | `research/p204_operational_valuations/lean` | `p204_operational_valuations` | none | 0 | no | none |
-| 66 | `research/p208a_path_interference/lean` | `p208a_path_interference` | none | 0 | no | none |
-| 67 | `research/p208b_contextuality_nonlocality/lean` | `p208b_contextuality_nonlocality` | none | 0 | no | none |
-| 68 | `research/p208c_commutator_tomography/lean` | `p208c_commutator_tomography` | none | 0 | no | none |
-| 69 | `research/p209a_wigner_phase_space/lean` | `p209a_wigner_phase_space` | none | 0 | no | none |
-| 70 | `research/p209c_stabilizer_codes/lean` | `p209c_stabilizer_codes` | none | 0 | no | none |
-| 71 | `research/p209d_nonclassical_horizons/lean` | `p209d_nonclassical_horizons` | none | 0 | no | none |
-| 72 | `research/path_dependent_cost/lean` | `path_dependent_cost` | none | 0 | no | none |
-| 73 | `research/reach_additivity/lean` | `reach_additivity` | none | 0 | no | none |
-| 74 | `research/reach_measure/lean` | `reach_measure` | none | 0 | no | none |
-| 75 | `research/redheffer` | `redheffer` | none | 0 | no | none |
-| 76 | `research/s9_obligations/lean` | `s9_obligations` | none | 0 | no | `python verify_lean.py` in `research/s9_obligations`, instead of `lake build`: stages the gitignored `lean/sealed/` from pinned blobs, then runs `lake build`; a fresh clone has no `lean/sealed/`, so a bare `lake build` has no source for it |
-| 77 | `research/second_class/lean` | `second_class` | none | 0 | no | none |
-| 78 | `research/second_duration/lean` | `second_duration` | none | 0 | no | none |
-| 79 | `research/second_engine/lean` | `second_engine` | none | 0 | no | none |
-| 80 | `research/second_index/lean` | `second_index` | none | 0 | no | none |
-| 81 | `research/second_iso/lean` | `second_iso` | none | 0 | no | none |
-| 82 | `research/second_nofirst/lean` | `second_nofirst` | none | 0 | no | none |
-| 83 | `research/second_profile/lean` | `second_profile` | none | 0 | no | none |
-| 84 | `research/second_response/lean` | `second_response` | none | 0 | no | none |
-| 85 | `research/second_run/lean` | `second_run` | none | 0 | no | none |
-| 86 | `research/second_succession/lean` | `second_succession` | none | 0 | no | none |
-| 87 | `research/second_symmetry/lean` | `second_symmetry` | none | 0 | no | none |
-| 88 | `research/self_interpreter` | `self_interpreter` | none | 0 | no | none |
-| 89 | `research/seventh_constructor/lean` | `seventh_constructor` | none | 0 | no | none |
-| 90 | `research/side_free/lean` | `sidefree` | none | 0 | no | none |
-| 91 | `research/sign_tower/lean` | `sign_tower` | none | 0 | no | none |
-| 92 | `research/standing_commitment/lean` | `standing_commitment` | none | 0 | no | none |
-| 93 | `research/target_b_dynamics/lean` | `target_b_dynamics` | none | 0 | no | none |
-| 94 | `research/twin_pricing/lean` | `twin_pricing` | none | 0 | no | none |
-| 95 | `research/typed_translation/lean` | `typedtranslation` | none | 0 | no | none |
-| 96 | `research/x300_observer_information/lean` | `x300_observer_information` | none | 0 | no | none |
-| 97 | `research/x301_formal_semantics/lean` | `x301_formal_semantics` | none | 0 | no | none |
-| 98 | `research/x302_operational_reasoning/lean` | `x302_operational_reasoning` | none | 0 | no | none |
-| 99 | `research/x303_bounded_agency/lean` | `x303_bounded_agency` | none | 0 | no | none |
-| 100 | `research/x310_vertical_integration/lean` | `x310_vertical_integration` | none | 0 | no | none |
+| 20 | `research/actor_institution/lean` | `actor_institution` | `derivation`, `two_theorems` | 2 | yes | none |
+| 21 | `research/qm_bridge/lean` | `qm_bridge` | `derivation`, `two_theorems` | 2 | yes | none |
+| 22 | `research/alpha_engine/lean` | `harness` | `derivation` | 1 | yes | none |
+| 23 | `research/endogenous_continuum/lean` | `endogenous_continuum` | `derivation` | 1 | yes | none |
+| 24 | `research/endogenous_demand/lean` | `endogenous_demand` | `derivation` | 1 | yes | none |
+| 25 | `research/f_class_distinctness/lean` | `f_class_distinctness` | `derivation` | 1 | yes | none |
+| 26 | `research/g010_primitive_removal/lean` | `g010_primitive_removal` | `derivation` | 1 | yes | none |
+| 27 | `research/g012_typed_translation/lean` | `g012_typed_translation` | `derivation` | 1 | yes | none |
+| 28 | `research/interpreter_verdict/lean` | `interpreter_verdict` | `derivation` | 1 | yes | none |
+| 29 | `research/iso_sound/lean` | `iso_sound` | `derivation` | 1 | yes | none |
+| 30 | `research/m105_number_tower/lean` | `m105_number_tower` | `g011_finitary_substrate` | 1 | no | none |
+| 31 | `research/primitive_difference_tower/lean` | `primitive_difference_tower` | `derivation` | 1 | yes | none |
+| 32 | `research/reachable/lean` | `reachable` | `derivation` | 1 | yes | none |
+| 33 | `research/reading_f_iso` | `reading_f_iso` | `derivation` | 1 | yes | none |
+| 34 | `research/target_a_execution/lean` | `target_a_execution` | `derivation` | 1 | yes | none |
+| 35 | `research/admission_sign_shadow/lean` | `admission_sign_shadow` | none | 0 | no | `python verify_frozen_compatibility.py --check` in `research/admission_sign_shadow`, after `lake build`: `lake build` compiles only the two roots and what they import; the three modules named here compile only through this script, against a frozen copy of the sealed package that it builds in a temporary directory (`AdmissionSignShadow.FrozenPairBridge`, `AdmissionSignShadow.ReplayOccurrence`, `AdmissionSignShadow.ActualSectionAdapter`) |
+| 36 | `research/balance_carrier/lean` | `balance_carrier` | none | 0 | no | none |
+| 37 | `research/boundary_seed/lean` | `boundaryseed` | none | 0 | no | none |
+| 38 | `research/closed_family/lean` | `closed_family` | none | 0 | no | none |
+| 39 | `research/concurrency/lean` | `concurrency` | none | 0 | no | none |
+| 40 | `research/convention_price/lean` | `convention_price` | none | 0 | no | none |
+| 41 | `research/described_replay/lean` | `described_replay` | none | 0 | no | none |
+| 42 | `research/diagonal_identity/lean` | `diagonal_identity` | none | 0 | no | `python verify_lean.py` in `research/diagonal_identity`, instead of `lake build`: stages the gitignored `lean/sealed/` from pinned blobs, then runs `lake build`; a fresh clone has no `lean/sealed/`, so a bare `lake build` has no source for it |
+| 43 | `research/evidence_graph/lean` | `evidence_graph` | none | 0 | no | none |
+| 44 | `research/exchange_coefficients/lean` | `exchange_coefficients` | none | 0 | no | `python verify.py` in `research/exchange_coefficients`, instead of `lake build`: stages the gitignored `lean/pinned/` from pinned blobs, then runs `lake build`; it also rewrites the tree's tracked `evidence/` files, so check `git status` after it |
+| 45 | `research/family_embedding/lean` | `family_embedding` | none | 0 | no | `python verify_lean.py` in `research/family_embedding`, instead of `lake build`: stages the gitignored `lean/sealed/` from pinned blobs, then runs `lake build`; a fresh clone has no `lean/sealed/`, so a bare `lake build` has no source for it |
+| 46 | `research/fresh_characters/lean` | `fresh_characters` | none | 0 | no | none |
+| 47 | `research/g001_target_charter/lean` | `g001_target_charter` | none | 0 | no | none |
+| 48 | `research/g014_observer_descent/lean` | `g014_observer_descent` | none | 0 | no | none |
+| 49 | `research/g015_autonomous_stepping/lean` | `g015_autonomous_stepping` | none | 0 | no | none |
+| 50 | `research/g018_self_hosting/lean` | `g018_self_hosting` | none | 0 | no | none |
+| 51 | `research/higher_order_diagonalization/lean` | `higher_order_diagonalization` | none | 0 | no | none |
+| 52 | `research/internal_syntax_logic/lean` | `internal_syntax_logic` | none | 0 | no | none |
+| 53 | `research/iso_sound_lean/lean` | `iso_sound_lean` | none | 0 | no | none |
+| 54 | `research/limit_and_observer/lean` | `limit_observer` | none | 0 | no | none |
+| 55 | `research/m104_equality_order/lean` | `m104_equality_order` | none | 0 | no | none |
+| 56 | `research/m108_internal_algebra/lean` | `m108_internal_algebra` | none | 0 | no | none |
+| 57 | `research/m109_obstruction_homology/lean` | `m109_obstruction_homology` | none | 0 | no | none |
+| 58 | `research/m114_solver_adapter/lean` | `m114_solver_adapter` | none | 0 | no | none |
+| 59 | `research/multi_depth/lean` | `multi_depth` | none | 0 | no | none |
+| 60 | `research/natural_sections/lean` | `natural_sections` | none | 0 | no | `python verify_lean.py` in `research/natural_sections`, instead of `lake build`: stages the gitignored `lean/sealed/` from pinned blobs, then runs `lake build`; a fresh clone has no `lean/sealed/`, so a bare `lake build` has no source for it |
+| 61 | `research/observer_visibility/lean` | `observer_visibility` | none | 0 | no | none |
+| 62 | `research/oriented_boundary/lean` | `orientedboundary` | none | 0 | no | none |
+| 63 | `research/p200_operational_protocols/lean` | `p200_operational_protocols` | none | 0 | no | none |
+| 64 | `research/p201_relational_spacetime/lean` | `p201_relational_spacetime` | none | 0 | no | none |
+| 65 | `research/p203_composite_systems/lean` | `p203_composite_systems` | none | 0 | no | none |
+| 66 | `research/p204_operational_valuations/lean` | `p204_operational_valuations` | none | 0 | no | none |
+| 67 | `research/p208a_path_interference/lean` | `p208a_path_interference` | none | 0 | no | none |
+| 68 | `research/p208b_contextuality_nonlocality/lean` | `p208b_contextuality_nonlocality` | none | 0 | no | none |
+| 69 | `research/p208c_commutator_tomography/lean` | `p208c_commutator_tomography` | none | 0 | no | none |
+| 70 | `research/p209a_wigner_phase_space/lean` | `p209a_wigner_phase_space` | none | 0 | no | none |
+| 71 | `research/p209c_stabilizer_codes/lean` | `p209c_stabilizer_codes` | none | 0 | no | none |
+| 72 | `research/p209d_nonclassical_horizons/lean` | `p209d_nonclassical_horizons` | none | 0 | no | none |
+| 73 | `research/path_dependent_cost/lean` | `path_dependent_cost` | none | 0 | no | none |
+| 74 | `research/reach_additivity/lean` | `reach_additivity` | none | 0 | no | none |
+| 75 | `research/reach_measure/lean` | `reach_measure` | none | 0 | no | none |
+| 76 | `research/redheffer` | `redheffer` | none | 0 | no | none |
+| 77 | `research/s9_obligations/lean` | `s9_obligations` | none | 0 | no | `python verify_lean.py` in `research/s9_obligations`, instead of `lake build`: stages the gitignored `lean/sealed/` from pinned blobs, then runs `lake build`; a fresh clone has no `lean/sealed/`, so a bare `lake build` has no source for it |
+| 78 | `research/second_class/lean` | `second_class` | none | 0 | no | none |
+| 79 | `research/second_duration/lean` | `second_duration` | none | 0 | no | none |
+| 80 | `research/second_engine/lean` | `second_engine` | none | 0 | no | none |
+| 81 | `research/second_index/lean` | `second_index` | none | 0 | no | none |
+| 82 | `research/second_iso/lean` | `second_iso` | none | 0 | no | none |
+| 83 | `research/second_nofirst/lean` | `second_nofirst` | none | 0 | no | none |
+| 84 | `research/second_profile/lean` | `second_profile` | none | 0 | no | none |
+| 85 | `research/second_response/lean` | `second_response` | none | 0 | no | none |
+| 86 | `research/second_run/lean` | `second_run` | none | 0 | no | none |
+| 87 | `research/second_succession/lean` | `second_succession` | none | 0 | no | none |
+| 88 | `research/second_symmetry/lean` | `second_symmetry` | none | 0 | no | none |
+| 89 | `research/self_interpreter` | `self_interpreter` | none | 0 | no | none |
+| 90 | `research/seventh_constructor/lean` | `seventh_constructor` | none | 0 | no | none |
+| 91 | `research/side_free/lean` | `sidefree` | none | 0 | no | none |
+| 92 | `research/sign_tower/lean` | `sign_tower` | none | 0 | no | none |
+| 93 | `research/standing_commitment/lean` | `standing_commitment` | none | 0 | no | none |
+| 94 | `research/target_b_dynamics/lean` | `target_b_dynamics` | none | 0 | no | none |
+| 95 | `research/twin_pricing/lean` | `twin_pricing` | none | 0 | no | none |
+| 96 | `research/typed_translation/lean` | `typedtranslation` | none | 0 | no | none |
+| 97 | `research/x300_observer_information/lean` | `x300_observer_information` | none | 0 | no | none |
+| 98 | `research/x301_formal_semantics/lean` | `x301_formal_semantics` | none | 0 | no | none |
+| 99 | `research/x302_operational_reasoning/lean` | `x302_operational_reasoning` | none | 0 | no | none |
+| 100 | `research/x303_bounded_agency/lean` | `x303_bounded_agency` | none | 0 | no | none |
+| 101 | `research/x310_vertical_integration/lean` | `x310_vertical_integration` | none | 0 | no | none |
 
 ### Toolchain pins
 
-- `leanprover/lean4:v4.33.0`: 101 build directories.
+- `leanprover/lean4:v4.33.0`: 103 build directories.
 
 ### Root modules supplied more than once in one require closure
 

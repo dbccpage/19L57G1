@@ -9,9 +9,11 @@ import json
 from pathlib import Path
 from unittest.mock import patch
 
+import hashlib
 from research.endogenous_continuum.verify_sources import (
     MANIFEST_PATH,
     REPO_ROOT,
+    check_sha256,
     verify_sources,
 )
 
@@ -79,3 +81,14 @@ def test_lean_scaffold_files_exist() -> None:
     assert (lean_dir / "lean-toolchain").is_file()
     assert (lean_dir / "EndogenousContinuum.lean").is_file()
     assert (lean_dir / "Inventory.lean").is_file()
+
+
+def test_check_sha256_accepts_lf_and_crlf_across_platforms() -> None:
+    lf_bytes = b"line1\nline2\n"
+    crlf_bytes = b"line1\r\nline2\r\n"
+    lf_digest = hashlib.sha256(lf_bytes).hexdigest()
+    crlf_digest = hashlib.sha256(crlf_bytes).hexdigest()
+    assert check_sha256(lf_bytes, lf_digest)
+    assert check_sha256(crlf_bytes, lf_digest)
+    assert check_sha256(lf_bytes, crlf_digest)
+    assert check_sha256(crlf_bytes, crlf_digest)
