@@ -11,10 +11,8 @@ question against a fixed represented family.  It does not extend to an
 institution's own catalogue of members:
 
 * `no_closed_self_interpreter`: no evaluator `ev : C → C → Bool` on a code
-  type `C` has every function `C → Bool` among its rows.  Cantor's
-  diagonal, in core Lean, with no axiom at all.
-* `catalogue_incomplete`: hence no catalogue of coded Boolean questions on
-  the carrier is complete.
+  type `C` has every function `C → Bool` among its rows.  The diagonal
+  argument, in core Lean, with no axiom at all.
 * `diag_not_member`: a catalogue's diagonal question is a member of no
   finite institution drawn from the catalogue — membership incompleteness
   is universal.
@@ -43,12 +41,6 @@ theorem no_closed_self_interpreter {C : Type} (ev : C → C → Bool) :
   obtain ⟨c, hc⟩ := h (fun x => !(ev x x))
   have hcc := hc c
   cases hev : ev c c <;> rw [hev] at hcc <;> exact Bool.noConfusion hcc
-
-/-- No catalogue of coded Boolean questions on the carrier is complete. -/
-theorem catalogue_incomplete (code : Nat → Nat → Bool) :
-    ∃ f : Nat → Bool, ∀ n, ∃ x, code n x ≠ f x := by
-  refine ⟨fun x => !(code x x), fun n => ⟨n, ?_⟩⟩
-  cases h : code n n <;> simp [h]
 
 /-- A catalogue of presentations coded by naturals, and the institution of
 its first `n` members. -/

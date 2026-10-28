@@ -663,11 +663,196 @@ def verdict_mono_check(D: Carrier, m: int) -> bool:
 # ---------------------------------------------------------------- summary
 
 
+# ---------------------------------------------------------------- The author's statements of 2026-10-28
+
+
+def reading_families(pool: Sequence[Presentation], size: int) -> list[tuple[Presentation, ...]]:
+    """Every family of at most ``size`` members drawn from the pool, the
+    empty family included."""
+    out: list[tuple[Presentation, ...]] = []
+    for r in range(size + 1):
+        out.extend(combinations(pool, r))
+    return out
+
+
+def subfamily(Q: Sequence[Presentation], Qp: Sequence[Presentation]) -> bool:
+    return all(any(p is r for r in Qp) for p in Q)
+
+
+def extension_checks(D: Carrier, pool: Sequence[Presentation], size: int) -> dict[str, int]:
+    """``extension_forced``: over every nested pair of families from the
+    pool and every pool question, a question unknown to the smaller family
+    and known to the larger one forces a strict rise of information;
+    ``member_ignorant_of_family``: no member knows what the family does not;
+    ``finder_separates``: a question that knows the unknown one splits a pair
+    the family merges.  Counts cases and violations (expected 0)."""
+    fams = reading_families(pool, size)
+    forced = violations = member_violations = finder_cases = finder_violations = 0
+    for Q in fams:
+        for q in pool:
+            if knows(D, Q, q):
+                continue
+            for Qp in fams:
+                if subfamily(Q, Qp) and knows(D, Qp, q):
+                    forced += 1
+                    if not information(D, Q) < information(D, Qp):
+                        violations += 1
+            for member in Q:
+                if knows(D, [member], q):
+                    member_violations += 1
+            for f in pool:
+                if knows(D, [f], q):
+                    finder_cases += 1
+                    if not any(sig(Q, x) == sig(Q, y) and f(x) != f(y) for x in D for y in D):
+                        finder_violations += 1
+    return {"forced_cases": forced, "forced_violations": violations,
+            "member_knows_what_family_does_not": member_violations,
+            "finder_cases": finder_cases, "finder_violations": finder_violations}
+
+
+def consistent(D: Carrier, E: Evaluator, p: Presentation) -> bool:
+    """``Consistent D E p``: every separation the observer reports is one of
+    the actor's."""
+    return all((not verdict(E, x, y)) or p(x) != p(y) for x in D for y in D)
+
+
+def cannot_read_checks(D: Carrier, m: int) -> dict[str, int]:
+    """``observer_cannot_read_resolution`` on every ``m``-view observer and
+    every distinct pair it merges: the joint presentation and its marked
+    refinement both agree with the observer, one merging and one splitting
+    the pair."""
+    merged = failures = 0
+    for E in all_evaluators(D, m):
+        p0 = joint_presentation(D, questions(E))
+        for x in D:
+            for y in D:
+                if x < y and not verdict(E, x, y):
+                    merged += 1
+                    p1 = Table({z: 2 * p0(z) + (1 if z == x else 0) for z in D})
+                    if not (consistent(D, E, p0) and consistent(D, E, p1)
+                            and p0(x) == p0(y) and p1(x) != p1(y)):
+                        failures += 1
+    return {"merged_pairs": merged, "failures": failures}
+
+
+def residuals(D: Carrier, Q: Sequence[Presentation], q: Presentation) -> list[tuple[int, int]]:
+    """The pairs of ``D`` the family cannot tell apart on which ``q``
+    differs."""
+    return [(x, y) for x in D for y in D if sig(Q, x) == sig(Q, y) and q(x) != q(y)]
+
+
+def residual_checks(D: Carrier, pool: Sequence[Presentation], size: int) -> dict[str, int]:
+    """``residuals_nil_iff`` and ``residuals_antitone`` over the families
+    of the pool."""
+    fams = reading_families(pool, size)
+    cases = nil_violations = antitone_violations = 0
+    for Q in fams:
+        for q in pool:
+            cases += 1
+            if (residuals(D, Q, q) == []) != knows(D, Q, q):
+                nil_violations += 1
+            for Qp in fams:
+                if subfamily(Q, Qp) and not set(residuals(D, Qp, q)) <= set(residuals(D, Q, q)):
+                    antitone_violations += 1
+    return {"cases": cases, "nil_iff_violations": nil_violations,
+            "antitone_violations": antitone_violations}
+
+
+def nest_checks(D: Carrier, pool: Sequence[Presentation], size: int) -> dict[str, int]:
+    """``nest_inert`` and ``nest_information``: a sub-family nested as its
+    joint presentation is the flat family; ``participation_collapse``: a
+    family one member of which knows every member has that member's
+    information."""
+    fams = reading_families(pool, size)
+    knows_violations = information_violations = collapse_cases = collapse_violations = 0
+    for Qp in fams:
+        for Q in fams:
+            nested: list[Presentation] = [joint_presentation(D, Qp), *Q]
+            flat: list[Presentation] = [*Qp, *Q]
+            if information(D, nested) != information(D, flat):
+                information_violations += 1
+            for q in pool:
+                if knows(D, nested, q) != knows(D, flat, q):
+                    knows_violations += 1
+    for Q in fams:
+        for member in Q:
+            if all(knows(D, [member], q) for q in Q):
+                collapse_cases += 1
+                if information(D, Q) != class_count(D, [member]):
+                    collapse_violations += 1
+    return {"knows_violations": knows_violations, "information_violations": information_violations,
+            "collapse_cases": collapse_cases, "collapse_violations": collapse_violations}
+
+
+def finite_question_space(D: Carrier, pool: Sequence[Presentation], size: int) -> dict[str, int | bool]:
+    """``knows_iff_knows_pQ``: knowledge of a question is knowledge of its
+    representative table; the tables ``D -> range(len(D))`` are the whole
+    question space, ``len(D) ** len(D)`` of them, and know-or-witness is
+    checked over every one of them for every family of the pool."""
+    fams = reading_families(pool, size)
+    tables = list(all_presentations(D))
+    mismatch = sum(1 for Q in fams for q in pool if knows(D, Q, q) != knows(D, Q, joint_presentation(D, [q])))
+    wise = all(knows(D, Q, t) or witness_of_ignorance(D, Q, t) is not None for Q in fams for t in tables)
+    return {"tables": len(tables), "representative_mismatch": mismatch,
+            "know_or_witness_over_all_tables": wise}
+
+
+def honest(D: Carrier, Q: Sequence[Presentation], s: Presentation) -> bool:
+    """``Honest D Q s``: the report is known, so it claims no distinction
+    the questions cannot make."""
+    return knows(D, Q, s)
+
+
+def honesty_checks(D: Carrier, pool: Sequence[Presentation], size: int) -> dict[str, int | bool]:
+    """Silence, the actor and every member report honestly; listening never
+    makes an honest report dishonest; a smaller carrier never does; the two
+    certification witnesses."""
+    fams = reading_families(pool, size)
+    tables = list(all_presentations(D))
+    silence = all(honest(D, Q, Table({x: 0 for x in D})) for Q in fams)
+    self_report = all(honest(D, Q, joint_presentation(D, Q)) for Q in fams)
+    members = all(honest(D, Q, p) for Q in fams for p in Q)
+    mono_violations = sum(1 for Q in fams for Qp in fams if subfamily(Q, Qp)
+                          for t in tables if honest(D, Q, t) and not honest(D, Qp, t))
+    sub = D[:-1]
+    carrier_violations = sum(1 for Q in fams for t in tables if honest(D, Q, t) and not honest(sub, Q, t))
+    ident = Table({0: 0, 1: 1, 2: 2})
+    par = Table({0: 0, 1: 1, 2: 0})
+    return {"silence_honest": silence, "self_report_honest": self_report, "members_honest": members,
+            "mono_violations": mono_violations, "carrier_violations": carrier_violations,
+            "reports_do_not_certify": honest((0, 1), [ident], ident) and not honest((0, 1), [], ident),
+            "honest_here_not_there": honest((0, 1), [par], ident) and not honest((0, 1, 2), [par], ident)}
+
+
+def guess_checks(D: Carrier) -> dict[str, int | bool]:
+    """``half`` guesses the identity on four points: it never locates the
+    guess (every question it knows agrees on the witness pair), the family
+    with ``parity`` locates and checks it, the family of ``half`` alone
+    shares it."""
+    half = Table({x: x // 2 for x in D})
+    parity = Table({x: x % 2 for x in D})
+    ident = Table({x: x for x in D})
+    witness = witness_of_ignorance(D, [half], ident)
+    assert witness is not None
+    x, y = witness
+    invisible = all(e(x) == e(y) for e in all_presentations(D) if knows(D, [half], e))
+    visible = sig([half, parity], x) != sig([half, parity], y)
+    another_member = any(r is not half and r(x) != r(y) for r in (half, parity))
+    return {"guess": not knows(D, [half], ident), "witness_x": x, "witness_y": y,
+            "own_guess_invisible": invisible, "visible_to_family": visible,
+            "another_member_splits": another_member,
+            "honest_for_family": honest(D, [half, parity], ident),
+            "shared_by_half_alone": not honest(D, [half], ident)}
+
+
+
 def run_all() -> dict[str, object]:
     D4: Carrier = (0, 1, 2, 3)
     D3: Carrier = (0, 1, 2)
     pool = [Table({x: x % 2 for x in D4}), Table({x: x // 2 for x in D4}),
             Table({x: (x == 1) * 1 for x in D4}), Table({x: 0 for x in D4})]
+    pool3 = [Table({x: x % 2 for x in D3}), Table({x: x // 2 for x in D3}),
+             Table({x: (x == 1) * 1 for x in D3}), Table({x: 0 for x in D3})]
     return {
         "pins": {"consumed_modules": consumed_modules()},
         "theorem_I": {
@@ -701,6 +886,16 @@ def run_all() -> dict[str, object]:
             "bridge": bridge_checks([R0, R0_RULE, R0_BOTH, R_BINARY, R_RULE_ONLY]),
             "recollapse": recollapse_witness(),
             "verdict_mono_D3_m1": verdict_mono_check(D3, 1),
+        },
+        "reading_2026_10_28": {
+            "extension_D4": extension_checks(D4, pool, 2),
+            "cannot_read_D3_m1": cannot_read_checks(D3, 1),
+            "cannot_read_D4_m2": cannot_read_checks(D4, 2),
+            "residuals_D4": residual_checks(D4, pool, 2),
+            "nest_D4": nest_checks(D4, pool, 2),
+            "finite_question_space_D3": finite_question_space(D3, pool3, 2),
+            "honesty_D3": honesty_checks(D3, pool3, 2),
+            "guess_D4": guess_checks(D4),
         },
     }
 
