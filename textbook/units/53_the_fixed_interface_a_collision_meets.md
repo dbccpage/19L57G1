@@ -1,27 +1,14 @@
-# Unit 53. The fixed interface a collision meets
+# Unit 53. A fixed interface and the scope of its comparison
 
-**Claim.** The native interface packages a witnessed irreflexive relation and two scoped results. Its contact verdict and protocol history record the comparison; they do not add a new derivation.
+**Claim.** The interface contains witnessed irreflexive relations, including
+oriented and symmetric examples. Its observer refutation concerns the
+designated oriented example. Protocol strings record comparison status;
+their labels do not prove the mathematical verdict.
 
-**Status:** FROZEN (the two re-exports, proved in their
-home modules); ADMITTED (the interface definition and the status strings,
-declared policy); VERIFIED_FINITE (`contact_status_count`, and the Python
-mirror's agreement with the strings). **Lean:**
-`lean4/Derivation/PrimitiveContact.lean` lines 77-142, imports
-`PrimitiveCore`, `PrimitiveCats`, `ContactBridge`. **Axioms:** 3 exported
-reports; `native_kernel_initial` uses `Quot.sound` through `d2_initial`,
-the other two none. **Depends on:** Unit 51 (`Setting`, A, `imp_a_d`,
-`e_empty_iff_d`), Unit 52 (`d2Obj`, `d2_initial`), Unit 44 (`DiffObs`
-and its zero relation); the refutation itself is taught in Unit 67.
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
 
-## First pass
-
-Separate the mathematical package from its protocol record. The package specifies the native settings and the proved interfaces available for comparison.
-
-The status labels then record what contact processed and what remains incomparable. A recorded status is not an additional theorem connecting the two sides.
-
-## Detailed claim and formal anchors
-
-`PrimitiveContact` fixes, before any outside development is
+**Detailed statement.** `PrimitiveContact` fixes, before any outside development is
 read, what the native side puts on the table: `NativeKernel`, the class
 of settings carrying a pointed witnessed irreflexive relation (reading A
 of Unit 51), inhabited by `nativeKernelWitness` (Unit 51's `d2Bare`); and
@@ -37,6 +24,53 @@ sealed pre-contact terminal `CONTACT_INPUT_ABSENT`, the current status
 `CONTACT_INCOMPARABLE_WITH_COUNTERMODELS`, and a two-entry history whose
 length is `rfl`.
 
+**Status:** FROZEN (the two re-exports, proved in their
+home modules); ADMITTED (the interface definition and the status strings,
+declared policy); VERIFIED_FINITE (`contact_status_count`, and the Python
+mirror's agreement with the strings). **Lean:**
+`lean4/Derivation/PrimitiveContact.lean` lines 77-142, imports
+`PrimitiveCore`, `PrimitiveCats`, `ContactBridge`. **Axioms:** 3 exported
+reports; `native_kernel_initial` uses `Quot.sound` through `d2_initial`,
+the other two none. **Depends on:** Unit 51 (`Setting`, A, `imp_a_d`,
+`e_empty_iff_d`), Unit 52 (`d2Obj`, `d2_initial`), Unit 44 (`DiffObs`
+and its zero relation); the refutation itself is taught in Unit 67.
+
+</details>
+
+## First pass
+
+Compare two rules on positions A and B:
+
+| Rule | A related to B? | B related to A? |
+|---|---|---|
+| One directed arrow A → B | Yes | No |
+| Different answers to a fixed Yes/No test | Yes | Yes |
+
+The second rule is symmetric: if the test answers differently on A and
+B, it answers differently on B and A. It cannot equal the first rule
+on every ordered pair. This is a mismatch between these definitions,
+not a claim that no measurement can record direction.
+
+The formal observer has a declared zero relation with equivalence laws.
+Its apartness means “not zero.” Symmetry alone rules out representing
+the one-way relation as that apartness.
+
+The native interface is a class, not just this example. It also contains
+the two-way relation. That member can be represented by an observer, so
+the one-way example's failure must not be generalized to every member.
+
+**Predict:** does a stored status saying “incomparable with
+countermodels” prove the countermodels correct?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. It records the protocol's verdict. The actual theorem statements,
+proofs, and finite comparisons supply its mathematical evidence.
+Matching labels across files checks consistency of the record.
+
+</details>
+
 ## Question
 
 When a development written elsewhere arrives to be compared with this
@@ -48,7 +82,7 @@ can be?
 ## What we already possess
 
 - Reading A of a difference, `S.r S.a S.b ∧ Irrefl S.r`, and what A
-  brings: D (`imp_a_d`), and E when nothing is admitted
+  brings: D (`imp_a_d`), and E when no operation generators are admitted
   (`e_empty_iff_d`) (Unit 51).
 - `d2Obj`, initial among all pointed witnessed relations; the symmetric
   object is initial only against symmetric targets (Unit 52).
@@ -64,8 +98,9 @@ it, declared at a recorded commit before the outside material is read,
 and never edited afterwards. Anything arriving is compared against that
 type and those theorems. A *status string* is a declared constant, not a
 proposition: it records a decision of the protocol, and its only
-mathematical content is that it equals the string the Python generator
-writes.
+checked content here is the declared text and list length; the Python
+check separately compares the corresponding records. Neither equality
+nor a status name proves the mathematical payload of the verdict.
 
 ## Plain-language interpretation
 
@@ -73,8 +108,8 @@ The module is a contract signed in advance. Its first half was written
 when no outside package existed, and says: the native notion of
 difference is a witnessed pair with the law that nothing differs from
 itself; here is one example of it, the oriented two-point pair; and here
-is the strongest thing we can say about that example, that it is the
-first object among all witnessed pairs. When the package did arrive the
+is its proved initiality among the declared pointed witnessed
+relations. This is not a proved ranking of all possible properties. When the package did arrive the
 first half was not touched. The second half records that it arrived,
 that only its Lean was read, and what the verdict was; the mathematics
 of the verdict lives in three later modules.
@@ -86,7 +121,11 @@ difference, and "zero difference" is an equivalence, so "not zero" is
 symmetric. The oriented pair says `false` differs from `true` and not
 the other way round. So no observer, whatever values it uses, has the
 oriented pair as its apartness. That is not a limitation of some
-observer; it is the shape of the two notions.
+observer; it follows from these two relation definitions. It does not
+rule out recording direction in an observation value or in a separate
+relation. Nor does it apply to every member of `NativeKernel`: the
+class includes the symmetric two-point setting, which an observer can
+represent (`symmetric_member_representable`).
 
 ## Pseudocode
 
@@ -287,6 +326,19 @@ theorem sealed_differs_from_current : contactStatus ≠ contactStatusCurrent := 
   decide
 ```
 
+## Checked scope examples (optional)
+
+These Lean (book) checks make the scope distinctions above explicit.
+Their reports stay within the existing `{propext, Quot.sound}` boundary.
+
+```lean
+theorem symmetric_member_representable :
+    ∃ O : DiffInterface.DiffObs Bool Prop,
+      ∀ x y, ContactBridge.obsApart O x y ↔ symMember.val.r x y :=
+  ContactBridge.bool_bs_repr PrimDiff.S2 (Or.inl PrimDiff.D2_witness)
+    PrimDiff.S2_irrefl Apartness.s2_isApart.symm
+```
+
 ## Line-by-line Lean explanation
 
 **`NativeKernel` (84-85).** A subtype: a `Setting` together with a proof
@@ -307,7 +359,9 @@ them. `kernel_endpoints_apart` says the first of these for every member:
 it is the promise the interface makes to any arrival.
 
 **`native_kernel_initial` (99-100).** Its proof term is
-`PrimitiveCats.d2_initial`; `initial_is_reexport` is `rfl`, and the axiom
+`PrimitiveCats.d2_initial`, as the source definition shows.
+`initial_is_reexport` is `rfl`; proof irrelevance means equality of
+proofs of the same proposition alone is not a provenance check. The axiom
 report (`Quot.sound`) is inherited. `object_of_record` checks that
 `d2Obj` and the witness agree in carrier, relation and points, each by
 `rfl`.
@@ -383,6 +437,9 @@ And could one be `S2`?
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 No to the first: the same argument runs with the roles exchanged. If
 apartness were `x = true ∧ y = false`, then `true` would be apart from
 `false`, so by symmetry `false` would be apart from `true`, giving
@@ -395,6 +452,8 @@ true`; then zero difference is equality, which is an equivalence, and
 apartness is `x ≠ y`, which on `Bool` is `S2`. Symmetry is the only
 obstacle the argument uses, and `S2` has it.
 
+</details>
+
 ## Verification
 
 | Item | Where |
@@ -405,4 +464,4 @@ obstacle the argument uses, and `S2` has it.
 | Python | `code/run_primitive_contact.py` (`STATUS_HISTORY`, `VERDICT_PRIMARY`, `enum_bool_observers`), `artifacts/primitive_contact.json` (`status`, `history`, `verdict`, `native_kernel_interface`, `enumerations.E1_bool_observers`) |
 | Audit | `textbook/audit/modules/PrimitiveContact.md` findings 1-3 |
 | Check (Python) | `python textbook/checks/u53_primitive_contact.py`: the three copies of each status string, the interface block, the witness through Unit 51's evaluator, E1 re-run, and the Python (book) complement census on 1-3 points |
-| Check (book Lean) | `python textbook/checks/u53_lean.py`: thirteen book declarations plus five Genesis theorems kernel-checked, Lean 4.33.0 |
+| Check (book Lean) | `python textbook/checks/u53_lean.py`: fourteen book reports plus five Genesis theorems kernel-checked, Lean 4.33.0 |

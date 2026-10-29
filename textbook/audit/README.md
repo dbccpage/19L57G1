@@ -79,6 +79,15 @@ additional book reports include a finite carrier with an arbitrary
 proposition-valued relation; explicit table decidability is a separate
 assumption. Four locatedness cells remain OPEN.
 
+**Maps and relation laws follow-up (2026-10-29).** The
+[Units 52–56 reading review](MAPPING_READING_REVIEW_2026-10-29.md) adds
+five worked openings and distinguishes initiality from size or time,
+local reverse-edge requirements from global target symmetry, a designated
+interface example from the entire class, and proved negation from missing
+evidence. Six added book reports and a corrected graph-count example
+support the changes. The earlier refinement/licence distinction remains
+literal; supplied drivers and higher-cell rules remain explicit assumptions.
+
 ## Scope and method
 
 - **Population.** The 75 tracked modules under `lean4/Derivation/` plus the

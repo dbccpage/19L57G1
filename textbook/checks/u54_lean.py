@@ -185,9 +185,15 @@ theorem induced_reading :
   · show ¬ (1, 0) ∈ gateWitnessAll.asserted
     decide
 
+/-- Singleton proposals are a declared menu, not all columns accepted by colOk. -/
+theorem singleton_menu_not_all_columns :
+    let s := { gateWitnessAll with occ := [0, 1, 2] }
+    colOk s [0, 2] = true ∧ [0, 2] ∉ extensionProposals s 0 1 := by decide
+
 end Textbook.U54
 
 #print axioms Textbook.U54.gate_rows
+#print axioms Textbook.U54.singleton_menu_not_all_columns
 #print axioms Textbook.U54.obst_rows
 #print axioms Textbook.U54.convention_before_declaration
 #print axioms Textbook.U54.factors_at_all
@@ -234,6 +240,7 @@ end Textbook.U54
 
 EXPECTED = {
     "Textbook.U54.gate_rows": BOTH,
+    "Textbook.U54.singleton_menu_not_all_columns": BOTH,
     "Textbook.U54.obst_rows": BOTH,
     "Textbook.U54.convention_before_declaration": BOTH,
     "Textbook.U54.factors_at_all": BOTH,

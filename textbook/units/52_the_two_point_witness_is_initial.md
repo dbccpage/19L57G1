@@ -1,33 +1,23 @@
-# Unit 52. The two-point witness is initial, and that is all initiality says
+# Unit 52. A unique map out of the two-point arrow
 
-**Claim.** The oriented two-point witnessed object is initial for the declared point-and-edge-preserving maps. Initiality concerns those maps and does not select irreflexivity among the candidate readings.
+**Claim.** The pointed two-point arrow has exactly one permitted map into
+every declared pointed witnessed relation. The map can merge its
+endpoints unless the target's laws forbid that. This initiality is a
+property of maps, not a time order or a choice of irreflexivity.
 
-**Status:**
-FROZEN; `s2_initial_sym` and `phom2_unique_of_epi` CONDITIONAL on their
-hypotheses; terminality of `idPres2` among surjective presentations
-neither proved nor refuted. **Lean:** `lean4/Derivation/PrimitiveCats.lean`
-lines 36-721, imports `PrimDiff`. **Axioms:** 49 exported reports within
-`{propext, Quot.sound}`; the initiality proofs use `Quot.sound` through
-`funext`. **Depends on:** Units 23-24 (`D2`, `S2`, irreflexivity,
-`irrefl_witness_ne`, `oriented_rigid`, `swap_is_S2_automorphism`), Unit 51
-(readings W and A, `imp_a_d`, `nimp_w_d`).
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
 
-## First pass
-
-An object contains two distinguished points and an asserted edge. A permitted map must carry both points and that edge to their designated targets.
-
-Initial means there is exactly one permitted map from this object to each target object. The target need not be irreflexive, so this statement alone does not choose reading A.
-
-## Detailed claim and formal anchors
-
-`PrimitiveCats` packages a witnessed pointed relation as an
+**Detailed statement.** `PrimitiveCats` packages a witnessed pointed relation as an
 object (`PtdRel`: carrier, relation, two points, one asserted edge) and
 point-and-edge-preserving maps as morphisms (`Hom`), proves the category
 laws, and settles: the oriented two-point object `d2Obj` is initial among
 all objects (`d2_initial`), with no irreflexivity required of the target,
 so initiality characterises the bare-witness reading W of Unit 51 and
-does not select A; the symmetric object `s2Obj` is initial exactly against
-symmetric targets (`s2_initial_sym`) and has no map at all into `d2Obj`
+does not select A. For every symmetric target, `s2_initial_sym` gives a
+unique map from `s2Obj`; global target symmetry is sufficient, not
+necessary. The book checks that a map exists exactly when the designated
+target pair has its reverse edge. There is no map into `d2Obj`
 (`s2_no_hom_to_d2`); two initial objects are isomorphic (`initials_iso`)
 and need not be the same presentation (`two_initials_not_identical`); a
 three-point object admits two maps into `d2Obj` and is not initial
@@ -40,6 +30,49 @@ two maximal cuts are incomparable and nothing is weakly terminal
 (`no_terminal_pres`); for the two-point source unrestricted terminality
 fails at a free point (`no_terminal_pres2`) and uniqueness survives
 against surjective presentations (`phom2_unique_of_epi`).
+
+**Status:** FROZEN; `s2_initial_sym` and `phom2_unique_of_epi` CONDITIONAL on their
+hypotheses; terminality of `idPres2` among surjective presentations
+neither proved nor refuted. **Lean:** `lean4/Derivation/PrimitiveCats.lean`
+lines 36-721, imports `PrimDiff`. **Axioms:** 49 exported reports within
+`{propext, Quot.sound}`; the initiality proofs use `Quot.sound` through
+`funext`. **Depends on:** Units 23-24 (`D2`, `S2`, irreflexivity,
+`irrefl_witness_ne`, `oriented_rigid`, `swap_is_S2_automorphism`), Unit 51
+(readings W and A, `imp_a_d`, `nimp_w_d`).
+
+</details>
+
+## First pass
+
+Draw two positions A and B with one arrow A → B. A target has
+designated positions a and b and promises an arrow a → b. A permitted
+map sends A to a, B to b, and every source arrow to a target arrow.
+
+There is exactly one such map: the designated destinations determine
+both answers, and the promised target arrow receives the source arrow.
+
+| Target | Images of A and B | Permitted? |
+|---|---|---|
+| Two positions with a → b | a, b | Yes |
+| Two positions with arrows both ways | a, b | Yes |
+| One position with a loop; a and b name that position | Same position | Yes |
+
+The last map merges the endpoints. If the target forbids self-arrows,
+that merger becomes impossible: the source arrow would need a forbidden
+loop as its image.
+
+**Predict:** does calling the source initial mean it happened before
+the target, or that every map preserves unequal positions?
+
+<details>
+<summary>Check your prediction</summary>
+
+Neither. Initial means exactly one permitted map to each target in this
+declared class. It supplies no chronology. Injectivity requires the
+additional target condition above. The formal section also compares a
+symmetric source, extra positions, and different presentations.
+
+</details>
 
 ## Question
 
@@ -78,25 +111,30 @@ pins an object down up to isomorphism and no further.
 
 ## Plain-language interpretation
 
-The oriented pair is the smallest thing that is a witnessed pointed
-relation at all: to map it into any target you send its two points to
+The oriented pair has just the designated positions and their one arrow.
+It is not the least-size witnessed carrier: a one-point loop is also an
+object. To map the oriented pair into any target you send its two points to
 the target's two points, and the one edge lands on the target's own
 witness. There is nothing else to decide, so there is exactly one map.
 That is why it is first, and the argument never asks whether the target
-is irreflexive. So being first does not justify irreflexivity; Unit 51's
-`imp_a_d` against `nimp_w_d` does that, independently, and the module
-says the two arguments are not to be merged.
+is irreflexive. Initiality therefore does not derive or select
+irreflexivity. Unit 51 separately proves that a witnessed irreflexive
+relation has unequal endpoints, while a bare witness need not. Preferring
+that stronger reading remains a stated design choice.
 
 The symmetric pair is not first. Its reversed edge needs somewhere to
-go, and in an oriented target there is nowhere. It is first only among
-symmetric targets, where the target's own symmetry supplies the image.
+go, and in `d2Obj` there is nowhere. The theorem gives a unique map to
+every globally symmetric target. More precisely, only a reverse edge
+at the designated target pair is needed: an extra unrelated one-way
+edge elsewhere does not prevent the map.
 
 Being first does not choose an orientation or a presentation. Point the
 oriented pair the other way round and it is first again; the two
 presentations are not the same structure, and they are isomorphic by the
-swap. A third point ruins it: a free point can go to either value, two
-maps, uniqueness lost. And once points are designated, nothing can move
-them: both two-point objects are rigid, so the symmetry of `S2` lives
+swap. In the declared larger example a free third point can go to
+either value, giving two maps and losing uniqueness. Once points are
+designated, endomorphisms must preserve those designations:
+both two-point objects are rigid, so the symmetry of `S2` lives
 only in the unpointed relation.
 
 Reading the same three points as *presentations* turns the picture
@@ -475,6 +513,47 @@ theorem swap_maps_agree (u v : PHom2 swapPres2 idPres2) : u = v :=
   phom2_unique_of_epi _ swapPres2_epi u v
 ```
 
+## Checked scope examples (optional)
+
+These Lean (book) checks make the scope distinctions above explicit.
+Their reports stay within the existing `{propext, Quot.sound}` boundary.
+
+```lean
+theorem symmetric_source_map_iff (T : PtdRel) :
+    Nonempty (Hom s2Obj T) ↔ T.r T.b T.a := by
+  constructor
+  · rintro ⟨h⟩
+    have hr := h.hr true false (Or.inr PrimDiff.D2_witness)
+    have ha : h.f false = T.a := h.ha
+    have hb : h.f true = T.b := h.hb
+    simpa only [ha, hb] using hr
+  · intro hreverse
+    refine ⟨⟨fun t => cond t T.b T.a, rfl, rfl, ?_⟩⟩
+    intro x y hxy
+    cases hxy with
+    | inl h =>
+      rcases h with ⟨hx, hy⟩
+      subst hx; subst hy
+      exact T.w
+    | inr h =>
+      rcases h with ⟨hy, hx⟩
+      subst hx; subst hy
+      exact hreverse
+
+def localSymTarget : PtdRel :=
+  ⟨Fin 3, fun x y => (x = 0 ∧ y = 1) ∨ (x = 1 ∧ y = 0) ∨ (x = 1 ∧ y = 2),
+   0, 1, Or.inl ⟨rfl, rfl⟩⟩
+
+theorem global_symmetry_not_required :
+    Nonempty (Hom s2Obj localSymTarget) ∧ ¬ SymObj localSymTarget := by
+  constructor
+  · exact (symmetric_source_map_iff _).mpr (Or.inr (Or.inl ⟨rfl, rfl⟩))
+  · intro h
+    have hr := h (1 : Fin 3) (2 : Fin 3) (Or.inr (Or.inr ⟨rfl, rfl⟩))
+    have hn : ¬ localSymTarget.r (2 : Fin 3) (1 : Fin 3) := by simp [localSymTarget]
+    exact hn hr
+```
+
 ## Line-by-line Lean explanation
 
 **Objects and morphisms (36-51).** `PtdRel` is Unit 51's `Setting`
@@ -620,6 +699,9 @@ makes the difference.
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 A map either way is a function `Bool → Bool` with `f false = false` and
 `f true = true` by `ha` and `hb`, so `f` is the identity in both
 directions; only `hr` can fail. From `d2Obj` the only edge is `false →
@@ -628,6 +710,8 @@ function being forced, it is the only one. From `s2Obj` the edge `true →
 false` must be sent to `D2 (f true) (f false) = D2 true false`, which is
 false. So `hr` is satisfiable one way and not the other. The field is
 `hr`; `ha` and `hb` are identical on both sides.
+
+</details>
 
 ## Verification
 
@@ -639,4 +723,4 @@ false. So `hr` is satisfiable one way and not the other. The field is
 | Python | none in Genesis for this module; the check reuses `code/derivation/primdiff.py` (`enumerate_pointed`, `pointed_maps`, `preserves_rel`, `automorphisms`) |
 | Audit probe | `textbook/audit/probes/D/cats_probe.lean` (`wideObj0_initial`), `textbook/audit/modules/PrimitiveCats.md` finding 1 |
 | Check (Python (book)) | `python textbook/checks/u52_primitive_cats.py`: 2337 objects on 1-3 points, morphism counts for every claim above, 22 and 8 presentations, bounded searches labelled |
-| Check (book Lean) | `python textbook/checks/u52_lean.py`: eighteen book declarations plus nineteen Genesis theorems kernel-checked, Lean 4.33.0 |
+| Check (book Lean) | `python textbook/checks/u52_lean.py`: twenty book reports plus nineteen Genesis theorems kernel-checked, Lean 4.33.0 |

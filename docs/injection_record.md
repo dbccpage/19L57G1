@@ -806,3 +806,23 @@ witnessed, and that a Boolean realizer would decide its proposition
 parameter. They do not construct a nonlocated relation or settle the
 four OPEN cells. No native receipt is regenerated under an injection.
 
+## Maps, interface members, and relation laws (2026-10-29)
+
+Five temporary book drivers assert false scope claims. Native sources,
+receipts, research trees, and watchlist/firewall populations are unchanged.
+
+| Check | Defect exercised | Observed failure | Recovery |
+|---|---|---|---|
+| Target symmetry | Assert global symmetry of the three-point target that receives a map from the symmetric source | Lean identifies the finite symmetry proposition as false; runner exits 1 | u52 proves the map exists while the target's extra edge has no reverse |
+| Interface member | Assert that the symmetric member's relation agrees with the oriented relation at `(true,false)` | Lean identifies the equivalence as false; runner exits 1 | u53 keeps the oriented refutation and proves representation of the symmetric member using the existing bridge theorem |
+| Column universe | Assert rejection of `[0,2]` by `colOk` in the three-position example | Lean identifies the Boolean equation as false; runner exits 1 | u54 proves acceptance and absence from the singleton proposal menu |
+| Isolated position | Assert an edge of the declared triangle touches position 3 | Lean identifies the finite Boolean assertion as false; runner exits 1 | u55 checks the isolated position and equal count residue for a path and triangle-plus-isolate |
+| Agreement versus identity | Assert colour agreement at positions 0 and 1 implies their literal equality | Lean identifies the implication as false; runner exits 1 | u56 proves not-apart colour agreement, distinct positions, and separation from position 2 |
+
+The five original drivers recover 178 exact reports. Six are new:
+three empty sets, two `propext`, and one `propext, Quot.sound`.
+The revised existing residue example strengthens its proposition and
+reports `propext, Quot.sound` instead of the old count-only proof's empty
+set. No native theorem or boundary is changed, and no receipt is
+regenerated under an injection.
+
