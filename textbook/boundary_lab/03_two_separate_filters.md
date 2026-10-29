@@ -3,6 +3,8 @@
 Return to the side-free control. A **renaming** rearranges the admitted
 mark identities. With two marks, the possibilities are identity (leave
 them in place) and swap (exchange them).
+Every old index goes to one new index, and every new index is used once.
+Merging two marks into one position is not one of these renamings.
 
 The control applies two questions, in order:
 
@@ -26,7 +28,7 @@ A different candidate permits only identity. Then the swap fails the
 No newly measured label difference has been demonstrated by that restriction.
 
 The declared separation requirement holds when no permitted automorphism
-carries mark 0 to mark 1. Both keeping genuinely different labels and
+carries mark 0 to mark 1. Both keeping different labels and
 restricting the permitted family can make it hold, but they do so for
 different reasons. The fixed source experiment starts with identical
 labels, so the different-label case belongs to our separate transfer task.

@@ -23,8 +23,9 @@ entries say `a`.
 
 However, being present in our representation does not automatically make
 an index an internally available distinguishing report. At the control's
-base setting, mark permutations are permitted and the comparison key
-forgets labels. A **comparison key** is the information the comparison
+base setting, mark permutations are permitted: a **permutation** rearranges
+the indices, using each index exactly once. The comparison key forgets
+labels. A **comparison key** is the information the comparison
 retains. Here its default is just the number of marks.
 
 The rule for “separated” will ask whether a permitted renaming preserves
