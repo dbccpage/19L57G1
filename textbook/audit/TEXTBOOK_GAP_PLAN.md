@@ -36,8 +36,8 @@ above record the earlier publication, not current open-PR status.
 | Institution lessons | 18 | A research curriculum exists for four named trees |
 | Sealed Lean modules | 75 | All 75 have coverage-matrix sections and assigned units |
 | Canonical research trees | 123 | Counted using `ci/research_index.py`'s actual population rule |
-| Trees with dedicated research lessons | 9 | Four institution trees, `standing_commitment`, three selected Boundary-lab introductions, and `identification_dual` |
-| Other canonical trees | 114 | No dedicated lesson treatment is established by the current curriculum |
+| Trees with dedicated research lessons | 10 | Four institution trees, `standing_commitment`, three selected Boundary-lab introductions, `identification_dual`, and `qm_bridge` |
+| Other canonical trees | 113 | No dedicated lesson treatment is established by the current curriculum |
 | Manim overview scenes | 12 | Groups of lessons have short previews; individual concepts still need slower worked treatment |
 
 The research population includes parked work, frozen experiments, tooling,
@@ -151,8 +151,18 @@ Its 24 root probes, two continuations, one outside-bound reply, and two
 changed-table practice probes are bounded computational evidence, not
 new Lean theorems. The general identification conjectures remain open.
 Wider boundary/orientation treatment and the other research clusters
-still remain. The dedicated introductory tree count is now nine,
-leaving 114 without such treatment. Directory counts guide discovery;
+still remain. The [Number lab](../number_lab/README.md) now supplies
+nine lessons on counts, positive shares, the zero-total exception,
+signed steps, squares, coordinate sums, lost readout information, and
+reversal groups. It introduces selected `qm_bridge` claims after their
+arithmetic prerequisites, retaining the supplied model and open rows.
+Its 37 book/native reports do not establish a physical correspondence
+or discharge the requested independent encoding review. Unit 64's
+new first pass and six-part claim replace the dense opening. Its
+pseudocode now separates a bounded test from the all-integer theorem,
+using the zero-only box as a counterexample to the former inference.
+The dedicated introductory tree count is now ten, leaving 113 without
+such treatment. Directory counts guide discovery;
 they do not set a requirement for equally sized modules for every tree.
 Comprehension, transfer, and retention remain unmeasured.
 
@@ -291,7 +301,7 @@ the reader-facing criteria have been met.
 | 3 | Create the entrance and transfer assessment with separate answers | Unseen examples test the five stated abilities; no answer leakage in the learner route |
 | 4 | Run and record a novice pilot when readers are available | Record comprehension and time; revise specific failed explanations |
 | 5 | Add boundary/order/growth and native-path/cost research modules | Read owner ledgers and corrections; keep analytic proposals, finite calculations, conditional theorems, and open bridges distinct |
-| 6 | Add the numerical and operational prerequisites, then the finite readout bridge | Each mathematical tool is taught before use; no general physical claim is inferred from the finite exhibits |
+| 6 | Continue numerical and operational prerequisites beyond the Number lab's first finite readout introduction | The first counts/shares/signs/coordinate toolkit now exists; wider number constructions, protocol/calibration/composition lessons, and later bridge rows remain open. No general physical claim is inferred from finite exhibits |
 | 7 | Expand the research casebook and application route | Show successful results, counterexamples, failures, custody, and remaining questions with their actual evidence |
 
 ## First deliverable and audit limits

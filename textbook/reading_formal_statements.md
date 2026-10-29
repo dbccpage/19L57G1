@@ -140,6 +140,7 @@ for witnesses, counterexamples, and quantifier order.
 | Growth lab | Its research source map: commitments and supplied growth |
 | [Boundary lab](boundary_lab/README.md) | Its research source map for the three distinct models; Unit 37 for the separate two-dot classification example |
 | [Same-record lab](identification_lab/README.md) | Its research source map for equal-profile requirements, bounded matching calculations, and the limits of separation pruning |
+| [Number lab](number_lab/README.md) | Unit 64 for the separate arithmetic definitions; its research source map for the admitted finite readout model and general invariant-readout bounds |
 
 These are reading suggestions, not transport theorems between the models.
 For example, the Path lab's graph edge and a function arrow have different

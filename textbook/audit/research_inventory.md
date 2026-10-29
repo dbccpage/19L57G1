@@ -7,12 +7,15 @@ Dedicated teaching now includes the four institutions trees, the Growth
 lab's introductory treatment of `standing_commitment`, and the Boundary
 lab's selected lessons for `boundary_seed`, `side_free`, and
 `oriented_boundary`, plus the Same-record lab's selected introduction to
-`identification_dual`. The other 114
+`identification_dual`, and the Number lab's selected `qm_bridge` lessons.
+The other 113
 have no dedicated research curriculum established by this audit. The
 Growth lab's comparison with `two_sided_commitment` is a scoped reference,
 not a complete treatment of that tree. The Boundary lab is also a selected
 introduction, not complete tree coverage or a discharge of its open comparisons.
 The Same-record lab likewise leaves the general identification conjectures open.
+The Number lab teaches the arithmetic before selected readout claims;
+the model's physical correspondence and later open rows remain unproved.
 A source mention alone is not teaching.
 Group assignments below are proposed curriculum organization; they assert no mathematical bridge or research validation.
 
@@ -29,7 +32,7 @@ Group assignments below are proposed curriculum organization; they assert no mat
 | Boundary, orientation, and commitment | `symmetry_floor` | Not yet established | [research/symmetry_floor/STATUS.md](../../research/symmetry_floor/STATUS.md) |
 | Boundary, orientation, and commitment | `two_sided_commitment` | Not yet established | [research/two_sided_commitment/STATUS.md](../../research/two_sided_commitment/STATUS.md) |
 | Execution, authorization, and evidence | `alpha_engine` | Not yet established | [research/alpha_engine/README.md](../../research/alpha_engine/README.md) |
-| Finite readout bridge | `qm_bridge` | Not yet established | [research/qm_bridge/CLAIMS.md](../../research/qm_bridge/CLAIMS.md) |
+| Finite readout bridge | `qm_bridge` | [Number lab: selected introduction](../number_lab/README.md) | [research/qm_bridge/CLAIMS.md](../../research/qm_bridge/CLAIMS.md) |
 | Institutions: dedicated lessons exist | `actor_institution` | Institutions lessons | [research/actor_institution/CLAIMS.md](../../research/actor_institution/CLAIMS.md) |
 | Institutions: dedicated lessons exist | `interpreter_verdict` | Institutions lessons | [research/interpreter_verdict/CLAIMS.md](../../research/interpreter_verdict/CLAIMS.md) |
 | Institutions: dedicated lessons exist | `two_theorems` | Institutions lessons | [research/two_theorems/CLAIMS.md](../../research/two_theorems/CLAIMS.md) |

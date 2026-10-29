@@ -52,6 +52,10 @@ The [`Same-record lab`](identification_lab/README.md) asks the opposite
 of separation: add judgments so two profiles match while their internal
 positions remain distinct. Seven worked lessons compare side effects,
 kept promises, bounded refusals, and the price of a later demand.
+The [`Number lab`](number_lab/README.md) teaches totals, shares, zero,
+signed steps, squares, and coordinate addition before selected finite
+readout examples. It connects Unit 64's arithmetic to an introduction
+to `qm_bridge`, keeping its supplied formula and open rows explicit.
 
 New readers can then read [`START_HERE.md`](START_HERE.md) (see also the
 short spoken introduction in [`video_script_15s.md`](video_script_15s.md)).

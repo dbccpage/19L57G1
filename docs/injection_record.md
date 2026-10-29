@@ -628,3 +628,23 @@ destinations. This route adds deterministic bounded computations, not
 book-Lean proofs or a new native theorem. Static figure inspection does
 not establish hosted rendering or reader learning.
 
+## Numerical teaching and readout route (2026-10-29)
+
+All mutations use copied teaching/Wiki assets or a temporary book driver.
+Sealed and research sources, predictions, contracts, and receipts remain
+read-only. No regeneration occurs under an injected defect.
+
+| Check | Defect exercised | Observed failure | Recovery |
+|---|---|---|---|
+| Source-backed number packet | Alter a total, define a zero-total share, reverse the zero-only-box result, erase a sign effect, change the middle reading, invent information, ignore a carrier restriction, split reversal groups, or make doubled coordinates scale linearly | Named mismatch against recomputed source-backed cases | Original packet passes; twelve authoring tests pass |
+| Population and figure | Change 2,401 coordinate input pairs to 2,402, or replace a generated SVG | Named population-table or figure mismatch | Original count and five figures pass |
+| Actual Wiki verifier: lesson | Replace the middle weight/readout 2 by 9 | Exit 1 names `stale number-lab page` and its slug | Restore bytes; exit 0 |
+| Actual Wiki verifier: record | Make the zero-only box reject instead of pass | Exit 1 names `stale number-lab record` | Restore bytes; exit 0 |
+| Actual Wiki verifier: figure | Replace the coordinate figure by an empty SVG | Exit 1 names `stale number-lab figure` | Restore bytes; exit 0 |
+| Book Lean | Append the false combined reading 2 at two rightward unit inputs and `2 * 5 = 3 * 5` | Lean's `decide` names both exact propositions as false; shared runner exits 1 | Original 37 exact reports pass separately |
+
+The zero-box example also corrects Unit 64's former inference from a
+finite loop to an all-integer theorem. Five new Wiki tests exercise
+page/asset failure detection and route links. These checks do not prove
+the physical interpretation or reader transfer.
+

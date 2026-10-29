@@ -2,24 +2,79 @@
 
 **Claim.** The declared weight profiles compare proportions by cross-multiplication. Their arithmetic results concern admitted decorations; no bridge to the regime's observations is established here.
 
+<details>
+<summary>Source and classification record (optional on a first reading)</summary>
+
 **Status:** FROZEN (all arithmetic theorems on `SameProfile`, `Presents`, `SignedSquarePresents`, `ModulusBlind` descent, `decoratedCarrierShape_exists`, and `claimedReadOutUniqueness_false`); ADMITTED (the definitions `Weights`, `CarrierList`, `total`, `SameProfile`, `Presents`, `sq`, `sqInt`, `SignedSquarePresents`, `mixSum`, `readOut`, `ModulusBlind`, and `ClaimedReadOutUniqueness`, with no proved bridge to `Basic.lean` or `PrimitivePassage.PState`); VERIFIED_FINITE (`artifacts/weight_profile.json`).
 **Lean:** `lean4/Derivation/WeightProfile.lean` lines 57–522.
 **Axioms:** `propext`, `Quot.sound` on 25 of 31 public theorem reports; `propext` on `WeightProfile.duplicate_list_not_carrier` and `WeightProfile.sq_mul`; `none` on `WeightProfile.profile_refl`, `WeightProfile.profile_symm`, `WeightProfile.profile_order`, and `WeightProfile.decoratedCarrierShape_exists` (`artifacts/lean_axioms.txt` lines 858–888).
 **Depends on:** Unit 00 (the standing rule that declared data are admitted, not derived; `WeightProfile.lean` imports `Derivation.Compression` for linear build ordering only and references zero declarations from earlier system modules).
 
+</details>
+
 ---
 
 ## First pass
 
-To compare 2:3 with 4:6, multiply across: 2 × 6 = 3 × 4. Division is unnecessary.
+Start with two trays holding 2 and 3 counters. Their total is 5. A second
+pair of trays holds 4 and 6, with total 10. Every count doubled, so the
+shares stayed the same: two of five is the same share as four of ten.
 
-The lesson formalizes this style of comparison using natural-number weights, with separate signed integer decorations later. Zero-scale cases need separate attention because the same arithmetic test may lose information there.
+We can compare without division. At the first position, multiply each
+entry by the other table's total: 2 × 10 = 4 × 5. At the second position,
+3 × 10 = 6 × 5. Both checks pass. The total itself was not preserved.
 
-Keep the arithmetic statement separate from any proposed interpretation of what the weights measure.
+Predict what happens with the empty table `(0, 0)`. Every cross product
+against it is zero, so the raw test passes against every table. That does
+not define fractional shares at total zero. The positive-total hypothesis
+is what makes the intended proportion comparison behave as expected.
+
+A separate signed-number example shows another kind of information loss.
+The inputs `(1, 1)` and `(1, −1)` have equal separate squares, but adding
+before squaring gives 4 and 0. This readout rule is admitted; the weights
+alone do not choose it, and the module proves no measurement connection.
+
+If any operation is unfamiliar, use the nine short lessons in the
+[Number lab](../number_lab/README.md). They introduce totals, shares,
+zero, signed steps, squares, and coordinate addition before the formal
+claims below. This arithmetic `SameProfile` is a different definition
+from the regime's yes-question profile.
 
 ## Detailed claim and formal anchors
 
-On a finite list of positions `l : List Nat` and natural-number weight assignments `w v u : Nat → Nat`, the cross-multiplied relation `SameProfile l w v := ∀ p ∈ l, w p * total l v = v p * total l w` is reflexive and symmetric on all assignments, transitive whenever the middle assignment has positive total `0 < total l v` (`profile_equivalence_positive`), equivalent under positive totals to scaling onto a common positive ray `a * w p = b * v p` (`profile_iff_ray`), preserves support (`w p = 0 ↔ v p = 0`) and pairwise order (`w p ≤ w q ↔ v p ≤ v q`) under positive totals, forgets the overall scale `total l w` (`profile_forgets_total`), makes the profile of any decorated presentation `Presents l m c w` identical to the profile of `w` (`presentation_profile_redundant`, `presentations_agree_on_profile`), determines an unsigned pre-square decoration `c : Nat → Nat` uniquely on `l` from `Presents l sq c w` (`unsigned_decoration_determined`), fails to determine a signed pre-square decoration `c : Nat → Int` under both `SignedSquarePresents [0, 1] c unitIntWeights` and the two-input read-out `mixSum (c 0) (c 1)` (`signed_square_presentations_split`), makes the squared linear read-out `readOut a b x y * readOut a b x y` constant across `ModulusBlind` inputs if and only if `a * b = 0` (`descent_iff_subsingleton_support`), and refutes the scalar uniqueness schema `ClaimedReadOutUniqueness` (`WeightProfile.profile_equivalence_positive`, `WeightProfile.zero_scale_boundary`, `WeightProfile.profile_iff_ray`, `WeightProfile.profile_support`, `WeightProfile.profile_order`, `WeightProfile.profile_forgets_total`, `WeightProfile.presentation_profile_redundant`, `WeightProfile.presentations_agree_on_profile`, `WeightProfile.unsigned_decoration_determined`, `WeightProfile.signed_square_presentations_split`, `WeightProfile.descent_iff_subsingleton_support`, `WeightProfile.decoratedCarrierShape_exists`, `WeightProfile.claimedReadOutUniqueness_false`, `WeightProfile.finite_scope_summary`).
+The module works on a finite position list `l : List Nat` and count
+assignments such as `w : Nat → Nat`. Its results fall into separate steps:
+
+1. **Compare proportions.** `SameProfile l w v` checks
+   `w p * total l v = v p * total l w` at every listed position.
+   It is reflexive and symmetric on all assignments. Transitivity needs
+   a positive middle total (`profile_trans`, `zero_scale_boundary`).
+2. **Restrict to positive totals.** There the relation is an equivalence
+   and is characterized by positive integer multipliers
+   (`profile_equivalence_positive`, `profile_iff_ray`). It preserves
+   which entries vanish and their pairwise order, while forgetting
+   the overall total (`profile_support`, `profile_order`,
+   `profile_forgets_total`).
+3. **Compare presentations.** If a decoration presents a weight table,
+   its mapped weights have the same profile as that table
+   (`presentation_profile_redundant`, `presentations_agree_on_profile`).
+   This follows from the presentation equation, not a new physical law.
+4. **Keep the number domain explicit.** Unsigned squares determine
+   their nonnegative inputs (`unsigned_decoration_determined`). Signed
+   squares can forget a sign and hence fail to determine the admitted
+   add-then-square reading (`signed_square_presentations_split`).
+5. **Ask when a readout recovers from squares.** The squared linear
+   readout is constant on every pair of `ModulusBlind` inputs exactly
+   when `a * b = 0` (`descent_iff_subsingleton_support`). This theorem
+   quantifies over all integer inputs; a bounded Python loop alone does not.
+6. **Audit proposed conclusions.** `decoratedCarrierShape_exists`
+   supplies a weak existential witness, while
+   `claimedReadOutUniqueness_false` refutes the stated uniqueness schema.
+   `finite_scope_summary` collects the module's scoped conclusions.
+
+The detailed definitions and proofs follow. Each claim carries its own
+domain and hypotheses; a shared arithmetic example does not connect
+this module to the earlier regime model.
 
 ## Question
 
@@ -97,8 +152,15 @@ DESCENDS(a, b, bound):
       if (a*x + b*y)^2 != (a*x2 + b*y2)^2:
         return False
   return True
-  -- Theorem descent_iff_subsingleton_support: DESCENDS(a, b) <=> a * b == 0
+  -- This loop checks only the supplied finite box.
+  -- The native theorem quantifies over all integer inputs, with no box bound.
 ```
+
+For example, `DESCENDS(1, 1, 0)` returns true: the only inputs are zero,
+so no sign distinction is tested. Yet `1 * 1` is nonzero, and the native
+all-input invariance claim is false. At bound 1, inputs `(1,1)` and
+`(1,−1)` already supply the differing readings 4 and 0, so the loop
+returns false. The theorem and the bounded checker have different scopes.
 
 ---
 

@@ -53,7 +53,7 @@ class WikiTextbookTests(unittest.TestCase):
         self.assertIn("[example](../README.md)", result)
 
     def test_beginner_route_links_stay_in_the_wiki(self):
-        folders=('first_steps','reasoning_lab','search_lab','change_lab','path_lab','map_lab','growth_lab','boundary_lab','identification_lab')
+        folders=('first_steps','reasoning_lab','search_lab','change_lab','path_lab','map_lab','growth_lab','boundary_lab','identification_lab','number_lab')
         for folder in folders:
             body=f'[route](../{folder}/README.md) [lesson](../{folder}/SOURCE_MAP.md#scope)'
             result=rewrite_links_for_wiki(body,{}, {},'BLOB',False,'textbook/units')
