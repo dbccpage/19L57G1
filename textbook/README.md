@@ -5,10 +5,11 @@ part of it. Nothing here is an input to `prompt/`, `paper/`, `code/`,
 `lean4/Derivation/` or `artifacts/`, and nothing here changes them. Where a
 unit and the Lean disagree, the Lean wins.
 
-The book is built one small derivation at a time. Each unit takes one
-theorem (or one definition), states it, shows it in Lean, shows it in
-Python, explains it in plain words, walks the proof step by step, and says
-what it does and does not establish.
+The beginner routes develop one small idea at a time. The formal units
+group related definitions and theorems and can contain many results.
+Start with their concrete first pass, then read the definitions, hypotheses,
+proofs, and limits. The formal-reading guide below helps connect a familiar
+example to its actual source statement.
 
 ## Source
 
@@ -46,7 +47,9 @@ create demands, and why assumed service is different from a proved repair.
 
 New readers can then read [`START_HERE.md`](START_HERE.md) (see also the
 short spoken introduction in [`video_script_15s.md`](video_script_15s.md)).
-For the complete theorem-to-lesson coverage matrix and lesson dependency DAG,
+The [formal-reading guide](reading_formal_statements.md) links these small
+examples to the formal chapters, with separate practice and answers.
+For the source-placement index and recorded lesson dependency graph,
 see [`derivation_coverage.md`](derivation_coverage.md); for the 75-module
 audit records, see [`audit/README.md`](audit/README.md).
 For the remaining teaching work and the research-to-curriculum inventory,

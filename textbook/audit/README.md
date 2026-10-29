@@ -5,6 +5,16 @@ in the sealed derivation and authorizes nothing. Every verdict below is a
 reading of `lean4/Derivation/` as it stands, checked against the artifact,
 the paper and the ledger, and reproducible from the files named.
 
+**Later reading review (2026-10-28).** The historical inventory below is
+a line-regex report, not a comment-aware declaration census. It counts two
+prose-comment lines as `lemma` entries; its raw definition counters also
+disagree with the coverage index's former total. The historical JSON and
+module records are preserved. Their counts and source references do not
+certify exhaustive declaration coverage or beginner comprehension. See
+[the selected-chapter reading review](READING_REVIEW_2026-10-28.md) for the
+current findings, eight book-Lean reports, and the distinction between a
+recorded prerequisite graph and complete conceptual preparation.
+
 ## Scope and method
 
 - **Population.** The 75 tracked modules under `lean4/Derivation/` plus the

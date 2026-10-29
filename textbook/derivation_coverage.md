@@ -1,24 +1,35 @@
 # Derivation Coverage Matrix and Lesson Dependency Graph
 
-**AuthorityEffect: None.** This document is the mathematical map of the
-Genesis Textbook. It records:
+**AuthorityEffect: None.** This is a source-placement index and a recorded
+prerequisite graph. It is not a certification that every declaration is
+explained or that every prerequisite is taught before use. It records:
 
 1. Every frozen module under `lean4/Derivation/` (all 75 modules: 62 directly
    imported by `lean4/Derivation.lean`, 63 in its transitive import closure,
    and the remaining 12 parked modules imported by
    `lean4/ParkedAudit.lean`) and its mapping to Part 1 textbook units
    (`Unit 00`–`Unit 74`) and module audit records (`textbook/audit/modules/`).
-2. Every significant definition, structure, theorem, and lemma across all 75
-   frozen modules (1 685 theorems and 708 definitions/structures/inductives),
-   mapped to a **Substantive textbook lesson** (`S`), an **Explicitly
-   documented auxiliary dependency** (`A`), a **Technical appendix / audit
-   record**, or an **Explicitly documented omission with justification**.
+2. Proposed declaration placement across those modules: a **Substantive
+   textbook lesson** (`S`), **Auxiliary dependency** (`A`), **Technical
+   appendix / audit record**, or **Proposed omission with justification**.
+   Some entries group names or use ellipses. Their presence does not prove
+   exhaustive declaration coverage or substantive teaching of each entry.
 3. Every research theorem taught in Part 2 (`textbook/institutions/units/00`–`17`),
    identifying its originating research tree (`research/actor_institution`,
    `research/two_theorems`, `research/uncollapse`,
    `research/interpreter_verdict`) and its exact evidence classification.
-4. The complete lesson dependency directed acyclic graph (DAG), checked
-   programmatically for acyclicity (zero cycles, zero forward prerequisites).
+4. The explicitly recorded prerequisite edges among the formal units.
+   Checking these edges for cycles does not discover missing conceptual
+   prerequisites. The beginner routes and the
+   [formal-reading guide](reading_formal_statements.md) address some of them.
+
+The old opening's total of 708 definitions/structures/inductives did not
+match its historical inventory's raw counters (763 `def`, 70 `structure`,
+38 `inductive`). Those counters are not a replacement exact census: the
+inventory's line regex also counts two prose-comment lines as `lemma`
+declarations. The historical files are preserved; a comment-aware and
+declaration-by-declaration reconciliation remains outstanding. No exact
+total or complete semantic coverage is certified by this index.
 
 ## 1. Evidence Status Classifications
 
@@ -41,14 +52,17 @@ Every declaration in this matrix carries one or more of the seven status marks:
   decidability assumptions, fiber-constancy, or scope assumptions); the
   theorem establishes the implication from those hypotheses, not that the
   hypotheses are forced.
-- `VERIFIED_FINITE` — Checked by deterministic finite calculation (`decide`,
-  `rfl`, or native reduction on a concrete finite carrier or exhibit).
-  Establishes the statement on the tested finite domain only.
+- `VERIFIED_FINITE` — Computational evidence on an explicitly declared
+  finite population. Read each row's actual statement and evidence: a
+  kernel-checked theorem about a finite carrier remains a theorem, and a
+  concrete counterexample can refute a universal claim. Tactics such as
+  `rfl` or `decide` alone do not determine a theorem's quantifier scope.
+  The existing row classifications still need semantic reconciliation.
 - `REFUTED` — A formal counterexample or negative theorem refuting a candidate
   bridge, uniqueness claim, or overstrong statement.
 - `ADMITTED` — A declared structure, inductive grammar, cost measure,
-  representation choice, or normative rule supplied from outside at a stated
-  price. A definition is not a derivation.
+  representation choice, or requirement. A price applies only where a
+  specific model's cost rule assigns one. A definition is not a derivation.
 - `OPEN` — An unresolved mathematical obligation (`InterpreterBoundary`'s
   `OpenBridgeObligation` / `ResearchInterpreterVerdict.openDenotationalBridge`,
   and institutional wisdom beyond non-overclaiming `Grounded`). Preserved as
@@ -60,7 +74,7 @@ Every declaration in this matrix carries one or more of the seven status marks:
 
 | # | Module | Path | Root Import | Lines | Defs/Structs | Theorems | Primary Textbook Units | Audit Appendix |
 |---|---|---|---|---|---|---|---|---|
-| 0 | `Derivation` (root) | `lean4/Derivation.lean` | root | 62 | 0 | 0 | All Part 1 Units (`Unit 00`–`Unit 73`) | [`audit/README.md`](audit/README.md) |
+| 0 | `Derivation` (root) | `lean4/Derivation.lean` | root | 62 | 0 | 0 | Part 1 source index (`Unit 00`–`Unit 74`) | [`audit/README.md`](audit/README.md) |
 | 1 | `Apartness` | `lean4/Derivation/Apartness.lean` | yes | 338 | 5 | 28 | `Unit 56` | [`audit/modules/Apartness.md`](audit/modules/Apartness.md) |
 | 2 | `Attachment` | `lean4/Derivation/Attachment.lean` | yes | 1173 | 41 | 54 | `Unit 59` | [`audit/modules/Attachment.md`](audit/modules/Attachment.md) |
 | 3 | `Basic` | `lean4/Derivation/Basic.lean` | yes | 218 | 20 | 7 | `Unit 00`, `Unit 08`, `Unit 09`, `Unit 17` | [`audit/modules/Basic.md`](audit/modules/Basic.md) |
@@ -141,10 +155,12 @@ Every declaration in this matrix carries one or more of the seven status marks:
 
 ## 3. Lesson Dependency Graph and Acyclicity Verification
 
-Every lesson in Part 1 (`Unit 00`–`Unit 74`) and Part 2 (`Part 2 Unit 00`–`17`)
-depends only on strictly earlier lessons. No concept (such as quotients,
-category/initiality properties, or institutional partitions) is used before
-the unit that defines it.
+The tables record prerequisites for Part 1 (`Unit 00`–`Unit 74`) and
+Part 2 (`Part 2 Unit 00`–`17`). Their declared edges can be checked for
+ordering and cycles. That check does not establish that every term is
+introduced before use. For example, Unit 44's original prerequisite list
+assumed Lean setoids and quotients; its revised explanation and the Map lab
+now introduce their grouping meaning. Further conceptual review remains.
 
 ### 3.1 Part 1: Frozen Derivation Curriculum (`Unit 00`–`Unit 74`)
 
@@ -251,14 +267,17 @@ the unit that defines it.
 
 ### 3.3 Forward-Reference Audit
 
-- **Zero prerequisite cycles:** Checked by depth-first topological traversal
-  across all 75 Part 1 units and 18 Part 2 units (`0` cycles).
+- **Recorded prerequisite graph:** The explicit tables have 75 Part 1 nodes
+  and 18 Part 2 nodes. Their cycles and ordering are mechanical properties
+  of those recorded edges, not a proof that the prerequisite list is complete.
 - **Observational equivalence before quotients:** Observational collapse and
   witnessed separability are introduced in `Unit 08`–`Unit 09` (`Basic.lean`),
   the abstraction barrier in `Unit 27` (`Quot.lean`), represented evaluators in
   `Unit 45` (`Represented.lean`), and setoid/quotient constructions
-  (`ObsQuotient`, `Quot.sound`) in `Unit 56` (`Apartness.lean`) and `Unit 67`
-  (`ObsDescent.lean`).
+  (`ObsQuotient`, `Quot.sound`) already appear in Unit 44
+  (`DiffInterface.lean`), with later treatments in Unit 56 (`Apartness.lean`)
+  and Unit 67 (`ObsDescent.lean`). This is a placement description, not a
+  completed comprehension audit.
 - **Functions and homomorphisms before initiality:** Structure-preserving maps
   and homomorphisms are introduced in `Unit 52` (`PrimitiveCats.lean`) and
   `Unit 58` (`ControllerCategory.lean`) before proving initiality or refuting

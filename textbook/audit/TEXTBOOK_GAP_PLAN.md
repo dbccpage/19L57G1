@@ -105,6 +105,14 @@ classifications still need semantic teaching review.
    closure, and 12 parked modules, and separates the `FROZEN` custody
    mark from theorem scope. Its claims of complete prerequisite and
    declaration coverage require independent checking.
+   The [selected-chapter reading review](READING_REVIEW_2026-10-28.md)
+   now removes those unsupported completeness claims, identifies an
+   inconsistent declaration total and comment matches in the historical
+   inventory, and checks the 75 module rows plus 93 recorded prerequisite
+   nodes and 156 edges (no cycles or forward edges). This checks the
+   recorded graph only. Units 44, 61, and 67 and the entrance receive a
+   first semantic/readability repair; a comment-aware declaration census,
+   the S/A classifications, and the remaining chapters still need review.
 7. **Evidence and reality.** Add exercises in separating a definition,
    a deduction, a computation, and a measurement. Give a model prediction,
    identify an observation that could disagree with it, and explain what

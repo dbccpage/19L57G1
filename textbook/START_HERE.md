@@ -1,146 +1,130 @@
-# Start Here: A Reader's Entrance to Genesis
+# Start Here: questions, records, and reasons
 
-**AuthorityEffect: None.** This page is an entrance for a reader who has not
-met this repository, formal logic, Python, or the Lean proof checker before.
-It introduces the question the book studies and points you to the first lesson.
+This entrance assumes no previous study of mathematics, philosophy,
+Python, or Lean. Begin with [three cards and two questions](first_steps/README.md).
+Predict an answer before revealing it. The formal chapters become easier
+when you can already explain one small example.
 
-If these ideas are new to you, try [three cards and two questions](first_steps/README.md)
-first. You will predict what a small machine can tell apart, then use that
-example to understand the words below.
+## 1. What can this record tell us?
 
----
+Imagine a lost-property desk whose record says only whether an item is
+blue. Two different bags can receive the same answer, Yes. If someone
+later asks which bag has a broken strap, the blue record may be insufficient.
+Two items needing different strap answers but having the same blue record
+would show exactly why.
 
-## 1. We begin with a mark
+This example separates three things:
 
-Everything in this book starts from a single written inscription:
+- the items we are trying to describe;
+- the observations the record keeps;
+- the question we want to answer from that record.
 
-```
-<>
-```
+Changing a label does not add an observation. A record that cannot answer
+one question may answer another perfectly. These are useful habits to
+develop when thinking about models and evidence.
 
-In the lessons, we write this mark as ⟨⟩.
+## 2. The source's starting mark
 
-When you look at `<>` on a page, your eyes see two angled strokes, a left side
-and a right side, and an empty gap in the middle. Those features belong to how
-the mark is printed on the page. They do not belong to the system we are
-studying. Inside the system, ⟨⟩ is treated as one undivided, opaque item.
+The sealed derivation begins from the written mark `<>`, displayed here
+as ⟨⟩. Its seed instructs the formal system to treat that mark as one
+undivided item. The printed strokes do not give that system an inside,
+an outside, an order, a container, or a counting operation.
 
-## 2. A mark does not internally establish a mathematical universe
+There are two levels to keep distinct. We, the readers and constructors,
+use language, logic, and mathematics to describe a system. The system
+itself has only the objects and rules its chosen representation supplies.
+The background mathematics used to describe it is called **metatheory**.
+The objects and rules represented inside it belong to its **object language**.
 
-Writing down a mark does not create numbers, sets, containers, points,
-functions, rules of logic, or a surrounding space.
+Unit 00 explains this choice. Unit 01 proves that nothing is derivable
+at the chosen genesis state under the chosen derivation rules. This is
+a result about that formal setup. It does not prove that reasoning,
+mathematics, or reality in general must begin in this way.
 
-- The mark ⟨⟩ does not establish an empty set.
-- The brackets do not establish a box or container with an inside and an outside.
-- Writing two different marks, such as ⟨A⟩ and ⟨B⟩, does not by itself give the
-  system a way to tell them apart.
-- Repeating a letter, such as ⟨AA⟩ or ⟨ARA⟩, does not by itself give the system
-  a notion of sameness or a relation between two things.
+The card and lost-property examples are separately supplied teaching
+models. Their colors, items, and observations are not derived from ⟨⟩.
 
-Until a rule or an observation is explicitly introduced, the system has no way
-to compare, count, or derive anything at all.
+## 3. What kind of support does a claim have?
 
-## 3. Structure must be admitted or derived
+An **admission** is something supplied: an item, a definition, a question,
+a rule, or a requirement. A **deduction** proves what follows from stated
+definitions and hypotheses. A **finite calculation** checks the declared
+cases of an experiment. A **measurement** obtains evidence about the
+system an application is intended to describe.
 
-Because nothing comes for free from the mark, every piece of machinery used in
-this book is tracked on an explicit ledger. Each step is either:
+For example, supplying a table of blue answers is an admission. Listing
+every pair in that table is a finite calculation. A proof that one lookup
+cannot return two different outputs for the same input is a deduction
+from the definition of a function. Testing whether a real recorder
+produces the table's answers requires measurements.
 
-- **Admitted:** chosen and supplied from outside at a stated price — such as
-  the background language in which we keep the ledger, a new datum, a new
-  relational form, a recorded fact, or a protected requirement.
-- **Derived:** proved step by step from what has already been admitted, with no
-  hidden assumptions and no skipped steps.
+These supports answer different questions. A definition's consistency
+does not show that a device implements it. A successful test over three
+items does not establish the same result for every possible item.
 
-Keeping **admitted** and **derived** separate is the central discipline of the
-book. A definition is a choice, not a proof. Showing that a chosen rule works
-does not show that it was the only rule that could have been chosen.
+Some models assign prices to permitted additions. A price has meaning
+only after its counting rule and available additions are declared. The
+external mathematical language is not automatically charged by an
+item-count measure inside one of those models.
 
-## 4. What a witnessed difference is
+## 4. Why the book introduces more structure
 
-In ordinary talk, we say two things are different simply because we gave them
-different names, like "datum 0" and "datum 1". Inside a formal system, having
-two labels in an outside list is not enough.
+The constructor investigates supplied questions by admitting rules and
+studying their consequences. A requirement can remain unmet, have several
+equally cheap responses, or have no available response within a bound.
+The chapters record those outcomes as well as successful constructions.
 
-A **witnessed difference** is a distinction that a specified observation inside
-the system can actually detect — for example, a test with one open slot that
-succeeds when datum 0 is plugged in and fails when datum 1 is plugged in. When
-no available test can tell two items apart, the two items are **observationally
-collapsed** relative to that stage of the system, even though their outside
-labels differ.
+Here are three examples of conclusions with their conditions attached:
 
-## 5. Why richer structures appear
+- In the separation model of Units 17–22, start with no forms and no
+  recorded instances. Under its four-kind addition grammar and item-count
+  price, an addition of at most one item cannot meet the separation demand.
+  That scoped result does not assign a universal price to distinguishing things.
+- In the declared passage model, retention, protection, and observation
+  are separate fields. An obstruction can lead to a repair proposal;
+  executing a proposal still depends on the actual transition guards.
+- In the Growth lab's research model, a fresh arrival adds one demand
+  per old item under a total commitment and no views. Existing views can
+  change that count. The commitment and arrival remain supplied inputs.
 
-The progression in this book moves forward only when an earlier, simpler setup
-cannot meet an admitted requirement:
+Recording one fact also does not establish a general law. For example,
+a particular recorded link need not forbid all self-links in the grammar.
+Each later theorem names the extra rule, if any, that its conclusion needs.
 
-1. **At the mark ⟨⟩ (`Unit 00`–`Unit 04`):** Nothing is derivable, supplying a
-   label without admitting it changes nothing, and no next step is forced from
-   inside.
-2. **Admitting data without relations (`Unit 05`–`Unit 16`):** Even after two
-   distinct tokens ⟨A⟩ and ⟨AB⟩ are admitted as data, there are no recorded
-   facts relating them. Every test gives the same answer on both, so they
-   remain collapsed.
-3. **Answering a separation demand (`Unit 17`–`Unit 22`):** When an external
-   requirement demands that datum 0 and datum 1 be separated, a single
-   addition of cost 1 cannot do the job (`Unit 18`). Meeting the demand
-   requires admitting both a form and a recorded instance, such as a directed
-   link (`Unit 19`) or a self-loop (`Unit 20`), and which repairs are cheapest
-   depends on the admitted cost measure (`Unit 21`–`Unit 22`).
-4. **Laws, obstructions, and repair (`Unit 23`–`Unit 46`):** Recording a single
-   fact never forces a general law such as irreflexivity (`Unit 23`–`Unit 26`).
-   When a protected law is admitted alongside observations that merge what the
-   law keeps apart, an **obstruction** arises, and the system must either
-   repair its observation, extend its carrier, or record a refusal.
-5. **Observers, quotients, higher cells, and the interpreter boundary
-   (`Unit 47`–`Unit 74`):** Later lessons examine what happens when the
-   observer's own views are put on the books, how higher-dimensional boundary
-   shells and equivalence quotients behave, and why the interpreter that runs
-   a family of transition codes remains distinct from the codes in its family.
-6. **Actors and institutions (`Part 2`):** The second part of the book studies
-   what happens when several presentations (actors) are combined into a family
-   (an institution): how information counts distinguishable classes, when a
-   family determines a claim that no single member determines, why
-   correspondence across members is an admission, when an institution must
-   demur rather than assert, and what it costs to probe an unknown partition.
+## 5. Choose the next question you want to understand
 
-## 6. What this book is — and what it is not
+| Question | Concrete route |
+|---|---|
+| Can two different items have the same record? | [First steps](first_steps/README.md) |
+| What makes an example, counterexample, or if-then claim work? | [Reasoning lab](reasoning_lab/README.md) |
+| How do we compare possible repairs and tied prices? | [Search lab](search_lab/README.md) |
+| Why does a proposal still need an executable event? | [Change lab](change_lab/README.md) |
+| How do walks and signed boundaries differ from stored cells? | [Path lab](path_lab/README.md) |
+| Which answers survive grouping items together? | [Map lab](map_lab/README.md) |
+| Why can new arrivals reopen a settled task? | [Growth lab](growth_lab/README.md) |
 
-This book is an **introductory mathematical narrative** through a formal
-derivation. It is written so that every step can be read, run on a computer in
-a few lines of Python, checked by the Lean 4 proof assistant, and questioned on
-its own terms.
+When ready, use [Reading a formal statement](reading_formal_statements.md)
+to translate one actual definition into a table and a checkable question.
+It also points from these routes to the relevant formal chapters. The
+short videos preview ideas; their duration is not a target reading time.
 
-- **It is not a proof that the physical universe follows this progression.**
-- **It does not derive the physical world from a mark.**
-- **A computer check or a formal theorem about a finite ledger is a statement
-  about that mathematical model, never an empirical law of nature.**
+## 6. Carry the model when reasoning about reality
 
----
+For an application, name what the model's items represent, how observations
+are obtained, and which outcomes would challenge the proposed correspondence.
+If two real items share a stored record but require different measured
+answers, that can challenge a recovery claim for that recorder.
 
-## How to read this book
+A formal theorem retains its conclusion under its stated definitions and
+hypotheses. Whether those hypotheses describe a real recorder is an
+additional question. The book aims to help you ask both questions precisely;
+it does not derive the physical world from the mark.
 
-No prior study of mathematics, logic, Python, or Lean is assumed. Later
-lessons contain longer formal statements, so work through their examples
-before trying to read every theorem name.
+The [textbook hub](README.md) lists Units 00–74 and the institution chapters.
+[Unit 00](units/00_mark_and_constructor.md) begins the source development.
+The [coverage index](derivation_coverage.md) records proposed source placement;
+its references alone do not establish complete teaching coverage.
+The [source audit](audit/README.md) records its own evidence and limits.
 
-Use three passes for a difficult lesson:
-
-1. Read the question and first-pass example. Say what changes in your own words.
-2. Read one definition at a time. Check its symbols against the example.
-3. Read the formal statement, its hypotheses, and the limits of the result.
-
-The short videos preview groups of lessons. Pause or replay them as needed;
-their fifteen-second duration is not a target for understanding a definition.
-
-1. **First lesson:** Start at [`Unit 00: The mark and the external constructor`](units/00_mark_and_constructor.md),
-   then proceed in order to [`Unit 01: Nothing is derivable at genesis`](units/01_genesis_underivable.md),
-   [`Unit 02`](units/02_underivable_of_empty.md), and [`Unit 03`](units/03_supply_no_op.md).
-2. **Table of contents and rules of the book:** See [`textbook/README.md`](README.md)
-   for the full list of Units 00–74 in Part 1 and the link to Part 2.
-3. **Part 2 (Actors and institutions):** After Part 1 (or after `Unit 61` on
-   presentations and compression), see [`textbook/institutions/README.md`](institutions/README.md).
-4. **Complete theorem-to-lesson map and dependency graph:** See
-   [`textbook/derivation_coverage.md`](derivation_coverage.md).
-5. **Module-by-module source audit:** See [`textbook/audit/README.md`](audit/README.md).
-6. **15-second video introduction script:** See
-   [`textbook/video_script_15s.md`](video_script_15s.md).
+AuthorityEffect: None. Reader comprehension, reading time, transfer to
+unfamiliar examples, and retention still require reader evidence.

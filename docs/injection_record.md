@@ -548,3 +548,22 @@ checks all fourteen originating theorem names against their report list,
 and adds 320 finite growth instances. It does not reclassify assumed
 service as a proved represented-world repair.
 
+## Formal-reading and observer-interpretation review (2026-10-28)
+
+No source or receipt was mutated for these checks. Navigation regressions
+exercise the actual rewriter with isolated strings. The false mathematical
+claim is appended only to a temporary book-Lean driver in memory.
+
+| Gate | Defect exercised | Observed failure | Recovery |
+|---|---|---|---|
+| Wiki beginner-route navigation | The original rewriter sends a relative beginner README or source-map link to a repository blob | The new route-link regression fails at `textbook_first_steps`; it tests all seven routes | The repaired rewriter emits Wiki slugs, with anchors retained; full fourteen-test Wiki suite passes |
+| Wiki reading-guide navigation | A new guide link falls through to a repository blob | The new guide regression fails on `textbook_reading_formal` | Explicit guide mapping passes; reviews and Python files retain their source URLs |
+| Book-Lean semantic counterexample | Assert that the book's active stage has no active pair | Lean's `decide` reports `¬(True ∧ false = false ∧ True)` is false; shared runner exits 1 | Original eight exact reports pass: four empty axiom sets, four `propext` |
+
+The native driver returns `closed` at that stage because the supplied next
+function returns `none`; the active pair is separately proved. The failure
+therefore tests the proposed semantic inference, not a parser or output
+encoding error. The observer fixture also constructs a valid observer from
+an arbitrary proposition without a decision argument. Neither fixture
+claims a general undecidability theorem or changes the sealed definitions.
+

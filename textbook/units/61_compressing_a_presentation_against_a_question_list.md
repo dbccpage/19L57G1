@@ -2,6 +2,40 @@
 
 **Claim.** On a supplied finite domain, compression may merge data only when they agree on the declared questions. A first-match representative preserves exactly those answer signatures.
 
+**Status:** Admitted definitions; derived theorems under their stated
+hypotheses; finite examples and refuted general uniqueness claims are
+distinguished below. **Lean:** `Derivation.Compression`.
+
+Use the [Map lab](../map_lab/README.md) for the worked pictures and the
+[reading guide](../reading_formal_statements.md) for one formula at a time.
+
+## First pass
+
+A **presentation** assigns a stored label to each input. A **fiber** is
+the group of inputs sharing one label. Supply this three-item example:
+
+| Input | Kept question's answer | Stored representative |
+|---|---|---|
+| 0 | 0 | 0 |
+| 1 | 0 | 0 |
+| 2 | 1 | 2 |
+
+The recorder groups inputs 0 and 1 because their kept answers agree.
+Input 2 stays separate. From stored label 0 we can return answer 0;
+from label 2 we can return answer 1. The kept answer is recoverable.
+
+If a different requested question gives inputs 0 and 1 different answers,
+it is not recoverable from these labels. A lookup receives the same
+stored input 0 in both cases and cannot assign it two different outputs.
+
+An **adequate** presentation preserves the questions we declared. Keeping
+all three inputs separate would also be adequate; it would keep more
+distinctions than this example needs. The first-match rule below chooses
+representatives using the supplied order of the domain list.
+
+<details>
+<summary>Formal source record and theorem summary</summary>
+
 | field | value |
 |---|---|
 | **Mark** | `FROZEN` for `sigEq_iff_sigList`, `factors_iff_fiberConstant`, `factor_unique_on_image`, `pQ_exact`, `pQ_adequate`, `pQ_unique_on_image`, `enlarge_refines`, `splits_iff_new_separator`, `absolute_adequacy_iff_injective`, `dup_no_refine`, `postcompose_no_refine`, `refine_bounded`, and the 16 list/counting helper lemmas; `CONDITIONAL` for `pQ_coarsest` (on `Adequate D Q p`), `descent_witness` (on `p x = p x'` and `¬ SigEq Q x x'`), `refine_requires_separator` (on `SplitsAt D Q Q' x`), `classCount_pos`, `chain_bounded`, and `strict_steps_lt` (on `D ≠ []`), and `strict_split_increases` (on `Q ⊆ Q'`, `x ∈ D`, `SplitsAt D Q Q' x`); `REFUTED` for off-image factoring uniqueness (`factor_not_unique_off_image`), refinement uniqueness (`refinement_not_unique`), and minimum-length refinement uniqueness (`refinement_tie`). |
@@ -10,15 +44,6 @@
 | **Source** | `lean4/Derivation/Compression.lean` (787 lines; 14 definitions, 38 theorems, 22 in `artifacts/lean_axioms.txt`); `code/derivation/compression.py` (509 lines); `code/run_compression.py` (117 lines); `artifacts/compression.json`; `textbook/audit/modules/Compression.md`. |
 | **Axioms** | 12 of the 22 artifact theorems use no axioms (`sigEq_iff_sigList`, `factor_unique_on_image`, `factor_not_unique_off_image`, `pQ_unique_on_image`, `descent_witness`, `enlarge_refines`, `splits_iff_new_separator`, `absolute_adequacy_iff_injective`, `refine_requires_separator`, `refinement_not_unique`, `refinement_tie`, `classCount_pos`; separately, all 3 book theorems in `Textbook.U61` use no axioms); 4 use `[Quot.sound]` (`factors_iff_fiberConstant`, `pQ_exact`, `pQ_adequate`, `pQ_coarsest`); 2 use `[propext]` (`dup_no_refine`, `postcompose_no_refine`); 4 use `[propext, Quot.sound]` (`refine_bounded`, `strict_split_increases`, `chain_bounded`, `strict_steps_lt`). |
 
----
-
-## First pass
-
-A presentation assigns a label to each datum. A fiber is the group of data with one label.
-
-A question factors through the presentation when its answer can be recovered from that label alone. If two merged data need different answers, recovery fails.
-
-For D = [0, 1, 2] and one question with answers [0, 0, 1], the first-match representative is [0, 0, 2]. Data 0 and 1 share a representative; datum 2 stays separate.
 
 ## Detailed claim and formal anchors
 
@@ -34,12 +59,14 @@ Adequacy for all families `Q` is equivalent to injectivity on `D` (`absolute_ade
 
 Splitting enlargements are neither unique (`refinement_not_unique`) nor unique among equal-length families (`refinement_tie`), and every strict split under a subfamily enlargement strictly increases `classCount D Q ≤ D.length` (`strict_split_increases`, `refine_bounded`), bounding any strict refinement chain on a nonempty domain `D` to fewer than `D.length` steps (`strict_steps_lt`).
 
+</details>
+
 ## Question
 
-Suppose we have a finite list of items $D = [d_0, d_1, \dots, d_{n-1}] \subseteq \mathbb{N}$ and a finite list of numerical questions $Q = [q_0, q_1, \dots, q_{k-1}]$ that we plan to ask about items in $D$. A **presentation** is a map $p : \mathbb{N} \to \mathbb{N}$ that assigns a label $p(x)$ to each item $x \in D$, potentially merging distinct items $x \neq x'$ onto the same label $p(x) = p(x')$.
+Suppose we have a finite list of natural-number labels $D = [d_0, d_1, \dots, d_{n-1}]$ and a finite list of numerical questions $Q = [q_0, q_1, \dots, q_{k-1}]$ that we plan to ask about items in $D$. A **presentation** is a map $p : \mathbb{N} \to \mathbb{N}$ that assigns a label $p(x)$ to each item $x \in D$, potentially merging distinct items $x \neq x'$ onto the same label $p(x) = p(x')$.
 
 1. When is merging two items $x, x' \in D$ harmless relative to $Q$, and when does a question $q$ factor through $p$ on $D$ as $q(x) = g(p(x))$?
-2. Is there a canonical coarsest presentation $p_Q$ on $D$ that preserves all answers in $Q$ without invoking a choice principle, and what happens if we ask for a presentation that is adequate for *every* possible question list at once?
+2. Is there a coarsest presentation selected by the declared list order $p_Q$ on $D$ that preserves all answers in $Q$ without invoking a choice principle, and what happens if we ask for a presentation that is adequate for *every* possible question list at once?
 3. When we enlarge the question list from $Q$ to $Q'$, what must $Q'$ contain to split a merged class, is there a unique one-question refinement, and how many times can classes strictly split on a finite domain $D$?
 
 ---
@@ -49,6 +76,7 @@ Suppose we have a finite list of items $D = [d_0, d_1, \dots, d_{n-1}] \subseteq
 From standard list arithmetic in Lean 4 (and `Derivation.PrimitiveCore`, which `Compression.lean` imports at line 1 only for build-order placement without referencing any `PrimitiveCore` symbol):
 
 - A represented finite domain is given explicitly as a list `D : List Nat`, where membership `x ∈ D` defines the domain of interest.
+  The list order selects first representatives. Repeated entries are allowed by the native type; list length counts entries, while membership specifies which inputs are under consideration.
 - Questions and presentations are functions `Nat → Nat`, and a declared question family is an explicit list `Q : List (Nat → Nat)`.
 - Equality on `Nat` and on `List Nat` is decidable (`DecidableEq Nat`, `DecidableEq (List Nat)`), allowing boolean tests `decide (p z = y)` and `decide (sigList Q z = sigList Q x)` inside list recursion without invoking classical choice.
 
@@ -58,14 +86,34 @@ From standard list arithmetic in Lean 4 (and `Derivation.PrimitiveCore`, which `
 
 ### 1. Answer signatures, adequacy, fiber-constancy, and factorization (Lines 64–196)
 
-Given a question list `Q : List (Nat → Nat)` and a point `x : Nat`:
+#### Answer signatures
 
-- The **answer signature** `sigList Q x : List Nat` evaluates each question in `Q` at `x` in list order:
-  $$\mathrm{sigList}(Q, x) = [q(x) \mid q \in Q].$$
-- Two points `x` and `x'` **agree on `Q`** (`SigEq Q x x'`) when `∀ q ∈ Q, q x = q x'`. Structural induction on `Q` shows `SigEq Q x x' ↔ sigList Q x = sigList Q x'` (`sigEq_iff_sigList`).
-- A presentation `p : Nat → Nat` is **`Q`-adequate on `D`** (`Adequate D Q p`) when every pair of points in `D` merged by `p` agrees on `Q`:
-  $$\forall x \in D,\; \forall x' \in D,\; p(x) = p(x') \implies \mathrm{SigEq}(Q, x, x').$$
-- For a single question `q : Nat → Nat`, the fibers of `p` over `D` are **`q`-constant** (`FiberConstant D p q`) when $\forall x, x' \in D,\; p(x) = p(x') \implies q(x) = q(x')$, and `q` **factors through `p` on `D`** (`FactorsOn D p q`) when $\exists g : \mathbb{N} \to \mathbb{N},\; \forall x \in D,\; g(p(x)) = q(x)$.
+For an input `x`, `sigList Q x` lists the answers to Q's questions in
+their declared order. It is an answer pattern. `SigEq Q x x'` means the
+two inputs agree on every question in Q. The theorem `sigEq_iff_sigList`
+shows this is equivalent to equality of their full answer lists.
+
+#### Adequacy for the declared questions
+
+`Adequate D Q p` says that whenever p merges two inputs in D, those inputs
+agree on Q. It is a condition to check for the supplied D, Q, and p.
+It allows p to keep additional distinctions; it does not require every
+pair with the same answers to be merged.
+
+#### One requested question
+
+`FiberConstant D p q` says q has the same value on all members of each
+p-fiber within D. Different fibers may have different q values.
+
+`FactorsOn D p q` says there is a lookup g with `g(p(x)) = q(x)` for
+every x in D. The same g must work for the whole declared domain. This
+is the equation worked out in the [reading guide](../reading_formal_statements.md).
+
+The theorem `factors_iff_fiberConstant` proves these last two conditions
+equivalent. One direction checks that equal lookup inputs give equal
+outputs. The other constructs a lookup from each fiber's common answer.
+
+#### Constructing the lookup
 
 To construct a factoring map `g` from `FiberConstant D p q` without any axiom of choice, `Compression.lean` defines first-match selection `pick (D : List Nat) (P : Nat → Bool) : Option Nat`, which returns the first entry `a` of `D` with `P a = true` (or `none` if none exists). Setting
 $$g(y) = q\bigl((\mathrm{pick}\;D\;(\lambda z \Rightarrow \mathrm{decide}(p(z) = y))).\mathrm{getD}\;0\bigr)$$
