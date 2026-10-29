@@ -31,6 +31,14 @@ bounds, uniform rules, argument order, and uniqueness under a cost.
 Eight additional book reports support the scope checks. The broader
 semantic teaching review remains open.
 
+**Relation and extension follow-up (2026-10-29).** The
+[Units 23–26 reading review](RELATION_READING_REVIEW_2026-10-29.md) separates
+a universal counterexample from particular instances, global irreflexivity
+from one pair's inequality, and target property loss from the narrower
+obstruction definition. Unit 26 now states the unrestricted-positive-
+extension scope instead of claiming that facts can never establish the
+law. Eight new book reports support these examples and boundary checks.
+
 ## Scope and method
 
 - **Population.** The 75 tracked modules under `lean4/Derivation/` plus the

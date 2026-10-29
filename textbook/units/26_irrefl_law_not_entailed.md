@@ -1,22 +1,58 @@
-# Unit 26. Facts never entail the irreflexivity law
+# Unit 26. Keeping positive entries does not exclude a self-pair
 
-**Claim.** Take any relation `r` on any carrier with a point `a`. There
+**Claim.** On a carrier with a point, every positive relation record has an
+unrestricted extension containing a self-pair. Thus a record with no
+self-pairs now does not by itself restrict every allowed extension.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** Take any relation `r` on any carrier with a point `a`. There
 is a relation `r'` that asserts everything `r` asserts and also asserts
 `a` against itself. So `r'` extends the facts of `r` and is not
-irreflexive. Hence no set of asserted facts, however many and however
-irreflexive as facts, entails irreflexivity as a *law*: the law is a
-declaration, never a consequence. **Status:** derived. **Lean:**
+irreflexive. Thus inclusion of positive entries, by itself, cannot ensure
+irreflexivity of every unrestricted extension. This is not a claim that
+irreflexivity cannot be proved for a fixed, specified relation.
+
+**Status:** derived. **Lean:**
 `Bridge.irrefl_law_not_entailed` (`lean4/Derivation/Bridge.lean` lines
 227-236). **Axioms:** none. **Depends on:** `Irrefl` (Unit 24), the
 distinction between a law protected and a fact asserted (Unit 25).
 
+</details>
+
+## First pass
+
+A **positive entry** says a pair holds. It does not say which other
+pairs are forbidden. Suppose a complete table on two different points
+contains exactly `P → Q`. We can check that this specified relation
+has no self-pairs.
+
+Now ask a different question: must **every extension keeping the listed
+positive entries** also have no self-pairs? No. Add `P → P`. The new
+relation retains `P → Q` and violates the no-self-pair condition.
+
+| Question | Answer in this example |
+|---|---|
+| Is this specified record irreflexive? | Yes |
+| Is every unrestricted positive extension irreflexive? | No |
+| Have we specified a rule rejecting self-pair additions? | No |
+
+This theorem answers the second question. It does not prevent proving
+irreflexivity for a fixed relation or checking a complete finite table.
+For two points, checking both diagonal entries absent suffices for the
+fixed relation. Keeping them absent in allowed extensions requires that
+additional restriction to remain in force.
+
+The example concerns the supplied records and extension rule. It does
+not establish a general claim that observation can never support a
+scientific law.
+
 ## Question
 
-Units 24 and 25 did real work with irreflexivity: it turned a witness
-into a distinction and a merge into an obstruction. Could the law itself
-be *earned*? If a structure's asserted facts are all irreflexive, has it
-thereby committed to irreflexivity, so that a self-edge would be a
-contradiction rather than a new fact?
+Does checking irreflexivity of one relation also prove it for every
+relation containing the same positive entries? What additional condition
+would exclude a self-pair extension?
 
 ## What we already possess
 
@@ -25,8 +61,9 @@ contradiction rather than a new fact?
   related to itself (Unit 24).
 - A law is something protected (Unit 25); a fact is something asserted
   (Unit 23).
-- The admission model: a history admits facts one at a time, and nothing
-  admitted can later be withdrawn (Units 03, 06).
+- The extension condition used here: for all `x, y`, `r x y → r' x y`.
+  It compares two relations on the same carrier. It does not itself
+  describe an event, a history, or a restriction on future admissions.
 
 ## New concept: a fact set versus a law, separated by one extension
 
@@ -38,33 +75,44 @@ Then:
 - `r'` asserts `a` against itself (right disjunct, with `rfl` twice).
 - So `r'` is not irreflexive.
 
-That is the whole proof. Its force is in the quantifiers: *any* `r`,
-including an irreflexive one, including one with a million edges all
-irreflexive. Irreflexivity-as-fact ("no self-edge so far") is true of
-`D2`; irreflexivity-as-law ("no self-edge can be asserted") is not a
-consequence of any facts, because the facts are always consistent with
-one more self-edge. In the bare signature, assertions only ever add.
+That is the whole proof. It works for any `r` once a point is supplied;
+`r` need not be finite or irreflexive. The allowed extensions in this
+statement have only the inclusion condition. Adding `(a, a)` respects
+that condition.
+
+Compare three distinct claims:
+
+1. **A property of a specified relation:** `Irrefl D2`, proved by checking
+   its definition.
+2. **A guarantee over every unrestricted positive extension:** for every
+   `r'` containing `r`, `Irrefl r'`. The theorem refutes this guarantee
+   on a carrier with a point.
+3. **A restriction on allowed extensions:** only admit `r'` satisfying a
+   no-self-pair condition. This is extra information about the allowed
+   family, not a consequence of inclusion alone.
+
+For a fixed two-point relation, the two negative facts `¬ r P P` and
+`¬ r Q Q` do prove irreflexivity because P and Q exhaust the carrier.
+The book checks this finite argument separately. Those negative facts
+are more information than the positive entries preserved by the theorem.
 
 ## Plain-language interpretation
 
-A ledger has never recorded a thing as differing from itself. Does that
-make "nothing differs from itself" a rule of the ledger? No. The next
-entry can be a self-difference, and nothing already written contradicts
-it. For the rule to hold it must be *imposed*, from outside the entries.
-That is what Genesis means when it writes, in the bridge paper, that the
-law "is a declaration, never a derivation".
+A completed table can answer “are there any self-pairs in this record?”
+The answer can be proved. It does not answer “which edits will a policy
+allow?” An unrestricted positive extension may add a self-pair. A policy
+that excludes such additions needs an explicit condition beyond keeping
+the old positive entries.
 
-This closes the loop of Units 23 to 26. The bare assertion gives no
-distinctness (23). The law gives distinctness (24) and obstruction (25).
-And the law is not for sale inside the system: it has to be brought in
-(26). The provenance table of the bridge paper records exactly this
-verdict for the irreflexivity ingredient: constructible as a fact,
-declared only as a law.
+Units 23–26 now distinguish a pair being recorded, every recorded pair
+having unequal ends, a map violating a selected protected property, and
+restrictions on extensions. The bridge paper's fact/law distinction is
+read in that scope. The theorem supplies no rule for choosing a protected
+property and no mechanism for enforcing one.
 
-The finite computation beside it says the same about the admission
-engine: in every studied scenario a self-edge state is reachable after
-three admissions. No admission discipline studied forbids it; only a
-declared protected property could.
+The separate bridge computation reports a self-edge state after three
+admissions in each of its three scenarios. It checks those scenarios;
+it does not quantify over every possible admission discipline.
 
 ## Pseudocode
 
@@ -142,7 +190,7 @@ theorem withSelf_self {α : Type} (r : α → α → Prop) (a : α) :
 theorem withSelf_not_irrefl {α : Type} (r : α → α → Prop) (a : α) :
     ¬ Irrefl (withSelf r a) := fun hi => hi a (withSelf_self r a)
 
-/-- No fact set on an inhabited carrier has the law as a consequence. -/
+/-- No relation on Bool has only irreflexive unrestricted extensions. -/
 theorem no_facts_entail_law :
     ¬ ∃ r : Bool → Bool → Prop,
       ∀ r' : Bool → Bool → Prop, (∀ x y, r x y → r' x y) → Irrefl r' :=
@@ -176,10 +224,11 @@ irreflexive); `h r' hsub : Irrefl r'` contradicts `hni`. The carrier is
 fixed to `Bool` only to supply the point; any inhabited carrier works
 the same way.
 
-**`law_is_extra` (book).** Side by side: from a witness *and the law*,
-distinctness (Unit 24); from the witness alone, an extension that breaks
-the law (this unit). Both halves are Genesis theorems; the book only
-places them next to each other.
+**`law_is_extra` (book).** Side by side: under `Irrefl r`, every asserted
+pair is unequal (Unit 24); for any `r` with a supplied point, some
+unrestricted extension is not irreflexive. Both halves are Genesis
+theorems. The second half has no asserted-pair premise. A self-pair,
+when present, already disproves irreflexivity of its relation.
 
 **Axioms.** None, for every theorem in this unit, Genesis and book.
 
@@ -187,26 +236,27 @@ places them next to each other.
 
 - Every relation on a pointed carrier has a non-irreflexive extension
   (Genesis, derived).
-- Hence no fact set entails the law on its extensions (book, as a
-  negated existence on `Bool`).
+- Hence no relation on `Bool` has only irreflexive unrestricted positive
+  extensions (book, as a negated existence).
 - On `D2`: irreflexive as facts, with a named non-irreflexive extension
   that keeps the witness (book).
+- Two diagonal absences suffice to prove irreflexivity for a fixed
+  relation on `Bool`; the inequality relation is irreflexive by its
+  definition; every relation on `Empty` is irreflexive (book).
 - In the admission engine, a self-edge state is reachable in three
   events in every studied scenario (Genesis, verified finite).
 
 ## What has not been proved
 
-- That the law should not be adopted. The theorem says it cannot be
-  derived from facts; Units 24 and 25 say what it buys once adopted. The
-  decision is the metatheory's, and Genesis records it as such.
-- That there is no *other* route to the law: a signature with negative
-  facts ("`a` is not related to `a`" as an admitted assertion), or with a
-  closure operation, is a different system. Genesis's bare signature
-  has positive assertions only, and the theorem is about that.
-- That the ban on `xrx` in the sibling repositories' seed prompts is
-  this law. It is a declared constraint of a different model, admitted
-  there as a sentence; this theorem is one reason it had to be admitted
-  rather than derived, but the book does not identify the two.
+- That the no-self-pair restriction should or should not be adopted.
+  Units 24 and 25 explain particular consequences of using it.
+- That irreflexivity of a fixed relation is unprovable. `D2_irrefl`, a
+  complete finite diagonal check, and the definition `r x y := x ≠ y`
+  each supply proofs in their stated settings.
+- That a family of constrained extensions cannot preserve the property.
+  Such a family has conditions beyond the positive inclusion used here.
+- A general claim about how scientific laws are justified. The theorem
+  contains no measurements, model-fitting procedure, or prediction rule.
 
 ## Outside the system
 
@@ -214,19 +264,20 @@ places them next to each other.
 |---|---|---|
 | `∃ r' : α → α → Prop` | the extension | metatheory quantification over relations |
 | `Or.inl`, `Or.inr`, `rfl` | the proof | metatheory logic |
-| `Irrefl` | the law | declared protected property; this unit shows it is not entailed |
+| `Irrefl` | the property | a predicate on a relation; requiring it of allowed extensions is separate |
 | the point `a` | somewhere to put the self-edge | metatheory; the theorem is about inhabited carriers |
 
-**What the system holds.** Facts. Never the law, unless it is admitted
-from outside as a protected property. After Unit 26 the status of
-irreflexivity in Genesis is settled: a priced admission, in the finitude
-rule's terms, not a derivation.
+**What the model contains.** A carrier and relations compared by
+inclusion of positive pairs. A protected property can be specified in
+the separate obstruction definition. This theorem neither assigns a
+price nor performs an admission or a rejection.
 
 **Phrases to read with care.**
 
-- "Irreflexive as a fact" (true of `D2`) and "irreflexive as a law"
-  (`Irrefl` protected under every extension) are different claims. The
-  bridge paper's provenance table keeps them in separate cells.
+- "Irreflexive as a fact" concerns the specified relation. A protected
+  restriction concerns the allowed family of extensions. On a carrier
+  with a point, that family cannot include every positive extension
+  while also requiring all its members to be irreflexive.
 - "Finite facts" in the docstring is not a restriction the proof uses;
   the proof works for any `r`. The word records that the facts a
   history admits are finitely many.
@@ -235,17 +286,23 @@ rule's terms, not a derivation.
 
 Why does the theorem need the point `a`? State what happens on the
 empty carrier, and whether the claim "the law is not entailed" survives
-there.
+there under the same unrestricted-extension reading.
 
 ## Answer
+
+<details>
+<summary>Worked answer</summary>
 
 On the empty carrier every relation is irreflexive, vacuously:
 `∀ x, ¬ r x x` has nothing to check. So every extension of any relation
 is irreflexive, and the law *is* entailed, trivially. The theorem's
 hypothesis `(a : α)` excludes exactly this case. The claim survives in
-the form Genesis states it: on every carrier with a point, facts do not
-entail the law. A carrier with a point is also the only kind in which a
-law about points says anything.
+the form Genesis proves: on a carrier with a supplied point, every
+relation has a non-irreflexive positive extension. Empty carriers have
+no place to put the added self-pair and are explicitly outside that
+statement.
+
+</details>
 
 ## Verification
 
@@ -257,5 +314,5 @@ law about points says anything.
 | Ledger | No `CL-*` entry names this theorem; the bridge paper's B5 and B7 carry it, and the claim ledger's bridge entries cite the provenance table |
 | Artifact | `artifacts/bridge.json`, `scenarios[*].min_events_to.self_edge = 3` for `single_dedup`, `two_dedup`, `occurrence`; `provenance_table` |
 | Test | `tests/test_bridge.py::test_provenance_table_covers_all_ingredients`, `::test_classify_shapes` |
-| Check (Python) | `python textbook/checks/u26_irrefl_law.py`: `D2` and its extension; 69 irreflexive fact sets on carriers 1 to 3, each with a non-irreflexive extension containing it; the three bridge scenarios' self-edge depth |
-| Check (book Lean) | `python textbook/checks/u26_lean.py`: nine book theorems plus the Genesis theorem kernel-checked, Lean 4.33.0; no axioms anywhere |
+| Check (Python) | `python textbook/checks/u26_irrefl_law.py`: `D2` and its extension; 69 irreflexive fact sets on carriers 1 to 3 with self-pair extensions; the three bridge scenarios' self-edge depth; 16 complete two-point relations and both diagonal checks; 8 positive extensions of `D2`, of which 2 are irreflexive |
+| Check (book Lean) | `python textbook/checks/u26_lean.py`: twelve book reports plus the Genesis result kernel-checked, Lean 4.33.0, including finite negative checks, the inequality relation, and the empty carrier; no axioms anywhere |

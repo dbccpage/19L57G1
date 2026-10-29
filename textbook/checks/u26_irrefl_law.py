@@ -1,4 +1,4 @@
-"""Unit 26 check: finite facts never entail the irreflexivity law. Sample
+"""Unit 26 check: positive inclusion alone permits self-pair extensions. Sample
 computation over Genesis's irreflexive relations and the bridge scenarios;
 the proof is Bridge.irrefl_law_not_entailed. AuthorityEffect: None.
 Run from the repository root: python textbook/checks/u26_irrefl_law.py
@@ -12,7 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "code"))
 
-from derivation.primdiff import D2, irreflexive, irreflexive_relations_on  # noqa: E402
+from derivation.primdiff import D2, enumerate_pointed, irreflexive, irreflexive_relations_on  # noqa: E402
 
 
 def main() -> int:
@@ -38,6 +38,19 @@ def main() -> int:
               f"states reached {sc['states_reached']}")
         if sc["min_events_to"]["self_edge"] != 3:
             failures.append(("scenario", sc["scenario"]))
+    # Fixed complete records and their positive extensions ask different questions.
+    rels = {s.rel for s in enumerate_pointed(2)}
+    compatible = [rel for rel in rels if D2.rel <= rel]
+    for rel in rels:
+        diagonal_absent = (0, 0) not in rel and (1, 1) not in rel
+        if diagonal_absent != irreflexive(rel):
+            failures.append("complete diagonal check")
+    good = sum(irreflexive(rel) for rel in compatible)
+    print(f"two points: {len(rels)} complete relations checked against both diagonal absences; "
+          f"positive extensions of D2={len(compatible)}, irreflexive={good}, "
+          f"non-irreflexive={len(compatible)-good}")
+    if len(rels) != 16 or len(compatible) != 8 or good != 2:
+        failures.append("positive versus complete record")
     print(f"failures: {failures}")
     return 1 if failures else 0
 

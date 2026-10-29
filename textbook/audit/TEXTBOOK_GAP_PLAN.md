@@ -134,6 +134,12 @@ walkthrough. Changed-label practice has separate folded answers.
    meeting it, corrects the unknown-form counterfactual, and shows how a
    uniform rule can remove a witnessed distinction. Minimum class,
    literal choice, cost ordering, and actual admission remain separate.
+   The [relation follow-up](RELATION_READING_REVIEW_2026-10-29.md) adds
+   four first passes in Units 23–26. It corrects the counterexample's
+   quantifier scope, the global-versus-particular inequality reading,
+   implicit operational enforcement, and the overbroad fact/law title.
+   Fixed relations, unrestricted positive extensions, and constrained
+   extension families now have different questions and checked examples.
 7. **Evidence and reality.** Add exercises in separating a definition,
    a deduction, a computation, and a measurement. Give a model prediction,
    identify an observation that could disagree with it, and explain what

@@ -58,6 +58,16 @@ carrier, which the relation `r` does not mention. -/
 theorem conclusion_is_meta {α : Type} {r : α → α → Prop} (hi : Irrefl r)
     {a b : α} (h : r a b) : ¬ (a = b) := irrefl_witness_ne hi h
 
+/-- A particular unequal pair needs no global irreflexivity assumption:
+another asserted pair in the same relation can be a self-pair. -/
+def mixed (x y : Bool) : Prop :=
+  (x = false ∧ y = true) ∨ (x = true ∧ y = true)
+
+theorem mixed_specific_pair :
+    mixed false true ∧ false ≠ true ∧ ¬ Irrefl mixed :=
+  ⟨Or.inl ⟨rfl, rfl⟩, Bool.noConfusion,
+   fun hi => hi true (Or.inr ⟨rfl, rfl⟩)⟩
+
 end Textbook.U24
 
 #print axioms Textbook.U24.irrefl_witness_ne'
@@ -67,6 +77,7 @@ end Textbook.U24
 #print axioms Textbook.U24.S2_endpoints_ne
 #print axioms Textbook.U24.hypothesis_needed
 #print axioms Textbook.U24.conclusion_is_meta
+#print axioms Textbook.U24.mixed_specific_pair
 #print axioms PrimDiff.irrefl_witness_ne
 #print axioms PrimDiff.D2_irrefl
 #print axioms PrimDiff.D2_witness
@@ -80,6 +91,7 @@ EXPECTED = {
     "Textbook.U24.S2_endpoints_ne": NONE,
     "Textbook.U24.hypothesis_needed": NONE,
     "Textbook.U24.conclusion_is_meta": NONE,
+    "Textbook.U24.mixed_specific_pair": NONE,
     "PrimDiff.irrefl_witness_ne": NONE,
     "PrimDiff.D2_irrefl": NONE,
     "PrimDiff.D2_witness": NONE,

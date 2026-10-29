@@ -1,39 +1,78 @@
 # Unit 23. Asserting a difference does not make two things
 
-**Claim.** There is a relation on a one-point carrier that holds of the
+**Claim.** In the separate relation model, a recorded pair can use the same
+point twice. Calling it a difference does not by itself prove that its
+two ends are unequal.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** There is a relation on a one-point carrier that holds of the
 point and itself. So a bare asserted pair `r a b` does not entail that
 `a` and `b` are metatheoretically distinct: A1 (assertion) does not imply
 A3 (inequality). Requiring the relation to be symmetric does not change
-this. **Status:** derived (a countermodel). **Lean:**
+this.
+
+**Status:** derived (a countermodel). **Lean:**
 `PrimDiff.selfdiff_consistent` (`lean4/Derivation/PrimDiff.lean` lines
 46-49), `PrimDiff.symm_selfdiff_consistent` (53-58). **Axioms:** none.
-**Depends on:** Unit 13 (the candidate commitments A1, A1i, A3), Unit 15
-(the other direction, A3 ⇏ A1).
+**Depends on:** Unit 15 (A1, assertion; A3, inequality; and the other
+direction, A3 ⇏ A1). A1i adds the no-self-pair condition explained below.
+
+</details>
+
+## First pass
+
+Switch to a relation model. Its **carrier** is the supplied collection
+of points. A **relation** records which ordered pairs hold. This is a
+different model from the admission regimes of Units 17–22.
+
+Give it just one point, P, and record `P → P`. Both ends name P.
+The record contains a pair, but it contains no pair of unequal points.
+Here the arrow is a relation entry, not motion or a physical connection.
+
+**Predict:** does requiring every arrow's reverse to be present rule
+out this example?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. Reversing `P → P` gives the same arrow. The example is symmetric
+and still has equal ends.
+
+</details>
+
+This one example defeats the proposed rule “every asserted pair has
+unequal ends” across all structures. It does not say every structure
+has a self-pair. For example, a record containing only `P → Q` on
+two different points has none. The next chapter supplies a condition
+under which every recorded pair really does have unequal ends.
 
 ## Question
 
-The derivation reached a regime holding one asserted sentence about one
-datum (Unit 22). Suppose, more abstractly, that a structure asserts a
+Unit 22 reached a regime marking one of two admitted data. We now switch
+to a separate model consisting of a carrier and a relation. Suppose it asserts a
 difference between `a` and `b`: an edge `r a b`. Does the assertion by
 itself guarantee that `a` and `b` are two things and not one?
 
 ## What we already possess
 
-- The candidate commitments (Unit 13): A1, the designated pair is
-  asserted; A1i, asserted and the relation is irreflexive; A3, the two
-  points are metatheoretically unequal.
+- The candidate commitments: A1, the designated pair is asserted;
+  A3, its two ends are unequal (Unit 15). A1i means A1 together with
+  irreflexivity: no point is related to itself.
 - Unit 15: A3 does not imply A1 (an empty relation on two points).
 - The notion of a countermodel: one structure satisfying the premise and
-  failing the conclusion refutes the implication for all structures.
+  failing the conclusion refutes the claim that the implication holds
+  in all structures.
 
 ## New concept: the one-point self-difference
 
 Take the carrier `Unit`, which has exactly one element `()`. Take the
 relation that always holds. Then `r () ()` is asserted: a difference
 between `()` and itself. A1 holds with `a = b = ()`. A3 fails, since
-`() = ()`. One structure, and the implication A1 → A3 is refuted on
-every carrier at once, because an implication claimed for all structures
-fails as soon as one fails it.
+`() = ()`. This refutes the proposed implication quantified over all
+carriers and structures. It does not refute every instance of that
+implication on each particular carrier or relation.
 
 The structure is symmetric too, trivially: `r x y → r y x` because
 everything holds. So adding symmetry to A1 does not recover A3. Among
@@ -190,10 +229,13 @@ list computation.
   Units 19 to 22 are the metatheory's objects, and their indices are
   distinct by metatheory. The point is that this distinctness is not a
   consequence of the admitted instance.
-- That irreflexivity is available. It is the law that would close the
-  gap (Unit 24), and Unit 26 shows no finite set of facts entails it.
-- Anything about A4 (irreducibility) here; that family is Unit 14's
-  factorization and the later `irred_*` theorems.
+- That irreflexivity is available. It is a sufficient condition for every
+  witnessed pair to be unequal (Unit 24). Unit 26 distinguishes proving
+  it for a specified relation from requiring it of every unrestricted
+  positive extension.
+- A4, irreducibility under an admitted family of maps. Unit 14's
+  factorization-through-a-point criterion describes A3, not A4. The later
+  `irred_*` results require their specified operation family.
 
 ## Outside the system
 
@@ -224,12 +266,17 @@ did not.
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 Take the relation that holds exactly of `(true, true)`, with the
 designated pair `(true, true)`. A1 holds (the pair is asserted); A3
 fails (`true = true`). The only edge needed is the self-pair at the
 designated point; whether `(false, false)`, `(false, true)` or
 `(true, false)` are asserted is irrelevant to the refutation. The book's
 `selfdiff_on_Bool` is this structure.
+
+</details>
 
 ## Verification
 

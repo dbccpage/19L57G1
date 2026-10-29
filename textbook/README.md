@@ -282,7 +282,7 @@ in one template or the other, and this table says which.
 | 23 | A related pair r a b alone does not give a ≠ b (countermodel) | `PrimDiff.selfdiff_consistent` | derived | yes |
 | 24 | Under irreflexivity, r a b gives a ≠ b | `PrimDiff.irrefl_witness_ne` | conditional | yes |
 | 25 | Under irreflexivity, collapsing a related pair is obstructed | `PrimDiff.obstruction_under_irrefl` | conditional | yes |
-| 26 | Facts never entail the irreflexivity law | `Bridge.irrefl_law_not_entailed` | derived | yes |
+| 26 | Keeping positive entries does not exclude a self-pair | `Bridge.irrefl_law_not_entailed` | derived | yes |
 | 27 | An abstraction cannot see what it identifies | `Quot.quot_barrier`, `Quot.barrier_R2L` | derived | yes |
 | 28 | Closure over fixed data must stop within n(n-1)/2 rounds | `Counting.strict_bounded_length`, `Counting.allPairs_length`, `Counting.no_supply_round_bound` | derived / conditional | yes |
 | 29 | Renaming the data changes nothing a context can see | `CountTransport.collapsed_rename`, `CountTransport.non_injective_does_not_transport` | derived | yes |

@@ -687,3 +687,20 @@ eight new book reports use four `propext` and four
 `propext, Quot.sound` dependency sets. These kernel checks do not establish
 reader understanding or the correctness of a physical interpretation.
 
+## Relation, property, and extension review (2026-10-29)
+
+Four temporary book drivers exercise exact false claims. Native sources,
+axiom artifacts, research receipts, and pin populations remain unchanged;
+no regeneration occurs under an injection.
+
+| Check | Defect exercised | Observed failure | Recovery |
+|---|---|---|---|
+| Same point | Assert `(() : Unit) ≠ ()` | Lean's `decide` names the exact inequality as false; runner exits 1 | u23 retains the one-point witness and equality countermodel |
+| Particular versus global | Deny `mixed true true` while retaining its definition | After unfolding, Lean names the negated Boolean proposition as false; runner exits 1 | u24 proves an unequal asserted pair coexists with a self-pair |
+| Pushed shortcut | Assert `Push disjointArrows joinMiddle 0 3` using source edge `(0,1)` | Lean rejects the endpoint equation `joinMiddle 1 = 3` as false; runner exits 1 | u25 proves target transitivity fails, no collision occurs, and the narrower obstruction is absent |
+| Positive extension | Deny the self-pair added by `withSelf D2 false` | Lean names the unfolded negation as false; runner exits 1 | u26 proves self-pair extension, finite negative checks, and the empty-carrier exception |
+
+The four original drivers recover 50 reports: the eight added ones have
+four empty dependency sets and four `propext` sets. These checks do not
+establish an operational enforcement policy or a general physical law.
+

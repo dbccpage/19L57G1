@@ -205,7 +205,7 @@ now introduce their grouping meaning. Further conceptual review remains.
 | `Unit 23` | [`units/23_selfdiff_consistent.md`](units/23_selfdiff_consistent.md) | A related pair alone does not give non-identity | `PrimDiff` | `Unit 15`, `Unit 20` |
 | `Unit 24` | [`units/24_irrefl_witness_ne.md`](units/24_irrefl_witness_ne.md) | Under irreflexivity, a related pair gives non-identity | `PrimDiff` | `Unit 23` |
 | `Unit 25` | [`units/25_obstruction_under_irrefl.md`](units/25_obstruction_under_irrefl.md) | Under irreflexivity, collapsing a related pair is obstructed | `PrimDiff` | `Unit 24` |
-| `Unit 26` | [`units/26_irrefl_law_not_entailed.md`](units/26_irrefl_law_not_entailed.md) | Facts never entail the irreflexivity law | `Bridge` | `Unit 24`, `Unit 25` |
+| `Unit 26` | [`units/26_irrefl_law_not_entailed.md`](units/26_irrefl_law_not_entailed.md) | Keeping positive entries does not exclude a self-pair | `Bridge` | `Unit 24`, `Unit 25` |
 | `Unit 27` | [`units/27_abstraction_barrier.md`](units/27_abstraction_barrier.md) | An abstraction cannot see what it identifies | `Quot` | `Unit 08`, `Unit 16` |
 | `Unit 28` | [`units/28_closure_must_stop.md`](units/28_closure_must_stop.md) | Closure over fixed data must stop within n(n-1)/2 rounds | `Counting` | `Unit 17` |
 | `Unit 29` | [`units/29_renaming_changes_nothing_seen.md`](units/29_renaming_changes_nothing_seen.md) | Renaming the data changes nothing a context can see | `CountTransport` | `Unit 08`, `Unit 09` |
