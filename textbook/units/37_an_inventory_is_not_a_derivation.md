@@ -8,6 +8,11 @@ choose one of them.
 declared two-point carrier; the classification scheme is admitted.
 **Lean:** `ObserverInventory.bool_irrefl_full_classification`.
 
+## Question
+
+Does listing every pattern allowed by a rule also tell us which pattern
+to choose?
+
 ## First pass: two dots and two separate questions
 
 Draw two dots called A and B. We will keep their labels fixed.
@@ -83,7 +88,10 @@ opposite arrows are present, and 0 otherwise, gives 0 on that same
 picture. Each number answers its own declared question. The source
 calls these two summaries *residuals*.
 
-## What to carry into an unfamiliar situation
+## Outside the system: using the lesson elsewhere
+
+These are results about the declared two-dot model. The theorem does not
+establish that a real situation has only four possible explanations.
 
 Ask three questions separately: **What are the candidates? What rules
 restrict them? What further evidence or requirement selects among them?**
@@ -98,9 +106,10 @@ The same caution applies to this textbook's coverage index. A source
 name on a list establishes a reference. Whether its meaning is explained
 well requires reading the lesson and testing understanding.
 
-## Try before opening the answers
+## Student exercise: try before opening the answers
 
-Use two fixed dots called C and D, again forbidding self-loops.
+With fixed dots C and D and no self-loops, require exactly one arrow.
+Which patterns remain?
 
 1. Require exactly one arrow. Describe every remaining picture.
 2. Also forbid an arrow from C to D. Which picture remains? Which new
