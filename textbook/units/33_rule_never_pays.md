@@ -1,15 +1,24 @@
-# Unit 33. A rule never pays for itself
+# Unit 33. Uniform-rule items cannot minimize the declared costs
 
-**Claim.** A response delta that contains a uniform-rule item is never a
+**Claim.** Removing every newly added uniform-rule item from a valid response
+keeps it valid. If at least one was removed, the response is shorter with
+the same new-form arity sum, so it wins under both declared cost measures.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** A response delta that contains a uniform-rule item is never a
 minimum valid response under either declared measure. Dropping every rule
 item from a valid delta leaves a valid delta (`validResponse_dropRules`)
-that is strictly shorter and has the same new-form arity sum
+that is strictly shorter when a rule item was present and has the same new-form arity sum
 (`rule_item_never_minimal`), so it beats the original under `mu1` and
 under lexicographic `mu2`. The bridge that makes this possible is
 definitional: no guard of `applyItem` reads the rule field and only
 `newRuleAll` writes it, so the rule-free part of a delta applies over any
 rule field and produces the same regime except for `rules`
-(`applyDelta_dropRules`). **Status:** derived (R4, discharged 2026-08-18;
+(`applyDelta_dropRules`).
+
+**Status:** derived (R4, discharged 2026-08-18;
 the comparison of measures is prose over the declared `mu1`, `mu2`).
 **Lean:** `Derivation.dropRules` (`lean4/Derivation/RuleBridge.lean` lines
 40-44), `applyItem_rules_mono` (46-73), `applyDelta_rules_mono` (75-93),
@@ -18,8 +27,41 @@ the comparison of measures is prose over the declared `mu1`, `mu2`).
 `validResponse_dropRules` (245-255), `rule_item_never_minimal` (259-266);
 `separable_of_subrules` (`Progress.lean` lines 202-205). **Axioms:**
 `propext` for all of RuleBridge. **Depends on:** `applyItem`, `applyDelta`
-and the item grammar (Unit 11); valid responses (Unit 18); the uniform
+and the item grammar (Unit 17); valid responses (Unit 18); the uniform
 rule and `derivable` (Unit 08); `mu1`, `mu2` (Units 21, 22).
+
+</details>
+
+## First pass
+
+Start with two data, A and B, one unary form `marked`, and only the
+instance `marked(A)`. Asking `marked(□)` gives Yes on A and No on B, so
+the pair is separated.
+
+Now add the uniform rule for that form: every instance of `marked`
+counts as derivable. The question gives Yes on both data. The rule has
+erased this distinction.
+
+The general proof needs one more step. If a valid response contains
+uniform-rule items, removing those items must still let its other items
+apply. Here it does: the guards for data, forms, and instances never read
+the rule field. The remaining response reaches the same other fields,
+keeps all required separations, and costs fewer items.
+
+**Predict:** does this mean a valid response can never contain a uniform
+rule?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. A rule on another form can leave the required distinction intact.
+Such a response can be valid but cannot be cheapest under these measures,
+because its rule-free version is shorter.
+
+</details>
+
+These are the system's uniform rules, not a conclusion about rules in
+ordinary life or about every possible cost measure.
 
 ## Question
 
@@ -35,7 +77,7 @@ until R4 was discharged.
 
 ## What we already possess
 
-- `applyItem` and its four guards (Unit 11): a datum always applies; a
+- `applyItem` and its four guards (Unit 17): a datum always applies; a
   form if its arity is at least 1; an instance if its form exists, its
   arity matches and its arguments are admitted; a rule if its form
   exists. `applyDelta` folds `applyItem` over the list (Unit 18).
@@ -77,8 +119,10 @@ column never helps you tell two objects apart with a stencil of that
 shape, because the stencil now says yes to everything. It can only hide
 differences that individual sentences were showing. So whatever a
 response achieves with a rule in it, the same response with the rule
-struck out achieves too, and it is one item shorter. A cheapest response
-never contains a rule.
+struck out achieves too, and it is shorter by the number of rule items
+removed. Under either declared cost measure, a cheapest response never
+contains a uniform-rule item. This concerns the book's `newRuleAll`
+constructor; it is not a claim about every use of the word “rule.”
 
 The careful part is that "strike out the rule and nothing else changes"
 has to be checked against the admission procedure, item by item. It
@@ -171,10 +215,16 @@ deltas. Of them 35 contain a rule item; `response_valid_naive` raises
 `AdmissionError` on the ill-formed ones and returns a verdict on the rest;
 30 are valid. For each, `rest` drops the rule items, and three facts are
 checked: `rest` is valid, `mu1(rest) < mu1(d)`, and the second component of
-`mu2` is unchanged. All 30 pass. The printed example is the smallest: a
-fresh datum plus a rule on form 0 is valid (the fresh datum is separable
-from everything, and the rule happens not to destroy the target's
-separation here), and the fresh datum alone is valid at cost 1.
+`mu2` is unchanged. All 30 pass. The first printed example admits a fresh
+datum and a rule on form 0. The existing binary instance `(0,2)` still
+separates the target `(1,2)` through the context `binary(0,□)` and the
+standing pair `(0,1)` through `binary(□,2)`. Thus validity survives even
+though the uniform unary rule erases that form's distinction.
+
+The fresh datum is not automatically separable from everything: in this
+ruled result, datum 1 and the newcomer 3 are collapsed. The check records
+this pair explicitly. Removing the rule leaves a valid one-item response
+here because the earlier distinctions already answered both demands.
 
 The last line is the subset direction seen the other way. `u0` is the
 unary mark, which separates `(0, 1)`. Adding the uniform rule on its only
@@ -378,9 +428,9 @@ concrete instances report `propext, Quot.sound` where they decide.
   Python `mu2` is indeed lexicographic (`min_responses`, lines 376-420).
 - That the enumeration applies the prune correctly. That is
   `test_rule_never_appears_in_minimum_responses` and this unit's check.
-- Anything about rule items in non-minimal responses. They are valid when
-  the test says so (30 of 35 in the full space); only their minimality is
-  excluded.
+- A prohibition on rule items in non-minimal responses. Some are valid
+  (30 of 35 rule-bearing candidates in this particular full two-item
+  space); only their minimality under the declared measures is excluded.
 - Anything about measures other than the two declared.
 
 ## Outside the system
@@ -414,7 +464,10 @@ not state the lemma for that case alone?
 
 ## Answer
 
-Because the induction would not close. In the `newRuleAll` case the
+<details>
+<summary>Worked answer</summary>
+
+The displayed induction needs a stronger invariant. In the `newRuleAll` case the
 regime after the item has rules `insertNew r.rules f`, and the induction
 hypothesis must be applied to *that* regime. A lemma fixed at "the
 original regime's rules" would, at that step, need the statement for a
@@ -423,7 +476,10 @@ from `r` makes the invariant independent of what the rule field happens
 to be at each step, so the hypothesis applies verbatim. The choice of
 `rs := r.rules` is made once, at the end, where `separable_of_subrules`
 needs the final rule set to be a subset of `s.rules`, and monotonicity
-supplies exactly that.
+supplies exactly that. This explains this proof's generalization; it is
+not a claim that no other proof of the restricted statement could work.
+
+</details>
 
 ## Verification
 

@@ -89,6 +89,53 @@ theorem old_mark_survives :
       derivable U0 (0, [0]) :=
   derivable_extend U0_wf 1 (0, [0]) (by decide)
 
+/-- One failed two-item recipe does not rule out a longer repair. -/
+theorem longer_repair_valid :
+    validResponse ⟨3, [], [], [], [(0, 1)]⟩ 1 2
+      [.newForm 1, .newInst 0 [0], .newForm 1, .newInst 1 [2]] := by
+  refine ⟨⟨3, [1, 1], [(0, [0]), (1, [2])], [], [(0, 1)]⟩,
+    by decide, ?_, ?_⟩
+  · exact ⟨⟨1, [none]⟩, by decide, by decide⟩
+  · intro q hq
+    have he : q = (0, 1) := by
+      cases hq with
+      | head => rfl
+      | tail _ h => cases h
+    subst he
+    exact ⟨⟨0, [none]⟩, by decide, by decide⟩
+
+/-- This is a malformed raw record, not an admitted history. -/
+def staleRule : Regime := ⟨2, [], [], [0], []⟩
+
+theorem stale_rule_breaks_mark : ¬ staleRule.wf ∧
+    ¬ validResponse staleRule 0 1 [.newForm 1, .newInst 0 [1]] := by
+  refine ⟨?_, ?_⟩
+  · intro hwf
+    have impossible := hwf.2.1 0 (by simp [staleRule])
+    exact Nat.not_lt_zero 0 impossible
+  rintro ⟨s, hs, hsep, _⟩
+  have happ : applyDelta staleRule [.newForm 1, .newInst 0 [1]] =
+      some ⟨2, [1], [(0, [1])], [0], []⟩ := by decide
+  rw [happ] at hs
+  injection hs with hs
+  subst hs
+  apply separable_not_collapsed hsep
+  intro c hc
+  have hf : c.form = 0 := by
+    have hb := hc.1
+    change c.form < 1 at hb
+    omega
+  constructor <;> intro _ <;> exact Or.inr (by simp [plug, hf])
+
+/-- The published theorem keeps both targets admitted, but its proof never
+uses `hi`: a hole context can also be plugged with an arbitrary Nat. -/
+theorem unadmitted_first_target :
+    validResponse ⟨1, [], [], [], []⟩ 7 0 [.newForm 1, .newInst 0 [0]] := by
+  refine ⟨⟨1, [1], [(0, [0])], [], []⟩, by decide, ?_, ?_⟩
+  · exact ⟨⟨0, [none]⟩, by decide, by decide⟩
+  · intro q hq
+    exact nomatch hq
+
 end Textbook.U35
 
 #print axioms Textbook.U35.U0_wf
@@ -100,6 +147,9 @@ end Textbook.U35
 #print axioms Textbook.U35.no_self_separation
 #print axioms Textbook.U35.no_self_response
 #print axioms Textbook.U35.old_mark_survives
+#print axioms Textbook.U35.longer_repair_valid
+#print axioms Textbook.U35.stale_rule_breaks_mark
+#print axioms Textbook.U35.unadmitted_first_target
 #print axioms Derivation.mark_progress
 #print axioms Derivation.derivable_extend
 #print axioms Derivation.separable_of_subrules
@@ -115,6 +165,9 @@ EXPECTED = {
     "Textbook.U35.no_self_separation": PROPEXT,
     "Textbook.U35.no_self_response": PROPEXT,
     "Textbook.U35.old_mark_survives": BOTH,
+    "Textbook.U35.longer_repair_valid": BOTH,
+    "Textbook.U35.stale_rule_breaks_mark": BOTH,
+    "Textbook.U35.unadmitted_first_target": BOTH,
     "Derivation.mark_progress": BOTH,
     "Derivation.derivable_extend": PROPEXT,
     "Derivation.separable_of_subrules": PROPEXT,

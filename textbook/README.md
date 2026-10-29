@@ -287,11 +287,11 @@ in one template or the other, and this table says which.
 | 28 | Fixed data bound rounds that add new demands | `Counting.strict_bounded_length`, `Counting.allPairs_length`, `Counting.no_supply_round_bound` | derived / conditional | yes |
 | 29 | Renaming the data changes nothing a context can see | `CountTransport.collapsed_rename`, `CountTransport.non_injective_does_not_transport` | derived | yes |
 | 30 | Adding instances that avoid both targets preserves their comparison | `Mention.collapsed_append_unmentioning`, `Mention.collapsed_fresh_form` | derived | yes |
-| 31 | Renaming carries every transition; index-least selection is not congruent | `TransitionTransport.transStep_rename_fwd`, `TransitionTransport.least_pair_selection_not_congruent` | derived | yes |
+| 31 | Renaming carries transitions; choosing by index can change the outcome | `TransitionTransport.transStep_rename_fwd`, `TransitionTransport.least_pair_selection_not_congruent` | derived under stated range conditions | yes |
 | 32 | The same proof with one more datum | `MinimalityF.mu2_unique_F`, `MinimalityF.genesis_mark_not_separable` | derived | yes |
-| 33 | A rule never pays for itself | `RuleBridge.applyDelta_dropRules`, `RuleBridge.rule_item_never_minimal` | derived | yes |
-| 34 | How many demands can a closed system meet? | `Rounds.round_reqs_succ`, `Rounds.closedRun_round_bound_from_empty` | derived under the declared round shape | yes |
-| 35 | A demand can always be met | `Progress.mark_progress`, `Progress.derivable_extend` | derived (response existence only) | yes |
+| 33 | Uniform-rule items cannot minimize the declared costs | `RuleBridge.applyDelta_dropRules`, `RuleBridge.rule_item_never_minimal` | derived shortening; cost interpretation over declared measures | yes |
+| 34 | Closed runs bound recorded new demands | `Rounds.round_reqs_succ`, `Rounds.closedRun_round_bound_from_empty` | derived under the declared round shape; validity separate | yes |
+| 35 | A fresh mark answers a distinct pair under stated conditions | `Progress.mark_progress`, `Progress.derivable_extend` | derived (conditional response existence) | yes |
 | 36 | Lists that mean sets | `Ext.RegimeExt`, `Ext.validResponse_ext` | derived (per observable) | yes |
 | 37 | An inventory is not a derivation | `ObserverInventory.bool_irrefl_full_classification`, `ObserverInventory.residuals_not_unique` | derived; slot names declared | yes |
 | 38 | Refusal as a source of difference: four rungs and one price | `Refusal.nonreify_carrier_bound`, `Refusal.reifyUntagged_eq_occurrence`, `Refusal.tagged_translation_separable` | derived per discipline; the hierarchy as one theorem OPEN | yes |

@@ -79,6 +79,23 @@ theorem datum_round_moves_data :
 theorem allPairs_two_three : allPairs 2 = [(0, 1)] ∧ allPairs 3 = [(0, 1), (0, 2), (1, 2)] := by
   decide
 
+/-- `ClosedRun` does not require a valid response or a met demand. -/
+def unanswered : Regime := ⟨2, [], [], [], [(0, 1)]⟩
+
+theorem unanswered_closed : ClosedRun bare2 [⟨(0, 1), []⟩] unanswered :=
+  ClosedRun.cons bare2 ⟨(0, 1), []⟩ unanswered unanswered []
+    (by decide) (by decide) (by decide) (ClosedRun.nil unanswered)
+
+theorem empty_response_invalid : ¬ validResponse bare2 0 1 [] := by
+  rintro ⟨s, hs, hsep, _⟩
+  have he : applyDelta bare2 [] = some bare2 := rfl
+  rw [he] at hs
+  injection hs with hs
+  subst hs
+  exact separable_not_collapsed hsep (collapsed_of_no_insts bare2 rfl 0 1)
+
+theorem repeat_response_no_growth : respond U0 0 1 [] = some U0 := by decide
+
 end Textbook.U34
 
 #print axioms Textbook.U34.one_round
@@ -91,6 +108,9 @@ end Textbook.U34
 #print axioms Textbook.U34.R2L_target_not_fresh
 #print axioms Textbook.U34.datum_round_moves_data
 #print axioms Textbook.U34.allPairs_two_three
+#print axioms Textbook.U34.unanswered_closed
+#print axioms Textbook.U34.empty_response_invalid
+#print axioms Textbook.U34.repeat_response_no_growth
 #print axioms Derivation.respond_anatomy
 #print axioms Derivation.round_reqs_succ
 #print axioms Derivation.round_data_eq
@@ -108,6 +128,9 @@ EXPECTED = {
     "Textbook.U34.R2L_target_not_fresh": BOTH,
     "Textbook.U34.datum_round_moves_data": PROPEXT,
     "Textbook.U34.allPairs_two_three": NONE,
+    "Textbook.U34.unanswered_closed": BOTH,
+    "Textbook.U34.empty_response_invalid": PROPEXT,
+    "Textbook.U34.repeat_response_no_growth": PROPEXT,
     "Derivation.respond_anatomy": PROPEXT,
     "Derivation.round_reqs_succ": PROPEXT,
     "Derivation.round_data_eq": PROPEXT,

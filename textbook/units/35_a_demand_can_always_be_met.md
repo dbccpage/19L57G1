@@ -1,19 +1,60 @@
-# Unit 35. A demand can always be met
+# Unit 35. A fresh mark answers a distinct pair under stated conditions
 
-**Claim.** On any well-formed regime whose imposed demands are all met,
+**Claim.** In a well-formed regime with all recorded demands already met, a
+new unary form and one instance on a target datum give a valid response
+for two distinct admitted data. This proves one response exists; it does
+not prove it is cheapest or that a search procedure finds it.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** On any well-formed regime whose imposed demands are all met,
 every supplied demand on two distinct admitted data has a valid response:
 one fresh unary form, and one instance of it on the second datum
 (`mark_progress`). The response applies, separates the target, and keeps
 every imposed demand separated. This is response *existence* and nothing
 more: it does not say where demands come from, and it does not say how
-long the process runs. **Status:** derived. **Lean:**
+long the process runs.
+
+**Status:** derived. **Lean:**
 `Derivation.mark_progress` (`lean4/Derivation/Progress.lean` lines 75-193),
 with `derivable_extend` (45-68), `getD_concat_self` (27-31),
 `getD_append_lt` (34-41), `old_inst_form_lt` (22-24). **Axioms:** `propext,
 Quot.sound` (`derivable_extend`: `propext`). **Depends on:** `Regime.wf`,
 `wfCtx`, `derivable`, `separable`, `validResponse` (Units 08, 09, 18);
-`applyItem` and its guards (Unit 11); the unary mark (Unit 22); the mention
+`applyItem` and its guards (Unit 17); the unary mark (Unit 22); the mention
 lemma for the counterexample (Unit 30).
+
+</details>
+
+## First pass
+
+Suppose two admitted data, A and B, need to be distinguished. The
+current record is well formed, and all its recorded demands are met.
+
+Admit a brand-new unary form `tag`, then admit only `tag(B)`. The new
+question `tag(□)` gives No on A and Yes on B. Its form is new, so no old
+instance or uniform rule already covers it. Old questions still have the
+same answers, preserving the earlier demands.
+
+Why keep the condition about earlier demands? Use three bare data A, B,
+and C, with an unmet demand A/B. A new mark on C separates B/C, but A/B
+still has two negative answers. This response fails validity because it
+leaves an earlier demand unmet.
+
+**Predict:** has that failure proved there is no response to B/C?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. Two different fresh forms, one marking A and the other marking C,
+repair both demands in four items. Failure of one recipe is not failure
+of every possible response.
+
+</details>
+
+The [Reasoning lab](../reasoning_lab/README.md) distinguishes an existence
+claim from a claim about one particular witness.
 
 ## Question
 
@@ -37,7 +78,7 @@ which it holds.
   derivable r (plug c d'))` (123-125).
 - `validResponse r i j δ := ∃ s, applyDelta r δ = some s ∧ separable s i j
   ∧ ∀ q ∈ r.reqs, separable s q.1 q.2` (198-200).
-- `insertNew_of_not_mem`: inserting a new element appends it (Unit 11).
+- `insertNew_of_not_mem`: inserting a new element appends it (Unit 17).
 
 ## New concept: a response that exists everywhere, by construction
 
@@ -61,10 +102,14 @@ datum `j`. Three things must then be shown about the result.
    `derivable_extend` says derivability of its pluggings is unchanged by
    the extension, and the same `c` witnesses `q` in the result.
 
-Each step uses one of the hypotheses: `hwf` for "old instances name old
-forms", `hi`, `hj` for the guards, `hij` for the witness, `hreqs` for
-step 3. None is decorative; the check and the book Lean show two of them
-failing.
+The proof uses `hwf` for old instance and rule bounds, `hj` for the
+instance guard, `hij` for the target witness, and `hreqs` for step 3.
+The displayed body never uses `hi`: the statement deliberately keeps
+both targets admitted, but the raw definitions allow plugging a hole with
+any natural number. The book even proves a raw example with first target
+7 and only one admitted datum. Thus “every stated hypothesis is logically
+necessary” would be too strong. The stale-rule, unmet-demand, and
+self-pair examples explain three actual failure modes.
 
 ## Plain-language interpretation
 
@@ -74,14 +119,22 @@ apart: invent a brand-new one-place predicate and apply it to one of
 them. It is new, so nothing already said interferes with it; it is
 applied to one object and not the other, so it separates them; and it
 touches none of the old predicates, so every distinction already drawn
-survives. The only ways this can fail are if the two "objects" are the
-same object, or if some earlier demand was never actually met, in which
-case the new predicate does nothing for that old demand.
+survives. This argument assumes a well-formed regime and two distinct
+admitted data. It also assumes every recorded demand is already met. A
+malformed record can contain a rule referring to the supposedly fresh
+form before that form exists; admitting the form then activates the rule
+and ruins the proposed distinction. The book checks this raw-record
+counterexample separately from valid admission histories.
+
+If an earlier demand is unmet, this particular two-item response may fail
+validity. That does not prove no response exists: a longer response might
+repair both demands. The check gives such a four-item repair.
 
 What this does not say: that anyone will make the demand. The regime does
 not generate demands; they are imposed from outside (Unit 28's closure
 policy is a declared policy, not a theorem). Nor does it say the process
-ends; with supply it does not (Unit 34).
+ends. The supplied finite trees reach their round cap; they do not prove
+an infinite execution (Unit 34).
 
 ## Pseudocode
 
@@ -158,13 +211,14 @@ no context separates a datum from itself.
 
 In the engine trees (the full policy, with supply, 200-node guard) no node
 has status `terminal_no_response`. That status exists in the code
-(`engine.py` line 527) and is reached only when the declared candidate
-space is too small to hold the response: the engine's own test
+(`engine.py` line 527). The engine's own test
 `test_tree_terminal_when_no_response_within_bounds` builds a tree with
 `max_items=0` and finds the status at the root. Within the declared
 bounds (two items, arity at most two), which contain the fresh mark, the
-theorem says the status cannot appear on a well-formed regime whose
-demands are met, and it does not.
+theorem supplies a valid delta on a well-formed regime whose demands are
+met. The observed status also depends on the Python enumerator finding
+that response; Lean does not verify the enumerator. Both finite trees
+pass that separate check.
 
 ## Lean 4
 
@@ -342,7 +396,8 @@ well formed (`simp` on each conjunct, as `R2L_wf` is proved in Basic);
 its one demand is met by the context `⟨0, [none]⟩`; so the theorem gives
 a *second* mark, on datum 1 with the fresh index `1`, as a valid
 response to the already-met demand. Nothing says the demand must be new;
-`respond` (Unit 34) is what adds the freshness condition.
+`ClosedRun.cons` (Unit 34) adds the freshness condition. `respond` alone
+does not: its insertion silently absorbs an existing demand.
 
 **Book: `unmet_demand_blocks`.** Open validity keeping the third
 conjunct. Decide the application; identify `s`. `hall (0, 1)` says the
@@ -350,9 +405,17 @@ unmet demand is separated in the result. But the result is the
 instance-less three-datum regime with one instance appended that
 mentions only datum 2, so by `collapsed_of_no_insts` and the mention
 lemma `(0, 1)` is still collapsed, and `separable_not_collapsed` closes.
-This is the smallest counterexample to the unqualified reading "every
-demand has a response": the mark is a response to `(1, 2)` in every sense
-but the one `validResponse` asks for.
+This is a counterexample to extending the *specific fresh-mark recipe*
+without its old-demand hypothesis. It is not a counterexample to the
+existence of every possible response. The book proves that fresh marks
+on data 0 and 2, using two different forms, repair both pairs in this
+same record.
+
+**Book: `stale_rule_breaks_mark`.** The raw record has two data, no forms,
+and rule index 0. It violates `wf`. Admitting form 0 and marking datum 1
+applies, but the stale rule now makes every instance of that form
+derivable, so the pair remains collapsed. This is why well-formedness
+cannot simply be omitted from the recipe's guarantee.
 
 **Book: `no_self_separation`, `no_self_response`.** A separability
 witness for `(d, d)` would have to refute `derivable (plug c d) ↔
@@ -360,19 +423,25 @@ derivable (plug c d)`, which is `Iff.rfl`. So `validResponse r d d δ` is
 false for every `r` and `δ`. The hypothesis `hij` is not a convenience.
 
 **Axioms.** `mark_progress` reports `propext, Quot.sound` through `simp`
-and `omega`; `derivable_extend` reports `propext` only. The two book
-refutations report `propext`: their only non-constructive content is the
-`Exists` destructuring in `Prop`.
+and `omega`; `derivable_extend` reports `propext` only. The book's
+`no_self_separation` and `no_self_response` report `propext`; the concrete
+unmet-demand and stale-rule refutations report `propext, Quot.sound`.
+Destructuring an existence statement in a proof does not itself require
+`Classical.choice`.
 
 ## What has been proved
 
-- The fresh-mark delta applies to any well-formed regime (Genesis).
-- It separates any two distinct admitted data (Genesis).
+- The fresh-mark delta applies under the theorem's well-formedness and
+  target-range hypotheses (Genesis).
+- In that setting it separates the two distinct admitted target data
+  (Genesis).
 - It keeps every imposed demand that was met (Genesis).
 - Therefore it is a valid response under the four hypotheses (Genesis,
   derived; ledger `CL-PROGRESS`).
 - With an unmet imposed demand, the same delta is not a valid response;
   with `i = j`, nothing is (book Lean).
+- The unmet-demand example has a longer valid repair; a raw stale-rule
+  example defeats the fresh mark when well-formedness is dropped (book Lean).
 
 ## What has not been proved
 
@@ -382,7 +451,7 @@ refutations report `propext`: their only non-constructive content is the
   defect in a summary sentence (the full statement in §8.2 and the ledger
   carries them).
 - That the response is cheapest. It is two items; on `R2L` that is the
-  minimum (Unit 18), on a regime that already has a usable unary form a
+  minimum (Units 18 and 21), on a regime that already has a usable unary form a
   single instance may do (Unit 36's check finds a `mu2` minimum of
   `(1, 0)` on such a regime).
 - That the response is well formed in the sense of `wf`. The result *is*
@@ -431,15 +500,23 @@ both?
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 On `i`: yes, by the same proof with the roles of `i` and `j` exchanged
 in the witness argument (plugging `i` is the new instance, plugging `j`
 is not); the check script confirms it on every pair. On a third datum
-`k`: no. The fresh context then has `plug c i = (fresh, [i])` and `plug c
+`k`: there is no general guarantee. The fresh context has
+`plug c i = (fresh, [i])` and `plug c
 j = (fresh, [j])`, neither of which is the new instance `(fresh, [k])`,
 so both are underivable and the context does not separate `i` from `j`;
 and no old context can, if they were collapsed before. Unit 32's
 `genesis_mark_not_separable` is exactly this failure with `k = 0`, `(i, j)
-= (1, 2)`.
+= (1, 2)`. If the target pair was already separated and the other
+hypotheses hold, a mark on a third admitted datum can be valid: the old
+witness still works. The failure concerns a target that needed repair.
+
+</details>
 
 ## Verification
 
@@ -448,7 +525,7 @@ and no old context can, if they were collapsed before. Unit 32's
 | Lean | `lean4/Derivation/Progress.lean` lines 22-68 (helpers), 75-193 (`mark_progress`) |
 | Axiom report | `artifacts/lean_axioms.txt`: `mark_progress` `[propext, Quot.sound]`; `separable_of_subrules` `[propext]` |
 | Paper | `paper/paper.md` §8.2 (**[theorem]** `mark_progress`, response existence only) and §10.7; ledger `CL-PROGRESS` (narrowed 2026-08-18) |
-| Engine | `code/derivation/engine.py` line 261, `assert mr is not None, "progress lemma violated"`; status `terminal_no_response` (line 527) reached only under a zero-item bound, never in the committed trees |
+| Engine | `code/derivation/engine.py` line 261, `assert mr is not None, "progress lemma violated"`; the test with a zero-item bound reaches `terminal_no_response` (line 527); neither sampled tree in this unit reaches it |
 | Tests | `tests/test_candidates.py::test_c3_cost1_all_fail_and_min_is_two`; `tests/test_engine.py::test_tree_terminal_when_no_response_within_bounds` |
 | Check (Python) | `python textbook/checks/u35_progress.py`: the fresh mark on either datum is valid for every pair on three regimes with their demands met; an unmet imposed demand blocks it; a datum is never separable from itself; neither engine tree has a `terminal_no_response` node |
-| Check (book Lean) | `python textbook/checks/u35_lean.py`: nine book theorems plus three Genesis theorems kernel-checked, Lean 4.33.0 |
+| Check (book Lean) | `python textbook/checks/u35_lean.py`: twelve book theorems plus three Genesis theorems kernel-checked, Lean 4.33.0 |

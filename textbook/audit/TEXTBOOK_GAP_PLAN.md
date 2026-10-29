@@ -146,6 +146,13 @@ walkthrough. Changed-label practice has separate folded answers.
    through renaming, and distinguishes candidate generation from validity.
    Fresh-context agreement now includes the uniform-rule case, and the
    malformed-base example makes the old-form range condition explicit.
+   The [transitions and response follow-up](ROUND_READING_REVIEW_2026-10-29.md)
+   adds five first passes in Units 31–35, bringing the consecutive revised
+   opening sequence to Units 04–35. It distinguishes the full transition
+   relation from selection, bounds recorded demands without assuming
+   validity, and checks that a failed two-item recipe can have a longer
+   repair. Stale rules and an unused source bound receive explicit scope
+   notes. These selected corrections do not complete semantic coverage.
 7. **Evidence and reality.** Add exercises in separating a definition,
    a deduction, a computation, and a measurement. Give a model prediction,
    identify an observation that could disagree with it, and explain what

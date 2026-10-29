@@ -1,6 +1,14 @@
 # Unit 32. The same proof with one more datum
 
-**Claim.** Reading F admits the opaque genesis datum `<>` before `<a>` and
+**Claim.** In reading F, the cheapest responses under `mu2` still mark one of
+the two required data. Marking the extra genesis datum does not separate
+that target pair. The two successful labelled marks give one result class
+within reading F.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** Reading F admits the opaque genesis datum `<>` before `<a>` and
 `<ab>`, so Challenge 3 is imposed on the pair `(1, 2)` of a three-datum
 regime `R2F`. Under `mu2`, every valid two-item response with new-form
 arity sum at most 1 still yields a regime isomorphic to the unary mark on
@@ -8,29 +16,60 @@ a required datum, `U0F` (`mu2_unique_F`). The proof is Unit 22's case
 tree with one new terminal case, the mark on the genesis datum `0`, and
 that case is closed by the mention lemma: the mark mentions neither
 required datum, so `(1, 2)` stays collapsed and the response is not valid
-(`genesis_mark_not_separable`). **Status:** derived (R5, discharged
+(`genesis_mark_not_separable`).
+
+**Status:** derived (R5, discharged
 2026-08-18). **Lean:** `Derivation.U0F`
 (`lean4/Derivation/MinimalityF.lean` line 37), `U2F` (40), `swap12` (43),
 `isoU2F_U0F` (47-65), `genesis_mark_not_separable` (72-81),
 `mu2_unique_F` (86-195); from `Minimality.lean`: `cost1_insufficient_F`
 (149-151), `deltaU0F_valid` (155-166). **Axioms:** `propext, Quot.sound`
 (`cost1_insufficient_F`: `propext`). **Depends on:** the two readings of
-genesis (Unit 06); `mu2_unique` and its case tree (Unit 22); the mention
+genesis (Unit 05); `mu2_unique` and its case tree (Unit 22); the mention
 lemma R3 (Unit 30); `Iso` (Unit 21).
+
+</details>
+
+## First pass
+
+Reading F starts with three data. Call them Spare, A, and B, at
+indices 0, 1, and 2. No form or instance has been admitted. The recorded
+demand is “tell A and B apart.”
+
+Try a response consisting of a new one-place form `marked` and one
+instance of it:
+
+| Mark placed on | Answer on A | Answer on B | Target separated? |
+|---|---|---|---|
+| Spare | No | No | No |
+| A | Yes | No | Yes |
+| B | No | Yes | Yes |
+
+The Spare mark does distinguish Spare from A and B. It simply answers
+the wrong question. “Invalid for this demand” does not mean “changes
+nothing.”
+
+Under `mu2`, count response items first, then the arities of newly
+admitted forms. The two successful marks cost `(2,1)` and are the same
+kind of result after exchanging A and B. No particular labelled mark is
+forced. Reading L has only two data; its result is not literally
+isomorphic to this three-datum result. Each reading has its own one-class
+minimum.
 
 ## Question
 
 Unit 22 proved, grammar-wide, that reading L has one `mu2` minimum up to
 isomorphism. Reading F differs by one admitted datum that nothing
 mentions. Does the extra datum open a new cheapest response, or change
-which one is forced? The engine's enumeration said no, within its bounds.
+which result class is cheapest under `mu2`? The engine's enumeration found
+the same mark shape, within its bounds. Two labelled choices remain.
 The paper's residual R5 asked for the proof over the whole grammar, and
 the question is what, exactly, the extra datum adds to the case analysis.
 
 ## What we already possess
 
 - `R2F = ⟨3, [], [], [], [(1, 2)]⟩`: three data, nothing else, the demand
-  on `(1, 2)` (Unit 06; Basic line 209).
+  on `(1, 2)` (Unit 05; Basic line 209).
 - `mu2_unique` for `R2L` (Unit 22): a case tree over the shapes of the two
   items, with every dead branch killed by `no_insts_no_separation` or by
   a failed guard, and the two live leaves `U0`, `U1` tied by `isoU1U0`.
@@ -95,10 +134,10 @@ split on a:
 from derivation.candidates import Bounds, NewForm, NewInst, apply_delta, min_responses, response_valid_naive
 from derivation.engine import GENESIS_F, delta_label
 from derivation.iso import isomorphic
-from derivation.model import replay
+from derivation.model import Impose, replay
 from derivation.observe import collapsed_pairs, separable
 
-base = replay(GENESIS_F)
+base = replay((*GENESIS_F, Impose(1, 2)))
 marks = [(NewForm(1), NewInst(0, (x,))) for x in range(3)]
 print([(x, response_valid_naive(base, (1, 2), d)) for x, d in enumerate(marks)])
 mr = min_responses(base, (1, 2), "mu2", Bounds(2, 2))
@@ -118,9 +157,12 @@ Output:
 
 ## Line-by-line Python explanation
 
-`replay(GENESIS_F)` admits `<>`, `<a>`, `<ab>` in that order: datum 0 is
-the genesis datum. The three `marks` are the deltas "one unary form, one
-instance on datum `x`".
+`GENESIS_F` admits `<>`, `<a>`, `<ab>` in that order: datum 0 is the
+genesis datum. `Impose(1, 2)` records the challenge, so `base` matches
+Lean's `R2F`, including its demand store. The three `marks` are the deltas
+"one unary form, one instance on datum `x`". The isomorphism check below
+therefore compares results carrying that demand, rather than results
+whose demand stores are empty.
 
 The first line is the case split of the proof, run: `x = 0` is not a
 valid response to `(1, 2)`; `x = 1` and `x = 2` are. In reading L the
@@ -310,8 +352,10 @@ instantiated, with no concrete decision.
   as L (`CL-3-TIE-MU1`).
 - Anything about the genesis datum beyond this: that it carries meaning,
   that it is "the empty mark", or that its admission is forced. Reading F
-  is a *chosen* reading (Unit 06); this unit shows the choice does not
-  change the Challenge 3 minimum.
+  is a *chosen* reading (Unit 05); this unit shows both readings have
+  minimum cost `(2,1)` and one unary-mark result class within each reading
+  under `mu2`. Their two- and three-datum results are not isomorphic to
+  one another.
 - That the two readings agree beyond Challenge 3. The engine's trees from
   `GENESIS_L` and `GENESIS_F` differ in size (Unit 28's closed baselines:
   4 nodes against 20), because the third datum opens more demands later.
@@ -350,14 +394,23 @@ argument, and would any new lemma be needed?
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 Four cases, `x = 0, 1, 2, 3`. The two marks on the required data `2` and
 `3` would be the live leaves, one isomorphic to the other by the
 transposition of 2 and 3. The marks on `0` and on `1` would each be
 closed by the same argument as `genesis_mark_not_separable`: the instance
 `(0, [x])` with `x ∉ {2, 3}` mentions neither required datum, so R3 keeps
-`(2, 3)` collapsed over the instance-less base, and validity fails. No new
-lemma is needed; the proof is the same three structural facts with the
-datum bound raised, which is what the module header predicts.
+`(2, 3)` collapsed over the instance-less base, and validity fails. This
+reuses the mention lemma; `mu2_unique_F` itself is about `R2F` and cannot
+simply be applied to this four-datum regime. A formal four-datum result
+would need its own application, case analysis, and isomorphism witness.
+The book's Python check tests the four unary marks and finds verdicts
+`[False, False, True, True]`; that is a finite example, not a new
+grammar-wide uniqueness theorem.
+
+</details>
 
 ## Verification
 

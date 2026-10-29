@@ -1,14 +1,26 @@
-# Unit 31. Renaming the data does not change what can happen next, but it changes what gets picked
+# Unit 31. Renaming carries transitions; choosing by index can change the outcome
 
-**Claim.** One engine round, "impose the challenged pair, then apply the
-response", is carried by every datum renaming: a step of `r` becomes a
+**Claim.** A reversible renaming carries each allowed transition to a matching
+transition when instances and demands satisfy the stated bounds. Choosing
+the pair with the smallest indices can still select a different kind of
+challenge after renaming.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** Suppose every instance argument is admitted and
+every stored demand is an ordered pair of admitted data. One round,
+"impose the challenged pair, then apply the response", is carried by
+every bounded datum renaming: a step of `r` becomes a
 step of the renamed regime with the renamed pair, the renamed response
 and the renamed child (`transStep_rename_fwd`), and every step of the
 renamed regime arises that way (`transStep_image_total`). The relation is
 congruent. A *selection* from it need not be: on the regression regime
 the index-least collapsed pair is `(0, 1)` before and after the
 renaming, yet the renaming carries `(0, 1)` to `(2, 3)`
-(`least_pair_selection_not_congruent`). **Status:** derived (R7,
+(`least_pair_selection_not_congruent`).
+
+**Status:** derived (R7,
 discharged 2026-08-18 at the relation level; the class-set form stays
 computational). **Lean:** `Derivation.padF`
 (`lean4/Derivation/TransitionTransport.lean` line 53), `DRen.pad` (97),
@@ -19,9 +31,41 @@ computational). **Lean:** `Derivation.padF`
 `one_unary_form_ctx_char` (1010), `reg_collapsed_01` (1045),
 `reg_renamed_collapsed_01` (1051), `least_pair_selection_not_congruent`
 (1064-1068). **Axioms:** `propext, Quot.sound`. **Depends on:** demands
-and the impose guard (Unit 11); valid responses and `respond` (Units 18,
+and the impose guard (Unit 17); valid responses and `respond` (Units 18,
 19); the quotient by isomorphism and challenge orbits (Unit 21); collapse
 transport under renaming (Unit 29).
+
+</details>
+
+## First pass
+
+Put four cards on a table, numbered 0, 1, 2, and 3. One unary form,
+`marked`, applies to cards 2 and 3 only. With that sole test, cards 0 and
+1 agree, and cards 2 and 3 agree. These are two collapsed pairs.
+
+Now exchange the names 0 with 2 and 1 with 3 throughout the record. The
+old unmarked pair `(0,1)` becomes the unmarked pair `(2,3)`. A response to
+the old challenge can be renamed into a response to this matching pair.
+
+But “choose the smallest numbered collapsed pair” chooses the literal
+pair `(0,1)` in both records. Before renaming, it chooses the unmarked
+pair; afterward, it chooses the marked pair. The questions no longer
+correspond.
+
+**Predict:** does carrying every allowed move through a renaming also
+prove that every procedure for choosing a move respects that renaming?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. The available transitions and a procedure selecting among them are
+different objects. The Python example below checks that this index-based
+selection even produces different child classes.
+
+</details>
+
+The [Search lab](../search_lab/README.md) follows candidate choices and
+their result classes before returning to this distinction.
 
 ## Question
 
@@ -31,7 +75,7 @@ a demand, enumerates the cheapest valid responses, and builds children.
 If two regimes are the same up to renaming, do they have the same
 children up to renaming? And is "pick the least collapsed pair"
 compatible with that? Genesis found, by a test, that it was not. This
-unit is the proof of what is congruent and the smallest witness of what
+unit proves transport of the full transition relation and gives a concrete witness of what
 is not.
 
 ## What we already possess
@@ -41,7 +85,7 @@ is not.
 - `validResponse r i j δ`: some `s` with `applyDelta r δ = some s`, `i`
   and `j` separable in `s`, and every demand of `r` still separable in `s`
   (Unit 18). The impose step inserts the ordered pair `(i, j)` into `reqs`
-  (Unit 11).
+  (Unit 17).
 - The engine's closure policy challenges one representative per
   automorphism orbit of collapsed pairs, and `tests/test_equivariance.py`
   records the regression it fixed (Unit 21).
@@ -60,9 +104,9 @@ nothing is redefined: the instance action is reused.
 
 A second care: a response may admit a fresh datum, index `r.data`, above
 the renaming's range. `padF n f` acts as `f` below `n` and as the identity
-from `n` on, and `σ.pad` is again a `DRen`, now at `n + 1`. The child of a
-renamed step is the child renamed by the *padded* map, so the fresh
-datum stays where it is.
+from `n` on. `σ.pad m hm` is a `DRen m` for any `m ≥ n`, not just
+`n + 1`. A response may admit several fresh data; all their new indices
+stay fixed. The child is renamed by this padded map.
 
 The transition object is `TransStep r i j δ s`: `i < j < r.data`, `(i, j)`
 collapsed in `r`, `δ` a valid response, and `respond r i j δ = some s`,
@@ -71,8 +115,9 @@ for the first time; `stepE` and `applyDelta` were its parts.
 
 ## Plain-language interpretation
 
-Two regimes that differ only by the names of their data are the same
-situation. Whatever the engine can do from one, it can do from the other,
+Under the theorem's bounds, two regimes that differ only by the names of
+their data have corresponding transitions. Every collapsed-pair challenge
+with every valid response can be carried to the renamed regime,
 with the names swapped throughout: the pair it challenges, the response
 it applies, the child it reaches. That is the relation being congruent.
 
@@ -261,7 +306,9 @@ theorem least_pair_selection_not_congruent :
 
 The book's Lean computes the renaming on the regression regime, records
 that `mapReq` forgets order and so the action is not injective, shows
-padding, and instantiates Genesis's transport at this renaming.
+padding, and instantiates Genesis's transport at this renaming. A raw
+disordered-demand example also shows why exact response transport needs
+more than preservation of separability.
 
 ```lean
 -- Lean (book), textbook/checks/u31_lean.py
@@ -299,13 +346,14 @@ renamed demand in ordered form. The record update keeps everything
 
 **`respond`, `TransStep`.** `stepE r (.impose i j)` is `some` of the
 regime with `(i, j)` added to its demands when the guard passes (Unit
-11), else `none`; `Option.bind` then applies the response. `TransStep`
+17), else `none`; `Option.bind` then applies the response. `TransStep`
 is a five-fold conjunction; the order of the conjuncts is the order the
 proof discharges them.
 
-**`transStep_rename_fwd`.** The hypotheses `hinst` and `hreq` are the
-boundedness conjuncts of `Regime.wf`: every instance argument and every
-demand is below `r.data`. `obtain` splits the step into its five facts.
+**`transStep_rename_fwd`.** The hypotheses select two parts of
+`Regime.wf`: every instance argument is below `r.data`, and each demand
+is ordered with both endpoints admitted. The theorem does not ask for
+the other `wf` fields. `obtain` splits the step into its five facts.
 `refine ⟨_, ?_, ?_, ?_, ?_⟩` supplies the first conjunct at once
 (`mapReq_ordered`: an injective map keeps `i < j` as a strict inequality
 after ordering) and opens four goals.
@@ -350,10 +398,16 @@ of the Python output `renamed insts [(0, (0,)), (0, (1,))]`.
 
 **`mapReq_comm`, `not_injective_on_disordered`.** Because `mapReq` orders
 its output, a regime with the demand `(0, 1)` and one with `(1, 0)` have
-the same image, while they are different regimes. This is why Genesis
-states forward mapping plus image totality rather than an equality `iff`
-over arbitrary children: the module's own docstring says the `iff` "would
-be false".
+the same image, while they are different regimes. This refutes an
+unrestricted inverse on raw records. It does not refute every possible
+`iff`: a statement restricted to ordered records is a different claim.
+
+**`respond_order_needed`.** Start with the raw demand list `[(1,0)]` and
+rename by the identity. Ordering the demand gives `[(0,1)]`; imposing
+`(0,1)` then leaves that list unchanged. In the other order, imposing
+first gives `[(1,0),(0,1)]`, whose renamed list has two copies of `(0,1)`.
+The literal response records differ. Both examples violate the theorem's
+ordered-demand hypothesis; neither is a valid admission history.
 
 **`padF_values`.** Below 4 the padded map is the swap; at 4 and 7 it is
 the identity. A response that admits datum 4 therefore keeps it as datum 4
@@ -369,10 +423,11 @@ first attempt stated `separable (renamed) 0 1`; `decide` reported it
 false, since `(0, 1)` is the marked pair there. The check now carries
 the true statement.)
 
-**Axioms.** `propext, Quot.sound` for everything that touches `decide`
-or `simp` on lists; `mapReq_comm` reports `propext` alone; the decided
-equalities of pairs and regimes report no axiom at all, because `decide`
-on closed `Nat` and `List Nat` terms reduces by computation.
+**Axioms.** The concrete pair/regime equalities and `padF_values` report
+no axioms. `mapReq_comm` and `respond_order_needed` report `propext`.
+The collapse, separation, and cited native transport reports use
+`propext, Quot.sound`. These are measured dependencies of these proofs;
+using the same tactic name elsewhere need not give the same report.
 
 ## What has been proved
 
@@ -381,14 +436,14 @@ on closed `Nat` and `List Nat` terms reduces by computation.
   map (Genesis, derived).
 - The renamed transition relation is exactly the image of the original:
   forward mapping and image totality (Genesis, derived).
-- The count of valid responses, over a caller's list with a caller's
-  decider, is preserved (Genesis, derived; `validCount_rename`, the
+- The count of valid responses, comparing a caller's list with its mapped
+  list and using correct deciders, is preserved (Genesis, derived; `validCount_rename`, the
   transition analogue of Unit 29's count).
 - The index-least collapsed pair is `(0, 1)` on both sides of the
   regression renaming, and the renaming does not fix `(0, 1)` (Genesis,
   countermodel).
-- The action is not injective on regimes with a disordered demand, so no
-  equality-form `iff` is available (book Lean).
+- The action is not injective on raw regimes with disordered demands;
+  exact response transport can fail there (book Lean).
 
 ## What has not been proved
 
@@ -425,10 +480,11 @@ and after, and after a round it holds one more demand.
 
 **Phrases to read with care.**
 
-- "Isomorphic regimes have the same children" is true of the relation,
-  under the padded renaming, and true of the child class sets by
-  computation within the explored bounds. It is false of any procedure
-  that picks by index.
+- "Datum-renamed regimes have corresponding transitions" is the proved
+  relation statement with fixed forms and the stated bounds. Equal child
+  class sets are checked within the explored Python bounds. The concrete
+  index-least policy fails; this does not refute every policy that reads
+  an index, including policies whose result happens to be invariant.
 - "The policy was repaired" is a statement about Python. The Lean
   countermodel is the shape of the defect, not a theorem about the repair.
 - "Equivariance" in the ledger names this congruence. The word carries no
@@ -439,21 +495,27 @@ and after, and after a round it holds one more demand.
 
 `transStep_rename_fwd` needs `hreq : ∀ q ∈ r.reqs, q.1 < q.2 ∧ q.2 <
 r.data`, while Unit 29's `collapsed_rename` needed nothing about `reqs`.
-Name the conjunct of `TransStep` that forces the hypothesis, and say why
-the forward direction could fail without it.
+Which parts of transition transport read the demands? Use the raw
+disordered-demand example to explain how exact response transport can
+fail, even when the demand endpoints are still admitted.
 
 ## Answer
 
-The validity conjunct. `validResponse r i j δ` requires every demand of
-`r` to remain separable in the child, and its transport
-`validResponse_rename` must match the demands of `r` with the demands of
-the renamed regime one by one under `mapReq`. If a demand `q` were not
-ordered or not below `r.data`, `mapReq σ.f q` could coincide with another
-demand's image (the book's `not_injective_on_disordered`) or fall outside
-the renaming's bounded range, and "every demand of the renamed regime is
-separable" would not be the renamed form of "every demand of `r` is
-separable". The collapse conjunct alone would transport without `hreq`,
-as Unit 29 shows, because collapse never reads the demands.
+<details>
+<summary>Worked answer</summary>
+
+Both validity and the response composite read demands. Validity must
+preserve every recorded pair; the response also inserts the target and
+returns a literal demand list. With `[(1,0)]`, identity renaming sorts the
+pair before insertion on one path and after insertion on the other.
+One result has one copy of `(0,1)`, the other two. Thus their literal
+records differ. This is a failure of exact response transport, not a
+failure caused merely by two requirements having the same separation
+test: separability is symmetric and repeating a test does not change its
+truth. Collapse alone never reads demands, so its transport needs no
+`hreq`.
+
+</details>
 
 ## Verification
 
@@ -464,4 +526,4 @@ as Unit 29 shows, because collapse never reads the demands.
 | Paper | `paper/paper.md` §12 residual R7 (discharged 2026-08-18, scope stated 2026-09-08); ledger `CL-TRANSITION-EQUIVARIANCE` (theorem + finite computation + counterexample) |
 | Tests | `tests/test_equivariance.py`: `test_regression_canonical_equal_under_rename`, `test_least_pair_selection_is_not_equivariant`, `test_regression_orbits_are_distinct_and_both_retained`, `test_orbit_policy_transition_congruence_exhaustive` |
 | Check (Python) | `python textbook/checks/u31_transition.py`: the regression regime under `(2, 3, 0, 1)`; children of the index-least pair differ, children of the related pair agree; two challenge orbits; six child classes equal under all 24 renamings |
-| Check (book Lean) | `python textbook/checks/u31_lean.py`: nine book theorems plus four Genesis theorems kernel-checked, Lean 4.33.0 |
+| Check (book Lean) | `python textbook/checks/u31_lean.py`: ten book theorems plus four Genesis theorems kernel-checked, Lean 4.33.0 |

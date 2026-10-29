@@ -47,6 +47,13 @@ It corrects the unchanged-requirements claim and the uniform-rule case
 of fresh-context agreement. Eleven added book reports support the examples;
 the remaining semantic and reader review stays open.
 
+**Transitions and response existence follow-up (2026-10-29).** The
+[Units 31–35 reading review](ROUND_READING_REVIEW_2026-10-29.md) adds five
+first passes and separates transition correspondence from selection,
+recorded demands from met demands, and one failed recipe from absence of
+every possible response. Seven new book reports check concrete boundary
+cases, including a longer repair and a malformed stale-rule record.
+
 ## Scope and method
 
 - **Population.** The 75 tracked modules under `lean4/Derivation/` plus the

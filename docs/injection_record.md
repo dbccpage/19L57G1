@@ -723,3 +723,23 @@ reports use two empty dependency sets, three `propext` sets, and six
 `propext, Quot.sound` sets; one is a setoid definition with its proof.
 No native receipt is regenerated while an injected claim or binding is live.
 
+## Transitions, rounds, and response existence review (2026-10-29)
+
+Four temporary book drivers exercise exact false propositions. Two other
+process-local substitutions change only book-check bindings; imported
+native owners, sealed files, artifacts, and pin populations are untouched.
+
+| Check | Defect exercised | Observed failure | Recovery |
+|---|---|---|---|
+| Demand ordering | Assert exact response transport on the raw list `[(1,0)]` under identity renaming | Lean names the response equality as false; runner exits 1 | u31 proves the inequality: sorting before versus after insertion leaves one versus two copies |
+| Replay versus validity | Assert the unanswered closed run's demand list is empty | Lean names the concrete list equality as false; runner exits 1 | u34 proves the closed run exists and its empty response is invalid |
+| Freshness | Assert a repeated response's retained demand count equals itself plus one | Lean names the exact length equation as false; runner exits 1 | u34 proves repeated imposition on `U0` returns `U0` |
+| Stale rule | Deny derivability of `(0,[0])` after the raw stale rule becomes active | Lean names the negative derivability proposition as false; runner exits 1 | u35 proves the malformed record defeats the fresh-mark recipe |
+| Recorded challenge | Temporarily omit all `Impose` events from u32's book `replay` binding | The actual checker exits 1 naming the missing L and F demand stores | Original binding retains both targets and checks isomorphism with the demands present |
+| Newcomer collapse | Temporarily hide pair `(1,3)` from u33's book observation binding | The actual checker exits 1 naming `fresh datum collapse` | Original binding records that newcomer 3 remains collapsed with datum 1 |
+
+The five original book drivers recover 70 exact reports. Seven are new:
+three `propext` and four `propext, Quot.sound` sets. The longer repair and
+unadmitted-target examples are checked without changing the native theorem
+statements. None of this establishes beginner mastery or a physical law.
+

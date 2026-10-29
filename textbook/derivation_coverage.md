@@ -210,11 +210,11 @@ now introduce their grouping meaning. Further conceptual review remains.
 | `Unit 28` | [`units/28_closure_must_stop.md`](units/28_closure_must_stop.md) | Fixed data bound rounds that add new demands | `Counting` | `Unit 17` |
 | `Unit 29` | [`units/29_renaming_changes_nothing_seen.md`](units/29_renaming_changes_nothing_seen.md) | Renaming the data changes nothing a context can see | `CountTransport` | `Unit 08`, `Unit 09` |
 | `Unit 30` | [`units/30_mention_lemma.md`](units/30_mention_lemma.md) | Adding instances that avoid both targets preserves their comparison | `Mention` | `Unit 08`, `Unit 12` |
-| `Unit 31` | [`units/31_transition_transport.md`](units/31_transition_transport.md) | Renaming carries every transition; index-least selection is not congruent | `TransitionTransport` | `Unit 22`, `Unit 29` |
+| `Unit 31` | [`units/31_transition_transport.md`](units/31_transition_transport.md) | Renaming carries transitions; choosing by index can change the outcome | `TransitionTransport` | `Unit 22`, `Unit 29` |
 | `Unit 32` | [`units/32_same_proof_one_more_datum.md`](units/32_same_proof_one_more_datum.md) | The same proof with one more datum | `MinimalityF` | `Unit 05`, `Unit 22`, `Unit 29` |
-| `Unit 33` | [`units/33_rule_never_pays.md`](units/33_rule_never_pays.md) | A rule never pays for itself | `RuleBridge` | `Unit 02`, `Unit 22` |
-| `Unit 34` | [`units/34_closed_run_bound.md`](units/34_closed_run_bound.md) | How many demands can a closed system meet? | `Rounds` | `Unit 28`, `Unit 31` |
-| `Unit 35` | [`units/35_a_demand_can_always_be_met.md`](units/35_a_demand_can_always_be_met.md) | A demand can always be met | `Progress` | `Unit 19`, `Unit 34` |
+| `Unit 33` | [`units/33_rule_never_pays.md`](units/33_rule_never_pays.md) | Uniform-rule items cannot minimize the declared costs | `RuleBridge` | `Unit 02`, `Unit 22` |
+| `Unit 34` | [`units/34_closed_run_bound.md`](units/34_closed_run_bound.md) | Closed runs bound recorded new demands | `Rounds` | `Unit 28`, `Unit 31` |
+| `Unit 35` | [`units/35_a_demand_can_always_be_met.md`](units/35_a_demand_can_always_be_met.md) | A fresh mark answers a distinct pair under stated conditions | `Progress` | `Unit 19`, `Unit 34` |
 | `Unit 36` | [`units/36_lists_that_mean_sets.md`](units/36_lists_that_mean_sets.md) | Lists that mean sets | `Ext` | `Unit 08`, `Unit 35` |
 | `Unit 37` | [`units/37_an_inventory_is_not_a_derivation.md`](units/37_an_inventory_is_not_a_derivation.md) | An inventory is not a derivation | `ObserverInventory`, `Bridge` | `Unit 24`, `Unit 26` |
 | `Unit 38` | [`units/38_refusal_as_a_source_of_difference.md`](units/38_refusal_as_a_source_of_difference.md) | Refusal as a source of difference: four rungs and one price | `Refusal`, `Bridge` | `Unit 11`, `Unit 17` |

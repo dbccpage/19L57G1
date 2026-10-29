@@ -70,6 +70,14 @@ datum: the one-hole context answers no on 0 and yes on 2. -/
 theorem reg_separable_02 : separable regRegime 0 2 :=
   ⟨⟨0, [none]⟩, by decide, by decide⟩
 
+/-- Sorting before or after insertion differs on a raw disordered demand.
+This record is outside the ordered-demand hypothesis. -/
+theorem respond_order_needed :
+    let r : Regime := ⟨2, [], [], [], [(1, 0)]⟩
+    respond (renameRegimeR id r) 0 1 [] ≠
+      (respond r 0 1 []).map (renameRegimeR (padF 2 id)) := by
+  decide
+
 end Textbook.U31
 
 #print axioms Textbook.U31.mapReq_swap_01
@@ -81,6 +89,7 @@ end Textbook.U31
 #print axioms Textbook.U31.swap_carries_collapse
 #print axioms Textbook.U31.renamed_separable_02
 #print axioms Textbook.U31.reg_separable_02
+#print axioms Textbook.U31.respond_order_needed
 #print axioms Derivation.validResponse_rename
 #print axioms Derivation.transStep_rename_fwd
 #print axioms Derivation.transStep_image_total
@@ -97,6 +106,7 @@ EXPECTED = {
     "Textbook.U31.swap_carries_collapse": BOTH,
     "Textbook.U31.renamed_separable_02": BOTH,
     "Textbook.U31.reg_separable_02": BOTH,
+    "Textbook.U31.respond_order_needed": PROPEXT,
     "Derivation.validResponse_rename": BOTH,
     "Derivation.transStep_rename_fwd": BOTH,
     "Derivation.transStep_image_total": BOTH,
