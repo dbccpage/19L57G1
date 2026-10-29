@@ -48,6 +48,10 @@ The [`Boundary lab`](boundary_lab/README.md) introduces selected results
 from three more research models: the declared two-sided division, repeated
 labels, swap witnesses, permission restrictions, and a scoped price menu.
 It keeps the models and their unresolved comparisons separate.
+The [`Same-record lab`](identification_lab/README.md) asks the opposite
+of separation: add judgments so two profiles match while their internal
+positions remain distinct. Seven worked lessons compare side effects,
+kept promises, bounded refusals, and the price of a later demand.
 
 New readers can then read [`START_HERE.md`](START_HERE.md) (see also the
 short spoken introduction in [`video_script_15s.md`](video_script_15s.md)).

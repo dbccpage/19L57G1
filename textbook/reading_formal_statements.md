@@ -139,6 +139,7 @@ for witnesses, counterexamples, and quantifier order.
 | Map lab | Units 61 and 67: finite factorization and observer-quotient descent |
 | Growth lab | Its research source map: commitments and supplied growth |
 | [Boundary lab](boundary_lab/README.md) | Its research source map for the three distinct models; Unit 37 for the separate two-dot classification example |
+| [Same-record lab](identification_lab/README.md) | Its research source map for equal-profile requirements, bounded matching calculations, and the limits of separation pruning |
 
 These are reading suggestions, not transport theorems between the models.
 For example, the Path lab's graph edge and a function arrow have different

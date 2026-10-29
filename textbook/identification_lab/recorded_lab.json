@@ -1,0 +1,6657 @@
+{
+ "authority_effect": "None",
+ "digest_mode": "UTF-8 text with LF normalization",
+ "larger_reply": {
+  "after": {
+   "answers": [
+    [
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     false
+    ],
+    [
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     false
+    ],
+    [
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true
+    ]
+   ],
+   "classes": 2,
+   "collapsed_pairs": [
+    [
+     0,
+     1
+    ]
+   ],
+   "contexts": [
+    [
+     0,
+     [
+      null,
+      null
+     ]
+    ],
+    [
+     0,
+     [
+      null,
+      0
+     ]
+    ],
+    [
+     0,
+     [
+      null,
+      1
+     ]
+    ],
+    [
+     0,
+     [
+      null,
+      2
+     ]
+    ],
+    [
+     0,
+     [
+      0,
+      null
+     ]
+    ],
+    [
+     0,
+     [
+      1,
+      null
+     ]
+    ],
+    [
+     0,
+     [
+      2,
+      null
+     ]
+    ],
+    [
+     1,
+     [
+      null
+     ]
+    ]
+   ],
+   "regime": {
+    "data": [
+     "<>",
+     "<a>",
+     "<ab>"
+    ],
+    "forms": [
+     2,
+     1
+    ],
+    "insts": [
+     [
+      0,
+      [
+       1,
+       1
+      ]
+     ],
+     [
+      0,
+      [
+       1,
+       2
+      ]
+     ],
+     [
+      1,
+      [
+       2
+      ]
+     ]
+    ],
+    "reqs": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "rules": [
+     0
+    ]
+   }
+  },
+  "delta": [
+   {
+    "arity": 1,
+    "kind": "form"
+   },
+   {
+    "form": 0,
+    "kind": "rule_all"
+   },
+   {
+    "args": [
+     2
+    ],
+    "form": 1,
+    "kind": "inst"
+   }
+  ],
+  "diagnostics": {
+   "classes_after": 2,
+   "contains_rule": true,
+   "fresh_datum": false,
+   "fresh_form": true,
+   "instantiates_ruled_form": false,
+   "kinds": [
+    "form",
+    "inst",
+    "rule"
+   ],
+   "other_pairs_flipped": [],
+   "ruled_forms_after": 1,
+   "third_party_changed": [
+    2
+   ]
+  },
+  "items": 3,
+  "mu2": [
+   3,
+   1
+  ],
+  "same_requirements": [
+   [
+    0,
+    1
+   ]
+  ],
+  "valid": true,
+  "within_two_item_bound": false
+ },
+ "paths": {
+  "focused": {
+   "first": {
+    "after": {
+     "answers": [
+      [
+       true,
+       true
+      ],
+      [
+       true,
+       true
+      ],
+      [
+       false,
+       false
+      ]
+     ],
+     "classes": 2,
+     "collapsed_pairs": [
+      [
+       0,
+       1
+      ]
+     ],
+     "contexts": [
+      [
+       0,
+       [
+        null
+       ]
+      ],
+      [
+       1,
+       [
+        null
+       ]
+      ]
+     ],
+     "regime": {
+      "data": [
+       "<>",
+       "<a>",
+       "<ab>"
+      ],
+      "forms": [
+       1,
+       1
+      ],
+      "insts": [
+       [
+        0,
+        [
+         0
+        ]
+       ],
+       [
+        0,
+        [
+         1
+        ]
+       ],
+       [
+        1,
+        [
+         0
+        ]
+       ],
+       [
+        1,
+        [
+         1
+        ]
+       ]
+      ],
+      "reqs": [],
+      "rules": []
+     }
+    },
+    "delta": [
+     {
+      "args": [
+       1
+      ],
+      "form": 1,
+      "kind": "inst"
+     }
+    ],
+    "diagnostics": {
+     "classes_after": 2,
+     "contains_rule": false,
+     "fresh_datum": false,
+     "fresh_form": false,
+     "instantiates_ruled_form": false,
+     "kinds": [
+      "inst"
+     ],
+     "other_pairs_flipped": [],
+     "ruled_forms_after": 0,
+     "third_party_changed": []
+    },
+    "items": 1,
+    "mu2": [
+     1,
+     0
+    ],
+    "same_requirements": [
+     [
+      0,
+      1
+     ]
+    ],
+    "valid": true,
+    "within_two_item_bound": true
+   },
+   "least_total_items_along_this_choice": 3,
+   "next": {
+    "candidate_count": 94,
+    "classes": [
+     [
+      0
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      3
+     ]
+    ],
+    "measure": "mu1",
+    "minimum": 2,
+    "minimum_without_rules": 2,
+    "responses": [
+     {
+      "after": {
+       "answers": [
+        [
+         true,
+         true
+        ],
+        [
+         true,
+         true
+        ],
+        [
+         true,
+         true
+        ]
+       ],
+       "classes": 1,
+       "collapsed_pairs": [
+        [
+         0,
+         1
+        ],
+        [
+         0,
+         2
+        ],
+        [
+         1,
+         2
+        ]
+       ],
+       "contexts": [
+        [
+         0,
+         [
+          null
+         ]
+        ],
+        [
+         1,
+         [
+          null
+         ]
+        ]
+       ],
+       "regime": {
+        "data": [
+         "<>",
+         "<a>",
+         "<ab>"
+        ],
+        "forms": [
+         1,
+         1
+        ],
+        "insts": [
+         [
+          0,
+          [
+           0
+          ]
+         ],
+         [
+          0,
+          [
+           1
+          ]
+         ],
+         [
+          1,
+          [
+           0
+          ]
+         ],
+         [
+          1,
+          [
+           1
+          ]
+         ]
+        ],
+        "reqs": [],
+        "rules": [
+         0,
+         1
+        ]
+       }
+      },
+      "delta": [
+       {
+        "form": 0,
+        "kind": "rule_all"
+       },
+       {
+        "form": 1,
+        "kind": "rule_all"
+       }
+      ],
+      "diagnostics": {
+       "classes_after": 1,
+       "contains_rule": true,
+       "fresh_datum": false,
+       "fresh_form": false,
+       "instantiates_ruled_form": false,
+       "kinds": [
+        "rule",
+        "rule"
+       ],
+       "other_pairs_flipped": [
+        [
+         1,
+         2
+        ]
+       ],
+       "ruled_forms_after": 2,
+       "third_party_changed": []
+      },
+      "items": 2,
+      "mu2": [
+       2,
+       0
+      ],
+      "same_requirements": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "valid": true,
+      "within_two_item_bound": true
+     },
+     {
+      "after": {
+       "answers": [
+        [
+         true,
+         true
+        ],
+        [
+         true,
+         true
+        ],
+        [
+         true,
+         true
+        ]
+       ],
+       "classes": 1,
+       "collapsed_pairs": [
+        [
+         0,
+         1
+        ],
+        [
+         0,
+         2
+        ],
+        [
+         1,
+         2
+        ]
+       ],
+       "contexts": [
+        [
+         0,
+         [
+          null
+         ]
+        ],
+        [
+         1,
+         [
+          null
+         ]
+        ]
+       ],
+       "regime": {
+        "data": [
+         "<>",
+         "<a>",
+         "<ab>"
+        ],
+        "forms": [
+         1,
+         1
+        ],
+        "insts": [
+         [
+          0,
+          [
+           0
+          ]
+         ],
+         [
+          0,
+          [
+           1
+          ]
+         ],
+         [
+          1,
+          [
+           0
+          ]
+         ],
+         [
+          1,
+          [
+           1
+          ]
+         ],
+         [
+          1,
+          [
+           2
+          ]
+         ]
+        ],
+        "reqs": [],
+        "rules": [
+         0
+        ]
+       }
+      },
+      "delta": [
+       {
+        "form": 0,
+        "kind": "rule_all"
+       },
+       {
+        "args": [
+         2
+        ],
+        "form": 1,
+        "kind": "inst"
+       }
+      ],
+      "diagnostics": {
+       "classes_after": 1,
+       "contains_rule": true,
+       "fresh_datum": false,
+       "fresh_form": false,
+       "instantiates_ruled_form": false,
+       "kinds": [
+        "inst",
+        "rule"
+       ],
+       "other_pairs_flipped": [
+        [
+         1,
+         2
+        ]
+       ],
+       "ruled_forms_after": 1,
+       "third_party_changed": []
+      },
+      "items": 2,
+      "mu2": [
+       2,
+       0
+      ],
+      "same_requirements": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "valid": true,
+      "within_two_item_bound": true
+     },
+     {
+      "after": {
+       "answers": [
+        [
+         true,
+         true
+        ],
+        [
+         true,
+         true
+        ],
+        [
+         true,
+         true
+        ]
+       ],
+       "classes": 1,
+       "collapsed_pairs": [
+        [
+         0,
+         1
+        ],
+        [
+         0,
+         2
+        ],
+        [
+         1,
+         2
+        ]
+       ],
+       "contexts": [
+        [
+         0,
+         [
+          null
+         ]
+        ],
+        [
+         1,
+         [
+          null
+         ]
+        ]
+       ],
+       "regime": {
+        "data": [
+         "<>",
+         "<a>",
+         "<ab>"
+        ],
+        "forms": [
+         1,
+         1
+        ],
+        "insts": [
+         [
+          0,
+          [
+           0
+          ]
+         ],
+         [
+          0,
+          [
+           1
+          ]
+         ],
+         [
+          0,
+          [
+           2
+          ]
+         ],
+         [
+          1,
+          [
+           0
+          ]
+         ],
+         [
+          1,
+          [
+           1
+          ]
+         ]
+        ],
+        "reqs": [],
+        "rules": [
+         1
+        ]
+       }
+      },
+      "delta": [
+       {
+        "form": 1,
+        "kind": "rule_all"
+       },
+       {
+        "args": [
+         2
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      "diagnostics": {
+       "classes_after": 1,
+       "contains_rule": true,
+       "fresh_datum": false,
+       "fresh_form": false,
+       "instantiates_ruled_form": false,
+       "kinds": [
+        "inst",
+        "rule"
+       ],
+       "other_pairs_flipped": [
+        [
+         1,
+         2
+        ]
+       ],
+       "ruled_forms_after": 1,
+       "third_party_changed": []
+      },
+      "items": 2,
+      "mu2": [
+       2,
+       0
+      ],
+      "same_requirements": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "valid": true,
+      "within_two_item_bound": true
+     },
+     {
+      "after": {
+       "answers": [
+        [
+         true,
+         true
+        ],
+        [
+         true,
+         true
+        ],
+        [
+         true,
+         true
+        ]
+       ],
+       "classes": 1,
+       "collapsed_pairs": [
+        [
+         0,
+         1
+        ],
+        [
+         0,
+         2
+        ],
+        [
+         1,
+         2
+        ]
+       ],
+       "contexts": [
+        [
+         0,
+         [
+          null
+         ]
+        ],
+        [
+         1,
+         [
+          null
+         ]
+        ]
+       ],
+       "regime": {
+        "data": [
+         "<>",
+         "<a>",
+         "<ab>"
+        ],
+        "forms": [
+         1,
+         1
+        ],
+        "insts": [
+         [
+          0,
+          [
+           0
+          ]
+         ],
+         [
+          0,
+          [
+           1
+          ]
+         ],
+         [
+          0,
+          [
+           2
+          ]
+         ],
+         [
+          1,
+          [
+           0
+          ]
+         ],
+         [
+          1,
+          [
+           1
+          ]
+         ],
+         [
+          1,
+          [
+           2
+          ]
+         ]
+        ],
+        "reqs": [],
+        "rules": []
+       }
+      },
+      "delta": [
+       {
+        "args": [
+         2
+        ],
+        "form": 0,
+        "kind": "inst"
+       },
+       {
+        "args": [
+         2
+        ],
+        "form": 1,
+        "kind": "inst"
+       }
+      ],
+      "diagnostics": {
+       "classes_after": 1,
+       "contains_rule": false,
+       "fresh_datum": false,
+       "fresh_form": false,
+       "instantiates_ruled_form": false,
+       "kinds": [
+        "inst",
+        "inst"
+       ],
+       "other_pairs_flipped": [
+        [
+         1,
+         2
+        ]
+       ],
+       "ruled_forms_after": 0,
+       "third_party_changed": []
+      },
+      "items": 2,
+      "mu2": [
+       2,
+       0
+      ],
+      "same_requirements": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "valid": true,
+      "within_two_item_bound": true
+     }
+    ],
+    "target": [
+     0,
+     2
+    ],
+    "valid_by_item_count": [
+     0,
+     0,
+     4
+    ]
+   }
+  },
+  "uniform": {
+   "first": {
+    "after": {
+     "answers": [
+      [
+       true,
+       true
+      ],
+      [
+       true,
+       true
+      ],
+      [
+       false,
+       true
+      ]
+     ],
+     "classes": 2,
+     "collapsed_pairs": [
+      [
+       0,
+       1
+      ]
+     ],
+     "contexts": [
+      [
+       0,
+       [
+        null
+       ]
+      ],
+      [
+       1,
+       [
+        null
+       ]
+      ]
+     ],
+     "regime": {
+      "data": [
+       "<>",
+       "<a>",
+       "<ab>"
+      ],
+      "forms": [
+       1,
+       1
+      ],
+      "insts": [
+       [
+        0,
+        [
+         0
+        ]
+       ],
+       [
+        0,
+        [
+         1
+        ]
+       ],
+       [
+        1,
+        [
+         0
+        ]
+       ]
+      ],
+      "reqs": [],
+      "rules": [
+       1
+      ]
+     }
+    },
+    "delta": [
+     {
+      "form": 1,
+      "kind": "rule_all"
+     }
+    ],
+    "diagnostics": {
+     "classes_after": 2,
+     "contains_rule": true,
+     "fresh_datum": false,
+     "fresh_form": false,
+     "instantiates_ruled_form": false,
+     "kinds": [
+      "rule"
+     ],
+     "other_pairs_flipped": [],
+     "ruled_forms_after": 1,
+     "third_party_changed": [
+      2
+     ]
+    },
+    "items": 1,
+    "mu2": [
+     1,
+     0
+    ],
+    "same_requirements": [
+     [
+      0,
+      1
+     ]
+    ],
+    "valid": true,
+    "within_two_item_bound": true
+   },
+   "least_total_items_along_this_choice": 2,
+   "next": {
+    "candidate_count": 82,
+    "classes": [
+     [
+      0
+     ],
+     [
+      1
+     ]
+    ],
+    "measure": "mu1",
+    "minimum": 1,
+    "minimum_without_rules": 1,
+    "responses": [
+     {
+      "after": {
+       "answers": [
+        [
+         true,
+         true
+        ],
+        [
+         true,
+         true
+        ],
+        [
+         true,
+         true
+        ]
+       ],
+       "classes": 1,
+       "collapsed_pairs": [
+        [
+         0,
+         1
+        ],
+        [
+         0,
+         2
+        ],
+        [
+         1,
+         2
+        ]
+       ],
+       "contexts": [
+        [
+         0,
+         [
+          null
+         ]
+        ],
+        [
+         1,
+         [
+          null
+         ]
+        ]
+       ],
+       "regime": {
+        "data": [
+         "<>",
+         "<a>",
+         "<ab>"
+        ],
+        "forms": [
+         1,
+         1
+        ],
+        "insts": [
+         [
+          0,
+          [
+           0
+          ]
+         ],
+         [
+          0,
+          [
+           1
+          ]
+         ],
+         [
+          1,
+          [
+           0
+          ]
+         ]
+        ],
+        "reqs": [],
+        "rules": [
+         0,
+         1
+        ]
+       }
+      },
+      "delta": [
+       {
+        "form": 0,
+        "kind": "rule_all"
+       }
+      ],
+      "diagnostics": {
+       "classes_after": 1,
+       "contains_rule": true,
+       "fresh_datum": false,
+       "fresh_form": false,
+       "instantiates_ruled_form": false,
+       "kinds": [
+        "rule"
+       ],
+       "other_pairs_flipped": [
+        [
+         1,
+         2
+        ]
+       ],
+       "ruled_forms_after": 2,
+       "third_party_changed": []
+      },
+      "items": 1,
+      "mu2": [
+       1,
+       0
+      ],
+      "same_requirements": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "valid": true,
+      "within_two_item_bound": true
+     },
+     {
+      "after": {
+       "answers": [
+        [
+         true,
+         true
+        ],
+        [
+         true,
+         true
+        ],
+        [
+         true,
+         true
+        ]
+       ],
+       "classes": 1,
+       "collapsed_pairs": [
+        [
+         0,
+         1
+        ],
+        [
+         0,
+         2
+        ],
+        [
+         1,
+         2
+        ]
+       ],
+       "contexts": [
+        [
+         0,
+         [
+          null
+         ]
+        ],
+        [
+         1,
+         [
+          null
+         ]
+        ]
+       ],
+       "regime": {
+        "data": [
+         "<>",
+         "<a>",
+         "<ab>"
+        ],
+        "forms": [
+         1,
+         1
+        ],
+        "insts": [
+         [
+          0,
+          [
+           0
+          ]
+         ],
+         [
+          0,
+          [
+           1
+          ]
+         ],
+         [
+          0,
+          [
+           2
+          ]
+         ],
+         [
+          1,
+          [
+           0
+          ]
+         ]
+        ],
+        "reqs": [],
+        "rules": [
+         1
+        ]
+       }
+      },
+      "delta": [
+       {
+        "args": [
+         2
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ],
+      "diagnostics": {
+       "classes_after": 1,
+       "contains_rule": false,
+       "fresh_datum": false,
+       "fresh_form": false,
+       "instantiates_ruled_form": false,
+       "kinds": [
+        "inst"
+       ],
+       "other_pairs_flipped": [
+        [
+         1,
+         2
+        ]
+       ],
+       "ruled_forms_after": 1,
+       "third_party_changed": []
+      },
+      "items": 1,
+      "mu2": [
+       1,
+       0
+      ],
+      "same_requirements": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "valid": true,
+      "within_two_item_bound": true
+     }
+    ],
+    "target": [
+     0,
+     2
+    ],
+    "valid_by_item_count": [
+     0,
+     2,
+     19
+    ]
+   }
+  }
+ },
+ "populations": {
+  "Changed-table practice probes": 2,
+  "Outside-bound replies": 1,
+  "Replayed starting states": 2,
+  "Root pair/setting/measure probes": 24,
+  "Selected continuation branches": 2
+ },
+ "practice": {
+  "before": {
+   "answers": [
+    [
+     true,
+     false
+    ],
+    [
+     false,
+     true
+    ],
+    [
+     false,
+     false
+    ]
+   ],
+   "classes": 3,
+   "collapsed_pairs": [],
+   "contexts": [
+    [
+     0,
+     [
+      null
+     ]
+    ],
+    [
+     1,
+     [
+      null
+     ]
+    ]
+   ],
+   "regime": {
+    "data": [
+     "X",
+     "Y",
+     "Z"
+    ],
+    "forms": [
+     1,
+     1
+    ],
+    "insts": [
+     [
+      0,
+      [
+       0
+      ]
+     ],
+     [
+      1,
+      [
+       1
+      ]
+     ]
+    ],
+    "reqs": [],
+    "rules": []
+   }
+  },
+  "classification": "Supplied book example, not a research campaign state",
+  "history": [
+   {
+    "event": "admit_datum",
+    "token": "X"
+   },
+   {
+    "event": "admit_datum",
+    "token": "Y"
+   },
+   {
+    "event": "admit_datum",
+    "token": "Z"
+   },
+   {
+    "arity": 1,
+    "event": "admit_form"
+   },
+   {
+    "arity": 1,
+    "event": "admit_form"
+   },
+   {
+    "args": [
+     0
+    ],
+    "event": "admit_inst",
+    "form": 0
+   },
+   {
+    "args": [
+     1
+    ],
+    "event": "admit_inst",
+    "form": 1
+   }
+  ],
+  "probe": {
+   "candidate_count": 94,
+   "classes": [
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     3
+    ]
+   ],
+   "measure": "mu1",
+   "minimum": 2,
+   "minimum_without_rules": 2,
+   "responses": [
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        true
+       ]
+      ],
+      "classes": 1,
+      "collapsed_pairs": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null
+        ]
+       ],
+       [
+        1,
+        [
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "X",
+        "Y",
+        "Z"
+       ],
+       "forms": [
+        1,
+        1
+       ],
+       "insts": [
+        [
+         0,
+         [
+          0
+         ]
+        ],
+        [
+         1,
+         [
+          1
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": [
+        0,
+        1
+       ]
+      }
+     },
+     "delta": [
+      {
+       "form": 0,
+       "kind": "rule_all"
+      },
+      {
+       "form": 1,
+       "kind": "rule_all"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 1,
+      "contains_rule": true,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "rule",
+       "rule"
+      ],
+      "other_pairs_flipped": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "ruled_forms_after": 2,
+      "third_party_changed": [
+       2
+      ]
+     },
+     "items": 2,
+     "mu2": [
+      2,
+      0
+     ],
+     "same_requirements": [
+      [
+       0,
+       1
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    },
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        false
+       ]
+      ],
+      "classes": 2,
+      "collapsed_pairs": [
+       [
+        0,
+        1
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null
+        ]
+       ],
+       [
+        1,
+        [
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "X",
+        "Y",
+        "Z"
+       ],
+       "forms": [
+        1,
+        1
+       ],
+       "insts": [
+        [
+         0,
+         [
+          0
+         ]
+        ],
+        [
+         1,
+         [
+          0
+         ]
+        ],
+        [
+         1,
+         [
+          1
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": [
+        0
+       ]
+      }
+     },
+     "delta": [
+      {
+       "form": 0,
+       "kind": "rule_all"
+      },
+      {
+       "args": [
+        0
+       ],
+       "form": 1,
+       "kind": "inst"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 2,
+      "contains_rule": true,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "inst",
+       "rule"
+      ],
+      "other_pairs_flipped": [],
+      "ruled_forms_after": 1,
+      "third_party_changed": [
+       2
+      ]
+     },
+     "items": 2,
+     "mu2": [
+      2,
+      0
+     ],
+     "same_requirements": [
+      [
+       0,
+       1
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    },
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        true
+       ],
+       [
+        false,
+        true
+       ]
+      ],
+      "classes": 2,
+      "collapsed_pairs": [
+       [
+        0,
+        1
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null
+        ]
+       ],
+       [
+        1,
+        [
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "X",
+        "Y",
+        "Z"
+       ],
+       "forms": [
+        1,
+        1
+       ],
+       "insts": [
+        [
+         0,
+         [
+          0
+         ]
+        ],
+        [
+         0,
+         [
+          1
+         ]
+        ],
+        [
+         1,
+         [
+          1
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": [
+        1
+       ]
+      }
+     },
+     "delta": [
+      {
+       "form": 1,
+       "kind": "rule_all"
+      },
+      {
+       "args": [
+        1
+       ],
+       "form": 0,
+       "kind": "inst"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 2,
+      "contains_rule": true,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "inst",
+       "rule"
+      ],
+      "other_pairs_flipped": [],
+      "ruled_forms_after": 1,
+      "third_party_changed": [
+       2
+      ]
+     },
+     "items": 2,
+     "mu2": [
+      2,
+      0
+     ],
+     "same_requirements": [
+      [
+       0,
+       1
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    },
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        true
+       ],
+       [
+        false,
+        false
+       ]
+      ],
+      "classes": 2,
+      "collapsed_pairs": [
+       [
+        0,
+        1
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null
+        ]
+       ],
+       [
+        1,
+        [
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "X",
+        "Y",
+        "Z"
+       ],
+       "forms": [
+        1,
+        1
+       ],
+       "insts": [
+        [
+         0,
+         [
+          0
+         ]
+        ],
+        [
+         0,
+         [
+          1
+         ]
+        ],
+        [
+         1,
+         [
+          0
+         ]
+        ],
+        [
+         1,
+         [
+          1
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": []
+      }
+     },
+     "delta": [
+      {
+       "args": [
+        1
+       ],
+       "form": 0,
+       "kind": "inst"
+      },
+      {
+       "args": [
+        0
+       ],
+       "form": 1,
+       "kind": "inst"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 2,
+      "contains_rule": false,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "inst",
+       "inst"
+      ],
+      "other_pairs_flipped": [],
+      "ruled_forms_after": 0,
+      "third_party_changed": []
+     },
+     "items": 2,
+     "mu2": [
+      2,
+      0
+     ],
+     "same_requirements": [
+      [
+       0,
+       1
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    }
+   ],
+   "target": [
+    0,
+    1
+   ],
+   "valid_by_item_count": [
+    0,
+    0,
+    4
+   ]
+  },
+  "promised_probe": {
+   "candidate_count": 94,
+   "classes": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "measure": "mu1",
+   "minimum": 2,
+   "minimum_without_rules": 2,
+   "responses": [
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        false
+       ]
+      ],
+      "classes": 2,
+      "collapsed_pairs": [
+       [
+        0,
+        1
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null
+        ]
+       ],
+       [
+        1,
+        [
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "X",
+        "Y",
+        "Z"
+       ],
+       "forms": [
+        1,
+        1
+       ],
+       "insts": [
+        [
+         0,
+         [
+          0
+         ]
+        ],
+        [
+         1,
+         [
+          0
+         ]
+        ],
+        [
+         1,
+         [
+          1
+         ]
+        ]
+       ],
+       "reqs": [
+        [
+         0,
+         2
+        ],
+        [
+         1,
+         2
+        ]
+       ],
+       "rules": [
+        0
+       ]
+      }
+     },
+     "delta": [
+      {
+       "form": 0,
+       "kind": "rule_all"
+      },
+      {
+       "args": [
+        0
+       ],
+       "form": 1,
+       "kind": "inst"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 2,
+      "contains_rule": true,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "inst",
+       "rule"
+      ],
+      "other_pairs_flipped": [],
+      "ruled_forms_after": 1,
+      "third_party_changed": [
+       2
+      ]
+     },
+     "items": 2,
+     "mu2": [
+      2,
+      0
+     ],
+     "same_requirements": [
+      [
+       0,
+       1
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    },
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        true
+       ],
+       [
+        false,
+        true
+       ]
+      ],
+      "classes": 2,
+      "collapsed_pairs": [
+       [
+        0,
+        1
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null
+        ]
+       ],
+       [
+        1,
+        [
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "X",
+        "Y",
+        "Z"
+       ],
+       "forms": [
+        1,
+        1
+       ],
+       "insts": [
+        [
+         0,
+         [
+          0
+         ]
+        ],
+        [
+         0,
+         [
+          1
+         ]
+        ],
+        [
+         1,
+         [
+          1
+         ]
+        ]
+       ],
+       "reqs": [
+        [
+         0,
+         2
+        ],
+        [
+         1,
+         2
+        ]
+       ],
+       "rules": [
+        1
+       ]
+      }
+     },
+     "delta": [
+      {
+       "form": 1,
+       "kind": "rule_all"
+      },
+      {
+       "args": [
+        1
+       ],
+       "form": 0,
+       "kind": "inst"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 2,
+      "contains_rule": true,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "inst",
+       "rule"
+      ],
+      "other_pairs_flipped": [],
+      "ruled_forms_after": 1,
+      "third_party_changed": [
+       2
+      ]
+     },
+     "items": 2,
+     "mu2": [
+      2,
+      0
+     ],
+     "same_requirements": [
+      [
+       0,
+       1
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    },
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        true
+       ],
+       [
+        false,
+        false
+       ]
+      ],
+      "classes": 2,
+      "collapsed_pairs": [
+       [
+        0,
+        1
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null
+        ]
+       ],
+       [
+        1,
+        [
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "X",
+        "Y",
+        "Z"
+       ],
+       "forms": [
+        1,
+        1
+       ],
+       "insts": [
+        [
+         0,
+         [
+          0
+         ]
+        ],
+        [
+         0,
+         [
+          1
+         ]
+        ],
+        [
+         1,
+         [
+          0
+         ]
+        ],
+        [
+         1,
+         [
+          1
+         ]
+        ]
+       ],
+       "reqs": [
+        [
+         0,
+         2
+        ],
+        [
+         1,
+         2
+        ]
+       ],
+       "rules": []
+      }
+     },
+     "delta": [
+      {
+       "args": [
+        1
+       ],
+       "form": 0,
+       "kind": "inst"
+      },
+      {
+       "args": [
+        0
+       ],
+       "form": 1,
+       "kind": "inst"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 2,
+      "contains_rule": false,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "inst",
+       "inst"
+      ],
+      "other_pairs_flipped": [],
+      "ruled_forms_after": 0,
+      "third_party_changed": []
+     },
+     "items": 2,
+     "mu2": [
+      2,
+      0
+     ],
+     "same_requirements": [
+      [
+       0,
+       1
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    }
+   ],
+   "target": [
+    0,
+    1
+   ],
+   "valid_by_item_count": [
+    0,
+    0,
+    3
+   ]
+  }
+ },
+ "probes": {
+  "g00_keep_01_mu1": {
+   "candidate_count": 94,
+   "classes": [],
+   "measure": "mu1",
+   "minimum": null,
+   "minimum_without_rules": null,
+   "responses": [],
+   "target": [
+    0,
+    1
+   ],
+   "valid_by_item_count": [
+    0,
+    0,
+    0
+   ]
+  },
+  "g00_keep_01_mu2": {
+   "candidate_count": 94,
+   "classes": [],
+   "measure": "mu2",
+   "minimum": null,
+   "minimum_without_rules": null,
+   "responses": [],
+   "target": [
+    0,
+    1
+   ],
+   "valid_by_item_count": [
+    0,
+    0,
+    0
+   ]
+  },
+  "g00_keep_02_mu1": {
+   "candidate_count": 94,
+   "classes": [],
+   "measure": "mu1",
+   "minimum": null,
+   "minimum_without_rules": null,
+   "responses": [],
+   "target": [
+    0,
+    2
+   ],
+   "valid_by_item_count": [
+    0,
+    0,
+    0
+   ]
+  },
+  "g00_keep_02_mu2": {
+   "candidate_count": 94,
+   "classes": [],
+   "measure": "mu2",
+   "minimum": null,
+   "minimum_without_rules": null,
+   "responses": [],
+   "target": [
+    0,
+    2
+   ],
+   "valid_by_item_count": [
+    0,
+    0,
+    0
+   ]
+  },
+  "g00_keep_12_mu1": {
+   "candidate_count": 94,
+   "classes": [],
+   "measure": "mu1",
+   "minimum": null,
+   "minimum_without_rules": null,
+   "responses": [],
+   "target": [
+    1,
+    2
+   ],
+   "valid_by_item_count": [
+    0,
+    0,
+    0
+   ]
+  },
+  "g00_keep_12_mu2": {
+   "candidate_count": 94,
+   "classes": [],
+   "measure": "mu2",
+   "minimum": null,
+   "minimum_without_rules": null,
+   "responses": [],
+   "target": [
+    1,
+    2
+   ],
+   "valid_by_item_count": [
+    0,
+    0,
+    0
+   ]
+  },
+  "g00_release_01_mu1": {
+   "candidate_count": 94,
+   "classes": [
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "measure": "mu1",
+   "minimum": 1,
+   "minimum_without_rules": 1,
+   "responses": [
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        true
+       ],
+       [
+        false,
+        true
+       ]
+      ],
+      "classes": 2,
+      "collapsed_pairs": [
+       [
+        0,
+        1
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null
+        ]
+       ],
+       [
+        1,
+        [
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "<>",
+        "<a>",
+        "<ab>"
+       ],
+       "forms": [
+        1,
+        1
+       ],
+       "insts": [
+        [
+         0,
+         [
+          0
+         ]
+        ],
+        [
+         0,
+         [
+          1
+         ]
+        ],
+        [
+         1,
+         [
+          0
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": [
+        1
+       ]
+      }
+     },
+     "delta": [
+      {
+       "form": 1,
+       "kind": "rule_all"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 2,
+      "contains_rule": true,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "rule"
+      ],
+      "other_pairs_flipped": [],
+      "ruled_forms_after": 1,
+      "third_party_changed": [
+       2
+      ]
+     },
+     "items": 1,
+     "mu2": [
+      1,
+      0
+     ],
+     "same_requirements": [
+      [
+       0,
+       1
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    },
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        true
+       ],
+       [
+        false,
+        false
+       ]
+      ],
+      "classes": 2,
+      "collapsed_pairs": [
+       [
+        0,
+        1
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null
+        ]
+       ],
+       [
+        1,
+        [
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "<>",
+        "<a>",
+        "<ab>"
+       ],
+       "forms": [
+        1,
+        1
+       ],
+       "insts": [
+        [
+         0,
+         [
+          0
+         ]
+        ],
+        [
+         0,
+         [
+          1
+         ]
+        ],
+        [
+         1,
+         [
+          0
+         ]
+        ],
+        [
+         1,
+         [
+          1
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": []
+      }
+     },
+     "delta": [
+      {
+       "args": [
+        1
+       ],
+       "form": 1,
+       "kind": "inst"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 2,
+      "contains_rule": false,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "inst"
+      ],
+      "other_pairs_flipped": [],
+      "ruled_forms_after": 0,
+      "third_party_changed": []
+     },
+     "items": 1,
+     "mu2": [
+      1,
+      0
+     ],
+     "same_requirements": [
+      [
+       0,
+       1
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    }
+   ],
+   "target": [
+    0,
+    1
+   ],
+   "valid_by_item_count": [
+    0,
+    2,
+    21
+   ]
+  },
+  "g00_release_01_mu2": {
+   "candidate_count": 94,
+   "classes": [
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "measure": "mu2",
+   "minimum": [
+    1,
+    0
+   ],
+   "minimum_without_rules": 1,
+   "responses": [
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        true
+       ],
+       [
+        false,
+        true
+       ]
+      ],
+      "classes": 2,
+      "collapsed_pairs": [
+       [
+        0,
+        1
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null
+        ]
+       ],
+       [
+        1,
+        [
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "<>",
+        "<a>",
+        "<ab>"
+       ],
+       "forms": [
+        1,
+        1
+       ],
+       "insts": [
+        [
+         0,
+         [
+          0
+         ]
+        ],
+        [
+         0,
+         [
+          1
+         ]
+        ],
+        [
+         1,
+         [
+          0
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": [
+        1
+       ]
+      }
+     },
+     "delta": [
+      {
+       "form": 1,
+       "kind": "rule_all"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 2,
+      "contains_rule": true,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "rule"
+      ],
+      "other_pairs_flipped": [],
+      "ruled_forms_after": 1,
+      "third_party_changed": [
+       2
+      ]
+     },
+     "items": 1,
+     "mu2": [
+      1,
+      0
+     ],
+     "same_requirements": [
+      [
+       0,
+       1
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    },
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        true
+       ],
+       [
+        false,
+        false
+       ]
+      ],
+      "classes": 2,
+      "collapsed_pairs": [
+       [
+        0,
+        1
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null
+        ]
+       ],
+       [
+        1,
+        [
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "<>",
+        "<a>",
+        "<ab>"
+       ],
+       "forms": [
+        1,
+        1
+       ],
+       "insts": [
+        [
+         0,
+         [
+          0
+         ]
+        ],
+        [
+         0,
+         [
+          1
+         ]
+        ],
+        [
+         1,
+         [
+          0
+         ]
+        ],
+        [
+         1,
+         [
+          1
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": []
+      }
+     },
+     "delta": [
+      {
+       "args": [
+        1
+       ],
+       "form": 1,
+       "kind": "inst"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 2,
+      "contains_rule": false,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "inst"
+      ],
+      "other_pairs_flipped": [],
+      "ruled_forms_after": 0,
+      "third_party_changed": []
+     },
+     "items": 1,
+     "mu2": [
+      1,
+      0
+     ],
+     "same_requirements": [
+      [
+       0,
+       1
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    }
+   ],
+   "target": [
+    0,
+    1
+   ],
+   "valid_by_item_count": [
+    0,
+    2,
+    21
+   ]
+  },
+  "g00_release_02_mu1": {
+   "candidate_count": 94,
+   "classes": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ]
+   ],
+   "measure": "mu1",
+   "minimum": 2,
+   "minimum_without_rules": 2,
+   "responses": [
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        true
+       ]
+      ],
+      "classes": 1,
+      "collapsed_pairs": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null
+        ]
+       ],
+       [
+        1,
+        [
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "<>",
+        "<a>",
+        "<ab>"
+       ],
+       "forms": [
+        1,
+        1
+       ],
+       "insts": [
+        [
+         0,
+         [
+          0
+         ]
+        ],
+        [
+         0,
+         [
+          1
+         ]
+        ],
+        [
+         1,
+         [
+          0
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": [
+        0,
+        1
+       ]
+      }
+     },
+     "delta": [
+      {
+       "form": 0,
+       "kind": "rule_all"
+      },
+      {
+       "form": 1,
+       "kind": "rule_all"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 1,
+      "contains_rule": true,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "rule",
+       "rule"
+      ],
+      "other_pairs_flipped": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "ruled_forms_after": 2,
+      "third_party_changed": [
+       1
+      ]
+     },
+     "items": 2,
+     "mu2": [
+      2,
+      0
+     ],
+     "same_requirements": [
+      [
+       0,
+       2
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    },
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        false
+       ],
+       [
+        true,
+        true
+       ]
+      ],
+      "classes": 2,
+      "collapsed_pairs": [
+       [
+        0,
+        2
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null
+        ]
+       ],
+       [
+        1,
+        [
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "<>",
+        "<a>",
+        "<ab>"
+       ],
+       "forms": [
+        1,
+        1
+       ],
+       "insts": [
+        [
+         0,
+         [
+          0
+         ]
+        ],
+        [
+         0,
+         [
+          1
+         ]
+        ],
+        [
+         1,
+         [
+          0
+         ]
+        ],
+        [
+         1,
+         [
+          2
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": [
+        0
+       ]
+      }
+     },
+     "delta": [
+      {
+       "form": 0,
+       "kind": "rule_all"
+      },
+      {
+       "args": [
+        2
+       ],
+       "form": 1,
+       "kind": "inst"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 2,
+      "contains_rule": true,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "inst",
+       "rule"
+      ],
+      "other_pairs_flipped": [],
+      "ruled_forms_after": 1,
+      "third_party_changed": []
+     },
+     "items": 2,
+     "mu2": [
+      2,
+      0
+     ],
+     "same_requirements": [
+      [
+       0,
+       2
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    },
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        true
+       ]
+      ],
+      "classes": 1,
+      "collapsed_pairs": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null
+        ]
+       ],
+       [
+        1,
+        [
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "<>",
+        "<a>",
+        "<ab>"
+       ],
+       "forms": [
+        1,
+        1
+       ],
+       "insts": [
+        [
+         0,
+         [
+          0
+         ]
+        ],
+        [
+         0,
+         [
+          1
+         ]
+        ],
+        [
+         0,
+         [
+          2
+         ]
+        ],
+        [
+         1,
+         [
+          0
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": [
+        1
+       ]
+      }
+     },
+     "delta": [
+      {
+       "form": 1,
+       "kind": "rule_all"
+      },
+      {
+       "args": [
+        2
+       ],
+       "form": 0,
+       "kind": "inst"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 1,
+      "contains_rule": true,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "inst",
+       "rule"
+      ],
+      "other_pairs_flipped": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "ruled_forms_after": 1,
+      "third_party_changed": [
+       1
+      ]
+     },
+     "items": 2,
+     "mu2": [
+      2,
+      0
+     ],
+     "same_requirements": [
+      [
+       0,
+       2
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    },
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        false
+       ],
+       [
+        true,
+        true
+       ]
+      ],
+      "classes": 2,
+      "collapsed_pairs": [
+       [
+        0,
+        2
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null
+        ]
+       ],
+       [
+        1,
+        [
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "<>",
+        "<a>",
+        "<ab>"
+       ],
+       "forms": [
+        1,
+        1
+       ],
+       "insts": [
+        [
+         0,
+         [
+          0
+         ]
+        ],
+        [
+         0,
+         [
+          1
+         ]
+        ],
+        [
+         0,
+         [
+          2
+         ]
+        ],
+        [
+         1,
+         [
+          0
+         ]
+        ],
+        [
+         1,
+         [
+          2
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": []
+      }
+     },
+     "delta": [
+      {
+       "args": [
+        2
+       ],
+       "form": 0,
+       "kind": "inst"
+      },
+      {
+       "args": [
+        2
+       ],
+       "form": 1,
+       "kind": "inst"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 2,
+      "contains_rule": false,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "inst",
+       "inst"
+      ],
+      "other_pairs_flipped": [],
+      "ruled_forms_after": 0,
+      "third_party_changed": []
+     },
+     "items": 2,
+     "mu2": [
+      2,
+      0
+     ],
+     "same_requirements": [
+      [
+       0,
+       2
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    }
+   ],
+   "target": [
+    0,
+    2
+   ],
+   "valid_by_item_count": [
+    0,
+    0,
+    4
+   ]
+  },
+  "g00_release_02_mu2": {
+   "candidate_count": 94,
+   "classes": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ]
+   ],
+   "measure": "mu2",
+   "minimum": [
+    2,
+    0
+   ],
+   "minimum_without_rules": 2,
+   "responses": [
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        true
+       ]
+      ],
+      "classes": 1,
+      "collapsed_pairs": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null
+        ]
+       ],
+       [
+        1,
+        [
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "<>",
+        "<a>",
+        "<ab>"
+       ],
+       "forms": [
+        1,
+        1
+       ],
+       "insts": [
+        [
+         0,
+         [
+          0
+         ]
+        ],
+        [
+         0,
+         [
+          1
+         ]
+        ],
+        [
+         1,
+         [
+          0
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": [
+        0,
+        1
+       ]
+      }
+     },
+     "delta": [
+      {
+       "form": 0,
+       "kind": "rule_all"
+      },
+      {
+       "form": 1,
+       "kind": "rule_all"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 1,
+      "contains_rule": true,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "rule",
+       "rule"
+      ],
+      "other_pairs_flipped": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "ruled_forms_after": 2,
+      "third_party_changed": [
+       1
+      ]
+     },
+     "items": 2,
+     "mu2": [
+      2,
+      0
+     ],
+     "same_requirements": [
+      [
+       0,
+       2
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    },
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        false
+       ],
+       [
+        true,
+        true
+       ]
+      ],
+      "classes": 2,
+      "collapsed_pairs": [
+       [
+        0,
+        2
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null
+        ]
+       ],
+       [
+        1,
+        [
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "<>",
+        "<a>",
+        "<ab>"
+       ],
+       "forms": [
+        1,
+        1
+       ],
+       "insts": [
+        [
+         0,
+         [
+          0
+         ]
+        ],
+        [
+         0,
+         [
+          1
+         ]
+        ],
+        [
+         1,
+         [
+          0
+         ]
+        ],
+        [
+         1,
+         [
+          2
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": [
+        0
+       ]
+      }
+     },
+     "delta": [
+      {
+       "form": 0,
+       "kind": "rule_all"
+      },
+      {
+       "args": [
+        2
+       ],
+       "form": 1,
+       "kind": "inst"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 2,
+      "contains_rule": true,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "inst",
+       "rule"
+      ],
+      "other_pairs_flipped": [],
+      "ruled_forms_after": 1,
+      "third_party_changed": []
+     },
+     "items": 2,
+     "mu2": [
+      2,
+      0
+     ],
+     "same_requirements": [
+      [
+       0,
+       2
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    },
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        true
+       ]
+      ],
+      "classes": 1,
+      "collapsed_pairs": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null
+        ]
+       ],
+       [
+        1,
+        [
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "<>",
+        "<a>",
+        "<ab>"
+       ],
+       "forms": [
+        1,
+        1
+       ],
+       "insts": [
+        [
+         0,
+         [
+          0
+         ]
+        ],
+        [
+         0,
+         [
+          1
+         ]
+        ],
+        [
+         0,
+         [
+          2
+         ]
+        ],
+        [
+         1,
+         [
+          0
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": [
+        1
+       ]
+      }
+     },
+     "delta": [
+      {
+       "form": 1,
+       "kind": "rule_all"
+      },
+      {
+       "args": [
+        2
+       ],
+       "form": 0,
+       "kind": "inst"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 1,
+      "contains_rule": true,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "inst",
+       "rule"
+      ],
+      "other_pairs_flipped": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "ruled_forms_after": 1,
+      "third_party_changed": [
+       1
+      ]
+     },
+     "items": 2,
+     "mu2": [
+      2,
+      0
+     ],
+     "same_requirements": [
+      [
+       0,
+       2
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    },
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        false
+       ],
+       [
+        true,
+        true
+       ]
+      ],
+      "classes": 2,
+      "collapsed_pairs": [
+       [
+        0,
+        2
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null
+        ]
+       ],
+       [
+        1,
+        [
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "<>",
+        "<a>",
+        "<ab>"
+       ],
+       "forms": [
+        1,
+        1
+       ],
+       "insts": [
+        [
+         0,
+         [
+          0
+         ]
+        ],
+        [
+         0,
+         [
+          1
+         ]
+        ],
+        [
+         0,
+         [
+          2
+         ]
+        ],
+        [
+         1,
+         [
+          0
+         ]
+        ],
+        [
+         1,
+         [
+          2
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": []
+      }
+     },
+     "delta": [
+      {
+       "args": [
+        2
+       ],
+       "form": 0,
+       "kind": "inst"
+      },
+      {
+       "args": [
+        2
+       ],
+       "form": 1,
+       "kind": "inst"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 2,
+      "contains_rule": false,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "inst",
+       "inst"
+      ],
+      "other_pairs_flipped": [],
+      "ruled_forms_after": 0,
+      "third_party_changed": []
+     },
+     "items": 2,
+     "mu2": [
+      2,
+      0
+     ],
+     "same_requirements": [
+      [
+       0,
+       2
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    }
+   ],
+   "target": [
+    0,
+    2
+   ],
+   "valid_by_item_count": [
+    0,
+    0,
+    4
+   ]
+  },
+  "g00_release_12_mu1": {
+   "candidate_count": 94,
+   "classes": [
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "measure": "mu1",
+   "minimum": 1,
+   "minimum_without_rules": 1,
+   "responses": [
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        false
+       ],
+       [
+        true,
+        false
+       ]
+      ],
+      "classes": 2,
+      "collapsed_pairs": [
+       [
+        1,
+        2
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null
+        ]
+       ],
+       [
+        1,
+        [
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "<>",
+        "<a>",
+        "<ab>"
+       ],
+       "forms": [
+        1,
+        1
+       ],
+       "insts": [
+        [
+         0,
+         [
+          0
+         ]
+        ],
+        [
+         0,
+         [
+          1
+         ]
+        ],
+        [
+         1,
+         [
+          0
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": [
+        0
+       ]
+      }
+     },
+     "delta": [
+      {
+       "form": 0,
+       "kind": "rule_all"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 2,
+      "contains_rule": true,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "rule"
+      ],
+      "other_pairs_flipped": [],
+      "ruled_forms_after": 1,
+      "third_party_changed": []
+     },
+     "items": 1,
+     "mu2": [
+      1,
+      0
+     ],
+     "same_requirements": [
+      [
+       1,
+       2
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    },
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        false
+       ],
+       [
+        true,
+        false
+       ]
+      ],
+      "classes": 2,
+      "collapsed_pairs": [
+       [
+        1,
+        2
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null
+        ]
+       ],
+       [
+        1,
+        [
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "<>",
+        "<a>",
+        "<ab>"
+       ],
+       "forms": [
+        1,
+        1
+       ],
+       "insts": [
+        [
+         0,
+         [
+          0
+         ]
+        ],
+        [
+         0,
+         [
+          1
+         ]
+        ],
+        [
+         0,
+         [
+          2
+         ]
+        ],
+        [
+         1,
+         [
+          0
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": []
+      }
+     },
+     "delta": [
+      {
+       "args": [
+        2
+       ],
+       "form": 0,
+       "kind": "inst"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 2,
+      "contains_rule": false,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "inst"
+      ],
+      "other_pairs_flipped": [],
+      "ruled_forms_after": 0,
+      "third_party_changed": []
+     },
+     "items": 1,
+     "mu2": [
+      1,
+      0
+     ],
+     "same_requirements": [
+      [
+       1,
+       2
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    }
+   ],
+   "target": [
+    1,
+    2
+   ],
+   "valid_by_item_count": [
+    0,
+    2,
+    17
+   ]
+  },
+  "g00_release_12_mu2": {
+   "candidate_count": 94,
+   "classes": [
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "measure": "mu2",
+   "minimum": [
+    1,
+    0
+   ],
+   "minimum_without_rules": 1,
+   "responses": [
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        false
+       ],
+       [
+        true,
+        false
+       ]
+      ],
+      "classes": 2,
+      "collapsed_pairs": [
+       [
+        1,
+        2
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null
+        ]
+       ],
+       [
+        1,
+        [
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "<>",
+        "<a>",
+        "<ab>"
+       ],
+       "forms": [
+        1,
+        1
+       ],
+       "insts": [
+        [
+         0,
+         [
+          0
+         ]
+        ],
+        [
+         0,
+         [
+          1
+         ]
+        ],
+        [
+         1,
+         [
+          0
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": [
+        0
+       ]
+      }
+     },
+     "delta": [
+      {
+       "form": 0,
+       "kind": "rule_all"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 2,
+      "contains_rule": true,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "rule"
+      ],
+      "other_pairs_flipped": [],
+      "ruled_forms_after": 1,
+      "third_party_changed": []
+     },
+     "items": 1,
+     "mu2": [
+      1,
+      0
+     ],
+     "same_requirements": [
+      [
+       1,
+       2
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    },
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true
+       ],
+       [
+        true,
+        false
+       ],
+       [
+        true,
+        false
+       ]
+      ],
+      "classes": 2,
+      "collapsed_pairs": [
+       [
+        1,
+        2
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null
+        ]
+       ],
+       [
+        1,
+        [
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "<>",
+        "<a>",
+        "<ab>"
+       ],
+       "forms": [
+        1,
+        1
+       ],
+       "insts": [
+        [
+         0,
+         [
+          0
+         ]
+        ],
+        [
+         0,
+         [
+          1
+         ]
+        ],
+        [
+         0,
+         [
+          2
+         ]
+        ],
+        [
+         1,
+         [
+          0
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": []
+      }
+     },
+     "delta": [
+      {
+       "args": [
+        2
+       ],
+       "form": 0,
+       "kind": "inst"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 2,
+      "contains_rule": false,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "inst"
+      ],
+      "other_pairs_flipped": [],
+      "ruled_forms_after": 0,
+      "third_party_changed": []
+     },
+     "items": 1,
+     "mu2": [
+      1,
+      0
+     ],
+     "same_requirements": [
+      [
+       1,
+       2
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    }
+   ],
+   "target": [
+    1,
+    2
+   ],
+   "valid_by_item_count": [
+    0,
+    2,
+    17
+   ]
+  },
+  "g05_keep_01_mu1": {
+   "candidate_count": 126,
+   "classes": [],
+   "measure": "mu1",
+   "minimum": null,
+   "minimum_without_rules": null,
+   "responses": [],
+   "target": [
+    0,
+    1
+   ],
+   "valid_by_item_count": [
+    0,
+    0,
+    0
+   ]
+  },
+  "g05_keep_01_mu2": {
+   "candidate_count": 126,
+   "classes": [],
+   "measure": "mu2",
+   "minimum": null,
+   "minimum_without_rules": null,
+   "responses": [],
+   "target": [
+    0,
+    1
+   ],
+   "valid_by_item_count": [
+    0,
+    0,
+    0
+   ]
+  },
+  "g05_keep_02_mu1": {
+   "candidate_count": 126,
+   "classes": [],
+   "measure": "mu1",
+   "minimum": null,
+   "minimum_without_rules": null,
+   "responses": [],
+   "target": [
+    0,
+    2
+   ],
+   "valid_by_item_count": [
+    0,
+    0,
+    0
+   ]
+  },
+  "g05_keep_02_mu2": {
+   "candidate_count": 126,
+   "classes": [],
+   "measure": "mu2",
+   "minimum": null,
+   "minimum_without_rules": null,
+   "responses": [],
+   "target": [
+    0,
+    2
+   ],
+   "valid_by_item_count": [
+    0,
+    0,
+    0
+   ]
+  },
+  "g05_keep_12_mu1": {
+   "candidate_count": 126,
+   "classes": [],
+   "measure": "mu1",
+   "minimum": null,
+   "minimum_without_rules": null,
+   "responses": [],
+   "target": [
+    1,
+    2
+   ],
+   "valid_by_item_count": [
+    0,
+    0,
+    0
+   ]
+  },
+  "g05_keep_12_mu2": {
+   "candidate_count": 126,
+   "classes": [],
+   "measure": "mu2",
+   "minimum": null,
+   "minimum_without_rules": null,
+   "responses": [],
+   "target": [
+    1,
+    2
+   ],
+   "valid_by_item_count": [
+    0,
+    0,
+    0
+   ]
+  },
+  "g05_release_01_mu1": {
+   "candidate_count": 126,
+   "classes": [
+    [
+     0
+    ]
+   ],
+   "measure": "mu1",
+   "minimum": 1,
+   "minimum_without_rules": null,
+   "responses": [
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+       ],
+       [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+       ],
+       [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+       ]
+      ],
+      "classes": 1,
+      "collapsed_pairs": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null,
+         null
+        ]
+       ],
+       [
+        0,
+        [
+         null,
+         0
+        ]
+       ],
+       [
+        0,
+        [
+         null,
+         1
+        ]
+       ],
+       [
+        0,
+        [
+         null,
+         2
+        ]
+       ],
+       [
+        0,
+        [
+         0,
+         null
+        ]
+       ],
+       [
+        0,
+        [
+         1,
+         null
+        ]
+       ],
+       [
+        0,
+        [
+         2,
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "<>",
+        "<a>",
+        "<ab>"
+       ],
+       "forms": [
+        2
+       ],
+       "insts": [
+        [
+         0,
+         [
+          1,
+          1
+         ]
+        ],
+        [
+         0,
+         [
+          1,
+          2
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": [
+        0
+       ]
+      }
+     },
+     "delta": [
+      {
+       "form": 0,
+       "kind": "rule_all"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 1,
+      "contains_rule": true,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "rule"
+      ],
+      "other_pairs_flipped": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "ruled_forms_after": 1,
+      "third_party_changed": [
+       2
+      ]
+     },
+     "items": 1,
+     "mu2": [
+      1,
+      0
+     ],
+     "same_requirements": [
+      [
+       0,
+       1
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    }
+   ],
+   "target": [
+    0,
+    1
+   ],
+   "valid_by_item_count": [
+    0,
+    1,
+    13
+   ]
+  },
+  "g05_release_01_mu2": {
+   "candidate_count": 126,
+   "classes": [
+    [
+     0
+    ]
+   ],
+   "measure": "mu2",
+   "minimum": [
+    1,
+    0
+   ],
+   "minimum_without_rules": null,
+   "responses": [
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+       ],
+       [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+       ],
+       [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+       ]
+      ],
+      "classes": 1,
+      "collapsed_pairs": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null,
+         null
+        ]
+       ],
+       [
+        0,
+        [
+         null,
+         0
+        ]
+       ],
+       [
+        0,
+        [
+         null,
+         1
+        ]
+       ],
+       [
+        0,
+        [
+         null,
+         2
+        ]
+       ],
+       [
+        0,
+        [
+         0,
+         null
+        ]
+       ],
+       [
+        0,
+        [
+         1,
+         null
+        ]
+       ],
+       [
+        0,
+        [
+         2,
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "<>",
+        "<a>",
+        "<ab>"
+       ],
+       "forms": [
+        2
+       ],
+       "insts": [
+        [
+         0,
+         [
+          1,
+          1
+         ]
+        ],
+        [
+         0,
+         [
+          1,
+          2
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": [
+        0
+       ]
+      }
+     },
+     "delta": [
+      {
+       "form": 0,
+       "kind": "rule_all"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 1,
+      "contains_rule": true,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "rule"
+      ],
+      "other_pairs_flipped": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "ruled_forms_after": 1,
+      "third_party_changed": [
+       2
+      ]
+     },
+     "items": 1,
+     "mu2": [
+      1,
+      0
+     ],
+     "same_requirements": [
+      [
+       0,
+       1
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    }
+   ],
+   "target": [
+    0,
+    1
+   ],
+   "valid_by_item_count": [
+    0,
+    1,
+    13
+   ]
+  },
+  "g05_release_02_mu1": {
+   "candidate_count": 126,
+   "classes": [
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "measure": "mu1",
+   "minimum": 1,
+   "minimum_without_rules": 1,
+   "responses": [
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+       ],
+       [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+       ],
+       [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+       ]
+      ],
+      "classes": 1,
+      "collapsed_pairs": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null,
+         null
+        ]
+       ],
+       [
+        0,
+        [
+         null,
+         0
+        ]
+       ],
+       [
+        0,
+        [
+         null,
+         1
+        ]
+       ],
+       [
+        0,
+        [
+         null,
+         2
+        ]
+       ],
+       [
+        0,
+        [
+         0,
+         null
+        ]
+       ],
+       [
+        0,
+        [
+         1,
+         null
+        ]
+       ],
+       [
+        0,
+        [
+         2,
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "<>",
+        "<a>",
+        "<ab>"
+       ],
+       "forms": [
+        2
+       ],
+       "insts": [
+        [
+         0,
+         [
+          1,
+          1
+         ]
+        ],
+        [
+         0,
+         [
+          1,
+          2
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": [
+        0
+       ]
+      }
+     },
+     "delta": [
+      {
+       "form": 0,
+       "kind": "rule_all"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 1,
+      "contains_rule": true,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "rule"
+      ],
+      "other_pairs_flipped": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "ruled_forms_after": 1,
+      "third_party_changed": [
+       1
+      ]
+     },
+     "items": 1,
+     "mu2": [
+      1,
+      0
+     ],
+     "same_requirements": [
+      [
+       0,
+       2
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    },
+    {
+     "after": {
+      "answers": [
+       [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false
+       ],
+       [
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        false
+       ],
+       [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false
+       ]
+      ],
+      "classes": 2,
+      "collapsed_pairs": [
+       [
+        0,
+        2
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null,
+         null
+        ]
+       ],
+       [
+        0,
+        [
+         null,
+         0
+        ]
+       ],
+       [
+        0,
+        [
+         null,
+         1
+        ]
+       ],
+       [
+        0,
+        [
+         null,
+         2
+        ]
+       ],
+       [
+        0,
+        [
+         0,
+         null
+        ]
+       ],
+       [
+        0,
+        [
+         1,
+         null
+        ]
+       ],
+       [
+        0,
+        [
+         2,
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "<>",
+        "<a>",
+        "<ab>"
+       ],
+       "forms": [
+        2
+       ],
+       "insts": [
+        [
+         0,
+         [
+          1,
+          0
+         ]
+        ],
+        [
+         0,
+         [
+          1,
+          1
+         ]
+        ],
+        [
+         0,
+         [
+          1,
+          2
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": []
+      }
+     },
+     "delta": [
+      {
+       "args": [
+        1,
+        0
+       ],
+       "form": 0,
+       "kind": "inst"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 2,
+      "contains_rule": false,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "inst"
+      ],
+      "other_pairs_flipped": [],
+      "ruled_forms_after": 0,
+      "third_party_changed": [
+       1
+      ]
+     },
+     "items": 1,
+     "mu2": [
+      1,
+      0
+     ],
+     "same_requirements": [
+      [
+       0,
+       2
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    }
+   ],
+   "target": [
+    0,
+    2
+   ],
+   "valid_by_item_count": [
+    0,
+    2,
+    19
+   ]
+  },
+  "g05_release_02_mu2": {
+   "candidate_count": 126,
+   "classes": [
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "measure": "mu2",
+   "minimum": [
+    1,
+    0
+   ],
+   "minimum_without_rules": 1,
+   "responses": [
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+       ],
+       [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+       ],
+       [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+       ]
+      ],
+      "classes": 1,
+      "collapsed_pairs": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null,
+         null
+        ]
+       ],
+       [
+        0,
+        [
+         null,
+         0
+        ]
+       ],
+       [
+        0,
+        [
+         null,
+         1
+        ]
+       ],
+       [
+        0,
+        [
+         null,
+         2
+        ]
+       ],
+       [
+        0,
+        [
+         0,
+         null
+        ]
+       ],
+       [
+        0,
+        [
+         1,
+         null
+        ]
+       ],
+       [
+        0,
+        [
+         2,
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "<>",
+        "<a>",
+        "<ab>"
+       ],
+       "forms": [
+        2
+       ],
+       "insts": [
+        [
+         0,
+         [
+          1,
+          1
+         ]
+        ],
+        [
+         0,
+         [
+          1,
+          2
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": [
+        0
+       ]
+      }
+     },
+     "delta": [
+      {
+       "form": 0,
+       "kind": "rule_all"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 1,
+      "contains_rule": true,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "rule"
+      ],
+      "other_pairs_flipped": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "ruled_forms_after": 1,
+      "third_party_changed": [
+       1
+      ]
+     },
+     "items": 1,
+     "mu2": [
+      1,
+      0
+     ],
+     "same_requirements": [
+      [
+       0,
+       2
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    },
+    {
+     "after": {
+      "answers": [
+       [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false
+       ],
+       [
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        false
+       ],
+       [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false
+       ]
+      ],
+      "classes": 2,
+      "collapsed_pairs": [
+       [
+        0,
+        2
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null,
+         null
+        ]
+       ],
+       [
+        0,
+        [
+         null,
+         0
+        ]
+       ],
+       [
+        0,
+        [
+         null,
+         1
+        ]
+       ],
+       [
+        0,
+        [
+         null,
+         2
+        ]
+       ],
+       [
+        0,
+        [
+         0,
+         null
+        ]
+       ],
+       [
+        0,
+        [
+         1,
+         null
+        ]
+       ],
+       [
+        0,
+        [
+         2,
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "<>",
+        "<a>",
+        "<ab>"
+       ],
+       "forms": [
+        2
+       ],
+       "insts": [
+        [
+         0,
+         [
+          1,
+          0
+         ]
+        ],
+        [
+         0,
+         [
+          1,
+          1
+         ]
+        ],
+        [
+         0,
+         [
+          1,
+          2
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": []
+      }
+     },
+     "delta": [
+      {
+       "args": [
+        1,
+        0
+       ],
+       "form": 0,
+       "kind": "inst"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 2,
+      "contains_rule": false,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "inst"
+      ],
+      "other_pairs_flipped": [],
+      "ruled_forms_after": 0,
+      "third_party_changed": [
+       1
+      ]
+     },
+     "items": 1,
+     "mu2": [
+      1,
+      0
+     ],
+     "same_requirements": [
+      [
+       0,
+       2
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    }
+   ],
+   "target": [
+    0,
+    2
+   ],
+   "valid_by_item_count": [
+    0,
+    2,
+    19
+   ]
+  },
+  "g05_release_12_mu1": {
+   "candidate_count": 126,
+   "classes": [
+    [
+     0
+    ]
+   ],
+   "measure": "mu1",
+   "minimum": 1,
+   "minimum_without_rules": 2,
+   "responses": [
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+       ],
+       [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+       ],
+       [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+       ]
+      ],
+      "classes": 1,
+      "collapsed_pairs": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null,
+         null
+        ]
+       ],
+       [
+        0,
+        [
+         null,
+         0
+        ]
+       ],
+       [
+        0,
+        [
+         null,
+         1
+        ]
+       ],
+       [
+        0,
+        [
+         null,
+         2
+        ]
+       ],
+       [
+        0,
+        [
+         0,
+         null
+        ]
+       ],
+       [
+        0,
+        [
+         1,
+         null
+        ]
+       ],
+       [
+        0,
+        [
+         2,
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "<>",
+        "<a>",
+        "<ab>"
+       ],
+       "forms": [
+        2
+       ],
+       "insts": [
+        [
+         0,
+         [
+          1,
+          1
+         ]
+        ],
+        [
+         0,
+         [
+          1,
+          2
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": [
+        0
+       ]
+      }
+     },
+     "delta": [
+      {
+       "form": 0,
+       "kind": "rule_all"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 1,
+      "contains_rule": true,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "rule"
+      ],
+      "other_pairs_flipped": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "ruled_forms_after": 1,
+      "third_party_changed": [
+       0
+      ]
+     },
+     "items": 1,
+     "mu2": [
+      1,
+      0
+     ],
+     "same_requirements": [
+      [
+       1,
+       2
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    }
+   ],
+   "target": [
+    1,
+    2
+   ],
+   "valid_by_item_count": [
+    0,
+    1,
+    14
+   ]
+  },
+  "g05_release_12_mu2": {
+   "candidate_count": 126,
+   "classes": [
+    [
+     0
+    ]
+   ],
+   "measure": "mu2",
+   "minimum": [
+    1,
+    0
+   ],
+   "minimum_without_rules": 2,
+   "responses": [
+    {
+     "after": {
+      "answers": [
+       [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+       ],
+       [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+       ],
+       [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+       ]
+      ],
+      "classes": 1,
+      "collapsed_pairs": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "contexts": [
+       [
+        0,
+        [
+         null,
+         null
+        ]
+       ],
+       [
+        0,
+        [
+         null,
+         0
+        ]
+       ],
+       [
+        0,
+        [
+         null,
+         1
+        ]
+       ],
+       [
+        0,
+        [
+         null,
+         2
+        ]
+       ],
+       [
+        0,
+        [
+         0,
+         null
+        ]
+       ],
+       [
+        0,
+        [
+         1,
+         null
+        ]
+       ],
+       [
+        0,
+        [
+         2,
+         null
+        ]
+       ]
+      ],
+      "regime": {
+       "data": [
+        "<>",
+        "<a>",
+        "<ab>"
+       ],
+       "forms": [
+        2
+       ],
+       "insts": [
+        [
+         0,
+         [
+          1,
+          1
+         ]
+        ],
+        [
+         0,
+         [
+          1,
+          2
+         ]
+        ]
+       ],
+       "reqs": [],
+       "rules": [
+        0
+       ]
+      }
+     },
+     "delta": [
+      {
+       "form": 0,
+       "kind": "rule_all"
+      }
+     ],
+     "diagnostics": {
+      "classes_after": 1,
+      "contains_rule": true,
+      "fresh_datum": false,
+      "fresh_form": false,
+      "instantiates_ruled_form": false,
+      "kinds": [
+       "rule"
+      ],
+      "other_pairs_flipped": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "ruled_forms_after": 1,
+      "third_party_changed": [
+       0
+      ]
+     },
+     "items": 1,
+     "mu2": [
+      1,
+      0
+     ],
+     "same_requirements": [
+      [
+       1,
+       2
+      ]
+     ],
+     "valid": true,
+     "within_two_item_bound": true
+    }
+   ],
+   "target": [
+    1,
+    2
+   ],
+   "valid_by_item_count": [
+    0,
+    1,
+    14
+   ]
+  }
+ },
+ "roots": {
+  "g00": {
+   "history": [
+    {
+     "event": "supply",
+     "token": "<>"
+    },
+    {
+     "event": "admit_datum",
+     "token": "<>"
+    },
+    {
+     "event": "supply",
+     "token": "<a>"
+    },
+    {
+     "event": "supply",
+     "token": "<a>"
+    },
+    {
+     "event": "supply",
+     "token": "<ab>"
+    },
+    {
+     "event": "admit_datum",
+     "token": "<a>"
+    },
+    {
+     "event": "admit_datum",
+     "token": "<ab>"
+    },
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 2
+    },
+    {
+     "arity": 1,
+     "event": "admit_form"
+    },
+    {
+     "args": [
+      1
+     ],
+     "event": "admit_inst",
+     "form": 0
+    },
+    {
+     "event": "impose_separation",
+     "i": 0,
+     "j": 2
+    },
+    {
+     "args": [
+      0
+     ],
+     "event": "admit_inst",
+     "form": 0
+    },
+    {
+     "event": "impose_separation",
+     "i": 0,
+     "j": 1
+    },
+    {
+     "arity": 1,
+     "event": "admit_form"
+    },
+    {
+     "args": [
+      0
+     ],
+     "event": "admit_inst",
+     "form": 1
+    }
+   ],
+   "kept": {
+    "answers": [
+     [
+      true,
+      true
+     ],
+     [
+      true,
+      false
+     ],
+     [
+      false,
+      false
+     ]
+    ],
+    "classes": 3,
+    "collapsed_pairs": [],
+    "contexts": [
+     [
+      0,
+      [
+       null
+      ]
+     ],
+     [
+      1,
+      [
+       null
+      ]
+     ]
+    ],
+    "regime": {
+     "data": [
+      "<>",
+      "<a>",
+      "<ab>"
+     ],
+     "forms": [
+      1,
+      1
+     ],
+     "insts": [
+      [
+       0,
+       [
+        0
+       ]
+      ],
+      [
+       0,
+       [
+        1
+       ]
+      ],
+      [
+       1,
+       [
+        0
+       ]
+      ]
+     ],
+     "reqs": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "rules": []
+    }
+   },
+   "released": {
+    "answers": [
+     [
+      true,
+      true
+     ],
+     [
+      true,
+      false
+     ],
+     [
+      false,
+      false
+     ]
+    ],
+    "classes": 3,
+    "collapsed_pairs": [],
+    "contexts": [
+     [
+      0,
+      [
+       null
+      ]
+     ],
+     [
+      1,
+      [
+       null
+      ]
+     ]
+    ],
+    "regime": {
+     "data": [
+      "<>",
+      "<a>",
+      "<ab>"
+     ],
+     "forms": [
+      1,
+      1
+     ],
+     "insts": [
+      [
+       0,
+       [
+        0
+       ]
+      ],
+      [
+       0,
+       [
+        1
+       ]
+      ],
+      [
+       1,
+       [
+        0
+       ]
+      ]
+     ],
+     "reqs": [],
+     "rules": []
+    }
+   },
+   "source_reading": "F"
+  },
+  "g05": {
+   "history": [
+    {
+     "event": "supply",
+     "token": "<>"
+    },
+    {
+     "event": "admit_datum",
+     "token": "<>"
+    },
+    {
+     "event": "supply",
+     "token": "<a>"
+    },
+    {
+     "event": "supply",
+     "token": "<a>"
+    },
+    {
+     "event": "supply",
+     "token": "<ab>"
+    },
+    {
+     "event": "admit_datum",
+     "token": "<a>"
+    },
+    {
+     "event": "admit_datum",
+     "token": "<ab>"
+    },
+    {
+     "event": "impose_separation",
+     "i": 1,
+     "j": 2
+    },
+    {
+     "arity": 2,
+     "event": "admit_form"
+    },
+    {
+     "args": [
+      1,
+      1
+     ],
+     "event": "admit_inst",
+     "form": 0
+    },
+    {
+     "event": "impose_separation",
+     "i": 0,
+     "j": 2
+    },
+    {
+     "args": [
+      1,
+      2
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "kept": {
+    "answers": [
+     [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+     ],
+     [
+      true,
+      false,
+      true,
+      true,
+      false,
+      true,
+      false
+     ],
+     [
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false
+     ]
+    ],
+    "classes": 3,
+    "collapsed_pairs": [],
+    "contexts": [
+     [
+      0,
+      [
+       null,
+       null
+      ]
+     ],
+     [
+      0,
+      [
+       null,
+       0
+      ]
+     ],
+     [
+      0,
+      [
+       null,
+       1
+      ]
+     ],
+     [
+      0,
+      [
+       null,
+       2
+      ]
+     ],
+     [
+      0,
+      [
+       0,
+       null
+      ]
+     ],
+     [
+      0,
+      [
+       1,
+       null
+      ]
+     ],
+     [
+      0,
+      [
+       2,
+       null
+      ]
+     ]
+    ],
+    "regime": {
+     "data": [
+      "<>",
+      "<a>",
+      "<ab>"
+     ],
+     "forms": [
+      2
+     ],
+     "insts": [
+      [
+       0,
+       [
+        1,
+        1
+       ]
+      ],
+      [
+       0,
+       [
+        1,
+        2
+       ]
+      ]
+     ],
+     "reqs": [
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "rules": []
+    }
+   },
+   "released": {
+    "answers": [
+     [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+     ],
+     [
+      true,
+      false,
+      true,
+      true,
+      false,
+      true,
+      false
+     ],
+     [
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false
+     ]
+    ],
+    "classes": 3,
+    "collapsed_pairs": [],
+    "contexts": [
+     [
+      0,
+      [
+       null,
+       null
+      ]
+     ],
+     [
+      0,
+      [
+       null,
+       0
+      ]
+     ],
+     [
+      0,
+      [
+       null,
+       1
+      ]
+     ],
+     [
+      0,
+      [
+       null,
+       2
+      ]
+     ],
+     [
+      0,
+      [
+       0,
+       null
+      ]
+     ],
+     [
+      0,
+      [
+       1,
+       null
+      ]
+     ],
+     [
+      0,
+      [
+       2,
+       null
+      ]
+     ]
+    ],
+    "regime": {
+     "data": [
+      "<>",
+      "<a>",
+      "<ab>"
+     ],
+     "forms": [
+      2
+     ],
+     "insts": [
+      [
+       0,
+       [
+        1,
+        1
+       ]
+      ],
+      [
+       0,
+       [
+        1,
+        2
+       ]
+      ]
+     ],
+     "reqs": [],
+     "rules": []
+    }
+   },
+   "source_reading": "F"
+  }
+ },
+ "scope": "Two replayed source starting states; selected bounded probes, not the full research campaign",
+ "source_text_sha256": {
+  "code/derivation/candidates.py": "856ce42faba2dc2ae1217207ecc8af893eac29b50ae8a374dc06d2ba22c957bb",
+  "code/derivation/export.py": "202b2fba9cb99864bae52d2463864c67064bb0f85e27b78c3371d930b5bf7bdd",
+  "code/derivation/iso.py": "b0f1f3bcf05126111a07706f4388a9fff5e30455d4b8f127966cf99ab0d0886e",
+  "code/derivation/model.py": "6a7fd2ba9688d47e9291514c623a811cde3c6b9e8fda1d12a608dc9bb0b1f3c2",
+  "code/derivation/observe.py": "78443d67e613d9cc9924538fe2e0a5acaf81f4654440bfe8586e16652f0317ba",
+  "lean4/Derivation/Basic.lean": "1520b392f4061af568e00ca4fd235feb03facf6d3612c030c1d60018539e3eed",
+  "lean4/Derivation/RuleBridge.lean": "909ac832299f4b2fe9fa3dc9c10ec74503fb390180d6d38657dde5cd8cae634d",
+  "research/identification_dual/CLAIM_LEDGER.md": "a955240c4889f4d222edd30a0b503ce88f76f27932f4dcc4b1657fefeee6e02c",
+  "research/identification_dual/PREDICTIONS.md": "b5e066fca1cc262dfbef84db142a647c36d055bd887c0bf2f48084d180424e97",
+  "research/identification_dual/PROMPT.md": "a194961da50e2422bfe93a8ec907ddb2c791a022369e309df5f1dcdd12318d02",
+  "research/identification_dual/STATUS.md": "65e13756e1f75a3add48ecb01cc5fd3bd639ba5434bd2d14b739c5f0898b58be",
+  "research/identification_dual/dual.py": "17c6d723fa32212530d59a209b66e6fa9c82761c74a2e5b7ed5eb8f30ebad95b",
+  "research/identification_dual/receipts/identification_dual.json": "57c1e0a9ba21caac4f6775ea0bf22b2a5ae311707ccf34477a4b42270ddc65eb"
+ }
+}

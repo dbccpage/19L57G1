@@ -103,6 +103,7 @@ Each later theorem names the extra rule, if any, that its conclusion needs.
 | Which answers survive grouping items together? | [Map lab](map_lab/README.md) |
 | Why can new arrivals reopen a settled task? | [Growth lab](growth_lab/README.md) |
 | Was an exchange forbidden, or did it change the recorded information? | [Boundary lab](boundary_lab/README.md) |
+| Can two records give equal answers while their positions remain distinct? | [Same-record lab](identification_lab/README.md) |
 
 When ready, use [Reading a formal statement](reading_formal_statements.md)
 to translate one actual definition into a table and a checkable question.

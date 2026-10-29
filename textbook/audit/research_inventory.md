@@ -6,18 +6,20 @@ Population: all 123 trees returned by `ci.research_index.group_trees(tracked_res
 Dedicated teaching now includes the four institutions trees, the Growth
 lab's introductory treatment of `standing_commitment`, and the Boundary
 lab's selected lessons for `boundary_seed`, `side_free`, and
-`oriented_boundary`. The other 115
+`oriented_boundary`, plus the Same-record lab's selected introduction to
+`identification_dual`. The other 114
 have no dedicated research curriculum established by this audit. The
 Growth lab's comparison with `two_sided_commitment` is a scoped reference,
 not a complete treatment of that tree. The Boundary lab is also a selected
 introduction, not complete tree coverage or a discharge of its open comparisons.
+The Same-record lab likewise leaves the general identification conjectures open.
 A source mention alone is not teaching.
 Group assignments below are proposed curriculum organization; they assert no mathematical bridge or research validation.
 
 | Proposed teaching group | Tree | Current dedicated treatment | Source entry |
 |---|---|---|---|
 | Boundary, orientation, and commitment | `boundary_seed` | [Boundary lab: selected introduction](../boundary_lab/00_start_before_the_marks.md) | [research/boundary_seed/CLAIM_LEDGER.md](../../research/boundary_seed/CLAIM_LEDGER.md) |
-| Boundary, orientation, and commitment | `identification_dual` | Not yet established | [research/identification_dual/STATUS.md](../../research/identification_dual/STATUS.md) |
+| Boundary, orientation, and commitment | `identification_dual` | [Same-record lab: selected introduction](../identification_lab/README.md) | [research/identification_dual/STATUS.md](../../research/identification_dual/STATUS.md) |
 | Boundary, orientation, and commitment | `oriented_boundary` | [Boundary lab: selected introduction](../boundary_lab/02_compare_two_answers.md) | [research/oriented_boundary/CLAIM_LEDGER.md](../../research/oriented_boundary/CLAIM_LEDGER.md) |
 | Boundary, orientation, and commitment | `seventh_constructor` | Not yet established | [research/seventh_constructor/FINDINGS.md](../../research/seventh_constructor/FINDINGS.md) |
 | Boundary, orientation, and commitment | `side_free` | [Boundary lab: selected introduction](../boundary_lab/04_price_a_fixed_menu.md) | [research/side_free/STATUS.md](../../research/side_free/STATUS.md) |

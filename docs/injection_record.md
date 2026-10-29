@@ -608,3 +608,23 @@ separately. Browser rendering, responsive layout, and keyboard interaction
 remain unverified after the local preview/error-page policy rejection;
 pure lookup tests are not a substitute for those interaction checks.
 
+## Same-record teaching route (2026-10-28)
+
+All mutations use copied teaching/Wiki assets. The sealed and research
+sources, frozen predictions, and campaign receipts remain read-only.
+No regeneration occurs with a live defect.
+
+| Check | Defect exercised | Observed failure | Recovery |
+|---|---|---|---|
+| Source-backed matching packet | Invent a zero-cost reply, erase a third-party change, change the double-hole answer, invent an extra collapsed pair, ignore a kept promise, mark the three-item reply within bound, apply separation pruning, or change a continuation/practice price | `check_recorded` raises the named source-backed mismatch | Original packet passes; twelve authoring tests pass |
+| Teaching population and figure | Change 24 root probes to 25, or replace a generated SVG with an empty payload | Named population-table or figure mismatch | Original count and four figures pass |
+| Actual Wiki verifier: lesson | Change the selected continuation's total from three to one | Exit 1 names `stale same-record page` and its slug | Restore bytes; exit 0 |
+| Actual Wiki verifier: record | Mark the explicit three-item reply as within the two-item bound | Exit 1 names `stale same-record record` | Restore bytes; exit 0 |
+| Actual Wiki verifier: figure | Replace the three-addition figure with an empty SVG | Exit 1 names `stale same-record figure` | Restore bytes; exit 0 |
+
+Five Wiki helper tests also detect malformed JSON, false figures and
+lesson prices, and a missing page, while checking prerequisite/answer
+destinations. This route adds deterministic bounded computations, not
+book-Lean proofs or a new native theorem. Static figure inspection does
+not establish hosted rendering or reader learning.
+

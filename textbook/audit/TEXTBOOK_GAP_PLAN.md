@@ -36,8 +36,8 @@ above record the earlier publication, not current open-PR status.
 | Institution lessons | 18 | A research curriculum exists for four named trees |
 | Sealed Lean modules | 75 | All 75 have coverage-matrix sections and assigned units |
 | Canonical research trees | 123 | Counted using `ci/research_index.py`'s actual population rule |
-| Trees with dedicated research lessons | 8 | Four institution trees, `standing_commitment`, and three selected Boundary-lab introductions |
-| Other canonical trees | 115 | No dedicated lesson treatment is established by the current curriculum |
+| Trees with dedicated research lessons | 9 | Four institution trees, `standing_commitment`, three selected Boundary-lab introductions, and `identification_dual` |
+| Other canonical trees | 114 | No dedicated lesson treatment is established by the current curriculum |
 | Manim overview scenes | 12 | Groups of lessons have short previews; individual concepts still need slower worked treatment |
 
 The research population includes parked work, frozen experiments, tooling,
@@ -143,9 +143,17 @@ lessons for selected claims in `boundary_seed`, `side_free`, and
 `oriented_boundary`, with a swap desk, four figures, changed-example
 practice, and explicit model boundaries. The kind proposal does not
 discharge `SF-OPEN-A`; no general cost or physical claim is inferred.
-Identification, wider boundary/orientation treatment, and the other
-research clusters still remain. The dedicated introductory tree count
-is now eight, leaving 115 without such treatment.
+The [Same-record lab](../identification_lab/README.md) adds seven lessons
+for `identification_dual`: equal profiles without identity merging,
+third-party effects, promises versus budgets, later costs, and why a
+separation pruning theorem does not transfer to the opposite goal.
+Its 24 root probes, two continuations, one outside-bound reply, and two
+changed-table practice probes are bounded computational evidence, not
+new Lean theorems. The general identification conjectures remain open.
+Wider boundary/orientation treatment and the other research clusters
+still remain. The dedicated introductory tree count is now nine,
+leaving 114 without such treatment. Directory counts guide discovery;
+they do not set a requirement for equally sized modules for every tree.
 Comprehension, transfer, and retention remain unmeasured.
 
 ## Research that still needs lessons
