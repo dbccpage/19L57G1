@@ -22,6 +22,7 @@ from search_lab_wiki import search_lab_errors
 from change_lab_wiki import change_lab_errors
 from reasoning_lab_wiki import reasoning_lab_errors
 from path_lab_wiki import path_lab_errors
+from map_lab_wiki import map_lab_errors
 
 DEFAULT_REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 DEFAULT_WIKI_ROOT = Path(
@@ -195,7 +196,8 @@ def verify_wiki(
     route_errors = (first_steps_errors(repo_root, wiki_root) + search_lab_errors(repo_root, wiki_root)
                     + change_lab_errors(repo_root, wiki_root)
                     + reasoning_lab_errors(repo_root, wiki_root)
-                    + path_lab_errors(repo_root, wiki_root))
+                    + path_lab_errors(repo_root, wiki_root)
+                    + map_lab_errors(repo_root, wiki_root))
     if route_errors:
         print("FAIL: " + "; ".join(route_errors), file=sys.stderr)
         return 1

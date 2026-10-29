@@ -22,6 +22,7 @@ from search_lab_wiki import build_search_lab
 from change_lab_wiki import build_change_lab
 from reasoning_lab_wiki import build_reasoning_lab
 from path_lab_wiki import build_path_lab
+from map_lab_wiki import build_map_lab
 
 DEFAULT_REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 DEFAULT_WIKI_ROOT = Path(
@@ -1051,6 +1052,7 @@ Source edition: [{commit_short}](https://github.com/dbccpage/19L57G1/commit/{com
         "change_lab": build_change_lab(repo_root, wiki_root, commit_sha),
         "reasoning_lab": build_reasoning_lab(repo_root, wiki_root, commit_sha),
         "path_lab": build_path_lab(repo_root, wiki_root, commit_sha),
+        "map_lab": build_map_lab(repo_root, wiki_root, commit_sha),
     }
 
 

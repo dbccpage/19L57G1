@@ -505,3 +505,24 @@ Nine authoring tests include those refusals, a fresh standalone desk,
 and rejection of empty or out-of-domain walk sequences in the teaching
 wrapper. Native cell admission and boundary cancellation remain separate.
 
+## Map, class, and lookup route (2026-10-28)
+
+Only temporary teaching records, generated scratch-Wiki copies, and a
+generated Lean source string were injected. Original bytes were restored
+between checks; no regeneration ran with a live defect. No sealed source
+or research receipt changed.
+
+| Gate | Injection | Observed failure | Recovery |
+|---|---|---|---|
+| Wiki map record | Declare blue-only sufficient for the paired blue/triangle answer | Actual Wiki verifier exits 1: `stale map-lab record` | Restore bytes; exit 0, 2318 generated internal links pass |
+| Wiki map desk | Replace the copied embedded packet by `null` | Actual Wiki verifier exits 1: `stale map-lab desk or links` | Restore bytes; exit 0 |
+| Wiki map diagram | Remove the conflict figure's dashed forks | Actual Wiki verifier exits 1: `stale or missing map-lab figure: 02_block_triangle.svg` | Restore bytes; exit 0 |
+| Book-Lean empty domain | Change the expected class count from 0 to 99 in `representation_0_0_0` | Lean's `decide` reports the conjunction containing the class-count equality is false; shared runner exits 1 | Original 270 exact kernel/axiom reports pass |
+| Source-backed map record | Misalign a shortened domain, invent recovery after representative reversal, recover a pair from one component, make an unused-label completion unique, or invent an empty class | `check_recorded` rejects each recomputation mismatch | Original packet passes |
+| Source population and diagrams | Enlarge 512 settings to 999 or make conflict arrows solid | Actual record check rejects the population/figure mismatch | Original six-row table and five diagrams pass |
+
+Ten authoring tests include those refusals, current standalone bundling,
+explicit SVG dimensions, and successful complete lookup examples checked
+against their own selected domains. Complete lookup counts use the declared
+four-label input set and finite output alphabet, not all `Nat → Nat` maps.
+

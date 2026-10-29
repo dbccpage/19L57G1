@@ -32,3 +32,7 @@ its observation, budget, and permission fields do not belong to this cell calcul
 AuthorityEffect: None. Point labels, drawing positions, connections,
 face requests, integer counts, and boundary conventions are supplied.
 The pictures are not measurements of space or a derivation of physical motion.
+
+Continue with the [Map lab](../map_lab/README.md) to trace class labels
+and recoverable answers. A graph edge and a function arrow have different
+definitions; the next route keeps those meanings explicit.

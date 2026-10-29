@@ -92,8 +92,14 @@ classifications still need semantic teaching review.
    on graphs, walks, signed endpoint counts, face guards, alternating
    boundaries, and shared-edge cancellation. Its diagrams keep cell
    membership separate from coefficient sums. The transfer exercise changes
-   the shared facet's default signs. Later maps, descent, and the research
-   curriculum remain open; novice comprehension remains unmeasured.
+   the shared facet's default signs. The new [Map lab](../map_lab/README.md) supplies eight more lessons
+   on functions, consistent grouping, representative order, descent,
+   paired answers, refinement, image-only uniqueness, and finite versus
+   global domains. Its diagrams distinguish cards, class labels, and
+   requested values; its transfer task changes labels and questions.
+   These routes are introductions, not semantic reconciliation of every
+   later theorem. The research curriculum remains open; novice
+   comprehension remains unmeasured.
 6. **Semantic reconciliation of the coverage map.** This change corrects
    the opening to distinguish 62 direct imports, the 63-module import
    closure, and 12 parked modules, and separates the `FROZEN` custody

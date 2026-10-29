@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="640" viewBox="0 0 840 640" role="img" aria-label="Original cards map to stored class labels; requested answers must agree within each class.">
+<title>Stored class labels and requested answers</title><rect width="840" height="640" fill="#fafbf7"/>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#52645d"/></marker></defs>
+<line x1="266.4399659658449" y1="142.10416404255193" x2="319.06861032474865" y2="263.30952680851203" stroke="#52645d" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="403.5600340341551" y1="142.10416404255193" x2="350.93138967525135" y2="263.30952680851203" stroke="#52645d" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="596.439965965845" y1="142.10416404255193" x2="649.0686103247486" y2="263.30952680851203" stroke="#52645d" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="733.560034034155" y1="142.10416404255193" x2="680.9313896752514" y2="263.30952680851203" stroke="#52645d" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="335.0" y1="335.0" x2="335.0" y2="450.0" stroke="#52645d" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="665.0" y1="335.0" x2="665.0" y2="450.0" stroke="#52645d" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="85" y="115" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#19322c">Original cards</text>
+<text x="85" y="290" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#19322c">Stored class</text>
+<text x="85" y="315" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#19322c">labels</text>
+<text x="85" y="480" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#19322c">Requested</text>
+<text x="85" y="505" text-anchor="middle" font-family="sans-serif" font-size="18" fill="#19322c">blue?</text>
+<circle cx="252.5" cy="110" r="31" fill="white" stroke="#19322c" stroke-width="2"/>
+<text x="252.5" y="121" text-anchor="middle" font-family="sans-serif" font-size="32" fill="#19322c">D</text>
+<circle cx="417.5" cy="110" r="31" fill="white" stroke="#19322c" stroke-width="2"/>
+<text x="417.5" y="121" text-anchor="middle" font-family="sans-serif" font-size="32" fill="#19322c">C</text>
+<circle cx="582.5" cy="110" r="31" fill="white" stroke="#19322c" stroke-width="2"/>
+<text x="582.5" y="121" text-anchor="middle" font-family="sans-serif" font-size="32" fill="#19322c">B</text>
+<circle cx="747.5" cy="110" r="31" fill="white" stroke="#19322c" stroke-width="2"/>
+<text x="747.5" y="121" text-anchor="middle" font-family="sans-serif" font-size="32" fill="#19322c">A</text>
+<circle cx="335.0" cy="300" r="33" fill="#dcebdc" stroke="#19322c" stroke-width="2"/>
+<text x="335.0" y="311" text-anchor="middle" font-family="sans-serif" font-size="32" fill="#19322c">D</text>
+<circle cx="665.0" cy="300" r="33" fill="#dcebdc" stroke="#19322c" stroke-width="2"/>
+<text x="665.0" y="311" text-anchor="middle" font-family="sans-serif" font-size="32" fill="#19322c">B</text>
+<rect x="265.0" y="461" width="140" height="58" rx="8" fill="white" stroke="#19322c" stroke-width="2"/>
+<text x="335.0" y="498" text-anchor="middle" font-family="sans-serif" font-size="28" fill="#19322c">No</text>
+<rect x="595.0" y="461" width="140" height="58" rx="8" fill="white" stroke="#19322c" stroke-width="2"/>
+<text x="665.0" y="498" text-anchor="middle" font-family="sans-serif" font-size="28" fill="#19322c">Yes</text>
+<text x="420" y="570" text-anchor="middle" font-family="sans-serif" font-size="22" fill="#19322c">Consistent class lookup.</text>
+<text x="420" y="610" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#19322c">Supplied finite maps; arrows are assignments.</text>
+</svg>

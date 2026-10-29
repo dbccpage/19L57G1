@@ -30,7 +30,7 @@ def build_path_lab(repo, wiki, commit):
         text = (source / name).read_text(encoding="utf-8")
         for filename, target in page_map(source).items():
             text = text.replace(f"]({filename})", f"]({target})")
-        for folder in ("reasoning_lab", "change_lab"):
+        for folder in ("reasoning_lab", "change_lab", "map_lab"):
             text = text.replace(f"](../{folder}/README.md)", f"](textbook_{folder})")
         text = text.replace("](results.html)", f"]({DESK})")
         text = text.replace("](figures/", "](" + RAW + "figures/")
