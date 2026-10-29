@@ -284,9 +284,9 @@ in one template or the other, and this table says which.
 | 25 | Under irreflexivity, collapsing a related pair is obstructed | `PrimDiff.obstruction_under_irrefl` | conditional | yes |
 | 26 | Keeping positive entries does not exclude a self-pair | `Bridge.irrefl_law_not_entailed` | derived | yes |
 | 27 | An abstraction cannot see what it identifies | `Quot.quot_barrier`, `Quot.barrier_R2L` | derived | yes |
-| 28 | Closure over fixed data must stop within n(n-1)/2 rounds | `Counting.strict_bounded_length`, `Counting.allPairs_length`, `Counting.no_supply_round_bound` | derived / conditional | yes |
+| 28 | Fixed data bound rounds that add new demands | `Counting.strict_bounded_length`, `Counting.allPairs_length`, `Counting.no_supply_round_bound` | derived / conditional | yes |
 | 29 | Renaming the data changes nothing a context can see | `CountTransport.collapsed_rename`, `CountTransport.non_injective_does_not_transport` | derived | yes |
-| 30 | A context that reaches outside the regime separates nothing | `Mention.collapsed_append_unmentioning`, `Mention.collapsed_fresh_form` | derived | yes |
+| 30 | Adding instances that avoid both targets preserves their comparison | `Mention.collapsed_append_unmentioning`, `Mention.collapsed_fresh_form` | derived | yes |
 | 31 | Renaming carries every transition; index-least selection is not congruent | `TransitionTransport.transStep_rename_fwd`, `TransitionTransport.least_pair_selection_not_congruent` | derived | yes |
 | 32 | The same proof with one more datum | `MinimalityF.mu2_unique_F`, `MinimalityF.genesis_mark_not_separable` | derived | yes |
 | 33 | A rule never pays for itself | `RuleBridge.applyDelta_dropRules`, `RuleBridge.rule_item_never_minimal` | derived | yes |

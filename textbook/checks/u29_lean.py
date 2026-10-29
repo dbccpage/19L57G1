@@ -77,6 +77,33 @@ theorem const_has_no_inverse : ¬ ∃ g : Nat → Nat, ∀ x, g ((fun _ : Nat =>
   have h1 : g 0 = 1 := hg 1
   omega
 
+/-- A bijection on all Nat indices can violate the admitted range. -/
+def jump : Nat → Nat
+  | 0 => 0
+  | 1 => 2
+  | 2 => 1
+  | n + 3 => n + 3
+
+theorem jump_invol : ∀ n, jump (jump n) = n := by
+  intro n
+  match n with
+  | 0 => rfl
+  | 1 => rfl
+  | 2 => rfl
+  | _ + 3 => rfl
+
+def binary : Regime := ⟨2, [2], [], [], []⟩
+
+theorem bounded_context_needed :
+    wfCtx binary ⟨0, [none, some 1]⟩ ∧
+    ¬ wfCtx (renameRegime jump binary) (mapCtx jump ⟨0, [none, some 1]⟩) := by decide
+
+/-- This action leaves both fields read by requirement well-formedness unchanged. -/
+theorem requirement_guard_unchanged (f : Nat → Nat) (r : Regime) :
+    (∀ q ∈ (renameRegime f r).reqs,
+      q.1 < q.2 ∧ q.2 < (renameRegime f r).data) ↔
+    (∀ q ∈ r.reqs, q.1 < q.2 ∧ q.2 < r.data) := Iff.rfl
+
 end Textbook.U29
 
 #print axioms Textbook.U29.renamed_cm
@@ -85,6 +112,9 @@ end Textbook.U29
 #print axioms Textbook.U29.rename_reqs
 #print axioms Textbook.U29.mapCtx_keeps_hole
 #print axioms Textbook.U29.const_has_no_inverse
+#print axioms Textbook.U29.jump_invol
+#print axioms Textbook.U29.bounded_context_needed
+#print axioms Textbook.U29.requirement_guard_unchanged
 #print axioms Derivation.plug_mapCtx
 #print axioms Derivation.collapsed_rename
 #print axioms Derivation.collapsedCount_rename
@@ -98,6 +128,9 @@ EXPECTED = {
     "Textbook.U29.rename_reqs": NONE,
     "Textbook.U29.mapCtx_keeps_hole": BOTH,
     "Textbook.U29.const_has_no_inverse": BOTH,
+    "Textbook.U29.jump_invol": NONE,
+    "Textbook.U29.bounded_context_needed": BOTH,
+    "Textbook.U29.requirement_guard_unchanged": NONE,
     "Derivation.plug_mapCtx": BOTH,
     "Derivation.collapsed_rename": BOTH,
     "Derivation.collapsedCount_rename": BOTH,

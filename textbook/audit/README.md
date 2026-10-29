@@ -39,6 +39,14 @@ obstruction definition. Unit 26 now states the unrestricted-positive-
 extension scope instead of claiming that facts can never establish the
 law. Eight new book reports support these examples and boundary checks.
 
+**Finite and transport follow-up (2026-10-29).** The
+[Units 27–30 reading review](FINITE_READING_REVIEW_2026-10-29.md) separates
+raw quotient generators from equivalence, states from accepted rounds,
+fixed questions from renamed questions, and generation from validity.
+It corrects the unchanged-requirements claim and the uniform-rule case
+of fresh-context agreement. Eleven added book reports support the examples;
+the remaining semantic and reader review stays open.
+
 ## Scope and method
 
 - **Population.** The 75 tracked modules under `lean4/Derivation/` plus the

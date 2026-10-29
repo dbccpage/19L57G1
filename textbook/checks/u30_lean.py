@@ -64,6 +64,29 @@ hypothesis is never missing for a well-formed context. -/
 theorem wf_has_hole (r : Regime) (c : Ctx) (h : wfCtx r c) : none ∈ c.slots :=
   h.2.2.1
 
+/-- A context made available by a newcomer can be positive on both old
+targets through an unchanged uniform rule. -/
+def uniformBinary : Regime := ⟨2, [2], [], [0], []⟩
+
+theorem fresh_rule_context_positive :
+    ¬ wfCtx uniformBinary ⟨0, [none, some 2]⟩ ∧
+    wfCtx { uniformBinary with data := 3 } ⟨0, [none, some 2]⟩ ∧
+    derivable { uniformBinary with data := 3 } (plug ⟨0, [none, some 2]⟩ 0) ∧
+    derivable { uniformBinary with data := 3 } (plug ⟨0, [none, some 2]⟩ 1) := by decide
+
+/-- Omitting the old-form range condition can activate a stale raw
+instance when a form is appended. -/
+def stale : Regime := ⟨2, [], [(0, [0])], [], []⟩
+
+theorem raw_form_activation :
+    collapsed stale 0 1 ∧ separable { stale with forms := [1] } 0 1 ∧
+    ¬ (∀ p ∈ stale.insts, p.1 < stale.forms.length) := by
+  refine ⟨?_, ⟨⟨0, [none]⟩, by decide, by decide⟩, ?_⟩
+  · intro c hc
+    exact False.elim (Nat.not_lt_zero _ hc.1)
+  · intro h
+    exact Nat.not_lt_zero _ (h (0, [0]) (by decide))
+
 end Textbook.U30
 
 #print axioms Textbook.U30.marked2_collapsed_01
@@ -72,6 +95,8 @@ end Textbook.U30
 #print axioms Textbook.U30.fresh_form_collapsed_01
 #print axioms Textbook.U30.plug_mentions_two
 #print axioms Textbook.U30.wf_has_hole
+#print axioms Textbook.U30.fresh_rule_context_positive
+#print axioms Textbook.U30.raw_form_activation
 #print axioms Derivation.mem_plug_of_hole
 #print axioms Derivation.collapsed_append_unmentioning
 #print axioms Derivation.collapsed_fresh_datum
@@ -85,6 +110,8 @@ EXPECTED = {
     "Textbook.U30.fresh_form_collapsed_01": BOTH,
     "Textbook.U30.plug_mentions_two": BOTH,
     "Textbook.U30.wf_has_hole": PROPEXT,
+    "Textbook.U30.fresh_rule_context_positive": BOTH,
+    "Textbook.U30.raw_form_activation": BOTH,
     "Derivation.mem_plug_of_hole": BOTH,
     "Derivation.collapsed_append_unmentioning": BOTH,
     "Derivation.collapsed_fresh_datum": BOTH,

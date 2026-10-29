@@ -56,6 +56,15 @@ def main() -> int:
         swap = tuple(reversed(range(n)))
         print(f"  example, renaming {swap}: {collapsed_pairs(rename(r, swap, tuple(range(len(r.forms)))))}")
 
+    mark0 = replay([AdmitDatum("a"), AdmitDatum("b"), AdmitDatum("c"),
+                    AdmitForm(1), AdmitInst(0, (0,))])
+    renamed = rename(mark0, (1, 0, 2), (0,))
+    before, after = collapsed_pairs(mark0), collapsed_pairs(renamed)
+    print(f"fixed versus mapped pair: before={before}, after={after}; "
+          f"old (1,2) collapsed={(1, 2) in before}; mapped (0,2) collapsed={(0, 2) in after}; "
+          f"fixed (1,2) collapsed={(1, 2) in after}")
+    if before != ((1, 2),) or after != ((0, 2),):
+        failures.append("fixed pair list is not transported")
     print(f"failures: {failures}")
     return 1 if failures else 0
 

@@ -1,16 +1,56 @@
 # Unit 27. The abstraction barrier
 
-**Claim.** If an abstraction identifies two cases, no operation defined only
+**Claim.** A fixed function receiving only a group label must return the
+same answer for inputs with the same label. To use a distinction that
+the label does not retain, it needs different input or a different grouping.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** If an abstraction identifies two cases, no operation defined only
 on that abstraction can tell them apart: for any relation `rel` on a type
 and any function `f` out of the quotient by `rel`, `rel a b` gives
 `f ⟦a⟧ = f ⟦b⟧`. Instantiated at Challenge 2: in `R2L`, where `⟨a⟩` and
 `⟨ab⟩` are collapsed, every function defined on the collapse classes
-returns one value on both. **Status:** derived. **Lean:**
+returns one value on both.
+
+**Status:** derived. **Lean:**
 `Derivation.quotient_barrier` (`lean4/Derivation/Quot.lean` lines 17-20),
 `quot_barrier` (23-26), `collapseRel` (31), `barrier_R2L` (33-35).
 **Axioms:** `Quot.sound` for the two general theorems; `propext,
 Quot.sound` for the instance, inherited through `R2L_collapsed`.
 **Depends on:** `collapsed` (Unit 08), `R2L_collapsed` (Unit 16).
+
+</details>
+
+## First pass
+
+Suppose two cards, P and Q, both have the color blue. Group the cards
+by color and pass only the group label `blue` to a function. The
+function receives the same input for P and Q, so it returns the same
+answer. It cannot answer a question about their different shapes from
+that label alone.
+
+The grouping is called a **quotient**. The theorem concerns one fixed
+function whose input is only the quotient value. Reading the original
+card, changing the grouping, or adding another input changes the question.
+
+**Predict:** if one function gives the same answer on two cards, must
+their complete records be identical?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. A function returning only the number of positive tests can give
+equal counts while the positive tests themselves differ. The Python
+link example below checks this.
+
+</details>
+
+The [Map lab](../map_lab/README.md) builds consistent grouping and
+recovering answers from a group step by step. The formal section below
+also distinguishes an equivalence relation from arbitrary generating
+relations.
 
 ## Question
 
@@ -28,7 +68,7 @@ recovered?
   (Unit 08).
 - `R2L = ⟨2, [], [], [], [(0, 1)]⟩`, the Challenge 2 regime in reading L:
   two data, no forms, no instances, and the imposed demand `(0, 1)`.
-  `Inertia.R2L_collapsed : collapsed R2L 0 1` (Unit 16): with no
+  `Derivation.R2L_collapsed : collapsed R2L 0 1` (Unit 16): with no
   instances, nothing separates the two data.
 - The engine's own quotient, by isomorphism: `canonical` gives one key to
   isomorphic regimes (Unit 21).
@@ -36,8 +76,14 @@ recovered?
 ## New concept: a quotient type, and the one axiom that governs it
 
 Lean can build a new type out of an old one and a relation. Given a type
-`α` and a relation `rel : α → α → Prop`, the type `Quot rel` has one
-element for each "`α` up to `rel`". Three things come with it:
+`α` and a relation `rel : α → α → Prop`, `Quot rel` identifies related
+elements. Equality of quotient values also identifies chains of related
+elements, their reverses, and each element with itself. For an arbitrary
+`rel`, this can identify more pairs than `rel` itself contains. The
+book's chain example has `0 rel 1` and `1 rel 2` but not `0 rel 2`;
+the classes of 0 and 2 are nevertheless equal.
+
+Three constructions used here are:
 
 - `Quot.mk rel a : Quot rel` is the class of `a`;
 - `Quot.sound : rel a b → Quot.mk rel a = Quot.mk rel b` is an axiom:
@@ -57,19 +103,19 @@ equal inputs gives equal outputs. That is the whole proof.
 
 ## Plain-language interpretation
 
-An abstraction is a decision to treat several things as one thing. Once
-the decision is made and you work only with the merged thing, no procedure
-you can write on the merged thing can get the difference back, because
-there is nothing left in the merged thing for the procedure to read. The
-difference was not hidden; it was removed from the input.
+For a fixed grouping, equal group values supply equal inputs to a fixed
+function. Its outputs must therefore agree. The theorem does not depend
+on how that function was written. It does not classify every process
+with changing state, random inputs, or additional observations.
 
 The word "only" carries the weight. A procedure that reads the original
 things is not bound. In Genesis's terms, a procedure that reads the
 presentation tokens `<a>` and `<ab>` sees two strings, but the regime's
 observational content, the profiles, is the same empty set for both. If a
-task needs the difference, the abstraction must change: that is what
-Challenge 3 does when it demands separation and forces new structure into
-the regime (Units 16 to 22).
+task needs the difference, a function receiving only that same class
+value cannot supply it. Meeting Challenge 3's declared separation task
+requires admitted structure visible to a context (Units 16–22). The
+theorem does not cause that admission or select a response.
 
 ## Pseudocode
 
@@ -83,11 +129,12 @@ step 2: f(class(a)) = f(class(b))    -- congrArg: equal inputs, equal outputs
 
 ## Python
 
-Python has no quotient type. Its two nearest things are the profile of a
-datum, which is its class under collapse, and the canonical key of a
-regime, which is its class under isomorphism. A function that reads only
-the profile agrees on `<a>` and `<ab>`; a function that reads the token
-does not, and the barrier says nothing about it.
+This Python model represents grouping with profiles and canonical keys.
+Equal complete profiles represent the same collapse group at a fixed
+regime; equal canonical keys represent the same implemented isomorphism
+class. These are different groupings. A function reading only the profile
+agrees on `<a>` and `<ab>` in this example; a function reading their tokens
+can distinguish them.
 
 ```python
 from derivation.iso import canonical, rename
@@ -126,8 +173,14 @@ the barrier, the second is not defined on the abstraction at all.
 
 `rename(r2l, (1, 0), ())` swaps the two data (the empty tuple is the form
 permutation; there are no forms). `canonical` is the engine's quotient by
-isomorphism: equal keys, so every engine computation that reads the key,
-which is every one that quotients branches, returns the same thing on both.
+isomorphism: the keys are equal. A fixed function receiving only that
+key agrees on both. A computation using other inputs needs its own scope
+check; equality of keys does not assert equality of every recorded field.
+
+The check also builds the binary link of Unit 19. Both data have exactly
+one positive context, but the contexts differ and the pair is separable.
+Equal values of the coarse summary `len(profile)` do not establish equal
+complete profiles. The barrier is a one-way implication for each function.
 
 ## Lean 4
 
@@ -200,9 +253,9 @@ quotient `Quot rel`. `Quot.sound` is the axiom; `Quotient.sound` above is
 the same axiom seen through the setoid.
 
 **`collapseRel`.** A name for "collapsed in `r`", so that it can stand as
-the relation of a quotient. It is a definition, not a theorem, and nothing
-about being an equivalence is proved or needed: `Quot` accepts any
-relation.
+the relation of a quotient. It is a definition, not an equivalence proof.
+The native construction needs no such proof because `Quot` accepts any
+generating relation. The book separately packages collapse as a setoid.
 
 **`barrier_R2L`.** Take any `f` out of the quotient of the data of `R2L`
 by collapse. Then `f` agrees on the classes of `0` and `1`. The proof is
@@ -219,22 +272,28 @@ equation of classes; `exact congrArg f hq` is the second step.
 carrier, not on the quotient, and the barrier does not apply to it. It is
 here so that the word "only" in the claim is seen to do work.
 
-**`descend`.** `Quot.lift g hg` takes a function `g` on data and a proof
-`hg` that `g` respects collapse, and returns the function on classes. This
-is the only way to define a function out of a quotient, and it is why the
-barrier is not an accident: every such function was built from a `g` that
-already agreed on related elements.
+**`descend`.** `Quot.lift g hg` constructs a function on classes from a
+function `g` and a proof that it respects the generating relation. It is
+the standard nondependent construction from a representative-level
+function. The barrier applies to any function on the quotient, including
+a constant function or a composition, however it was defined.
 
 **`descend_agrees`.** `barrier_R2L` applied to the descended function.
 
-**`barrier_R2F`.** In reading F all three pairs of `R2F` are collapsed
-(`R2F_collapsed d d'`, Unit 16), so any `f` on the classes agrees on every
-two data, not only on `0` and `1`.
+**`barrier_R2F`.** This formal quotient uses the whole type `Nat`, not
+`Fin R2F.data`. `R2F_collapsed d d'` holds for any natural indices in
+this instance-free regime, so the book theorem is correspondingly
+general. Its restriction to the three admitted indices is an instance;
+the theorem does not admit any other index as a datum.
 
 **Axioms.** The two general theorems use `Quot.sound` and nothing else.
 The instances inherit `propext` from `collapsed_of_no_insts`, which is
 behind `R2L_collapsed` (Unit 10). `raw_function_separates` uses no axiom:
 `decide` on two numerals is a computation.
+
+The added book equivalence helpers report `propext`. The raw-relation
+chain example reports `propext, Quot.sound`. These are separate from the
+native barrier's exact dependencies.
 
 ## What has been proved
 
@@ -245,6 +304,10 @@ behind `R2L_collapsed` (Unit 10). `raw_function_separates` uses no axiom:
 - At `R2F`, every such function is constant on all three data (book Lean).
 - A function on the raw data is not bound (book Lean, by a one-line
   witness).
+- Collapse is reflexive and transitive, and can be packaged as a setoid
+  using symmetry of `↔` (book). For an arbitrary raw generating relation,
+  equal quotient values can arise along a chain even when the endpoints
+  are not directly related (`raw_chain_quotient`, book).
 
 ## What has not been proved
 
@@ -254,10 +317,10 @@ behind `R2L_collapsed` (Unit 10). `raw_function_separates` uses no axiom:
 - Which abstraction is "current". That is a declaration of the
   metatheory: `collapseRel R2L` is chosen here because Challenge 2 ends
   with the two data collapsed. Nothing in the theorem picks the relation.
-- That `collapseRel` is an equivalence. It is not needed for `Quot`, and
-  Genesis does not build a `Setoid` from it here. Symmetry is proved
-  elsewhere (`collapsed_symm`, `TransitionTransport.lean` line 221);
-  transitivity is not stated in the frozen derivation.
+- A setoid construction in the native `Quot.lean` file: it uses raw
+  `Quot`. The book separately proves reflexivity and transitivity of
+  collapse and packages its equivalence using symmetry of `↔`. This
+  does not add an exported theorem to the sealed derivation.
 
 ## Outside the system
 
@@ -293,6 +356,9 @@ forbid it? Does it answer the paper's question 5?
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 It is not forbidden and it does not answer the question. The operation
 reads the presentation token, which is not part of the collapse class, so
 it is not a function out of `Quot (collapseRel R2L)` and the theorem is
@@ -304,6 +370,8 @@ that mentions them (Unit 08). Recovering the distinction inside the regime
 means admitting structure that some context can see, which is Challenge 3,
 and Unit 18 proves that costs at least two items.
 
+</details>
+
 ## Verification
 
 | Item | Where |
@@ -311,5 +379,5 @@ and Unit 18 proves that costs at least two items.
 | Lean | `lean4/Derivation/Quot.lean` lines 17-20, 23-26, 31, 33-35 |
 | Axiom report | `artifacts/lean_axioms.txt`: `quotient_barrier` `[Quot.sound]`; `quot_barrier` `[Quot.sound]`; `barrier_R2L` `[propext, Quot.sound]` |
 | Paper | `paper/paper.md` §10 required question 5; ledger `paper/paper_claim_ledger.md` `CL-QUOT-BARRIER` ("Python: n/a (purely logical)") |
-| Check (Python) | `python textbook/checks/u27_barrier.py`: `R2L` collapsed pairs `((0, 1),)`, equal profiles, a class-reading function agrees on both data, a token-reading one does not, swapped data give the same canonical key and one group |
-| Check (book Lean) | `python textbook/checks/u27_lean.py`: five book theorems plus the three Genesis theorems kernel-checked, Lean 4.33.0; `Quot.sound` alone for the general barrier, `propext, Quot.sound` for the instances, no axiom for the raw-function witness |
+| Check (Python) | `python textbook/checks/u27_barrier.py`: `R2L` equal profiles and differing tokens; invariant canonical key; separate binary-link example with equal profile sizes and unequal full profiles |
+| Check (book Lean) | `python textbook/checks/u27_lean.py`: nine book reports plus three native results kernel-checked, Lean 4.33.0; added collapse/setoid helpers use `propext`, the raw chain uses `propext, Quot.sound`; original dependencies are unchanged |

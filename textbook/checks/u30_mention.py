@@ -4,9 +4,8 @@ On a three-datum regime with one unary form: an instance mentioning only
 datum 2 leaves (0, 1) collapsed (R3); a fresh form with no instance
 leaves every pair as it was (R2); an instance mentioning datum 0
 separates (0, 1), the boundary. Then the pruning the lemma licenses:
-on a four-datum base, every cost-2 delta the pruned enumeration drops
-that is instance-only mentions neither target datum and is not a valid
-response.
+on a four-datum base, the dropped pair of distinct unmentioning instances
+is invalid, while every valid dropped delta has a valid one-item part.
 AuthorityEffect: None.
 Run from the repository root: python textbook/checks/u30_mention.py
 """
@@ -20,13 +19,14 @@ sys.path.insert(0, str(ROOT / "code"))
 
 from derivation.candidates import (  # noqa: E402
     Bounds,
+    NewDatum,
     NewInst,
     iter_cost2_deltas,
     iter_full_deltas,
     response_valid_naive,
 )
-from derivation.model import AdmissionError, AdmitDatum, AdmitForm, AdmitInst, replay  # noqa: E402
-from derivation.observe import collapsed_pairs, contexts, plug  # noqa: E402
+from derivation.model import AdmissionError, AdmitDatum, AdmitForm, AdmitInst, AdmitRuleAll, Regime, replay  # noqa: E402
+from derivation.observe import collapsed_pairs, contexts, derivable, plug, separable  # noqa: E402
 
 
 def main() -> int:
@@ -83,6 +83,27 @@ def main() -> int:
     if unmentioning_valid or len(unmentioning) != 1 or len(covered) != len(valid_dropped):
         failures.append("pruning")
 
+    fresh_only = (NewDatum(), NewInst(0, (4,)))
+    generated, accepted = fresh_only in pruned, valid(fresh_only)
+    print(f"fresh-only mark generated={generated}; valid response={accepted}")
+    if not generated or accepted:
+        failures.append("generation versus validity")
+
+    uniform = replay([AdmitDatum("a"), AdmitDatum("b"), AdmitForm(2), AdmitRuleAll(0)])
+    grown = replay([AdmitDatum("c")], uniform)
+    c = (0, (None, 2))
+    answers = [derivable(grown, plug(c, d)) for d in (0, 1)]
+    print(f"fresh-slot context new={c not in contexts(uniform) and c in contexts(grown)}; "
+          f"answers under old uniform rule={answers}")
+    if c in contexts(uniform) or c not in contexts(grown) or answers != [True, True]:
+        failures.append("both positive under a rule")
+
+    stale = Regime(("a", "b"), (), frozenset({(0, (0,))}), frozenset(), frozenset())
+    activated = replay([AdmitForm(1)], stale)
+    print(f"raw stale form reference: old collapsed={collapsed_pairs(stale)}; "
+          f"after form addition separable={separable(activated, 0, 1)}")
+    if collapsed_pairs(stale) != ((0, 1),) or not separable(activated, 0, 1):
+        failures.append("old form-range condition")
     print(f"failures: {failures}")
     return 1 if failures else 0
 

@@ -1,12 +1,23 @@
-# Unit 30. A context that reaches outside the regime separates nothing
+# Unit 30. Adding instances that avoid both targets preserves their comparison
 
-**Claim.** Adding instances that mention neither `d` nor `d'` leaves the
+**Claim.** If newly added instances mention neither of two target data,
+the old comparison between those targets is unchanged. Fresh-data and
+fresh-form results have additional range conditions; their scope is
+spelled out separately below.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** Adding instances that mention neither `d` nor `d'` leaves the
 collapse of the pair `(d, d')` exactly as it was: `collapsed { r with insts
 := r.insts ++ new } d d' ↔ collapsed r d d'` whenever no instance in `new`
-mentions `d` or `d'` (R3, the mention lemma). Two corollaries follow by the
-same argument: admitting a fresh datum (R1, Unit 12) or a fresh form that
-no instance uses and no rule names (R2) changes no existing pair's
-collapse. **Status:** derived. **Lean:** `Derivation.mem_plug_of_hole`
+mentions `d` or `d'` (R3, the mention lemma). R1 preserves old comparisons
+when all old instance arguments lie below the old datum count. R2 does
+so when every old instance and rule names a form below the old form
+count. These are separate hypotheses on the record, not consequences
+of simply increasing a count or appending an arity.
+
+**Status:** derived. **Lean:** `Derivation.mem_plug_of_hole`
 (`lean4/Derivation/Mention.lean` line 40), `not_mem_of_arg_out_of_range`
 (47), `exists_out_of_range_slot` (56), `collapsed_append_unmentioning`
 (88-110), `collapsed_fresh_datum` (124), `getD_append_left` (157),
@@ -15,6 +26,30 @@ R3 and R1; `propext` for R2. **Depends on:** contexts, plugging,
 derivability, collapse (Unit 08); `collapsed_of_no_insts` (Unit 10); the
 fresh-datum corollary already taught (Unit 12); the cost-2 enumeration
 (Unit 18).
+
+</details>
+
+## First pass
+
+Use three data, one unary form `marked`, no instances, and no uniform
+rule. Compare data 0 and 1: the question `marked(□)` is negative for both.
+
+Add only `marked(2)`. Neither target's answer changes, so 0 and 1
+remain collapsed. Data 2 now differs from each of them. The claim
+preserves the named pair, not every comparison in the record.
+
+An instance **mentions** a datum when its argument list contains that
+datum. Filling a question's holes with 0 always produces an instance
+mentioning 0. Thus a new instance that avoids 0 cannot be that filled
+question. The same reasoning applies to 1 when the additions avoid it too.
+
+**Change:** add `marked(0)` instead. In this particular starting record,
+the answer for 0 becomes positive while the answer for 1 stays negative.
+Mentioning a target permits a change; it does not guarantee one in
+every regime.
+
+The [Search lab](../search_lab/README.md) shows the further distinction
+between generating a candidate and accepting it as a valid response.
 
 ## Question
 
@@ -31,11 +66,11 @@ Units 18 to 22 would rest on a gap.
 - A well-formed context has at least one hole (`none ∈ c.slots` is a
   conjunct of `wfCtx`, Unit 08). Plugging fills every hole with the
   datum.
-- `derivable r i` is `i.1 ∈ r.rules ∨ i ∈ r.insts` (Unit 08).
+- `derivable r i` is `i ∈ r.insts ∨ i.1 ∈ r.rules` (Unit 08).
 - `collapsed_of_no_insts` (Unit 10): with no instances, every pair is
   collapsed.
-- R1, `collapsed_fresh_datum`, taught in Unit 12 as "a fresh datum adds no
-  power". This unit places it beside its siblings.
+- R1, `collapsed_fresh_datum`, taught in Unit 12 as preservation of old
+  comparisons. A newcomer can still add a new observational class.
 - The pruned enumeration `iter_cost2_deltas` and the unpruned
   `iter_full_deltas` (Unit 18).
 
@@ -49,29 +84,35 @@ mentions `d`, because the context has a hole and the hole receives `d`
 whether `plug c d` is derivable by membership, and the rule clause does
 not read `insts` at all.
 
-The two corollaries are not instances of R3, because a fresh datum or
-form enlarges the set of well-formed contexts: new contexts appear. The
-argument is the same in spirit: a new context mentions something no
-instance mentions (the fresh datum, or the fresh form), so *both*
-pluggings fail derivability, and the `iff` in `collapsed` holds because
-both sides are false. A context that reaches outside the regime does not
-separate; it fails twice.
+R1 and R2 are not direct instances of R3: a fresh datum or form can
+change the context space. It need not do so in every case; for example,
+the single-hole contexts of existing unary forms do not increase when
+a datum arrives.
+
+Under R1's instance-range condition, a new context with a filled slot
+naming the newcomer cannot derive by old instance membership. A uniform
+rule for its existing form can still make both pluggings derivable.
+They agree either way; they do not necessarily both fail. Under R2's
+instance-form and rule-form conditions, a context using the fresh form
+has neither an old instance nor a rule covering it, so both pluggings
+are underivable.
 
 ## Plain-language interpretation
 
-To tell two data apart you need a stencil that lights up for one and not
-the other. A stencil lights up when the filled-in sentence is one the
-regime has asserted. If every sentence you add is about other data, no
-stencil's reading on `d` or `d'` moves, because every reading on `d`
-contains `d` and you asserted nothing containing `d`. Likewise a stencil
-that names a datum nobody has said anything about, or uses a form nobody
-has filled in, reads dark on everything, and dark on both is agreement,
-not separation.
+To tell two data apart, one question must give different derivability
+answers. A positive answer comes from an instance or a uniform rule.
+If the additions are only instances about other data, each target's
+answers stay the same: plugging a target into a question always
+mentions that target. The rules have not changed.
 
-The limit is as sharp as the lemma: an instance that *does* mention `d`
-is exactly how separation happens. Units 19 and 20 separate `a` from `b`
-by asserting something about one of them. R3 says the unmentioning part
-of a candidate is dead weight, nothing more.
+For the fresh-data corollary, agreement can mean two positive answers
+under a uniform rule. For the fresh-form corollary, the stated form-range
+hypotheses rule out both old instances and rules for the new form.
+
+Mentioning a target does not itself guarantee separation. An existing
+instance may already give the same answer, or a uniform rule may cover
+both pluggings (Unit 19). R3 supplies a sufficient condition for leaving
+the comparison unchanged; violating that condition does not force change.
 
 ## Pseudocode
 
@@ -84,10 +125,16 @@ key: for e in {d, d'} and any context c with a hole,
    backward: membership in r is membership in r + new; rules unchanged
 collapse in r + new  <->  for every c: both pluggings agree  <->  collapse in r
 
-# Gloss, R1 and R2
-a context naming the fresh datum / using the fresh form:
-   neither plugging is derivable (no instance mentions it; no rule covers it)
-   so both pluggings agree, for d and for d' alike
+# Gloss, R1 under the old-instance datum-range condition
+a new context naming the newcomer:
+   neither plugging is an old instance
+   an unchanged uniform rule either covers both pluggings or neither
+   so their derivability answers agree
+
+# Gloss, R2 under the old-instance and old-rule form-range conditions
+a context using the fresh form:
+   neither plugging is an old instance; no old rule covers the form
+   both pluggings are underivable
 every other context: unchanged from r
 ```
 
@@ -275,7 +322,8 @@ every rule's form is below the current form count. Forward: a context of
 the old regime is a context of the new one (its form index is below the
 longer list, and `getD_append_left` says its arity is read from the old
 part), so apply the assumed collapse. Backward: split on whether the
-context's form is old. If old, as before. If it is the fresh form `k`,
+context's form is old. If old, as before. If its index is the new position
+`r.forms.length`, with arity `k`,
 `hnot` shows nothing plugged into it is derivable in `r`: a membership
 derivation would put the form below the old count (`hinst`), as would a
 rule (`hrule`), contradicting `hold`. Both pluggings underivable gives the
@@ -308,6 +356,12 @@ decided side conditions.
   `Regime.wf` (Genesis, derived).
 - On the three-datum regime, the mark on 2 leaves `(0, 1)` collapsed, a
   mark on 0 does not, and a fresh binary form changes nothing (book Lean).
+- A fresh-slot context can have two positive answers through a uniform
+  rule (`fresh_rule_context_positive`, book). Without R2's old-form
+  condition, a malformed raw instance can become usable when its missing
+  form is appended and can separate a previously collapsed pair
+  (`raw_form_activation`, book). This is not an admission history from
+  genesis; it is a boundary case for the theorem's hypothesis.
 
 ## What has not been proved
 
@@ -316,8 +370,9 @@ decided side conditions.
   the bounded computation `test_pruned_cost2_contains_every_valid_full_delta`,
   cross-checked against the unpruned space. The ledger's
   `CL-PRUNE-STRUCTURAL` says so under "Scope, exactly".
-- Anything about a delta that mentions the target. R3 is silent about it,
-  and such deltas are the ones that separate.
+- Separation merely from the fact that a delta mentions a target. R3's
+  preservation condition then fails, but the actual answers still need
+  checking.
 - The rule-removal pruning, which is a different lemma
   (`separable_of_subrules`, `rule_item_never_minimal`, `RuleBridge.lean`,
   Unit 33).
@@ -339,32 +394,41 @@ reads it.
 **Phrases to read with care.**
 
 - "A fresh datum is useless" is not what R1 says. It says a fresh datum
-  *by itself* separates nothing; a delta that admits a datum and then
-  mentions it with a target is how an auxiliary witness works (Unit 21's
-  `BL` admits nothing fresh, but the engine's trees contain such
-  responses).
+  *by itself*, under the instance-range hypothesis, leaves comparisons
+  between old data unchanged. Unit 12 shows that the newcomer can still
+  add a new observable class. A later instance mentioning it can also
+  be part of a response; R1 does not analyze that combined change alone.
 - "The pruning is proved" is true of the three irrelevance facts and
   bounded-computational for the enumeration that uses them.
 
 ## Student exercise
 
-R3 is stated for a pair `(d, d')` that already exists in `r`. Why can it
-not be used, as it stands, to prune a candidate that admits a fresh datum
-and an instance mentioning only that fresh datum, and which theorem covers
-that candidate instead?
+R3 changes only `insts`. Why does it not directly cover a candidate that
+also admits a fresh datum? Assume the old instance arguments are all
+admitted data and an old pair is collapsed. Use R1 and R3 in sequence
+when the new instance mentions only the newcomer. Then check whether
+`iter_cost2_deltas` omits this candidate or generates it.
 
 ## Answer
 
-Such a candidate changes `data`, so the regime after it has new
-well-formed contexts, the ones with a slot naming the fresh datum, and R3
-only moves instances over a fixed context space. R1 is the theorem for the
-datum admission: it shows the fresh datum, unreferenced by any instance of
-`r`, leaves every existing pair's collapse unchanged. The instance that
-mentions only the fresh datum then mentions neither target datum, so R3
-applies in the enlarged regime and removes it too. The candidate is
-therefore dropped by the two lemmas in sequence, which is exactly shape
-(b) of `iter_cost2_deltas`: a fresh datum is kept only with an instance
-that mentions it *and* is generated for the target pair.
+<details>
+<summary>Worked answer</summary>
+
+Such a candidate changes `data` and can therefore change the context
+space. R3 directly changes only `insts`; in the unary example the contexts
+happen to stay the same, but the general composition still needs its
+scope stated. Under the old-instance range condition, R1 says the datum
+admission preserves the old pair's collapse. The new instance mentions
+only the newcomer and neither target, so R3 preserves that comparison in
+the enlarged regime too. The candidate is
+unable to separate the old collapsed pair. This mathematical conclusion
+does not mean the generator omits the candidate. Shape (b) of
+`iter_cost2_deltas` requires mention of the newcomer, without requiring
+mention of a target. On the four-datum unary base, `(NewDatum(),
+NewInst(0, (4,)))` is generated; `response_valid_naive` then rejects it
+for target `(0, 1)`. Generation and validity checking are different steps.
+
+</details>
 
 ## Verification
 
@@ -373,5 +437,5 @@ that mentions it *and* is generated for the target pair.
 | Lean | `lean4/Derivation/Mention.lean` lines 40-43, 47-50, 56-80, 88-110, 124-153, 157-160, 168-187 |
 | Axiom report | `artifacts/lean_axioms.txt`: `mem_plug_of_hole` `[propext, Quot.sound]`; `collapsed_append_unmentioning` `[propext, Quot.sound]`; `collapsed_fresh_datum` `[propext, Quot.sound]`; `collapsed_fresh_form` `[propext]` |
 | Paper | `paper/paper.md` §8.3 (pruning lemmas) and §12 residuals R1 to R3 (discharged 2026-08-17); ledger `CL-PRUNE-STRUCTURAL` with its "Scope, exactly" paragraph |
-| Check (Python) | `python textbook/checks/u30_mention.py`: the three-datum regime under R3, R2 and the mentioning edge; every plug mentions its datum over 8 contexts; on four data, 59 two-item deltas, 26 kept, the one mention-lemma drop invalid, every valid drop covered by a valid one-item part |
-| Check (book Lean) | `python textbook/checks/u30_lean.py`: six book theorems plus four Genesis theorems kernel-checked, Lean 4.33.0 |
+| Check (Python) | `python textbook/checks/u30_mention.py`: original three-datum and 59/26/33 pruning cases; generated-but-invalid newcomer-only mark; fresh context with two positive answers; separate malformed-base form-activation case |
+| Check (book Lean) | `python textbook/checks/u30_lean.py`: eight book reports plus four native results kernel-checked, Lean 4.33.0; two added boundary cases use `propext, Quot.sound` |

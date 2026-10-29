@@ -140,6 +140,12 @@ walkthrough. Changed-label practice has separate folded answers.
    implicit operational enforcement, and the overbroad fact/law title.
    Fixed relations, unrestricted positive extensions, and constrained
    extension families now have different questions and checked examples.
+   The [finite and transport follow-up](FINITE_READING_REVIEW_2026-10-29.md)
+   adds four first passes in Units 27–30. It qualifies raw quotient
+   grouping, counts states separately from rounds, carries query pairs
+   through renaming, and distinguishes candidate generation from validity.
+   Fresh-context agreement now includes the uniform-rule case, and the
+   malformed-base example makes the old-form range condition explicit.
 7. **Evidence and reality.** Add exercises in separating a definition,
    a deduction, a computation, and a measurement. Give a model prediction,
    identify an observation that could disagree with it, and explain what

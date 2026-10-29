@@ -207,9 +207,9 @@ now introduce their grouping meaning. Further conceptual review remains.
 | `Unit 25` | [`units/25_obstruction_under_irrefl.md`](units/25_obstruction_under_irrefl.md) | Under irreflexivity, collapsing a related pair is obstructed | `PrimDiff` | `Unit 24` |
 | `Unit 26` | [`units/26_irrefl_law_not_entailed.md`](units/26_irrefl_law_not_entailed.md) | Keeping positive entries does not exclude a self-pair | `Bridge` | `Unit 24`, `Unit 25` |
 | `Unit 27` | [`units/27_abstraction_barrier.md`](units/27_abstraction_barrier.md) | An abstraction cannot see what it identifies | `Quot` | `Unit 08`, `Unit 16` |
-| `Unit 28` | [`units/28_closure_must_stop.md`](units/28_closure_must_stop.md) | Closure over fixed data must stop within n(n-1)/2 rounds | `Counting` | `Unit 17` |
+| `Unit 28` | [`units/28_closure_must_stop.md`](units/28_closure_must_stop.md) | Fixed data bound rounds that add new demands | `Counting` | `Unit 17` |
 | `Unit 29` | [`units/29_renaming_changes_nothing_seen.md`](units/29_renaming_changes_nothing_seen.md) | Renaming the data changes nothing a context can see | `CountTransport` | `Unit 08`, `Unit 09` |
-| `Unit 30` | [`units/30_mention_lemma.md`](units/30_mention_lemma.md) | A context that reaches outside the regime separates nothing | `Mention` | `Unit 08`, `Unit 12` |
+| `Unit 30` | [`units/30_mention_lemma.md`](units/30_mention_lemma.md) | Adding instances that avoid both targets preserves their comparison | `Mention` | `Unit 08`, `Unit 12` |
 | `Unit 31` | [`units/31_transition_transport.md`](units/31_transition_transport.md) | Renaming carries every transition; index-least selection is not congruent | `TransitionTransport` | `Unit 22`, `Unit 29` |
 | `Unit 32` | [`units/32_same_proof_one_more_datum.md`](units/32_same_proof_one_more_datum.md) | The same proof with one more datum | `MinimalityF` | `Unit 05`, `Unit 22`, `Unit 29` |
 | `Unit 33` | [`units/33_rule_never_pays.md`](units/33_rule_never_pays.md) | A rule never pays for itself | `RuleBridge` | `Unit 02`, `Unit 22` |
