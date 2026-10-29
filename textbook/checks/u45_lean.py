@@ -107,6 +107,22 @@ theorem worldAt_two :
     (worldAt 2).data = [0, 1, 2] ∧ (worldAt 2).views = [[1], [2]] ∧
     (worldAt 2).reqs = [(0, 1), (0, 2)] ∧ quiescentB (worldAt 2) = true := by decide
 
+/-- Notes change the literal record, while leaving operational support fixed. -/
+theorem note_changes_record_not_support :
+    (step genesis (.note 7)).notes = [7] ∧
+    supp (step genesis (.note 7)) = supp genesis ∧
+    step genesis (.note 7) ≠ genesis := by decide
+
+/-- Only the recorded requirement is protected by preservesB. -/
+def oneRequirement : World :=
+  ⟨[10, 20, 30], [[0]], [(1, 2)], [], 1, true, []⟩
+
+theorem accepted_mark_can_merge_unprotected :
+    markOkB oneRequirement [0] 1 = true ∧
+    satB oneRequirement (0, 1) = true ∧
+    satB (step oneRequirement (.mark [0] 1)) (0, 1) = false ∧
+    satB (step oneRequirement (.mark [0] 1)) (1, 2) = true := by decide
+
 end Textbook.U45
 
 #print axioms Textbook.U45.story_values
@@ -126,6 +142,8 @@ end Textbook.U45
 #print axioms Textbook.U45.wit_identity_fails
 #print axioms Textbook.U45.panel_instances
 #print axioms Textbook.U45.worldAt_two
+#print axioms Textbook.U45.note_changes_record_not_support
+#print axioms Textbook.U45.accepted_mark_can_merge_unprotected
 #print axioms Represented.support_determines
 #print axioms Represented.repairFamily_retains_ties
 #print axioms Represented.equiv_replay
@@ -146,6 +164,8 @@ end Textbook.U45
 """
 
 EXPECTED = {
+    "Textbook.U45.note_changes_record_not_support": BOTH,
+    "Textbook.U45.accepted_mark_can_merge_unprotected": BOTH,
     "Textbook.U45.story_values": BOTH,
     "Textbook.U45.story_progress_instance": BOTH,
     "Textbook.U45.story_right_branch": BOTH,

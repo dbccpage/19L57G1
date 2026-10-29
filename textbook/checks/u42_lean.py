@@ -5,10 +5,10 @@ the repository root after `lake build` in lean4/:
 
     python textbook/checks/u42_lean.py
 
-The two `*_trap` declarations measure the toolchain: on Lean 4.33.0 the
-`BEq` route `n == n` at `Nat` carries `Classical.choice` and the
-`decide` route does not, which is why Genesis's counting lemma is
-written with `decide (x = B)`. AuthorityEffect: None.
+The isolated `beq_trap` measures one generic proof's dependencies.
+`beq_without_choice` proves the same proposition without axioms. The
+comparison does not claim Boolean equality requires choice. Native
+counting proofs use their own choice-free route. AuthorityEffect: None.
 """
 from __future__ import annotations
 
@@ -27,12 +27,46 @@ import Derivation.CapacityBound
 namespace Textbook.U42
 open Pigeonhole CapacityBound SeparationCapacity
 
-/-- The trap the module header measures: `n == n` at `Nat` goes through
-`ReflBEq Nat`, which carries `Classical.choice` on this toolchain. -/
+/-- The generic reflexivity proof measured in isolation; its dependency
+report is not a lower bound on other proofs of this proposition. -/
 theorem beq_trap (n : Nat) : (n == n) = true := beq_self_eq_true n
 
 /-- The route Genesis takes instead. -/
 theorem decide_route (n : Nat) : decide (n = n) = true := decide_eq_true rfl
+
+/-- The same BEq proposition as beq_trap, reducing the selected instance
+to decidable equality rather than using its generic reflexivity lemma. -/
+theorem beq_without_choice (n : Nat) : (n == n) = true := by
+  change decide (n = n) = true
+  exact decide_eq_true rfl
+
+/-- Reading the index is local at radius zero when colours ARE indices. -/
+theorem identity_local_zero : ViewLocal id id 0 :=
+  ⟨fun xs => xs.headD 0, fun _ => rfl⟩
+
+theorem identity_colours_unbounded (k : Nat) : ¬ (∀ x : Nat, id x < k) :=
+  fun h => Nat.lt_irrefl k (h k)
+
+/-- With a constant colour, the index cannot be recovered from that window. -/
+theorem constant_colour_not_identity : ¬ ViewLocal id (fun _ => 0) 0 := by
+  rintro ⟨g, hg⟩
+  have h0 : (0 : Nat) = g [0] := hg 0
+  have h1 : (1 : Nat) = g [0] := hg 1
+  exact Nat.zero_ne_one (h0.trans h1.symm)
+
+/-- Unlike the native one-colour fixture, this states the general local
+view consequence. All positions have the same colour window. -/
+theorem one_colour_view_constant (colour v : Nat → Nat) (d : Nat)
+    (hc : ∀ x, colour x < 1) (hloc : ViewLocal v colour d) (i j : Nat) :
+    v i = v j := by
+  apply local_view_blind hloc
+  simp only [colourBall, ball, List.map_map]
+  apply List.map_congr_left
+  intro t ht
+  show colour (i - d + t) = colour (j - d + t)
+  have hi := hc (i - d + t)
+  have hj := hc (j - d + t)
+  omega
 
 theorem upto_three : upto 3 = [2, 1, 0] := rfl
 
@@ -95,6 +129,11 @@ end Textbook.U42
 
 #print axioms Textbook.U42.beq_trap
 #print axioms Textbook.U42.decide_route
+#print axioms Textbook.U42.beq_without_choice
+#print axioms Textbook.U42.identity_local_zero
+#print axioms Textbook.U42.identity_colours_unbounded
+#print axioms Textbook.U42.constant_colour_not_identity
+#print axioms Textbook.U42.one_colour_view_constant
 #print axioms Textbook.U42.upto_three
 #print axioms Textbook.U42.counting_instance
 #print axioms Textbook.U42.four_into_three
@@ -119,6 +158,11 @@ end Textbook.U42
 EXPECTED = {
     "Textbook.U42.beq_trap": CHOICE,
     "Textbook.U42.decide_route": NONE,
+    "Textbook.U42.beq_without_choice": NONE,
+    "Textbook.U42.identity_local_zero": NONE,
+    "Textbook.U42.identity_colours_unbounded": NONE,
+    "Textbook.U42.constant_colour_not_identity": NONE,
+    "Textbook.U42.one_colour_view_constant": BOTH,
     "Textbook.U42.upto_three": NONE,
     "Textbook.U42.counting_instance": BOTH,
     "Textbook.U42.four_into_three": BOTH,

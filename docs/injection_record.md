@@ -765,3 +765,24 @@ receipt is regenerated while an injected proposition or binding is live.
 These checks establish the stated formal and finite boundaries, not
 physical realization, hosted layout, or beginner mastery.
 
+## Capacity, proof dependencies, and guarded kernel review (2026-10-29)
+
+Four temporary book drivers assert exact false propositions. A fifth
+temporary driver substitutes a valid proof with different dependencies.
+Native owners, sealed files, artifacts, and pin populations are unchanged.
+
+| Check | Defect exercised | Observed failure | Recovery |
+|---|---|---|---|
+| Local input | Assert distinct constant-colour windows at indices 0 and 1, radius 0 | Lean names the window inequality as false; runner exits 1 | u42 separates equal window inputs from different index outputs and proves locality/colour-bound cases |
+| Preservation scope | Assert an accepted mark keeps the unprotected `(0,1)` pair separated | Lean names the satisfaction equation as false; runner exits 1 | u45 checks that the same mark meets the recorded `(1,2)` requirement while losing `(0,1)` |
+| Support versus record | Assert writing note 7 leaves genesis literally unchanged | Lean names the world equality as false; runner exits 1 | u45 proves record inequality and equal operational support |
+| Historical refusal | Assert the old refusal's exhaustion predicate remains true after the separating augmentation | Lean names the Boolean equation as false; runner exits 1 | u46 proves refusal membership persists while current exhaustion is false |
+| Proof dependency | Replace only `beq_without_choice` with the generic `beq_self_eq_true` proof | Kernel accepts; exact-report check exits 1 naming only `Textbook.U42.beq_without_choice`, whose report now includes `Classical.choice` | Original proof of the identical proposition has an empty dependency report |
+
+The five main book drivers recover 146 exact reports. Eight are new:
+four empty sets and four `propext, Quot.sound`. The existing isolated
+dependency comparison retains its earlier choice-bearing report; no
+native theorem or native boundary is changed. The separate eight
+observer-spec reports retain their earlier generic-driver and idle-step
+examples. No receipt is regenerated under an injected defect.
+

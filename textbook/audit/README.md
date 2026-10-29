@@ -62,6 +62,14 @@ book reports include the single-token history induction, the stage-zero
 profile, and a fixed-chain example where a larger radius helps. Unit 37's
 earlier concrete introduction is preserved.
 
+**Capacity and kernel follow-up (2026-10-29).** The
+[Units 42–46 reading review](CAPACITY_READING_REVIEW_2026-10-29.md) adds
+five concrete first passes and distinguishes finite-colour locality,
+static strategy labels, active pairs, menu exhaustion, and execution
+guards. Eight added book reports check equality-proof dependencies,
+identity colouring, unprotected separation loss, notes versus support,
+and a past refusal whose certificate is no longer current.
+
 ## Scope and method
 
 - **Population.** The 75 tracked modules under `lean4/Derivation/` plus the

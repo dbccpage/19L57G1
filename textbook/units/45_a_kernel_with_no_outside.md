@@ -1,28 +1,14 @@
-# Unit 45. A kernel with no outside: what must be in the state for progress to be replayable?
+# Unit 45. Replaying represented events under a fixed kernel
 
-**Claim.** In the declared represented kernel, operational results depend on the stored support and supplied events. The notes field is inert; progress also depends on the stated guards and well-formedness conditions.
+**Claim.** The fixed step function uses the represented world and supplied
+event. Operational support ignores notes, although the full record keeps
+them. Available repairs and augmentations still require the separate
+execution guards, including budget and permission.
 
-**Status:** derived relative to the declared constitution;
-`represented_progress` conditional on `WF`, which is an invariant of
-replay; `step_mark_sound` and `aug_increases` conditional on their
-guards; the productive run is about a supplied stream; the countermodels
-are decided instances. **Lean:** `lean4/Derivation/Represented.lean`
-lines 58-1362, core Lean only. **Axioms:** `wf_genesis` and
-`histUpTo_prefix` use none; `bool_eq_of_iff`, `or_not_eq_true`
-`propext`; the other 44 reported theorems `{propext, Quot.sound}`;
-17 congruence helpers are not in the report. **Depends on:** nothing in
-Genesis; the discipline of Units 29 and 44 (recorded requirement,
-exhaustive menu, three separate conditions).
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
 
-## First pass
-
-Separate the state from the event. The state records what is present; an event requests one specified operation.
-
-The step function checks the guards and returns the next state. Replaying the same history reconstructs that sequence. Certification remains relative to the supplied evaluator panel.
-
-## Detailed claim and formal anchors
-
-`Represented` answers an external challenge of 2026-08-12
+**Detailed statement.** `Represented` answers an external challenge of 2026-08-12
 with one small kernel.
 
 A `World` holds admitted tokens, view columns,
@@ -40,8 +26,9 @@ repairs (`repairFamily_retains_ties`), and an accepted repair or
 augmentation is sound (`step_mark_sound`, `satB_aug`, `aug_increases`).
 
 On a well-formed world every violation has a non-empty repair family or
-is a certified obstruction whose canonical one-column augmentation is
-accepted and discharges it (`represented_progress`); budget and license
+is a certified obstruction whose one-column augmentation passes
+`augOkB` and would discharge it under `augApply`
+(`represented_progress`); this does not yet apply an event. Budget and license
 gate the application (`progress_needs_budget`, `progress_needs_license`);
 violations arise only from `require` (`violation_only_from_require`,
 `quiescent_stable`); a supplied stream gives a prefix-compatible
@@ -56,6 +43,55 @@ evaluators is exactly joint separation by the panel's own columns
 Eight countermodels fail exactly one theorem
 each.
 
+**Status:** derived relative to the declared constitution;
+`represented_progress` conditional on `WF`, which is an invariant of
+replay; `step_mark_sound` and `aug_increases` conditional on their
+guards; the productive run is about a supplied stream; the countermodels
+are decided instances. **Lean:** `lean4/Derivation/Represented.lean`
+lines 58-1362, core Lean only. **Axioms:** `wf_genesis` and
+`histUpTo_prefix` use none; `bool_eq_of_iff`, `or_not_eq_true`
+`propext`; the other 44 reported theorems `{propext, Quot.sound}`;
+17 congruence helpers are not in the report. **Depends on:** nothing in
+Genesis; recorded requirements (Unit 17) and the separate interface of
+Unit 44 provide comparison points. This module declares its own response
+menu and exhaustion predicate.
+
+</details>
+
+## First pass
+
+Use three positions, A, B, and C. One column says Yes on A and No on
+B and C. Record only the requirement “separate B from C.” Give the world
+one unit of budget.
+
+Request a mark on B in that column:
+
+| Pair | Before | After |
+|---|---|---|
+| B/C, required | Same answers | Different answers |
+| A/B, not required | Different answers | Same answers |
+
+The kernel accepts the mark. It meets the recorded requirement, and no
+previously satisfied recorded requirement is lost. The unprotected A/B
+distinction can disappear. This kernel's preservation rule is therefore
+weaker than Unit 44's closure rule, which preserves every old distinction.
+
+The world holds the current data, columns, requirements, policy fields,
+and records. The event requests one specified operation; the step checks
+its guards. Replaying the same events from the same starting world gives
+the same result under this fixed definition.
+
+**Predict:** is writing a note the same as doing nothing to the record?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. The notes list changes. The operational-support projection ignores
+that list, so its value and future support behavior stay the same for the
+same supplied events.
+
+</details>
+
 ## Question
 
 Earlier units let an evaluator, a tie-break or a "next fresh name" sit
@@ -67,8 +103,9 @@ break?
 ## What we already possess
 
 - Regimes, admission events and replay from genesis (Units 05-08).
-- A recorded requirement, a column that separates a pair, and
-  obstruction as exhaustive failure of a declared menu (Unit 29).
+- Recorded requirements (Unit 17) and the three-way obstruction interface
+  (Unit 44). Exhaustive failure of this kernel's menu is a separate
+  predicate defined below, not Unit 29's collapse-transport theorem.
 - Reflection, obstruction, closure and proposal as types (Unit 44).
 - Lists, `any`/`all`, `filter`, membership and `decide`.
 
@@ -76,9 +113,14 @@ break?
 
 *World.* Seven fields: `data : List Nat` (admitted tokens, in order:
 position is identity), `views : List View` (each a list of positions),
-`reqs : List (Nat × Nat)` (ordered pairs to be separated), `refusals`,
+`reqs : List (Nat × Nat)` (pairs to be separated), `refusals`,
 `budget : Nat`, `augLicensed : Bool`, `notes : List Nat`. `genesis` is
 empty with budget 0 and license on.
+
+Unlike the earlier regime's small-first impose guard, `reqOkB` requires
+distinct admitted positions without requiring `i < j`. Both orientations
+can be recorded. The model change is explicit; the two guards are not
+interchangeable.
 
 *Laws.* `sepB c i j` holds when exactly one of `i`, `j` is in column
 `c`; `satB w r` when some view separates `r`; `violB w r` when `r` is
@@ -106,13 +148,23 @@ and `setAugLicense` have no guard.
 `WEquiv w w'`: equal data (literally), membership-equal views,
 requirements and refusals, equal budget and license.
 
+The progress theorem's `WF w` means every recorded requirement has
+distinct endpoints below the datum count. It is not a certificate that
+all fields of a raw `World` satisfy every desirable invariant. Replays
+from genesis satisfy this particular predicate by `wf_replay`.
+
 ## Plain-language interpretation
 
 Picture a ledger. Tokens are entered in order and never removed. Each
 column is a yes/no question about positions. A requirement says "these
 two positions must get different answers from some column". A repair
 flips one answer in one existing column, and is allowed only if it
-settles some open requirement and unsettles none. An augmentation adds a
+settles some open requirement and preserves every previously satisfied
+recorded requirement. It can merge a pair that was never required. The
+book checks a three-position example: with only `(1,2)` required,
+marking position 1 in column `[0]` settles `(1,2)` while losing the old
+separation of `(0,1)`. This is weaker than Unit 44's `ClosureStep`, which
+preserves every old observer distinction. An augmentation adds a
 column, and is allowed only if it tells apart a pair nothing told apart
 before. An obstruction is a recorded, still-open requirement for which
 every possible repair on the current columns has been tried and failed:
@@ -123,7 +175,8 @@ down stops nothing.
 The point of the module is in the type of `step`: it reads the world
 and the event. There is no clock, no random number, no outside judge.
 So two runs with the same history from the same world agree, by the
-type alone; the commentary field cannot influence a successor; two
+fixed definition; the commentary field cannot influence the successor's
+operational support. The whole world can still differ in its notes. Two
 worlds whose columns are the same set but listed in different orders
 behave the same; and the repair family is a filter, so no tie is ever
 broken. What the module does not claim: that the grammar, the laws, the
@@ -713,11 +766,13 @@ recorded, `(0, 1)` is not, being satisfied.
 - Relative to the declared constitution: the step factors through the
   support; replay-equivalent worlds stay equivalent under every history
   and have membership-equal repair families; ties are kept (Genesis).
-- Accepted repairs discharge and preserve; accepted augmentations are
+- Accepted mark repairs discharge a violation and preserve previously
+  satisfied recorded requirements; accepted augmentations are
   conservative on satisfied requirements and add capacity (Genesis).
 - On well-formed worlds, which include every replay from genesis, a
   violation has a repair or is a certified obstruction with an accepted
-  canonical augmentation that discharges it (Genesis; applied to the
+  augmentation passing the structural guard that would discharge it under
+  `augApply` (Genesis; applied to the
   story in the book).
 - Budget and license gate the applying step; violations come only from
   `require`; a supplied stream gives a prefix-compatible unbounded run;
@@ -781,6 +836,9 @@ and then `refuse 2 3`.
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 After `admitTok 40` the data is `[10, 20, 30, 40]`; `require 2 3`
 passes `reqOkB` (distinct, in bounds, new), so the world has four
 recorded pairs, three satisfied and `(2, 3)` violated. The menu is every
@@ -801,6 +859,8 @@ the pair is satisfied, so `obstructedB` is false, and
 `refusal_needs_certificate` says the step changes nothing. The check
 script's mirror confirms each line.
 
+</details>
+
 ## Verification
 
 | Item | Where |
@@ -810,4 +870,4 @@ script's mirror confirms each line.
 | Paper | `paper/represented_progress.md` (TERMINAL, the required definitions, the eight targets, the internal candidate for truth, the countermodels split by class, the exact ceiling); `paper/paper_claim_ledger.md` `CL-RP-TERMINAL` through `CL-RP-CEILING` |
 | Python | `code/derivation/represented.py`, `artifacts/represented.json`, `tests/test_represented.py` |
 | Check (Python) | `python textbook/checks/u45_represented.py`: the story, the gates and the refill, refusal, the run to 15 stages, the countermodels with the kernel beside them, certification, witnesses, mutation, all against the artifact |
-| Check (book Lean) | `python textbook/checks/u45_lean.py`: seventeen book declarations plus seventeen Genesis theorems kernel-checked, Lean 4.33.0 |
+| Check (book Lean) | `python textbook/checks/u45_lean.py`: nineteen book reports plus seventeen Genesis theorems kernel-checked, Lean 4.33.0 |

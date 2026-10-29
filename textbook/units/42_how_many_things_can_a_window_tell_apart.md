@@ -1,22 +1,35 @@
-# Unit 42. Counting without choosing, and how many things a bounded window can tell apart
+# Unit 42. Bounded colour windows limit the number of distinct views
 
-**Claim.** Two modules. `Pigeonhole` is apparatus: a duplicate-free list
+**Claim.** With k colours and a fixed radius d, a colour window has at most
+k^(2d+1) patterns. A view determined only by that window cannot distinguish
+more patterns than the window contains. Enough deep positions therefore
+force two equal views.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** Two modules. `Pigeonhole` is apparatus: a duplicate-free list
 of naturals below `B` has at most `B` entries (`nodup_length_le`), and a
 map from `B + 1` indices into `B` values collides (`pigeonhole`), both
 proved inside `{propext, Quot.sound}`. The point of the module is *how*:
-the usual route through `n == n` at `Nat` carries `Classical.choice` on
-this toolchain, so the proof uses `decide (x = B)` and a hand-written
-index list instead of `List.range`. `CapacityBound` spends that
+the measured proof using `beq_self_eq_true` carries `Classical.choice`
+on this toolchain. The same `(n == n) = true` proposition also has a
+choice-free proof in the book. The native counting proof uses
+`decide (x = B)` and a hand-written index list to control its selected
+lemma dependencies; neither Boolean equality nor `List.range` inherently
+requires choice. `CapacityBound` applies that
 pigeonhole on Unit 41's chain. Colour the indices with `k` colours and
 let a view `v` depend only on the colours in the radius-`d` window
 (`ViewLocal`). Then the window has at most `k^(2d + 1)` distinguishable
 colourings, so once `n ≥ k^(2d + 1) + 2d + 2` two deep points have equal
 views (`capacity_bound`). The bound `B = k^(2d + 1)` is derived from
 locality, not assumed, and does not grow with `n`. Two fixtures show the
-theorem has content: one colour collapses everything
-(`capacity_at_one_colour`), and at `k = 2, d = 0, n = 3`, below the
+theorem has content: a constant-colour, constant-view fixture yields a
+deep pair (`capacity_at_one_colour`), and at `k = 2, d = 0, n = 3`, below the
 threshold 4, a parity view separates every deep pair
-(`local_view_can_separate`). **Status:** derived; the Pigeonhole module
+(`local_view_can_separate`).
+
+**Status:** derived; the Pigeonhole module
 is declared metatheory apparatus. Not claimed: tightness of
 `k^(2d + 1)`, anything for non-local views, anything about Genesis's own
 profile colouring. **Lean:** `lean4/Derivation/Pigeonhole.lean` lines
@@ -24,6 +37,39 @@ profile colouring. **Lean:** `lean4/Derivation/Pigeonhole.lean` lines
 `{propext, Quot.sound}`; `local_view_blind` and `upto_length` none.
 **Depends on:** `ball`, `ball_length` (Unit 41); `List.Nodup` as
 `Pairwise`, `List.filter`, `List.map`, `decide`.
+
+</details>
+
+## First pass
+
+An observer sees a red or blue colour at each of three positions:
+left neighbour, centre, right neighbour. Two choices in each slot give
+`2 × 2 × 2 = 8` possible colour patterns. The observer may report a
+pattern's code, a name, or a much larger number. Equal input patterns
+must still give equal reports under one fixed reporting function.
+
+In a stage-12 chain there are 12 links and 13 positions, numbered 0
+through 12. At radius 1, the deep centres are 2 through 10: nine centres
+whose windows stay strictly between the endpoints. Nine centres cannot
+all have different windows when only eight patterns are available.
+
+This counting principle is called pigeonhole: more entries than possible
+labels make two share a label.
+
+**Predict:** would letting the observer return arbitrarily large numbers
+remove this limit?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. The restriction is on the information supplied to the reporting
+function. A larger output label cannot distinguish two identical inputs.
+Reading an extra input, such as the index itself, changes the conditions.
+
+</details>
+
+The optional formal section explains both the colour bound and the
+locality condition; neither can simply be dropped.
 
 ## Question
 
@@ -48,23 +94,32 @@ without it?
 *Counting.* Split a duplicate-free list below `B + 1` by the test
 `x = B`: the part equal to `B` has at most one entry (no duplicates), the
 rest is duplicate-free below `B`; induct. The test must be written
-`decide (x = B)`. On Lean 4.33.0, `x == B` at `Nat` goes through the
-`ReflBEq Nat` instance, which carries `Classical.choice`; the `decide`
-route does not (the book check measures both). The pigeonhole then maps
+`decide (x = B)` in the native proof. On this imported Lean environment,
+the generic proof `beq_self_eq_true` carries `Classical.choice`, while
+reducing the selected Boolean equality to `decide (n = n)` proves the
+same reflexivity statement without axioms. The book measures both proofs;
+this is a difference between proof dependencies, not an inability to
+compute Boolean equality. The pigeonhole argument then maps
 `B + 1` indices through `f` into values below `B`: if no two collided the
 image list would be duplicate-free of length `B + 1` below `B`.
 
 *Locality.* `colourBall colour i d` is the list of colours along the
 window. `ViewLocal v colour d` says `v i = g (colourBall colour i d)` for
-some `g`: the view reads the window and nothing else, in particular not
-the index. A local view cannot separate two points with equal colour
+some `g`: the view reads the window, with no separate index input. The
+colours can themselves encode index information. A local view cannot
+separate two points with equal colour
 windows (`local_view_blind`).
 
-*Capacity.* A window of length `2d + 1` over `k` colours has at most
+*Capacity.* At chain stage `n` there are `n` links and `n+1` positions,
+as in Unit 41. A window of length `2d + 1` over `k` colours has at most
 `k^(2d + 1)` colourings, and a base-`k` encoding (`encode`) carries each
 window to a distinct number below `k^(2d + 1)`. The deep interior of the
 chain of length `n` has `n − 2d − 1` points; at `n = k^(2d + 1) + 2d + 2`
 it has `B + 1` of them, and pigeonhole gives two with equal windows.
+
+Here `k^m` means multiplying `k` by itself `m` times, with `k^0 = 1`.
+For example, `2^3 = 2×2×2 = 8`. The bound uses both the finite palette
+and fixed window width; locality then limits the view to that information.
 
 ## Plain-language interpretation
 
@@ -76,17 +131,21 @@ window of that size can be coloured. Put more deep elements in the chain
 than there are pictures and two of them must show the same picture, and
 the observer, who sees only pictures, cannot tell them apart.
 
-The counting fact behind this is pigeonhole: more pigeons than holes,
-two share a hole. The module's care is in proving that without a tool
-the repository forbids. The forbidden tool hides in an innocent place: a
-test for `n == n` on numbers, whose library instance happens to reach for
-the axiom of choice. Writing the test as `decide (n = n)` avoids it.
+The counting fact behind this is pigeonhole: assigning more objects than
+available labels makes two share a label. The native proofs keep their
+axiom dependencies within the declared boundary. The book's comparison
+shows why the exact proof matters: a generic reflexivity lemma and a
+direct decidable-equality proof establish the same Boolean equality with
+different dependency reports.
 
 What the theorem does not say: that `k^(2d + 1)` is the true number of
 pictures an observer can use (only that it is an upper bound); anything
-about an observer who reads the index itself, which is Unit 40's valued
-mark and is not local; and anything about the particular colours
-Genesis's own profile would paint.
+about an observer outside the bounded-colour and locality conditions.
+Reading the index is local if the colour itself is that index, but those
+colours have no fixed finite bound. With one constant colour, the
+identity view is not local even at radius zero. The book checks both
+claims. Unit 43 separately supplies a bounded encoding of the chain's
+three-bit profiles as colours.
 
 ## Pseudocode
 
@@ -378,6 +437,13 @@ The check asserts the axiom report of `beq_trap` is
 `[propext, Classical.choice, Quot.sound]` and that of `decide_route` is
 empty: a measurement of the toolchain, not a Genesis result.
 
+The new `beq_without_choice` has the same proposition as `beq_trap` and
+an empty dependency report. `identity_local_zero` and
+`identity_colours_unbounded` separate locality from alphabet boundedness;
+`constant_colour_not_identity` shows that a constant window cannot supply
+the index. `one_colour_view_constant` proves the general one-colour local
+consequence, rather than reading it into the native constant-view fixture.
+
 ## Line-by-line Lean explanation
 
 **`nodup_head`, `nodup_tail` (Pigeonhole 51-59).** `List.Nodup` is
@@ -398,8 +464,10 @@ tail element, by `List.mem_filter`).
 and every tail element fails the test because it differs from `x`
 (`nodup_head`), so the filtered tail is `[]` and the length is 1. If the
 head fails, recurse. The `decide` is the whole point: `of_decide_eq_true`
-and `decide_eq_false` are choice-free, where the `BEq` lemmas at `Nat`
-are not (module header; measured by the book's `beq_trap`).
+and `decide_eq_false` support the native dependency boundary. The
+book's `beq_trap` measures one generic lemma route; `beq_without_choice`
+measures a different proof of exactly the same proposition. A dependency
+in one proof is not a lower bound on every proof or on the operation.
 
 **`nodup_length_le` (141-166).** Induction on `B`. At `B = 0` the list
 must be empty, since no natural is below 0. At `B + 1`, split by
@@ -455,8 +523,8 @@ equal encodings. The points `d + 1 + p` and `d + 1 + q` are deep when
 `reflState`; it is a fact about index-local functions on `Nat`, and the
 chain enters as the name of the index range `(d, n − d)`. That is why it
 applies to any colouring of the chain, and why it says nothing about the
-successor relation. The book's `capacity_two_zero_four` is the smallest
-instance with content, `k = 2, d = 0, n = 4`: three deep points, two
+successor relation. The book's `capacity_two_zero_four` illustrates the
+two-colour radius-zero instance, `k = 2, d = 0, n = 4`: three deep points, two
 colours.
 
 **The fixtures (212-252).** `capacity_at_one_colour` is the bound at
@@ -489,16 +557,19 @@ stale docstring. Unit 43 teaches that module.
   `n ≥ k^(2d + 1) + 2d + 2` (Genesis).
 - Below the threshold a separating local view exists at `k = 2, d = 0`
   (Genesis) and at `k = 2, d = 1` (book).
-- On Lean 4.33.0, `n == n` at `Nat` carries `Classical.choice` and
-  `decide (n = n)` does not (book measurement).
+- The generic `beq_self_eq_true` proof has the measured choice dependency;
+  `beq_without_choice` proves the same Boolean equality without axioms
+  (book measurement). The one-colour local view is constant; identity
+  colours are local but not bounded (book).
 
 ## What has not been proved
 
 - That `k^(2d + 1)` is tight: no lower bound on distinguishable windows
   is proved, and the module says so. The exhaustive searches show the
   threshold is attained at five small `(k, d)` pairs, nothing more.
-- Anything for a view that is not local: for an index-reading view
-  (Unit 40's valued mark) the radius is inert and the theorem is silent.
+- A collision guarantee after removing either colour boundedness or
+  locality. The identity view with identity colours is local at radius 0
+  but unbounded. The identity view over a constant colour is not local.
 - Anything about Genesis's own profile as a colouring: `colour` is
   arbitrary, and no theorem relates `profile1` to it.
 - The repair-strategy consequence (what the bound says about strategies
@@ -511,10 +582,10 @@ stale docstring. Unit 43 teaches that module.
 | Lean | Used for | Status |
 |---|---|---|
 | `List.Nodup`, `List.filter`, `List.map` | counting | metatheory |
-| `decide (x = B)` in place of `x == B` | the choice-free route | toolchain fact, measured |
+| `decide (x = B)` and exact selected lemmas | the native dependency route | measured proof dependencies; the Boolean equality proposition also has a choice-free book proof |
 | `upto` in place of `List.range` | the index list | metatheory, defined to avoid a choice-dependent lemma |
 | `Nat` exponentiation, `encode` | the capacity `k^(2d + 1)` | metatheory |
-| `colour : Nat → Nat`, `v : Nat → Nat` | the observer | arbitrary functions in the metatheory; `ViewLocal` is the only constraint |
+| `colour : Nat → Nat`, `v : Nat → Nat` | the observer | metatheoretic functions; the theorem requires both bounded colours and `ViewLocal` |
 | `propext`, `Quot.sound` | inherited | inside the declared boundary |
 
 **What the system holds.** Nothing new: the Pigeonhole module declares
@@ -529,8 +600,9 @@ observer's own declaration.
 - "The deep interior of `reflState n` holds two points that `v` does not
   separate": true as applied; the theorem's statement has no `reflState`.
 - "`B` is derived, not assumed": `B = k^(2d + 1)` follows from
-  `ViewLocal`; without locality the radius plays no role and the result
-  is ordinary pigeonhole.
+  the colour bound and window width; locality transfers equal windows
+  to equal views. Without locality a separate bound on view values
+  would be needed for that pigeonhole argument.
 - "Choice-free": a property of the enumerated axiom reports on this
   toolchain, which the book check re-measures.
 
@@ -544,6 +616,9 @@ length 5.
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 At radius 0 the window is the point itself, so there are `3^1 = 3`
 possible views; four deep points force a collision. The deep interior at
 radius 0 is `1..n − 1`, with `n − 1` points, so four deep points first
@@ -556,6 +631,8 @@ and, the view being local at radius 0 (it reads the one colour), equal.
 The check's row `3, 0: 5; [1, 2, 3, 4] (4 points, 3 possible balls); True`
 confirms every one of the `3^6` colourings collides.
 
+</details>
+
 ## Verification
 
 | Item | Where |
@@ -565,4 +642,4 @@ confirms every one of the `3^6` colourings collides.
 | Paper | `paper/paper_claim_ledger.md` `CL-CAP-BOUND` (statement, why it is a capacity statement, the exact non-claims, falsifier); `paper/paper_change_log.md` entries on the `ReflBEq Nat` measurement and the `decide`-filter technique; `contact/analysis/separation_capacity_open.md` (the residual document the modules close; its "general `n` OPEN" wording predates Unit 41's correspondence) |
 | Python | none in Genesis; `code/derivation/g1_class_receipt.py` binds the axiom reports |
 | Check (Python, book) | `python textbook/checks/u42_capacity_bound.py`: counting and pigeonhole instances; `encode` bounded and injective; exhaustive collision at the threshold for five `(k, d)`; separating colourings one below; Genesis's parity fixture |
-| Check (book Lean) | `python textbook/checks/u42_lean.py`: fourteen book declarations (the two toolchain measurements included) plus seven Genesis theorems kernel-checked, Lean 4.33.0 |
+| Check (book Lean) | `python textbook/checks/u42_lean.py`: nineteen book reports (including the isolated dependency comparison) plus seven Genesis theorems kernel-checked, Lean 4.33.0 |

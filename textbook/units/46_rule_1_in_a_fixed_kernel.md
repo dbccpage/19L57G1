@@ -1,26 +1,14 @@
-# Unit 46. Rule 1 in a fixed kernel: repair, or certified exhaustion plus a tied extension family
+# Unit 46. Repair or menu exhaustion, with two column-extension candidates
 
-**Claim.** For a well-formed state with a recorded violation, the fixed kernel offers a repair or certified exhaustion with a tied extension family. This result depends on that declared response menu.
+**Claim.** For a recorded violation satisfying the fixed kernel's requirement
+bounds, either its repair family is nonempty or its menu is exhausted
+and both singleton columns are extension candidates. Candidate acceptance
+does not bypass budget or permission to apply an event.
 
-**Status:** derived for the fixed kernel; Rule 1 conditional on `WF`,
-a replay invariant; the common state is a declared interface; the
-transport facts about two-element objects are decided instances.
-**Lean:** `lean4/Derivation/Completion.lean` lines 41-528, imports
-`Represented` and `RefusalFrontier`. **Axioms:** `d2_transport_oriented`
-and `s2_state_not_swap_invariant` none; `chain_transport` `propext`;
-the other 19 `{propext, Quot.sound}`. **Depends on:** Unit 45 (the
-kernel), Unit 39 (the reflective chain), Unit 44 (three separate
-conditions), Units 09-10 (the two-element objects).
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
 
-## First pass
-
-First check the current views against the retained, protected requirements. If they merge a required pair, there is an obstruction.
-
-Next inspect the allowed repairs. Exhausting that menu supports the stated certificate and extension alternatives. It does not rule out repairs from an undeclared menu.
-
-## Detailed claim and formal anchors
-
-`Completion` builds one common state whose fields keep apart
+**Detailed statement.** `Completion` builds one common state whose fields keep apart
 what the programme refuses to merge: the admitted carrier,
 metatheoretic inequality facts, positive witnessed difference, view
 columns, retained pairs, protected pairs, budget, license, refusals.
@@ -49,13 +37,56 @@ non-empty, or the exhaustion certificate holds and both orientation
 singletons are in the extension family (`augFamily_retains_ties`,
 `rule1_repair_or_extension`).
 
-Refusal is recordable exactly under the
-certificate, touches no object field and changes no verdict
+New refusal insertion requires the
+certificate. A past refusal can remain after that certificate ceases to
+hold. Refusal keeps the listed object fields and four verdicts unchanged
 (`refusal_recordable`, `refusal_object_inert`,
 `refusal_non_absorbing`); every event keeps the presentation signature
 or strictly grows it (`action_dichotomy`); with no requirement there is
 no obstruction (`rule1_needs_fidelity`); a retraction keeps the
 signature and breaks preservation (`retraction_breaks_preservation`).
+
+**Status:** derived for the fixed kernel; Rule 1 conditional on `WF`,
+a replay invariant; the common state is a declared interface; the
+transport facts about two-element objects are decided instances.
+**Lean:** `lean4/Derivation/Completion.lean` lines 41-528, imports
+`Represented` and `RefusalFrontier`. **Axioms:** `d2_transport_oriented`
+and `s2_state_not_swap_invariant` none; `chain_transport` `propext`;
+the other 19 `{propext, Quot.sound}`. **Depends on:** Unit 45 (the
+kernel), Unit 39 (the reflective chain), Unit 44 (three separate
+conditions), Unit 37 (the two-point arrow patterns represented here by
+concrete common states).
+
+</details>
+
+## First pass
+
+Return to A, B, and C, with one column saying Yes only on A. This
+time require all three pairs to remain distinguishable: A/B, A/C, B/C.
+Only B/C is unresolved.
+
+Try adding B to the existing column. It would separate B/C but merge
+the required A/B pair, so the guard rejects it. Adding C would merge
+required A/C. A is already marked. The declared one-mark repair menu
+therefore has no accepted answer for B/C.
+
+Two new-column candidates remain: a column saying Yes only on B, or one
+saying Yes only on C. Either separates B/C while the old column remains
+available for A/B and A/C. The theorem keeps both candidates. These
+extensions add a question, not another data position.
+
+**Predict:** does recording a refusal for the exhausted menu halt every
+later response?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. A later add-column event can still succeed if budget and permission
+allow it. The refusal record remains afterward even though the pair is
+now separated. A historical refusal is not a certificate of current
+exhaustion.
+
+</details>
 
 ## Question
 
@@ -71,7 +102,7 @@ where does refusal go?
 - `World`, `step`, `violB`, `obstructedB`, `repairFamily`, `augOkB`,
   `WF`, `wf_replay` and `represented_progress` (Unit 45).
 - `PState` and `reflState n` with their two chain theorems (Unit 39).
-- The oriented and symmetric two-element objects (Units 09-10).
+- The oriented and symmetric two-point arrow patterns (Unit 37).
 - `ActiveObstruction` as a three-way conjunction (Unit 44).
 
 ## New concept: a common state, a transport, a family
@@ -91,6 +122,12 @@ inequality facts.
 `[i]`, `[j]` filtered by `augOkB`. Rule 1 says: repair family
 non-empty, or obstruction certificate with both singletons accepted.
 
+Keep two predicates separate: `ofWorld_obstruction` equates `obstC` with
+the kernel's recorded violation `violB`, not with `obstructedB`.
+The latter additionally requires exhaustion of the declared repair menu.
+The common-state transport theorem does not silently add that stronger
+condition or turn every kernel mark into Unit 44's refining closure step.
+
 *Signature.* `sigOf w` is (number of data, number of views).
 
 ## Plain-language interpretation
@@ -101,8 +138,10 @@ as far as the bookkeeper knows" (`metaDistinct`), "there is a recorded
 arrow between them" (`posWitness`), "some column answers differently on
 them" (`views`) are three different facts; only the third counts as
 seeing a difference. The theorems about failure of transport say this
-in the strongest way: a recorded arrow with no column is an obstruction,
-not a separation; a column with no arrow is a separation with no
+with concrete counterexamples. In `d2Common`, the arrow has no
+separating column, and its retained, protected pair is active. An arrow
+alone would not supply those retention and protection conditions.
+In `tagOnly`, a column gives separation with no
 witness. The kernel of Unit 45 fits the form, but it writes its one
 requirement list into both the "still owed" and the "sworn to" boxes.
 That is allowed as long as it is said, and the module says it.
@@ -112,7 +151,10 @@ that no column separates, the kernel has repairs on the existing
 columns, or it has none, and then the certificate of exhaustion holds
 and a new column for either member of the pair is accepted. Two
 branches. Refusal is not a third: it is a note in the margin, allowed
-only with the certificate, changing nothing that any later check reads.
+only with the certificate when it is newly inserted. It changes the
+refusal store, while satisfaction, violation, mark acceptance, and
+augmentation acceptance retain their values. It does not halt later
+repair or erase the historical record once a repair succeeds.
 Every event either keeps the shape of the presentation (how many
 things, how many columns) or makes it strictly bigger; refusal, notes
 and policy writes are in the first class with repairs. And none of this
@@ -581,8 +623,13 @@ takes the branch the paper's story did not: `[2]` also quiesces.
 **Refusal (393-440).** `refusal_recordable` cases on prior membership:
 already there, or appended. `refusal_object_inert` and
 `refusal_non_absorbing` `split` on the guard and close every conjunct by
-`rfl`, because `refuse` writes only `refusals` and no verdict reads it.
-The book's `refusal_then_extension` is the sequence the words describe.
+`rfl`, because `refuse` writes only `refusals` and those four verdicts do
+not read it. The refusal event's own duplicate-insertion test does read
+that field. The book's `refusal_then_extension` is the sequence the words
+describe, and `past_refusal_without_current_certificate` shows that the
+old record persists after `obstructedB` becomes false. The native
+`refusal_recordable` is a sufficient-condition theorem, not a biconditional
+between present record membership and present exhaustion.
 
 **`sigOf` and `action_dichotomy` (443-494).** Eight cases: a fresh
 admission grows the carrier by one (`List.length_append`), an accepted
@@ -616,8 +663,8 @@ measure's.
   orientation singletons accepted, under `WF` and a violation (Genesis;
   applied to the story in the book, both branches of the extension
   shown to discharge).
-- Refusal is recordable under the certificate, inert on object fields
-  and on every verdict; the action algebra is binary by the signature;
+- Refusal can be newly recorded under the certificate and is inert on the
+  listed object fields and four verdicts; the action algebra is binary by the signature;
   no requirement, no obstruction; retraction keeps the signature and
   breaks preservation (Genesis).
 
@@ -673,6 +720,9 @@ qualification.
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 `s2Common` has `retained = [(0, 1)]`, `protectedReqs = [(0, 1)]`, no
 views. So `obstC s2Common 0 1 = true` (retained, protected, no column)
 and `obstC s2Common 1 0 = false` (`(1, 0)` is in neither store).
@@ -687,6 +737,8 @@ is not: the symmetric object's relation is symmetric, its protection
 bookkeeping is oriented, and the module's docstring scopes the claim to
 the first.
 
+</details>
+
 ## Verification
 
 | Item | Where |
@@ -696,4 +748,4 @@ the first.
 | Paper | `paper/native_derivation_completion.md` sections 5 (the common native interface) and 7 (the strongest form of Rule 1); `paper/native_derivation_map.md` rows "active obstruction" and "refusal"; `paper/paper_claim_ledger.md` `CL-NC-COMMON-STATE`, `CL-NC-RULE1`; `paper/pr11_correction_ledger.md` C1, C4 |
 | Python | `code/derivation/completion.py` (`aug_family`, `close_blocks`, `protocols_report`), `artifacts/completion_protocols.json`, `tests/test_completion.py` (`test_close_family_complete_and_tie_retained`); no Genesis mirror of `CommonState` |
 | Check (Python, partly book) | `python textbook/checks/u46_completion.py`: the transport and the four independence states (book), the families against the artifact, refusal inertness over every verdict, the signature over every event kind, fidelity, retraction, witness against separation |
-| Check (book Lean) | `python textbook/checks/u46_lean.py`: fifteen book declarations plus sixteen Genesis theorems kernel-checked, Lean 4.33.0 |
+| Check (book Lean) | `python textbook/checks/u46_lean.py`: sixteen book reports plus sixteen Genesis theorems kernel-checked, Lean 4.33.0 |

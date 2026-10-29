@@ -161,6 +161,13 @@ walkthrough. Changed-label practice has separate folded answers.
    observation, and fixed-radius limits from failure of richer observation.
    These are selected source-grounded corrections; broader semantic and
    teaching coverage remains open.
+   The [capacity and kernel follow-up](CAPACITY_READING_REVIEW_2026-10-29.md)
+   adds or expands five first passes in Units 42–46. It separates bounded
+   colour inputs from output label size, a static strategy family from a
+   runtime, active-pair conditions from menu exhaustion, and available
+   candidates from permission to execute them. The revised opening route
+   now extends through Unit 46. Remaining later chapters and research
+   teaching still require substantive review.
 7. **Evidence and reality.** Add exercises in separating a definition,
    a deduction, a computation, and a measurement. Give a model prediction,
    identify an observation that could disagree with it, and explain what

@@ -56,6 +56,21 @@ def main() -> int:
     if not (nob and nom and repl == 4 and nol):
         failures.append("gates")
 
+    one_req = R.World(data=(10, 20, 30), views=((0,),), reqs=((1, 2),), budget=1)
+    marked = R.step(one_req, ("mark", (0,), 1))
+    print(f"only (1,2) required: mark accepted {R.mark_ok(one_req, (0,), 1)}; "
+          f"required pair separated afterward {R.sat(marked, (1,2))}; "
+          f"unprotected (0,1) separation {R.sat(one_req, (0,1))} -> {R.sat(marked, (0,1))}")
+    if not (R.wf(one_req) and R.mark_ok(one_req, (0,), 1) and R.sat(marked, (1, 2))
+            and R.sat(one_req, (0, 1)) and not R.sat(marked, (0, 1))):
+        failures.append("unprotected separation")
+    noted = R.step(R.GENESIS, ("note", 7))
+    support = lambda s: (s.data, s.views, s.reqs, s.refusals, s.budget, s.aug_licensed)
+    print(f"note: record changed {noted != R.GENESIS}; "
+          f"support unchanged {support(noted) == support(R.GENESIS)}")
+    if noted.notes != (7,) or noted == R.GENESIS or support(noted) != support(R.GENESIS):
+        failures.append("notes versus support")
+
     print("refusal:")
     r12 = R.step(w, ("refuse", 1, 2)).refusals
     r01 = R.step(w, ("refuse", 0, 1)) == w

@@ -1,31 +1,14 @@
-# Unit 44. Reflect, obstruct, close, or propose: a typed interface for primitive difference
+# Unit 44. Retained, protected, and unseen: when a pair is active
 
-**Claim.** An active obstruction requires a retained pair, protection, and observer-zero agreement. The declared interface then describes a same-carrier closure or an extension proposal under its stated hypotheses.
+**Claim.** In this declared interface, a pair is active when it is retained,
+protected, and zero-related under the current observer. A closure step
+carries proofs of its stated guarantees. An extension proposal records
+possible work without applying it.
 
-**Status:** derived; the abstract theorems are conditional
-on declared bundles; the tower driver closes in one step, so the
-concrete termination instance is degenerate; the countermodels' `¬
-Active` conjunct is the removal of protection, by construction.
-**Lean:** `lean4/Derivation/DiffInterface.lean` lines 33-760, core Lean
-only. **Axioms:** 17 theorems use none; `obsQuotient_eq_of_zero`
-`Quot.sound`; `tower_demand_characterized` `propext`; the other 16
-`{propext, Quot.sound}`. **Depends on:** nothing in Genesis; the
-closure-policy discipline of Unit 29 (three separate conditions) is the
-reason for the shape.
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
 
-## First pass
-
-Read the three tests separately. Is the pair retained? Is it protected? Does the current observer still merge it?
-
-Only their conjunction is an active obstruction. A proposal for extending the carrier records possible work; it does not execute that work.
-
-For concrete examples, use the [Change lab](../change_lab/README.md) and
-[Map lab](../map_lab/README.md). The [reading guide](../reading_formal_statements.md)
-explains the symbols and the distinction between a condition and a decider.
-
-## Detailed claim and formal anchors
-
-`DiffInterface` is a self-contained package, written to an
+**Detailed statement.** `DiffInterface` is a self-contained package, written to an
 external request of 2026-08-12, that types the pipeline *reflection
 certificate → retained, protected, observer-zero pair → active
 obstruction → same-carrier closure step, or an extension proposal*.
@@ -63,6 +46,52 @@ Three protected points under a single Boolean-valued view cannot all be distingu
 an edge, a hash, repetition) show a feature without observer-visible
 difference.
 
+**Status:** derived; the abstract theorems are conditional
+on declared bundles; the tower driver closes in one step, so the
+concrete termination instance is degenerate; the countermodels' `¬
+Active` conjunct is the removal of protection, by construction.
+**Lean:** `lean4/Derivation/DiffInterface.lean` lines 33-760, core Lean
+only. **Axioms:** 17 theorems use none; `obsQuotient_eq_of_zero`
+`Quot.sound`; `tower_demand_characterized` `propext`; the other 16
+`{propext, Quot.sound}`. **Depends on:** nothing in Genesis; the
+three obstruction conditions are declared in this interface, not imported
+from Unit 29's renaming theorem.
+
+</details>
+
+## First pass
+
+Keep two cards, A and B. The current test gives the same answer on
+both. Now check the record and the promise separately:
+
+| Pair retained? | Pair protected? | Test gives equal answers? | Active? |
+|---|---|---|---|
+| Yes | No | Yes | No |
+| Yes | Yes | Yes | Yes |
+| Yes | Yes | No | No |
+
+The three conditions have different jobs. Keeping a pair in the record
+does not itself promise to separate it. A protected pair may already be
+separated. Calling a pair active requires all three conditions together.
+
+A `ClosureStep` supplies a new observer and proofs that it preserves old
+distinctions and separates its chosen demanded pairs. The demands need
+not include every active pair. An `ExtensionProposal` instead stores a
+request; this interface does not execute it.
+
+**Predict:** does a generic driver's result named `closed` prove that no
+active pair remains?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. That result means the supplied next-step function returned no next
+step. A checked book example stops immediately with an active pair still
+present. Connecting the tag to complete resolution requires another
+property of that next-step function.
+
+</details>
+
 ## Question
 
 The derivation keeps three things apart: whether a pair is still in
@@ -76,8 +105,8 @@ do?
 
 ## What we already possess
 
-- The closure policy's three conditions (Unit 29) and the reflective
-  chain (Unit 40).
+- The reflective chain (Unit 40). The three-way obstruction condition is
+  introduced here as a new declared interface, separate from that model.
 - Equivalence relations and quotients in Lean (`Setoid`, `Quotient`,
   `Quotient.sound`).
 - Recursion on a fuel argument (Unit 31's engine bounds, in spirit).
@@ -729,7 +758,7 @@ protection, which is where the derivation's obstructions live.
 **What the system holds.** The discipline: three separate conditions,
 equivalence before quotient, demands as predicates so that closure
 chooses no representative, proposals as data. These are the shape of
-Unit 29's closure policy made into types. The module imports nothing
+this module's declared interface. The module imports nothing
 from Genesis and names no consumer; the adapter from these types to the
 derivation's own is, by the module's own statement, the caller's
 evidence and out of scope.
@@ -757,6 +786,9 @@ and whether that promise is sharp here.
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 Live points `0..4`. Under horizon 2 the capped ranks are `0, 1, 2, 2,
 2`, so the active pairs are the ordered pairs among `{2, 3, 4}`: six of
 them, measure 6. `towerNext (5, 2)` returns the step to `(5, 4)`, whose
@@ -768,6 +800,8 @@ by at least one and the measure cannot go below 0; the promise is not
 sharp for the tower, where one step always suffices, because the driver
 jumps straight to the closed horizon rather than discharging one pair
 at a time.
+
+</details>
 
 ## Verification
 

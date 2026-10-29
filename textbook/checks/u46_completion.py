@@ -115,6 +115,11 @@ def main() -> int:
           f"extension after refusal quiesces {R.quiescent(R.step(wr, ('addView', (1,))))}")
     if not (wr.refusals == ((1, 2),) and inert and same_verdicts):
         failures.append("refusal")
+    repaired = R.step(wr, ('addView', (1,)))
+    print(f"  historical refusal kept {(1,2) in repaired.refusals}; "
+          f"current exhaustion {R.obstructed(repaired, (1,2))}")
+    if (1, 2) not in repaired.refusals or R.obstructed(repaired, (1, 2)):
+        failures.append("past refusal versus current certificate")
 
     print("signature dichotomy over every event kind on the story world:")
     events = [("admit", 40), ("admit", 10), ("require", 2, 0), ("mark", (0,), 1), ("addView", (1,)),
