@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="461" viewBox="0 0 820 461" role="img" aria-label="Per-round growth and declared service accounting">
+<rect width="820" height="461" fill="#fafbf7"/>
+<text x="20" y="30" font-family="sans-serif" font-size="22" fill="#19322c">bounded: 8 rounds, service budget 1</text>
+<text x="20" y="70" font-family="sans-serif" font-size="20" fill="#19322c">Round</text>
+<text x="140" y="70" font-family="sans-serif" font-size="20" fill="#19322c">New item</text>
+<text x="300" y="70" font-family="sans-serif" font-size="20" fill="#19322c">Generated</text>
+<text x="460" y="70" font-family="sans-serif" font-size="20" fill="#19322c">Discharged</text>
+<text x="620" y="70" font-family="sans-serif" font-size="20" fill="#19322c">Waiting</text>
+<text x="20" y="110" font-family="sans-serif" font-size="20" fill="#19322c">1</text>
+<text x="140" y="110" font-family="sans-serif" font-size="20" fill="#19322c">0</text>
+<text x="300" y="110" font-family="sans-serif" font-size="20" fill="#19322c">0</text>
+<text x="460" y="110" font-family="sans-serif" font-size="20" fill="#19322c">0</text>
+<text x="620" y="110" font-family="sans-serif" font-size="20" fill="#19322c">0</text>
+<text x="20" y="152" font-family="sans-serif" font-size="20" fill="#19322c">2</text>
+<text x="140" y="152" font-family="sans-serif" font-size="20" fill="#19322c">1</text>
+<text x="300" y="152" font-family="sans-serif" font-size="20" fill="#19322c">1</text>
+<text x="460" y="152" font-family="sans-serif" font-size="20" fill="#19322c">1</text>
+<text x="620" y="152" font-family="sans-serif" font-size="20" fill="#19322c">0</text>
+<text x="20" y="194" font-family="sans-serif" font-size="20" fill="#19322c">3</text>
+<text x="140" y="194" font-family="sans-serif" font-size="20" fill="#19322c">2</text>
+<text x="300" y="194" font-family="sans-serif" font-size="20" fill="#19322c">2</text>
+<text x="460" y="194" font-family="sans-serif" font-size="20" fill="#19322c">1</text>
+<text x="620" y="194" font-family="sans-serif" font-size="20" fill="#19322c">1</text>
+<text x="20" y="236" font-family="sans-serif" font-size="20" fill="#19322c">4</text>
+<text x="140" y="236" font-family="sans-serif" font-size="20" fill="#19322c">3</text>
+<text x="300" y="236" font-family="sans-serif" font-size="20" fill="#19322c">3</text>
+<text x="460" y="236" font-family="sans-serif" font-size="20" fill="#19322c">1</text>
+<text x="620" y="236" font-family="sans-serif" font-size="20" fill="#19322c">3</text>
+<text x="20" y="278" font-family="sans-serif" font-size="20" fill="#19322c">5</text>
+<text x="140" y="278" font-family="sans-serif" font-size="20" fill="#19322c">4</text>
+<text x="300" y="278" font-family="sans-serif" font-size="20" fill="#19322c">0</text>
+<text x="460" y="278" font-family="sans-serif" font-size="20" fill="#19322c">1</text>
+<text x="620" y="278" font-family="sans-serif" font-size="20" fill="#19322c">2</text>
+<text x="20" y="320" font-family="sans-serif" font-size="20" fill="#19322c">6</text>
+<text x="140" y="320" font-family="sans-serif" font-size="20" fill="#19322c">5</text>
+<text x="300" y="320" font-family="sans-serif" font-size="20" fill="#19322c">0</text>
+<text x="460" y="320" font-family="sans-serif" font-size="20" fill="#19322c">1</text>
+<text x="620" y="320" font-family="sans-serif" font-size="20" fill="#19322c">1</text>
+<text x="20" y="362" font-family="sans-serif" font-size="20" fill="#19322c">7</text>
+<text x="140" y="362" font-family="sans-serif" font-size="20" fill="#19322c">6</text>
+<text x="300" y="362" font-family="sans-serif" font-size="20" fill="#19322c">0</text>
+<text x="460" y="362" font-family="sans-serif" font-size="20" fill="#19322c">1</text>
+<text x="620" y="362" font-family="sans-serif" font-size="20" fill="#19322c">0</text>
+<text x="20" y="404" font-family="sans-serif" font-size="20" fill="#19322c">8</text>
+<text x="140" y="404" font-family="sans-serif" font-size="20" fill="#19322c">7</text>
+<text x="300" y="404" font-family="sans-serif" font-size="20" fill="#19322c">0</text>
+<text x="460" y="404" font-family="sans-serif" font-size="20" fill="#19322c">0</text>
+<text x="620" y="404" font-family="sans-serif" font-size="20" fill="#19322c">0</text>
+<text x="20" y="449" font-family="sans-serif" font-size="18" fill="#19322c">Declared removals are not constructed observation repairs.</text>
+</svg>

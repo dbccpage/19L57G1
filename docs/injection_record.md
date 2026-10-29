@@ -526,3 +526,25 @@ explicit SVG dimensions, and successful complete lookup examples checked
 against their own selected domains. Complete lookup counts use the declared
 four-label input set and finite output alphabet, not all `Nat → Nat` maps.
 
+## Growth and service route (2026-10-28)
+
+Only scratch-Wiki copies, temporary teaching records, and a generated Lean
+source string were injected. Original bytes were restored between checks;
+no regeneration ran with a live defect. No research source, receipt,
+prediction freeze, or sealed file was edited.
+
+| Gate | Injection | Observed failure | Recovery |
+|---|---|---|---|
+| Wiki growth record | Set the bounded eight-round least clearing budget to the peak 3 rather than 1 | Actual Wiki verifier exits 1: `stale growth-lab record` | Restore bytes; exit 0, 2388 generated internal links pass |
+| Wiki growth desk | Replace the copied embedded packet with `null` | Actual Wiki verifier exits 1: `stale growth-lab desk or links` | Restore bytes; exit 0 |
+| Wiki growth figure | Replace displayed counts of 3 by 99 in the bounded-run SVG | Actual Wiki verifier exits 1: `stale or missing growth-lab figure: 03_bounded_clears.svg` | Restore bytes; exit 0 |
+| Book-Lean growth | Change the expected post-growth count with no previously held items from 0 to 99 | Lean's `decide` reports the demand-count conjunction is false; shared runner exits 1 | Original 334 exact kernel/axiom reports pass |
+| Source-backed teaching record | Ignore supplied views, erase old demands after growth, invent an empty-commitment demand, suppress reopening, save unused capacity, erase a temporary backlog, or equate peak generation with threshold | `check_recorded` rejects each recomputation mismatch | Original packet passes |
+| Source population and figures | Enlarge 845 race settings to 999 or corrupt the bounded-run figure | Actual record check rejects the population/figure mismatch | Original four-row population table and four figures pass |
+
+Eleven authoring tests also check standalone bundling and intrinsic SVG
+dimensions. The book runner re-elaborates the actual research source text,
+checks all fourteen originating theorem names against their report list,
+and adds 320 finite growth instances. It does not reclassify assumed
+service as a proved represented-world repair.
+

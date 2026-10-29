@@ -41,3 +41,7 @@ introduces a different structure: its edges and faces are not these maps.
 AuthorityEffect: None. These are supplied finite records, functions,
 questions, and checking conventions. No new physical measurement or
 novice learning result is claimed.
+
+Continue with the [Growth lab](../growth_lab/README.md) to ask which
+pairs a standing commitment requires apart, and how new arrivals can
+create demands under unchanged views.

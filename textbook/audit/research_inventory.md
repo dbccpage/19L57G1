@@ -3,8 +3,11 @@
 AuthorityEffect: None. Audit snapshot: 2026-10-28, main `e0faff5a55823181a8bd84fa30800e558e9432c0`.
 
 Population: all 123 trees returned by `ci.research_index.group_trees(tracked_research_files(root))`.
-Dedicated teaching follows the four trees explicitly declared by the institutions curriculum.
-The other 119 have no dedicated research curriculum established by this audit. A source mention would establish only a reference.
+Dedicated teaching now includes the four institutions trees and the Growth
+lab's introductory treatment of `standing_commitment`. The other 118
+have no dedicated research curriculum established by this audit. The
+Growth lab's comparison with `two_sided_commitment` is a scoped reference,
+not a complete treatment of that tree. A source mention alone is not teaching.
 Group assignments below are proposed curriculum organization; they assert no mathematical bridge or research validation.
 
 | Proposed teaching group | Tree | Current dedicated treatment | Source entry |
@@ -16,7 +19,7 @@ Group assignments below are proposed curriculum organization; they assert no mat
 | Boundary, orientation, and commitment | `side_free` | Not yet established | [research/side_free/STATUS.md](../../research/side_free/STATUS.md) |
 | Boundary, orientation, and commitment | `sign_slice` | Not yet established | [research/sign_slice/STATUS.md](../../research/sign_slice/STATUS.md) |
 | Boundary, orientation, and commitment | `sign_tower` | Not yet established | [research/sign_tower/FINDINGS.md](../../research/sign_tower/FINDINGS.md) |
-| Boundary, orientation, and commitment | `standing_commitment` | Not yet established | [research/standing_commitment/STATUS.md](../../research/standing_commitment/STATUS.md) |
+| Boundary, orientation, and commitment | `standing_commitment` | [Growth lab, 00–07](../growth_lab/README.md) | [research/standing_commitment/STATUS.md](../../research/standing_commitment/STATUS.md) |
 | Boundary, orientation, and commitment | `symmetry_floor` | Not yet established | [research/symmetry_floor/STATUS.md](../../research/symmetry_floor/STATUS.md) |
 | Boundary, orientation, and commitment | `two_sided_commitment` | Not yet established | [research/two_sided_commitment/STATUS.md](../../research/two_sided_commitment/STATUS.md) |
 | Execution, authorization, and evidence | `alpha_engine` | Not yet established | [research/alpha_engine/README.md](../../research/alpha_engine/README.md) |

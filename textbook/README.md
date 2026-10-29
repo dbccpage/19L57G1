@@ -40,6 +40,9 @@ points, connections, walks, signed counts, faces, and cancelling boundaries.
 The [`Map lab`](map_lab/README.md) then follows original cards through
 class labels to requested answers, including blocked recovery, paired
 questions, representative order, and uniqueness on the observed image.
+The [`Growth lab`](growth_lab/README.md) then enters the research
+`standing_commitment` tree: which pairs remain unresolved, when arrivals
+create demands, and why assumed service is different from a proved repair.
 
 New readers can then read [`START_HERE.md`](START_HERE.md) (see also the
 short spoken introduction in [`video_script_15s.md`](video_script_15s.md)).
