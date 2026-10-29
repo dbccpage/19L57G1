@@ -22,8 +22,9 @@ for this eight-round run, although the peak arrival count is three.
 
 ## A useful pattern can have a limited domain
 
-The source's four original commitments showed peak-equals-threshold
-at its seven tested horizons. Its later `bounded` commitment was added
+The source's four original commitments showed equality between the peak
+arrival count and the least clearing budget at its seven tested horizons.
+Its later `bounded` commitment was added
 after the prediction freeze to refute the general rule. It was not an
 additional successful frozen prediction.
 

@@ -13,6 +13,8 @@ Item 4 arrives. How many old demands remain? How many new ones appear?
 commitment, budget, or other field. In this example all three old demands
 remain, and 4/0, 4/1, 4/2 are new demands. Three becomes six.
 
+Here **fresh** means the new item's label is not already in the held list.
+
 ![Three old demands remain and three new demands appear after admitting item 4 without views.](figures/01_viewless_growth.svg)
 
 The general source result has this exact shape: after growth, the demand

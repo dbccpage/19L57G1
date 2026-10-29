@@ -19,6 +19,7 @@ The research also supplies an accounting experiment. Each round:
 The **backlog** is the number of entries still waiting. In the example,
 three plus two makes five; removing two leaves three. A budget is a
 per-round limit. Unused capacity is not saved for another round.
+The **horizon** is the number of rounds we choose to examine.
 
 The experiment has no observation views. It assumes entries can be
 discharged and that a discharged entry never returns. It does not
