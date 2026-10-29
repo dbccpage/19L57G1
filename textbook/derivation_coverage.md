@@ -191,7 +191,7 @@ now introduce their grouping meaning. Further conceptual review remains.
 | `Unit 09` | [`units/09_separable_not_collapsed.md`](units/09_separable_not_collapsed.md) | Separable and collapsed exclude each other | `Basic` | `Unit 08` |
 | `Unit 10` | [`units/10_collapsed_of_no_insts.md`](units/10_collapsed_of_no_insts.md) | With no instances, every pair is collapsed | `Inertia` | `Unit 08`, `Unit 09` |
 | `Unit 11` | [`units/11_single_token_bound.md`](units/11_single_token_bound.md) | One token gives at most one datum | `Bridge` | `Unit 06`, `Unit 07` |
-| `Unit 12` | [`units/12_fresh_datum_no_power.md`](units/12_fresh_datum_no_power.md) | A fresh datum adds no power | `Inertia`, `Mention` | `Unit 08`, `Unit 10` |
+| `Unit 12` | [`units/12_fresh_datum_no_power.md`](units/12_fresh_datum_no_power.md) | A fresh datum preserves old comparisons | `Inertia`, `Mention` | `Unit 08`, `Unit 10` |
 | `Unit 13` | [`units/13_second_token_required.md`](units/13_second_token_required.md) | Two data need a second, different token | `Bridge` | `Unit 11` |
 | `Unit 14` | [`units/14_factors_through_point.md`](units/14_factors_through_point.md) | Factoring through a point is equality | `PrimDiff` | `Unit 00` |
 | `Unit 15` | [`units/15_meta_diff_without_assertion.md`](units/15_meta_diff_without_assertion.md) | An outside difference is not an asserted one | `PrimDiff` | `Unit 14` |

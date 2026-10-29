@@ -122,6 +122,13 @@ walkthrough. Changed-label practice has separate folded answers.
    recorded graph only. Units 44, 61, and 67 and the entrance receive a
    first semantic/readability repair; a comment-aware declaration census,
    the S/A classifications, and the remaining chapters still need review.
+   The [early-chapter follow-up](EARLY_READING_REVIEW_2026-10-29.md)
+   adds thirteen first passes in Units 04–16 and fixes selected errors:
+   valid-but-wrong indices, overbroad erasure transport, omitted initial
+   invariants, a stronger converse than the displayed proof, and one-target
+   versus two-target avoidance. Fresh-data class growth is now a checked
+   counterexample to the old title's blanket no-power reading. This does
+   not close the remaining per-declaration semantic review.
 7. **Evidence and reality.** Add exercises in separating a definition,
    a deduction, a computation, and a measurement. Give a model prediction,
    identify an observation that could disagree with it, and explain what

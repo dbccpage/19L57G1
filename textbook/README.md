@@ -268,7 +268,7 @@ in one template or the other, and this table says which.
 | 09 | Separable and collapsed exclude each other | `Basic.separable_not_collapsed` | derived | yes |
 | 10 | With no instances, every pair is collapsed | `Inertia.collapsed_of_no_insts` | derived | yes |
 | 11 | One token gives at most one datum | `Bridge.single_token_carrier_bound` | derived | yes |
-| 12 | A fresh datum adds no power | `Inertia.admission_without_expressive_increase`, `Mention.collapsed_fresh_datum` | derived | yes |
+| 12 | A fresh datum preserves old comparisons | `Inertia.admission_without_expressive_increase`, `Mention.collapsed_fresh_datum` | derived | yes |
 | 13 | Two data need a second, different token | `Bridge.second_token_required` | derived | yes |
 | 14 | Factoring through a point is equality | `PrimDiff.factors_through_point_iff` | derived | yes |
 | 15 | An outside difference is not an asserted one | `PrimDiff.meta_diff_without_assertion` | derived | yes |

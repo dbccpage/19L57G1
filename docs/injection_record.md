@@ -648,3 +648,24 @@ finite loop to an all-integer theorem. Five new Wiki tests exercise
 page/asset failure detection and route links. These checks do not prove
 the physical interpretation or reader transfer.
 
+## Early formal-chapter scope review (2026-10-29)
+
+These injections use only temporary book drivers. Sealed sources,
+predictions, axiom reports, research inputs, and receipts remain read-only.
+No regeneration occurs under a live defect.
+
+| Check | Defect exercised | Observed failure | Recovery |
+|---|---|---|---|
+| Kernel: cross-reading indices | Assert that `(0,1)` is refused on the three-token state | `decide` names the exact `stepT ... = none` proposition as false; shared runner exits 1 | The accepted-wrong-pair theorem passes in u05 |
+| Kernel: starting state | Assert a two-token base has length at most one | `decide` names the exact length bound as false; shared runner exits 1 | u11 proves the base fails the initial invariant while an empty history keeps its two tokens |
+| Kernel: fresh class | Assert the newcomer in the two-marked-data example has a derivable unary mark | `decide` names that exact plugged derivability proposition as false; shared runner exits 1 | u12 proves old collapse and the newcomer's separation |
+| Kernel: mention scope | Assert equal unary answers after marking target 1 while avoiding only target 0 | `decide` names the exact derivability biconditional as false; shared runner exits 1 | u12 checks one-target failure and two-target preservation |
+| Exact axiom report | Add a well-typed `Classical.em` theorem while expecting the existing `{propext, Quot.sound}` boundary | Lean accepts the proof, but the shared runner reports 0 of 1 expected dependencies and exits 1 on `outsideBoundary` | Final nine added book proofs remain at seven `{propext, Quot.sound}` and two `propext` reports |
+
+The actual dependency gate also caught a draft helper's simplifier use of
+`Nat.add_eq_right._simp_1`, which carries `Classical.choice`. Direct
+constructor reasoning removes that dependency. The boundary is preserved,
+not repinned to the draft. The four affected book scripts check 58 exact
+reports; no general positive witness-extraction theorem is claimed from
+their negated equivalence.
+

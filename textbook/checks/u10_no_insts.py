@@ -16,7 +16,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "code"))
 
 from derivation.engine import GENESIS_F, GENESIS_L  # noqa: E402
-from derivation.model import AdmitDatum, AdmitForm, AdmitInst, AdmitRuleAll, Event, replay  # noqa: E402
+from derivation.model import AdmitDatum, AdmitForm, AdmitInst, AdmitRuleAll, Event, replay, step  # noqa: E402
 from derivation.observe import collapsed_pairs, profiles  # noqa: E402
 
 FORM_TABLES = ((), (1,), (2,), (1, 2), (3,), (1, 1, 2))
@@ -58,6 +58,11 @@ def main() -> int:
     print(f"one instance (0, (1,)): collapsed pairs {collapsed_pairs(r1)}")
     if collapsed_pairs(r1) != ():
         failures.append("instance did not separate")
+    ruled = replay([AdmitDatum("A"), AdmitDatum("B"), AdmitForm(1), AdmitRuleAll(0)])
+    ruled_inst = step(ruled, AdmitInst(0, (0,)))
+    if profiles(ruled) != profiles(ruled_inst) or collapsed_pairs(ruled_inst) != ((0, 1),):
+        failures.append("an instance is not sufficient under a uniform rule")
+    print("one redundant instance under a uniform rule leaves the pair collapsed")
 
     print(f"failures: {failures}")
     return 1 if failures else 0

@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "code"))
 
 from derivation.engine import GENESIS_F, GENESIS_L, READING_F, READING_L  # noqa: E402
-from derivation.model import AdmitDatum, Event, Impose, Supply, replay  # noqa: E402
+from derivation.model import AdmissionError, AdmitDatum, Event, Impose, Supply, replay  # noqa: E402
 
 
 def main() -> int:
@@ -42,14 +42,20 @@ def main() -> int:
     if rl.data[0:1] != ("<a>",) or rf.data[1:2] != ("<a>",):
         failures.append("target index does not name <a>")
 
-    # 3. The demand of one reading is ill formed in the other.
+    # 3. F's demand is out of range in L. L's indices are accepted in F,
+    # but name a different pair; well-formed does not mean intended.
     try:
         replay(GENESIS_L + (Impose(1, 2),))
         failures.append("Impose(1, 2) accepted in reading L")
         cross = "accepted"
-    except Exception as exc:  # AdmissionError
+    except AdmissionError as exc:
         cross = type(exc).__name__
     print(f"Impose(1, 2) in reading L: {cross}")
+    wrong_pair = replay(GENESIS_F + (Impose(0, 1),))
+    selected = tuple(wrong_pair.data[i] for i in (0, 1))
+    print(f"Impose(0, 1) in F: accepted, selecting {selected}")
+    if wrong_pair.reqs != frozenset({(0, 1)}) or selected != ("<>", "<a>"):
+        failures.append(("valid but wrong target", selected))
 
     # 4. Challenge 1 sub-readings: admit <a> on supply, or not. Both reach
     # the same regime once Challenge 2 retains <a> and <ab>.

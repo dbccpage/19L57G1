@@ -1,13 +1,37 @@
 # Unit 06. Re-admitting a token designates, it does not add
 
 **Claim.** Admitting a token that is already admitted changes nothing: it
-points at the existing datum. This is a declared convention of the model,
-not a theorem. Its Lean form is the token-aware step `stepT`.
+points at the existing datum. The choice to deduplicate admissions is declared by the model. The
+book proves its unchanged-state consequence from that definition. Its
+Lean form is the token-aware step `stepT`.
+
+<details>
+<summary>Source and classification record (optional on a first reading)</summary>
+
 **Status:** admitted. **Lean:** `Derivation.stepT`
 (`lean4/Derivation/Erasure.lean` lines 40-60), a definition. **Axioms:**
 `propext`, `Quot.sound` (the definition's membership test). **Depends on:**
 `Regime`, `Event`, `stepE` (Units 01, 03); the admission dedup is what
 made Unit 05's sub-readings converge.
+
+</details>
+
+## First pass
+
+Start with no admitted tokens. Admit ⟨A⟩ once, then admit exactly
+the same token again. Under the token-aware rule, the store stays
+`[⟨A⟩]`: the second event points to the existing entry.
+
+Predict the result if the second token is ⟨AB⟩ instead. It is new,
+so the store becomes `[⟨A⟩,⟨AB⟩]`. The token comparison is made by
+the external representation; it is not a newly admitted question
+about characters inside the object language.
+
+The counting model needs a translation: two bare `admitDatum` events
+would both increment its count. Unit 07 replaces a repeated token
+admission by a harmless supply before that model receives it.
+The deduplication policy is chosen; its consequences are proved from
+that definition.
 
 ## Question
 
@@ -35,8 +59,8 @@ metatheoretic convention" (`paper/paper.md` §3 item 2).
 
 To state this in Lean, Genesis has a second state type, `TRegime`, whose
 data field is a *list of tokens* instead of a count, and a second step
-function `stepT`. This is the **token-aware model**. Unit 07 proves that it
-and the counting model agree. This unit reads `stepT`'s admission case.
+function `stepT`. This is the **token-aware model**. Unit 07 proves a particular erasure simulation between it and the
+counting model; this is not literal equality of their representations. This unit reads `stepT`'s admission case.
 
 ```lean
 -- Lean (Genesis), lean4/Derivation/Erasure.lean lines 20-28, 31-38
@@ -259,10 +283,12 @@ nothing here reaches `Classical.choice`.
 | `(t : TRegime) (tok : Nat)` | the two general theorems | metatheory quantifiers |
 | `propext`, `Quot.sound` | inherited through `stepT` | inside the declared boundary |
 
-**What the system holds.** In the token-aware model, the list of admitted
-tokens in admission order. In the counting model, their number. The
-system holds no table of which token is which; that is the metatheory's
-record (Unit 00).
+**What the representations hold.** `TRegime` stores token labels in
+admission order; its erasure stores their count and the four structural
+fields. Token comparison is an operation of that external representation.
+No object-language judgment for reading a token's characters is admitted.
+Do not identify the stored representation with the observations defined
+on its erased ledger.
 
 **Admissions and their price.** The convention is an admission at the
 level of the model's grammar. Its price: every claim about "how many data"

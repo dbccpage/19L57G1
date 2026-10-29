@@ -2,19 +2,34 @@
 
 **Claim.** A context is a test with an empty slot. Two admitted data are separable when some well-formed context succeeds for one and fails for the other.
 
+<details>
+<summary>Source and classification record (optional on a first reading)</summary>
+
 **Status:** admitted. **Lean:** `Derivation.Ctx`, `plug`,
 `derivable`, `wfCtx`, `collapsed`, `separable`
 (`lean4/Derivation/Basic.lean` lines 74-125). **Axioms:** `propext` in
 the definitions (through `List.getD`). **Depends on:** `Regime`, `Inst`
 (Unit 01); `derivable` was first met in Unit 01.
 
+</details>
+
 ## First pass
 
-Start with a unary form called marked. The context marked(_) has one hole.
+Use two data, 0 and 1, and a one-place form called marked. The context
+`marked(_)` leaves a hole. With only `marked(0)` admitted and no uniform
+rule, plugging in 0 is derivable and plugging in 1 is not. That question
+witnesses their separation.
 
-With no uniform rule and only marked(0) admitted, plugging in 0 succeeds and plugging in 1 fails. This context witnesses separation.
+A profile collects every well-formed question giving a derivable
+answer for one datum. Equal profiles mean equal answers to those
+questions; the indices can still be distinct. Not derivable here is
+not a negative physical measurement.
 
-A profile collects all successful contexts for one datum. Equal profiles mean observational collapse at this stage; the datum indices remain distinct.
+Predict the result for a two-place context `linked(_,_)`. Both holes
+receive the **same** tested datum: 0 gives `linked(0,0)`, not a pair
+of independently chosen data. A fully filled record has no hole and
+is not a context test. The formal well-formedness conditions below
+separate available tests from arbitrary raw records.
 
 ## Detailed claim and formal anchors
 
@@ -46,8 +61,11 @@ at all?
 
 ## New concept: a context is a question with a hole
 
-A **context** is an admitted form together with a list of slots, where
-each slot either names an admitted datum or is a **hole**, written `none`.
+A raw **context record** contains a form index and a list of slots.
+Each slot is a datum index or a **hole**, written `none`. To be
+**well formed**, the form must be admitted, its arity must match the slot
+count, filled slots must name admitted data, and at least one hole must
+remain. Raw records failing these checks do not count as available tests.
 At least one slot must be a hole. **Plugging** a datum into a context
 fills every hole with that datum, producing an instance. A context is a
 question the system can be asked about any datum: "is this instance, with

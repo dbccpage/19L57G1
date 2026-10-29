@@ -4,12 +4,36 @@
 or more admitted data, then some event of that history admits a token
 different from any given token `t0`. In particular two data never come
 from one inscription alone: two-ness is purchased from outside.
+
+<details>
+<summary>Source and classification record (optional on a first reading)</summary>
+
 **Status:** derived. **Lean:** `Bridge.second_token_required`, via
 `Bridge.exists_not_of_not_ball` (`lean4/Derivation/Bridge.lean` lines
 126-175). **Axioms:** `propext, Quot.sound` (the helper: none).
 **Depends on:** `SingleTok`, `AtMostTok`, `single_token_carrier_bound`
 (Unit 11); `replayT` (Unit 07); the `Decidable (SingleTok t0 e)` instance
 (`Bridge.lean` lines 114-125).
+
+</details>
+
+## First pass
+
+A successful history starts empty and finishes with tokens A and B.
+If every datum admission had carried A, Unit 11 would have limited
+the final store to one entry. So an admission of a different token
+must occur somewhere in that finite history.
+
+Predict which event can provide it: `supply(B)` or `admit(B)`?
+Supply alone changes no admitted data. The required event is a
+datum admission with a token different from the chosen reference.
+The grammar does not require an earlier supply event for admission;
+the seed's prescribed presentation order is a separate matter.
+
+The proof uses a decidable check on each entry of the finite history
+to locate a failing single-token condition. This explicit bounded-list
+argument is the extra step from “not every entry passes” to an
+identified counterexample.
 
 ## Question
 
@@ -33,8 +57,8 @@ that brought it in.
 ## New concept: a contrapositive that names its witness
 
 Unit 11 says: all admissions carry `t0` ⟹ at most one datum. Turned
-around: two data ⟹ not all admissions carry `t0`. In classical logic that
-is the end of it. Genesis wants more: *which* event breaks the pattern.
+around: two data ⟹ not all admissions carry `t0`. This negative statement does not yet name the event. The next
+step locates *which* event breaks the pattern in the finite history.
 That is what `exists_not_of_not_ball` supplies. Given a list and a
 decidable property that does not hold of every member, it walks the list
 and returns a member for which the property fails. No choice principle is

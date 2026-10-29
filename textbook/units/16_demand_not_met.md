@@ -4,7 +4,12 @@
 separable, the regime as it stands after Challenge 2 cannot comply: the
 pair is collapsed, so no witness context exists. In reading L this is
 `collapsed R2L 0 1`; in reading F, `collapsed R2F 1 2`, and the other two
-pairs with it. **Status:** derived. **Lean:** `Derivation.R2L_collapsed`,
+pairs with it.
+
+<details>
+<summary>Source and classification record (optional on a first reading)</summary>
+
+**Status:** derived. **Lean:** `Derivation.R2L_collapsed`,
 `Derivation.R2F_collapsed` (`lean4/Derivation/Inertia.lean` lines 48-55),
 read through `Derivation.separable_not_collapsed` (`Basic.lean` lines
 127-130). **Axioms:** `propext`. **Depends on:** `collapsed_of_no_insts`
@@ -16,6 +21,26 @@ lemma. This unit reads them as the answer to a question the caller asks:
 *the system has been told to tell the two apart; can it?* That reading
 is the paper's §7.1 and the ledger's `CL-3-FAIL-CURRENT`, and it is the
 reason the rest of Part I exists.
+
+</details>
+
+## First pass
+
+Write a request: “distinguish ⟨A⟩ from ⟨AB⟩.” The current ledger
+has two admitted data but no form for asking a distinguishing question.
+Recording the request does not add a form or an instance, so the
+request is not yet met.
+
+This is stronger than a search giving up: the source proves that
+every available context agrees, and in these starting ledgers there
+are no well-formed contexts at all. A separating witness cannot
+exist in the **current** state.
+
+Predict whether this forbids a later repair. It does not. Adding
+a form and a suitable instance can make separation possible, as
+the [Search lab](../search_lab/README.md) works through. A demand,
+current satisfaction, and permission for future changes are distinct
+questions.
 
 ## Question
 
@@ -171,8 +196,9 @@ to `R2L_collapsed` it yields `False`. A function from `separable` to
 (Unit 08); `h.1 : c.form < R2L.forms.length`. The form list is `[]`, so
 the length is `0`, and `Nat.not_lt_zero` says nothing is below `0`.
 
-`collapsed_of_not_separable` (book) is the converse of Unit 09, and it
-shows why the two notions are exact opposites here. `collapsed` asks, for
+`collapsed_of_not_separable` (book) proves the no-witness-to-collapse
+direction discussed in Unit 09. It does not prove the different
+`¬ collapsed → separable` direction. `collapsed` asks, for
 each well-formed `c`, for the iff. Given `¬ separable`, the iff cannot
 fail, since a failing `c` would be a witness; `Decidable.of_not_not`
 turns "not not iff" into "iff", and it may do so because derivability is
@@ -213,7 +239,7 @@ membership (`demand_recorded_L`) or the decidable instance is used.
 |---|---|---|
 | `(0, 1)` in `reqs` | the demand | admitted by the caller through `impose` (Unit 17) |
 | `Nat.not_lt_zero`, `Nat.zero_ne_one` | the book's remarks | the metatheory's arithmetic on indices |
-| `Decidable.of_not_not` | the converse of Unit 09 | the metatheory's logic, licensed by the declared decidability of `derivable` |
+| `Decidable.of_not_not` | from no separating witness to collapse, as in Unit 09 | used on the individual decidable equivalence of two derivability answers, not on the whole context quantifier |
 | `READING_L.target` in Python | the demand, kept outside the base regime | a modelling choice of the Python side; the Lean regime records it inside |
 
 **What the system holds.** Two (or three) data and a demand. No form,

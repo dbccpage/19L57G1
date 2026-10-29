@@ -16,6 +16,14 @@ certify exhaustive declaration coverage or beginner comprehension. See
 current findings, eight book-Lean reports, and the distinction between a
 recorded prerequisite graph and complete conceptual preparation.
 
+**Early-chapter follow-up (2026-10-29).** The
+[Units 04–16 reading review](EARLY_READING_REVIEW_2026-10-29.md) adds
+thirteen concrete first passes and corrects selected scope errors about
+indices, erasure, negation, starting states, mention, and fresh data.
+Nine additional book proofs support the changes within the existing
+axiom boundary. This is selected semantic review, not certification of
+every paragraph or declaration in those chapters.
+
 ## Scope and method
 
 - **Population.** The 75 tracked modules under `lean4/Derivation/` plus the

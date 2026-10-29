@@ -84,6 +84,74 @@ theorem mem_plug_of_hole' (c : Ctx) (h : none ∈ c.slots) (d : Nat) :
   simp only [plug]
   exact List.mem_map.mpr ⟨none, h, rfl⟩
 
+/-- With one unary form, every well-formed context is its single hole. -/
+theorem unary_context_shape (r : Regime) (hforms : r.forms = [1])
+    (c : Ctx) (hc : wfCtx r c) : c = ⟨0, [none]⟩ := by
+  have hf : c.form = 0 := by
+    have h : c.form < 1 := by simpa only [hforms, List.length_cons, List.length_nil] using hc.1
+    exact Nat.eq_zero_of_le_zero (Nat.le_of_lt_succ h)
+  have hlen : c.slots.length = 1 := by simpa [hforms, hf] using hc.2.1
+  cases hs : c.slots with
+  | nil => simp [hs] at hlen
+  | cons slot rest =>
+      cases rest with
+      | nil =>
+          have hh : none = slot := by simpa [hs] using hc.2.2.1
+          have hslots : c.slots = [none] :=
+            hs.trans (congrArg (fun s : Option Nat => [s]) hh.symm)
+          rcases c with ⟨f, slots⟩
+          change f = 0 at hf
+          change slots = [none] at hslots
+          cases hf
+          cases hslots
+          rfl
+      | cons other tail =>
+          have hbad : Nat.succ (Nat.succ tail.length) = Nat.succ 0 := by
+            simpa only [hs, List.length_cons] using hlen
+          exact False.elim (Nat.noConfusion (Nat.succ.inj hbad))
+
+def bothMarked : Regime := ⟨2, [1], [(0, [0]), (0, [1])], [], []⟩
+
+theorem both_marked_collapsed : collapsed bothMarked 0 1 := by
+  intro c hc
+  have h := unary_context_shape bothMarked rfl c hc
+  subst c
+  decide
+
+/-- Preserved old collapse does not mean a preserved class count. -/
+theorem fresh_adds_new_distinction :
+    collapsed bothMarked 0 1 ∧
+    collapsed { bothMarked with data := 3 } 0 1 ∧
+    separable { bothMarked with data := 3 } 0 2 := by
+  have hwf : ∀ p ∈ bothMarked.insts, ∀ a ∈ p.2, a < bothMarked.data := by decide
+  refine ⟨both_marked_collapsed, ?_, ⟨⟨0, [none]⟩, by decide, by decide⟩⟩
+  exact (collapsed_fresh_datum bothMarked 0 1 hwf).mpr both_marked_collapsed
+
+def blankThree : Regime := ⟨3, [1], [], [], []⟩
+
+/-- Avoiding just datum 0 does not preserve its comparison with datum 1. -/
+theorem avoidance_needs_both_targets :
+    0 ∉ ([1] : List Nat) ∧ collapsed blankThree 0 1 ∧
+    separable { blankThree with insts := [(0, [1])] } 0 1 :=
+  ⟨by decide, collapsed_of_no_insts _ rfl 0 1, ⟨⟨0, [none]⟩, by decide, by decide⟩⟩
+
+theorem avoiding_both_preserves :
+    collapsed { blankThree with insts := [(0, [2])] } 0 1 := by
+  have h := collapsed_append_unmentioning blankThree [(0, [2])] 0 1
+    (by decide) (by decide)
+  exact h.mpr (collapsed_of_no_insts _ rfl 0 1)
+
+/-- Reuse an existing positive witness without a negated-collapse converse. -/
+theorem separation_preserved_fresh (r : Regime) (d d' : Nat)
+    (h : separable r d d') : separable { r with data := r.data + 1 } d d' := by
+  obtain ⟨c, hc, hne⟩ := h
+  refine ⟨c, ⟨hc.1, hc.2.1, hc.2.2.1, ?_⟩, hne⟩
+  intro s hs
+  have hold := hc.2.2.2 s hs
+  cases s with
+  | none => trivial
+  | some x => exact Nat.lt_succ_of_lt hold
+
 end Textbook.U12
 
 #print axioms Textbook.U12.fresh_steps
@@ -98,6 +166,12 @@ end Textbook.U12
 #print axioms Textbook.U12.BL3_sep_02
 #print axioms Textbook.U12.reaching_context_fails_both
 #print axioms Textbook.U12.mem_plug_of_hole'
+#print axioms Textbook.U12.unary_context_shape
+#print axioms Textbook.U12.both_marked_collapsed
+#print axioms Textbook.U12.fresh_adds_new_distinction
+#print axioms Textbook.U12.avoidance_needs_both_targets
+#print axioms Textbook.U12.avoiding_both_preserves
+#print axioms Textbook.U12.separation_preserved_fresh
 #print axioms Derivation.admission_without_expressive_increase
 #print axioms Derivation.collapsed_fresh_datum
 #print axioms Derivation.collapsed_append_unmentioning
@@ -119,6 +193,12 @@ EXPECTED = {
     "Textbook.U12.BL3_sep_02": BOTH,
     "Textbook.U12.reaching_context_fails_both": BOTH,
     "Textbook.U12.mem_plug_of_hole'": BOTH,
+    "Textbook.U12.unary_context_shape": PROPEXT,
+    "Textbook.U12.both_marked_collapsed": BOTH,
+    "Textbook.U12.fresh_adds_new_distinction": BOTH,
+    "Textbook.U12.avoidance_needs_both_targets": BOTH,
+    "Textbook.U12.avoiding_both_preserves": BOTH,
+    "Textbook.U12.separation_preserved_fresh": PROPEXT,
     "Derivation.admission_without_expressive_increase": PROPEXT,
     "Derivation.collapsed_fresh_datum": BOTH,
     "Derivation.collapsed_append_unmentioning": BOTH,

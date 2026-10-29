@@ -2,12 +2,35 @@
 
 **Claim.** In any regime with no admitted instances, every pair of data is
 collapsed, whatever forms and rules it has. In particular the two
-Challenge-2 regimes are totally collapsed: ⟨A⟩ and ⟨AB⟩, externally
-distinct, are internally the same. **Status:** derived. **Lean:**
+Challenge-2 regimes are totally collapsed: ⟨A⟩ and ⟨AB⟩, externally distinct, give the same answers to all admitted context
+tests. Their internal datum indices remain distinct.
+
+<details>
+<summary>Source and classification record (optional on a first reading)</summary>
+
+**Status:** derived. **Lean:**
 `Derivation.collapsed_of_no_insts`, instantiated as `R2L_collapsed` and
 `R2F_collapsed` (`lean4/Derivation/Inertia.lean` lines 37-55).
 **Axioms:** `propext`. **Depends on:** `derivable` (Unit 01), `collapsed`,
 `plug` (Unit 08), `R2L`, `R2F` (Units 01, 05).
+
+</details>
+
+## First pass
+
+With no forms, there are no questions to distinguish two data.
+Add the one-place form marked, but no instance: both answers are
+not derivable. Now add a uniform rule saying marked holds for every
+datum. Predict whether 0 and 1 become distinguishable.
+
+They do not. Both answers change to derivable, so they still agree.
+A blanket rule changes what can be derived without favoring one datum.
+With no instances, the same reasoning works for every form and every pair.
+
+An admitted instance is therefore necessary for a separation in this
+grammar, but not sufficient by itself. Adding `marked(0)` under that
+already uniform rule leaves both answers derivable. Collapse concerns
+answers, not equality of internal indices.
 
 ## Question
 
@@ -33,8 +56,9 @@ arguments, and so never on which datum was plugged.
 
 The theorem is a little stronger than "no contexts, no separation". It
 says: even if forms and rules are admitted, as long as no *instance* is,
-every pair stays collapsed. Only an instance, an admitted sentence about
-particular data, can break a tie.
+every pair stays collapsed. A separation therefore requires some admitted instance in this
+grammar. Merely having an instance does not guarantee separation: a
+uniform rule on its form may already grant the same answer for everyone.
 
 ## Plain-language interpretation
 
@@ -230,8 +254,11 @@ corrected on 2026-08-18 against the artifact (`CL-2-COLLAPSED`).
 | `rw`, `cases` on `List.Mem` | the proof | metatheory proof steps about Lean's lists |
 | `propext` | inherited | inside the declared boundary |
 
-**What the system holds.** After Challenge 2: the data count and nothing
-else. No form, so no context; no instance, so no sentence. The system
+**What the system holds.** Immediately after Challenge 2, the
+admitted observation fields contain only the data count: no form, no
+instance, and no rule. The Lean states named `R2L` and `R2F` also record
+the later Challenge-3 demand in `reqs`; the Python base histories do not.
+Recording that demand creates no context or distinguishing instance. The system
 holds nothing that could tell two data apart, and the theorem says that
 adding forms and rules alone would not change that.
 

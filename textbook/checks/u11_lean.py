@@ -105,6 +105,16 @@ theorem atMostTok_length {t0 : Nat} {t : TRegime} (ht : AtMostTok t0 t) :
   | inl h0 => rw [h0]; exact Nat.zero_le 1
   | inr h1 => rw [h1]; exact Nat.le_refl 1
 
+/-- A single-token history condition alone gives no bound on an arbitrary base. -/
+def twoBase : TRegime := ⟨[5, 7], [], [], [], []⟩
+
+theorem initial_guard_needed :
+    replayT [] twoBase = some twoBase ∧ twoBase.tokens.length = 2 ∧
+    (∀ e ∈ ([] : List TEvent), SingleTok 5 e) ∧ ¬ AtMostTok 5 twoBase := by
+  refine ⟨rfl, rfl, ?_, ?_⟩
+  · simp
+  · simp [AtMostTok, twoBase]
+
 end Textbook.U11
 
 #print axioms Textbook.U11.supply_singleTok
@@ -120,6 +130,7 @@ end Textbook.U11
 #print axioms Textbook.U11.hist01_not_singleTok
 #print axioms Textbook.U11.admit_keeps_atMostTok
 #print axioms Textbook.U11.atMostTok_length
+#print axioms Textbook.U11.initial_guard_needed
 #print axioms Bridge.stepT_preserves_atMostTok
 #print axioms Bridge.single_token_carrier_bound
 """
@@ -138,6 +149,7 @@ EXPECTED = {
     "Textbook.U11.hist01_not_singleTok": NONE,
     "Textbook.U11.admit_keeps_atMostTok": BOTH,
     "Textbook.U11.atMostTok_length": NONE,
+    "Textbook.U11.initial_guard_needed": BOTH,
     "Bridge.stepT_preserves_atMostTok": BOTH,
     "Bridge.single_token_carrier_bound": BOTH,
 }

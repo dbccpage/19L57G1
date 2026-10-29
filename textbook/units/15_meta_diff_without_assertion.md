@@ -4,11 +4,39 @@
 with it: on the two-element carrier `Bool`, the empty relation asserts
 nothing about `(false, true)`, and yet `false ≠ true`. So A3 does not imply
 A1. A difference that exists outside the object language is not thereby
-admitted inside it. **Status:** derived (a countermodel proved in Lean).
+admitted inside it.
+
+<details>
+<summary>Source and classification record (optional on a first reading)</summary>
+
+**Status:** derived (a countermodel proved in Lean).
 **Lean:** `PrimDiff.meta_diff_without_assertion`
 (`lean4/Derivation/PrimDiff.lean` lines 60-66). **Axioms:** none.
 **Depends on:** the candidates A1 and A3 (Unit 14); `Bool.noConfusion`
 (the metatheory's proof that `false ≠ true`).
+
+</details>
+
+## First pass
+
+Draw two positions A and B and leave the arrow relation empty.
+The labels let us distinguish the positions outside the model, but
+there is no admitted arrow from A to B. Knowing the positions differ
+does not write an arrow into the record.
+
+This is the separate `PrimDiff` relation setting. No `Regime` event
+or transport from that model is being applied here.
+
+The source uses the two Boolean values as position labels: A is
+`false` and B is `true`. Those labels do not mean one position is a
+false claim and the other a true claim. The empty relation separately
+answers false on every ordered pair.
+
+Predict whether adding a rule that forbids self-arrows would create
+the A-to-B arrow. It would not; a restriction does not itself assert
+a pair. This countermodel refutes the proposed implication from
+outside inequality to an asserted relation. It does not deny that
+we could separately admit such a relation.
 
 ## Question
 
@@ -172,18 +200,19 @@ function and a generated constructor-distinctness principle.
 | `Bool.noConfusion` | `false ≠ true` | the metatheory's identity on an inductive type |
 | `∃ r, …` | the countermodel's shape | metatheory existential with an explicit witness |
 
-**What the system holds.** In the object language modelled by `r`:
-nothing. That is the point. The inequality `false ≠ true` is a fact about
-the metatheory's `Bool` and lives entirely in the third column of this
-table. Reading it as a fact the relation "knows" would be the silent
-observer the finitude rule forbids.
+**What the supplied relation says.** `r` asserts no ordered pairs.
+The metatheoretic carrier still has two elements. The inequality
+`false ≠ true` is a separate fact about that carrier; it writes no pair
+into the relation. Calling that outside fact an assertion already
+present in `r` would change the model's admitted data.
 
 **Phrases to read with care.**
 
 - "Outside the object language" (the docstring) means: provable in the
   metatheory from the carrier alone. It is not a place.
-- "Not thereby admitted" means no admission event occurred; the empty
-  relation has not been told anything.
+- "Not thereby admitted" means the pair is absent from the supplied
+  relation. This `PrimDiff` setting defines no event history from which
+  we could infer that a particular admission event did or did not occur.
 
 ## Student exercise
 
