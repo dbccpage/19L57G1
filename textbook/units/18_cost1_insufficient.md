@@ -1,17 +1,52 @@
 # Unit 18. One item never answers the demand
 
-**Claim.** On any regime with no forms and no instances, no delta of zero
+**Claim.** With no forms and no instances to begin with, zero or one added
+item cannot separate the demanded pair. Challenge 3 therefore needs at
+least two items under the declared item-count measure.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** On any regime with no forms and no instances, no delta of zero
 or one item is a valid response to a separation demand. Every such delta
 either fails to apply (an instance or a rule with no form to attach to)
 or applies and leaves the instance list empty, and with no instances the
 pair stays collapsed. So the least cost of meeting the Challenge 3
-demand, measured in items, is at least two. **Status:** derived. **Lean:**
+demand, measured in items, is at least two.
+
+**Status:** derived. **Lean:**
 `Derivation.cost1_insufficient_general` (`lean4/Derivation/Minimality.lean`
 lines 98-142), instantiated as `cost1_insufficient` (reading L) and
 `cost1_insufficient_F` (reading F). **Axioms:** `propext`. **Depends on:**
 `Item`, `applyItem`, `applyDelta`, `validResponse` (`Basic.lean` lines
 171-200, introduced here); `collapsed_of_no_insts` (Unit 10);
 `separable_not_collapsed` (Unit 09).
+
+</details>
+
+## First pass
+
+Start with two data and no sentence shapes or instances. A **form**
+is a sentence shape with a declared number of places. An **instance**
+fills those places with admitted data. Each addition counts as one
+item under the measure used here.
+
+**Predict:** can one item make a test distinguish 0 from 1?
+A form alone supplies a shape with no instance. An instance alone is
+refused because its form does not exist. A uniform rule also needs a
+form. A new datum supplies neither a form nor an instance. Doing
+nothing does not help either.
+
+Thus zero or one item cannot answer this demand under these starting
+conditions. The next chapter supplies a two-item answer.
+
+Change the starting conditions: admit a unary form first. Now one
+instance, marking only 0, does distinguish the pair. The lower bound
+depends on beginning without forms and instances; it is not a universal
+price for making a distinction.
+
+For a slower worked search with all tied plans visible, see the
+[Search lab](../search_lab/README.md).
 
 ## Question
 
@@ -125,9 +160,11 @@ delta `()`, are invalid.
 cost with a valid delta: `(2, -1)`, the `-1` marking that `mu1` has no
 second component.
 
-The check script also leaves the bounds: it applies every one-item delta
-with arities up to 5, form indices up to 2 and argument tuples over the
-data (45 deltas in reading L). The six that apply (one datum, five forms)
+The check script also goes beyond the search's arity bound: it tries a
+finite collection with form arities up to 5, form indices up to 2, and
+argument-list lengths 1 or 2. Argument indices include one position
+beyond the admitted data (45 deltas in reading L). The six that apply
+(one datum, five forms)
 leave the pair collapsed; the 39 instances and rules are refused. That is
 the Lean case analysis, run by hand on a finite slice.
 
@@ -234,6 +271,9 @@ theorem to `R2L` with `rfl, rfl` for the two emptiness hypotheses, and to
   response, so the hypothesis `forms = []` is doing work.
 - Within the bounds, Python agrees: no valid delta below cost 2 in either
   reading, and the minimum is exactly 2 (Genesis, verified finite).
+- With no forms, no well-formed context exists, regardless of what a raw
+  record's instance list contains (book, `no_forms_no_separation`). The
+  supplied unknown-form record is neither well formed nor separable.
 
 ## What has not been proved
 
@@ -282,17 +322,30 @@ the guard were weakened to allow instances on unknown forms?
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 `[.newForm 0]` does not apply: the guard is `1 ≤ 0`, false, so
 `applyItem` returns `none`. In the proof, the `newForm a` case does
 `split at happ`; the second branch has `happ : none = some s`, closed by
 `cases happ`. For `[.newInst 0 [0, 1]]`, the first conjunct of the guard,
-`0 < [].length`, fails; the other two are never reached. If the guard
-allowed instances on unknown forms, the item would apply and create an
-instance, and the proof as written would break at `rw [if_neg …]`; but
-then the regime would also break well-formedness (Unit 01), since
-`Regime.wf` requires every instance's form to be admitted. The theorem
-rests on the grammar as defined, which keeps instances attached to
-forms.
+`0 < [].length`, fails. Removing only that conjunct would still not
+admit this example: the remaining arity check compares the two arguments
+with `[].getD 0 0 = 0`, and fails as well.
+
+Suppose instead that a different admission operation forcibly inserts
+the unknown-form instance. The existing proof's rejection branch would
+no longer describe that operation. This alone would not refute the lower
+bound: with no forms there is still no well-formed context, so the
+inserted instance supplies no separability witness under the unchanged
+definition. The book proves this no-form result separately. The raw
+record would also fail `Regime.wf`.
+
+To assess the changed system, specify all the changed guards and context
+rules. A broken proof step is not by itself a counterexample to its
+conclusion.
+
+</details>
 
 ## Verification
 
@@ -304,5 +357,5 @@ forms.
 | Ledger | `paper/paper_claim_ledger.md`, `CL-3-COST1-IMPOSSIBLE`, `CL-3-MIN-TWO` |
 | Artifact | `artifacts/challenges.json`, `challenge3.{L,F}.mu1.cost_below_minimum_all_fail = true`, `minimum_cost = [2, -1]`; `artifacts/claims.json`, `CL-3-MIN-TWO` |
 | Test | `tests/test_candidates.py::test_c3_cost1_all_fail_and_min_is_two`, `::test_smuggling_a_bundle_is_not_one_item`, `::test_new_datum_alone_never_separates` |
-| Check (Python) | `python textbook/checks/u18_cost1.py`: both readings, no valid delta at cost 0 or 1 within bounds by both validity checks; 45 (L) and 69 (F) one-item deltas beyond the bounds, applied ones leave the pair collapsed, the rest refused; minimum exactly 2; one instance suffices once a form exists; five-datum regime |
-| Check (book Lean) | `python textbook/checks/u18_lean.py`: nine book theorems plus four Genesis theorems kernel-checked, Lean 4.33.0; `propext` throughout, `propext, Quot.sound` for the form-first witness |
+| Check (Python) | `python textbook/checks/u18_cost1.py`: both readings, no valid delta at cost 0 or 1 within bounds by both validity checks; 45 (L) and 69 (F) attempted one-item deltas in the larger finite slice; minimum exactly 2; one instance suffices once a form exists; five-datum regime; remaining unknown-form arity guard fails and forced raw record has no contexts |
+| Check (book Lean) | `python textbook/checks/u18_lean.py`: twelve book reports plus four Genesis theorems kernel-checked, Lean 4.33.0; `propext` except the form-first witness and unknown-form well-formedness refutation (`propext, Quot.sound`) |

@@ -129,6 +129,11 @@ walkthrough. Changed-label practice has separate folded answers.
    versus two-target avoidance. Fresh-data class growth is now a checked
    counterexample to the old title's blanket no-power reading. This does
    not close the remaining per-declaration semantic review.
+   The [requests and cost follow-up](COST_READING_REVIEW_2026-10-29.md)
+   adds six first passes in Units 17–22, separates accepting a task from
+   meeting it, corrects the unknown-form counterfactual, and shows how a
+   uniform rule can remove a witnessed distinction. Minimum class,
+   literal choice, cost ordering, and actual admission remain separate.
 7. **Evidence and reality.** Add exercises in separating a definition,
    a deduction, a computation, and a measurement. Give a model prediction,
    identify an observation that could disagree with it, and explain what

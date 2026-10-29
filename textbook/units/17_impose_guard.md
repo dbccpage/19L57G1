@@ -1,13 +1,50 @@
 # Unit 17. Demands are irreflexive by guard
 
-**Claim.** The event `impose i j` records a separation demand only when
+**Claim.** A request is admitted only for two different, already admitted
+positions, written smaller first. This guard is declared; it does not
+supply a test that meets the request.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** The event `impose i j` records a separation demand only when
 `i < j` and `j < r.data`. So a demand never names a datum against itself,
 never names a datum that is not there, and is always written with the
 smaller index first. This is a definition, chosen by the external
-constructor; nothing derives it. **Status:** admitted. **Lean:**
+constructor; nothing derives it.
+
+**Status:** admitted. **Lean:**
 `Derivation.stepE`, case `.impose` (`lean4/Derivation/Basic.lean` lines
 159-162). **Axioms:** `propext` in the definition (through `insertNew`).
 **Depends on:** `Regime`, `Event`, `stepE` (Units 01, 03).
+
+</details>
+
+## First pass
+
+There are two admitted data, at positions 0 and 1. A caller submits
+the request “tell 0 and 1 apart.” The request is accepted because
+both positions exist and the smaller comes first. Asking to separate
+0 from itself, reversing the pair, or naming position 2 is rejected.
+
+Acceptance records a task. It does not add a question that can tell
+the data apart, and it does not establish that the task is achievable.
+Submitting the same accepted request again leaves the record unchanged.
+
+**Predict:** after recording the request, are 0 and 1 separated if
+there are still no forms or instances?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. The request changes the task list, not the available tests.
+A successful response must supply the missing distinction.
+
+</details>
+
+The guard also does not repair a malformed starting record. To conclude
+that every recorded pair is sorted after replay, start with sorted pairs;
+the empty starting record meets that condition.
 
 ## Question
 
@@ -37,8 +74,9 @@ this one line:
 2. **No demand on an absent datum.** `j < r.data` and `i < j` keep both
    indices among the admitted data.
 3. **One writing per pair.** `(1, 0)` is rejected; only `(0, 1)` can be
-   recorded. So `reqs` never holds the same unordered pair twice under
-   two spellings.
+   newly recorded. Starting from the empty record, a pair cannot enter
+   under two spellings. An arbitrary raw `Regime` can already contain
+   unsorted pairs; this guard does not remove them.
 
 The first consequence is the reason this unit's title says *irreflexive
 by guard*. The system is never asked to separate a datum from itself,
@@ -71,7 +109,8 @@ impose(r, i, j):
 Consequences:
   impose(r, d, d) rejects, for every r, d          (d < d is false)
   impose(r, j, i) with i < j rejects                (j < i is false)
-  every pair in reqs of a replayed regime has i < j (by induction on the history)
+  if the initial reqs are sorted and replay succeeds:
+    every resulting pair has i < j                 (induction on the history)
 ```
 
 ## Python
@@ -207,7 +246,9 @@ proofs by `simp`/`decide` on `stepE`; `propext, Quot.sound` for the
   every replay (book, derived). From `genesis`, whose `reqs` is empty, it
   holds in every reachable regime.
 - `impose 0 1` on the two-datum regime yields exactly `R2L` (book, by
-  `decide`).
+  `decide`). Repeating an admissible, already recorded demand leaves the
+  regime unchanged. A raw reversed pair survives a later valid `impose`,
+  illustrating why the invariant's initial-state condition is needed.
 
 ## What has not been proved
 
@@ -234,7 +275,8 @@ proofs by `simp`/`decide` on `stepE`; `propext, Quot.sound` for the
 | the invariant `∀ q ∈ reqs, q.1 < q.2` | a hypothesis of `isoRefl` | derived from the guard, in the metatheory, by the book |
 
 **What the system holds.** After an admissible `impose`, one more pair in
-`reqs`. The system has no way to read it; only the metatheory's
+`reqs` if it was absent; otherwise the same record. The system has no
+object-language operation for inspecting that list; the metatheory's
 `separable` predicate (Unit 08) and the Python `satisfies` relate the
 demand to the state.
 
@@ -256,6 +298,9 @@ demands. Then: a history `[admitDatum, impose 0 1, admitDatum]`, from
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 Accepted pairs: `(0, 1)`, `(0, 2)`, `(1, 2)`, the pairs with `i < j < 3`.
 The derivation demands only `(1, 2)` (`R2F.reqs`), the pair of the two
 retained tokens; the genesis datum is never required of anything. The
@@ -263,7 +308,9 @@ history is not admissible: after one `admitDatum` the regime has
 `data = 1`, so `impose 0 1` needs `1 < 1`, which fails, and `stepE`
 returns `none`; `replayE` then returns `none` for the whole history,
 whatever follows. The Python check script's enumeration contains this
-history and classes it as inadmissible.
+event pattern and classifies it as inadmissible.
+
+</details>
 
 ## Verification
 
@@ -275,5 +322,5 @@ history and classes it as inadmissible.
 | Ledger | No `CL-*` entry is about the guard itself; `CL-3-FAIL-CURRENT` and every Challenge 3 entry presuppose the recorded demand |
 | Artifact | `artifacts/challenges.json`, `challenge3.L.reading = "L"` with target `(0, 1)`; the demand itself is not an artifact field |
 | Test | `tests/test_model.py` (admission errors); `tests/test_engine.py::test_challenge3_reading_l_classes` |
-| Check (Python) | `python textbook/checks/u17_impose_guard.py`: one accepted demand, seven refusals; 111 111 histories, 2 883 admissible, 990 recorded demands all sorted; reading F accepts `(1, 2)` where reading L refuses it |
-| Check (book Lean) | `python textbook/checks/u17_lean.py`: eight book declarations plus `stepE` and `insertNew` kernel-checked, Lean 4.33.0; `propext` throughout, `propext, Quot.sound` for `R2L_selfIso` |
+| Check (Python) | `python textbook/checks/u17_impose_guard.py`: one accepted demand, seven refusals; repeated demand unchanged; malformed base not repaired; 111 111 histories, 2 883 admissible, 990 recorded demands all sorted; reading F accepts `(1, 2)` where reading L refuses it |
+| Check (book Lean) | `python textbook/checks/u17_lean.py`: ten book reports plus `stepE` and `insertNew` kernel-checked, Lean 4.33.0; `propext` throughout, `propext, Quot.sound` for `R2L_selfIso` |

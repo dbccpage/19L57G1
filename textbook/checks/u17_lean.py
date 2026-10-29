@@ -118,6 +118,17 @@ def R2L_selfIso : Iso R2L R2L :=
       | tail _ h => cases h
     rw [this]; decide)
 
+/-- Recording an already present, admissible demand does not add a copy. -/
+theorem repeated_demand_unchanged (r : Regime) (i j : Nat)
+    (hguard : i < j ∧ j < r.data) (hmem : (i, j) ∈ r.reqs) :
+    stepE r (.impose i j) = some r := by
+  simp [stepE, hguard, insertNew_of_mem hmem]
+
+/-- A successful event does not clean an arbitrary malformed base. -/
+theorem malformed_base_survives :
+    stepE ⟨2, [], [], [], [(1, 0)]⟩ (.impose 0 1) =
+      some ⟨2, [], [], [], [(1, 0), (0, 1)]⟩ := by decide
+
 end Textbook.U17
 
 #print axioms Textbook.U17.impose_gives_R2L
@@ -128,6 +139,8 @@ end Textbook.U17
 #print axioms Textbook.U17.step_keeps_reqs_ordered
 #print axioms Textbook.U17.replay_keeps_reqs_ordered
 #print axioms Textbook.U17.R2L_selfIso
+#print axioms Textbook.U17.repeated_demand_unchanged
+#print axioms Textbook.U17.malformed_base_survives
 #print axioms Derivation.stepE
 #print axioms Derivation.insertNew
 """
@@ -141,6 +154,8 @@ EXPECTED = {
     "Textbook.U17.step_keeps_reqs_ordered": PROPEXT,
     "Textbook.U17.replay_keeps_reqs_ordered": PROPEXT,
     "Textbook.U17.R2L_selfIso": BOTH,
+    "Textbook.U17.repeated_demand_unchanged": PROPEXT,
+    "Textbook.U17.malformed_base_survives": PROPEXT,
     "Derivation.stepE": PROPEXT,
     "Derivation.insertNew": PROPEXT,
 }

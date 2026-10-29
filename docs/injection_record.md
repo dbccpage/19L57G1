@@ -669,3 +669,21 @@ not repinned to the draft. The four affected book scripts check 58 exact
 reports; no general positive witness-extraction theorem is claimed from
 their negated equivalence.
 
+## Requests and cost chapter review (2026-10-29)
+
+Four separate temporary book drivers test exact false propositions.
+Sealed sources and native receipts remain unchanged. No artifact or pin is
+regenerated under an injection.
+
+| Check | Defect exercised | Observed failure | Recovery |
+|---|---|---|---|
+| Repeated request | Assert `stepE R2L (.impose 0 1) ≠ some R2L` | Lean's `decide` names this exact proposition as false; shared runner exits 1 | u17 proves repeated admissible requests leave the record unchanged |
+| Unknown form | Assert `[0,1].length = [].getD 0 0` | Lean names the arity equality as false; shared runner exits 1 | u18 proves no-form non-separation and checks the malformed raw record |
+| Uniform rule | Assert the link's `(0,[1,1])` remains non-derivable after adding rule 0 | Lean names the negative derivability claim as false; shared runner exits 1 | u19/u20 prove collapse with the uniform rule while retaining their instances |
+| Cost comparison | Assert `aritySum deltaBL < aritySum deltaU0` | Lean names the reversed inequality as false; shared runner exits 1 | u22 checks the correct arity inequality and the separate instance-count tie |
+
+The five affected scripts pass 67 exact reports after the injections;
+eight new book reports use four `propext` and four
+`propext, Quot.sound` dependency sets. These kernel checks do not establish
+reader understanding or the correctness of a physical interpretation.
+

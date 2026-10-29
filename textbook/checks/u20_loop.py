@@ -24,8 +24,8 @@ from derivation.candidates import (  # noqa: E402
 )
 from derivation.engine import GENESIS_L  # noqa: E402
 from derivation.iso import isomorphic  # noqa: E402
-from derivation.model import replay  # noqa: E402
-from derivation.observe import contexts, derivable, plug, profile, witness  # noqa: E402
+from derivation.model import AdmitRuleAll, replay, step  # noqa: E402
+from derivation.observe import contexts, derivable, plug, profile, separable, witness  # noqa: E402
 
 
 def main() -> int:
@@ -71,6 +71,12 @@ def main() -> int:
           f"isomorphic(BL, BD): {isomorphic(bl, bd)}")
     if not isomorphic(bd, bd1) or isomorphic(bl, bd):
         failures.append("iso")
+
+    uniform = step(bd, AdmitRuleAll(0))
+    print(f"uniform rule retains loop={uniform.insts == bd.insts}; "
+          f"separable={separable(uniform, 0, 1)}")
+    if uniform.insts != bd.insts or separable(uniform, 0, 1):
+        failures.append("mention alone is not sufficient")
 
     print(f"failures: {failures}")
     return 1 if failures else 0

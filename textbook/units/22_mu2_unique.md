@@ -1,15 +1,57 @@
 # Unit 22. Under the finer measure the answer is unique
 
-**Claim.** Measure a delta by `mu2 = (number of items, total arity of
+**Claim.** If price compares item count first and new forms' places second,
+the unary mark is cheapest. Under this declared price rule, all cheapest
+responses belong to one class under renaming; the literal responses can
+still differ.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** Measure a delta by `mu2 = (number of items, total arity of
 new forms)`, compared lexicographically. Then every valid two-item
 response to Challenge 3 whose new-form arity sum is at most 1 yields a
 regime isomorphic to the unary mark `U0`. With the cost floor of Unit 18
 and the absence of valid two-item deltas of arity sum 0, the `mu2`
-minimum is `(2, 1)` and is unique up to isomorphism. **Status:** derived
+minimum is `(2, 1)` and is unique up to isomorphism.
+
+**Status:** derived
 (reading L; reading F by `mu2_unique_F`). **Lean:** `Derivation.mu2_unique`
 (`lean4/Derivation/Minimality.lean` lines 371-485), `aritySum` (15-18).
 **Axioms:** `propext, Quot.sound`. **Depends on:** Units 18, 21
 (`applyDelta_pair`, `no_insts_no_separation`, `isoRefl`, `isoU1U0`).
+
+</details>
+
+## First pass
+
+Keep the same responses, but change the price rule. First compare item
+counts. Only if those tie, compare the total number of places in newly
+admitted forms. This is **lexicographic order**: first number first.
+
+| Response | Item count | New-form places | Cost pair |
+|---|---:|---:|---|
+| Unary mark | 2 | 1 | `(2, 1)` |
+| Binary link | 2 | 2 | `(2, 2)` |
+| Binary loop | 2 | 2 | `(2, 2)` |
+
+The unary mark now wins. Marking 0 and marking 1 are still two different
+literal responses, but renaming exchanges them: one minimum class.
+
+**Predict:** would a three-item response with no new form places beat
+`(2, 1)`?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. `(3, 0)` loses because its first number is larger. The second
+number matters only when the first numbers tie.
+
+</details>
+
+The price rule is supplied. The theorem establishes uniqueness up to
+the declared renaming under that rule, not a preference forced by the
+demand itself. The formal proof checks all item pairs, beyond this table.
 
 ## Question
 
@@ -259,6 +301,9 @@ for `aritySum_cons` and `applyItem_zero_keeps_bare`.
   2`), not by failing validity (book, by `decide`).
 - Within the bounds, the engine finds one class in both readings
   (Genesis, verified finite).
+- The alternative cost counting new instances assigns the same pair
+  `(2, 1)` to a valid mark and a valid link with non-isomorphic results
+  (book, `instance_count_tie`). This comparison needs no arity bound.
 
 ## What has not been proved
 
@@ -268,8 +313,11 @@ for `aritySum_cons` and `applyItem_zero_keeps_bare`.
   metatheoretic act.
 - Uniqueness on the nose. `U0` and `U1` are different regimes; they are
   one class under the implemented isomorphism.
-- Anything about three-item responses, or about regimes with existing
-  forms. The theorem is about two items on `R2L` and `R2F`.
+- A classification of three-item responses, or a corresponding theorem
+  on regimes with existing forms. `mu2_unique` classifies selected
+  two-item responses on `R2L` and `R2F`. Under the stated lexicographic
+  order, every three-item response costs more than `(2, 1)` regardless
+  of its second cost component.
 
 ## Outside the system
 
@@ -299,12 +347,22 @@ without a new enumeration.
 
 ## Answer
 
-No. Every two-item valid response has exactly one new instance (the live
-shape is form then instance, and `no_arity_zero_response` plus Unit 18
-rule out everything else), so `mu3` is `(2, 1)` on all of them and does
-not separate the mark from the link or the loop. The `mu1` tie of
-Unit 21 is the `mu3` tie. Only a measure that sees form arity, as `mu2`
-does, breaks it.
+<details>
+<summary>Worked answer</summary>
+
+No. The mark and link from Unit 21 are already enough to decide this:
+both are valid, both contain two items and one new instance, and their
+results are not isomorphic. Both cost `(2, 1)` under `mu3`.
+
+Could either be beaten? No delta with fewer than two items is valid
+(Unit 18). A two-item delta without a new instance leaves the initial
+instance list empty and cannot separate. Thus `(2, 0)` cannot beat
+them. The two different classes remain tied minima. This argument needs
+no assumption that an arity bound from `mu2_unique` applies to `mu3`.
+Other declared measures could make other distinctions; this unit
+examines these particular measures.
+
+</details>
 
 ## Verification
 
@@ -316,5 +374,5 @@ does, breaks it.
 | Ledger | `paper/paper_claim_ledger.md`, `CL-3-UNIQUE-MU2-L`, `CL-3-UNIQUE-MU2-F` |
 | Artifact | `artifacts/challenges.json`, `challenge3.{L,F}.mu2.minimum_cost = [2, 1]`, `valid_deltas_at_minimum = 2`, one class `form1+inst1`; `artifacts/claims.json`, `CL-3-UNIQUE-MU2 = {L: 1, F: 1}` |
 | Test | `tests/test_candidates.py::test_c3_mu2_minimum_is_unary_mark` |
-| Check (Python) | `python textbook/checks/u22_mu2_unique.py`: `mu2` minimum `(2, 1)` with two isomorphic marks in both readings; over a 3-arity slice of the grammar, two valid deltas of arity sum ≤ 1, both isomorphic to the mark, none of arity sum 0 |
-| Check (book Lean) | `python textbook/checks/u22_lean.py`: seven book theorems plus three Genesis theorems kernel-checked, Lean 4.33.0, including `no_arity_zero_response`; `propext, Quot.sound` where `omega`/`decide` act on concrete data, `propext` for the two general lemmas |
+| Check (Python) | `python textbook/checks/u22_mu2_unique.py`: `mu2` minimum `(2, 1)` with two isomorphic marks in both readings; comparisons include the recorded demand; over a 3-arity slice, two valid deltas of arity sum ≤ 1 and none of sum 0; the instance-count cost leaves mark and link tied; `(2, 1)` beats `(3, 0)` |
+| Check (book Lean) | `python textbook/checks/u22_lean.py`: eight book reports plus three Genesis theorems kernel-checked, Lean 4.33.0, including `no_arity_zero_response` and `instance_count_tie`; `propext, Quot.sound` for those two and the class witness, `propext` for the cost equations and general zero-cost preservation lemma |

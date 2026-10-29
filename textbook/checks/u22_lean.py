@@ -91,6 +91,20 @@ theorem form_in_cheap_delta (c : Nat) (b : Item)
 two items; their arity sums 1 and 2 break the tie. -/
 theorem mu2_breaks_tie : aritySum deltaU0 < aritySum deltaBL := by decide
 
+def instanceCount : List Item → Nat
+  | [] => 0
+  | .newInst _ _ :: rest => 1 + instanceCount rest
+  | _ :: rest => instanceCount rest
+
+/-- The alternative instance-count measure leaves two non-isomorphic
+valid responses at the same cost. -/
+theorem instance_count_tie :
+    deltaU0.length = 2 ∧ deltaBL.length = 2 ∧
+    instanceCount deltaU0 = 1 ∧ instanceCount deltaBL = 1 ∧
+    validResponse R2L 0 1 deltaU0 ∧ validResponse R2L 0 1 deltaBL ∧
+    (Iso U0 BL → False) :=
+  ⟨rfl, rfl, rfl, rfl, deltaU0_valid, deltaBL_valid, U0_not_iso_BL⟩
+
 end Textbook.U22
 
 #print axioms Textbook.U22.aritySum_cons
@@ -100,6 +114,7 @@ end Textbook.U22
 #print axioms Textbook.U22.link_arity_two
 #print axioms Textbook.U22.form_in_cheap_delta
 #print axioms Textbook.U22.mu2_breaks_tie
+#print axioms Textbook.U22.instance_count_tie
 #print axioms Derivation.mu2_unique
 #print axioms Derivation.mu2_unique_F
 #print axioms Derivation.isoRefl
@@ -113,6 +128,7 @@ EXPECTED = {
     "Textbook.U22.link_arity_two": PROPEXT,
     "Textbook.U22.form_in_cheap_delta": BOTH,
     "Textbook.U22.mu2_breaks_tie": PROPEXT,
+    "Textbook.U22.instance_count_tie": BOTH,
     "Derivation.mu2_unique": BOTH,
     "Derivation.mu2_unique_F": BOTH,
     "Derivation.isoRefl": BOTH,

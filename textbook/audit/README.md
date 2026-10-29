@@ -24,6 +24,13 @@ Nine additional book proofs support the changes within the existing
 axiom boundary. This is selected semantic review, not certification of
 every paragraph or declaration in those chapters.
 
+**Requests and cost follow-up (2026-10-29).** The
+[Units 17–22 reading review](COST_READING_REVIEW_2026-10-29.md) adds six
+small introductions and corrects selected claims about guards, lower
+bounds, uniform rules, argument order, and uniqueness under a cost.
+Eight additional book reports support the scope checks. The broader
+semantic teaching review remains open.
+
 ## Scope and method
 
 - **Population.** The 75 tracked modules under `lean4/Derivation/` plus the
