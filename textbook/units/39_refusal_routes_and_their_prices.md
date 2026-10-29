@@ -1,11 +1,20 @@
-# Unit 39. Refusal routes and their prices
+# Unit 39. Comparing refusal protocols under declared prices
 
-**Claim.** Unit 38 compared five ways of recording a refused repeat. This
+**Claim.** The search compares 44 declared protocols within six events and
+a four-position cap. Its cheapest protocol depends on the chosen
+milestone and cost order. Lean separately proves facts about particular
+routes; it does not prove universal optimality over every protocol.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** Unit 38 compared five ways of recording a refused repeat. This
 module widens the comparison to a declared space of 44 *protocols*
 (result algebra, retention rule, tag, reflection, relation rule, one or
-two tokens) and asks which of them reach a witnessed, oriented pair from
-one token, and at what declared price. Lean proves the cores: silent
-refusal is inert over any history (`silent_repetition_inert`); the
+two tokens) and asks which reach a witnessed, oriented pair at what
+declared price. Two-token protocols are controls in the same search.
+Lean proves the cores: silent refusal is inert over histories whose
+admissions all name already-present tokens (`silent_repetition_inert`); the
 traced runner's results never feed back into the state (`trace_erasure`,
 `histories_collapse`); the judgment variant never grows its carrier
 (`judgment_carrier_bound`); a priced route with tag and relation closes
@@ -18,7 +27,9 @@ construction sends fixed points to fixed points
 the successor chain for every `n` (`reflective_chain_is_initial_segment`).
 That the receipt-and-relation route is the *unique minimum* under both
 cost orders is a finite search over the 44 protocols at a 6-event
-horizon, not a theorem. **Status:** derived (the cores); bounded
+horizon and carrier cap 4, not a general minimality theorem.
+
+**Status:** derived (the cores); bounded
 computation, exhaustive in class (minimality and uniqueness); declared
 (the protocol space and the cost orders). **Lean:**
 `lean4/Derivation/RefusalFrontier.lean` lines 29-47, 60-84, 94-116,
@@ -27,6 +38,39 @@ computation, exhaustive in class (minimality and uniqueness); declared
 `Bool` facts use none. **Depends on:** `stepR`, `replayR`, `emptyR` (Unit
 38); `Bridge.irrefl_law_not_entailed` (Unit 26); `Irrefl` (Unit 24);
 `List.range`.
+
+</details>
+
+## First pass
+
+Compare two ways to retain a receipt for a repeated token:
+
+| Route | What is added | Separated pair? | Written directed link? |
+|---|---|---|---|
+| Tag | Receipt and a tag on it | Yes | No |
+| Relation | Receipt and a link from the subject | Yes | Yes |
+
+The two routes reach different milestones. Asking only for a separated
+pair is a weaker task than also asking for a written relation witness.
+
+The declared cost order A charges both routes 2 imports, so they tie for
+separation. Order B compares three counts in sequence: first external
+token acts, then sorts and constructors, then rules. Their prices are
+`(0,1,2)` and `(0,1,3)`, so the tag route wins for separation under B.
+For the written-link milestone, the relation route is the unique minimum
+under both orders in this search.
+
+**Predict:** has agreement between these two prices proved the route
+cheapest under every possible price system?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. The conclusion names two chosen orders, 44 protocols, six events,
+and a four-position cap. Changing the task, menu, or prices asks a new
+question.
+
+</details>
 
 ## Question
 
@@ -82,12 +126,13 @@ The answer has three parts. Ignoring the knock buys nothing, however
 many times it happens. Several policies get two things in the room for
 one menu item, and which is "cheapest" among them depends on how you
 price the menu. But only one policy gets a *written link* for two menu
-items, whichever way you price them: hand out a receipt, and write "this
+items under order A, and is the same unique minimum under the declared
+order B: hand out a receipt, and write "this
 receipt belongs to that knock". The badge is not needed for the link; it
 was needed in Unit 38 only because that unit's menu had no link rule.
 
-None of this comes from the knock. Every success is a menu item someone
-declared.
+In these models, the extra receipt, tag, and link follow from the
+declared menu rules. The search does not derive that menu from repetition.
 
 ## Pseudocode
 
@@ -176,12 +221,16 @@ failures: []
 `Proto(algebra, retention, tagging, reflection, autorel, tokens)` is the
 six-tuple; `enumerate_protocols()` builds all of them and keeps the 44
 that pass `valid()`. `protocol_report(p, 6)` runs the protocol over every
-event sequence of length at most six from the empty state and records,
+enabled event sequence of length at most six from the empty state,
+discarding steps that exceed carrier cap 4, and records,
 per milestone, the least depth at which a reached state satisfies it,
 or `None`. `cost_a` is the length of `p.imports()`; `cost_b` is the
 triple.
 
-The silent protocol reaches nothing and is a fixpoint. The tag route
+The silent protocol admits its first token and then reaches a fixed state
+under the available repeats. None of the five listed two-element or
+relational milestones is reached; “nothing” here is not an empty state.
+The tag route
 reaches two carrier elements, a separable pair and an oriented pair at
 two events and never a witnessed relation: it has no relation rule to
 write one. The relation route reaches all five at two events. The
@@ -469,9 +518,10 @@ if `F` commutes with the two actions and `s` is fixed by `actS`, then
 `F s` is fixed by `actR`. Its content in any instance is in identifying
 the fixed points. On `Bool` with the swap `!`, there are none
 (`not_has_no_fixed_point`), so `ceiling_on_bool` is a true statement with
-nothing to apply to: this is exactly the "bypass" of the tagged and
-relation routes, whose states are never fixed by the swap
-(`priced_bridge_oriented`). The two-element case with content is
+nothing to apply to in this Boolean instance. The separate tagged bridge
+is a particular two-position state moved by `swapP`
+(`priced_bridge_oriented`); that does not prove every earlier state or
+every relation-route state is moved. The two-element case with content is
 `Bridge.equivariant_witness_is_S2`.
 
 **T8, the reflective chain.** `stepRefl` appends the current length as a
@@ -510,8 +560,10 @@ T7 theorem and the `Bool` facts use no axioms.
   link `(0, 1)`, off-diagonal, tag `[1]`, not swap-invariant) and the
   `stepM` route (carrier `[tok 0, receipt 1]`, link `(0, 1)`,
   off-diagonal, with no tag and no result store) (Genesis).
-- Irreflexive facts never entail the law, with a trivial witness
-  (Genesis) and with an extension of this bridge alone (book).
+- The bridge's positive relation facts have an extension that violates
+  irreflexivity, with a constant witness (Genesis) and an extension adding
+  one self-edge (book). This is the unrestricted positive-extension
+  question of Unit 26, not a prohibition on explicit negative constraints.
 - Equivariant constructions preserve fixed points (Genesis, general).
 - The declared reflective rule realizes `range (n + 1)` with the successor
   relation for every `n` (Genesis).
@@ -577,20 +629,33 @@ the two routes' relation to orientation?
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 `stepM` three times gives `⟨[tok 0, receipt 1, receipt 2], [(0, 1), (0, 2)]⟩`
-(the book's `min_third_presentation`). Exchanging positions `1` and `2`
-sends the carrier to itself (both are receipts; their indices are their
-positions, so after relabelling the list reads the same) and the
-relation `{(0, 1), (0, 2)}` to itself: the two receipts are *not* told
-apart from each other, only from the subject. `reflState 2` is
+(the book's `min_third_presentation`). First specify what the exchange
+acts on. As literal `MItem` values, `receipt 1 ≠ receipt 2`: exchanging
+the two list entries changes the data list. No general renaming action
+on `MState` is defined here, so literal swap-invariance does not follow.
+
+If the observation forgets receipt-number payloads and reads only the
+directed links as a set, exchanging vertex names 1 and 2 keeps the star
+`{(0,1),(0,2)}`. Both receipts have incoming but no outgoing links. This
+coarser relation view does not distinguish them. The book checks the
+literal inequality and this declared link observation separately.
+
+`reflState 2` is
 `⟨[0, 1, 2], [1, 2], [(0, 1), (1, 2)]⟩` (the book's `refl_two`); the
 exchange sends `(0, 1), (1, 2)` to `(0, 2), (2, 1)`, a different relation,
-so the two receipts *are* told apart: one is linked from the subject,
+so that exchange does not preserve its directed relation: one is linked from the subject,
 the other from a receipt. The minimum route orients subject against
-receipt and nothing more; reflection orients the receipts among
-themselves because each link names the previous element. Both
-orientations are the declarations' content: `stepM` always links from
+receipt in the two-position example. Its later star has repeated
+link profiles, while this chain's link profiles differ. These statements
+depend on the declared observation; raw receipt payloads retain more
+information. Both constructions are declarations: `stepM` always links from
 `0`, `stepRefl` always links from the last element.
+
+</details>
 
 ## Verification
 
@@ -601,4 +666,4 @@ orientations are the declarations' content: `stepM` always links from
 | Paper | `paper/refusal_as_difference.md` TERMINAL (three lines), FR1 (the space), FR3-FR10 (T1-T8), FR8 (normal form; class-general Lean form unresolved), FR11; ledger `CL-FR6-TERMINAL`, `CL-FR6-T1-INERTIA`, `CL-FR6-T2-TRACE` (narrowed 2026-08-18), `CL-FR6-T3-CONSTRUCTORS` and the other `CL-FR6-T*` entries |
 | Python | `code/derivation/refusal_frontier.py`; `artifacts/refusal_frontier.json` (`protocols`, `minimum_table`, `normal_form`, `notion_matrix`); `tests/test_refusal_frontier.py` (`test_witnessed_minimum_unique_under_both_orders`, `test_minimum_table_ties_and_disagreement`, `test_normal_form_holds`) |
 | Check (Python) | `python textbook/checks/u39_refusal_frontier.py`: 44 protocols; six named routes' milestones, dynamics and costs; the minimum table under both orders with the witnessed minimum unique and the weaker ties as stated; the normal-form checks; all against the artifact |
-| Check (book Lean) | `python textbook/checks/u39_lean.py`: fourteen book theorems plus seven Genesis theorems kernel-checked, Lean 4.33.0 |
+| Check (book Lean) | `python textbook/checks/u39_lean.py`: fifteen book theorems plus seven Genesis theorems kernel-checked, Lean 4.33.0 |

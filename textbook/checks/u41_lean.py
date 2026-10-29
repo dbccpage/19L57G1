@@ -80,8 +80,20 @@ theorem seed_breaks_correspondence :
     profile2 (reflState 5) 0 = ((false, false, true), [], [(true, true, true)]) := by
   decide
 
+/-- Increasing radius can help the same pair on the same fixed chain. -/
+theorem radius_can_help :
+    profileD 5 2 1 = profileD 5 3 1 ∧ profileD 5 2 2 ≠ profileD 5 3 2 := by decide
+
+/-- The threshold is necessary for two deep points, not for every raw
+collision: shifted boundary windows can coincide earlier. -/
+theorem two_deep_need_threshold (n i j d : Nat) (hne : i ≠ j)
+    (hi0 : d < i) (hi1 : i + d < n) (hj0 : d < j) (hj1 : j + d < n) :
+    2 * d + 3 ≤ n := by omega
+
 end Textbook.U41
 
+#print axioms Textbook.U41.radius_can_help
+#print axioms Textbook.U41.two_deep_need_threshold
 #print axioms Textbook.U41.ball_values
 #print axioms Textbook.U41.profileD_values
 #print axioms Textbook.U41.deep_profile_nine
@@ -103,6 +115,8 @@ end Textbook.U41
 """
 
 EXPECTED = {
+    "Textbook.U41.radius_can_help": BOTH,
+    "Textbook.U41.two_deep_need_threshold": BOTH,
     "Textbook.U41.ball_values": NONE,
     "Textbook.U41.profileD_values": BOTH,
     "Textbook.U41.deep_profile_nine": BOTH,

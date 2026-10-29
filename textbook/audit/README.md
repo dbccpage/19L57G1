@@ -54,6 +54,14 @@ recorded demands from met demands, and one failed recipe from absence of
 every possible response. Seven new book reports check concrete boundary
 cases, including a longer repair and a malformed stale-rule record.
 
+**Representation and observation follow-up (2026-10-29).** The
+[Units 36 and 38–41 reading review](VIEW_READING_REVIEW_2026-10-29.md)
+adds five first passes, qualifies membership agreement and observation
+scope, and corrects the receipt-payload exchange example. Eight added
+book reports include the single-token history induction, the stage-zero
+profile, and a fixed-chain example where a larger radius helps. Unit 37's
+earlier concrete introduction is preserved.
+
 ## Scope and method
 
 - **Population.** The 75 tracked modules under `lean4/Derivation/` plus the

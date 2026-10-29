@@ -104,8 +104,15 @@ theorem depth2_values_five :
     profile2 (reflState 5) 3 = profile2 (reflState 5) 2 ∧
     profile2 (reflState 6) 2 = profile2 (reflState 6) 4 := by decide
 
+/-- Stage counts links/steps, not positions. The initial stage has no
+seed/outgoing distinction and no three inhabited profile classes. -/
+theorem stage_zero :
+    (reflState 0).data.length = 1 ∧
+    profile1 (reflState 0) 0 = (false, false, false) := by decide
+
 end Textbook.U40
 
+#print axioms Textbook.U40.stage_zero
 #print axioms Textbook.U40.tags_three
 #print axioms Textbook.U40.profile_table_four
 #print axioms Textbook.U40.profile_table_four_by_classes
@@ -130,6 +137,7 @@ end Textbook.U40
 """
 
 EXPECTED = {
+    "Textbook.U40.stage_zero": BOTH,
     "Textbook.U40.tags_three": PROPEXT,
     "Textbook.U40.profile_table_four": BOTH,
     "Textbook.U40.profile_table_four_by_classes": BOTH,

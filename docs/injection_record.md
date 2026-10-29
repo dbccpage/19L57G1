@@ -743,3 +743,25 @@ three `propext` and four `propext, Quot.sound` sets. The longer repair and
 unadmitted-target examples are checked without changing the native theorem
 statements. None of this establishes beginner mastery or a physical law.
 
+## Membership, refusal, and observation review (2026-10-29)
+
+Five temporary book drivers exercise exact false propositions. Two
+process-local substitutions change only book-check bindings; native
+owners, sealed sources, artifacts, and pin populations remain unchanged.
+
+| Check | Defect exercised | Observed failure | Recovery |
+|---|---|---|---|
+| Membership versus length | Assert equal lengths for the one-demand list and its repeated-demand counterpart | Lean names the length equality as false; runner exits 1 | u36 proves membership agreement and the distinct lengths |
+| Carrier versus counter | Assert `fact` repeat leaves the entire state unchanged | Lean names the concrete state equality as false; runner exits 1 | u38 keeps the changed counter and proves the conditional arbitrary-history carrier bound |
+| Receipt payload | Assert `receipt 1 = receipt 2` | Lean names the constructor equality as false; runner exits 1 | u39 proves literal payload and list inequality |
+| Initial chain stage | Assert the stage-zero seed has an outgoing link | Lean names the profile equality as false; runner exits 1 | u40 checks the singleton's all-negative profile and the 1,2,3,3 inhabited-class counts |
+| Larger radius | Assert equality of the stage-5 pair `(2,3)` at radius 2 | Lean names the concrete profile equality as false; runner exits 1 | u41 proves that the same pair agrees at radius 1 and differs at radius 2 |
+| Payload erasure | Temporarily erase receipt-number payloads in u39's book `step_f` binding | The actual checker exits 1 naming `receipt payload versus link observation` | Original binding retains payloads while the declared link-only view agrees |
+| Fixed observation radius | Temporarily force u41's book profile binding to use radius 1 for every request | The actual checker exits 1, including the named `radius can help` failure | Original binding uses the requested radius and recovers the fixed-chain distinction |
+
+The five original book drivers recover 99 exact reports. Eight are new:
+two empty sets, two `propext`, and four `propext, Quot.sound`. No native
+receipt is regenerated while an injected proposition or binding is live.
+These checks establish the stated formal and finite boundaries, not
+physical realization, hosted layout, or beginner mastery.
+

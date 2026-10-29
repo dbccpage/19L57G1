@@ -153,6 +153,14 @@ walkthrough. Changed-label practice has separate folded answers.
    validity, and checks that a failed two-item recipe can have a longer
    repair. Stale rules and an unused source bound receive explicit scope
    notes. These selected corrections do not complete semantic coverage.
+   The [representation and observation follow-up](VIEW_READING_REVIEW_2026-10-29.md)
+   adds first passes in Units 36 and 38–41 while preserving Unit 37's
+   earlier revision. Units 04–41 now have a consecutive concrete opening
+   route. It distinguishes membership from record equality, repeated
+   tokens from occurrence positions, receipt payloads from a link-only
+   observation, and fixed-radius limits from failure of richer observation.
+   These are selected source-grounded corrections; broader semantic and
+   teaching coverage remains open.
 7. **Evidence and reality.** Add exercises in separating a definition,
    a deduction, a computation, and a measurement. Give a model prediction,
    identify an observation that could disagree with it, and explain what

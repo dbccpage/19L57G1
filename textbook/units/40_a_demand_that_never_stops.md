@@ -1,36 +1,91 @@
-# Unit 40. A demand that never stops, and the three ways to pay
+# Unit 40. A growing chain keeps equal three-bit profiles
 
-**Claim.** Put Unit 39's reflective chain under a declared observation
+**Claim.** For the declared chain and three-bit observation, every stage
+n ≥ 3 contains distinct positions 1 and 2 with equal profiles. A policy
+can demand their separation. This is a fact about the indexed chain
+states, not a proof that a physical process runs forever.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** Put Unit 39's reflective chain under a declared observation
 regime of depth 1, which sees of each element only whether it is tagged,
 whether some link enters it and whether some link leaves it, and apply
-the pair-separation closure policy of Units 08 and 28: every pair the
-regime cannot tell apart is a demand. Lean proves that the chain's
-elements fall into exactly three profile classes (seed, interior, tip),
-that the demands are *exactly* the interior pairs
-(`depth1_obstructions_are_exactly_middle_pairs`, an iff), and so that
-from length 3 on there is always a live demand with no event consumed
-but the chain's own declared step (`generation_never_dries`). Lean also
+the declared policy demanding separation of distinct admitted positions
+with equal profiles. This reuses the pair-separation idea, not the
+`Regime` context type of Unit 08. Lean proves the endpoint and interior
+profiles; all three classes are inhabited when `n ≥ 2`. For `n ≥ 1` and
+distinct admitted positions, equal-profile pairs are *exactly* interior pairs
+(`depth1_obstructions_are_exactly_middle_pairs`, an iff). For every stage
+`n ≥ 3`, positions 1 and 2 still agree (`generation_never_dries`). The
+chain family iterates a declared step in the metatheory; this theorem has
+no event runner or object-language demand store. Lean also
 proves the fates of three repairs: marking presence changes nothing
-(`automark_presence_vacuous`); any finite set of marks is outrun
+(`automark_presence_vacuous`); beyond any fixed finite list of marked
+positions there is a larger-stage interior pair with equal base profiles
 (`finite_marks_outrun`); marking with the element's own index separates
 every pair and so ends generation (`valued_marks_collapse_generation`).
 Depth-2 observation repairs the pair (1, 3) at length 4 and is outrun by
 (2, 3) at length 5 (two decided instances). That no declared strategy
 both fires, repairs and never imports is a computation over five
-strategies for 15 rounds. **Status:** derived (profile classes,
+strategies for 15 rounds.
+
+**Status:** derived (profile classes,
 exactness, generation, the three depth-1 fates); derived at two instances
 (depth 2); bounded computation in class (the exclusion); OPEN (the
-general-depth statement and the class-general cycle claim). **Lean:**
+general repair-strategy exclusion; Unit 41 proves the specified radius
+profile result and its interior correspondence). **Lean:**
 `lean4/Derivation/Generator.lean` lines 35-46, 55-122, 131-172,
 183-188, 198-249, 259-271, 277-294. **Axioms:** within
 `{propext, Quot.sound}`. **Depends on:** `reflState`, `stepRefl`,
 `reflective_chain_growth`, `reflective_chain_successor_relation` (Unit
 39); `List.range`, `List.map`, `List.foldr`.
 
+</details>
+
+## First pass
+
+At stage 3 the declared chain has three links and four positions:
+
+```text
+0 → 1 → 2 → 3
+```
+
+Every position except 0 is tagged. Ask only three Yes/No questions:
+“tagged?”, “has an incoming link?”, and “has an outgoing link?”
+
+| Position | Tagged? | Incoming? | Outgoing? |
+|---|---|---|---|
+| 0 | No | No | Yes |
+| 1 | Yes | Yes | Yes |
+| 2 | Yes | Yes | Yes |
+| 3 | Yes | Yes | No |
+
+Positions 1 and 2 are different places with identical three-bit answers.
+The relation itself contains more information than these answers retain:
+0 links directly to 1, not to 2. The chosen observation ignores which
+other position supplies a link.
+
+**Predict:** if the next stage adds position 4, do positions 1 and 2
+become distinguishable by these same three questions?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. Both remain tagged and have incoming and outgoing links. The theorem
+proves this agreement at every stage n ≥ 3 of the declared family.
+
+</details>
+
+A richer observation can distinguish more. Reading each position's
+index separates every pair by definition; it changes the information
+supplied to the observer.
+
 ## Question
 
-Unit 39 ended with a chain that a declared rule extends forever, and
-with the warning that nothing was derived by it. This unit asks a
+Unit 39 gave a chain state for every finite number of applications of a
+declared rule. Its successor shape was supplied by that rule; theorems
+proved what its iterations contain. This unit asks a
 different question of the same chain: if an observer with a fixed,
 finite vocabulary looks at it, does the chain keep producing things the
 observer cannot tell apart? If so, the closure policy of Unit 28 keeps
@@ -43,14 +98,21 @@ cost?
 - The chain: `reflState n` has carrier `List.range (n + 1)`, links
   `(k, k + 1)` for `k < n` (Unit 39), and, proved here first, tags
   `[1, …, n]` (`reflective_chain_tags`).
-- Profiles and separability: two data are separable when some context
-  sees them differently (Unit 08); the closure policy demands a response
-  for every collapsed pair, and over fixed data it must stop within
-  `n(n − 1)/2` rounds (Unit 28). Here the data are *not* fixed: the
+- Profiles and separability in Unit 08 used contexts. Here the observation
+  is the explicitly defined Boolean triple below. The policy demands a
+  response to equal profiles on distinct admitted positions. Units 28 and
+  34 bound rounds with fresh recorded demands and no new data; fixed data
+  alone do not bound every successful event. Here the data are *not* fixed: the
   chain grows by one element per round.
 - The fact/law and realization distinctions of Unit 39.
 
 ## New concept: a depth-1 profile, and three fates for a repair
+
+`reflState n` has `n` links and `n + 1` positions, numbered 0 through
+`n`. We call `n` its stage. The older output below calls it “length”;
+that label counts links, not data. At stage 0 there is just one untagged
+position and no links. At stage 1 only seed and tip classes are inhabited;
+at stage 2 an interior class first appears.
 
 `profile1 s i` is a triple of booleans: is `i` in `s.tags`; does some
 link in `s.rel` end at `i`; does some link start at `i`. The element's
@@ -79,25 +141,33 @@ An observer with only these three words can never tell any two middle
 elements apart, and each round adds another one. That is a demand that
 never runs dry, produced by the chain's own rule.
 
-How can the demand be paid? Hand every element a badge: useless, they
-already have one. Hand each unseparated pair a new, never-before-used
-sticker: it works, and next round the chain has grown past the stickers
-and a new sticker is needed, forever, each one brought in from outside.
+How can the demand be paid? Give every receipt the same presence badge:
+it adds no information to this view, since all receipts are already tagged.
+Hand each unseparated pair a new, never-before-used
+sticker: the chosen branch repairs its pairs and imports once in each
+firing round tested, rounds 3 through 15. The separate finite-mark theorem
+finds a pair beyond any fixed finite list of marked positions; it does
+not formalize every dynamic marking procedure.
 Let the observer read each element's *position number*: every pair is
 told apart at once, and no demand ever fires again. But a position
 number for every element is an unbounded vocabulary, one word per
-element. That is not an observation of the chain; it is being told the
-answer. Let the observer also look one step along the links: it tells
+element. This is a richer declared observation, `profileV`, whose second
+component is the index. Its separation result is true by that definition;
+the earlier three-bit observer did not have that input.
+Let the observer also look one step along the links: it tells
 apart elements near the ends, and is defeated again two steps deeper in.
 
-So the paper's summary line: endogenous demands, exogenous payments.
+The paper summarizes the declared branches as “endogenous demands,
+exogenous payments.” The exclusion was tested for five strategies and
+15 rounds. It is not a theorem about every possible repair procedure or
+about what must happen in physical reality.
 
 ## Pseudocode
 
 ```
 profile1 s i := (i ∈ s.tags, ∃ link ending at i, ∃ link starting at i)
 
-for the chain of length n:
+for the chain at stage n >= 1 (n links, n+1 positions):
   profile1 0 = (F, F, T)                  -- seed
   profile1 i = (T, T, T)  for 1 ≤ i < n   -- interior
   profile1 n = (T, T, F)                  -- tip
@@ -293,7 +363,7 @@ theorem depth2_obstruction_n5 :
       (2 : Nat) ≠ 3 := by decide
 ```
 
-The book's Lean writes the profile table out, locates the threshold
+The book's Lean checks the stage-0 singleton, writes the profile table out, locates the threshold
 (length 2 does not fire, length 3 does), instantiates the exactness iff
 and the outrun theorem, shows what the valued profile separates by, and
 writes the depth-2 profiles out at lengths 4, 5 and 6.
@@ -405,8 +475,10 @@ and `2` are both interior, so both profiles are `(true, true, true)`.
 Two lines, after the class theorem. The hypothesis `3 ≤ n` is exact: the
 book's `no_fire_at_two` shows that at length 2 element `2` is the tip,
 so nothing fires. The paper's phrase "the only event consumed is the
-internally enabled reflection" is read off the statement's shape: `n` is
-the only parameter, and `reflState n` is built by `stepRefl` alone.
+internally enabled reflection” describes the supplied iteration:
+`reflState n` is built by `stepRefl` alone. The theorem itself states a
+profile equality for each `n`; it does not execute events or establish
+that any runtime continues indefinitely.
 
 **`automark_presence_vacuous` (lines 198-202).** A pair of facts already
 proved: every receipt is tagged, and `1`, `2` still collide. The repair
@@ -434,7 +506,9 @@ true by construction and the paper says so ("identity-grade
 observation"). The book's `valued_separates_by_index_only` makes the
 point sharper: at length 3 the first components of `profileV 1` and
 `profileV 2` are equal (that is `fires_at_three`), so the separation
-comes from the index and from nothing the regime observes of the chain.
+comes from the added index component rather than the original three-bit
+component. The richer observer is still a defined observation; it has
+different inputs from `profile1`.
 
 **`middle_swap_not_relation_preserving` (lines 259-271).** `swap12`
 exchanges `1` and `2`. The link `(0, 1)` is in the chain; its image
@@ -452,16 +526,18 @@ triples in full, and they differ in both lists. At length 5, elements `2`
 and `3` each have an interior neighbour on both sides, so their depth-2
 profiles are equal (`depth2_values_five`, which also shows `(2, 4)` at
 length 6). Both Genesis theorems are `decide` on one length each. The
-all-depth statement, "depth `d` is outrun at length `2d + 3`", is not in
-this module; the paper records it as open here and proved later in
-`SeparationCapacity` (Unit 41), with the correspondence between this
-module's `profile2` and that module's profile at radius 1 still OPEN.
+general statement is proved for the specified radius-`d` profile in
+`SeparationCapacity` (Unit 41), with threshold stage `2d + 3`. That module
+also proves correspondence between `profile2` and radius 1 on interior
+pairs for every stage. The older OPEN note is stale. There is no blanket
+theorem identifying an unspecified depth hierarchy with every radius.
 
 ## What has been proved
 
-- The chain's tags are `[1, …, n]`; the depth-1 profile of every element
-  is determined by its position class, and the three classes are
-  pairwise distinct (Genesis).
+- The chain's tags are `[1, …, n]`. For `n ≥ 1`, admitted positions have
+  the stated seed, tip, or interior profile, with three distinct possible
+  values; the interior is nonempty only for `n ≥ 2` (Genesis; the book
+  checks stage 0 separately).
 - At depth 1 the obstructions are exactly the interior pairs, as an iff
   for all `n ≥ 1` and all distinct `i, j ≤ n` (Genesis).
 - For every `n ≥ 3` the pair `(1, 2)` is an obstruction, so the closure
@@ -481,9 +557,9 @@ module's `profile2` and that module's profile at radius 1 still OPEN.
   five declared strategies and 15 rounds. The paper's residual G1 asks
   for a repair channel that separates the interior of an unbounded chain
   without identity-grade marks, or a proof that none exists.
-- The general statement for depth `d`: not in this module (see Unit
-  41), and the link between `profile2` here and the later radius-one
-  profile is OPEN.
+- A general theorem about every meaning of observation depth. Unit 41
+  proves the structural radius-`d` result and the radius-one/depth-2
+  correspondence on interior pairs. That correspondence is no longer OPEN.
 - That the chain is rigid, or that no automorphism exchanges interior
   elements: only the direct transposition `swap12` is refuted.
 - That generation is minimal or unique: the paper and the Lean header
@@ -531,6 +607,9 @@ include the seed or the tip.
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 The obstructions are the interior pairs, so there are `C(n − 1, 2)` of
 them: `0, 0, 1, 3, 6, …` for `n = 1, 2, 3, 4, 5`, matching the check's
 list at length 4. At round `n ≥ 4` the one unseparated pair is `(1, n − 1)`.
@@ -547,6 +626,8 @@ both elements, and `0` fails the first inequality while `n` fails the
 second: their profiles `(false, false, true)` and `(true, true, false)`
 differ from the interior's and from each other.
 
+</details>
+
 ## Verification
 
 | Item | Where |
@@ -556,4 +637,4 @@ differ from the interior's and from each other.
 | Paper | `paper/endogenous_generator.md` TERMINAL (four lines), FG2-FG4 (regime, classes, generation), FG5-FG6 (strategies, exclusion), FG7 (swap), FG8 ("endogenous demands, exogenous payments"), frontier conjecture G1; ledger `CL-G-TERMINAL`, `CL-G-GENERATION`, `CL-G-OBSTRUCTIONS-EXACT`, `CL-G-REPAIR-FATES`, `CL-G-DEPTH2`, `CL-G-DIRECT-SWAP`, `CL-G-EXCLUSION` |
 | Python | `code/derivation/generator.py`; `artifacts/generator.json` (`bounds`, `exclusion`, `lean_agreement`); `tests/test_generator.py` (`test_generation_never_dries_within_bound`, `test_per_pair_repairs_but_imports_every_firing_round`, `test_exclusion_no_endogenous_cycle_in_class`, `test_lean_agreement_all_hold`) |
 | Check (Python) | `python textbook/checks/u40_generator.py`: profile table; exactness on lengths 1-15; five classifications against the artifact; the per-pair import row; the outrun, presence and valued views; depth-2 instances and counts; the Lean-agreement block |
-| Check (book Lean) | `python textbook/checks/u40_lean.py`: thirteen book theorems plus eight Genesis theorems kernel-checked, Lean 4.33.0 |
+| Check (book Lean) | `python textbook/checks/u40_lean.py`: fourteen book theorems plus eight Genesis theorems kernel-checked, Lean 4.33.0 |

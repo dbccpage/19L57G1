@@ -1,6 +1,14 @@
-# Unit 38. Refusal as a source of difference: four rungs and one price
+# Unit 38. Five declared ways to record a repeated token
 
-**Claim.** When a token already admitted is offered again, a system may
+**Claim.** A repeat can leave only a history marker, update a counter, or
+create a new occurrence record, depending on the declared rule. A tag can
+distinguish occurrence positions in the two-record example. These are
+different record-keeping choices, not consequences forced by repetition.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** When a token already admitted is offered again, a system may
 *refuse* it, and there are several ways to record the refusal. Genesis
 declares five disciplines on a reduced state (admitted tokens, tagged
 positions, a refusal counter) and proves, rung by rung, what each one can
@@ -12,8 +20,10 @@ datum is exactly occurrence admission (`reifyUntagged_eq_occurrence`),
 and its two-datum state is swap-invariant. Admitting it with a position
 tag gives a two-datum state the swap moves
 (`tagged_state_not_swap_invariant`), with a designated occurrence; and
-that tag's separating content is one unary form plus one instance, no
-less (`tagged_translation_separable`, `untagged_translation_collapsed`).
+one hand-written correspondence represents the tag by a unary form and
+one instance (`tagged_translation_separable`, `untagged_translation_collapsed`).
+Those translation theorems do not prove a minimum over translation choices.
+
 **Status:** derived, per discipline and per concrete history; the
 four-way hierarchy as one theorem is OPEN (paper R9). **Lean:**
 `Refusal.stepR` (`lean4/Derivation/Refusal.lean` lines 65-78),
@@ -30,6 +40,43 @@ obstruction (`Bridge.equivariant_not_D2`, `lean4/Derivation/Bridge.lean`
 lines 244-281, audited in `textbook/audit/modules/Bridge.md`; no unit of
 its own yet); `separable`, `collapsed`, `collapsed_of_no_insts` (Units
 08-10).
+
+</details>
+
+## First pass
+
+Present token X twice. Five declared modes give these results:
+
+| Mode | Data list | Tagged positions | Repeat count |
+|---|---|---|---|
+| Silent | X | None | 0 |
+| History marker only | X | None | 0 |
+| Count the repeat | X | None | 1 |
+| Append an occurrence | X, X | None | 0 |
+| Append and tag it | X, X | Position 1 | 0 |
+
+Positions start at 0. The two X entries are two occurrence records of
+the same token. They do not establish two people or two physical objects.
+
+The history-marker mode can retain an event in the history while
+returning the same state. The counting mode changes a state field but
+keeps one admitted position. The final mode gives the question “is this
+position tagged?” different answers at 0 and 1.
+
+**Predict:** does observing that the counter changed show that two
+individual positions can now be distinguished?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. The counter records a repeat without creating or tagging a second
+position. State change and separation of two admitted positions are
+different claims.
+
+</details>
+
+The unary-mark comparison below is hand-written; a general translation
+from these states to the earlier regime language is not supplied.
 
 ## Question
 
@@ -85,8 +132,9 @@ history `[admitTok 0, admitTok 0]` as the probe:
 4. **Tagged reification.** `⟨[0, 0], [1], 0⟩`: position `1` is tagged,
    position `0` is not. The swap moves the tag, so the state is not
    swap-invariant; the head of the tag list designates occurrence `1`.
-   The equivariance obstruction is not violated: the system never
-   *entered* a symmetric state from which it would have to choose.
+   The equivariance obstruction is not violated: the repeat operation
+   supplies the tag as part of creating the second occurrence. It does
+   not select an orientation from an already symmetric two-occurrence state.
 
 **The price.** The tag is a unary observable built into the discipline.
 Translating the tagged state into the regime language by hand gives
@@ -95,24 +143,29 @@ separable at `(0, 1)`; the untagged state translates to `⟨2, [], [], [], []⟩
 collapsed. So the tagged discipline reaches in two admissions what the
 explicit route (second token, form, instance) reaches in four, by
 *declaring* the form and instance in advance. The admission count falls;
-the imported capability does not.
+the declared capability still needs to be counted. These are counts under
+the two specified routes, not a proof that every representation of the
+tag has the same cost.
 
 ## Plain-language interpretation
 
-Someone knocks a second time. You can ignore it; you can note in your
-diary that you ignored it; you can keep a tally on the door; you can let
-them in again as if they were someone new; or you can let them in again
-and pin a badge on them saying "second time". Only the last two make a
-second person in the room, and only the badge lets anyone in the room
-tell the two apart. The badge is not free: it is a one-place predicate
-("wears the badge") applied to one of the two, which is exactly the
-cheapest separating response of Unit 22, decided before the door opened
-rather than after.
+The same token is presented twice. A program can ignore the repeat,
+leave a marker only in its event history, increment a counter, append a
+second occurrence record, or append that record with a tag on its position.
+Only the last two enlarge this model's data list. An extra occurrence
+record is not evidence of an extra person or physical object.
+
+For the two-occurrence example, a tag gives different membership answers
+at positions 0 and 1. A counter alone records that a repeat happened
+without marking an individual position. The tag can be represented by
+the unary-mark shape studied in Unit 22, but that correspondence here is
+hand-written, not a general proved translation or cost lower bound.
 
 The diary (the marker) is worth a second look: it is a record, but it is
 a record *outside* the state. Nothing in the room can read it. Genesis
 proves this by showing the room is the same with or without the diary
-entries.
+entries. This concerns the returned state: an external reader of the
+history can still detect the marker.
 
 ## Pseudocode
 
@@ -360,7 +413,8 @@ the two modes differ in no clause.
 **`nonreify_carrier_bound`.** One step. `supply` and `marker` change
 nothing. For `admitTok tok`, the hypothesis `he` forces `tok = t0`, and
 `subst` makes it so. If `tok` is already present, the three admitted modes
-all leave `s` alone (three `subst`s, each closing with `hs`); the two
+all leave its data list alone (three `subst`s, each closing with `hs`);
+the `fact` mode increments the counter, which `AtMostTokR` does not read. The two
 reifying modes are excluded by `hm`. If `tok` is absent, `s.data` is not
 `[t0]` (that would contain `tok`), so by `hs` it is `[]`, and appending
 gives `[tok]`, the right disjunct. The statement is about one step on one
@@ -396,7 +450,12 @@ the event is `admitTok 0`, and the side condition "any token it admits is
 `0`" is discharged by injectivity of the constructor. The outer one takes
 the inner result as `hs`. Three steps would nest once more; the general
 statement over a history is an induction with this shape, which the
-module does not write.
+module does not write. The book's new `nonreify_history` states it for any
+initial `AtMostTokR` state and any history whose admissions name only the
+fixed token. Its induction carries the current state as a parameter,
+applies the native one-step bound to the head, and restricts the
+single-token condition to the tail. It does not classify all modes or
+make any translation claim.
 
 **Book: `tagged_three`, `untagged_is_occurrence_here`.** A third
 admission tags position `2`: the tags are the positions of every repeat,
@@ -421,7 +480,8 @@ through `collapsed_of_no_insts`; the book's `rfl` theorems report none.
   are invisible to every replay (Genesis, derived).
 - The counting discipline changes the state and preserves `AtMostTokR`
   one step at a time (Genesis); for two steps of the probe, chained
-  (book).
+  (book). The book additionally proves the arbitrary-history carrier
+  bound for non-reifying modes under the same single-token restriction.
 - Untagged reification is occurrence admission, as steppers and as
   replays (Genesis); the probe's untagged state is swap-invariant and the
   tagged one is not; the tagged state designates occurrence `1` (Genesis,
@@ -439,12 +499,14 @@ through `collapsed_of_no_insts`; the book's `rfl` theorems report none.
 - A translation function `RState → Regime`; hence any theorem that the
   tagged discipline's separating content *is* a unary mark. Two regimes
   are exhibited; the correspondence is read, not defined.
-- The carrier bound over an arbitrary history (an induction over
-  `nonreify_carrier_bound`, not written).
+- A native arbitrary-history version of this carrier bound. The book
+  now supplies the induction over `nonreify_carrier_bound`; it keeps the
+  non-reifying-mode, single-token, and initial-carrier conditions.
 - That `swapState` is the only automorphism to consider: it moves tags
   only, and is adequate for the probe state, not for `RState` in general.
-- Anything at carrier three or more, or with two distinct tokens
-  re-admitted (R9).
+- A general hierarchy at carrier three or more or with multiple distinct
+  tokens re-admitted (R9). The book has particular three-position examples;
+  those do not supply the missing classification.
 - That a discipline can be *chosen* equivariantly. The tagged discipline
   supplies an orientation by declaration; whether some meta-rule could
   select it without a choice is the module's frontier conjecture F1 and
@@ -466,12 +528,12 @@ through `collapsed_of_no_insts`; the book's `rfl` theorems report none.
 | `DecidableEq`, `decide` | every concrete fact | metatheory |
 | `propext`, `Quot.sound` | inherited | inside the declared boundary |
 
-**What the system holds.** Under the three non-reifying disciplines, one
-datum and possibly a counter. Under the two reifying ones, two data,
-and under the tagged one a tag that is a unary observable in disguise.
-The tag is the one place where a count from the metatheory (a list
-position) becomes something the regime can see, and the module's point is
-that it costs exactly what seeing it would cost by the explicit route.
+**What the system holds.** In the two-presentation probe, the three
+non-reifying disciplines retain one datum and possibly a counter. The two
+reifying ones retain two occurrence positions, with one tag in the tagged
+mode. Position membership is readable by the chosen observation. The
+hand-written regime comparison accounts for that added capability; it
+does not prove a universal price for every representation.
 
 **Phrases to read with care.**
 
@@ -480,9 +542,10 @@ that it costs exactly what seeing it would cost by the explicit route.
 - "Translates to" (R6) names a correspondence nobody defined.
 - "The equivariance obstruction is not violated": correct, and worth
   saying precisely. The obstruction (`Bridge.equivariant_not_D2`) concerns choosing from a
-  symmetric state. The tagged discipline never enters one. The
-  designation is bought at declaration time, which is the orientation
-  theorem's (R5) actual content.
+  symmetric two-occurrence state. The tagged repeat creates an asymmetric
+  two-occurrence record by its declared rule; it does not choose from the
+  symmetric untagged record. Empty and singleton earlier states are not
+  counterexamples to that distinction.
 
 ## Student exercise
 
@@ -493,15 +556,22 @@ symmetry on three-element states?
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 The state is `⟨[0, 1, 0], [2], 0⟩`: tokens `0`, `1` fresh at positions `0`
 and `1`, the repeat of `0` at position `2`, tagged. `swapState` maps tags
 `0 ↔ 1` and leaves other indices alone, so the tag `2` is fixed and the
-result equals the state. That does *not* mean the state is symmetric: the
-data `[0, 1, 0]` are visibly asymmetric and position `2` is the only
-tagged one. `swapState` is a test for the two-element probe state only;
+result equals the state. That only says this tag-only operation fixes
+the record. It is not a classification of its symmetries. In particular,
+a literal exchange of data positions 0 and 1 would change `[0,1,0]` to
+`[1,0,0]`, which `swapState` does not do. It is a test for the
+two-element equal-token probe state only;
 on a three-element state the relevant automorphisms are permutations of
 three positions acting on data and tags together, which the module does
 not define. This is the audit's note on `swapState` made concrete.
+
+</details>
 
 ## Verification
 
@@ -512,4 +582,4 @@ not define. This is the audit's note on `swapState` made concrete.
 | Paper | `paper/refusal_difference.md` R1-R9 (R2 table, R5 orientation, R6 price, R9 unresolved); no `CL-` ledger entry names `Refusal.*` |
 | Python | `code/derivation/refusal.py`; `artifacts/refusal.json` (`disciplines`, `equivalence`, `orientation`, `capability_prices`); `tests/test_refusal.py` |
 | Check (Python) | `python textbook/checks/u38_refusal.py`: the probe under all five disciplines with swap and separability, occurrence equality, the orientation and 7-event equivalence searches, the seven-row table, all against the artifact |
-| Check (book Lean) | `python textbook/checks/u38_lean.py`: eleven book theorems plus six Genesis theorems kernel-checked, Lean 4.33.0 |
+| Check (book Lean) | `python textbook/checks/u38_lean.py`: twelve book theorems plus six Genesis theorems kernel-checked, Lean 4.33.0 |

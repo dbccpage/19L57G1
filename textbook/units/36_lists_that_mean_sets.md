@@ -1,28 +1,75 @@
-# Unit 36. Lists that mean sets
+# Unit 36. Lists can agree on membership while differing as records
 
-**Claim.** Genesis's Python keeps a regime's instances, rules and demands
-as sets; its Lean keeps them as duplicate-free lists. Under the relation
+**Claim.** Two records with the same datum count, the same form table, and
+the same members in their instance, rule, and demand lists agree on the
+named membership-based operations. Their literal lists, lengths, or first
+entries can still differ.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** Genesis's Python keeps a regime's instances, rules and demands
+as sets; its Lean represents them by lists. Admission from a duplicate-free
+start keeps those lists duplicate-free, but raw records need not be.
+Under the relation
 `RegimeExt` (equal datum count, equal form table, membership-equal
-instance, rule and demand lists) every observable of the development
-transports: derivability, context well-formedness, collapse,
+instance, rule and demand lists) the following named operations
+transport: derivability, context well-formedness, collapse,
 separability, item and delta application, and response validity
 (`derivable_ext` through `validResponse_ext`). So no claim *stated in
 terms of these observables* depends on the order in which admissions were
 listed. That every exported claim factors through these observables is
-not proved and not asserted. **Status:** derived. **Lean:**
+not proved and not asserted.
+
+**Status:** derived. **Lean:**
 `Derivation.SetEq` (`lean4/Derivation/Ext.lean` line 21), `RegimeExt`
 (37-39), `derivable_ext` (50-52), `wfCtx_ext` (56-59), `collapsed_ext`
 (62-71), `separable_ext` (74-83), `OptExt` (86-89), `applyItem_ext`
 (92-126), `applyDelta_ext` (129-147), `validResponse_ext` (152-177).
 **Axioms:** `derivable_ext` none; the rest `propext`. **Depends on:** the
-token-erasure half of the bridge (Unit 07); `insertNew` (Unit 11); the
+token-erasure half of the bridge (Unit 07); `insertNew` (Unit 17); the
 observables (Units 08, 09, 18).
+
+</details>
+
+## First pass
+
+Compare two ledgers:
+
+| Ledger | Recorded demands | Is A/B present? | Number of entries |
+|---|---|---|---|
+| P | A/B | Yes | 1 |
+| Q | A/B, A/B | Yes | 2 |
+
+The membership question gets the same answer. Counting entries gets a
+different answer. Thus “these ledgers agree” needs a specified comparison.
+
+`RegimeExt` compares membership in the instance, rule, and demand lists,
+while keeping the datum count and the indexed form table exactly equal.
+It ignores list order and repetition in those three fields. The chapter
+proves that derivability, allowed contexts, collapse, separability,
+response validity, and the stated application relations respect it.
+
+**Predict:** must applying a response return literally identical lists
+on the two sides?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. The applications both fail or both succeed with results related by
+`RegimeExt`. A pre-existing repeated entry can remain repeated. Literal
+record equality is a stronger demand.
+
+</details>
+
+The [Map lab](../map_lab/README.md) explains why an answer can be recovered
+from a grouping only when that answer respects the grouping.
 
 ## Question
 
 Unit 07 connected the token-aware Python to the token-erased Lean for
 *data*. One gap remained. A Python regime is a frozenset of instances;
-a Lean regime is a list. Two admission orders give one Python regime and
+a Lean regime contains lists. Two orders of the same instance admissions give one Python value and
 two Lean regimes. Could anything proved about the Lean regime depend on
 which of the two lists it has, and so fail to be a statement about the
 Python regime at all?
@@ -32,7 +79,8 @@ Python regime at all?
 - `Regime` (Basic): `data : Nat`, `forms : List Nat`, `insts : List Inst`,
   `rules : List Nat`, `reqs : List (Nat × Nat)` (Unit 08).
 - `insertNew l a = if a ∈ l then l else l ++ [a]` with `mem_insertNew`
-  (Unit 11): admission never duplicates.
+  (Unit 17): insertion adds no new duplicate and keeps any duplicates
+  already present in a raw list.
 - The observables and their definitions, which read `insts`, `rules` and
   `reqs` only through `∈` (Units 08, 09, 18), and `data`, `forms` through
   `<`, `getD` and `length`.
@@ -65,9 +113,10 @@ Two clerks keep the same ledger. One writes entries in the order they
 arrive; the other sorts them. The ledgers look different on the page. The
 question is whether any decision made from the ledger could differ. The
 answer is yes if a decision reads the page position of an entry, and no
-if every decision asks only "is this entry present?" Genesis's decisions
-all ask the second kind of question about instances, rules and demands,
-and this unit proves it for each one. For data and forms the position
+if every decision asks only "is this entry present?" The named
+membership-based operations in this unit ask that second kind of question
+about instances, rules and demands. A list's length or first entry can
+still differ. For data and forms the position
 *is* the entry's name, so there the two clerks must agree on order, and
 `RegimeExt` demands it.
 
@@ -128,13 +177,16 @@ datum order kept: data ('a', 'b') vs ('b', 'a'), equal False; the mark sits on '
 
 `ra` and `rb` admit the same two instances in opposite orders. Python
 says `ra == rb`: the frozensets are equal, so the dataclasses are. The
-collapsed pairs agree, trivially, since the regimes are one object. This
+collapsed pairs agree because the regime values are equal. This
 is the Python side of `RegimeExt`: the quotient is built into the
 representation.
 
 Admitting datum `"a"` twice yields one datum: the dedup of Unit 07 again
-(`test_admit_datum_dedups_on_presentation_identity`). On the Lean side
-this is `insertNew` returning its input.
+(`test_admit_datum_dedups_on_presentation_identity`). This is Python's
+token-aware datum operation. The token-erased Lean `newDatum` increments
+the datum count on every application; it has no token to deduplicate.
+Lean's `insertNew` instead deduplicates instances, rules, and demands.
+Unit 07 explains the separate token-aware erasure bridge.
 
 The mixed regime shows an observable that is a *computation*, not a
 predicate: `min_responses` returns the same cost `(1, 0)` and the same
@@ -324,7 +376,10 @@ as one in Genesis because nothing there needs the third law.
 - `RegimeExt` is reflexive and symmetric (Genesis); transitive (book).
 - Two concrete admission orders are two Lean regimes and one `RegimeExt`
   class, with identical separability and identical valid responses (book
-  Lean); the Python makes them one object (check).
+  Lean); the Python gives equal regime values (check).
+- A raw repeated demand is membership-equivalent despite different list
+  lengths. Token-erased `newDatum` twice creates two data, separately from
+  Python's deduplication of a repeated token (book Lean).
 
 ## What has not been proved
 
@@ -351,10 +406,11 @@ as one in Genesis because nothing there needs the third law.
 | `decide` on `Regime` equality | the book's `twoA ≠ twoB` | metatheory; derived instance |
 | `propext` | inherited | inside the declared boundary |
 
-**What the system holds.** The regime, however listed. The *order* of
-instances is a fact about the representation, not about the regime; the
-order of data and forms is a fact about the regime, because it names
-them.
+**What the system holds.** A raw Lean regime includes its actual lists.
+`RegimeExt` deliberately forgets order and repetition in three fields for
+the named operations. It keeps the form table exactly and the datum count
+exactly. Python also retains datum tokens in order; token erasure is the
+separate step discussed in Unit 07.
 
 **Phrases to read with care.**
 
@@ -372,14 +428,20 @@ transport.
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 `⟨2, [1, 2], [], [], []⟩` and `⟨2, [2, 1], [], [], []⟩` have the same set
 of arities. In the first, form `0` is unary; in the second, form `0` is
 binary. `wfCtx` fails to transport: the context `⟨0, [none]⟩` is well
 formed in the first (slot count `1 = getD [1,2] 0 = 1`) and not in the
-second (`1 ≠ 2`). So `wfCtx_ext`, and everything above it, would be
-false. Form order is meaning because `applyItem`, `wfCtx` and `plug` all
-address forms by index; the same holds for data, which `newInst` and
-`slotOk` bound by `< r.data`.
+second (`1 ≠ 2`). Thus the proposed analogue of `wfCtx_ext` fails.
+Other transport claims must be checked individually; derivability, for
+example, reads instance and rule membership without consulting arity.
+The form table supplies arities by index, so changing its order can
+change guards and allowed contexts.
+
+</details>
 
 ## Verification
 
@@ -390,4 +452,4 @@ address forms by index; the same holds for data, which `newInst` and
 | Paper | `paper/paper.md` §2 (membership extensionality; "no claim stated in terms of them depends on list order or representation … not proved and is not asserted" for the rest); ledger `CL-TOKEN-ERASURE` (ii), narrowed 2026-08-18 |
 | Python | `code/derivation/model.py` lines 48-50 (frozensets); `tests/test_model.py::test_admit_datum_dedups_on_presentation_identity` |
 | Check (Python) | `python textbook/checks/u36_ext.py`: two admission orders give one regime with one set of collapsed pairs and one set of `mu2` minima; duplicate admission dedups; datum and form order are kept |
-| Check (book Lean) | `python textbook/checks/u36_lean.py`: nine book theorems plus five Genesis theorems kernel-checked, Lean 4.33.0 |
+| Check (book Lean) | `python textbook/checks/u36_lean.py`: twelve book theorems plus five Genesis theorems kernel-checked, Lean 4.33.0 |

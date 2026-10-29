@@ -215,12 +215,12 @@ now introduce their grouping meaning. Further conceptual review remains.
 | `Unit 33` | [`units/33_rule_never_pays.md`](units/33_rule_never_pays.md) | Uniform-rule items cannot minimize the declared costs | `RuleBridge` | `Unit 02`, `Unit 22` |
 | `Unit 34` | [`units/34_closed_run_bound.md`](units/34_closed_run_bound.md) | Closed runs bound recorded new demands | `Rounds` | `Unit 28`, `Unit 31` |
 | `Unit 35` | [`units/35_a_demand_can_always_be_met.md`](units/35_a_demand_can_always_be_met.md) | A fresh mark answers a distinct pair under stated conditions | `Progress` | `Unit 19`, `Unit 34` |
-| `Unit 36` | [`units/36_lists_that_mean_sets.md`](units/36_lists_that_mean_sets.md) | Lists that mean sets | `Ext` | `Unit 08`, `Unit 35` |
+| `Unit 36` | [`units/36_lists_that_mean_sets.md`](units/36_lists_that_mean_sets.md) | Lists can agree on membership while differing as records | `Ext` | `Unit 08`, `Unit 35` |
 | `Unit 37` | [`units/37_an_inventory_is_not_a_derivation.md`](units/37_an_inventory_is_not_a_derivation.md) | An inventory is not a derivation | `ObserverInventory`, `Bridge` | `Unit 24`, `Unit 26` |
-| `Unit 38` | [`units/38_refusal_as_a_source_of_difference.md`](units/38_refusal_as_a_source_of_difference.md) | Refusal as a source of difference: four rungs and one price | `Refusal`, `Bridge` | `Unit 11`, `Unit 17` |
-| `Unit 39` | [`units/39_refusal_routes_and_their_prices.md`](units/39_refusal_routes_and_their_prices.md) | Refusal routes and their prices | `RefusalFrontier` | `Unit 38` |
-| `Unit 40` | [`units/40_a_demand_that_never_stops.md`](units/40_a_demand_that_never_stops.md) | A demand that never stops, and the three ways to pay | `Generator` | `Unit 39` |
-| `Unit 41` | [`units/41_looking_farther_does_not_help.md`](units/41_looking_farther_does_not_help.md) | Looking farther does not help: the radius-d outrun | `SeparationCapacity` | `Unit 40` |
+| `Unit 38` | [`units/38_refusal_as_a_source_of_difference.md`](units/38_refusal_as_a_source_of_difference.md) | Five declared ways to record a repeated token | `Refusal`, `Bridge` | `Unit 11`, `Unit 17` |
+| `Unit 39` | [`units/39_refusal_routes_and_their_prices.md`](units/39_refusal_routes_and_their_prices.md) | Comparing refusal protocols under declared prices | `RefusalFrontier` | `Unit 38` |
+| `Unit 40` | [`units/40_a_demand_that_never_stops.md`](units/40_a_demand_that_never_stops.md) | A growing chain keeps equal three-bit profiles | `Generator` | `Unit 39` |
+| `Unit 41` | [`units/41_looking_farther_does_not_help.md`](units/41_looking_farther_does_not_help.md) | Every fixed radius misses some deep pairs in a long enough chain | `SeparationCapacity` | `Unit 40` |
 | `Unit 42` | [`units/42_how_many_things_can_a_window_tell_apart.md`](units/42_how_many_things_can_a_window_tell_apart.md) | Counting without choosing, and how many things a bounded window can tell apart | `Pigeonhole`, `CapacityBound` | `Unit 41` |
 | `Unit 43` | [`units/43_no_bounded_local_repair_clears_a_growing_demand.md`](units/43_no_bounded_local_repair_clears_a_growing_demand.md) | No bounded local repair clears a growing demand | `LocalStrategy`, `G1Class` | `Unit 42` |
 | `Unit 44` | [`units/44_reflect_obstruct_close_or_propose.md`](units/44_reflect_obstruct_close_or_propose.md) | Reflect, obstruct, close, or propose: a typed interface for primitive difference | `DiffInterface` | `Unit 25`, `Unit 39` |
