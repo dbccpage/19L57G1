@@ -567,3 +567,22 @@ encoding error. The observer fixture also constructs a valid observer from
 an arbitrary proposition without a decision argument. Neither fixture
 claims a general undecidability theorem or changes the sealed definitions.
 
+## Declaration reconciliation and classification lesson (2026-10-28)
+
+The new textbook inventory tool reads comments separately from source heads
+and binds candidates to compiled names and source locations. Its fixture
+checks do not establish parser completeness or semantic teaching coverage.
+No sealed file, historical inventory, or receipt is mutated.
+
+| Check | Defect exercised | Observed failure | Recovery |
+|---|---|---|---|
+| Source-head scan | Put `theorem`, `lemma`, and `structure` prose inside nested comments, while retaining a real theorem and an unnamed instance | The raw historical regex counts comment prose; the comment-aware scan excludes it and retains the actual heads | Four regression tests pass, including actual false-match source lines |
+| Compiled binding | Supply a same-name record at the wrong source line, two matching records, a wrong compiled kind, or an unnamed-instance match without instance status | `bind_candidate` raises a named `ValueError` for each defective input | Unique same-line, same-module candidates bind; the actual reconciliation resolves all 2,564 source heads |
+| Unit 37 book Lean | Append the false claim `EmptyRel false true ↔ D2 false true` only to a temporary driver string | Lean's `decide` reports that exact proposition is false; shared runner exits 1 | Original script checks 18 exact reports: fourteen book theorems and four imported theorems |
+
+The false claim tests an actual distinction between two relations allowed
+by the same no-self-loop rule. The two new pairwise-inequality proofs have
+empty axiom sets. Full compiled-census output and build logs are local
+receipts under `artifacts2/declaration_review/`; no regeneration ran with
+a live defective driver.
+

@@ -48,6 +48,15 @@ A theorem name or source path in a lesson establishes a reference, not
 that its meaning has been taught. The substantive versus auxiliary
 classifications still need semantic teaching review.
 
+The [source/compiled declaration review](DECLARATION_REVIEW_2026-10-28.md)
+reconciles 2,564 source heads to compiled names and locations, correcting
+20 comment matches and ten missed unnamed instances in the historical
+regex inventory. The module summary counts now state their population.
+This improves the review baseline without certifying semantic coverage.
+Unit 37's new first pass teaches classification, restriction, selection,
+and the limits of example-based agreement before its optional formal
+walkthrough. Changed-label practice has separate folded answers.
+
 ## The sealed derivation: no whole Lean module is missing, but teaching work remains
 
 1. **A first toolkit for reasoning.** Build short exercises introducing a

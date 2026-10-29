@@ -38,6 +38,18 @@ theorem empty_ne_S2 : EmptyRel ≠ S2 := by
   have : EmptyRel false true := h ▸ (Or.inl D2_witness : S2 false true)
   exact this
 
+/-- The two remaining pairwise distinctions from the chapter exercise. -/
+theorem empty_ne_D2rev : EmptyRel ≠ D2rev := by
+  intro h
+  have : EmptyRel true false := h.symm ▸ (show D2rev true false from ⟨rfl, rfl⟩)
+  exact this
+
+theorem D2_ne_S2 : D2 ≠ S2 := by
+  intro h
+  have hs : S2 true false := Or.inr D2_witness
+  have hd : D2 true false := h.symm ▸ hs
+  exact Bool.noConfusion hd.1
+
 /-- `D2rev` is irreflexive, so the census applies to it and lands on
 its own disjunct. -/
 theorem D2rev_irrefl : Irrefl D2rev := by
@@ -89,6 +101,8 @@ end Textbook.U37
 #print axioms Textbook.U37.D2_ne_D2rev
 #print axioms Textbook.U37.D2rev_ne_S2
 #print axioms Textbook.U37.empty_ne_S2
+#print axioms Textbook.U37.empty_ne_D2rev
+#print axioms Textbook.U37.D2_ne_S2
 #print axioms Textbook.U37.D2rev_irrefl
 #print axioms Textbook.U37.census_at_D2rev
 #print axioms Textbook.U37.loop_not_irrefl
@@ -108,6 +122,8 @@ EXPECTED = {
     "Textbook.U37.D2_ne_D2rev": NONE,
     "Textbook.U37.D2rev_ne_S2": NONE,
     "Textbook.U37.empty_ne_S2": NONE,
+    "Textbook.U37.empty_ne_D2rev": NONE,
+    "Textbook.U37.D2_ne_S2": NONE,
     "Textbook.U37.D2rev_irrefl": NONE,
     "Textbook.U37.census_at_D2rev": BOTH,
     "Textbook.U37.loop_not_irrefl": NONE,

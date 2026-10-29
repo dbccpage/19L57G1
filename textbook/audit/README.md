@@ -6,10 +6,11 @@ reading of `lean4/Derivation/` as it stands, checked against the artifact,
 the paper and the ledger, and reproducible from the files named.
 
 **Later reading review (2026-10-28).** The historical inventory below is
-a line-regex report, not a comment-aware declaration census. It counts two
-prose-comment lines as `lemma` entries; its raw definition counters also
-disagree with the coverage index's former total. The historical JSON and
-module records are preserved. Their counts and source references do not
+a line-regex report, not a comment-aware declaration census. A subsequent
+[source/compiled reconciliation](DECLARATION_REVIEW_2026-10-28.md) finds
+20 comment matches and ten missed unnamed instances. It matches 2,564
+source heads individually to compiled names and locations. The historical
+JSON and module records are preserved. Their counts and source references do not
 certify exhaustive declaration coverage or beginner comprehension. See
 [the selected-chapter reading review](READING_REVIEW_2026-10-28.md) for the
 current findings, eight book-Lean reports, and the distinction between a

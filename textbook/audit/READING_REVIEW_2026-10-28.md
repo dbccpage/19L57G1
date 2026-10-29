@@ -67,6 +67,15 @@ census, nor infer teaching completeness from a file or theorem name.
 
 ## Validation and remaining work
 
+**Subsequent inventory reconciliation.** The two comment examples above
+were the initially identified cases, not the full error population.
+[The declaration review](DECLARATION_REVIEW_2026-10-28.md) now records
+20 comment matches, ten missed unnamed instances, and 2,564 source heads
+each matched to a compiled Lean name at its source location. This closes
+the named-candidate binding check, not complete source parsing or semantic
+teaching review. The module summary counts have been refreshed; the
+historical inventory and detailed audit records remain unchanged.
+
 The two navigation regressions reject the old source-link behavior.
 The complete Wiki regression suite, original Unit 44/61/67 checks,
 committed-head textbook job, false-claim injection, Markdown structure,

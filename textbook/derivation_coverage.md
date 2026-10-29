@@ -24,12 +24,16 @@ explained or that every prerequisite is taught before use. It records:
    [formal-reading guide](reading_formal_statements.md) address some of them.
 
 The old opening's total of 708 definitions/structures/inductives did not
-match its historical inventory's raw counters (763 `def`, 70 `structure`,
-38 `inductive`). Those counters are not a replacement exact census: the
-inventory's line regex also counts two prose-comment lines as `lemma`
-declarations. The historical files are preserved; a comment-aware and
-declaration-by-declaration reconciliation remains outstanding. No exact
-total or complete semantic coverage is certified by this index.
+match its historical inventory's counters. A fresh
+[source/compiled reconciliation](audit/DECLARATION_REVIEW_2026-10-28.md)
+excludes 20 comment matches and includes ten unnamed instance declarations.
+Its restricted source scan finds 2,564 declaration heads, each matched to
+one same-module compiled Lean declaration at the recorded source location:
+1,676 theorem heads and 888 other heads. The latter include 763 `def`,
+68 `structure`, 38 `inductive`, nine `abbrev`, and ten `instance` heads.
+Fields, constructors, and generated constants are a separate population.
+These counts describe the scan, not complete semantic teaching coverage;
+the historical inventory and module records remain preserved.
 
 ## 1. Evidence Status Classifications
 
@@ -72,86 +76,95 @@ Every declaration in this matrix carries one or more of the seven status marks:
 
 ## 2. Module-to-Lesson Summary Matrix (All 75 Frozen Modules + Root)
 
-| # | Module | Path | Root Import | Lines | Defs/Structs | Theorems | Primary Textbook Units | Audit Appendix |
+| # | Module | Path | Root Import | Lines | Matched other heads | Matched theorem heads | Primary Textbook Units | Audit Appendix |
 |---|---|---|---|---|---|---|---|---|
-| 0 | `Derivation` (root) | `lean4/Derivation.lean` | root | 62 | 0 | 0 | Part 1 source index (`Unit 00`–`Unit 74`) | [`audit/README.md`](audit/README.md) |
-| 1 | `Apartness` | `lean4/Derivation/Apartness.lean` | yes | 338 | 5 | 28 | `Unit 56` | [`audit/modules/Apartness.md`](audit/modules/Apartness.md) |
-| 2 | `Attachment` | `lean4/Derivation/Attachment.lean` | yes | 1173 | 41 | 54 | `Unit 59` | [`audit/modules/Attachment.md`](audit/modules/Attachment.md) |
-| 3 | `Basic` | `lean4/Derivation/Basic.lean` | yes | 218 | 20 | 7 | `Unit 00`, `Unit 08`, `Unit 09`, `Unit 17` | [`audit/modules/Basic.md`](audit/modules/Basic.md) |
-| 4 | `BoundaryCancellation` | `lean4/Derivation/BoundaryCancellation.lean` | yes | 662 | 7 | 37 | `Unit 60` | [`audit/modules/BoundaryCancellation.md`](audit/modules/BoundaryCancellation.md) |
-| 5 | `Breaking` | `lean4/Derivation/Breaking.lean` | yes | 446 | 18 | 15 | `Unit 73` | [`audit/modules/Breaking.md`](audit/modules/Breaking.md) |
-| 6 | `Bridge` | `lean4/Derivation/Bridge.lean` | yes | 317 | 4 | 12 | `Unit 11`, `Unit 13`, `Unit 26`, `Unit 37`, `Unit 38` | [`audit/modules/Bridge.md`](audit/modules/Bridge.md) |
-| 7 | `CapacityBound` | `lean4/Derivation/CapacityBound.lean` | yes | 255 | 3 | 10 | `Unit 42` | [`audit/modules/CapacityBound.md`](audit/modules/CapacityBound.md) |
-| 8 | `ClosureSymmetry` | `lean4/Derivation/ClosureSymmetry.lean` | yes | 167 | 4 | 7 | `Unit 71` | [`audit/modules/ClosureSymmetry.md`](audit/modules/ClosureSymmetry.md) |
-| 9 | `Completion` | `lean4/Derivation/Completion.lean` | yes | 530 | 14 | 22 | `Unit 46` | [`audit/modules/Completion.md`](audit/modules/Completion.md) |
-| 10 | `Composing` | `lean4/Derivation/Composing.lean` | no (`ParkedAudit.lean`) | 229 | 11 | 7 | `Unit 73` | [`audit/modules/Composing.md`](audit/modules/Composing.md) |
-| 11 | `Compression` | `lean4/Derivation/Compression.lean` | yes | 788 | 14 | 38 | `Unit 61` | [`audit/modules/Compression.md`](audit/modules/Compression.md) |
-| 12 | `Constitution` | `lean4/Derivation/Constitution.lean` | yes | 394 | 13 | 16 | `Unit 48` | [`audit/modules/Constitution.md`](audit/modules/Constitution.md) |
-| 13 | `ContactBridge` | `lean4/Derivation/ContactBridge.lean` | yes | 711 | 9 | 35 | `Unit 53`, `Unit 68` | [`audit/modules/ContactBridge.md`](audit/modules/ContactBridge.md) |
-| 14 | `ContactKernel` | `lean4/Derivation/ContactKernel.lean` | yes | 1026 | 25 | 53 | `Unit 69` | [`audit/modules/ContactKernel.md`](audit/modules/ContactKernel.md) |
-| 15 | `ControllerCategory` | `lean4/Derivation/ControllerCategory.lean` | yes | 775 | 39 | 63 | `Unit 58` | [`audit/modules/ControllerCategory.md`](audit/modules/ControllerCategory.md) |
-| 16 | `CountTransport` | `lean4/Derivation/CountTransport.lean` | yes | 307 | 6 | 13 | `Unit 29` | [`audit/modules/CountTransport.md`](audit/modules/CountTransport.md) |
-| 17 | `Counting` | `lean4/Derivation/Counting.lean` | yes | 87 | 1 | 4 | `Unit 28` | [`audit/modules/Counting.md`](audit/modules/Counting.md) |
-| 18 | `DiffAnchor` | `lean4/Derivation/DiffAnchor.lean` | no (`ParkedAudit.lean`) | 74 | 1 | 3 | `Unit 68` | [`audit/modules/DiffAnchor.md`](audit/modules/DiffAnchor.md) |
-| 19 | `DiffAnchorCompat` | `lean4/Derivation/DiffAnchorCompat.lean` | no (`ParkedAudit.lean`) | 18 | 0 | 0 | `Unit 68` | [`audit/modules/DiffAnchorCompat.md`](audit/modules/DiffAnchorCompat.md) |
-| 20 | `DiffInterface` | `lean4/Derivation/DiffInterface.lean` | yes | 762 | 43 | 35 | `Unit 44` | [`audit/modules/DiffInterface.md`](audit/modules/DiffInterface.md) |
-| 21 | `EndogenousFidelityGenerator` | `lean4/Derivation/EndogenousFidelityGenerator.lean` | yes | 110 | 4 | 6 | `Unit 72` | [`audit/modules/EndogenousFidelityGenerator.md`](audit/modules/EndogenousFidelityGenerator.md) |
-| 22 | `Erasure` | `lean4/Derivation/Erasure.lean` | yes | 162 | 7 | 4 | `Unit 06`, `Unit 07` | [`audit/modules/Erasure.md`](audit/modules/Erasure.md) |
-| 23 | `Ext` | `lean4/Derivation/Ext.lean` | yes | 180 | 3 | 12 | `Unit 36` | [`audit/modules/Ext.md`](audit/modules/Ext.md) |
-| 24 | `FidelityClosure` | `lean4/Derivation/FidelityClosure.lean` | yes | 235 | 14 | 11 | `Unit 72` | [`audit/modules/FidelityClosure.md`](audit/modules/FidelityClosure.md) |
-| 25 | `FormRenaming` | `lean4/Derivation/FormRenaming.lean` | no (`ParkedAudit.lean`) | 148 | 4 | 9 | `Unit 74` | [`audit/modules/FormRenaming.md`](audit/modules/FormRenaming.md) |
-| 26 | `FormTransport` | `lean4/Derivation/FormTransport.lean` | no (`ParkedAudit.lean`) | 197 | 1 | 11 | `Unit 74` | [`audit/modules/FormTransport.md`](audit/modules/FormTransport.md) |
-| 27 | `FormTransportCompat` | `lean4/Derivation/FormTransportCompat.lean` | no (`ParkedAudit.lean`) | 24 | 0 | 0 | `Unit 74` | [`audit/modules/FormTransportCompat.md`](audit/modules/FormTransportCompat.md) |
-| 28 | `G1Class` | `lean4/Derivation/G1Class.lean` | yes | 46 | 0 | 3 | `Unit 43` | [`audit/modules/G1Class.md`](audit/modules/G1Class.md) |
-| 29 | `Generator` | `lean4/Derivation/Generator.lean` | yes | 297 | 4 | 16 | `Unit 40` | [`audit/modules/Generator.md`](audit/modules/Generator.md) |
-| 30 | `GraphGenesis` | `lean4/Derivation/GraphGenesis.lean` | yes | 721 | 12 | 28 | `Unit 63` | [`audit/modules/GraphGenesis.md`](audit/modules/GraphGenesis.md) |
-| 31 | `HigherStructure` | `lean4/Derivation/HigherStructure.lean` | yes | 817 | 34 | 40 | `Unit 55` | [`audit/modules/HigherStructure.md`](audit/modules/HigherStructure.md) |
-| 32 | `Horizon` | `lean4/Derivation/Horizon.lean` | yes | 425 | 7 | 27 | `Unit 50` | [`audit/modules/Horizon.md`](audit/modules/Horizon.md) |
-| 33 | `Inertia` | `lean4/Derivation/Inertia.lean` | yes | 95 | 1 | 10 | `Unit 01`, `Unit 02`, `Unit 03`, `Unit 04`, `Unit 05`, `Unit 10`, `Unit 12`, `Unit 16` | [`audit/modules/Inertia.md`](audit/modules/Inertia.md) |
-| 34 | `Initiality` | `lean4/Derivation/Initiality.lean` | yes | 172 | 11 | 11 | `Unit 49` | [`audit/modules/Initiality.md`](audit/modules/Initiality.md) |
-| 35 | `InterpreterBoundary` | `lean4/Derivation/InterpreterBoundary.lean` | yes | 395 | 13 | 15 | `Unit 57` | [`audit/modules/InterpreterBoundary.md`](audit/modules/InterpreterBoundary.md) |
-| 36 | `IsoBridge` | `lean4/Derivation/IsoBridge.lean` | no (`ParkedAudit.lean`) | 76 | 1 | 0 | `Unit 74` | [`audit/modules/IsoBridge.md`](audit/modules/IsoBridge.md) |
-| 37 | `IsoBridgeCompat` | `lean4/Derivation/IsoBridgeCompat.lean` | no (`ParkedAudit.lean`) | 18 | 0 | 0 | `Unit 74` | [`audit/modules/IsoBridgeCompat.md`](audit/modules/IsoBridgeCompat.md) |
-| 38 | `IsoCanon` | `lean4/Derivation/IsoCanon.lean` | no (`ParkedAudit.lean`) | 233 | 4 | 10 | `Unit 74` | [`audit/modules/IsoCanon.md`](audit/modules/IsoCanon.md) |
-| 39 | `IsoCanonCompat` | `lean4/Derivation/IsoCanonCompat.lean` | no (`ParkedAudit.lean`) | 18 | 0 | 0 | `Unit 74` | [`audit/modules/IsoCanonCompat.md`](audit/modules/IsoCanonCompat.md) |
-| 40 | `IsoCollapse` | `lean4/Derivation/IsoCollapse.lean` | no (`ParkedAudit.lean`) | 178 | 3 | 8 | `Unit 74` | [`audit/modules/IsoCollapse.md`](audit/modules/IsoCollapse.md) |
-| 41 | `IsoCollapseCompat` | `lean4/Derivation/IsoCollapseCompat.lean` | no (`ParkedAudit.lean`) | 18 | 0 | 0 | `Unit 74` | [`audit/modules/IsoCollapseCompat.md`](audit/modules/IsoCollapseCompat.md) |
-| 42 | `LadderGeneral` | `lean4/Derivation/LadderGeneral.lean` | yes | 330 | 22 | 13 | `Unit 60` | [`audit/modules/LadderGeneral.md`](audit/modules/LadderGeneral.md) |
-| 43 | `LocalStrategy` | `lean4/Derivation/LocalStrategy.lean` | no (`ParkedAudit.lean`) | 263 | 18 | 23 | `Unit 43` | [`audit/modules/LocalStrategy.md`](audit/modules/LocalStrategy.md) |
-| 44 | `Mention` | `lean4/Derivation/Mention.lean` | yes | 200 | 0 | 7 | `Unit 12`, `Unit 30` | [`audit/modules/Mention.md`](audit/modules/Mention.md) |
-| 45 | `Minimality` | `lean4/Derivation/Minimality.lean` | yes | 488 | 16 | 26 | `Unit 18`, `Unit 19`, `Unit 20`, `Unit 21`, `Unit 22` | [`audit/modules/Minimality.md`](audit/modules/Minimality.md) |
-| 46 | `MinimalityF` | `lean4/Derivation/MinimalityF.lean` | yes | 198 | 4 | 2 | `Unit 32` | [`audit/modules/MinimalityF.md`](audit/modules/MinimalityF.md) |
-| 47 | `NoOutside` | `lean4/Derivation/NoOutside.lean` | yes | 271 | 7 | 13 | `Unit 47` | [`audit/modules/NoOutside.md`](audit/modules/NoOutside.md) |
-| 48 | `NoOutsideFidelity` | `lean4/Derivation/NoOutsideFidelity.lean` | yes | 106 | 2 | 6 | `Unit 72` | [`audit/modules/NoOutsideFidelity.md`](audit/modules/NoOutsideFidelity.md) |
-| 49 | `ObsDescent` | `lean4/Derivation/ObsDescent.lean` | yes | 540 | 8 | 37 | `Unit 67` | [`audit/modules/ObsDescent.md`](audit/modules/ObsDescent.md) |
-| 50 | `ObserverInventory` | `lean4/Derivation/ObserverInventory.lean` | yes | 232 | 8 | 17 | `Unit 37` | [`audit/modules/ObserverInventory.md`](audit/modules/ObserverInventory.md) |
-| 51 | `Pigeonhole` | `lean4/Derivation/Pigeonhole.lean` | yes | 233 | 1 | 12 | `Unit 42` | [`audit/modules/Pigeonhole.md`](audit/modules/Pigeonhole.md) |
-| 52 | `PresentationDescent` | `lean4/Derivation/PresentationDescent.lean` | yes | 226 | 9 | 7 | `Unit 72` | [`audit/modules/PresentationDescent.md`](audit/modules/PresentationDescent.md) |
-| 53 | `PresentationNaturality` | `lean4/Derivation/PresentationNaturality.lean` | yes | 666 | 40 | 30 | `Unit 70` | [`audit/modules/PresentationNaturality.md`](audit/modules/PresentationNaturality.md) |
-| 54 | `PresentationRelativity` | `lean4/Derivation/PresentationRelativity.lean` | yes | 638 | 19 | 34 | `Unit 71` | [`audit/modules/PresentationRelativity.md`](audit/modules/PresentationRelativity.md) |
-| 55 | `PrimDiff` | `lean4/Derivation/PrimDiff.lean` | yes | 546 | 11 | 44 | `Unit 14`, `Unit 15`, `Unit 23`, `Unit 24`, `Unit 25` | [`audit/modules/PrimDiff.md`](audit/modules/PrimDiff.md) |
-| 56 | `PrimitiveCats` | `lean4/Derivation/PrimitiveCats.lean` | yes | 722 | 32 | 49 | `Unit 52` | [`audit/modules/PrimitiveCats.md`](audit/modules/PrimitiveCats.md) |
-| 57 | `PrimitiveContact` | `lean4/Derivation/PrimitiveContact.lean` | yes | 143 | 6 | 4 | `Unit 53` | [`audit/modules/PrimitiveContact.md`](audit/modules/PrimitiveContact.md) |
-| 58 | `PrimitiveCore` | `lean4/Derivation/PrimitiveCore.lean` | yes | 919 | 32 | 129 | `Unit 51` | [`audit/modules/PrimitiveCore.md`](audit/modules/PrimitiveCore.md) |
-| 59 | `PrimitivePassage` | `lean4/Derivation/PrimitivePassage.lean` | yes | 1299 | 31 | 59 | `Unit 54` | [`audit/modules/PrimitivePassage.md`](audit/modules/PrimitivePassage.md) |
-| 60 | `Progress` | `lean4/Derivation/Progress.lean` | yes | 238 | 0 | 6 | `Unit 35` | [`audit/modules/Progress.md`](audit/modules/Progress.md) |
-| 61 | `Quot` | `lean4/Derivation/Quot.lean` | yes | 38 | 1 | 3 | `Unit 27` | [`audit/modules/Quot.md`](audit/modules/Quot.md) |
-| 62 | `QuotientRetention` | `lean4/Derivation/QuotientRetention.lean` | yes | 144 | 2 | 9 | `Unit 72` | [`audit/modules/QuotientRetention.md`](audit/modules/QuotientRetention.md) |
-| 63 | `Refusal` | `lean4/Derivation/Refusal.lean` | yes | 290 | 13 | 18 | `Unit 38` | [`audit/modules/Refusal.md`](audit/modules/Refusal.md) |
-| 64 | `RefusalFrontier` | `lean4/Derivation/RefusalFrontier.lean` | yes | 372 | 17 | 20 | `Unit 39` | [`audit/modules/RefusalFrontier.md`](audit/modules/RefusalFrontier.md) |
-| 65 | `RenamingStructure` | `lean4/Derivation/RenamingStructure.lean` | yes | 483 | 6 | 28 | `Unit 59` | [`audit/modules/RenamingStructure.md`](audit/modules/RenamingStructure.md) |
-| 66 | `Represented` | `lean4/Derivation/Represented.lean` | yes | 1364 | 50 | 65 | `Unit 45` | [`audit/modules/Represented.md`](audit/modules/Represented.md) |
-| 67 | `ResidualClosure` | `lean4/Derivation/ResidualClosure.lean` | yes | 123 | 1 | 7 | `Unit 71` | [`audit/modules/ResidualClosure.md`](audit/modules/ResidualClosure.md) |
-| 68 | `Rounds` | `lean4/Derivation/Rounds.lean` | yes | 483 | 2 | 25 | `Unit 34` | [`audit/modules/Rounds.md`](audit/modules/Rounds.md) |
-| 69 | `RuleBridge` | `lean4/Derivation/RuleBridge.lean` | yes | 269 | 1 | 8 | `Unit 33` | [`audit/modules/RuleBridge.md`](audit/modules/RuleBridge.md) |
-| 70 | `SeparationCapacity` | `lean4/Derivation/SeparationCapacity.lean` | yes | 239 | 2 | 14 | `Unit 41` | [`audit/modules/SeparationCapacity.md`](audit/modules/SeparationCapacity.md) |
-| 71 | `StableContent` | `lean4/Derivation/StableContent.lean` | yes | 583 | 11 | 18 | `Unit 62` | [`audit/modules/StableContent.md`](audit/modules/StableContent.md) |
-| 72 | `TraceAlgebra` | `lean4/Derivation/TraceAlgebra.lean` | yes | 1002 | 18 | 72 | `Unit 66` | [`audit/modules/TraceAlgebra.md`](audit/modules/TraceAlgebra.md) |
-| 73 | `TransitionAlphabet` | `lean4/Derivation/TransitionAlphabet.lean` | yes | 1894 | 66 | 118 | `Unit 65` | [`audit/modules/TransitionAlphabet.md`](audit/modules/TransitionAlphabet.md) |
-| 74 | `TransitionTransport` | `lean4/Derivation/TransitionTransport.lean` | yes | 1071 | 11 | 53 | `Unit 31` | [`audit/modules/TransitionTransport.md`](audit/modules/TransitionTransport.md) |
-| 75 | `WeightProfile` | `lean4/Derivation/WeightProfile.lean` | yes | 523 | 15 | 31 | `Unit 64` | [`audit/modules/WeightProfile.md`](audit/modules/WeightProfile.md) |
+| 0 | `Derivation` (root) | `lean4/Derivation.lean` | root | 1642 | 0 | 0 | Part 1 source index (`Unit 00`–`Unit 74`) | [`audit/README.md`](audit/README.md) |
+| 1 | `Apartness` | `lean4/Derivation/Apartness.lean` | yes | 337 | 6 | 28 | `Unit 56` | [`audit/modules/Apartness.md`](audit/modules/Apartness.md) |
+| 2 | `Attachment` | `lean4/Derivation/Attachment.lean` | yes | 1172 | 41 | 54 | `Unit 59` | [`audit/modules/Attachment.md`](audit/modules/Attachment.md) |
+| 3 | `Basic` | `lean4/Derivation/Basic.lean` | yes | 217 | 23 | 7 | `Unit 00`, `Unit 08`, `Unit 09`, `Unit 17` | [`audit/modules/Basic.md`](audit/modules/Basic.md) |
+| 4 | `BoundaryCancellation` | `lean4/Derivation/BoundaryCancellation.lean` | yes | 661 | 7 | 37 | `Unit 60` | [`audit/modules/BoundaryCancellation.md`](audit/modules/BoundaryCancellation.md) |
+| 5 | `Breaking` | `lean4/Derivation/Breaking.lean` | yes | 445 | 18 | 15 | `Unit 73` | [`audit/modules/Breaking.md`](audit/modules/Breaking.md) |
+| 6 | `Bridge` | `lean4/Derivation/Bridge.lean` | yes | 316 | 5 | 12 | `Unit 11`, `Unit 13`, `Unit 26`, `Unit 37`, `Unit 38` | [`audit/modules/Bridge.md`](audit/modules/Bridge.md) |
+| 7 | `CapacityBound` | `lean4/Derivation/CapacityBound.lean` | yes | 254 | 3 | 10 | `Unit 42` | [`audit/modules/CapacityBound.md`](audit/modules/CapacityBound.md) |
+| 8 | `ClosureSymmetry` | `lean4/Derivation/ClosureSymmetry.lean` | yes | 166 | 4 | 7 | `Unit 71` | [`audit/modules/ClosureSymmetry.md`](audit/modules/ClosureSymmetry.md) |
+| 9 | `Completion` | `lean4/Derivation/Completion.lean` | yes | 529 | 14 | 22 | `Unit 46` | [`audit/modules/Completion.md`](audit/modules/Completion.md) |
+| 10 | `Composing` | `lean4/Derivation/Composing.lean` | no (`ParkedAudit.lean`) | 228 | 11 | 7 | `Unit 73` | [`audit/modules/Composing.md`](audit/modules/Composing.md) |
+| 11 | `Compression` | `lean4/Derivation/Compression.lean` | yes | 787 | 14 | 38 | `Unit 61` | [`audit/modules/Compression.md`](audit/modules/Compression.md) |
+| 12 | `Constitution` | `lean4/Derivation/Constitution.lean` | yes | 393 | 13 | 16 | `Unit 48` | [`audit/modules/Constitution.md`](audit/modules/Constitution.md) |
+| 13 | `ContactBridge` | `lean4/Derivation/ContactBridge.lean` | yes | 710 | 9 | 35 | `Unit 53`, `Unit 68` | [`audit/modules/ContactBridge.md`](audit/modules/ContactBridge.md) |
+| 14 | `ContactKernel` | `lean4/Derivation/ContactKernel.lean` | yes | 1025 | 25 | 53 | `Unit 69` | [`audit/modules/ContactKernel.md`](audit/modules/ContactKernel.md) |
+| 15 | `ControllerCategory` | `lean4/Derivation/ControllerCategory.lean` | yes | 774 | 39 | 63 | `Unit 58` | [`audit/modules/ControllerCategory.md`](audit/modules/ControllerCategory.md) |
+| 16 | `CountTransport` | `lean4/Derivation/CountTransport.lean` | yes | 306 | 6 | 13 | `Unit 29` | [`audit/modules/CountTransport.md`](audit/modules/CountTransport.md) |
+| 17 | `Counting` | `lean4/Derivation/Counting.lean` | yes | 86 | 1 | 4 | `Unit 28` | [`audit/modules/Counting.md`](audit/modules/Counting.md) |
+| 18 | `DiffAnchor` | `lean4/Derivation/DiffAnchor.lean` | no (`ParkedAudit.lean`) | 73 | 1 | 3 | `Unit 68` | [`audit/modules/DiffAnchor.md`](audit/modules/DiffAnchor.md) |
+| 19 | `DiffAnchorCompat` | `lean4/Derivation/DiffAnchorCompat.lean` | no (`ParkedAudit.lean`) | 17 | 0 | 0 | `Unit 68` | [`audit/modules/DiffAnchorCompat.md`](audit/modules/DiffAnchorCompat.md) |
+| 20 | `DiffInterface` | `lean4/Derivation/DiffInterface.lean` | yes | 761 | 41 | 35 | `Unit 44` | [`audit/modules/DiffInterface.md`](audit/modules/DiffInterface.md) |
+| 21 | `EndogenousFidelityGenerator` | `lean4/Derivation/EndogenousFidelityGenerator.lean` | yes | 109 | 4 | 6 | `Unit 72` | [`audit/modules/EndogenousFidelityGenerator.md`](audit/modules/EndogenousFidelityGenerator.md) |
+| 22 | `Erasure` | `lean4/Derivation/Erasure.lean` | yes | 161 | 7 | 4 | `Unit 06`, `Unit 07` | [`audit/modules/Erasure.md`](audit/modules/Erasure.md) |
+| 23 | `Ext` | `lean4/Derivation/Ext.lean` | yes | 179 | 3 | 12 | `Unit 36` | [`audit/modules/Ext.md`](audit/modules/Ext.md) |
+| 24 | `FidelityClosure` | `lean4/Derivation/FidelityClosure.lean` | yes | 234 | 14 | 11 | `Unit 72` | [`audit/modules/FidelityClosure.md`](audit/modules/FidelityClosure.md) |
+| 25 | `FormRenaming` | `lean4/Derivation/FormRenaming.lean` | no (`ParkedAudit.lean`) | 147 | 3 | 9 | `Unit 74` | [`audit/modules/FormRenaming.md`](audit/modules/FormRenaming.md) |
+| 26 | `FormTransport` | `lean4/Derivation/FormTransport.lean` | no (`ParkedAudit.lean`) | 196 | 1 | 11 | `Unit 74` | [`audit/modules/FormTransport.md`](audit/modules/FormTransport.md) |
+| 27 | `FormTransportCompat` | `lean4/Derivation/FormTransportCompat.lean` | no (`ParkedAudit.lean`) | 23 | 0 | 0 | `Unit 74` | [`audit/modules/FormTransportCompat.md`](audit/modules/FormTransportCompat.md) |
+| 28 | `G1Class` | `lean4/Derivation/G1Class.lean` | yes | 45 | 0 | 3 | `Unit 43` | [`audit/modules/G1Class.md`](audit/modules/G1Class.md) |
+| 29 | `Generator` | `lean4/Derivation/Generator.lean` | yes | 296 | 4 | 16 | `Unit 40` | [`audit/modules/Generator.md`](audit/modules/Generator.md) |
+| 30 | `GraphGenesis` | `lean4/Derivation/GraphGenesis.lean` | yes | 720 | 12 | 28 | `Unit 63` | [`audit/modules/GraphGenesis.md`](audit/modules/GraphGenesis.md) |
+| 31 | `HigherStructure` | `lean4/Derivation/HigherStructure.lean` | yes | 816 | 34 | 39 | `Unit 55` | [`audit/modules/HigherStructure.md`](audit/modules/HigherStructure.md) |
+| 32 | `Horizon` | `lean4/Derivation/Horizon.lean` | yes | 424 | 7 | 26 | `Unit 50` | [`audit/modules/Horizon.md`](audit/modules/Horizon.md) |
+| 33 | `Inertia` | `lean4/Derivation/Inertia.lean` | yes | 94 | 1 | 10 | `Unit 01`, `Unit 02`, `Unit 03`, `Unit 04`, `Unit 05`, `Unit 10`, `Unit 12`, `Unit 16` | [`audit/modules/Inertia.md`](audit/modules/Inertia.md) |
+| 34 | `Initiality` | `lean4/Derivation/Initiality.lean` | yes | 171 | 11 | 11 | `Unit 49` | [`audit/modules/Initiality.md`](audit/modules/Initiality.md) |
+| 35 | `InterpreterBoundary` | `lean4/Derivation/InterpreterBoundary.lean` | yes | 394 | 13 | 13 | `Unit 57` | [`audit/modules/InterpreterBoundary.md`](audit/modules/InterpreterBoundary.md) |
+| 36 | `IsoBridge` | `lean4/Derivation/IsoBridge.lean` | no (`ParkedAudit.lean`) | 75 | 1 | 0 | `Unit 74` | [`audit/modules/IsoBridge.md`](audit/modules/IsoBridge.md) |
+| 37 | `IsoBridgeCompat` | `lean4/Derivation/IsoBridgeCompat.lean` | no (`ParkedAudit.lean`) | 17 | 0 | 0 | `Unit 74` | [`audit/modules/IsoBridgeCompat.md`](audit/modules/IsoBridgeCompat.md) |
+| 38 | `IsoCanon` | `lean4/Derivation/IsoCanon.lean` | no (`ParkedAudit.lean`) | 232 | 4 | 10 | `Unit 74` | [`audit/modules/IsoCanon.md`](audit/modules/IsoCanon.md) |
+| 39 | `IsoCanonCompat` | `lean4/Derivation/IsoCanonCompat.lean` | no (`ParkedAudit.lean`) | 17 | 0 | 0 | `Unit 74` | [`audit/modules/IsoCanonCompat.md`](audit/modules/IsoCanonCompat.md) |
+| 40 | `IsoCollapse` | `lean4/Derivation/IsoCollapse.lean` | no (`ParkedAudit.lean`) | 177 | 3 | 8 | `Unit 74` | [`audit/modules/IsoCollapse.md`](audit/modules/IsoCollapse.md) |
+| 41 | `IsoCollapseCompat` | `lean4/Derivation/IsoCollapseCompat.lean` | no (`ParkedAudit.lean`) | 17 | 0 | 0 | `Unit 74` | [`audit/modules/IsoCollapseCompat.md`](audit/modules/IsoCollapseCompat.md) |
+| 42 | `LadderGeneral` | `lean4/Derivation/LadderGeneral.lean` | yes | 329 | 22 | 13 | `Unit 60` | [`audit/modules/LadderGeneral.md`](audit/modules/LadderGeneral.md) |
+| 43 | `LocalStrategy` | `lean4/Derivation/LocalStrategy.lean` | no (`ParkedAudit.lean`) | 262 | 18 | 23 | `Unit 43` | [`audit/modules/LocalStrategy.md`](audit/modules/LocalStrategy.md) |
+| 44 | `Mention` | `lean4/Derivation/Mention.lean` | yes | 199 | 0 | 7 | `Unit 12`, `Unit 30` | [`audit/modules/Mention.md`](audit/modules/Mention.md) |
+| 45 | `Minimality` | `lean4/Derivation/Minimality.lean` | yes | 487 | 16 | 26 | `Unit 18`, `Unit 19`, `Unit 20`, `Unit 21`, `Unit 22` | [`audit/modules/Minimality.md`](audit/modules/Minimality.md) |
+| 46 | `MinimalityF` | `lean4/Derivation/MinimalityF.lean` | yes | 197 | 4 | 2 | `Unit 32` | [`audit/modules/MinimalityF.md`](audit/modules/MinimalityF.md) |
+| 47 | `NoOutside` | `lean4/Derivation/NoOutside.lean` | yes | 270 | 7 | 12 | `Unit 47` | [`audit/modules/NoOutside.md`](audit/modules/NoOutside.md) |
+| 48 | `NoOutsideFidelity` | `lean4/Derivation/NoOutsideFidelity.lean` | yes | 105 | 2 | 6 | `Unit 72` | [`audit/modules/NoOutsideFidelity.md`](audit/modules/NoOutsideFidelity.md) |
+| 49 | `ObsDescent` | `lean4/Derivation/ObsDescent.lean` | yes | 539 | 8 | 37 | `Unit 67` | [`audit/modules/ObsDescent.md`](audit/modules/ObsDescent.md) |
+| 50 | `ObserverInventory` | `lean4/Derivation/ObserverInventory.lean` | yes | 231 | 9 | 17 | `Unit 37` | [`audit/modules/ObserverInventory.md`](audit/modules/ObserverInventory.md) |
+| 51 | `Pigeonhole` | `lean4/Derivation/Pigeonhole.lean` | yes | 232 | 1 | 11 | `Unit 42` | [`audit/modules/Pigeonhole.md`](audit/modules/Pigeonhole.md) |
+| 52 | `PresentationDescent` | `lean4/Derivation/PresentationDescent.lean` | yes | 225 | 9 | 7 | `Unit 72` | [`audit/modules/PresentationDescent.md`](audit/modules/PresentationDescent.md) |
+| 53 | `PresentationNaturality` | `lean4/Derivation/PresentationNaturality.lean` | yes | 665 | 40 | 29 | `Unit 70` | [`audit/modules/PresentationNaturality.md`](audit/modules/PresentationNaturality.md) |
+| 54 | `PresentationRelativity` | `lean4/Derivation/PresentationRelativity.lean` | yes | 637 | 19 | 32 | `Unit 71` | [`audit/modules/PresentationRelativity.md`](audit/modules/PresentationRelativity.md) |
+| 55 | `PrimDiff` | `lean4/Derivation/PrimDiff.lean` | yes | 545 | 14 | 44 | `Unit 14`, `Unit 15`, `Unit 23`, `Unit 24`, `Unit 25` | [`audit/modules/PrimDiff.md`](audit/modules/PrimDiff.md) |
+| 56 | `PrimitiveCats` | `lean4/Derivation/PrimitiveCats.lean` | yes | 721 | 32 | 49 | `Unit 52` | [`audit/modules/PrimitiveCats.md`](audit/modules/PrimitiveCats.md) |
+| 57 | `PrimitiveContact` | `lean4/Derivation/PrimitiveContact.lean` | yes | 142 | 6 | 3 | `Unit 53` | [`audit/modules/PrimitiveContact.md`](audit/modules/PrimitiveContact.md) |
+| 58 | `PrimitiveCore` | `lean4/Derivation/PrimitiveCore.lean` | yes | 918 | 33 | 129 | `Unit 51` | [`audit/modules/PrimitiveCore.md`](audit/modules/PrimitiveCore.md) |
+| 59 | `PrimitivePassage` | `lean4/Derivation/PrimitivePassage.lean` | yes | 1298 | 31 | 58 | `Unit 54` | [`audit/modules/PrimitivePassage.md`](audit/modules/PrimitivePassage.md) |
+| 60 | `Progress` | `lean4/Derivation/Progress.lean` | yes | 237 | 0 | 6 | `Unit 35` | [`audit/modules/Progress.md`](audit/modules/Progress.md) |
+| 61 | `Quot` | `lean4/Derivation/Quot.lean` | yes | 37 | 1 | 3 | `Unit 27` | [`audit/modules/Quot.md`](audit/modules/Quot.md) |
+| 62 | `QuotientRetention` | `lean4/Derivation/QuotientRetention.lean` | yes | 143 | 2 | 9 | `Unit 72` | [`audit/modules/QuotientRetention.md`](audit/modules/QuotientRetention.md) |
+| 63 | `Refusal` | `lean4/Derivation/Refusal.lean` | yes | 289 | 13 | 18 | `Unit 38` | [`audit/modules/Refusal.md`](audit/modules/Refusal.md) |
+| 64 | `RefusalFrontier` | `lean4/Derivation/RefusalFrontier.lean` | yes | 371 | 16 | 20 | `Unit 39` | [`audit/modules/RefusalFrontier.md`](audit/modules/RefusalFrontier.md) |
+| 65 | `RenamingStructure` | `lean4/Derivation/RenamingStructure.lean` | yes | 482 | 5 | 28 | `Unit 59` | [`audit/modules/RenamingStructure.md`](audit/modules/RenamingStructure.md) |
+| 66 | `Represented` | `lean4/Derivation/Represented.lean` | yes | 1363 | 50 | 65 | `Unit 45` | [`audit/modules/Represented.md`](audit/modules/Represented.md) |
+| 67 | `ResidualClosure` | `lean4/Derivation/ResidualClosure.lean` | yes | 122 | 1 | 7 | `Unit 71` | [`audit/modules/ResidualClosure.md`](audit/modules/ResidualClosure.md) |
+| 68 | `Rounds` | `lean4/Derivation/Rounds.lean` | yes | 482 | 2 | 25 | `Unit 34` | [`audit/modules/Rounds.md`](audit/modules/Rounds.md) |
+| 69 | `RuleBridge` | `lean4/Derivation/RuleBridge.lean` | yes | 268 | 1 | 8 | `Unit 33` | [`audit/modules/RuleBridge.md`](audit/modules/RuleBridge.md) |
+| 70 | `SeparationCapacity` | `lean4/Derivation/SeparationCapacity.lean` | yes | 238 | 2 | 14 | `Unit 41` | [`audit/modules/SeparationCapacity.md`](audit/modules/SeparationCapacity.md) |
+| 71 | `StableContent` | `lean4/Derivation/StableContent.lean` | yes | 582 | 11 | 18 | `Unit 62` | [`audit/modules/StableContent.md`](audit/modules/StableContent.md) |
+| 72 | `TraceAlgebra` | `lean4/Derivation/TraceAlgebra.lean` | yes | 1001 | 18 | 72 | `Unit 66` | [`audit/modules/TraceAlgebra.md`](audit/modules/TraceAlgebra.md) |
+| 73 | `TransitionAlphabet` | `lean4/Derivation/TransitionAlphabet.lean` | yes | 1893 | 66 | 118 | `Unit 65` | [`audit/modules/TransitionAlphabet.md`](audit/modules/TransitionAlphabet.md) |
+| 74 | `TransitionTransport` | `lean4/Derivation/TransitionTransport.lean` | yes | 1070 | 11 | 53 | `Unit 31` | [`audit/modules/TransitionTransport.md`](audit/modules/TransitionTransport.md) |
+| 75 | `WeightProfile` | `lean4/Derivation/WeightProfile.lean` | yes | 522 | 15 | 31 | `Unit 64` | [`audit/modules/WeightProfile.md`](audit/modules/WeightProfile.md) |
 
 ---
+
+The source-head columns above are the reconciled scan's counts, excluding
+constructors, structure fields, and generated declarations. “Other”
+includes definitions, abbreviations, structures, inductives, and explicit
+instance heads. A Lean `structure` elaborates to an inductive plus several
+other constants; the two populations must not be added together. Line
+counts are physical source lines, excluding a phantom line after a final
+newline. Neither the number of heads nor the assigned unit proves that
+each concept has been taught.
 
 ## 3. Lesson Dependency Graph and Acyclicity Verification
 
