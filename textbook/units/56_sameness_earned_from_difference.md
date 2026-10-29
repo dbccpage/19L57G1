@@ -1,26 +1,14 @@
-# Unit 56. Sameness earned from difference, and what orientation adds
+# Unit 56. When not-apart forms an equivalence
 
-**Claim.** Under admitted irreflexivity, symmetry, and cotransitivity, the negation of apartness is an equivalence relation. Countermodels show why each law matters.
+**Claim.** Irreflexivity, symmetry, and cotransitivity of a relation suffice
+to make its negation an equivalence. Countermodels show that simply
+dropping a law can fail. Agreement for this relation need not be literal
+identity, and proved negation is different from missing evidence.
 
-**Status:** FROZEN (every theorem);
-ADMITTED (the three laws of `IsApart`, each a priced admission);
-VERIFIED_FINITE (the equivalence on every relation of carriers 1-3, the
-censuses to carrier 4). **Lean:** `lean4/Derivation/Apartness.lean`
-lines 55-336, imports `PrimitiveCore`. **Axioms:** 28 exported reports;
-`propext` for the three `Fin 3` facts, `Quot.sound` for the three
-function-equality facts, none otherwise. **Depends on:** Unit 24
-(`irrefl_witness_ne`), Unit 51 (`Cotrans`, `cotrans_auto_on_two`),
-Unit 52 (`D2`, `S2`, the swap), Unit 37 (`Clos`).
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
 
-## First pass
-
-Read apartness as the relation the system positively records. Indistinguishability means that this apartness relation does not hold.
-
-Irreflexivity makes each item indistinguishable from itself. Symmetry gives symmetry of indistinguishability. Cotransitivity supplies its transitivity. The lesson tests what fails when each assumption is removed.
-
-## Detailed claim and formal anchors
-
-`Apartness` takes a relation `r` read as "apart" and asks what
+**Detailed statement.** `Apartness` takes a relation `r` read as "apart" and asks what
 laws on `r` make its negation, *indistinguishable*, behave as sameness
 should.
 
@@ -33,12 +21,13 @@ one clause: irreflexivity buys reflexivity, symmetry buys symmetry,
 cotransitivity buys transitivity.
 
 Each omission is refuted by a minimal
-finite countermodel: bare assertion on one point breaks reflexivity
+finite countermodel within the stated small-carrier checks: bare
+assertion on one point breaks reflexivity
 (`bare_breaks_refl`); the oriented two-point relation breaks symmetry
 (`irrefl_alone_breaks_symm`), and no one-point relation can
 (`subsingleton_indist_total`); one symmetrised edge on three points
-breaks transitivity (`symm_without_cotrans_breaks_trans`), and no
-two-point relation can (`two_point_indist_trans`).
+breaks transitivity (`symm_without_cotrans_breaks_trans`). On `Bool`, an irreflexive
+relation cannot have this failure (`two_point_indist_trans`).
 
 The oriented relation
 `D2` and its reverse generate the same apartness and so the same
@@ -53,6 +42,53 @@ the apartness (`apart_preserver_pair`), the two constants preserve
 neither (`collapse_preserves_neither`), and the closure of an admitted
 family preserves the orientation exactly when every generator does
 (`clos_oriented_iff`).
+
+**Status:** FROZEN (every theorem);
+ADMITTED (the three laws of `IsApart`, each a priced admission);
+VERIFIED_FINITE (the equivalence on every relation of carriers 1-3, the
+censuses to carrier 4). **Lean:** `lean4/Derivation/Apartness.lean`
+lines 55-336, imports `PrimitiveCore`. **Axioms:** 28 exported reports;
+`propext` for the three `Fin 3` facts, `Quot.sound` for the three
+function-equality facts, none otherwise. **Depends on:** Unit 24
+(`irrefl_witness_ne`), Unit 51 (`Cotrans`, `cotrans_auto_on_two`),
+Unit 52 (`D2`, `S2`, the swap), Unit 37 (`Clos`).
+
+</details>
+
+## First pass
+
+Take three cards: A is red, B is red, and C is blue. Define apart
+to mean “their colour codes differ.” Define not-apart to mean that this
+colour difference does not hold.
+
+| Pair | Apart by colour? | Not-apart by colour? | Same card? |
+|---|---|---|---|
+| A/B | No | Yes | No |
+| A/C | Yes | No | No |
+| A/A | No | Yes | Yes |
+
+Not-apart groups the red cards together without identifying their
+positions. It has three familiar properties: each card agrees with
+itself, agreement works in either direction, and agreement passes through
+a middle card.
+
+The theorem proves these properties from three stated laws on apartness.
+The less familiar law is cotransitivity: if A and C are apart, every
+middle card B must be apart from A or from C. For colour codes, B
+cannot agree with both different colours.
+
+**Predict:** if nobody has established that two cards are apart, may we
+conclude that they are not-apart?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. Not-apart here is a proved negation: evidence that an apartness
+claim would lead to a contradiction. An unperformed test or an unknown
+answer supplies neither conclusion. The finite colour example has an
+explicit test, so its table can decide both.
+
+</details>
 
 ## Question
 
@@ -81,17 +117,20 @@ to get there, what has been thrown away?
 An *apartness* is a relation with three laws: nothing is apart from
 itself; if `x` is apart from `y` then `y` is apart from `x`; and if `x`
 is apart from `y` then any third `z` is apart from `x` or from `y`. The
-third law, *cotransitivity*, is the one with content: it says a
-difference between two things cannot be hidden from a third, the third
-must differ from at least one of them.
+less familiar third law, *cotransitivity*, says that a
+related pair must split against every third point. This is a law on
+the relation, not a statement about what an uninformed observer knows.
 
 *Indistinguishability* is the negation: `Indist r x y := ¬ r x y`. It is
-a negative notion by construction. Nothing about it is assumed; each of
-its three laws has to be bought from one law of `r`.
+a negative notion by construction. The stated laws of `r` suffice to
+prove its three equivalence clauses.
+This does not prove that they are the only sufficient assumptions.
 
 A *countermodel* here is a small relation that has some of the three
-laws and whose `Indist` fails one clause. *Minimal* means no smaller
-carrier can do it, and that is proved, not asserted.
+laws and whose `Indist` fails one clause. The small-carrier claims have
+stated scopes: subsingletons for the
+symmetry example and `Bool` for the transitivity example. No transport
+statement for every two-element type is formalized here.
 
 *Preserving* the oriented witness means `f` sends `(false, true)` to
 `(false, true)`; preserving the apartness means `f` sends it to an apart
@@ -99,17 +138,17 @@ pair, either way round.
 
 ## Plain-language interpretation
 
-Suppose the only thing you can ever say is "these two are different".
-You would still like to say "these two are the same", and the only way
-open is "I cannot say they are different". For that to be a decent
-notion of sameness it needs three properties. Each costs one law on
-"different".
+Start with a relation called apart. Define not-apart as its logical
+negation: an apartness claim would imply a contradiction. This is not
+lack of evidence or an unperformed test. The three admitted laws below
+make not-apart an equivalence. Calling that equivalence “sameness” is
+an interpretation; the colour example keeps distinct red cards together.
 
 Everything is the same as itself: that is exactly "nothing is different
 from itself". If you drop it, the one-point world where the single
 thing is different from itself refuses to be the same as itself.
 
-Sameness runs both ways: that is exactly symmetry of difference. Drop
+Not-apart runs both ways if apartness is symmetric. Drop
 it and keep the oriented two-point relation, "0 differs from 1" but not
 "1 differs from 0": then 1 is the same as 0 but 0 is not the same as 1.
 And you cannot find this failure on one point, because with
@@ -117,13 +156,16 @@ irreflexivity a one-point relation is empty and everything is the same
 as everything.
 
 Sameness passes through a middle term: if `x` is the same as `y` and `y`
-the same as `z`, then `x` is the same as `z`. Contrapose: if `x` differs
-from `z`, then `x` differs from `y` or `y` differs from `z`. That is
-cotransitivity, word for word. Drop it on three points, keeping one
+the same as `z`, then `x` is the same as `z`. To prove this using
+cotransitivity, assume instead an apartness between `x` and `z`.
+Cotransitivity gives `r x y` or `r y z`; either contradicts one of the
+two not-apart hypotheses. This proves sufficiency without deriving the
+positive disjunction from transitivity of the negative relation.
+Drop cotransitivity on three points, keeping one
 symmetric edge between 0 and 1 and a third point 2 differing from
 nothing: 0 is the same as 2 and 2 is the same as 1, yet 0 differs from
-1. And you cannot find this on two points, because there cotransitivity
-comes free from irreflexivity.
+1. The theorem on `Bool` rules out that failure for irreflexive relations
+on that carrier. It does not formalize transport to every two-element type.
 
 So far the module has made difference symmetric to get sameness. The
 second half asks what that cost. The oriented relation "0 then 1" and
@@ -329,6 +371,32 @@ theorem swap_twice_is_id : (Bool.not ∘ Bool.not) = id :=
   oriented_preserver_unique _ ⟨rfl, rfl⟩
 ```
 
+## Checked scope examples (optional)
+
+These Lean (book) checks make the scope distinctions above explicit.
+Their reports stay within the existing `{propext, Quot.sound}` boundary.
+
+```lean
+def colourTag (x : Fin 3) : Bool := x.val == 2
+def colourApart (x y : Fin 3) : Prop := colourTag x ≠ colourTag y
+
+theorem colour_isApart : IsApart colourApart :=
+  { irrefl := fun _ h => h rfl,
+    symm := fun _ _ h => fun e => h e.symm,
+    cotrans := by
+      intro x y hxy z
+      by_cases hxz : colourTag x = colourTag z
+      · exact Or.inr (fun e => hxy (hxz.trans e))
+      · exact Or.inl hxz }
+
+/-- Indistinguishability for this relation need not be literal equality. -/
+theorem colour_agreement_not_identity :
+    Indist colourApart 0 1 ∧ (0 : Fin 3) ≠ 1 ∧
+    colourApart 0 2 ∧ colourApart 1 2 := by
+  unfold Indist colourApart colourTag
+  decide
+```
+
 ## Line-by-line Lean explanation
 
 - `structure IsApart … : Prop where irrefl … symm … cotrans …`: a
@@ -436,7 +504,7 @@ theorem swap_twice_is_id : (Bool.not ∘ Bool.not) = id :=
 - The reading of `Indist` as "sameness" is a reading. The module names
   it indistinguishability and proves what the negation satisfies; that
   one would *call* an equivalence "sameness" is outside.
-- Cotransitivity is admitted, not derived. On two points it comes free
+- Cotransitivity is admitted, not derived. On `Bool` it follows from irreflexivity
   (`cotrans_auto_on_two`); on three it does not (`tri_not_cotrans`), so
   from the third point on it is a priced law like the other two.
 
@@ -449,6 +517,9 @@ pairs `(0, 2)`, `(2, 0)`, `(0, 1)` and say which clause of the
 equivalence, if any, fails and at which triple.
 
 ## Answer
+
+<details>
+<summary>Worked answer</summary>
 
 Irreflexive: yes, no pair `(x, x)` is in `r`. Symmetric: yes, both
 edges appear both ways. Cotransitive: check every related pair against
@@ -471,6 +542,8 @@ adding the edge to 2 repaired it, because 2 now differs from the middle
 point 1. (The book's Python check confirms `is_apart(3, r)` and
 `indist_is_equivalence(3, r)` on this relation.)
 
+</details>
+
 ## Verification
 
 | Item | Where |
@@ -481,4 +554,4 @@ point 1. (The book's Python check confirms `is_apart(3, r)` and
 | Python | `code/derivation/apartness.py`, `code/run_apartness.py`, `tests/test_apartness.py`, `artifacts/apartness.json` |
 | Audit | `textbook/audit/modules/Apartness.md` findings 1-4 |
 | Check (Python) | `python textbook/checks/u56_apartness.py`: the exhaustive equivalence on carriers 1-3, the clause census (Python (book)), the countermodels and minimality, the orientation separation, the censuses to carrier 4 with the `n^(n-2)` formula, against the artifact |
-| Check (book Lean) | `python textbook/checks/u56_lean.py`: seventeen book declarations plus sixteen Genesis theorems kernel-checked, Lean 4.33.0 |
+| Check (book Lean) | `python textbook/checks/u56_lean.py`: nineteen book reports plus sixteen Genesis theorems kernel-checked, Lean 4.33.0 |

@@ -59,6 +59,11 @@ def main() -> int:
           f"(0, 1): {separable(s, 0, 1)}; valid response to (1, 2): {v}")
     if v or not separable(s, 1, 2) or separable(s, 0, 1):
         failures.append("unmet")
+    repair = (NewForm(1), NewInst(0, (0,)), NewForm(1), NewInst(1, (2,)))
+    repaired = response_valid_naive(unmet, (1, 2), repair)
+    print(f"same unmet base, two fresh marks in four items: valid {repaired}")
+    if not repaired:
+        failures.append("longer repair")
     # hypothesis 2: i = j
     r = bases["bare3"]
     s = apply_delta(r, mark(r, 1))

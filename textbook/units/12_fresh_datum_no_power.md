@@ -1,10 +1,15 @@
-# Unit 12. A fresh datum adds no power
+# Unit 12. A fresh datum preserves old comparisons
 
 **Claim.** Admitting a fresh datum is a real change of state, and yet the
 pair that was collapsed before is collapsed after. More generally, in any
 regime whose instances stay inside its data, admitting a fresh datum leaves
 the collapse status of every existing pair exactly as it was, in both
-directions. **Status:** derived (the first claim is the paper's
+directions.
+
+<details>
+<summary>Source and classification record (optional on a first reading)</summary>
+
+**Status:** derived (the first claim is the paper's
 **[counterexample]** to "a new inscription necessarily increases
 expressive power"). **Lean:**
 `Derivation.admission_without_expressive_increase`
@@ -15,14 +20,34 @@ Quot.sound` for the second. **Depends on:** `stepE` (Unit 04),
 `collapsed`, `wfCtx`, `plug`, `derivable` (Unit 08),
 `collapsed_of_no_insts` (Unit 10), `R2L` (Unit 05).
 
+</details>
+
+## First pass
+
+Use one unary form marked, no uniform rule, and just the instances
+`marked(0)` and `marked(1)`. The two data have equal profiles. Add
+an unmarked newcomer, 2, without changing the instances. The old
+pair still agrees, but the newcomer differs from both: the number
+of observable classes can rise from one to two.
+
+The theorem preserves **old comparisons**, not every measure of
+expressive capacity. In the instance-free starting example, all three
+instead remain in one class. The initial assumptions matter.
+
+A second scope check concerns mention. Adding `marked(1)` avoids
+datum 0 but can separate 0 from 1. To preserve that pair by the
+unmentioning theorem, additions must avoid **both** 0 and 1.
+Finally, a newcomer need not create new questions: unary contexts
+stay single-hole tests; a binary form can add fixed-slot contexts.
+
 ## Question
 
 After Challenge 2 the system holds two data it cannot tell apart (Unit 10).
 Would one more datum help? A newcomer might think that each new inscription
 enlarges what the system can express. The paper refutes that with one
-counterexample, and then proves the general shape of the refutation: a
-datum no instance mentions is invisible to every comparison between the
-others.
+counterexample, and then proves the general shape of the refutation: under the stated instance-range condition, a fresh datum leaves
+comparisons between the old data unchanged. Its own comparisons can
+still add a new observable class.
 
 ## What we already possess
 
@@ -44,11 +69,16 @@ The mention lemma, residual R3 of the paper, is the fact under this whole
 unit: a context plugged with `d` always mentions `d`, because every
 well-formed context has a hole and the hole receives `d`
 (`mem_plug_of_hole`, `Mention.lean` lines 40-43). So an instance that
-does not mention `d` can never be `plug c d`, and adding such instances
-cannot change whether `d` is collapsed with anything.
+does not mention `d` can never be `plug c d`, so adding such an instance does not change `d`'s own profile.
+To preserve the comparison between `d` and `d'`, however, the new
+instances must mention **neither** target. An instance avoiding `d`
+can still change `d'`'s answers and separate the pair.
 
 A fresh datum is the first corollary (R1). It does not add instances, but
-it does add **contexts**: a slot may now name the new datum. Such a context
+it may add **contexts** when a form has room for both a fixed slot
+and a hole. With no forms there are still no contexts; with only unary
+forms their single-hole contexts are unchanged. For a binary form, a
+filled slot may now name the new datum. Such a context
 is genuinely new, and R1 shows it separates nothing. It mentions a datum no
 instance mentions, so neither of its two plugs is an instance; and a rule
 covers both plugs or neither. Both sides of the `collapsed` biconditional
@@ -60,8 +90,11 @@ the regime "does not separate; it only fails twice".
 Two words in the notebook, no sentences about either. Add a third word.
 Nothing has been said about it, and nothing said about the first two has
 changed, so they remain as alike as before. The third word is a real entry
-in the ledger, with a real new count of three. It is not more *power*: the
-system has gained a name it cannot use, not a way to tell its names apart.
+in the ledger, with a real new count of three. In this instance-free example the class count remains one. That
+example does not say a fresh datum can never add a new observable class:
+if both old data are marked, an unmarked newcomer forms a second class
+while the old pair still agrees. The general theorem preserves old-pair
+comparisons, not the total class count.
 
 The general theorem says more than the counterexample. Even in a regime
 rich in instances, a fresh unmentioned datum changes no existing
@@ -255,6 +288,13 @@ through list lemmas that use `Quot.sound`. The helper
 `not_mem_of_arg_out_of_range` uses no axioms, and
 `exists_out_of_range_slot` only `propext`.
 
+The book's `separation_preserved_fresh` proves positive separation
+preservation directly: reuse the old witness and extend each filled
+slot bound from `x < n` to `x < n + 1`. Instances and rules did not change,
+so the same plugged answers still disagree. This one-way result needs
+no instance-range hypothesis. The stronger collapse biconditional needs
+the source's range condition to control genuinely new contexts.
+
 ## What has been proved
 
 - Admitting a datum to `R2L` changes the state and leaves `(0, 1)`
@@ -270,19 +310,22 @@ through list lemmas that use `Quot.sound`. The helper
 
 ## What has not been proved
 
-- That the number of observational classes stays 1. The paper's sentence
-  says so, and it is true (the book's `new_pairs_collapsed` with Unit 10),
-  but the Lean theorem states `collapsed s 0 1` and nothing about the
-  pairs with the new datum. The audit records this as a prose-stronger-
-  than-Lean note, not a defect.
-- Anything about the fresh datum's own comparisons. R1 is silent on them,
-  and the two examples go opposite ways.
-- That a fresh datum *never* helps. It helps exactly when an instance
-  mentioning it is also admitted: that is the Challenge-3 response space
-  of Units 18 to 22, where `(NewDatum, NewInst mentioning it)` is one of
-  the pruned delta shapes (`candidates.py` lines 288-296). R1 is what
-  licenses the pruning of the *unmentioned* case; it does not promote
-  `CL-PRUNE-STRUCTURAL` to a theorem (paper line 742).
+- A general preservation of the class count is false. For the particular
+  instance-free `R2L` example, the count stays one: the book proves the
+  new pairs collapsed as well. The native first counterexample theorem
+  states only the old pair's collapse; the class-count conclusion needs
+  those further pair facts. The two-marked-data example shows why it
+  cannot be generalized to every starting state.
+- R1 makes no general prediction about the fresh datum's own comparisons.
+  The book's selected examples go different ways. In particular, a fresh
+  unmarked datum can create a second class against two old marked data
+  without any new instance.
+- R1 does not classify every useful multi-item repair. The Challenge-3
+  search includes fresh-data/instance bundles (`candidates.py` lines
+  288-296), but mentioning a target is not by itself sufficient to
+  separate it. The unmentioning pruning statement keeps its formal
+  hypotheses; this unit does not promote the broader
+  `CL-PRUNE-STRUCTURAL` claim to a theorem (paper line 742).
 - R2, the same result for a fresh form (`collapsed_fresh_form`, lines
   168-199). It is taught with the Challenge-3 candidate space.
 
@@ -295,12 +338,13 @@ through list lemmas that use `Quot.sound`. The helper
 | `by_cases hin` on a decidable bounded `∀` | the case split | metatheory decision; constructive here because `slotOk` is decidable |
 | `propext`, `Quot.sound` | inherited | inside the declared boundary |
 
-**What the system holds.** After the admission: a data count of three, the
-demand, and nothing else. It does not hold "the set of contexts": contexts
+**What the system holds.** In the `R2L` counterexample after admission:
+a data count of three and the demand. It does not hold "the set of contexts": contexts
 are the metatheory's way of enumerating comparisons, and `wfCtx` reads
-them off the ledger. When the unit says the fresh datum "adds contexts", it
-means the metatheory's census of well-formed contexts grows; nothing was
-added to the ledger but one count.
+them off the ledger. A fresh datum may enlarge that census when a form
+permits fixed slots as well as holes. With no forms or only unary forms,
+the context list does not grow. The admission changes the count, not a
+stored context list.
 
 **Phrases to read with care.**
 
@@ -322,10 +366,12 @@ separable, and by which theorem? Is the fresh datum 2 separable from datum
 
 ## Answer
 
-`(0, 1)` stays separable: R1 gives `collapsed r' 0 1 ↔ collapsed r 0 1`,
-so `¬ collapsed r' 0 1` follows from `¬ collapsed r 0 1`
-(`separable_not_collapsed` with Unit 09's witness `⟨0, [none]⟩`). The
-hypothesis `hwf` holds because the only instance's argument `1 < 2`. Datum
+`(0, 1)` stays separable: the same explicit witness `⟨0, [none]⟩`
+is still well formed, is derivable on 1, and is not derivable on 0.
+R1 separately gives `collapsed r' 0 1 ↔ collapsed r 0 1`, hence
+preserves the negated-collapse statement. We do not infer a positive
+witness merely by dropping a double negation. The hypothesis `hwf`
+holds because the only instance's argument `1 < 2`. Datum
 2 against datum 1: separable, witness `⟨0, [none]⟩`; plugging 1 gives
 `(0, [1])`, an instance; plugging 2 gives `(0, [2])`, not an instance, and
 there is no rule. Datum 2 against datum 0: the only well-formed contexts
@@ -344,4 +390,4 @@ is collapsed. (The check script's family includes this regime.)
 | Artifact | `artifacts/challenges.json`, `challenge2.readings.{L,F}.expressive_increase_over_challenge0: false`, `observational_classes: 1` |
 | Test | `tests/test_engine.py::test_challenge2_collapse_and_no_expressive_increase`; `tests/test_candidates.py::test_pruned_cost2_contains_every_valid_full_delta` (the pruning R1 licenses, checked against the unpruned space) |
 | Check (Python) | `python textbook/checks/u12_fresh_datum.py`: the counterexample on reading L; 354 well-formed regimes, 866 old pairs all keeping their status; fresh-datum pairs 530 separable and 426 collapsed; `BL3`; artifact flags reproduced |
-| Check (book Lean) | `python textbook/checks/u12_lean.py`: twelve book theorems plus six Genesis theorems kernel-checked, Lean 4.33.0; axioms as listed above, `fresh_is_a_change`, `R2L_insts_wf`, `R3L_eq` and `BL_insts_wf` with none |
+| Check (book Lean) | `python textbook/checks/u12_lean.py`: eighteen book theorems plus six Genesis theorems, 24 reports. Six new book statements cover unary-context shape, two marked data, new distinctions, avoidance scope, and direct preservation of a witness. The shape and direct-witness proofs use only `propext`; the other four use `{propext, Quot.sound}`. The original axiom-free examples remain unchanged |

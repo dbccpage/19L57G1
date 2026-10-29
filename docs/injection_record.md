@@ -485,3 +485,344 @@ output exposed the actual named proof failure above. It was not accepted
 as a Lean rejection until that diagnostic was captured. The six authoring
 tests and record/desk checks pass after restoration.
 
+## Path and boundary route (2026-10-28)
+
+Only generated scratch-Wiki files, temporary teaching records, and a
+generated Lean source string were injected. Original Wiki bytes were
+restored between checks. No regeneration ran with a live defect; no
+sealed source or research receipt was edited.
+
+| Gate | Injection | Observed failure | Recovery |
+|---|---|---|---|
+| Wiki path record | Invent an admitted ABC face when no face step was requested | Actual Wiki verifier exits 1: `stale path-lab record` | Restore bytes; exit 0, 2244 generated internal links pass |
+| Wiki path desk | Bind the copied embedded packet to `null` | Actual Wiki verifier exits 1: `stale path-lab desk or links` | Restore bytes; exit 0 |
+| Wiki path diagram | Change the shared AC coefficient from zero to 99 in the copied two-face SVG | Actual Wiki verifier exits 1: `stale or missing path-lab figure: 04_two_faces.svg` | Restore bytes; exit 0 |
+| Book-Lean history | Replace the expected fourth vertex 3 by 99 in `faces_0_0` | Lean reports the vertex-store equality is false; shared runner exits 1 | Original 164 kernel/axiom reports pass |
+| Source-backed path record | Invent a missing-edge closed walk, invent a face without its event, erase an edge with zero coefficient, retain cancellation after reversing a face, or zero the all-positive control | `check_recorded` rejects each recomputation mismatch | Original packet passes |
+| Source population and figures | Enlarge face settings 256→999, or change the source figure's AC coefficient to 99 | The actual record check rejects the named population/figure mismatch | Original six-row table and five figures pass |
+
+Nine authoring tests include those refusals, a fresh standalone desk,
+and rejection of empty or out-of-domain walk sequences in the teaching
+wrapper. Native cell admission and boundary cancellation remain separate.
+
+## Map, class, and lookup route (2026-10-28)
+
+Only temporary teaching records, generated scratch-Wiki copies, and a
+generated Lean source string were injected. Original bytes were restored
+between checks; no regeneration ran with a live defect. No sealed source
+or research receipt changed.
+
+| Gate | Injection | Observed failure | Recovery |
+|---|---|---|---|
+| Wiki map record | Declare blue-only sufficient for the paired blue/triangle answer | Actual Wiki verifier exits 1: `stale map-lab record` | Restore bytes; exit 0, 2318 generated internal links pass |
+| Wiki map desk | Replace the copied embedded packet by `null` | Actual Wiki verifier exits 1: `stale map-lab desk or links` | Restore bytes; exit 0 |
+| Wiki map diagram | Remove the conflict figure's dashed forks | Actual Wiki verifier exits 1: `stale or missing map-lab figure: 02_block_triangle.svg` | Restore bytes; exit 0 |
+| Book-Lean empty domain | Change the expected class count from 0 to 99 in `representation_0_0_0` | Lean's `decide` reports the conjunction containing the class-count equality is false; shared runner exits 1 | Original 270 exact kernel/axiom reports pass |
+| Source-backed map record | Misalign a shortened domain, invent recovery after representative reversal, recover a pair from one component, make an unused-label completion unique, or invent an empty class | `check_recorded` rejects each recomputation mismatch | Original packet passes |
+| Source population and diagrams | Enlarge 512 settings to 999 or make conflict arrows solid | Actual record check rejects the population/figure mismatch | Original six-row table and five diagrams pass |
+
+Ten authoring tests include those refusals, current standalone bundling,
+explicit SVG dimensions, and successful complete lookup examples checked
+against their own selected domains. Complete lookup counts use the declared
+four-label input set and finite output alphabet, not all `Nat → Nat` maps.
+
+## Growth and service route (2026-10-28)
+
+Only scratch-Wiki copies, temporary teaching records, and a generated Lean
+source string were injected. Original bytes were restored between checks;
+no regeneration ran with a live defect. No research source, receipt,
+prediction freeze, or sealed file was edited.
+
+| Gate | Injection | Observed failure | Recovery |
+|---|---|---|---|
+| Wiki growth record | Set the bounded eight-round least clearing budget to the peak 3 rather than 1 | Actual Wiki verifier exits 1: `stale growth-lab record` | Restore bytes; exit 0, 2388 generated internal links pass |
+| Wiki growth desk | Replace the copied embedded packet with `null` | Actual Wiki verifier exits 1: `stale growth-lab desk or links` | Restore bytes; exit 0 |
+| Wiki growth figure | Replace displayed counts of 3 by 99 in the bounded-run SVG | Actual Wiki verifier exits 1: `stale or missing growth-lab figure: 03_bounded_clears.svg` | Restore bytes; exit 0 |
+| Book-Lean growth | Change the expected post-growth count with no previously held items from 0 to 99 | Lean's `decide` reports the demand-count conjunction is false; shared runner exits 1 | Original 334 exact kernel/axiom reports pass |
+| Source-backed teaching record | Ignore supplied views, erase old demands after growth, invent an empty-commitment demand, suppress reopening, save unused capacity, erase a temporary backlog, or equate peak generation with threshold | `check_recorded` rejects each recomputation mismatch | Original packet passes |
+| Source population and figures | Enlarge 845 race settings to 999 or corrupt the bounded-run figure | Actual record check rejects the population/figure mismatch | Original four-row population table and four figures pass |
+
+Eleven authoring tests also check standalone bundling and intrinsic SVG
+dimensions. The book runner re-elaborates the actual research source text,
+checks all fourteen originating theorem names against their report list,
+and adds 320 finite growth instances. It does not reclassify assumed
+service as a proved represented-world repair.
+
+## Formal-reading and observer-interpretation review (2026-10-28)
+
+No source or receipt was mutated for these checks. Navigation regressions
+exercise the actual rewriter with isolated strings. The false mathematical
+claim is appended only to a temporary book-Lean driver in memory.
+
+| Gate | Defect exercised | Observed failure | Recovery |
+|---|---|---|---|
+| Wiki beginner-route navigation | The original rewriter sends a relative beginner README or source-map link to a repository blob | The new route-link regression fails at `textbook_first_steps`; it tests all seven routes | The repaired rewriter emits Wiki slugs, with anchors retained; full fourteen-test Wiki suite passes |
+| Wiki reading-guide navigation | A new guide link falls through to a repository blob | The new guide regression fails on `textbook_reading_formal` | Explicit guide mapping passes; reviews and Python files retain their source URLs |
+| Book-Lean semantic counterexample | Assert that the book's active stage has no active pair | Lean's `decide` reports `¬(True ∧ false = false ∧ True)` is false; shared runner exits 1 | Original eight exact reports pass: four empty axiom sets, four `propext` |
+
+The native driver returns `closed` at that stage because the supplied next
+function returns `none`; the active pair is separately proved. The failure
+therefore tests the proposed semantic inference, not a parser or output
+encoding error. The observer fixture also constructs a valid observer from
+an arbitrary proposition without a decision argument. Neither fixture
+claims a general undecidability theorem or changes the sealed definitions.
+
+## Declaration reconciliation and classification lesson (2026-10-28)
+
+The new textbook inventory tool reads comments separately from source heads
+and binds candidates to compiled names and source locations. Its fixture
+checks do not establish parser completeness or semantic teaching coverage.
+No sealed file, historical inventory, or receipt is mutated.
+
+| Check | Defect exercised | Observed failure | Recovery |
+|---|---|---|---|
+| Source-head scan | Put `theorem`, `lemma`, and `structure` prose inside nested comments, while retaining a real theorem and an unnamed instance | The raw historical regex counts comment prose; the comment-aware scan excludes it and retains the actual heads | Four regression tests pass, including actual false-match source lines |
+| Compiled binding | Supply a same-name record at the wrong source line, two matching records, a wrong compiled kind, or an unnamed-instance match without instance status | `bind_candidate` raises a named `ValueError` for each defective input | Unique same-line, same-module candidates bind; the actual reconciliation resolves all 2,564 source heads |
+| Unit 37 book Lean | Append the false claim `EmptyRel false true ↔ D2 false true` only to a temporary driver string | Lean's `decide` reports that exact proposition is false; shared runner exits 1 | Original script checks 18 exact reports: fourteen book theorems and four imported theorems |
+
+The false claim tests an actual distinction between two relations allowed
+by the same no-self-loop rule. The two new pairwise-inequality proofs have
+empty axiom sets. Full compiled-census output and build logs are local
+receipts under `artifacts2/declaration_review/`; no regeneration ran with
+a live defective driver.
+
+## Boundary and swap teaching route (2026-10-28)
+
+All mutations use copied Wiki/teaching assets, fixture inputs, or a
+temporary Lean driver. The three research owners' source files, ledgers,
+frozen predictions, and receipts remain read-only. No regeneration occurs
+with a live defect.
+
+| Check | Defect exercised | Observed failure | Recovery |
+|---|---|---|---|
+| Actual Wiki verifier: boundary record | Make keeping two identical labels satisfy the retained-pair requirement | Exit 1 names `stale boundary-lab record` | Restore bytes; exit 0 |
+| Actual Wiki verifier: boundary desk | Replace the bundle by missing-content text | Exit 1 names `stale boundary-lab desk or links` | Restore bytes; exit 0 |
+| Actual Wiki verifier: boundary figure | Replace the fixed-menu SVG by missing-content text | Exit 1 names `stale boundary-lab figure` | Restore bytes; exit 0 |
+| Source-backed packet | Make empty reports reject swap, erase an asymmetric witness, invent U names, change the fixed labels, remove an actual swap, admit a bundle to the minimum, or invent a secondary minimum | The actual recomputation rejects each copied packet as differing from source-backed cases | Original packet passes; eleven authoring tests pass |
+| Teaching population and figure | Change 16 report subsets to 17, or replace a displayed cost 1 by 99 | Named population-table or figure mismatch | Original population table and four SVGs pass |
+| Book Lean | Append `swapInAut [] = false` and the claim that the exchange changes the retained identical-label key | `decide` names both exact propositions as false; shared runner exits 1 | Original 125 exact reports pass separately |
+
+The actual JavaScript lookup passes all 120 desk settings and rejects
+unknown cases. Static figure geometry and PNG previews are checked
+separately. Browser rendering, responsive layout, and keyboard interaction
+remain unverified after the local preview/error-page policy rejection;
+pure lookup tests are not a substitute for those interaction checks.
+
+## Same-record teaching route (2026-10-28)
+
+All mutations use copied teaching/Wiki assets. The sealed and research
+sources, frozen predictions, and campaign receipts remain read-only.
+No regeneration occurs with a live defect.
+
+| Check | Defect exercised | Observed failure | Recovery |
+|---|---|---|---|
+| Source-backed matching packet | Invent a zero-cost reply, erase a third-party change, change the double-hole answer, invent an extra collapsed pair, ignore a kept promise, mark the three-item reply within bound, apply separation pruning, or change a continuation/practice price | `check_recorded` raises the named source-backed mismatch | Original packet passes; twelve authoring tests pass |
+| Teaching population and figure | Change 24 root probes to 25, or replace a generated SVG with an empty payload | Named population-table or figure mismatch | Original count and four figures pass |
+| Actual Wiki verifier: lesson | Change the selected continuation's total from three to one | Exit 1 names `stale same-record page` and its slug | Restore bytes; exit 0 |
+| Actual Wiki verifier: record | Mark the explicit three-item reply as within the two-item bound | Exit 1 names `stale same-record record` | Restore bytes; exit 0 |
+| Actual Wiki verifier: figure | Replace the three-addition figure with an empty SVG | Exit 1 names `stale same-record figure` | Restore bytes; exit 0 |
+
+Five Wiki helper tests also detect malformed JSON, false figures and
+lesson prices, and a missing page, while checking prerequisite/answer
+destinations. This route adds deterministic bounded computations, not
+book-Lean proofs or a new native theorem. Static figure inspection does
+not establish hosted rendering or reader learning.
+
+## Numerical teaching and readout route (2026-10-29)
+
+All mutations use copied teaching/Wiki assets or a temporary book driver.
+Sealed and research sources, predictions, contracts, and receipts remain
+read-only. No regeneration occurs under an injected defect.
+
+| Check | Defect exercised | Observed failure | Recovery |
+|---|---|---|---|
+| Source-backed number packet | Alter a total, define a zero-total share, reverse the zero-only-box result, erase a sign effect, change the middle reading, invent information, ignore a carrier restriction, split reversal groups, or make doubled coordinates scale linearly | Named mismatch against recomputed source-backed cases | Original packet passes; twelve authoring tests pass |
+| Population and figure | Change 2,401 coordinate input pairs to 2,402, or replace a generated SVG | Named population-table or figure mismatch | Original count and five figures pass |
+| Actual Wiki verifier: lesson | Replace the middle weight/readout 2 by 9 | Exit 1 names `stale number-lab page` and its slug | Restore bytes; exit 0 |
+| Actual Wiki verifier: record | Make the zero-only box reject instead of pass | Exit 1 names `stale number-lab record` | Restore bytes; exit 0 |
+| Actual Wiki verifier: figure | Replace the coordinate figure by an empty SVG | Exit 1 names `stale number-lab figure` | Restore bytes; exit 0 |
+| Book Lean | Append the false combined reading 2 at two rightward unit inputs and `2 * 5 = 3 * 5` | Lean's `decide` names both exact propositions as false; shared runner exits 1 | Original 37 exact reports pass separately |
+
+The zero-box example also corrects Unit 64's former inference from a
+finite loop to an all-integer theorem. Five new Wiki tests exercise
+page/asset failure detection and route links. These checks do not prove
+the physical interpretation or reader transfer.
+
+## Early formal-chapter scope review (2026-10-29)
+
+These injections use only temporary book drivers. Sealed sources,
+predictions, axiom reports, research inputs, and receipts remain read-only.
+No regeneration occurs under a live defect.
+
+| Check | Defect exercised | Observed failure | Recovery |
+|---|---|---|---|
+| Kernel: cross-reading indices | Assert that `(0,1)` is refused on the three-token state | `decide` names the exact `stepT ... = none` proposition as false; shared runner exits 1 | The accepted-wrong-pair theorem passes in u05 |
+| Kernel: starting state | Assert a two-token base has length at most one | `decide` names the exact length bound as false; shared runner exits 1 | u11 proves the base fails the initial invariant while an empty history keeps its two tokens |
+| Kernel: fresh class | Assert the newcomer in the two-marked-data example has a derivable unary mark | `decide` names that exact plugged derivability proposition as false; shared runner exits 1 | u12 proves old collapse and the newcomer's separation |
+| Kernel: mention scope | Assert equal unary answers after marking target 1 while avoiding only target 0 | `decide` names the exact derivability biconditional as false; shared runner exits 1 | u12 checks one-target failure and two-target preservation |
+| Exact axiom report | Add a well-typed `Classical.em` theorem while expecting the existing `{propext, Quot.sound}` boundary | Lean accepts the proof, but the shared runner reports 0 of 1 expected dependencies and exits 1 on `outsideBoundary` | Final nine added book proofs remain at seven `{propext, Quot.sound}` and two `propext` reports |
+
+The actual dependency gate also caught a draft helper's simplifier use of
+`Nat.add_eq_right._simp_1`, which carries `Classical.choice`. Direct
+constructor reasoning removes that dependency. The boundary is preserved,
+not repinned to the draft. The four affected book scripts check 58 exact
+reports; no general positive witness-extraction theorem is claimed from
+their negated equivalence.
+
+## Requests and cost chapter review (2026-10-29)
+
+Four separate temporary book drivers test exact false propositions.
+Sealed sources and native receipts remain unchanged. No artifact or pin is
+regenerated under an injection.
+
+| Check | Defect exercised | Observed failure | Recovery |
+|---|---|---|---|
+| Repeated request | Assert `stepE R2L (.impose 0 1) ≠ some R2L` | Lean's `decide` names this exact proposition as false; shared runner exits 1 | u17 proves repeated admissible requests leave the record unchanged |
+| Unknown form | Assert `[0,1].length = [].getD 0 0` | Lean names the arity equality as false; shared runner exits 1 | u18 proves no-form non-separation and checks the malformed raw record |
+| Uniform rule | Assert the link's `(0,[1,1])` remains non-derivable after adding rule 0 | Lean names the negative derivability claim as false; shared runner exits 1 | u19/u20 prove collapse with the uniform rule while retaining their instances |
+| Cost comparison | Assert `aritySum deltaBL < aritySum deltaU0` | Lean names the reversed inequality as false; shared runner exits 1 | u22 checks the correct arity inequality and the separate instance-count tie |
+
+The five affected scripts pass 67 exact reports after the injections;
+eight new book reports use four `propext` and four
+`propext, Quot.sound` dependency sets. These kernel checks do not establish
+reader understanding or the correctness of a physical interpretation.
+
+## Relation, property, and extension review (2026-10-29)
+
+Four temporary book drivers exercise exact false claims. Native sources,
+axiom artifacts, research receipts, and pin populations remain unchanged;
+no regeneration occurs under an injection.
+
+| Check | Defect exercised | Observed failure | Recovery |
+|---|---|---|---|
+| Same point | Assert `(() : Unit) ≠ ()` | Lean's `decide` names the exact inequality as false; runner exits 1 | u23 retains the one-point witness and equality countermodel |
+| Particular versus global | Deny `mixed true true` while retaining its definition | After unfolding, Lean names the negated Boolean proposition as false; runner exits 1 | u24 proves an unequal asserted pair coexists with a self-pair |
+| Pushed shortcut | Assert `Push disjointArrows joinMiddle 0 3` using source edge `(0,1)` | Lean rejects the endpoint equation `joinMiddle 1 = 3` as false; runner exits 1 | u25 proves target transitivity fails, no collision occurs, and the narrower obstruction is absent |
+| Positive extension | Deny the self-pair added by `withSelf D2 false` | Lean names the unfolded negation as false; runner exits 1 | u26 proves self-pair extension, finite negative checks, and the empty-carrier exception |
+
+The four original drivers recover 50 reports: the eight added ones have
+four empty dependency sets and four `propext` sets. These checks do not
+establish an operational enforcement policy or a general physical law.
+
+## Grouping, bounds, renaming, and pruning review (2026-10-29)
+
+Temporary book drivers test four exact false propositions. A separate
+process changes only a book check's imported generator binding; the sealed
+generator file, artifacts, and pin populations are untouched.
+
+| Check | Defect exercised | Observed failure | Recovery |
+|---|---|---|---|
+| Raw quotient | Assert `rawLink 0 2`, rather than equality generated by the 0–1–2 chain | After unfolding, Lean names the exact relation proposition as false; book runner exits 1 | u27 proves equal quotient values without the direct raw relation |
+| States versus rounds | Assert `(allPairs 3).length + 1 ≤ 3` | Lean names the false four-states-at-most-three bound; runner exits 1 | u28 distinguishes four states from three accepted rounds and proves the general conversion |
+| Range condition | Assert well-formedness of the context whose filled slot moves from 1 to 2 with only two data | Lean names the exact `wfCtx` proposition as false; runner exits 1 | u29 proves the reversible map and the failed context-range check |
+| Uniform rule | Deny derivability of the fresh-slot plugging despite the old rule | Lean names the exact negative derivability claim as false; runner exits 1 | u30 checks both positive answers and old-form hypothesis activation |
+| Generation versus validity | Suppress only the newcomer-only mark from a temporary binding of `iter_cost2_deltas` | The actual u30 book checker exits 1 naming `generation versus validity` | Original generator binding is checked in a fresh process and in the full textbook job |
+
+The four original book drivers recover 49 exact reports. The eleven added
+reports use two empty dependency sets, three `propext` sets, and six
+`propext, Quot.sound` sets; one is a setoid definition with its proof.
+No native receipt is regenerated while an injected claim or binding is live.
+
+## Transitions, rounds, and response existence review (2026-10-29)
+
+Four temporary book drivers exercise exact false propositions. Two other
+process-local substitutions change only book-check bindings; imported
+native owners, sealed files, artifacts, and pin populations are untouched.
+
+| Check | Defect exercised | Observed failure | Recovery |
+|---|---|---|---|
+| Demand ordering | Assert exact response transport on the raw list `[(1,0)]` under identity renaming | Lean names the response equality as false; runner exits 1 | u31 proves the inequality: sorting before versus after insertion leaves one versus two copies |
+| Replay versus validity | Assert the unanswered closed run's demand list is empty | Lean names the concrete list equality as false; runner exits 1 | u34 proves the closed run exists and its empty response is invalid |
+| Freshness | Assert a repeated response's retained demand count equals itself plus one | Lean names the exact length equation as false; runner exits 1 | u34 proves repeated imposition on `U0` returns `U0` |
+| Stale rule | Deny derivability of `(0,[0])` after the raw stale rule becomes active | Lean names the negative derivability proposition as false; runner exits 1 | u35 proves the malformed record defeats the fresh-mark recipe |
+| Recorded challenge | Temporarily omit all `Impose` events from u32's book `replay` binding | The actual checker exits 1 naming the missing L and F demand stores | Original binding retains both targets and checks isomorphism with the demands present |
+| Newcomer collapse | Temporarily hide pair `(1,3)` from u33's book observation binding | The actual checker exits 1 naming `fresh datum collapse` | Original binding records that newcomer 3 remains collapsed with datum 1 |
+
+The five original book drivers recover 70 exact reports. Seven are new:
+three `propext` and four `propext, Quot.sound` sets. The longer repair and
+unadmitted-target examples are checked without changing the native theorem
+statements. None of this establishes beginner mastery or a physical law.
+
+## Membership, refusal, and observation review (2026-10-29)
+
+Five temporary book drivers exercise exact false propositions. Two
+process-local substitutions change only book-check bindings; native
+owners, sealed sources, artifacts, and pin populations remain unchanged.
+
+| Check | Defect exercised | Observed failure | Recovery |
+|---|---|---|---|
+| Membership versus length | Assert equal lengths for the one-demand list and its repeated-demand counterpart | Lean names the length equality as false; runner exits 1 | u36 proves membership agreement and the distinct lengths |
+| Carrier versus counter | Assert `fact` repeat leaves the entire state unchanged | Lean names the concrete state equality as false; runner exits 1 | u38 keeps the changed counter and proves the conditional arbitrary-history carrier bound |
+| Receipt payload | Assert `receipt 1 = receipt 2` | Lean names the constructor equality as false; runner exits 1 | u39 proves literal payload and list inequality |
+| Initial chain stage | Assert the stage-zero seed has an outgoing link | Lean names the profile equality as false; runner exits 1 | u40 checks the singleton's all-negative profile and the 1,2,3,3 inhabited-class counts |
+| Larger radius | Assert equality of the stage-5 pair `(2,3)` at radius 2 | Lean names the concrete profile equality as false; runner exits 1 | u41 proves that the same pair agrees at radius 1 and differs at radius 2 |
+| Payload erasure | Temporarily erase receipt-number payloads in u39's book `step_f` binding | The actual checker exits 1 naming `receipt payload versus link observation` | Original binding retains payloads while the declared link-only view agrees |
+| Fixed observation radius | Temporarily force u41's book profile binding to use radius 1 for every request | The actual checker exits 1, including the named `radius can help` failure | Original binding uses the requested radius and recovers the fixed-chain distinction |
+
+The five original book drivers recover 99 exact reports. Eight are new:
+two empty sets, two `propext`, and four `propext, Quot.sound`. No native
+receipt is regenerated while an injected proposition or binding is live.
+These checks establish the stated formal and finite boundaries, not
+physical realization, hosted layout, or beginner mastery.
+
+## Capacity, proof dependencies, and guarded kernel review (2026-10-29)
+
+Four temporary book drivers assert exact false propositions. A fifth
+temporary driver substitutes a valid proof with different dependencies.
+Native owners, sealed files, artifacts, and pin populations are unchanged.
+
+| Check | Defect exercised | Observed failure | Recovery |
+|---|---|---|---|
+| Local input | Assert distinct constant-colour windows at indices 0 and 1, radius 0 | Lean names the window inequality as false; runner exits 1 | u42 separates equal window inputs from different index outputs and proves locality/colour-bound cases |
+| Preservation scope | Assert an accepted mark keeps the unprotected `(0,1)` pair separated | Lean names the satisfaction equation as false; runner exits 1 | u45 checks that the same mark meets the recorded `(1,2)` requirement while losing `(0,1)` |
+| Support versus record | Assert writing note 7 leaves genesis literally unchanged | Lean names the world equality as false; runner exits 1 | u45 proves record inequality and equal operational support |
+| Historical refusal | Assert the old refusal's exhaustion predicate remains true after the separating augmentation | Lean names the Boolean equation as false; runner exits 1 | u46 proves refusal membership persists while current exhaustion is false |
+| Proof dependency | Replace only `beq_without_choice` with the generic `beq_self_eq_true` proof | Kernel accepts; exact-report check exits 1 naming only `Textbook.U42.beq_without_choice`, whose report now includes `Classical.choice` | Original proof of the identical proposition has an empty dependency report |
+
+The five main book drivers recover 146 exact reports. Eight are new:
+four empty sets and four `propext, Quot.sound`. The existing isolated
+dependency comparison retains its earlier choice-bearing report; no
+native theorem or native boundary is changed. The separate eight
+observer-spec reports retain their earlier generic-driver and idle-step
+examples. No receipt is regenerated under an injected defect.
+
+## Panels, policies, and completed stages (2026-10-29)
+
+Five temporary book drivers assert false scope claims. The sealed
+owners, native receipts, research trees, and pin populations are unchanged.
+
+| Check | Defect exercised | Observed failure | Recovery |
+|---|---|---|---|
+| Panel input | Assert equal negative certificates for separating and blind panels over the same base | Lean identifies the Boolean equality as false; runner exits 1 | u47 proves equal base support and differing certificates |
+| Policy-specific stop | Assert the tower family is empty at the quiescent first generated world | Lean identifies the list equality as false; runner exits 1 | u48 proves the empty close family and the explicit nonempty tower family |
+| Menu scope | Assert column `[0,1]` occurs in the story's close menu | Lean identifies membership as false; runner exits 1 | u48 proves its structural acceptance and absence from the two-singleton menu |
+| Execution guards | Assert the listed add-column candidate changes the zero-budget story | Lean identifies the world inequality as false; runner exits 1 | u48 proves both listed candidates execute as no-ops at zero budget |
+| Completed stage | Assert `w3 2` is quiescent | Lean identifies the Boolean equation as false; runner exits 1 | u50 proves its nonquiescence between quiescent completed stages 2 and 3 |
+
+The five original drivers recover 141 exact reports. Seven are new:
+five with `propext, Quot.sound` and two with `propext`. The latter
+prove that a three-point parameterized relation is irreflexive and
+witnessed, and that a Boolean realizer would decide its proposition
+parameter. They do not construct a nonlocated relation or settle the
+four OPEN cells. No native receipt is regenerated under an injection.
+
+## Maps, interface members, and relation laws (2026-10-29)
+
+Five temporary book drivers assert false scope claims. Native sources,
+receipts, research trees, and watchlist/firewall populations are unchanged.
+
+| Check | Defect exercised | Observed failure | Recovery |
+|---|---|---|---|
+| Target symmetry | Assert global symmetry of the three-point target that receives a map from the symmetric source | Lean identifies the finite symmetry proposition as false; runner exits 1 | u52 proves the map exists while the target's extra edge has no reverse |
+| Interface member | Assert that the symmetric member's relation agrees with the oriented relation at `(true,false)` | Lean identifies the equivalence as false; runner exits 1 | u53 keeps the oriented refutation and proves representation of the symmetric member using the existing bridge theorem |
+| Column universe | Assert rejection of `[0,2]` by `colOk` in the three-position example | Lean identifies the Boolean equation as false; runner exits 1 | u54 proves acceptance and absence from the singleton proposal menu |
+| Isolated position | Assert an edge of the declared triangle touches position 3 | Lean identifies the finite Boolean assertion as false; runner exits 1 | u55 checks the isolated position and equal count residue for a path and triangle-plus-isolate |
+| Agreement versus identity | Assert colour agreement at positions 0 and 1 implies their literal equality | Lean identifies the implication as false; runner exits 1 | u56 proves not-apart colour agreement, distinct positions, and separation from position 2 |
+
+The five original drivers recover 178 exact reports. Six are new:
+three empty sets, two `propext`, and one `propext, Quot.sound`.
+The revised existing residue example strengthens its proposition and
+reports `propext, Quot.sound` instead of the old count-only proof's empty
+set. No native theorem or boundary is changed, and no receipt is
+regenerated under an injection.
+

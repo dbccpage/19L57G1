@@ -1,28 +1,16 @@
 # Unit 55. The first graph is supplied, its observer is created
 
-**Claim.** In the declared growth driver, supplied events admit occurrences and edges and explicitly attempt a chosen observation column. The guards and round theorems verify the column's execution and resolution. Higher-cell and boundary conventions are separate admissions.
+**Claim.** The growth driver supplies positions, edges, protection, budget,
+and a chosen column event. The guarded step admits that column and
+resolves the stated obstruction. The separate higher-cell calculus and
+its boundary signs are declared, rather than forced by the graph.
 
-**Status:** FROZEN (the round schema and `graphAt_spec`, horizon-free);
-ADMITTED (the driver, the cell calculus, the boundary conventions:
-declared content); VERIFIED_FINITE (`k4`, the alternating statistic, the
-cut census on carriers 2 to 4, mirrored growth to 15 rounds); OPEN (the
-ladder at every dimension as a two-rule statement; see Unit 60).
-**Lean:** `lean4/Derivation/HigherStructure.lean` lines 61-815, imports
-`PrimitivePassage`. **Axioms:** 37 exported reports; `grow_len`
-`propext` only, `round_creation_record` none, the rest `propext,
-Quot.sound`. **Depends on:** Unit 54 (`PState`, `step`, `replayP`,
-`obstP`, `extension_always_available`, `two_rule`), Unit 03 (replay).
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
 
-## First pass
-
-Follow one round before considering the whole run. The driver supplies an occurrence and an edge, retains and protects the pair, and supplies the required budget.
-
-The driver also supplies the final `addCol` event. Its funded, licensed execution resolves the obstruction. The induction describes repetitions of this supplied growth pattern; it does not derive the driver, its column choice, or graph edges from the obstruction alone.
-
-## Detailed claim and formal anchors
-
-`HigherStructure` runs Unit 54's round forever and says
-exactly what each round creates.
+**Detailed statement.** `HigherStructure` defines a family of finite histories indexed by a
+Lean natural number and proves what each completed round creates. The
+iteration is supplied metatheory, not an infinite object in the state.
 
 A *growth driver* `growBlock k` feeds
 the passage one occurrence, one asserted and retained difference, one
@@ -55,6 +43,52 @@ in creation order with its edges equal to the passage's witness store
 (`k4_builds`, `k4_skeleton_agrees`); the declared integer boundary
 composes to zero on its cells (`d2_zero_triangles`, `d2_zero_tet`), and
 so does a second, different convention (`boundary_not_forced`).
+
+**Status:** FROZEN (the round schema and `graphAt_spec`, horizon-free);
+ADMITTED (the driver, the cell calculus, the boundary conventions:
+declared content); VERIFIED_FINITE (`k4`, the alternating statistic, the
+cut census on carriers 2 to 4, mirrored growth to 15 rounds); OPEN (the
+ladder at every dimension as a two-rule statement; see Unit 60).
+**Lean:** `lean4/Derivation/HigherStructure.lean` lines 61-815, imports
+`PrimitivePassage`. **Axioms:** 37 exported reports; `grow_len`
+`propext` only, `round_creation_record` none, the rest `propext,
+Quot.sound`. **Depends on:** Unit 54 (`PState`, `step`, `replayP`,
+`obstP`, `extension_always_available`, `two_rule`), Unit 03 (replay).
+
+</details>
+
+## First pass
+
+Start with positions 0 and 1, their protected edge, and a column
+saying Yes only on 0. Now the driver supplies position 2 and the edge
+1 → 2, retains that edge, and protects it.
+
+The old column answers No on both 1 and 2. The new protected pair is
+therefore obstructed. The driver supplies budget 1 and requests a new
+column saying Yes only on 1:
+
+| Pair | Old column [0] | New column [1] | Distinguished afterward? |
+|---|---|---|---|
+| 0/1 | Yes/No | No/Yes | Yes |
+| 1/2 | No/No | Yes/No | Yes |
+
+The new column resolves the new obstruction while the old distinction
+remains available. The proved state formula describes repetitions of
+this supplied pattern. It does not make the machine choose its own
+edges or requests.
+
+**Predict:** once three edges form a triangle's outline, must a filled
+triangle appear?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. A separate cell calculus admits a triangle when its three listed
+boundary edges are present and the triangle is absent. A supplied fill
+event must still occur. These are combinatorial records and declared
+rules, not a derivation of physical space or an automatic growth process.
+
+</details>
 
 ## Question
 
@@ -384,6 +418,23 @@ theorem altNum_not_invariant :
   decide
 ```
 
+## Checked count example (optional)
+
+A path and a triangle with an isolated fourth position both have
+four vertices and three edges. The check includes the isolated
+position condition, rather than comparing only two orientations
+of the same triangle. Connectivity here ignores edge direction.
+
+```lean
+theorem residue_blind :
+    (([0, 1, 2, 3] : List Nat).length : Int) - (([(0, 1), (1, 2), (2, 3)] : List (Nat × Nat)).length : Int) = 1 ∧
+    (([0, 1, 2, 3] : List Nat).length : Int) - (([(0, 1), (1, 2), (0, 2)] : List (Nat × Nat)).length : Int) = 1 ∧
+    ([(0, 1), (1, 2), (0, 2)] : List (Nat × Nat)).all
+      (fun e => e.1 != 3 && e.2 != 3) = true ∧
+    (2, 3) ∈ ([(0, 1), (1, 2), (2, 3)] : List (Nat × Nat)) := by
+  decide
+```
+
 ## Line-by-line Lean explanation
 
 - `def growBlock : Nat → List PEvent | 0 => … | 1 => … | k + 2 => …`:
@@ -462,7 +513,7 @@ theorem altNum_not_invariant :
   last event is that `addCol`.
 - `graph_growth` (495): `k + 2` occurrences and `k + 1` edges at stage
   `k + 1`. `graphAt_quiescent` (510): no protected pair is obstructed
-  at any stage. `path_connectivity_residue` (536): occurrences minus
+  at each completed stage `k + 1`. `path_connectivity_residue` (536): occurrences minus
   edges is `1`.
 - The guard lemmas `grow_fresh`, `grow_wit_not_mem`, `grow_col_not_mem`,
   `grow_cols_blind`, `grow_col_separates`, `grow_pair_separated`,
@@ -527,10 +578,11 @@ theorem altNum_not_invariant :
   and marks it as a reading.
 - `path_connectivity_residue` is a corollary of `graph_growth` and proves
   neither connectedness nor acyclicity. The book's `residue_blind` shows
-  two edge lists on four occurrences with the same residue, one a
-  triangle with an isolated point and one the same triangle with one
-  edge reversed; the residue sees neither the isolated point nor the
-  orientation.
+  a path and a triangle-plus-isolated-position on four occurrences.
+  Both have four vertices and three edges, so both residues are 1.
+  The check also confirms no triangle edge touches position 3, while
+  the path includes `(2,3)`. Counting alone does not decide connectivity;
+  the graph reading in this example ignores edge direction.
 - The ladder at every dimension as a two-rule statement remains OPEN;
   the ledger calls it a frontier conjecture.
 
@@ -561,6 +613,9 @@ answers instantiates.
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 `preCol 0`: `occ = [0, 1] ++ [2] = [0, 1, 2]`; `asserted = wit = prot =
 [(0, 1)] ++ [(1, 2)] = [(0, 1), (1, 2)]`; `obs = some [[0]]`; `budget =
 1`; licensed; no refusals; live.
@@ -582,6 +637,8 @@ in it.
 [1]]`, `budget = 0`, everything else unchanged. That is `pathState 1`,
 which is `round_resolution 0`; and `graphAt_spec 1` says the same state
 is `graphAt 2`.
+
+</details>
 
 ## Verification
 

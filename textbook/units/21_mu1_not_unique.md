@@ -1,17 +1,60 @@
 # Unit 21. The cheapest answer is not unique
 
-**Claim.** Under the item-count measure `mu1`, the minimum corrective
+**Claim.** At Challenge 3, counting added items leaves different cheapest
+structures available. In reading L, the unary mark and binary link each
+cost two items, and renaming cannot turn one into the other.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** Under the item-count measure `mu1`, the minimum corrective
 augmentation at Challenge 3 is not unique: the unary mark `deltaU0` and
 the binary link `deltaBL` are both valid two-item responses, nothing
 cheaper is valid, and their results `U0` and `BL` are not isomorphic,
 because an isomorphism preserves arities and the two regimes' only forms
-have arities 1 and 2. **Status:** derived (reading L; reading F's count is
+have arities 1 and 2.
+
+**Status:** derived (reading L; reading F's count is
 a bounded computation). **Lean:** `Derivation.mu1_minimum_not_unique`
 (`lean4/Derivation/Minimality.lean` lines 281-294), with `Iso`
 (176-197), `isoRefl` (199-221), `isoU1U0` (227-248), `U0_not_iso_BL`
 (250-258). **Axioms:** `propext, Quot.sound`. **Depends on:** Units 18
 (cost floor), 19 and 20 (the two-item answers), `U0`/`U1`/`deltaU0`
 (Minimality lines 38-61, introduced here).
+
+</details>
+
+## First pass
+
+Start from the same two-data regime with no forms or instances. Count
+every admitted item as one unit of cost.
+
+| Response | New form | New instance | Item cost |
+|---|---|---|---:|
+| Mark | One place | `marked(0)` | 2 |
+| Link | Two places | `link(0, 1)` | 2 |
+| Loop | Two places | `link(0, 0)` | 2 |
+
+Each response separates 0 from 1, and none can be beaten by a response
+costing zero or one item. They are tied minima: cheapest answers.
+
+**Predict:** does changing labels make all three the same structure?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. Renaming preserves the number of places in a form, so it cannot
+turn a mark into a link. It also preserves whether the arguments repeat,
+so it cannot turn a link into a loop.
+
+</details>
+
+Thus minimum cost alone leaves different answers available. The three
+shapes exhaust the classes in the stated two-item, arity-at-most-two
+search. Allowing higher arities gives further tied classes, proved below.
+
+The [Search lab](../search_lab/README.md) works through the bounded
+plans and their renamings before the formal isomorphism fields below.
 
 ## Question
 
@@ -36,7 +79,7 @@ could grow?
 
 Two regimes are **isomorphic** when there is a relabelling of data and a
 relabelling of forms under which they agree. Genesis makes this a
-structure, `Iso r s`, with four functions and fourteen conditions
+structure, `Iso r s`, with four functions and preservation conditions
 (Minimality lines 176-197):
 
 | Fields | Say |
@@ -70,8 +113,9 @@ are different answers, and both are as short as an answer can be.
 That is the paper's result: *under `mu1`, minimality does not pick out a
 unique structure*. The system's growth is underdetermined by the demand
 plus the cost. What chooses between the mark and the link is not inside
-the system, and not inside the cost either. Unit 22 shows that a finer,
-declared measure does choose.
+the system, and not inside the cost either. Unit 22 shows that another
+declared measure leaves only one minimum class. It still does not
+select a literal response or cause an admission.
 
 Two further facts sharpen it. The tie is not two-way but three-way
 within the enumerated bounds (mark, link, loop), and, grammar-wide, it is
@@ -301,6 +345,9 @@ applies, and say which field of `Iso` is read first.
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 The arity argument applies: `U0` has a unary form, `BD` a binary one, and
 `U0_not_iso_BD` (Minimality lines 259-267) is word for word
 `U0_not_iso_BL` with `BD` for `BL`. The first field read is `fmap_lt`, to
@@ -310,6 +357,8 @@ and `insts_fwd` maps a one-element list to a one-element list), but it is
 longer, and Genesis uses the arity invariant for both unary-versus-binary
 cases and the instance invariant only for link-versus-loop, where the
 arities agree.
+
+</details>
 
 ## Verification
 

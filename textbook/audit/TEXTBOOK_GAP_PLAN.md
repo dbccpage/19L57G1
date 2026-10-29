@@ -14,14 +14,19 @@ reader comprehension and transfer, as well as correct and reproducible
 content. The target is an ability the reader develops, not a number of
 pages, theorems, links, or passing software checks.
 
-## Published state and custody
+## Initial publication and custody
 
 - Published Wiki: `28035b60c9b73ce98b050be5c9e0739b4c2356ab`.
 - Source edition used by that Wiki: `cd3d202c5742e7c0aa3083c92bad86ff03d1d3cf`.
 - PR #291 remains open, draft, and unmerged for the author.
-- Current fetched `main`: `e0faff5a55823181a8bd84fa30800e558e9432c0`.
+- Base `main` for the initial audit: `e0faff5a55823181a8bd84fa30800e558e9432c0`.
 - The new first-steps work is an independent source change based on main.
   It does not extend PR #291 or edit the sealed derivation.
+
+Subsequent update, 2026-10-28: the author merged PRs #291 and #292.
+The Path lab is prepared directly against the resulting main
+`e00781389fb4e6b07170fe7aae748c7c57ba517f`. The initial custody bullets
+above record the earlier publication, not current open-PR status.
 
 ## What is present, and what that establishes
 
@@ -31,8 +36,8 @@ pages, theorems, links, or passing software checks.
 | Institution lessons | 18 | A research curriculum exists for four named trees |
 | Sealed Lean modules | 75 | All 75 have coverage-matrix sections and assigned units |
 | Canonical research trees | 123 | Counted using `ci/research_index.py`'s actual population rule |
-| Trees with dedicated research lessons | 4 | `actor_institution`, `two_theorems`, `uncollapse`, `interpreter_verdict` |
-| Other canonical trees | 119 | No dedicated lesson treatment is established by the current curriculum |
+| Trees with dedicated research lessons | 10 | Four institution trees, `standing_commitment`, three selected Boundary-lab introductions, `identification_dual`, and `qm_bridge` |
+| Other canonical trees | 113 | No dedicated lesson treatment is established by the current curriculum |
 | Manim overview scenes | 12 | Groups of lessons have short previews; individual concepts still need slower worked treatment |
 
 The research population includes parked work, frozen experiments, tooling,
@@ -42,6 +47,15 @@ validated theories.
 A theorem name or source path in a lesson establishes a reference, not
 that its meaning has been taught. The substantive versus auxiliary
 classifications still need semantic teaching review.
+
+The [source/compiled declaration review](DECLARATION_REVIEW_2026-10-28.md)
+reconciles 2,564 source heads to compiled names and locations, correcting
+20 comment matches and ten missed unnamed instances in the historical
+regex inventory. The module summary counts now state their population.
+This improves the review baseline without certifying semantic coverage.
+Unit 37's new first pass teaches classification, restriction, selection,
+and the limits of example-based agreement before its optional formal
+walkthrough. Changed-label practice has separate folded answers.
 
 ## The sealed derivation: no whole Lean module is missing, but teaching work remains
 
@@ -83,17 +97,135 @@ classifications still need semantic teaching review.
    paths, loops, signed boundaries, and descent need diagrams that grow
    from a familiar example over several steps. A twelve-second overview
    cannot carry the whole derivation of these notions for a new reader.
+   The new [Path lab](../path_lab/README.md) supplies seven visual lessons
+   on graphs, walks, signed endpoint counts, face guards, alternating
+   boundaries, and shared-edge cancellation. Its diagrams keep cell
+   membership separate from coefficient sums. The transfer exercise changes
+   the shared facet's default signs. The new [Map lab](../map_lab/README.md) supplies eight more lessons
+   on functions, consistent grouping, representative order, descent,
+   paired answers, refinement, image-only uniqueness, and finite versus
+   global domains. Its diagrams distinguish cards, class labels, and
+   requested values; its transfer task changes labels and questions.
+   These routes are introductions, not semantic reconciliation of every
+   later theorem. The research curriculum remains open; novice
+   comprehension remains unmeasured.
 6. **Semantic reconciliation of the coverage map.** This change corrects
    the opening to distinguish 62 direct imports, the 63-module import
    closure, and 12 parked modules, and separates the `FROZEN` custody
    mark from theorem scope. Its claims of complete prerequisite and
    declaration coverage require independent checking.
+   The [selected-chapter reading review](READING_REVIEW_2026-10-28.md)
+   now removes those unsupported completeness claims, identifies an
+   inconsistent declaration total and comment matches in the historical
+   inventory, and checks the 75 module rows plus 93 recorded prerequisite
+   nodes and 156 edges (no cycles or forward edges). This checks the
+   recorded graph only. Units 44, 61, and 67 and the entrance receive a
+   first semantic/readability repair; a comment-aware declaration census,
+   the S/A classifications, and the remaining chapters still need review.
+   The [early-chapter follow-up](EARLY_READING_REVIEW_2026-10-29.md)
+   adds thirteen first passes in Units 04–16 and fixes selected errors:
+   valid-but-wrong indices, overbroad erasure transport, omitted initial
+   invariants, a stronger converse than the displayed proof, and one-target
+   versus two-target avoidance. Fresh-data class growth is now a checked
+   counterexample to the old title's blanket no-power reading. This does
+   not close the remaining per-declaration semantic review.
+   The [requests and cost follow-up](COST_READING_REVIEW_2026-10-29.md)
+   adds six first passes in Units 17–22, separates accepting a task from
+   meeting it, corrects the unknown-form counterfactual, and shows how a
+   uniform rule can remove a witnessed distinction. Minimum class,
+   literal choice, cost ordering, and actual admission remain separate.
+   The [relation follow-up](RELATION_READING_REVIEW_2026-10-29.md) adds
+   four first passes in Units 23–26. It corrects the counterexample's
+   quantifier scope, the global-versus-particular inequality reading,
+   implicit operational enforcement, and the overbroad fact/law title.
+   Fixed relations, unrestricted positive extensions, and constrained
+   extension families now have different questions and checked examples.
+   The [finite and transport follow-up](FINITE_READING_REVIEW_2026-10-29.md)
+   adds four first passes in Units 27–30. It qualifies raw quotient
+   grouping, counts states separately from rounds, carries query pairs
+   through renaming, and distinguishes candidate generation from validity.
+   Fresh-context agreement now includes the uniform-rule case, and the
+   malformed-base example makes the old-form range condition explicit.
+   The [transitions and response follow-up](ROUND_READING_REVIEW_2026-10-29.md)
+   adds five first passes in Units 31–35, bringing the consecutive revised
+   opening sequence to Units 04–35. It distinguishes the full transition
+   relation from selection, bounds recorded demands without assuming
+   validity, and checks that a failed two-item recipe can have a longer
+   repair. Stale rules and an unused source bound receive explicit scope
+   notes. These selected corrections do not complete semantic coverage.
+   The [representation and observation follow-up](VIEW_READING_REVIEW_2026-10-29.md)
+   adds first passes in Units 36 and 38–41 while preserving Unit 37's
+   earlier revision. Units 04–41 now have a consecutive concrete opening
+   route. It distinguishes membership from record equality, repeated
+   tokens from occurrence positions, receipt payloads from a link-only
+   observation, and fixed-radius limits from failure of richer observation.
+   These are selected source-grounded corrections; broader semantic and
+   teaching coverage remains open.
+   The [capacity and kernel follow-up](CAPACITY_READING_REVIEW_2026-10-29.md)
+   adds or expands five first passes in Units 42–46. It separates bounded
+   colour inputs from output label size, a static strategy family from a
+   runtime, active-pair conditions from menu exhaustion, and available
+   candidates from permission to execute them. The revised opening route
+   now extends through Unit 46. Remaining later chapters and research
+   teaching still require substantive review.
+   The [panels and generation follow-up](PANEL_READING_REVIEW_2026-10-29.md)
+   expands five openings in Units 47–51, extending this route through
+   Unit 51. It separates panel-dependent certificates, policy-dependent
+   stopping, generated candidates, completed blocks, and finite comparison
+   classes. The locatedness discussion now distinguishes an explicit
+   Boolean relation table from a finite carrier with arbitrary relation
+   propositions. The four OPEN cells remain unresolved; later chapters
+   and research teaching still need review.
+   The [maps and relation laws follow-up](MAPPING_READING_REVIEW_2026-10-29.md)
+   extends the consecutive opening route through Unit 56. Five examples
+   separate maps from chronology or inequality preservation, an interface
+   from its chosen witness, generated menus from all accepted columns,
+   count agreement from connectivity, and logical negation from ignorance.
+   Six new book reports support these distinctions. Later chapters and
+   dedicated research teaching remain open.
 7. **Evidence and reality.** Add exercises in separating a definition,
    a deduction, a computation, and a measurement. Give a model prediction,
    identify an observation that could disagree with it, and explain what
    the disagreement would change. A theorem about an observer's tests
    establishes its formal conclusion under its assumptions; an empirical
    application additionally needs a declared measurement correspondence.
+
+## First dedicated research extension
+
+The [Growth lab](../growth_lab/README.md) now supplies eight short lessons
+for `standing_commitment`: pair counting, declared rules, observations,
+conditional generation, reopening, and the separate service experiment.
+Its finite counterexample shows why peak arrivals need not equal the least
+budget clearing a selected horizon. It distinguishes the source's proved
+viewless count from the related two-sided tree's different finite setting;
+that comparison is not a full treatment of the latter tree.
+The [Boundary lab](../boundary_lab/README.md) now adds seven short
+lessons for selected claims in `boundary_seed`, `side_free`, and
+`oriented_boundary`, with a swap desk, four figures, changed-example
+practice, and explicit model boundaries. The kind proposal does not
+discharge `SF-OPEN-A`; no general cost or physical claim is inferred.
+The [Same-record lab](../identification_lab/README.md) adds seven lessons
+for `identification_dual`: equal profiles without identity merging,
+third-party effects, promises versus budgets, later costs, and why a
+separation pruning theorem does not transfer to the opposite goal.
+Its 24 root probes, two continuations, one outside-bound reply, and two
+changed-table practice probes are bounded computational evidence, not
+new Lean theorems. The general identification conjectures remain open.
+Wider boundary/orientation treatment and the other research clusters
+still remain. The [Number lab](../number_lab/README.md) now supplies
+nine lessons on counts, positive shares, the zero-total exception,
+signed steps, squares, coordinate sums, lost readout information, and
+reversal groups. It introduces selected `qm_bridge` claims after their
+arithmetic prerequisites, retaining the supplied model and open rows.
+Its 37 book/native reports do not establish a physical correspondence
+or discharge the requested independent encoding review. Unit 64's
+new first pass and six-part claim replace the dense opening. Its
+pseudocode now separates a bounded test from the all-integer theorem,
+using the zero-only box as a counterexample to the former inference.
+The dedicated introductory tree count is now ten, leaving 113 without
+such treatment. Directory counts guide discovery;
+they do not set a requirement for equally sized modules for every tree.
+Comprehension, transfer, and retention remain unmeasured.
 
 ## Research that still needs lessons
 
@@ -230,7 +362,7 @@ the reader-facing criteria have been met.
 | 3 | Create the entrance and transfer assessment with separate answers | Unseen examples test the five stated abilities; no answer leakage in the learner route |
 | 4 | Run and record a novice pilot when readers are available | Record comprehension and time; revise specific failed explanations |
 | 5 | Add boundary/order/growth and native-path/cost research modules | Read owner ledgers and corrections; keep analytic proposals, finite calculations, conditional theorems, and open bridges distinct |
-| 6 | Add the numerical and operational prerequisites, then the finite readout bridge | Each mathematical tool is taught before use; no general physical claim is inferred from the finite exhibits |
+| 6 | Continue numerical and operational prerequisites beyond the Number lab's first finite readout introduction | The first counts/shares/signs/coordinate toolkit now exists; wider number constructions, protocol/calibration/composition lessons, and later bridge rows remain open. No general physical claim is inferred from finite exhibits |
 | 7 | Expand the research casebook and application route | Show successful results, counterexamples, failures, custody, and remaining questions with their actual evidence |
 
 ## First deliverable and audit limits

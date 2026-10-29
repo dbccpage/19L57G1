@@ -72,16 +72,17 @@ theorem stage_three_quiet_schema :
     ∀ r ∈ (graphAt 3).prot, obstP (graphAt 3) r.1 r.2 = false :=
   graphAt_quiescent 2
 
-/-- The residue is 1 at stage 3, and it is the same for the path on three
-occurrences, which is connected, and for three occurrences with the
-edges (0,1), (1,2) and a third occurrence 3 with no edge, which is not:
-the residue does not decide connectedness. -/
+/-- The residue is 1 at stage 3. A separate example below compares a
+four-position path with a triangle and an isolated fourth position. -/
 theorem residue_three : ((graphAt 3).occ.length : Int) - ((graphAt 3).wit.length : Int) = 1 :=
   path_connectivity_residue 2
 
 theorem residue_blind :
-    (([0, 1, 2, 3] : List Nat).length : Int) - (([(0, 1), (1, 2), (0, 2)] : List (Nat × Nat)).length : Int)
-      = (([0, 1, 2, 3] : List Nat).length : Int) - (([(0, 1), (1, 2), (2, 0)] : List (Nat × Nat)).length : Int) := by
+    (([0, 1, 2, 3] : List Nat).length : Int) - (([(0, 1), (1, 2), (2, 3)] : List (Nat × Nat)).length : Int) = 1 ∧
+    (([0, 1, 2, 3] : List Nat).length : Int) - (([(0, 1), (1, 2), (0, 2)] : List (Nat × Nat)).length : Int) = 1 ∧
+    ([(0, 1), (1, 2), (0, 2)] : List (Nat × Nat)).all
+      (fun e => e.1 != 3 && e.2 != 3) = true ∧
+    (2, 3) ∈ ([(0, 1), (1, 2), (2, 3)] : List (Nat × Nat)) := by
   decide
 
 /-- The complex after the six edges, and the ladder at dimension 2 there. -/
@@ -192,7 +193,7 @@ EXPECTED = {
     "Textbook.U55.stage_three_quiet": BOTH,
     "Textbook.U55.stage_three_quiet_schema": BOTH,
     "Textbook.U55.residue_three": BOTH,
-    "Textbook.U55.residue_blind": NONE,
+    "Textbook.U55.residue_blind": BOTH,
     "Textbook.U55.edge_stage_value": BOTH,
     "Textbook.U55.ladder_two_here": BOTH,
     "Textbook.U55.ladder_three_here": BOTH,

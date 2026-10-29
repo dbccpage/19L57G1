@@ -4,12 +4,40 @@
 admitted at genesis. Genesis carries two readings, L and F, each as its own
 recorded history, and proves that each history replays exactly to its
 Challenge-3 regime. Which reading is right is not decided by anything in
-the system. **Status:** open (the choice); derived (each replay).
+the system.
+
+<details>
+<summary>Source and classification record (optional on a first reading)</summary>
+
+**Status:** open (the choice); derived (each replay).
 **Lean:** `Derivation.historyL_replays`, `Derivation.historyF_replays`
 (`lean4/Derivation/Inertia.lean` lines 57-73). **Axioms:** `propext`,
 `propext`. **Depends on:** `genesis`, `stepE`, `replayE` (Units 01, 03),
 `R2L`, `R2F` (Unit 01), `TRegime`, `stepT`, `replayT` (Unit 06, used here
 for one check and taught there).
+
+</details>
+
+## First pass
+
+Number positions from zero, in admission order. Two readings of the
+initial instructions give different position tables:
+
+| Position | Reading L | Reading F |
+|---|---|---|
+| 0 | ⟨A⟩ | ⟨⟩ |
+| 1 | ⟨AB⟩ | ⟨A⟩ |
+| 2 | not admitted | ⟨AB⟩ |
+
+To request a distinction between ⟨A⟩ and ⟨AB⟩, use `(0,1)` in L
+and `(1,2)` in F. Predict what goes wrong if the numbers are copied
+without translating them.
+
+`(1,2)` is refused in L because position 2 is absent. `(0,1)` is
+accepted in F, but selects a different pair. Well-formed syntax is
+not the same as selecting what the caller intended. Replaying both
+histories verifies their results; it does not settle which reading
+the original instruction intended.
 
 ## Question
 
@@ -55,26 +83,32 @@ it a second time changes nothing (re-admission designates, Unit 06). So
 that question dissolves. The question about ⟨⟩ does not dissolve, because
 nothing later retains ⟨⟩.
 
-A second new concept is the proof tactic `decide`. When a statement is
-about specific finite values with no variables, Lean can often *compute*
-whether it is true. `decide` asks Lean to run that computation inside the
-kernel and accept the result as the proof. It fails if any variable is
-free, or if the statement has no decision procedure.
+A second new concept is the proof tactic `decide`. The replay statements
+here concern fixed lists and states. A decision procedure computes their
+equality, and Lean's kernel checks the resulting proof.
+
+The ordinary `by decide` tactic used here requires a closed goal, with
+no free variables in its expected type, and an available decision
+procedure. Even a decidable statement needs a different proof if its
+decision procedure cannot establish the requested result. The procedure
+and the definitions can have library dependencies, recorded below.
 
 ## Plain-language interpretation
 
 Two bookkeepers read the same instructions. One starts with an empty
 notebook; the other writes ⟨⟩ on the first line because the instructions
-mentioned it. Both then follow identical instructions. They end with
-different notebooks, and the difference never goes away. Genesis keeps both
+mentioned it. Both then follow identical instructions. These recorded histories finish with different notebooks. Challenge 1
+sub-reading convergence does not remove that difference; this is not
+a claim about every possible later extension. Genesis keeps both
 notebooks, proves facts about both, and refuses to say which bookkeeper
 read correctly, because the instructions do not say.
 
 One consequence matters for everything later: the Challenge-3 demand
 "separate ⟨A⟩ from ⟨AB⟩" names the two data by their *position* in the
 ledger. In reading L they are data 0 and 1; in reading F they are data 1
-and 2. The same demand is written differently in each reading, and each
-reading's demand is ill formed in the other (shown below).
+and 2. The intended pair needs different indices in the two readings.
+The F pair `(1,2)` is out of range in L. The L pair `(0,1)` is valid in F,
+but names ⟨⟩ and ⟨A⟩ instead. Valid indices can still select the wrong pair.
 
 ## Pseudocode
 
@@ -177,8 +211,8 @@ theorem historyF_replays :
 ```
 
 The book's Lean adds what the two theorems leave unsaid: that the two
-regimes differ, by how much, that each reading's demand is ill formed in
-the other, and (in the token-aware model of Unit 06) that the Challenge-1
+regimes differ, by how much, that the F demand is refused in L while the L demand is accepted
+in F on a different pair, and (in the token-aware model of Unit 06) that the Challenge-1
 sub-readings converge while L and F do not.
 
 ```lean
@@ -293,8 +327,7 @@ They differ, and `decide` proves the `≠`.
   by convergence) and carries both readings for ⟨⟩ throughout
   (`paper/paper.md` §5; ledger `CL-1-READING-CONVERGENCE` and the
   dual-reading entry). This unit's status is **open** for that reason.
-- That the two readings lead to different *answers* later. In fact every
-  later theorem is proved for both (`R2L_collapsed` and `R2F_collapsed`,
+- That the two readings lead to different *answers* later. The named initial-collapse and first-cost results are proved for both (`R2L_collapsed` and `R2F_collapsed`,
   `cost1_insufficient` and `cost1_insufficient_F`, and so on). The readings
   differ in bookkeeping, and the derivation shows the bookkeeping does not
   change the minimum cost or the collapse results. It does change the
@@ -365,4 +398,4 @@ supplies is irrelevant to the admitted state, which is the content of
 | Ledger | `paper/paper_claim_ledger.md`, `CL-1-SUPPLY-NOT-ADMISSION`, `CL-1-READING-CONVERGENCE`, `CL-2-COLLAPSED` |
 | Artifact | `artifacts/challenges.json`, `challenge1.sub_readings` and `sub_readings_converge_at_challenge2: true` |
 | Check (Python) | `python textbook/checks/u05_two_readings.py`: L data `('<a>', '<ab>')`, F data `('<>', '<a>', '<ab>')`; demands `(0, 1)` and `(1, 2)`; `Impose(1, 2)` in L raises `AdmissionError`; sub-readings converge to `('<a>', '<ab>')`; artifact flag true; L ≠ F |
-| Check (book Lean) | `python textbook/checks/u05_lean.py`: seven book theorems plus the two Genesis theorems kernel-checked, Lean 4.33.0; axiom reports none, none, propext, propext, both, both, both, propext, propext |
+| Check (book Lean) | `python textbook/checks/u05_lean.py`: eight book theorems plus two Genesis theorems, ten reports. The additional token-aware replay accepts `(0,1)` in F, where it selects tokens 0 and 1 instead of the intended 1 and 2. Report sets: two empty, four `propext`, four `{propext, Quot.sound}` |

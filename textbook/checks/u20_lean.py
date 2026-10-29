@@ -58,6 +58,15 @@ theorem deltaBD_valid' : validResponse R2L 0 1 deltaBD :=
 /-- The link and the self-loop are different results (Genesis). -/
 theorem link_not_loop : Iso BL BD → False := BL_not_iso_BD
 
+/-- Mentioning one target still does not separate the pair when a
+uniform rule derives every plugging. -/
+theorem BD_uniform_collapsed : collapsed { BD with rules := [0] } 0 1 := by
+  intro c hc
+  have hlt : c.form < 1 := hc.1
+  have hf : c.form = 0 := by omega
+  have hr : c.form ∈ ([0] : List Nat) := by simp [hf]
+  exact ⟨fun _ => Or.inr hr, fun _ => Or.inr hr⟩
+
 end Textbook.U20
 
 #print axioms Textbook.U20.BD_witness_wf
@@ -70,6 +79,7 @@ end Textbook.U20
 #print axioms Textbook.U20.deltaBD_lands
 #print axioms Textbook.U20.deltaBD_valid'
 #print axioms Textbook.U20.link_not_loop
+#print axioms Textbook.U20.BD_uniform_collapsed
 #print axioms Derivation.BD_separable
 #print axioms Derivation.deltaBD_valid
 #print axioms Derivation.BL_not_iso_BD
@@ -86,6 +96,7 @@ EXPECTED = {
     "Textbook.U20.deltaBD_lands": PROPEXT,
     "Textbook.U20.deltaBD_valid'": BOTH,
     "Textbook.U20.link_not_loop": BOTH,
+    "Textbook.U20.BD_uniform_collapsed": BOTH,
     "Derivation.BD_separable": BOTH,
     "Derivation.deltaBD_valid": BOTH,
     "Derivation.BL_not_iso_BD": BOTH,

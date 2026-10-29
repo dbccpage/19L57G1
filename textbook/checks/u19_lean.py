@@ -59,6 +59,15 @@ theorem deltaBL_valid' : validResponse R2L 0 1 deltaBL :=
 theorem BL_wf : BL.wf := by
   refine ⟨?_, ?_, ?_, ?_⟩ <;> simp [BL]
 
+/-- A uniform rule makes every test positive, losing the distinction
+while retaining the original link instance. -/
+theorem BL_uniform_collapsed : collapsed { BL with rules := [0] } 0 1 := by
+  intro c hc
+  have hlt : c.form < 1 := hc.1
+  have hf : c.form = 0 := by omega
+  have hr : c.form ∈ ([0] : List Nat) := by simp [hf]
+  exact ⟨fun _ => Or.inr hr, fun _ => Or.inr hr⟩
+
 end Textbook.U19
 
 #print axioms Textbook.U19.BL_witness_wf
@@ -71,6 +80,7 @@ end Textbook.U19
 #print axioms Textbook.U19.deltaBL_lands
 #print axioms Textbook.U19.deltaBL_valid'
 #print axioms Textbook.U19.BL_wf
+#print axioms Textbook.U19.BL_uniform_collapsed
 #print axioms Derivation.BL_separable
 #print axioms Derivation.deltaBL_valid
 #print axioms Derivation.validResponse_R2L
@@ -87,6 +97,7 @@ EXPECTED = {
     "Textbook.U19.deltaBL_lands": PROPEXT,
     "Textbook.U19.deltaBL_valid'": BOTH,
     "Textbook.U19.BL_wf": BOTH,
+    "Textbook.U19.BL_uniform_collapsed": BOTH,
     "Derivation.BL_separable": BOTH,
     "Derivation.deltaBL_valid": BOTH,
     "Derivation.validResponse_R2L": PROPEXT,

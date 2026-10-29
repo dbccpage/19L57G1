@@ -45,8 +45,9 @@ theorem no_context_L (c : Ctx) : ¬ wfCtx R2L c :=
 theorem no_context_F (c : Ctx) : ¬ wfCtx R2F c :=
   fun h => Nat.not_lt_zero _ h.1
 
-/-- Not separable and collapsed are the same thing here, because
-derivability is decidable: the other direction of Unit 09. -/
+/-- Absence of a separating witness gives collapse. Double-negation
+elimination is applied only to the individual context's decidable iff,
+not to the global separability proposition. -/
 theorem collapsed_of_not_separable (r : Regime) (d d' : Nat)
     (h : ¬ separable r d d') : collapsed r d d' :=
   fun c hc => Decidable.of_not_not (fun hn => h ⟨c, hc, hn⟩)

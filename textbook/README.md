@@ -5,10 +5,11 @@ part of it. Nothing here is an input to `prompt/`, `paper/`, `code/`,
 `lean4/Derivation/` or `artifacts/`, and nothing here changes them. Where a
 unit and the Lean disagree, the Lean wins.
 
-The book is built one small derivation at a time. Each unit takes one
-theorem (or one definition), states it, shows it in Lean, shows it in
-Python, explains it in plain words, walks the proof step by step, and says
-what it does and does not establish.
+The beginner routes develop one small idea at a time. The formal units
+group related definitions and theorems and can contain many results.
+Start with their concrete first pass, then read the definitions, hypotheses,
+proofs, and limits. The formal-reading guide below helps connect a familiar
+example to its actual source statement.
 
 ## Source
 
@@ -35,14 +36,43 @@ and portable event replay.
 The [`Change lab`](change_lab/README.md) then separates retained pair
 records, protected demands, observation, budget, permission, refusal,
 and halt, with a map of the different formal settings.
+The [`Path lab`](path_lab/README.md) supplies the next visual toolkit:
+points, connections, walks, signed counts, faces, and cancelling boundaries.
+The [`Map lab`](map_lab/README.md) then follows original cards through
+class labels to requested answers, including blocked recovery, paired
+questions, representative order, and uniqueness on the observed image.
+The [`Growth lab`](growth_lab/README.md) then enters the research
+`standing_commitment` tree: which pairs remain unresolved, when arrivals
+create demands, and why assumed service is different from a proved repair.
+The [`Boundary lab`](boundary_lab/README.md) introduces selected results
+from three more research models: the declared two-sided division, repeated
+labels, swap witnesses, permission restrictions, and a scoped price menu.
+It keeps the models and their unresolved comparisons separate.
+The [`Same-record lab`](identification_lab/README.md) asks the opposite
+of separation: add judgments so two profiles match while their internal
+positions remain distinct. Seven worked lessons compare side effects,
+kept promises, bounded refusals, and the price of a later demand.
+The [`Number lab`](number_lab/README.md) teaches totals, shares, zero,
+signed steps, squares, and coordinate addition before selected finite
+readout examples. It connects Unit 64's arithmetic to an introduction
+to `qm_bridge`, keeping its supplied formula and open rows explicit.
 
 New readers can then read [`START_HERE.md`](START_HERE.md) (see also the
 short spoken introduction in [`video_script_15s.md`](video_script_15s.md)).
-For the complete theorem-to-lesson coverage matrix and lesson dependency DAG,
+The [formal-reading guide](reading_formal_statements.md) links these small
+examples to the formal chapters, with separate practice and answers.
+For the source-placement index and recorded lesson dependency graph,
 see [`derivation_coverage.md`](derivation_coverage.md); for the 75-module
 audit records, see [`audit/README.md`](audit/README.md).
 For the remaining teaching work and the research-to-curriculum inventory,
 see [`audit/TEXTBOOK_GAP_PLAN.md`](audit/TEXTBOOK_GAP_PLAN.md).
+The [Units 47–51 follow-up](audit/PANEL_READING_REVIEW_2026-10-29.md)
+extends the concrete opening sequence through Unit 51 and records selected
+corrections about panels, policies, candidate menus, completed stages,
+and the limits of finite comparison.
+The [Units 52–56 follow-up](audit/MAPPING_READING_REVIEW_2026-10-29.md)
+continues through maps, interfaces, supplied growth, and relation laws,
+with collapsing-map and colour-agreement examples before formal notation.
 
 ## Status marks
 
@@ -245,7 +275,7 @@ in one template or the other, and this table says which.
 | 09 | Separable and collapsed exclude each other | `Basic.separable_not_collapsed` | derived | yes |
 | 10 | With no instances, every pair is collapsed | `Inertia.collapsed_of_no_insts` | derived | yes |
 | 11 | One token gives at most one datum | `Bridge.single_token_carrier_bound` | derived | yes |
-| 12 | A fresh datum adds no power | `Inertia.admission_without_expressive_increase`, `Mention.collapsed_fresh_datum` | derived | yes |
+| 12 | A fresh datum preserves old comparisons | `Inertia.admission_without_expressive_increase`, `Mention.collapsed_fresh_datum` | derived | yes |
 | 13 | Two data need a second, different token | `Bridge.second_token_required` | derived | yes |
 | 14 | Factoring through a point is equality | `PrimDiff.factors_through_point_iff` | derived | yes |
 | 15 | An outside difference is not an asserted one | `PrimDiff.meta_diff_without_assertion` | derived | yes |
@@ -259,37 +289,37 @@ in one template or the other, and this table says which.
 | 23 | A related pair r a b alone does not give a ≠ b (countermodel) | `PrimDiff.selfdiff_consistent` | derived | yes |
 | 24 | Under irreflexivity, r a b gives a ≠ b | `PrimDiff.irrefl_witness_ne` | conditional | yes |
 | 25 | Under irreflexivity, collapsing a related pair is obstructed | `PrimDiff.obstruction_under_irrefl` | conditional | yes |
-| 26 | Facts never entail the irreflexivity law | `Bridge.irrefl_law_not_entailed` | derived | yes |
+| 26 | Keeping positive entries does not exclude a self-pair | `Bridge.irrefl_law_not_entailed` | derived | yes |
 | 27 | An abstraction cannot see what it identifies | `Quot.quot_barrier`, `Quot.barrier_R2L` | derived | yes |
-| 28 | Closure over fixed data must stop within n(n-1)/2 rounds | `Counting.strict_bounded_length`, `Counting.allPairs_length`, `Counting.no_supply_round_bound` | derived / conditional | yes |
+| 28 | Fixed data bound rounds that add new demands | `Counting.strict_bounded_length`, `Counting.allPairs_length`, `Counting.no_supply_round_bound` | derived / conditional | yes |
 | 29 | Renaming the data changes nothing a context can see | `CountTransport.collapsed_rename`, `CountTransport.non_injective_does_not_transport` | derived | yes |
-| 30 | A context that reaches outside the regime separates nothing | `Mention.collapsed_append_unmentioning`, `Mention.collapsed_fresh_form` | derived | yes |
-| 31 | Renaming carries every transition; index-least selection is not congruent | `TransitionTransport.transStep_rename_fwd`, `TransitionTransport.least_pair_selection_not_congruent` | derived | yes |
+| 30 | Adding instances that avoid both targets preserves their comparison | `Mention.collapsed_append_unmentioning`, `Mention.collapsed_fresh_form` | derived | yes |
+| 31 | Renaming carries transitions; choosing by index can change the outcome | `TransitionTransport.transStep_rename_fwd`, `TransitionTransport.least_pair_selection_not_congruent` | derived under stated range conditions | yes |
 | 32 | The same proof with one more datum | `MinimalityF.mu2_unique_F`, `MinimalityF.genesis_mark_not_separable` | derived | yes |
-| 33 | A rule never pays for itself | `RuleBridge.applyDelta_dropRules`, `RuleBridge.rule_item_never_minimal` | derived | yes |
-| 34 | How many demands can a closed system meet? | `Rounds.round_reqs_succ`, `Rounds.closedRun_round_bound_from_empty` | derived under the declared round shape | yes |
-| 35 | A demand can always be met | `Progress.mark_progress`, `Progress.derivable_extend` | derived (response existence only) | yes |
-| 36 | Lists that mean sets | `Ext.RegimeExt`, `Ext.validResponse_ext` | derived (per observable) | yes |
+| 33 | Uniform-rule items cannot minimize the declared costs | `RuleBridge.applyDelta_dropRules`, `RuleBridge.rule_item_never_minimal` | derived shortening; cost interpretation over declared measures | yes |
+| 34 | Closed runs bound recorded new demands | `Rounds.round_reqs_succ`, `Rounds.closedRun_round_bound_from_empty` | derived under the declared round shape; validity separate | yes |
+| 35 | A fresh mark answers a distinct pair under stated conditions | `Progress.mark_progress`, `Progress.derivable_extend` | derived (conditional response existence) | yes |
+| 36 | Lists can agree on membership while differing as records | `Ext.RegimeExt`, `Ext.validResponse_ext` | derived (named operations) | yes |
 | 37 | An inventory is not a derivation | `ObserverInventory.bool_irrefl_full_classification`, `ObserverInventory.residuals_not_unique` | derived; slot names declared | yes |
-| 38 | Refusal as a source of difference: four rungs and one price | `Refusal.nonreify_carrier_bound`, `Refusal.reifyUntagged_eq_occurrence`, `Refusal.tagged_translation_separable` | derived per discipline; the hierarchy as one theorem OPEN | yes |
-| 39 | Refusal routes and their prices | `RefusalFrontier.silent_repetition_inert`, `RefusalFrontier.min_witnessed_route_closes`, `RefusalFrontier.reflective_chain_is_initial_segment` | derived (cores); minimality and uniqueness computed in class | yes |
-| 40 | A demand that never stops, and the three ways to pay | `Generator.depth1_obstructions_are_exactly_middle_pairs`, `Generator.generation_never_dries`, `Generator.finite_marks_outrun` | derived (depth 1); two instances (depth 2); exclusion computed in class | yes |
-| 41 | Looking farther does not help: the radius-`d` outrun | `SeparationCapacity.depth_d_outrun`, `SeparationCapacity.depth_d_obstruction`, `SeparationCapacity.radius_one_agrees_with_sealed_depth2` | derived (structural profile; interior only) | yes |
-| 42 | Counting without choosing, and how many things a bounded window can tell apart | `Pigeonhole.pigeonhole`, `CapacityBound.capacity_bound`, `CapacityBound.local_view_can_separate` | derived; Pigeonhole declared apparatus; tightness not claimed | yes |
-| 43 | No bounded local repair clears a growing demand: G1 inside a declared class, and what G3 would need | `LocalFiniteAlphabet.finite_local_not_clears`, `G1Class.g1_class_exclusion`, `G1Class.clears_does_not_imply_not_fires` | derived, conditional on `FiniteDeclaration`; class-relative; G3, G4 conjectures | yes |
-| 44 | Reflect, obstruct, close, or propose: a typed interface for primitive difference | `DiffInterface.zeroRel_equivalence`, `DiffInterface.bare_reflection_certifies_active_obstruction`, `DiffInterface.drive_terminates`, `DiffInterface.bool_grammar_obstruction` | derived; abstract parts conditional on declared bundles; tower driver one-step; countermodels unprotected by construction | yes |
-| 45 | A kernel with no outside: what must be in the state for progress to be replayable? | `Represented.support_determines`, `Represented.equiv_replay`, `Represented.represented_progress`, `Represented.cert_scope` | derived relative to the declared constitution; progress conditional on `WF` (a replay invariant); budget refill unguarded | yes |
-| 46 | Rule 1 in a fixed kernel: repair, or certified exhaustion plus a tied extension family | `Completion.ofWorld_obstruction`, `Completion.rule1_repair_or_extension`, `Completion.refusal_non_absorbing`, `Completion.action_dichotomy` | derived for the fixed kernel; conditional on `WF`; common state declared, retention/protection fed from one store by stated identification | yes |
-| 47 | Putting the viewer on the books: certification as a replayed, panel-relative quotient | `NoOutside.effectual_outside_dichotomy`, `NoOutside.panel_equiv`, `NoOutside.certNeg_iff_panelEquiv`, `NoOutside.certC_ceiling` | derived for the fixed kernel; the outside is the `notes` field; the absolute form recorded as unformulable | yes |
-| 48 | Generating the stream from the state, and describing the kernel to itself | `Constitution.driver_reproduces_tower`, `Constitution.nextFamily_stop`, `Constitution.interp_describe`, `Constitution.allDescs_complete` | derived relative to the fixed interpreter under metatheoretic iteration; level 4 not attained; the interpreter is not a member of its family (OPEN) | yes |
-| 49 | Minimal among what? A six-probe singleton in a 64-member class | `Initiality.unique_compliant`, `Initiality.accept_guard_load_bearing`, `Initiality.extension_retract_replay` | VERIFIED_FINITE, class- and battery-relative; categorical initiality not claimed | yes |
-| 50 | From stage 3 to every stage: characterising the generated run | `Horizon.worldAt_spec`, `Horizon.worldAt_quiescent`, `Horizon.block_all_accepted`, `Horizon.interp_budget_bound` | FROZEN (every-stage theorems); VERIFIED_FINITE (saturation instances); correction module C6/C10 | yes |
-| 51 | Nine readings of one difference | `PrimitiveCore.imp_a_d`, `PrimitiveCore.nimp_w_d`, `PrimitiveCore.nimp_a_bc`, `PrimitiveCore.e_empty_iff_d`, `PrimitiveCore.located_of_decidable` | FROZEN (17 implications, 51 countermodels); OPEN (4 located cells, scoped); VERIFIED_FINITE (the scan) | yes |
-| 52 | The two-point witness is initial, and that is all initiality says | `PrimitiveCats.d2_initial`, `PrimitiveCats.s2_no_hom_to_d2`, `PrimitiveCats.initials_iso`, `PrimitiveCats.two_initials_not_identical`, `PrimitiveCats.larger_not_initial`, `PrimitiveCats.no_terminal_pres`, `PrimitiveCats.no_terminal_pres2` | FROZEN; CONDITIONAL (`s2_initial_sym`, `phom2_unique_of_epi`); OPEN (terminality among surjective presentations) | yes |
-| 53 | The fixed interface a collision meets | `PrimitiveContact.NativeKernel`, `PrimitiveContact.native_kernel_initial`, `PrimitiveContact.native_interface_not_representable`, `PrimitiveContact.contact_status_count` | FROZEN (re-exports); ADMITTED (interface, status strings); VERIFIED_FINITE | yes |
+| 38 | Five declared ways to record a repeated token | `Refusal.nonreify_carrier_bound`, `Refusal.reifyUntagged_eq_occurrence`, `Refusal.tagged_translation_separable` | derived per discipline; the hierarchy as one theorem OPEN | yes |
+| 39 | Comparing refusal protocols under declared prices | `RefusalFrontier.silent_repetition_inert`, `RefusalFrontier.min_witnessed_route_closes`, `RefusalFrontier.reflective_chain_is_initial_segment` | derived (cores); minimum computed in class, horizon 6, carrier cap 4 | yes |
+| 40 | A growing chain keeps equal three-bit profiles | `Generator.depth1_obstructions_are_exactly_middle_pairs`, `Generator.generation_never_dries`, `Generator.finite_marks_outrun` | derived (specified profiles); strategy exclusion computed in class | yes |
+| 41 | Every fixed radius misses some deep pairs in a long enough chain | `SeparationCapacity.depth_d_outrun`, `SeparationCapacity.depth_d_obstruction`, `SeparationCapacity.radius_one_agrees_with_sealed_depth2` | derived (specified structural profile; deep pairs and interior correspondence) | yes |
+| 42 | Bounded colour windows limit the number of distinct views | `Pigeonhole.pigeonhole`, `CapacityBound.capacity_bound`, `CapacityBound.local_view_can_separate` | derived under bounded colours and locality; tightness not claimed | yes |
+| 43 | Fixed colour bounds and local windows cannot clear every chain stage | `LocalFiniteAlphabet.finite_local_not_clears`, `G1Class.g1_class_exclusion`, `G1Class.clears_does_not_imply_not_fires` | derived, conditional on `FiniteDeclaration`; static class; G3, G4 conjectures | yes |
+| 44 | Retained, protected, and unseen: when a pair is active | `DiffInterface.zeroRel_equivalence`, `DiffInterface.bare_reflection_certifies_active_obstruction`, `DiffInterface.drive_terminates`, `DiffInterface.bool_grammar_obstruction` | derived under declared bundles; generic closed tag need not mean no active pairs | yes |
+| 45 | Replaying represented events under a fixed kernel | `Represented.support_determines`, `Represented.equiv_replay`, `Represented.represented_progress`, `Represented.cert_scope` | derived relative to fixed definitions; progress conditional on requirement WF; execution gates separate | yes |
+| 46 | Repair or menu exhaustion, with two column-extension candidates | `Completion.ofWorld_obstruction`, `Completion.rule1_repair_or_extension`, `Completion.refusal_non_absorbing`, `Completion.action_dichotomy` | derived for fixed kernel under WF; transport identifies retention/protection stores; refusal historical | yes |
+| 47 | Recording the evaluator panel: agreement depends on the tests | `NoOutside.effectual_outside_dichotomy`, `NoOutside.panel_equiv`, `NoOutside.certNeg_iff_panelEquiv`, `NoOutside.certC_ceiling` | derived for four fixed-kernel outputs; panel certificates read separate panel data; absolute form unformulable | yes |
+| 48 | Generating candidates from a stored policy | `Constitution.driver_reproduces_tower`, `Constitution.nextFamily_stop`, `Constitution.interp_describe`, `Constitution.allDescs_complete` | derived for defined policy families; close stops at quiescence; execution gates separate; external interpreter/iteration retained | yes |
+| 49 | One descriptor passes six probes in a class of 64 | `Initiality.unique_compliant`, `Initiality.accept_guard_load_bearing`, `Initiality.extension_retract_replay` | VERIFIED_FINITE, class- and battery-relative; categorical initiality not claimed | yes |
+| 50 | Proving the shape of every completed tower stage | `Horizon.worldAt_spec`, `Horizon.worldAt_quiescent`, `Horizon.block_all_accepted`, `Horizon.interp_budget_bound` | FROZEN (completed-stage theorems); intermediate prefixes may be nonquiescent; separate Python budget checks | yes |
+| 51 | Separate the witness, the laws, and the allowed operations | `PrimitiveCore.imp_a_d`, `PrimitiveCore.nimp_w_d`, `PrimitiveCore.nimp_a_bc`, `PrimitiveCore.e_empty_iff_d`, `PrimitiveCore.located_of_decidable` | FROZEN (17 implications, 51 countermodels); OPEN (4 located cells, scoped); VERIFIED_FINITE (the scan) | yes |
+| 52 | A unique map out of the two-point arrow | `PrimitiveCats.d2_initial`, `PrimitiveCats.s2_no_hom_to_d2`, `PrimitiveCats.initials_iso`, `PrimitiveCats.two_initials_not_identical`, `PrimitiveCats.larger_not_initial`, `PrimitiveCats.no_terminal_pres`, `PrimitiveCats.no_terminal_pres2` | FROZEN; CONDITIONAL (`s2_initial_sym`, `phom2_unique_of_epi`); OPEN (terminality among surjective presentations) | yes |
+| 53 | A fixed interface and the scope of its comparison | `PrimitiveContact.NativeKernel`, `PrimitiveContact.native_kernel_initial`, `PrimitiveContact.native_interface_not_representable`, `PrimitiveContact.contact_status_count` | FROZEN (re-exports); ADMITTED (interface, status strings); VERIFIED_FINITE | yes |
 | 54 | From an asserted difference to a response | `PrimitivePassage.obstP_factors`, `PrimitivePassage.gate_zero_independent`, `PrimitivePassage.assertion_not_retained`, `PrimitivePassage.retention_requires_assertion`, `PrimitivePassage.two_rule`, `PrimitivePassage.extension_resolves`, `PrimitivePassage.terminal_absorbing`, `PrimitivePassage.nextFamilyP_stop` | FROZEN; ADMITTED (the pre-declaration convention and the observation policy, priced by `obst_policies_differ`); VERIFIED_FINITE (fourteen arrow witnesses) | yes |
 | 55 | The first graph is supplied, its observer is created | `HigherStructure.graphAt_spec`, `HigherStructure.round_obstruction`, `HigherStructure.round_two_rule`, `HigherStructure.round_resolution`, `HigherStructure.graphAt_quiescent`, `HigherStructure.ladder_dim2`, `HigherStructure.filling_not_forced`, `HigherStructure.boundary_not_forced` | FROZEN (horizon-free round schema); ADMITTED (driver, cell calculus, sign conventions); VERIFIED_FINITE (`k4`, census, 15 mirrored rounds); OPEN (the ladder as a two-rule statement at every dimension) | yes |
-| 56 | Sameness earned from difference, and what orientation adds | `Apartness.indist_equivalence`, `Apartness.irrefl_alone_breaks_symm`, `Apartness.symm_without_cotrans_breaks_trans`, `Apartness.two_point_indist_trans`, `Apartness.orientations_same_apartness`, `Apartness.orientations_differ`, `Apartness.oriented_preserver_unique`, `Apartness.apart_preserver_pair`, `Apartness.clos_oriented_iff` | FROZEN; ADMITTED (the three laws); VERIFIED_FINITE (carriers 1-3 exhaustive, censuses to 4) | yes |
+| 56 | When not-apart forms an equivalence | `Apartness.indist_equivalence`, `Apartness.irrefl_alone_breaks_symm`, `Apartness.symm_without_cotrans_breaks_trans`, `Apartness.two_point_indist_trans`, `Apartness.orientations_same_apartness`, `Apartness.orientations_differ`, `Apartness.oriented_preserver_unique`, `Apartness.apart_preserver_pair`, `Apartness.clos_oriented_iff` | FROZEN; ADMITTED (the three laws); VERIFIED_FINITE (carriers 1-3 exhaustive, censuses to 4) | yes |
 | 57 | The interpreter is not in its own family: what a notes-diagonal does and does not show | `InterpreterBoundary.tower_persists`, `InterpreterBoundary.family_missed`, `InterpreterBoundary.i5_boundary_is_A`, `InterpreterBoundary.i5_boundary_is_F`, `InterpreterBoundary.i5_collapse_obstructed`, `InterpreterBoundary.arbitrary_uncoded_assignment` | FROZEN; ADMITTED (the declared setting); OPEN (the denotational bridge, taught as OPEN) | yes |
 | 58 | Is the controller unique? Simulations, the absorbing halt, and uniqueness only along replay | `ControllerCategory.live_census`, `ControllerCategory.tworule_executable_of_live`, `ControllerCategory.dead_without_addcol`, `ControllerCategory.refuse_distinguishes`, `ControllerCategory.erase_sim`, `ControllerCategory.no_initial_ctrl`, `ControllerCategory.strict_not_unique`, `ControllerCategory.strict_agree_on_reachable` | FROZEN; REFUTED (initiality, strict global uniqueness); CONDITIONAL (orbit agreement, one hom-set) | yes |
 | 59 | Growing the carrier by one and renaming the supply | `Attachment.up_iff_legal`, `Attachment.up_executes`, `Attachment.treeAt_spec`, `Attachment.path4_star4_not_isomorphic`, `Attachment.act_up_comm`, `RenamingStructure.wf_act`, `RenamingStructure.upFamily_orbit_closed`, `RenamingStructure.collapse_not_a_renaming` | FROZEN; CONDITIONAL (`WF`, `p < s.occ.length`); REFUTED (`length` freshness, equal-cost isomorphism) | yes |

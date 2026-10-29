@@ -1,13 +1,23 @@
-# Unit 34. How many demands can a closed system meet?
+# Unit 34. Closed runs bound recorded new demands
 
-**Claim.** Under the declared round shape, one engine round grows the
+**Claim.** With n fixed data and an initially empty demand store, a run that
+records a fresh pair each round and admits no new data has at most
+n(n−1)/2 rounds. The formal run shape counts recorded demands; it does
+not itself require those demands to be met.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** Under the declared round shape, one engine round grows the
 demand count by exactly one (`round_reqs_succ`) over a fixed datum count
 (`round_data_eq`), so a closed run from an empty demand store on `n` data
 makes at most `n(n-1)/2` rounds, stated without division as `2 * rounds
 ≤ n * (n - 1)` (`closedRun_round_bound_from_empty`). The round shape,
 `ClosedRun`, is declared: each round imposes a *fresh* target and answers
 with a delta admitting *no* fresh datum. That the exported rounds have
-this shape is computational. **Status:** derived under the declared round
+this shape is computational.
+
+**Status:** derived under the declared round
 shape (R8, discharged 2026-08-18). **Lean:** `Derivation.nodup_subset_length`
 (`lean4/Derivation/Rounds.lean` line 145), `mem_allPairs` (205),
 `allPairs_nodup` (264), `Round` (283), `ClosedRun` (291-299),
@@ -17,8 +27,38 @@ shape (R8, discharged 2026-08-18). **Lean:** `Derivation.nodup_subset_length`
 `closedRun_reqs_wf` (425), `closedRun_round_bound` (452-470),
 `closedRun_round_bound_from_empty` (472-481). **Axioms:** `propext` for
 the round lemmas; `propext, Quot.sound` for the run bounds. **Depends on:**
-the impose guard and `insertNew` (Unit 11); `respond` (Unit 31);
+the impose guard and `insertNew` (Unit 17); `respond` (Unit 31);
 `allPairs`, `allPairs_length` and the abstract counting laws (Unit 28).
+
+</details>
+
+## First pass
+
+Three data, A, B, and C, allow three different demands: A/B, A/C,
+and B/C. Begin with none recorded. If each round records a previously
+absent pair and admits no new datum, the demand count can grow only
+through 0, 1, 2, and 3. That is three rounds between four states.
+
+The formal name for this run shape is `ClosedRun`. Its constructor asks
+that the pair be fresh, that the response contain no new datum, and that
+imposition and replay succeed. It does not ask whether the response
+actually separates the pair.
+
+For example, impose A/B on two bare data and apply no items. Replay
+succeeds and the demand is recorded. With no forms, A and B remain
+collapsed. This is a `ClosedRun` step, but not a valid separation
+response.
+
+**Predict:** does the round bound prove that all three possible demands
+will be met?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. It is an upper bound on this run shape. Runs can stop early, and
+meeting demands requires a separate validity check.
+
+</details>
 
 ## Question
 
@@ -31,7 +71,7 @@ engine's exported runs is *not* proved by the bound?
 ## What we already possess
 
 - `stepE r (.impose i j)`: `some { r with reqs := insertNew r.reqs (i, j) }`
-  when `i < j ∧ j < r.data`, else `none` (Unit 11). `insertNew l a` is `l`
+  when `i < j ∧ j < r.data`, else `none` (Unit 17). `insertNew l a` is `l`
   if `a ∈ l`, else `l ++ [a]`.
 - `respond r i j δ = (stepE r (.impose i j)).bind (applyDelta · δ)`
   (Unit 31).
@@ -51,6 +91,15 @@ outcome. The two side conditions are *constructor hypotheses*. They are
 not derived from the closure policy; they are the engine's asserted
 invariants, written down so that the theorems can use them.
 
+There is another distinction: this constructor does not require a
+collapsed target, `validResponse`, or a met demand store. `respond`
+checks imposition and item application, not separation. Even imposing
+`(0,1)` on two bare data and answering with an empty delta builds a
+one-round `ClosedRun`, although the demand remains unmet. The book
+checks this example. The counting bound therefore concerns recorded
+fresh demands; it does not prove they were successfully met. The engine
+uses further validity checks for its exported creation edges.
+
 The bound is proved through the requirement *language*: every demand of
 the final regime is ordered and bounded by `t.data`, which equals
 `r.data`, so it lies in `allPairs r.data`; the demands are duplicate-free
@@ -63,10 +112,11 @@ lemmas, because on this toolchain those carry `Classical.choice`.
 ## Plain-language interpretation
 
 A closed room has a fixed set of objects. Each round of the game puts one
-new "tell these two apart" demand on the table, and the players answer
-without bringing in a new object. Since there are only so many pairs of
-objects, the demands must run out: with three objects, three pairs, three
-rounds at most. The proof is just that counting, once two things are
+new "tell these two apart" demand on the table and replays a response
+without bringing in a new object. With three objects there are three
+pairs, so there can be at most three rounds of this shape. Whether the
+responses actually distinguish the pairs is a separate validity question.
+The counting needs two things
 pinned down: that each round really adds one new pair (the target was
 not already demanded) and that nobody sneaks in an object (the answer
 admits no datum). Those two are what "closed" and "fresh" mean, and the
@@ -330,13 +380,15 @@ instances follow the same split.
   (Genesis, derived).
 - One round, under no fresh datum, keeps the datum count (Genesis,
   derived).
-- A closed run keeps the demands ordered, bounded and duplicate-free, and
-  makes at most `n(n-1)/2` rounds from an empty store (Genesis, derived
-  over `ClosedRun`).
+- A closed run from an ordered, bounded, duplicate-free demand store
+  preserves those properties. From an empty store it makes at most
+  `n(n-1)/2` rounds (Genesis, derived over `ClosedRun`). The general bound
+  also counts the demands already present at the start.
 - The counting goes through `allPairs` with choice-free list lemmas
   (Genesis; the whole module avoids `Classical.choice`).
 - A concrete one-round closed run on two data, and the caps 1 and 3 for
-  two and three data (book Lean).
+  two and three data (book Lean). A second example satisfies `ClosedRun`
+  while leaving its demand unmet: validity is not a constructor field.
 
 ## What has not been proved
 
@@ -346,15 +398,16 @@ instances follow the same split.
   The check and `test_no_supply_variant_terminates_within_pair_bound`
   verify the shape on the exported runs; `claims.json:CL-CLOSURE-TERMINATION`
   records `within_bound = true`.
-- Anything about runs *with* supply. The bound is for the closed system;
-  with supply the datum count grows and no bound of this form holds (the
-  paper's main trees run to the declared round cap of 15).
+- A bound for runs admitting new data. Their possible demand pairs can
+  grow beyond the initial ceiling. The paper's main trees with supply run
+  to the declared cap of 15; that finite observation does not prove an
+  infinite execution.
 - That the bound is attained. It is attained in both baselines (1 of 1,
   3 of 3), but `ClosedRun` admits runs that stop early, and the theorem
   is an upper bound only.
-- That `ClosedRun` is inhabited beyond the examples. It is (`run1`, and
-  the exported runs read as `ClosedRun`s), but the Lean states no
-  existence theorem.
+- Existence of a run of every length allowed by the bound. The empty run
+  and `run1` are explicit inhabitants; the theorem is an upper bound, not
+  an existence or maximal-length theorem.
 
 ## Outside the system
 
@@ -378,9 +431,9 @@ list, which is why the count is readable from the demands.
   such theorem exists.
 - "Each round adds one demand" is true when the target is fresh. The
   engine asserts it; `insertNew` would silently absorb a repeat.
-- "n(n-1)/2" is written `2 * rounds ≤ n * (n - 1)` on purpose: `Nat`
-  division would need a divisibility argument the counting lemma already
-  avoids.
+- "n(n-1)/2" is written `2 * rounds ≤ n * (n - 1)` to avoid division in
+  the proof. Unit 28 derives the divided form from the exact multiplicative
+  count; a separately supplied parity theorem is not compulsory.
 
 ## Student exercise
 
@@ -392,6 +445,9 @@ dropped from `ClosedRun.cons`. Which of the four run-level facts
 true?
 
 ## Answer
+
+<details>
+<summary>Worked answer</summary>
 
 `closedRun_data_eq` and `closedRun_reqs_wf` would survive: the datum
 count never depended on freshness, and a repeated demand is still
@@ -405,6 +461,8 @@ could repeat the same target forever without the demand list growing.
 Freshness is what turns "the demands are bounded" into "the rounds are
 bounded".
 
+</details>
+
 ## Verification
 
 | Item | Where |
@@ -415,4 +473,4 @@ bounded".
 | Artifact | `artifacts/claims.json`, `CL-CLOSURE-TERMINATION.{L,F}`: `pair_bound` 1 and 3, `rounds_used` 1 and 3, `within_bound = true` |
 | Tests | `tests/test_engine.py::test_no_supply_variant_terminates_within_pair_bound`, `::test_closed_system_terminal_at_round_boundary` |
 | Check (Python) | `python textbook/checks/u34_rounds.py`: the one-round anatomy on two bare data; a datum-admitting response moves the count; every creation edge of both closed baselines (3 and 19) is fresh, datum-fixed, ordered and duplicate-free; deepest rounds 1 and 3 within `n(n-1)/2` |
-| Check (book Lean) | `python textbook/checks/u34_lean.py`: ten book theorems plus four Genesis theorems kernel-checked, Lean 4.33.0 |
+| Check (book Lean) | `python textbook/checks/u34_lean.py`: thirteen book theorems plus four Genesis theorems kernel-checked, Lean 4.33.0 |

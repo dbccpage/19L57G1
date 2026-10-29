@@ -1,7 +1,15 @@
-# Unit 41. Looking farther does not help: the radius-`d` outrun
+# Unit 41. Every fixed radius misses some deep pairs in a long enough chain
 
-**Claim.** Unit 40 showed depth-2 observation of the chain repaired one
-pair and was defeated two steps deeper, at two lengths. This module
+**Claim.** Fix a radius d and read only the ordered window of three-bit
+profiles. In every chain stage n ≥ 2d + 3, two distinct positions have
+equal deep windows. Increasing the radius can still distinguish a
+particular pair in a fixed chain.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** Unit 40 showed depth-2 observation of the chain repaired one
+pair and was defeated by another interior pair, at two chain stages. This module
 proves the pattern for every radius. `profileD n i d` is the list of
 Unit 40's depth-1 profiles along the window `[i − d, …, i + d]`. Every
 point deep enough in the interior (`d < i` and `i + d < n`) has the
@@ -13,16 +21,55 @@ Unit 40's: on interior points Genesis's depth-2 record is exactly the
 three neighbouring depth-1 profiles (`profile2_interior`), so depth-2
 equality and radius-one equality are the same relation on every interior
 pair of every chain (`radius_one_agrees_with_sealed_depth2`), and the two
-instances of Unit 40 are carried across it. **Status:** derived
+instances of Unit 40 are carried across it.
+
+**Status:** derived
 (horizon-free in `n` for the outrun; general `n` for the correspondence).
 Not in this module: coloured observation, the repair-strategy
-consequence, and any statement off the interior. **Lean:**
+consequence, or a correspondence claim beyond the stated interior
+conditions. **Lean:**
 `lean4/Derivation/SeparationCapacity.lean` lines 42-79 (list lemmas),
 84-132 (ball, profile, outrun), 143-236 (correspondence). **Axioms:**
 `{propext, Quot.sound}`; `ball_length` `propext`. **Depends on:**
 `profile1`, `profile2`, `middle_profile`, `depth2_separates_near_ends_n4`,
 `depth2_obstruction_n5` (Unit 40); `reflective_chain_successor_relation`
 (Unit 39); `List.range`, `List.map`, `List.filter`.
+
+</details>
+
+## First pass
+
+Use the stage-5 chain with six positions. Write S for the seed's
+profile, M for the middle profile, and T for the tip's profile:
+
+```text
+0     1     2     3     4     5
+S  →  M  →  M  →  M  →  M  →  T
+```
+
+An observer of radius 1 reads a position and its immediate neighbour on
+each side. Positions 2 and 3 both give `[M,M,M]`.
+
+Look farther on this same chain:
+
+| Radius | Window at 2 | Window at 3 | Equal? |
+|---|---|---|---|
+| 1 | M, M, M | M, M, M | Yes |
+| 2 | S, M, M, M, M | M, M, M, M, T | No |
+
+Looking farther helps this pair. The theorem instead fixes the radius
+first and then allows the chain to grow. At radius 2, stage 7 has two
+deeper positions, 3 and 4, whose five-entry windows both contain only M.
+
+**Predict:** has one chain been shown to defeat every possible radius?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. The statement is “for each fixed radius, sufficiently long chains
+have a collision.” The required chain stage depends on the radius.
+
+</details>
 
 ## Question
 
@@ -42,14 +89,20 @@ Are they the same observation?
 
 ## New concept: a ball, a structural profile at radius `d`, and "deep"
 
+Here `n` counts links and steps of the declared rule. The chain has
+`n + 1` positions, from 0 through `n`. We call `n` its stage. Older output
+uses “length” for this same parameter, not for the number of positions.
+
 The *ball* of radius `d` around `i` is the index list
 `[i − d, …, i + d]`, of length `2d + 1`, written as `List.range (2d + 1)`
 mapped through `k ↦ i − d + k`. The subtraction is `Nat` subtraction,
 which stops at `0`: for `i < d` the window is shifted to start at `0`,
 not clipped short. `profileD n i d` maps Genesis's `profile1 (reflState n)`
 over that ball: it is the depth-1 view of each point in the window, in
-order. The *radius convention*: Genesis's "depth 2" sees `i` and its two
-neighbours, which is radius **one** here; "depth `k`" is radius `k − 1`.
+order. The proved correspondence concerns Genesis's `profile2` and this
+module's radius **one** on interior pairs. There is no general family of
+depth-`k` profiles defined here, so a blanket “depth `k` = radius `k−1`”
+theorem would overstate the result.
 
 A point `i` is *deep* at radius `d` in the chain of length `n` when
 `d < i` and `i + d < n`: its whole ball lies strictly inside the
@@ -153,8 +206,8 @@ element 3 ends with the tip's, so they differ, while element 2 is the
 only deep point; at length 5 elements 2 and 3 both carry the constant
 list.
 
-The last line is the audit's third note made concrete. Off the interior
-nothing is claimed, and nothing holds: the shifted window of the seed is
+The last line tests why the correspondence has interior hypotheses. At
+the seed it fails: the shifted window is
 `[0, 1, 2]`, the same window as element 1's, so `profileD 5 0 1` equals
 `profileD 5 1 1`; but `profile2` of the seed has an empty in-list while
 element 1's does not. The hypothesis `0 < i` in the correspondence is
@@ -345,7 +398,12 @@ no *non-deep* pair collides; at radius 0, which is Unit 40's depth 1,
 the threshold 3 is sharp by Unit 40's exactness theorem). The book's
 `no_deep_pair_at_four` gives the arithmetic at radius 1: the deep points
 of length 4 are the single point 2, so the separated pair `(1, 3)` is not
-a counterexample to the outrun.
+a counterexample to the outrun. The book now proves the general arithmetic
+converse `two_deep_need_threshold`: two distinct deep points require
+`2*d+3 ≤ n`. This confirms the least stage for a deep pair, while making
+no claim about the earliest collision anywhere in a shifted boundary
+window. `radius_can_help` also proves the fixed-stage example in the
+first pass: the same pair agrees at radius 1 and differs at radius 2.
 
 **The list lemmas (lines 42-79).** `filter_range_decide_eq`: filtering
 `List.range n` for `k = i` leaves `[i]` if `i < n`, else `[]`, by
@@ -404,7 +462,7 @@ audit's warning against reading `profileD n 0 d` on its own is exact.
 ## What has been proved
 
 - Every deep point's radius-`d` profile is the constant interior list;
-  any two deep points share it; from length `2d + 3` two distinct deep
+  any two deep points share it; from stage `2d + 3` two distinct deep
   points exist (Genesis, for every `n`, `d`).
 - On interior points Genesis's depth-2 record is the three neighbouring
   depth-1 profiles, and depth-2 equality coincides with radius-one
@@ -424,8 +482,9 @@ audit's warning against reading `profileD n 0 d` on its own is exact.
 - That `2d + 3` is the least length at which *any* two points collide at
   radius `d`; only that it is the least length with two deep points,
   and that deep points collide.
-- Anything off the interior: the correspondence has `0 < i < n` as
-  hypotheses, and the book shows it false without them.
+- A general correspondence off the interior: its theorem has
+  `0 < i < n` and `0 < j < n` as hypotheses, and the book shows a seed
+  counterexample. Individual equalities or definitions can still hold there.
 - Anything about "absolute interior" or "no outside" (the header's own
   list of what lies outside its statement language).
 
@@ -433,9 +492,9 @@ audit's warning against reading `profileD n 0 d` on its own is exact.
 
 | Lean | Used for | Status |
 |---|---|---|
-| `Nat` subtraction in `ball` | the window | metatheory; truncation guarded by `d < i` in every theorem |
+| `Nat` subtraction in `ball` | the window | metatheory; deep-profile theorems guard the left boundary with `d < i`; definitions and some shape lemmas also cover other indices |
 | `List.range`, `List.map`, `List.filter`, `List.map_congr_left` | profiles, edge lists | metatheory |
-| the radius convention ("depth `k`" is radius `k − 1`) | reading Unit 40's instances | declared; made a theorem by the correspondence |
+| radius-one/depth-2 correspondence | reading Unit 40's instances | proved equality equivalence on interior pairs for the two defined profiles |
 | `propext`, `Quot.sound` | inherited | inside the declared boundary |
 
 **What the system holds.** The chain and the per-point three-word
@@ -464,9 +523,13 @@ says the observer with any fixed radius is outrun.
 At radius 2, write `ball 1 2` and `profileD 6 1 2`, and say why
 `depth_d_outrun` does not apply to the pair `(1, 4)` at length 6 even
 though both points are interior. Then give the least length at which
-radius 2 is outrun, with the colliding pair.
+radius 2 has two deep points, with the colliding pair. Keep this distinct
+from the earliest collision anywhere in the raw profile.
 
 ## Answer
+
+<details>
+<summary>Worked answer</summary>
 
 `ball 1 2` is `[1 − 2 + k]` for `k = 0, …, 4` with truncated
 subtraction, so `[0, 1, 2, 3, 4]`: the window is shifted to begin at the
@@ -480,6 +543,8 @@ radius 2 is `2·2 + 3 = 7`, with the pair `(3, 4)`, both of whose windows
 reports `2: 7; 7; [3, 4]` and the book's `outrun_radius_two` proves the
 collision.
 
+</details>
+
 ## Verification
 
 | Item | Where |
@@ -489,4 +554,4 @@ collision.
 | Paper | `paper/endogenous_generator.md` TERMINAL (last paragraph), frontier conjecture G2 (structural half closed; stale OPEN sentence noted above), section "T5, G3, and G4" (T5 proved at general length; withdrawals); `paper/paper_change_log.md` items on `SeparationCapacity` (the radius convention; the two replaced theorems; the withdrawn proof shape); ledger `CL-G1-T5-GENERAL` |
 | Python | none in Genesis for this module; `code/derivation/g1_class_receipt.py` binds the eight axiom reports; `artifacts/g1_class_receipt.json` |
 | Check (Python, book) | `python textbook/checks/u41_separation_capacity.py`: `ball` and `profileD` rebuilt from `generator.profile1`; deep uniformity to length 15 and radius 4; thresholds `2d + 3` with their deep points; the correspondence on every interior pair to length 15; the two instances; the seed |
-| Check (book Lean) | `python textbook/checks/u41_lean.py`: eleven book theorems plus seven Genesis theorems kernel-checked, Lean 4.33.0 |
+| Check (book Lean) | `python textbook/checks/u41_lean.py`: thirteen book theorems plus seven Genesis theorems kernel-checked, Lean 4.33.0 |

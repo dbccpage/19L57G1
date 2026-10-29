@@ -58,6 +58,33 @@ theorem barrier_R2F {β : Sort v} (f : Quot (collapseRel R2F) → β) (d d' : Na
     f (Quot.mk _ d) = f (Quot.mk _ d') :=
   quot_barrier (collapseRel R2F) f (R2F_collapsed d d')
 
+/-- Collapse compares answers by iff, giving reflexivity and transitivity. -/
+theorem collapse_refl (r : Regime) (d : Nat) : collapseRel r d d :=
+  fun _ _ => Iff.rfl
+
+theorem collapse_trans (r : Regime) {a b c : Nat}
+    (hab : collapseRel r a b) (hbc : collapseRel r b c) : collapseRel r a c :=
+  fun ctx hc => (hab ctx hc).trans (hbc ctx hc)
+
+def collapseSetoid (r : Regime) : Setoid Nat where
+  r := collapseRel r
+  iseqv := ⟨collapse_refl r, fun h ctx hc => (h ctx hc).symm,
+            fun hab hbc => collapse_trans r hab hbc⟩
+
+/-- A raw generating relation need not itself contain every pair whose
+quotient values become equal. -/
+def rawLink (a b : Nat) : Prop := (a = 0 ∧ b = 1) ∨ (a = 1 ∧ b = 2)
+
+theorem raw_chain_quotient :
+    ¬ rawLink 0 2 ∧ Quot.mk rawLink 0 = Quot.mk rawLink 2 := by
+  constructor
+  · intro h
+    cases h with
+    | inl h => cases h.2
+    | inr h => cases h.1
+  · exact (@Quot.sound Nat rawLink 0 1 (Or.inl ⟨rfl, rfl⟩)).trans
+          (@Quot.sound Nat rawLink 1 2 (Or.inr ⟨rfl, rfl⟩))
+
 end Textbook.U27
 
 #print axioms Textbook.U27.quot_barrier'
@@ -65,6 +92,10 @@ end Textbook.U27
 #print axioms Textbook.U27.descend_agrees
 #print axioms Textbook.U27.descend_value
 #print axioms Textbook.U27.barrier_R2F
+#print axioms Textbook.U27.collapse_refl
+#print axioms Textbook.U27.collapse_trans
+#print axioms Textbook.U27.collapseSetoid
+#print axioms Textbook.U27.raw_chain_quotient
 #print axioms Derivation.quotient_barrier
 #print axioms Derivation.quot_barrier
 #print axioms Derivation.barrier_R2L
@@ -76,6 +107,10 @@ EXPECTED = {
     "Textbook.U27.descend_agrees": BOTH,
     "Textbook.U27.descend_value": BOTH,
     "Textbook.U27.barrier_R2F": BOTH,
+    "Textbook.U27.collapse_refl": PROPEXT,
+    "Textbook.U27.collapse_trans": PROPEXT,
+    "Textbook.U27.collapseSetoid": PROPEXT,
+    "Textbook.U27.raw_chain_quotient": BOTH,
     "Derivation.quotient_barrier": QUOT,
     "Derivation.quot_barrier": QUOT,
     "Derivation.barrier_R2L": BOTH,

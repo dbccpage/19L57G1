@@ -1,0 +1,115 @@
+{
+  "ResearchQmBridge.Gauss.GI.polarization": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchQmBridge.Gauss.fiber_necessary": [],
+  "ResearchQmBridge.Gauss.mu4_readout_invariant": [],
+  "ResearchQmBridge.Gauss.mu4_readout_values": [],
+  "ResearchQmBridge.Gauss.mu4_triple": [],
+  "ResearchQmBridge.Gauss.separates_iff_cross": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchQmBridge.Gauss.sign_pair": [],
+  "ResearchQmBridge.Instance.instance_challenge": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchQmBridge.Instance.instance_information": [],
+  "ResearchQmBridge.Instance.instance_not_knows": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchQmBridge.Multiplicity.finite_order_suffices": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchQmBridge.Multiplicity.multiplicity_bound": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchQmBridge.Multiplicity.nodup_le": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchQmBridge.Multiplicity.readout_factors": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchQmBridge.Multiplicity.realizable_iff": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchQmBridge.Multiplicity.rep_separates": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchQmBridge.Multiplicity.signs_iff": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchQmBridge.Multiplicity.three_needs_four": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchQmBridge.Residual.challenge_iff_information_ne": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchQmBridge.Residual.challenge_iff_not_knows": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchQmBridge.Residual.challenge_information_lt": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchQmBridge.Residual.challenge_or_knows": [
+    "propext",
+    "Quot.sound"
+  ],
+  "Textbook.NumberLab.coordinate_square": [],
+  "Textbook.NumberLab.counts_and_duplicates": [
+    "propext"
+  ],
+  "Textbook.NumberLab.doubled_readings": [],
+  "Textbook.NumberLab.mirror_same_reading": [],
+  "Textbook.NumberLab.new_signed_readings": [],
+  "Textbook.NumberLab.position_labels_break_reversal": [
+    "propext",
+    "Quot.sound"
+  ],
+  "Textbook.NumberLab.positive_proportions": [
+    "propext"
+  ],
+  "Textbook.NumberLab.signed_steps": [],
+  "Textbook.NumberLab.singleton_lookup": [
+    "propext",
+    "Quot.sound"
+  ],
+  "Textbook.NumberLab.six_position_groups": [
+    "propext",
+    "Quot.sound"
+  ],
+  "Textbook.NumberLab.zero_middle": [
+    "propext",
+    "Quot.sound"
+  ],
+  "WeightProfile.profile_forgets_total": [
+    "propext",
+    "Quot.sound"
+  ],
+  "WeightProfile.profile_trans": [
+    "propext",
+    "Quot.sound"
+  ],
+  "WeightProfile.signed_square_presentations_split": [
+    "propext",
+    "Quot.sound"
+  ],
+  "WeightProfile.zero_scale_boundary": [
+    "propext",
+    "Quot.sound"
+  ]
+}

@@ -66,7 +66,8 @@ theorem object_of_record :
     PrimitiveCats.d2Obj.b = nativeKernelWitness.val.b :=
   ⟨rfl, rfl, rfl, rfl⟩
 
-/-- The re-exports are the originals: the proof terms are identical. -/
+/-- Equality of proofs of this proposition; proof irrelevance means
+this equality alone is not a provenance check. The source names the re-export. -/
 theorem initial_is_reexport : native_kernel_initial = PrimitiveCats.d2_initial := rfl
 
 /-- Why no observer complement is the oriented witness: an observer's
@@ -100,6 +101,14 @@ theorem history_reads :
 theorem sealed_differs_from_current : contactStatus ≠ contactStatusCurrent := by
   decide
 
+/-- The interface contains a symmetric member that an observer does represent.
+The oriented witness's refutation is not a refutation of every member. -/
+theorem symmetric_member_representable :
+    ∃ O : DiffInterface.DiffObs Bool Prop,
+      ∀ x y, ContactBridge.obsApart O x y ↔ symMember.val.r x y :=
+  ContactBridge.bool_bs_repr PrimDiff.S2 (Or.inl PrimDiff.D2_witness)
+    PrimDiff.S2_irrefl Apartness.s2_isApart.symm
+
 end Textbook.U53
 
 #print axioms Textbook.U53.witness_is_d2Bare
@@ -115,6 +124,7 @@ end Textbook.U53
 #print axioms Textbook.U53.not_representable_by_symmetry
 #print axioms Textbook.U53.history_reads
 #print axioms Textbook.U53.sealed_differs_from_current
+#print axioms Textbook.U53.symmetric_member_representable
 #print axioms PrimitiveContact.native_kernel_initial
 #print axioms PrimitiveContact.contact_status_count
 #print axioms PrimitiveContact.native_interface_not_representable
@@ -136,6 +146,7 @@ EXPECTED = {
     "Textbook.U53.not_representable_by_symmetry": NONE,
     "Textbook.U53.history_reads": NONE,
     "Textbook.U53.sealed_differs_from_current": NONE,
+    "Textbook.U53.symmetric_member_representable": NONE,
     "PrimitiveContact.native_kernel_initial": QUOT,
     "PrimitiveContact.contact_status_count": NONE,
     "PrimitiveContact.native_interface_not_representable": NONE,

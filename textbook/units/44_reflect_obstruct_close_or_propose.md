@@ -1,27 +1,14 @@
-# Unit 44. Reflect, obstruct, close, or propose: a typed interface for primitive difference
+# Unit 44. Retained, protected, and unseen: when a pair is active
 
-**Claim.** An active obstruction requires a retained pair, protection, and observer-zero agreement. The declared interface then describes a same-carrier closure or an extension proposal under its stated hypotheses.
+**Claim.** In this declared interface, a pair is active when it is retained,
+protected, and zero-related under the current observer. A closure step
+carries proofs of its stated guarantees. An extension proposal records
+possible work without applying it.
 
-**Status:** derived; the abstract theorems are conditional
-on declared bundles; the tower driver closes in one step, so the
-concrete termination instance is degenerate; the countermodels' `¬
-Active` conjunct is the removal of protection, by construction.
-**Lean:** `lean4/Derivation/DiffInterface.lean` lines 33-760, core Lean
-only. **Axioms:** 17 theorems use none; `obsQuotient_eq_of_zero`
-`Quot.sound`; `tower_demand_characterized` `propext`; the other 16
-`{propext, Quot.sound}`. **Depends on:** nothing in Genesis; the
-closure-policy discipline of Unit 29 (three separate conditions) is the
-reason for the shape.
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
 
-## First pass
-
-Read the three tests separately. Is the pair retained? Is it protected? Does the current observer still merge it?
-
-Only their conjunction is an active obstruction. A proposal for extending the carrier records possible work; it does not execute that work.
-
-## Detailed claim and formal anchors
-
-`DiffInterface` is a self-contained package, written to an
+**Detailed statement.** `DiffInterface` is a self-contained package, written to an
 external request of 2026-08-12, that types the pipeline *reflection
 certificate → retained, protected, observer-zero pair → active
 obstruction → same-carrier closure step, or an extension proposal*.
@@ -46,7 +33,7 @@ distinction, kills every demanded pair, and creates no new obstruction.
 
 An `ExtensionProposal` is data, never applied.
 
-A fuel driver reaches
+A fuel driver returns a result tagged
 `closed` or `proposal` when fuel exceeds a strictly decreasing measure
 (`drive_terminates`).
 
@@ -54,10 +41,56 @@ The tower `mkStage s h` (horizon-capped rank
 views) realizes every piece at every `n` (`tower_obstruction`,
 `tower_step_composes`, `closed_measure_zero`, `tower_fuel_terminates`).
 
-Three protected points under Boolean views are never closed
+Three protected points under a single Boolean-valued view cannot all be distinguished
 (`bool_grammar_obstruction`), and five countermodels (freshness, tagging,
 an edge, a hash, repetition) show a feature without observer-visible
 difference.
+
+**Status:** derived; the abstract theorems are conditional
+on declared bundles; the tower driver closes in one step, so the
+concrete termination instance is degenerate; the countermodels' `¬
+Active` conjunct is the removal of protection, by construction.
+**Lean:** `lean4/Derivation/DiffInterface.lean` lines 33-760, core Lean
+only. **Axioms:** 17 theorems use none; `obsQuotient_eq_of_zero`
+`Quot.sound`; `tower_demand_characterized` `propext`; the other 16
+`{propext, Quot.sound}`. **Depends on:** nothing in Genesis; the
+three obstruction conditions are declared in this interface, not imported
+from Unit 29's renaming theorem.
+
+</details>
+
+## First pass
+
+Keep two cards, A and B. The current test gives the same answer on
+both. Now check the record and the promise separately:
+
+| Pair retained? | Pair protected? | Test gives equal answers? | Active? |
+|---|---|---|---|
+| Yes | No | Yes | No |
+| Yes | Yes | Yes | Yes |
+| Yes | Yes | No | No |
+
+The three conditions have different jobs. Keeping a pair in the record
+does not itself promise to separate it. A protected pair may already be
+separated. Calling a pair active requires all three conditions together.
+
+A `ClosureStep` supplies a new observer and proofs that it preserves old
+distinctions and separates its chosen demanded pairs. The demands need
+not include every active pair. An `ExtensionProposal` instead stores a
+request; this interface does not execute it.
+
+**Predict:** does a generic driver's result named `closed` prove that no
+active pair remains?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. That result means the supplied next-step function returned no next
+step. A checked book example stops immediately with an active pair still
+present. Connecting the tag to complete resolution requires another
+property of that next-step function.
+
+</details>
 
 ## Question
 
@@ -72,29 +105,50 @@ do?
 
 ## What we already possess
 
-- The closure policy's three conditions (Unit 29) and the reflective
-  chain (Unit 40).
+- The reflective chain (Unit 40). The three-way obstruction condition is
+  introduced here as a new declared interface, separate from that model.
 - Equivalence relations and quotients in Lean (`Setoid`, `Quotient`,
   `Quotient.sound`).
 - Recursion on a fuel argument (Unit 31's engine bounds, in spirit).
 
 ## New concept: an observer with its laws, a stage, a certificate, a step
 
-*Observer.* `DiffObs X R` bundles `delta`, `Zero`, and `zero_refl`,
-`zero_symm`, `zero_trans` as fields: an observer is admitted only with
-its proofs. `ZeroRel O x y := O.Zero (O.delta x y)`. `kernelObs view` is
-the observer whose difference is the pair of views, zero iff equal; the
-laws come from equality. The quotient `ObsQuotient O` needs the
-`Setoid`, which needs `zeroRel_equivalence`: the type-checker enforces
-"equivalence before quotient".
+### The observer: a report and a condition
+
+`DiffObs X R` names an input type X and a report type R. Its `delta`
+function assigns a report to each ordered pair of inputs. Its `Zero`
+condition says which reports count as zero. R need not be a type of numbers;
+"zero" is the declared condition's name.
+
+`ZeroRel O x y := O.Zero (O.delta x y)` means the report for x and y
+satisfies that condition. `Zero : R → Prop` is a mathematical property.
+The abstract record does not require an algorithm deciding it. Concrete
+Python implementations supply executable tests separately.
+
+### The laws and the classes
+
+Three proof fields make this zero relation an equivalence: every item is
+related to itself; reversing a related pair preserves the relation; and
+two consecutive related pairs give a related endpoint pair. A `Setoid`
+packages the relation with these laws. `ObsQuotient O` then groups items
+by it. This is the source's "equivalence before quotient" dependency.
+
+`kernelObs view` is a particular construction: its report is the ordered
+pair of view values, and zero means those values are equal. Equality
+supplies its three laws. This particular construction does not make every
+abstract observer an executable measurement procedure.
 
 *Stage.* `live`, `retained`, `guarded`, `obs`, four independent fields.
 `ActiveObstruction S x y := retained ∧ ZeroRel ∧ guarded`.
+This definition does not automatically require live endpoints; liveness
+is a separate field with separate hypotheses in the certificate and map records.
 
-*Certificate.* `BareReflection S S'`: fifteen fields; the theorem spends
-four (`fresh_from_live_image`, `parent_live`, `pair_retained`,
-`pair_guarded`, `pair_zero`). The rest describe the shape the caller
-asked for.
+*Certificate.* `BareReflection S S'` has fifteen fields. The theorem uses
+the `embed`, `parent`, and `fresh` data and five proof fields.
+`fresh_from_live_image` and `parent_live` establish that the new point
+differs from the embedded parent. `pair_retained`, `pair_guarded`, and
+`pair_zero` establish the three active-obstruction conditions. Freshness
+alone does not establish those three supplied pair properties.
 
 *Step.* `StageMaps` is a list of maps containing the identity;
 `MapSaturated G D` says the demand `D` is symmetric and closed under
@@ -103,33 +157,53 @@ new observer `obs'` refining the old (`Refines obs' S.obs`: every new
 zero pair was an old zero pair) and a proof that every demanded pair is
 no longer zero. `apply` replaces the observer and nothing else.
 
+The chosen demand condition D need not include every active pair, or even
+any pair. With D empty and the old observer kept, the interface admits an
+identity step. The book check constructs this for any supplied stage and
+stage-map bundle. A strictly decreasing measure is an additional progress
+hypothesis, not a consequence of naming an object `ClosureStep`.
+
 *Proposal.* `ExtensionProposal` is a kind and a demanded set. Nothing
 builds a stage from it.
 
 *Driver.* `drive next fuel s` runs `next` until `none` (closed), a
 proposal, or fuel runs out.
 
+Here `closed` is the generic driver's result tag when `next s = none`.
+The termination theorem assumes each continuing step decreases a measure;
+it does not require `next` to search all repairs or make that tag mean
+there are no active pairs. The book counterexample supplies a `next` that
+immediately returns `none` while a retained, protected zero-pair remains
+active. A stronger interpretation needs the concrete driver's additional
+properties.
+
 ## Plain-language interpretation
 
-An observer is a ruler with a proof that "measures the same" is an
-equivalence. A stage is a scene: which points are in play, which pairs
-are still owed a distinction, which pairs the system has sworn to
-distinguish, and the ruler in use. An obstruction is a pair the system
-swore to distinguish, still in play, that the ruler cannot distinguish.
+As an analogy, think of a ruler together with rules for when two readings
+count as the same. The formal observer is the specified function and
+condition, with equivalence proofs; no physical instrument or decision
+algorithm follows from the interface alone. A stage specifies which
+points are live, which pairs are retained in the record, which pairs are
+protected by the supplied rule, and which observer is in use. An active
+obstruction is a retained, protected pair that is zero-related under
+that observer.
 A reflection adds a fresh point the stale ruler cannot tell from its
 parent, and the certificate says so in its own fields. A closure
 replaces the ruler by a finer one over the same points: everything that
 was distinct stays distinct, every demanded pair becomes distinct, and
-nothing new becomes an obstruction. If no finer ruler of the allowed
-kind exists, a request for new structure is written down, and the
-interface stops there: it never grants the request.
+nothing new becomes an obstruction. A supplied driver can instead return
+a request for new structure. Returning that proposal does not itself
+prove that every same-carrier closure is impossible. The interface records
+the request without granting it.
 
 The tower is the worked example: points `0, 1, 2, …`, the ruler "rank
 capped at the horizon `h`". A closed stage has horizon one below its
 size, so every point has its own rank. Adding the point `s` with the
 old horizon makes it look like `s − 1`; raising the horizon by one
-fixes it. Three points with a yes/no ruler can never all be told apart,
-whichever yes/no ruler is chosen. And five features (being new, being
+fixes it. Three points with one yes/no answer per point can never all be
+told apart, whichever single question is chosen. Using several questions
+can give more answer patterns, as in the Map lab; that changes this declared
+single-Boolean-view setting. And five features (being new, being
 tagged, being an endpoint of an edge, having a distinct label, being
 repeated) do nothing to a ruler that does not read them.
 
@@ -684,7 +758,7 @@ protection, which is where the derivation's obstructions live.
 **What the system holds.** The discipline: three separate conditions,
 equivalence before quotient, demands as predicates so that closure
 chooses no representative, proposals as data. These are the shape of
-Unit 29's closure policy made into types. The module imports nothing
+this module's declared interface. The module imports nothing
 from Genesis and names no consumer; the adapter from these types to the
 derivation's own is, by the module's own statement, the caller's
 evidence and out of scope.
@@ -712,6 +786,9 @@ and whether that promise is sharp here.
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 Live points `0..4`. Under horizon 2 the capped ranks are `0, 1, 2, 2,
 2`, so the active pairs are the ordered pairs among `{2, 3, 4}`: six of
 them, measure 6. `towerNext (5, 2)` returns the step to `(5, 4)`, whose
@@ -724,6 +801,8 @@ sharp for the tower, where one step always suffices, because the driver
 jumps straight to the closed horizon rather than discharging one pair
 at a time.
 
+</details>
+
 ## Verification
 
 | Item | Where |
@@ -734,3 +813,4 @@ at a time.
 | Python | `code/derivation/diff_interface.py`, `artifacts/diff_interface.json`, `tests/test_diff_interface.py` |
 | Check (Python) | `python textbook/checks/u44_diff_interface.py`: 15 tower rounds against the artifact; active pairs and the swap off the live region; the one-step driver; eight Boolean views; the countermodels with the "protected" column; a three-valued view |
 | Check (book Lean) | `python textbook/checks/u44_lean.py`: fifteen book declarations plus eleven Genesis theorems kernel-checked, Lean 4.33.0 |
+| Interface and reading-guide check | `python textbook/checks/u44_observer_spec_lean.py`: an arbitrary-proposition observer, explicit decider transfer, the finite lookup example, a generic `closed` result with an active pair, and an idle empty-demand step |

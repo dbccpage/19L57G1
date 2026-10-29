@@ -30,8 +30,8 @@ theorem separable_not_collapsed' (r : Regime) (d d' : Nat)
   have hiff : derivable r (plug c d) ↔ derivable r (plug c d') := hc c hwf
   exact hne hiff
 
-/-- The other direction, constructive because both sides are decidable:
-no witness at all means every context agrees. -/
+/-- No witness means every individual context agrees. The case split
+decides that context's answers, not the unbounded context quantifier. -/
 theorem collapsed_of_not_separable (r : Regime) (d d' : Nat)
     (h : ¬ separable r d d') : collapsed r d d' := by
   intro c hwf
@@ -43,6 +43,16 @@ theorem collapsed_of_not_separable (r : Regime) (d d' : Nat)
 theorem collapsed_iff_not_separable (r : Regime) (d d' : Nat) :
     collapsed r d d' ↔ ¬ separable r d d' :=
   ⟨fun hc hs => separable_not_collapsed hs hc, collapsed_of_not_separable r d d'⟩
+
+/-- Negating the proved equivalence yields double negation. This alone
+does not eliminate the double negation to produce a positive witness. -/
+theorem not_collapsed_iff_not_not_separable (r : Regime) (d d' : Nat) :
+    ¬ collapsed r d d' ↔ ¬¬ separable r d d' := by
+  constructor
+  · intro hnc hns
+    exact hnc (collapsed_of_not_separable r d d' hns)
+  · intro hnns hc
+    exact hnns ((collapsed_iff_not_separable r d d').mp hc)
 
 /-- The unary-mark regime: datum 1 marked, datum 0 not. Separable, so not
 collapsed; the witness is the one-hole unary context. -/
@@ -59,6 +69,7 @@ end Textbook.U09
 #print axioms Textbook.U09.separable_not_collapsed'
 #print axioms Textbook.U09.collapsed_of_not_separable
 #print axioms Textbook.U09.collapsed_iff_not_separable
+#print axioms Textbook.U09.not_collapsed_iff_not_not_separable
 #print axioms Textbook.U09.U1_not_collapsed
 #print axioms Textbook.U09.empty_two_collapsed
 #print axioms Derivation.separable_not_collapsed
@@ -69,6 +80,7 @@ EXPECTED = {
     "Textbook.U09.separable_not_collapsed'": PROPEXT,
     "Textbook.U09.collapsed_of_not_separable": BOTH,
     "Textbook.U09.collapsed_iff_not_separable": BOTH,
+    "Textbook.U09.not_collapsed_iff_not_not_separable": BOTH,
     "Textbook.U09.U1_not_collapsed": BOTH,
     "Textbook.U09.empty_two_collapsed": PROPEXT,
     "Derivation.separable_not_collapsed": PROPEXT,

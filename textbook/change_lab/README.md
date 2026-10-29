@@ -38,3 +38,7 @@ AuthorityEffect: None. The carrier, events, guards, views, and budget
 convention are supplied. These are formal teaching models, with no new
 physical measurements. Reading time and learning outcomes remain to be
 tested with novice readers.
+
+Continue to the [Path lab](../path_lab/README.md) for a visual introduction
+to points, walks, faces, and signed boundaries. It uses a separate declared
+cell calculus, with its own membership and admission rules.

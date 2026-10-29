@@ -52,6 +52,21 @@ class WikiTextbookTests(unittest.TestCase):
         self.assertIn("](textbook_institutions)", result)
         self.assertIn("[example](../README.md)", result)
 
+    def test_beginner_route_links_stay_in_the_wiki(self):
+        folders=('first_steps','reasoning_lab','search_lab','change_lab','path_lab','map_lab','growth_lab','boundary_lab','identification_lab','number_lab')
+        for folder in folders:
+            body=f'[route](../{folder}/README.md) [lesson](../{folder}/SOURCE_MAP.md#scope)'
+            result=rewrite_links_for_wiki(body,{}, {},'BLOB',False,'textbook/units')
+            self.assertIn(f'](textbook_{folder})',result)
+            self.assertIn(f'](textbook_{folder}_source_map#scope)',result)
+
+    def test_reading_guide_links_and_source_only_files(self):
+        body='[guide](../reading_formal_statements.md) [review](../map_lab/REVIEW_2026-10-28.md) [program](../map_lab/run_lab.py)'
+        result=rewrite_links_for_wiki(body,{}, {},'BLOB',False,'textbook/units')
+        self.assertIn('](textbook_reading_formal)',result)
+        self.assertIn('](BLOB/textbook/map_lab/REVIEW_2026-10-28.md)',result)
+        self.assertIn('](BLOB/textbook/map_lab/run_lab.py)',result)
+
     def test_unit71_book_example_runs(self):
         root = Path(__file__).resolve().parents[2]
         lesson = next((root / "textbook/units").glob("71_*.md")).read_text(encoding="utf-8")

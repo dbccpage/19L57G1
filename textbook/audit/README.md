@@ -5,6 +5,89 @@ in the sealed derivation and authorizes nothing. Every verdict below is a
 reading of `lean4/Derivation/` as it stands, checked against the artifact,
 the paper and the ledger, and reproducible from the files named.
 
+**Later reading review (2026-10-28).** The historical inventory below is
+a line-regex report, not a comment-aware declaration census. A subsequent
+[source/compiled reconciliation](DECLARATION_REVIEW_2026-10-28.md) finds
+20 comment matches and ten missed unnamed instances. It matches 2,564
+source heads individually to compiled names and locations. The historical
+JSON and module records are preserved. Their counts and source references do not
+certify exhaustive declaration coverage or beginner comprehension. See
+[the selected-chapter reading review](READING_REVIEW_2026-10-28.md) for the
+current findings, eight book-Lean reports, and the distinction between a
+recorded prerequisite graph and complete conceptual preparation.
+
+**Early-chapter follow-up (2026-10-29).** The
+[Units 04–16 reading review](EARLY_READING_REVIEW_2026-10-29.md) adds
+thirteen concrete first passes and corrects selected scope errors about
+indices, erasure, negation, starting states, mention, and fresh data.
+Nine additional book proofs support the changes within the existing
+axiom boundary. This is selected semantic review, not certification of
+every paragraph or declaration in those chapters.
+
+**Requests and cost follow-up (2026-10-29).** The
+[Units 17–22 reading review](COST_READING_REVIEW_2026-10-29.md) adds six
+small introductions and corrects selected claims about guards, lower
+bounds, uniform rules, argument order, and uniqueness under a cost.
+Eight additional book reports support the scope checks. The broader
+semantic teaching review remains open.
+
+**Relation and extension follow-up (2026-10-29).** The
+[Units 23–26 reading review](RELATION_READING_REVIEW_2026-10-29.md) separates
+a universal counterexample from particular instances, global irreflexivity
+from one pair's inequality, and target property loss from the narrower
+obstruction definition. Unit 26 now states the unrestricted-positive-
+extension scope instead of claiming that facts can never establish the
+law. Eight new book reports support these examples and boundary checks.
+
+**Finite and transport follow-up (2026-10-29).** The
+[Units 27–30 reading review](FINITE_READING_REVIEW_2026-10-29.md) separates
+raw quotient generators from equivalence, states from accepted rounds,
+fixed questions from renamed questions, and generation from validity.
+It corrects the unchanged-requirements claim and the uniform-rule case
+of fresh-context agreement. Eleven added book reports support the examples;
+the remaining semantic and reader review stays open.
+
+**Transitions and response existence follow-up (2026-10-29).** The
+[Units 31–35 reading review](ROUND_READING_REVIEW_2026-10-29.md) adds five
+first passes and separates transition correspondence from selection,
+recorded demands from met demands, and one failed recipe from absence of
+every possible response. Seven new book reports check concrete boundary
+cases, including a longer repair and a malformed stale-rule record.
+
+**Representation and observation follow-up (2026-10-29).** The
+[Units 36 and 38–41 reading review](VIEW_READING_REVIEW_2026-10-29.md)
+adds five first passes, qualifies membership agreement and observation
+scope, and corrects the receipt-payload exchange example. Eight added
+book reports include the single-token history induction, the stage-zero
+profile, and a fixed-chain example where a larger radius helps. Unit 37's
+earlier concrete introduction is preserved.
+
+**Capacity and kernel follow-up (2026-10-29).** The
+[Units 42–46 reading review](CAPACITY_READING_REVIEW_2026-10-29.md) adds
+five concrete first passes and distinguishes finite-colour locality,
+static strategy labels, active pairs, menu exhaustion, and execution
+guards. Eight added book reports check equality-proof dependencies,
+identity colouring, unprotected separation loss, notes versus support,
+and a past refusal whose certificate is no longer current.
+
+**Panels and generation follow-up (2026-10-29).** The
+[Units 47–51 reading review](PANEL_READING_REVIEW_2026-10-29.md) adds five
+worked openings and distinguishes base support from panel certificates,
+candidate menus from executable events, finite probe classification from
+general minimality, and completed stages from event prefixes. Seven
+additional book reports include a finite carrier with an arbitrary
+proposition-valued relation; explicit table decidability is a separate
+assumption. Four locatedness cells remain OPEN.
+
+**Maps and relation laws follow-up (2026-10-29).** The
+[Units 52–56 reading review](MAPPING_READING_REVIEW_2026-10-29.md) adds
+five worked openings and distinguishes initiality from size or time,
+local reverse-edge requirements from global target symmetry, a designated
+interface example from the entire class, and proved negation from missing
+evidence. Six added book reports and a corrected graph-count example
+support the changes. The earlier refinement/licence distinction remains
+literal; supplied drivers and higher-cell rules remain explicit assumptions.
+
 ## Scope and method
 
 - **Population.** The 75 tracked modules under `lean4/Derivation/` plus the

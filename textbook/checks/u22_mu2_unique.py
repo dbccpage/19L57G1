@@ -20,7 +20,7 @@ from derivation.candidates import (  # noqa: E402
 )
 from derivation.engine import GENESIS_F, GENESIS_L, delta_label  # noqa: E402
 from derivation.iso import isomorphic  # noqa: E402
-from derivation.model import AdmissionError, replay  # noqa: E402
+from derivation.model import AdmissionError, Impose, replay, step  # noqa: E402
 
 
 def items(n_data: int, max_arity: int):
@@ -42,7 +42,7 @@ def main() -> int:
         mr = min_responses(base, target, "mu2", Bounds(2, 2))
         print(f"reading {name}: mu2 minimum {mr.cost}; deltas "
               f"{[delta_label(base, d) for d in mr.deltas]}")
-        res = [apply_delta(base, d) for d in mr.deltas]
+        res = [step(apply_delta(base, d), Impose(*target)) for d in mr.deltas]
         allsame = all(isomorphic(res[0], r) for r in res)
         print(f"  all minima isomorphic: {allsame}; artifact minimum {art[name]['mu2']['minimum_cost']}, "
               f"classes {[c['label'] for c in art[name]['mu2']['iso_classes']]}")
@@ -64,12 +64,23 @@ def main() -> int:
                     zero_valid.append(d)
                 if s <= 1:
                     cheap_valid.append(d)
-        mark = apply_delta(base, (NewForm(1), NewInst(0, (target[1],))))
-        iso_all = all(isomorphic(apply_delta(base, d), mark) for d in cheap_valid)
+        mark = step(apply_delta(base, (NewForm(1), NewInst(0, (target[1],)))), Impose(*target))
+        iso_all = all(isomorphic(step(apply_delta(base, d), Impose(*target)), mark) for d in cheap_valid)
         print(f"  two-item deltas over a 3-arity slice: {len(cheap_valid)} valid with arity sum <= 1, "
               f"all isomorphic to the unary mark: {iso_all}; valid with arity sum 0: {len(zero_valid)}")
         if not iso_all or zero_valid or not cheap_valid:
             failures.append(("grammar slice", name))
+    base = replay(GENESIS_L)
+    mark_delta = (NewForm(1), NewInst(0, (0,)))
+    link_delta = (NewForm(2), NewInst(0, (0, 1)))
+    alternatives = (mark_delta, link_delta)
+    costs = [(len(d), sum(isinstance(it, NewInst) for it in d)) for d in alternatives]
+    results = [step(apply_delta(base, d), Impose(0, 1)) for d in alternatives]
+    if costs != [(2, 1), (2, 1)] or isomorphic(*results):
+        failures.append("instance-count tie")
+    print(f"instance-count costs: {costs}; same class: {isomorphic(*results)}; "
+          f"lexicographic example: (2, 1) < (3, 0) = {(2, 1) < (3, 0)}")
+
     print(f"failures: {failures}")
     return 1 if failures else 0
 

@@ -92,6 +92,13 @@ def main() -> int:
     if not same_d or same_2:
         failures.append("seed")
 
+    same_at_one = profile_d(5, 2, 1) == profile_d(5, 3, 1)
+    same_at_two = profile_d(5, 2, 2) == profile_d(5, 3, 2)
+    print(f"fixed stage 5, pair (2,3): equal at radius 1 {same_at_one}; "
+          f"equal at radius 2 {same_at_two}")
+    if not same_at_one or same_at_two:
+        failures.append("radius can help")
+
     print(f"failures: {failures}")
     return 1 if failures else 0
 

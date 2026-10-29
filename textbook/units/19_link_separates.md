@@ -1,16 +1,51 @@
 # Unit 19. The link regime `BL` separates
 
-**Claim.** Admitting one binary form and one instance linking datum 0 to
-datum 1 produces a regime in which the two data are separable. The
+**Claim.** On the two-data starting regime `R2L`, one binary form and one
+link instance provide a test distinguishing the data. Their two-item
+cost attains the lower bound from Unit 18.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** Starting from `R2L`, admitting one binary form and one instance
+linking datum 0 to datum 1 produces a regime in which they are separable. The
 witness is the context "hole in the first slot, datum 1 in the second":
 plugged with 0 it is the admitted link, plugged with 1 it is not. The
 two-item delta that builds it is a valid response to the demand, so the
-cost floor of Unit 18 is attained. **Status:** derived. **Lean:**
+cost floor of Unit 18 is attained.
+
+**Status:** derived. **Lean:**
 `Derivation.BL_separable` (`lean4/Derivation/Minimality.lean` lines 52-53),
 with `BL` (line 42), `deltaBL` (line 62), `validResponse_R2L` (67-77) and
 `deltaBL_valid` (85-86). **Axioms:** `propext, Quot.sound` (by `decide`).
 **Depends on:** `separable`, `wfCtx`, `plug`, `derivable` (Unit 08);
 `validResponse`, `applyDelta` (Unit 18).
+
+</details>
+
+## First pass
+
+Give a two-place form the temporary name `link`. Admit just
+`link(0, 1)`, with no uniform rule. Ask the same question of each datum:
+“is `link(□, 1)` derivable?” The square is a place to fill.
+
+| Fill the square with | Result | Derivable? |
+|---|---|---|
+| 0 | `link(0, 1)` | Yes: it is the admitted instance |
+| 1 | `link(1, 1)` | No: there is no instance or rule for it |
+
+One question gives different answers. That is a **witness** of separation.
+It is a check of this formal record; the “no” is not a measurement of
+a physical relationship.
+
+Adding the form and the instance costs two items. Unit 18 rules out
+cheaper answers on this starting regime, so this answer is cheapest
+under item count. It need not be the only cheapest answer.
+
+**Change:** admit the uniform rule for this form. Both rows now derive,
+and all the form's contexts agree on the pair. More derivable instances
+can remove a distinction. The admission guard permits this event; the
+separate response-validity test rejects it as a way to meet the demand.
 
 ## Question
 
@@ -111,6 +146,9 @@ enumeration order, which is the one Lean names.
 
 `plug(c, d)` (line 47) replaces each `None` by `d`. `derivable` (line 52)
 is membership in `insts` or a rule on the form; `bl.rules` is empty.
+If the uniform rule is admitted, every plugging for this form is
+derivable. The check script and book Lean confirm that the pair then
+collapses even though the original link instance remains.
 
 The two profiles are different one-element sets, so `separable` is
 `True`. Notice the profiles are *not* each other's complements: three
@@ -187,21 +225,25 @@ which `decide` proves without `Quot.sound`; the helper
   `⟨0, [none, some 0]⟩`, is derivable for neither datum (book, derived by
   `decide`).
 - `BL` is well formed (book, derived).
+- Admitting the uniform rule leaves the link instance in place but
+  collapses the pair (book, `BL_uniform_collapsed`).
 - The mirror delta with instance `[1, 0]` is also a valid response
   (Genesis, verified finite: it is among the six `mu1` minima in the
   artifact).
 
 ## What has not been proved
 
-- That `BL` is the only or the cheapest answer. Unit 20 gives a second
+- That `BL` is the only cheapest answer under item count. It is already
+  known to be a cheapest answer: its cost is two and Unit 18 rules out
+  smaller costs on this base. Unit 20 gives a second
   two-item answer that is not isomorphic to it; Unit 21 proves the
   non-uniqueness; Unit 22 shows that under the second measure `mu2` the
   link is *not* the minimum (its new-form arity sum is 2).
-- That the link is oriented. The system holds `(0, [0, 1])` as a list;
-  the Lean `Iso` and the Python canonical form forget which datum is
-  "first" only up to the bijections they allow. Orientation as object-
-  level data is the subject of the `PrimDiff` orientation theorems, not
-  of this unit.
+- A physical interpretation of the argument order. `[0, 1]` and `[1, 0]`
+  are different ordered argument lists. The isomorphism maps data at
+  each position; it does not swap the argument positions. A swap of the
+  two data nevertheless relates the two one-link regimes in this example.
+  That symmetry does not erase order from the instance representation.
 - That the form "is" R or the instance "means" ⟨ARB⟩. The realization is
   the metatheory's reading.
 
@@ -236,6 +278,9 @@ response.
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 With instance `(0, [1, 0])`: plug 0 gives `(0, [0, 1])`, not admitted;
 plug 1 gives `(0, [1, 1])`, not admitted; the context is no longer a
 witness. The context `⟨0, [some 1, none]⟩` is: plug 0 gives `(0, [1, 0])`,
@@ -244,6 +289,8 @@ mirror regime separates 0 from 1, and the delta `[.newForm 2,
 .newInst 0 [1, 0]]` applies and is valid. The Python check confirms both
 deltas valid, and Unit 21's Python shows the two regimes are isomorphic
 under the swap of data: they are one class.
+
+</details>
 
 ## Verification
 
@@ -255,5 +302,5 @@ under the swap of data: they are one class.
 | Ledger | `paper/paper_claim_ledger.md`, `CL-3-MIN-TWO` (existence), `CL-3-TIE-CLASSES` (the link class) |
 | Artifact | `artifacts/challenges.json`, `challenge3.L.mu1.iso_classes`, label `form2+inst2`, class size 2 |
 | Test | `tests/test_candidates.py::test_c3_cost1_all_fail_and_min_is_two` (6 minima: "2 unary marks + 4 binary variants"); `tests/test_engine.py::test_challenge3_reading_l_classes` |
-| Check (Python) | `python textbook/checks/u19_link.py`: five contexts with both pluggings printed, two witnesses, `witness()` equal to Lean's; profiles; demand satisfied; both link deltas valid; a form alone does not separate |
-| Check (book Lean) | `python textbook/checks/u19_lean.py`: ten book theorems plus three Genesis theorems kernel-checked, Lean 4.33.0; `propext, Quot.sound` for the `decide` checks, `propext` for the landing equation and the helper, `BL_plug0` axiom-free |
+| Check (Python) | `python textbook/checks/u19_link.py`: five contexts with both pluggings printed, two witnesses, `witness()` equal to Lean's; profiles; demand satisfied; both link deltas valid; a form alone does not separate; adding the uniform rule retains the instance and removes separation |
+| Check (book Lean) | `python textbook/checks/u19_lean.py`: eleven book reports plus three Genesis theorems kernel-checked, Lean 4.33.0; `BL_uniform_collapsed` and concrete membership checks use `propext, Quot.sound`, the landing equation and helper use `propext`, `BL_plug0` is axiom-free |

@@ -48,21 +48,38 @@ theorem D2_extension_not_irrefl : ¬ Irrefl (withSelf D2 false) :=
 theorem D2_extension_keeps_witness : withSelf D2 false false true :=
   Or.inl D2_witness
 
-/-- No relation on an inhabited carrier has the law as a consequence of
-its facts: whatever `r` is, some extension breaks it. Stated on `Bool`. -/
+/-- No relation on Bool has only irreflexive unrestricted extensions. -/
 theorem no_facts_entail_law :
     ¬ ∃ r : Bool → Bool → Prop,
       ∀ r' : Bool → Bool → Prop, (∀ x y, r x y → r' x y) → Irrefl r' :=
   fun ⟨r, h⟩ =>
     (irrefl_law_not_entailed r false).elim fun r' ⟨hsub, hni⟩ => hni (h r' hsub)
 
-/-- The contrast with Unit 24: from a witness *and the law* one gets
-distinctness; from the witness alone one gets neither the law nor its
-negation. -/
+/-- The contrast with Unit 24: under irreflexivity all asserted pairs
+are unequal; an unrestricted positive extension can violate the property.
+The extension assertion has no witnessed-pair premise. -/
 theorem law_is_extra {α : Type} (r : α → α → Prop) (a : α) :
     (Irrefl r → ∀ x y, r x y → x ≠ y) ∧
     (∃ r', (∀ x y, r x y → r' x y) ∧ ¬ Irrefl r') :=
   ⟨fun hi _ _ h => irrefl_witness_ne hi h, irrefl_law_not_entailed r a⟩
+
+/-- Finite negative information can establish the property of a fixed
+relation. The two points exhaust this carrier. -/
+theorem finite_negative_checks_suffice (r : Bool → Bool → Prop)
+    (hf : ¬ r false false) (ht : ¬ r true true) : Irrefl r := by
+  intro x
+  cases x with
+  | false => exact hf
+  | true => exact ht
+
+/-- A fixed definition can entail irreflexivity without a separate
+irreflexivity premise. This does not restrict every positive extension. -/
+theorem inequality_relation_irrefl {α : Type} :
+    Irrefl (fun x y : α => x ≠ y) := fun _ h => h rfl
+
+/-- The inhabited-carrier hypothesis matters. -/
+theorem empty_carrier_irrefl (r : Empty → Empty → Prop) : Irrefl r :=
+  fun x => nomatch x
 
 end Textbook.U26
 
@@ -75,6 +92,9 @@ end Textbook.U26
 #print axioms Textbook.U26.D2_extension_keeps_witness
 #print axioms Textbook.U26.no_facts_entail_law
 #print axioms Textbook.U26.law_is_extra
+#print axioms Textbook.U26.finite_negative_checks_suffice
+#print axioms Textbook.U26.inequality_relation_irrefl
+#print axioms Textbook.U26.empty_carrier_irrefl
 #print axioms Bridge.irrefl_law_not_entailed
 """
 
@@ -88,6 +108,9 @@ EXPECTED = {
     "Textbook.U26.D2_extension_keeps_witness": NONE,
     "Textbook.U26.no_facts_entail_law": NONE,
     "Textbook.U26.law_is_extra": NONE,
+    "Textbook.U26.finite_negative_checks_suffice": NONE,
+    "Textbook.U26.inequality_relation_irrefl": NONE,
+    "Textbook.U26.empty_carrier_irrefl": NONE,
     "Bridge.irrefl_law_not_entailed": NONE,
 }
 

@@ -19,6 +19,7 @@ sys.path.insert(0, str(ROOT / "code"))
 from derivation.candidates import Bounds, NewDatum, NewForm, NewInst, delta_events  # noqa: E402
 from derivation.engine import READING_F, READING_L, build_tree  # noqa: E402
 from derivation.model import AdmitDatum, Impose, replay  # noqa: E402
+from derivation.observe import satisfies  # noqa: E402
 
 BOUNDS = Bounds(max_items=2, max_arity=2)
 
@@ -36,6 +37,11 @@ def main() -> int:
           f"{sorted(u0.reqs)}, data {u0.n_data()}")
     if set(u0.reqs) != {(0, 1)} or u0.n_data() != 2:
         failures.append("anatomy")
+    unanswered = respond(bare2, 0, 1, ())
+    print(f"empty response replays, reqs {sorted(unanswered.reqs)}, "
+          f"recorded demands met: {satisfies(unanswered)}")
+    if set(unanswered.reqs) != {(0, 1)} or satisfies(unanswered):
+        failures.append("replay versus validity")
     grown = respond(bare2, 0, 1, (NewDatum(), NewForm(1), NewInst(0, (0,))))
     print(f"a round whose response admits a datum: data {grown.n_data()} (not a closed round)")
     if grown.n_data() != 3:

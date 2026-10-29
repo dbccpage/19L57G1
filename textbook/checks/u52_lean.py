@@ -121,6 +121,42 @@ theorem freePres2_not_epi : ¬ Epi2 freePres2 := by
 theorem swap_maps_agree (u v : PHom2 swapPres2 idPres2) : u = v :=
   phom2_unique_of_epi _ swapPres2_epi u v
 
+/-- The symmetric source needs a reverse edge at the designated pair,
+not symmetry of every target edge. -/
+theorem symmetric_source_map_iff (T : PtdRel) :
+    Nonempty (Hom s2Obj T) ↔ T.r T.b T.a := by
+  constructor
+  · rintro ⟨h⟩
+    have hr := h.hr true false (Or.inr PrimDiff.D2_witness)
+    have ha : h.f false = T.a := h.ha
+    have hb : h.f true = T.b := h.hb
+    simpa only [ha, hb] using hr
+  · intro hreverse
+    refine ⟨⟨fun t => cond t T.b T.a, rfl, rfl, ?_⟩⟩
+    intro x y hxy
+    cases hxy with
+    | inl h =>
+      rcases h with ⟨hx, hy⟩
+      subst hx; subst hy
+      exact T.w
+    | inr h =>
+      rcases h with ⟨hy, hx⟩
+      subst hx; subst hy
+      exact hreverse
+
+def localSymTarget : PtdRel :=
+  ⟨Fin 3, fun x y => (x = 0 ∧ y = 1) ∨ (x = 1 ∧ y = 0) ∨ (x = 1 ∧ y = 2),
+   0, 1, Or.inl ⟨rfl, rfl⟩⟩
+
+theorem global_symmetry_not_required :
+    Nonempty (Hom s2Obj localSymTarget) ∧ ¬ SymObj localSymTarget := by
+  constructor
+  · exact (symmetric_source_map_iff _).mpr (Or.inr (Or.inl ⟨rfl, rfl⟩))
+  · intro h
+    have hr := h (1 : Fin 3) (2 : Fin 3) (Or.inr (Or.inr ⟨rfl, rfl⟩))
+    have hn : ¬ localSymTarget.r (2 : Fin 3) (1 : Fin 3) := by simp [localSymTarget]
+    exact hn hr
+
 end Textbook.U52
 
 #print axioms Textbook.U52.unit_receives_one
@@ -141,6 +177,8 @@ end Textbook.U52
 #print axioms Textbook.U52.free_maps_differ
 #print axioms Textbook.U52.freePres2_not_epi
 #print axioms Textbook.U52.swap_maps_agree
+#print axioms Textbook.U52.symmetric_source_map_iff
+#print axioms Textbook.U52.global_symmetry_not_required
 #print axioms PrimitiveCats.d2_initial
 #print axioms PrimitiveCats.d2_initial_irrefl
 #print axioms PrimitiveCats.d2_map_injective
@@ -164,6 +202,8 @@ end Textbook.U52
 
 EXPECTED = {
     "Textbook.U52.unit_receives_one": QUOT,
+    "Textbook.U52.symmetric_source_map_iff": NONE,
+    "Textbook.U52.global_symmetry_not_required": PROPEXT,
     "Textbook.U52.unit_collapses": NONE,
     "Textbook.U52.d2_to_s2": QUOT,
     "Textbook.U52.s2_to_d2_none": NONE,

@@ -94,6 +94,13 @@ theorem chain_three_facts :
 
 theorem untyped_from_false : stepU (stepU false) = stepU false := untyped_reflect_fixpoint false
 
+/-- Receipt payloads are retained in the literal MItem representation.
+Forgetting them is a separate observation, not record equality. -/
+theorem receipt_payloads_retained :
+    MItem.receipt 1 ≠ MItem.receipt 2 ∧
+    ([MItem.tok 0, .receipt 1, .receipt 2] : List MItem) ≠
+      [.tok 0, .receipt 2, .receipt 1] := by decide
+
 end Textbook.U39
 
 #print axioms Textbook.U39.silent_inert_here
@@ -110,6 +117,7 @@ end Textbook.U39
 #print axioms Textbook.U39.ceiling_on_bool
 #print axioms Textbook.U39.chain_three_facts
 #print axioms Textbook.U39.untyped_from_false
+#print axioms Textbook.U39.receipt_payloads_retained
 #print axioms RefusalFrontier.silent_repetition_inert
 #print axioms RefusalFrontier.trace_erasure
 #print axioms RefusalFrontier.judgment_carrier_bound
@@ -134,6 +142,7 @@ EXPECTED = {
     "Textbook.U39.ceiling_on_bool": NONE,
     "Textbook.U39.chain_three_facts": PROPEXT,
     "Textbook.U39.untyped_from_false": NONE,
+    "Textbook.U39.receipt_payloads_retained": NONE,
     "RefusalFrontier.silent_repetition_inert": BOTH,
     "RefusalFrontier.trace_erasure": BOTH,
     "RefusalFrontier.judgment_carrier_bound": BOTH,

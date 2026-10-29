@@ -1,16 +1,53 @@
 # Unit 20. The self-loop regime `BD` separates
 
-**Claim.** Admitting one binary form and one instance relating datum 0 to
-itself also separates the two data. The witness is "hole first, datum 0
+**Claim.** On `R2L`, one binary form and a self-loop instance also distinguish
+the data at cost two. Reversible renaming cannot turn this loop into the
+link of Unit 19.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** Starting from `R2L`, admitting one binary form and one instance
+relating datum 0 to itself also separates the two data. The witness is "hole first, datum 0
 second": plugged with 0 it is the admitted loop `(0, [0, 0])`, plugged
 with 1 it is `(0, [1, 0])`, not admitted. This regime, `BD`, is not
 isomorphic to the link `BL`: an isomorphism would have to send both ends
-of the link onto one datum. **Status:** derived. **Lean:**
+of the link onto one datum.
+
+**Status:** derived. **Lean:**
 `Derivation.BD_separable` (`lean4/Derivation/Minimality.lean` lines
 55-56), `BD` (line 44), `deltaBD_valid` (88-89), `BL_not_iso_BD`
 (270-280). **Axioms:** `propext, Quot.sound`. **Depends on:** Unit 19
 (the same machinery, a different instance); `Iso` (Unit 21, introduced
 there in full).
+
+</details>
+
+## First pass
+
+Keep two data and one two-place form. This time admit only
+`link(0, 0)`, with no uniform rule. Ask “is `link(□, 0)` derivable?”
+For 0 it gives the admitted instance. For 1 it gives `link(1, 0)`,
+which is not derivable. The question distinguishes the pair even though
+the admitted instance mentions only 0.
+
+A **self-loop** repeats one datum in both argument positions. This is
+allowed by this admission grammar. It is separate from asking the caller
+to impose a self-demand, which Unit 17's guard rejects.
+
+**Predict:** can renaming turn `link(0, 1)` into `link(0, 0)`?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. A reversible renaming cannot send two different data to the same
+datum. The link and loop remain different structures under the declared
+notion of renaming, although each costs two items.
+
+</details>
+
+The separation claim uses the exact record above. With a uniform rule,
+both pluggings derive and the loop no longer distinguishes the pair.
 
 ## Question
 
@@ -43,9 +80,11 @@ The paper calls this the self-loop realizing ⟨ARA⟩. It appears among the
 
 Two people, one of whom is on record as having shaken their own hand.
 That record distinguishes them. It is a slightly odd way to distinguish
-two people, and the oddness is the point: the demand was "tell them
-apart", not "relate them", and any admitted sentence that mentions one
-and not the other will do.
+two people. Here the demand is met by one positive derivability answer
+and one negative answer to the same question. Mentioning just one datum
+is not sufficient in every regime: other instances or a uniform rule
+can make the other plugging derivable too. The example works because
+there is exactly this one instance and no rule.
 
 Then the second question. The link and the loop each have one form of
 arity 2 and one instance. Are they the same regime up to renaming? No.
@@ -158,8 +197,10 @@ lists the fields) and derives `False`.
   equations gives `dinv 0 = 0` and `dinv 0 = 1`.
 - `omega` finds `0 = 1` among the hypotheses and closes the goal.
 
-The argument never uses the form bijection or the arities; the two
-regimes have the same arity. It is the instance that cannot be matched.
+The argument does not need the arity-preservation field or the
+form-inverse fields; the two regimes have the same arity. Instance
+preservation already forces two distinct data to have the same image,
+contradicting the datum-inverse fields.
 
 **Axioms.** `propext, Quot.sound` for `BD_separable`, `deltaBD_valid` and
 `BL_not_iso_BD` (all decide concrete memberships); `propext` for the
@@ -175,6 +216,9 @@ landing equation `applyDelta R2L deltaBD = some BD`.
 - The loop on 1 is isomorphic to the loop on 0 (Genesis, verified finite
   in Python; the Lean `isoU1U0` of Unit 21 is the analogous statement for
   the unary marks).
+- With the uniform rule for its only form, `BD` is collapsed despite
+  retaining the loop instance (book, `BD_uniform_collapsed`). Mentioning
+  one datum alone is not a general guarantee of separation.
 
 ## What has not been proved
 
@@ -217,6 +261,9 @@ would you use, and what goes wrong?
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 Use `insts_fwd` on the loop's instance `(0, [0, 0])`: it must be carried
 to an instance of `BL`, that is to `(0, [0, 1])`, so `dmap 0 = 0` from
 the first argument and `dmap 0 = 1` from the second; `0 = 1`,
@@ -225,6 +272,8 @@ and the inverse field is not needed. Unit 21 gives a second route that
 needs no new case analysis: every `Iso` can be reversed (`isoSymm`), so
 `Iso BD BL → False` follows from `BL_not_iso_BD` in one line. Both are
 book Lean; the frozen derivation did not need either.
+
+</details>
 
 ## Verification
 
@@ -236,5 +285,5 @@ book Lean; the frozen derivation did not need either.
 | Ledger | `paper/paper_claim_ledger.md`, `CL-3-TIE-CLASSES` (class distinctness: `U0_not_iso_BL`, `U0_not_iso_BD`, `BL_not_iso_BD`) |
 | Artifact | `artifacts/challenges.json`, `challenge3.L.mu1.iso_classes`, label `form2+inst2diag`, class size 2 |
 | Test | `tests/test_engine.py::test_challenge3_reading_l_classes` (labels include `form2+inst2diag`); `tests/test_iso.py` |
-| Check (Python) | `python textbook/checks/u20_loop.py`: all five contexts with both pluggings, three witnesses including Lean's; profiles; cross-witness failures; both loop deltas valid; loop on 0 isomorphic to loop on 1; link not isomorphic to loop |
-| Check (book Lean) | `python textbook/checks/u20_lean.py`: ten book theorems plus three Genesis theorems kernel-checked, Lean 4.33.0; `propext, Quot.sound` throughout except the landing equation (`propext`) |
+| Check (Python) | `python textbook/checks/u20_loop.py`: all five contexts with both pluggings, three witnesses including Lean's; profiles; cross-witness failures; both loop deltas valid; loop on 0 isomorphic to loop on 1; link not isomorphic to loop; a uniform rule removes separation while retaining the loop |
+| Check (book Lean) | `python textbook/checks/u20_lean.py`: eleven book reports plus three Genesis theorems kernel-checked, Lean 4.33.0, including `BD_uniform_collapsed`; `propext, Quot.sound` throughout except the landing equation (`propext`) |

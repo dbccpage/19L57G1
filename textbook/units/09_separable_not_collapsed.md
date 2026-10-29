@@ -2,10 +2,35 @@
 
 **Claim.** If two data are separable, they are not collapsed. The proof is
 constructive: the witness context that separates them is the very context
-on which collapse would have to hold. **Status:** derived. **Lean:**
+on which collapse would have to hold.
+
+<details>
+<summary>Source and classification record (optional on a first reading)</summary>
+
+**Status:** derived. **Lean:**
 `Derivation.separable_not_collapsed` (`lean4/Derivation/Basic.lean` lines
 128-130). **Axioms:** `propext` (from the definitions). **Depends on:**
 `collapsed`, `separable` (Unit 08).
+
+</details>
+
+## First pass
+
+Suppose somebody claims every available question gives the same
+answer for 0 and 1. You show `marked(_)`, which is derivable on 0
+and not on 1. That one question refutes the all-agreement claim.
+No further search is needed once this witness is supplied.
+
+Now suppose a search stops without showing a witness. Does that
+establish agreement? Only if the search actually covered every allowed
+question, or a proof rules out every witness. Stopping early is not
+the same evidence.
+
+The displayed general proofs establish that collapse means no
+separating witness exists. They do not display a general constructive
+procedure extracting a witness from a negated collapse statement.
+The Python check searches the full finite context lists of its
+declared test regimes.
 
 ## Question
 
@@ -45,11 +70,14 @@ and point at the stencil: collapse promised it would treat them alike, and
 it does not. One of the claims is false. Since the stencil is in hand, it
 is collapse that fails.
 
-The other direction, "not collapsed implies separable", is also true here,
-but for a different reason: each context's answer is decidable, so "not
-all agree" can be turned into "some disagrees" without any appeal to the
-excluded middle. The book proves both directions; Genesis needs and states
-only the first.
+The book proves a different converse: **no separating witness exists
+implies every context agrees**. Together with the first theorem, this
+gives `collapsed ↔ ¬ separable`. That displayed proof does not by itself
+turn `¬ collapsed` into a positive witness. Doing that constructively
+requires an additional argument, such as a proved complete finite
+context search. Deciding each individual context is not that whole-search
+argument. The Python check explicitly exhausts the contexts of its
+finite test regimes.
 
 ## Pseudocode
 
@@ -115,7 +143,8 @@ theorem separable_not_collapsed {r : Regime} {d d' : Nat}
 ```
 
 The book's Lean restates the same proof with each step on its own line,
-proves the converse constructively, and instantiates on `U1`.
+proves collapse from absence of separation, records the precise
+negated consequence, and instantiates on `U1`.
 
 ```lean
 -- Lean (book), textbook/checks/u09_lean.py
@@ -136,6 +165,14 @@ theorem collapsed_of_not_separable (r : Regime) (d d' : Nat)
 theorem collapsed_iff_not_separable (r : Regime) (d d' : Nat) :
     collapsed r d d' ↔ ¬ separable r d d' :=
   ⟨fun hc hs => separable_not_collapsed hs hc, collapsed_of_not_separable r d d'⟩
+
+theorem not_collapsed_iff_not_not_separable (r : Regime) (d d' : Nat) :
+    ¬ collapsed r d d' ↔ ¬¬ separable r d d' := by
+  constructor
+  · intro hnc hns
+    exact hnc (collapsed_of_not_separable r d d' hns)
+  · intro hnns hc
+    exact hnns ((collapsed_iff_not_separable r d d').mp hc)
 
 theorem U1_not_collapsed : ¬ collapsed U1 0 1 :=
   separable_not_collapsed U1_separable
@@ -187,27 +224,38 @@ hs hc : False`.
 `U1_separable`. No new computation; the witness inside `U1_separable` does
 the work.
 
+**Negating the equivalence.** The new theorem says `¬ collapsed`
+is equivalent to ruling out `¬ separable`. It records the double negation;
+it does not eliminate that negation to exhibit a context. The proof first
+uses the no-witness-to-collapse direction and then the opposite direction
+of the existing equivalence. A stronger positive extraction claim needs
+its own proof.
+
 **Axioms.** `separable_not_collapsed` reports `propext`, inherited from
-the definitions; the proof itself is pure logic. The book theorems that
-touch `U1` or use `by_cases` on a concrete decidable report `propext,
-Quot.sound`, as `U1_separable` does.
+the definitions. The book's per-context decision also reaches
+`Quot.sound`, even when the regime is an arbitrary parameter. The eight
+reports comprise three `propext` and five `{propext, Quot.sound}` sets.
 
 ## What has been proved
 
 - Separable implies not collapsed, for every regime and every pair
   (Genesis, derived).
 - Not separable implies collapsed, constructively (book Lean, derived).
-- So, for every regime and pair, collapsed and separable are each other's
-  exact complement (book Lean).
+- Precisely, `collapsed ↔ ¬ separable`; negating this gives
+  `¬ collapsed ↔ ¬¬ separable` (book Lean). This last statement is not
+  a displayed witness-extraction theorem.
 
 ## What has not been proved
 
 - Which pairs are separable in any given regime. That is decided case by
   case (Unit 10 for regimes with no instances; Units 18-22 for the first
   regimes that separate anything).
-- That "not collapsed" and "separable" would coincide under a non-decidable
-  notion of derivability. They coincide here because `derivable` is a
-  finite membership test. Genesis never introduces a non-decidable one.
+- A general witness-extraction theorem `¬ collapsed → separable`
+  is not supplied by these displayed proofs. The per-context membership
+  test is decidable, and the current grammar has finite well-formed
+  context spaces, but a constructive extraction proof must connect
+  enumeration with that grammar. The forty-regime Python check is
+  scoped evidence, not that general proof.
 
 ## Outside the system
 
@@ -241,9 +289,10 @@ With `∃`, every proof of separability must present a context, and that
 context can be opened and used, as this theorem does. Defined as
 `¬ collapsed`, a proof could in principle establish separability without
 naming a witness, by refuting collapse indirectly, and a later proof could
-not extract one from it. The book's `collapsed_of_not_separable` shows the
-two formulations agree here, so nothing is lost, and the witness-carrying
-form is the one every later separation proof uses (`U0_separable`,
+not extract one from it. The book's `collapsed_of_not_separable` proves `¬ separable → collapsed`;
+it does not alone prove `¬ collapsed → separable`. A finite exhaustive
+search can exhibit a witness in the tested regimes. The explicit
+witness form is the one used in the named later separation proofs (`U0_separable`,
 `BL_separable`, `BD_separable`, `markK_separable` all begin with a
 concrete context).
 
@@ -255,4 +304,4 @@ concrete context).
 | Axiom report | `artifacts/lean_axioms.txt`: `separable_not_collapsed` `[propext]`; `U1_separable` `[propext, Quot.sound]` |
 | Paper | `paper/paper.md` §3 item 5 (profile, collapse, internal separability) |
 | Check (Python) | `python textbook/checks/u09_witness.py`: 40 regimes (two data, one form of arity 1 or 2, every instance subset, rule or not); 16 separable with a verified witness, 24 collapsed with no differing context; `separable` equals "witness exists" equals "not in `collapsed_pairs`" on every one |
-| Check (book Lean) | `python textbook/checks/u09_lean.py`: five book theorems plus `separable_not_collapsed` and `U1_separable` kernel-checked, Lean 4.33.0; reports `propext` for the general proofs, `propext, Quot.sound` where a concrete decision is made |
+| Check (book Lean) | `python textbook/checks/u09_lean.py`: six book theorems plus `separable_not_collapsed` and `U1_separable`, eight reports in total: three `propext`, five `{propext, Quot.sound}` |

@@ -17,8 +17,8 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "code"))
 
 from derivation.refusal_frontier import (  # noqa: E402
-    Proto, cost_a, cost_b, enumerate_protocols, minimum_table,
-    normal_form_check, protocol_report,
+    EMPTY_F, Proto, cost_a, cost_b, enumerate_protocols, minimum_table,
+    normal_form_check, protocol_report, step_f,
 )
 
 HORIZON = 6
@@ -79,6 +79,21 @@ def main() -> int:
     if nf != art["normal_form"] or not nf["normal_form_holds_in_class"]:
         failures.append("normal_form")
     print(f"imports of the minimum route: {ROUTES['relation route (minimum)'].imports()}")
+    # Book observation: forget receipt payloads and read existence of links.
+    star = EMPTY_F
+    for _ in range(3):
+        star = step_f(ROUTES['relation route (minimum)'], star, ('present', '<>'))
+    swapped_data = (star.data[0], star.data[2], star.data[1])
+    link_view = lambda i: (any(b == i for a, b in star.rel), any(a == i for a, b in star.rel))
+    swap = {0: 0, 1: 2, 2: 1}
+    swapped_links = frozenset((swap[a], swap[b]) for a, b in star.rel)
+    print(f"star receipt payloads {star.data[1:]}; exchanged literal data equal: "
+          f"{swapped_data == star.data}; receipt link views {link_view(1)} {link_view(2)}; "
+          f"link set fixed: {swapped_links == star.rel}")
+    if star.data != ('<>', 'r1', 'r2') or swapped_data == star.data \
+            or link_view(1) != (True, False) or link_view(2) != (True, False) \
+            or swapped_links != star.rel:
+        failures.append('receipt payload versus link observation')
     print(f"failures: {failures}")
     return 1 if failures else 0
 

@@ -43,6 +43,11 @@ theorem L_with_F_demand :
              .admitDatum, .admitDatum, .impose 1 2] genesis = none :=
   F_without_genesis_admission
 
+/-- The opposite index transfer is accepted, but demands a different pair. -/
+theorem F_with_L_demand_accepted :
+    replayT [.admitDatum 0, .admitDatum 1, .admitDatum 2, .impose 0 1]
+      ⟨[], [], [], [], []⟩ = some ⟨[0, 1, 2], [], [], [], [(0, 1)]⟩ := by decide
+
 /-- Token-aware genesis: no tokens. -/
 def tgenesis : TRegime := ⟨[], [], [], [], []⟩
 
@@ -78,6 +83,7 @@ end Textbook.U05
 #print axioms Textbook.U05.readings_differ_by_one
 #print axioms Textbook.U05.F_without_genesis_admission
 #print axioms Textbook.U05.L_with_F_demand
+#print axioms Textbook.U05.F_with_L_demand_accepted
 #print axioms Textbook.U05.subreadings_converge
 #print axioms Textbook.U05.subreadings_regime
 #print axioms Textbook.U05.readings_do_not_converge
@@ -90,6 +96,7 @@ EXPECTED = {
     "Textbook.U05.readings_differ_by_one": NONE,
     "Textbook.U05.F_without_genesis_admission": PROPEXT,
     "Textbook.U05.L_with_F_demand": PROPEXT,
+    "Textbook.U05.F_with_L_demand_accepted": BOTH,
     "Textbook.U05.subreadings_converge": BOTH,
     "Textbook.U05.subreadings_regime": BOTH,
     "Textbook.U05.readings_do_not_converge": BOTH,

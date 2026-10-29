@@ -1,7 +1,7 @@
 """Unit 27 check: the abstraction barrier, computed on the Challenge 2 regime.
 
-Python has no quotient type. What it has is the collapse class of a datum
-(its profile) and the engine's isomorphism quotient (canonical keys). The
+This model represents collapse classes by complete profiles and the
+engine's isomorphism classes by canonical keys. The
 script shows, by sample, what `Quot.barrier_R2L` states: a function that
 reads only the class returns the same value on <a> and <ab>.
 AuthorityEffect: None.
@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "code"))
 
 from derivation.iso import canonical, group_by_canonical, rename  # noqa: E402
-from derivation.model import AdmitDatum, Impose, replay  # noqa: E402
+from derivation.model import AdmitDatum, AdmitForm, AdmitInst, Impose, replay  # noqa: E402
 from derivation.observe import collapsed_pairs, profile  # noqa: E402
 
 
@@ -56,6 +56,12 @@ def main() -> int:
     if not same_key or len(groups) != 1:
         failures.append("canonical")
 
+    link = replay([AdmitForm(2), AdmitInst(0, (0, 1))], r2l)
+    p0, p1 = profile(link, 0), profile(link, 1)
+    print(f"binary link: profile sizes {len(p0)}, {len(p1)}; "
+          f"equal full profiles={p0 == p1}; collapsed pairs={collapsed_pairs(link)}")
+    if len(p0) != 1 or len(p1) != 1 or p0 == p1 or collapsed_pairs(link):
+        failures.append("coarse summary is not the full profile")
     print(f"failures: {failures}")
     return 1 if failures else 0
 

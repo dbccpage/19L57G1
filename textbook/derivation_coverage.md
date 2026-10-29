@@ -1,24 +1,39 @@
 # Derivation Coverage Matrix and Lesson Dependency Graph
 
-**AuthorityEffect: None.** This document is the mathematical map of the
-Genesis Textbook. It records:
+**AuthorityEffect: None.** This is a source-placement index and a recorded
+prerequisite graph. It is not a certification that every declaration is
+explained or that every prerequisite is taught before use. It records:
 
 1. Every frozen module under `lean4/Derivation/` (all 75 modules: 62 directly
    imported by `lean4/Derivation.lean`, 63 in its transitive import closure,
    and the remaining 12 parked modules imported by
    `lean4/ParkedAudit.lean`) and its mapping to Part 1 textbook units
    (`Unit 00`–`Unit 74`) and module audit records (`textbook/audit/modules/`).
-2. Every significant definition, structure, theorem, and lemma across all 75
-   frozen modules (1 685 theorems and 708 definitions/structures/inductives),
-   mapped to a **Substantive textbook lesson** (`S`), an **Explicitly
-   documented auxiliary dependency** (`A`), a **Technical appendix / audit
-   record**, or an **Explicitly documented omission with justification**.
+2. Proposed declaration placement across those modules: a **Substantive
+   textbook lesson** (`S`), **Auxiliary dependency** (`A`), **Technical
+   appendix / audit record**, or **Proposed omission with justification**.
+   Some entries group names or use ellipses. Their presence does not prove
+   exhaustive declaration coverage or substantive teaching of each entry.
 3. Every research theorem taught in Part 2 (`textbook/institutions/units/00`–`17`),
    identifying its originating research tree (`research/actor_institution`,
    `research/two_theorems`, `research/uncollapse`,
    `research/interpreter_verdict`) and its exact evidence classification.
-4. The complete lesson dependency directed acyclic graph (DAG), checked
-   programmatically for acyclicity (zero cycles, zero forward prerequisites).
+4. The explicitly recorded prerequisite edges among the formal units.
+   Checking these edges for cycles does not discover missing conceptual
+   prerequisites. The beginner routes and the
+   [formal-reading guide](reading_formal_statements.md) address some of them.
+
+The old opening's total of 708 definitions/structures/inductives did not
+match its historical inventory's counters. A fresh
+[source/compiled reconciliation](audit/DECLARATION_REVIEW_2026-10-28.md)
+excludes 20 comment matches and includes ten unnamed instance declarations.
+Its restricted source scan finds 2,564 declaration heads, each matched to
+one same-module compiled Lean declaration at the recorded source location:
+1,676 theorem heads and 888 other heads. The latter include 763 `def`,
+68 `structure`, 38 `inductive`, nine `abbrev`, and ten `instance` heads.
+Fields, constructors, and generated constants are a separate population.
+These counts describe the scan, not complete semantic teaching coverage;
+the historical inventory and module records remain preserved.
 
 ## 1. Evidence Status Classifications
 
@@ -41,14 +56,17 @@ Every declaration in this matrix carries one or more of the seven status marks:
   decidability assumptions, fiber-constancy, or scope assumptions); the
   theorem establishes the implication from those hypotheses, not that the
   hypotheses are forced.
-- `VERIFIED_FINITE` — Checked by deterministic finite calculation (`decide`,
-  `rfl`, or native reduction on a concrete finite carrier or exhibit).
-  Establishes the statement on the tested finite domain only.
+- `VERIFIED_FINITE` — Computational evidence on an explicitly declared
+  finite population. Read each row's actual statement and evidence: a
+  kernel-checked theorem about a finite carrier remains a theorem, and a
+  concrete counterexample can refute a universal claim. Tactics such as
+  `rfl` or `decide` alone do not determine a theorem's quantifier scope.
+  The existing row classifications still need semantic reconciliation.
 - `REFUTED` — A formal counterexample or negative theorem refuting a candidate
   bridge, uniqueness claim, or overstrong statement.
 - `ADMITTED` — A declared structure, inductive grammar, cost measure,
-  representation choice, or normative rule supplied from outside at a stated
-  price. A definition is not a derivation.
+  representation choice, or requirement. A price applies only where a
+  specific model's cost rule assigns one. A definition is not a derivation.
 - `OPEN` — An unresolved mathematical obligation (`InterpreterBoundary`'s
   `OpenBridgeObligation` / `ResearchInterpreterVerdict.openDenotationalBridge`,
   and institutional wisdom beyond non-overclaiming `Grounded`). Preserved as
@@ -58,93 +76,104 @@ Every declaration in this matrix carries one or more of the seven status marks:
 
 ## 2. Module-to-Lesson Summary Matrix (All 75 Frozen Modules + Root)
 
-| # | Module | Path | Root Import | Lines | Defs/Structs | Theorems | Primary Textbook Units | Audit Appendix |
+| # | Module | Path | Root Import | Lines | Matched other heads | Matched theorem heads | Primary Textbook Units | Audit Appendix |
 |---|---|---|---|---|---|---|---|---|
-| 0 | `Derivation` (root) | `lean4/Derivation.lean` | root | 62 | 0 | 0 | All Part 1 Units (`Unit 00`–`Unit 73`) | [`audit/README.md`](audit/README.md) |
-| 1 | `Apartness` | `lean4/Derivation/Apartness.lean` | yes | 338 | 5 | 28 | `Unit 56` | [`audit/modules/Apartness.md`](audit/modules/Apartness.md) |
-| 2 | `Attachment` | `lean4/Derivation/Attachment.lean` | yes | 1173 | 41 | 54 | `Unit 59` | [`audit/modules/Attachment.md`](audit/modules/Attachment.md) |
-| 3 | `Basic` | `lean4/Derivation/Basic.lean` | yes | 218 | 20 | 7 | `Unit 00`, `Unit 08`, `Unit 09`, `Unit 17` | [`audit/modules/Basic.md`](audit/modules/Basic.md) |
-| 4 | `BoundaryCancellation` | `lean4/Derivation/BoundaryCancellation.lean` | yes | 662 | 7 | 37 | `Unit 60` | [`audit/modules/BoundaryCancellation.md`](audit/modules/BoundaryCancellation.md) |
-| 5 | `Breaking` | `lean4/Derivation/Breaking.lean` | yes | 446 | 18 | 15 | `Unit 73` | [`audit/modules/Breaking.md`](audit/modules/Breaking.md) |
-| 6 | `Bridge` | `lean4/Derivation/Bridge.lean` | yes | 317 | 4 | 12 | `Unit 11`, `Unit 13`, `Unit 26`, `Unit 37`, `Unit 38` | [`audit/modules/Bridge.md`](audit/modules/Bridge.md) |
-| 7 | `CapacityBound` | `lean4/Derivation/CapacityBound.lean` | yes | 255 | 3 | 10 | `Unit 42` | [`audit/modules/CapacityBound.md`](audit/modules/CapacityBound.md) |
-| 8 | `ClosureSymmetry` | `lean4/Derivation/ClosureSymmetry.lean` | yes | 167 | 4 | 7 | `Unit 71` | [`audit/modules/ClosureSymmetry.md`](audit/modules/ClosureSymmetry.md) |
-| 9 | `Completion` | `lean4/Derivation/Completion.lean` | yes | 530 | 14 | 22 | `Unit 46` | [`audit/modules/Completion.md`](audit/modules/Completion.md) |
-| 10 | `Composing` | `lean4/Derivation/Composing.lean` | no (`ParkedAudit.lean`) | 229 | 11 | 7 | `Unit 73` | [`audit/modules/Composing.md`](audit/modules/Composing.md) |
-| 11 | `Compression` | `lean4/Derivation/Compression.lean` | yes | 788 | 14 | 38 | `Unit 61` | [`audit/modules/Compression.md`](audit/modules/Compression.md) |
-| 12 | `Constitution` | `lean4/Derivation/Constitution.lean` | yes | 394 | 13 | 16 | `Unit 48` | [`audit/modules/Constitution.md`](audit/modules/Constitution.md) |
-| 13 | `ContactBridge` | `lean4/Derivation/ContactBridge.lean` | yes | 711 | 9 | 35 | `Unit 53`, `Unit 68` | [`audit/modules/ContactBridge.md`](audit/modules/ContactBridge.md) |
-| 14 | `ContactKernel` | `lean4/Derivation/ContactKernel.lean` | yes | 1026 | 25 | 53 | `Unit 69` | [`audit/modules/ContactKernel.md`](audit/modules/ContactKernel.md) |
-| 15 | `ControllerCategory` | `lean4/Derivation/ControllerCategory.lean` | yes | 775 | 39 | 63 | `Unit 58` | [`audit/modules/ControllerCategory.md`](audit/modules/ControllerCategory.md) |
-| 16 | `CountTransport` | `lean4/Derivation/CountTransport.lean` | yes | 307 | 6 | 13 | `Unit 29` | [`audit/modules/CountTransport.md`](audit/modules/CountTransport.md) |
-| 17 | `Counting` | `lean4/Derivation/Counting.lean` | yes | 87 | 1 | 4 | `Unit 28` | [`audit/modules/Counting.md`](audit/modules/Counting.md) |
-| 18 | `DiffAnchor` | `lean4/Derivation/DiffAnchor.lean` | no (`ParkedAudit.lean`) | 74 | 1 | 3 | `Unit 68` | [`audit/modules/DiffAnchor.md`](audit/modules/DiffAnchor.md) |
-| 19 | `DiffAnchorCompat` | `lean4/Derivation/DiffAnchorCompat.lean` | no (`ParkedAudit.lean`) | 18 | 0 | 0 | `Unit 68` | [`audit/modules/DiffAnchorCompat.md`](audit/modules/DiffAnchorCompat.md) |
-| 20 | `DiffInterface` | `lean4/Derivation/DiffInterface.lean` | yes | 762 | 43 | 35 | `Unit 44` | [`audit/modules/DiffInterface.md`](audit/modules/DiffInterface.md) |
-| 21 | `EndogenousFidelityGenerator` | `lean4/Derivation/EndogenousFidelityGenerator.lean` | yes | 110 | 4 | 6 | `Unit 72` | [`audit/modules/EndogenousFidelityGenerator.md`](audit/modules/EndogenousFidelityGenerator.md) |
-| 22 | `Erasure` | `lean4/Derivation/Erasure.lean` | yes | 162 | 7 | 4 | `Unit 06`, `Unit 07` | [`audit/modules/Erasure.md`](audit/modules/Erasure.md) |
-| 23 | `Ext` | `lean4/Derivation/Ext.lean` | yes | 180 | 3 | 12 | `Unit 36` | [`audit/modules/Ext.md`](audit/modules/Ext.md) |
-| 24 | `FidelityClosure` | `lean4/Derivation/FidelityClosure.lean` | yes | 235 | 14 | 11 | `Unit 72` | [`audit/modules/FidelityClosure.md`](audit/modules/FidelityClosure.md) |
-| 25 | `FormRenaming` | `lean4/Derivation/FormRenaming.lean` | no (`ParkedAudit.lean`) | 148 | 4 | 9 | `Unit 74` | [`audit/modules/FormRenaming.md`](audit/modules/FormRenaming.md) |
-| 26 | `FormTransport` | `lean4/Derivation/FormTransport.lean` | no (`ParkedAudit.lean`) | 197 | 1 | 11 | `Unit 74` | [`audit/modules/FormTransport.md`](audit/modules/FormTransport.md) |
-| 27 | `FormTransportCompat` | `lean4/Derivation/FormTransportCompat.lean` | no (`ParkedAudit.lean`) | 24 | 0 | 0 | `Unit 74` | [`audit/modules/FormTransportCompat.md`](audit/modules/FormTransportCompat.md) |
-| 28 | `G1Class` | `lean4/Derivation/G1Class.lean` | yes | 46 | 0 | 3 | `Unit 43` | [`audit/modules/G1Class.md`](audit/modules/G1Class.md) |
-| 29 | `Generator` | `lean4/Derivation/Generator.lean` | yes | 297 | 4 | 16 | `Unit 40` | [`audit/modules/Generator.md`](audit/modules/Generator.md) |
-| 30 | `GraphGenesis` | `lean4/Derivation/GraphGenesis.lean` | yes | 721 | 12 | 28 | `Unit 63` | [`audit/modules/GraphGenesis.md`](audit/modules/GraphGenesis.md) |
-| 31 | `HigherStructure` | `lean4/Derivation/HigherStructure.lean` | yes | 817 | 34 | 40 | `Unit 55` | [`audit/modules/HigherStructure.md`](audit/modules/HigherStructure.md) |
-| 32 | `Horizon` | `lean4/Derivation/Horizon.lean` | yes | 425 | 7 | 27 | `Unit 50` | [`audit/modules/Horizon.md`](audit/modules/Horizon.md) |
-| 33 | `Inertia` | `lean4/Derivation/Inertia.lean` | yes | 95 | 1 | 10 | `Unit 01`, `Unit 02`, `Unit 03`, `Unit 04`, `Unit 05`, `Unit 10`, `Unit 12`, `Unit 16` | [`audit/modules/Inertia.md`](audit/modules/Inertia.md) |
-| 34 | `Initiality` | `lean4/Derivation/Initiality.lean` | yes | 172 | 11 | 11 | `Unit 49` | [`audit/modules/Initiality.md`](audit/modules/Initiality.md) |
-| 35 | `InterpreterBoundary` | `lean4/Derivation/InterpreterBoundary.lean` | yes | 395 | 13 | 15 | `Unit 57` | [`audit/modules/InterpreterBoundary.md`](audit/modules/InterpreterBoundary.md) |
-| 36 | `IsoBridge` | `lean4/Derivation/IsoBridge.lean` | no (`ParkedAudit.lean`) | 76 | 1 | 0 | `Unit 74` | [`audit/modules/IsoBridge.md`](audit/modules/IsoBridge.md) |
-| 37 | `IsoBridgeCompat` | `lean4/Derivation/IsoBridgeCompat.lean` | no (`ParkedAudit.lean`) | 18 | 0 | 0 | `Unit 74` | [`audit/modules/IsoBridgeCompat.md`](audit/modules/IsoBridgeCompat.md) |
-| 38 | `IsoCanon` | `lean4/Derivation/IsoCanon.lean` | no (`ParkedAudit.lean`) | 233 | 4 | 10 | `Unit 74` | [`audit/modules/IsoCanon.md`](audit/modules/IsoCanon.md) |
-| 39 | `IsoCanonCompat` | `lean4/Derivation/IsoCanonCompat.lean` | no (`ParkedAudit.lean`) | 18 | 0 | 0 | `Unit 74` | [`audit/modules/IsoCanonCompat.md`](audit/modules/IsoCanonCompat.md) |
-| 40 | `IsoCollapse` | `lean4/Derivation/IsoCollapse.lean` | no (`ParkedAudit.lean`) | 178 | 3 | 8 | `Unit 74` | [`audit/modules/IsoCollapse.md`](audit/modules/IsoCollapse.md) |
-| 41 | `IsoCollapseCompat` | `lean4/Derivation/IsoCollapseCompat.lean` | no (`ParkedAudit.lean`) | 18 | 0 | 0 | `Unit 74` | [`audit/modules/IsoCollapseCompat.md`](audit/modules/IsoCollapseCompat.md) |
-| 42 | `LadderGeneral` | `lean4/Derivation/LadderGeneral.lean` | yes | 330 | 22 | 13 | `Unit 60` | [`audit/modules/LadderGeneral.md`](audit/modules/LadderGeneral.md) |
-| 43 | `LocalStrategy` | `lean4/Derivation/LocalStrategy.lean` | no (`ParkedAudit.lean`) | 263 | 18 | 23 | `Unit 43` | [`audit/modules/LocalStrategy.md`](audit/modules/LocalStrategy.md) |
-| 44 | `Mention` | `lean4/Derivation/Mention.lean` | yes | 200 | 0 | 7 | `Unit 12`, `Unit 30` | [`audit/modules/Mention.md`](audit/modules/Mention.md) |
-| 45 | `Minimality` | `lean4/Derivation/Minimality.lean` | yes | 488 | 16 | 26 | `Unit 18`, `Unit 19`, `Unit 20`, `Unit 21`, `Unit 22` | [`audit/modules/Minimality.md`](audit/modules/Minimality.md) |
-| 46 | `MinimalityF` | `lean4/Derivation/MinimalityF.lean` | yes | 198 | 4 | 2 | `Unit 32` | [`audit/modules/MinimalityF.md`](audit/modules/MinimalityF.md) |
-| 47 | `NoOutside` | `lean4/Derivation/NoOutside.lean` | yes | 271 | 7 | 13 | `Unit 47` | [`audit/modules/NoOutside.md`](audit/modules/NoOutside.md) |
-| 48 | `NoOutsideFidelity` | `lean4/Derivation/NoOutsideFidelity.lean` | yes | 106 | 2 | 6 | `Unit 72` | [`audit/modules/NoOutsideFidelity.md`](audit/modules/NoOutsideFidelity.md) |
-| 49 | `ObsDescent` | `lean4/Derivation/ObsDescent.lean` | yes | 540 | 8 | 37 | `Unit 67` | [`audit/modules/ObsDescent.md`](audit/modules/ObsDescent.md) |
-| 50 | `ObserverInventory` | `lean4/Derivation/ObserverInventory.lean` | yes | 232 | 8 | 17 | `Unit 37` | [`audit/modules/ObserverInventory.md`](audit/modules/ObserverInventory.md) |
-| 51 | `Pigeonhole` | `lean4/Derivation/Pigeonhole.lean` | yes | 233 | 1 | 12 | `Unit 42` | [`audit/modules/Pigeonhole.md`](audit/modules/Pigeonhole.md) |
-| 52 | `PresentationDescent` | `lean4/Derivation/PresentationDescent.lean` | yes | 226 | 9 | 7 | `Unit 72` | [`audit/modules/PresentationDescent.md`](audit/modules/PresentationDescent.md) |
-| 53 | `PresentationNaturality` | `lean4/Derivation/PresentationNaturality.lean` | yes | 666 | 40 | 30 | `Unit 70` | [`audit/modules/PresentationNaturality.md`](audit/modules/PresentationNaturality.md) |
-| 54 | `PresentationRelativity` | `lean4/Derivation/PresentationRelativity.lean` | yes | 638 | 19 | 34 | `Unit 71` | [`audit/modules/PresentationRelativity.md`](audit/modules/PresentationRelativity.md) |
-| 55 | `PrimDiff` | `lean4/Derivation/PrimDiff.lean` | yes | 546 | 11 | 44 | `Unit 14`, `Unit 15`, `Unit 23`, `Unit 24`, `Unit 25` | [`audit/modules/PrimDiff.md`](audit/modules/PrimDiff.md) |
-| 56 | `PrimitiveCats` | `lean4/Derivation/PrimitiveCats.lean` | yes | 722 | 32 | 49 | `Unit 52` | [`audit/modules/PrimitiveCats.md`](audit/modules/PrimitiveCats.md) |
-| 57 | `PrimitiveContact` | `lean4/Derivation/PrimitiveContact.lean` | yes | 143 | 6 | 4 | `Unit 53` | [`audit/modules/PrimitiveContact.md`](audit/modules/PrimitiveContact.md) |
-| 58 | `PrimitiveCore` | `lean4/Derivation/PrimitiveCore.lean` | yes | 919 | 32 | 129 | `Unit 51` | [`audit/modules/PrimitiveCore.md`](audit/modules/PrimitiveCore.md) |
-| 59 | `PrimitivePassage` | `lean4/Derivation/PrimitivePassage.lean` | yes | 1299 | 31 | 59 | `Unit 54` | [`audit/modules/PrimitivePassage.md`](audit/modules/PrimitivePassage.md) |
-| 60 | `Progress` | `lean4/Derivation/Progress.lean` | yes | 238 | 0 | 6 | `Unit 35` | [`audit/modules/Progress.md`](audit/modules/Progress.md) |
-| 61 | `Quot` | `lean4/Derivation/Quot.lean` | yes | 38 | 1 | 3 | `Unit 27` | [`audit/modules/Quot.md`](audit/modules/Quot.md) |
-| 62 | `QuotientRetention` | `lean4/Derivation/QuotientRetention.lean` | yes | 144 | 2 | 9 | `Unit 72` | [`audit/modules/QuotientRetention.md`](audit/modules/QuotientRetention.md) |
-| 63 | `Refusal` | `lean4/Derivation/Refusal.lean` | yes | 290 | 13 | 18 | `Unit 38` | [`audit/modules/Refusal.md`](audit/modules/Refusal.md) |
-| 64 | `RefusalFrontier` | `lean4/Derivation/RefusalFrontier.lean` | yes | 372 | 17 | 20 | `Unit 39` | [`audit/modules/RefusalFrontier.md`](audit/modules/RefusalFrontier.md) |
-| 65 | `RenamingStructure` | `lean4/Derivation/RenamingStructure.lean` | yes | 483 | 6 | 28 | `Unit 59` | [`audit/modules/RenamingStructure.md`](audit/modules/RenamingStructure.md) |
-| 66 | `Represented` | `lean4/Derivation/Represented.lean` | yes | 1364 | 50 | 65 | `Unit 45` | [`audit/modules/Represented.md`](audit/modules/Represented.md) |
-| 67 | `ResidualClosure` | `lean4/Derivation/ResidualClosure.lean` | yes | 123 | 1 | 7 | `Unit 71` | [`audit/modules/ResidualClosure.md`](audit/modules/ResidualClosure.md) |
-| 68 | `Rounds` | `lean4/Derivation/Rounds.lean` | yes | 483 | 2 | 25 | `Unit 34` | [`audit/modules/Rounds.md`](audit/modules/Rounds.md) |
-| 69 | `RuleBridge` | `lean4/Derivation/RuleBridge.lean` | yes | 269 | 1 | 8 | `Unit 33` | [`audit/modules/RuleBridge.md`](audit/modules/RuleBridge.md) |
-| 70 | `SeparationCapacity` | `lean4/Derivation/SeparationCapacity.lean` | yes | 239 | 2 | 14 | `Unit 41` | [`audit/modules/SeparationCapacity.md`](audit/modules/SeparationCapacity.md) |
-| 71 | `StableContent` | `lean4/Derivation/StableContent.lean` | yes | 583 | 11 | 18 | `Unit 62` | [`audit/modules/StableContent.md`](audit/modules/StableContent.md) |
-| 72 | `TraceAlgebra` | `lean4/Derivation/TraceAlgebra.lean` | yes | 1002 | 18 | 72 | `Unit 66` | [`audit/modules/TraceAlgebra.md`](audit/modules/TraceAlgebra.md) |
-| 73 | `TransitionAlphabet` | `lean4/Derivation/TransitionAlphabet.lean` | yes | 1894 | 66 | 118 | `Unit 65` | [`audit/modules/TransitionAlphabet.md`](audit/modules/TransitionAlphabet.md) |
-| 74 | `TransitionTransport` | `lean4/Derivation/TransitionTransport.lean` | yes | 1071 | 11 | 53 | `Unit 31` | [`audit/modules/TransitionTransport.md`](audit/modules/TransitionTransport.md) |
-| 75 | `WeightProfile` | `lean4/Derivation/WeightProfile.lean` | yes | 523 | 15 | 31 | `Unit 64` | [`audit/modules/WeightProfile.md`](audit/modules/WeightProfile.md) |
+| 0 | `Derivation` (root) | `lean4/Derivation.lean` | root | 1642 | 0 | 0 | Part 1 source index (`Unit 00`–`Unit 74`) | [`audit/README.md`](audit/README.md) |
+| 1 | `Apartness` | `lean4/Derivation/Apartness.lean` | yes | 337 | 6 | 28 | `Unit 56` | [`audit/modules/Apartness.md`](audit/modules/Apartness.md) |
+| 2 | `Attachment` | `lean4/Derivation/Attachment.lean` | yes | 1172 | 41 | 54 | `Unit 59` | [`audit/modules/Attachment.md`](audit/modules/Attachment.md) |
+| 3 | `Basic` | `lean4/Derivation/Basic.lean` | yes | 217 | 23 | 7 | `Unit 00`, `Unit 08`, `Unit 09`, `Unit 17` | [`audit/modules/Basic.md`](audit/modules/Basic.md) |
+| 4 | `BoundaryCancellation` | `lean4/Derivation/BoundaryCancellation.lean` | yes | 661 | 7 | 37 | `Unit 60` | [`audit/modules/BoundaryCancellation.md`](audit/modules/BoundaryCancellation.md) |
+| 5 | `Breaking` | `lean4/Derivation/Breaking.lean` | yes | 445 | 18 | 15 | `Unit 73` | [`audit/modules/Breaking.md`](audit/modules/Breaking.md) |
+| 6 | `Bridge` | `lean4/Derivation/Bridge.lean` | yes | 316 | 5 | 12 | `Unit 11`, `Unit 13`, `Unit 26`, `Unit 37`, `Unit 38` | [`audit/modules/Bridge.md`](audit/modules/Bridge.md) |
+| 7 | `CapacityBound` | `lean4/Derivation/CapacityBound.lean` | yes | 254 | 3 | 10 | `Unit 42` | [`audit/modules/CapacityBound.md`](audit/modules/CapacityBound.md) |
+| 8 | `ClosureSymmetry` | `lean4/Derivation/ClosureSymmetry.lean` | yes | 166 | 4 | 7 | `Unit 71` | [`audit/modules/ClosureSymmetry.md`](audit/modules/ClosureSymmetry.md) |
+| 9 | `Completion` | `lean4/Derivation/Completion.lean` | yes | 529 | 14 | 22 | `Unit 46` | [`audit/modules/Completion.md`](audit/modules/Completion.md) |
+| 10 | `Composing` | `lean4/Derivation/Composing.lean` | no (`ParkedAudit.lean`) | 228 | 11 | 7 | `Unit 73` | [`audit/modules/Composing.md`](audit/modules/Composing.md) |
+| 11 | `Compression` | `lean4/Derivation/Compression.lean` | yes | 787 | 14 | 38 | `Unit 61` | [`audit/modules/Compression.md`](audit/modules/Compression.md) |
+| 12 | `Constitution` | `lean4/Derivation/Constitution.lean` | yes | 393 | 13 | 16 | `Unit 48` | [`audit/modules/Constitution.md`](audit/modules/Constitution.md) |
+| 13 | `ContactBridge` | `lean4/Derivation/ContactBridge.lean` | yes | 710 | 9 | 35 | `Unit 53`, `Unit 68` | [`audit/modules/ContactBridge.md`](audit/modules/ContactBridge.md) |
+| 14 | `ContactKernel` | `lean4/Derivation/ContactKernel.lean` | yes | 1025 | 25 | 53 | `Unit 69` | [`audit/modules/ContactKernel.md`](audit/modules/ContactKernel.md) |
+| 15 | `ControllerCategory` | `lean4/Derivation/ControllerCategory.lean` | yes | 774 | 39 | 63 | `Unit 58` | [`audit/modules/ControllerCategory.md`](audit/modules/ControllerCategory.md) |
+| 16 | `CountTransport` | `lean4/Derivation/CountTransport.lean` | yes | 306 | 6 | 13 | `Unit 29` | [`audit/modules/CountTransport.md`](audit/modules/CountTransport.md) |
+| 17 | `Counting` | `lean4/Derivation/Counting.lean` | yes | 86 | 1 | 4 | `Unit 28` | [`audit/modules/Counting.md`](audit/modules/Counting.md) |
+| 18 | `DiffAnchor` | `lean4/Derivation/DiffAnchor.lean` | no (`ParkedAudit.lean`) | 73 | 1 | 3 | `Unit 68` | [`audit/modules/DiffAnchor.md`](audit/modules/DiffAnchor.md) |
+| 19 | `DiffAnchorCompat` | `lean4/Derivation/DiffAnchorCompat.lean` | no (`ParkedAudit.lean`) | 17 | 0 | 0 | `Unit 68` | [`audit/modules/DiffAnchorCompat.md`](audit/modules/DiffAnchorCompat.md) |
+| 20 | `DiffInterface` | `lean4/Derivation/DiffInterface.lean` | yes | 761 | 41 | 35 | `Unit 44` | [`audit/modules/DiffInterface.md`](audit/modules/DiffInterface.md) |
+| 21 | `EndogenousFidelityGenerator` | `lean4/Derivation/EndogenousFidelityGenerator.lean` | yes | 109 | 4 | 6 | `Unit 72` | [`audit/modules/EndogenousFidelityGenerator.md`](audit/modules/EndogenousFidelityGenerator.md) |
+| 22 | `Erasure` | `lean4/Derivation/Erasure.lean` | yes | 161 | 7 | 4 | `Unit 06`, `Unit 07` | [`audit/modules/Erasure.md`](audit/modules/Erasure.md) |
+| 23 | `Ext` | `lean4/Derivation/Ext.lean` | yes | 179 | 3 | 12 | `Unit 36` | [`audit/modules/Ext.md`](audit/modules/Ext.md) |
+| 24 | `FidelityClosure` | `lean4/Derivation/FidelityClosure.lean` | yes | 234 | 14 | 11 | `Unit 72` | [`audit/modules/FidelityClosure.md`](audit/modules/FidelityClosure.md) |
+| 25 | `FormRenaming` | `lean4/Derivation/FormRenaming.lean` | no (`ParkedAudit.lean`) | 147 | 3 | 9 | `Unit 74` | [`audit/modules/FormRenaming.md`](audit/modules/FormRenaming.md) |
+| 26 | `FormTransport` | `lean4/Derivation/FormTransport.lean` | no (`ParkedAudit.lean`) | 196 | 1 | 11 | `Unit 74` | [`audit/modules/FormTransport.md`](audit/modules/FormTransport.md) |
+| 27 | `FormTransportCompat` | `lean4/Derivation/FormTransportCompat.lean` | no (`ParkedAudit.lean`) | 23 | 0 | 0 | `Unit 74` | [`audit/modules/FormTransportCompat.md`](audit/modules/FormTransportCompat.md) |
+| 28 | `G1Class` | `lean4/Derivation/G1Class.lean` | yes | 45 | 0 | 3 | `Unit 43` | [`audit/modules/G1Class.md`](audit/modules/G1Class.md) |
+| 29 | `Generator` | `lean4/Derivation/Generator.lean` | yes | 296 | 4 | 16 | `Unit 40` | [`audit/modules/Generator.md`](audit/modules/Generator.md) |
+| 30 | `GraphGenesis` | `lean4/Derivation/GraphGenesis.lean` | yes | 720 | 12 | 28 | `Unit 63` | [`audit/modules/GraphGenesis.md`](audit/modules/GraphGenesis.md) |
+| 31 | `HigherStructure` | `lean4/Derivation/HigherStructure.lean` | yes | 816 | 34 | 39 | `Unit 55` | [`audit/modules/HigherStructure.md`](audit/modules/HigherStructure.md) |
+| 32 | `Horizon` | `lean4/Derivation/Horizon.lean` | yes | 424 | 7 | 26 | `Unit 50` | [`audit/modules/Horizon.md`](audit/modules/Horizon.md) |
+| 33 | `Inertia` | `lean4/Derivation/Inertia.lean` | yes | 94 | 1 | 10 | `Unit 01`, `Unit 02`, `Unit 03`, `Unit 04`, `Unit 05`, `Unit 10`, `Unit 12`, `Unit 16` | [`audit/modules/Inertia.md`](audit/modules/Inertia.md) |
+| 34 | `Initiality` | `lean4/Derivation/Initiality.lean` | yes | 171 | 11 | 11 | `Unit 49` | [`audit/modules/Initiality.md`](audit/modules/Initiality.md) |
+| 35 | `InterpreterBoundary` | `lean4/Derivation/InterpreterBoundary.lean` | yes | 394 | 13 | 13 | `Unit 57` | [`audit/modules/InterpreterBoundary.md`](audit/modules/InterpreterBoundary.md) |
+| 36 | `IsoBridge` | `lean4/Derivation/IsoBridge.lean` | no (`ParkedAudit.lean`) | 75 | 1 | 0 | `Unit 74` | [`audit/modules/IsoBridge.md`](audit/modules/IsoBridge.md) |
+| 37 | `IsoBridgeCompat` | `lean4/Derivation/IsoBridgeCompat.lean` | no (`ParkedAudit.lean`) | 17 | 0 | 0 | `Unit 74` | [`audit/modules/IsoBridgeCompat.md`](audit/modules/IsoBridgeCompat.md) |
+| 38 | `IsoCanon` | `lean4/Derivation/IsoCanon.lean` | no (`ParkedAudit.lean`) | 232 | 4 | 10 | `Unit 74` | [`audit/modules/IsoCanon.md`](audit/modules/IsoCanon.md) |
+| 39 | `IsoCanonCompat` | `lean4/Derivation/IsoCanonCompat.lean` | no (`ParkedAudit.lean`) | 17 | 0 | 0 | `Unit 74` | [`audit/modules/IsoCanonCompat.md`](audit/modules/IsoCanonCompat.md) |
+| 40 | `IsoCollapse` | `lean4/Derivation/IsoCollapse.lean` | no (`ParkedAudit.lean`) | 177 | 3 | 8 | `Unit 74` | [`audit/modules/IsoCollapse.md`](audit/modules/IsoCollapse.md) |
+| 41 | `IsoCollapseCompat` | `lean4/Derivation/IsoCollapseCompat.lean` | no (`ParkedAudit.lean`) | 17 | 0 | 0 | `Unit 74` | [`audit/modules/IsoCollapseCompat.md`](audit/modules/IsoCollapseCompat.md) |
+| 42 | `LadderGeneral` | `lean4/Derivation/LadderGeneral.lean` | yes | 329 | 22 | 13 | `Unit 60` | [`audit/modules/LadderGeneral.md`](audit/modules/LadderGeneral.md) |
+| 43 | `LocalStrategy` | `lean4/Derivation/LocalStrategy.lean` | no (`ParkedAudit.lean`) | 262 | 18 | 23 | `Unit 43` | [`audit/modules/LocalStrategy.md`](audit/modules/LocalStrategy.md) |
+| 44 | `Mention` | `lean4/Derivation/Mention.lean` | yes | 199 | 0 | 7 | `Unit 12`, `Unit 30` | [`audit/modules/Mention.md`](audit/modules/Mention.md) |
+| 45 | `Minimality` | `lean4/Derivation/Minimality.lean` | yes | 487 | 16 | 26 | `Unit 18`, `Unit 19`, `Unit 20`, `Unit 21`, `Unit 22` | [`audit/modules/Minimality.md`](audit/modules/Minimality.md) |
+| 46 | `MinimalityF` | `lean4/Derivation/MinimalityF.lean` | yes | 197 | 4 | 2 | `Unit 32` | [`audit/modules/MinimalityF.md`](audit/modules/MinimalityF.md) |
+| 47 | `NoOutside` | `lean4/Derivation/NoOutside.lean` | yes | 270 | 7 | 12 | `Unit 47` | [`audit/modules/NoOutside.md`](audit/modules/NoOutside.md) |
+| 48 | `NoOutsideFidelity` | `lean4/Derivation/NoOutsideFidelity.lean` | yes | 105 | 2 | 6 | `Unit 72` | [`audit/modules/NoOutsideFidelity.md`](audit/modules/NoOutsideFidelity.md) |
+| 49 | `ObsDescent` | `lean4/Derivation/ObsDescent.lean` | yes | 539 | 8 | 37 | `Unit 67` | [`audit/modules/ObsDescent.md`](audit/modules/ObsDescent.md) |
+| 50 | `ObserverInventory` | `lean4/Derivation/ObserverInventory.lean` | yes | 231 | 9 | 17 | `Unit 37` | [`audit/modules/ObserverInventory.md`](audit/modules/ObserverInventory.md) |
+| 51 | `Pigeonhole` | `lean4/Derivation/Pigeonhole.lean` | yes | 232 | 1 | 11 | `Unit 42` | [`audit/modules/Pigeonhole.md`](audit/modules/Pigeonhole.md) |
+| 52 | `PresentationDescent` | `lean4/Derivation/PresentationDescent.lean` | yes | 225 | 9 | 7 | `Unit 72` | [`audit/modules/PresentationDescent.md`](audit/modules/PresentationDescent.md) |
+| 53 | `PresentationNaturality` | `lean4/Derivation/PresentationNaturality.lean` | yes | 665 | 40 | 29 | `Unit 70` | [`audit/modules/PresentationNaturality.md`](audit/modules/PresentationNaturality.md) |
+| 54 | `PresentationRelativity` | `lean4/Derivation/PresentationRelativity.lean` | yes | 637 | 19 | 32 | `Unit 71` | [`audit/modules/PresentationRelativity.md`](audit/modules/PresentationRelativity.md) |
+| 55 | `PrimDiff` | `lean4/Derivation/PrimDiff.lean` | yes | 545 | 14 | 44 | `Unit 14`, `Unit 15`, `Unit 23`, `Unit 24`, `Unit 25` | [`audit/modules/PrimDiff.md`](audit/modules/PrimDiff.md) |
+| 56 | `PrimitiveCats` | `lean4/Derivation/PrimitiveCats.lean` | yes | 721 | 32 | 49 | `Unit 52` | [`audit/modules/PrimitiveCats.md`](audit/modules/PrimitiveCats.md) |
+| 57 | `PrimitiveContact` | `lean4/Derivation/PrimitiveContact.lean` | yes | 142 | 6 | 3 | `Unit 53` | [`audit/modules/PrimitiveContact.md`](audit/modules/PrimitiveContact.md) |
+| 58 | `PrimitiveCore` | `lean4/Derivation/PrimitiveCore.lean` | yes | 918 | 33 | 129 | `Unit 51` | [`audit/modules/PrimitiveCore.md`](audit/modules/PrimitiveCore.md) |
+| 59 | `PrimitivePassage` | `lean4/Derivation/PrimitivePassage.lean` | yes | 1298 | 31 | 58 | `Unit 54` | [`audit/modules/PrimitivePassage.md`](audit/modules/PrimitivePassage.md) |
+| 60 | `Progress` | `lean4/Derivation/Progress.lean` | yes | 237 | 0 | 6 | `Unit 35` | [`audit/modules/Progress.md`](audit/modules/Progress.md) |
+| 61 | `Quot` | `lean4/Derivation/Quot.lean` | yes | 37 | 1 | 3 | `Unit 27` | [`audit/modules/Quot.md`](audit/modules/Quot.md) |
+| 62 | `QuotientRetention` | `lean4/Derivation/QuotientRetention.lean` | yes | 143 | 2 | 9 | `Unit 72` | [`audit/modules/QuotientRetention.md`](audit/modules/QuotientRetention.md) |
+| 63 | `Refusal` | `lean4/Derivation/Refusal.lean` | yes | 289 | 13 | 18 | `Unit 38` | [`audit/modules/Refusal.md`](audit/modules/Refusal.md) |
+| 64 | `RefusalFrontier` | `lean4/Derivation/RefusalFrontier.lean` | yes | 371 | 16 | 20 | `Unit 39` | [`audit/modules/RefusalFrontier.md`](audit/modules/RefusalFrontier.md) |
+| 65 | `RenamingStructure` | `lean4/Derivation/RenamingStructure.lean` | yes | 482 | 5 | 28 | `Unit 59` | [`audit/modules/RenamingStructure.md`](audit/modules/RenamingStructure.md) |
+| 66 | `Represented` | `lean4/Derivation/Represented.lean` | yes | 1363 | 50 | 65 | `Unit 45` | [`audit/modules/Represented.md`](audit/modules/Represented.md) |
+| 67 | `ResidualClosure` | `lean4/Derivation/ResidualClosure.lean` | yes | 122 | 1 | 7 | `Unit 71` | [`audit/modules/ResidualClosure.md`](audit/modules/ResidualClosure.md) |
+| 68 | `Rounds` | `lean4/Derivation/Rounds.lean` | yes | 482 | 2 | 25 | `Unit 34` | [`audit/modules/Rounds.md`](audit/modules/Rounds.md) |
+| 69 | `RuleBridge` | `lean4/Derivation/RuleBridge.lean` | yes | 268 | 1 | 8 | `Unit 33` | [`audit/modules/RuleBridge.md`](audit/modules/RuleBridge.md) |
+| 70 | `SeparationCapacity` | `lean4/Derivation/SeparationCapacity.lean` | yes | 238 | 2 | 14 | `Unit 41` | [`audit/modules/SeparationCapacity.md`](audit/modules/SeparationCapacity.md) |
+| 71 | `StableContent` | `lean4/Derivation/StableContent.lean` | yes | 582 | 11 | 18 | `Unit 62` | [`audit/modules/StableContent.md`](audit/modules/StableContent.md) |
+| 72 | `TraceAlgebra` | `lean4/Derivation/TraceAlgebra.lean` | yes | 1001 | 18 | 72 | `Unit 66` | [`audit/modules/TraceAlgebra.md`](audit/modules/TraceAlgebra.md) |
+| 73 | `TransitionAlphabet` | `lean4/Derivation/TransitionAlphabet.lean` | yes | 1893 | 66 | 118 | `Unit 65` | [`audit/modules/TransitionAlphabet.md`](audit/modules/TransitionAlphabet.md) |
+| 74 | `TransitionTransport` | `lean4/Derivation/TransitionTransport.lean` | yes | 1070 | 11 | 53 | `Unit 31` | [`audit/modules/TransitionTransport.md`](audit/modules/TransitionTransport.md) |
+| 75 | `WeightProfile` | `lean4/Derivation/WeightProfile.lean` | yes | 522 | 15 | 31 | `Unit 64` | [`audit/modules/WeightProfile.md`](audit/modules/WeightProfile.md) |
 
 ---
 
+The source-head columns above are the reconciled scan's counts, excluding
+constructors, structure fields, and generated declarations. “Other”
+includes definitions, abbreviations, structures, inductives, and explicit
+instance heads. A Lean `structure` elaborates to an inductive plus several
+other constants; the two populations must not be added together. Line
+counts are physical source lines, excluding a phantom line after a final
+newline. Neither the number of heads nor the assigned unit proves that
+each concept has been taught.
+
 ## 3. Lesson Dependency Graph and Acyclicity Verification
 
-Every lesson in Part 1 (`Unit 00`–`Unit 74`) and Part 2 (`Part 2 Unit 00`–`17`)
-depends only on strictly earlier lessons. No concept (such as quotients,
-category/initiality properties, or institutional partitions) is used before
-the unit that defines it.
+The tables record prerequisites for Part 1 (`Unit 00`–`Unit 74`) and
+Part 2 (`Part 2 Unit 00`–`17`). Their declared edges can be checked for
+ordering and cycles. That check does not establish that every term is
+introduced before use. For example, Unit 44's original prerequisite list
+assumed Lean setoids and quotients; its revised explanation and the Map lab
+now introduce their grouping meaning. Further conceptual review remains.
 
 ### 3.1 Part 1: Frozen Derivation Curriculum (`Unit 00`–`Unit 74`)
 
@@ -162,7 +191,7 @@ the unit that defines it.
 | `Unit 09` | [`units/09_separable_not_collapsed.md`](units/09_separable_not_collapsed.md) | Separable and collapsed exclude each other | `Basic` | `Unit 08` |
 | `Unit 10` | [`units/10_collapsed_of_no_insts.md`](units/10_collapsed_of_no_insts.md) | With no instances, every pair is collapsed | `Inertia` | `Unit 08`, `Unit 09` |
 | `Unit 11` | [`units/11_single_token_bound.md`](units/11_single_token_bound.md) | One token gives at most one datum | `Bridge` | `Unit 06`, `Unit 07` |
-| `Unit 12` | [`units/12_fresh_datum_no_power.md`](units/12_fresh_datum_no_power.md) | A fresh datum adds no power | `Inertia`, `Mention` | `Unit 08`, `Unit 10` |
+| `Unit 12` | [`units/12_fresh_datum_no_power.md`](units/12_fresh_datum_no_power.md) | A fresh datum preserves old comparisons | `Inertia`, `Mention` | `Unit 08`, `Unit 10` |
 | `Unit 13` | [`units/13_second_token_required.md`](units/13_second_token_required.md) | Two data need a second, different token | `Bridge` | `Unit 11` |
 | `Unit 14` | [`units/14_factors_through_point.md`](units/14_factors_through_point.md) | Factoring through a point is equality | `PrimDiff` | `Unit 00` |
 | `Unit 15` | [`units/15_meta_diff_without_assertion.md`](units/15_meta_diff_without_assertion.md) | An outside difference is not an asserted one | `PrimDiff` | `Unit 14` |
@@ -176,37 +205,37 @@ the unit that defines it.
 | `Unit 23` | [`units/23_selfdiff_consistent.md`](units/23_selfdiff_consistent.md) | A related pair alone does not give non-identity | `PrimDiff` | `Unit 15`, `Unit 20` |
 | `Unit 24` | [`units/24_irrefl_witness_ne.md`](units/24_irrefl_witness_ne.md) | Under irreflexivity, a related pair gives non-identity | `PrimDiff` | `Unit 23` |
 | `Unit 25` | [`units/25_obstruction_under_irrefl.md`](units/25_obstruction_under_irrefl.md) | Under irreflexivity, collapsing a related pair is obstructed | `PrimDiff` | `Unit 24` |
-| `Unit 26` | [`units/26_irrefl_law_not_entailed.md`](units/26_irrefl_law_not_entailed.md) | Facts never entail the irreflexivity law | `Bridge` | `Unit 24`, `Unit 25` |
+| `Unit 26` | [`units/26_irrefl_law_not_entailed.md`](units/26_irrefl_law_not_entailed.md) | Keeping positive entries does not exclude a self-pair | `Bridge` | `Unit 24`, `Unit 25` |
 | `Unit 27` | [`units/27_abstraction_barrier.md`](units/27_abstraction_barrier.md) | An abstraction cannot see what it identifies | `Quot` | `Unit 08`, `Unit 16` |
-| `Unit 28` | [`units/28_closure_must_stop.md`](units/28_closure_must_stop.md) | Closure over fixed data must stop within n(n-1)/2 rounds | `Counting` | `Unit 17` |
+| `Unit 28` | [`units/28_closure_must_stop.md`](units/28_closure_must_stop.md) | Fixed data bound rounds that add new demands | `Counting` | `Unit 17` |
 | `Unit 29` | [`units/29_renaming_changes_nothing_seen.md`](units/29_renaming_changes_nothing_seen.md) | Renaming the data changes nothing a context can see | `CountTransport` | `Unit 08`, `Unit 09` |
-| `Unit 30` | [`units/30_mention_lemma.md`](units/30_mention_lemma.md) | A context that reaches outside the regime separates nothing | `Mention` | `Unit 08`, `Unit 12` |
-| `Unit 31` | [`units/31_transition_transport.md`](units/31_transition_transport.md) | Renaming carries every transition; index-least selection is not congruent | `TransitionTransport` | `Unit 22`, `Unit 29` |
+| `Unit 30` | [`units/30_mention_lemma.md`](units/30_mention_lemma.md) | Adding instances that avoid both targets preserves their comparison | `Mention` | `Unit 08`, `Unit 12` |
+| `Unit 31` | [`units/31_transition_transport.md`](units/31_transition_transport.md) | Renaming carries transitions; choosing by index can change the outcome | `TransitionTransport` | `Unit 22`, `Unit 29` |
 | `Unit 32` | [`units/32_same_proof_one_more_datum.md`](units/32_same_proof_one_more_datum.md) | The same proof with one more datum | `MinimalityF` | `Unit 05`, `Unit 22`, `Unit 29` |
-| `Unit 33` | [`units/33_rule_never_pays.md`](units/33_rule_never_pays.md) | A rule never pays for itself | `RuleBridge` | `Unit 02`, `Unit 22` |
-| `Unit 34` | [`units/34_closed_run_bound.md`](units/34_closed_run_bound.md) | How many demands can a closed system meet? | `Rounds` | `Unit 28`, `Unit 31` |
-| `Unit 35` | [`units/35_a_demand_can_always_be_met.md`](units/35_a_demand_can_always_be_met.md) | A demand can always be met | `Progress` | `Unit 19`, `Unit 34` |
-| `Unit 36` | [`units/36_lists_that_mean_sets.md`](units/36_lists_that_mean_sets.md) | Lists that mean sets | `Ext` | `Unit 08`, `Unit 35` |
+| `Unit 33` | [`units/33_rule_never_pays.md`](units/33_rule_never_pays.md) | Uniform-rule items cannot minimize the declared costs | `RuleBridge` | `Unit 02`, `Unit 22` |
+| `Unit 34` | [`units/34_closed_run_bound.md`](units/34_closed_run_bound.md) | Closed runs bound recorded new demands | `Rounds` | `Unit 28`, `Unit 31` |
+| `Unit 35` | [`units/35_a_demand_can_always_be_met.md`](units/35_a_demand_can_always_be_met.md) | A fresh mark answers a distinct pair under stated conditions | `Progress` | `Unit 19`, `Unit 34` |
+| `Unit 36` | [`units/36_lists_that_mean_sets.md`](units/36_lists_that_mean_sets.md) | Lists can agree on membership while differing as records | `Ext` | `Unit 08`, `Unit 35` |
 | `Unit 37` | [`units/37_an_inventory_is_not_a_derivation.md`](units/37_an_inventory_is_not_a_derivation.md) | An inventory is not a derivation | `ObserverInventory`, `Bridge` | `Unit 24`, `Unit 26` |
-| `Unit 38` | [`units/38_refusal_as_a_source_of_difference.md`](units/38_refusal_as_a_source_of_difference.md) | Refusal as a source of difference: four rungs and one price | `Refusal`, `Bridge` | `Unit 11`, `Unit 17` |
-| `Unit 39` | [`units/39_refusal_routes_and_their_prices.md`](units/39_refusal_routes_and_their_prices.md) | Refusal routes and their prices | `RefusalFrontier` | `Unit 38` |
-| `Unit 40` | [`units/40_a_demand_that_never_stops.md`](units/40_a_demand_that_never_stops.md) | A demand that never stops, and the three ways to pay | `Generator` | `Unit 39` |
-| `Unit 41` | [`units/41_looking_farther_does_not_help.md`](units/41_looking_farther_does_not_help.md) | Looking farther does not help: the radius-d outrun | `SeparationCapacity` | `Unit 40` |
-| `Unit 42` | [`units/42_how_many_things_can_a_window_tell_apart.md`](units/42_how_many_things_can_a_window_tell_apart.md) | Counting without choosing, and how many things a bounded window can tell apart | `Pigeonhole`, `CapacityBound` | `Unit 41` |
-| `Unit 43` | [`units/43_no_bounded_local_repair_clears_a_growing_demand.md`](units/43_no_bounded_local_repair_clears_a_growing_demand.md) | No bounded local repair clears a growing demand | `LocalStrategy`, `G1Class` | `Unit 42` |
-| `Unit 44` | [`units/44_reflect_obstruct_close_or_propose.md`](units/44_reflect_obstruct_close_or_propose.md) | Reflect, obstruct, close, or propose: a typed interface for primitive difference | `DiffInterface` | `Unit 25`, `Unit 39` |
-| `Unit 45` | [`units/45_a_kernel_with_no_outside.md`](units/45_a_kernel_with_no_outside.md) | A kernel with no outside: what must be in the state for progress to be replayable? | `Represented` | `Unit 44` |
-| `Unit 46` | [`units/46_rule_1_in_a_fixed_kernel.md`](units/46_rule_1_in_a_fixed_kernel.md) | Rule 1 in a fixed kernel: repair, or certified exhaustion plus a tied extension family | `Completion` | `Unit 45` |
-| `Unit 47` | [`units/47_putting_the_viewer_on_the_books.md`](units/47_putting_the_viewer_on_the_books.md) | Putting the viewer on the books: certification as a replayed, panel-relative quotient | `NoOutside` | `Unit 45`, `Unit 46` |
-| `Unit 48` | [`units/48_generating_the_stream_from_the_state.md`](units/48_generating_the_stream_from_the_state.md) | Generating the stream from the state, and describing the kernel to itself | `Constitution` | `Unit 45`, `Unit 46` |
-| `Unit 49` | [`units/49_minimal_among_what.md`](units/49_minimal_among_what.md) | Minimal among what? A six-probe singleton in a 64-member class | `Initiality` | `Unit 48` |
-| `Unit 50` | [`units/50_from_stage_3_to_every_stage.md`](units/50_from_stage_3_to_every_stage.md) | From stage 3 to every stage: characterising the generated run | `Horizon` | `Unit 45`, `Unit 48` |
-| `Unit 51` | [`units/51_nine_readings_of_one_difference.md`](units/51_nine_readings_of_one_difference.md) | Nine readings of one difference | `PrimitiveCore` | `Unit 14`, `Unit 23`, `Unit 25` |
-| `Unit 52` | [`units/52_the_two_point_witness_is_initial.md`](units/52_the_two_point_witness_is_initial.md) | The two-point witness is initial, and that is all initiality says | `PrimitiveCats` | `Unit 24`, `Unit 51` |
-| `Unit 53` | [`units/53_the_fixed_interface_a_collision_meets.md`](units/53_the_fixed_interface_a_collision_meets.md) | The fixed interface a collision meets | `PrimitiveContact`, `ContactBridge` | `Unit 51`, `Unit 52` |
+| `Unit 38` | [`units/38_refusal_as_a_source_of_difference.md`](units/38_refusal_as_a_source_of_difference.md) | Five declared ways to record a repeated token | `Refusal`, `Bridge` | `Unit 11`, `Unit 17` |
+| `Unit 39` | [`units/39_refusal_routes_and_their_prices.md`](units/39_refusal_routes_and_their_prices.md) | Comparing refusal protocols under declared prices | `RefusalFrontier` | `Unit 38` |
+| `Unit 40` | [`units/40_a_demand_that_never_stops.md`](units/40_a_demand_that_never_stops.md) | A growing chain keeps equal three-bit profiles | `Generator` | `Unit 39` |
+| `Unit 41` | [`units/41_looking_farther_does_not_help.md`](units/41_looking_farther_does_not_help.md) | Every fixed radius misses some deep pairs in a long enough chain | `SeparationCapacity` | `Unit 40` |
+| `Unit 42` | [`units/42_how_many_things_can_a_window_tell_apart.md`](units/42_how_many_things_can_a_window_tell_apart.md) | Bounded colour windows limit the number of distinct views | `Pigeonhole`, `CapacityBound` | `Unit 41` |
+| `Unit 43` | [`units/43_no_bounded_local_repair_clears_a_growing_demand.md`](units/43_no_bounded_local_repair_clears_a_growing_demand.md) | Fixed colour bounds and local windows cannot clear every chain stage | `LocalStrategy`, `G1Class` | `Unit 42` |
+| `Unit 44` | [`units/44_reflect_obstruct_close_or_propose.md`](units/44_reflect_obstruct_close_or_propose.md) | Retained, protected, and unseen: when a pair is active | `DiffInterface` | `Unit 25`, `Unit 39` |
+| `Unit 45` | [`units/45_a_kernel_with_no_outside.md`](units/45_a_kernel_with_no_outside.md) | Replaying represented events under a fixed kernel | `Represented` | `Unit 44` |
+| `Unit 46` | [`units/46_rule_1_in_a_fixed_kernel.md`](units/46_rule_1_in_a_fixed_kernel.md) | Repair or menu exhaustion, with two column-extension candidates | `Completion` | `Unit 45` |
+| `Unit 47` | [`units/47_putting_the_viewer_on_the_books.md`](units/47_putting_the_viewer_on_the_books.md) | Recording the evaluator panel: agreement depends on the tests | `NoOutside` | `Unit 45`, `Unit 46` |
+| `Unit 48` | [`units/48_generating_the_stream_from_the_state.md`](units/48_generating_the_stream_from_the_state.md) | Generating candidates from a stored policy | `Constitution` | `Unit 45`, `Unit 46` |
+| `Unit 49` | [`units/49_minimal_among_what.md`](units/49_minimal_among_what.md) | One descriptor passes six probes in a class of 64 | `Initiality` | `Unit 48` |
+| `Unit 50` | [`units/50_from_stage_3_to_every_stage.md`](units/50_from_stage_3_to_every_stage.md) | Proving the shape of every completed tower stage | `Horizon` | `Unit 45`, `Unit 48` |
+| `Unit 51` | [`units/51_nine_readings_of_one_difference.md`](units/51_nine_readings_of_one_difference.md) | Separate the witness, the laws, and the allowed operations | `PrimitiveCore` | `Unit 14`, `Unit 23`, `Unit 25` |
+| `Unit 52` | [`units/52_the_two_point_witness_is_initial.md`](units/52_the_two_point_witness_is_initial.md) | A unique map out of the two-point arrow | `PrimitiveCats` | `Unit 24`, `Unit 51` |
+| `Unit 53` | [`units/53_the_fixed_interface_a_collision_meets.md`](units/53_the_fixed_interface_a_collision_meets.md) | A fixed interface and the scope of its comparison | `PrimitiveContact`, `ContactBridge` | `Unit 51`, `Unit 52` |
 | `Unit 54` | [`units/54_from_an_asserted_difference_to_a_response.md`](units/54_from_an_asserted_difference_to_a_response.md) | From an asserted difference to a response | `PrimitivePassage` | `Unit 51`, `Unit 53` |
 | `Unit 55` | [`units/55_the_first_graph_is_supplied_its_observer_is_created.md`](units/55_the_first_graph_is_supplied_its_observer_is_created.md) | The first graph is supplied, its observer is created | `HigherStructure` | `Unit 54` |
-| `Unit 56` | [`units/56_sameness_earned_from_difference.md`](units/56_sameness_earned_from_difference.md) | Sameness earned from difference, and what orientation adds | `Apartness` | `Unit 24`, `Unit 51` |
+| `Unit 56` | [`units/56_sameness_earned_from_difference.md`](units/56_sameness_earned_from_difference.md) | When not-apart forms an equivalence | `Apartness` | `Unit 24`, `Unit 51` |
 | `Unit 57` | [`units/57_the_interpreter_is_not_in_its_own_family.md`](units/57_the_interpreter_is_not_in_its_own_family.md) | The interpreter is not in its own family: what a notes-diagonal does and does not show | `InterpreterBoundary` | `Unit 48`, `Unit 54` |
 | `Unit 58` | [`units/58_is_the_controller_unique.md`](units/58_is_the_controller_unique.md) | Is the controller unique? Simulations, the absorbing halt, and uniqueness only along replay | `ControllerCategory` | `Unit 54`, `Unit 57` |
 | `Unit 59` | [`units/59_growing_the_carrier_by_one_and_renaming_the_supply.md`](units/59_growing_the_carrier_by_one_and_renaming_the_supply.md) | Growing the carrier by one and renaming the supply | `Attachment`, `RenamingStructure` | `Unit 54`, `Unit 55` |
@@ -251,14 +280,17 @@ the unit that defines it.
 
 ### 3.3 Forward-Reference Audit
 
-- **Zero prerequisite cycles:** Checked by depth-first topological traversal
-  across all 75 Part 1 units and 18 Part 2 units (`0` cycles).
+- **Recorded prerequisite graph:** The explicit tables have 75 Part 1 nodes
+  and 18 Part 2 nodes. Their cycles and ordering are mechanical properties
+  of those recorded edges, not a proof that the prerequisite list is complete.
 - **Observational equivalence before quotients:** Observational collapse and
   witnessed separability are introduced in `Unit 08`–`Unit 09` (`Basic.lean`),
   the abstraction barrier in `Unit 27` (`Quot.lean`), represented evaluators in
   `Unit 45` (`Represented.lean`), and setoid/quotient constructions
-  (`ObsQuotient`, `Quot.sound`) in `Unit 56` (`Apartness.lean`) and `Unit 67`
-  (`ObsDescent.lean`).
+  (`ObsQuotient`, `Quot.sound`) already appear in Unit 44
+  (`DiffInterface.lean`), with later treatments in Unit 56 (`Apartness.lean`)
+  and Unit 67 (`ObsDescent.lean`). This is a placement description, not a
+  completed comprehension audit.
 - **Functions and homomorphisms before initiality:** Structure-preserving maps
   and homomorphisms are introduced in `Unit 52` (`PrimitiveCats.lean`) and
   `Unit 58` (`ControllerCategory.lean`) before proving initiality or refuting

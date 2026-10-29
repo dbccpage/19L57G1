@@ -22,6 +22,7 @@ from derivation.model import (  # noqa: E402
     AdmitInst,
     Event,
     Impose,
+    Regime,
     replay,
     step,
 )
@@ -38,6 +39,13 @@ def main() -> int:
           f"unchanged: {ok.data == L.data and ok.forms == L.forms}")
     if ok.reqs != frozenset({(0, 1)}) or ok.data != L.data:
         failures.append("accept")
+    if step(ok, Impose(0, 1)) != ok:
+        failures.append("repeated demand changed state")
+    malformed = Regime(L.data, (), frozenset(), frozenset(), frozenset({(1, 0)}))
+    still_malformed = step(malformed, Impose(0, 1))
+    print(f"repeated demand unchanged; raw reversed pair survives: {sorted(still_malformed.reqs)}")
+    if still_malformed.reqs != frozenset({(1, 0), (0, 1)}):
+        failures.append("guard silently repaired base")
     rejected = 0
     for r, bad in ((L, Impose(0, 0)), (L, Impose(1, 1)), (L, Impose(1, 0)),
                    (L, Impose(0, 2)), (F, Impose(2, 2)), (F, Impose(2, 1)),

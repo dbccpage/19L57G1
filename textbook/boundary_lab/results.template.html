@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Boundary lab · Swap desk</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f3f6fa;color:#17324c;font:18px/1.55 system-ui,sans-serif}main{max-width:1040px;margin:auto;padding:28px 22px}h1{font-size:clamp(1.9rem,5vw,2.8rem);line-height:1.12}h2{font-size:1.35rem}a{color:#075d87}nav{display:flex;gap:18px;flex-wrap:wrap}section,fieldset{background:white;border:1px solid #b6cbdc;border-radius:12px;padding:20px;margin:20px 0}fieldset{min-width:0}legend{padding:0 8px;font-weight:650}label{display:block;margin:12px 0}input,select,button{font:inherit}input[type=checkbox],input[type=radio]{width:21px;height:21px;vertical-align:middle;margin-right:9px}select{max-width:100%;padding:9px;border:1px solid #7593aa;border-radius:6px;background:white}button{background:#145a80;color:white;border:0;border-radius:7px;padding:11px 22px;cursor:pointer}button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #e2a400;outline-offset:3px}.muted{color:#425a6e;font-size:1rem}.grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}#result{border-left:6px solid #1a7363}#verdict{font-size:1.35rem;font-weight:650}.mapping{padding:7px 0;border-top:1px solid #dde6ee;overflow-wrap:anywhere}.tags{display:flex;gap:14px;flex-wrap:wrap}.tag{background:#e5eff7;padding:6px 14px;border-radius:6px}#feedback{font-weight:600}[hidden]{display:none!important}@media(max-width:680px){.grid{grid-template-columns:1fr}main{padding:20px 14px}section,fieldset{padding:15px}h1{margin-top:20px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style></head><body>
+<main>
+<nav aria-label="Lesson navigation"><a href="README.md">Boundary lab</a><a href="PRACTICE.md">Practice</a><a href="SOURCE_MAP.md">Sources and scope</a></nav>
+<h1>What makes an exchange fail?</h1>
+<p>Predict one result, reveal the example, then change a setting. Keep the report model and the permission model separate.</p>
+<label for="mode"><strong>Choose an experiment</strong></label>
+<select id="mode"><option value="reports">Two-answer reports</option><option value="menu">The fixed control menu</option><option value="labels">Try different labels</option></select>
+<div class="grid">
+<div>
+<fieldset id="reports"><legend>Admitted reports</legend>
+<p>Each pair gives the answer on (x,y), then on (y,x). Select any family.</p>
+<label><input type="checkbox" id="report0">(no, no)</label>
+<label><input type="checkbox" id="report1">(yes, yes)</label>
+<label><input type="checkbox" id="report2">(no, yes)</label>
+<label><input type="checkbox" id="report3">(yes, no)</label>
+<p class="muted">The swap must preserve every selected report. No extra permission flag is part of this model.</p>
+</fieldset>
+<fieldset id="menu" hidden><legend>The source's three changes</legend>
+<p>Start with two marks labelled a. Only the base and single changes are eligible for the one-step minimum.</p>
+<label><input type="checkbox" id="restrict">Permit only identity</label>
+<label><input type="checkbox" id="keep">Keep labels in the key</label>
+<label><input type="checkbox" id="extra">Admit one extra a occurrence</label>
+<p class="muted">Price counts changed settings. The question below asks satisfaction separately from minimum eligibility.</p>
+</fieldset>
+<fieldset id="labels" hidden><legend>A separate changed-label task</legend>
+<label for="marks">Labels in admission order</label><select id="marks"></select>
+<label><input type="checkbox" id="permit" checked>Permit all mark permutations</label>
+<label><input type="checkbox" id="retain">Keep labels in the key</label>
+<label for="key">Information when labels are forgotten</label><select id="key"><option value="arity">Number of marks</option><option value="empty">Nothing</option></select>
+<p class="muted">When labels are kept, the fallback key choice is unused. This experiment is outside the fixed a,a price menu.</p>
+</fieldset>
+</div>
+<div>
+<fieldset><legend>Make a prediction</legend><p id="question">Will the swap preserve every selected report?</p>
+<label><input type="radio" name="prediction" value="yes">Yes</label><label><input type="radio" name="prediction" value="no">No</label>
+<button id="reveal" type="button">Reveal this example</button><p id="prompt" role="status"></p>
+</fieldset>
+<section id="result" aria-live="polite" hidden>
+<h2>Recorded result</h2><p id="feedback"></p><p id="verdict"></p><p id="reason"></p>
+<div class="tags" id="tags"></div><p id="details"></p><div id="mappings"></div>
+</section>
+</div></div>
+<section><h2>What the result does not select for you</h2>
+<p>A successful permission restriction is not a newly measured feature. A report-witness count is not a universal price. Applying either model to physical objects needs a supported connection between those objects, their records, and the declared tests.</p>
+<p>For the two-sided starting division, see <a href="00_start_before_the_marks.md">Lesson 00</a>. For the unresolved model comparison, see <a href="05_carry_the_model.md">Lesson 05</a>.</p>
+</section>
+<p class="muted">Teaching examples · AuthorityEffect: None · Use Practice to test a new case.</p>
+</main>
+<script>const packet=__LAB_PACKET__;
+__DESK_SCRIPT__
+</script></body></html>

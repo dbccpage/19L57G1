@@ -29,8 +29,8 @@ from derivation.candidates import (  # noqa: E402
     response_valid_naive,
 )
 from derivation.engine import GENESIS_F, GENESIS_L, READING_F, READING_L  # noqa: E402
-from derivation.model import AdmissionError, AdmitDatum, replay  # noqa: E402
-from derivation.observe import collapsed_pairs, satisfies  # noqa: E402
+from derivation.model import AdmissionError, AdmitDatum, Regime, replay  # noqa: E402
+from derivation.observe import collapsed_pairs, contexts, satisfies, separable  # noqa: E402
 
 
 def main() -> int:
@@ -111,6 +111,14 @@ def main() -> int:
           f"within arity 3: {n_bad}")
     if n_bad:
         failures.append("r5")
+
+    # Removing the form-range conjunct does not remove the arity check.
+    remaining_guard = len((0, 1)) == 0 and all(d < 2 for d in (0, 1))
+    raw = Regime(("a", "b"), (), frozenset({(0, (0, 1))}), frozenset(), frozenset())
+    print(f"unknown-form instance: remaining arity guard={remaining_guard}; "
+          f"forced raw record contexts={len(contexts(raw))}; separable={separable(raw, 0, 1)}")
+    if remaining_guard or contexts(raw) or separable(raw, 0, 1):
+        failures.append("unknown-form counterfactual")
 
     print(f"failures: {failures}")
     return 1 if failures else 0

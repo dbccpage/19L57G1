@@ -80,6 +80,24 @@ where
        rw [this]
        exact ⟨⟨0, [none]⟩, by decide, by decide⟩⟩
 
+/-- With no forms there is no well-formed context, even if a raw record
+contains an instance naming an unknown form. -/
+theorem no_forms_no_separation (r : Regime) (hf : r.forms = []) (i j : Nat) :
+    ¬ separable r i j := by
+  intro ⟨c, hc, _⟩
+  have h := hc.1
+  simp [hf] at h
+
+def unknownFormRecord : Regime := ⟨2, [], [(0, [0, 1])], [], [(0, 1)]⟩
+
+theorem unknown_form_not_separable : ¬ separable unknownFormRecord 0 1 :=
+  no_forms_no_separation unknownFormRecord rfl 0 1
+
+theorem unknown_form_not_wf : ¬ unknownFormRecord.wf := by
+  intro h
+  have hi := h.1 (0, [0, 1]) (by decide)
+  exact Nat.not_lt_zero _ hi.1
+
 end Textbook.U18
 
 #print axioms Textbook.U18.empty_delta_fails
@@ -91,6 +109,9 @@ end Textbook.U18
 #print axioms Textbook.U18.rule_alone_rejected
 #print axioms Textbook.U18.R5_cost1_fails
 #print axioms Textbook.U18.one_item_suffices_with_a_form
+#print axioms Textbook.U18.no_forms_no_separation
+#print axioms Textbook.U18.unknown_form_not_separable
+#print axioms Textbook.U18.unknown_form_not_wf
 #print axioms Derivation.cost1_insufficient_general
 #print axioms Derivation.cost1_insufficient
 #print axioms Derivation.cost1_insufficient_F
@@ -107,6 +128,9 @@ EXPECTED = {
     "Textbook.U18.rule_alone_rejected": PROPEXT,
     "Textbook.U18.R5_cost1_fails": PROPEXT,
     "Textbook.U18.one_item_suffices_with_a_form": BOTH,
+    "Textbook.U18.no_forms_no_separation": PROPEXT,
+    "Textbook.U18.unknown_form_not_separable": PROPEXT,
+    "Textbook.U18.unknown_form_not_wf": BOTH,
     "Derivation.cost1_insufficient_general": PROPEXT,
     "Derivation.cost1_insufficient": PROPEXT,
     "Derivation.cost1_insufficient_F": PROPEXT,

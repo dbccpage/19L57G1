@@ -25,7 +25,7 @@ domain, but we must say so.
 ## A second function cannot undo every merge
 
 Suppose a machine keeps only the blue answer. Could a second function
-recover **round?** from that answer alone?
+recover **round** from that answer alone?
 
 A and B give the same kept input, Yes. But their round answers differ.
 The second function would have to send Yes to both Yes and No. That

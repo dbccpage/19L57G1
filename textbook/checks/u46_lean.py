@@ -101,6 +101,12 @@ theorem meta_inert_instance :
     obstC { d2Common with metaDistinct := [] } 0 1 = obstC d2Common 0 1 :=
   (meta_distinctness_inert d2Common [] 0 1).2
 
+/-- A past refusal remains in the record after its certificate is no longer
+current. The guard controls new insertion, not historical membership. -/
+theorem past_refusal_without_current_certificate :
+    let after := step (step story (.refuse 1 2)) (.addView [1])
+    (1, 2) ∈ after.refusals ∧ obstructedB after (1, 2) = false := by decide
+
 end Textbook.U46
 
 #print axioms Textbook.U46.transport_instance
@@ -118,6 +124,7 @@ end Textbook.U46
 #print axioms Textbook.U46.s2_swapped
 #print axioms Textbook.U46.chain_three
 #print axioms Textbook.U46.meta_inert_instance
+#print axioms Textbook.U46.past_refusal_without_current_certificate
 #print axioms Completion.ofWorld_obstruction
 #print axioms Completion.obstC_conditions_independent
 #print axioms Completion.chain_transport
@@ -137,6 +144,7 @@ end Textbook.U46
 """
 
 EXPECTED = {
+    "Textbook.U46.past_refusal_without_current_certificate": BOTH,
     "Textbook.U46.transport_instance": BOTH,
     "Textbook.U46.same_store": NONE,
     "Textbook.U46.family_instances": BOTH,

@@ -1,13 +1,23 @@
 # Unit 29. Renaming the data changes nothing a context can see
 
-**Claim.** Observational collapse is invariant under a renaming of the
+**Claim.** Consistent reversible renaming preserves collapse when the
+renaming also keeps the admitted index range. Candidate pairs must be
+renamed with the data. This does not promise unchanged answers for a
+fixed list of old index names.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** Observational collapse is invariant under a renaming of the
 datum indices. For a renaming `σ`, a bijection on `Nat` that keeps the
 admitted range in both directions, `collapsed (renameRegime σ.f r) (σ.f d)
 (σ.f d') ↔ collapsed r d d'`; so the number of collapsed pairs over any
 list of candidate pairs is the same before and after (`collapsedCount_rename`).
+The candidate list is mapped with the data in this count comparison.
 The bijection hypothesis is doing work: under the constant map the
-transport is false (`non_injective_does_not_transport`). **Status:**
-derived. **Lean:** `Derivation.DRen` (`lean4/Derivation/CountTransport.lean`
+transport is false (`non_injective_does_not_transport`).
+
+**Status:** derived. **Lean:** `Derivation.DRen` (`lean4/Derivation/CountTransport.lean`
 line 50), `mapInst` (79), `mapCtx` (83), `renameRegime` (90),
 `plug_mapCtx` (125), `derivable_rename` (137), `wfCtx_rename` (154),
 `collapsed_rename` (204-220), `collapsedCount_rename` (239-253),
@@ -15,6 +25,34 @@ line 50), `mapInst` (79), `mapCtx` (83), `renameRegime` (90),
 (300-305). **Axioms:** `propext, Quot.sound` throughout. **Depends on:**
 contexts, plugging and collapse (Unit 08); the witness theorem (Unit 09);
 the engine's quotient by isomorphism (Unit 21).
+
+</details>
+
+## First pass
+
+There are three data and one unary form `marked`. Admit exactly
+`marked(0)`, with no uniform rule. Data 1 and 2 have the same answers,
+so their pair is collapsed.
+
+Swap the names 0 and 1 consistently. The mark moves to 1. The old
+pair `(1, 2)` becomes `(0, 2)`, whose two members still agree.
+If we instead keep asking about the literal pair `(1, 2)`, one is now
+marked and the other is not.
+
+| Compared pair | Result |
+|---|---|
+| Original record, `(1, 2)` | Collapsed |
+| Renamed record, renamed pair `(0, 2)` | Collapsed |
+| Renamed record, fixed old pair `(1, 2)` | Separated |
+
+The theorem carries both the record and the question through the
+renaming. Its count theorem likewise compares a pair list with its
+mapped list.
+
+A renaming must be reversible and keep admitted positions admitted.
+Sending two different data to one position is a merge, with no inverse.
+A reversible map on all natural numbers can also move an admitted
+position out of range; that is outside the theorem's conditions.
 
 ## Question
 
@@ -68,10 +106,11 @@ because the renamed instance is present exactly when the original was.
 So two data that no context could tell apart still cannot be told apart
 after renaming, and two that could still can.
 
-The one place care is needed is the inverse direction: to show that
-collapse *after* renaming gives collapse *before*, one has to pull a
-context of the original back through the renaming, and that needs the
-inverse `g`. A map without an inverse can send two different data to one
+To show collapse in the original regime implies collapse in the renamed
+regime, the proof pulls a target context back with `g`. In the other
+direction, it maps an original context forward with `f` and uses
+injectivity. Both context transports need the stated range conditions.
+A map without an inverse can send two different data to one
 index, after which "the two data are collapsed" is true for a trivial
 reason, while the original pair is separable. The module exhibits exactly
 that failure.
@@ -88,10 +127,11 @@ plug_mapCtx:      plug(mapCtx(c), f(d)) = mapInst(f, plug(c, d))
 derivable_rename: derivable(rename(r), mapInst(f, i)) <-> derivable(r, i)   [f injective]
 wfCtx_rename:     wfCtx(rename(r), mapCtx(c)) <-> wfCtx(r, c)               [bounds both ways]
 
-collapsed_rename, forward:  given collapse in r, take a context c' of rename(r);
+from original collapse to renamed collapse: take a context c' of rename(r);
    it is mapCtx(c) for c = mapCtx(g, c'); c is well formed in r; apply collapse
    to c; carry the answer across the two transports above.
-collapsed_rename, backward: symmetric, with f and g exchanged.
+from renamed collapse to original collapse: map an original context through f;
+   apply the renamed collapse and transport the answers back using injectivity.
 count: map the candidate list through f; each entry's answer is unchanged;
    so the count is unchanged.
 ```
@@ -295,15 +335,23 @@ countermodel lies outside the theorem's hypothesis, as it must.
 `simp`, `decide` on structures and the `List` lemmas. `rename_reqs` and
 its siblings report no axiom: they are `rfl`.
 
+The added `jump_invol` and `requirement_guard_unchanged` likewise use no
+axioms. The failed-range context example uses `propext, Quot.sound`.
+
 ## What has been proved
 
 - Plugging, derivability and well-formedness each transport along a
   renaming (Genesis, derived; the first needs no hypothesis, the second
   injectivity, the third the bounds).
-- Collapse transports, as an `iff`, needing only bijectivity (Genesis,
-  derived).
+- Collapse transports as an `iff` under the full `DRen` conditions:
+  bijectivity on `Nat` and preservation of the admitted range in both
+  directions (Genesis, derived).
 - The collapsed-pair count over any candidate list, with any decision
   procedure that tracks `collapsed`, is preserved (Genesis, derived).
+- That count compares the list with its mapped list and counts list
+  entries, including repetitions if supplied. The separate Python
+  three-datum example shows that leaving a literal pair list fixed can
+  change its answer.
 - The bijection hypothesis cannot be dropped (Genesis, countermodel).
 - At the swap of two data, the countermodel's separability is carried to
   the renamed regime (book Lean).
@@ -319,9 +367,11 @@ its siblings report no axiom: they are `rfl`.
   `renameRegime` acts on datum indices only. The full two-bijection case
   is `IsoCollapse.collapsed_transport` and `FormTransport.lean` (parked
   modules, taught later); tokens do not exist in the Lean model at all.
-- That the requirement conjunct of `Regime.wf` transports. A bijection
-  need not keep `q.1 < q.2`, and the action leaves `reqs` alone. Unit 31
-  extends the action to requirements, where it is needed.
+- Renaming of the demand endpoints in this action. It leaves `reqs` and
+  `data` unchanged, so the requirement conjunct of `Regime.wf` is
+  definitionally unchanged (`requirement_guard_unchanged`, book). That
+  is different from carrying the named demands to corresponding renamed
+  endpoints. Unit 31 extends the action to requirements for that purpose.
 
 ## Outside the system
 
@@ -350,23 +400,29 @@ regime has no view of its own indices and no context that reads them.
 
 ## Student exercise
 
-`collapsed_rename` needs only that `σ` is a bijection, yet `DRen` also
-carries the two bound fields. Which proof uses them, and why would the
-theorem be false, or unstatable, without them?
+Why does `DRen` require both reversibility and range bounds? Which proof
+uses the bounds? Give a reversible map on all natural indices that sends
+an admitted filled slot outside the admitted range.
 
 ## Answer
+
+<details>
+<summary>Worked answer</summary>
 
 `wfCtx_rename` uses them. Well-formedness requires every filled slot to
 name a datum below `r.data`. After renaming, a slot `some x` with `x <
 r.data` becomes `some (σ.f x)`, and `fbound` is what keeps it below
 `r.data`; in the other direction `gbound` does the same for the pulled-back
-context. Without the bounds a bijection of `Nat` could send an admitted
-index above the datum count, the renamed context would not be well
-formed, and the forward direction of `collapsed_rename`, which applies the
-assumed collapse to `mapCtx σ.f c`, could not even be stated for it.
+context. Swap 1 with 2 and fix all other natural numbers. This map is its
+own inverse. With two data and a binary form, `[hole, 1]` is well formed
+but its image `[hole, 2]` is not. The book checks this particular failure
+of context transport. The collapse statement remains expressible; this
+proof cannot apply its context-transport lemma without the bounds.
 `derivable_rename` and `plug_mapCtx`, by contrast, never look at the
 bounds, which is why the module says the transport is "unconditional in
 the renaming's bounds" apart from well-formedness.
+
+</details>
 
 ## Verification
 
@@ -375,5 +431,5 @@ the renaming's bounds" apart from well-formedness.
 | Lean | `lean4/Derivation/CountTransport.lean` lines 50-57, 79-91, 125, 137, 154, 204-220, 239-253, 286-305 |
 | Axiom report | `artifacts/lean_axioms.txt`: `plug_mapCtx`, `derivable_rename`, `wfCtx_rename`, `collapsed_rename`, `collapsedCount_rename`, `cm_separable`, `non_injective_does_not_transport` all `[propext, Quot.sound]` |
 | Paper | `paper/paper.md` §10 question 7 and §12 residual R6 (discharged 2026-08-17; scope stated 2026-09-08); ledger `CL-COUNT-INVARIANCE` |
-| Check (Python) | `python textbook/checks/u29_rename_count.py`: `cmRegime` separable, never self-separable; on the regression regime and a three-datum link regime, every permutation carries the collapsed pairs to the collapsed pairs with the same count (24 and 6 renamings) |
-| Check (book Lean) | `python textbook/checks/u29_lean.py`: six book theorems plus four Genesis theorems kernel-checked, Lean 4.33.0; the field-preservation lemmas report no axiom |
+| Check (Python) | `python textbook/checks/u29_rename_count.py`: the original 24 and 6 permutations preserve transported pairs and counts; a separate three-datum unary example distinguishes a fixed pair list from its mapped list |
+| Check (book Lean) | `python textbook/checks/u29_lean.py`: nine book reports plus four native results kernel-checked, Lean 4.33.0; `jump_invol` and `requirement_guard_unchanged` use no axioms, `bounded_context_needed` uses `propext, Quot.sound`; original reports are unchanged |

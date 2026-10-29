@@ -3,24 +3,36 @@
 AuthorityEffect: None. Audit snapshot: 2026-10-28, main `e0faff5a55823181a8bd84fa30800e558e9432c0`.
 
 Population: all 123 trees returned by `ci.research_index.group_trees(tracked_research_files(root))`.
-Dedicated teaching follows the four trees explicitly declared by the institutions curriculum.
-The other 119 have no dedicated research curriculum established by this audit. A source mention would establish only a reference.
+Dedicated teaching now includes the four institutions trees, the Growth
+lab's introductory treatment of `standing_commitment`, and the Boundary
+lab's selected lessons for `boundary_seed`, `side_free`, and
+`oriented_boundary`, plus the Same-record lab's selected introduction to
+`identification_dual`, and the Number lab's selected `qm_bridge` lessons.
+The other 113
+have no dedicated research curriculum established by this audit. The
+Growth lab's comparison with `two_sided_commitment` is a scoped reference,
+not a complete treatment of that tree. The Boundary lab is also a selected
+introduction, not complete tree coverage or a discharge of its open comparisons.
+The Same-record lab likewise leaves the general identification conjectures open.
+The Number lab teaches the arithmetic before selected readout claims;
+the model's physical correspondence and later open rows remain unproved.
+A source mention alone is not teaching.
 Group assignments below are proposed curriculum organization; they assert no mathematical bridge or research validation.
 
 | Proposed teaching group | Tree | Current dedicated treatment | Source entry |
 |---|---|---|---|
-| Boundary, orientation, and commitment | `boundary_seed` | Not yet established | [research/boundary_seed/CLAIM_LEDGER.md](../../research/boundary_seed/CLAIM_LEDGER.md) |
-| Boundary, orientation, and commitment | `identification_dual` | Not yet established | [research/identification_dual/STATUS.md](../../research/identification_dual/STATUS.md) |
-| Boundary, orientation, and commitment | `oriented_boundary` | Not yet established | [research/oriented_boundary/CLAIM_LEDGER.md](../../research/oriented_boundary/CLAIM_LEDGER.md) |
+| Boundary, orientation, and commitment | `boundary_seed` | [Boundary lab: selected introduction](../boundary_lab/00_start_before_the_marks.md) | [research/boundary_seed/CLAIM_LEDGER.md](../../research/boundary_seed/CLAIM_LEDGER.md) |
+| Boundary, orientation, and commitment | `identification_dual` | [Same-record lab: selected introduction](../identification_lab/README.md) | [research/identification_dual/STATUS.md](../../research/identification_dual/STATUS.md) |
+| Boundary, orientation, and commitment | `oriented_boundary` | [Boundary lab: selected introduction](../boundary_lab/02_compare_two_answers.md) | [research/oriented_boundary/CLAIM_LEDGER.md](../../research/oriented_boundary/CLAIM_LEDGER.md) |
 | Boundary, orientation, and commitment | `seventh_constructor` | Not yet established | [research/seventh_constructor/FINDINGS.md](../../research/seventh_constructor/FINDINGS.md) |
-| Boundary, orientation, and commitment | `side_free` | Not yet established | [research/side_free/STATUS.md](../../research/side_free/STATUS.md) |
+| Boundary, orientation, and commitment | `side_free` | [Boundary lab: selected introduction](../boundary_lab/04_price_a_fixed_menu.md) | [research/side_free/STATUS.md](../../research/side_free/STATUS.md) |
 | Boundary, orientation, and commitment | `sign_slice` | Not yet established | [research/sign_slice/STATUS.md](../../research/sign_slice/STATUS.md) |
 | Boundary, orientation, and commitment | `sign_tower` | Not yet established | [research/sign_tower/FINDINGS.md](../../research/sign_tower/FINDINGS.md) |
-| Boundary, orientation, and commitment | `standing_commitment` | Not yet established | [research/standing_commitment/STATUS.md](../../research/standing_commitment/STATUS.md) |
+| Boundary, orientation, and commitment | `standing_commitment` | [Growth lab, 00–07](../growth_lab/README.md) | [research/standing_commitment/STATUS.md](../../research/standing_commitment/STATUS.md) |
 | Boundary, orientation, and commitment | `symmetry_floor` | Not yet established | [research/symmetry_floor/STATUS.md](../../research/symmetry_floor/STATUS.md) |
 | Boundary, orientation, and commitment | `two_sided_commitment` | Not yet established | [research/two_sided_commitment/STATUS.md](../../research/two_sided_commitment/STATUS.md) |
 | Execution, authorization, and evidence | `alpha_engine` | Not yet established | [research/alpha_engine/README.md](../../research/alpha_engine/README.md) |
-| Finite readout bridge | `qm_bridge` | Not yet established | [research/qm_bridge/CLAIMS.md](../../research/qm_bridge/CLAIMS.md) |
+| Finite readout bridge | `qm_bridge` | [Number lab: selected introduction](../number_lab/README.md) | [research/qm_bridge/CLAIMS.md](../../research/qm_bridge/CLAIMS.md) |
 | Institutions: dedicated lessons exist | `actor_institution` | Institutions lessons | [research/actor_institution/CLAIMS.md](../../research/actor_institution/CLAIMS.md) |
 | Institutions: dedicated lessons exist | `interpreter_verdict` | Institutions lessons | [research/interpreter_verdict/CLAIMS.md](../../research/interpreter_verdict/CLAIMS.md) |
 | Institutions: dedicated lessons exist | `two_theorems` | Institutions lessons | [research/two_theorems/CLAIMS.md](../../research/two_theorems/CLAIMS.md) |

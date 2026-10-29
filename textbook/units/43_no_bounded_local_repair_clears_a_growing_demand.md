@@ -1,6 +1,14 @@
-# Unit 43. No bounded local repair clears a growing demand: G1 inside a declared class, and what G3 would need
+# Unit 43. Fixed colour bounds and local windows cannot clear every chain stage
 
-**Claim.** `LocalStrategy` declares a class of repairs for Unit 40's
+**Claim.** A strategy with one fixed radius and one finite colour bound
+cannot separate every inherited obstructed pair at every chain stage.
+This excludes the stated family of views. It does not prove failure of
+every repair procedure or describe how repairs change a running state.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** `LocalStrategy` declares a class of repairs for Unit 40's
 standing demand: a strategy has a radius `d`, a colouring of the chain at
 each length, a view at each length, and a proof that the view reads only
 the radius-`d` colour window (Unit 42's `ViewLocal`). `FiniteDeclaration k
@@ -20,7 +28,9 @@ valued marking (both identity-grade and clearing, both outside
 `FiniteDeclaration`, differing only in a declared tag). `G1Class` also
 records that `Clears` does not imply `¬ Fires` (the valued member has
 both), so conjecture G3 needs a state-transition hypothesis the class
-lacks. **Status:** derived, conditional on `FiniteDeclaration k S`;
+lacks.
+
+**Status:** derived, conditional on `FiniteDeclaration k S`;
 class-relative only. The paper's words "the member fires" and "the
 fire/clear/no-import cycle is impossible" overread the Lean, whose
 content is `¬ Clears S`; see "What has been proved". **Lean:**
@@ -30,6 +40,40 @@ content is `¬ Clears S`; see "What has been proved". **Lean:**
 **Depends on:** `capacity_bound`, `ViewLocal`, `encode` (Unit 42);
 `generation_never_dries`, `middle_profile`,
 `depth1_obstructions_are_exactly_middle_pairs`, `profile1` (Unit 40).
+
+</details>
+
+## First pass
+
+Use two colours, alternating by position, and read just the centre's
+colour. In the base three-bit observation, all interior positions agree.
+Try the new colour view as a proposed repair:
+
+| Chain stage | Interior positions | New colour answers | All separated? |
+|---|---|---|---|
+| 3 | 1, 2 | 1, 0 | Yes |
+| 4 | 1, 2, 3 | 1, 0, 1 | No: 1 and 3 agree |
+
+A success at one stage has not established success at every stage.
+The theorem generalizes this counting argument to every colouring with
+the stated fixed palette and window radius, even when the colouring and
+reporting functions change between stages.
+
+The formal class stores families of proposed views, not a process that
+applies repairs to a changing state. Its `Fires` predicate describes
+unrepaired base-chain profiles and ignores which strategy was supplied.
+
+**Predict:** if a strategy has the label `recurring`, has the theorem
+measured repeated resource use?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. That field is a declared label. The mathematical exclusion follows
+from the finite colour bound and locality; it does not measure a runtime
+or infer costs from the label.
+
+</details>
 
 ## Question
 
@@ -60,6 +104,13 @@ a view family `view : Nat → Nat → Nat`, and a proof `locality : ∀ n,
 ViewLocal (view n) (colour n) d`. Nothing else: no state, no rounds, no
 transition. `FiniteDeclaration k S` is `∀ n x, S.colour n x < k`.
 
+Here `n` counts chain steps/links, with `n+1` positions. The older output
+uses “length” for that stage parameter. The colour and view families can
+change with `n`; locality supplies a factor separately at each stage.
+The colouring rule itself need not be local or cheap. The bound limits
+the number of colours and the readout window, not the computation that
+assigns colours or the magnitude of the numerical view values.
+
 `BaseObstructed n i j`: two indices of the chain of length `n`,
 distinct, with equal depth-1 profiles. `Fires S` is `∃ n0, ∀ n ≥ n0, ∃ i
 j, BaseObstructed n i j`; the binder for `S` is written `_S` and the
@@ -86,8 +137,10 @@ has not told them apart. That is the whole theorem.
 
 What escapes: a view that reads the index itself (per-pair marking,
 valued marking) is identity-grade and clears every length, but it is not
-a finite declaration: its "colours" are the indices, unbounded. The class
-does not refute these; it does not contain them.
+a finite declaration: its "colours" are the indices, unbounded. These
+are members of `LocalStrategy`; they lie outside the subclass satisfying
+one fixed `FiniteDeclaration k`. Thus locality alone is not what excludes
+them, and the theorem does not refute their clearing behavior.
 
 What the theorem does not do: it does not model repair *over time*.
 `Fires` is a fact about the chain, true for every strategy, including the
@@ -571,7 +624,7 @@ and the exclusion applies to it.
 |---|---|---|
 | `colour`, `view : Nat → Nat → Nat` | the strategy families | total metatheoretic functions over every length and index; the finitude rule flags them as supplied, not derived |
 | `ImportDiscipline` | the tag | declared label; uninterpreted in Lean |
-| `FiniteDeclaration` | the hypothesis | admitted; vacuous at `k = 0`, inhabited at `k = 8` by bare and depth-two |
+| `FiniteDeclaration` | the hypothesis | admitted; impossible at `k = 0`, making the conditional exclusion vacuous there; inhabited at `k = 8` by bare and depth-two |
 | `capacity_bound`, `generation_never_dries`, `middle_profile` | the proof | Units 42 and 40 |
 | `propext`, `Quot.sound` | inherited | inside the declared boundary |
 
@@ -601,6 +654,9 @@ your member either.
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 Any colouring `colour n x < 3` and any view reading the three-colour
 window, for instance `view n i = encode 3 (colourBall (colour n) i 1)`,
 with `locality` given by `encode 3`. `FiniteDeclaration 3` holds, so by
@@ -614,6 +670,8 @@ same profile. The failure is guaranteed at length 31 (and at every
 greater length), not at length 4; depth-two's clearing of length 4 is one
 `ClearsOn`, and `Clears` quantifies over all lengths. The theorem never
 says a finite member fails at every length, only that it fails at one.
+
+</details>
 
 ## Verification
 

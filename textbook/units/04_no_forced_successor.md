@@ -2,7 +2,12 @@
 
 **Claim.** In the admitted grammar, a ledger changes only when an event is
 applied to it. There is no rule inside the model that produces a "next"
-ledger from the current one. **Status:** admitted (a property of the
+ledger from the current one.
+
+<details>
+<summary>Source and classification record (optional on a first reading)</summary>
+
+**Status:** admitted (a property of the
 declared grammar, `paper/paper.md` §4, third bullet). **Lean:** none in
 Genesis; the book's Lean records three small consequences of the
 grammar's shape (status **derived (book Lean)**).
@@ -12,6 +17,23 @@ grammar's shape (status **derived (book Lean)**).
 This unit teaches a statement that is *not* a theorem, and says why. Units
 01 to 03 proved things about `derivable` and about one event. This unit
 steps back and asks what kinds of change exist at all.
+
+</details>
+
+## First pass
+
+Give the replay function a notebook and an empty event list. It returns
+the same notebook. Now hand it an admission event; the notebook may change.
+The caller supplied that event.
+
+Predict what happens if we write a separate policy that always chooses
+an admission. The policy can use one of the existing six event kinds;
+it does not need a seventh kind. Its choice is an added instruction,
+not a choice proved to come from the notebook.
+
+The event grammar tells us which inputs are permitted. It does not
+by itself choose an input. This unit's structural claim is about the
+declared replay model, not a law about physical objects remaining still.
 
 ## Question
 
@@ -34,8 +56,9 @@ Nothing else has been admitted. In particular, nothing called "time",
 
 A **grammar** here means: the list of kinds of thing the model can be
 asked to do. Genesis's grammar of changes is the six constructors of
-`Event`. The word **closed** means the list is complete: there is no
-seventh kind, and nothing in the model builds an event by itself.
+`Event`. The word **closed** means that every event value has one of these six kinds.
+It does not prevent a separately written policy from choosing events of
+those kinds. A policy and a new event constructor are different additions.
 
 In Lean, an `inductive` type is closed by definition. When you write
 
@@ -62,10 +85,11 @@ someone outside the model (Unit 03, **Where the supply is recorded**).
 
 ## Plain-language interpretation
 
-The ledger is a notebook. Six kinds of entry can be written in it, and each
-entry is written by a hand outside the notebook. The notebook never writes
-in itself. Left alone, it stays exactly as it is. This is what the paper
-calls **inertia** (`paper/paper.md` §4).
+The ledger is like a notebook with six permitted kinds of entry. The
+replay function applies the entries supplied to it; it does not choose
+the next one. Give it an empty history and it returns the starting
+notebook unchanged. The paper calls this **inertia** (`paper/paper.md` §4).
+There is no elapsed-time model here, so this is not a physical law.
 
 That is a fact about this notebook, the one Genesis chose. A different
 model could add a seventh kind of entry, or a clock that writes entries on

@@ -53,6 +53,19 @@ def main() -> int:
                         collide += collision(s.rel, g)
                         assert collision(s.rel, g) == collision(transpose(s.rel), g)
     print(f"merges with the witnessed pair identified: {collide} collide; pushforwards that exist: {exist} of {exist}")
+    # A different protected property can fail without a collision.
+    # Transitivity requires x->z whenever x->y and y->z are both present.
+    disjoint = frozenset({(0, 1), (2, 3)})
+    join = merge_map(4, 1, 2)
+    joined = pushforward(disjoint, join)
+    def transitive(rel):
+        return all((x, z) in rel for x, y in rel for yy, z in rel if y == yy)
+    print(f"transitivity example: {sorted(disjoint)} -> {sorted(joined)} via {join}; "
+          f"source transitive={transitive(disjoint)}, target transitive={transitive(joined)}, "
+          f"collision={collision(disjoint, join)}")
+    if (not transitive(disjoint) or transitive(joined) or collision(disjoint, join)
+            or joined != frozenset({(0, 1), (1, 3)})):
+        failures.append("law failure without collision")
     print(f"failures: {failures}")
     return 1 if failures else 0
 

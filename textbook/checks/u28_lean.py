@@ -63,6 +63,17 @@ theorem no_bound_without_cap (L : Nat) :
     ∀ i, i + 1 < L → (fun k : Nat => k) i < (fun k : Nat => k) (i + 1) :=
   id_strict L
 
+/-- R accepted transitions give R+1 recorded states. -/
+theorem accepted_round_bound (f : Nat → Nat) (R B : Nat)
+    (hs : ∀ i, i + 1 < R + 1 → f i < f (i + 1))
+    (hb : ∀ i, i < R + 1 → f i ≤ B) : R ≤ B :=
+  Nat.le_of_succ_le_succ (strict_bounded_length f (R + 1) B hs hb)
+
+/-- The divided count follows from the existing multiplicative equality. -/
+theorem allPairs_divided (n : Nat) : (allPairs n).length = n * (n - 1) / 2 := by
+  have h := allPairs_length n
+  omega
+
 end Textbook.U28
 
 #print axioms Textbook.U28.allPairs_four
@@ -71,6 +82,8 @@ end Textbook.U28
 #print axioms Textbook.U28.run_capped_at_three
 #print axioms Textbook.U28.three_data_bound
 #print axioms Textbook.U28.no_bound_without_growth
+#print axioms Textbook.U28.accepted_round_bound
+#print axioms Textbook.U28.allPairs_divided
 #print axioms Derivation.index_le_strict_mono
 #print axioms Derivation.strict_bounded_length
 #print axioms Derivation.no_supply_round_bound
@@ -84,6 +97,8 @@ EXPECTED = {
     "Textbook.U28.run_capped_at_three": BOTH,
     "Textbook.U28.three_data_bound": BOTH,
     "Textbook.U28.no_bound_without_growth": BOTH,
+    "Textbook.U28.accepted_round_bound": BOTH,
+    "Textbook.U28.allPairs_divided": BOTH,
     "Derivation.index_le_strict_mono": BOTH,
     "Derivation.strict_bounded_length": BOTH,
     "Derivation.no_supply_round_bound": BOTH,

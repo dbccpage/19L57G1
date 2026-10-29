@@ -72,6 +72,21 @@ theorem translations_shape :
     taggedTranslation.forms.length = 1 ∧ taggedTranslation.insts.length = 1 :=
   ⟨rfl, rfl, rfl⟩
 
+/-- Book induction, preserving the native one-step lemma's conditions. -/
+theorem nonreify_history (m : Mode)
+    (hm : m = .silent ∨ m = .metaMarker ∨ m = .fact)
+    (t0 : Nat) (h : List REvent) (s : RState) (hs : AtMostTokR t0 s)
+    (hall : ∀ e ∈ h, ∀ tok, e = REvent.admitTok tok → tok = t0) :
+    AtMostTokR t0 (h.foldl (stepR m) s) := by
+  induction h generalizing s with
+  | nil => exact hs
+  | cons e rest ih =>
+    apply ih (stepR m s e)
+    · exact nonreify_carrier_bound hm hs
+        (fun tok he => hall e (by simp) tok he)
+    · intro e' he' tok ht
+      exact hall e' (List.mem_cons_of_mem e he') tok ht
+
 end Textbook.U38
 
 #print axioms Textbook.U38.fresh_appends
@@ -85,6 +100,7 @@ end Textbook.U38
 #print axioms Textbook.U38.swap_fixes_data
 #print axioms Textbook.U38.tagged_translation_not_collapsed
 #print axioms Textbook.U38.translations_shape
+#print axioms Textbook.U38.nonreify_history
 #print axioms Refusal.silent_eq_meta
 #print axioms Refusal.markers_invisible
 #print axioms Refusal.nonreify_carrier_bound
@@ -105,6 +121,7 @@ EXPECTED = {
     "Textbook.U38.swap_fixes_data": NONE,
     "Textbook.U38.tagged_translation_not_collapsed": BOTH,
     "Textbook.U38.translations_shape": NONE,
+    "Textbook.U38.nonreify_history": BOTH,
     "Refusal.silent_eq_meta": BOTH,
     "Refusal.markers_invisible": BOTH,
     "Refusal.nonreify_carrier_bound": BOTH,

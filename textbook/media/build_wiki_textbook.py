@@ -1,4 +1,4 @@
-"""Build the customer-facing Genesis Textbook Wiki pages with 15-second soundbites,
+"""Build the customer-facing Genesis Textbook Wiki pages with short video previews,
 interactive GFM stepping-stone widgets, and embedded <=15s Manim animations.
 
 AuthorityEffect: None. Mirrors textbook/ and research tree metadata into
@@ -21,6 +21,12 @@ from first_steps_wiki import build_first_steps
 from search_lab_wiki import build_search_lab
 from change_lab_wiki import build_change_lab
 from reasoning_lab_wiki import build_reasoning_lab
+from path_lab_wiki import build_path_lab
+from map_lab_wiki import build_map_lab
+from growth_lab_wiki import build_growth_lab
+from boundary_lab_wiki import build_boundary_lab
+from identification_lab_wiki import build_identification_lab
+from number_lab_wiki import build_number_lab
 
 DEFAULT_REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 DEFAULT_WIKI_ROOT = Path(
@@ -30,6 +36,13 @@ DEFAULT_WIKI_ROOT = Path(
     )
 )
 RAW_WIKI_MEDIA = "https://raw.githubusercontent.com/wiki/dbccpage/19L57G1/media/manim"
+BEGINNER_ROUTES = ('first_steps', 'reasoning_lab', 'search_lab', 'change_lab',
+                   'path_lab', 'map_lab', 'growth_lab', 'boundary_lab', 'identification_lab', 'number_lab')
+READING_GUIDES = {
+    'reading_formal_statements.md': 'textbook_reading_formal',
+    'reading_formal_practice.md': 'textbook_reading_formal_practice',
+    'reading_formal_answers.md': 'textbook_reading_formal_answers',
+}
 
 
 def resolve_commit_sha(repo_root: Path) -> str:
@@ -204,6 +217,7 @@ def rewrite_links_for_wiki(
                     "textbook/video_script_15s.md": "textbook_video_15s",
                     "textbook/derivation_coverage.md": "textbook_coverage",
                     "textbook/audit/README.md": "textbook_audit"})
+    targets.update({'textbook/'+name: slug for name, slug in READING_GUIDES.items()})
 
     def rewrite(match: re.Match[str]) -> str:
         target = match.group(1).strip()
@@ -214,6 +228,12 @@ def rewrite_links_for_wiki(
             return match.group(0)
         path, sep, anchor = target.partition("#")
         resolved = posixpath.normpath(posixpath.join(source_dir, path))
+        parts = resolved.split('/')
+        if (len(parts) == 3 and parts[0] == 'textbook' and parts[1] in BEGINNER_ROUTES
+                and parts[2].endswith('.md') and not parts[2].startswith('REVIEW_')):
+            stem = parts[2][:-3]
+            dest = 'textbook_'+parts[1]+('' if stem == 'README' else '_'+stem.lower())
+            return f"]({dest}{sep}{anchor})"
         dest = targets.get(resolved, f"{blob_base}/{resolved}")
         return f"]({dest}{sep}{anchor})"
 
@@ -293,19 +313,19 @@ def build_unit_wiki_page(
 
     return f"""<!-- markdownlint-disable MD041 MD033 -->
 
-{nav_prev} · [🏠 Textbook Hub](textbook_overview) · [🚀 Start Here](textbook_start_here) · [🎬 15s Videos](textbook_video_15s) · [🗺️ Coverage Map](textbook_coverage) · [🌲 Research Trees](textbook_research_trees) · {nav_next}
+{nav_prev} · [🏠 Textbook Hub](textbook_overview) · [🚀 Start Here](textbook_start_here) · [Read the notation](textbook_reading_formal) · [🎬 15s Videos](textbook_video_15s) · [🗺️ Coverage Map](textbook_coverage) · [🌲 Research Trees](textbook_research_trees) · {nav_next}
 
 `{part_label}` · **{act_title}** · Progress: `[{bar_str}]` (`{unit_idx + 1} / {total_units}`) · `AuthorityEffect: None`
 
 ---
 
 > [!IMPORTANT]
-> ### ⚡ 15-Second Soundbite (`{unit_code}`) — Read This First
+> ### Short preview (`{unit_code}`)
 > **Core idea:** {bite_proved}
 >
 > - **Classification:** Read the complete unit's status and hypotheses below.
 > - **Formal sources:** Read the complete unit's Lean anchors below.
-> - **15-Second Takeaway:** {bite_proved}
+> - **Key point:** {bite_proved}
 
 ---
 
@@ -317,19 +337,19 @@ This video previews several lessons. Pause it as needed; the complete definition
 
 **[▶ Watch / Download High-Resolution 15s MP4 Video]({RAW_WIKI_MEDIA}/{act_slug}.mp4)** · *Duration verified `<= 15.0s` via `ffprobe` · Built with Manim 0.19.2*
 
-| Reading step | Suggested pause | Unit guide (independent of the Act video's timing) |
-| :--- | :--- | :--- |
-| **1. Setup** | `0:00–0:03` | **Starting Ledger:** {bite_q} |
-| **2. Move** | `0:03–0:07` | **Mechanism:** {bite_mech} |
-| **3. Result** | `0:07–0:11` | **Established:** {bite_proved} |
-| **4. Boundary** | `0:11–0:15` | **Scope Limit:** {bite_limits} |
+| Reading step | Unit guide |
+| :--- | :--- |
+| **1. Setup** | **Starting question:** {bite_q} |
+| **2. Move** | **Mechanism:** {bite_mech} |
+| **3. Result** | **Established:** {bite_proved} |
+| **4. Boundary** | **Scope limit:** {bite_limits} |
 
 ---
 
-## 🕹️ Interactive 15-Second Stepping Stones
+## Practice before the formal details
 
 <details>
-<summary><b>🧠 Step 1 · 15-Second Prediction Challenge (Click to test your intuition before reading)</b></summary>
+<summary><b>Step 1 · Make a prediction before reading</b></summary>
 
 <br>
 
@@ -351,12 +371,12 @@ This video previews several lessons. Pause it as needed; the complete definition
 
 <br>
 
-| 15s Card | Soundbite (`<= 35 words each`) |
+| Reading prompt | Short reminder |
 | :--- | :--- |
-| **1. The Question (`0–15s`)** | {bite_q} |
-| **2. The Move (`15–30s`)** | {bite_mech} |
-| **3. What Holds (`30–45s`)** | {bite_proved} |
-| **4. Where It Stops (`45–60s`)** | {bite_limits} |
+| **1. The question** | {bite_q} |
+| **2. The move** | {bite_mech} |
+| **3. What holds** | {bite_proved} |
+| **4. Where it stops** | {bite_limits} |
 
 </details>
 
@@ -394,7 +414,7 @@ flowchart LR
 
 ---
 
-{nav_prev} · [🏠 Textbook Hub](textbook_overview) · [🚀 Start Here](textbook_start_here) · [🎬 15s Videos](textbook_video_15s) · [🗺️ Coverage Map](textbook_coverage) · [🌲 Research Trees](textbook_research_trees) · {nav_next}
+{nav_prev} · [🏠 Textbook Hub](textbook_overview) · [🚀 Start Here](textbook_start_here) · [Read the notation](textbook_reading_formal) · [🎬 15s Videos](textbook_video_15s) · [🗺️ Coverage Map](textbook_coverage) · [🌲 Research Trees](textbook_research_trees) · {nav_next}
 """
 
 
@@ -503,6 +523,12 @@ def build_all(repo_root: Path, wiki_root: Path) -> dict[str, int]:
         "two_theorems": f"[Inst 12]({part2_entries[12][2]})–[Inst 15]({part2_entries[15][2]})",
         "interpreter_verdict": f"[Inst 17]({part2_entries[17][2]})",
         "actor_institution": f"[Inst 00]({part2_entries[0][2]})–[Inst 11]({part2_entries[11][2]})",
+        "standing_commitment": "[Growth lab: introductory lessons](textbook_growth_lab)",
+        "boundary_seed": "[Boundary lab: declared division and readings](textbook_boundary_lab_00_start_before_the_marks)",
+        "side_free": "[Boundary lab: permission and price menu](textbook_boundary_lab_04_price_a_fixed_menu)",
+        "oriented_boundary": "[Boundary lab: stipulated report model](textbook_boundary_lab_02_compare_two_answers)",
+        "identification_dual": "[Same-record lab: selected matching examples](textbook_identification_lab)",
+        "qm_bridge": "[Number lab: selected finite readout examples](textbook_number_lab_05_two_coordinates)",
     }
     tree_rows = []
     for t_name, has_contract, has_lean in research_trees:
@@ -520,7 +546,7 @@ def build_all(repo_root: Path, wiki_root: Path) -> dict[str, int]:
 
 > [!IMPORTANT]
 > ### ⚡ Post-Seal Research Trees at source snapshot (`{commit_short}`)
-> This page is regenerated automatically by `python textbook/media/build_wiki_textbook.py` whenever new textbook units or research trees are added to `main`. It inventories all **{len(research_trees)}** research trees listed under [`research/`]({blob_base}/research) and links the trees taught in [Part 2: Actors & Institutions](textbook_institutions). `AuthorityEffect: None`.
+> This page is regenerated by `python textbook/media/build_wiki_textbook.py`. It inventories all **{len(research_trees)}** research trees listed under [`research/`]({blob_base}/research) and links dedicated [institution lessons](textbook_institutions), the [Growth lab](textbook_growth_lab), and selected [Boundary lab](textbook_boundary_lab), [Same-record lab](textbook_identification_lab), and [Number lab](textbook_number_lab) introductions. A directory or source link is not validation or complete teaching coverage. `AuthorityEffect: None`.
 
 ---
 
@@ -541,92 +567,23 @@ def build_all(repo_root: Path, wiki_root: Path) -> dict[str, int]:
     )
     start_page = f"""<!-- markdownlint-disable MD041 MD033 -->
 
-[🏠 Genesis Wiki Home](Home) · **[🚀 Start Here](textbook_start_here)** · [📚 Textbook Hub](textbook_overview) · [🎬 15s Video Gallery](textbook_video_15s) · [🏛️ Part 2: Institutions](textbook_institutions) · [🗺️ Coverage Matrix](textbook_coverage) · [🌲 Research Trees](textbook_research_trees) · [Unit 00 ▶]({part1_entries[0][2]})
-
----
-
-> [!IMPORTANT]
-> ### ⚡ The 15-Second Soundbite: Welcome to Genesis (`AuthorityEffect: None`)
-> **Begin with one opaque mark `<>`.** Its shape supplies no internal numbers, sets, containers, or rules. The lessons track which structures are admitted and which conclusions follow from them.
->
-> - **Zero Prerequisites:** Written for a patient reader with no background in math, formal logic, Python, or Lean.
-> - **Read at your own pace:** Short Act videos preview several lessons. Definitions, examples, formal statements, and scope limits follow below.
-
----
-
-## 🎬 15-Second Manim Entrance (`<= 15.0s`)
-
-![Act I — Pre-Genesis and the Mark <>]({RAW_WIKI_MEDIA}/act00_pre_genesis_mark.gif)
-
-**[▶ Watch / Download High-Resolution 15s MP4]({RAW_WIKI_MEDIA}/act00_pre_genesis_mark.mp4)** · [📜 Read the 15-Second Spoken Script (`128 WPM`)](textbook_video_15s)
-
----
-
-## 🕹️ Interactive 60-Second Cosmos Tour (Click Any Stage to Preview in 15 Seconds)
-
-<details open>
-<summary><b>⚡ Stage 1 · The Opaque Mark & Inertia (Units 00–04) — Click to toggle</b></summary>
-
-<br>
-
-- **15s Soundbite:** Writing `<>` does not create an empty set or a box. Before any rule is admitted, nothing is derivable (`genesis_underivable`), and supplying a label without admitting it changes nothing (`supply_no_op`).
-- **Start Reading:** [Unit 00: The mark and the external constructor]({part1_entries[0][2]}) → [Unit 01: Nothing is derivable at genesis]({part1_entries[1][2]})
-
-</details>
-
-<details>
-<summary><b>⚡ Stage 2 · Token Erasure & Observational Collapse (Units 05–16)</b></summary>
-
-<br>
-
-- **15s Soundbite:** Admitting two labels `<a>` and `<ab>` gives two numbered data (`0` and `1`), but with no recorded instances, every internal test gives the same answer on both (`R2L_collapsed`).
-- **Jump In:** [Unit 05: Readings L and F]({part1_entries[5][2]}) → [Unit 16: ⟨A⟩ and ⟨AB⟩ are collapsed]({part1_entries[16][2]})
-
-</details>
-
-<details>
-<summary><b>⚡ Stage 3 · Witnessed Separation, Cost Ties & Irreflexivity (Units 17–26)</b></summary>
-
-<br>
-
-- **15s Soundbite:** Separating datum 0 from datum 1 cannot be done at cost 1 (`cost1_insufficient_general`). It takes a form plus an instance (`BL` or `BD`), and recording a single fact never forces the general law of irreflexivity (`irrefl_law_not_entailed`).
-- **Jump In:** [Unit 17: Demands are irreflexive by guard]({part1_entries[17][2]}) → [Unit 26: Facts never entail irreflexivity]({part1_entries[26][2]})
-
-</details>
-
-<details>
-<summary><b>⚡ Stage 4 · Quotients, Refusal, Capacity & Represented Kernel (Units 27–50)</b></summary>
-
-<br>
-
-- **15s Soundbite:** Quotients hide what they merge (`quot_barrier`), bounded local views are outrun by growing separation demands (`Pigeonhole`, `G1Class`), and putting the kernel on the books yields the Rule 1 repair-or-extension dichotomy (`Completion`, `Horizon`).
-- **Jump In:** [Unit 27: Quotient barrier]({part1_entries[27][2]}) → [Unit 46: Rule 1 in a fixed kernel]({part1_entries[46][2]}) → [Unit 50: Horizon]({part1_entries[50][2]})
-
-</details>
-
-<details>
-<summary><b>⚡ Stage 5 · Primitive Difference, Higher Cells, Compression & Fidelity (Units 51–74)</b></summary>
-
-<br>
-
-- **15s Soundbite:** Nine readings of difference have scoped countermodels. Signed boundaries cancel twice. Signature quotients preserve declared answers. The notes-diagonal result concerns a separate 64-descriptor family and leaves its denotational bridge open.
-- **Jump In:** [Unit 51: Nine readings]({part1_entries[51][2]}) → [Unit 60: Boundary cancellation]({part1_entries[60][2]}) → [Unit 74: Canonical keys]({part1_entries[74][2]})
-
-</details>
-
-<details>
-<summary><b>⚡ Stage 6 · Part 2: Actors, Institutions, Probing & Uncollapse (Institutions 00–17)</b></summary>
-
-<br>
-
-- **15s Soundbite:** Combining actors into an institution lets a family know claims no single actor knows (`exceeds_three_two_resolution`), prices correspondence as an admission, requires `n(n-1)/2` pair probes to acquire an unknown partition, and characterizes uncollapse by mention delta.
-- **Jump In:** [Part 2 Hub](textbook_institutions) → [Inst 00: Actors & Signatures]({part2_entries[0][2]}) → [Inst 17: Verdict Boundary]({part2_entries[17][2]})
-
-</details>
-
----
+[Genesis Wiki](Home) · [Textbook hub](textbook_overview) · [Reading formal statements](textbook_reading_formal) · [Video gallery](textbook_video_15s)
 
 {start_rewritten}
+
+---
+
+## Optional video preview
+
+This short Act overview previews the source's opening chapters. Take the
+time each written definition needs; the video duration is not a reading target.
+
+![The opaque mark and the admitted formal representation]({RAW_WIKI_MEDIA}/act00_pre_genesis_mark.gif)
+
+[Watch or download the MP4]({RAW_WIKI_MEDIA}/act00_pre_genesis_mark.mp4) · [Read the spoken script](textbook_video_15s).
+The existing media verifier checks the video and GIF durations.
+
+Source edition: [{commit_short}](https://github.com/dbccpage/19L57G1/commit/{commit_sha}). Teaching apparatus; `AuthorityEffect: None`.
 """
     (wiki_root / "textbook_start_here.md").write_text(
         start_page, encoding="utf-8", newline="\n"
@@ -672,7 +629,7 @@ def build_all(repo_root: Path, wiki_root: Path) -> dict[str, int]:
 ---
 
 > [!IMPORTANT]
-> ### 🎬 Hard Rule: Every Animation and Soundbite Is Strictly `<= 15 Seconds`
+> ### 🎬 Video previews are `<= 15 Seconds`; written lessons are self-paced
 > All 12 Manim animations below are rendered with **Manim 0.19.2** and verified with `ffprobe` at **`10.93s–14.07s` (`<= 15.0s`)**. Each animation auto-plays inline in the Wiki and pairs with a downloadable `.mp4`. `AuthorityEffect: None`.
 
 ---
@@ -709,10 +666,10 @@ def build_all(repo_root: Path, wiki_root: Path) -> dict[str, int]:
 ---
 
 > [!IMPORTANT]
-> ### ⚡ The Genesis Textbook in 15 Seconds (`AuthorityEffect: None`)
-> - **Part 1 ([Units 00–{part1_entries[-1][0]:02d}](textbook_u00_mark_and_constructor)):** Every definition, theorem, countermodel, and open boundary across all **75 frozen Lean 4 modules** in `lean4/Derivation/`.
+> ### Begin with a concrete example (`AuthorityEffect: None`)
+> - **Part 1 ([Units 00–{part1_entries[-1][0]:02d}](textbook_u00_mark_and_constructor)):** Formal chapters and a source-placement map for **75 frozen Lean 4 modules** in `lean4/Derivation/`. A source reference does not certify complete teaching coverage.
 > - **Part 2 ([Institutions 00–{part2_entries[-1][0]:02d}](textbook_institutions)):** Post-freeze research suites (`actor_institution`, `two_theorems`, `uncollapse`, `interpreter_verdict`) plus the synced [Research Trees Index](textbook_research_trees).
-> - **How to study:** Start at **[Start Here](textbook_start_here)** or **[Unit 00](textbook_u00_mark_and_constructor)**. Every unit page has a 15-second soundbite, an embedded `<= 15s` Manim animation, interactive prediction widgets, and the full line-by-line Python + Lean 4 lesson.
+> - **How to study:** Start with **[First steps](textbook_first_steps)** and **[Start Here](textbook_start_here)**. Work through examples and predictions at your own pace, then inspect the definitions, hypotheses, Python, and Lean. Short Act videos are previews, not a study-time target.
 
 ![Act I — The Mark and Inertia]({RAW_WIKI_MEDIA}/act00_pre_genesis_mark.gif)
 
@@ -746,7 +703,7 @@ def build_all(repo_root: Path, wiki_root: Path) -> dict[str, int]:
 ---
 
 > [!IMPORTANT]
-> ### ⚡ Part 2 in 15 Seconds: Actors & Institutions (`Units 00–{part2_entries[-1][0]:02d}`)
+> ### Part 2: Actors & Institutions (`Units 00–{part2_entries[-1][0]:02d}`)
 > When several presentations (**actors**) combine into a family (**an institution**), they can jointly determine claims no single member knows (`exceeds_three_two_resolution`). Correspondence across actors is a priced admission, unknown claims force a witnessed **Demur**, and probing an unknown partition over `n` data costs `n(n-1)/2` pair queries.
 
 ![Part 2 — Actors and Institutions]({RAW_WIKI_MEDIA}/act10_institutions_synergy_policy.gif)
@@ -773,7 +730,7 @@ def build_all(repo_root: Path, wiki_root: Path) -> dict[str, int]:
 ---
 
 > [!IMPORTANT]
-> ### ⚡ Derivation Coverage Matrix in 15 Seconds (`AuthorityEffect: None`)
+> ### Derivation source-placement map (`AuthorityEffect: None`)
 > Accounts for all **75 frozen Lean 4 modules** (`779` definitions/structures and `1,585` theorem/lemma declarations), all Part 2 research theorems, their exact evidence statuses (`FROZEN`, `POST_FREEZE_PROVED`, `CONDITIONAL`, `VERIFIED_FINITE`, `REFUTED`, `ADMITTED`, `OPEN`), and the **acyclic lesson dependency DAG (`0` cycles)**.
 
 ---
@@ -798,7 +755,7 @@ def build_all(repo_root: Path, wiki_root: Path) -> dict[str, int]:
 ---
 
 > [!IMPORTANT]
-> ### ⚡ 75-Module Source Audit in 15 Seconds (`AuthorityEffect: None`)
+> ### 75-module source audit (`AuthorityEffect: None`)
 > Every tracked `.lean` file in `lean4/Derivation/` (all 62 root-imported modules plus all 13 non-root modules) and `lean4/Derivation.lean` is audited for SHA-256 content hash, imports, declarations, axiom dependencies (`1,530` reports within `propext` and `Quot.sound`), and proof-vs-prose alignment (including the documented vacuity defect in the first two conjuncts of `LadderGeneral.d2_zero_dims_2_3_4`, superseded by `BoundaryCancellation.d2_zero_unrestricted`).
 
 ---
@@ -832,7 +789,8 @@ def build_all(repo_root: Path, wiki_root: Path) -> dict[str, int]:
 
 ## Textbook
 
-- [🚀 Start Here (15s Entrance)](textbook_start_here)
+- [Start here](textbook_start_here)
+- [Read a formal statement, one piece at a time](textbook_reading_formal)
 - [📚 Textbook Hub (Units 00–{part1_entries[-1][0]:02d})](textbook_overview)
 - [🏛️ Part 2: Institutions (00–{part2_entries[-1][0]:02d})](textbook_institutions)
 - [🎬 15s Manim Video Gallery](textbook_video_15s)
@@ -963,17 +921,17 @@ def build_all(repo_root: Path, wiki_root: Path) -> dict[str, int]:
     # 11. Update Home.md
     home_md = f"""# Genesis: A Reader's and Developer's Guide
 
-Genesis (`19L57G1`) studies what follows from an opaque seed `<>` under declared finite challenges, what has to be admitted separately, and where the evidence stops. It contains a replayable admission kernel, deterministic searches, Lean 4 proofs, claim ledgers, a complete **{len(part1_entries) + len(part2_entries)}-unit introductory Textbook**, and a post-seal research estate.
+Genesis (`19L57G1`) studies what follows from an opaque seed `<>` under declared finite challenges, what has to be admitted separately, and where the evidence stops. It contains a replayable admission kernel, deterministic searches, Lean 4 proofs, claim ledgers, a **{len(part1_entries) + len(part2_entries)}-unit formal textbook** with separate beginner routes, and a post-seal research estate.
 
 This Wiki is an explanatory map and mirrored textbook of the published repository, not an amendment to its sealed experiment, a new derivation, or a certification of all its claims. `AuthorityEffect: None`.
 
 ---
 
 > [!IMPORTANT]
-> ### ⚡ New to Genesis? Start with the 15-Second Textbook Entrance
+> ### New to Genesis? Start with a concrete question
 > **No prior study is assumed.** Start with concrete examples, then read the definitions and formal statements in order. The short videos preview groups of lessons; pause them and take as much time as each explanation needs.
 >
-> 👉 **[🚀 Start Here (15-Second Entrance)](textbook_start_here)** · **[📚 Textbook Hub (Units 00–{part1_entries[-1][0]:02d})](textbook_overview)** · **[🏛️ Part 2: Actors & Institutions (00–{part2_entries[-1][0]:02d})](textbook_institutions)** · **[🎬 15s Manim Video Gallery](textbook_video_15s)** · **[🌲 Synced Research Trees ({len(research_trees)})](textbook_research_trees)**
+> 👉 **[Start here](textbook_start_here)** · **[📚 Textbook Hub (Units 00–{part1_entries[-1][0]:02d})](textbook_overview)** · **[🏛️ Part 2: Actors & Institutions (00–{part2_entries[-1][0]:02d})](textbook_institutions)** · **[🎬 15s Manim Video Gallery](textbook_video_15s)** · **[🌲 Synced Research Trees ({len(research_trees)})](textbook_research_trees)**
 
 ![Pre-Genesis and the Opaque Mark <> (15s Manim Visual)]({RAW_WIKI_MEDIA}/act00_pre_genesis_mark.gif)
 
@@ -983,7 +941,7 @@ This Wiki is an explanatory map and mirrored textbook of the published repositor
 
 | I want to... | Start here | Continue with |
 | --- | --- | --- |
-| **Learn from scratch in 15-second soundbites (no math/code background needed)** | **[🚀 Textbook: Start Here](textbook_start_here)** | **[Unit 00: The mark](textbook_u00_mark_and_constructor)**, **[Textbook Hub](textbook_overview)**, **[15s Video Gallery](textbook_video_15s)** |
+| **Learn through small worked examples at your own pace** | **[First steps](textbook_first_steps)** | **[Textbook: Start Here](textbook_start_here)**, **[Textbook Hub](textbook_overview)**, **[Video previews](textbook_video_15s)** |
 | **Study Actors, Institutions, Probing & Uncollapse** | **[🏛️ Part 2: Institutions](textbook_institutions)** | **[Inst 00: Signatures]({part2_entries[0][2]})**, **[Coverage Matrix](textbook_coverage)**, **[Synced Research Trees](textbook_research_trees)** |
 | Understand the result without running anything | [Overview](genesis_overview) | [Concepts and glossary](concepts_and_glossary), [Reading the papers](papers_and_claim_ledgers) |
 | Run a small, concrete example | [Getting started](getting_started) | [Admission kernel](admission_kernel), [Worked examples](worked_examples) |
@@ -1008,7 +966,7 @@ A proposal is not an admission. A computed minimum is not authorization. An obse
 
 ## Explore the repository
 
-- [Textbook Hub](textbook_overview) and [Derivation Coverage Matrix](textbook_coverage): all 75 frozen modules (`Units 00–{part1_entries[-1][0]:02d}`) and post-freeze research trees (`Institutions 00–{part2_entries[-1][0]:02d}`) with 15-second soundbites and `<= 15s` Manim animations.
+- [Textbook Hub](textbook_overview) and [Derivation Coverage Matrix](textbook_coverage): formal chapters, a source-placement map for 75 frozen modules, selected research lessons, and `<= 15s` video previews. Written study has no time target; source placement is not complete teaching coverage.
 - [Synced Research Trees](textbook_research_trees): all {len(research_trees)} research directories at this source snapshot.
 - [Repository map](repository_map): every top-level area and complete tracked-file indexes.
 - [Python module reference](python_module_reference): public top-level definitions across the computational modules.
@@ -1018,7 +976,7 @@ A proposal is not an admission. A computed minimum is not authorization. An obse
 
 ## Snapshot and current status
 
-Textbook & Audit edition generated from source snapshot [`{commit_short}`](https://github.com/dbccpage/19L57G1/commit/{commit_sha}) (2026-10-28); core repository reference pages reflect [`85a83ae7ce64`](https://github.com/dbccpage/19L57G1/commit/85a83ae7ce64dc2123ff218568a4ecd37e566d33) (2026-10-23). All tracked toolchain files pin Lean 4.33.0.
+Textbook & Audit edition generated from source snapshot [`{commit_short}`](https://github.com/dbccpage/19L57G1/commit/{commit_sha}); core repository reference pages reflect [`85a83ae7ce64`](https://github.com/dbccpage/19L57G1/commit/85a83ae7ce64dc2123ff218568a4ecd37e566d33) (2026-10-23). All tracked toolchain files pin Lean 4.33.0.
 
 The closeout records three independent axes: research program **CLOSED_WITH_OPEN_OBSTRUCTIONS**, Alpha reference **READY_WITHIN_DECLARED_SCOPE**, and original seed completion gate **UNSATISFIED**. These are attributed closeout dispositions, not a new whole-repository verification run. [Review scope and findings](review_scope_and_findings) explains the dated evidence, documentation discrepancies, and checks actually performed for this Wiki.
 """
@@ -1040,6 +998,14 @@ Source edition: [{commit_short}](https://github.com/dbccpage/19L57G1/commit/{com
             guide.read_text(encoding="utf-8"), encoding="utf-8", newline="\n"
         )
 
+    for name, slug in READING_GUIDES.items():
+        source = repo_root / 'textbook' / name
+        body = rewrite_links_for_wiki(source.read_text(encoding='utf-8'), part1_map,
+                                     part2_map, blob_base, False, 'textbook')
+        prefix = '[Genesis Wiki](Home) · [Start here](textbook_start_here) · [Reading formal statements](textbook_reading_formal)\n\n'
+        suffix = f'\n\n---\n\nSource snapshot: [`{commit_short}`]({blob_base}/textbook/{name}). Teaching apparatus; `AuthorityEffect: None`.\n'
+        (wiki_root / (slug+'.md')).write_text(prefix+body+suffix,encoding='utf-8',newline='\n')
+
     return {
         "part1": len(part1_entries),
         "part2": len(part2_entries),
@@ -1049,6 +1015,12 @@ Source edition: [{commit_short}](https://github.com/dbccpage/19L57G1/commit/{com
         "search_lab": build_search_lab(repo_root, wiki_root, commit_sha),
         "change_lab": build_change_lab(repo_root, wiki_root, commit_sha),
         "reasoning_lab": build_reasoning_lab(repo_root, wiki_root, commit_sha),
+        "path_lab": build_path_lab(repo_root, wiki_root, commit_sha),
+        "map_lab": build_map_lab(repo_root, wiki_root, commit_sha),
+        "growth_lab": build_growth_lab(repo_root, wiki_root, commit_sha),
+        "boundary_lab": build_boundary_lab(repo_root, wiki_root, commit_sha),
+        "identification_lab": build_identification_lab(repo_root, wiki_root, commit_sha),
+        "number_lab": build_number_lab(repo_root, wiki_root, commit_sha),
     }
 
 

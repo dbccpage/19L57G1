@@ -1,24 +1,68 @@
 # Unit 25. Under irreflexivity, collapsing a related pair is obstructed
 
-**Claim.** Identify two points `a`, `b` of a relation by a map `c` with
+**Claim.** Merging the ends of a recorded pair creates a self-pair in the
+pushed relation. The definition calls this a collision. It calls it an
+obstruction when the collision also violates the selected protected property.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** Identify two points `a`, `b` of a relation by a map `c` with
 `c a = c b`. If `r a b` was asserted, the identification *collides*: an
 asserted edge has both ends sent to one point. A collision becomes an
 *obstruction* only relative to a protected law the pushed-forward
 relation violates; with irreflexivity protected, every such collision is
 an obstruction, because the pushforward now asserts `c a` against itself.
-With no law protected, the same collision is admissible. **Status:**
-conditional (on the protected law). **Lean:**
+With no law protected, the same collision is admissible.
+
+**Status:** conditional (on the protected law). **Lean:**
 `PrimDiff.obstruction_under_irrefl` (`lean4/Derivation/PrimDiff.lean` lines
 220-227), with `Push` (165-167), `CollapseCollision` (172-176),
 `FidelityObstruction` (178-183), `collision_not_irrefl` (199-203),
 `bare_collapse_admissible` (205-212). **Axioms:** none. **Depends on:**
 `Irrefl` (Unit 24), Unit 23 (the bare self-difference).
 
+</details>
+
+## First pass
+
+Begin with exactly `P → Q` on two points. A map sends both P and Q
+to one target point M. To **push the relation forward**, send each
+arrow's ends through that map. The result is `M → M`.
+
+Three separate questions now have answers:
+
+| Question | Answer |
+|---|---|
+| Can we construct the pushed relation? | Yes: it contains `M → M` |
+| Did one source arrow's ends merge? | Yes: this is a collision |
+| Does the target satisfy “no self-pairs”? | No |
+
+If no-self-pairs is the protected property, the last two answers give
+an **obstruction** in this definition. If the chosen property always
+holds, the same map has a collision without an obstruction.
+
+Neither verdict executes or prevents a merge. The model supplies a
+relation, a map, and a property to check; an enforcement mechanism would
+be additional structure.
+
+**Predict:** must the source itself satisfy no-self-pairs for the
+collision theorem to apply? Read the answer after trying the main example.
+
+<details>
+<summary>Check your prediction</summary>
+
+No. The theorem assumes an asserted pair and a map identifying its
+ends. A one-point self-pair with the identity map also meets those
+hypotheses. The theorem does not certify that the source satisfied the
+protected property before the map.
+
+</details>
+
 ## Question
 
-Unit 24 made an asserted pair into two things, given the law. What
-happens when something tries to make them one again, by identifying the
-two points? Is that forbidden, and if so, by what?
+What happens to a recorded pair when a map sends both ends to one
+target point? Which selected property does the target relation violate?
 
 ## What we already possess
 
@@ -41,6 +85,12 @@ Three definitions, each a plain construction on relations and functions.
   ¬ P (Push r c)`: a collision *together with* a protected property `P`
   that the pushforward fails.
 
+This definition requires both parts. It is not a test for every possible
+failure of `P`, and it does not include `P r` as a premise. For a claim
+that a previously satisfied property was lost, check the source property
+separately. The optional transitivity example below shows a property
+that holds before a map and fails after it without a collision.
+
 The theorem says: if `r a b` and `c a = c b`, then
 `FidelityObstruction Irrefl r c`. The collision is immediate (the edge
 `(a, b)`). The law fails downstream because `Push r c (c a) (c a)` holds,
@@ -57,10 +107,10 @@ assume anything about the rest of `r` or `c`.
 Two entries in the ledger are recorded as different. Someone proposes to
 merge them into one. Three readings of what happens:
 
-1. **Bare.** The merge goes through. The merged ledger now says the one
+1. **Bare.** The pushed relation can be constructed. It now says the one
    entry differs from itself, which the bare rules permit (Unit 23). The
    recorded difference is not lost; it is carried onto the merged entry
-   (`push_witness`). Nothing is obstructed.
+   (`push_witness`). The always-true protected property gives no obstruction.
 2. **Collision noticed.** Whatever the rules, the merge sent a recorded
    difference onto a single entry. That is a fact about the merge, and
    it holds with or without any law (`collision_of_identifying_witness`).
@@ -68,17 +118,44 @@ merge them into one. Three readings of what happens:
    "nothing differs from itself". Relative to keeping that rule, the
    merge is obstructed.
 
-Genesis names the second and third separately on purpose. Collision is
-always there; obstruction is collision plus a law one has decided to
-keep. The paper's phrase is the *fidelity dichotomy*: the same act is
-admissible or obstructed depending only on what is protected. Nothing in
-the structure decides which; the law is declared.
+For this proposed map, collision is present under either choice of
+protected property. The pushforward exists in both cases. The verdict
+changes when irreflexivity replaces the always-true property. This is
+the source's fidelity dichotomy. It supplies no operational rule that
+executes or rejects the map.
 
-For the Genesis derivation proper, this is the abstract form of what the
-Challenge 3 demand did: a separation requirement is a protected
-property, and the engine's `satisfies` checks that admissions keep it.
-The primitive-difference layer studies the smallest version of that
-mechanism.
+There is a useful analogy to checking demands in an admission regime,
+but the two models have different data and operations. The admission
+guard, response-validity check, relation pushforward, and
+`FidelityObstruction` are separate definitions. This unit supplies no
+theorem translating one mechanism into another.
+
+<details>
+<summary>Optional boundary case: a property can be lost without this obstruction</summary>
+
+A relation is **transitive** if having `x → y` and `y → z` always
+means it also has `x → z`. Take four points with exactly two arrows,
+`0 → 1` and `2 → 3`. There is no two-arrow chain, so this relation
+is transitive: the condition has no chain to complete.
+
+Map point 2 to point 1 and leave the others fixed:
+
+```text
+Before:  0 → 1     2 → 3
+After:   0 → 1 → 3       (no 0 → 3)
+```
+
+Neither arrow's own ends merge, so there is no collision. But the new
+relation is not transitive: the displayed chain is missing its shortcut.
+The source satisfies the chosen property and the target fails it,
+yet `FidelityObstruction` is false because its collision conjunct fails.
+
+This supplied book example marks the definition's scope. It is not a
+claim that transitivity should be protected. The Python check calls the
+native merge and pushforward functions; four book proofs check these
+claims on `Fin 4`.
+
+</details>
 
 ## Pseudocode
 
@@ -207,7 +284,9 @@ the *protected* law, not in a hypothesis about the source. The
 sentence "under irreflexivity" in the title means "when irreflexivity is
 what is protected".
 
-**Axioms.** None, for every Genesis and book theorem in this unit.
+**Axioms.** The Genesis results and original seven book reports use none.
+The four added finite transitivity reports use `propext`; they are
+separate teaching proofs inside the existing library-axiom boundary.
 
 ## What has been proved
 
@@ -224,12 +303,15 @@ what is protected".
   nothing is obstructed; the theorem needs no law on the source (book).
 - Within carrier 3, all four computed invariants over 27 776 merges
   (Genesis engine, verified finite).
+- A supplied four-point example is transitive before the map and not
+  after it, with no collision and hence no `FidelityObstruction` for
+  transitivity (book). General property loss is a broader question.
 
 ## What has not been proved
 
 - That any particular law *should* be protected. `Irrefl` is studied
-  because it is the weakest found with consequences (Unit 24); its
-  adoption is a declaration (Unit 26).
+  here for its exact relation to inequality (Unit 24). The claim is not
+  that every other law has no consequences or that all laws were searched.
 - That the engine's Challenge 3 machinery is an instance of
   `FidelityObstruction`. The analogy is the book's; the frozen
   derivation does not state such a bridge, and the book does not invent
@@ -251,8 +333,8 @@ what is protected".
 **What the system holds.** In the primitive-difference model: a relation
 and, optionally, a protected property. The obstruction is a verdict the
 metatheory passes on a proposed map, relative to that property. The
-structure does not refuse the map; the metatheory, holding the law,
-does.
+structure does not refuse the map. The metatheory can prove a verdict
+about it; executing or enforcing that verdict needs an additional policy.
 
 **Phrases to read with care.**
 
@@ -271,6 +353,9 @@ merged, or one?
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 Yes and yes: `(false, true)` is an asserted edge whose ends are
 identified, so `obstruction_under_irrefl (Or.inl D2_witness) rfl` applies
 with `c := fun _ => ()`. The pushforward is the relation on `Unit`
@@ -279,6 +364,8 @@ remember how many edges were merged: the pushforward of `D2` under the
 same map is the same relation. The collision level sees the
 symmetrization only, which is the content of
 `collision_transpose_invariant`.
+
+</details>
 
 ## Verification
 
@@ -290,5 +377,5 @@ symmetrization only, which is the content of
 | Ledger | `paper/paper_claim_ledger.md`, `CL-PD-INVENTORY` (cites `PrimDiff.obstruction_under_irrefl` and `PrimDiff.collapse_unobstructed_without_fidelity`: "the two defect readings stay distinct") |
 | Artifact | `artifacts/primdiff.json`, `collapse`: `merge_cases_checked = 27776`, `collision_iff_pushforward_not_irreflexive`, `collision_transpose_invariant`, `identifying_witnessed_pair_always_collides`, `pushforward_always_exists`, all `true` |
 | Test | `tests/test_primdiff.py::test_collapse_collision_and_pushforward` |
-| Check (Python) | `python textbook/checks/u25_obstruction.py`: the `D2` merge (map, pushforward, collision, non-irreflexivity, pair carried); the identity does not collide; a non-irreflexive source collides; `collapse_report(3)` equal to the artifact; 3 872 colliding merges of witnessed pairs among 13 888 unordered merges, all with an existing pushforward |
-| Check (book Lean) | `python textbook/checks/u25_lean.py`: seven book theorems plus four Genesis theorems kernel-checked, Lean 4.33.0; no axioms anywhere |
+| Check (Python) | `python textbook/checks/u25_obstruction.py`: the `D2` merge; identity and non-irreflexive-source cases; `collapse_report(3)` matches the artifact; 3 872 witnessed-pair collisions among 13 888 unordered merges; separate four-point transitivity-loss example without collision |
+| Check (book Lean) | `python textbook/checks/u25_lean.py`: eleven book reports plus four Genesis results kernel-checked, Lean 4.33.0; the four added transitivity reports use `propext`, the original eleven reports use no axioms |

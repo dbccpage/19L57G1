@@ -1,12 +1,22 @@
-# Unit 28. Why closure without supply must stop
+# Unit 28. Fixed data bound rounds that add new demands
 
-**Claim.** A run whose measure strictly increases every round and never
+**Claim.** A finite run with a strictly increasing natural-number measure
+capped by B has at most B + 1 states. That gives at most B accepted
+rounds between them. Applying this to demands requires a fixed data
+set and a genuinely new demand each round.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** A run whose measure strictly increases every round and never
 exceeds `B` has at most `B + 1` states (`strict_bounded_length`). The
-demands of a regime with `n` data are the pairs `i < j < n`, and there are
+possible demands over `n` data are the pairs `i < j < n`, and there are
 exactly `n(n-1)/2` of them, stated without division as
 `2 * length = n * (n - 1)` (`allPairs_length`). So a run in which every
 round adds one demand over a fixed set of `n` data makes at most
-`n(n-1)/2` rounds (`no_supply_round_bound`). **Status:** derived for the
+`n(n-1)/2` rounds (`no_supply_round_bound`).
+
+**Status:** derived for the
 two counting laws; conditional for the round bound, whose hypotheses are
 about an arbitrary measure. The connection to Genesis's own rounds is
 proved later, under the declared round shape, in `Rounds.lean` (Unit 34).
@@ -17,21 +27,52 @@ lines 15-26), `strict_bounded_length` (30-39), `no_supply_round_bound`
 pairs `i < j` below the datum count (Unit 17); collapse and separation
 (Units 08, 09).
 
+</details>
+
+## First pass
+
+Three admitted data, 0, 1, and 2, permit just three different
+small-first demands: `(0, 1)`, `(0, 2)`, and `(1, 2)`.
+They are possible requests; they need not all be on the books already.
+
+Suppose each accepted round adds a previously absent demand and keeps
+the same three data. The demand count can rise through `0, 1, 2, 3`.
+That is four recorded states with three rounds between them. It cannot
+rise a fourth time while staying at most three.
+
+Two conditions matter: strict growth of the count and a fixed ceiling.
+Repeating an already recorded request gives no growth. Admitting new
+data changes the available pairs and their ceiling.
+
+**Predict:** can we use this argument to bound every successful event
+when external supply is disabled?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. Successful events can leave the measure unchanged, and the response
+grammar itself includes fresh-data items. The theorem needs its stated
+round conditions. The two exported baselines are checked separately.
+
+</details>
+
+The [Search lab](../search_lab/README.md) distinguishes accepted
+responses, exhaustion, and resource stops in a worked branch tree.
+
 ## Question
 
-Genesis's engine answers a separation demand, then looks for the next
-collapsed pair and demands that one too. With the supply move switched
-off, so that no new datum ever arrives from outside, must this stop? If
-it must, after how many rounds, and what in the system guarantees it?
+Under which conditions does a finite set of possible demands bound the
+number of accepted rounds? How do those conditions differ from merely
+disabling an external supply policy or successfully admitting an event?
 
 ## What we already possess
 
 - A demand is a pair `(i, j)` with `i < j < r.data` (the impose guard,
   Unit 17). A regime's demands are stored in `reqs`.
-- Each closed round imposes one new demand and responds to it; the
-  response admits no fresh datum, so the datum count stays fixed. (This
-  is the declared round shape; the check below confirms it on every edge
-  of both exported baselines.)
+- The round shape studied here imposes a new demand, responds while
+  preserving prior demands, and admits no fresh datum. Unit 34 formalizes
+  that declared shape. The check below confirms fixed datum counts and
+  growing request counts on the creation edges of both exported baselines.
 - The engine's two closed baselines, `closed_L` and `closed_F`, exported
   in `artifacts/claims.json` under `CL-CLOSURE-TERMINATION`.
 
@@ -58,10 +99,11 @@ the naturals: give it the facts `n ≤ f n`, `f n < f (n+1)` and it closes
 
 A counter that must go up every step and has a ceiling cannot be stepped
 more times than the ceiling allows. That is the whole of the termination
-law, and it is deliberately abstract: it says nothing about regimes. The
+bound, and it is deliberately abstract: it says nothing about regimes. The
 second law says what the ceiling is for demands: with `n` data there are
 only so many pairs to demand apart. Put together, a closed run with `n`
-data cannot go on past `n(n-1)/2` rounds.
+data, whose accepted rounds meet the growth and ceiling hypotheses,
+cannot have more than `n(n-1)/2` such rounds.
 
 What the module does *not* do is prove that Genesis's rounds have a
 climbing, bounded measure. The theorem `no_supply_round_bound` takes that
@@ -251,6 +293,12 @@ conclusion itself, which is decidable. If it holds, done. Otherwise
 1)` from the first theorem; `h2 : f (B + 1) ≤ B` from the bound; `omega`
 sees `B + 1 ≤ B` and closes the goal.
 
+Here `L` counts measure entries, interpreted as recorded states. The
+quoted source comment calls them rounds; a nonempty sequence of `R + 1`
+states has `R` intervening rounds. The book's `accepted_round_bound`
+makes this indexing explicit. It does not count every admitted event as
+an accepted separation round.
+
 **`no_supply_round_bound`.** The previous theorem with `B := n * (n - 1) /
 2`. Nothing new is proved; the name records the intended instance, and the
 docstring records that the hypotheses are about the run, not discharged
@@ -290,7 +338,9 @@ computation.
 - There are exactly `n(n-1)/2` demands available over `n` data, in the
   division-free form (Genesis, derived).
 - The instance: a run with a climbing measure capped by `n(n-1)/2` has at
-  most `n(n-1)/2` rounds (Genesis, conditional on the two hypotheses).
+  most `n(n-1)/2 + 1` states (Genesis, conditional). For a nonempty run
+  of `R + 1` states this gives `R` at most the pair bound. The book's
+  `accepted_round_bound` states that conversion explicitly.
 - Both hypotheses are needed (book Lean: no bound without growth; the
   identity measure shows growth alone bounds nothing).
 
@@ -301,9 +351,12 @@ computation.
   under the declared round shape (`round_reqs_succ`, `round_data_eq`,
   `closedRun_round_bound_from_empty`, Unit 34); that each *exported* round
   has that shape is checked computationally, not proved.
-- Anything about runs with supply enabled. A supplied datum adds `n` new
-  pairs to the ceiling, and the bound moves with it; the paper's open
-  continuation obligation (§9) lives there.
+- A fixed ceiling for runs that admit new data. A bare `Supply` event
+  changes no admitted state (Unit 03); an admission of a fresh datum
+  increases the available pairs by `n`. The disabled external policy and
+  absence of `.newDatum` in responses are different conditions.
+- A bound on every successful event or on execution time. Repeating an
+  already present request can succeed without increasing the measure.
 - That the bound is attained in general. Both baselines happen to use
   exactly their bound (1 of 1, 3 of 3); the law is an upper bound only.
 
@@ -315,7 +368,7 @@ computation.
 | `omega` | linear arithmetic steps | metatheory decision procedure |
 | `by_cases` on `L ≤ B + 1` | the contrapositive | metatheory; decidable, no `Classical.choice` |
 | `List`, `List.range`, `map`, `length`, `simp` | the pair enumeration | metatheory |
-| `Nat` division in `n * (n - 1) / 2` | the stated ceiling | metatheory; avoided in the proved law |
+| `Nat` division in `n * (n - 1) / 2` | the stated ceiling | used by the conditional bound; `allPairs_length` is stated multiplicatively |
 | `propext`, `Quot.sound` | inherited | inside the declared boundary |
 
 **What the system holds.** The demand store `reqs`, which grows by one
@@ -324,9 +377,10 @@ measure is the metatheory's count of that store.
 
 **Phrases to read with care.**
 
-- "Genesis terminates" is true of the closed variant within the bound and
-  is not claimed for the supplied variant. The paper keeps the
-  continuation obligation open (§9).
+- The two exported closed baselines reach the all-pairs-separated status
+  under their stated settings. The general counting result bounds rounds
+  satisfying its growth and ceiling conditions; it is not a runtime
+  bound for every event sequence or every engine configuration.
 - "The demands run out" is the right picture: the ceiling is the number of
   pairs, and every closed round spends one.
 - "Proved in Lean" for the closed baselines means: the counting laws, and
@@ -341,13 +395,20 @@ forms for `n = 5`.
 
 ## Answer
 
-In `Nat`, division rounds down, so `n * (n - 1) / 2` equals the pair
-count only because `n (n - 1)` is even, and a proof by that route would
-have to establish the parity first. The multiplicative form carries the
-same content and needs only the arithmetic `omega` can see. For `n = 5`,
+<details>
+<summary>Worked answer</summary>
+
+In `Nat`, division rounds down. The multiplicative equality already
+exhibits `n * (n - 1)` as twice a natural number, so dividing it by 2
+recovers the count exactly. A separate parity lemma is not compulsory:
+the book's `allPairs_divided` derives the divided form from that equality.
+The source presentation avoids division steps in the counting induction.
+For `n = 5`,
 `allPairs 5` has 10 pairs: `2 * 10 = 20 = 5 * 4`, and `5 * 4 / 2 = 10`.
 `no_supply_round_bound` does use the divided form, but only as a ceiling
 handed to `strict_bounded_length`, which accepts any `B`.
+
+</details>
 
 ## Verification
 
@@ -357,5 +418,5 @@ handed to `strict_bounded_length`, which accepts any `B`.
 | Axiom report | `artifacts/lean_axioms.txt`: `index_le_strict_mono`, `strict_bounded_length`, `no_supply_round_bound`, `allPairs_length` all `[propext, Quot.sound]` |
 | Paper | `paper/paper.md` §8.5 (closed-system baseline, the table and the two theorem paragraphs); ledger `CL-CLOSURE-TERMINATION` |
 | Artifact | `artifacts/claims.json` `CL-CLOSURE-TERMINATION`: L `pair_bound` 1, `rounds_used` 1; F `pair_bound` 3, `rounds_used` 3; `every_maximal_branch_terminates` true |
-| Check (Python) | `python textbook/checks/u28_closure_bound.py`: `2 * len = n(n-1)` for `n ≤ 5`; both closed baselines stop within the bound, every creation edge adds one demand over a fixed datum count, 3 and 16 terminal nodes with no collapsed pair, numbers equal to the artifact |
-| Check (book Lean) | `python textbook/checks/u28_lean.py`: six book theorems plus the four Genesis theorems kernel-checked, Lean 4.33.0 |
+| Check (Python) | `python textbook/checks/u28_closure_bound.py`: pair count for `n ≤ 5`; fixed data and growing demands on both exported baselines; 3 and 16 terminal nodes match the artifact; repeated successful request events give counts `[0,1,1,1]` without strict growth |
+| Check (book Lean) | `python textbook/checks/u28_lean.py`: eight book reports plus four native results kernel-checked, Lean 4.33.0, including `accepted_round_bound` and `allPairs_divided` (`propext, Quot.sound`) |

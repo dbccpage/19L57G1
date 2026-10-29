@@ -16,11 +16,17 @@ Unit 61 (`FiberConstant`, `FactorsOn`, `factors_iff_fiberConstant`, `SigEq`).
 
 ## First pass
 
-A quotient replaces each group of identified items with one class. Descending a view means computing its answer from that class alone.
+A quotient represents each group of identified items by one class.
+Descending a view means assigning an answer to the class that agrees with
+the original view on every member.
 
 Suppose the observer groups a and b together. A view with f(a) = f(b) can assign that shared answer to the class. A view with f(a) ≠ f(b) cannot.
 
 For several classes, the view must agree within every class. For a pair of views, both components must pass this test. The formal sections extend this idea to difference maps and further quotients.
+
+The [Map lab](../map_lab/README.md) works this out with cards and arrows.
+The [reading guide](../reading_formal_statements.md) translates the symbols
+and explains why an abstract condition need not supply a decision procedure.
 
 ## Detailed claim and formal anchors
 
@@ -134,12 +140,18 @@ list of items?
 
 ## Plain-language interpretation
 
-An observer `O` does two things: it computes a difference value `O.delta x y`
-for each pair of items, and it applies a test `O.Zero` to decide whether that
-difference counts as zero. Forming the quotient `ObsQuotient O` glues together
-every pair of items whose difference tests as zero.
+An observer `O` specifies a difference function `O.delta x y` and a condition
+`O.Zero` saying which reports count as zero. Its abstract type uses
+`Prop` for that condition and requires no decision algorithm. The finite
+Python instances provide concrete tests; that implementation is additional
+to the abstract signature. The [Unit 44 interface check](../checks/u44_observer_spec_lean.py)
+exhibits this distinction using an arbitrary proposition.
 
-When can a summary `f : X → Y` be computed from the glued classes alone?
+Forming `ObsQuotient O` groups exactly the zero-related items into
+equivalence classes. The grouping is mathematical; it does not merge
+physical items or erase their original identities.
+
+When does a summary `f : X → Y` define a function of the classes alone?
 Exactly when `f` never tells apart two items that `O` glues together. If `f`
 meets that condition (`ClassConstant O f`), there is one and only one function
 on the quotient that reproduces `f`. Why is it unique everywhere, when in
@@ -150,8 +162,8 @@ quotient projection `ObsQuotient.mk O`, by contrast, hits every class by
 definition.
 
 What if we pair two summaries into `x ↦ (f x, g x)`? Pairing keeps both pieces
-of information, so the pair can be computed from the quotient if and only if
-both `f` and `g` can. If `f` respects every zero-pair of `O` while `g` splits
+of information, so the pair defines a function on the quotient if and only if
+both components do. If `f` respects every zero-pair of `O` while `g` splits
 even one zero-pair `(x, y)`, then `f` passes through the quotient on its own
 and `(f, g)` is blocked at `(x, y)`.
 

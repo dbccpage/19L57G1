@@ -1,5 +1,133 @@
 # Unit 37. An inventory is not a derivation
 
+**Claim.** With two fixed points and no arrows from a point to itself,
+there are exactly four possible arrow patterns. Listing them does not
+choose one of them.
+
+**Status:** conditional classification for decidable relations on the
+declared two-point carrier; the classification scheme is admitted.
+**Lean:** `ObserverInventory.bool_irrefl_full_classification`.
+
+## Question
+
+Does listing every pattern allowed by a rule also tell us which pattern
+to choose?
+
+## First pass: two dots and two separate questions
+
+Draw two dots called A and B. We will keep their labels fixed.
+An arrow from A to B means that the ordered pair `(A, B)` belongs to
+our **relation**: a collection of allowed ordered pairs. An arrow back
+from B to A is a different ordered pair.
+
+For this example, adopt one rule: **no arrow may start and end at the
+same dot**. Such an arrow is called a *self-loop*. The formal name for
+our rule is **irreflexivity**.
+
+After ruling out the two self-loops, two questions remain:
+
+1. Is there an arrow from A to B?
+2. Is there an arrow from B to A?
+
+Answering each question with yes or no gives this complete table:
+
+| A to B? | B to A? | Picture | Source name |
+|---|---|---|---|
+| No | No | A and B, with no arrows | `EmptyRel` |
+| Yes | No | A → B | `D2` |
+| No | Yes | A ← B | `D2rev` |
+| Yes | Yes | A ↔ B | `S2` |
+
+The Lean version uses `false` for dot A and `true` for dot B.
+Those are the dots' labels; they are separate from the yes/no answer
+about whether an arrow is present. The Python version uses 0 and 1.
+
+The points stay labelled. Swapping the labels can relate the two
+one-arrow pictures, but they are different relations on these fixed
+points: they answer the question “A to B?” differently.
+
+## A complete list still leaves a choice
+
+The table is a **classification**: every pattern allowed by the rule
+appears in one of its rows. You can check completeness without guessing:
+the first answer is yes or no; for either answer, the second is yes or
+no. That produces the four rows.
+
+The rule has not told us which row to use. The empty picture obeys it,
+and so does A → B. These two different examples are enough to refute
+“the no-self-loop rule determines one relation.”
+
+If we add a requirement that *exactly one* arrow be present, two rows
+remain. If we further require an arrow from A to B, one row remains.
+The extra selection came from extra requirements. It was not hidden
+inside the original rule.
+
+The formal classification takes a decidability assumption: for every
+ordered pair, an answer to its membership question is available. It
+proves that the relation equals one of the four named relations. That
+statement by itself does not also prove the names denote distinct
+relations; the book supplies the pairwise distinction arguments.
+
+## A word can hide a choice of operation or question
+
+“Reverse the picture” can mean two different operations:
+
+- **Transpose:** reverse each arrow, keeping the dots in place.
+- **Swap:** exchange the dots' labels, carrying each arrow along.
+
+Both turn A → B into A ← B. Agreement on that example does not make
+them the same operation on every relation. To test the difference, allow
+a self-loop temporarily. Transposing a loop at A leaves it at A;
+swapping the dots moves it to B. This test relation is outside our
+no-self-loop classification, but inside the larger set of all relations
+on the two dots.
+
+Likewise, “summarize the picture with a number” does not specify a
+question. Counting its arrows gives 1 on A → B. Reporting 1 if *both*
+opposite arrows are present, and 0 otherwise, gives 0 on that same
+picture. Each number answers its own declared question. The source
+calls these two summaries *residuals*.
+
+## Outside the system: using the lesson elsewhere
+
+These are results about the declared two-dot model. The theorem does not
+establish that a real situation has only four possible explanations.
+
+Ask three questions separately: **What are the candidates? What rules
+restrict them? What further evidence or requirement selects among them?**
+A list of possible explanations does not by itself identify the true
+explanation of an event. In the arrow model we can prove the list is
+complete because we declared the dots and rules. Applying a similar
+list to real observations requires checking whether those modelling
+choices fit the situation and whether alternatives were left out.
+The four-row theorem does not perform that empirical check.
+
+The same caution applies to this textbook's coverage index. A source
+name on a list establishes a reference. Whether its meaning is explained
+well requires reading the lesson and testing understanding.
+
+## Student exercise: try before opening the answers
+
+With fixed dots C and D and no self-loops, require exactly one arrow.
+Which patterns remain?
+
+1. Require exactly one arrow. Describe every remaining picture.
+2. Also forbid an arrow from C to D. Which picture remains? Which new
+   requirement made that selection possible?
+3. Someone tests transpose and swap on all four no-self-loop pictures
+   and concludes the operations agree on every relation. What test
+   picture would challenge that conclusion, and what happens to it?
+4. Someone says the arrow table proves that a real situation has only
+   four possible explanations. What must they justify before using it
+   that way?
+
+The answers are at the end. The formal walkthrough below is optional
+on a first reading. The [formal-reading guide](../reading_formal_statements.md)
+explains how to read its assumptions and symbols.
+
+<details>
+<summary>Formal definitions, source record, proofs, and executable checks</summary>
+
 **Claim.** On the two-point carrier `Bool`, every decidable irreflexive
 relation is one of exactly four: the empty relation, `D2`, `D2rev` or `S2`
 (`bool_irrefl_full_classification`). Around that census the module files
@@ -252,7 +380,7 @@ theorem residuals_not_unique :
   decide
 ```
 
-The book's Lean shows the four census members are four, applies the
+The book's Lean shows the four census members are distinct, applies the
 census at a member Genesis does not apply it to, exhibits a relation
 outside the census, proves `pushNot` is an involution as Genesis proves
 `Transpose` is, finds the fixed point of transposition, fills in the
@@ -306,8 +434,8 @@ theorem swap_auto_S2_only :
 
 ## Line-by-line Lean explanation
 
-**`EmptyRel`, `empty_irrefl`, `empty_ne_D2`.** The constantly false
-relation is irreflexive because a proof of `False` proves anything. It is
+**`EmptyRel`, `empty_irrefl`, `empty_ne_D2`.** The empty relation is irreflexive because it holds at no pair,
+including every self-pair. It is
 not `D2`: if it were, rewriting `D2_witness` along the equality would give
 a proof of `False`.
 
@@ -318,8 +446,8 @@ of propositions at each `x y`, `propext` reduces that to an iff, and
 `cases x <;> cases y` gives the four points. At a diagonal point both
 sides are false: the left by `hi`, the right by `decide` on the concrete
 relation. At an off-diagonal point the hypothesis `hft` or `htf`, or its
-negation, decides the left and `decide` the right. Twenty-four small
-iffs; nothing is skipped and nothing is clever. The decidability
+negation, decides the left and `decide` the right. Sixteen pointwise equivalences across the four branches. Each branch checks
+the four ordered pairs; the displayed excerpt abbreviates three branches. The decidability
 instance is what lets `by_cases` run on an arbitrary `r`.
 
 **`collision_is_not_obstruction`.** On the one-point carrier `Unit`, the
@@ -343,11 +471,12 @@ readings of a decidable relation. `decide` evaluates all five conjuncts
 on the concrete `D2` and `S2`.
 
 **Book: the four are four.** `D2_ne_D2rev`, `D2rev_ne_S2`, `empty_ne_S2`
-follow `empty_ne_D2`'s pattern: transport the witness `D2 false true`
-along the supposed equality and read off a contradiction in the first
-conjunct. With `empty_ne_D2` and the two further pairs (left as an
-exercise) the census is a list of four distinct relations, which Genesis
-states but does not assemble.
+use a pair where one relation holds and the other does not. Transporting
+membership along a proposed equality gives a contradiction. Together with
+the native `empty_ne_D2` and the exercise's `empty_ne_D2rev` and `D2_ne_S2`,
+these cover all six pairs of names. The two exercise solutions are now
+also kernel-checked in the book script; try the exercise before reading
+them.
 
 **Book: `D2rev_irrefl`, `census_at_D2rev`.** `D2rev x x` would give
 `x = true` and `x = false`; rewriting one into the other gives
@@ -453,7 +582,9 @@ refuted by `Bool.noConfusion`. The census does not need either: a
 disjunction is true as soon as one disjunct is, and the proof picks the
 disjunct by cases. The inequalities are what make the disjunction
 *informative*, by showing the four names are four relations, and that is
-why the book adds them.
+why the book adds them. The book script also checks these two solutions
+as `Textbook.U37.empty_ne_D2rev` and `Textbook.U37.D2_ne_S2`, with no
+axiom dependencies.
 
 ## Verification
 
@@ -464,4 +595,23 @@ why the book adds them.
 | Paper | `paper/observer_inventory.md` §1 (the refused grid), §2-§7; ledger `CL-PD-INVENTORY` (with the withdrawn terminal sentence recorded) |
 | Python | `code/derivation/observer_inventory.py`; `artifacts/observer_inventory.json`; `tests/test_observer_inventory.py` (`test_irrefl_census_is_exactly_the_four`, `test_reversal_transpose_and_swap_agree_on_D2_and_differ`, `test_residuals_are_not_unique`) |
 | Check (Python) | `python textbook/checks/u37_inventory.py`: brute-force census of 16 relations, the two reversal maps on `D2` and on the self-loop, the two residuals, the witness and defect reports, the nine slots, all against the artifact |
-| Check (book Lean) | `python textbook/checks/u37_lean.py`: twelve book theorems plus four Genesis theorems kernel-checked, Lean 4.33.0 |
+| Check (book Lean) | `python textbook/checks/u37_lean.py`: fourteen book theorems plus four Genesis theorems kernel-checked, Lean 4.33.0 |
+
+</details>
+
+<details>
+<summary>Answers to the first-pass practice</summary>
+
+1. C → D and C ← D. The empty and two-arrow pictures violate the
+   exactly-one-arrow requirement.
+2. C ← D remains. The additional prohibition rules out C → D; the
+   original no-self-loop rule alone allowed all four pictures.
+3. Use a self-loop at C. Transpose leaves it at C; swap moves it to D.
+   Testing the four restricted pictures established agreement only on
+   that restricted collection.
+4. They need a justified correspondence between the actual situation
+   and the declared two-dot model, including reasons the candidates and
+   restrictions capture the alternatives relevant to the question.
+   The classification theorem alone supplies no such correspondence.
+
+</details>

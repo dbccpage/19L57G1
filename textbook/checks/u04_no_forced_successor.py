@@ -82,6 +82,15 @@ def main() -> int:
                for e in unchanged):
         failures.append(("unexpected no-op", unchanged))
 
+    # A separately supplied policy can choose an existing event kind.
+    # It does not follow from closure of Event that no policy can be written.
+    def supplied_policy(state: Regime) -> Regime:
+        return step(state, AdmitDatum("fixed"))
+    once = supplied_policy(EMPTY)
+    if once.data != ("fixed",) or supplied_policy(once) != once:
+        failures.append("supplied-policy example")
+    print("supplied policy uses an existing kind; its repeated fixed admission designates")
+
     print(f"failures: {failures}")
     return 1 if failures else 0
 

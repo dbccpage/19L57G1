@@ -1,13 +1,38 @@
 # Unit 11. One token gives at most one datum
 
-**Claim.** Any history whose datum admissions all carry one and the same
-token leaves at most one admitted datum, however often that token is
-re-supplied or re-admitted, and whatever forms, instances, rules or demands
-are admitted along the way. **Status:** derived. **Lean:**
+**Claim.** Start with an empty token store, or with the single token
+`t0`. If every datum admission carries `t0` and the history successfully
+replays, the final store has at most one datum. Other starting stores
+are not covered by this bound.
+
+<details>
+<summary>Source and classification record (optional on a first reading)</summary>
+
+**Status:** derived. **Lean:**
 `Bridge.single_token_carrier_bound`, via `Bridge.stepT_preserves_atMostTok`
 (`lean4/Derivation/Bridge.lean` lines 31-112). **Axioms:** `propext,
 Quot.sound`. **Depends on:** `TRegime`, `TEvent`, `stepT`, `replayT`,
 `replayT_cons` (Units 06, 07); designation by re-admission (Unit 06).
+
+</details>
+
+## First pass
+
+Start with an empty store. Admit token A three times under the
+token-aware rule. The store is `[A]`, because repeats designate
+the existing entry. Supplying another token without admitting it
+does not create a second datum either.
+
+The invariant is simple: the store is empty or contains only `[A]`.
+Each permitted successful step preserves that shape when every datum
+admission uses A. A stored property that remains true after each
+step is called an invariant.
+
+Predict whether the bound applies to an empty history starting from
+`[A,B]`. It does not: the result still has two entries. The theorem
+requires a starting store already empty or exactly `[A]`. A seven-event
+search supplies only bounded evidence; the induction proof covers
+arbitrary successful history lengths under those hypotheses.
 
 ## Question
 
@@ -135,7 +160,9 @@ and prices it (paper §B4); it is not the rule the sealed derivation uses.
 (`bridge.py` lines 108-142) over every admissible history of at most seven
 events from the single-token alphabet (supply, admit, one binary form,
 every binary instance over at most two indices). It reaches 20 states, the
-largest carrier is 1, and no number of events reaches carrier 2 (`None`).
+largest carrier is 1, and no two-datum state is reached within that search (`None`).
+The all-length bound comes from the separate Lean theorem, not from
+the seven-event search result.
 These are the three values recorded in `artifacts/bridge.json`.
 
 The check script also replays every history of at most six events over the
@@ -308,18 +335,20 @@ that instance is built by pattern matching, not by list membership.
 
 | Lean | Used for | Status |
 |---|---|---|
-| `(t0 : Nat)`, `(h : List TEvent)` | the universal statement over tokens and histories | metatheory quantifiers; the system holds one history at a time |
+| `(t0 : Nat)`, `(h : List TEvent)` | the universal statement over tokens and histories | metatheory quantifiers; the caller records the history |
 | `induction h generalizing t` | the proof | metatheory induction on Lean's lists |
 | `Decidable (SingleTok t0 e)` | the book's `decide` proofs | metatheory decision procedure |
 | `propext`, `Quot.sound` | inherited through `simp` and list membership | inside the declared boundary |
 
-**What the system holds.** The token store, a finite list, and the events
-it has been given. It does not hold the token `t0` as a name: the token is
+**What the representations hold.** The token-aware state stores a
+finite token list and its structural fields. The event history is a
+separate metatheory record, not another field in that state. It does not hold the token `t0` as a name: the token is
 metatheoretic (Unit 06), and the theorem is a metatheoretic statement about
 every history that reuses one of them.
 
-**Price of the two escapes.** A second token is an external supply
-(Unit 13). The occurrence discipline imports *position in the history* as
+**Price of the two escapes.** A different token can enter through a datum-admission event
+(Unit 13). That theorem does not require an earlier `Supply` event;
+seed-history order is a separate input discipline. The occurrence discipline imports *position in the history* as
 what distinguishes two admissions of the same inscription; the paper
 flags this at `paper/bridge_provenance.md` §B4 and the book counts it as
 an admission with that price, never as something ⟨⟩ provides.
@@ -359,7 +388,7 @@ tokens 0 and 1.)
 | Axiom report | `artifacts/lean_axioms.txt`: `Bridge.stepT_preserves_atMostTok`, `Bridge.single_token_carrier_bound` each `[propext, Quot.sound]` |
 | Paper | `paper/bridge_provenance.md` §B1 (scenario table) and §B2 (**[theorem]**) |
 | Ledger | No `CL-*` entry names this theorem. Its record is the provenance table in `paper/bridge_provenance.md` (row "carrier (size 2)"), `paper/native_derivation_map.md` line 16 (seed yields two-ness: FALSE), and `code/derivation/bridge.py` `provenance_table` |
-| Artifact | `artifacts/bridge.json`, scenario `single_dedup`: 20 states, max carrier 1, carrier 2 never |
+| Artifact | `artifacts/bridge.json`, scenario `single_dedup`: 20 states within seven events, max carrier 1, carrier 2 not reached within that search |
 | Test | `tests/test_bridge.py::test_single_token_never_reaches_two_or_witnessed_pair` |
 | Check (Python) | `python textbook/checks/u11_single_token.py`: 5 461 single-token histories of at most six events, max data 1; 20 reachable states within seven events, max data 1; second token and occurrence discipline each give 2; artifact values reproduced |
-| Check (book Lean) | `python textbook/checks/u11_lean.py`: thirteen book theorems plus the two Genesis theorems kernel-checked, Lean 4.33.0; `decide` over concrete replays reports `propext, Quot.sound`, `decide` through the `SingleTok` instance reports no axioms |
+| Check (book Lean) | `python textbook/checks/u11_lean.py`: fourteen book theorems plus the two Genesis theorems, sixteen reports. The new two-token-base/empty-history example proves why the initial invariant is required. No axiom boundary is expanded |

@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "code"))
 
 from derivation.candidates import (  # noqa: E402
-    Bounds, NewRuleAll, apply_delta, iter_cost2_deltas, iter_full_deltas,
+    Bounds, NewDatum, NewRuleAll, apply_delta, iter_cost2_deltas, iter_full_deltas,
     min_responses, mu1, mu2, response_valid_naive,
 )
 from derivation.engine import delta_label  # noqa: E402
@@ -80,6 +80,14 @@ def main() -> int:
         print(f"  example: {delta_label(base, d)} {mu2(d)} -> {delta_label(base, rest)} {mu2(rest)}")
     if not rule_valid or not ok_all:
         failures.append("drop")
+
+    # A new datum need not be separable from every old datum.
+    fresh_ruled = apply_delta(base, (NewDatum(), NewRuleAll(0)))
+    fresh_pairs = collapsed_pairs(fresh_ruled)
+    print(f"datum+rule@0 result: collapsed pairs {fresh_pairs}; "
+          f"newcomer 3 remains collapsed with datum 1: {(1, 3) in fresh_pairs}")
+    if (1, 3) not in fresh_pairs:
+        failures.append("fresh datum collapse")
 
     # the subset direction: ADDING a uniform rule on the only form kills the separation
     u0 = replay([AdmitDatum("a"), AdmitDatum("b"), Impose(0, 1), AdmitForm(1), AdmitInst(0, (0,))])

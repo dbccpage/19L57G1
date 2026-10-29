@@ -1,6 +1,31 @@
-# Unit 51. Nine readings of one difference
+# Unit 51. Separate the witness, the laws, and the allowed operations
 
-**Claim.** Nine declared readings place different requirements on a witnessed relation. The comparison records scoped implications, finite countermodels, and four open locatedness cells.
+**Claim.** Nine predicates on one declared setting separate relation witnesses,
+laws, stores, and allowed operations. There are 17 proved implications,
+51 proved countermodels, and four recorded open locatedness cells;
+the open labels are not independence theorems.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** `PrimitiveCore` puts every datum the candidate readings of a
+primitive difference mention into one signature `Setting` (a carrier, an
+asserted relation, two endpoints, a retention store, a protected-demand
+store, an admitted operation family) and defines nine predicates on it:
+W (bare witnessed pair), A (witnessed irreflexive), Bs, Bc, Bl (A plus
+symmetry, cotransitivity, locatedness), C (witness plus demand), D
+(endpoints do not factor through a point), E (no admitted composite
+identifies the endpoints), F (A plus retention plus demand).
+
+Of the 72 ordered cells (P, Q), P ≠ Q, 68 have named theorems:
+17 implications `imp_P_Q` for every Setting and 51 countermodels
+`nimp_P_Q` on carriers of one, two or three points. Four cells targeting
+Bl remain recorded OPEN; their labels are data, not proofs.
+
+Beside the matrix: `D_iff_ne` (D is metatheoretic inequality),
+`cotrans_auto_on_two` (irreflexive on two points implies cotransitive),
+`located_of_decidable`, `e_empty_iff_d`, `prot_not_from_witness`,
+`ret_not_from_witness`, `bool_class`.
 
 **Status:** FROZEN (implications,
 countermodels), OPEN (four located cells, scoped), VERIFIED_FINITE (the
@@ -12,33 +37,39 @@ none. **Depends on:** Unit 14 (`factors_through_point_iff`), Unit 23
 (`obstruction_under_irrefl`), the two-point carriers `D2`, `S2` and the
 closure `Clos` / `Irred` of `PrimDiff`.
 
+</details>
+
 ## First pass
 
-Begin with two named endpoints and an asserted relation between them. Then ask which extra conditions are being added: irreflexivity, symmetry, retention, protection, or restrictions on admitted operations.
+Draw an arrow when the declared relation holds. The names A and B
+designate endpoints; two names need not designate different points.
 
-Read one comparison at a time. An implication says every setting satisfying one reading satisfies another. A countermodel supplies one setting where that implication fails. An open cell is neither of those results.
+| Setting | Arrow A to B? | No point has a self-arrow? | A and B unequal? |
+|---|---|---|---|
+| One point with a loop; both names designate it | Yes | No | No |
+| Two points; one arrow from A to B | Yes | Yes | Yes |
+| Two points; no arrows | No | Yes | Yes |
 
-## Detailed claim and formal anchors
+An asserted arrow alone does not establish inequality. Adding the law
+“no self-arrows” does: equal endpoints would turn the witnessed arrow
+into a forbidden loop.
 
-`PrimitiveCore` puts every datum the candidate readings of a
-primitive difference mention into one signature `Setting` (a carrier, an
-asserted relation, two endpoints, a retention store, a protected-demand
-store, an admitted operation family) and defines nine predicates on it:
-W (bare witnessed pair), A (witnessed irreflexive), Bs, Bc, Bl (A plus
-symmetry, cotransitivity, locatedness), C (witness plus demand), D
-(endpoints do not factor through a point), E (no admitted composite
-identifies the endpoints), F (A plus retention plus demand).
+Now ask a different question: can an allowed transformation merge the
+endpoints? With no generators admitted, identity still belongs to the
+operation closure and keeps two distinct points apart. Admit a constant
+map sending both to A, and they can merge. The original arrow can remain.
 
-Each of the
-72 ordered cells (P, Q), P ≠ Q, is settled by a named theorem: 17
-implications `imp_P_Q` for every Setting, 51 countermodels `nimp_P_Q` on
-carriers of one, two or three points, and 4 cells targeting Bl recorded
-OPEN.
+**Predict:** does finding no countermodel in the finite Boolean tables
+settle an open implication for arbitrary proposition-valued relations?
 
-Beside the matrix: `D_iff_ne` (D is metatheoretic inequality),
-`cotrans_auto_on_two` (irreflexive on two points implies cotransitive),
-`located_of_decidable`, `e_empty_iff_d`, `prot_not_from_witness`,
-`ret_not_from_witness`, `bool_class`.
+<details>
+<summary>Check your prediction</summary>
+
+No. Those tables explicitly decide their entries. A finite carrier alone
+does not supply decisions for an arbitrary relation. Read an open cell
+as a remaining obligation, not as a proved implication or impossibility.
+
+</details>
 
 ## Question
 
@@ -79,22 +110,27 @@ first holds, must the second?". The answer is yes in 17 cases, no in 51
 with a small picture showing why, and unsettled in 4.
 
 The three facts worth carrying out of the matrix. First, a witness
-alone forces nothing: the one-point world where the single point is
-"different from itself" satisfies W and nothing else. Add the law "no
+alone does not force unequal endpoints: the one-point model where the
+single point is "different from itself" satisfies W and none of the
+other eight readings. This particular countermodel does not say that
+every witnessed relation is a self-relation. Add the law "no
 point differs from itself" and the endpoints come apart (A → D). Second,
 a demand is not a fact: the same one-point self-difference with
 everything retained and protected satisfies C, and still its two
 endpoints are one point. Third, irreducibility is relative to what you
-admit: with no operations, "no admitted map merges the endpoints" is
-exactly "the endpoints differ"; admit one constant map and it fails,
+admit: with no operation generators, the closure still contains identity.
+Then "no map in the closure merges the endpoints" is exactly "the
+endpoints differ"; admit one constant map and it fails,
 while the witness and the law stand untouched.
 
 The four OPEN cells are a different kind of fact. Locatedness asks for
-a Boolean function realising the relation. Every finite relation in
-this development is decidable, hence located, so no countermodel can
-be built inside the development; and no candidate law yields a Boolean
-function either. The cell is not undecided by oversight; it is outside
-what finite models can separate.
+a Boolean function realising the relation. The explicit Boolean tables
+in the finite scan decide each entry, so they are located and cannot
+refute an implication from A to Bl. A finite carrier alone does not
+supply decisions for an arbitrary proposition-valued relation. The
+book example below makes that distinction precise. The four general
+implications are neither proved nor refuted here; this is not a proof
+of their independence or of impossibility of further formal work.
 
 ## Pseudocode
 
@@ -115,8 +151,8 @@ for P ≠ Q: IMPLIES if proved ∀S; COUNTERMODEL if some named S has P ∧ ¬Q;
 Genesis's `code/derivation/primitive_core.py` enumerates every Setting
 on one, two and three points with the declared store and operation
 choices, evaluates the nine readings (`evaluate`), scans for the
-key-minimal countermodel of every cell (`scan_settings`), and checks the
-result against the table Lean proves (`matrix_report`, raising on any
+key-minimal countermodel where one is found (`scan_settings`), and checks
+the result against the declared matrix labels (`matrix_report`, raising on any
 mismatch). Its output is `artifacts/primitive_implication_matrix.json`
 and `artifacts/primitive_candidates.json`.
 
@@ -419,6 +455,38 @@ theorem twoSym_readings : C twoSym ∧ Bs twoSym ∧ D twoSym ∧ ¬ F twoSym �
 theorem d_at_bool : D d2Bare ↔ (false : Bool) ≠ true := D_iff_ne d2Bare
 ```
 
+## Checked scope examples (optional)
+
+On a three-point carrier, let the relation always contain 0 → 1,
+and let 1 → 2 hold exactly when an arbitrary proposition P holds.
+This relation is irreflexive regardless of P. A Boolean realizer
+would decide P by its answer at (1,2). The conditional proof below
+does not construct a nonlocated relation or settle any OPEN cell.
+
+```lean
+def paramRel (P : Prop) (x y : Fin 3) : Prop :=
+  (x = 0 ∧ y = 1) ∨ (x = 1 ∧ y = 2 ∧ P)
+
+theorem param_witness_irrefl (P : Prop) :
+    paramRel P 0 1 ∧ PrimDiff.Irrefl (paramRel P) := by
+  refine ⟨Or.inl ⟨rfl, rfl⟩, ?_⟩
+  intro x h
+  rcases h with ⟨h0, h1⟩ | ⟨h1, h2, _⟩
+  · exact (by decide : (0 : Fin 3) ≠ 1) (h0.symm.trans h1)
+  · exact (by decide : (1 : Fin 3) ≠ 2) (h1.symm.trans h2)
+
+/-- A Boolean realizer for that relation supplies a decision for the parameter.
+This is conditional, not a nonlocated countermodel or an independence proof. -/
+theorem located_requires_parameter_split (P : Prop) :
+    Located (paramRel P) → P ∨ ¬ P := by
+  rintro ⟨f, hf⟩
+  have hp : paramRel P 1 2 ↔ P := by simp [paramRel]
+  cases hv : f 1 2 with
+  | false =>
+    exact Or.inr (fun h => Bool.noConfusion (hv.symm.trans ((hf 1 2).mp (hp.mpr h))))
+  | true => exact Or.inl (hp.mp ((hf 1 2).mpr hv))
+```
+
 ## Line-by-line Lean explanation
 
 **The signature (36-44).** Seven fields. `X : Type` is a Lean type;
@@ -490,7 +558,8 @@ in Lean.
   countermodel in exactly the 51 cells and none in the 21 others
   (mirror, `expected_equals_computed`).
 - A → D; W, C do not give D; E → D; D, A do not give E once one map
-  is admitted; with no map admitted E is D (Genesis).
+  is admitted; with no generators admitted E is D, since the closure
+  contains identity (Genesis).
 - Irreflexive on `Bool` implies cotransitive, so the A → Bc and
   Bs → Bc countermodels on three points have no two-point
   counterpart; no A-witness lives on a subsingleton (Genesis, Unit 24's
@@ -503,9 +572,11 @@ in Lean.
 
 ## What has not been proved
 
-- The four cells A, Bs, Bc, F → Bl: OPEN. Not refuted (no decidable
-  countermodel can exist), not proved (no candidate law yields a
-  Boolean function).
+- The four cells A, Bs, Bc, F → Bl: OPEN. A decidable A-relation
+  cannot refute them, because it is located. No general implication
+  or nonlocated countermodel for these cells is supplied. The book
+  parameter example proves a conditional requirement for a Boolean
+  realizer, not independence or an actual nonlocated relation.
 - Minimum carrier in general: `cotrans_auto_on_two` is about the type
   `Bool`, not about every two-element type; no transport along
   bijections is formalised. The paper's "provably minimally" rests on
@@ -554,6 +625,9 @@ implication into W.
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 `boolEmpty` (two points, empty relation, no maps) satisfies D (the
 points differ) and E (the closure of the empty family is the identity
 alone, which keeps them apart) and nothing that mentions `r` or the
@@ -566,6 +640,8 @@ row can have an implication into W because W is `r a b` and both D and
 E are silent about `r`: a model with the endpoints apart and `r` empty
 satisfies either without W, which is exactly `boolEmpty`.
 
+</details>
+
 ## Verification
 
 | Item | Where |
@@ -575,4 +651,4 @@ satisfies either without W, which is exactly `boolEmpty`.
 | Paper | `paper/primitive_difference_contact.md` "The implication matrix" and "The OPEN cells, scoped exactly"; `paper/paper_claim_ledger.md` `CL-PD2-MATRIX` |
 | Python | `code/derivation/primitive_core.py` (`evaluate`, `scan_settings`, `matrix_report`, `lean_tag`, `two_element_classification`), `code/run_primitive_core.py`, `artifacts/primitive_implication_matrix.json`, `artifacts/primitive_candidates.json`, `tests/test_primitive_core.py` (`test_every_matrix_cell_status`, `test_a_bc_minimal_countermodel_is_carrier_three`, `test_two_element_classification`) |
 | Check (Python) | `python textbook/checks/u51_primitive_core.py`: the scan, the printed matrix and tally, key-minimal witnesses for the taught cells, the two-point cotransitivity check, Lean's models re-evaluated, the classification, both artifacts |
-| Check (book Lean) | `python textbook/checks/u51_lean.py`: twelve book declarations plus seventeen Genesis theorems kernel-checked, Lean 4.33.0 |
+| Check (book Lean) | `python textbook/checks/u51_lean.py`: fourteen book reports plus seventeen Genesis theorems kernel-checked, Lean 4.33.0 |

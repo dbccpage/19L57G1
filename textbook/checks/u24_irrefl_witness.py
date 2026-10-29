@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "code"))
 
 from derivation.primdiff import (  # noqa: E402
-    D2, S2, a1, a1i, a3, enumerate_pointed, implication_matrix, irreflexive,
+    D2, S2, Pointed, a1, a1i, a3, enumerate_pointed, implication_matrix, irreflexive,
 )
 
 
@@ -43,6 +43,11 @@ def main() -> int:
         failures.append("carrier")
     # the hypothesis does work: a1 alone does not give a3 (Unit 23)
     print(f"A1->A3 {m['implications']['A1->A3']}")
+    mixed = Pointed(2, frozenset({(0, 1), (1, 1)}), 0, 1)
+    print(f"mixed relation: asserted pair={a1(mixed)}, unequal ends={a3(mixed)}, "
+          f"global irreflexivity={irreflexive(mixed.rel)}")
+    if not a1(mixed) or not a3(mixed) or irreflexive(mixed.rel):
+        failures.append("particular pair versus global condition")
     print(f"failures: {failures}")
     return 1 if failures else 0
 

@@ -126,6 +126,26 @@ theorem swap_fixes_apartness_moves_witness :
   ⟨swap_is_S2_automorphism, retained_orientation_not_swap_invariant.1,
    retained_orientation_not_swap_invariant.2⟩
 
+/-- Two red positions and one blue position: difference of colour codes. -/
+def colourTag (x : Fin 3) : Bool := x.val == 2
+def colourApart (x y : Fin 3) : Prop := colourTag x ≠ colourTag y
+
+theorem colour_isApart : IsApart colourApart :=
+  { irrefl := fun _ h => h rfl,
+    symm := fun _ _ h => fun e => h e.symm,
+    cotrans := by
+      intro x y hxy z
+      by_cases hxz : colourTag x = colourTag z
+      · exact Or.inr (fun e => hxy (hxz.trans e))
+      · exact Or.inl hxz }
+
+/-- Indistinguishability for this relation need not be literal equality. -/
+theorem colour_agreement_not_identity :
+    Indist colourApart 0 1 ∧ (0 : Fin 3) ≠ 1 ∧
+    colourApart 0 2 ∧ colourApart 1 2 := by
+  unfold Indist colourApart colourTag
+  decide
+
 end Textbook.U56
 
 #print axioms Textbook.U56.tri_not_cotrans
@@ -145,6 +165,8 @@ end Textbook.U56
 #print axioms Textbook.U56.id_family_oriented
 #print axioms Textbook.U56.id_family_trivial
 #print axioms Textbook.U56.swap_fixes_apartness_moves_witness
+#print axioms Textbook.U56.colour_isApart
+#print axioms Textbook.U56.colour_agreement_not_identity
 #print axioms Apartness.indist_equivalence
 #print axioms Apartness.bare_breaks_refl
 #print axioms Apartness.irrefl_alone_breaks_symm
@@ -165,6 +187,8 @@ end Textbook.U56
 
 EXPECTED = {
     "Textbook.U56.tri_not_cotrans": PROPEXT,
+    "Textbook.U56.colour_isApart": NONE,
+    "Textbook.U56.colour_agreement_not_identity": PROPEXT,
     "Textbook.U56.tri_not_apart": PROPEXT,
     "Textbook.U56.ne3_isApart": NONE,
     "Textbook.U56.ne3_indist_equiv": NONE,

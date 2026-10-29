@@ -16,12 +16,14 @@ from derivation.candidates import (  # noqa: E402
     Bounds,
     NewForm,
     NewInst,
+    NewRuleAll,
     NodeView,
     apply_delta,
     response_valid_fast,
+    response_valid_naive,
 )
 from derivation.engine import GENESIS_L  # noqa: E402
-from derivation.model import Impose, replay, step  # noqa: E402
+from derivation.model import AdmitRuleAll, Impose, replay, step  # noqa: E402
 from derivation.observe import (  # noqa: E402
     contexts,
     derivable,
@@ -79,6 +81,13 @@ def main() -> int:
           f"separable={separable(form_only, 0, 1)}")
     if separable(form_only, 0, 1):
         failures.append("form-only")
+
+    uniform = step(bl, AdmitRuleAll(0))
+    still_valid = response_valid_naive(demanded, (0, 1), (NewRuleAll(0),))
+    print(f"uniform rule retains link={uniform.insts == bl.insts}; "
+          f"separable={separable(uniform, 0, 1)}; valid response={still_valid}")
+    if uniform.insts != bl.insts or separable(uniform, 0, 1) or still_valid:
+        failures.append("uniform rule counterexample")
 
     print(f"failures: {failures}")
     return 1 if failures else 0

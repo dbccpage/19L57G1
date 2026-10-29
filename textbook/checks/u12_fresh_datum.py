@@ -26,7 +26,7 @@ from derivation.model import (  # noqa: E402
     replay,
     step,
 )
-from derivation.observe import collapsed_pairs, profiles, separable  # noqa: E402
+from derivation.observe import collapsed_pairs, contexts, profiles, separable  # noqa: E402
 
 DATA = ("<>", "<a>", "<ab>")
 
@@ -99,6 +99,27 @@ def main() -> int:
           f"separable(1,2) {separable(bl3, 1, 2)}")
     if not (separable(bl3, 0, 1) and separable(bl3, 0, 2) and separable(bl3, 1, 2)):
         failures.append("BL3")
+
+    # Scope counterexamples: old comparisons can stay fixed while the
+    # newcomer forms another class. Unary contexts need not grow at all.
+    both_marked = replay([AdmitDatum("A"), AdmitDatum("B"), AdmitForm(1),
+                          AdmitInst(0, (0,)), AdmitInst(0, (1,))])
+    newcomer = step(both_marked, AdmitDatum("C"))
+    sizes = (len(contexts(both_marked)), len(contexts(newcomer)))
+    classes = (len(set(profiles(both_marked))), len(set(profiles(newcomer))))
+    print(f"both marked then a newcomer: contexts {sizes}, classes {classes}")
+    if sizes != (1, 1) or classes != (1, 2) or separable(newcomer, 0, 1):
+        failures.append(("old pair versus class count", sizes, classes))
+    blank_three = replay([AdmitDatum(t) for t in ("A", "B", "C")] + [AdmitForm(1)])
+    mentions_one = step(blank_three, AdmitInst(0, (1,)))
+    mentions_neither = step(blank_three, AdmitInst(0, (2,)))
+    if separable(blank_three, 0, 1) or not separable(mentions_one, 0, 1):
+        failures.append("avoiding one target does not protect the pair")
+    if separable(mentions_neither, 0, 1):
+        failures.append("avoiding both targets must protect this pair")
+    print("marking target 1 changes pair (0,1); marking only 2 does not")
+    if (len(contexts(bl)), len(contexts(bl3))) != (5, 7):
+        failures.append("binary fresh-datum contexts should grow from five to seven")
 
     # 4. The committed artifact agrees with a fresh computation.
     rep = challenge2_report()["readings"]

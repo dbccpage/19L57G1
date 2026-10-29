@@ -29,6 +29,7 @@ from derivation.model import (  # noqa: E402
     Event,
     Regime,
     Supply,
+    replay,
     step,
 )
 
@@ -113,9 +114,14 @@ def main() -> int:
         if rep[key] != by_name["single_dedup"][key]:
             failures.append(("artifact", key))
     c2 = rep["min_events_to"]["carrier_2"]
-    print(f"single_dedup min events to carrier 2: {c2} (None = never)")
+    print(f"single_dedup min events to carrier 2: {c2} (None = not reached within search horizon)")
     if c2 is not None:
         failures.append(("carrier_2", c2))
+    initial_two = replay([AdmitDatum("A"), AdmitDatum("B")])
+    unchanged_two = replay([], initial_two)
+    if unchanged_two.n_data() != 2:
+        failures.append("nonempty-base counterexample")
+    print("empty history from a two-token base keeps two: the initial invariant is required")
     for name in ("two_dedup", "occurrence"):
         print(f"{name} max_carrier (artifact): {by_name[name]['max_carrier']}, "
               f"carrier 2 at {by_name[name]['min_events_to']['carrier_2']} events")

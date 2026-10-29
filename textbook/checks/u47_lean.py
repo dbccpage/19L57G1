@@ -121,6 +121,12 @@ theorem family_ceiling_bool :
 
 theorem no_fixed_point : ∀ b : Bool, (!b) ≠ b := by decide
 
+/-- Equal base support does not determine a certificate in the extended state. -/
+theorem same_base_different_certificate :
+    supp (CWorld.mk story [[[0]]]).base = supp (CWorld.mk story [[[0, 1]]]).base ∧
+    certNegC ⟨story, [[[0]]]⟩ 0 1 = false ∧
+    certNegC ⟨story, [[[0, 1]]]⟩ 0 1 = true := by decide
+
 end Textbook.U47
 
 #print axioms Textbook.U47.notes_inert_history
@@ -139,6 +145,7 @@ end Textbook.U47
 #print axioms Textbook.U47.quotient_trans
 #print axioms Textbook.U47.family_ceiling_bool
 #print axioms Textbook.U47.no_fixed_point
+#print axioms Textbook.U47.same_base_different_certificate
 #print axioms NoOutside.support_replay
 #print axioms NoOutside.support_repairFamily
 #print axioms NoOutside.support_quiescent
@@ -169,6 +176,7 @@ EXPECTED = {
     "Textbook.U47.quotient_trans": NONE,
     "Textbook.U47.family_ceiling_bool": NONE,
     "Textbook.U47.no_fixed_point": NONE,
+    "Textbook.U47.same_base_different_certificate": BOTH,
     "NoOutside.support_replay": BOTH,
     "NoOutside.support_repairFamily": BOTH,
     "NoOutside.support_quiescent": BOTH,

@@ -3,21 +3,43 @@
 **Claim.** Replaying a token-aware history (tokens kept, re-admissions
 designate) and then forgetting the tokens gives the same ledger as
 replaying the *erased* history in the counting model, where each
-re-admission has first been turned into a bare supply. So the counting
-model, which every later theorem is stated in, is a sound abstraction of
-the token-aware model, which is what the Python runs.
+re-admission has first been turned into a bare supply. This is a sound abstraction between two Lean models for state claims
+expressed through that erasure. Python implements the token-aware policy;
+its connection to Lean is tested separately, not proved by this theorem.
+
+<details>
+<summary>Source and classification record (optional on a first reading)</summary>
+
 **Status:** derived. **Lean:** `Derivation.erase_step`,
 `Derivation.erase_replay` (`lean4/Derivation/Erasure.lean` lines 79-104,
 138-158). **Axioms:** `propext`, `Quot.sound`. **Depends on:** `stepE`,
 `replayE` (Unit 03), `supply_no_op` (Unit 03), `TRegime`, `stepT`
 (Unit 06).
 
+</details>
+
+## First pass
+
+A named store receives ⟨A⟩, ⟨A⟩ again, then ⟨AB⟩. Its counts after
+the three events are 1, 1, and 2. A tally clerk who blindly counts
+all three admissions would get 3.
+
+Translate the duplicate admission into a supply event, which changes
+nothing. The tally clerk now follows `admit, supply, admit` and gets
+the same count 2. Whether an event is a duplicate depends on the
+store at that point, so the translation must follow the history in order.
+
+The Lean theorem compares two Lean models using this translation,
+including refusals. It transports properties expressed through the
+erased state. A token's spelling is deliberately absent from that state.
+Checks against Python are separate executable evidence.
+
 ## Question
 
 Unit 06 left a gap. Python and `stepT` keep tokens and dedup; the Lean
 `Regime` that every theorem from Unit 08 on is about keeps only a count and
-counts every `admitDatum`. Why may a theorem about the counting model be
-read as a theorem about what Python computes?
+counts every `admitDatum`. Which claims does the Lean erasure theorem transport, and what still
+needs checking before relating them to Python?
 
 ## What we already possess
 
@@ -73,9 +95,9 @@ translation rule, the tally always equals the number of names. The theorem
 is that promise, kept for every possible sequence of calls, including ones
 that are refused halfway.
 
-The promise is what licenses reading every later theorem, stated about
-tallies, as a statement about Python's named lists. It is a bridge between
-two *Lean* models. The step from the Lean token-aware model to the actual
+The promise transports a counting-state property through the stated
+erasure. It does not transport arbitrary token-sensitive properties.
+It is a bridge between two *Lean* models. The step from the Lean token-aware model to the actual
 Python program is not a theorem; it is tested (`CL-TOKEN-ERASURE`, and the
 check below).
 

@@ -27,6 +27,11 @@ def main() -> int:
     failures: list[str] = []
     art = json.loads((ROOT / "artifacts" / "generator.json").read_text())
 
+    initial_classes = [len({profile1(n, i) for i in range(n + 1)}) for n in range(4)]
+    print(f"stages 0,1,2,3: positions 1,2,3,4; inhabited profile counts {initial_classes}")
+    if initial_classes != [1, 2, 3, 3] or profile1(0, 0) != (False, False, False):
+        failures.append("initial stages")
+
     print("depth-1 profiles (tagged, entered, left) of the chain of length 5:")
     for i in range(6):
         print(f"  element {i}: {profile1(5, i)}")

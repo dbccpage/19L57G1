@@ -19,6 +19,7 @@ sys.path.insert(0, str(ROOT / "code"))
 
 from derivation.candidates import Bounds  # noqa: E402
 from derivation.engine import READING_F, READING_L, build_tree  # noqa: E402
+from derivation.model import AdmitDatum, Impose, replay, step  # noqa: E402
 from derivation.observe import collapsed_pairs  # noqa: E402
 
 BOUNDS = Bounds(max_items=2, max_arity=2)
@@ -80,6 +81,15 @@ def main() -> int:
         if art["pair_bound"] != bound or art["rounds_used"] != depth:
             failures.append(f"{name} artifact")
 
+    repeated = replay([AdmitDatum("a"), AdmitDatum("b")])
+    counts = [len(repeated.reqs)]
+    for _ in range(3):
+        repeated = step(repeated, Impose(0, 1))
+        counts.append(len(repeated.reqs))
+    print(f"accepted request events, not separation rounds: {counts}; "
+          f"states={len(counts)}, strict growth={all(a < b for a, b in zip(counts, counts[1:]))}")
+    if counts != [0, 1, 1, 1]:
+        failures.append("repeated request event")
     print(f"failures: {failures}")
     return 1 if failures else 0
 

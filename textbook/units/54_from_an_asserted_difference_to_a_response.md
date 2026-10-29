@@ -1,29 +1,14 @@
 # Unit 54. From an asserted difference to a response
 
-**Claim.** The declared passage machine keeps assertion, retention, protection, observation, and execution distinct. Under the stated obstruction hypotheses it offers an observation repair or a funded column creation.
+**Claim.** The passage machine records assertion, retention, protection, and
+observation separately. An obstructed pair with distinct endpoints and
+an in-range first endpoint has the stated repair-or-singleton-extension
+alternative. Execution still needs its own guards.
 
-**Status:** FROZEN; ADMITTED (the convention that gate 4 reads `true`
-before any observation is declared, `zeroDeclP`, and the policy
-`obst_requires_observation` that an undeclared observation obstructs
-nothing: both declared, both priced by `obst_policies_differ`);
-VERIFIED_FINITE (the arrow report of `artifacts/primitive_passage.json`,
-fourteen executable witnesses). **Lean:**
-`lean4/Derivation/PrimitivePassage.lean` lines 77-1298, imports
-`PrimitiveCore`, `PrimitiveCats`, `PrimitiveContact`. **Axioms:** 56
-exported reports, all `propext, Quot.sound` except `wit_independent_of_obs`
-and `quotient_no_recovery` (none). **Depends on:** Unit 51 (`Setting`,
-reading A, D), Unit 53 (`nativeKernelWitness`), Unit 03 (replay of a
-history by `foldl`), Unit 44 (a zero relation as an equivalence).
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
 
-## First pass
-
-Assert a pair first; retain it separately; then record protection and declare the observer. These steps have different fields and effects.
-
-If a retained protected pair is still merged by the observer, inspect the response family. Proposing a response and executing it are separate: execution checks its budget, license, and other guards.
-
-## Detailed claim and formal anchors
-
-`PrimitivePassage` replays a difference through a small
+**Detailed statement.** `PrimitivePassage` replays a difference through a small
 machine and proves, store by store, when it becomes an *obstruction* and
 what the machine must then offer.
 
@@ -45,8 +30,9 @@ Assertion is not retention
 without protection nothing obstructs (`no_protection_no_obstruction`).
 
 At
-an obstruction with an in-bounds protected pair the machine never runs
-dry: repair the observation at the same level, or create a column
+an obstruction with distinct endpoints and an in-range first endpoint,
+with the protected-pair membership supplied as a hypothesis, the defined
+response universe is nonempty: repair the observation at the same level, or create a column
 (`two_rule`, via `extension_always_available`).
 
 Listing a proposal spends no budget. Executing a new-column event needs
@@ -61,6 +47,56 @@ empty; an active protected pair contributes a block under the stated
 off-diagonal and in-range hypotheses (`nextFamilyP_stop`,
 `nextFamilyP_nonempty`). A listed block is not a guarantee that its events
 will execute under the current licence and halt settings.
+
+**Status:** FROZEN; ADMITTED (the convention that gate 4 reads `true`
+before any observation is declared, `zeroDeclP`, and the policy
+`obst_requires_observation` that an undeclared observation obstructs
+nothing: both declared, both priced by `obst_policies_differ`);
+VERIFIED_FINITE (the arrow report of `artifacts/primitive_passage.json`,
+fourteen executable witnesses). **Lean:**
+`lean4/Derivation/PrimitivePassage.lean` lines 77-1298, imports
+`PrimitiveCore`, `PrimitiveCats`, `PrimitiveContact`. **Axioms:** 56
+exported reports, all `propext, Quot.sound` except `wit_independent_of_obs`
+and `quotient_no_recovery` (none). **Depends on:** Unit 51 (`Setting`,
+reading A, D), Unit 53 (`nativeKernelWitness`), Unit 03 (replay of a
+history by `foldl`), Unit 44 (a zero relation as an equivalence).
+
+</details>
+
+## First pass
+
+Admit tokens 7 and 8. Their positions are 0 and 1; events below
+refer to those positions. Follow the pair through the record:
+
+| After this event | What has changed? | Obstructed? |
+|---|---|---|
+| Assert 0/1 | The assertion is recorded | No |
+| Retain 0/1 | The witness is kept | No |
+| Protect 0/1 | A separation demand is added | No |
+| Declare an empty observation | No column distinguishes the pair | Yes |
+
+Nothing in an earlier row automatically performs the next event.
+Retention requires the assertion; protection requires retention.
+Before declaration, this machine's chosen policy reports no obstruction.
+After declaration, the retained, protected pair is unseen and active.
+
+Here there is no existing column to refine. The extension menu proposes
+columns [0] and [1], either of which would distinguish the pair. A
+proposal records possible work. Adding its column still needs budget,
+permission, and an unhalted machine. Refining an existing column needs
+budget and an unhalted machine, but does not consult that permission flag.
+
+**Predict:** does recording a refusal resolve the pair or halt the
+machine?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. It records the current obstruction and leaves the observation
+unchanged. A later permitted event can resolve it. Halt is a separate
+event that makes all subsequent events inert.
+
+</details>
 
 ## Question
 
@@ -79,8 +115,8 @@ chose?
 - `nativeKernelWitness`, the two-point setting the native side commits
   to before contact (Unit 53).
 - A history is a list of events; replaying it is `foldl step genesis`,
-  so the state after a history is a function of the list and of nothing
-  else (Unit 03).
+  so the list determines the result once the starting state and fixed
+  interpreter are specified (Unit 03).
 - An observation's zero relation, "the observer cannot tell `x` from
   `y`", and the three laws that make it an equivalence (Unit 44).
 
@@ -108,7 +144,10 @@ observation field and cannot both be false.
 
 A *response* is one of two families: *repair*, which refines an existing
 column by one position so that it separates the pair; or *extension*,
-which proposes a new column. Proposals are lists; they execute only
+which proposes a singleton column from the declared menu. This menu
+does not enumerate all columns passing `colOk`: with three positions,
+column `[0,2]` can be accepted for pair `(0,1)` while absent from that
+menu (`singleton_menu_not_all_columns`). Proposals are lists; they execute only
 through their actual guarded events. A refinement needs budget; adding
 a column needs budget and licence; halt blocks both. A *refusal* is
 an event that records the pair, with the obstruction as its certificate,
@@ -393,6 +432,17 @@ theorem block_resolves :
   decide
 ```
 
+## Checked scope examples (optional)
+
+These Lean (book) checks make the scope distinctions above explicit.
+Their reports stay within the existing `{propext, Quot.sound}` boundary.
+
+```lean
+theorem singleton_menu_not_all_columns :
+    let s := { gateWitnessAll with occ := [0, 1, 2] }
+    colOk s [0, 2] = true ∧ [0, 2] ∉ extensionProposals s 0 1 := by decide
+```
+
 ## Line-by-line Lean explanation
 
 - `structure PState where … deriving Repr, DecidableEq`: nine fields, all
@@ -585,6 +635,9 @@ whether its hypotheses hold at all.
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 The column `[0, 1]` contains both positions, so it separates nothing:
 `sepCol [0, 1] 0 1 = (true != true) = false`, hence `zeroP [[0, 1]] 0 1 =
 true`. The four gates read retained `true`, protected `true`, declared
@@ -602,6 +655,8 @@ in force: repair empty, extension nonempty. Running
 `[setBudget 1, addCol [0]]` yields `obs = some [[0, 1], [0]]`, and `[0]`
 separates the pair, so `obstP` becomes `false`.
 
+</details>
+
 ## Verification
 
 | Item | Where |
@@ -612,4 +667,4 @@ separates the pair, so `obstP` becomes `false`.
 | Python | `code/derivation/primitive_passage.py` (`PS`, `obst_p`, `pstep`, `preplay`, `repair_family_p`, `extension_proposals`, `next_family_p`, `arrow_report`), `tests/test_primitive_passage.py`, `artifacts/primitive_passage.json` (`arrows`) |
 | Audit | `textbook/audit/modules/PrimitivePassage.md` findings 1-8 |
 | Check (Python) | `python textbook/checks/u54_primitive_passage.py`: the store order, the four gates at the five witnesses, the two policies, the two-rule and next family at `gateWitnessAll`, licence and budget, refusal, the absorbing halt, replay, the zero laws on 1 971 cases, and `arrow_report()` against the artifact |
-| Check (book Lean) | `python textbook/checks/u54_lean.py`: twenty-one book declarations plus twenty-two Genesis theorems kernel-checked, Lean 4.33.0 |
+| Check (book Lean) | `python textbook/checks/u54_lean.py`: twenty-two book reports plus twenty-two Genesis theorems kernel-checked, Lean 4.33.0 |

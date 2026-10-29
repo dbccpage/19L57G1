@@ -77,6 +77,22 @@ theorem RegimeExt.trans' {r s t : Regime} (h1 : RegimeExt r s) (h2 : RegimeExt s
    fun x => (h1.2.2.2.1 x).trans (h2.2.2.2.1 x),
    fun x => (h1.2.2.2.2 x).trans (h2.2.2.2.2 x)⟩
 
+/-- A raw duplicate demand changes the list but not its membership. -/
+def repeatedDemand : Regime := { twoA with reqs := [(0, 1), (0, 1)] }
+
+theorem repeated_demand_ext : RegimeExt twoA repeatedDemand := by
+  refine ⟨rfl, rfl, SetEq.rfl' _, SetEq.rfl' _, ?_⟩
+  intro q
+  simp [twoA, repeatedDemand]
+
+theorem repeated_demand_counts :
+    twoA.reqs.length = 1 ∧ repeatedDemand.reqs.length = 2 := by decide
+
+/-- Token-erased datum items have no token to deduplicate. -/
+theorem two_new_data :
+    applyDelta ⟨0, [], [], [], []⟩ [.newDatum, .newDatum] =
+      some ⟨2, [], [], [], []⟩ := by decide
+
 end Textbook.U36
 
 #print axioms Textbook.U36.twoA_ne_twoB
@@ -88,6 +104,9 @@ end Textbook.U36
 #print axioms Textbook.U36.form_order_matters
 #print axioms Textbook.U36.data_count_matters
 #print axioms Textbook.U36.RegimeExt.trans'
+#print axioms Textbook.U36.repeated_demand_ext
+#print axioms Textbook.U36.repeated_demand_counts
+#print axioms Textbook.U36.two_new_data
 #print axioms Derivation.derivable_ext
 #print axioms Derivation.collapsed_ext
 #print axioms Derivation.separable_ext
@@ -105,6 +124,9 @@ EXPECTED = {
     "Textbook.U36.form_order_matters": PROPEXT,
     "Textbook.U36.data_count_matters": PROPEXT,
     "Textbook.U36.RegimeExt.trans'": NONE,
+    "Textbook.U36.repeated_demand_ext": PROPEXT,
+    "Textbook.U36.repeated_demand_counts": NONE,
+    "Textbook.U36.two_new_data": PROPEXT,
     "Derivation.derivable_ext": NONE,
     "Derivation.collapsed_ext": PROPEXT,
     "Derivation.separable_ext": PROPEXT,

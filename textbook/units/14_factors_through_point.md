@@ -4,11 +4,35 @@
 through the one-point carrier exactly when `a = b`. So candidate A3 for
 "primitive difference", non-factorization through a point, is nothing
 other than the metatheory's own inequality `a ≠ b`, re-expressed once
-functions are admitted. **Status:** derived. **Lean:**
+functions are admitted.
+
+<details>
+<summary>Source and classification record (optional on a first reading)</summary>
+
+**Status:** derived. **Lean:**
 `PrimDiff.factors_through_point_iff` (`lean4/Derivation/PrimDiff.lean`
 lines 67-78). **Axioms:** none. **Depends on:** nothing from the regime
 model; this module imports nothing of it. It needs only the metatheory's
 types, functions and equality (Unit 00).
+
+</details>
+
+## First pass
+
+Imagine one fixed lookup cell containing A. Reading it twice gives
+A both times. Could the same fixed cell satisfy “return A” and
+“return B” when A and B are unequal? It cannot.
+
+The source writes this as a function from a one-point input type.
+There is only one input, so the function has only one output value.
+That output can equal both chosen values exactly when those values
+are equal. Predict what changes if both requested values are A:
+the constant output A works.
+
+The theorem restates metatheoretic equality using a function. It
+does not put a new asserted relation into the regime. The
+[Map lab](../map_lab/README.md) supplies the broader lookup picture;
+this unit isolates the special one-input case.
 
 ## Question
 
@@ -48,8 +72,10 @@ picture complete: every `p : Unit → α` *is* the constant map at `p ()`.
 
 ## Plain-language interpretation
 
-Imagine a pointer that can point at only one thing. "You cannot point at
-both `a` and `b` with it" means exactly "`a` and `b` are two things". No
+Imagine one fixed lookup cell. It must return the same value each
+time it is read. Requiring that one value to be both `a` and `b` works
+exactly when `a = b`. This is about a fixed function value, not a pointer
+that moves or changes its answer over time. No
 new notion of difference has appeared; the pointer only restates the
 metatheory's equality in the language of maps. That is why the paper
 concludes "A3 is therefore not a primitive: it is the metatheory's own
@@ -58,8 +84,10 @@ identity, re-expressed" (§S1).
 This matters for the programme because the metatheory's `≠` is precisely
 what the seed denies the object language (Unit 00). If A3 were a genuine
 primitive, the system could have difference for free by admitting maps.
-It cannot: admitting maps and a point imports `≠` along with them, and the
-price of A3 is the price of metatheoretic identity (Unit 15 shows the
+The equivalence shows that the chosen A3 criterion already uses
+metatheoretic equality of values. It supplies no new asserted difference
+inside the regime. The price of using A3 as the criterion is that
+pre-existing metatheoretic identity (Unit 15 shows the
 converse gap: having `≠` outside asserts nothing inside).
 
 ## Pseudocode
