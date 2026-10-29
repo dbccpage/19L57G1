@@ -586,3 +586,25 @@ empty axiom sets. Full compiled-census output and build logs are local
 receipts under `artifacts2/declaration_review/`; no regeneration ran with
 a live defective driver.
 
+## Boundary and swap teaching route (2026-10-28)
+
+All mutations use copied Wiki/teaching assets, fixture inputs, or a
+temporary Lean driver. The three research owners' source files, ledgers,
+frozen predictions, and receipts remain read-only. No regeneration occurs
+with a live defect.
+
+| Check | Defect exercised | Observed failure | Recovery |
+|---|---|---|---|
+| Actual Wiki verifier: boundary record | Make keeping two identical labels satisfy the retained-pair requirement | Exit 1 names `stale boundary-lab record` | Restore bytes; exit 0 |
+| Actual Wiki verifier: boundary desk | Replace the bundle by missing-content text | Exit 1 names `stale boundary-lab desk or links` | Restore bytes; exit 0 |
+| Actual Wiki verifier: boundary figure | Replace the fixed-menu SVG by missing-content text | Exit 1 names `stale boundary-lab figure` | Restore bytes; exit 0 |
+| Source-backed packet | Make empty reports reject swap, erase an asymmetric witness, invent U names, change the fixed labels, remove an actual swap, admit a bundle to the minimum, or invent a secondary minimum | The actual recomputation rejects each copied packet as differing from source-backed cases | Original packet passes; eleven authoring tests pass |
+| Teaching population and figure | Change 16 report subsets to 17, or replace a displayed cost 1 by 99 | Named population-table or figure mismatch | Original population table and four SVGs pass |
+| Book Lean | Append `swapInAut [] = false` and the claim that the exchange changes the retained identical-label key | `decide` names both exact propositions as false; shared runner exits 1 | Original 125 exact reports pass separately |
+
+The actual JavaScript lookup passes all 120 desk settings and rejects
+unknown cases. Static figure geometry and PNG previews are checked
+separately. Browser rendering, responsive layout, and keyboard interaction
+remain unverified after the local preview/error-page policy rejection;
+pure lookup tests are not a substitute for those interaction checks.
+

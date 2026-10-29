@@ -44,6 +44,10 @@ questions, representative order, and uniqueness on the observed image.
 The [`Growth lab`](growth_lab/README.md) then enters the research
 `standing_commitment` tree: which pairs remain unresolved, when arrivals
 create demands, and why assumed service is different from a proved repair.
+The [`Boundary lab`](boundary_lab/README.md) introduces selected results
+from three more research models: the declared two-sided division, repeated
+labels, swap witnesses, permission restrictions, and a scoped price menu.
+It keeps the models and their unresolved comparisons separate.
 
 New readers can then read [`START_HERE.md`](START_HERE.md) (see also the
 short spoken introduction in [`video_script_15s.md`](video_script_15s.md)).

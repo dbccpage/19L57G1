@@ -1,0 +1,329 @@
+{
+ "BoundarySeed.O_name_judgment_at_genesis": [
+  "propext"
+ ],
+ "BoundarySeed.U_no_name_judgment_at_genesis": [
+  "propext"
+ ],
+ "BoundarySeed.genesis_initial_datum": [],
+ "BoundarySeed.genesis_placement_nil": [],
+ "BoundarySeed.no_event_follows": [
+  "propext"
+ ],
+ "BoundarySeed.no_observation_at_genesis": [
+  "propext"
+ ],
+ "BoundarySeed.sides_collapsed_at_genesis_U": [
+  "propext",
+  "Quot.sound"
+ ],
+ "BoundarySeed.sides_distinct_at_genesis_O": [
+  "propext",
+  "Quot.sound"
+ ],
+ "OrientedBoundary.b_is_empty": [
+  "propext",
+  "Quot.sound"
+ ],
+ "OrientedBoundary.not_in_aut_needs_witness": [
+  "propext",
+  "Quot.sound"
+ ],
+ "OrientedBoundary.s2o_breaks_at_one_witness": [],
+ "OrientedBoundary.s2o_swap_is_not_automorphism": [],
+ "OrientedBoundary.s2u_swap_is_automorphism": [],
+ "OrientedBoundary.swap_iff": [],
+ "SideFree.base_exchange_is_an_automorphism": [
+  "propext"
+ ],
+ "SideFree.exchange_is_not_the_identity": [],
+ "SideFree.exchange_moves_zero_to_one": [
+  "propext"
+ ],
+ "SideFree.extra_mark_exchange_is_an_automorphism": [
+  "propext"
+ ],
+ "SideFree.keep_labels_exchange_is_an_automorphism": [
+  "propext"
+ ],
+ "SideFree.retainedPlus_replays_from_genesis": [],
+ "SideFree.retained_replays_from_genesis": [],
+ "SideFree.shared_policy_retains_one_mark": [],
+ "SideFree.withdrawal_does_not_move_zero_to_one": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_O_": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_O_0": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_O_00": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_O_000": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_O_001": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_O_01": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_O_010": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_O_011": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_O_1": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_O_10": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_O_100": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_O_101": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_O_11": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_O_110": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_O_111": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_U_": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_U_0": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_U_00": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_U_000": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_U_001": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_U_01": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_U_010": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_U_011": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_U_1": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_U_10": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_U_100": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_U_101": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_U_11": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_U_110": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.boundary_U_111": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_aa_00_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_aa_01_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_aa_10_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_aa_11_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_aaa_00_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_aaa_01_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_aaa_10_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_aaa_11_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_aab_00_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_aab_01_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_aab_10_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_aab_11_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_ab_00_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_ab_01_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_ab_10_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_ab_11_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_aba_00_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_aba_01_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_aba_10_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_aba_11_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_abb_00_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_abb_01_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_abb_10_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_abb_11_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_ba_00_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_ba_01_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_ba_10_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_ba_11_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_baa_00_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_baa_01_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_baa_10_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_baa_11_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_bab_00_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_bab_01_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_bab_10_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_bab_11_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_bb_00_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_bb_01_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_bb_10_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_bb_11_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_bba_00_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_bba_01_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_bba_10_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_bba_11_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_bbb_00_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_bbb_01_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_bbb_10_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.labels_bbb_11_arity": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.menu_000": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.menu_001": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.menu_010": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.menu_011": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.menu_100": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.menu_101": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.menu_110": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.menu_111": [
+  "propext"
+ ],
+ "Textbook.BoundaryLab.reports_0": [],
+ "Textbook.BoundaryLab.reports_1": [],
+ "Textbook.BoundaryLab.reports_10": [],
+ "Textbook.BoundaryLab.reports_11": [],
+ "Textbook.BoundaryLab.reports_12": [],
+ "Textbook.BoundaryLab.reports_13": [],
+ "Textbook.BoundaryLab.reports_14": [],
+ "Textbook.BoundaryLab.reports_15": [],
+ "Textbook.BoundaryLab.reports_2": [],
+ "Textbook.BoundaryLab.reports_3": [],
+ "Textbook.BoundaryLab.reports_4": [],
+ "Textbook.BoundaryLab.reports_5": [],
+ "Textbook.BoundaryLab.reports_6": [],
+ "Textbook.BoundaryLab.reports_7": [],
+ "Textbook.BoundaryLab.reports_8": [],
+ "Textbook.BoundaryLab.reports_9": []
+}

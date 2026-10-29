@@ -138,6 +138,7 @@ for witnesses, counterexamples, and quantifier order.
 | Path lab | Units 59–60, 63: the separately declared attachment, cell, and graph settings |
 | Map lab | Units 61 and 67: finite factorization and observer-quotient descent |
 | Growth lab | Its research source map: commitments and supplied growth |
+| [Boundary lab](boundary_lab/README.md) | Its research source map for the three distinct models; Unit 37 for the separate two-dot classification example |
 
 These are reading suggestions, not transport theorems between the models.
 For example, the Path lab's graph edge and a function arrow have different
