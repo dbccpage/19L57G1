@@ -1,4 +1,4 @@
-"""Build the customer-facing Genesis Textbook Wiki pages with 15-second soundbites,
+"""Build the customer-facing Genesis Textbook Wiki pages with short video previews,
 interactive GFM stepping-stone widgets, and embedded <=15s Manim animations.
 
 AuthorityEffect: None. Mirrors textbook/ and research tree metadata into
@@ -629,7 +629,7 @@ Source edition: [{commit_short}](https://github.com/dbccpage/19L57G1/commit/{com
 ---
 
 > [!IMPORTANT]
-> ### 🎬 Hard Rule: Every Animation and Soundbite Is Strictly `<= 15 Seconds`
+> ### 🎬 Video previews are `<= 15 Seconds`; written lessons are self-paced
 > All 12 Manim animations below are rendered with **Manim 0.19.2** and verified with `ffprobe` at **`10.93s–14.07s` (`<= 15.0s`)**. Each animation auto-plays inline in the Wiki and pairs with a downloadable `.mp4`. `AuthorityEffect: None`.
 
 ---
@@ -666,10 +666,10 @@ Source edition: [{commit_short}](https://github.com/dbccpage/19L57G1/commit/{com
 ---
 
 > [!IMPORTANT]
-> ### ⚡ The Genesis Textbook in 15 Seconds (`AuthorityEffect: None`)
-> - **Part 1 ([Units 00–{part1_entries[-1][0]:02d}](textbook_u00_mark_and_constructor)):** Every definition, theorem, countermodel, and open boundary across all **75 frozen Lean 4 modules** in `lean4/Derivation/`.
+> ### Begin with a concrete example (`AuthorityEffect: None`)
+> - **Part 1 ([Units 00–{part1_entries[-1][0]:02d}](textbook_u00_mark_and_constructor)):** Formal chapters and a source-placement map for **75 frozen Lean 4 modules** in `lean4/Derivation/`. A source reference does not certify complete teaching coverage.
 > - **Part 2 ([Institutions 00–{part2_entries[-1][0]:02d}](textbook_institutions)):** Post-freeze research suites (`actor_institution`, `two_theorems`, `uncollapse`, `interpreter_verdict`) plus the synced [Research Trees Index](textbook_research_trees).
-> - **How to study:** Start at **[Start Here](textbook_start_here)** or **[Unit 00](textbook_u00_mark_and_constructor)**. Every unit page has a 15-second soundbite, an embedded `<= 15s` Manim animation, interactive prediction widgets, and the full line-by-line Python + Lean 4 lesson.
+> - **How to study:** Start with **[First steps](textbook_first_steps)** and **[Start Here](textbook_start_here)**. Work through examples and predictions at your own pace, then inspect the definitions, hypotheses, Python, and Lean. Short Act videos are previews, not a study-time target.
 
 ![Act I — The Mark and Inertia]({RAW_WIKI_MEDIA}/act00_pre_genesis_mark.gif)
 
@@ -703,7 +703,7 @@ Source edition: [{commit_short}](https://github.com/dbccpage/19L57G1/commit/{com
 ---
 
 > [!IMPORTANT]
-> ### ⚡ Part 2 in 15 Seconds: Actors & Institutions (`Units 00–{part2_entries[-1][0]:02d}`)
+> ### Part 2: Actors & Institutions (`Units 00–{part2_entries[-1][0]:02d}`)
 > When several presentations (**actors**) combine into a family (**an institution**), they can jointly determine claims no single member knows (`exceeds_three_two_resolution`). Correspondence across actors is a priced admission, unknown claims force a witnessed **Demur**, and probing an unknown partition over `n` data costs `n(n-1)/2` pair queries.
 
 ![Part 2 — Actors and Institutions]({RAW_WIKI_MEDIA}/act10_institutions_synergy_policy.gif)
@@ -730,7 +730,7 @@ Source edition: [{commit_short}](https://github.com/dbccpage/19L57G1/commit/{com
 ---
 
 > [!IMPORTANT]
-> ### ⚡ Derivation Coverage Matrix in 15 Seconds (`AuthorityEffect: None`)
+> ### Derivation source-placement map (`AuthorityEffect: None`)
 > Accounts for all **75 frozen Lean 4 modules** (`779` definitions/structures and `1,585` theorem/lemma declarations), all Part 2 research theorems, their exact evidence statuses (`FROZEN`, `POST_FREEZE_PROVED`, `CONDITIONAL`, `VERIFIED_FINITE`, `REFUTED`, `ADMITTED`, `OPEN`), and the **acyclic lesson dependency DAG (`0` cycles)**.
 
 ---
@@ -755,7 +755,7 @@ Source edition: [{commit_short}](https://github.com/dbccpage/19L57G1/commit/{com
 ---
 
 > [!IMPORTANT]
-> ### ⚡ 75-Module Source Audit in 15 Seconds (`AuthorityEffect: None`)
+> ### 75-module source audit (`AuthorityEffect: None`)
 > Every tracked `.lean` file in `lean4/Derivation/` (all 62 root-imported modules plus all 13 non-root modules) and `lean4/Derivation.lean` is audited for SHA-256 content hash, imports, declarations, axiom dependencies (`1,530` reports within `propext` and `Quot.sound`), and proof-vs-prose alignment (including the documented vacuity defect in the first two conjuncts of `LadderGeneral.d2_zero_dims_2_3_4`, superseded by `BoundaryCancellation.d2_zero_unrestricted`).
 
 ---
@@ -941,7 +941,7 @@ This Wiki is an explanatory map and mirrored textbook of the published repositor
 
 | I want to... | Start here | Continue with |
 | --- | --- | --- |
-| **Learn from scratch in 15-second soundbites (no math/code background needed)** | **[🚀 Textbook: Start Here](textbook_start_here)** | **[Unit 00: The mark](textbook_u00_mark_and_constructor)**, **[Textbook Hub](textbook_overview)**, **[15s Video Gallery](textbook_video_15s)** |
+| **Learn through small worked examples at your own pace** | **[First steps](textbook_first_steps)** | **[Textbook: Start Here](textbook_start_here)**, **[Textbook Hub](textbook_overview)**, **[Video previews](textbook_video_15s)** |
 | **Study Actors, Institutions, Probing & Uncollapse** | **[🏛️ Part 2: Institutions](textbook_institutions)** | **[Inst 00: Signatures]({part2_entries[0][2]})**, **[Coverage Matrix](textbook_coverage)**, **[Synced Research Trees](textbook_research_trees)** |
 | Understand the result without running anything | [Overview](genesis_overview) | [Concepts and glossary](concepts_and_glossary), [Reading the papers](papers_and_claim_ledgers) |
 | Run a small, concrete example | [Getting started](getting_started) | [Admission kernel](admission_kernel), [Worked examples](worked_examples) |
@@ -966,7 +966,7 @@ A proposal is not an admission. A computed minimum is not authorization. An obse
 
 ## Explore the repository
 
-- [Textbook Hub](textbook_overview) and [Derivation Coverage Matrix](textbook_coverage): all 75 frozen modules (`Units 00–{part1_entries[-1][0]:02d}`) and post-freeze research trees (`Institutions 00–{part2_entries[-1][0]:02d}`) with 15-second soundbites and `<= 15s` Manim animations.
+- [Textbook Hub](textbook_overview) and [Derivation Coverage Matrix](textbook_coverage): formal chapters, a source-placement map for 75 frozen modules, selected research lessons, and `<= 15s` video previews. Written study has no time target; source placement is not complete teaching coverage.
 - [Synced Research Trees](textbook_research_trees): all {len(research_trees)} research directories at this source snapshot.
 - [Repository map](repository_map): every top-level area and complete tracked-file indexes.
 - [Python module reference](python_module_reference): public top-level definitions across the computational modules.
@@ -976,7 +976,7 @@ A proposal is not an admission. A computed minimum is not authorization. An obse
 
 ## Snapshot and current status
 
-Textbook & Audit edition generated from source snapshot [`{commit_short}`](https://github.com/dbccpage/19L57G1/commit/{commit_sha}) (2026-10-28); core repository reference pages reflect [`85a83ae7ce64`](https://github.com/dbccpage/19L57G1/commit/85a83ae7ce64dc2123ff218568a4ecd37e566d33) (2026-10-23). All tracked toolchain files pin Lean 4.33.0.
+Textbook & Audit edition generated from source snapshot [`{commit_short}`](https://github.com/dbccpage/19L57G1/commit/{commit_sha}); core repository reference pages reflect [`85a83ae7ce64`](https://github.com/dbccpage/19L57G1/commit/85a83ae7ce64dc2123ff218568a4ecd37e566d33) (2026-10-23). All tracked toolchain files pin Lean 4.33.0.
 
 The closeout records three independent axes: research program **CLOSED_WITH_OPEN_OBSTRUCTIONS**, Alpha reference **READY_WITHIN_DECLARED_SCOPE**, and original seed completion gate **UNSATISFIED**. These are attributed closeout dispositions, not a new whole-repository verification run. [Review scope and findings](review_scope_and_findings) explains the dated evidence, documentation discrepancies, and checks actually performed for this Wiki.
 """

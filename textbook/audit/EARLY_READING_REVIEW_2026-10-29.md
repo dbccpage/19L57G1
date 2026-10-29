@@ -20,6 +20,13 @@ already populated starting store, and a newcomer forming a new class.
 The separate relation setting uses Bool only as two position labels;
 `false` and `true` are not themselves asserted claims about those positions.
 
+Generated hub and homepage copy still advertised study in fifteen-second
+soundbites and every-definition coverage. The follow-up removes those
+promises across the overview, institution, coverage, audit, video, and home
+introductions. The duration bound remains a property of video previews.
+Source placement does not establish complete teaching coverage. Snapshot
+links carry the source revision without a hard-coded generation date.
+
 ## Selected semantic findings
 
 | Units | Original problem | Repair and authoritative evidence |
