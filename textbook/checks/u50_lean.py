@@ -94,6 +94,11 @@ theorem relaxed_acts_on_present_view :
     interpStep { kernelDesc with guardAccept := false, gateBudget := false }
       satNoopWorld (.mark [0] 1) ≠ satNoopWorld := by decide
 
+/-- A completed stage is quiescent; the new unmet requirement inside a block is not. -/
+theorem completed_not_every_prefix :
+    quiescentB (specWorld 2) = true ∧ quiescentB (w3 2) = false ∧
+    quiescentB (specWorld 3) = true := by decide
+
 end Textbook.U50
 
 #print axioms Textbook.U50.spec_three
@@ -113,6 +118,7 @@ end Textbook.U50
 #print axioms Textbook.U50.budget_instances
 #print axioms Textbook.U50.trichotomy_instance
 #print axioms Textbook.U50.relaxed_acts_on_present_view
+#print axioms Textbook.U50.completed_not_every_prefix
 #print axioms Horizon.worldAt_spec
 #print axioms Horizon.worldAt_quiescent
 #print axioms Horizon.worldAt_wf
@@ -143,6 +149,7 @@ EXPECTED = {
     "Textbook.U50.budget_instances": BOTH,
     "Textbook.U50.trichotomy_instance": BOTH,
     "Textbook.U50.relaxed_acts_on_present_view": BOTH,
+    "Textbook.U50.completed_not_every_prefix": BOTH,
     "Horizon.worldAt_spec": BOTH,
     "Horizon.worldAt_quiescent": BOTH,
     "Horizon.worldAt_wf": BOTH,

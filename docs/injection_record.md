@@ -786,3 +786,23 @@ native theorem or native boundary is changed. The separate eight
 observer-spec reports retain their earlier generic-driver and idle-step
 examples. No receipt is regenerated under an injected defect.
 
+## Panels, policies, and completed stages (2026-10-29)
+
+Five temporary book drivers assert false scope claims. The sealed
+owners, native receipts, research trees, and pin populations are unchanged.
+
+| Check | Defect exercised | Observed failure | Recovery |
+|---|---|---|---|
+| Panel input | Assert equal negative certificates for separating and blind panels over the same base | Lean identifies the Boolean equality as false; runner exits 1 | u47 proves equal base support and differing certificates |
+| Policy-specific stop | Assert the tower family is empty at the quiescent first generated world | Lean identifies the list equality as false; runner exits 1 | u48 proves the empty close family and the explicit nonempty tower family |
+| Menu scope | Assert column `[0,1]` occurs in the story's close menu | Lean identifies membership as false; runner exits 1 | u48 proves its structural acceptance and absence from the two-singleton menu |
+| Execution guards | Assert the listed add-column candidate changes the zero-budget story | Lean identifies the world inequality as false; runner exits 1 | u48 proves both listed candidates execute as no-ops at zero budget |
+| Completed stage | Assert `w3 2` is quiescent | Lean identifies the Boolean equation as false; runner exits 1 | u50 proves its nonquiescence between quiescent completed stages 2 and 3 |
+
+The five original drivers recover 141 exact reports. Seven are new:
+five with `propext, Quot.sound` and two with `propext`. The latter
+prove that a three-point parameterized relation is irreflexive and
+witnessed, and that a Boolean realizer would decide its proposition
+parameter. They do not construct a nonlocated relation or settle the
+four OPEN cells. No native receipt is regenerated under an injection.
+

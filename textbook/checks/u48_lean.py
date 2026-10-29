@@ -92,6 +92,23 @@ theorem kernel_in_family : kernelDesc ∈ allDescs := allDescs_complete _
 theorem all_off_in_family :
     (⟨false, false, false, false, false, false⟩ : ConstitutionDesc) ∈ allDescs := by decide
 
+/-- Stopping belongs to the close policy; tower still emits its next block. -/
+theorem quiescent_policy_difference :
+    quiescentB (genWorld 1).w = true ∧
+    nextFamily ⟨(genWorld 1).w, .close⟩ = [] ∧
+    nextFamily ⟨(genWorld 1).w, .tower⟩ =
+      [[.setBudget 1, .admitTok 2, .require 0 2, .addView [2]]] := by decide
+
+/-- The two-singleton menu does not enumerate every structurally accepted column. -/
+theorem accepted_outside_close_menu :
+    augOkB story [0, 1] = true ∧ [Event.addView [0, 1]] ∉ closeBlocks story := by decide
+
+/-- The candidate menu ignores budget; at zero, both emitted events are blocked. -/
+theorem candidates_without_execution :
+    let w := { story with budget := 0 }
+    closeBlocks w = [[.addView [1]], [.addView [2]]] ∧
+    step w (.addView [1]) = w ∧ step w (.addView [2]) = w := by decide
+
 end Textbook.U48
 
 #print axioms Textbook.U48.tower_gen_two
@@ -112,6 +129,9 @@ end Textbook.U48
 #print axioms Textbook.U48.relaxed_dedup_differs
 #print axioms Textbook.U48.kernel_in_family
 #print axioms Textbook.U48.all_off_in_family
+#print axioms Textbook.U48.quiescent_policy_difference
+#print axioms Textbook.U48.accepted_outside_close_menu
+#print axioms Textbook.U48.candidates_without_execution
 #print axioms Constitution.closeBlocks_complete_repair
 #print axioms Constitution.closeBlocks_complete_aug
 #print axioms Constitution.nextFamily_stop
@@ -144,6 +164,9 @@ EXPECTED = {
     "Textbook.U48.relaxed_dedup_differs": BOTH,
     "Textbook.U48.kernel_in_family": PROPEXT,
     "Textbook.U48.all_off_in_family": PROPEXT,
+    "Textbook.U48.quiescent_policy_difference": BOTH,
+    "Textbook.U48.accepted_outside_close_menu": BOTH,
+    "Textbook.U48.candidates_without_execution": BOTH,
     "Constitution.closeBlocks_complete_repair": BOTH,
     "Constitution.closeBlocks_complete_aug": BOTH,
     "Constitution.nextFamily_stop": BOTH,

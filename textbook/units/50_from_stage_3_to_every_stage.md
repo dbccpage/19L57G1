@@ -1,26 +1,14 @@
-# Unit 50. From stage 3 to every stage: characterising the generated run
+# Unit 50. Proving the shape of every completed tower stage
 
-**Claim.** The characterized generated run is well formed and quiescent at every stage under its declared construction. The theorem extends the earlier finite examples by induction on the stage.
+**Claim.** Induction identifies the full state at every completed tower stage
+and proves it well formed and quiescent. Intermediate event prefixes
+can have an unmet requirement. The proof concerns this driver and
+construction, indexed by Lean natural numbers.
 
-**Status:** FROZEN (the
-every-stage theorems), VERIFIED_FINITE (the two saturation instances);
-correction module of the second review (C6 repaired upward, C10
-repaired). **Lean:** `lean4/Derivation/Horizon.lean` lines 45-422,
-imports `Initiality`. **Axioms:** all ten exported theorems `{propext,
-Quot.sound}`. **Depends on:** Unit 45 (`histUpTo`, `worldAt`,
-`blockEvents`, `worldAt_three_quiescent`, `WF`), Unit 48 (`towerGen`,
-`genWorld`, `driver_reproduces_tower`, `interpStep`), Unit 49 (the probe
-worlds, reused for the budget pin).
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
 
-## First pass
-
-A check at stage 3 establishes only that instance. An induction first checks the initial stage and then proves that one round preserves the full state description.
-
-The resulting every-stage theorem concerns this specified driver and state formula. It does not replace them with an arbitrary future process.
-
-## Detailed claim and formal anchors
-
-`Horizon` writes down the complete record of the generated
+**Detailed statement.** `Horizon` writes down the complete record of the generated
 world at stage `k` (`specWorld k`: carrier `0..k`, one singleton column
 `[i+1]` and one requirement `(0, i+1)` per earlier stage, no refusals,
 budget spent to zero, licensed) and proves by induction that the supplied
@@ -37,8 +25,56 @@ A second theorem pins the budget
 semantics shared with the Python mirror: for every descriptor and every
 event the family interpreter leaves the budget alone, applies the
 saturating `Nat` decrement, or sets it by an explicit `setBudget`
-(`interp_budget_bound`); the audit's countermodel at budget zero is a
-no-op in Lean, decided over all 64 descriptors.
+(`interp_budget_bound`). The audit's particular zero-budget mark is a
+no-op in Lean for all 64 descriptors: it targets a column absent from
+the store, and subtraction saturates. This is not a general claim that
+zero budget blocks a descriptor whose budget gate is off.
+
+**Status:** FROZEN (the
+every-stage theorems), VERIFIED_FINITE (the two saturation instances);
+correction module of the second review (C6 repaired upward, C10
+repaired). **Lean:** `lean4/Derivation/Horizon.lean` lines 45-422,
+imports `Initiality`. **Axioms:** all ten exported theorems `{propext,
+Quot.sound}`. **Depends on:** Unit 45 (`histUpTo`, `worldAt`,
+`blockEvents`, `worldAt_three_quiescent`, `WF`), Unit 48 (`towerGen`,
+`genWorld`, `driver_reproduces_tower`, `interpStep`), Unit 49 (the probe
+worlds, reused for the budget pin).
+
+</details>
+
+## First pass
+
+Stage 0 has just position 0 and no requirements. To reach stage 1,
+the tower performs four events:
+
+| After this event | Budget | Requirement 0/1 |
+|---|---|---|
+| Set budget to 1 | 1 | Not recorded |
+| Admit position 1 | 1 | Not recorded |
+| Require 0/1 | 1 | Recorded and unmet |
+| Add a column saying Yes only on 1 | 0 | Met |
+
+The completed stage is quiescent. The moment after the third event is
+not. “Every stage” refers to completed blocks, not every prefix of the
+event history.
+
+At stage k, positions run from 0 through k. Each positive position has
+its own singleton column and a requirement to distinguish it from 0.
+The proof checks this description at stage 0, then proves that the
+four-event block carries it from any stage k to stage k+1. This is
+induction; checking stages 3, 10, or 100 alone would not suffice.
+
+**Predict:** does this prove that every process can keep growing while
+meeting its requirements?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. The proof uses this exact state formula and block. Its external
+iteration and explicit budget-replenishing event are assumptions of the
+construction, not an empirical guarantee about other systems.
+
+</details>
 
 ## Question
 
@@ -67,12 +103,13 @@ specWorld k` by induction on `k`: at `0`, run it (`decide`); at `k+1`,
 unfold the block into four steps and show each guard passes on the
 characterised state, so each step lands on a named intermediate (`w1`,
 `w2`, `w3`) and the last lands on `specWorld (k+1)`. Every later
-property is then a property of `specWorld k`, read off the closed form,
-never of a run.
+property can be proved from `specWorld k` and transferred to the
+specified run using that equality, without executing each stage.
 
 The second concept is a *cross-language pin*: a Lean theorem that states
-exactly the arithmetic the Python mirror must implement, so the two
-cannot drift apart silently again.
+the arithmetic the Python mirror is meant to implement. Separate
+Python checks compare that implementation with the intended behavior;
+the Lean theorem alone does not verify the Python program.
 
 ## Plain-language interpretation
 
@@ -420,6 +457,18 @@ theorem relaxed_acts_on_present_view :
       satNoopWorld (.mark [0] 1) ≠ satNoopWorld := by decide
 ```
 
+## Checked scope examples (optional)
+
+These additional Lean (book) checks make the scope distinctions
+above explicit. Their exact axiom reports stay within the existing
+`{propext, Quot.sound}` boundary.
+
+```lean
+theorem completed_not_every_prefix :
+    quiescentB (specWorld 2) = true ∧ quiescentB (w3 2) = false ∧
+    quiescentB (specWorld 3) = true := by decide
+```
+
 ## Line-by-line Lean explanation
 
 **The specification (45-74).** `specViews k` maps `i ↦ [i+1]` over
@@ -493,9 +542,11 @@ inert in general, so the no-op is the decrement saturating and
 
 - `worldAt k = specWorld k` for every `k` (Genesis, induction); the
   closed form evaluated and the stream run at stage 3 agree (book).
-- Quiescence and well-formedness of the generated world at every stage,
+- Quiescence and well-formedness at every completed generated stage,
   and of the driver's run (Genesis); instances at stages 10 and 100
   (book); the carrier has `k+1` elements (book, off the form).
+  `completed_not_every_prefix` checks an unmet requirement inside a
+  block between two quiescent completed stages.
 - Each of the four events of every block changes the state and the
   block lands on the next stage; genesis's first event is accepted
   (Genesis); block 3 walked explicitly (book).
@@ -553,6 +604,9 @@ stage?
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 `sep_new_col` is the first to break in spirit, though its statement is
 about `[m+1]`: the column `[0, m+1]` contains both `0` and `m+1`, so
 `sepB [0, m+1] 0 (m+1) = false`, and the new requirement `(0, m+1)`
@@ -567,6 +621,8 @@ The characterisation technique still applies, but the closed form it
 would prove is a different one, with views empty and requirements
 accumulating.
 
+</details>
+
 ## Verification
 
 | Item | Where |
@@ -576,4 +632,4 @@ accumulating.
 | Paper | `paper/paper_claim_ledger.md` `CL-NC-AUTONOMY` (level 8); `paper/pr11_correction_ledger.md` C6 and C10 |
 | Python | `code/derivation/represented.py` (`block_events`, `hist_up_to`, `events_all_accepted`, `productivity_report`), `code/derivation/completion.py::interp_step`, `artifacts/represented.json` key `productivity`, `tests/test_represented.py::test_productive_run_prefix_compatible`, `tests/test_completion.py::test_budget_saturation_matches_lean_nat`, `test_budget_trichotomy_every_descriptor_event` |
 | Check (Python, partly book) | `python textbook/checks/u50_horizon.py`: `spec_world` and the intermediates as Python (book) against the stream to stage 15, the block walk, the guard facts, the lift and the artifact, the trichotomy on 7 168 triples, the countermodel on all 64 |
-| Check (book Lean) | `python textbook/checks/u50_lean.py`: seventeen book declarations plus the ten Genesis theorems kernel-checked, Lean 4.33.0 |
+| Check (book Lean) | `python textbook/checks/u50_lean.py`: eighteen book reports plus the ten Genesis theorems kernel-checked, Lean 4.33.0 |

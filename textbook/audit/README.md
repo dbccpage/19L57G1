@@ -70,6 +70,15 @@ guards. Eight added book reports check equality-proof dependencies,
 identity colouring, unprotected separation loss, notes versus support,
 and a past refusal whose certificate is no longer current.
 
+**Panels and generation follow-up (2026-10-29).** The
+[Units 47–51 reading review](PANEL_READING_REVIEW_2026-10-29.md) adds five
+worked openings and distinguishes base support from panel certificates,
+candidate menus from executable events, finite probe classification from
+general minimality, and completed stages from event prefixes. Seven
+additional book reports include a finite carrier with an arbitrary
+proposition-valued relation; explicit table decidability is a separate
+assumption. Four locatedness cells remain OPEN.
+
 ## Scope and method
 
 - **Population.** The 75 tracked modules under `lean4/Derivation/` plus the

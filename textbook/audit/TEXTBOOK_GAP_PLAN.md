@@ -168,6 +168,14 @@ walkthrough. Changed-label practice has separate folded answers.
    candidates from permission to execute them. The revised opening route
    now extends through Unit 46. Remaining later chapters and research
    teaching still require substantive review.
+   The [panels and generation follow-up](PANEL_READING_REVIEW_2026-10-29.md)
+   expands five openings in Units 47–51, extending this route through
+   Unit 51. It separates panel-dependent certificates, policy-dependent
+   stopping, generated candidates, completed blocks, and finite comparison
+   classes. The locatedness discussion now distinguishes an explicit
+   Boolean relation table from a finite carrier with arbitrary relation
+   propositions. The four OPEN cells remain unresolved; later chapters
+   and research teaching still need review.
 7. **Evidence and reality.** Add exercises in separating a definition,
    a deduction, a computation, and a measurement. Give a model prediction,
    identify an observation that could disagree with it, and explain what

@@ -87,6 +87,29 @@ theorem twoSym_readings : C twoSym ∧ Bs twoSym ∧ D twoSym ∧ ¬ F twoSym �
 /-- D is exactly metatheoretic inequality, at an instance. -/
 theorem d_at_bool : D d2Bare ↔ (false : Bool) ≠ true := D_iff_ne d2Bare
 
+/-- A finite carrier can hold a relation with an arbitrary proposition as data. -/
+def paramRel (P : Prop) (x y : Fin 3) : Prop :=
+  (x = 0 ∧ y = 1) ∨ (x = 1 ∧ y = 2 ∧ P)
+
+theorem param_witness_irrefl (P : Prop) :
+    paramRel P 0 1 ∧ PrimDiff.Irrefl (paramRel P) := by
+  refine ⟨Or.inl ⟨rfl, rfl⟩, ?_⟩
+  intro x h
+  rcases h with ⟨h0, h1⟩ | ⟨h1, h2, _⟩
+  · exact (by decide : (0 : Fin 3) ≠ 1) (h0.symm.trans h1)
+  · exact (by decide : (1 : Fin 3) ≠ 2) (h1.symm.trans h2)
+
+/-- A Boolean realizer for that relation supplies a decision for the parameter.
+This is conditional, not a nonlocated countermodel or an independence proof. -/
+theorem located_requires_parameter_split (P : Prop) :
+    Located (paramRel P) → P ∨ ¬ P := by
+  rintro ⟨f, hf⟩
+  have hp : paramRel P 1 2 ↔ P := by simp [paramRel]
+  cases hv : f 1 2 with
+  | false =>
+    exact Or.inr (fun h => Bool.noConfusion (hv.symm.trans ((hf 1 2).mp (hp.mpr h))))
+  | true => exact Or.inl (hp.mp ((hf 1 2).mpr hv))
+
 end Textbook.U51
 
 #print axioms Textbook.U51.tally
@@ -101,6 +124,8 @@ end Textbook.U51
 #print axioms Textbook.U51.merger_in_closure
 #print axioms Textbook.U51.twoSym_readings
 #print axioms Textbook.U51.d_at_bool
+#print axioms Textbook.U51.param_witness_irrefl
+#print axioms Textbook.U51.located_requires_parameter_split
 #print axioms PrimitiveCore.D_iff_ne
 #print axioms PrimitiveCore.imp_a_d
 #print axioms PrimitiveCore.nimp_w_d
@@ -133,6 +158,8 @@ EXPECTED = {
     "Textbook.U51.merger_in_closure": NONE,
     "Textbook.U51.twoSym_readings": NONE,
     "Textbook.U51.d_at_bool": NONE,
+    "Textbook.U51.param_witness_irrefl": PROPEXT,
+    "Textbook.U51.located_requires_parameter_split": PROPEXT,
     "PrimitiveCore.D_iff_ne": NONE,
     "PrimitiveCore.imp_a_d": NONE,
     "PrimitiveCore.nimp_w_d": NONE,

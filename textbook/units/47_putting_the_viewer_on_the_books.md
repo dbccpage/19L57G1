@@ -1,33 +1,24 @@
-# Unit 47. Putting the viewer on the books: certification as a replayed, panel-relative quotient
+# Unit 47. Recording the evaluator panel: agreement depends on the tests
 
-**Claim.** For the fixed kernel, matching operational support and the same history give matching operational results. A replayed evaluator panel certifies agreement only relative to that panel.
+**Claim.** Equal base support gives equal replayed support, repair menus,
+exhaustion certificates, and quiescence verdicts under the same events.
+The extended state's panel is separate data; its certificates describe
+agreement under that panel's tests.
 
-**Status:** derived for the fixed kernel; the "outside" is the one
-field `supp` forgets; the absolute form is recorded as unformulable, not
-proved. **Lean:** `lean4/Derivation/NoOutside.lean` lines 32-268,
-imports `Represented`. **Axioms:** `equivariant_family_invariant` and
-`panel_equiv` none; the other ten `{propext, Quot.sound}`.
-**Depends on:** Unit 45 (the kernel, `supp`, `support_determines`,
-`certNegB`, `cert_not_correspondence`), Unit 39 (the single-output
-ceiling).
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
 
-## First pass
-
-The support contains the fields that the transition reads. The notes field is omitted because it does not affect those transitions.
-
-Putting the evaluator panel into an extended state makes its admission replayable. Agreement with that panel remains a claim about its declared tests, rather than correspondence with an outside interpretation.
-
-## Detailed claim and formal anchors
-
-`NoOutside` extends the one-step support factorization of
+**Detailed statement.** `NoOutside` extends the one-step support factorization of
 Unit 45 to whole histories (`support_replay`), to the repair family
 (`support_repairFamily`), to the obstruction certificate
 (`support_obstructed`) and to the quiescence verdict
 (`support_quiescent`), and bundles the four as the effectual-outside
 dichotomy (`effectual_outside_dichotomy`): two worlds that agree on the
-represented support and receive the same history agree on every
-operational result, so whatever changes a result already differs in the
-support, and what changes no result has no operational authority.
+represented support and receive the same history agree on the replayed
+support, repair family, obstruction certificate, and quiescence verdict.
+A difference in one of these four outputs therefore requires different
+starting support. Equality of these outputs is not a statement about
+every observable or about what exists outside the model.
 
 The
 invariance ceiling is restated for list-valued constructions
@@ -45,6 +36,50 @@ equivalence (`panel_equiv`), the negative certificate is exactly
 non-emptiness plus joint non-separation (`certNeg_iff_panelEquiv`), and
 the ceiling of Unit 45 carries over verbatim (`certC_ceiling`).
 
+**Status:** derived for the fixed kernel; the "outside" is the one
+field `supp` forgets; the absolute form is recorded as unformulable, not
+proved. **Lean:** `lean4/Derivation/NoOutside.lean` lines 32-268,
+imports `Represented`. **Axioms:** `equivariant_family_invariant` and
+`panel_equiv` none; the other ten `{propext, Quot.sound}`.
+**Depends on:** Unit 45 (the kernel, `supp`, `support_determines`,
+`certNegB`, `cert_not_correspondence`), Unit 39 (the single-output
+ceiling).
+
+</details>
+
+## First pass
+
+Keep two cards, A and B, and ask a panel of evaluators whether its
+tests distinguish them. Each evaluator can contain several Yes/No tests.
+It distinguishes the cards when at least one of its tests answers
+differently on them.
+
+| Panel | Every evaluator distinguishes A/B? | No evaluator distinguishes A/B? |
+|---|---|---|
+| One with a test saying Yes only on A | Yes | No |
+| One whose test says Yes on both | No | Yes |
+| Both of those evaluators | No | No |
+| No evaluators | No | No |
+
+The two certificate questions require a nonempty panel. They are not
+opposites: disagreement and an empty panel both produce two No answers.
+
+Now store the panel beside the base world. An admission event can change
+the panel while leaving the base untouched. Replay needs the starting
+extended state, the events, and the fixed interpreter.
+
+**Predict:** does agreement under a panel establish that no other test
+could distinguish A from B?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. A panel whose only test says Yes on both cards agrees about them.
+A different test can still say Yes only on A. The certificate describes
+the admitted tests, not every possible observation of reality.
+
+</details>
+
 ## Question
 
 Unit 45 proved that one step of the kernel reads only the represented
@@ -52,8 +87,8 @@ support, and it certified pairs with a panel handed in from outside the
 state. Two things were left. Does the one-step fact survive a whole
 history, and does it reach the verdicts and families a reader cares
 about? And can the panel itself be put inside the replayed state, so
-that a certificate is a fact about a history and not about an argument
-someone supplied? If so, what does a certificate then say, and what
+that a certificate can be computed from the starting extended state and
+admission history? If so, what does a certificate then say, and what
 does it still not say?
 
 ## What we already possess
@@ -90,13 +125,12 @@ evaluator in the panel contains one of `i`, `j` without the other.
 
 ## Plain-language interpretation
 
-Unit 45 kept a notebook field in the state that nothing reads. This
-module checks that it stays unread along any run, however long, and
-that the things a user asks of the kernel, the repair menu, the
-certificate of exhaustion, the quiescence verdict, never consult it.
-That is the whole content of "no observer from nowhere" inside this
-kernel: the one place an outside could hide has been shown to have no
-effect, and anything that does have an effect is in the books. The
+Unit 45 kept a notebook field that the operational-support projection
+omits. The note event still changes the literal record. This module
+checks that notes do not affect replayed support, the repair menu, the
+certificate of exhaustion, or the quiescence verdict under any supplied
+history. The title phrase "no observer from nowhere" has this scoped
+meaning here; the theorem does not cover every function of the record. The
 module and the paper both say what this is not: it is not a theorem that
 nothing exists outside the state. The type of `step` admits no other
 input, and a statement about inputs that are not represented cannot be
@@ -106,8 +140,8 @@ counts it as part of the verdict.
 The second half moves the panel of evaluators from the margin into the
 state. In Unit 45 one could ask "is this pair certified?" only after
 handing over a panel. Now evaluators are admitted by an event, like
-tokens, and the question has an answer that depends on the history
-alone. What the answer means is then worked out exactly: a negative
+tokens. The answer depends on the starting extended state and history
+under the fixed interpreter. What the answer means is then worked out exactly: a negative
 certificate holds when there is at least one evaluator and none of their
 columns splits the pair. That relation is an equivalence, a quotient. It
 is the panel's quotient, and the ceiling from Unit 45 stands: a column
@@ -396,6 +430,19 @@ theorem family_ceiling_bool :
 theorem no_fixed_point : ∀ b : Bool, (!b) ≠ b := by decide
 ```
 
+## Checked scope examples (optional)
+
+These additional Lean (book) checks make the scope distinctions
+above explicit. Their exact axiom reports stay within the existing
+`{propext, Quot.sound}` boundary.
+
+```lean
+theorem same_base_different_certificate :
+    supp (CWorld.mk story [[[0]]]).base = supp (CWorld.mk story [[[0, 1]]]).base ∧
+    certNegC ⟨story, [[[0]]]⟩ 0 1 = false ∧
+    certNegC ⟨story, [[[0, 1]]]⟩ 0 1 = true := by decide
+```
+
 ## Line-by-line Lean explanation
 
 **`support_replay` (32-39).** The statement quantifies the two worlds
@@ -450,8 +497,10 @@ Genesis theorem with that value.
 **`certPosC`, `certNegC` (160-164).** Unit 45's verdicts on the replayed
 panel. The book's `cert_reads_panel` is `⟨rfl, rfl⟩` for any base: the
 verdict does not read the base at all. That is the exact sense of
-"replay-integrated": the panel is history-determined, and the verdict is
-a function of it.
+"replay-integrated": the initial extended state and history determine
+the panel under the fixed interpreter, and the verdict is a function of
+that panel. Equal base support alone does not determine a certificate;
+`same_base_different_certificate` checks two panels over the same base.
 
 **`PanelEquiv` and `panel_equiv` (174-185).** Reflexivity is `Iff.rfl`
 per column; symmetry and transitivity are `.symm` and `.trans` of the
@@ -521,9 +570,12 @@ own columns: the panel certifies a pair the state itself separates.
 | `List`, `decide`, `simp only`, `cases`, `subst` | computation and proof | metatheory |
 | `propext`, `Quot.sound` | inherited | inside the declared boundary |
 
-**What the system holds.** Everything the kernel does reads the
-support; the panel is data admitted by an event; a certificate is the
-panel's quotient and nothing more.
+**What the system holds.** The four base outputs named above factor
+through operational support. The extended state separately stores its
+panel. Negative certification is nonempty-panel agreement, and that
+agreement relation is defined over natural-number indices, without
+checking admission or reading the base world. Positive and negative
+certificates can both be false; `split_panel` and `empty_panel` show why.
 
 **Phrases to read with care.**
 
@@ -547,6 +599,9 @@ the base of the story played no part in either answer?
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 With `[[1]]` added the panel is `[[[0]], [[0, 1]], [[1]]]`. On `(0, 1)`
 the evaluators `[[0]]` and `[[1]]` separate and `[[0, 1]]` does not, so
 `certPosC` is false (not every evaluator separates) and `certNegC` is
@@ -558,6 +613,8 @@ A panel certifies only when it is unanimous. `cert_reads_panel` says the
 base is not read: both verdicts are `rfl`-equal to `certNegB` and
 `certPosB` of the panel alone, whatever the base.
 
+</details>
+
 ## Verification
 
 | Item | Where |
@@ -568,4 +625,4 @@ base is not read: both verdicts are `rfl`-equal to `certNegB` and
 | Used later | `Initiality.lean` (`extension_retract`, `retract_section`) on `CWorld`, `stepC`, `replayC` |
 | Python | `code/derivation/represented.py` (`verdict`, `cert_pos`, `cert_neg`, `certification_report`), `artifacts/represented.json` key `certification`; no Genesis mirror of `supp`, `CWorld`, `PanelEquiv` |
 | Check (Python, partly book) | `python textbook/checks/u47_no_outside.py`: the dichotomy from four beginnings, the contrapositive on a sample, the extended kernel, the equivalence and characterisation on 507 panels, the ceiling against the artifact |
-| Check (book Lean) | `python textbook/checks/u47_lean.py`: sixteen book declarations plus eleven Genesis theorems kernel-checked, Lean 4.33.0 |
+| Check (book Lean) | `python textbook/checks/u47_lean.py`: seventeen book reports plus eleven Genesis theorems kernel-checked, Lean 4.33.0 |

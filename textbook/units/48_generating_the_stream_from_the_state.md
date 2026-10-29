@@ -1,36 +1,24 @@
-# Unit 48. Generating the stream from the state, and describing the kernel to itself: the one thing that stays outside
+# Unit 48. Generating candidates from a stored policy
 
-**Claim.** A stored policy and fixed interpreter generate the declared next-event families. The tower driver reproduces its supplied stream, while the interpreter and its iteration remain part of the declared apparatus.
+**Claim.** The fixed interpreter reads a stored policy to generate its declared
+event family. A quiescent world empties the close family; tower still
+emits a block. The close menu includes the defined repairs and singleton-column candidates,
+which still face the execution guards.
 
-**Status:** derived
-relative to the fixed interpreter and its metatheoretic iteration; the
-interpreter is not a member of the family it interprets, the module's
-named irreducible obligation and the one OPEN row of the dependency
-map. **Lean:** `lean4/Derivation/Constitution.lean` lines 44-391,
-imports `Completion`. **Axioms:** `budget_replenishment_represented` and
-`allDescs_length` none; `allDescs_complete` `propext`; the other
-thirteen `{propext, Quot.sound}`. **Depends on:** Unit 45 (`histUpTo`,
-`worldAt`, `blockEvents`, `worldAt_growth`,
-`worldAt_three_quiescent`), Unit 46 (`augFamily`,
-`augFamily_retains_ties`).
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
 
-## First pass
-
-A policy tells the interpreter which next-event family to produce. A driver then selects or appends the specified block according to its declared rule.
-
-Read those roles separately. Storing the policy does not derive the interpreter, and the tower's fresh-name rule is proved fresh only along its specified run.
-
-## Detailed claim and formal anchors
-
-`Constitution` replaces the supplied stream of Unit 45 by a
+**Detailed statement.** `Constitution` replaces the supplied stream of Unit 45 by a
 generated one.
 
 A policy datum (`Policy`: idle, tower, close) sits beside
 the world; a fixed interpreter `nextFamily` maps the pair to the
-complete family of next event blocks (empty, one tower block, or every
-accepted repair and extension of every violated requirement:
-`closeBlocks_complete_repair`, `closeBlocks_complete_aug`); a quiescent
-world generates the empty family (`nextFamily_stop`); the driver
+declared family of next event blocks: empty for idle, one block for
+tower, and the members of `repairFamily` and `augFamily` for each
+violated recorded requirement under close. The two completeness
+theorems cover membership in those defined families, not every column
+passing `augOkB`. A quiescent world generates an empty close family
+(`nextFamily_stop`); tower still generates one block. The driver
 `towerGen` appends the tower family's unique member at each stage and
 reproduces the supplied stream exactly (`driver_reproduces_tower`).
 
@@ -48,6 +36,55 @@ as a six-bit descriptor (`ConstitutionDesc`); a fixed family interpreter
 `interpStep` executes any descriptor; the all-on descriptor executes to
 exactly the sealed step (`interp_describe`); the family is completely
 enumerated (`allDescs_complete`, 64 members).
+
+**Status:** derived
+relative to the fixed interpreter and its metatheoretic iteration; the
+interpreter is not a member of the family it interprets, the module's
+named irreducible obligation and the one OPEN row of the dependency
+map. **Lean:** `lean4/Derivation/Constitution.lean` lines 44-391,
+imports `Completion`. **Axioms:** `budget_replenishment_represented` and
+`allDescs_length` none; `allDescs_complete` `propext`; the other
+thirteen `{propext, Quot.sound}`. **Depends on:** Unit 45 (`histUpTo`,
+`worldAt`, `blockEvents`, `worldAt_growth`,
+`worldAt_three_quiescent`), Unit 46 (`augFamily`,
+`augFamily_retains_ties`).
+
+</details>
+
+## First pass
+
+Start with positions 0 and 1, a column saying Yes only on 1, and
+the requirement “separate 0 from 1.” The requirement is met, so this
+world is quiescent: no recorded requirement is currently violated.
+
+Give this same world three different policy labels:
+
+| Policy | Generated next-event family |
+|---|---|
+| idle | Empty, whether requirements are met or not |
+| close | Empty here, because no requirement is violated |
+| tower | One block: set budget to 1, admit 2, require 0/2, add column [2] |
+
+Quiescence does not itself stop every policy. The interpreter reads the
+policy as well as the world. The tower driver appends its single block;
+the close policy has no driver defined here.
+
+A generated candidate is a proposed event. A nonempty menu can still
+contain events that do nothing when execution checks the budget or
+permission. And the close menu's two singleton columns do not list
+every structurally acceptable new column.
+
+**Predict:** does storing a policy also store the interpreter that gives
+the label its meaning?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. The fixed interpreter is separately defined apparatus. The later
+six-switch descriptor describes its specified guards, while another
+fixed function interprets those switches.
+
+</details>
 
 ## Question
 
@@ -72,7 +109,9 @@ so that the kernel describes itself? If so, what is left outside?
 list of events. Idle gives none; tower gives one block
 `[setBudget 1, admitTok n, require 0 n, addView [n]]` with `n` the
 carrier length; close gives, for each violated requirement, one block
-per accepted repair and one per accepted extension.
+per member of `repairFamily` and `augFamily`. The latter supplies the
+two singleton candidates, filtered by structural acceptance. Neither
+family bypasses the separate budget and license checks on execution.
 
 *Driver.* `towerGen 0 = [admitTok 0]`; `towerGen (k+1)` is `towerGen k`
 followed by the head of the tower family at the replayed world. This is
@@ -87,12 +126,15 @@ budget, gate on license, certify refusals. `interpStep d` is a copy of
 
 In Unit 45 someone had to hand the kernel its next events. Here the
 kernel reads its own state and a policy datum, and a fixed rule produces
-the complete list of what could come next. For the tower policy that
-list has exactly one entry, so appending it is not a choice. For the
-closure policy the list holds every accepted response to every violated
-requirement, both orientations of an extension included, and nothing is
-picked. On a quiescent world the list is empty: the stop is an answer,
-not a crash. The fresh name is simply "the number of tokens so far",
+the next-event family specified by that policy. The tower family has
+one entry, so its driver appends that block without choosing among ties.
+The close family includes every defined repair-menu member and both
+accepted singleton-extension candidates for every recorded violation.
+It selects none. This does not enumerate all structurally accepted
+columns: `accepted_outside_close_menu` checks an omitted column `[0, 1]`.
+At zero budget, the two listed candidates can both be blocked
+(`candidates_without_execution`). On a quiescent world the close family
+is empty; the tower family is not (`quiescent_policy_difference`). The fresh name is simply "the number of tokens so far",
 which is new along the tower because the tower admits the numbers in
 order, and which is not new in general, as a one-line countermodel
 shows. The budget is topped up by an event the driver itself emits, in
@@ -419,6 +461,30 @@ theorem all_off_in_family :
     (⟨false, false, false, false, false, false⟩ : ConstitutionDesc) ∈ allDescs := by decide
 ```
 
+## Checked scope examples (optional)
+
+These additional Lean (book) checks make the scope distinctions
+above explicit. Their exact axiom reports stay within the existing
+`{propext, Quot.sound}` boundary.
+
+```lean
+theorem quiescent_policy_difference :
+    quiescentB (genWorld 1).w = true ∧
+    nextFamily ⟨(genWorld 1).w, .close⟩ = [] ∧
+    nextFamily ⟨(genWorld 1).w, .tower⟩ =
+      [[.setBudget 1, .admitTok 2, .require 0 2, .addView [2]]] := by decide
+
+/-- The two-singleton menu does not enumerate every structurally accepted column. -/
+theorem accepted_outside_close_menu :
+    augOkB story [0, 1] = true ∧ [Event.addView [0, 1]] ∉ closeBlocks story := by decide
+
+/-- The candidate menu ignores budget; at zero, both emitted events are blocked. -/
+theorem candidates_without_execution :
+    let w := { story with budget := 0 }
+    closeBlocks w = [[.addView [1]], [.addView [2]]] ∧
+    step w (.addView [1]) = w ∧ step w (.addView [2]) = w := by decide
+```
+
 ## Line-by-line Lean explanation
 
 **`Policy`, `GWorld` (44-53).** Three constructors and a pair. The
@@ -508,9 +574,11 @@ that theorem needs only `propext`. The book's `kernel_in_family` and
 
 ## What has been proved
 
-- The tower family is a singleton; the closure family contains every
-  accepted repair and every accepted extension of every violated
-  requirement; a quiescent world's closure family is empty (Genesis).
+- The tower family is a singleton; the close family contains every
+  member of the defined repair and singleton-extension families for
+  each recorded violation. A quiescent world's close family is empty
+  (Genesis). Three book examples distinguish policy-specific stopping,
+  structural acceptance outside the menu, and candidates blocked at execution.
 - The generated history equals the supplied stream at every stage
   (Genesis; at stage 5 twice in the book, by the theorem and by
   evaluation; to stage 15 in Python).
@@ -555,10 +623,11 @@ that theorem needs only `propext`. The book's `kernel_in_family` and
 | `List.flatMap`, `mem_filter`, `mem_range`, `omega`, `decide` | computation and proof | metatheory |
 | `propext`, `Quot.sound` | inherited | inside the declared boundary |
 
-**What the system holds.** A complete next-event family computed from
-the state, with the tower member unique and the closure members all
-retained; a stop that is a verdict; the six guards of the kernel as six
-switches, with the kernel the all-on setting.
+**What the system holds.** The policy's defined next-event family,
+with a unique tower member and all members of the specified close menus
+retained. The close policy stops at quiescence. Six switches describe
+the stated guard choices, with the kernel the all-on setting; the
+interpreter and the driver's iteration remain separately defined apparatus.
 
 **Phrases to read with care.**
 
@@ -584,20 +653,26 @@ does not, and what `closeBlocks` would contain if it did not.
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 After `[admitTok 0, setBudget 1, admitTok 1, require 0 1, addView [1]]`
 the world has data `[0, 1]`, views `[[1]]`, requirements `[(0, 1)]`,
 budget 0. The column `[1]` contains `1` and not `0`, so `(0, 1)` is
 satisfied and no requirement is violated; the world is quiescent, so
 `nextFamily_stop` applies and the family is `[]`. Had the requirement
 been violated, say with no column, `closeBlocks` would hold one block
-per accepted mark in the repair family and one per accepted extension
+per mark in the repair family and one per singleton-column candidate
 in `augFamily`: with data `[0, 1]`, no column and budget 0 the family
 is `[[.addView [0]], [.addView [1]]]`, both orientations, because
 `augOkB` reads bounds, novelty and increase and not the budget. The
 budget gate is the kernel's, in `step`, which would reject both blocks
-at budget 0 (Unit 45, `progress_needs_budget`). The family lists what
-`augOkB` accepts; whether the kernel then performs it is a separate
+at budget 0 (Unit 45, `progress_needs_budget`). The augmentation part
+lists the structurally accepted singleton candidates, not every column
+passing `augOkB`; whether the kernel then performs one is a separate
 check, and Unit 50 proves that along the tower it always does.
+
+</details>
 
 ## Verification
 
@@ -609,4 +684,4 @@ check, and Unit 50 proves that along the tower it always does.
 | Used later | `Horizon.lean` (every stage), `Initiality.lean` (the six separations, `unique_compliant`), `InterpreterBoundary.lean` (the diagonal) |
 | Python | `code/derivation/completion.py` (`tower_gen`, `next_family`, `close_blocks`, `fresh_name`, `interp_step`, `all_descs`, `protocols_report`), `artifacts/completion_protocols.json`, `tests/test_completion.py` (`test_driver_reproduces_supplied_stream`, `test_interp_kernel_desc_matches_step`, `test_freshness_scoped_to_tower_invariant`) |
 | Check (Python) | `python textbook/checks/u48_constitution.py`: six stages of the ladder, reproduction to 15, the closure family and stop, the freshness countermodel, the 64 descriptors on a 91-pair battery, the report against the artifact |
-| Check (book Lean) | `python textbook/checks/u48_lean.py`: eighteen book declarations plus eleven Genesis theorems kernel-checked, Lean 4.33.0 |
+| Check (book Lean) | `python textbook/checks/u48_lean.py`: twenty-one book reports plus eleven Genesis theorems kernel-checked, Lean 4.33.0 |

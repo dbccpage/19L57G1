@@ -1,26 +1,14 @@
-# Unit 49. Minimal among what? A six-probe singleton in a 64-member class
+# Unit 49. One descriptor passes six probes in a class of 64
 
-**Claim.** Among the declared 64 guard-toggle descriptors, exactly one passes the six stated probes. This is uniqueness within a finite comparison class and test battery.
+**Claim.** Exactly one of the 64 declared guard-toggle descriptors passes all
+six stated probes. Lean checks that finite classification. The result
+does not compare arbitrary controllers or prove a smallest possible
+comparison class or test battery.
 
-**Status:** VERIFIED_FINITE, class- and
-battery-relative; categorical initiality is not claimed and the
-terminal was renamed to say so. **Lean:** `lean4/Derivation/Initiality.lean`
-lines 52-169, imports `Constitution` and `NoOutside`. **Axioms:**
-`retract_section` none; the other ten `{propext, Quot.sound}`.
-**Depends on:** Unit 48 (`ConstitutionDesc`, `interpStep`,
-`kernelDesc`, `allDescs`, `allDescs_complete`), Unit 47 (`CWorld`,
-`stepC`, `replayC`), Unit 45 (the sealed theorems the probes
-instantiate).
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
 
-## First pass
-
-A probe supplies one world and one event, then checks the resulting behavior. Each of the six probes targets one guard.
-
-Passing all six identifies one descriptor in the declared list of 64. It does not compare every possible controller or establish categorical initiality.
-
-## Detailed claim and formal anchors
-
-`Initiality` declares a comparison class, the 64 descriptors
+**Detailed statement.** `Initiality` declares a comparison class, the 64 descriptors
 of Unit 48 run by the family interpreter, and a compliance battery of
 six probes, one per guard, each a single world and event on which the
 sealed kernel is a no-op.
@@ -35,12 +23,54 @@ projects back onto the kernel along every base event and history
 (`extension_retract`, `extension_retract_replay`, split by
 `retract_section`).
 
+**Status:** VERIFIED_FINITE, class- and
+battery-relative; categorical initiality is not claimed and the
+terminal was renamed to say so. **Lean:** `lean4/Derivation/Initiality.lean`
+lines 52-169, imports `Constitution` and `NoOutside`. **Axioms:**
+`retract_section` none; the other ten `{propext, Quot.sound}`.
+**Depends on:** Unit 48 (`ConstitutionDesc`, `interpStep`,
+`kernelDesc`, `allDescs`, `allDescs_complete`), Unit 47 (`CWorld`,
+`stepC`, `replayC`), Unit 45 (the sealed theorems the probes
+instantiate).
+
+</details>
+
+## First pass
+
+Suppose a world already contains the token 5. Request admission of
+5 again. With the duplicate-admission guard on, the stored list stays
+`[5]`. Switch that guard off and the result is `[5, 5]`. This one
+world-and-event test is a probe: it tells the two settings apart.
+
+The descriptor has six switches, each either on or off. That gives
+`2 × 2 × 2 × 2 × 2 × 2 = 64` settings. The declared battery has six
+probes, one designed for each switch. All 64 settings are checked; only
+the all-on setting passes the whole battery.
+
+This finite conclusion has a Lean proof. Its scope is the specified
+interpreter, the 64 settings, and those probes. Passing these tests does
+not test every future situation or compare a controller with different
+operations.
+
+**Predict:** if a cost rule makes fewer switches cheaper, is the
+all-off setting the cheapest compliant setting?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. It fails the battery. There is only one compliant setting, so it
+minimizes any cost on that compliant set. That does not make it cheapest
+among all 64 settings. Always ask what candidates the comparison permits.
+
+</details>
+
 ## Question
 
 Is the kernel the most primitive engine of its kind? The question has
 no answer until "its kind" is a declared set and "primitive" a declared
-test. This unit declares both as small as they can be made, proves the
-answer inside them, and says what the answer does not cover.
+test. This unit declares a finite class and a test battery, proves the
+answer inside them, and says what the answer does not cover. It does
+not prove that the class or battery is the smallest possible.
 
 ## What we already possess
 
@@ -78,12 +108,14 @@ accepts a mark that breaks a satisfied requirement, spends at zero,
 adds a column without the license, records a refusal with no
 certificate. Then run all six tests on all sixty-four settings. One
 setting passes: the kernel's. Any cost you care to put on the settings
-has the same minimum, because there is one candidate.
+selects that same setting when minimized over the compliant set,
+because that set has one member. It need not minimize cost over all 64.
 
 What this is: a finite, decided fact about a declared list and a
 declared test. What it is not: a theorem that the kernel is minimal
-among engines in general, or that a guard is needed for a sealed
-theorem. "Load-bearing" means "fails its probe", and the probe is one
+among engines in general. Individual probe failures can witness failure
+of a preservation claim for a changed kernel, as `accept_off_breaks`
+shows; they do not establish necessity among arbitrary implementations. "Load-bearing" means "fails its probe", and the probe is one
 instance chosen so that the kernel passes. The paper renamed the
 terminal from "initial kernel proved" to "unique probe-compliant
 descriptor in the declared toggle class" for exactly this reason. The
@@ -440,6 +472,9 @@ what that says about what the six bits describe.
 
 ## Answer
 
+<details>
+<summary>Worked answer</summary>
+
 The kernel appends every note (`step w (.note n)` writes `notes ++
 [n]`), so no `note` event is a no-op on any world: a probe needs a
 no-op to calibrate on. Nor does any bit of the descriptor touch the
@@ -450,6 +485,8 @@ exist for that field. This says what Unit 48 said: the six bits select
 which guards are consulted; the handling of notes, like the event
 grammar and the application functions, is written into `interpStep`
 and is not described by any member of the class.
+
+</details>
 
 ## Verification
 

@@ -226,11 +226,11 @@ now introduce their grouping meaning. Further conceptual review remains.
 | `Unit 44` | [`units/44_reflect_obstruct_close_or_propose.md`](units/44_reflect_obstruct_close_or_propose.md) | Retained, protected, and unseen: when a pair is active | `DiffInterface` | `Unit 25`, `Unit 39` |
 | `Unit 45` | [`units/45_a_kernel_with_no_outside.md`](units/45_a_kernel_with_no_outside.md) | Replaying represented events under a fixed kernel | `Represented` | `Unit 44` |
 | `Unit 46` | [`units/46_rule_1_in_a_fixed_kernel.md`](units/46_rule_1_in_a_fixed_kernel.md) | Repair or menu exhaustion, with two column-extension candidates | `Completion` | `Unit 45` |
-| `Unit 47` | [`units/47_putting_the_viewer_on_the_books.md`](units/47_putting_the_viewer_on_the_books.md) | Putting the viewer on the books: certification as a replayed, panel-relative quotient | `NoOutside` | `Unit 45`, `Unit 46` |
-| `Unit 48` | [`units/48_generating_the_stream_from_the_state.md`](units/48_generating_the_stream_from_the_state.md) | Generating the stream from the state, and describing the kernel to itself | `Constitution` | `Unit 45`, `Unit 46` |
-| `Unit 49` | [`units/49_minimal_among_what.md`](units/49_minimal_among_what.md) | Minimal among what? A six-probe singleton in a 64-member class | `Initiality` | `Unit 48` |
-| `Unit 50` | [`units/50_from_stage_3_to_every_stage.md`](units/50_from_stage_3_to_every_stage.md) | From stage 3 to every stage: characterising the generated run | `Horizon` | `Unit 45`, `Unit 48` |
-| `Unit 51` | [`units/51_nine_readings_of_one_difference.md`](units/51_nine_readings_of_one_difference.md) | Nine readings of one difference | `PrimitiveCore` | `Unit 14`, `Unit 23`, `Unit 25` |
+| `Unit 47` | [`units/47_putting_the_viewer_on_the_books.md`](units/47_putting_the_viewer_on_the_books.md) | Recording the evaluator panel: agreement depends on the tests | `NoOutside` | `Unit 45`, `Unit 46` |
+| `Unit 48` | [`units/48_generating_the_stream_from_the_state.md`](units/48_generating_the_stream_from_the_state.md) | Generating candidates from a stored policy | `Constitution` | `Unit 45`, `Unit 46` |
+| `Unit 49` | [`units/49_minimal_among_what.md`](units/49_minimal_among_what.md) | One descriptor passes six probes in a class of 64 | `Initiality` | `Unit 48` |
+| `Unit 50` | [`units/50_from_stage_3_to_every_stage.md`](units/50_from_stage_3_to_every_stage.md) | Proving the shape of every completed tower stage | `Horizon` | `Unit 45`, `Unit 48` |
+| `Unit 51` | [`units/51_nine_readings_of_one_difference.md`](units/51_nine_readings_of_one_difference.md) | Separate the witness, the laws, and the allowed operations | `PrimitiveCore` | `Unit 14`, `Unit 23`, `Unit 25` |
 | `Unit 52` | [`units/52_the_two_point_witness_is_initial.md`](units/52_the_two_point_witness_is_initial.md) | The two-point witness is initial, and that is all initiality says | `PrimitiveCats` | `Unit 24`, `Unit 51` |
 | `Unit 53` | [`units/53_the_fixed_interface_a_collision_meets.md`](units/53_the_fixed_interface_a_collision_meets.md) | The fixed interface a collision meets | `PrimitiveContact`, `ContactBridge` | `Unit 51`, `Unit 52` |
 | `Unit 54` | [`units/54_from_an_asserted_difference_to_a_response.md`](units/54_from_an_asserted_difference_to_a_response.md) | From an asserted difference to a response | `PrimitivePassage` | `Unit 51`, `Unit 53` |
