@@ -921,6 +921,13 @@ Source edition: [{commit_short}](https://github.com/dbccpage/19L57G1/commit/{com
     # 11. Update Home.md
     home_md = f"""# Genesis: A Reader's and Developer's Guide
 
+> [!TIP]
+> **What you'll take away:** A proposal is not an admission. A computed minimum is not authorization. A finite receipt is not an unbounded theorem.
+>
+> **Ten minutes:** [First steps](textbook_first_steps) → [Presentations and families]({part2_entries[0][2]}) → [Limitations](limitations_and_open_obligations).
+>
+> **The full course:** {len(part1_entries) + len(part2_entries)} units; the claim ledgers say which results are Lean-checked and which remain open.
+
 Genesis (`19L57G1`) studies what follows from an opaque seed `<>` under declared finite challenges, what has to be admitted separately, and where the evidence stops. It contains a replayable admission kernel, deterministic searches, Lean 4 proofs, claim ledgers, a **{len(part1_entries) + len(part2_entries)}-unit formal textbook** with separate beginner routes, and a post-seal research estate.
 
 This Wiki is an explanatory map and mirrored textbook of the published repository, not an amendment to its sealed experiment, a new derivation, or a certification of all its claims. `AuthorityEffect: None`.
