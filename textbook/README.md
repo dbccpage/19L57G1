@@ -34,6 +34,10 @@ Its [evidence continuation](reasoning_lab/08_from_a_model_to_a_trial.md)
 adds a protocol, explicitly fictional trial logs, conflicting repeats,
 uncertain readings, and an optional physical worksheet. It separates
 calculations on supplied records from observations actually collected.
+The [operational recording continuation](reasoning_lab/12_target_and_record.md)
+then introduces a separate P200 model: targets, stored marks, actual read/
+write dependencies, observer agreement and explicit message updates.
+Its protocol desk distinguishes model calculations from device evidence.
 Continue with the [`Search lab`](search_lab/README.md) for a complete
 worked demand, candidate search, price comparison, protection example,
 and portable event replay.

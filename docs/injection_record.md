@@ -978,3 +978,31 @@ Twenty-two authoring tests pass. The actual handler fixture checks 168
 history/cost selections and 432 square selections; it supplies no browser
 or learning outcome. All twenty added Lean reports have exactly
 `propext, Quot.sound`.
+
+## Reasoning-lab operational-protocol continuation (2026-10-31)
+
+Eleven packet mutations, one stale desk, and two assembled child-process
+Lean mutations are rejected. Original sources and receipts are unchanged;
+the unmodified reasoning wrapper checks 45 exact reports.
+
+| Defect injected | Observed rejection |
+|---|---|
+| Refresh A's stored mark merely by advancing its target | Packet comparison retains the old mark |
+| Infer equal targets from coarse matching marks | Packet comparison retains the distinct targets |
+| Commute a non-disturbing readout with a change of the same target | Packet comparison retains the record difference |
+| Treat equal diagnostic counters as restoring commutation | Packet comparison retains the unequal records |
+| Make every overlapping pair fail | Packet comparison retains the identity-operation control |
+| Promote footprint labels to behavior proofs | Packet comparison retains the false-metadata counterexample |
+| Promote the instrument flag to target preservation | Packet comparison retains the aliased-destination counterexample |
+| Infer no target change from a zero diagnostic | Packet comparison retains the zero-price change |
+| Relabel the formal carrier as six bounded fields | Packet comparison rejects the wrong scope |
+| Count supplied preparations as physical observations | Packet comparison rejects the false count |
+| Change B's shares merely because pair agreement changed | Packet comparison retains the pointwise unchanged B marks |
+| Alter the standalone protocol desk without rebuilding it | Exact renderer comparison rejects the stale desk |
+| Replace the book's same-target noncommutation conclusion with commutation | Lean rejects the false proof; original counterexample recovers |
+| Replace target inequality with equality in the coarse-probe exhibit | Lean rejects the false equality; original exhibit recovers |
+
+Thirty authoring tests pass. The new handler fixture checks 192 record and
+72 order predictions. The 32 added reports have 29 empty axiom sets, one
+`propext` set and two `propext, Quot.sound` sets. Browser rendering and
+learning evidence are separate from those checks.

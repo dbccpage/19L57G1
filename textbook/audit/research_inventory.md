@@ -9,8 +9,9 @@ lab's selected lessons for `boundary_seed`, `side_free`, and
 `oriented_boundary`, plus the Same-record lab's selected introduction to
 `identification_dual`, and the Number lab's selected `qm_bridge` lessons, plus the Map lab's
 selected `native_bridge` continuation and the Path lab's selected
-`native_structure` cost continuation.
-The other 111
+`native_structure` cost continuation, plus the Reasoning lab's selected
+P200 recording-protocol continuation.
+The other 110
 have no dedicated research curriculum established by this audit. The
 Growth lab's comparison with `two_sided_commitment` is a scoped reference,
 not a complete treatment of that tree. The Boundary lab is also a selected
@@ -108,7 +109,7 @@ Group assignments below are proposed curriculum organization; they assert no mat
 | Observation, costs, growth, and limits | `thinghood` | Not yet established | [research/thinghood/STATUS.md](../../research/thinghood/STATUS.md) |
 | Observation, costs, growth, and limits | `twin_pricing` | Not yet established | [research/twin_pricing/FINDINGS.md](../../research/twin_pricing/FINDINGS.md) |
 | Observation, costs, growth, and limits | `unboundedness` | Not yet established | [research/unboundedness/CLAIMS.md](../../research/unboundedness/CLAIMS.md) |
-| Operational physics, information, semantics, and agency | `p200_operational_protocols` | Not yet established | [research/p200_operational_protocols/CLAIMS.md](../../research/p200_operational_protocols/CLAIMS.md) |
+| Operational physics, information, semantics, and agency | `p200_operational_protocols` | [Reasoning lab: targets, records and update order](../reasoning_lab/12_target_and_record.md) | [research/p200_operational_protocols/CLAIMS.md](../../research/p200_operational_protocols/CLAIMS.md) |
 | Operational physics, information, semantics, and agency | `p201_relational_spacetime` | Not yet established | [research/p201_relational_spacetime/CLAIMS.md](../../research/p201_relational_spacetime/CLAIMS.md) |
 | Operational physics, information, semantics, and agency | `p203_composite_systems` | Not yet established | [research/p203_composite_systems/CLAIMS.md](../../research/p203_composite_systems/CLAIMS.md) |
 | Operational physics, information, semantics, and agency | `p204_operational_valuations` | Not yet established | [research/p204_operational_valuations/CLAIMS.md](../../research/p204_operational_valuations/CLAIMS.md) |

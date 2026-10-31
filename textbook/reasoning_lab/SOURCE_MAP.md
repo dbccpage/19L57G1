@@ -124,3 +124,86 @@ are supplied exercises, not a measured learning result.
 
 No novice comprehension, unfamiliar-example transfer, reading-time result,
 delayed retention, causal effect, or empirical correspondence is claimed.
+
+## Operational recording continuation: Lessons 12–17
+
+The new protocol packet and desk are separate from the existing three-card
+logic and fictional-log packet. They consume the current P200 README,
+ledger, four Python owners and four Lean bodies read-only. The model is
+supplied outside the seal and has no proved bridge to a device or the
+sealed opaque mark.
+
+| Lesson | Meaning used | Source and boundary |
+|---|---|---|
+| 12 | Target and record occupy different fields; a readout overwrites one record | `readout1`, `record1`, `readout1_preserves_l1`; book stale-record and reread exhibit |
+| 13 | Named updates with disjoint actual dependencies commute | `readout_step_commutation`, `readout1_stepL2_commutation`, `readout2_stepM_commutation`, `readout_replayL1_commutation`; book same-target counterexample |
+| 14 | Disturbing readout stores the old probe value, then changes target and counter | `readout1_disturbing`, `disturbing_readout_fails_commute`; the native theorem is a concrete failure, not every overlapping pair |
+| 15 | Same-probe agreement, swap correspondence, and a conditional injective converse | `inter_observer_agreement`, `readout1_swap`, `readout2_swap`, `swap_symmetric_eq`; fresh joint readout and identical probes remain explicit |
+| 16 | A local update leaves B's record invariant before the specified relay | `spacelike_non_signaling`, `spacelike_marginal_invariance`, `causalRelay`, `causal_signaling_divergence`; copies and a new readout must actually occur |
+| 17 | Pointwise equality preserves a supplied finite list of B's marks | native exact counting functions and book `remote_record_list`; no arbitrary probability-space theorem is claimed |
+
+### Carrier and callback scope
+
+The formal `CarrierState` has six `Nat` fields. There is no finite bound
+in that type. Python uses integers and offers optional capacity checks,
+but its diagnostic field has no upper capacity even there. The README's
+finite-carrier wording must not be read as the formal theorem's domain.
+The book uses nonnegative supplied inputs and explicitly finite starting
+populations; those populations are not a closed finite state space.
+
+Python footprint declarations are metadata. A `ProcessStep` can falsely
+name another place in its read/write sets while actually changing A.
+The book retains such a counterexample; it does not promote the metadata
+to a generic proof. Likewise, the generic instrument factory allows a
+record destination to alias its target: its non-disturbing flag alone
+does not prove target preservation. The desk uses only the fixed,
+separate A→record A and B→record B operations covered by the definitions.
+
+The configured counter can be zero despite a target change. Equal
+counters also do not repair a stored-mark difference between two orders.
+The source does not prove a general theorem from overlapping footprints
+to noncommutation. The identity-operation control commutes despite its
+shared place. The source's asymmetric-observer theorem is one copying
+probe exhibit; the book separately proves the converse under an explicit
+all-natural-number injectivity hypothesis.
+
+The Python propagation contrast constructs fresh example states instead
+of replaying its supplied state parameter. The book consumes that helper
+only at its declared example. Its general timelines use explicit book
+send/receive adapters for the exact Lean field updates, independently
+checked on the declared population and by a concrete Lean relay exhibit.
+The record remains unchanged until a readout writes it.
+
+### Checked populations and reports
+
+Four target pairs, three probes and eight procedures give 96 timelines
+and 192 selected-record predictions. Six operation pairs give 72 full-state
+order comparisons. The independent census uses A/B in 0/1/2 and the four
+remaining fields in 0/1, giving 144 starts. All 27 probe tables on the
+three target values and six pairs give 23,328 comparisons. Periodic
+extension of those probe tables is supplied for unused natural inputs;
+no agreement with arbitrary probes outside the checked values is claimed.
+All before/after fields and both operation orders are independently
+expanded rather than trusting footprint labels.
+
+Three ensembles use four supplied preparations, with repeated rows counted
+exactly. Agreement counts and B-mark shares remain separate. Changed
+practice additionally checks stale marks at A=2, receiving an old message,
+and a three-row list with exact shares 1/3 and 2/3. Empty lists supply no
+preparations and no empirical support. All physical-observation counts
+are zero. The existing logic and evidence populations are unchanged.
+
+The exact Protocol, Commutation, Observers and NonSignaling bodies are
+re-elaborated after removing only reviewed local import lines. Twenty-three
+selected owner reports and nine new book reports give 32 added axiom sets:
+29 empty, one `{propext}`, two `{propext, Quot.sound}`. With the original
+thirteen reasoning reports the wrapper checks 45: 39 empty, two `propext`,
+four both-axiom. This is a selected source/book scope, not the owner's
+51-declaration compiled census or a replacement frozen receipt.
+
+The named source-text hashes use UTF-8/LF normalization. The new desk
+selects recorded cases, saves no answers and makes no runtime request.
+Its bundled answers make it a study aid, not a blind comprehension trial.
+Calibration, unit changes, stochastic networks, general device behavior,
+physical geometry and independent novice learning remain outside this
+selected introduction. P201 owns the separate calibration model.

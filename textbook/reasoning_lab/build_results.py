@@ -9,3 +9,4 @@ from textbook.search_lab.build_results import build, render  # noqa: E402,F401
 if __name__ == "__main__":
     source = Path(__file__).resolve().parent
     build(source, source / "results.html")
+    build(source, source / 'protocols.html',template_name='protocols.template.html',packet_name='protocols.json')

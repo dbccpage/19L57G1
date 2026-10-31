@@ -87,3 +87,6 @@ NAMES = ["chain", "both_directions", "no_automatic_reverse", "incompatible_appli
          "reverse_fails_at_b", "triangle_iff_not_round", "individual_without_common",
          "recover_on_smaller_domain", "no_recovery_on_full_domain"]
 SOURCE += "\n" + "\n".join("#print axioms Textbook.ReasoningLab." + name for name in NAMES) + "\n"
+from .protocols_lean import build_checks
+PROTOCOL_SOURCE,PROTOCOL_NAMES=build_checks()
+SOURCE += '\n'+PROTOCOL_SOURCE

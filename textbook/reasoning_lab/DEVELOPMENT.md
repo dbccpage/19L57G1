@@ -65,3 +65,30 @@ Also check the evidence selector, raw-row display, prediction gating,
 reset after case changes, uncertainty cases, protocol mismatch, and the
 retained repeat. The optional physical worksheet is blank; no readings
 or participant scores may be inferred from generating it.
+
+For the operational continuation, run:
+
+```text
+python textbook/reasoning_lab/protocols.py --population
+python -m unittest discover -s textbook/reasoning_lab -p "test*.py"
+node textbook/reasoning_lab/test_protocol_controls.mjs
+```
+
+An intentional reviewed update uses `protocols.py --write`. It writes
+only the new `protocols.json` and `protocols.html`; the shared renderer
+accepts those explicit names while existing desks keep their defaults.
+The original claim/evidence packet and desk retain their content.
+The existing canonical reasoning wrappers check both packets and the
+added exact research/book proofs, giving 45 axiom reports overall.
+Never alter the expected sets to accept a failed proof or an extra axiom.
+
+Thirty authoring tests cover the old and new routes. The new event-handler
+fixture exercises 192 record predictions and 72 order predictions,
+including gates, wrong feedback, shared setup resets and ensemble counts.
+It supplies no browser-rendering or accessibility evidence.
+
+In a real browser, check copying/constant/parity probes, stale and
+overwritten records, same-target order dependence, disjoint updates,
+disturbing readouts, the identity control, relay order, and both record
+selections. Check prediction focus, narrow tables and arrow-key scrolling.
+Keep model rows separate from physical observations and measured learning.

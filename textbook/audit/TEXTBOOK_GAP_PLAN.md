@@ -36,8 +36,8 @@ above record the earlier publication, not current open-PR status.
 | Institution lessons | 18 | A research curriculum exists for four named trees |
 | Sealed Lean modules | 75 | All 75 have coverage-matrix sections and assigned units |
 | Canonical research trees | 123 | Counted using `ci/research_index.py`'s actual population rule |
-| Trees with dedicated research lessons | 12 | Four institution trees, `standing_commitment`, three selected Boundary-lab introductions, `identification_dual`, `qm_bridge`, selected `native_bridge` claims, and selected `native_structure` costs |
-| Other canonical trees | 111 | No dedicated lesson treatment is established by the current curriculum |
+| Trees with dedicated research lessons | 13 | Four institution trees, `standing_commitment`, three selected Boundary-lab introductions, `identification_dual`, `qm_bridge`, selected `native_bridge` claims, selected `native_structure` costs, and selected P200 recording protocols |
+| Other canonical trees | 110 | No dedicated lesson treatment is established by the current curriculum |
 | Manim overview scenes | 12 | Groups of lessons have short previews; individual concepts still need slower worked treatment |
 
 The research population includes parked work, frozen experiments, tooling,
@@ -274,7 +274,13 @@ costs, potentials, full-state loops, commuting squares and verified swaps.
 Its diagram and dual-cost desk separate closedness from exactness without
 claiming a physical conservation law. The native action/charge questions
 and the separate conservation carrier remain outside this introduction.
-The dedicated introductory tree count is now twelve, leaving 111 without
+The [Reasoning-lab protocol continuation](OPERATIONAL_PROTOCOL_READING_REVIEW_2026-10-31.md)
+adds six lessons for selected P200 claims: separate targets and records,
+read/write dependencies, probe agreement, configured diagnostics and
+actual relay updates. Its bounded input checks remain separate from the
+formal carrier's unbounded natural-number fields and from measurements.
+P201 unit/calibration rules remain a separate next teaching step.
+The dedicated introductory tree count is now thirteen, leaving 110 without
 such treatment. Directory counts guide discovery;
 they do not set a requirement for equally sized modules for every tree.
 Comprehension, transfer, and retention remain unmeasured.

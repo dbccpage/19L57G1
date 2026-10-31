@@ -10,6 +10,7 @@ from textbook.reasoning_lab.build_results import build, render  # noqa: E402
 
 RAW = "https://raw.githubusercontent.com/wiki/dbccpage/19L57G1/media/reasoning_lab/"
 DESK = "https://htmlpreview.github.io/?" + RAW + "results.html"
+PROTOCOL_DESK = 'https://htmlpreview.github.io/?'+RAW+'protocols.html'
 
 
 def page_map(source):
@@ -19,7 +20,7 @@ def page_map(source):
 
 def links(source):
     return {**{name: "https://github.com/dbccpage/19L57G1/wiki/" + slug for name, slug in page_map(source).items()},
-            "recorded_lab.json": RAW + "recorded_lab.json"}
+            "recorded_lab.json": RAW + "recorded_lab.json",'protocols.json':RAW+'protocols.json'}
 
 
 def build_reasoning_lab(repo, wiki, commit):
@@ -30,9 +31,13 @@ def build_reasoning_lab(repo, wiki, commit):
         text = (source / name).read_text(encoding="utf-8")
         for filename, target in page_map(source).items():
             text = text.replace(f"]({filename})", f"]({target})")
-        for folder in ("first_steps", "search_lab"):
+        for folder in ("first_steps", "search_lab", "number_lab", "map_lab"):
             text = text.replace(f"](../{folder}/README.md)", f"](textbook_{folder})")
+            for sibling in (repo/'textbook'/folder).glob('*.md'):
+                if sibling.name!='README.md':
+                    text=text.replace(f"](../{folder}/{sibling.name})",f"](textbook_{folder}_{sibling.stem.lower()})")
         text = text.replace("](results.html)", f"]({DESK})")
+        text = text.replace("](protocols.html)",f"]({PROTOCOL_DESK})")
         prefix = f"[Genesis Wiki](Home) · [Reasoning lab](textbook_reasoning_lab) · [Claim desk]({DESK})\n\n"
         suffix = f"\n\n---\n\nSource snapshot: [`{commit[:12]}`](https://github.com/dbccpage/19L57G1/blob/{commit}/textbook/reasoning_lab/{name}). Teaching apparatus; `AuthorityEffect: None`.\n"
         (wiki / (slug + ".md")).write_text(prefix + text + suffix, encoding="utf-8", newline="\n")
@@ -40,6 +45,8 @@ def build_reasoning_lab(repo, wiki, commit):
     assets.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(source / "recorded_lab.json", assets / "recorded_lab.json")
     build(source, assets / "results.html", links(source))
+    shutil.copyfile(source/'protocols.json',assets/'protocols.json')
+    build(source,assets/'protocols.html',links(source),template_name='protocols.template.html',packet_name='protocols.json')
     sidebar = wiki / "_Sidebar.md"
     text = sidebar.read_text(encoding="utf-8")
     entry = "- [Reasoning lab: rules, witnesses, and conditions](textbook_reasoning_lab)"
@@ -64,14 +71,14 @@ def reasoning_lab_errors(repo, wiki):
         return []
     errors = ["missing reasoning-lab page: " + slug for slug in page_map(source).values()
               if not (wiki / (slug + ".md")).is_file()]
-    for name in ("recorded_lab.json", "results.html"):
+    for name in ("recorded_lab.json", "results.html",'protocols.json','protocols.html'):
         path = wiki / "media/reasoning_lab" / name
         if not path.is_file():
             errors.append("missing reasoning-lab asset: " + name)
         elif name.endswith(".json"):
             if json.loads(path.read_text(encoding="utf-8")) != json.loads((source / name).read_text(encoding="utf-8")):
                 errors.append("stale reasoning-lab record")
-        elif path.read_text(encoding="utf-8") != render(source, links(source)):
+        elif path.read_text(encoding="utf-8") != (render(source,links(source),template_name='protocols.template.html',packet_name='protocols.json') if name=='protocols.html' else render(source, links(source))):
             errors.append("stale reasoning-lab desk or links")
     if "](textbook_reasoning_lab)" not in (wiki / "_Sidebar.md").read_text(encoding="utf-8"):
         errors.append("reasoning lab missing from sidebar")

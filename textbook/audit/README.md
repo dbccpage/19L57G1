@@ -38,6 +38,13 @@ lessons on two cost questions, potentials, full-state return loops,
 commuting squares and verified swaps. It teaches the proved closed but
 non-exact state-change cost without inferring a physical conservation law.
 
+**Operational-protocol teaching extension (2026-10-31).** The
+[Reasoning-lab application](OPERATIONAL_PROTOCOL_READING_REVIEW_2026-10-31.md)
+adds six lessons on target/record separation, actual read/write dependencies,
+probe agreement and explicit relay updates. It corrects the finite-carrier
+reading of P200 and keeps configured diagnostics separate from measured
+effects. The original claim/evidence route is preserved.
+
 **Early-chapter follow-up (2026-10-29).** The
 [Units 04–16 reading review](EARLY_READING_REVIEW_2026-10-29.md) adds
 thirteen concrete first passes and corrects selected scope errors about

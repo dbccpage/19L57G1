@@ -29,6 +29,28 @@ Its fourth section classifies twelve **fictional** trial logs. It takes
 no measurements. The optional worksheet leaves space for separately
 recorded observations if you choose to perform it.
 
+## Apply the toolkit to an instrument model
+
+This optional continuation supplies a new model with separate targets,
+stored records, a message box and a configured counter. It uses selected
+`p200_operational_protocols` research; none of these boxes is derived
+from the earlier cards or the sealed seed. No prior physics is assumed.
+
+| Lesson | One question |
+|---|---|
+| [12. Target and record](12_target_and_record.md) | Does a target update also refresh its stored mark? |
+| [13. Change one place and read another](13_change_one_place_read_another.md) | Which actual dependencies let two operations commute? |
+| [14. Read, change, and account](14_read_change_and_account.md) | Does a matching diagnostic counter make two procedures agree? |
+| [15. Matching records and targets](15_matching_records_and_targets.md) | When do equal marks justify equal target values? |
+| [16. A connection needs an update](16_a_connection_needs_an_update.md) | Which copies actually transfer a value to another target? |
+| [17. Compare supplied preparations](17_compare_supplied_preparations.md) | Can pair agreement change while B's own list of marks stays fixed? |
+
+The separate [protocol desk](protocols.html) selects recording procedures
+and event-order comparisons. It leaves the original claim/evidence desk
+unchanged. Try the [new protocol practice](PROTOCOL_PRACTICE.md) before
+the [answers](PROTOCOL_ANSWERS.md). These are supplied model calculations;
+no physical observations or learner scores are generated.
+
 Then try the [practice](PRACTICE.md) before opening its [answers](ANSWERS.md).
 For the evidence route, use the changed [envelope example](EVIDENCE_PRACTICE.md)
 before its separate [answer guide](EVIDENCE_ANSWERS.md).
