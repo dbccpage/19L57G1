@@ -64,6 +64,11 @@ The [`Number lab`](number_lab/README.md) teaches totals, shares, zero,
 signed steps, squares, and coordinate addition before selected finite
 readout examples. It connects Unit 64's arithmetic to an introduction
 to `qm_bridge`, keeping its supplied formula and open rows explicit.
+After that toolkit and the Map-lab continuation, the
+[Path-lab cost route](path_lab/07_two_cost_questions.md) introduces
+signed path costs, potentials, return loops and commuting squares. It
+explains the source's closed but non-exact state-change count and keeps
+the earlier face calculus separate from native event histories.
 
 New readers can then read [`START_HERE.md`](START_HERE.md) (see also the
 short spoken introduction in [`video_script_15s.md`](video_script_15s.md)).

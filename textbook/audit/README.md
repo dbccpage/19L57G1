@@ -32,6 +32,12 @@ actual-step validation. It keeps the Python helper's row checks separate
 from the additional adjacency gate and the indexed Lean trace. The new
 research introduction supplies no physical or novice learning result.
 
+**Path-cost teaching extension (2026-10-31).** The
+[Path-lab continuation](PATH_COST_READING_REVIEW_2026-10-31.md) adds six
+lessons on two cost questions, potentials, full-state return loops,
+commuting squares and verified swaps. It teaches the proved closed but
+non-exact state-change cost without inferring a physical conservation law.
+
 **Early-chapter follow-up (2026-10-29).** The
 [Units 04–16 reading review](EARLY_READING_REVIEW_2026-10-29.md) adds
 thirteen concrete first passes and corrects selected scope errors about

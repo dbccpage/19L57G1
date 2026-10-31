@@ -86,3 +86,67 @@ identity while failing the increasing-order admission guard.
 
 Novice understanding, unfamiliar-example transfer, delayed retention,
 reading time, and real-world measurement correspondences remain unmeasured.
+
+## Native path costs: Lessons 07–12
+
+This selected introduction consumes `research/native_structure`'s current
+README, ledger, Python functions, and Cells, Boundary and Closed Lean
+bodies read-only. Its meaning of `Cell` is a verified-swap relation on
+native event histories, not a vertex-list face in `LadderGeneral`.
+
+| Lesson | Meaning used | Owner and scope |
+|---|---|---|
+| 07–08 | State/event cost, path sum, potential, telescoping | NS-7/8; `pathCost_append`, `exact_pathCost`, `budgetDelta_exact` |
+| 09 | Nonzero full-state return loop excludes every potential | NS-7/8; `not_exact_of_cycle`, `writes_not_exact` |
+| 10 | Two orders agree at the actual starting state; compare their costs | NS-6/7; `boundary_boundary`, `boundary_zero_iff_commutes`, `exact_closed` |
+| 11 | State-change count is closed but not exact | NS-8/10; `writes_closed`, `writes_closed_not_exact` |
+| 12 | Verified adjacent swaps preserve a closed cost, but do not identify all equal-end paths | NS-1/4/7; `swap_sound`, `parallel_not_cell`, `closed_swap_cost`, `closed_cell_cost` |
+
+The passage slice varies budget 0/1/2, both license values, and live/halted
+status, giving twelve full states. Every other field is initial. Six
+events write those three budgets, either license value, or halt. Snapshot
+projection checks that no omitted field changes in this slice; full-state
+equality is computed with the actual owner, not inferred from one budget.
+
+The packet records seven histories from each start, giving 84 history
+records and 168 cost-question selections. It checks all ordered event
+pairs from each start: 432 comparisons, of which 348 commute and 84 do
+not. An independent history population covers every event list of length
+zero through three from all twelve starts, giving 3,108 native histories.
+The original 256 face/boundary cases, 192 walk cases and 341 raw words
+remain unchanged.
+
+Every cost row calls the owner's `path_cost`, `budget_delta`, `writes`
+and actual passage step. Independent before/after arithmetic checks the
+signed change and 0/1 change count. Both routes are replayed before the
+commuting-square premise is decided. Noncommuting pairs remain visible;
+a zero reading for one cost is not treated as full-state commutation.
+The budget loop returns the entire genesis state, with signed cost 0
+and change count 2. Repeated budget writes count only their actual changes.
+
+A separate supplied three-point graph assigns costs in −1/0/1 to AB,
+BC and AC, and defines reverse edges by negation. Of 27 tables, seven
+have a potential. Each successful witness is reconstructed and checked on
+all six directed edges. Rejection uses the triangle loop's nonzero total.
+The finite search fixes A at zero; AB and AC force B and C into −1/0/1,
+so it excludes no possible integer potential on this declared graph.
+This is separate from a global potential on every native passage state.
+The practice graph with levels 2/5/1 is checked separately; its costs
+3/−4/−1 lie outside that 27-table population.
+
+The book re-elaborates the three exact research bodies after removing
+only import lines, with a whitelist of reviewed imports. Fourteen selected
+owner reports and six new book reports add twenty `{propext, Quot.sound}`
+sets. Together with the earlier Path-lab checks, the driver has 184 reports:
+183 with those two axioms and one empty. These are selected report scopes,
+not an all-declaration research census or a reissue of frozen receipts.
+The new book statements check the budget loop, inert repeat, start-sensitive
+halt square, all-integer potential shifts, three-point reconstruction,
+and impossibility of deleting a loop by swaps.
+
+The 348 finite commuting comparisons illustrate the general closedness
+theorem; they do not prove it. The source proof covers every native state
+and event. No physical costs, measured conservation laws, proof-relevant
+cell calculus, observer-descent treatment, native action, or generated
+charge is added. NS-17's action question and the separate conservation
+carrier remain outside this introduction. Reader learning remains unmeasured.

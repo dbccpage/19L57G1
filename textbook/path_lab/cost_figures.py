@@ -1,0 +1,29 @@
+"""A diagram from checked native cost rows; AuthorityEffect: None."""
+
+
+def render_cost_figures(packet):
+    row=packet['costs']['histories']['0_1_0_1']
+    assert row['loop'] and row['totals']=={'delta':0,'changes':2}
+    assert [(r['before']['budget'],r['after']['budget']) for r in row['rows']]==[(0,1),(1,0)]
+    svg='''<svg xmlns="http://www.w3.org/2000/svg" width="840" height="460" viewBox="0 0 840 460" role="img" aria-labelledby="title desc">
+<title id="title">A return loop with two different cost totals</title>
+<desc id="desc">Write budget 1 from budget 0, then write 0 to return. Signed change totals zero. Two state-changing steps are counted.</desc>
+<rect width="840" height="460" fill="#f5f4ee"/>
+<defs><marker id="cost-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L0 8 L8 4 Z" fill="#19694e"/></marker></defs>
+<g font-family="sans-serif" fill="#19322c" text-anchor="middle">
+<text x="420" y="45" font-size="27">Same endpoint; two cost questions</text>
+<text x="420" y="75" font-size="17">Supplied live passage states; other fields stay initial.</text>
+<path d="M232 175 L608 175" fill="none" stroke="#19694e" stroke-width="3" marker-end="url(#cost-arrow)"/>
+<path d="M608 246 Q420 350 232 246" fill="none" stroke="#19694e" stroke-width="3" marker-end="url(#cost-arrow)"/>
+<circle cx="190" cy="210" r="54" fill="white" stroke="#19322c" stroke-width="2"/>
+<circle cx="650" cy="210" r="54" fill="white" stroke="#19322c" stroke-width="2"/>
+<text x="190" y="208" font-size="35">0</text><text x="190" y="235" font-size="17">budget</text>
+<text x="650" y="208" font-size="35">1</text><text x="650" y="235" font-size="17">budget</text>
+<text x="420" y="115" font-size="19">Write budget 1</text>
+<text x="420" y="143" font-size="18">Signed change +1 · changing steps 1</text>
+<text x="420" y="348" font-size="19">Write budget 0</text>
+<text x="420" y="377" font-size="18">Signed change −1 · changing steps 1</text>
+<text x="420" y="425" font-size="23">Totals: signed change 0 · changing steps 2</text>
+</g></svg>
+'''
+    return {'06_budget_loop.svg':svg}

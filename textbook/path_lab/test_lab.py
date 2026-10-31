@@ -2,6 +2,7 @@
 import json
 from pathlib import Path
 import shutil
+import subprocess
 import tempfile
 import unittest
 from xml.etree import ElementTree
@@ -9,6 +10,7 @@ from unittest.mock import patch
 
 from run_lab import SOURCE, check_recorded, walk_case
 from build_results import render
+from costs import build_costs,check_cost_population
 
 
 class PathRecords(unittest.TestCase):
@@ -70,11 +72,56 @@ class PathRecords(unittest.TestCase):
 
     def test_figures_have_readable_intrinsic_dimensions(self):
         figures = list((SOURCE / 'figures').glob('*.svg'))
-        self.assertEqual(len(figures), 5)
+        self.assertEqual(len(figures), 6)
         for path in figures:
             root = ElementTree.fromstring(path.read_text(encoding='utf-8'))
             self.assertGreaterEqual(int(root.attrib['width']), 440)
             self.assertGreaterEqual(int(root.attrib['height']), 430)
+
+    def test_signed_change_is_not_state_change_count(self):
+        self.inject(lambda p:p['costs']['histories']['0_1_0_1']['totals'].update(delta=2))
+
+    def test_closed_cost_is_not_promoted_to_exact(self):
+        self.inject(lambda p:p['costs'].update(global_change_count_exact=True))
+
+    def test_nonzero_loop_does_not_refute_closedness(self):
+        self.inject(lambda p:p['costs'].update(global_change_count_closed=False))
+
+    def test_halt_order_does_not_silently_commute(self):
+        self.inject(lambda p:p['costs']['squares']['0_1_0_5_3'].update(commutes=True))
+
+    def test_inert_repeat_is_not_counted_as_a_change(self):
+        self.inject(lambda p:p['costs']['histories']['0_1_0_2']['totals'].update(changes=2))
+
+    def test_empty_history_has_zero_cost(self):
+        self.inject(lambda p:p['costs']['histories']['0_1_0_0']['totals'].update(delta=1))
+
+    def test_nonzero_three_edge_loop_has_no_potential(self):
+        self.inject(lambda p:next(row for row in p['costs']['height_cases'] if row['costs']==[1,1,-1]).update(potential=[0,1,-1]))
+
+    def test_formal_costs_are_not_physical_measurements(self):
+        self.inject(lambda p:p['costs'].update(physical_observations=432))
+
+    def test_loop_diagram_keeps_both_cost_questions(self):
+        path=self.root/'figures/06_budget_loop.svg'
+        path.write_text(path.read_text(encoding='utf-8').replace('changing steps 2','changing steps 0'),encoding='utf-8')
+        with patch('run_lab.SOURCE',self.root):
+            with self.assertRaisesRegex(ValueError,'figure differs'):
+                check_recorded(self.root)
+
+    def test_bounded_native_cost_histories(self):
+        self.assertEqual(check_cost_population(),3108)
+
+    def test_reconstructed_finite_potentials_and_changed_cost(self):
+        data=build_costs()
+        self.assertEqual(sum(row['potential'] is not None for row in data['height_cases']),7)
+        self.assertEqual(data['license_only_loop_costs'],[0,2])
+        self.assertEqual(data['practice']['totals'],{'delta':0,'changes':2})
+        self.assertEqual(data['commuting_squares'],348)
+
+    def test_native_cost_handlers(self):
+        result=subprocess.run(['node',str(SOURCE/'test_cost_controls.mjs')],capture_output=True,text=True,encoding='utf-8')
+        self.assertEqual(result.returncode,0,result.stdout+result.stderr)
 
 
 if __name__ == '__main__':

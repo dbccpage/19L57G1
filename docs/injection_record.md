@@ -954,3 +954,27 @@ Twenty authoring tests pass. The event-handler fixture checks 252
 history/reader selections and seven traces; it supplies no browser-layout
 or novice-comprehension result. The twenty added Lean reports have fourteen
 `propext, Quot.sound` sets, one `propext`, and five empty sets.
+
+## Path-lab cost continuation (2026-10-31)
+
+Eight temporary packet mutations and one temporary diagram mutation are
+rejected by source-backed recomputation. A generated child-process Lean
+mutation is also rejected. No native source or receipt is changed.
+
+| Defect injected | Observed rejection |
+|---|---|
+| Replace the budget loop's signed total 0 by 2 | Packet comparison distinguishes signed change from change count |
+| Promote the closed state-change cost to exact | Packet comparison retains the nonzero-loop obstruction |
+| Infer non-closedness from that nonzero loop | Packet comparison retains the proved closedness result |
+| Declare the live halt/license orders commuting | Packet comparison retains their different full end states |
+| Count the repeated budget write as two state changes | Packet comparison retains the inert second write |
+| Give the empty history a nonzero signed cost | Packet comparison retains its zero sum |
+| Supply a potential for edge costs 1/1/−1 | Packet comparison rejects the nonzero triangle-loop table |
+| Count the formal comparisons as physical observations | Packet comparison rejects the observation count |
+| Change the diagram's change-count total from 2 to 0 | Figure comparison rejects the false label |
+| Change the assembled `Closed writes ∧ ¬ Exact writes` conclusion to `Closed writes ∧ Exact writes` | Lean rejects the false conjunction; the unmodified wrapper checks 184 exact reports |
+
+Twenty-two authoring tests pass. The actual handler fixture checks 168
+history/cost selections and 432 square selections; it supplies no browser
+or learning outcome. All twenty added Lean reports have exactly
+`propext, Quot.sound`.

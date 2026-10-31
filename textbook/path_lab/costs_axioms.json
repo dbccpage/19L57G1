@@ -1,0 +1,82 @@
+{
+  "ResearchNativeStructure.boundary_boundary": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchNativeStructure.boundary_zero_iff_commutes": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchNativeStructure.budgetDelta_exact": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchNativeStructure.closed_cell_cost": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchNativeStructure.closed_swap_cost": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchNativeStructure.exact_closed": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchNativeStructure.exact_pathCost": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchNativeStructure.not_exact_of_cycle": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchNativeStructure.parallel_not_cell": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchNativeStructure.pathCost_append": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchNativeStructure.swap_sound": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchNativeStructure.writes_closed": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchNativeStructure.writes_closed_not_exact": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchNativeStructure.writes_not_exact": [
+    "propext",
+    "Quot.sound"
+  ],
+  "Textbook.PathCosts.budget_loop": [
+    "propext",
+    "Quot.sound"
+  ],
+  "Textbook.PathCosts.cannot_erase_loop": [
+    "propext",
+    "Quot.sound"
+  ],
+  "Textbook.PathCosts.duplicate_write": [
+    "propext",
+    "Quot.sound"
+  ],
+  "Textbook.PathCosts.halt_changes_square": [
+    "propext",
+    "Quot.sound"
+  ],
+  "Textbook.PathCosts.shift_potential": [
+    "propext",
+    "Quot.sound"
+  ],
+  "Textbook.PathCosts.three_point_potential": [
+    "propext",
+    "Quot.sound"
+  ]
+}

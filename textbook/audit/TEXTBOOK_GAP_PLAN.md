@@ -36,8 +36,8 @@ above record the earlier publication, not current open-PR status.
 | Institution lessons | 18 | A research curriculum exists for four named trees |
 | Sealed Lean modules | 75 | All 75 have coverage-matrix sections and assigned units |
 | Canonical research trees | 123 | Counted using `ci/research_index.py`'s actual population rule |
-| Trees with dedicated research lessons | 11 | Four institution trees, `standing_commitment`, three selected Boundary-lab introductions, `identification_dual`, `qm_bridge`, and selected `native_bridge` claims |
-| Other canonical trees | 112 | No dedicated lesson treatment is established by the current curriculum |
+| Trees with dedicated research lessons | 12 | Four institution trees, `standing_commitment`, three selected Boundary-lab introductions, `identification_dual`, `qm_bridge`, selected `native_bridge` claims, and selected `native_structure` costs |
+| Other canonical trees | 111 | No dedicated lesson treatment is established by the current curriculum |
 | Manim overview scenes | 12 | Groups of lessons have short previews; individual concepts still need slower worked treatment |
 
 The research population includes parked work, frozen experiments, tooling,
@@ -268,7 +268,13 @@ paths, state-threaded translation, injective codes, faithful observations,
 and labels versus actual event equations. Its seven traces include locally
 valid but disconnected rows; the book supplies an adjacency gate matching
 the native Lean type. Event selection and later read-back rows remain open.
-The dedicated introductory tree count is now eleven, leaving 112 without
+The [Path-lab cost continuation](PATH_COST_READING_REVIEW_2026-10-31.md)
+adds six lessons for selected `native_structure` claims, covering signed
+costs, potentials, full-state loops, commuting squares and verified swaps.
+Its diagram and dual-cost desk separate closedness from exactness without
+claiming a physical conservation law. The native action/charge questions
+and the separate conservation carrier remain outside this introduction.
+The dedicated introductory tree count is now twelve, leaving 111 without
 such treatment. Directory counts guide discovery;
 they do not set a requirement for equally sized modules for every tree.
 Comprehension, transfer, and retention remain unmeasured.
