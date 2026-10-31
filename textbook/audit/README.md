@@ -105,6 +105,15 @@ classification scope, common suffixes, and budget-write order. The
 concrete opening route extends through Unit 66; remaining chapters,
 per-declaration teaching, and novice transfer stay open.
 
+**Descent, selection, and renaming follow-up (2026-10-31).** The
+[Units 67–74 review](DESCENT_READING_REVIEW_2026-10-31.md) adds worked
+tables and eight prediction checkpoints through the last core Unit.
+Eight book reports check colour comparisons, asymmetric differences,
+ordered-pair swaps, repeated questions, loop transport, side choice,
+form references, and an unordered raw record's failed self-comparison.
+The opening sequence reaches Unit 74; this is selected semantic review,
+not certification of every declaration or of novice transfer.
+
 **Institution reading review (2026-10-31).** The
 [I00–I17 review](INSTITUTIONS_READING_REVIEW_2026-10-31.md) adds eighteen
 worked openings and checks selected claims about empty families, fiber

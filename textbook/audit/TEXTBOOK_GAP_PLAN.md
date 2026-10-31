@@ -197,6 +197,15 @@ walkthrough. Changed-label practice has separate folded answers.
    event-history information. Seven book reports support the selected
    claims; obsolete names and omitted hypotheses in five curriculum rows
    are corrected. Later core lessons and broader semantic coverage remain open.
+   The [descent, selection, and renaming follow-up](DESCENT_READING_REVIEW_2026-10-31.md)
+   brings this revised opening sequence through Unit 74. Eight prediction
+   checkpoints distinguish class answers, zero tests, ordered-pair
+   transport, duplicate questions, round trips, loops, side choice,
+   composition relations, and form references. Eight new book reports
+   support the examples. The common record's diagonal-zero hypothesis
+   and the finite numerical scope of Unit 71 are restored explicitly.
+   Full semantic teaching coverage, research integration, and novice
+   comprehension and transfer remain open.
 7. **Evidence and reality.** Add exercises in separating a definition,
    a deduction, a computation, and a measurement. Give a model prediction,
    identify an observation that could disagree with it, and explain what

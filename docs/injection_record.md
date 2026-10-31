@@ -885,3 +885,25 @@ unmodified chapter drivers then recover exit 0 with 164 exact reports.
 
 Seven added reports have six `propext, Quot.sound` sets and one empty
 set. Sealed sources, native receipts, and research results are unchanged.
+
+## Descent, selection, and renaming reading review (2026-10-31)
+
+Nine false variants alter book-Lean strings only inside child processes.
+Each produces a Lean error and driver exit 1. All eight original drivers
+then recover exit 0 with 302 exact reports.
+
+| Unit | Defect injected | Observed rejection and recovery |
+|---|---|---|
+| 67 | Allow the paired identity view to descend through the single Bool class | Lean rejects the stronger existence claim; original proves its negation |
+| 68 | Deny zero difference between the two equal-colour cards | Lean rejects the false comparison; original proves zero at 0/1 |
+| 69 | Force the reverse entry of the asymmetric kernel to be nonzero | `decide` rejects the table entry; original gives zero |
+| 70 | Make the ordered pair fixed by the swap | Lean rejects the pair equality; original exchanges the endpoints |
+| 71 | Make a duplicate of the old question create a third class | `decide` rejects the class count; original remains at two |
+| 72 | Make the locally reversible self-loop fix `false` | Lean rejects the loop value; original transports it to `true` |
+| 73 | Make the constant-side rule return the swapped output | Lean rejects the Boolean value; original shows failure to commute |
+| 74 | Keep the original arity table after exchanging form indices | `decide` rejects the arity list; original exchanges the arities |
+| 74 | Give the raw unordered one-requirement record a self-`Iso` | Lean rejects the existence claim; original proves no such object exists |
+
+The eight added report sets are five empty sets, two `propext`, and one
+`propext, Quot.sound`. Sealed sources, native receipts, research results,
+and the fixed vocabulary populations are unchanged.

@@ -2,7 +2,12 @@
 
 **Claim.** On a supplied finite list of natural numbers, two numerical presentations preserve the same distinctions exactly when each can be recovered from the other. A failed recovery has a witnessing pair.
 
+<details>
+<summary>Sources and classification (optional)</summary>
+
 **Status:** derived under the stated finite-domain and factorization hypotheses; no preferred repair or termination of future comparisons is established. **Lean:** `PresentationRelativity.presentationIdentity_iff_fiberIdentity`, `presentationIdentity_iff_residualEmpty`, `forced_split_of_factorization_failure`, `jointPresentation_strict_of_factorization_failure`; `ResidualClosure.common_refinement_closes_current_obstruction`. **Sources:** `lean4/Derivation/PresentationRelativity.lean`, `lean4/Derivation/ClosureSymmetry.lean`, `lean4/Derivation/ResidualClosure.lean`. **Axioms:** the cited source reports lie within `{propext, Quot.sound}`. **Depends on:** Unit 61 (signatures and factorization), Unit 47 (operational support), and Unit 40 (the declared generator). **AuthorityEffect:** None.
+
+</details>
 
 ## First pass: compare the groups, then the labels
 
@@ -11,6 +16,19 @@ A presentation assigns a numerical label to each datum. Two presentations can us
 On `D = [0, 1, 2]`, the tables `p = [0, 0, 1]` and `q = [7, 7, 9]` both group `0` with `1` and keep `2` separate. Looking up either presentation's label is enough to recover the other's label.
 
 Now replace `q` by `[0, 1, 1]`. The pair `0, 1` has the same `p`-label but different `q`-labels. No lookup using only `p` can recover this `q`. That pair is the failure witness, called a **directional residual**.
+
+**Predict.** Will appending a second copy of the old presentation `p`
+recover the distinction lost between 0 and 1?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. Both still have the same two old answers. In this example `[p,p]`
+has two classes, while the joint questions `[p,q]` have three. The book's
+`three_item_refinement_counts` checks all three counts. A repair must
+supply a distinction that actually separates the witnessing pair.
+
+</details>
 
 ## Question
 
@@ -146,6 +164,9 @@ The audit records are `textbook/audit/modules/PresentationRelativity.md`, `textb
 
 On `D = [0, 1, 2]`, take `p = [0, 0, 1]` and `q = [0, 1, 1]`. Which pair witnesses failure of `FactorsOn D p q`? How many classes does the joint signature have? What table does the first-match `jointPresentation` return?
 
-## Answer
+<details>
+<summary>Student exercise answer</summary>
 
 The pair `0, 1` witnesses failure: both have `p`-value `0`, but their `q`-values are `0` and `1`. The signatures are `(0, 0)`, `(0, 1)`, and `(1, 1)`, giving three classes. Each first occurs at its own index, so the representative table is `[0, 1, 2]`.
+
+</details>

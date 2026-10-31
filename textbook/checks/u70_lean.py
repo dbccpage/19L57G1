@@ -64,7 +64,16 @@ theorem twIso_fixes_card4PairSwap :
   apply Subtype.ext
   rfl
 
+def bookPair : NonZeroPair boolEqObs :=
+  ⟨(false,true), boolEqObs_nonzero_ft⟩
+
+theorem ordered_pair_swap_table :
+    (negIso.mapPair bookPair).val = (true,false) ∧
+    (negIso.mapPair (negIso.mapPair bookPair)).val = (false,true) := ⟨rfl,rfl⟩
+
 end Textbook.U70
+
+#print axioms Textbook.U70.ordered_pair_swap_table
 
 #print axioms Textbook.U70.natural_section_iff_fixed_pair
 #print axioms Textbook.U70.twoHom_cross_empty
@@ -102,6 +111,8 @@ end Textbook.U70
 """
 
 EXPECTED = {
+    "Textbook.U70.ordered_pair_swap_table": NONE,
+
     "Textbook.U70.natural_section_iff_fixed_pair": NONE,
     "Textbook.U70.twoHom_cross_empty": NONE,
     "Textbook.U70.twIso_moves_e1_e2": NONE,

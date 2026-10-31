@@ -59,7 +59,15 @@ theorem toSetting_empty_stores {X R : Type} (K : WitnessedDiff X R) :
     (toSetting K).Ops = (fun _ => False) :=
   ⟨rfl, rfl, rfl⟩
 
+theorem boolKernel_table :
+    boolKernel.delta false false = false ∧
+    boolKernel.delta false true = true ∧
+    boolKernel.delta true false = false ∧
+    boolKernel.delta true true = false := by decide
+
 end Textbook.U69
+
+#print axioms Textbook.U69.boolKernel_table
 
 #print axioms Textbook.U69.boolKernel_deltaOnto
 #print axioms Textbook.U69.boolKernel_vhom_unique
@@ -122,6 +130,8 @@ end Textbook.U69
 """
 
 EXPECTED = {
+    "Textbook.U69.boolKernel_table": NONE,
+
     "Textbook.U69.boolKernel_deltaOnto": NONE,
     "Textbook.U69.boolKernel_vhom_unique": QUOT,
     "Textbook.U69.unitValKernel_not_deltaOnto": NONE,

@@ -8,11 +8,38 @@
 
 ## First pass
 
-Translate an item from P to Q, then translate it back. Does it return to the same item? Check the other direction too.
+Two presentations P and Q each have items called `false` and `true`.
+Supply a forward translation that flips the value and a backward
+translation that leaves it unchanged:
 
-If both round trips succeed, the two carriers can be represented together with the stated faithful identifications. If a round trip changes an item, that identification would lose a distinction.
+| Start in P | Forward to Q | Backward to P |
+|---|---|---|
+| `false` | `true` | `true` |
+| `true` | `false` | `false` |
 
-For a network, check paths as well as individual steps. A closed path that changes an item is the loop obstruction studied later in the lesson.
+Each map is one-to-one and reaches every target item (a bijection), but
+neither round trip returns its
+starting item. A **faithful common descent** must preserve distinctions
+inside each presentation and respect both supplied translation equations.
+These maps cannot meet that requirement.
+
+**Predict.** If the backward translation also flips, are these two
+round trips repaired?
+
+<details>
+<summary>Check your prediction</summary>
+
+Yes: two flips restore the starting value. But checking a network
+requires more. The source's one-presentation network permits a flip
+as a reversible step from that presentation to itself. Going around
+this loop once returns to the same presentation index but moves
+`false` to `true`. The backward step undoes it; the forward loop is
+still nontrivial. Local inverses do not settle every network loop.
+
+</details>
+
+<details>
+<summary>Detailed statement and formal anchors (optional)</summary>
 
 ## Detailed claim and formal anchors
 
@@ -22,9 +49,11 @@ When a relation refinement `RelationRefinement fine coarse` loses a coarse ident
 
 Over a `TranslationNetwork`, coherent steps generate the least equivalence relation `FidelityRel` (`fidelity_is_least_equivalence_containing_admitted_steps`) with quotient `FidelityQuotient` (`GeneratedMultiplicity`), labels descend to `FidelityQuotient` if and only if they are `FidelityRel`-invariant (`label_descends_iff_fidelity_invariant`), any nontrivial loop transport (`HolonomyResidual`) refutes global carrier descent (`holonomy_residual_refuses_faithful_network_descent`), and on `World` the operational projection `supportView` cannot be round-trip coherent with any candidate inverse because `noteVariantA` and `noteVariantB` share `support` while differing in `notes` (`no_support_inverse_faithfully_erases_index`).
 
+</details>
+
 ## Question
 
-In Unit 71, two presentations `p : X → P` and `q : X → Q` were compared by evaluating both on a shared finite list `D : List X`. What if no shared underlying substrate `D` is given ahead of time, and we instead have only attempted translations directly between presentation carriers `P` and `Q` (or across an indexed network `i : N.Index` of carriers `N.Carrier i`)? When can the presentation index be faithfully eliminated into a common carrier without erasing internal distinctions, when must distinct quotient classes be retained, and why does a single failed endomorphism at `i` not refute `i`'s self-fidelity whereas a nontrivial loop transport around `i` refutes global carrier descent?
+Unit 71 compared numerical maps `p q : Nat → Nat` on a supplied `D : List Nat`. This lesson introduces different carrier types and direct translations between them. What if no shared underlying substrate `D` is given ahead of time, and we instead have only attempted translations directly between presentation carriers `P` and `Q` (or across an indexed network `i : N.Index` of carriers `N.Carrier i`)? When can the presentation index be faithfully eliminated into a common carrier without erasing internal distinctions, when must distinct quotient classes be retained, and why does a single failed endomorphism at `i` not refute `i`'s self-fidelity whereas a nontrivial loop transport around `i` refutes global carrier descent?
 
 ---
 
@@ -434,7 +463,8 @@ Consider a 2-index translation network `N` with `N.Index = {0, 1}`, `N.Carrier 0
 
 ---
 
-## Answer
+<details>
+<summary>Student exercise answer</summary>
 
 1. For step `a`, `backward(forward(x)) = x` and `forward(backward(y)) = y` hold for all `x, y ∈ {0, 1, 2}`. For step `b`, `((x + 1) - 1) % 3 = x` and `((y - 1) + 1) % 3 = y` hold for all `x, y ∈ {0, 1, 2}`. Thus both steps are `RoundTripCoherent`.
 2. Because step `a` (or `b`) connects index `0` to index `1`, `FidelityRel N 0 1` holds and `FidelityQuotient N` has **1** equivalence class `{0, 1}`.
@@ -442,6 +472,8 @@ Consider a 2-index translation network `N` with `N.Index = {0, 1}`, `N.Carrier 0
 4. **No.** The triple `(index := 0, loop := b.trans a.symm, point := 0)` is a `HolonomyResidual N` (`loop.toBij.fwd(0) = 1 != 0`). By `holonomy_residual_refuses_faithful_network_descent`, any `FaithfulNetworkDescent N` would have to satisfy `embed 0 (loop.toBij.fwd 0) = embed 0 0`, forcing `embed 0 1 = embed 0 0` and violating `embed_injective 0`. Even though the index quotient `FidelityQuotient N` has 1 class, global carrier descent is refuted (`¬ Nonempty (FaithfulNetworkDescent N)`).
 
 ---
+
+</details>
 
 ## Verification
 
