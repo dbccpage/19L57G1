@@ -7,6 +7,7 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from booklean import BOTH, NONE, PROPEXT, QUOT, main  # noqa: E402
 from textbook.map_lab.lean_cases import build_checks  # noqa: E402
+from textbook.map_lab.native_paths_lean import expected_native_reports  # noqa: E402
 
 if __name__ == "__main__":
     source, names = build_checks()
@@ -23,4 +24,5 @@ if __name__ == "__main__":
         expected[name] = PROPEXT
     for name in ('ObsDescent.descend_unique', 'ObsDescent.descend_iff_factorsOn_all'):
         expected[name] = QUOT
+    expected.update(expected_native_reports())
     raise SystemExit(main(source, expected, "MapLab"))

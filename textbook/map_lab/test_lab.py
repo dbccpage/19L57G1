@@ -2,6 +2,7 @@
 import json
 from pathlib import Path
 import shutil
+import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -9,6 +10,7 @@ from xml.etree import ElementTree
 
 from run_lab import SOURCE, check_recorded
 from build_results import render
+from native_paths import build_paths, check_paths_population
 
 
 class MapRecords(unittest.TestCase):
@@ -77,6 +79,42 @@ class MapRecords(unittest.TestCase):
         self.assertEqual(text,render(SOURCE))
         self.assertNotIn('fetch(',text)
         self.assertNotIn('__LAB_PACKET__',text)
+
+    def test_distinct_codes_do_not_create_distinct_native_readings(self):
+        self.inject(lambda p:p['native_paths'].update(distinct_native_readings=2))
+
+    def test_existing_endpoint_path_does_not_validate_wrong_label(self):
+        self.inject(lambda p:p['native_paths']['traces']['wrong event label'].update(valid=True))
+
+    def test_locally_valid_rows_must_still_join(self):
+        self.inject(lambda p:p['native_paths']['traces']['disconnected rows'].update(valid=True))
+
+    def test_translation_threads_updated_source_state(self):
+        self.inject(lambda p:p['native_paths']['histories']['0_00']['target_end'].update(budget=1))
+
+    def test_inert_repeat_remains_an_actual_step(self):
+        self.inject(lambda p:p['native_paths']['traces']['repeated admission'].update(valid=False))
+
+    def test_event_recipe_is_supplied(self):
+        self.inject(lambda p:p['native_paths'].update(event_selection='derived'))
+
+    def test_model_records_are_not_measurements(self):
+        self.inject(lambda p:p['native_paths'].update(physical_observations=126))
+
+    def test_all_two_state_tables_and_bounded_histories(self):
+        self.assertEqual(check_paths_population(),2016)
+
+    def test_changed_practice_and_observation_control(self):
+        data=build_paths()
+        self.assertEqual(data['practice_dial_writes'],[8,8,2])
+        self.assertTrue(data['practice_repaired_halt_valid'])
+        self.assertFalse(data['native_reader_recovers_state'])
+        self.assertTrue(data['budget_reader_recovers_state'])
+
+    def test_step_desk_handlers(self):
+        result=subprocess.run(['node',str(SOURCE/'test_path_controls.mjs')],
+                              capture_output=True,text=True,encoding='utf-8')
+        self.assertEqual(result.returncode,0,result.stdout+result.stderr)
 
 
 if __name__=='__main__':

@@ -1,0 +1,66 @@
+{
+  "ResearchNativeBridge.ObsSim.obs_const_on_cycle": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchNativeBridge.Path.events_append": [],
+  "ResearchNativeBridge.Path.events_injective": [],
+  "ResearchNativeBridge.Path.run_events": [],
+  "ResearchNativeBridge.Sim.run_trHist": [],
+  "ResearchNativeBridge.Sim.trHist_append": [
+    "propext"
+  ],
+  "ResearchNativeBridge.budgetSim_nobs": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchNativeBridge.halted_path": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchNativeBridge.idObsSim_faithful": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchNativeBridge.nobs_of_core": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchNativeBridge.passage_sim_cycle": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchNativeBridge.realize_events": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchNativeBridge.realize_iff": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchNativeBridge.toggle_encoding": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchNativeBridge.toggle_no_faithful_obs": [
+    "propext",
+    "Quot.sound"
+  ],
+  "ResearchNativeBridge.unrealized_step": [
+    "propext",
+    "Quot.sound"
+  ],
+  "Textbook.NativePaths.native_reading_cannot_recover_switch": [
+    "propext",
+    "Quot.sound"
+  ],
+  "Textbook.NativePaths.repeat_changes_events": [],
+  "Textbook.NativePaths.repeat_keeps_endpoint": [
+    "propext",
+    "Quot.sound"
+  ],
+  "Textbook.NativePaths.two_flips": [
+    "propext",
+    "Quot.sound"
+  ]
+}

@@ -7,8 +7,9 @@ Dedicated teaching now includes the four institutions trees, the Growth
 lab's introductory treatment of `standing_commitment`, and the Boundary
 lab's selected lessons for `boundary_seed`, `side_free`, and
 `oriented_boundary`, plus the Same-record lab's selected introduction to
-`identification_dual`, and the Number lab's selected `qm_bridge` lessons.
-The other 113
+`identification_dual`, and the Number lab's selected `qm_bridge` lessons, plus the Map lab's
+selected `native_bridge` continuation.
+The other 112
 have no dedicated research curriculum established by this audit. The
 Growth lab's comparison with `two_sided_commitment` is a scoped reference,
 not a complete treatment of that tree. The Boundary lab is also a selected
@@ -54,7 +55,7 @@ Group assignments below are proposed curriculum organization; they assert no mat
 | Native paths, structure, conservation, and adapters | `conservation_ladder` | Not yet established | [research/conservation_ladder/CLAIMS.md](../../research/conservation_ladder/CLAIMS.md) |
 | Native paths, structure, conservation, and adapters | `described_replay` | Not yet established | [research/described_replay/STATUS.md](../../research/described_replay/STATUS.md) |
 | Native paths, structure, conservation, and adapters | `domain_adapters` | Not yet established | [research/domain_adapters/CLAIMS.md](../../research/domain_adapters/CLAIMS.md) |
-| Native paths, structure, conservation, and adapters | `native_bridge` | Not yet established | [research/native_bridge/CLAIMS.md](../../research/native_bridge/CLAIMS.md) |
+| Native paths, structure, conservation, and adapters | `native_bridge` | [Map lab: actual paths and faithful observations](../map_lab/08_states_and_events.md) | [research/native_bridge/CLAIMS.md](../../research/native_bridge/CLAIMS.md) |
 | Native paths, structure, conservation, and adapters | `native_structure` | Not yet established | [research/native_structure/CLAIMS.md](../../research/native_structure/CLAIMS.md) |
 | Native paths, structure, conservation, and adapters | `represented_execution` | Not yet established | [research/represented_execution/CLAIMS.md](../../research/represented_execution/CLAIMS.md) |
 | Native paths, structure, conservation, and adapters | `setting_translation` | Not yet established | [research/setting_translation/CLAIMS.md](../../research/setting_translation/CLAIMS.md) |

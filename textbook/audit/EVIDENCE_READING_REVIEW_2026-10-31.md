@@ -80,10 +80,14 @@ wrapper includes the new finite checker, and its existing Lean wrapper
 includes the added proof. The PR records the exact clean revision and
 local textbook-job receipt. This is not the twelve-family merge contract.
 
-The attempted prepublication browser preview of the local desk timed out. Browser layout,
-keyboard operation in a real browser, narrow-screen presentation and
-hosted behavior remain unverified; the event-handler fixture does not
-replace those checks. The local preview server was stopped.
+The attempted prepublication browser preview of the local desk timed out,
+and that local server was stopped. Subsequent hosted browser QA checked
+all twelve case selections, prediction gating, incorrect feedback,
+stale-answer resets, one keyboard-triggered reset and both retained repeat
+rows. A sampled 390-pixel result/repeat panel wrapped without horizontal
+overflow or overlapping text. PR #295 records that later publication
+evidence. These sampled checks do not constitute a complete layout, device
+or accessibility audit; the event-handler fixture remains a separate check.
 
 This supplies a worked teaching route for the plan's evidence/reality
 item. The author's positive reading feedback remains unscored. No physical

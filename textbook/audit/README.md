@@ -22,7 +22,15 @@ supplies four lessons, fictional trial records, partial-answer/scope
 checks, a prediction desk, changed-example practice and an optional
 physical worksheet. An added book proof establishes logical
 incompatibility without assigning a physical cause. The route records
-no measurements or learning outcomes; browser layout remains unverified.
+no measurements or learning outcomes. Subsequent hosted checks covered all
+twelve cases and a sampled phone-width panel; PR #295 records their scope.
+
+**Native-path teaching extension (2026-10-31).** The
+[Map-lab continuation](NATIVE_PATH_READING_REVIEW_2026-10-31.md) adds six
+lessons on states, histories, translations, observation preservation and
+actual-step validation. It keeps the Python helper's row checks separate
+from the additional adjacency gate and the indexed Lean trace. The new
+research introduction supplies no physical or novice learning result.
 
 **Early-chapter follow-up (2026-10-29).** The
 [Units 04–16 reading review](EARLY_READING_REVIEW_2026-10-29.md) adds

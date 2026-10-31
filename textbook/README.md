@@ -45,6 +45,10 @@ points, connections, walks, signed counts, faces, and cancelling boundaries.
 The [`Map lab`](map_lab/README.md) then follows original cards through
 class labels to requested answers, including blocked recovery, paired
 questions, representative order, and uniqueness on the observed image.
+Its [changing-source continuation](map_lab/08_states_and_events.md)
+adds actual steps, replay, state encodings, observation preservation and
+mislabelled-history checks from selected `native_bridge` research. Distinct
+codes and correct step squares can still lose the requested observation.
 The [`Growth lab`](growth_lab/README.md) then enters the research
 `standing_commitment` tree: which pairs remain unresolved, when arrivals
 create demands, and why assumed service is different from a proved repair.

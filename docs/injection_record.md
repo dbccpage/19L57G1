@@ -932,3 +932,25 @@ Fifteen authoring tests pass after temporary bindings/files are discarded.
 The added logical report has an empty axiom set. The desk's event-handler
 unit fixture checks twelve supplied cases; it is not browser rendering or
 an empirical measurement/comprehension test.
+
+## Map-lab native-path continuation (2026-10-31)
+
+Seven temporary packet mutations are rejected by recomputation from the
+actual owners. A child-process Lean source mutation is also rejected.
+No sealed/research source, frozen receipt or vocabulary population changes.
+
+| Defect injected | Observed rejection |
+|---|---|
+| Infer two native observations from the two budget codes | Packet comparison rejects the invented reading count |
+| Accept the wrong-label halt row because another path joins its endpoints | Packet comparison retains the failed event equation |
+| Accept locally valid but disconnected rows as a history | Packet comparison retains the adjacency rejection |
+| Reuse the first translated write after two flips | Packet comparison rejects final budget 1; actual replay returns 0 |
+| Reject the inert repeated occurrence admission as no step | Packet comparison retains its valid actual-step record |
+| Label the supplied event recipe as derived | Packet comparison rejects the classification change |
+| Publish 126 formal histories as physical observations | Packet comparison rejects the false observation count |
+| Change the book's two-flip budget equality from 0 to 1 | Lean rejects the false equality; the unmodified driver checks 290 exact reports |
+
+Twenty authoring tests pass. The event-handler fixture checks 252
+history/reader selections and seven traces; it supplies no browser-layout
+or novice-comprehension result. The twenty added Lean reports have fourteen
+`propext, Quot.sound` sets, one `propext`, and five empty sets.

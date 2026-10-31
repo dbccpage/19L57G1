@@ -32,6 +32,24 @@ python textbook/map_lab/build_results.py
 Review the differences. Never regenerate a record to accept a live defect.
 The source map gives exact finite domains and the separate global theorem scope.
 
+The same commands now include `native_paths.py`: 126 recorded switch
+histories, seven trace cases, the changed dial practice, and 2,016
+two-state translation histories. The existing Lean wrapper also assembles
+the exact selected research bodies and checks twenty added owner/book
+reports. Its expected axiom sets are in `native_paths_axioms.json`; do
+not regenerate them to accept an unexpected axiom or failed proof.
+
+`node textbook/map_lab/test_path_controls.mjs` executes the actual new
+desk handlers in a minimal DOM fixture across 252 history/reader selections
+and seven trace cases. It checks gating, reset and feedback, not browser
+rendering or accessibility. The unittest authoring checks invoke it too.
+
+In a real browser, check both readings, flip/hold histories including the
+empty one, all seven trace cases, prediction gates and stale-answer reset.
+Inspect the result tables at narrow width; they scroll inside their panels.
+Retain unknown labels and mismatched/disconnected rows as rejected inputs.
+Do not repair a row silently while checking it.
+
 ```text
 python -m http.server 8770 --bind 127.0.0.1 --directory textbook/map_lab
 ```

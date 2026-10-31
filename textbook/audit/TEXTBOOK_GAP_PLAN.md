@@ -36,8 +36,8 @@ above record the earlier publication, not current open-PR status.
 | Institution lessons | 18 | A research curriculum exists for four named trees |
 | Sealed Lean modules | 75 | All 75 have coverage-matrix sections and assigned units |
 | Canonical research trees | 123 | Counted using `ci/research_index.py`'s actual population rule |
-| Trees with dedicated research lessons | 10 | Four institution trees, `standing_commitment`, three selected Boundary-lab introductions, `identification_dual`, and `qm_bridge` |
-| Other canonical trees | 113 | No dedicated lesson treatment is established by the current curriculum |
+| Trees with dedicated research lessons | 11 | Four institution trees, `standing_commitment`, three selected Boundary-lab introductions, `identification_dual`, `qm_bridge`, and selected `native_bridge` claims |
+| Other canonical trees | 112 | No dedicated lesson treatment is established by the current curriculum |
 | Manim overview scenes | 12 | Groups of lessons have short previews; individual concepts still need slower worked treatment |
 
 The research population includes parked work, frozen experiments, tooling,
@@ -218,8 +218,9 @@ walkthrough. Changed-label practice has separate folded answers.
    interpretation, changed-envelope practice, and an optional blank
    physical worksheet. Its 72 finite comparisons and added axiom-free
    logical proof do not establish actual measurements, a physical cause,
-   or novice transfer. Browser layout and the wider research bridges
-   remain open.
+   or novice transfer. Subsequent hosted checks covered the twelve exercise
+   cases and a sampled phone-width result panel; full accessibility and
+   the wider research bridges remain open.
 
 ## Institution teaching follow-up
 
@@ -261,7 +262,13 @@ or discharge the requested independent encoding review. Unit 64's
 new first pass and six-part claim replace the dense opening. Its
 pseudocode now separates a bounded test from the all-integer theorem,
 using the zero-only box as a counterexample to the former inference.
-The dedicated introductory tree count is now ten, leaving 113 without
+The [Map-lab changing-source continuation](NATIVE_PATH_READING_REVIEW_2026-10-31.md)
+adds six short lessons for selected `native_bridge` claims: actual-step
+paths, state-threaded translation, injective codes, faithful observations,
+and labels versus actual event equations. Its seven traces include locally
+valid but disconnected rows; the book supplies an adjacency gate matching
+the native Lean type. Event selection and later read-back rows remain open.
+The dedicated introductory tree count is now eleven, leaving 112 without
 such treatment. Directory counts guide discovery;
 they do not set a requirement for equally sized modules for every tree.
 Comprehension, transfer, and retention remain unmeasured.
