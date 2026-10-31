@@ -68,5 +68,43 @@ answers without inspecting the answer page.
     readings. What additional correspondence must be specified and tested
     before the table calculation supports a claim about that sensor?
 
+## Combined reports and loss I04–I07
+
+Use this different supplied table after
+[I07](institutions/units/07_long_chains_go_stationary.md). Work through
+the questions before opening the answers.
+
+| Input | Member p | Member r | Requested q |
+|---|---|---|---|
+| J | 0 | 0 | 0 |
+| K | 0 | 1 | 1 |
+| L | 1 | 0 | 1 |
+| M | 1 | 1 | 0 |
+
+16. Can the combined family `[p,r]` recover q? Give its lookup. Give a
+    failure pair for p alone and one for r alone. Explain why “some member
+    separates each required pair” does not mean “one member separates them all.”
+17. Swap only r's entries for K and L. Can the changed family recover q?
+    Name a blocking pair. Compare this with moving the two complete rows,
+    including p, r and q, together.
+18. Use p as a correspondence to later labels 0 and 1. A later view says
+    yes exactly on label 1. Which original inputs pass it? Is this observer
+    sharp for p, for q, or for original input identity? Is the correspondence
+    faithful? What changes if the later observer has no views?
+19. For the original family, compare appending constant `[7,7,7,7]`,
+    replacing the family by that constant, replacing it by its full
+    first-input representative, and removing r. Give each class count and
+    whether q remains recoverable. Which operation retains the original
+    member tables?
+20. Given the full p and q tables, name a conflicting pair. Can a lookup
+    receiving only p's value distinguish its two inputs? Now append
+    h=`[0,1,0,0]`: it separates J/K. Does that make all of q recoverable,
+    or can you find another conflict?
+21. On this fixed four-input carrier, consider five stages: no tables;
+    constant c alone; c and p; c,p,r; c,p,r,q. List their counts, the number
+    of adjacent comparisons, and the stationary comparisons. Does the first
+    stationary comparison prevent later growth? Would replacing `[p]`
+    by `[r]` with equal counts meet the same extension hypothesis?
+
 AuthorityEffect: None. Labels, codes, requested values, and domain choices
 are supplied. Explain every answer from the stated task and assumptions.

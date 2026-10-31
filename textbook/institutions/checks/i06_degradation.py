@@ -1,8 +1,11 @@
 """Unit 06 check: degradation, aggregates, and loss.
 
 Checks:
-  1. `aggregates_inert` and `essential_iff` on `range(3)` over all families of
-     at most two partitions and all partitions as the extra/removed member;
+  1. On range(3), empty/singleton families and one ordering of each distinct
+     partition pair: append the list of all known partitions once, then
+     test count and known partition questions; test essentiality by appending
+     each single partition. Not arbitrary ordered families, aggregate lists
+     or deletion positions;
   2. `aggregate_hides_exceeding` and `consensus_after_loss` from
      `actor_institution/model.py`;
   3. `guess_checks` on `D = (0, 1, 2, 3)` from `two_theorems/model.py`.

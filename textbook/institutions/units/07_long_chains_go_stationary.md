@@ -30,8 +30,10 @@ nonempty carrier (`classCount_pos`), and at most `D.length`
 its information (`information_mono`). Putting those three facts together along
 a chain of extensions forces a pigeonhole stall: a chain with more than
 `D.length` institutions cannot strictly increase its information at every step,
-so some step must be stationary (`long_chain_stationary`, which closes the
-open item `TT-35o` from `two_theorems`). And by Unit 03's equivalence
+so some step must be stationary (`long_chain_stationary`). This proves
+the finite counting statement associated with `TT-35o`; it does not prove
+the proposed interpretation as a crash of a self-similar hierarchy.
+And by Unit 03's equivalence
 `knows_iff_information_eq`, a stationary extension step adds only members the
 older family already knew, so the step changes knowledge of no claim at all.
 Finally, nesting a subfamily as its single representative `pQ D Q'` or pooling
@@ -43,7 +45,7 @@ knowledge and information unchanged.
 ## First pass
 
 Keep inputs 0, 1, and 2 fixed. Start with no tables, add a constant
-table, then [0,0,1], then [0,1,1]. The class counts are:
+table, then I00's [0,1,0], then [0,1,1]. The class counts are:
 
 | Stage | 0 | 1 | 2 | 3 |
 |---|---|---|---|---|
@@ -76,6 +78,20 @@ Unit 01 (`pQ`, `pQ_exact`), Unit 02 (`Knows`, `knows_iff_determined`,
 
 ### 1. Extension chains and stationary steps
 
+An **extension** retains every old member table, while allowing more.
+It may reorder or repeat tables: this definition uses membership, not
+the old list as an unchanged prefix. An **extension chain** lists
+families such that each extends the one immediately before it.
+
+A **stationary step** is one adjacent comparison with equal class
+counts on the same carrier. The opening example has four stages and
+three comparisons, with counts 1→1→2→3. Its first comparison is stationary.
+Stationary does not require the family lists or signature lists to be
+identical; adding a redundant table changes both lists.
+
+<details>
+<summary>Lean source: Extends, ExtChain, HasStationary (optional)</summary>
+
 ```lean
 -- Lean (research), research/actor_institution/lean/ResearchActorInstitution/Chain.lean lines 34–45
 /-- `Q'` retains every member of `Q`. -/
@@ -93,6 +109,8 @@ def HasStationary (D : List Nat) : List Institution → Prop
   | _ => False
 ```
 
+</details>
+
 `Extends Q Q'` says every member of `Q` belongs to `Q'`. `ExtChain L` says each
 adjacent pair in `L` satisfies `Extends`. `HasStationary D L` says some adjacent
 pair `Q, Q'` in `L` has `information D Q' = information D Q`.
@@ -105,6 +123,15 @@ def has_stationary(n: int, chain: list[Institution]) -> bool:
 ```
 
 ### 2. Nesting a subfamily as one member
+
+To **nest** a subfamily here, replace its several member tables by their
+one full representative. For I00's two members, that representative is
+`[0,1,2]`. Reading the two original tables or this single table makes
+exactly the same input distinctions. This is a statement about their
+groups on the carrier; it does not reconstruct how the tables were made.
+
+<details>
+<summary>Lean source: nest_sigEq (optional)</summary>
 
 ```lean
 -- Lean (research), research/two_theorems/lean/ResearchTwoTheorems/Reading.lean lines 247–260
@@ -124,6 +151,8 @@ theorem nest_sigEq (D : List Nat) (Q' Q : Institution) {x y : Nat}
     · exact h p (List.mem_append_right _ hp)
 ```
 
+</details>
+
 Because `pQ D Q'` agrees on `x, y ∈ D` iff every member of `Q'` agrees on `x, y`
 (`pQ_exact`, Unit 01), replacing the prefix `Q'` in `Q' ++ Q` by the single
 member `pQ D Q'` gives the exact same signature relation `SigEq` on `D`.
@@ -131,6 +160,20 @@ member `pQ D Q'` gives the exact same signature relation `SigEq` on `D`.
 ## The theorems
 
 First, the stationary step theorem and its consequences:
+
+On three inputs the count is at least 1 and at most 3. If all three
+comparisons in a four-stage extension chain were strict increases, the
+final count would be at least 4. That is impossible, so at least one
+comparison leaves the count fixed. A shorter chain can still have a
+stationary step; the length bound guarantees one rather than forbidding
+earlier ones.
+
+The nonempty-carrier hypothesis matters. An empty carrier has count 0.
+A one-stage chain then has length greater than the carrier length, but
+no adjacent comparison at all. It cannot witness a stationary step.
+
+<details>
+<summary>Lean source: stationary_of_bound, long_chain_stationary, stationary_step_known, stationary_step_inert (optional)</summary>
 
 ```lean
 -- Lean (research), research/actor_institution/lean/ResearchActorInstitution/Chain.lean lines 49–116
@@ -199,7 +242,15 @@ theorem stationary_step_inert {D : List Nat} {Q Q' : Institution} (hext : Extend
   · exact knows_mono hext
 ```
 
+</details>
+
 Second, nesting and participation collapse:
+
+The `...` in the following excerpt omits proof lines. It is not executable
+Lean syntax; the cited owner file contains the full proof.
+
+<details>
+<summary>Lean source: nest_inert, nest_information, participation_collapse (optional)</summary>
 
 ```lean
 -- Lean (research), research/two_theorems/lean/ResearchTwoTheorems/Reading.lean lines 265–298
@@ -226,6 +277,13 @@ theorem participation_collapse {D : List Nat} {Q : Institution}
     exact (knows_iff_sigList D [p] q).mp (h q hq) a ha b hb hab
   · exact information_member_le hp
 ```
+
+</details>
+
+Along an extension chain, the class count cannot fall. If the available count range is exhausted, at least one adjacent pair must have equal counts. At that stationary extension, a new member cannot split an old group, so it was already recoverable. Replacing a subfamily by its full representative preserves those same groups.
+
+<details>
+<summary>Detailed proof steps (optional)</summary>
 
 ## The proof, step by step
 
@@ -262,22 +320,36 @@ some `p ∈ Q` knows every `q ∈ Q`, then `[p]`-agreement determines `Q`-agreem
 so `information D Q ≤ classCount D [p]`, while `hp : p ∈ Q` gives the reverse
 inequality `information_member_le hp` (`participation_collapse`).
 
+</details>
+
 ## The same fact in Python
 
-The check runs two exhaustive tests:
+The check records the following finite populations:
 
-1. `chain_check(3)` from `actor_institution/model.py`: over all `4000` extension
-   chains of `3 + 1 = 4` institutions drawn from the `5` partitions of
-   `range(3)`, every chain has a stationary step (`0` violations); and there
+1. `chain_check(3)` from `actor_institution/model.py`: 32 starting
+   partition subsets and `5^3` three-addition sequences give 4,000 cases.
+   Each step adds one pool partition if absent, otherwise leaves the
+   family unchanged. Different generated cases can give the same chain;
+   these are not all arbitrary extension chains. Every generated
+   four-stage chain has a stationary step (`0` violations); and there
    exists a chain of `3` institutions (`()`, `((0, 0, 1),)`,
    `((0, 0, 1), (0, 1, 0))`, with informations `1, 2, 3`) that has no stationary
    step, showing the bound `D.length < L.length` is tight.
-2. `nest_checks` on `D = (0, 1, 2, 3)` from `two_theorems/model.py`: over all
-   pairs of families `Q', Q` of at most 2 pool members, replacing `Q'` by its
-   joint presentation `pQ D Q'` preserves both `information` and `knows` (`0`
+2. `nest_checks` on `D = (0, 1, 2, 3)` from `two_theorems/model.py` uses
+   the four-question pool of parity, half, the input-1 indicator and the
+   constant. It pairs its families of at most two distinct pool members,
+   using one ordering per subset. Replacing `Q'` by its
+   joint presentation `pQ D Q'` preserves `information` and knowledge of
+   each pool question (`0`
    violations), and whenever one member of `Q` knows all members of `Q`, the
-   family's information equals that member's class count (`10` cases, `0`
+   family's information equals that member's class count (`7` cases, `0`
    violations).
+
+The additional stationary-step loop starts with the empty family, each
+singleton and one ordering of each distinct partition pair on three
+inputs. It appends one partition and checks known partition questions
+when the count stays fixed. It does not enumerate every possible
+stationary extension step or arbitrary question function.
 
 ```
 python textbook/institutions/checks/i07_chain_stationary.py
@@ -330,6 +402,11 @@ It shows that at a stationary extension step, every new member was already known
 by the previous institution (`stationary_step_known`), so the set of known
 claims does not change (`stationary_step_inert`).
 
+The extension condition matters. Replacing `[p1]` by `[p2]` gives the
+same count 2 on three inputs, but loses the ability to recover p1 and
+gains the ability to recover p2. Equal counts alone do not imply equal
+knowledge when old members may be dropped.
+
 It shows that compressing a subfamily `Q'` into its representative `pQ D Q'`
 inside a larger family `Q' ++ Q` changes neither information nor knowledge
 (`nest_inert`, `nest_information`), and that a family dominated by one of its
@@ -347,4 +424,13 @@ It does not model chains that drop old members while adding new ones (where
 | `nest_sigEq`, `nest_inert`, `nest_information`, `participation_collapse` | `research/two_theorems/lean/ResearchTwoTheorems/Reading.lean` lines 247–298 |
 | Python mirrors | `research/actor_institution/model.py` lines 339–368 (`has_stationary`, `chain_check`); `research/two_theorems/model.py` lines 795–818 (`nest_checks`) |
 | Check | `textbook/institutions/checks/i07_chain_stationary.py` |
-| Ledger | `research/actor_institution/CLAIMS.md` AI-07, AI-07c; `research/two_theorems/CLAIMS.md` TT-29, TT-35o (closed by AI-07), TT-36o |
+| Ledger | `research/actor_institution/CLAIMS.md` AI-07, AI-07c; `research/two_theorems/CLAIMS.md` TT-29, TT-35o (finite statement proved by AI-07; interpretation not settled here), TT-36o |
+
+The owner records retain their historical wording: AI-07 calls the
+finite statement a closure of TT-35o; the earlier TT-35o row remains
+OPEN and includes the proposed interpretation. This unit uses the proved
+finite stationary-step result, without claiming that interpretation is
+settled or rewriting either ledger.
+
+Try [combined-report and loss practice](../../reading_formal_practice.md#combined-reports-and-loss-i04i07)
+before its [separate answers](../../reading_formal_answers.md#combined-reports-and-loss-i04i07).

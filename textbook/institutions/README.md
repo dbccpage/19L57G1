@@ -32,6 +32,11 @@ class counts. It separates those roles, folds source proofs after visible
 explanations, and adds six [changed-example tasks](../reading_formal_practice.md#institution-foundations-i00i03)
 with [separate answers](../reading_formal_answers.md#institution-foundations-i00i03).
 The review states the remaining semantic and learner-evidence limits.
+The [I04–I07 follow-up](../audit/INSTITUTION_ALIGNMENT_READING_REVIEW_2026-10-31.md)
+then separates combined lookup, input alignment, correspondence and
+observer requirements, append versus replacement, and stationary steps.
+Its six [practice tasks](../reading_formal_practice.md#combined-reports-and-loss-i04i07)
+have [separate answers](../reading_formal_answers.md#combined-reports-and-loss-i04i07).
 
 ## Sources
 

@@ -1,11 +1,13 @@
-"""Unit 07 check: long chains go stationary, and nesting is inert.
+"""Unit 07 check: finite extension chains have a stationary step; nesting.
 
 Checks:
-  1. `chain_check(3)` from `actor_institution/model.py`: every extension chain
-     of 4 institutions on `range(3)` has a stationary step, and a chain of 3
-     institutions exists with none;
-  2. `stationary_step_known` and `stationary_step_inert` on all stationary
-     extension steps among families of partitions of `range(3)`;
+  1. `chain_check(3)`: 32 starting partition subsets times 5^3 addition
+     sequences. Each step adds one absent partition or retains the family;
+     cases can repeat the same four-stage chain. A three-stage strict case
+     is also sought;
+  2. Empty/singleton families and one ordering of each distinct partition
+     pair on range(3), appending one partition: test the stationary cases
+     and known partition questions. Not all stationary extension steps;
   3. `nest_checks` on `D = (0, 1, 2, 3)` from `two_theorems/model.py`.
 The proofs for every carrier are the Lean. AuthorityEffect: None.
 Run from the repository root: python textbook/institutions/checks/i07_chain_stationary.py

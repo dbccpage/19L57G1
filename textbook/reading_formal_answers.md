@@ -53,5 +53,34 @@
     proposed correspondence. Calculating the invented table supplies no
     such observations by itself.
 
+## Combined reports and loss I04–I07
+
+16. Send [0,0]→0, [0,1]→1, [1,0]→1 and [1,1]→0. For p alone, J/K
+    have the same available value and different requested values. For r,
+    J/L do. The separating member may depend on the pair; the full lookup
+    uses both answers, while each member has a failure pair of its own.
+17. The changed r is `[0,0,1,1]`, the same table as p. J/K now share
+    signature [0,0] but require different q-values. Moving the entire rows
+    together instead preserves their answer associations and recoverability.
+18. L and M pass the pulled-back view. It merges exactly p's groups, so
+    it is sharp for p. It fails for q on J/K, and for identity on J/K too.
+    The correspondence is not faithful because it merges distinct inputs.
+    With no later views all inputs merge; even sharpness for p fails.
+19. Appending c gives count 4 and still recovers q, retaining the original
+    members. Replacing by c gives count 1 and loses q. Replacing by the
+    full representative `[J,K,L,M]` gives count 4 and preserves q, but
+    that table alone does not record the original members. Removing r
+    leaves p, with count 2 and no recovery of q. A separate copy of the
+    original family could retain it; the replacement table does not supply one.
+20. J/K conflict. A lookup receiving only their shared p-value 0 cannot
+    distinguish them, while the reader given both full tables can name
+    the pair. After adding h, L/M still share p=1 and h=0 but require
+    q=1 and q=0. Resolving the first pair does not resolve every conflict.
+21. Counts are 1,1,2,4,4 across five stages and four comparisons. The
+    first and fourth comparisons are stationary; the first is followed
+    by growth. All four comparisons retain the previous members.
+    Replacing `[p]` by `[r]` drops p and does not meet that hypothesis.
+    Both counts are 2, but r cannot recover p on J/L, while p knows itself.
+
 AuthorityEffect: None. Passing these written tasks would be reader evidence;
 software validation of the examples alone is not a comprehension result.

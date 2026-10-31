@@ -113,6 +113,9 @@ The [I00–I03 definition follow-up](audit/INSTITUTION_FOUNDATIONS_READING_REVIE
 follows one table through the definitions, separates reported answers from
 representative labels and lookup rules, and breaks class counting into
 three steps. Quoted sources remain in optional disclosures.
+The [I04–I07 follow-up](audit/INSTITUTION_ALIGNMENT_READING_REVIEW_2026-10-31.md)
+continues through combined reports, input alignment, loss and stationary
+steps, with necessary-condition counterexamples and changed-table practice.
 
 ## Status marks
 

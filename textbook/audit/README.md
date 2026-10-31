@@ -51,6 +51,10 @@ keeps one table through signatures, representatives, recovery and class
 counts. It separates input and output roles, corrects selected scope
 overstatements, and adds changed-example practice with separate answers.
 Quoted sources remain intact in optional disclosures.
+The [I04–I07 continuation](INSTITUTION_ALIGNMENT_READING_REVIEW_2026-10-31.md)
+adds smaller definitions and counterexamples for combined reports,
+correspondence, member loss and stationary steps. It corrects selected
+semantic and finite-population overstatements while preserving owner records.
 
 **Early-chapter follow-up (2026-10-29).** The
 [Units 04–16 reading review](EARLY_READING_REVIEW_2026-10-29.md) adds

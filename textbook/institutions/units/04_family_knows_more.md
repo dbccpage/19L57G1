@@ -62,7 +62,27 @@ does not define communication, access, or an actor who performs the lookup.
 Unit 00 (`SigEq`), Unit 02 (`Knows`, `knows_iff_determined`) and Unit 03
 (`not_knows_iff_witness`).
 
+Keep two checks separate. First ask whether the combined answers recover
+the requested table. Then test each member on its own. A family can pass
+the first check while every member fails the second.
+
 ### 1. Exceeding
+
+For the running example, the combined lookup sends `[0,0]` to 0,
+`[1,1]` to 0 and `[0,1]` to 1. It works on all three supplied inputs.
+Now examine the pairs on which the requested answers differ:
+
+| Pair | First member | Second member |
+|---|---|---|
+| 0 and 2 | Merges the pair | Separates the pair |
+| 1 and 2 | Separates the pair | Merges the pair |
+
+For each required pair, at least one member separates it. The successful
+member can depend on the pair. This does not say that one member must
+separate every required pair. Each member also has its own failure pair.
+
+<details>
+<summary>Lean source: Exceeds (optional)</summary>
 
 ```lean
 -- Lean (research), research/actor_institution/lean/ResearchActorInstitution/Institution.lean lines 45–47
@@ -70,6 +90,8 @@ Unit 00 (`SigEq`), Unit 02 (`Knows`, `knows_iff_determined`) and Unit 03
 def Exceeds (D : List Nat) (Q : Institution) (q : Nat → Nat) : Prop :=
   Knows D Q q ∧ ∀ p, p ∈ Q → ¬ Knows D [p] q
 ```
+
+</details>
 
 The family `Q` knows `q`, and for every member `p`, the one-member family
 `[p]` does not. "No single member" is literal: it is about each member on
@@ -83,6 +105,9 @@ def exceeds(n: int, Q: Institution, q: Presentation) -> bool:
 ```
 
 ### 2. One-member families
+
+<details>
+<summary>Lean source: sigEq_single, not_knows_single_iff (optional)</summary>
 
 ```lean
 -- Lean (research), the same file, lines 49–62
@@ -102,6 +127,8 @@ theorem not_knows_single_iff (D : List Nat) (p q : Nat → Nat) :
     exact ⟨x, hx, y, hy, (sigEq_single p x y).mpr hs, hne⟩
 ```
 
+</details>
+
 A one-member family merges two data exactly when its member gives them
 the same value (`sigEq_single`: the signature is the one-entry list
 `[p x]`). So, by Unit 03's witness theorem, a member fails to know `q`
@@ -109,6 +136,9 @@ exactly when it merges some pair that `q` tells apart
 (`not_knows_single_iff`).
 
 ### 3. A witnessed difference has a separating member
+
+<details>
+<summary>Lean source: exists_separator_of_not_sigEq (optional)</summary>
 
 ```lean
 -- Lean (Genesis), lean4/Derivation/Compression.lean lines 309–322
@@ -127,14 +157,19 @@ theorem exists_separator_of_not_sigEq (Q : List (Nat → Nat))
       exact ⟨q', List.mem_cons_of_mem _ hm, hne⟩
 ```
 
+</details>
+
 If the family tells `x` from `x'`, some member does. The proof walks the
 family: the empty family merges everything, so the hypothesis is absurd
 there; at a member `q` with tail `T`, `sigEq_decompose` (lines 298–308)
 decides, with `decide (q x = q x')`, whether `q` itself separates the
-pair, and if not, the tail must. The separating member is found, not
-chosen.
+pair, and if not, the tail must. The proof supplies the separating member
+by a list search.
 
 ## The theorem
+
+<details>
+<summary>Lean source: exceeds_iff (optional)</summary>
 
 ```lean
 -- Lean (research), research/actor_institution/lean/ResearchActorInstitution/Institution.lean lines 64–88
@@ -165,11 +200,18 @@ theorem exceeds_iff (D : List Nat) (Q : Institution) (q : Nat → Nat) :
       exact hpne (hs p hp)
 ```
 
+</details>
+
 Read: the family exceeds its members on `q` exactly when two things hold.
 First, the members between them cover `q`: whenever `q` gives two data
 different values, some member does too. Second, no member covers `q`
 alone: each member gives the same value to some pair that `q` tells
 apart.
+
+The combined lookup can recover q only if some member separates each pair on which q differs. Conversely, if those pairs are all separated, equal combined signatures force equal q-values, so a lookup exists. Testing each member separately supplies the additional failure-pair condition.
+
+<details>
+<summary>Detailed proof steps (optional)</summary>
 
 ## The proof, step by step
 
@@ -224,7 +266,12 @@ The theorem turns "the family knows what no member knows" into two
 conditions that mention only pairs of data and single members, which is
 what the counting below and the Python check use.
 
+</details>
+
 ## How small the smallest case is
+
+<details>
+<summary>Lean source: exceeds_two_members (optional)</summary>
 
 ```lean
 -- Lean (research), the same file, lines 103–113
@@ -241,11 +288,16 @@ theorem exceeds_two_members {D : List Nat} {Q : Institution} {q : Nat → Nat}
     exact ⟨p, List.mem_cons_self, p', hp', x, hx, y, hy, hpxy, hp'ne⟩
 ```
 
+</details>
+
 Take the first member `p`. By the second clause it merges a pair `x`,
 `y` that `q` splits; by the first clause some member `p'` splits that
 pair. So `p` and `p'` disagree on the pair, and they are two members
 (they cannot be the same function, since one merges the pair and the
 other does not).
+
+<details>
+<summary>Lean source: exceeds_three_data (optional)</summary>
 
 ```lean
 -- Lean (research), the same file, lines 115–152
@@ -289,6 +341,8 @@ theorem exceeds_three_data {D : List Nat} {Q : Institution} {q : Nat → Nat}
         exact ⟨x, hx, y, hy, u, hu, hxy, fun e => huy e.symm, fun e => hux e.symm⟩
 ```
 
+</details>
+
 The argument: the first member `p` merges a pair `x ≠ y` that `q` splits;
 some member `p'` splits `x`, `y`; `p'` in turn merges a pair `u ≠ v` that
 `q` splits. The pair `u`, `v` cannot be the pair `x`, `y` in either order,
@@ -298,6 +352,9 @@ the ways `u` and `v` could coincide with `x` and `y`: if `u = x` and
 `v = y` (or `u = y` and `v = x`) then `p'` both merges and splits the same
 pair, absurd; otherwise one of `u`, `v` is a third datum, and the proof
 names it.
+
+<details>
+<summary>Lean source: mem_pair, no_exceeding_on_two_points, no_exceeding_single_member (optional)</summary>
 
 ```lean
 -- Lean (research), the same file, lines 154–173
@@ -323,6 +380,8 @@ theorem no_exceeding_single_member (D : List Nat) (p q : Nat → Nat) :
   exact hm p List.mem_cons_self hk
 ```
 
+</details>
+
 The two bounds as refusals: on the two-point carrier `[0, 1]`, three
 distinct data cannot be found (each of `x`, `y`, `z` is `0` or `1`, and
 `omega` finds the contradiction in those six facts); and a one-member
@@ -330,10 +389,15 @@ family cannot both know `q` and have its only member not know it.
 
 The empty family is a degenerate case, put on record rather than hidden
 (`exceeds_nil_iff`, lines 90–101): it "exceeds its members" exactly on
-the constant claims, because the second clause has no member to fail. The
+claims constant on the supplied carrier. This does not require a function
+to be constant at every natural number. The no-member clause has no
+member to test. The
 bounds above are therefore stated for nonempty families.
 
 ## The smallest case
+
+<details>
+<summary>Lean source: p1, p2, q3, exceeds_three_two, exceeds_three_two_resolution (optional)</summary>
 
 ```lean
 -- Lean (research), the same file, lines 177–196
@@ -359,6 +423,8 @@ theorem exceeds_three_two_resolution :
   decide
 ```
 
+</details>
+
 These are Unit 00's three presentations. On `[0, 1, 2]`: `p1 = (0, 1, 0)`
 merges `0` and `2`; `p2 = (0, 1, 1)` merges `1` and `2`; `q3 = (0, 0, 1)`
 tells `2` from both `0` and `1`. Check the two clauses by hand. The pairs
@@ -371,20 +437,22 @@ built from Unit 02's pairwise form), the quantifier over `[p1, p2]` is a
 bounded list quantifier, and the kernel evaluates the whole statement on
 the three data. The second theorem says the witness is as small as it can
 be in values as well: each member and the claim take two values, and the
-family's information is three, the whole carrier. The family's advantage
-is one class, exactly the one it needs.
+family's information is three, the whole carrier. Here the joint count
+is 3, while each member and the requested table have 2 classes.
 
 ## The same fact in Python
 
 The check compares `model.exceeds` with the two clauses of `exceeds_iff`,
-written out directly, for every carrier `range(n)` with `n ≤ 4`, every
-family of at most three distinct partitions, and every partition as the
+written out directly, for `range(n)`, `1 ≤ n ≤ 4`, the empty family and
+one ordering of every subset of at most three distinct partitions,
+with every partition as the
 claim: 8780 (family, claim) pairs, no disagreement. It then runs the
 tree's census (`model.exceeding_census`, `model.exceeding_minimum`): over
 nonempty families, no family exceeds with fewer than three data or fewer
 than two members, which is the Lean bound; and the three-point example
-exceeds, with class counts 2, 2, 2 and 3. The census is exhaustive within
-its bound and says nothing beyond it (ledger AI-03c).
+exceeds, with class counts 2, 2, 2 and 3. These cases do not enumerate
+all ordered lists or repeated members, and say nothing outside their
+declared population (ledger AI-03c).
 
 ```
 python textbook/institutions/checks/i04_exceeds.py
@@ -438,22 +506,23 @@ It shows the exact condition for a family to know what no member knows,
 in terms of pairs and single members only.
 
 Among nonempty families, three distinct data and two members are needed
-and enough. The empty-family case is separate: it exceeds on constant
-questions because there is no member that could fail the second clause. The two-member bound is a disagreement: two members that differ
+and enough. The empty-family case is separate: it exceeds on questions
+constant on D, because there is no member to test in the second clause.
+The two-member bound is a disagreement: two members that differ
 on a pair one of them merges. The witness is smaller than the four-point
 parity and half witness of `two_theorems` (`institution_exceeds_members`
 there), which was the first proof that the gap exists at all.
 
 It does not show that the family's extra knowledge is available to
-anyone. No member's table determines the claim; the family's does; no
-member holds the family's table.
+anyone. No member's table determines the claim; the combined table does.
+Access and communication have not been specified by this definition.
 
 It does not show that exceeding is common or rare. The census counts
 cases on at most four data and at most three members (AI-03c); beyond
 that bound the unit says nothing.
 
-It does not survive a change of correspondence. If one member's data are
-re-indexed, the family that knew `q3` no longer does (Unit 05,
+The displayed example can fail after a change of correspondence. The
+specific re-indexing in Unit 05 makes the family lose `q3` (see
 `Inst.correspondence_matters`). What a family knows depends on the
 admission that its members' tables are tables of the same data.
 
