@@ -30,6 +30,24 @@ in I09/I11 proof excerpts are identified as omitted lines, not runnable
 Lean. Six new changed-example/transfer tasks extend the existing practice
 to 27 tasks in four sections, with a separate answer page.
 
+## Act XI video correction
+
+The existing preview repeated the claim “truth requires admitting the
+target.” That overstates the cited theorem: target admission neither
+creates agreement nor is required for every agreeing example. The final
+caption now separates recoverability from a supplied target comparison.
+The earlier captions use the same two-valued requested report as I04,
+scope demurral to the chosen policy, and use step labels instead of
+inaccurate timestamp ranges. Only Act XI is rerendered. Its actual text
+geometry passes seven settled states under retained Manim 0.19.2.
+Duration and sampled-frame evidence, publication of its MP4/GIF and
+preservation of the other eleven pairs are recorded in the PR.
+The MP4 is 11.13 seconds (960×540, 15 frames/second, 167 frames); its GIF
+is 11.16 seconds (800×450, 134 frames). Samples at 2.1, 4.8, 8.0 and
+10.6 seconds show the four captions without text overlap at the native
+MP4 size. This is sampled visual and geometry evidence, not proof of
+reading speed, comprehension or complete intermediate-frame coverage.
+
 ## Checked scope
 
 The four Unit scripts pass unchanged in executable AST: I08 checks 675

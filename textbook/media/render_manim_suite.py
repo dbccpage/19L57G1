@@ -540,25 +540,25 @@ class Act10InstitutionsSynergyPolicy(Scene):
             "Actors, Institutions, Joint Knowledge & Assert-or-Demur Policy",
             "Lean: Inst.exceeds_iff, Correspondence, Policy.demur_carries_witness | Status: POST_FREEZE_PROVED",
         )
-        c1 = footer_caption("0:00-0:03 | On carrier [0, 1, 2], Actor p1=(0,1,0) merges (0,2); Actor p2=(0,1,1) merges (1,2).")
+        c1 = footer_caption("1 | On inputs [0,1,2], p1=(0,1,0) merges (0,2); p2=(0,1,1) merges (1,2).")
         a1 = make_card("Actor 1: p1 = (0, 1, 0)", "Tells 0!=1, 1!=2 | Merges (0, 2)", 4.1, 1.4, CYAN).move_to(UP * 1.2 + LEFT * 4.2)
         a2 = make_card("Actor 2: p2 = (0, 1, 1)", "Tells 0!=1, 0!=2 | Merges (1, 2)", 4.1, 1.4, PURPLE).move_to(UP * 1.2 + ORIGIN)
         inst = make_card("Institution Q = [p1, p2]", "Signatures: (0,0), (1,1), (0,1) -> All 3 apart!", 4.3, 1.4, GREEN).move_to(UP * 1.2 + RIGHT * 4.2)
         self.play(FadeIn(hdr), FadeIn(c1), FadeIn(a1), FadeIn(a2), run_time=2.2)
 
-        c2 = footer_caption("0:03-0:07 | Exceeding (I04): together [p1, p2] know a 3-way claim neither actor knows alone.")
+        c2 = footer_caption("2 | Together Q recovers q=(0,0,1). Neither member can recover q alone.")
         self.play(Succession(FadeOut(c1), FadeIn(c2)), FadeIn(inst), run_time=2.0)
         c1 = c2
         self.wait(1.0)
 
-        c3 = footer_caption("0:07-0:11 | Correspondence across actors is an admission; unknown claims force a witnessed Demur.")
+        c3 = footer_caption("3 | Input alignment is supplied. Under the chosen policy, failed recovery returns demur with a conflict.")
         corr = make_card("Correspondence (I05-I08)", "Re-indexing one actor's data can change what Q knows", 5.8, 1.4, GOLD).move_to(DOWN * 0.8 + LEFT * 3.1)
         pol = make_card("Assert or Demur (I09-I11)", "demur_carries_witness: names exact pair (x, y) merged by Q", 5.8, 1.4, RED).move_to(DOWN * 0.8 + RIGHT * 3.1)
         self.play(Succession(FadeOut(c1), FadeIn(c3)), FadeIn(corr), FadeIn(pol), run_time=2.2)
         c1 = c3
         self.wait(1.2)
 
-        c4 = footer_caption("0:11-0:13 | Determination is factoring through Q's signatures; truth requires admitting the target.", GOLD)
+        c4 = footer_caption("4 | Recoverable does not mean correct. Agreement with a supplied target is a separate check.", GOLD)
         self.play(Succession(FadeOut(c1), FadeIn(c4)), Circumscribe(pol, color=GOLD), run_time=1.5)
         c1 = c4
         self.wait(1.0)
