@@ -45,6 +45,13 @@ probe agreement and explicit relay updates. It corrects the finite-carrier
 reading of P200 and keeps configured diagnostics separate from measured
 effects. The original claim/evidence route is preserved.
 
+**Institution definition follow-up (2026-10-31).** The
+[I00–I03 second reading pass](INSTITUTION_FOUNDATIONS_READING_REVIEW_2026-10-31.md)
+keeps one table through signatures, representatives, recovery and class
+counts. It separates input and output roles, corrects selected scope
+overstatements, and adds changed-example practice with separate answers.
+Quoted sources remain intact in optional disclosures.
+
 **Early-chapter follow-up (2026-10-29).** The
 [Units 04–16 reading review](EARLY_READING_REVIEW_2026-10-29.md) adds
 thirteen concrete first passes and corrects selected scope errors about

@@ -1,8 +1,9 @@
 """Unit 03 check: information is bounded, monotone, and stationary exactly
 on known questions.
 
-Exhaustive over range(n) for n <= 4, every family of at most two
-partitions, and every partition as the added question:
+Enumerates range(n), 1 <= n <= 4, with the empty family, each single
+partition and one ordering of each pair of distinct partitions, and every
+partition as the added question. Not all ordered lists or repeated members:
   information <= n                                  (information_le_carrier)
   information(Q) <= information(Q ++ [q])           (information_mono)
   knows(Q, q)  iff  information(Q ++ [q]) == information(Q)

@@ -35,12 +35,12 @@ Keep the three inputs 0, 1, and 2. Add reporting tables one at a time:
 | Tables held | Groups distinguishable | Information |
 |---|---|---|
 | None | {0,1,2} | 1 |
-| [0,0,1] | {0,1}, {2} | 2 |
-| Also constant [7,7,7] | {0,1}, {2} | 2 |
+| I00's first table [0,1,0] | {0,2}, {1} | 2 |
+| Also constant [7,7,7] | {0,2}, {1} | 2 |
 | Also [0,1,1] | {0}, {1}, {2} | 3 |
 
 The constant table adds an answer to each signature but splits no
-group. The last table separates 0 from 1, which previously agreed.
+group. The last table separates 0 from 2, which previously agreed.
 That distinction raises the count.
 
 **Predict:** can three supplied inputs produce four nonempty signature
@@ -59,7 +59,27 @@ or new signature groups. This information count is defined for this model.
 Unit 00 (`sigList`, `SigEq`, `sigEq_iff_sigList`) and Unit 02 (`Knows`,
 `knows_iff_determined`, `knows_iff_sigList`).
 
+Read this unit in three chunks: compute the groups, compare an added
+table, then explain why the count changes. The source proofs are folded
+so you can return to them after following the examples.
+
 ### 1. Counting distinct signatures
+
+**Write one signature per input.** With the first table alone, the
+signature list is `[[0],[1],[0]]`. Square brackets group the answers for
+one input; the outer brackets list those rows in carrier order.
+
+**Remove repeated signatures.** This source keeps the last occurrence,
+so the remaining list is `[[1],[0]]`. It describes the same two groups
+as keeping `[[0],[1]]` would. Here we count groups; we are not choosing
+the first-input representative from I01.
+
+**Count the remaining rows.** The result is 2. The research model names
+that number *information*. It counts distinguishable groups on this
+carrier, with no probabilities assigned to them.
+
+<details>
+<summary>Lean source: memB (optional)</summary>
 
 ```lean
 -- Lean (Genesis), lean4/Derivation/Compression.lean lines 519–521
@@ -68,12 +88,22 @@ def memB (s : List Nat) : List (List Nat) → Bool
   | a :: t => if s = a then true else memB s t
 ```
 
+</details>
+
+<details>
+<summary>Lean source: dedupL (optional)</summary>
+
 ```lean
 -- Lean (Genesis), lean4/Derivation/Compression.lean lines 549–551
 def dedupL : List (List Nat) → List (List Nat)
   | [] => []
   | s :: t => bif memB s t then dedupL t else s :: dedupL t
 ```
+
+</details>
+
+<details>
+<summary>Lean source: classCount (optional)</summary>
 
 ```lean
 -- Lean (Genesis), lean4/Derivation/Compression.lean lines 582–585
@@ -83,13 +113,16 @@ def classCount (D : List Nat) (Q : List (Nat → Nat)) : Nat :=
   (dedupL (D.map (sigList Q))).length
 ```
 
-`memB s l` says whether the signature `s` occurs in the list `l`. `dedupL`
-walks a list of signatures and drops every entry that occurs again later,
-so each signature is kept once (its last occurrence). `classCount` maps
-every datum of the carrier to its signature, drops the repeats, and counts
-what is left. The sealed file writes its own membership test and its own
-deduplication so that no library search is involved; both are list
-recursions.
+</details>
+
+The three source names follow those steps. `memB` tests whether a
+signature occurs later in the list. `dedupL` removes duplicates, keeping
+the last occurrence of each. `classCount` collects the signatures,
+removes repeats, and counts the result. Both helper functions process a
+finite list by its first entry and its remaining entries.
+
+<details>
+<summary>Lean source: information (optional)</summary>
 
 ```lean
 -- Lean (research), research/two_theorems/lean/ResearchTwoTheorems/Institution.lean lines 61–63
@@ -97,6 +130,8 @@ recursions.
 cuts `D` into (Genesis `classCount`). -/
 def information (D : List Nat) (Q : Institution) : Nat := classCount D Q
 ```
+
+</details>
 
 ```python
 # Python (research), research/actor_institution/model.py lines 140–142
@@ -112,7 +147,23 @@ family (p1)       signatures 0, 1, 0               2 classes: {0, 2} and {1}
 family (p1, p2)   signatures (0,0), (1,1), (0,1)   3 classes
 ```
 
-### 2. Two sealed facts about counting
+### Two different empty cases
+
+With no reporting tables but three inputs, all three signatures are
+`[]`; there is one group. With no inputs at all, there are no signatures
+to collect and zero groups. Repeating an input in the carrier repeats
+its signature, so it does not create another group. The formal bound
+below uses the list length, which may count such repetitions.
+
+### 2. Bounds and comparison
+
+Each nonempty group contains an input, so the group count cannot exceed
+the carrier list's length. For comparison, suppose one labelling can be
+read from another. It cannot recover a distinction the available labels
+have merged. That is why its group count is at most the available count.
+
+<details>
+<summary>Lean source: refine_bounded (optional)</summary>
 
 ```lean
 -- Lean (Genesis), lean4/Derivation/Compression.lean lines 692–698
@@ -125,8 +176,13 @@ theorem refine_bounded (D : List Nat) (Q : List (Nat → Nat)) :
   omega
 ```
 
+</details>
+
 Dropping repeats never lengthens a list (`length_dedupL_le`), and mapping
 keeps the length, so there are at most as many classes as data.
+
+<details>
+<summary>Lean source: count_le_of_determines (optional)</summary>
 
 ```lean
 -- Lean (Genesis), lean4/Derivation/Compression.lean lines 599–625
@@ -159,6 +215,8 @@ theorem count_le_of_determines (F G : Nat → List Nat) :
       | false => exact Nat.succ_le_succ iht
 ```
 
+</details>
+
 Read `F` as the finer labelling and `G` as the coarser one. If equal
 `F`-labels force equal `G`-labels, then `G` has no more distinct labels
 than `F`. The proof walks the carrier: at each datum `d`, if its `F`-label
@@ -170,6 +228,9 @@ hypothesis plus one step of arithmetic.
 
 The third sealed fact is about a family that grows:
 
+<details>
+<summary>Lean source: SplitsAt (optional)</summary>
+
 ```lean
 -- Lean (Genesis), lean4/Derivation/Compression.lean lines 343–347
 /-- The class of `x` splits under the enlargement: some point of `D`
@@ -178,6 +239,11 @@ def SplitsAt (D : List Nat) (Q Q' : List (Nat → Nat))
     (x : Nat) : Prop :=
   ∃ x', x' ∈ D ∧ SigEq Q x x' ∧ ¬ SigEq Q' x x'
 ```
+
+</details>
+
+<details>
+<summary>Lean source: strict_split_increases (optional)</summary>
 
 ```lean
 -- Lean (Genesis), lean4/Derivation/Compression.lean lines 713–718 (statement)
@@ -189,6 +255,8 @@ theorem strict_split_increases (D : List Nat)
     classCount D Q < classCount D Q'
 ```
 
+</details>
+
 If the larger family `Q'` contains the smaller `Q`, and some class of `Q`
 is split by `Q'` (two data the old family merged and the new one tells
 apart), then the count goes strictly up. Its proof is a second walk of the
@@ -196,6 +264,17 @@ carrier of the same shape as `count_le_of_determines`, tracking the datum
 where the split happens; this unit uses the statement.
 
 ### 3. The Boolean test, and "know or witness"
+
+For the first table `[0,1,0]` and requested answers `[7,8,9]`, inputs 0
+and 2 are a witness: the available labels agree and the requested answers
+disagree. To test a supplied finite table, inspect each pair. Finding
+such a conflict rejects the lookup. If every pair passes, the finite
+search construction in I02 supplies one. The Boolean test below performs
+those comparisons; a general proposition without such a test would need
+a separately supplied decision procedure.
+
+<details>
+<summary>Lean source: knowsB (optional)</summary>
 
 ```lean
 -- Lean (research), research/two_theorems/lean/ResearchTwoTheorems/Institution.lean lines 186–190
@@ -206,8 +285,13 @@ def knowsB (D : List Nat) (Q : Institution) (q : Nat → Nat) : Bool :=
     (!(decide (sigList Q x = sigList Q y))) || decide (q x = q y)))
 ```
 
+</details>
+
 For every pair `x`, `y` of the carrier: either their signatures differ, or
 `q` agrees on them. That is Unit 02's right-hand side, computed.
+
+<details>
+<summary>Lean source: know_or_witness (optional)</summary>
 
 ```lean
 -- Lean (research), the same file, lines 209–236
@@ -241,6 +325,8 @@ theorem know_or_witness (D : List Nat) (Q : Institution) (q : Nat → Nat) :
     exact ⟨x, hx, y, hy, (sigEq_iff_sigList Q x y).mpr h5, of_decide_eq_false h4⟩
 ```
 
+</details>
+
 The proof does case analysis on the *value* of `knowsB`, a Boolean the
 system computes, not on the truth of `Knows`. If the value is `true`, every
 pair passed the test, so `q` agrees wherever the signatures agree. If it is
@@ -249,6 +335,9 @@ recursion) finds the `x` whose inner test failed, then the `y`, and the
 failed test says exactly: signatures equal, `q` values different. So for
 every claim the family either knows it or has a concrete pair showing it
 does not. This is what lets the unit avoid excluded middle below.
+
+<details>
+<summary>Lean source: not_knows_iff_witness (optional)</summary>
 
 ```lean
 -- Lean (research), the same file, lines 238–246
@@ -263,11 +352,21 @@ theorem not_knows_iff_witness (D : List Nat) (Q : Institution) (q : Nat → Nat)
     exact hne ((knows_iff_determined D Q q).mp hk x hx y hy hs)
 ```
 
+</details>
+
 Not knowing is having a witness pair, in both directions.
 
 ## The theorems
 
-Four statements, in the order they depend on each other.
+Keep the carrier fixed and append a table to the family. Every old
+answer remains in the signature, so old groups can split but cannot
+merge. If the new answer was already recoverable, each old group stays
+together. If it was not, a conflicting pair splits one of those groups.
+
+Those observations lead to four statements, in dependency order.
+
+<details>
+<summary>Lean source: information_le_carrier (optional)</summary>
 
 ```lean
 -- Lean (research), the same file, lines 137–139
@@ -276,8 +375,13 @@ theorem information_le_carrier (D : List Nat) (Q : Institution) :
   refine_bounded D Q
 ```
 
+</details>
+
 **Bounded.** The information is at most the number of data. It is the
 sealed `refine_bounded`, renamed.
+
+<details>
+<summary>Lean source: information_mono (optional)</summary>
 
 ```lean
 -- Lean (research), the same file, lines 155–161
@@ -290,11 +394,16 @@ theorem information_mono {D : List Nat} {Q Q' : Institution}
     (enlarge_refines Q Q' hsub a b ((sigEq_iff_sigList Q' a b).mpr hab))
 ```
 
+</details>
+
 **Monotone.** A family that contains another has at least as much
 information. It is `count_le_of_determines` with the larger family's
 signature as the fine label and the smaller's as the coarse one: equal
 signatures on `Q'` give equal signatures on `Q` (`enlarge_refines`,
 sealed, line 338: every member of `Q` is a member of `Q'`).
+
+<details>
+<summary>Lean source: sigList_append_eq_of_knows, information_append_of_knows (optional)</summary>
 
 ```lean
 -- Lean (research), the same file, lines 163–182
@@ -320,13 +429,18 @@ theorem information_append_of_knows {D : List Nat} {Q : Institution}
   · exact information_mono (fun q' hq' => List.mem_append_left _ hq')
 ```
 
-**A known claim adds nothing.** `Q ++ [q]` is the family with `q` appended.
+</details>
+
+**A known claim leaves the class count unchanged.** `Q ++ [q]` is the family with `q` appended.
 If `Q` knows `q`, then two data with the same `Q`-signature have the same
 `(Q ++ [q])`-signature: on the old members by assumption, on `q` because
 `q` is determined by the signature (Unit 02). So the appended family's
 count is at most the old one's (`count_le_of_determines`), and at least it
 (`information_mono`); two inequalities make an equality
 (`Nat.le_antisymm`).
+
+<details>
+<summary>Lean source: not_knows_iff_split, information_lt_of_not_knows (optional)</summary>
 
 ```lean
 -- Lean (research), the same file, lines 248–273
@@ -358,9 +472,14 @@ theorem information_lt_of_not_knows {D : List Nat} {Q : Institution}
     (fun q' hq' => List.mem_append_left _ hq') x hx hs
 ```
 
+</details>
+
 **An unknown claim adds something.** A witness pair (same signature,
 different `q`-values) is exactly a class of `Q` that `Q ++ [q]` splits,
 and a split strictly raises the count (sealed `strict_split_increases`).
+
+<details>
+<summary>Lean source: knows_iff_information_eq (optional)</summary>
 
 ```lean
 -- Lean (research), the same file, lines 275–287
@@ -379,7 +498,14 @@ theorem knows_iff_information_eq (D : List Nat) (Q : Institution) (q : Nat → N
       exact Nat.lt_irrefl _ hlt
 ```
 
+</details>
+
 **The claim.** Knowing is stationarity of the count.
+
+A recoverable new table leaves every old group intact. An unrecoverable table splits an old group and strictly raises the count. Since a number cannot both stay the same and increase, unchanged count characterizes recoverability for this appended table.
+
+<details>
+<summary>Detailed proof steps (optional)</summary>
 
 ## The proof, step by step
 
@@ -417,7 +543,17 @@ Contradiction; the second case is closed, and with it the theorem.
 So: a known claim leaves the count alone (Step 2), an unknown one raises
 it (Step 7), and a count cannot both stay and rise (Steps 8 and 9).
 
+</details>
+
 ### One consequence: known claims are inert
+
+The list still gains an entry, and each signature gains an answer. The
+word *inert* here concerns recoverability: no pair changes its agreement
+status, so no additional requested table becomes recoverable merely by
+appending this already-known table.
+
+<details>
+<summary>Lean source: known_extension_inert (optional)</summary>
 
 ```lean
 -- Lean (research), the same file, lines 291–300
@@ -433,6 +569,8 @@ theorem known_extension_inert {D : List Nat} {Q : Institution} {q : Nat → Nat}
   · exact knows_mono (fun q'' hq'' => List.mem_append_left _ hq'')
 ```
 
+</details>
+
 Appending a known claim changes nothing about what else is known: the
 new family's signature merges exactly the pairs the old one merged
 (`sigList_append_eq_of_knows`), and a larger family knows whatever a
@@ -441,13 +579,14 @@ smaller one does (`knows_mono`, Unit 02's file, lines 129–133).
 ## The same fact in Python
 
 `model.information` counts the distinct signatures with a set. The check
-takes every carrier `range(n)` with `n ≤ 4`, every family of at most two
-partitions, and every partition `q` as the added claim, and tests four
+uses `range(n)`, `1 ≤ n ≤ 4`, the empty family, each single partition,
+and one ordering of each pair of distinct partitions. It uses every
+partition `q` as the added claim and tests four
 things: the count is at most `n`; the count after appending is at least
 the count before; `model.knows` agrees with "the count is unchanged"; and
 when `knows` is false the count strictly rises. 1905 (family, claim)
-pairs, no violation. The proofs for every carrier and every family are
-the Lean above.
+pairs, no violation. It does not enumerate every ordered family list or
+repeated member. The Lean statements cover arbitrary lists.
 
 ```
 python textbook/institutions/checks/i03_information.py
@@ -520,6 +659,16 @@ It does not give determination from a count. Two families with the same
 information can know different claims (Unit 08,
 `Chain.information_without_determination`). The count says how many
 classes there are, not which.
+
+For example, `[0,1,0]` groups {0,2} together, while `[0,0,1]` groups
+{0,1} together. Both have two classes, but neither table can recover the
+other: one has a conflict on 0/2 and the other on 0/1. This does not
+contradict the unchanged-count theorem above. That theorem appends a
+table to the same family on the same carrier; it does not replace the
+family by an unrelated one with the same number of groups.
+
+Try the [institution foundation practice](../../reading_formal_practice.md#institution-foundations-i00i03)
+before its [separate answers](../../reading_formal_answers.md#institution-foundations-i00i03).
 
 ## Sources
 

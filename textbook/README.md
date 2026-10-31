@@ -109,6 +109,10 @@ and reader mastery remain separate work.
 The [institution review](audit/INSTITUTIONS_READING_REVIEW_2026-10-31.md)
 covers the material after Act X: eighteen worked openings for I00–I17,
 selected theorem-scope corrections, and a repaired Python transition check.
+The [I00–I03 definition follow-up](audit/INSTITUTION_FOUNDATIONS_READING_REVIEW_2026-10-31.md)
+follows one table through the definitions, separates reported answers from
+representative labels and lookup rules, and breaks class counting into
+three steps. Quoted sources remain in optional disclosures.
 
 ## Status marks
 

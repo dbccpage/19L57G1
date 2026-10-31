@@ -26,6 +26,13 @@ records the selected scope corrections, all eighteen worked introductions,
 and the repaired I17 Python checker. This review does not certify every
 research proof, hosted layout, or reader comprehension.
 
+The [I00–I03 definition follow-up](../audit/INSTITUTION_FOUNDATIONS_READING_REVIEW_2026-10-31.md)
+keeps one table through signatures, representatives, lookup rules and
+class counts. It separates those roles, folds source proofs after visible
+explanations, and adds six [changed-example tasks](../reading_formal_practice.md#institution-foundations-i00i03)
+with [separate answers](../reading_formal_answers.md#institution-foundations-i00i03).
+The review states the remaining semantic and learner-evidence limits.
+
 ## Sources
 
 | Code | Where | Revision |

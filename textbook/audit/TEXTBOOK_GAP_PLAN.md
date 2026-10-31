@@ -280,6 +280,11 @@ read/write dependencies, probe agreement, configured diagnostics and
 actual relay updates. Its bounded input checks remain separate from the
 formal carrier's unbounded natural-number fields and from measurements.
 P201 unit/calibration rules remain a separate next teaching step.
+The [I00–I03 definition follow-up](INSTITUTION_FOUNDATIONS_READING_REVIEW_2026-10-31.md)
+then returns to the formal route: one continuing table, separate input/
+output/lookup roles, three-step class counting, folded source proofs and
+six changed-example practice tasks. This improves four Units' definitions
+without certifying the remaining paragraphs of the textbook.
 The dedicated introductory tree count is now thirteen, leaving 110 without
 such treatment. Directory counts guide discovery;
 they do not set a requirement for equally sized modules for every tree.

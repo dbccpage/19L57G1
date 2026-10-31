@@ -25,5 +25,33 @@
    next-step function to the demand conditions. The generic tag's
    definition alone supplies only the stated stopping condition.
 
+## Institution foundations I00–I03
+
+10. In J,K,L,M order, the representatives are J,K,J,K. In M,L,K,J scan
+    order, the group {J,L} chooses L and {K,M} chooses M, so the values on
+    J,K,L,M become L,M,L,M. The groups do not change. Renaming the two
+    p-values injectively keeps their equalities and the representatives.
+11. Set g(4)=5 and g(6)=7. After changing L's answer, J and L require
+    g(4)=5 and g(4)=12, which are incompatible. Choosing the lookup using
+    original input identity gives it information the stated task withholds.
+12. Under `[p,r]`, J has [4,8] and L has [4,9]. Under `[r,p]` they have
+    [8,4] and [9,4]. All four combined signatures differ, so no two
+    distinct inputs merge. Repeating p lengthens each signature without
+    changing which pairs agree.
+13. The counts are 2,2,4,2. Table p cannot recover r: J/L share p=4 but
+    differ in r. Table r cannot recover p: J/K share r=8 but differ in p.
+    The two equal counts describe different groups. Appending q preserves
+    p's groups because q is recoverable from p; appending r splits them.
+    The theorem retains the old family and adds the specified new table.
+14. Four empty signatures give one distinct signature. An empty carrier
+    gives no signatures and zero classes. For J,J,K,L,M with the empty
+    family, five empty signatures still give one class. With `[p]`, that
+    repeated-input carrier has five entries and two classes.
+15. Specify which physical inputs, measurement procedure and conditions
+    correspond to these rows, and how readings receive the declared
+    labels. Collect results that could reveal a disagreement with the
+    proposed correspondence. Calculating the invented table supplies no
+    such observations by itself.
+
 AuthorityEffect: None. Passing these written tasks would be reader evidence;
 software validation of the examples alone is not a comprehension result.
