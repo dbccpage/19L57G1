@@ -148,9 +148,27 @@ empty, so there the two agree: the counterexample is specific to `replayP`. -/
 theorem same_under_own_replay :
     refTag (replayK noRefK refHist genesisP) = replayK noRefK refHist genesisP := by decide
 
+/-- Replay must use the simulation's own source and target controllers. -/
+theorem simulation_replay (C1 C2 : Ctrl) (u : Sim C1 C2) (h : List PEvent)
+    (s : PState) :
+    u.f (replayK C1.d h s) = replayK C2.d h (u.f s) := by
+  induction h generalizing s with
+  | nil => rfl
+  | cons e h ih =>
+    change u.f (replayK C1.d h (interpK C1.d s e)) =
+      replayK C2.d h (interpK C2.d (u.f s) e)
+    rw [ih, u.comm]
+
+theorem same_start_same_own_replay (C1 C2 : Ctrl) (u v : Sim C1 C2)
+    (s : PState) (hs : u.f s = v.f s) (h : List PEvent) :
+    u.f (replayK C1.d h s) = v.f (replayK C1.d h s) := by
+  rw [simulation_replay, simulation_replay, hs]
+
 end Textbook.U58
 
 #print axioms Textbook.U58.noAdd_inert
+#print axioms Textbook.U58.simulation_replay
+#print axioms Textbook.U58.same_start_same_own_replay
 #print axioms Textbook.U58.full_runs_step
 #print axioms Textbook.U58.noRef_resolves
 #print axioms Textbook.U58.noRefine_resolves_obst5
@@ -195,6 +213,8 @@ end Textbook.U58
 
 EXPECTED = {
     "Textbook.U58.noAdd_inert": BOTH,
+    "Textbook.U58.simulation_replay": BOTH,
+    "Textbook.U58.same_start_same_own_replay": BOTH,
     "Textbook.U58.full_runs_step": BOTH,
     "Textbook.U58.noRef_resolves": BOTH,
     "Textbook.U58.noRefine_resolves_obst5": BOTH,

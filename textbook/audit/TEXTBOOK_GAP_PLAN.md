@@ -183,6 +183,13 @@ walkthrough. Changed-label practice has separate folded answers.
    count agreement from connectivity, and logical negation from ignorance.
    Six new book reports support these distinctions. Later chapters and
    dedicated research teaching remain open.
+   The [replay and boundary follow-up](REPLAY_READING_REVIEW_2026-10-31.md)
+   continues the consecutive opening route through Unit 61. Four worked
+   openings and a compression prediction distinguish notes from matched
+   support, own-controller replay from another replay, bounds from pair
+   distinctness, unreduced storage from coefficients, and representatives
+   from grouping. Eight added book reports verify these selected claims.
+   The remaining core Units and per-declaration semantic coverage stay open.
 7. **Evidence and reality.** Add exercises in separating a definition,
    a deduction, a computation, and a measurement. Give a model prediction,
    identify an observation that could disagree with it, and explain what

@@ -4,7 +4,7 @@ Usage: python textbook/checks/u61_lean.py
 
 Invokes ``lake env lean -DwarningAsError=true`` on an ephemeral driver that
 imports ``Derivation.Compression``, checks the signatures and axiom sets of the
-22 artifact theorems in ``Compression``, and verifies three book-Lean theorems
+22 artifact theorems in ``Compression``, and verifies four book-Lean theorems
 in ``Textbook.U61``:
   1. ``splits_iff_without_sub`` — ``splits_iff_new_separator`` proved without
      the unused ``_hsub : ∀ q, q ∈ Q → q ∈ Q'`` hypothesis;
@@ -15,7 +15,9 @@ in ``Textbook.U61``:
      ``splits_iff_new_separator``;
   3. ``d4_chain_counts`` — on ``D = [0, 1, 2, 3]``, the chain
      ``[] -> [x % 2] -> [x % 2, x / 2]`` has class counts ``1, 2, 4`` and
-     quotient maps ``[0, 0, 0, 0]``, ``[0, 1, 0, 1]``, ``[0, 1, 2, 3]``.
+     quotient maps ``[0, 0, 0, 0]``, ``[0, 1, 0, 1]``, ``[0, 1, 2, 3]``;
+  4. ``first_match_order_changes_labels`` — domain order changes the chosen
+     representative while preserving the taught pair's grouping.
 """
 
 from __future__ import annotations
@@ -59,6 +61,7 @@ EXPECTED: dict[str, str] = {
     "Textbook.U61.splits_iff_without_sub": NONE,
     "Textbook.U61.non_sub_split_preserves_count": NONE,
     "Textbook.U61.d4_chain_counts": NONE,
+    "Textbook.U61.first_match_order_changes_labels": NONE,
 }
 
 BOOK_LEAN = """import Derivation.Compression
@@ -113,6 +116,13 @@ theorem d4_chain_counts :
     ([0, 1, 2, 3].map (pQ [0, 1, 2, 3] [qParity])) = [0, 1, 0, 1] ∧
     ([0, 1, 2, 3].map (pQ [0, 1, 2, 3] [qParity, qHalf])) = [0, 1, 2, 3] := by
   exact ⟨rfl, rfl, rfl, rfl, rfl, rfl⟩
+
+/-- Reordering changes these labels, not the answer grouping. -/
+theorem first_match_order_changes_labels :
+    pQ [0,1,2] [ind 2] 0 = 0 ∧ pQ [1,0,2] [ind 2] 0 = 1 ∧
+    pQ [0,1,2] [ind 2] 0 = pQ [0,1,2] [ind 2] 1 ∧
+    pQ [1,0,2] [ind 2] 0 = pQ [1,0,2] [ind 2] 1 :=
+  ⟨rfl, rfl, rfl, rfl⟩
 
 end Textbook.U61
 """

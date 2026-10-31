@@ -88,6 +88,15 @@ evidence. Six added book reports and a corrected graph-count example
 support the changes. The earlier refinement/licence distinction remains
 literal; supplied drivers and higher-cell rules remain explicit assumptions.
 
+**Replay, attachment, and boundary follow-up (2026-10-31).** The
+[Units 57–61 review](REPLAY_READING_REVIEW_2026-10-31.md) adds four worked
+openings and a domain-order prediction to the earlier compression lesson.
+Eight new book reports separate matched-input agreement from global
+agreement, controller-specific replay from an unrelated replay, endpoint
+bounds from distinctness, and zero coefficients from empty storage.
+The revised opening route now extends through Unit 61. Later core Units,
+per-declaration teaching coverage, and novice transfer remain open.
+
 **Institution reading review (2026-10-31).** The
 [I00–I17 review](INSTITUTIONS_READING_REVIEW_2026-10-31.md) adds eighteen
 worked openings and checks selected claims about empty families, fiber

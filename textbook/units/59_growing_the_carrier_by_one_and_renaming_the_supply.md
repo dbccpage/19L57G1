@@ -2,15 +2,48 @@
 
 **Claim.** A declared attachment block adds one fresh occurrence and an edge from an existing position. Under its liveness and store-bound hypotheses, replay preserves the stated store conditions.
 
+<details>
+<summary>Sources and classification (optional)</summary>
+
 **Status:** FROZEN (general theorems); CONDITIONAL (`up_exec_eq`, `up_executes`, `act_up_comm`, `act_comp`, `act_inv`, `wf_act`, `equivariance_summary`, under their stated store-bound, liveness and scope hypotheses); VERIFIED_FINITE / REFUTED (the countermodels on clamp, length-as-token, 4-vertex shape, non-bijective collapse, equal size and equal cost). **Lean:** `lean4/Derivation/Attachment.lean` lines 61-1172 and `lean4/Derivation/RenamingStructure.lean` lines 48-482. **Axioms:** 54 reports for `Attachment` (`propext, Quot.sound` for 43, `propext` for 7, none for 4) and 28 reports for `RenamingStructure` (`propext, Quot.sound` for 23, `propext` for 1, none for 4). **Depends on:** Unit 54 (`PState`, `PEvent`, `step`, `replayP`, `genesisP`, `step_halted`), Unit 55 (`HigherStructure`).
+
+</details>
 
 ## First pass
 
-An occurrence has both a token and a position in a list. They serve different purposes.
+For vertices, edges, and directed paths, use the [Path lab](../path_lab/README.md).
 
-The fresh token is chosen above every token already present. The new position is the old list length. The chosen parent must already be a valid position.
+Begin with tokens `[1, 2]`. Their positions are 0 and 1. To attach
+one new occurrence to position 0, we need a token that is absent and a
+new position at which to store it.
 
-Read this lesson in three passes: execute one attachment, compare equal-cost tree shapes, then study how a bijective renaming transports attachments.
+| Quantity | Value |
+|---|---|
+| Next position: current list length | 2 |
+| Fresh token: one above the largest token | 3 |
+| Tokens after admission | `[1, 2, 3]` |
+| New directed pair of positions | `(0, 2)` |
+
+The declared four-request recipe admits token 3, asserts the pair,
+retains it, then protects it. Successful growth needs a live state,
+an existing parent position, and old pair endpoints within bounds.
+The label `.attached` alone does not check all those conditions.
+
+**Predict.** Would using token 2, the old list length, also create the
+new position?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. Token 2 is already present, so admission adds nothing. Position 2
+does not exist, and the requests concerning `(0, 2)` fail their bounds
+check. Token values and positions happen to agree in some examples;
+they have different jobs here.
+
+</details>
+
+<details>
+<summary>Detailed statement and formal anchors (optional)</summary>
 
 ## Detailed claim and formal anchors
 
@@ -18,13 +51,15 @@ On the passage state `PState` (Unit 54), a one-edge supply block `upBlock s p` a
 
 The complete proposal family `upFamily s` lists one block per existing position, and membership in `upFamily s` coincides with the declared one-edge grammar (`up_iff_legal`).
 
-On a live, store-bounded state (`WFStores s`, `s.halted = false`, `p < s.occ.length`), replaying `upBlock s p` reaches the closed form `upS4 s p` (`up_exec_eq`), extends the occurrence, asserted, retained and protected stores by one each, and preserves `WFStores` (`up_executes`); on a halted state every block is inert (`halted_up_inert`); an out-of-range parent meets a typed refusal (`attachChecked_refuses`) rather than silent clamping (`clamp_rewrote_input`).
+On a live, store-bounded state (`WFStores s`, `s.halted = false`, `p < s.occ.length`), replaying `upBlock s p` reaches the closed form `upS4 s p` (`up_exec_eq`), extends the occurrence, asserted, retained and protected stores by one each, and preserves `WFStores` (`up_executes`); on a halted state every block is inert (`halted_up_inert`); an out-of-range parent meets a typed refusal (`attachChecked_refuses`) rather than silent clamping (`clamp_rewrote_input`). The same `.refusedParent` tag is also returned on a halted state with an in-range parent; the tag alone does not identify which test failed.
 
 Iterating along any `LawfulPolicy` (a parent selector bounded by `choose (k + 1) ≤ k`) from genesis produces the closed-form state `treeState π n` (`treeAt_spec`) with `V − E = 1` (`attach_residue`), ascending edges (`parent_lt`), a unique parent per non-root position (`parent_unique`, `parent_exists`), and root reachability (`all_reach`); yet equal block cost does not force the resulting graph shape (`path4_star4_not_isomorphic`, `equal_cost_non_isomorphic_extensions`).
 
 A positional `Renaming n` (a bijection below `n`, identity at or above `n`) satisfies the six group laws under `idRen`, `invRen` and `compRen` (`comp_id`, `id_comp`, `comp_assoc`, `inv_comp`, `comp_inv`, `inv_inv`), acts on states (`act_id` unconditionally; `act_comp` and `act_inv` on `n ≤ s.occ.length`), preserves `WFStores` at `n = s.occ.length` (`wf_act`), transports blocks and the family (`upBlock_transport`, `upFamily_transport`, `upFamily_orbit_closed`), and commutes with block replay coherently under composition (`act_up_comm`, `act_up_comm_comp`, `act_up_comm_twostep`, packaged in `equivariance_summary`).
 
-A collapsing map is not a renaming (`collapse_not_a_renaming`), its raw pair pushforward produces ill-formed self-pairs (`collapse_pushforward_ill_formed`), and equal carrier size does not make two states renaming-related (`equal_size_not_renaming_related`).
+A collapsing map is not a renaming (`collapse_not_a_renaming`), its raw pair pushforward produces self-pairs rejected by `wfPair` (`collapse_pushforward_ill_formed`), and equal carrier size does not make two states renaming-related (`equal_size_not_renaming_related`).
+
+</details>
 
 ## Question
 
@@ -59,7 +94,7 @@ With those two repairs in place, `upBlock s p` is the four-event recipe that adm
 
 Does paying the same event cost force the same tree? No. The path policy (`choose (k + 1) = k`) and the star policy (`choose (k + 1) = 0`) both run three 4-event blocks to reach 4 vertices, yet no bijection of the 4 positions maps the undirected edges of the 4-path onto those of the 4-star (`path4_star4_not_isomorphic`), and even from the same 3-vertex path state, the two legal blocks at parents `1` and `2` have equal length `4` and execute to non-isomorphic 4-vertex trees (`equal_cost_non_isomorphic_extensions`).
 
-Finally, what happens when we permute the existing positions `0 .. n - 1`? `Renaming n` packages a permutation of `{0, ..., n - 1}` extended by the identity on `{n, n + 1, ...}`. In `RenamingStructure`, identity, inverse and composition of renamings are shown to obey the group laws, and `act` is shown to obey the action laws on any state with at least `n` occurrences (`n ≤ s.occ.length`). Because a renaming at scale `n = s.occ.length` permutes the existing positions below `n` while fixing the new child position `n`, renaming a state and then running the block for `σ.f p` produces the exact same state as running the block for `p` and then renaming (`act_up_comm`), and this commutation composes across two renamings (`act_up_comm_comp`, `act_up_comm_twostep`). Because `upFamily` lists a block for every position, it carries the entire renaming orbit of every parent without selecting a representative (`upFamily_orbit_closed`). None of this holds for a non-bijective map such as `collapseMap` (`_ ↦ 0`), which has no left inverse (`collapse_not_a_renaming`) and pushes a valid store forward into self-loops `(0, 0)` (`collapse_pushforward_ill_formed`).
+Finally, what happens when we permute the existing positions `0 .. n - 1`? `Renaming n` packages a permutation of `{0, ..., n - 1}` extended by the identity on `{n, n + 1, ...}`. In `RenamingStructure`, identity, inverse and composition of renamings are shown to obey the group laws, and `act` is shown to obey the action laws on any state with at least `n` occurrences (`n ≤ s.occ.length`). Because a renaming at scale `n = s.occ.length` permutes the existing positions below `n` while fixing the new child position `n`, renaming a state and then running the block for `σ.f p` produces the exact same state as running the block for `p` and then renaming (`act_up_comm`), and this commutation composes across two renamings (`act_up_comm_comp`, `act_up_comm_twostep`). Because `upFamily` lists a block for every position, it carries the entire renaming orbit of every parent without selecting a representative (`upFamily_orbit_closed`). A non-bijective map such as `collapseMap` (`_ ↦ 0`) has no left inverse (`collapse_not_a_renaming`) and pushes the example's pairs to self-loops `(0, 0)` (`collapse_pushforward_ill_formed`). Those pairs fail `wfPair`, which also requires distinct endpoints. They can still satisfy `WFStores`, which checks endpoint bounds only. The book's `bounded_self_pairs` proves both facts about the same record; it does not claim that every raw `PState` is reachable by guarded replay.
 
 ## Pseudocode
 
@@ -73,7 +108,7 @@ if WFStores(s) and not s.halted and p < |s.occ|:
     replayP(upBlock(s, p), s) == upS4(s, p)   -- all four stores grow by 1
 
 treeAt(pi, n)        := replayP([admitOcc 0] ++ concat_{k < n} attachBlock(pi, k), genesisP)
-                     == treeState(pi, n)      -- V = n+1, E = n, unique parent, all reach 0
+                     == treeState(pi, n)      -- V = n+1, E = n, unique parent, every position reachable from 0
 
 Renaming(n)          := (f, g, fg: g(f(x))=x, gf: f(g(x))=x,
                          fbound: x<n -> f(x)<n, ffix: x>=n -> f(x)=x)
@@ -364,9 +399,12 @@ theorem act_inv_out_of_scope :
 
 In `Attachment`, `act_occ_mem` and `freshTok_act` assume `hn : n = s.occ.length`, whereas in `RenamingStructure`, `act_comp` and `act_inv` assume the weaker inequality `hn : n ≤ s.occ.length`. Explain why `act_up_comm_twostep` needs `act_comp` under `n ≤ s.occ.length` rather than `n = s.occ.length`, even though `act_up_comm_twostep` itself assumes `hn : n = s.occ.length`.
 
-## Answer
+<details>
+<summary>Student exercise answer</summary>
 
 In `act_up_comm_twostep`, the starting state `s` has `s.occ.length = n`, so at the source of the square `n = s.occ.length` holds. However, the left-hand side of `act_up_comm_twostep` applies `act σ (act τ (replayP (upBlock s p) s))` to the *extended* state `t = replayP (upBlock s p) s`. By `(up_executes s hwf hh p hp).1`, the extended state has `t.occ.length = s.occ.length + 1 = n + 1`. At `t`, the equality `n = t.occ.length` is false (`n ≠ n + 1`), while the inequality `n ≤ t.occ.length` (`n ≤ n + 1`) holds! Because `act_comp` was proved under `n ≤ s.occ.length`, line 331 of `RenamingStructure.lean` can rewrite `act σ (act τ t)` to `act (compRen σ τ) t` and reduce `act_up_comm_twostep` to `act_up_comm_comp`.
+
+</details>
 
 ## Verification
 

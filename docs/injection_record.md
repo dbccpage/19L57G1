@@ -847,3 +847,22 @@ The six original checkers recover exit 0 after the temporary bindings are
 discarded. I17 consumes the existing transition owner rather than its old
 copied helper. These are finite regression checks; no new Lean theorem,
 research campaign closure, or empirical learning result is claimed.
+
+## Replay and boundary reading review (2026-10-31)
+
+Five temporary substitutions change book-Lean source strings in child
+processes. Each original file remains intact. Lean rejects each false
+statement, and its driver exits 1; the unmodified driver then recovers
+exit 0 with its expected reports.
+
+| Unit | Defect injected | Observed rejection and recovery |
+|---|---|---|
+| 57 | Equate diagonal and kernel support at the off-range fresh-admission input | `decide` rejects equality; original proves inequality |
+| 58 | Replace the simulation's own source replay by all-on replay in its general equation | Replay proof fails; original proves the controller-specific equation |
+| 59 | Assert the bounded collapsed self-pair passes `wfPair` | `decide` rejects the guard result; original proves boundedness and guard failure together |
+| 60 | Assert the triangle's unreduced composite list has length zero | Lean rejects the length equality; original proves six terms and zero coefficients |
+| 61 | Keep representative 0 after the domain starts with input 1 | Lean rejects the representative equality; original proves label 1 and preserved grouping |
+
+The five original drivers recover 180 exact reports. Eight are new:
+seven with `propext, Quot.sound` and one with no axioms. Sealed sources,
+research sources and results, and native receipts are unchanged.

@@ -138,9 +138,35 @@ theorem tree3_stores :
     (treeAt starPolL 2).wit = [(0, 1), (0, 2)] := by
   constructor <;> decide
 
+/-- Store boundedness is weaker than the event guard's distinctness check. -/
+def collapsedBook : PState :=
+  { treeAt pathPolL 2 with
+    asserted := rawRenamePairs collapseMap (treeAt pathPolL 2).asserted,
+    wit := rawRenamePairs collapseMap (treeAt pathPolL 2).wit,
+    prot := rawRenamePairs collapseMap (treeAt pathPolL 2).prot }
+
+theorem bounded_self_pairs : WFStores collapsedBook ∧ wfPair collapsedBook 0 0 = false := by
+  have h : collapsedBook =
+      { genesisP with
+        occ := [0,1,2]
+        asserted := [(0,0),(0,0)]
+        wit := [(0,0),(0,0)]
+        prot := [(0,0),(0,0)] } := by decide
+  constructor
+  · rw [h]
+    simp [WFStores]
+  · decide
+
+/-- The refusal tag can also be returned for a valid parent when halted. -/
+theorem valid_parent_halted_refusal :
+    attachChecked { s12 with halted := true } 0 = .refusedParent 0 2 ∧
+    0 < ({ s12 with halted := true } : PState).occ.length := by decide
+
 end Textbook.U59
 
 #print axioms Textbook.U59.freshTok_s12_val
+#print axioms Textbook.U59.bounded_self_pairs
+#print axioms Textbook.U59.valid_parent_halted_refusal
 #print axioms Textbook.U59.upBlock_s12_0
 #print axioms Textbook.U59.sIll_not_wf
 #print axioms Textbook.U59.sIll_attach_partial
@@ -190,6 +216,8 @@ end Textbook.U59
 
 EXPECTED = {
     "Textbook.U59.freshTok_s12_val": NONE,
+    "Textbook.U59.bounded_self_pairs": BOTH,
+    "Textbook.U59.valid_parent_halted_refusal": BOTH,
     "Textbook.U59.upBlock_s12_0": NONE,
     "Textbook.U59.sIll_not_wf": NONE,
     "Textbook.U59.sIll_attach_partial": BOTH,

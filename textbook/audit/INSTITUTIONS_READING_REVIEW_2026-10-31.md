@@ -20,8 +20,11 @@ entry links the existing beginner routes; its dependency graph is described
 as a recorded map rather than a certificate of complete preparation.
 
 The review starts from main `45bb09864f9b52ed5ecf66e977ca81f0ed623de7`,
-after author merges of #293 and #294. The previous worktree's unfinished
-Part 1 checks remain there; they are not included in this change.
+after author merges of #293 and #294. At this review's first publication,
+the previous worktree's unfinished Part 1 checks remained separate.
+The subsequent [Units 57–61 follow-up](REPLAY_READING_REVIEW_2026-10-31.md)
+validates and includes those book additions; the original worktree is
+preserved.
 
 ## Findings and corrections
 

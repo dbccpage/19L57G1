@@ -1,16 +1,46 @@
 # Unit 60. One guard for every dimension, and boundary cancellation
 
-**Claim.** For the declared signed boundary construction, taking a boundary twice gives zero. The cancellation theorem depends on the construction; the unsigned version has counterexamples.
+**Claim.** For the declared signed boundary construction, taking a boundary twice gives coefficient zero at every target. The unreduced list may remain nonempty. The unsigned construction has counterexamples.
+
+<details>
+<summary>Sources and classification (optional)</summary>
 
 **Status:** FROZEN (general filler, invariant, and unrestricted boundary cancellation); CONDITIONAL (`uniform_guarded_filler`, `shell_refuses_general`, `eraseIdx_inj_of_asc`, `codim2_distinct`, `d2_zero_renamed`); VERIFIED_FINITE / REFUTED (`pseudo_cell_countermodel`, `d4_demo`, `d4_guard_load_bearing`, `signless_countermodel`, `illformed_countermodel`); PROOF DEFECT (`d2_zero_dims_2_3_4` conjuncts 1–2 vacuous, superseded by `d2_zero_unrestricted`). **Lean:** `lean4/Derivation/LadderGeneral.lean` lines 51-329 and `lean4/Derivation/BoundaryCancellation.lean` lines 95-661. **Axioms:** 13 reports for `LadderGeneral` (`propext, Quot.sound` for 11, none for 2) and 37 reports for `BoundaryCancellation` (`propext, Quot.sound` for 30, `propext` for 4, none for 3). **Depends on:** Unit 55 (`HigherStructure`, for the dimension-0–3 motivation; neither module uses any declaration from `HigherStructure`).
 
+</details>
+
 ## First pass
 
-First picture an oriented triangle. Its boundary is a signed list of edges. Taking each edge's boundary produces signed vertices.
+For the signed-edge pictures, use the [Path lab](../path_lab/README.md).
 
-Each vertex appears twice with opposite signs, so the contributions cancel. This is the meaning of d² = 0 in the example.
+Draw a triangle with vertices 0, 1, and 2. Its declared **signed
+boundary** is a list of edges with plus or minus signs:
 
-The general theorem uses the declared higher-dimensional construction. Read its hypotheses before transferring this picture to another kind of cell.
+`+[1,2] −[0,2] +[0,1]`.
+
+The boundary of an edge `[a,b]` is `+[b] −[a]`. Apply that rule to each
+edge, keeping the signs already present:
+
+`+[2] −[1] −[2] +[0] +[1] −[0]`.
+
+Each vertex has total coefficient zero: vertex 2 contributes `1 − 1`,
+and the same cancellation occurs for vertices 1 and 0. A **coefficient**
+is the sum of the signed contributions to one chosen vertex or face.
+
+**Predict.** Does zero total at every vertex mean the stored list is empty?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. The unreduced list still has six terms. Zero here means every target
+has coefficient zero. Replacing all signs by plus signs instead gives
+coefficient 2 at each vertex. These signs are part of the supplied
+construction, not a consequence of drawing a triangle.
+
+</details>
+
+<details>
+<summary>Detailed statement and formal anchors (optional)</summary>
 
 ## Detailed claim and formal anchors
 
@@ -27,6 +57,8 @@ In `LadderGeneral.d2_zero_dims_2_3_4`, conjunct 3 genuinely checks dimension 4, 
 Strict ascent is not needed for cancellation (`illformed_countermodel` on `[0, 0, 1]`), but is load-bearing for facet and codimension-2 face distinctness (`eraseIdx_inj_of_asc`, `codim2_distinct`) and transports along strictly monotone vertex renamings (`d2_zero_renamed`).
 
 The alternating sign convention `sgn` is load-bearing: with all signs `+1`, the composite on `[0, 1, 2]` has coefficient `2` at every vertex (`signless_countermodel`).
+
+</details>
 
 ## Question
 
@@ -315,9 +347,12 @@ In `BoundaryCancellation.d2_zero_renamed`, the hypothesis `hr : ∀ x y, x < y �
 
 Which of the four conjuncts actually depend on `hr` and `hasc : ascB σ = true`, and what happens to all four conjuncts when `σ = [0, 1, 2]` and `r` is the non-monotone bijection `0 ↦ 2, 1 ↦ 0, 2 ↦ 1`?
 
-## Answer
+<details>
+<summary>Student exercise answer</summary>
 
 Only conjunct 1 (`ascB (σ.map r) = true`, proved by `ascB_map r hr σ hasc`) uses `hr` or `hasc`. Conjunct 2 is `List.length_map`, which holds for any function `r` and any list `σ`. Conjunct 3 is `eraseIdx_map`, proved by structural induction on `σ` and `i` for any function `r`. Conjunct 4 holds for *every* list `σ.map r` and *every* `τ` by `d2_zero_unrestricted (σ.map r) τ`, without needing `hr`, `hasc` or `hlen`. When `σ = [0, 1, 2]` and `r` sends `0 ↦ 2, 1 ↦ 0, 2 ↦ 1`, the mapped list is `[2, 0, 1]`: conjunct 1 fails (`ascB [2, 0, 1] = false` because `2 < 0` is false), while conjuncts 2, 3 and 4 all still hold (`scrambled_triangle_cancels` in `u60_lean.py`).
+
+</details>
 
 ## Verification
 
@@ -329,4 +364,4 @@ Only conjunct 1 (`ascB (σ.map r) = true`, proved by `ascB_map r hr σ hasc`) us
 | Python | `code/derivation/attachment_ladder.py` (section 5), `code/derivation/boundary_cancellation.py`, `code/run_attachment_ladder.py`, `code/run_boundary_cancellation.py`, `tests/test_attachment_ladder.py`, `tests/test_boundary_cancellation.py`, `artifacts/attachment_ladder.json`, `artifacts/boundary_cancellation.json` |
 | Audit | `textbook/audit/modules/LadderGeneral.md`, `textbook/audit/modules/BoundaryCancellation.md`, `textbook/audit/probes/E/lg_vacuity.lean` |
 | Check (Python) | `python textbook/checks/u60_ladder_boundary.py`: `ladder_report(5)`, `pseudo_cell_countermodel`, Python (book) vacuity probe on `d2_zero_dims_2_3_4` conjuncts 1–2, `cancellation_report` (218 cells, 3124 checks), `renaming_report`, `signless_countermodel`, `illformed_countermodel`, artifact comparison |
-| Check (book Lean) | `python textbook/checks/u60_lean.py`: nine book theorems (including the vacuity proofs `conj1_vacuous_signless`, `conj2_vacuous_signless` and the repaired dimension-2/3 checks) plus twenty-five Genesis theorems kernel-checked, Lean 4.33.0 |
+| Check (book Lean) | `python textbook/checks/u60_lean.py`: ten book theorems (including the vacuity proofs `conj1_vacuous_signless`, `conj2_vacuous_signless` and the repaired dimension-2/3 checks) plus twenty-five Genesis theorems kernel-checked, Lean 4.33.0 |
