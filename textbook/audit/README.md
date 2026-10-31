@@ -16,6 +16,14 @@ certify exhaustive declaration coverage or beginner comprehension. See
 current findings, eight book-Lean reports, and the distinction between a
 recorded prerequisite graph and complete conceptual preparation.
 
+**Evidence and reality extension (2026-10-31).** The
+[Reasoning-lab continuation](EVIDENCE_READING_REVIEW_2026-10-31.md)
+supplies four lessons, fictional trial records, partial-answer/scope
+checks, a prediction desk, changed-example practice and an optional
+physical worksheet. An added book proof establishes logical
+incompatibility without assigning a physical cause. The route records
+no measurements or learning outcomes; browser layout remains unverified.
+
 **Early-chapter follow-up (2026-10-29).** The
 [Units 04–16 reading review](EARLY_READING_REVIEW_2026-10-29.md) adds
 thirteen concrete first passes and corrects selected scope errors about

@@ -43,4 +43,9 @@ Write one definition, one conclusion from the card table, and one claim
 about a physical device that still needs evidence. Name a possible
 observation that would challenge the last claim.
 
+Continue with [08. From a model row to a trial](08_from_a_model_to_a_trial.md)
+for a declared protocol, fictional raw logs, a conflicting repeat,
+uncertainty, and an optional physical worksheet. The worked example
+keeps calculations on supplied logs separate from actual observations.
+
 AuthorityEffect: None. No physical measurement or learning outcome is claimed.

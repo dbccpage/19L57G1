@@ -7874,6 +7874,166 @@
  },
  "classification": "supplied teaching logic and finite calculations",
  "digest_mode": "UTF-8 source text with LF normalization",
+ "evidence": {
+  "claim": "On K, L, M, N under P1/front-desk: if dot, then crease.",
+  "condition": "front-desk",
+  "domain": [
+   "K",
+   "L",
+   "M",
+   "N"
+  ],
+  "legend": {
+   "?": "Unclear or not recorded",
+   "N": "No",
+   "Y": "Yes"
+  },
+  "origin": "supplied hypothetical log",
+  "outcomes": {
+   "crease-K": "compatible",
+   "first-K": "compatible",
+   "first-L": "compatible",
+   "first-M": "compatible",
+   "new-N": "counterexample",
+   "no-dot-L": "compatible",
+   "other-condition": "out_of_scope",
+   "other-protocol": "protocol_mismatch",
+   "outside-O": "out_of_scope",
+   "repeat-N": "compatible",
+   "unclear-K": "unresolved",
+   "unclear-N": "unresolved"
+  },
+  "physical_observations_recorded": 0,
+  "protocol": "P1",
+  "records": [
+   {
+    "card": "K",
+    "condition": "front-desk",
+    "crease": "Y",
+    "dot": "Y",
+    "id": "first-K",
+    "origin": "supplied hypothetical log",
+    "protocol": "P1"
+   },
+   {
+    "card": "L",
+    "condition": "front-desk",
+    "crease": "Y",
+    "dot": "N",
+    "id": "first-L",
+    "origin": "supplied hypothetical log",
+    "protocol": "P1"
+   },
+   {
+    "card": "M",
+    "condition": "front-desk",
+    "crease": "N",
+    "dot": "N",
+    "id": "first-M",
+    "origin": "supplied hypothetical log",
+    "protocol": "P1"
+   },
+   {
+    "card": "N",
+    "condition": "front-desk",
+    "crease": "N",
+    "dot": "Y",
+    "id": "new-N",
+    "origin": "supplied hypothetical log",
+    "protocol": "P1"
+   },
+   {
+    "card": "N",
+    "condition": "front-desk",
+    "crease": "Y",
+    "dot": "Y",
+    "id": "repeat-N",
+    "origin": "supplied hypothetical log",
+    "protocol": "P1"
+   },
+   {
+    "card": "N",
+    "condition": "front-desk",
+    "crease": "?",
+    "dot": "Y",
+    "id": "unclear-N",
+    "origin": "supplied hypothetical log",
+    "protocol": "P1"
+   },
+   {
+    "card": "L",
+    "condition": "front-desk",
+    "crease": "?",
+    "dot": "N",
+    "id": "no-dot-L",
+    "origin": "supplied hypothetical log",
+    "protocol": "P1"
+   },
+   {
+    "card": "K",
+    "condition": "front-desk",
+    "crease": "Y",
+    "dot": "?",
+    "id": "crease-K",
+    "origin": "supplied hypothetical log",
+    "protocol": "P1"
+   },
+   {
+    "card": "K",
+    "condition": "front-desk",
+    "crease": "?",
+    "dot": "?",
+    "id": "unclear-K",
+    "origin": "supplied hypothetical log",
+    "protocol": "P1"
+   },
+   {
+    "card": "O",
+    "condition": "front-desk",
+    "crease": "N",
+    "dot": "Y",
+    "id": "outside-O",
+    "origin": "supplied hypothetical log",
+    "protocol": "P1"
+   },
+   {
+    "card": "N",
+    "condition": "front-desk",
+    "crease": "N",
+    "dot": "Y",
+    "id": "other-protocol",
+    "origin": "supplied hypothetical log",
+    "protocol": "P2"
+   },
+   {
+    "card": "N",
+    "condition": "back-view",
+    "crease": "N",
+    "dot": "Y",
+    "id": "other-condition",
+    "origin": "supplied hypothetical log",
+    "protocol": "P1"
+   }
+  ],
+  "repeat_conflicts": [
+   {
+    "changed": [
+     "crease"
+    ],
+    "records": [
+     "new-N",
+     "repeat-N"
+    ]
+   }
+  ],
+  "totals": {
+   "compatible": 6,
+   "counterexample": 1,
+   "out_of_scope": 2,
+   "protocol_mismatch": 1,
+   "unresolved": 2
+  }
+ },
  "families": {
   "0_0": {
    "available": [],
@@ -9366,6 +9526,7 @@
   "code/derivation/model.py": "6a7fd2ba9688d47e9291514c623a811cde3c6b9e8fda1d12a608dc9bb0b1f3c2",
   "code/derivation/observe.py": "78443d67e613d9cc9924538fe2e0a5acaf81f4654440bfe8586e16652f0317ba",
   "textbook/first_steps/cards.json": "9dfd6d980093db87a561a01ffc72cd1cb65a1b245c61de8afff9ca51616a5e54",
-  "textbook/first_steps/checks.py": "261d2c7b8c6caa92bb8dbad25f59734b7c9a0bb654b23f2f6d5c3ad3807dbfc5"
+  "textbook/first_steps/checks.py": "261d2c7b8c6caa92bb8dbad25f59734b7c9a0bb654b23f2f6d5c3ad3807dbfc5",
+  "textbook/reasoning_lab/evidence.py": "4dbe30d707f28ace208fe9d8f6f1d3686f494c16d28a29c67b6bc2a1022a9f04"
  }
 }

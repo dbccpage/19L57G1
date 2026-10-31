@@ -212,6 +212,14 @@ walkthrough. Changed-label practice has separate folded answers.
    the disagreement would change. A theorem about an observer's tests
    establishes its formal conclusion under its assumptions; an empirical
    application additionally needs a declared measurement correspondence.
+   The [Reasoning-lab evidence continuation](EVIDENCE_READING_REVIEW_2026-10-31.md)
+   now supplies four short lessons, a declared paper-card protocol,
+   fictional raw logs, a mismatch and conflicting repeat, partial-answer
+   interpretation, changed-envelope practice, and an optional blank
+   physical worksheet. Its 72 finite comparisons and added axiom-free
+   logical proof do not establish actual measurements, a physical cause,
+   or novice transfer. Browser layout and the wider research bridges
+   remain open.
 
 ## Institution teaching follow-up
 

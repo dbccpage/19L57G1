@@ -907,3 +907,28 @@ then recover exit 0 with 302 exact reports.
 The eight added report sets are five empty sets, two `propext`, and one
 `propext, Quot.sound`. Sealed sources, native receipts, research results,
 and the fixed vocabulary populations are unchanged.
+
+## Reasoning-lab evidence extension (2026-10-31)
+
+The authoring tests reject five packet/semantic mutations and four
+malformed-input variants. A separate child-process book-Lean mutation is
+also rejected; its unmodified driver recovers thirteen exact reports.
+None of these checks changes a native source or receipt.
+
+| Defect injected | Observed rejection |
+|---|---|
+| Publish twelve fictional rows as physical observations | Recorded-packet comparison rejects the changed count |
+| Delete the repeated-record conflict from the packet | Recorded-packet comparison rejects the missing conflict |
+| Decode ? as No | Independent Boolean-completion oracle disagrees with the classifier |
+| Replace domain, protocol and conditions to make a row fit | Independent scope oracle rejects the widened interpretation |
+| Drop `new-N`, the in-scope counterexample | Fixture totals and custody assertions fail |
+| Relabel a fixture origin as `measured` | Input validation rejects the provenance claim |
+| Supply a Boolean in place of a raw code | Strict string validation rejects the input |
+| Supply an empty raw answer | Nonempty-field validation rejects the input |
+| Supply the unrecognized string `unknown` as a raw answer | Legend validation rejects the code |
+| Replace the proof's contradictory `¬ Q` premise with compatible `Q` while still concluding False | Lean rejects the false general proposition's proof; original recovers |
+
+Fifteen authoring tests pass after temporary bindings/files are discarded.
+The added logical report has an empty axiom set. The desk's event-handler
+unit fixture checks twelve supplied cases; it is not browser rendering or
+an empirical measurement/comprehension test.

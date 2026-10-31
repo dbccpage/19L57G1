@@ -30,6 +30,10 @@ short lessons, a prediction-first explorer, and separate practice answers.
 No previous mathematics or philosophy is assumed.
 The [`Reasoning lab`](reasoning_lab/README.md) supplies the next toolkit:
 rules, functions, if-then claims, witnesses, counterexamples, and hypotheses.
+Its [evidence continuation](reasoning_lab/08_from_a_model_to_a_trial.md)
+adds a protocol, explicitly fictional trial logs, conflicting repeats,
+uncertain readings, and an optional physical worksheet. It separates
+calculations on supplied records from observations actually collected.
 Continue with the [`Search lab`](search_lab/README.md) for a complete
 worked demand, candidate search, price comparison, protection example,
 and portable event replay.

@@ -34,6 +34,18 @@ python textbook/reasoning_lab/build_results.py
 Inspect the changes. Do not regenerate a record to hide a live disagreement.
 The source map states exactly which finite populations and book proofs run.
 
+The packet now includes twelve explicitly fictional evidence logs and
+their five scoped statuses. `check_evidence_population` independently
+checks 72 metadata/partial-answer cases by Boolean completion. The same
+textbook Python wrapper runs it. The book-Lean wrapper checks thirteen
+reports, adding the axiom-free application-incompatibility lemma.
+
+Authoring tests reject converting ? to No, silently changing scope,
+dropping the counterexample, publishing fictional rows as measurements,
+and deleting the repeat conflict. They also reject malformed raw codes.
+Do not use `--write` to replace or reinterpret genuine reader records;
+this builder accepts only the supplied fictional fixtures.
+
 Preview the self-contained desk:
 
 ```text
@@ -49,3 +61,7 @@ prediction gating and reset after scope changes, empty domains, negative
 second answers, keyboard controls, narrow layout, and the rendered lessons.
 Check stale packet/desk rejection with byte restoration and rejection of
 an intentionally false book proof. Reader evidence remains a separate task.
+Also check the evidence selector, raw-row display, prediction gating,
+reset after case changes, uncertainty cases, protocol mismatch, and the
+retained repeat. The optional physical worksheet is blank; no readings
+or participant scores may be inferred from generating it.
