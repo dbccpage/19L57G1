@@ -106,5 +106,42 @@ the questions before opening the answers.
     stationary comparison prevent later growth? Would replacing `[p]`
     by `[r]` with equal counts meet the same extension hypothesis?
 
+## Targets, policies and identity I08–I11
+
+Use these new examples after
+[I11](institutions/units/11_same_and_apart_outcomes.md). Give reasons
+before checking the separate answers.
+
+22. On inputs 0,1,2, the held table is `[0,1,0]`, report q is `[2,4,2]`,
+    and target t is `[2,4,9]`. Is q recoverable? Write the agreement table.
+    Is that table recoverable before adding t? After adding t, does the
+    newly recoverable agreement table mean that q has become correct everywhere?
+23. Three tables on J,K,L,M are `[5,5,5,8]`, `[20,20,20,30]` and
+    `[40,40,40,50]`. Supply decoders mapping each first code to 0 and
+    each last code to 1. Count reports, different individual groupings,
+    and combined signature groups. For target `[0,0,1,1]`, where does
+    the common decoded assessment fail? Does a three-report count alone
+    establish statistical independence or reliability?
+24. The held table on J,K,L,M is `[0,0,1,1]`; the requested report is
+    `[0,3,0,0]`. Which inputs are settled? Write the encoded fallback,
+    using 0 for demurral and n+1 for a settled answer n. Is the fallback
+    defined at all four inputs? Is the original report recoverable?
+    Now add `[1,0,0,0]`: write the new fallback and decode its answers.
+25. On four inputs, hold no tables and supply target `[0,0,0,0]`.
+    Compare rules “refuse all,” “approve known reports,” and “approve only
+    known reports matching this target.” Give their decisions on constant
+    reports 0 and 1 and on `[0,1,2,3]`. Does scoped soundness require
+    every known report to be approved? Does approval by the largest rule
+    establish agreement with this target?
+26. With `[0,1,0,1]` held, give the same/apart policy outcomes for pair
+    J/L. Append `[1,0,0,0]`, then remove it: give the new outcomes each
+    time and identify which change is an extension. What outcomes does
+    the policy give J/J, although ordinary equality J=J holds?
+27. A team says “three differently encoded reports guarantee correctness,”
+    “authorization proves empirical accuracy,” and “unresolved sameness
+    proves literal identity.” Choose one assertion. Use a changed example
+    to explain the missing implication, and name what additional
+    correspondence or evidence would be needed for a claim about a real device.
+
 AuthorityEffect: None. Labels, codes, requested values, and domain choices
 are supplied. Explain every answer from the stated task and assumptions.

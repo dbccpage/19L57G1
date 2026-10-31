@@ -116,6 +116,9 @@ three steps. Quoted sources remain in optional disclosures.
 The [I04–I07 follow-up](audit/INSTITUTION_ALIGNMENT_READING_REVIEW_2026-10-31.md)
 continues through combined reports, input alignment, loss and stationary
 steps, with necessary-condition counterexamples and changed-table practice.
+The [I08–I11 follow-up](audit/INSTITUTION_POLICY_READING_REVIEW_2026-10-31.md)
+then separates target comparisons, partial fallback encodings, approval
+rules and current test agreement from literal identity.
 
 ## Status marks
 

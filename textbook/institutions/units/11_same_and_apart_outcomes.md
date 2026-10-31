@@ -71,10 +71,36 @@ Replacing or deleting members is a different operation.
 
 ## What you need first
 
+Use I00’s signatures, I04’s separating members and I07’s extensions that retain old members. The three outcome labels are defined below.
+
+<details>
+<summary>Prerequisite source names (optional)</summary>
+
 Unit 00 (`SigEq`), Unit 03 (`sigList`, `sigEq_iff_sigList`), Unit 04
 (`exists_separator_of_not_sigEq`), and Unit 07 (`Extends`).
 
+</details>
+
 ### 1. Pair claims, outcomes, and the separator test
+
+For I00's first table p1=`[0,1,0]`, inputs 0 and 2 currently agree.
+Read both policy questions before and after adding p2=`[0,1,1]`:
+
+| Held family | same 0/2 | apart 0/2 |
+|---|---|---|
+| `[p1]` | unresolved | unresolved |
+| `[p1,p2]` | refuted | supported |
+| `[p1]` after removing p2 | unresolved | unresolved |
+
+The last change removes the separating member, so it is not an extension.
+It does not contradict persistence under extensions that retain members.
+
+For the pair 0/0, ordinary equality holds, but this function returns
+unresolved for both questions. That is its declared mapping, not a
+three-way truth test or a proof that equality cannot be established.
+
+<details>
+<summary>Lean source: PairClaim, Outcome, separatesB, separatesB_iff, outcome (optional)</summary>
 
 ```lean
 -- Lean (research), research/actor_institution/lean/ResearchActorInstitution/Policy.lean lines 255–283
@@ -109,10 +135,18 @@ def outcome (Q : Institution) : PairClaim → Outcome
   | .apart x y => if separatesB Q x y then .supported else .unresolved
 ```
 
+</details>
+
 `separatesB Q x y` walks `Q` and returns `true` iff some member `p ∈ Q` gives
 `p x ≠ p y`. By Unit 04's `exists_separator_of_not_sigEq`, that holds iff
 `¬ SigEq Q x y` (`separatesB_iff`). `outcome Q` maps `.same x y` to `.refuted`
 or `.unresolved`, and `.apart x y` to `.supported` or `.unresolved`.
+
+Notice the inputs to this function: Q and the pair claim. There is no
+carrier D argument and no membership check. A requirement to consider
+only admitted inputs needs a separate check. The finite Python examples
+use tuple positions in their declared carrier; an out-of-range Python
+access is not an extra formal outcome.
 
 ```python
 # Python (research), research/actor_institution/model.py lines 375–385
@@ -130,6 +164,12 @@ def outcome(Q: Institution, kind: str, x: int, y: int) -> str:
 ```
 
 ## The theorems
+
+Some proofs in this excerpt are shortened with `...`. The full proofs
+are in the cited owner file; the shortened excerpt is not runnable Lean.
+
+<details>
+<summary>Lean source: same_refuted_iff, same_unresolved_iff, same_never_supported, apart_supported_iff, apart_never_refuted, apart_persists, same_refuted_persists, same_never_established, established_iff_eq, sameRel, sameRel_iff, scoped_identity_not_absolute (optional)</summary>
 
 ```lean
 -- Lean (research), research/actor_institution/lean/ResearchActorInstitution/Policy.lean lines 285–393
@@ -193,6 +233,13 @@ theorem scoped_identity_not_absolute :
   decide
 ```
 
+</details>
+
+A separating member makes the separator test true, giving the two declared policy outcomes. Retaining that member preserves the separation. For distinct numerical inputs the unrestricted presentation type allows an indicator that separates them. Equal inputs cannot be separated, while the policy still labels their pair claims unresolved.
+
+<details>
+<summary>Detailed proof steps (optional)</summary>
+
 ## The proof, step by step
 
 **Step 1. Outcomes of `.same` and `.apart`.**
@@ -221,11 +268,15 @@ for every `p` in every `Q'` (`established_iff_eq`).
 The Boolean test `sameRel Q x y` decides `SigEq Q x y` (`sameRel_iff`). On the
 pair `0, 1`, `sameRel [] 0 1 = true` while `sameRel [fun z => z] 0 1 = false`.
 
+</details>
+
 ## The same fact in Python
 
-The check runs `outcome_check(3)` from `actor_institution/model.py` across all
-subsets `Q ⊆ Q2` of the `5` partitions of `range(3)` and all pairs `x, y ∈
-range(3)` (`2187` checks, `0` violations):
+The check runs `outcome_check(3)` from `actor_institution/model.py` using
+one ordering per subset of the five partitions of `range(3)`. There are
+243 cases of `Q ⊆ Q2` and nine ordered input pairs, giving 2,187 counted
+comparisons, with zero violations. Ordered family lists and repeated
+members are not enumerated. It checks:
 - `outcome(Q, "same", x, y)` is never `"supported"`, and `outcome(Q, "apart",
   x, y)` is never `"refuted"`;
 - `"supported"` for `"apart"` and `"refuted"` for `"same"` persist from `Q` to
@@ -233,6 +284,11 @@ range(3)` (`2187` checks, `0` violations):
 - for every `x != y` and every `Q`, some extension `Q2` of pool partitions
   refutes `"same"`;
 - `sameRel([], 0, 1)` is `True` and `sameRel([id], 0, 1)` is `False`.
+
+The search for a refuting pool extension is a separate loop over 32
+families and six distinct ordered pairs: 192 existence checks, not
+additional entries in the reported 2,187 count. The empty/id comparison
+is also checked separately by the Unit script.
 
 ```
 python textbook/institutions/checks/i11_outcomes.py
@@ -277,6 +333,14 @@ It does not claim that an institution in a closed finite pool of allowed
 members can always split `x ≠ y` if the pool itself merges `x` and `y`;
 `same_never_established` uses the indicator `fun z => if z = x then 1 else 0`
 from the unrestricted presentation type `Nat → Nat`.
+
+For example, a pool containing only constant tables cannot separate 0
+from 2, however many of its members are appended. The unrestricted
+mathematical indicator is allowed to distinguish them; this does not
+demonstrate a feasible or physically validated new test.
+
+Try [target, policy and identity practice](../../reading_formal_practice.md#targets-policies-and-identity-i08i11)
+before its [separate answers](../../reading_formal_answers.md#targets-policies-and-identity-i08i11).
 
 ## Sources
 

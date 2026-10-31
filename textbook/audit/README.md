@@ -55,6 +55,9 @@ The [I04–I07 continuation](INSTITUTION_ALIGNMENT_READING_REVIEW_2026-10-31.md)
 adds smaller definitions and counterexamples for combined reports,
 correspondence, member loss and stationary steps. It corrects selected
 semantic and finite-population overstatements while preserving owner records.
+The [I08–I11 continuation](INSTITUTION_POLICY_READING_REVIEW_2026-10-31.md)
+clarifies target comparisons, fallback totality and encoding, one-way
+approval conditions and pair-policy labels, with six new practice tasks.
 
 **Early-chapter follow-up (2026-10-29).** The
 [Units 04–16 reading review](EARLY_READING_REVIEW_2026-10-29.md) adds

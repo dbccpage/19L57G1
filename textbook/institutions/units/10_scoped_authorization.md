@@ -30,8 +30,9 @@ carrier can fail to be grounded when a new datum is admitted
 458–469.
 
 Unit 09 turned `Knows D Q s` (`Grounded D Q s`) into a response policy
-`respond D Q s`. This unit asks what any rule `A D Q s` that authorizes claims
-solely on the basis of `Q`'s evidence on `D` can and cannot certify. Calling a
+`respond D Q s`. This unit supplies a rule `A D Q s` that returns an
+approval or refusal. `ScopedSound` constrains its approvals; it does not
+specify every reason for refusal or prohibit additional supplied criteria. Calling a
 rule `ScopedSound` when `A D Q s = true → Knows D Q s` makes `knowsB` the
 maximal scoped-sound rule (`knowsB_scoped_sound`, `scoped_sound_le_knowsB`) and
 forces `A D Q s = false` whenever `residuals D Q s` is nonempty
@@ -40,15 +41,16 @@ boundaries of `Knows`:
 1. The same nonconstant report can be grounded for one family and not
    another (`reports_do_not_certify`). Constant reports are known for
    every family, so this is not a claim that every report fails alone.
-2. Authorization on `D` does not survive enlarging `D`
+2. Authorization on `D` can fail to survive enlarging `D`
    (`grounded_here_not_there`).
 3. Authorization does not establish agreement with a target
    (`authorization_not_correctness`).
 
-Together with Units 03, 08, and 09, this completes the five-link chain
-recorded in ledger entry `AI-22`—from information to determination, evidence,
-justified claim, and scoped authorization—and explains why there is no sixth
-implication to target agreement. Admitting a target alone does not supply that implication.
+Together with Units 03, 08 and 09, the table below maps the relationships
+recorded in `AI-22`. It is not a sequence of unconditional implications:
+class count alone does not give a requested answer, and being known does
+not force an arbitrary scoped-sound rule to approve a report. Admitting
+a target alone supplies no implication from authorization to agreement.
 
 </details>
 
@@ -58,8 +60,9 @@ A family groups all inputs together. It determines both the constant
 report 0 and the constant report 1. The largest scoped-sound rule,
 knowsB, authorizes both.
 
-Against a supplied target, the reports can disagree with each other
-everywhere. Authorization here means only that the report makes no
+The reports disagree with each other at every input. On a nonempty
+carrier, they cannot both agree everywhere with one fixed target.
+Authorization here means only that the report makes no
 distinction unavailable in the family's signature. It does not mean
 correct prediction, ethical approval, or permission to act in a real system.
 
@@ -80,11 +83,26 @@ largest by the set of reports it authorizes under this definition.
 
 ## What you need first
 
+Use I02’s recovery rule, I08’s target comparison and I09’s residual pairs and fallback. Approval is an additional supplied policy decision.
+
+<details>
+<summary>Prerequisite source names (optional)</summary>
+
 Unit 02 (`Knows`, `knows_const`), Unit 03 (`knowsB`), Unit 08 (`Corr`,
 `determination_not_truth`, `truth_from_admitted_target`), and Unit 09
 (`residuals`, `residuals_nil_iff`, `Grounded`, `knows_iff_knowsB`).
 
+</details>
+
 ### 1. Reports do not certify themselves, nor ahead of the carrier
+
+Check two kinds of scope change. Keep the report fixed and change which
+member tables are held: it may stop being recoverable. Or keep those
+tables fixed and enlarge the carrier: a new input may reveal a conflict.
+Neither statement says that every report must fail after such a change.
+
+<details>
+<summary>Lean source: reports_do_not_certify, grounded_here_not_there (optional)</summary>
 
 ```lean
 -- Lean (research), research/two_theorems/lean/ResearchTwoTheorems/Reading.lean lines 458–469
@@ -101,6 +119,8 @@ theorem grounded_here_not_there :
   decide
 ```
 
+</details>
+
 The same report `fun x => x` is grounded on `[0, 1]` for `[fun x => x]` and
 ungrounded on `[0, 1]` for `[]`, so inspecting the report `s` alone cannot
 decide grounding (`reports_do_not_certify`). And for `Q = [fun x => x % 2]`, the
@@ -108,7 +128,35 @@ report `fun x => x` is grounded on `[0, 1]` (where `0 % 2 ≠ 1 % 2`) and
 ungrounded on `[0, 1, 2]` (where `0 % 2 = 2 % 2` while `0 ≠ 2`,
 `grounded_here_not_there`).
 
+### 2. What scoped soundness requires
+
+The condition is one-way: **if approved, then recoverable**. A rule may
+still refuse a recoverable report. The largest rule, knowsB, approves
+every recoverable report; “largest” compares approval sets, without
+selecting a rule for practical use.
+
+Here is a supplied finite comparison on inputs `[0,1]`, with no held
+tables and target `[0,0]`. Entries show approval decisions for the two reports:
+
+| Rule | `[0,0]` | `[1,1]` |
+|---|---|---|
+| Refuse every report | No | No |
+| Check recoverability only | Yes | Yes |
+| Require recoverability and agreement with the supplied target | Yes | No |
+
+These rows are checked finite examples, not an enumeration of all policies.
+
+The last rule uses an extra supplied target comparison. Requiring both
+checks does not approve an unrecoverable report; it can refuse a known
+one. Scoped soundness therefore supplies no general guarantee of target
+agreement, while allowing a particular rule to require such agreement.
+Checking a target table still does not establish that the target describes
+an actual device or observation.
+
 ## The theorems
+
+<details>
+<summary>Lean source: Rule, ScopedSound, knowsB_scoped_sound, scoped_sound_le_knowsB, scoped_sound_refuses_residual, authorization_not_correctness (optional)</summary>
 
 ```lean
 -- Lean (research), research/actor_institution/lean/ResearchActorInstitution/Policy.lean lines 211–251
@@ -157,6 +205,13 @@ theorem authorization_not_correctness (D : List Nat) (Q : Institution) (hD : D �
   | cons x _ => exact Nat.zero_ne_one (h x List.mem_cons_self)
 ```
 
+</details>
+
+Scoped soundness turns an approval into a known report. A residual pair prevents knowledge, so it prevents approval under that condition. The largest rule approves both opposite constant reports, showing that this condition alone does not guarantee agreement with a fixed target. Other supplied rules can refuse additional reports.
+
+<details>
+<summary>Detailed proof steps (optional)</summary>
+
 ## The proof, step by step
 
 **Step 1. `knowsB_scoped_sound` and `scoped_sound_le_knowsB`.**
@@ -186,19 +241,24 @@ target agreement; the listed hypotheses do not establish it:
 | 1. Information | `information D Q : Nat` | Number of `Q`-signature classes on `D`; `2 ≤ information [0,1,2,3] [parity]` does not imply `Knows [0,1,2,3] [parity] half` (`information_without_determination`). |
 | 2. Determination | `Knows D Q s : Prop` | `s` is constant on every `Q`-signature class on `D` (`knows_iff_determined`), equivalently `information D (Q ++ [s]) = information D Q` (`knows_iff_information_eq`). |
 | 3. Evidence | `residuals D Q s : List (Nat × Nat)` | The pairs in `D × D` merged by `Q` and split by `s`; empty iff `Knows D Q s` (`residuals_nil_iff`); removable only by a new separator, never by a digest (`evidence_is_not_a_digest`). |
-| 4. Justified claim | `respond D Q s`, `demurred D Q s` | Policy that asserts `s` when `residuals D Q s = []` and otherwise demurs with the residual pairs, or emits the total grounded claim `demurred D Q s` (`demurred_known`). |
+| 4. Report policy | `respond D Q s`, `demurred D Q s` | Asserts recoverable s or demurs with residual pairs; the alternative fallback emits a different encoded report with demurral marks (`demurred_known`). This does not establish that the original report agrees with a target. |
 | 5. Authorization | `ScopedSound A` (`A D Q s = true → Knows D Q s`) | Certification relative to `(D, Q)`: refuses every claim with a residual (`scoped_sound_refuses_residual`), and is bounded above by `knowsB` (`scoped_sound_le_knowsB`). |
 | (No 6th arrow) | `Corr D s t` (`∀ x ∈ D, s x = t x`) | Not implied by Links 1–5, even with a target admitted. `truth_from_admitted_target` goes the other way: target membership plus agreement implies that the claim is known. It does not infer agreement from authorization. |
+
+</details>
 
 ## The same fact in Python
 
 The check verifies:
 
-1. Over all families `Q` of at most 2 partitions of `range(3)` and all claims
+1. On `range(3)`, the empty family, each singleton and one ordering of
+   each distinct partition pair are used, with all 27 claims
    `s : range(3) → range(3)`: `knows(3, Q, s)` holds iff `residuals(3, Q, s)`
    is empty (`scoped_sound_refuses_residual` for `knowsB`), and on every `Q`
    both constant claims `(0, 0, 0)` and `(1, 1, 1)` are authorized while
-   disagreeing everywhere (`authorization_not_correctness`).
+   disagreeing everywhere (`authorization_not_correctness`). These are
+   432 family/report cases. The loop checks knowsB-style approval,
+   not every possible scoped-sound rule or every ordered family list.
 2. `reports_do_not_certify` and `grounded_here_not_there` from
    `two_theorems/model.py` (`grounding_checks`).
 
@@ -222,8 +282,10 @@ the Boolean output of `knowsB D Q s`.
 definition `ScopedSound A` (`AI-13`). Any rule that authorizes a claim `s` when
 `¬ Knows D Q s` violates `ScopedSound` and therefore authorizes across an
 unresolved residual pair `(x, y) ∈ residuals D Q s`. Conversely, any rule that
-respects `ScopedSound` cannot distinguish which of two known claims (`fun _ => 0`
-or `fun _ => 1`) matches an un-admitted target (`AI-14`, `AI-22`).
+respects `ScopedSound` is not thereby guaranteed to check target agreement
+(`AI-14`, `AI-22`). The exhibited knowsB rule approves both constants;
+the theorem does not say that every scoped-sound rule must approve both,
+or that a rule cannot impose an additional supplied target condition.
 
 **Phrases to read with care.**
 
@@ -241,12 +303,13 @@ It shows that `knowsB` is the largest rule satisfying `ScopedSound`, that every
 `ScopedSound` rule refuses every claim with a residual pair, and that `knowsB`
 authorizes everywhere-disagreeing constant claims on every nonempty carrier.
 
-It shows that grounding cannot be read off the report `s` alone without `Q`
-(`reports_do_not_certify`) and does not persist when `D` is enlarged
-(`grounded_here_not_there`).
+It shows a report whose grounding differs between families
+(`reports_do_not_certify`) and one that loses grounding on a larger carrier
+(`grounded_here_not_there`). These are counterexamples to a general
+guarantee; constant reports remain known for every family and carrier.
 
 It does not derive which authorization rule an institution ought to adopt
- beyond conditional consequences of `ScopedSound` (`AI-13`).
+beyond conditional consequences of `ScopedSound` (`AI-13`).
 
 ## Sources
 

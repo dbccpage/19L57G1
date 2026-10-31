@@ -35,8 +35,10 @@ truth: `information D Q` (how many equivalence classes `Q` carves on `D`) and
    `fun _ => 1`, which agree at no datum of `D`.
 3. Agreement with a target `t` is represented by the indicator question
    `agreeQ q t`, which the institution need not know even when it knows `q`
-   (`truth_is_a_further_question`); what makes a claim that agrees with `t`
-   known—and makes `agreeQ q t` known—is admitting `t` as a member of `Q`.
+   (`truth_is_a_further_question`). Target membership plus agreement makes
+   q known; target membership plus knowledge of q makes `agreeQ q t` known.
+   Neither conclusion creates agreement. Target membership is sufficient
+   under those premises, not necessary in every agreement example.
 4. **Report count is not partition count (multi-level correlated
    blind spots):** three subordinate actors $p_1, p_2, p_3$ that share the same
    observational blind spot can submit three unanimous reports (even in
@@ -74,10 +76,29 @@ separate evidence outside this model of tables.
 
 ## What you need first
 
+Use I02’s recovery rule and I03’s class count. This unit adds a separately supplied target and a rule comparing the report with it.
+
+<details>
+<summary>Prerequisite source names (optional)</summary>
+
 Unit 00 (`SigEq`), Unit 02 (`Knows`, `knows_iff_determined`, `knows_const`,
 `knows_member`), and Unit 03 (`information`).
 
+</details>
+
 ### 1. Agreement on the carrier and its indicator question
+
+Keep three questions separate. Can the family's labels recover the
+report? Does the report match the supplied target at this input? Does
+it match at every input on the carrier?
+
+For report `[0,0]` and target `[0,1]`, the pointwise answers form `[1,0]`.
+Knowing that agreement table means recovering its entries correctly,
+including its 0. It does not mean every entry is 1. The whole-carrier
+comparison returns false because one entry disagrees.
+
+<details>
+<summary>Lean source: Corr, corrB, corr_iff_corrB, agreeQ, corr_iff_agreeQ (optional)</summary>
 
 ```lean
 -- Lean (research), research/actor_institution/lean/ResearchActorInstitution/Chain.lean lines 127–136, 150–161
@@ -108,11 +129,20 @@ theorem corr_iff_agreeQ (D : List Nat) (q t : Nat → Nat) :
     | isFalse ne => rw [if_neg ne] at this; exact absurd this (by decide)
 ```
 
+</details>
+
 `Corr D q t` says `q` and `t` take the same value at every datum of `D`. Its
 Boolean test is `corrB D q t`, and `agreeQ q t` turns pointwise agreement into a
 question `Nat → Nat` that outputs `1` where `q x = t x` and `0` where `q x ≠ t x`.
 
+On an empty carrier, the whole-carrier condition has no entry that can
+fail. That is not evidence of physical agreement. The nonempty-carrier
+hypothesis below ensures an input at which constants 0 and 1 differ.
+
 ## The theorems
+
+<details>
+<summary>Lean source: information_without_determination, determination_not_truth, truth_is_a_further_question, truth_from_admitted_target, agreement_known_of_admitted (optional)</summary>
 
 ```lean
 -- Lean (research), research/actor_institution/lean/ResearchActorInstitution/Chain.lean lines 120–122, 141–147, 166–187
@@ -160,6 +190,13 @@ theorem agreement_known_of_admitted {D : List Nat} {Q : Institution} {q t : Nat 
   rw [hq x hx y hy hs, hs t ht]
 ```
 
+</details>
+
+A family can recover both constant reports 0 and 1. On a nonempty carrier those reports cannot both agree everywhere with one fixed target. When both report and target are recoverable, equal old signatures give equal report and target values, so their agreement marks also agree. Recovering a mismatch mark does not repair the mismatch.
+
+<details>
+<summary>Detailed proof steps (optional)</summary>
+
 ## The proof, step by step
 
 **Step 1. `information_without_determination` by `decide`.**
@@ -191,7 +228,21 @@ Assume the target `t` is admitted (`ht : t ∈ Q`).
   `agreeQ q t x = agreeQ q t y`. By `knows_iff_determined`,
   `Knows D Q (agreeQ q t)` (`agreement_known_of_admitted`).
 
+</details>
+
 ### Worked institutional example: Correlated errors across levels of authority (`Report Count ≠ Distinct Partitions`)
+
+This is a supplied table scenario, with no observations of an actual
+organization. Keep three counts separate:
+
+| What is counted | Count in the example |
+|---|---|
+| Subordinate reports | 3 |
+| Different groupings made by the individual member tables | 1 |
+| Groups distinguished by the combined signature | 2 |
+
+The last row is `information`. It counts groups within the shared
+grouping, not the number of different member groupings.
 
 Consider carrier $D = [0, 1, 2, 3]$ and target table $t = \mathrm{half} = (0, 0, 1, 1)$.
 Suppose three subordinate actors $p_1, p_2, p_3$ observe $D$ using distinct
@@ -202,6 +253,11 @@ fiber and places $\{3\}$ in the other):
 - $p_1 = (0, 0, 0, 1)$
 - $p_2 = (10, 10, 10, 11)$
 - $p_3 = (20, 20, 20, 21)$
+
+The raw values differ, so numerical unanimity cannot be read directly
+from those codes. Supply decoders 0/1→0/1, 10/11→0/1 and 20/21→0/1.
+All three decoded assessments are `[0,0,0,1]`. Those decoders are extra
+specified rules, not meanings inferred from the numbers themselves.
 
 Each subordinate determines the defective binary assessment
 $q_{\text{err}} = (0, 0, 0, 1)$, which misclassifies datum $2$ ($q_{\text{err}}(2) = 0 \neq 1 = t(2)$).
@@ -225,7 +281,13 @@ Now trace this through two levels of institutional authority:
    $\mathrm{Knows}(D, Q_{\text{top}}, q_{\text{err}})$ still holds, and the error at
    datum $2$ is untouched. Repetition across levels of authority increases the
    **report count** without increasing the **number of distinct represented partitions**
-   (compare Unit 11's `unanimous_wrong_not_corrected_by_same_blind_spot`).
+   (compare [I06's known-summary invariance](06_degradation_and_loss.md)
+   and the concrete Python check below).
+
+Both canonical summaries have labels `[0,0,0,3]`: 0 and 3 are the first
+inputs of their two groups. Decoder 0→0, 3→1 recovers the binary assessment
+from either summary. The unchanged error concerns that decoded assessment;
+a representative label is not itself the target answer.
 
 The repeated tables in this example induce the same partition.
 This is not a statistical independence calculation: no sampling
@@ -239,11 +301,13 @@ The check verifies:
    information `2` and `knows(4, (PARITY4,), HALF4)` is `False`.
 2. `determination_not_truth` and `truth_is_a_further_question` on `range(3)` and
    `range(2)`.
-3. Exhaustively on `range(3)` over all families `Q` of at most 2 partitions, all
-   presentations `q : range(3) → range(3)`, and all targets `t : range(3) →
-   range(3)`: whenever `t in Q` and `q == t`, `knows(3, Q, q)` holds; and
-   whenever `t in Q` and `knows(3, Q, q)` holds, `knows(3, Q, agreeQ(q, t))`
-   holds (`0` violations).
+3. On `range(3)`, each singleton family and one ordering of each distinct
+   partition pair are used. Each target is selected from that family;
+   all 27 report tables with values in `range(3)` are tried. These give
+   675 cases: a matching report is known, and a known report's agreement
+   question is known (`0` violations). Targets are not independently
+   enumerated arbitrary tables. Empty families, repeated members and
+   every list order are not enumerated in this loop.
 4. **Three-actor correlated blind-spot and multi-level hierarchy check:** three
    actors `p1, p2, p3` on `range(4)` sharing the blind spot `p(0) == p(1) == p(2)`
    yield `report_count = 3` while `information(4, (p1,)) == information(4, (p1, p2, p3)) == 2`
@@ -288,14 +352,17 @@ Supplying a target does not verify its correspondence with reality.
 ## What it shows, and what it does not
 
 It shows that `information D Q ≥ 2` does not imply `Knows D Q q` for a given `q`
-(`information_without_determination`), and that `Knows D Q q` does not imply
-`Corr D q t` for any external target `t` (`determination_not_truth`).
+(`information_without_determination`). Knowing q does not, by itself,
+establish agreement with an arbitrary separately supplied target t
+(`determination_not_truth`). This does not prevent q from agreeing with
+a particular target, including q itself.
 
 It shows that pointwise agreement with `t` is a separate question `agreeQ q t`
 that can be unknown even when `q` is known (`truth_is_a_further_question`), and
-that admitting `t ∈ Q` suffices to make both a matching claim `q` and the
-agreement question `agreeQ q t` known (`truth_from_admitted_target`,
-`agreement_known_of_admitted`).
+that admitting `t ∈ Q` makes an already-matching q known. To conclude
+that the agreement question is known, the second theorem also assumes
+that q is known. These are separate sufficient conditions
+(`truth_from_admitted_target`, `agreement_known_of_admitted`).
 
 It does not provide any internal test by which an institution `Q` could check
 whether `t` is the "right" target to admit without already holding `t`.

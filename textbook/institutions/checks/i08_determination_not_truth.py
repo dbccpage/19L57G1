@@ -5,10 +5,10 @@ Checks:
      `range(4)` and does not know `HALF4`;
   2. `determination_not_truth` and `truth_is_a_further_question`;
   3. `truth_from_admitted_target` and `agreement_known_of_admitted` over all
-     families of at most two partitions on `range(3)`, all claims `q`, and all
-     targets `t`;
-  4. Correlated errors across levels of authority (`report_count` vs independent
-     witnesses): three actors `p1, p2, p3` sharing the blind spot `p(0)==p(1)==p(2)`
+     singleton families and one ordering of each distinct partition pair on
+     range(3), each target selected from its family, and all 27 report tables;
+  4. Correlated errors across levels of authority (report count vs groupings
+     and joint class count): three actors sharing the blind spot p(0)==p(1)==p(2)
      produce 3 unanimous reports and 2 concurring intermediate division summaries
      `S_A, S_B`, yet `information` stays at 2 (`1` distinct represented partition)
      and aggregation at both levels still determines the defective claim `q_err`

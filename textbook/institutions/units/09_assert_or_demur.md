@@ -13,13 +13,15 @@ not distinguish any institution from any other, a report `s` is `Grounded`
 (`Knows D Q s`) exactly when it makes no distinction `Q` cannot make, which is
 equivalent to its residual list `residuals D Q s` being empty. The response
 policy `respond D Q s` asserts when `s` is known and otherwise demurs with
-`residuals D Q s`, which is nonempty, shrinks as `Q` grows. Any chosen residual pair can be removed by
+`residuals D Q s`, which is nonempty and can only lose entries as Q is
+extended. Adding a redundant member can leave it unchanged. Any chosen residual pair can be removed by
 admitting a member that separates it (`residual_answerable`), while
 other residual pairs may remain. A function of the current signatures
 cannot separate that chosen pair (`evidence_is_not_a_digest`).
 Moreover, the modified claim `demurred D Q s`—which reports `s x + 1` where `x`
 is settled and `0` where `x` is unsettled—is always known (`demurred_known`)
-and is total on `D` iff `s` itself is known (`demurred_total_iff`).
+and demurs nowhere on D iff s itself is known (`demurred_total_iff`).
+The fallback function is defined everywhere even when it demurs.
 
 **Status:** derived (`Wise` refuted as a reading of wisdom; wisdom itself
 open). **Lean:** `Policy.Response`, `Policy.respond`,
@@ -80,12 +82,25 @@ input to the model, not a different name for the same old answers.
 
 ## What you need first
 
+Use I02’s recovery rule, I03’s conflicting pairs and I08’s distinction between recoverability and target agreement. The new fallback changes the report while recording unsettled groups.
+
+<details>
+<summary>Prerequisite source names (optional)</summary>
+
 Unit 01 (`pQ`), Unit 02 (`Knows`, `knows_iff_determined`, `knows_const`,
 `knows_member`, `knows_actor`, `knows_mono`, `knows_iff_sigList`), and Unit 03
 (`sigList`, `sigEq_iff_sigList`, `knowsB`, `not_knows_iff_witness`,
 `know_or_witness`).
 
+</details>
+
 ### 1. Why `Wise` separates no institutions, and what `Grounded` names
+
+Some quoted proofs below use `...` for omitted lines. Those excerpts
+are not runnable Lean; the cited owner files contain the full proofs.
+
+<details>
+<summary>Lean source: Wise, wise_of_represented (optional)</summary>
 
 ```lean
 -- Lean (research), research/two_theorems/lean/ResearchTwoTheorems/Institution.lean lines 501–508
@@ -97,13 +112,18 @@ theorem wise_of_represented (D : List Nat) (Q : Institution) : Wise D Q :=
   fun q => know_or_witness D Q q
 ```
 
+</details>
+
 `wise_of_represented` is a one-line application of Unit 03's `know_or_witness`.
 Because `knowsB D Q q` decides `Knows D Q q` in the metatheory for every finite
-`D` and `Q`, `Wise D Q` is a tautology of finite decidability rather than a
-property of `Q`.
+`D` and `Q`, `Wise D Q` is satisfied by every represented family. It
+therefore distinguishes none of those families from another.
 
 By contrast, when `s : Nat → Nat` is read as a report issued by `Q`,
 `Grounded D Q s` asks whether `Q` knows `s`:
+
+<details>
+<summary>Lean source: Grounded, grounded_iff_no_overclaim, silence_grounded, self_report_grounded, member_report_grounded, knows_iff_knowsB (optional)</summary>
 
 ```lean
 -- Lean (research), research/two_theorems/lean/ResearchTwoTheorems/Reading.lean lines 356–393, 411–412
@@ -128,11 +148,22 @@ theorem knows_iff_knowsB (D : List Nat) (Q : Institution) (q : Nat → Nat) :
     Knows D Q q ↔ knowsB D Q q = true := by ...
 ```
 
+</details>
+
 A constant report (`silence_grounded`), the canonical representative
 (`self_report_grounded`), and any member (`member_report_grounded`) are always
 grounded; overclaiming on a merged pair is not (`grounded_iff_no_overclaim`).
 
 ### 2. The residual list `residuals D Q q`
+
+Inspect pairs of inputs. Keep a pair when its old signatures agree but
+its requested report values differ. The opening example gives `(0,2)`,
+`(2,0)`, `(1,3)` and `(3,1)`: four ordered entries for two conflicts
+considered without order. The input-0 indicator removes both orientations
+of the first conflict; `(1,3)` and `(3,1)` remain.
+
+<details>
+<summary>Lean source: residuals, mem_residuals, residuals_nil_iff, residuals_antitone, residual_removed_iff (optional)</summary>
 
 ```lean
 -- Lean (research), research/two_theorems/lean/ResearchTwoTheorems/Reading.lean lines 184–243
@@ -157,14 +188,20 @@ theorem residual_removed_iff {D : List Nat} {Q Q' : Institution}
     (x, y) ∉ residuals D Q' q ↔ ¬ SigEq Q' x y := by ...
 ```
 
+</details>
+
 `residuals D Q q` collects every pair `(x, y)` in `D × D` that `Q` merges and
-`q` splits. It is `[]` iff `Knows D Q q` (`residuals_nil_iff`), shrinks when `Q`
-is extended (`residuals_antitone`), and drops a pair `(x, y)` in an extension
+`q` splits. It is `[]` iff `Knows D Q q` (`residuals_nil_iff`), gains no
+entries when Q is extended
+(`residuals_antitone`), and drops a pair `(x, y)` in an extension
 `Q'` iff `Q'` splits `x` and `y` (`residual_removed_iff`).
 
 ## The theorems
 
 First, the response policy `respond D Q s` and what removes a residual:
+
+<details>
+<summary>Lean source: Response, respond, respond_assert_iff, respond_demur_iff, demur_carries_witness, residual_answerable, evidence_is_not_a_digest (optional)</summary>
 
 ```lean
 -- Lean (research), research/actor_institution/lean/ResearchActorInstitution/Policy.lean lines 50–128
@@ -199,7 +236,40 @@ theorem evidence_is_not_a_digest {D : List Nat} {Q : Institution} {s : Nat → N
   rw [hf x, hf y, (sigEq_iff_sigList Q x y).mp hs]
 ```
 
+</details>
+
 Second, the demurred claim `demurred D Q s`:
+
+### Returning an answer while marking what remains unsettled
+
+An input is **settled for s** when every input with its family signature
+has the same s-value. In this different three-input example, p is the
+held table, s the requested report, and Mark the encoded fallback:
+
+| Input | p | s | Settled? | Mark |
+|---|---|---|---|---|
+| 0 | 0 | 0 | No | 0 |
+| 1 | 1 | 7 | Yes | 8 |
+| 2 | 0 | 1 | No | 0 |
+
+Inputs 0/2 conflict, while input 1's group has one requested answer.
+The fallback returns `[0,8,0]`, recoverable from p: label 0 gives 0,
+and label 1 gives 8. The original report `[0,7,1]` is still not
+recoverable. Changing the report does not prove that it was recovered.
+
+These answers use the natural numbers 0,1,2,... . The encoding reserves
+0 for demurral. A settled answer n is stored as
+n+1, so a settled original answer 0 is stored as 1. Decode a positive
+mark by subtracting 1; mark 0 supplies no original answer.
+
+**Total function** and **demurs nowhere** are different conditions. This
+function returns a number at every input in either case. The theorem
+named `demurred_total_iff` uses “total” to mean settled everywhere on D.
+It does not say that a function ceases to be defined when it returns a
+demurral mark.
+
+<details>
+<summary>Lean source: settledB, settledB_iff, demurred, demurred_zero_iff, demurred_settled, demurred_known, demurred_total_iff (optional)</summary>
 
 ```lean
 -- Lean (research), the same file, lines 134–205
@@ -226,6 +296,8 @@ theorem demurred_total_iff (D : List Nat) (Q : Institution) (s : Nat → Nat) :
     (∀ x, x ∈ D → settledB D Q s x = true) ↔ Knows D Q s := by ...
 ```
 
+</details>
+
 ```python
 # Python (research), research/actor_institution/model.py lines 417–423
 def settled(n: int, Q: Institution, s: Presentation, x: int) -> bool:
@@ -236,6 +308,11 @@ def demurred(n: int, Q: Institution, s: Presentation) -> Presentation:
     """`Policy.demurred`: the claim with its unsettled points marked 0."""
     return tuple(s[x] + 1 if settled(n, Q, s, x) else 0 for x in range(n))
 ```
+
+A residual is exactly a pair blocking the original lookup. In each old signature group, the fallback either encodes its one settled answer or gives every input the demurral mark 0. It is therefore constant throughout each old group and recoverable. That new report does not recover the original answers on unsettled groups.
+
+<details>
+<summary>Detailed proof steps (optional)</summary>
 
 ## The proof, step by step
 
@@ -267,6 +344,8 @@ demurred D Q s y`. If both are `false`, both values are `0`. By
 every `x ∈ D` is settled for `s` iff `s` is constant on every `Q`-signature
 class on `D`, which is `Knows D Q s` (`demurred_total_iff`).
 
+</details>
+
 ## The same fact in Python
 
 The check runs:
@@ -275,6 +354,9 @@ The check runs:
    `(Q, s)` pairs of families of partitions of `range(3)` and partition claims
    `s`, `knows(3, Q, demurred(3, Q, s))` holds (`0` violations) and `demurred`
    is nonzero everywhere iff `knows(3, Q, s)` holds (`0` violations).
+   The 32 families are one ordering of each subset of the five
+   three-input partitions; five partition reports give 160 cases.
+   Repeated member lists and every list order are not enumerated.
 2. `residual_checks` and `grounding_checks` from `two_theorems/model.py`:
    `residuals(D, Q, q) == []` matches `knows(D, Q, q)` (`0` violations),
    extending `Q` shrinks `residuals` (`0` violations), and silence, `pQ`, and
@@ -327,6 +409,10 @@ nonempty list of witness pairs iff `¬ Knows D Q s`; that every residual pair ca
 be removed by a new separating member (`residual_answerable`) and never by a
 digest of existing signatures (`evidence_is_not_a_digest`); and that
 `demurred D Q s` is always known by `Q` (`demurred_known`).
+
+The indicator is a supplied mathematical separator. The theorem does
+not construct a physical instrument, establish its cost, or prove that
+the corresponding observation can be collected.
 
 It does not provide a formal definition of wisdom (`TT-34` remains open), and it
 does not tell an institution which new observation to make beyond naming the

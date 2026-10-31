@@ -82,5 +82,39 @@
     Replacing `[p]` by `[r]` drops p and does not meet that hypothesis.
     Both counts are 2, but r cannot recover p on J/L, while p knows itself.
 
+## Targets, policies and identity I08–I11
+
+22. q is recoverable with 0→2 and 1→4. The agreement table `[1,1,0]`
+    conflicts on 0/2 under the old presentation. Adding t separates that
+    pair, making the agreement table recoverable. It still has a 0 at
+    input 2, so q still disagrees there.
+23. The three supplied decoders each give `[0,0,0,1]`. There are three
+    reports, one individual grouping, and two combined groups. The decoded
+    assessment disagrees with the target at L. No probability, sampling
+    or reliability model has been supplied, so the report count establishes
+    none of those statistical conclusions.
+24. J/K conflict; L/M are settled with original answer 0. The fallback
+    is `[0,0,1,1]`, defined everywhere and recoverable, while the original
+    report is not. After adding the indicator, every group is settled and
+    the fallback is `[1,4,1,1]`. Subtract 1 from each positive mark to
+    decode `[0,3,0,0]`. Before that change, the zero marks supplied no answer.
+25. Refuse-all returns No/No/No. Known-only returns Yes/Yes/No. Requiring
+    both known and target agreement returns Yes/No/No. Scoped soundness
+    forbids approval of unknown reports; it does not require approval of
+    every known one. The largest rule approves constant 1, which disagrees
+    everywhere with the supplied zero target.
+26. Initially both questions are unresolved. Appending the indicator is
+    an extension: same is refuted and apart supported. Removing it gives
+    unresolved/unresolved and is not an extension. J/J gives unresolved
+    for both questions under this declared mapping; equality J=J remains true.
+27. For example, differently encoded copies of `[0,0,1,1]` all recover
+    the same assessment but can disagree with target `[0,1,1,1]` at K.
+    Repetition does not establish correctness. Specify how actual device
+    inputs, reading conditions, output labels and target readings correspond
+    to the tables, then retain observations capable of challenging that
+    correspondence. Likewise, recoverable-report approval supplies no
+    physical validation, and current test agreement supplies no proof of
+    literal identity. Other reasoned counterexamples can answer the task.
+
 AuthorityEffect: None. Passing these written tasks would be reader evidence;
 software validation of the examples alone is not a comprehension result.

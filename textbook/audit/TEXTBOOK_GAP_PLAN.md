@@ -288,6 +288,9 @@ without certifying the remaining paragraphs of the textbook.
 The [I04–I07 follow-up](INSTITUTION_ALIGNMENT_READING_REVIEW_2026-10-31.md)
 continues the definition-level pass through combined reports, alignment,
 loss and stationary steps, with six further changed-example tasks.
+The [I08–I11 follow-up](INSTITUTION_POLICY_READING_REVIEW_2026-10-31.md)
+adds worked target, fallback, approval and pair-policy distinctions and
+six changed examples. These selected deeper definition passes reach I11.
 The dedicated introductory tree count is now thirteen, leaving 110 without
 such treatment. Directory counts guide discovery;
 they do not set a requirement for equally sized modules for every tree.
