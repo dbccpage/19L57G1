@@ -64,4 +64,7 @@ with P201. They are not taught or validated by these calibration lessons.
 In particular, the source Python and Lean clocks use different step
 schedules; this route asserts no common clock theorem for them.
 
+Continue to [count updates and ticks](24_count_updates_and_ticks.md) for
+the separate clock and future-reading route.
+
 AuthorityEffect: None. Blank optional worksheet; zero claimed observations.

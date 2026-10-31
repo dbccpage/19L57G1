@@ -1,0 +1,1516 @@
+{
+ "authority_effect": "None",
+ "cases": {
+  "0_0_0": {
+   "answer": "refuse",
+   "fast_change": 0,
+   "reason": "No change on the dividing slow counter",
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      0,
+      3,
+      0,
+      0
+     ]
+    }
+   ],
+   "rule": 0,
+   "slow_change": 0,
+   "span": 0,
+   "start": 0
+  },
+  "0_0_1": {
+   "answer": "refuse",
+   "fast_change": 1,
+   "reason": "No change on the dividing slow counter",
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      0,
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "index": 1,
+     "values": [
+      1,
+      0,
+      1,
+      0
+     ]
+    }
+   ],
+   "rule": 0,
+   "slow_change": 0,
+   "span": 1,
+   "start": 0
+  },
+  "0_0_2": {
+   "answer": "2",
+   "fast_change": 2,
+   "reason": null,
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      0,
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "index": 1,
+     "values": [
+      1,
+      0,
+      1,
+      0
+     ]
+    },
+    {
+     "index": 2,
+     "values": [
+      2,
+      1,
+      2,
+      1
+     ]
+    }
+   ],
+   "rule": 0,
+   "slow_change": 1,
+   "span": 2,
+   "start": 0
+  },
+  "0_0_3": {
+   "answer": "3",
+   "fast_change": 3,
+   "reason": null,
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      0,
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "index": 1,
+     "values": [
+      1,
+      0,
+      1,
+      0
+     ]
+    },
+    {
+     "index": 2,
+     "values": [
+      2,
+      1,
+      2,
+      1
+     ]
+    },
+    {
+     "index": 3,
+     "values": [
+      3,
+      2,
+      3,
+      1
+     ]
+    }
+   ],
+   "rule": 0,
+   "slow_change": 1,
+   "span": 3,
+   "start": 0
+  },
+  "0_0_4": {
+   "answer": "2",
+   "fast_change": 4,
+   "reason": null,
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      0,
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "index": 1,
+     "values": [
+      1,
+      0,
+      1,
+      0
+     ]
+    },
+    {
+     "index": 2,
+     "values": [
+      2,
+      1,
+      2,
+      1
+     ]
+    },
+    {
+     "index": 3,
+     "values": [
+      3,
+      2,
+      3,
+      1
+     ]
+    },
+    {
+     "index": 4,
+     "values": [
+      4,
+      3,
+      4,
+      2
+     ]
+    }
+   ],
+   "rule": 0,
+   "slow_change": 2,
+   "span": 4,
+   "start": 0
+  },
+  "0_0_5": {
+   "answer": "5/2",
+   "fast_change": 5,
+   "reason": null,
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      0,
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "index": 1,
+     "values": [
+      1,
+      0,
+      1,
+      0
+     ]
+    },
+    {
+     "index": 2,
+     "values": [
+      2,
+      1,
+      2,
+      1
+     ]
+    },
+    {
+     "index": 3,
+     "values": [
+      3,
+      2,
+      3,
+      1
+     ]
+    },
+    {
+     "index": 4,
+     "values": [
+      4,
+      3,
+      4,
+      2
+     ]
+    },
+    {
+     "index": 5,
+     "values": [
+      5,
+      0,
+      5,
+      2
+     ]
+    }
+   ],
+   "rule": 0,
+   "slow_change": 2,
+   "span": 5,
+   "start": 0
+  },
+  "0_0_6": {
+   "answer": "2",
+   "fast_change": 6,
+   "reason": null,
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      0,
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "index": 1,
+     "values": [
+      1,
+      0,
+      1,
+      0
+     ]
+    },
+    {
+     "index": 2,
+     "values": [
+      2,
+      1,
+      2,
+      1
+     ]
+    },
+    {
+     "index": 3,
+     "values": [
+      3,
+      2,
+      3,
+      1
+     ]
+    },
+    {
+     "index": 4,
+     "values": [
+      4,
+      3,
+      4,
+      2
+     ]
+    },
+    {
+     "index": 5,
+     "values": [
+      5,
+      0,
+      5,
+      2
+     ]
+    },
+    {
+     "index": 6,
+     "values": [
+      6,
+      1,
+      6,
+      3
+     ]
+    }
+   ],
+   "rule": 0,
+   "slow_change": 3,
+   "span": 6,
+   "start": 0
+  },
+  "0_1_0": {
+   "answer": "refuse",
+   "fast_change": 0,
+   "reason": "No change on the dividing slow counter",
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      1,
+      0,
+      1,
+      0
+     ]
+    }
+   ],
+   "rule": 0,
+   "slow_change": 0,
+   "span": 0,
+   "start": 1
+  },
+  "0_1_1": {
+   "answer": "1",
+   "fast_change": 1,
+   "reason": null,
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      1,
+      0,
+      1,
+      0
+     ]
+    },
+    {
+     "index": 1,
+     "values": [
+      2,
+      1,
+      2,
+      1
+     ]
+    }
+   ],
+   "rule": 0,
+   "slow_change": 1,
+   "span": 1,
+   "start": 1
+  },
+  "0_1_2": {
+   "answer": "2",
+   "fast_change": 2,
+   "reason": null,
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      1,
+      0,
+      1,
+      0
+     ]
+    },
+    {
+     "index": 1,
+     "values": [
+      2,
+      1,
+      2,
+      1
+     ]
+    },
+    {
+     "index": 2,
+     "values": [
+      3,
+      2,
+      3,
+      1
+     ]
+    }
+   ],
+   "rule": 0,
+   "slow_change": 1,
+   "span": 2,
+   "start": 1
+  },
+  "0_1_3": {
+   "answer": "3/2",
+   "fast_change": 3,
+   "reason": null,
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      1,
+      0,
+      1,
+      0
+     ]
+    },
+    {
+     "index": 1,
+     "values": [
+      2,
+      1,
+      2,
+      1
+     ]
+    },
+    {
+     "index": 2,
+     "values": [
+      3,
+      2,
+      3,
+      1
+     ]
+    },
+    {
+     "index": 3,
+     "values": [
+      4,
+      3,
+      4,
+      2
+     ]
+    }
+   ],
+   "rule": 0,
+   "slow_change": 2,
+   "span": 3,
+   "start": 1
+  },
+  "0_1_4": {
+   "answer": "2",
+   "fast_change": 4,
+   "reason": null,
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      1,
+      0,
+      1,
+      0
+     ]
+    },
+    {
+     "index": 1,
+     "values": [
+      2,
+      1,
+      2,
+      1
+     ]
+    },
+    {
+     "index": 2,
+     "values": [
+      3,
+      2,
+      3,
+      1
+     ]
+    },
+    {
+     "index": 3,
+     "values": [
+      4,
+      3,
+      4,
+      2
+     ]
+    },
+    {
+     "index": 4,
+     "values": [
+      5,
+      0,
+      5,
+      2
+     ]
+    }
+   ],
+   "rule": 0,
+   "slow_change": 2,
+   "span": 4,
+   "start": 1
+  },
+  "0_1_5": {
+   "answer": "5/3",
+   "fast_change": 5,
+   "reason": null,
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      1,
+      0,
+      1,
+      0
+     ]
+    },
+    {
+     "index": 1,
+     "values": [
+      2,
+      1,
+      2,
+      1
+     ]
+    },
+    {
+     "index": 2,
+     "values": [
+      3,
+      2,
+      3,
+      1
+     ]
+    },
+    {
+     "index": 3,
+     "values": [
+      4,
+      3,
+      4,
+      2
+     ]
+    },
+    {
+     "index": 4,
+     "values": [
+      5,
+      0,
+      5,
+      2
+     ]
+    },
+    {
+     "index": 5,
+     "values": [
+      6,
+      1,
+      6,
+      3
+     ]
+    }
+   ],
+   "rule": 0,
+   "slow_change": 3,
+   "span": 5,
+   "start": 1
+  },
+  "0_1_6": {
+   "answer": "2",
+   "fast_change": 6,
+   "reason": null,
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      1,
+      0,
+      1,
+      0
+     ]
+    },
+    {
+     "index": 1,
+     "values": [
+      2,
+      1,
+      2,
+      1
+     ]
+    },
+    {
+     "index": 2,
+     "values": [
+      3,
+      2,
+      3,
+      1
+     ]
+    },
+    {
+     "index": 3,
+     "values": [
+      4,
+      3,
+      4,
+      2
+     ]
+    },
+    {
+     "index": 4,
+     "values": [
+      5,
+      0,
+      5,
+      2
+     ]
+    },
+    {
+     "index": 5,
+     "values": [
+      6,
+      1,
+      6,
+      3
+     ]
+    },
+    {
+     "index": 6,
+     "values": [
+      7,
+      2,
+      7,
+      3
+     ]
+    }
+   ],
+   "rule": 0,
+   "slow_change": 3,
+   "span": 6,
+   "start": 1
+  },
+  "1_0_0": {
+   "answer": "refuse",
+   "fast_change": 0,
+   "reason": "No change on the dividing slow counter",
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      0,
+      3,
+      0,
+      0
+     ]
+    }
+   ],
+   "rule": 1,
+   "slow_change": 0,
+   "span": 0,
+   "start": 0
+  },
+  "1_0_1": {
+   "answer": "2",
+   "fast_change": 2,
+   "reason": null,
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      0,
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "index": 1,
+     "values": [
+      1,
+      4,
+      2,
+      1
+     ]
+    }
+   ],
+   "rule": 1,
+   "slow_change": 1,
+   "span": 1,
+   "start": 0
+  },
+  "1_0_2": {
+   "answer": "2",
+   "fast_change": 4,
+   "reason": null,
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      0,
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "index": 1,
+     "values": [
+      1,
+      4,
+      2,
+      1
+     ]
+    },
+    {
+     "index": 2,
+     "values": [
+      2,
+      5,
+      4,
+      2
+     ]
+    }
+   ],
+   "rule": 1,
+   "slow_change": 2,
+   "span": 2,
+   "start": 0
+  },
+  "1_0_3": {
+   "answer": "2",
+   "fast_change": 6,
+   "reason": null,
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      0,
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "index": 1,
+     "values": [
+      1,
+      4,
+      2,
+      1
+     ]
+    },
+    {
+     "index": 2,
+     "values": [
+      2,
+      5,
+      4,
+      2
+     ]
+    },
+    {
+     "index": 3,
+     "values": [
+      3,
+      6,
+      6,
+      3
+     ]
+    }
+   ],
+   "rule": 1,
+   "slow_change": 3,
+   "span": 3,
+   "start": 0
+  },
+  "1_0_4": {
+   "answer": "2",
+   "fast_change": 8,
+   "reason": null,
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      0,
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "index": 1,
+     "values": [
+      1,
+      4,
+      2,
+      1
+     ]
+    },
+    {
+     "index": 2,
+     "values": [
+      2,
+      5,
+      4,
+      2
+     ]
+    },
+    {
+     "index": 3,
+     "values": [
+      3,
+      6,
+      6,
+      3
+     ]
+    },
+    {
+     "index": 4,
+     "values": [
+      4,
+      7,
+      8,
+      4
+     ]
+    }
+   ],
+   "rule": 1,
+   "slow_change": 4,
+   "span": 4,
+   "start": 0
+  },
+  "1_0_5": {
+   "answer": "2",
+   "fast_change": 10,
+   "reason": null,
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      0,
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "index": 1,
+     "values": [
+      1,
+      4,
+      2,
+      1
+     ]
+    },
+    {
+     "index": 2,
+     "values": [
+      2,
+      5,
+      4,
+      2
+     ]
+    },
+    {
+     "index": 3,
+     "values": [
+      3,
+      6,
+      6,
+      3
+     ]
+    },
+    {
+     "index": 4,
+     "values": [
+      4,
+      7,
+      8,
+      4
+     ]
+    },
+    {
+     "index": 5,
+     "values": [
+      5,
+      8,
+      10,
+      5
+     ]
+    }
+   ],
+   "rule": 1,
+   "slow_change": 5,
+   "span": 5,
+   "start": 0
+  },
+  "1_0_6": {
+   "answer": "2",
+   "fast_change": 12,
+   "reason": null,
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      0,
+      3,
+      0,
+      0
+     ]
+    },
+    {
+     "index": 1,
+     "values": [
+      1,
+      4,
+      2,
+      1
+     ]
+    },
+    {
+     "index": 2,
+     "values": [
+      2,
+      5,
+      4,
+      2
+     ]
+    },
+    {
+     "index": 3,
+     "values": [
+      3,
+      6,
+      6,
+      3
+     ]
+    },
+    {
+     "index": 4,
+     "values": [
+      4,
+      7,
+      8,
+      4
+     ]
+    },
+    {
+     "index": 5,
+     "values": [
+      5,
+      8,
+      10,
+      5
+     ]
+    },
+    {
+     "index": 6,
+     "values": [
+      6,
+      9,
+      12,
+      6
+     ]
+    }
+   ],
+   "rule": 1,
+   "slow_change": 6,
+   "span": 6,
+   "start": 0
+  },
+  "1_1_0": {
+   "answer": "refuse",
+   "fast_change": 0,
+   "reason": "No change on the dividing slow counter",
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      1,
+      4,
+      2,
+      1
+     ]
+    }
+   ],
+   "rule": 1,
+   "slow_change": 0,
+   "span": 0,
+   "start": 1
+  },
+  "1_1_1": {
+   "answer": "2",
+   "fast_change": 2,
+   "reason": null,
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      1,
+      4,
+      2,
+      1
+     ]
+    },
+    {
+     "index": 1,
+     "values": [
+      2,
+      5,
+      4,
+      2
+     ]
+    }
+   ],
+   "rule": 1,
+   "slow_change": 1,
+   "span": 1,
+   "start": 1
+  },
+  "1_1_2": {
+   "answer": "2",
+   "fast_change": 4,
+   "reason": null,
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      1,
+      4,
+      2,
+      1
+     ]
+    },
+    {
+     "index": 1,
+     "values": [
+      2,
+      5,
+      4,
+      2
+     ]
+    },
+    {
+     "index": 2,
+     "values": [
+      3,
+      6,
+      6,
+      3
+     ]
+    }
+   ],
+   "rule": 1,
+   "slow_change": 2,
+   "span": 2,
+   "start": 1
+  },
+  "1_1_3": {
+   "answer": "2",
+   "fast_change": 6,
+   "reason": null,
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      1,
+      4,
+      2,
+      1
+     ]
+    },
+    {
+     "index": 1,
+     "values": [
+      2,
+      5,
+      4,
+      2
+     ]
+    },
+    {
+     "index": 2,
+     "values": [
+      3,
+      6,
+      6,
+      3
+     ]
+    },
+    {
+     "index": 3,
+     "values": [
+      4,
+      7,
+      8,
+      4
+     ]
+    }
+   ],
+   "rule": 1,
+   "slow_change": 3,
+   "span": 3,
+   "start": 1
+  },
+  "1_1_4": {
+   "answer": "2",
+   "fast_change": 8,
+   "reason": null,
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      1,
+      4,
+      2,
+      1
+     ]
+    },
+    {
+     "index": 1,
+     "values": [
+      2,
+      5,
+      4,
+      2
+     ]
+    },
+    {
+     "index": 2,
+     "values": [
+      3,
+      6,
+      6,
+      3
+     ]
+    },
+    {
+     "index": 3,
+     "values": [
+      4,
+      7,
+      8,
+      4
+     ]
+    },
+    {
+     "index": 4,
+     "values": [
+      5,
+      8,
+      10,
+      5
+     ]
+    }
+   ],
+   "rule": 1,
+   "slow_change": 4,
+   "span": 4,
+   "start": 1
+  },
+  "1_1_5": {
+   "answer": "2",
+   "fast_change": 10,
+   "reason": null,
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      1,
+      4,
+      2,
+      1
+     ]
+    },
+    {
+     "index": 1,
+     "values": [
+      2,
+      5,
+      4,
+      2
+     ]
+    },
+    {
+     "index": 2,
+     "values": [
+      3,
+      6,
+      6,
+      3
+     ]
+    },
+    {
+     "index": 3,
+     "values": [
+      4,
+      7,
+      8,
+      4
+     ]
+    },
+    {
+     "index": 4,
+     "values": [
+      5,
+      8,
+      10,
+      5
+     ]
+    },
+    {
+     "index": 5,
+     "values": [
+      6,
+      9,
+      12,
+      6
+     ]
+    }
+   ],
+   "rule": 1,
+   "slow_change": 5,
+   "span": 5,
+   "start": 1
+  },
+  "1_1_6": {
+   "answer": "2",
+   "fast_change": 12,
+   "reason": null,
+   "rows": [
+    {
+     "index": 0,
+     "values": [
+      1,
+      4,
+      2,
+      1
+     ]
+    },
+    {
+     "index": 1,
+     "values": [
+      2,
+      5,
+      4,
+      2
+     ]
+    },
+    {
+     "index": 2,
+     "values": [
+      3,
+      6,
+      6,
+      3
+     ]
+    },
+    {
+     "index": 3,
+     "values": [
+      4,
+      7,
+      8,
+      4
+     ]
+    },
+    {
+     "index": 4,
+     "values": [
+      5,
+      8,
+      10,
+      5
+     ]
+    },
+    {
+     "index": 5,
+     "values": [
+      6,
+      9,
+      12,
+      6
+     ]
+    },
+    {
+     "index": 6,
+     "values": [
+      7,
+      10,
+      14,
+      7
+     ]
+    }
+   ],
+   "rule": 1,
+   "slow_change": 6,
+   "span": 6,
+   "start": 1
+  }
+ },
+ "classification": "two supplied clock rules and a separate countdown countermodel",
+ "countdowns": {
+  "0": {
+   "answer": "no",
+   "classification": "supplied countdown contrast, not the P202 transition",
+   "horizon": 0,
+   "left_start": 0,
+   "next": {
+    "index": 0,
+    "left": 1,
+    "right": 0
+   },
+   "right_start": 1,
+   "rows": []
+  },
+  "1": {
+   "answer": "no",
+   "classification": "supplied countdown contrast, not the P202 transition",
+   "horizon": 1,
+   "left_start": 1,
+   "next": {
+    "index": 1,
+    "left": 1,
+    "right": 0
+   },
+   "right_start": 2,
+   "rows": [
+    {
+     "index": 0,
+     "left": 0,
+     "right": 0
+    }
+   ]
+  },
+  "3": {
+   "answer": "no",
+   "classification": "supplied countdown contrast, not the P202 transition",
+   "horizon": 3,
+   "left_start": 3,
+   "next": {
+    "index": 3,
+    "left": 1,
+    "right": 0
+   },
+   "right_start": 4,
+   "rows": [
+    {
+     "index": 0,
+     "left": 0,
+     "right": 0
+    },
+    {
+     "index": 1,
+     "left": 0,
+     "right": 0
+    },
+    {
+     "index": 2,
+     "left": 0,
+     "right": 0
+    }
+   ]
+  },
+  "5": {
+   "answer": "no",
+   "classification": "supplied countdown contrast, not the P202 transition",
+   "horizon": 5,
+   "left_start": 5,
+   "next": {
+    "index": 5,
+    "left": 1,
+    "right": 0
+   },
+   "right_start": 6,
+   "rows": [
+    {
+     "index": 0,
+     "left": 0,
+     "right": 0
+    },
+    {
+     "index": 1,
+     "left": 0,
+     "right": 0
+    },
+    {
+     "index": 2,
+     "left": 0,
+     "right": 0
+    },
+    {
+     "index": 3,
+     "left": 0,
+     "right": 0
+    },
+    {
+     "index": 4,
+     "left": 0,
+     "right": 0
+    }
+   ]
+  }
+ },
+ "digest_mode": "UTF-8/LF source text",
+ "formal_carrier": "unbounded Nat fields; declared finite samples only",
+ "horizons": [
+  0,
+  1,
+  3,
+  5
+ ],
+ "native_limits": {
+  "hidden_clocks_can_differ_with_same_register_future": true,
+  "lean_positive_span_rate": "2",
+  "missing_register_raises_KeyError": true,
+  "period_metadata_does_not_configure_transition": true,
+  "python_three_step_rates": [
+   "3",
+   "3/2"
+  ],
+  "raw_rate_does_not_certify_reachability_or_monotone_interval": true,
+  "raw_zero_and_negative_horizons_are_empty": true
+ },
+ "offset_example": {
+  "answer": "2",
+  "fast_change": 4,
+  "reason": null,
+  "rows": [
+   {
+    "index": 0,
+    "values": [
+     2,
+     3,
+     10,
+     3
+    ]
+   },
+   {
+    "index": 1,
+    "values": [
+     3,
+     4,
+     12,
+     4
+    ]
+   },
+   {
+    "index": 2,
+    "values": [
+     4,
+     5,
+     14,
+     5
+    ]
+   }
+  ],
+  "rule": 1,
+  "slow_change": 2,
+  "span": 2,
+  "start": 0
+ },
+ "physical_observations": 0,
+ "rate_answers": [
+  "refuse",
+  "1",
+  "2",
+  "3",
+  "3/2",
+  "5/2",
+  "5/3"
+ ],
+ "rules": [
+  "Python: fast +1, slow on alternate steps",
+  "Lean: fast +2, slow +1"
+ ],
+ "source_text_sha256": {
+  "research/p201_relational_spacetime/CLAIMS.md": "1db3e0523763987264d7b71b69ec669c1b9025db242b7c24c41e8ed57fc9f069",
+  "research/p201_relational_spacetime/README.md": "9a49e107913f202e5c3c7f108656b2009515fff95c87f0f59d736d3299fee625",
+  "research/p201_relational_spacetime/lean/RelationalSpacetime.lean": "e0b726d562b6307b722dac6bad5031b3242ecb4271f1bf7e51f2732b955ccccb",
+  "research/p201_relational_spacetime/relational_spacetime.py": "054a1032f848a2f589d2ac2621aadf82238b804f1f8f262f41feb8170ad4a059",
+  "textbook/reasoning_lab/clocks.py": "62a6b7d4b77d14da6cf98fc343515e546d7eb474f93150eaf863f2d56c2f74ab"
+ },
+ "spans": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6
+ ],
+ "starts": [
+  0,
+  1
+ ]
+}

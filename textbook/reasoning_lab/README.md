@@ -73,6 +73,25 @@ The [source guide](CALIBRATION_SOURCES.md) separates native operations,
 book-side premise checks and selected Lean claims. The clock model is
 outside this selected continuation.
 
+## Compare clocks and future readings
+
+This continuation keeps the source's Python pulse and Lean uniform
+rules separate. It introduces a declared countdown contrast for finite
+predictions. No clock bridge or physical synchronization law is assumed.
+
+| Lesson | One question |
+|---|---|
+| [24. Count updates and ticks](24_count_updates_and_ticks.md) | What does one application of a tick rule count? |
+| [25. Compare changes, not totals](25_compare_changes_not_totals.md) | Does a starting offset belong in an elapsed ratio? |
+| [26. Read only what is shown](26_read_only_what_is_shown.md) | Can hidden clocks differ while all selected readouts agree? |
+| [27. How far the record looks](27_how_far_the_record_looks.md) | Does a finite window include the next untested reading? |
+| [28. Move the start forward](28_move_the_start_forward.md) | Which comparisons survive a shifted start? |
+| [29. From model ticks to a clock claim](29_from_ticks_to_a_clock_claim.md) | What connects counter updates to a physical clock? |
+
+Use the separate [clock desk](clocks.html), [practice](CLOCKS_PRACTICE.md)
+and [answers](CLOCKS_ANSWERS.md). The [source guide](CLOCKS_SOURCES.md)
+keeps native proofs, finite executions and the countdown explicit.
+
 Then try the original [practice](PRACTICE.md) before opening its [answers](ANSWERS.md).
 For the evidence route, use the changed [envelope example](EVIDENCE_PRACTICE.md)
 before its separate [answer guide](EVIDENCE_ANSWERS.md).

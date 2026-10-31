@@ -1030,3 +1030,28 @@ them. The actual handler fixture checks 63 conversion and 36 comparison
 predictions. The eleven added reports have nine empty axiom sets and two
 exactly `propext, Quot.sound`. Browser rendering and learning evidence
 are separate checks.
+
+## Reasoning-lab clock/future-reading continuation (2026-10-31)
+
+Five temporary packet variants, one stale desk and two assembled
+child-process Lean variants are rejected. Originals remain unchanged;
+the selected P202/book source recovers with sixteen exact reports and
+the combined reasoning driver checks 72.
+
+| Defect injected | Observed rejection |
+|---|---|
+| Replace Python's three-step ratio 3 with Lean's ratio 2 | Packet comparison retains the pulse-rule counterexample |
+| Let empty agreement predict the next lamp | Packet comparison retains the horizon-zero distinction |
+| Extend three matching countdown samples to the next index | Packet comparison retains next lamps 1/0 |
+| Assign ratio 2 to a zero-update interval | Packet comparison retains zero-divisor refusal |
+| Count supplied clock runs as physical observations | Packet comparison retains zero observations |
+| Alter the clock HTML without rebuilding | Exact renderer comparison rejects the stale desk |
+| Replace hidden-clock state inequality by complete-state equality | Lean rejects the altered conclusion |
+| Replace the countdown next-lamp inequality by equality | Lean rejects the false next-reading claim |
+
+Fifteen added authoring tests pass. Actual handlers check 196 clock and
+eight countdown predictions, including wrong choices, gates, resets,
+zero intervals and empty comparisons. The sixteen added reports have
+ten empty axiom sets and six exactly `propext, Quot.sound`. The initial
+elaboration attempt is retained separately; expected axiom sets were
+not relaxed. Browser rendering and learner evidence remain separate.

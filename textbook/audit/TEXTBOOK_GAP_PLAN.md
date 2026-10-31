@@ -282,7 +282,10 @@ formal carrier's unbounded natural-number fields and from measurements.
 The separate [P201 continuation](CALIBRATION_READING_REVIEW_2026-10-31.md)
 now adds six calibration lessons: number/standard pairs, kind labels,
 mixed-standard ratios, lost magnitude, caller premises and physical
-correspondence. P202 clocks and future-test relations remain separate.
+correspondence. The separate [clock/future-reading route](CLOCKS_READING_REVIEW_2026-10-31.md)
+now teaches selected P202 definitions, elapsed increments, differing source
+schedules and bounded/all-future inference. It adds no physical clock
+validation or Python/Lean bridge.
 The [I00–I03 definition follow-up](INSTITUTION_FOUNDATIONS_READING_REVIEW_2026-10-31.md)
 then returns to the formal route: one continuing table, separate input/
 output/lookup roles, three-step class counting, folded source proofs and

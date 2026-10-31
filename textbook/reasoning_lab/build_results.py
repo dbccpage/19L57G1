@@ -11,3 +11,4 @@ if __name__ == "__main__":
     build(source, source / "results.html")
     build(source, source / 'protocols.html',template_name='protocols.template.html',packet_name='protocols.json')
     build(source, source / 'calibration.html',template_name='calibration.template.html',packet_name='calibration.json')
+    build(source, source / 'clocks.html',template_name='clocks.template.html',packet_name='clocks.json')

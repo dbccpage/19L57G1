@@ -93,3 +93,6 @@ SOURCE += '\n'+PROTOCOL_SOURCE
 from .calibration_lean import build_checks as calibration_checks
 CALIBRATION_SOURCE,CALIBRATION_NAMES=calibration_checks()
 SOURCE += '\n'+CALIBRATION_SOURCE
+from .clocks_lean import build_checks as clock_checks
+CLOCK_SOURCE,CLOCK_NAMES=clock_checks()
+SOURCE += '\n'+CLOCK_SOURCE

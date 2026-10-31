@@ -104,7 +104,8 @@ positive rescaled denominator, a nonzero ratio divisor, a conditional
 common-reference cross-identity and four concrete boundary examples.
 The added eleven reports have nine empty axiom sets and two using exactly
 `propext, Quot.sound`. With the earlier reasoning/protocol scope, the
-driver checks 56 reports. This does not replace the native package’s
+logic/P200/P201 portion checks 56 reports. This does not replace the
+native package’s
 seven-theorem inventory or frozen receipt.
 
 Source hashes use UTF-8 text with LF normalization and are stored in
@@ -118,5 +119,7 @@ instrument uncertainty and physical geometry remain outside these six
 lessons. Python’s clock advances fast once per step and slow on alternate
 step indices, while Lean’s advances fast twice and slow once per step;
 its register dynamics also differ. No cross-language clock bridge is
-asserted. Finite example checks, physical correspondence and independently
+asserted by those six lessons. The separate [clock route](CLOCKS_SOURCES.md)
+now teaches selected P202 definitions and their differing scopes.
+Finite example checks, physical correspondence and independently
 observed beginner comprehension remain separate obligations.

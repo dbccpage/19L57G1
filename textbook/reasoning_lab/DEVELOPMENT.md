@@ -105,8 +105,9 @@ An intentional reviewed update uses `calibration.py --write`, which
 writes only `calibration.json` and `calibration.html`. The shared builder
 also supports this third explicitly named desk; older packets and desks
 retain their content. Preview `calibration.html` through the same local
-server. The canonical reasoning wrappers now check this packet and its
-bounded population, plus 56 exact Lean reports across the three scopes.
+server. The reasoning wrappers check this packet and its bounded
+population; the logic/P200/P201 portion contributes 56 exact reports,
+before the P202 continuation below extends the combined driver.
 
 Thirteen added authoring tests cover premise failures, mixed units,
 zero numerator versus divisor, four false packet variants, stale desk
@@ -119,3 +120,27 @@ the 9/2 conversion, mixed-standard ratios, both refusals, same-ratio
 changed magnitudes, resets, keyboard focus and table scrolling at a
 phone width. Check the published reading/practice/answer links. The
 blank worksheet remains blank; invented numbers are not observations.
+
+For the clock/future-reading continuation:
+
+```text
+python textbook/reasoning_lab/clocks.py --population
+python -m unittest textbook.reasoning_lab.test_clocks
+node textbook/reasoning_lab/test_clock_controls.mjs
+```
+
+An intentional reviewed update uses `clocks.py --write`, writing only
+`clocks.json` and `clocks.html`. Preview through the same server or the
+published link. Earlier desks stay unchanged. Existing wrappers check
+the new packet/populations and 72 exact Lean reports across four scopes.
+
+Fifteen added authoring tests and two separate assembled Lean negative
+variants exercise the boundaries. Actual handlers check 196 clock and
+eight countdown predictions, not browser layout or learner outcomes.
+The complete Reasoning-lab authoring suite now has 58 tests.
+
+In a browser, compare both rules/starts, zero/one/odd intervals, the
+difference from the pulse starting index, all countdown horizons, both gates, wrong
+feedback and resets. Check table focus and arrow-key scrolling at phone
+width and published practice/answer links. Never count model updates
+as measured durations.

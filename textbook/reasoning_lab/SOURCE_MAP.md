@@ -209,3 +209,7 @@ independent novice learning remain outside this selected P200 introduction.
 The separate [P201 calibration guide](CALIBRATION_SOURCES.md) now supports
 Lessons 18–23, adding eleven scoped reports to the combined driver.
 It does not identify the two owners' models or teach P202 clocks.
+The distinct [clock/future-reading route](CLOCKS_SOURCES.md) now supplies
+Lessons 24–29. Its P202 scope and countdown contrast add sixteen
+reports; the combined driver checks 72. No general bridge between
+the Python pulse and Lean uniform schedules is asserted.
