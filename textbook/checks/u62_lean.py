@@ -5,7 +5,7 @@ Usage: python textbook/checks/u62_lean.py
 Invokes ``lake env lean -DwarningAsError=true`` on an ephemeral driver that
 imports ``Derivation.StableContent``, checks the signatures and axiom sets of
 all 18 theorems in ``StableContent`` plus the open proposition
-``StableContent.openExactStabilityCharacterization : Prop``, and verifies two
+``StableContent.openExactStabilityCharacterization : Prop``, and verifies three
 book-Lean theorems in ``Textbook.U62``:
   1. ``reachable_halted_stable_not_protected`` — a genesis-reachable halted
      state (unlike ``sHalt``, whose ``prot = []`` with a nonempty column is not
@@ -17,6 +17,8 @@ book-Lean theorems in ``Textbook.U62``:
      ``TraceStableSep`` because a 5-event continuation starting with
      ``.setBudget 1`` refines column ``[1]`` into ``[0, 1]`` and destroys the
      separation of ``(0, 1)``.
+  3. ``worked_protection_table`` — the column changes from ``[1]`` to
+     ``[0, 1]`` while the protected separation of ``(1, 2)`` survives.
 """
 
 from __future__ import annotations
@@ -32,6 +34,8 @@ LEAN_DIR = ROOT / "lean4"
 BOTH = "depends on axioms: [propext, Quot.sound]"
 
 EXPECTED: dict[str, str] = {
+    "Textbook.U62.worked_protection_table": BOTH,
+
     "StableContent.sepP_append": BOTH,
     "StableContent.sepP_refine": BOTH,
     "StableContent.prot_mono": BOTH,
@@ -110,6 +114,13 @@ theorem reachable_unfunded_restricted_but_not_trace_stable :
     have hcols : cols = [[0, 1]] := Option.some.inj hobs.symm
     rw [hcols] at hsep
     exact absurd hsep (by decide)
+
+theorem worked_protection_table :
+    (replayP histLive genesisP).obs = some [[1]] ∧
+    protSep (replayP histLive genesisP) 1 2 = true ∧
+    (replayP breakTail (replayP histLive genesisP)).obs = some [[0,1]] ∧
+    protSep (replayP breakTail (replayP histLive genesisP)) 1 2 = true ∧
+    sepP [[0,1]] 0 1 = false := by decide
 
 end Textbook.U62
 """

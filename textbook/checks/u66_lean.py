@@ -48,7 +48,13 @@ theorem exercise_unscoped_eqv (s : PState) :
     = replayP [.addCol [0], .halt] (step s (.setBudget 1))
   rw [h12]
 
+theorem budget_write_order :
+    (replayP [.setBudget 1, .setBudget 2] genesisP).budget = 2 ∧
+    (replayP [.setBudget 2, .setBudget 1] genesisP).budget = 1 := by decide
+
 end Textbook.U66
+
+#print axioms Textbook.U66.budget_write_order
 
 #print axioms Textbook.U66.exercise_nf_eq
 #print axioms Textbook.U66.exercise_unscoped_eqv
@@ -99,6 +105,8 @@ end Textbook.U66
 """
 
 EXPECTED = {
+    "Textbook.U66.budget_write_order": BOTH,
+
     "Textbook.U66.exercise_nf_eq": NONE,
     "Textbook.U66.exercise_unscoped_eqv": BOTH,
     "TraceAlgebra.step_eq_ite": BOTH,

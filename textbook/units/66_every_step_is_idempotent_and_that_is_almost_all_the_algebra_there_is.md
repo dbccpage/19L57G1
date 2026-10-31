@@ -2,6 +2,9 @@
 
 **Claim.** Repeating the same concrete passage event is idempotent. Different events may fail to commute, and the stated sound trace rewrites do not decide every replay equivalence.
 
+<details>
+<summary>Sources and classification (optional)</summary>
+
 **Status:** FROZEN (the step normal form, all-state idempotence, post-terminal absorption, typed-trace erasure, three frame commutation families, five non-commutation countermodels, non-environment trace invariance, refusal persistence, scoped vs. unscoped replay equivalence witnesses, and the sound/terminating/confluent/incomplete rewrite system `Rw`); ADMITTED (`TRecord`, `WFRecord`, `Aligned`, `LegalTrace`, `licenseInsensitive`, `budgetInsensitive`, `occInsensitive`, `ReplayEqvOn`, `RepresentsZero`, `Rw`, `RwStar`, `consNF`, `nf`, and `noRedex`); VERIFIED_FINITE (`artifacts/trace_algebra.json`).
 **Lean:** `lean4/Derivation/TraceAlgebra.lean` lines 77–1001.
 **Axioms:** `propext`, `Quot.sound` on 46 of 71 public theorem reports; `propext` on 11; `none` on 14 (`artifacts/lean_axioms.txt` lines 1005–1075).
@@ -9,15 +12,44 @@
 
 ---
 
+</details>
+
 ## First pass
 
-Idempotent means that applying the same event twice has the same result as applying it once. It does not say that different events may be swapped.
+The [Change lab](../change_lab/README.md) supplies the state machine used here.
 
-Next compare short event lists. The declared duplicate-removal and post-halt rewrites preserve replay, but some equivalent histories still have different rewrite normal forms. Sound rewriting is weaker than a complete equivalence test.
+Start with budget 0. A request to set the budget to 1 produces budget 1.
+Repeating that exact request leaves it at 1. **Idempotent** means that
+applying the same event twice has the same result as applying it once.
+In this machine every concrete event has that property.
+
+**Predict.** Does this let us swap the different requests set-budget-1
+and set-budget-2?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. Starting live, writing 1 then 2 ends at 2. Writing 2 then 1 ends at
+1. Repeating one event and exchanging two different events are different
+questions.
+
+</details>
+
+The lesson also studies two history-shortening rules: remove adjacent
+identical events, and remove events after halt. Neither rule changes
+the replay result. But `[setBudget 1, setBudget 2]` and `[setBudget 2]`
+still simplify to different lists, even though they replay identically
+from every starting state. A sound simplifier preserves results; this
+particular simplifier does not recognize every equivalent history.
+
+<details>
+<summary>Detailed statement and formal anchors (optional)</summary>
 
 ## Detailed claim and formal anchors
 
 Every single-step transition of `PrimitivePassage` decomposes into the guarded normal form `step s e = if guardHolds s e = true then postOf s e else s` (`step_eq_ite`); every event constructor is idempotent at every state (`step_idem : step (step s e) e = step s e`) and absorbed after `.halt` (`trace_absorbs`); erasing any `Aligned` chain of typed transition records `TRecord` to its event list reproduces its end state under `replayP` (`replay_erases`, `legal_trace_replays`); `.setLicense`, `.setBudget`, and `.admitOcc` commute with their respective insensitive event families (`comm_setLicense`, `comm_setBudget`, `comm_setBudget_setLicense`, `comm_admitOcc`) while failing to commute across five concrete countermodels (`noncomm_license_extension`, `noncomm_budget_extension`, `noncomm_terminal`, `noncomm_supply_retention`, `noncomm_same_store`); non-environment traces preserve `occ` and `licensed` (`internal_trace_preserves_occ`, `internal_trace_preserves_license`) and `.refuse` is append-only (`refusal_persists_replay`, `refusal_not_erasable`); and the two-rule event-list rewrite system `Rw` (`e :: e :: l → e :: l` and `.halt :: r :: l → [.halt]`) is sound at every start state, length-decreasing, and confluent with unique normal form `nf l`, yet incomplete for unscoped replay equivalence because `[.setBudget 1, .setBudget 2]` and `[.setBudget 2]` replay identically from every state while having distinct `nf` values (`TraceAlgebra.step_eq_ite`, `TraceAlgebra.inert_iff_guard_fails`, `TraceAlgebra.trace_absorbs`, `TraceAlgebra.step_idem`, `TraceAlgebra.replay_erases`, `TraceAlgebra.legal_trace_replays`, `TraceAlgebra.comm_setLicense`, `TraceAlgebra.comm_setBudget`, `TraceAlgebra.comm_setBudget_setLicense`, `TraceAlgebra.comm_admitOcc`, `TraceAlgebra.noncomm_license_extension`, `TraceAlgebra.noncomm_budget_extension`, `TraceAlgebra.noncomm_terminal`, `TraceAlgebra.noncomm_supply_retention`, `TraceAlgebra.noncomm_same_store`, `TraceAlgebra.same_store_observationally_equal`, `TraceAlgebra.internal_trace_preserves_occ`, `TraceAlgebra.internal_trace_preserves_license`, `TraceAlgebra.internal_blocks_cannot_supply_or_license`, `TraceAlgebra.refusal_persists_replay`, `TraceAlgebra.refusal_not_erasable`, `TraceAlgebra.replay_eqv_scoped`, `TraceAlgebra.replay_eqv_not_unscoped`, `TraceAlgebra.rw_sound`, `TraceAlgebra.rw_length`, `TraceAlgebra.rw_confluent`, `TraceAlgebra.nf_unique`, `TraceAlgebra.nf_sound`, `TraceAlgebra.rewrite_not_complete`).
+
+</details>
 
 ## Question
 
@@ -355,7 +387,8 @@ and the witness state `wObstructed` (`occ = [0, 1]`, `asserted = wit = prot = [(
 
 ---
 
-## Answer
+<details>
+<summary>Student exercise answer</summary>
 
 1. **Computing `nf l`:**
    - Starting from the suffix `[.halt, .admitOcc 9]`, `nf [.halt, .admitOcc 9] = [.halt]` by `nf_halt`.
@@ -373,6 +406,8 @@ and the witness state `wObstructed` (`occ = [0, 1]`, `asserted = wit = prot = [(
    - Yet `nf l' = [.setBudget 2, .setBudget 1, .addCol [0], .halt] ≠ [.setBudget 1, .addCol [0], .halt] = nf l`.
 
 ---
+
+</details>
 
 ## Verification
 

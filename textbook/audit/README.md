@@ -97,6 +97,14 @@ bounds from distinctness, and zero coefficients from empty storage.
 The revised opening route now extends through Unit 61. Later core Units,
 per-declaration teaching coverage, and novice transfer remain open.
 
+**Protection and event-summary follow-up (2026-10-31).** The
+[Units 62–66 review](PROTECTION_READING_REVIEW_2026-10-31.md) adds four
+worked openings and a zero-table prediction. Seven added book reports
+separate protected stability, supplied growth, declared proposal cost,
+classification scope, common suffixes, and budget-write order. The
+concrete opening route extends through Unit 66; remaining chapters,
+per-declaration teaching, and novice transfer stay open.
+
 **Institution reading review (2026-10-31).** The
 [I00–I17 review](INSTITUTIONS_READING_REVIEW_2026-10-31.md) adds eighteen
 worked openings and checks selected claims about empty families, fiber

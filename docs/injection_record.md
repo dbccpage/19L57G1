@@ -866,3 +866,22 @@ exit 0 with its expected reports.
 The five original drivers recover 180 exact reports. Eight are new:
 seven with `propext, Quot.sound` and one with no axioms. Sealed sources,
 research sources and results, and native receipts are unchanged.
+
+## Protection and event-summary reading review (2026-10-31)
+
+Seven temporary substitutions alter book-Lean strings only inside child
+processes. Each produces a Lean error and driver exit 1. All five
+unmodified chapter drivers then recover exit 0 with 164 exact reports.
+
+| Unit | Defect injected | Observed rejection and recovery |
+|---|---|---|
+| 62 | Make the checked refinement lose the protected separation of 1/2 | `decide` rejects the claimed Boolean; the original table proves preservation |
+| 63 | Make a separately supplied fresh admission leave genesis empty | `decide` rejects the list equality; original proves occurrence list `[7]` |
+| 64 | Infer transitivity through the zero-total middle table | Lean rejects the false profile comparison; original proves its negation |
+| 65 | Keep the halted genesis state inside `WFClass` | Lean rejects the liveness proof; original proves halt exits the class |
+| 65 | Make the class's out-of-bounds self-pair pass `wfPair` | `decide` rejects the guard result; original proves class membership and pair failure together |
+| 65 | Make the common admission suffix produce `[0]` in both branches | `decide` rejects the list equality; original produces `[0]` versus `[2,0]` |
+| 66 | Make reversed budget writes end at the same amount | `decide` rejects the budget equality; original proves final budgets 2 versus 1 |
+
+Seven added reports have six `propext, Quot.sound` sets and one empty
+set. Sealed sources, native receipts, and research results are unchanged.

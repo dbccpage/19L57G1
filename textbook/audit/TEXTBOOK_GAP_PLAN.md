@@ -190,6 +190,13 @@ walkthrough. Changed-label practice has separate folded answers.
    distinctness, unreduced storage from coefficients, and representatives
    from grouping. Eight added book reports verify these selected claims.
    The remaining core Units and per-declaration semantic coverage stay open.
+   The [protection and event-summary follow-up](PROTECTION_READING_REVIEW_2026-10-31.md)
+   extends that opening route through Unit 66. Four worked examples and
+   a zero-table prediction distinguish update promises, observation
+   repair, separately supplied growth, raw profile comparisons, and
+   event-history information. Seven book reports support the selected
+   claims; obsolete names and omitted hypotheses in five curriculum rows
+   are corrected. Later core lessons and broader semantic coverage remain open.
 7. **Evidence and reality.** Add exercises in separating a definition,
    a deduction, a computation, and a measurement. Give a model prediction,
    identify an observation that could disagree with it, and explain what

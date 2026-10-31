@@ -2,22 +2,58 @@
 
 **Claim.** The declared internal response fragment leaves the graph stores fixed. The separately supplied attachment block grows those stores under its execution hypotheses.
 
-**Status:** FROZEN (the field-invariance theorems, the `nextFamilyP` graph-fixing theorem, the `ProposalRecord` packaging of `upBlock`, the renaming transport theorem, the tie witness on `tri`, and the separation of carrier growth from internal obstruction); ADMITTED (the predicates `MentionsOnlyExisting`, `IsInternal`, `IsResponseEvent`, `GraphStoresFixed`, and the structure `ProposalRecord` with its unconstrained `.cost : Nat` field); VERIFIED_FINITE (`artifacts/graph_genesis.json`); OPEN (whether any response family other than the fixed `nextFamilyP` could grow the carrier).
+<details>
+<summary>Sources and classification (optional)</summary>
+
+**Status:** FROZEN (the field-invariance theorems, the `nextFamilyP` graph-fixing theorem, the `ProposalRecord` packaging of `upBlock`, the renaming transport theorem, the tie witness on `tri`, and the separation of carrier growth from internal obstruction); ADMITTED (the predicates `MentionsOnlyExisting`, `IsInternal`, `IsResponseEvent`, `GraphStoresFixed`, and the structure `ProposalRecord` with its unconstrained `.cost : Nat` field); VERIFIED_FINITE (`artifacts/graph_genesis.json`); NOT CLAIMED (a carrier-growth restriction on every differently declared response family). A separately supplied admission can grow the carrier; it lies outside `IsResponseEvent`.
 **Lean:** `lean4/Derivation/GraphGenesis.lean` lines 59–720.
 **Axioms:** `propext`, `Quot.sound` on 26 of 28 public theorem reports; `none` on `GraphGenesis.IsInternal_exact` and `GraphGenesis.internal_is_response` (`artifacts/lean_axioms.txt` lines 793–820).
 **Depends on:** Unit 54 (`PrimitivePassage.PState`, `PEvent`, `step`, `replayP`, `obstP`, `sepP`, `nextFamilyP`, `extensionProposals`, `repairFamily`, `nextFamilyP_nonempty`, `extension_always_available`, `extension_resolves`, `obst_requires_observation`), Unit 55 (`HigherStructure.pstep_budget`), Unit 59 (`Attachment.upFamily`, `upBlock`, `up_iff_legal`, `up_executes`, `halted_up_inert`, `act_up_comm`, `treeAt`, `WFStores`).
 
 ---
 
+</details>
+
 ## First pass
 
-Track the occurrence list and edge stores separately from the observation columns. An internal observation repair can change the columns while leaving the graph unchanged.
+Use [Unit 59](59_growing_the_carrier_by_one_and_renaming_the_supply.md)
+for the attachment recipe.
 
-Growing the graph requires the supplied attachment construction. Packaging it as a proposal does not grant execution or make its growth demand follow from an internal pair obstruction.
+Begin with occurrences `[0, 1]`, the pair `(0, 1)` retained and protected,
+and a declared observation with no columns. The required distinction is
+missing. Two supplied continuations do different jobs:
+
+| Continuation | Occurrences afterward | Observation columns afterward |
+|---|---|---|
+| Fund one update, add column `[0]` | `[0, 1]` | `[[0]]` |
+| Attach one fresh occurrence at parent 0 | `[0, 1, 2]` | `[]` |
+
+The first separates 0 from 1 without growing the carrier. The second
+grows it while leaving the view unchanged. Here **carrier growth** means
+adding an occurrence to the represented list, with a new position for it.
+No physical space is inferred from that representation. The internal response family supplies observation repairs; the
+attachment block is a separate supplied recipe.
+
+**Predict.** Does executing the attachment alone make the original
+pair visible as different?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. Its observation still has no columns. Growth and resolving this
+observation demand are different changes. Recording either recipe as a
+proposal also does not execute it or grant permission.
+
+</details>
+
+<details>
+<summary>Detailed statement and formal anchors (optional)</summary>
 
 ## Detailed claim and formal anchors
 
 On the nine-field primitive-passage ledger `PState`, every block emitted by the internal controller `nextFamilyP` is either a single same-level repair `[.refineCol v p]` or a funded column creation `[.setBudget 1, .addCol c]` whose newly mentioned positions lie strictly below `s.occ.length`, and replaying any finite trace over the internal fragment `IsInternal` (or over `IsResponseEvent`) leaves the four graph stores (`occ`, `asserted`, `wit`, `prot`) untouched; by contrast, the attached-continuation block `Attachment.upBlock s p` grows `occ`, `asserted`, `wit`, and `prot` by one entry each when replayed from a live store-bounded state with `p < s.occ.length`, packaged as an inert `ProposalRecord` whose family transports under renaming, retains equal-cost non-isomorphic branches on `tri`, and whose carrier-growth demand is not forced by internal pair obstruction (`GraphGenesis.graph_growth_is_supplied`, `GraphGenesis.nextFamilyP_block_fixes_graph`, `GraphGenesis.internal_family_cannot_grow_carrier`, `GraphGenesis.proposal_confers_no_execution`, `GraphGenesis.upProposal_executes`, `GraphGenesis.proposal_transports`, `GraphGenesis.proposal_family_retains_ties`, `GraphGenesis.obstruction_resolved_in_carrier`, `GraphGenesis.family_never_grows_carrier`, `GraphGenesis.growth_demand_not_obstruction_consequence`).
+
+</details>
 
 ## Question
 
@@ -74,7 +110,7 @@ Think of the ledger `PState` as having four columns that record the objects in t
 
 When a protected pair `(i, j)` is not yet separated by any observation column in `obs`, the internal controller `nextFamilyP` proposes blocks of events to resolve the obstruction. Every block it proposes is either a single column refinement `[.refineCol v p]` or a funded column creation `[.setBudget 1, .addCol c]`. Neither `.refineCol`, `.addCol`, `.declareObs`, `.refuse`, nor `.setBudget` ever writes to the four object-and-link columns (`occ`, `asserted`, `wit`, `prot`), and every position `p` or `x ∈ c` that `nextFamilyP` adds was already below `s.occ.length` before the block ran. Consequently, running the internal controller can reorganize `obs` and adjust `budget`, but it can never bring a new occurrence into `s.occ` or add a new link to `asserted`, `wit`, or `prot`.
 
-New occurrences and new links can enter only through the four supply events `.admitOcc`, `.assertWit`, `.admitWit`, and `.protect`, such as the four-event package `upBlock s p` from Unit 59. Packaging `upBlock s p` into a `ProposalRecord s` writes down the four-event block, its membership proof in `upFamily s`, the identity embedding and retraction, the freshness and preservation proofs, the provenance `(p, s.occ.length)`, and the declared cost `4`. Holding that record does not execute the block, and when two parents `p = 1` and `p = 2` are both legal (as on `tri`), their two proposal records tie at cost `4` while producing non-isomorphic link graphs (a 4-vertex path vs. a 3-leaf star) when executed.
+New occurrences and new links can enter only through the four supply events `.admitOcc`, `.assertWit`, `.admitWit`, and `.protect`, such as the four-event package `upBlock s p` from Unit 59. Packaging `upBlock s p` into a `ProposalRecord s` writes down the four-event block, its membership proof in `upFamily s`, the identity embedding and retraction, the freshness and preservation proofs, the provenance `(p, s.occ.length)`, and the declared cost `4`. This value belongs to the canonical constructor; the general record type does not require `cost = block.length`. Changing only that field preserves the other obligations (`proposal_cost_is_declared` in the book). Holding that record does not execute the block, and when two parents `p = 1` and `p = 2` are both legal (as on `tri`), their two proposal records tie at cost `4` while producing non-isomorphic link graphs (a 4-vertex path vs. a 3-leaf star) when executed.
 
 ---
 
@@ -373,7 +409,7 @@ theorem growth_demand_not_obstruction_consequence :
 - **No link to `Basic.lean` (`Regime`, `Event`, `replayE`):** `GraphGenesis.lean` works exclusively on `PrimitivePassage.PState` and `PEvent`.
 - **`obs` and `budget` movement is not asserted by `refineCol_only_obs` or `addCol_only_obs`:** Those theorems prove that the other seven fields do not move; whether `obs` and `budget` actually change on a step depends on whether the step's guard succeeds.
 - **Points already inside a refined column:** `repairFamily_range_over_existing` establishes `m.2 < s.occ.length` for the newly added point `m.2`, without asserting a bound on points already stored in the column `m.1`.
-- **Whether another response family could grow the carrier is OPEN:** The negative theorems cover `nextFamilyP` and traces over `IsInternal` / `IsResponseEvent`. Anything that grows `occ`, `asserted`, `wit`, or `prot` must emit at least one of the four supply constructors (`admitOcc`, `assertWit`, `admitWit`, `protect`); whether an alternative response family could emit them is marked OPEN (`CL-PD2-GRAPH-GENESIS`).
+- **No classification of every differently declared family:** The negative theorems cover `nextFamilyP` and traces over `IsInternal` / `IsResponseEvent`. A separately declared block `[.admitOcc 7]` grows the empty occurrence list; it lies outside `IsResponseEvent` (`separately_declared_supply_grows` in the book). Thus the unqualified existence of a different growing family is not an open result. A new response grammar would require its own definitions and scope checks. The fixed-family theorem supplies no general prohibition on it.
 - **`ProposalRecord` fields and `.cost` are admitted, not canonical:** `ProposalRecord.cost : Nat` has no constraint inside the structure declaration (`upProposal` sets `cost := (upBlock s p).length = 4`), and `ProposalRecord` is presented as one sufficient schema without any minimality or uniqueness claim.
 - **Hypotheses of `obstruction_resolved_in_carrier`:** In-carrier resolution requires `i ≠ j`, `i < s.occ.length`, `(i, j) ∈ s.prot`, `s.licensed = true`, and `s.halted = false`.
 
@@ -404,7 +440,8 @@ Consider the concrete witness state `blindPair` (`occ = [0, 1]`, `asserted = [(0
 
 ---
 
-## Answer
+<details>
+<summary>Student exercise answer</summary>
 
 1. **Four obstruction conditions at `blindPair`:**
    - `(0, 1) ∈ blindPair.wit` is `true`, `(0, 1) ∈ blindPair.prot` is `true`, `blindPair.obs = some []` is declared, and `sepP [] 0 1 = false`. Hence `obstP blindPair 0 1 = true`.
@@ -417,6 +454,8 @@ Consider the concrete witness state `blindPair` (`occ = [0, 1]`, `asserted = [(0
    - Replaying `upBlock blindPair 0` leaves `obs = some []` and `budget = 0` untouched, while growing `occ` from `[0, 1]` to `[0, 1, 2]` and appending `(0, 2)` to `asserted`, `wit`, and `prot`.
 
 ---
+
+</details>
 
 ## Verification
 

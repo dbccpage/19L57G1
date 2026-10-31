@@ -29,7 +29,18 @@ theorem blindPair_upBlock0_grows_occ :
     (replayP (upBlock blindPair 0) blindPair).occ = [0, 1, 2] ∧
     (replayP (upBlock blindPair 0) blindPair).obs = some [] := by decide
 
+theorem separately_declared_supply_grows :
+    (replayP [.admitOcc 7] genesisP).occ = [7] ∧
+    IsResponseEvent (.admitOcc 7) = false := by decide
+
+theorem proposal_cost_is_declared (s : PState) (P : ProposalRecord s) :
+    ({ P with cost := 0 } : ProposalRecord s).block = P.block ∧
+    ({ P with cost := 0 } : ProposalRecord s).cost = 0 := ⟨rfl, rfl⟩
+
 end Textbook.U63
+
+#print axioms Textbook.U63.separately_declared_supply_grows
+#print axioms Textbook.U63.proposal_cost_is_declared
 
 #print axioms Textbook.U63.blindPair_obst_true
 #print axioms Textbook.U63.blindPair_upBlock0_grows_occ
@@ -60,6 +71,9 @@ end Textbook.U63
 """
 
 EXPECTED = {
+    "Textbook.U63.separately_declared_supply_grows": BOTH,
+    "Textbook.U63.proposal_cost_is_declared": BOTH,
+
     "Textbook.U63.blindPair_obst_true": BOTH,
     "Textbook.U63.blindPair_upBlock0_grows_occ": BOTH,
     "GraphGenesis.refineCol_only_obs": BOTH,
