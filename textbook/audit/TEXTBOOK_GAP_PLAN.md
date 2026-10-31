@@ -290,7 +290,11 @@ continues the definition-level pass through combined reports, alignment,
 loss and stationary steps, with six further changed-example tasks.
 The [I08–I11 follow-up](INSTITUTION_POLICY_READING_REVIEW_2026-10-31.md)
 adds worked target, fallback, approval and pair-policy distinctions and
-six changed examples. These selected deeper definition passes reach I11.
+six changed examples. The [I12–I17 continuation](INSTITUTION_ACQUISITION_READING_REVIEW_2026-10-31.md)
+adds eight further tasks and works through probing, table encoding,
+fixing under promises, regime updates and carried guard codes. These
+selected deeper definition passes reach I17; they do not certify every
+research claim or paragraph of Part 2.
 The dedicated introductory tree count is now thirteen, leaving 110 without
 such treatment. Directory counts guide discovery;
 they do not set a requirement for equally sized modules for every tree.

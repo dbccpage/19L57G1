@@ -58,6 +58,11 @@ semantic and finite-population overstatements while preserving owner records.
 The [I08–I11 continuation](INSTITUTION_POLICY_READING_REVIEW_2026-10-31.md)
 clarifies target comparisons, fallback totality and encoding, one-way
 approval conditions and pair-policy labels, with six new practice tasks.
+The [I12–I17 continuation](INSTITUTION_ACQUISITION_READING_REVIEW_2026-10-31.md)
+completes this selected definition pass through Part 2. Worked records
+separate probing from tabulation, complete tables from direct partial
+lookup, consistency from vacuous fixing, and WF from support agreement.
+Eight new tasks have separate answers; the Act XII preview is corrected.
 
 **Early-chapter follow-up (2026-10-29).** The
 [Units 04–16 reading review](EARLY_READING_REVIEW_2026-10-29.md) adds

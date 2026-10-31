@@ -571,27 +571,27 @@ class Act11ProbingUncollapseVerdict(Scene):
         self.camera.background_color = BG_COLOR
         hdr = header_banner(
             "PART 2 · ACT XII (I12-I17)",
-            "Discovery Tax n(n-1)/2, Uncollapse & Verdict-Level Interpreter",
-            "Lean: Acquisition.acquisition_cost_exact, ResearchUncollapse, ResearchInterpreterVerdict | Status: PROVED",
+            "Pair Probes, Changing Views & Carried Guard Codes",
+            "Selected Lean results | Supplied models and assumptions | General bridge targets remain OPEN",
         )
-        c1 = footer_caption("0:00-0:03 | Probing an unknown actor on n data: fewer than n(n-1)/2 pair queries misses a pair.")
-        prb = make_card("Exact Probe Cost: n(n-1)/2", "Below n(n-1)/2 queries, two different actors share a transcript", 6.0, 1.4, GOLD).move_to(UP * 1.2 + LEFT * 3.0)
-        ref = make_card("Promised-Count Refuted (I15)", "At n = N, 'exactly N classes' needs 0 probes (not N-1)", 5.6, 1.4, RED).move_to(UP * 1.2 + RIGHT * 3.2)
+        c1 = footer_caption("1 | One query returns one equality bit. The worst-case bound assumes no class-count promise.")
+        prb = make_card("Unpromised Pair Probes (I12-I14)", "Worst case: n(n-1)/2 probes; numeric labels remain unknown", 6.0, 1.4, GOLD).move_to(UP * 1.2 + LEFT * 3.0)
+        ref = make_card("Exact-Count Boundary (I15)", "At n = N, singleton classes are supplied by the promise: 0 probes", 5.6, 1.4, RED).move_to(UP * 1.2 + RIGHT * 3.2)
         self.play(FadeIn(hdr), FadeIn(c1), FadeIn(prb), run_time=2.0)
 
-        c2 = footer_caption("0:03-0:07 | Once acquired, a k-class partition compresses into ceil(log2 k) binary views.")
+        c2 = footer_caption("2 | Known classes can be encoded by Boolean views. Encoding and discovery count different operations.")
         self.play(Succession(FadeOut(c1), FadeIn(c2)), FadeIn(ref), run_time=2.0)
         c1 = c2
         self.wait(1.0)
 
-        c3 = footer_caption("0:07-0:11 | Uncollapse requires a mentioning instance; later admissions can recollapse views.")
-        unc = make_card("Uncollapse & Recollapse (I16)", "uncollapse_only_by_mention_delta | recollapse_changes_views", 6.0, 1.4, CYAN).move_to(DOWN * 0.8 + LEFT * 3.0)
-        vrd = make_card("Verdict Boundary (I17)", "lawful_unique_at reflective worlds; diagonal escapes iff no code lawful", 5.6, 1.4, GREEN).move_to(DOWN * 0.8 + RIGHT * 3.2)
+        c3 = footer_caption("3 | In a well-formed regime, uncollapse needs a mentioning instance. Mention alone need not separate.")
+        unc = make_card("Uncollapse & Recollapse (I16)", "Admissions can change old views; appending views retains distinctions", 6.0, 1.4, CYAN).move_to(DOWN * 0.8 + LEFT * 3.0)
+        vrd = make_card("Verdict Boundary (I17)", "Same carried code: same step. General bridge remains open.", 5.6, 1.4, GREEN).move_to(DOWN * 0.8 + RIGHT * 3.2)
         self.play(Succession(FadeOut(c1), FadeIn(c3)), FadeIn(unc), FadeIn(vrd), run_time=2.2)
         c1 = c3
         self.wait(1.2)
 
-        c4 = footer_caption("0:11-0:13 | Every claim is paired with its Lean theorem, Python check, and scope boundary.", GOLD)
+        c4 = footer_caption("4 | Changing a carried guard can change the verdict. At matching codes, the two roles agree.", GOLD)
         self.play(Succession(FadeOut(c1), FadeIn(c4)), Circumscribe(vrd, color=GREEN), run_time=1.5)
         c1 = c4
         self.wait(1.0)

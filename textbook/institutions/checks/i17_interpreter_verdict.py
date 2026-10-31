@@ -1,7 +1,7 @@
 """Unit 17 check: the interpreter boundary at verdict level.
 
 Checks:
-  1. `research/interpreter_verdict/model.py` pin and import parity
+  1. `research/interpreter_verdict/model.py` declared-module/import parity
      (`consumed_modules` vs `lean_imports`);
   2. `diagonal_checks` and `self_evaluator_check` from `two_theorems/model.py`;
   3. Exhaustive check over all 64 `ConstitutionDesc` codes:
@@ -9,8 +9,8 @@ Checks:
        `genesis_witness_unguarded_not_wf`);
      - `quiescent_reads_accept` and `WF` preservation at `accWorld` under
        `mark([0], 1)` (`interp_not_step_wf`, `vsep_uncoded_wf`);
-     - `aligned_coded_equals_uncoded` at aligned reflective worlds `(d, w)`;
-     - `coded_pair_not_vsep` for `flipDedup(d)`.
+     - definitional aligned equality at the one accWorld/mark example;
+     - four listed events on two worlds for `flipDedup(d)`.
 The proofs for every carrier are the Lean. AuthorityEffect: None.
 Run from the repository root: python textbook/institutions/checks/i17_interpreter_verdict.py
 """

@@ -119,6 +119,11 @@ steps, with necessary-condition counterexamples and changed-table practice.
 The [I08–I11 follow-up](audit/INSTITUTION_POLICY_READING_REVIEW_2026-10-31.md)
 then separates target comparisons, partial fallback encodings, approval
 rules and current test agreement from literal identity.
+The [I12–I17 continuation](audit/INSTITUTION_ACQUISITION_READING_REVIEW_2026-10-31.md)
+then separates equality probes from numeric table storage, complete
+tables from partial records, promises from unrestricted fixing, retained
+views from changed regimes, and carried guard codes from aligned steps.
+Eight changed-example tasks have separate answers.
 
 ## Status marks
 

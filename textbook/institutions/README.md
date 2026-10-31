@@ -41,6 +41,12 @@ The [I08–I11 follow-up](../audit/INSTITUTION_POLICY_READING_REVIEW_2026-10-31.
 separates target agreement, encoded fallback reports, approval conditions
 and pair-policy labels. Six [practice tasks](../reading_formal_practice.md#targets-policies-and-identity-i08i11)
 have [separate answers](../reading_formal_answers.md#targets-policies-and-identity-i08i11).
+The [I12–I17 continuation](../audit/INSTITUTION_ACQUISITION_READING_REVIEW_2026-10-31.md)
+adds smaller acquisition, regime-update and interpreter definitions,
+corrects finite populations and makes consistency, promises, alignment
+and support-witness conditions explicit. Eight further
+[practice tasks](../reading_formal_practice.md#acquisition-changing-views-and-interpreters-i12i17)
+have [separate answers](../reading_formal_answers.md#acquisition-changing-views-and-interpreters-i12i17).
 
 ## Sources
 

@@ -116,5 +116,64 @@
     physical validation, and current test agreement supplies no proof of
     literal identity. Other reasoned counterexamples can answer the task.
 
+## Acquisition, changing views and interpreters I12–I17
+
+28. Both two-step records are `(0,1,false),(0,2,true)`. The third question
+    is 2/3, answered Different; the protocol then stops, so five allowed
+    steps still give three entries. `[4,8,4,8]` gives the same record
+    but merges 1/3; the first actor splits that unasked pair. Storing
+    only D=`[0,1]` gives `[(0,4),(1,8)]`. Decoding returns 0 at 2, so
+    the original Equal answer on 0/2 becomes Different. Equality bits
+    do not recover the original labels 4,8,9.
+29. `[0,1,0,3]` gives Different on each asked pair while merging 0/2.
+    Different answers on adjacent pairs do not force Different on the
+    endpoints. Equal is transitive for one fixed function, so the second
+    record implies Equal on 0/2. The all-different run leaves an
+    unasked merge possible and supplies the worst-case lower bound;
+    the equality-chain case need not ask every pair.
+30. In order 0/1,0/2,0/3,1/2,1/3,2/3: Equal, Different, Different,
+    Different, Different, Different. Row views are `{0,1}`, `{0,1}`,
+    `{2}`, `{3}`. Views `{2}` and `{3}` give patterns 00,10,01 for
+    the three classes, hence a sharp two-view code after six complete
+    probes. A partial `sameT` sees no direct Equal entry for 0/2 and
+    returns false. Its row views `{0,1}`, `{0,1,2}`, `{1,2}` split
+    equal values of a constant actor. Equivalence closure instead
+    joins all three inputs, giving a sharp one-class observer.
+31. No: constant and all-different actors remain possible. The exact
+    three-class promise leaves only singleton groups, needing zero
+    probes, whereas the proposal gives `3·2/2 + 0·2 = 3`. Unrestricted
+    `Fixes` has no promise parameter and remains false on the empty
+    record. The contradictory record has no consistent actor; its
+    universal condition is vacuously true. A successful discovery also
+    needs a consistent candidate, as actual protocol runs provide.
+32. The new single view `{0,2}` merges protected 0/2 but separates 1/2.
+    Target separation does not rescue the broken protection, so this
+    is not valid. Appending the view while retaining `{2}` preserves
+    the 0/2 separation. The renamed original view is `{0}`: raw 0/1
+    appear separated, but original 0/1 correspond to 2/1 and remain
+    merged. The map determines which pairs may be compared.
+33. With the guard on the mark is rejected, view `{0}` remains,
+    quiescence is true and `WF` true. With it off the view list becomes
+    `[1,0]`, as a set `{0,1}`; quiescence is false and `WF` still true.
+    The requirement endpoints are still distinct, in-range positions.
+    At matching carried and fixed codes the roles agree. With the
+    relaxed code carried, the reflective role executes that changed
+    code while the fixed guarded role still rejects the mark.
+34. No: every Lawful function agrees with that entry on support.
+    Notes are outside that projection. `WF` checks the recorded-pair
+    condition and does not assert global agreement with the kernel.
+    In the theorem the witness code can depend on the fixed step.
+    A universal code differing from every step is impossible: choose
+    the step implemented by that very code.
+35. For example, two Boolean views encode three classes by 00,10,01,
+    yet on three inputs an all-different actor and a suitable unasked-pair
+    merge can have identical two-probe records. Encoding capacity does
+    not supply the unknown grouping. For a physical device, specify
+    inputs, readout procedure, stable operating conditions and equality
+    criteria, and retain observations that could challenge that proposed
+    correspondence. Invented rows and successful software calculations
+    alone supply zero physical observations. Other reasoned answers
+    can address the guard/protection claim using the preceding example.
+
 AuthorityEffect: None. Passing these written tasks would be reader evidence;
 software validation of the examples alone is not a comprehension result.

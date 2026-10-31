@@ -62,8 +62,8 @@ cannot tell from its own separations whether the observed actor merges or splits
 
 ## First pass
 
-Use three inputs. Ask whether 0 equals 1: Different. Ask whether 0
-equals 2: Different. There are still two possibilities:
+Use three inputs. Ask whether the actor’s values at 0 and 1 are equal: Different.
+Ask the same question at 0 and 2: Different. There are still two possibilities:
 
 | Possible grouping | Answers to those two probes |
 |---|---|
@@ -86,7 +86,17 @@ an additional exact-class-count promise can also change the cost.
 
 </details>
 
+Quoted proofs below sometimes use `...` for omitted lines. Those
+excerpts are not runnable Lean; the cited owner files contain the full proofs.
+
 ## What you need first
+
+Use I12’s equality-only questions and records. Use I05’s observer rule:
+a pair is separated when at least one held Yes/No view answers differently
+on it. A sharp observer must match the actor’s grouping in both directions.
+
+<details>
+<summary>Prerequisite source names (optional)</summary>
 
 Unit 01 (`pQ`, `pQ_exact`), Unit 05 (`Evaluator`, `verdictB`), and Unit 12
 (`Transcript`, `Protocol`, `run`, `run_length_le`, `run_congr`). From the sealed
@@ -94,7 +104,37 @@ Genesis spine (`lean4/Derivation/Counting.lean`), `allPairs n` is the list of
 all pairs `(i, j)` with `i < j < n`, and `allPairs_length n` shows in Lean
 `2 * (allPairs n).length = n * (n - 1)`.
 
+
+</details>
+
+### Count the questions, then choose the hard case
+
+With four inputs, list each distinct pair once: 0/1, 0/2, 0/3, 1/2,
+1/3, 2/3. There are six. Generally the first input has n−1 later
+partners, the next n−2, and so on. The sum is `n(n−1)/2`, half the
+number of ordered pairs with different endpoints. For zero or one input
+there are no such pairs.
+
+The hard case reports a different value at every input. Suppose a run
+asks only 0/1, 1/2 and 2/3. Its three answers are Different. It cannot
+rule out `[0,1,0,3]`: this actor merges the unasked pair 0/2 yet gives
+the same three answers. Difference is not transitive: 0 differing from 1
+and 1 differing from 2 does not force 0 to differ from 2.
+
+Equality can make another run easier. If 0/1 and 1/2 both answer Equal,
+0/2 must be Equal for a fixed actor, without asking it. Thus “every pair
+is needed in the worst case” does not mean “every pair must be asked on
+every actor.” Reversed pairs, repeats, self-pairs and out-of-range pairs
+cannot evade the all-different argument; they still consume entries.
+
+An adversary here is a mathematical construction of two compatible
+possibilities. The actor is fixed during each run. No answer-changing
+person or malicious physical process is assumed.
+
 ### 1. The merge presentation and unprobed pairs
+
+<details>
+<summary>Quoted source 1 (optional)</summary>
 
 ```lean
 -- Lean (research), research/actor_institution/lean/ResearchActorInstitution/Acquisition.lean lines 155–159, 187–197
@@ -112,11 +152,16 @@ def norm (e : Nat × Nat × Bool) : Nat × Nat := (min e.1 e.2.1, max e.1 e.2.1)
 theorem mem_allPairs (i j : Nat) : ∀ n : Nat, (i, j) ∈ allPairs n ↔ i < j ∧ j < n := by ...
 ```
 
+</details>
+
 `merge x y` maps `y` to `x` and every `z ≠ y` to `z`. Whenever `{a, b} ≠ {x, y}`,
 `merge x y a = merge x y b ↔ a = b` (`merge_agrees`). `askedB T x y` checks
 whether `T` probed `(x, y)` or `(y, x)`.
 
 ### 2. Static consistency and `markOne`
+
+<details>
+<summary>Quoted source 2 (optional)</summary>
 
 ```lean
 -- Lean (research), research/two_theorems/lean/ResearchTwoTheorems/Reading.lean lines 99–104, 121–122
@@ -130,14 +175,32 @@ def markOne (p : Nat → Nat) (x : Nat) : Nat → Nat :=
   fun z => 2 * p z + (if z = x then 1 else 0)
 ```
 
+</details>
+
 An observer `E` is `Consistent` with an actor `p` when every pair separated by
 `E` is also separated by `p`. Refining `p` to `markOne p x` splits `x` away from
 any `y ≠ x` that shared `p`'s fiber (`markOne_separates`) while keeping every
 separation `p` already had (`markOne_eq`).
 
+### Two meanings of consistent
+
+A transcript is consistent with an actor when the actor reproduces
+every recorded Equal/Different answer. Static observer consistency is
+weaker: every separation reported by the observer must be a separation
+of the actor, but an unseparated pair may be either equal or different
+for that actor.
+
+For example, an observer with no views separates no pair, so it is
+statically consistent with both `[0,0]` and `[0,1]`. A transcript containing
+`(0,1,true)` is consistent only with the first of those actors. The shared
+word does not make these two conditions interchangeable.
+
 ## The theorems
 
 First, the uncovered-pair lemma, the merge adversary, and the lower bound:
+
+<details>
+<summary>Quoted source 3 (optional)</summary>
 
 ```lean
 -- Lean (research), research/actor_institution/lean/ResearchActorInstitution/Acquisition.lean lines 277–278, 308, 327–423
@@ -172,7 +235,12 @@ theorem transcripts_identical_capabilities_differ (n : Nat) (π : Protocol) (k :
       ∃ x y, x ∈ List.range n ∧ y ∈ List.range n ∧ p x = p y ∧ p' x ≠ p' y := by ...
 ```
 
+</details>
+
 Second, the static counterpart on observers:
+
+<details>
+<summary>Quoted source 4 (optional)</summary>
 
 ```lean
 -- Lean (research), research/two_theorems/lean/ResearchTwoTheorems/Reading.lean lines 147–156
@@ -188,7 +256,19 @@ theorem observer_cannot_read_resolution (D : List Nat) (E : Evaluator)
     actor_consistent D E, markOne_consistent D E x, hm, markOne_separates hxy hm⟩
 ```
 
-## The proof, step by step
+</details>
+
+## Why the claims work
+
+A record with fewer entries than distinct pairs leaves a pair unasked.
+On the all-different run, merge just that pair. Every recorded answer
+stays the same, so the deterministic protocol follows the same route.
+One observer built from that record either separates the pair or does
+not. It fails to match one of the two possible actors. The static
+version keeps every reported separation while changing an unresolved pair.
+
+<details>
+<summary>Detailed proof steps (optional)</summary>
 
 **Step 1. `uncovered_pair` via `nodup_subset_length`.**
 Test `(allPairs n).all (fun pr => askedB T pr.1 pr.2)`. If it evaluates to
@@ -221,19 +301,24 @@ merges `x` and `y` (`hm`), while `p₁ = markOne p₀ x` splits `x` and `y`
 (`markOne_separates hxy hm`), and both `p₀` and `p₁` satisfy `Consistent D E`
 (`actor_consistent`, `markOne_consistent`).
 
+</details>
+
 ## The same fact in Python
 
 The check verifies:
 
 1. For `n = 1, 2, 3, 4`, the minimax game value `game_value(n, all_partitions)`
    from `actor_institution/model.py` equals `n * (n - 1) // 2` (`0, 1, 3, 6`),
-   confirming that no adaptive protocol can fix every actor's partition in fewer
-   than `n(n - 1)/2` probes.
-2. On `range(4)`, for any transcript against the identity of length `< 6`, the
-   uncovered pair `(x, y)` gives an actor `merge(x, y)` with the identical
-   transcript and a different partition on `(x, y)`.
+   computing that finite game’s optimal worst-case cost. The general
+   adaptive-protocol lower bound is the cited Lean theorem.
+2. On `range(4)`, all 63 proper subsets of the six unordered pairs are
+   checked in their fixed combination order against the identity. For each,
+   the first missing pair gives a merge actor with the same record and a
+   different partition. This loop does not enumerate adaptive protocols,
+   repeated questions, all question orders or off-carrier questions.
 3. `cannot_read_checks` from `two_theorems/model.py` on `D = (0, 1, 2)` (`m = 1`)
-   and `D = (0, 1, 2, 3)` (`m = 2`): across all `111` merged-pair cases, `p₀`
+   and `D = (0, 1, 2, 3)` (`m = 2`): across 396 merged-pair cases (12 for the three-input, one-view
+   population and 384 for four inputs with two views), `p₀`
    and `p₁ = markOne(p₀, x)` are both consistent with `E` while `p₀(x) == p₀(y)`
    and `p₁(x) != p₁(y)` (`0` failures).
 4. **Countermodel to query-model overgeneralization (fiber-reveal oracle):** on
@@ -263,7 +348,7 @@ and the finite view list `rule T : Evaluator`.
 
 **Admissions relied on, and their price.** Unit 12's probe grammar (`AI-16`).
 Crucially, `no_acquisition_below_bound` quantifies over *all* presentations `p`
-on `List.range n` (specifically `{fun z => z} ∪ {merge x y | x < y < n}`). As
+on `List.range n` (with its counterexample chosen from `{fun z => z} ∪ {merge x y | x < y < n}`). As
 Unit 15 will show (`complete_evaluator_for_two`), if the actor is promised in
 advance to belong to a smaller fixed family, fewer probes can suffice.
 

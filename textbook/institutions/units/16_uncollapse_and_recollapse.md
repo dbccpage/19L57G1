@@ -89,7 +89,18 @@ operation an admission.
 
 </details>
 
+Quoted proofs below sometimes use `...` for omitted lines. Those
+excerpts are not runnable Lean; the cited owner files contain the full proofs.
+
 ## What you need first
+
+Recall I05’s input correspondences and I11’s separation retained under
+append-only extension. This unit returns to the regime model: admitted
+data and test templates generate Yes/No views. A test context is a
+template with a hole into which an input is plugged.
+
+<details>
+<summary>Prerequisite source names (optional)</summary>
 
 Unit 05 (`correspondence_matters`, `knows_rename`) and Unit 11 (`apart_persists`).
 From the sealed Genesis spine (`lean4/Derivation/Basic.lean`, `Mention.lean`,
@@ -104,7 +115,65 @@ From the sealed Genesis spine (`lean4/Derivation/Basic.lean`, `Mention.lean`,
   derivable r (plug c d'))`; `collapsed r d d'` is `∀ c, wfCtx r c →
   (derivable r (plug c d) ↔ derivable r (plug c d'))`.
 
+
+</details>
+
+### Compare three different updates
+
+In the one-unary-test example, the view is the set of admitted inputs
+whose plugged expression is derivable. “Yes” means derivable under the
+regime’s recorded instances or rules; it is not a report of physical truth.
+
+| Operation | Earlier view `{0}` | Pair 0/1 afterward |
+|---|---|---|
+| Append a new view, retaining `{0}` | Still present | Still separated |
+| Change the regime so its unary test derives both inputs | Replaced by `{0,1}` | Collapsed in this example |
+| Append a regime to a family retaining the old regime | Old regime still available | Still separated by that member |
+
+Collapse means every allowed context answers alike on the pair. It
+neither deletes a datum nor proves literal identity. A single changed
+test recollapses this unary example because no other separating context
+remains. In a larger regime, another context could retain separation.
+
+### Necessary mention is not sufficient separation
+
+Start with two admitted inputs and no tests. They are collapsed.
+Admitting a unary form and an instance on input 0 creates Yes/No and
+separates them. In contrast, if a uniform rule already derives every
+plug of that form, both answers are Yes. Adding an instance mentioning
+0 leaves Yes/Yes. Mention is required for the stated uncollapse theorem
+under well-formedness; mentioning alone does not guarantee success.
+
+`validResponse` adds a separate condition: the proposed result must
+separate its target and retain every protected separation. An admission
+can execute successfully yet fail that condition. The source’s example
+can separate the new target 1/2 while destroying protected 0/1.
+
+### Align the inputs before combining regimes
+
+For A3 the unary view is `{0}`, so 1/2 are collapsed. Swap names 0 and
+1 to get B3 with view `{1}`. Raw 1/2 now look separated. But A3’s pair
+1/2 corresponds to B3’s 0/2, and B3 merges that pair too. The repaired
+family stores the map for each member. A map is supplied data, not an
+automatically discovered agreement about what names mean.
+
+The family uncollapse equivalence assumes the pair was collapsed in
+every old member. It does not imply that every new member is needed
+when an old member already separates the pair. Its renaming result
+uses the stated bijection and the composed correspondence map.
+
+### The apartness law in ordinary terms
+
+If one context answers differently on a and b, then for any third input
+c its Yes/No answer differs from at least one of those two answers.
+That witnesses separation of a/c or c/b. Along with symmetry and no
+self-separation, this is the stated constructive apartness law. It
+describes these represented tests, not a universal claim about reality.
+
 ### 1. Regime views and why recollapse alters a view (`two_theorems`)
+
+<details>
+<summary>Quoted source 1 (optional)</summary>
 
 ```lean
 -- Lean (research), research/two_theorems/lean/ResearchTwoTheorems/RegimeBridge.lean lines 200–229
@@ -117,6 +186,8 @@ theorem recollapse_changes_views (r r' : Regime) (cs cs' : List Ctx)
     (hsep : separable r a b) (hcol : collapsed r' a b) :
     ∃ v, v ∈ regimeViews r cs ∧ v ∉ regimeViews r' cs' := by ...
 ```
+
+</details>
 
 Each well-formed context `c` of a regime `r` defines a view `ctxView r c` of the
 admitted data `d < r.data` for which `plug c d` is derivable, and `regimeViews r cs`
@@ -131,6 +202,9 @@ appending a new view.
 
 First, Reading (E)—extension of a single regime by admissions, uncollapse only
 by a mentioning instance, and recollapse:
+
+<details>
+<summary>Quoted source 2 (optional)</summary>
 
 ```lean
 -- Lean (research), research/uncollapse/lean/ResearchUncollapse.lean lines 45–128, 163–227
@@ -180,8 +254,13 @@ theorem separable_unadmitted : ¬ 99 < U0.data ∧ separable U0 0 99 :=
   ⟨by decide, ⟨⟨0, [none]⟩, by decide, by decide⟩⟩
 ```
 
+</details>
+
 Second, Reading (F)—families of regimes, index dependence, correspondence maps,
 and the apartness link:
+
+<details>
+<summary>Quoted source 3 (optional)</summary>
 
 ```lean
 -- Lean (research), the same file, lines 239–386
@@ -214,7 +293,19 @@ theorem collapsed_iff_indist (r : Regime) (d d' : Nat) :
     collapsed r d d' ↔ Apartness.Indist (separable r) d d' := by ...
 ```
 
-## The proof, step by step
+</details>
+
+## Why the claims work
+
+Retaining every old view retains any old separating witness. Regime
+admissions can instead change what an old context derives, so an old
+view can disappear. Under well-formedness, the source proves that
+uncollapse needs a mentioning instance, while its uniform-rule example
+shows mention is insufficient. Families retain their old regimes; their
+comparison must use corresponding input names.
+
+<details>
+<summary>Detailed proof steps (optional)</summary>
 
 **Step 1. Reading (E): `uncollapse_only_by_mention` and `uncollapse_only_by_mention_delta`.**
 Case-split on the admitted item `it : Item`:
@@ -266,23 +357,30 @@ For any regime `r`, `separable r` is irreflexive, symmetric, and cotransitive
 derivable r (plug c z)`), so `Apartness.IsApart (separable r)` holds, and its
 negation `Apartness.Indist (separable r)` is equivalent to `collapsed r`.
 
+</details>
+
 ## The same fact in Python
 
 The check verifies:
 
-1. Pin and import hygiene of `research/uncollapse/model.py` (`consumed_modules`
-   matches `lean_imports`).
+1. Import-list parity in `research/uncollapse/model.py`: the declared
+   consumed modules plus Ignition match the Lean imports. This comparison
+   does not revalidate snapshot hashes or the research custody receipts.
 2. `bridge_checks` and `recollapse_witness` from `two_theorems/model.py`: on
    admitted data `d < r.data`, `verdict(regime_views(r), a, b)` matches
    `separable(r, a, b)` (`0` mismatches); in `R0 -> R0_RULE`, admitting rule `0`
    mutates the view `[0]` into `[0, 1]` (`lost_views == [[0]]`), recollapsing
    `(0, 1)`; and unadmitted datum `99` lies in no view of `R0` while
    `separable(R0, 0, 99)` holds (`separable_unadmitted`).
-3. Direct finite checks of `uncollapse_by_delta` (`R2L -> U0`),
+3. Separation comparisons between explicitly constructed endpoint records
+   illustrate `uncollapse_by_delta` (`R2L -> U0`),
    `mention_not_sufficient` (`Rall -> Rall0`), `recollapse_by_instance`
    (`U0 -> U0both`), `recollapse_breaks_requirement` (`U0 -> U0new`),
    `family_index_dependence` (`[A3, B3]`), and `family_index_repaired`
-   (`[(A3, id), (B3, swap01)]`).
+   (`[(A3, id), (B3, swap01)]`). The four-field Python `Regime` used here
+   omits protected requirements, and this loop does not execute `applyDelta`
+   or `validResponse`. The transition/requirement claims are sourced to the
+   cited Lean results, not inferred from those endpoint comparisons.
 
 ```
 python textbook/institutions/checks/i16_uncollapse.py
@@ -330,8 +428,8 @@ and that admitting a rule or instance can recollapse a separated pair by
 altering the regime's views—which `validResponse` refuses whenever it collapses
 the target or a protected requirement.
 
-It shows that under a family of regimes, `collapsedIn` uncollapses iff the new
-member separates the pair, that raw index sharing is presentation-dependent, and
+It shows that when every old family member collapses the pair, appending
+a regime uncollapses it iff the new member separates that pair, that raw index sharing is presentation-dependent, and
 that `collapsedInR` repairs this dependence so a renamed copy never uncollapses.
 
 It does not claim that `separable r d d'` implies `d, d' < r.data` without an

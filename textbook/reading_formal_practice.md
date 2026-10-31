@@ -143,5 +143,61 @@ before checking the separate answers.
     to explain the missing implication, and name what additional
     correspondence or evidence would be needed for a claim about a real device.
 
+## Acquisition, changing views and interpreters I12–I17
+
+Use these changed examples after
+[I17](institutions/units/17_the_interpreter_boundary_at_verdict_level.md).
+Predict the result, name the assumptions, then consult the separate answers.
+
+28. A protocol asks 0/1; next it asks 1/2 if Equal, otherwise 0/2;
+    third it asks 2/3 if the second answer was Equal, otherwise 1/3;
+    then it stops. Run it on `[4,8,4,9]` and `[20,30,20,40]` for two
+    and five steps. Can the final record distinguish the first actor
+    from `[4,8,4,8]`? Which unasked pair distinguishes them? Now store
+    the first actor only on D=`[0,1]`. What happens to a probe of 0/2
+    after decoding with default 0? Did those pair answers supply its
+    original numeric labels?
+29. On four inputs the identity actor answers Different to 0/1, 1/2
+    and 2/3. Give a different actor merging the unasked pair 0/2 with
+    the same record. Explain why Different is not transitive. Contrast
+    a fixed actor answering Equal on 0/1 and 1/2: what is known about
+    0/2 without asking it? Which example supports the worst-case bound?
+30. On 0,1,2,3, let p=`[7,7,9,12]`. Write the six complete pair answers
+    and the four row views. Supply two Yes/No views that sharply encode
+    its three classes. Compare the numbers of probes and stored views.
+    For the partial record `(0,1,true),(1,2,true)` on three inputs,
+    does `sameT` directly report 0/2 equal? Would its `tableE` be sharp
+    for a constant actor? Compare with equivalence closure.
+31. With no promise, does the empty record fix a three-input partition?
+    With exactly three classes promised, how many probes are needed?
+    Evaluate the proposed formula there. Does unrestricted `Fixes`
+    change when you merely say the promise aloud? Now inspect
+    `(0,1,true),(1,2,true),(0,2,false)`: can any actor supply it, and why
+    is the formal `Fixes` condition alone not evidence of discovery?
+32. A regime with three admitted inputs has one unary view `{2}`.
+    Its protected pair is 0/2. Admit the instance making its same view
+    contain 0 as well. Compare 0/2 and new target 1/2 afterward. Could
+    this be a valid response protecting 0/2? Compare appending `{0,2}`
+    while retaining `{2}`. Separately rename the original regime by
+    swapping 0 and 2: compare raw 0/1 with the correctly mapped pair.
+33. A world has tokens `[10,20]`, view `{0}`, requirement 0/1, one unit
+    of budget and licence enabled. A mark adds position 1 to the view.
+    Compare codes differing only in the acceptance guard. Give the
+    resulting view, quiescence and `WF` result. At the world carrying
+    the guarded code, do that fixed coded role and the reflective role
+    differ? At a world carrying the relaxed code, why can they differ?
+34. A catalogue contains the kernel step, possibly with different notes
+    but identical support. Can a `Lawful` function escape every entry
+    on support? Does a well-formed output alone prove Lawful agreement
+    at every input? Explain the quantifier difference between “for each
+    fixed step, choose a differing guard code” and “one code differs
+    from every fixed step.”
+35. A device team argues that “six invented equality answers establish
+    the physical grouping,” “a two-view code proves two probes suffice,”
+    or “a relaxed guard’s well-formed output preserves every protected
+    distinction.” Choose one claim, construct a changed counterexample
+    or identify the missing evidence, and state what would need to be
+    observed or specified for a conclusion about the actual device.
+
 AuthorityEffect: None. Labels, codes, requested values, and domain choices
 are supplied. Explain every answer from the stated task and assumptions.
