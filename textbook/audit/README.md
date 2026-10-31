@@ -88,6 +88,13 @@ evidence. Six added book reports and a corrected graph-count example
 support the changes. The earlier refinement/licence distinction remains
 literal; supplied drivers and higher-cell rules remain explicit assumptions.
 
+**Institution reading review (2026-10-31).** The
+[I00–I17 review](INSTITUTIONS_READING_REVIEW_2026-10-31.md) adds eighteen
+worked openings and checks selected claims about empty families, fiber
+direction, stationary steps, target agreement, residual pairs, and policy
+labels. I17 now consumes the existing transition owner instead of its
+divergent copy. Research proofs and receipts remain unchanged.
+
 ## Scope and method
 
 - **Population.** The 75 tracked modules under `lean4/Derivation/` plus the

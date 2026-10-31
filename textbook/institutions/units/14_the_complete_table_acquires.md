@@ -1,6 +1,13 @@
 # Unit 14. The complete table acquires, and representation versus acquisition
 
-**Claim.** Probing all `(allPairs n).length = n(n - 1)/2` unordered pairs on
+**Claim.** The complete pair table determines the unknown partition and
+supports a sharp observer. Acquiring that table and representing the
+result with Boolean views are different costs.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** Probing all `(allPairs n).length = n(n - 1)/2` unordered pairs on
 `List.range n` via `scripted (allPairs n)` produces the complete transcript
 `fullT n p`, from which `tableE n (fullT n p)` builds an `n`-view evaluator that
 is sharp for every actor `p` (`table_sharp`, `complete_table_acquires`).
@@ -14,6 +21,7 @@ partition (`sharpObserver_congr`), and once the complete probe table `fullT n p`
 has been acquired, an `m`-view sharp evaluator `logE n (fullT n p) m` can be
 computed from the transcript alone whenever `classCount (List.range n) [p] ≤ 2 ^ m`
 (`log_views`).
+
 **Status:** derived. **Lean:** `Acquisition.scripted`,
 `Acquisition.run_scripted`, `Acquisition.fullT`, `Acquisition.run_complete`,
 `Acquisition.fullT_length`, `Acquisition.sameT`, `Acquisition.sameT_full`,
@@ -54,6 +62,32 @@ acquisition to the static representation theorems of `two_theorems`:
   (`acquired_kernel`), and then `logE n (fullT n p) m` compresses the acquired
   table into `m` views (`log_views`, closing the sufficiency direction of
   `TT-43o (iii)`).
+
+</details>
+
+## First pass
+
+For three inputs there are three unordered pairs: 0/1, 0/2, and
+1/2. Record all three equality answers. The complete table determines
+which inputs share the actor's value, even though the numeric labels
+remain unknown.
+
+Once three separate classes are known, two Boolean views can label
+them by patterns 00, 01, and 10. Two views offer four possible patterns,
+enough for three classes. This representational capacity does not
+explain how the unknown classes were discovered.
+
+**Predict:** does a two-view representation imply that two pair probes
+always suffice to acquire a three-input actor?
+
+<details><summary>Check your prediction</summary>
+
+No. I13's all-different run still requires the third pair probe in the
+worst case. The views encode a partition after acquisition. They are
+not an extra oracle for discovering it. Both results remain within the
+declared finite model.
+
+</details>
 
 ## What you need first
 

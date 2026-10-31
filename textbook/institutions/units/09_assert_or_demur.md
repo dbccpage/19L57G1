@@ -1,17 +1,26 @@
 # Unit 09. Assert or demur, and the demurred claim
 
-**Claim.** While the decidable disjunction `Wise` ("knows the claim or has a
+**Claim.** A residual pair agrees under the family but disagrees under the
+requested report. The policy demurs with such witnesses. A separator
+can remove one residual pair while other residuals remain.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** While the decidable disjunction `Wise` ("knows the claim or has a
 witness pair") holds of every institution on a represented carrier and so does
 not distinguish any institution from any other, a report `s` is `Grounded`
 (`Knows D Q s`) exactly when it makes no distinction `Q` cannot make, which is
 equivalent to its residual list `residuals D Q s` being empty. The response
 policy `respond D Q s` asserts when `s` is known and otherwise demurs with
-`residuals D Q s`, which is nonempty, shrinks monotonically as `Q` grows, can be
-removed by admitting a separating member (`residual_answerable`), and can never
-be removed by a function of `Q`'s present signatures (`evidence_is_not_a_digest`).
+`residuals D Q s`, which is nonempty, shrinks as `Q` grows. Any chosen residual pair can be removed by
+admitting a member that separates it (`residual_answerable`), while
+other residual pairs may remain. A function of the current signatures
+cannot separate that chosen pair (`evidence_is_not_a_digest`).
 Moreover, the modified claim `demurred D Q s`—which reports `s x + 1` where `x`
 is settled and `0` where `x` is unsettled—is always known (`demurred_known`)
 and is total on `D` iff `s` itself is known (`demurred_total_iff`).
+
 **Status:** derived (`Wise` refuted as a reading of wisdom; wisdom itself
 open). **Lean:** `Policy.Response`, `Policy.respond`,
 `Policy.respond_assert_iff`, `Policy.respond_demur_iff`,
@@ -43,6 +52,31 @@ is whether a proposed report `s` is determined by `Q` (`Grounded D Q s`), or has
 a nonempty list of unresolved pairs (`residuals D Q s`). This unit builds the
 explicit policy `respond D Q s` and the total grounded fallback `demurred D Q s`
 on top of that distinction.
+
+</details>
+
+## First pass
+
+On inputs 0,1,2,3, the held table [0,1,0,1] groups {0,2} and
+{1,3}. Request the report [0,0,1,1]. It splits both of those groups.
+Pairs 0/2 and 1/3 witness why the report is not recoverable. They are
+called residual pairs.
+
+The policy can return demur together with these witnesses. Add a new
+table saying 1 only on input 0. It separates 0 from 2, removing that
+residual. Inputs 1 and 3 still agree under the held tables and disagree
+under the report, so their residual remains.
+
+**Predict:** could a new calculation using only the old signatures
+separate 1 from 3?
+
+<details><summary>Check your prediction</summary>
+
+No. Those old signatures are equal. A function of them must return
+equal results. Removing this residual needs a genuinely separating
+input to the model, not a different name for the same old answers.
+
+</details>
 
 ## What you need first
 

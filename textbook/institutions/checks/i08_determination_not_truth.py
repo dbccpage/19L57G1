@@ -10,7 +10,7 @@ Checks:
   4. Correlated errors across levels of authority (`report_count` vs independent
      witnesses): three actors `p1, p2, p3` sharing the blind spot `p(0)==p(1)==p(2)`
      produce 3 unanimous reports and 2 concurring intermediate division summaries
-     `S_A, S_B`, yet `information` stays at 2 (`1` independent witness partition)
+     `S_A, S_B`, yet `information` stays at 2 (`1` distinct represented partition)
      and aggregation at both levels still determines the defective claim `q_err`
      while failing on target `HALF4`.
 The proofs for every carrier are the Lean. AuthorityEffect: None.
@@ -65,7 +65,7 @@ def main() -> int:
     q_err = (0, 0, 0, 1)
     Q_sub = (p1, p2, p3)
     report_count = len(Q_sub)
-    independent_partitions = len({rep_table(4, (p,)) for p in Q_sub})
+    distinct_partitions = len({rep_table(4, (p,)) for p in Q_sub})
     info_1 = information(4, (p1,))
     info_3 = information(4, Q_sub)
     S_A = rep_table(4, (p1, p2))
@@ -74,7 +74,7 @@ def main() -> int:
     info_top = information(4, Q_top)
     correlated_ok = (
         report_count == 3
-        and independent_partitions == 1
+        and distinct_partitions == 1
         and info_1 == 2
         and info_3 == 2
         and info_top == 2
@@ -88,13 +88,22 @@ def main() -> int:
     )
     print(
         f"correlated blind-spot hierarchy: report_count={report_count}, "
-        f"independent_witness_partitions={independent_partitions}, "
+        f"distinct_partitions={distinct_partitions}, "
         f"info(1..3..top)=({info_1}, {info_3}, {info_top}), "
         f"determines_err={knows(4, Q_top, q_err)}, knows_target={knows(4, Q_top, HALF4)}"
     )
 
+    target_scope = (
+        not knows(2, (c0,), id2)
+        and knows(2, (id2,), c0)
+        and c0 != id2
+        and knows(2, (), agree_q(id2, id2))
+        and not knows(2, (), id2)
+    )
+    print(f"target admission does not create truth; agreement can be known alone: {target_scope}")
     ok = (
-        info_no_det == [2, False]
+        target_scope
+        and info_no_det == [2, False]
         and det_not_truth is True
         and further_q == [True, False]
         and bad == 0

@@ -1,15 +1,24 @@
 # Unit 10. Scoped authorization and the five-link chain
 
-**Claim.** An authorization rule `A : List Nat → Institution → (Nat → Nat) → Bool`
+**Claim.** A scoped-sound authorization rule permits only recoverable reports
+for its supplied carrier and family. That permission does not establish
+agreement with a target or implement an access-control system.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** An authorization rule `A : List Nat → Institution → (Nat → Nat) → Bool`
 is `ScopedSound` when it authorizes only claims known by the institution on the
 carrier. The Boolean knowledge test `knowsB` is the largest scoped-sound rule;
 every scoped-sound rule refuses every claim that has a residual pair; and
 `knowsB` authorizes two claims (`fun _ => 0` and `fun _ => 1`) that disagree at
 every datum of any nonempty carrier, so authorization is relative to the
 institution's partition rather than an external target. Moreover, a report alone
-never certifies itself (`reports_do_not_certify`), and a report grounded on a
+does not in general determine its own grounding independently of the
+family (`reports_do_not_certify`), and a report grounded on a
 carrier can fail to be grounded when a new datum is admitted
 (`grounded_here_not_there`).
+
 **Status:** derived (`ScopedSound` consequences conditional on `ScopedSound A`).
 **Lean:** `Policy.Rule`, `Policy.ScopedSound`, `Policy.knowsB_scoped_sound`,
 `Policy.scoped_sound_le_knowsB`, `Policy.scoped_sound_refuses_residual`,
@@ -28,7 +37,9 @@ maximal scoped-sound rule (`knowsB_scoped_sound`, `scoped_sound_le_knowsB`) and
 forces `A D Q s = false` whenever `residuals D Q s` is nonempty
 (`scoped_sound_refuses_residual`). At the same time, it inherits all three
 boundaries of `Knows`:
-1. A report `s` without `(D, Q)` certifies nothing (`reports_do_not_certify`).
+1. The same nonconstant report can be grounded for one family and not
+   another (`reports_do_not_certify`). Constant reports are known for
+   every family, so this is not a claim that every report fails alone.
 2. Authorization on `D` does not survive enlarging `D`
    (`grounded_here_not_there`).
 3. Authorization does not establish agreement with a target
@@ -37,7 +48,35 @@ boundaries of `Knows`:
 Together with Units 03, 08, and 09, this completes the five-link chain
 recorded in ledger entry `AI-22`—from information to determination, evidence,
 justified claim, and scoped authorization—and explains why there is no sixth
-arrow to truth without admitting the target.
+implication to target agreement. Admitting a target alone does not supply that implication.
+
+</details>
+
+## First pass
+
+A family groups all inputs together. It determines both the constant
+report 0 and the constant report 1. The largest scoped-sound rule,
+knowsB, authorizes both.
+
+Against a supplied target, the reports can disagree with each other
+everywhere. Authorization here means only that the report makes no
+distinction unavailable in the family's signature. It does not mean
+correct prediction, ethical approval, or permission to act in a real system.
+
+A nonconstant report can be grounded for one family and ungrounded for
+another. Constant reports are a useful exception: every family knows
+them. The counterexample about reports alone does not say that every
+report is unknowable without examining a particular family.
+
+**Predict:** if a rule refuses every report, is it scoped-sound?
+
+<details><summary>Check your prediction</summary>
+
+Yes. It authorizes no unknown report, because it authorizes none at all.
+Scoped soundness alone does not require useful approvals. knowsB is
+largest by the set of reports it authorizes under this definition.
+
+</details>
 
 ## What you need first
 
@@ -140,7 +179,7 @@ For any `(D, Q)`, `knows_const` gives `Knows D Q (fun _ => 0)` and
 **Step 4. The five-link chain (`AI-22`).**
 Putting Units 02, 03, 08, 09, and 10 side by side separates five distinct
 relations on `(D, Q, s)` and shows why there is no sixth arrow to external
-truth without a target admission:
+target agreement; the listed hypotheses do not establish it:
 
 | Link | Formal object in Lean | What it says, and what it does not |
 |---|---|---|
@@ -149,7 +188,7 @@ truth without a target admission:
 | 3. Evidence | `residuals D Q s : List (Nat × Nat)` | The pairs in `D × D` merged by `Q` and split by `s`; empty iff `Knows D Q s` (`residuals_nil_iff`); removable only by a new separator, never by a digest (`evidence_is_not_a_digest`). |
 | 4. Justified claim | `respond D Q s`, `demurred D Q s` | Policy that asserts `s` when `residuals D Q s = []` and otherwise demurs with the residual pairs, or emits the total grounded claim `demurred D Q s` (`demurred_known`). |
 | 5. Authorization | `ScopedSound A` (`A D Q s = true → Knows D Q s`) | Certification relative to `(D, Q)`: refuses every claim with a residual (`scoped_sound_refuses_residual`), and is bounded above by `knowsB` (`scoped_sound_le_knowsB`). |
-| (No 6th arrow) | `Corr D s t` (`∀ x ∈ D, s x = t x`) | Not implied by Links 1–5 (`determination_not_truth`, `authorization_not_correctness`); requires admitting `t` as a member (`truth_from_admitted_target`). |
+| (No 6th arrow) | `Corr D s t` (`∀ x ∈ D, s x = t x`) | Not implied by Links 1–5, even with a target admitted. `truth_from_admitted_target` goes the other way: target membership plus agreement implies that the claim is known. It does not infer agreement from authorization. |
 
 ## The same fact in Python
 

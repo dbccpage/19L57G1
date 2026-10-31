@@ -1,6 +1,13 @@
 # Unit 06. Degradation, aggregates, and loss
 
-**Claim.** Appending any list of aggregates (presentations the family already
+**Claim.** Known summaries add no new distinctions. Removing a member can lose
+distinctions, while a complete representative preserves combined answers
+without recording how the family was assembled.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** Appending any list of aggregates (presentations the family already
 knows) leaves both information and knowledge unchanged; a member is essential
 exactly when the remaining members do not know it; an aggregate hides whether
 it arose from one fine member or from a family that exceeds its members; losing
@@ -8,6 +15,7 @@ a member can turn a separated pair into unanimous agreement while losing
 knowledge; and a member that guesses a report beyond its own partition cannot
 locate the pair on which it guessed, whereas the family locates it exactly when
 another member splits that pair.
+
 **Status:** derived. **Lean:** `Inst.information_congr_mem`,
 `Inst.aggregates_inert`, `Inst.aggregates_inert_knows`, `Inst.essential_iff`,
 `Inst.duplicate_inert`, `Inst.aggregate_hides_exceeding`,
@@ -30,6 +38,32 @@ destroying knowledge. It then connects this to a member's guess (`Guess D p s`):
 a report `s` that `[p]` does not know splits some pair that `p` merges, and no
 quantity computed from `p` alone can tell that pair apart, whereas a second
 member in the family can.
+
+</details>
+
+## First pass
+
+Return to I04's two members and question [0,0,1]. Both members
+together determine it. Repeat the first member's table: the answer
+signatures get longer, but their groups stay the same.
+
+Now remove the first member. The remaining table [0,1,1] merges inputs
+1 and 2, whose requested answers differ. The family loses that knowledge.
+
+A full representative of the original family can preserve all its
+distinctions in one table. That summary does not tell us whether its
+groups originally came from one fine table or two coarser tables.
+Loss of that history differs from loss of the represented answers.
+
+**Predict:** does every aggregation necessarily lose answer information?
+
+<details><summary>Check your prediction</summary>
+
+No. The full representative preserves the family partition. A coarser
+summary may discard distinctions. Appending an already-known summary
+adds none; these are different operations with different conclusions.
+
+</details>
 
 ## What you need first
 

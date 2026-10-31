@@ -1,8 +1,16 @@
 # Unit 02. Knowing a claim is factoring through the representative
 
-**Claim.** A family knows a claim exactly when data the family cannot tell
+**Claim.** A family knows a question, in this model, when its answer is
+recoverable from the combined signature. This is functional
+determination on the carrier, rather than belief or truth.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** A family knows a claim exactly when data the family cannot tell
 apart always get the same value from the claim:
 `Knows D Q q ↔ ∀ x ∈ D, ∀ y ∈ D, SigEq Q x y → q x = q y`.
+
 **Status:** derived. **Lean:** `Institution.knows_iff_determined`
 (`two_theorems`). **Sources:**
 `research/two_theorems/lean/ResearchTwoTheorems/Institution.lean` lines
@@ -14,21 +22,35 @@ more presentation `q`, and the family knows it when `q` is a function of
 the family's representative. Nothing is believed, asserted or true here;
 Unit 08 is about truth and Unit 09 about asserting.
 
+</details>
+
+## First pass
+
+A presentation reports [0,0,1] on inputs [0,1,2]. A lookup using
+that presentation receives the same stored label for inputs 0 and 1.
+
+| Requested answer table | Recoverable? | Reason |
+|---|---|---|
+| [7,7,9] | Yes | Label 0 gives 7; label 1 gives 9 |
+| [7,8,9] | No | Label 0 would need two different answers |
+
+Factors through means this recoverability condition. Knows applies it
+to the family's combined representative. Both terms describe a condition
+on supplied tables; neither asserts that an answer is true.
+
+**Predict:** does a recoverable constant answer 7 establish a correct
+prediction about the world?
+
+<details><summary>Check your prediction</summary>
+
+No. It establishes that a lookup can return 7. Comparing that answer
+with a target is a separate question introduced in I08.
+
+</details>
+
 ## What you need first
 
 Unit 00 (`SigEq`) and Unit 01 (`pQ`, `pQ_exact`, `pick`).
-
-## A three-item example before the formula
-
-Suppose a presentation p reports [0, 0, 1] on data [0, 1, 2]. It gives
-the same label to data 0 and 1, so a lookup using p cannot tell them apart.
-
-- A claim q = [7, 7, 9] is recoverable: label 0 means answer 7, and label 1 means answer 9.
-- A claim q = [7, 8, 9] is not recoverable: label 0 would have to mean both 7 and 8.
-
-“Factors through” names this recoverability condition. “Knows” applies
-the condition to the family's combined presentation. It does not assert
-that the claim is true.
 
 ### 1. Factoring
 

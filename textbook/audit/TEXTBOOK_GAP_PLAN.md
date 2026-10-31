@@ -190,6 +190,14 @@ walkthrough. Changed-label practice has separate folded answers.
    establishes its formal conclusion under its assumptions; an empirical
    application additionally needs a declared measurement correspondence.
 
+## Institution teaching follow-up
+
+The [I00–I17 reading review](INSTITUTIONS_READING_REVIEW_2026-10-31.md)
+adds eighteen concrete openings and checks selected scope claims from the
+four existing institution research owners. It fixes the I17 book checker
+without changing those owners. This improves the existing Part 2 material;
+it does not add coverage of further research trees or establish reader mastery.
+
 ## First dedicated research extension
 
 The [Growth lab](../growth_lab/README.md) now supplies eight short lessons

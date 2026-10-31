@@ -1,6 +1,13 @@
 # Unit 15. Fixing a partition, and the promised-count refutation
 
-**Claim.** A transcript `T` fixes the partition on `D` (`Fixes D T`) when every
+**Claim.** An exact-class-count promise can change acquisition cost. On two
+inputs, exactly two classes implies separation without a probe; at
+most two classes does not. The two promise readings stay distinct.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** A transcript `T` fixes the partition on `D` (`Fixes D T`) when every
 two actors consistent with `T` have the same partition on `D`. Any evaluator `E`
 that is sharp for all actors consistent with `T` forces `Fixes D T`
 (`acquires_implies_fixes`), while the empty transcript on `[0, 1]` does not fix
@@ -12,6 +19,7 @@ the proposed formula `N(N - 1)/2 + (n - N)(N - 1)` (`TT-43o (ii)`) gives `1` at
 `n = N = 2` (`proposal_count_two`), whereas `0` probes suffice because the one-view
 evaluator `[[0]]` is already sharp for every two-class actor on `[0, 1]`
 (`exact_promise_zero_probes_two`).
+
 **Status:** derived (`acquires_implies_fixes`, `complete_evaluator_for_two`),
 refuted (`TT-43o (ii)` under the "exactly `N` classes" reading at `n = N`), and
 open (`AI-18o`: constructive converse of `acquires_implies_fixes` in Lean;
@@ -50,6 +58,33 @@ counterexample (`AI-21`):
    minimax game check in Python matches `N(N - 1)/2 + (n - N)(N - 1)` for every
    `1 ≤ N ≤ n ≤ 5` (`AI-19c`), and its general Lean proof remains open
    (`AI-19o`).
+
+</details>
+
+## First pass
+
+There are two inputs, 0 and 1. Compare two promises:
+
+| Promise | Possibilities left | Is a pair probe needed? |
+|---|---|---|
+| Exactly two classes | {0}, {1} | No |
+| At most two classes | {0}, {1} or {0,1} | Yes, to distinguish these cases |
+
+With the exact promise, the observer [[0]] already distinguishes the
+only two classes. The proposed positive probe-count formula therefore
+fails on this boundary case. Its different at-most reading remains a
+separately stated open problem.
+
+**Predict:** has the exact-promise counterexample refuted every possible
+bounded-class acquisition formula?
+
+<details><summary>Check your prediction</summary>
+
+No. A counterexample refutes the specific statement whose assumptions
+it satisfies. Changing exactly to at most changes the permitted actor
+family; the same zero-probe argument no longer applies.
+
+</details>
 
 ## What you need first
 

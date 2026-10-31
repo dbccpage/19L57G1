@@ -826,3 +826,24 @@ reports `propext, Quot.sound` instead of the old count-only proof's empty
 set. No native theorem or boundary is changed, and no receipt is
 regenerated under an injection.
 
+
+## Institution reading review (2026-10-31)
+
+Eight process-local substitutions exercise the existing book checkers.
+Native and research sources and receipts are never mutated by these injections.
+
+| Check | Defect injected | Observed rejection |
+|---|---|---|
+| I04 | Force `exceeds` false for empty families | Main exits 1; empty-family constant-question exception is false |
+| I05 | Reverse the two functions in the fiber-constancy check | Main exits 1; named fiber-direction fixture is false |
+| I07 | Cap later three-member information at 2 | Main exits 1; worked chain changes from `1,1,2,3` to `1,1,2,2` |
+| I08 | Let a constant admitted target determine identity | Main exits 1; target-scope fixture is false |
+| I09 | Erase every residual once another member is added | Main exits 1; exact remaining-pair check rejects the empty list |
+| I17 | Count a refusal as satisfying an unmet requirement | Main exits 1; source-scope fixture is false |
+| I17 | Require mark position to be a token value | Main exits 1; arbitrary-token/position fixture is false |
+| I17 | Reverse output column order after a mark | Main exits 1; prepended-mark fixture is false |
+
+The six original checkers recover exit 0 after the temporary bindings are
+discarded. I17 consumes the existing transition owner rather than its old
+copied helper. These are finite regression checks; no new Lean theorem,
+research campaign closure, or empirical learning result is claimed.

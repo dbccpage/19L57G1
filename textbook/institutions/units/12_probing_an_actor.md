@@ -1,6 +1,13 @@
 # Unit 12. Probing an actor, and finite question tables
 
-**Claim.** When an adaptive protocol `π : Transcript → Option (Nat × Nat)`
+**Claim.** A probe asks only whether two actor values are equal. A transcript
+records the asked pairs and answers. Finite encoding preserves the
+specified carrier behavior; it does not reveal arbitrary numeric labels.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** When an adaptive protocol `π : Transcript → Option (Nat × Nat)`
 probes an actor `p : Nat → Nat` by asking whether `p x = p y`, the resulting
 transcript `run π p k` has at most `k` entries, is consistent with `p`, and is
 identical for any two actors `p, p'` that give the same boolean answer
@@ -9,8 +16,9 @@ carrier `D`, tabulating every member of an institution `Q` into a finite list of
 pairs `encode D Q : List (List (Nat × Nat))` and decoding back via `decode`
 preserves signatures, the canonical representative `pQ D Q`, knowledge of every
 question, and information (`encoding_faithful`); and knowing any `q : Nat → Nat`
-is equivalent to knowing its canonical representative `pQ D [q] : D → D`
+is equivalent to knowing its canonical representative `pQ D [q] : Nat → Nat`, read on `D`
 (`knows_iff_knows_pQ`).
+
 **Status:** derived (probe grammar admitted; `run_congr` and table fidelity
 derived). **Lean:** `Acquisition.Transcript`, `Acquisition.Protocol`,
 `Acquisition.entry`, `Acquisition.run`, `Acquisition.run_length_le`,
@@ -43,6 +51,34 @@ two pieces of foundation:
    (`encoding_faithful`), and the entire question space on `D` reduces to the
    finitely many canonical tables `pQ D [q]` from `D` into `D`
    (`knows_iff_knows_pQ`).
+
+</details>
+
+## First pass
+
+An unknown table reports [7,9,7] on inputs 0,1,2. A probe cannot ask
+for a stored number. It asks whether two entries are equal:
+
+| Probe | Answer |
+|---|---|
+| 0/1 | Different |
+| 0/2 | Equal |
+
+The table [20,30,20] gives the same answers. The prober can learn the
+grouping without learning the actual labels 7 and 9. A transcript is
+the ordered record of such pair questions and answers. An adaptive
+protocol chooses its next pair from that record.
+
+**Predict:** if two actors agree on every pair actually asked along
+the run, can this deterministic protocol secretly distinguish them?
+
+<details><summary>Check your prediction</summary>
+
+No. The next question depends on the same transcript. The theorem
+tracks this agreement inductively. Its grammar and finite encoding
+conditions are supplied assumptions, not all possible ways of learning.
+
+</details>
 
 ## What you need first
 

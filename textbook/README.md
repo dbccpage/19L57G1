@@ -74,6 +74,10 @@ The [Units 52–56 follow-up](audit/MAPPING_READING_REVIEW_2026-10-29.md)
 continues through maps, interfaces, supplied growth, and relation laws,
 with collapsing-map and colour-agreement examples before formal notation.
 
+The [institution review](audit/INSTITUTIONS_READING_REVIEW_2026-10-31.md)
+covers the material after Act X: eighteen worked openings for I00–I17,
+selected theorem-scope corrections, and a repaired Python transition check.
+
 ## Status marks
 
 | Mark | Meaning |

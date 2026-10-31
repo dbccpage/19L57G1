@@ -1,10 +1,19 @@
 # Unit 00. A presentation, a family, a signature
 
-**Claim.** Before anything can be proved about actors and institutions,
+**Claim.** Presentations report values on supplied inputs. A family combines
+those reports into an answer list called a signature. These definitions
+are supplied; their use of actor and institution does not make a claim
+about people or organizations.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** Before anything can be proved about actors and institutions,
 three things must be admitted: a presentation is a function from data
 numbers to values; a family is a list of presentations; the signature of a
 datum under a family is the list of the members' values at it. Nothing
 below derives these from the mark.
+
 **Status:** admitted. **Lean:** `Compression.sigList`, `Compression.SigEq`
 (sealed), `Institution.Institution` (`two_theorems`). **Sources:**
 `lean4/Derivation/Compression.lean` lines 60–72;
@@ -16,6 +25,37 @@ show that the three admissions already have consequences. Its job is to
 fix what the words of this part are attached to, so that every later unit
 can be read for what it is: a result about functions read on a finite list,
 not a result about people, organizations or minds.
+
+</details>
+
+## First pass
+
+Use three cards, A, B, and C, and two supplied reporting tables:
+
+| Card | First table | Second table | Combined signature |
+|---|---|---|---|
+| A | 0 | 0 | [0,0] |
+| B | 1 | 1 | [1,1] |
+| C | 0 | 1 | [0,1] |
+
+A presentation is one reporting table. A family is the list of tables.
+A signature is the row of answers for one card, in family order. The
+first table merges A with C; the second merges B with C. Their combined
+signatures distinguish all three cards.
+
+This part calls a presentation an actor and a family an institution.
+Those are names for these mathematical objects. No person or organization
+has yet been modeled.
+
+**Predict:** if we repeat the first table, will any previously equal
+signatures become different?
+
+<details><summary>Check your prediction</summary>
+
+No. Equal old answers stay equal when the same answer is copied. Later
+lessons distinguish additional reports from additional distinctions.
+
+</details>
 
 ## What you need first
 

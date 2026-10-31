@@ -1,6 +1,14 @@
 # Unit 17. The interpreter boundary at verdict level
 
-**Claim.** A reflective step reads the carried constitution code. The stated aligned roles agree; changing guards can give separating verdicts. The support-diagonal and lawful-escape results retain their separate hypotheses.
+**Claim.** The reflective step reads a carried guard code. Aligned coded and
+reflective roles agree. Guard-changing separation witnesses and lawful
+escape results have separate assumptions; the general semantic bridge
+remains open.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** A reflective step reads the carried constitution code. The stated aligned roles agree; changing guards can give separating verdicts. The support-diagonal and lawful-escape results retain their separate hypotheses.
 
 **Status:** derived (`V11` refutes aligned self-difference; `Bl` and
 `openDenotationalBridge` (`TT-18o`) remain open). **Lean:**
@@ -37,8 +45,8 @@
 
 In the sealed Genesis spine (`lean4/Derivation/Constitution.lean` and
 `InterpreterBoundary.lean`), a `ConstitutionDesc` is a 6-boolean record of guard
-toggles (`dedupAdmit`, `guardRequire`, `guardAccept`, `guardBudget`, `guardAug`,
-`guardRefuse`), `interpStep : ConstitutionDesc → World → Event → World` executes
+toggles (`dedupAdmit`, `guardRequire`, `guardAccept`, `gateBudget`, `gateLicense`,
+`certRefusal`), `interpStep : ConstitutionDesc → World → Event → World` executes
 an event under those toggles, and `boundarySetting` places the coded kernel
 `some kernelDesc` and the uncoded interpreter role `none` on the carrier
 `Option ConstitutionDesc`. In the sealed module, two questions were left at the
@@ -69,7 +77,7 @@ precisely delimit their scope:
   self-requirement at `genesis` to the well-formedness-preserving acceptance
   guard at `accWorld` (`interp_not_step_wf`, `vsep_uncoded_wf`).
 
-## First pass
+**Earlier orientation.**
 
 A reflective world stores both a constitution descriptor and a world.
 Its reflective step reads that stored descriptor. A lifted step that
@@ -80,7 +88,7 @@ stated aligned roles agree. Keep that aligned case separate from the
 witnesses where changing a guard changes quiescence. The later support
 diagonal and lawful-escape results have their own explicit hypotheses.
 
-## Detailed claim and formal anchors
+**Further formal anchors.**
 
 On reflective worlds `RWorld := ConstitutionDesc × World`, the two
 sealed laws `Interprets` and `Quotes` uniquely fix the reflective step `rstep`
@@ -102,19 +110,46 @@ support (`tower_persists_operational`) by violating the declared transition
 (`opDiag_not_lawful`), and a `Lawful` function escapes a catalogue iff no code
 in the catalogue is `Lawful` (`lawful_escape_iff`, `lawful_no_escape`).
 
+</details>
+
+## First pass
+
+A world carries a code specifying which guards to apply. Compare
+a step fixed to code A with a reflective step that reads the carried code.
+When the world carries A, these roles execute the same coded step.
+
+When it carries another code B, a guard difference can matter. For
+example, an acceptance guard can reject a mark that would destroy a
+protected distinction; a relaxed code can accept it. The resulting
+quiescence verdicts can differ at the stated witness.
+
+The separating comparison therefore changes the code being executed.
+It does not show a step differing from itself on the same input.
+
+**Predict:** does escaping a finite catalogue by an arbitrary function
+prove that a lawful step can also escape it?
+
+<details><summary>Check your prediction</summary>
+
+No. The support-changing diagonal is proved not lawful under this
+definition. The lawful-escape theorem has its own catalogue hypotheses.
+The lesson keeps those results separate from the open denotational bridge.
+
+</details>
+
 ## What you need first
 
 From the sealed Genesis spine (`lean4/Derivation/NoOutside.lean`,
 `Constitution.lean`, `InterpreterBoundary.lean`, `PrimitiveCore.lean`):
 - `World` has fields `data`, `views`, `reqs`, `refusals`, `budget`,
   `augLicensed`, and `notes`; `supp w` projects all fields except `notes`.
-- `quiescentB w` tests whether every requirement `(i, j) ∈ w.reqs` is either
-  separated by `w.views` or recorded in `w.refusals`; `obstructedB w (i, j)`
-  tests whether `(i, j)` is required, unseparated, and unrepairable under the
-  current budget and licence; `WF w` requires `i ≠ j` and `i, j < w.data.length`
-  for every `(i, j) ∈ w.reqs`.
+- `quiescentB w` tests whether every recorded requirement is separated
+  by `w.views`. A refusal record does not satisfy an unmet requirement.
+  `obstructedB w (i,j)` additionally checks exhaustion of the defined
+  repair menu; budget and licence separately gate event execution.
+  `WF w` checks distinct, in-range endpoints for each recorded requirement.
 - `ConstitutionDesc` has 6 boolean fields (`dedupAdmit`, `guardRequire`,
-  `guardAccept`, `guardBudget`, `guardAug`, `guardRefuse`); `kernelDesc` sets
+  `guardAccept`, `gateBudget`, `gateLicense`, `certRefusal`); `kernelDesc` sets
   all 6 to `true`, and `interp_describe` shows `interpStep kernelDesc w e =
   step w e`.
 
@@ -360,14 +395,25 @@ The check verifies:
      mark([0], 1))) == c.guardAccept` and `WF` holds for all 64 output worlds;
    - at every aligned pair `(d, w)`, `meaning(some(d), (d, w), e) ==
      meaning(none, (d, w), e)`;
-   - for all 64 codes `d`, `flipDedup(d) != d` has identical `quiescentB` across
-     all events (`coded_pair_not_vsep`), while `flipAccept(d)` separates
+   - for all 64 codes, the finite deduplication comparison uses the four
+     listed events and two sample worlds. The general result is the Lean
+     theorem `coded_pair_not_vsep`. The acceptance-bit comparison separates
      `some(d)` from `none` at `(flipAccept(d), accWorld)` with well-formed
      worlds (`vsep_uncoded_wf`).
 
 ```
 python textbook/institutions/checks/i17_interpreter_verdict.py
 ```
+
+The checker now calls `derivation.completion.interp_step` and
+`derivation.represented` directly. Its former copied helper counted a
+refusal as resolution, used token membership for a position bound, and
+appended marks instead of prepending them. The original samples did not
+expose those differences. Added cases check a refused-but-unseparated pair,
+tokens [10,20,30] with valid position 1, duplicate marks under a relaxed
+guard, empty genesis, and structural obstruction independent of funding.
+The changed-code comparison is also exercised rather than only described.
+These are finite Python checks, not new Lean proofs.
 
 ## Outside the system
 

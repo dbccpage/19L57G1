@@ -1,11 +1,21 @@
 # Unit 08. Determination is not truth
 
-**Claim.** Having classes of information is not knowing a given claim; knowing a
+**Claim.** Determining an answer does not establish agreement with a target.
+Target membership and agreement are separate hypotheses. Repeated
+partitions do not supply a statistical independence model.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** Having classes of information is not knowing a given claim; knowing a
 claim is functional determination, not agreement with a target; on any nonempty
 carrier every institution knows two claims that disagree everywhere; whether a
 known claim agrees with a target is itself a further question that the
-institution need not know; and admitting the target as a member suffices for
-both the claim and its agreement question to be known.
+institution need not know. If the target is a member and the claim
+already agrees with it, the claim is known. If the target is a member
+and the claim is known, their agreement question is known. Neither
+statement makes an arbitrary claim agree with the target.
+
 **Status:** derived. **Lean:** `Chain.information_without_determination`,
 `Chain.Corr`, `Chain.corrB`, `Chain.corr_iff_corrB`,
 `Chain.determination_not_truth`, `Chain.agreeQ`, `Chain.corr_iff_agreeQ`,
@@ -27,13 +37,40 @@ truth: `information D Q` (how many equivalence classes `Q` carves on `D`) and
    `agreeQ q t`, which the institution need not know even when it knows `q`
    (`truth_is_a_further_question`); what makes a claim that agrees with `t`
    known—and makes `agreeQ q t` known—is admitting `t` as a member of `Q`.
-4. **Report count is not independent witness count (multi-level correlated
+4. **Report count is not partition count (multi-level correlated
    blind spots):** three subordinate actors $p_1, p_2, p_3$ that share the same
    observational blind spot can submit three unanimous reports (even in
    distinct surface encodings and through intermediate regional supervisors),
-   raising the **report count** to $3$ while keeping the **independent
-   information** (`information D Q`) frozen at the single-actor level and leaving
+   raising the **report count** to $3$ while keeping the **signature-class
+   count** (`information D Q`) frozen at the single-actor level and leaving
    the aggregated verdict wrong (`Agreement ≠ Correctness`, `Determination ≠ Truth`).
+
+</details>
+
+## First pass
+
+With no reporting tables, inputs 0 and 1 have the same empty
+signature. Constant answers [0,0] and [1,1] are both recoverable.
+They cannot both agree with one fixed target at both inputs.
+
+Take the target [0,1] and the answer [0,0]. Their agreement table is
+[1,0]: 1 for agreement, 0 for disagreement. The empty family determines
+the constant answer, but cannot determine this agreement table.
+
+Admit the target table. Both the answer and target can now be read, so
+their agreement table is recoverable. Its second entry remains 0.
+More access makes the mismatch visible; it does not repair the answer.
+
+**Predict:** does admitting a target make every authorized answer true?
+
+<details><summary>Check your prediction</summary>
+
+No. The theorem derives knowledge of an already-matching answer from
+target membership and agreement. It does not derive agreement from
+membership. Even the target's correspondence with reality requires
+separate evidence outside this model of tables.
+
+</details>
 
 ## What you need first
 
@@ -154,7 +191,7 @@ Assume the target `t` is admitted (`ht : t ∈ Q`).
   `agreeQ q t x = agreeQ q t y`. By `knows_iff_determined`,
   `Knows D Q (agreeQ q t)` (`agreement_known_of_admitted`).
 
-### Worked institutional example: Correlated errors across levels of authority (`Report Count ≠ Independent Witnesses`)
+### Worked institutional example: Correlated errors across levels of authority (`Report Count ≠ Distinct Partitions`)
 
 Consider carrier $D = [0, 1, 2, 3]$ and target table $t = \mathrm{half} = (0, 0, 1, 1)$.
 Suppose three subordinate actors $p_1, p_2, p_3$ observe $D$ using distinct
@@ -174,7 +211,7 @@ Now trace this through two levels of institutional authority:
    three reports. The **report count** is $3$, and all three subordinates
    unanimously support $q_{\text{err}}$. Yet because $p_1, p_2, p_3$ induce the
    exact same partition $\{\{0, 1, 2\}, \{3\}\}$ on $D$, adding $p_2$ and $p_3$
-   contributes **zero new independent distinctions**:
+   contributes **no additional signature classes**:
    $$\mathrm{information}(D, [p_1]) = \mathrm{information}(D, [p_1, p_2]) = \mathrm{information}(D, [p_1, p_2, p_3]) = 2.$$
    The institution $Q$ determines $q_{\text{err}}$ (`Knows D Q q_err`), fails to
    determine the target $t$ (`¬ Knows D Q t`), and disagrees with $t$ at datum $2$
@@ -187,8 +224,12 @@ Now trace this through two levels of institutional authority:
    field reports, yet $\mathrm{information}(D, Q_{\text{top}}) = 2$,
    $\mathrm{Knows}(D, Q_{\text{top}}, q_{\text{err}})$ still holds, and the error at
    datum $2$ is untouched. Repetition across levels of authority increases the
-   **report count** without increasing the **number of independent witnesses**
+   **report count** without increasing the **number of distinct represented partitions**
    (compare Unit 11's `unanimous_wrong_not_corrected_by_same_blind_spot`).
+
+The repeated tables in this example induce the same partition.
+This is not a statistical independence calculation: no sampling
+distribution or reliability model is defined.
 
 ## The same fact in Python
 
@@ -206,7 +247,7 @@ The check verifies:
 4. **Three-actor correlated blind-spot and multi-level hierarchy check:** three
    actors `p1, p2, p3` on `range(4)` sharing the blind spot `p(0) == p(1) == p(2)`
    yield `report_count = 3` while `information(4, (p1,)) == information(4, (p1, p2, p3)) == 2`
-   (only `1` independent witness partition), and neither direct aggregation
+   (only `1` distinct represented partition), and neither direct aggregation
    `Q = (p1, p2, p3)` nor two-tier supervisory aggregation `Q_top = (S_A, S_B)`
    eliminates the error against target `HALF4 = (0, 0, 1, 1)`.
 
@@ -229,9 +270,11 @@ table `q`, the target table `t`, and the agreement table `agreeQ q t`.
 
 **Admissions relied on, and their price.** Unit 00's three admissions, plus an
 explicit fourth whenever agreement with a target is invoked (`AI-09`): the
-target presentation `t` must be supplied, and for the institution to know that a
-claim agrees with `t`, `t` (or a family that already determines `t`) must be
-admitted into `Q`.
+target presentation `t` must be specified to formulate this comparison.
+Knowing both `q` and `t` suffices to know the agreement question, but
+is not necessary: with `q = t = id` on `[0,1]`, the empty family knows
+the constant agreement answer 1 without knowing either identity table.
+Supplying a target does not verify its correspondence with reality.
 
 **Phrases to read with care.**
 

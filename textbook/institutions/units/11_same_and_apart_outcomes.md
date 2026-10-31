@@ -1,6 +1,14 @@
 # Unit 11. Same and apart outcomes
 
-**Claim.** Against an institution `Q`, a pair claim `.same x y` is either
+**Claim.** The declared pair policy supports apartness when a member
+separates the pair, and otherwise leaves it unresolved. Its treatment
+of same is a policy definition, not a theorem that literal identity
+cannot be proved.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** Against an institution `Q`, a pair claim `.same x y` is either
 `.refuted` (when some member of `Q` separates `x` and `y`) or `.unresolved`
 (when `SigEq Q x y`), and is never `.supported`; a pair claim `.apart x y` is
 either `.supported` (when some member separates `x` and `y`) or `.unresolved`,
@@ -10,6 +18,7 @@ and is never `.refuted`. Both `.supported` for `.apart x y` and `.refuted` for
 (`same_never_established`), so `SigEq Q' x y` holds across all extensions `Q'`
 of `Q` iff `x = y` (`established_iff_eq`); and the institution-scoped identity
 test `sameRel Q x y` is relative to `Q` (`scoped_identity_not_absolute`).
+
 **Status:** derived. **Lean:** `Policy.PairClaim`, `Policy.Outcome`,
 `Policy.separatesB`, `Policy.separatesB_iff`, `Policy.outcome`,
 `Policy.same_refuted_iff`, `Policy.same_unresolved_iff`,
@@ -31,6 +40,34 @@ support `.apart x y` and refute `.same x y` across all extensions of `Q`,
 whereas every member of `Q` agreeing (`SigEq Q x y`) leaves `.same x y`
 `.unresolved`, because whenever `x ≠ y` an extension of `Q` can still split
 them.
+
+</details>
+
+## First pass
+
+Ask whether inputs A and B are apart. If a held table gives them
+different values, the policy returns supported. Ask whether they are
+the same, and that very separation makes the policy return refuted.
+
+If every held table agrees on A and B, the policy returns unresolved
+for either question. It does not promote agreement under current tests
+to absolute identity.
+
+Even the claim same A A is never given the label supported by this
+particular function. Literal equality A = A still has its ordinary
+mathematical proof. The label records this policy's branch, not a
+limitation of logic.
+
+**Predict:** can adding a new separating table turn an unresolved pair
+into supported apartness?
+
+<details><summary>Check your prediction</summary>
+
+Yes. Under extensions that retain old members, an existing separating
+member remains present, so the supported-apart outcome then persists.
+Replacing or deleting members is a different operation.
+
+</details>
 
 ## What you need first
 

@@ -1,6 +1,13 @@
 # Unit 16. Uncollapse, recollapse, and families of regimes
 
-**Claim.** Under extension of a single regime by admissions (`applyDelta`), a
+**Claim.** Admissions in one regime can alter an existing view and restore
+collapse. Adding another regime to a family follows a different rule.
+Comparisons between regimes require explicit input correspondences.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** Under extension of a single regime by admissions (`applyDelta`), a
 collapsed pair can become separated (`uncollapse_by_delta`); on a well-formed
 regime, a delta keeps a collapsed pair `d, d'` collapsed unless one of its items
 is a `.newInst f args` mentioning `d` or `d'` (`uncollapse_only_by_mention`,
@@ -18,6 +25,7 @@ and prevents a renamed copy from uncollapsing (`family_index_repaired`,
 `collapsedInR_rename_cons`), and `separable r` is a constructive apartness whose
 indistinguishability relation is `collapsed r` (`separable_isApart`,
 `collapsed_iff_indist`).
+
 **Status:** derived. **Lean:** `ResearchUncollapse.uncollapse_by_delta`,
 `ResearchUncollapse.collapsed_ruleAll`,
 `ResearchUncollapse.uncollapse_only_by_mention`,
@@ -54,6 +62,32 @@ joining a regime to a family of regimes (`collapsedIn` / `collapsedInR`)—and
 why admitting a rule or instance into a regime can *recollapse* a separated
 pair whereas appending a presentation to an `Institution` or a view to an
 `Evaluator` never can.
+
+</details>
+
+## First pass
+
+Keep inputs 0 and 1. A unary test currently answers Yes on 0 and
+No on 1, so it separates them. Admit an instance making the same test
+answer Yes on 1 as well. Its answers become Yes/Yes, and this distinction
+is lost. A rule deriving every plug can have the same effect.
+
+This changes an existing view. It differs from adding a new view while
+retaining all old views, which keeps an old separation available.
+It also differs from adding another regime to a family: a new member
+that separates the pair suffices for that family's separation.
+
+**Predict:** can we compare the same index numbers across independently
+renamed regimes without specifying what they refer to?
+
+<details><summary>Check your prediction</summary>
+
+No. Shared index spellings need not designate corresponding inputs.
+The repaired family comparison carries correspondence maps. No bridge
+between these distinct update rules is supplied merely by calling each
+operation an admission.
+
+</details>
 
 ## What you need first
 

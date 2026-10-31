@@ -1,10 +1,19 @@
 # Unit 04. A family knows what no member knows
 
-**Claim.** A family can know a claim that none of its members knows, and
+**Claim.** A nonempty family can determine a question that none of its
+members determines alone. The smallest such case has three distinct
+inputs and two members. The empty-family constant-question case is separate.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** A family can know a claim that none of its members knows, and
 it does so exactly when every pair the claim tells apart is told apart by
 some member, while every member merges some pair the claim tells apart.
-This needs at least three data and two members, and three data with two
+For a nonempty family this needs at least three distinct data and two
+members, and three data with two
 two-valued members suffice.
+
 **Status:** derived. **Lean:** `Inst.exceeds_iff`, `Inst.exceeds_three_data`,
 `Inst.exceeds_three_two` (`actor_institution`). **Sources:**
 `research/actor_institution/lean/ResearchActorInstitution/Institution.lean`
@@ -17,6 +26,36 @@ own representative. The two can come apart: the family's representative
 can determine a claim that no member's does. The unit says exactly when,
 how small the smallest such case is, and shows it. Nothing in it is about
 anyone being aware of anything.
+
+</details>
+
+## First pass
+
+Use the three-input example from I00, now with a requested answer:
+
+| Input | First member | Second member | Requested answer |
+|---|---|---|---|
+| 0 | 0 | 0 | 0 |
+| 1 | 1 | 1 | 0 |
+| 2 | 0 | 1 | 1 |
+
+The first member merges 0 with 2, whose requested answers differ. It
+cannot determine the answer alone. The second merges 1 with 2 and
+fails for the same reason. Together their answer pairs are all distinct,
+so a lookup from those pairs can return the requested answer.
+
+The minimum-size theorem assumes a nonempty family. With no members,
+the phrase no member knows it has no member to test: a constant question
+is a degenerate case, not an example of useful cooperation.
+
+**Predict:** must one member have access to the combined table?
+
+<details><summary>Check your prediction</summary>
+
+No. The theorem supplies recoverability from the family signature. It
+does not define communication, access, or an actor who performs the lookup.
+
+</details>
 
 ## What you need first
 
@@ -398,8 +437,9 @@ exceeding.
 It shows the exact condition for a family to know what no member knows,
 in terms of pairs and single members only.
 
-It shows the smallest case: three data and two members are needed, and
-enough. The two-member bound is a disagreement: two members that differ
+Among nonempty families, three distinct data and two members are needed
+and enough. The empty-family case is separate: it exceeds on constant
+questions because there is no member that could fail the second clause. The two-member bound is a disagreement: two members that differ
 on a pair one of them merges. The witness is smaller than the four-point
 parity and half witness of `two_theorems` (`institution_exceeds_members`
 there), which was the first proof that the gap exists at all.

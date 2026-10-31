@@ -1,6 +1,13 @@
 # Unit 13. The probe lower bound and the merge adversary
 
-**Claim.** Whenever the transcript of an adaptive protocol `π` against the
+**Claim.** In the declared equality-probe model, finding an arbitrary unknown
+partition has worst-case cost n(n−1)/2 pair queries. The lower bound
+does not cover every possible observation method or extra promise.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** Whenever the transcript of an adaptive protocol `π` against the
 identity actor `fun z => z` on `List.range n` has fewer than
 `(allPairs n).length = n(n - 1)/2` entries, some pair `x < y < n` was never
 probed (`uncovered_pair`), and the actor `merge x y` (which identifies `y` with
@@ -16,6 +23,7 @@ observer level, wherever an observer `E` merges two distinct data `x ≠ y ∈ D
 two actors (`pQ D (questions E)` and `markOne (pQ D (questions E)) x`) are both
 consistent with `E` while one merges `(x, y)` and the other splits it
 (`observer_cannot_read_resolution`).
+
 **Status:** derived. **Lean:** `Acquisition.merge`, `Acquisition.merge_agrees`,
 `Acquisition.askedB`, `Acquisition.askedB_iff`, `Acquisition.norm`,
 `Acquisition.mem_allPairs`, `Acquisition.nodup_subset_length`,
@@ -49,6 +57,34 @@ statement `TT-39o` (`AI-20`). It is paired with the static observer theorem
 `observer_cannot_read_resolution` (`TT-27`): an observer `E` that merges `x ≠ y`
 cannot tell from its own separations whether the observed actor merges or splits
 `x` and `y`.
+
+</details>
+
+## First pass
+
+Use three inputs. Ask whether 0 equals 1: Different. Ask whether 0
+equals 2: Different. There are still two possibilities:
+
+| Possible grouping | Answers to those two probes |
+|---|---|
+| {0}, {1}, {2} | Different, Different |
+| {0}, {1,2} | Different, Different |
+
+Only the unasked pair 1/2 distinguishes these possibilities in this
+probe grammar. The all-distinct actor supplies the lower-bound run:
+if a pair remains unasked, an actor merging that pair remains consistent
+with the same transcript.
+
+**Predict:** does the theorem demand three probes for every three-input
+actor and every prior promise?
+
+<details><summary>Check your prediction</summary>
+
+No. It is a worst-case result for arbitrary actors under the specified
+pair probes. Equality answers can make some cases easier. I15 shows how
+an additional exact-class-count promise can also change the cost.
+
+</details>
 
 ## What you need first
 

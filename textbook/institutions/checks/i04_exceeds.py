@@ -43,7 +43,9 @@ def main() -> int:
     example = exceeds(3, (P1, P2), Q3)
     counts = [information(3, (P1,)), information(3, (P2,)), information(3, (Q3,)), information(3, (P1, P2))]
     print(f"three-point example exceeds: {example}; class counts p1, p2, q3, family: {counts}")
-    ok = (not bad and minimum["min_data"] == 3 and minimum["min_members"] == 2
+    empty_scope = exceeds(1, (), (0,)) and not exceeds(2, (), (0, 1))
+    print(f"empty-family constant-question exception: {empty_scope}")
+    ok = (empty_scope and not bad and minimum["min_data"] == 3 and minimum["min_members"] == 2
           and example and counts == [2, 2, 2, 3])
     return 0 if ok else 1
 
