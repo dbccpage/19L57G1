@@ -71,10 +71,17 @@ replace that changing process with a fixed finite list.
 
 ## What you need first
 
+Use I01’s full representative, I02’s recovery rule and I03’s class count. Here every stage uses the same supplied carrier; an extension keeps all old members.
+
+<details>
+<summary>Prerequisite source names (optional)</summary>
+
 Unit 01 (`pQ`, `pQ_exact`), Unit 02 (`Knows`, `knows_iff_determined`,
 `knows_mono`, `knows_iff_sigList`), and Unit 03 (`information`, `classCount`,
 `classCount_pos`, `information_le_carrier`, `information_mono`,
 `information_member_le`, `knows_iff_information_eq`, `count_le_of_determines`).
+
+</details>
 
 ### 1. Extension chains and stationary steps
 

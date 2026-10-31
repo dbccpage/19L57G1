@@ -68,6 +68,11 @@ adds none; these are different operations with different conclusions.
 
 ## What you need first
 
+Use I01’s full representative, I02’s recovery rule, I03’s class count and I04’s two-member example. The main question is which groups and recoverable answers remain after each operation.
+
+<details>
+<summary>Prerequisite source names (optional)</summary>
+
 Unit 01 (`pQ`), Unit 02 (`Knows`, `knows_iff_determined`),
 Unit 03 (`known_extension_inert`, `information`, `information_mono`,
 `information_append_of_knows`, `information_lt_of_not_knows`,
@@ -75,6 +80,8 @@ Unit 03 (`known_extension_inert`, `information`, `information_mono`,
 `two_theorems` (`Institution.lean` lines 250–252 and `Reading.lean` lines
 356–366), `parity` is `x % 2`, `half` is `x / 2`, and `Grounded D Q s` is the
 synonym `Knows D Q s` when `s` is read as a report (studied in full in Unit 09).
+
+</details>
 
 Start with the difference between **appending** a summary and **replacing**
 the family by it. Appending retains the old tables. Replacing can discard
@@ -245,6 +252,10 @@ theorem consensus_after_loss :
 </details>
 
 Third, which available reports distinguish a specified witness pair:
+
+The later four-input source example uses two simple tables: parity gives
+0 on even inputs and 1 on odd inputs; half gives 0 on inputs 0/1 and 1
+on 2/3. `Grounded` means that the family recovers the supplied report.
 
 <details>
 <summary>Lean source: own_guess_invisible, guess_visible_iff, shared_guess, guess_witness (optional)</summary>

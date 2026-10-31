@@ -59,8 +59,15 @@ does not define communication, access, or an actor who performs the lookup.
 
 ## What you need first
 
+Use I00’s answer signatures, I02’s one-lookup condition and I03’s conflicting-pair test. Here we apply those checks to the full family and then to each member separately.
+
+<details>
+<summary>Prerequisite source names (optional)</summary>
+
 Unit 00 (`SigEq`), Unit 02 (`Knows`, `knows_iff_determined`) and Unit 03
 (`not_knows_iff_witness`).
+
+</details>
 
 Keep two checks separate. First ask whether the combined answers recover
 the requested table. Then test each member on its own. A family can pass

@@ -72,8 +72,15 @@ on the question's groups; that reverses the condition.
 
 ## What you need first
 
+Use I00’s signatures, I01’s representative, I02’s recovery rule and I04’s two-member example. We will define the new observer and correspondence terms below.
+
+<details>
+<summary>Prerequisite source names (optional)</summary>
+
 Unit 00 (`SigEq`), Unit 01 (`pQ`, `pQ_exact`), Unit 02 (`FiberConstant`,
 `Knows`, `knows_iff_determined`), and Unit 04 (`p1`, `p2`, `q3`).
+
+</details>
 
 An **observer** here is a supplied list of yes/no tests called **views**.
 A view lists the inputs on which its answer is yes. It separates two

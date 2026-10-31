@@ -30,6 +30,11 @@ All 25 original quoted Lean/Python blocks remain intact. Lean excerpts
 and tactic walkthroughs are optional disclosures with visible explanations.
 Two existing excerpts contain `...`; the prose now identifies omitted
 proof lines rather than presenting those excerpts as runnable Lean.
+The first live phone check also exposed long prerequisite identifier
+lists between the opening and the explanation. A follow-up folds those
+lists behind visible descriptions of the required ideas. The later
+four-input source example explains parity, half and report grounding
+where they are used.
 
 ## Concrete verification and corrected finite scopes
 
