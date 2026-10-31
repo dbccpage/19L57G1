@@ -1006,3 +1006,27 @@ Thirty authoring tests pass. The new handler fixture checks 192 record and
 72 order predictions. The 32 added reports have 29 empty axiom sets, one
 `propext` set and two `propext, Quot.sound` sets. Browser rendering and
 learning evidence are separate from those checks.
+
+## Reasoning-lab calibration continuation (2026-10-31)
+
+Four packet mutations, one stale desk and two assembled child-process
+Lean variants are rejected. Original research sources and receipts are
+unchanged. The unmodified selected P201/book source recovers with eleven
+exact reports; the combined reasoning driver checks 56.
+
+| Defect injected | Observed rejection |
+|---|---|
+| Make a larger standard increase X's written number | Packet comparison retains 6 U → 3 W |
+| Divide unequal-standard raw readings as 6/18 | Packet comparison retains the common-scale ratio 2/3 |
+| Treat the same-ratio doubled pair as unchanged magnitude | Packet comparison retains magnitude 24 instead of 12 |
+| Count supplied conversions as physical observations | Packet comparison retains zero observations |
+| Alter the calibration HTML without rebuilding it | Exact renderer comparison rejects the stale desk |
+| Replace the book's 6 ≠ 12 boundary with 6 = 12 | Lean's decide rejects the false proposition |
+| Pass a duration quantity to the length ratio operand | Lean rejects the argument's type mismatch |
+
+Thirteen added authoring tests pass. Native malformed-standard and
+wrong-scale controls remain visible while the book-side premises refuse
+them. The actual handler fixture checks 63 conversion and 36 comparison
+predictions. The eleven added reports have nine empty axiom sets and two
+exactly `propext, Quot.sound`. Browser rendering and learning evidence
+are separate checks.

@@ -92,3 +92,30 @@ overwritten records, same-target order dependence, disjoint updates,
 disturbing readouts, the identity control, relay order, and both record
 selections. Check prediction focus, narrow tables and arrow-key scrolling.
 Keep model rows separate from physical observations and measured learning.
+
+For the calibration continuation, run:
+
+```text
+python textbook/reasoning_lab/calibration.py --population
+python -m unittest textbook.reasoning_lab.test_calibration
+node textbook/reasoning_lab/test_calibration_controls.mjs
+```
+
+An intentional reviewed update uses `calibration.py --write`, which
+writes only `calibration.json` and `calibration.html`. The shared builder
+also supports this third explicitly named desk; older packets and desks
+retain their content. Preview `calibration.html` through the same local
+server. The canonical reasoning wrappers now check this packet and its
+bounded population, plus 56 exact Lean reports across the three scopes.
+
+Thirteen added authoring tests cover premise failures, mixed units,
+zero numerator versus divisor, four false packet variants, stale desk
+rejection and the actual handlers. The handler fixture exercises all
+63 conversion predictions and 36 ratio/refusal predictions. None of
+these fixtures supplies browser-layout evidence or a reader score.
+
+In a browser, check both prediction gates, incorrect feedback, zero,
+the 9/2 conversion, mixed-standard ratios, both refusals, same-ratio
+changed magnitudes, resets, keyboard focus and table scrolling at a
+phone width. Check the published reading/practice/answer links. The
+blank worksheet remains blank; invented numbers are not observations.

@@ -63,6 +63,10 @@ completes this selected definition pass through Part 2. Worked records
 separate probing from tabulation, complete tables from direct partial
 lookup, consistency from vacuous fixing, and WF from support agreement.
 Eight new tasks have separate answers; the Act XII preview is corrected.
+The [P201 calibration continuation](CALIBRATION_READING_REVIEW_2026-10-31.md)
+then adds six number/standard lessons and an interactive desk. It keeps
+caller-checked calibration premises, selected Lean algebra, native API
+limits and physical correspondence distinct.
 
 **Early-chapter follow-up (2026-10-29).** The
 [Units 04–16 reading review](EARLY_READING_REVIEW_2026-10-29.md) adds

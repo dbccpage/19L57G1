@@ -90,3 +90,6 @@ SOURCE += "\n" + "\n".join("#print axioms Textbook.ReasoningLab." + name for nam
 from .protocols_lean import build_checks
 PROTOCOL_SOURCE,PROTOCOL_NAMES=build_checks()
 SOURCE += '\n'+PROTOCOL_SOURCE
+from .calibration_lean import build_checks as calibration_checks
+CALIBRATION_SOURCE,CALIBRATION_NAMES=calibration_checks()
+SOURCE += '\n'+CALIBRATION_SOURCE

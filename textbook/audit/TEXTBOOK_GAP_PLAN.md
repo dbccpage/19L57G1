@@ -36,8 +36,8 @@ above record the earlier publication, not current open-PR status.
 | Institution lessons | 18 | A research curriculum exists for four named trees |
 | Sealed Lean modules | 75 | All 75 have coverage-matrix sections and assigned units |
 | Canonical research trees | 123 | Counted using `ci/research_index.py`'s actual population rule |
-| Trees with dedicated research lessons | 13 | Four institution trees, `standing_commitment`, three selected Boundary-lab introductions, `identification_dual`, `qm_bridge`, selected `native_bridge` claims, selected `native_structure` costs, and selected P200 recording protocols |
-| Other canonical trees | 110 | No dedicated lesson treatment is established by the current curriculum |
+| Trees with dedicated research lessons | 14 | Four institution trees, `standing_commitment`, three selected Boundary-lab introductions, `identification_dual`, `qm_bridge`, selected `native_bridge` claims, selected `native_structure` costs, selected P200 recording protocols, and selected P201 calibration rules |
+| Other canonical trees | 109 | No dedicated lesson treatment is established by the current curriculum |
 | Manim overview scenes | 12 | Groups of lessons have short previews; individual concepts still need slower worked treatment |
 
 The research population includes parked work, frozen experiments, tooling,
@@ -279,7 +279,10 @@ adds six lessons for selected P200 claims: separate targets and records,
 read/write dependencies, probe agreement, configured diagnostics and
 actual relay updates. Its bounded input checks remain separate from the
 formal carrier's unbounded natural-number fields and from measurements.
-P201 unit/calibration rules remain a separate next teaching step.
+The separate [P201 continuation](CALIBRATION_READING_REVIEW_2026-10-31.md)
+now adds six calibration lessons: number/standard pairs, kind labels,
+mixed-standard ratios, lost magnitude, caller premises and physical
+correspondence. P202 clocks and future-test relations remain separate.
 The [I00–I03 definition follow-up](INSTITUTION_FOUNDATIONS_READING_REVIEW_2026-10-31.md)
 then returns to the formal route: one continuing table, separate input/
 output/lookup roles, three-step class counting, folded source proofs and
@@ -295,7 +298,7 @@ adds eight further tasks and works through probing, table encoding,
 fixing under promises, regime updates and carried guard codes. These
 selected deeper definition passes reach I17; they do not certify every
 research claim or paragraph of Part 2.
-The dedicated introductory tree count is now thirteen, leaving 110 without
+The dedicated introductory tree count is now fourteen, leaving 109 without
 such treatment. Directory counts guide discovery;
 they do not set a requirement for equally sized modules for every tree.
 Comprehension, transfer, and retention remain unmeasured.

@@ -124,6 +124,10 @@ then separates equality probes from numeric table storage, complete
 tables from partial records, promises from unrestricted fixing, retained
 views from changed regimes, and carried guard codes from aligned steps.
 Eight changed-example tasks have separate answers.
+The [calibration continuation](audit/CALIBRATION_READING_REVIEW_2026-10-31.md)
+adds six short lessons to the Reasoning lab, with predictions about
+number/standard records, mixed-unit ratios, shared errors and device
+correspondence. P201 supplies selected definitions; P202 is separate.
 
 ## Status marks
 

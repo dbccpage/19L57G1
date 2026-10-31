@@ -197,13 +197,15 @@ The exact Protocol, Commutation, Observers and NonSignaling bodies are
 re-elaborated after removing only reviewed local import lines. Twenty-three
 selected owner reports and nine new book reports give 32 added axiom sets:
 29 empty, one `{propext}`, two `{propext, Quot.sound}`. With the original
-thirteen reasoning reports the wrapper checks 45: 39 empty, two `propext`,
+thirteen reasoning reports this portion checks 45: 39 empty, two `propext`,
 four both-axiom. This is a selected source/book scope, not the owner's
 51-declaration compiled census or a replacement frozen receipt.
 
 The named source-text hashes use UTF-8/LF normalization. The new desk
 selects recorded cases, saves no answers and makes no runtime request.
 Its bundled answers make it a study aid, not a blind comprehension trial.
-Calibration, unit changes, stochastic networks, general device behavior,
-physical geometry and independent novice learning remain outside this
-selected introduction. P201 owns the separate calibration model.
+Stochastic networks, general device behavior, physical geometry and
+independent novice learning remain outside this selected P200 introduction.
+The separate [P201 calibration guide](CALIBRATION_SOURCES.md) now supports
+Lessons 18–23, adding eleven scoped reports to the combined driver.
+It does not identify the two owners' models or teach P202 clocks.

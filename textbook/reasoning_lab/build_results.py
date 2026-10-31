@@ -10,3 +10,4 @@ if __name__ == "__main__":
     source = Path(__file__).resolve().parent
     build(source, source / "results.html")
     build(source, source / 'protocols.html',template_name='protocols.template.html',packet_name='protocols.json')
+    build(source, source / 'calibration.html',template_name='calibration.template.html',packet_name='calibration.json')

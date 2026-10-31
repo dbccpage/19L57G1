@@ -51,7 +51,29 @@ unchanged. Try the [new protocol practice](PROTOCOL_PRACTICE.md) before
 the [answers](PROTOCOL_ANSWERS.md). These are supplied model calculations;
 no physical observations or learner scores are generated.
 
-Then try the [practice](PRACTICE.md) before opening its [answers](ANSWERS.md).
+## Give the recorded number its unit
+
+After the [Number lab](../number_lab/README.md), this optional continuation
+uses selected P201 definitions for nonnegative rational quantities. No
+prior physics is assumed. Standards and kinds are supplied model data;
+their physical correspondence still needs evidence.
+
+| Lesson | One question |
+|---|---|
+| [18. One length, two numbers](18_one_length_two_numbers.md) | Does a larger unit make the same length's written number larger? |
+| [19. Keep the kind of quantity](19_keep_the_kind_of_quantity.md) | Does matching a number erase its kind label? |
+| [20. Convert before dividing](20_convert_before_dividing.md) | Can raw numbers with different standards be divided directly? |
+| [21. A ratio is not a complete record](21_a_ratio_is_not_a_complete_record.md) | Can a ratio hide a shared change in both magnitudes? |
+| [22. Carry the calibration conditions](22_carry_calibration_conditions.md) | Must a supplied scale match the two standard sizes? |
+| [23. From conversion to a device claim](23_from_conversion_to_a_device_claim.md) | What evidence connects a correct conversion to a real instrument? |
+
+Use the separate [calibration desk](calibration.html), then the changed
+[practice](CALIBRATION_PRACTICE.md) and [answers](CALIBRATION_ANSWERS.md).
+The [source guide](CALIBRATION_SOURCES.md) separates native operations,
+book-side premise checks and selected Lean claims. The clock model is
+outside this selected continuation.
+
+Then try the original [practice](PRACTICE.md) before opening its [answers](ANSWERS.md).
 For the evidence route, use the changed [envelope example](EVIDENCE_PRACTICE.md)
 before its separate [answer guide](EVIDENCE_ANSWERS.md).
 The [source map](SOURCE_MAP.md) separates the teaching logic from native
