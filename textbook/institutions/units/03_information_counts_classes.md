@@ -1,9 +1,17 @@
 # Unit 03. Information counts the classes a family cuts the carrier into
 
-**Claim.** The information of a family is the number of signature classes
+**Claim.** Information here counts distinct answer signatures. Adding a known
+question leaves that count unchanged; adding an unknown question splits
+at least one group. The count is not a probability or a bit measure.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** The information of a family is the number of signature classes
 on the carrier. It never exceeds the carrier, never falls when the family
 grows, and stays the same when a claim is added exactly when the family
 knows that claim: `Knows D Q q ↔ information D (Q ++ [q]) = information D Q`.
+
 **Status:** derived. **Lean:** `Institution.knows_iff_information_eq`
 (`two_theorems`), with `information_le_carrier`, `information_mono` and
 `information_lt_of_not_knows`. **Sources:**
@@ -17,6 +25,34 @@ it does. Here it is a number: how many groups of data the family's members,
 taken together, can tell apart. This unit proves four things about that
 number and then ties it to Unit 02's "knows": a family knows a claim
 exactly when adding the claim leaves the number where it was.
+
+</details>
+
+## First pass
+
+Keep the three inputs 0, 1, and 2. Add reporting tables one at a time:
+
+| Tables held | Groups distinguishable | Information |
+|---|---|---|
+| None | {0,1,2} | 1 |
+| [0,0,1] | {0,1}, {2} | 2 |
+| Also constant [7,7,7] | {0,1}, {2} | 2 |
+| Also [0,1,1] | {0}, {1}, {2} | 3 |
+
+The constant table adds an answer to each signature but splits no
+group. The last table separates 0 from 1, which previously agreed.
+That distinction raises the count.
+
+**Predict:** can three supplied inputs produce four nonempty signature
+groups?
+
+<details><summary>Check your prediction</summary>
+
+No. Each nonempty group needs an input. The formal upper bound uses
+the carrier list's length; repeated entries do not create new inputs
+or new signature groups. This information count is defined for this model.
+
+</details>
 
 ## What you need first
 

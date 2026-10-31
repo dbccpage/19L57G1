@@ -73,8 +73,21 @@ def main() -> int:
     tt_corr = tt_model.correspondence_checks(D3, pool3, 2)
     print(f"two_theorems correspondence_checks on D=(0,1,2): {tt_corr}")
 
+    D2 = (0, 1)
+    identity = tt_model.Table({0: 0, 1: 1})
+    constant = tt_model.Table({0: 0, 1: 0})
+    distinct_nonidentity = tt_model.Table({0: 3, 1: 4})
+    fiber_direction = (
+        tt_model.sharp(D2, tt_model.pullback(D2, identity, ()), constant)
+        and tt_model.fiber_constant(D2, identity, constant)
+        and not tt_model.fiber_constant(D2, constant, identity)
+        and not tt_model.sharp(D2, tt_model.pullback(D2, constant, ((0,),)), distinct_nonidentity)
+    )
+    print(f"sharp pullback fiber direction and nonidentity distinction: {fiber_direction}")
+
     ok = (
-        corr == [True, False]
+        fiber_direction
+        and corr == [True, False]
         and rename_bad == 0
         and tt_corr["constant_faithful"] is False
         and tt_corr["constant_collapses_all"] is True

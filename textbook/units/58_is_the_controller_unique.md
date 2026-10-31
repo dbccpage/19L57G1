@@ -2,6 +2,9 @@
 
 **Claim.** Controller uniqueness depends on the comparison and simulation requirements. The stated strict-controller result gives agreement along replay; unrestricted simulations allow many alternatives.
 
+<details>
+<summary>Sources and classification (optional)</summary>
+
 **Status:** FROZEN; VERIFIED_FINITE (the 1024
 census, the 128, the three batteries); REFUTED (initiality; strict
 global uniqueness); CONDITIONAL (the orbit agreement, for the one
@@ -13,11 +16,44 @@ the `setRef` field lemmas). **Depends on:** Unit 54 (`PState`, `PEvent`,
 `step`, `replayP`, `genesisP`, `obstP`, `nextFamilyP`, `step_halted`),
 Unit 49 (the six-toggle uniqueness and its scope note).
 
+</details>
+
 ## First pass
 
-A controller enables or disables specified kinds of event. A simulation is a state map that commutes with the controlled transition.
+For a step-by-step state history, use the [Change lab](../change_lab/README.md).
 
-A constant map into an absorbing halted state can satisfy a weak simulation condition. Read the additional strictness requirements before interpreting uniqueness, and keep agreement on the reachable replay orbit separate from agreement on every state.
+A **controller** decides which kinds of request run and which do
+nothing. Consider two controllers: one enables all kinds; the other
+disables refusal. Both still admit tokens.
+
+Start with the empty state. Send two requests: admit token 0, then admit
+token 1. Both runs now contain `[0, 1]`. Their agreement on this history
+does not establish agreement on every state or request.
+
+A **simulation** translates states between controllers. It must give
+the same result whether we translate after one source step or take the
+target step after translating. This is an equation to satisfy, not a
+claim that one machine physically copies another.
+
+If two simulations use the same source and target, and agree at the
+starting state, that equation forces agreement after every finite
+history run by their source controller. It does not force agreement
+on states that history cannot reach.
+
+**Predict.** May we instead replay the history using an unrelated
+controller and keep this conclusion?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. The source controller is part of the hypothesis. The book's refusal
+example gives two maps that agree under their own refusal-disabled
+replay and disagree on a state produced by all-on replay.
+
+</details>
+
+<details>
+<summary>Detailed statement and formal anchors (optional)</summary>
 
 ## Detailed claim and formal anchors
 
@@ -68,6 +104,8 @@ agreement on the replay orbit: any two strict simulations from the
 all-on to the refusal-free controller agree on every state replayed
 from genesis (`strict_agree_on_reachable`, via `sim_pinned` and
 `reachable_no_dup`).
+
+</details>
 
 ## Question
 
@@ -160,8 +198,12 @@ What survives: along any history replayed from genesis, every strict
 map from the all-on board to the refuse-off board gives the same
 answer, because such a map is pinned by its value at genesis and the
 commutation square, one request at a time. That is a statement about
-replay, not about a universal property, and it is proved for the one
-pair of boards the theorem names.
+replay, not about a universal property. The sealed theorem names this
+pair of boards. The book additionally proves the general replay equation
+for any simulation's own source and target controllers
+(`simulation_replay`), and agreement from an equal starting value
+(`same_start_same_own_replay`). These statements use controlled replay
+`replayK C1.d`, not an unrelated controller's replay.
 
 ## Pseudocode
 
@@ -361,7 +403,11 @@ theorem genesis_sims_agree_on_reachable
 Lean (book), from `textbook/checks/u58_lean.py`: a non-live controller
 that still clears `OBST5`; the erasure square evaluated; and, for a
 pair the theorem does not name, two genesis-preserving simulations that
-disagree on a replayed state.
+disagree on a state replayed by the all-on controller. That state is not
+reached by the same history under their refusal-disabled source
+controller; `same_under_own_replay` checks the difference. The book also
+proves the own-controller replay equation for arbitrary source and target
+controllers.
 
 ```lean
 theorem noRefine_resolves_obst5 :
@@ -526,7 +572,7 @@ theorem same_under_own_replay :
   scoping sits in a code comment at line 100 and in the Python
   docstring, not in the summary or the paper. Every result is about
   this 1024-member class.
-- Orbit agreement for any hom-set other than `fullCtrl → noRefCtrl`.
+- All-on `replayP` orbit agreement for arbitrary source/target controllers.
   `sim_pinned` needs `interpK_full` on the source. The ledger says so
   since 2026-08-18; the module docstring's "any two genesis-preserving
   simulations agree on every state replayed from genesis" still names
@@ -535,9 +581,11 @@ theorem same_under_own_replay :
   the pair `noRefCtrl → noRefCtrl` with "replayed" meaning `replayP`
   (`other_pair_counterexample`), and records that under replay by the
   source controller the same two maps agree (`same_under_own_replay`).
-  So the sentence is false as written for that pair, and a repaired
-  general statement would have to say which replay it means; none is
-  proved here.
+  So the unqualified sentence is false for that all-on replay. The book
+  now proves the repaired general statement using the simulation's own
+  source and target replay (`simulation_replay` and
+  `same_start_same_own_replay`). It does not replace the sealed theorem
+  by an unqualified statement about `replayP`.
 - An initial object in the category restricted to reachable states.
   Named by the paper as the boundary, not claimed.
 - Audit finding 1 (categorical vocabulary): "category", "simulation",
@@ -568,7 +616,8 @@ statement or proof names `HALTED1`, say which of them would have to be
 re-proved if the module had used your state instead, and explain why
 `const_not_strict` does not depend on which halted state is chosen.
 
-## Answer
+<details>
+<summary>Student exercise answer</summary>
 
 Any state with `halted := true` and different from both, for instance
 `genesisP` with `budget := 7` and `halted := true`. Five declarations
@@ -584,6 +633,8 @@ the name swapped they re-check unchanged, since `constSim` needs only
 `t.halted = true`: it evaluates the strict map at `genesisP`, where
 `live` demands a non-halted image, and `t` is halted. It never asks
 which halted state `t` is, so no choice can affect it.
+
+</details>
 
 ## Verification
 

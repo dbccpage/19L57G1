@@ -82,7 +82,7 @@ theorem cycle3_retains_multiplicity :
   symmetry_failure_retains_multiplicity eqRefinesIndiscrete cycle3 0 True.intro
     (by intro h; cases h)
 
--- 4. Concrete 2-step loop network with nontrivial loop action (HolonomyResidual)
+-- 4. Concrete 1-step loop network with nontrivial loop action (HolonomyResidual)
 def swapAttempt : TranslationAttempt Bool Bool where
   forward b := some (!b)
   backward b := some (!b)
@@ -123,7 +123,14 @@ theorem universalCollapse_always_eq (N : TranslationNetwork) (i j : N.Index) :
     universalCollapse N (classOf N i) = universalCollapse N (classOf N j) :=
   Quotient.sound True.intro
 
+theorem round_trip_and_loop_table :
+    RoundTripCoherent swapTotal ∧
+    swapLoop.toBij.fwd false = true ∧
+    flipTotal.backward (flipTotal.forward false) = true := ⟨swap_coherent,rfl,rfl⟩
+
 end Textbook.U72
+
+#print axioms Textbook.U72.round_trip_and_loop_table
 
 #print axioms Textbook.U72.partialAttempt_no_totalization
 #print axioms Textbook.U72.flip_coincident_but_incoherent
@@ -168,6 +175,8 @@ end Textbook.U72
 """
 
 EXPECTED = {
+    "Textbook.U72.round_trip_and_loop_table": NONE,
+
     "Textbook.U72.partialAttempt_no_totalization": PROPEXT,
     "Textbook.U72.flip_coincident_but_incoherent": NONE,
     "Textbook.U72.cycle3_not_involutive": PROPEXT,

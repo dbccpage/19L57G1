@@ -55,7 +55,12 @@ theorem allCompose_relAssoc : RelAssoc allCompose := by
   intro a b c d f g k w
   exact ⟨fun _ => ⟨true, trivial, trivial⟩, fun _ => ⟨true, trivial, trivial⟩⟩
 
+theorem chosen_side_swap_table :
+    constFalse (!false) = false ∧ Bool.not (constFalse false) = true := ⟨rfl,rfl⟩
+
 end Textbook.U73
+
+#print axioms Textbook.U73.chosen_side_swap_table
 
 #print axioms Textbook.U73.emptySel_all_three
 #print axioms Textbook.U73.idSel_equivariant_not_orbitConstant
@@ -88,6 +93,8 @@ end Textbook.U73
 """
 
 EXPECTED = {
+    "Textbook.U73.chosen_side_swap_table": NONE,
+
     "Textbook.U73.emptySel_all_three": NONE,
     "Textbook.U73.idSel_equivariant_not_orbitConstant": NONE,
     "Textbook.U73.swap12_has_selector": NONE,

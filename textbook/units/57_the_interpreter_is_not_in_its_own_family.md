@@ -2,6 +2,9 @@
 
 **Claim.** A notes-diagonal step differs from every member of the finite constitution-code family. Because notes are operationally inert, this does not establish the meaning of an uncoded interpreter role.
 
+<details>
+<summary>Sources and classification (optional)</summary>
+
 **Status:** FROZEN (the thirteen theorems);
 VERIFIED_FINITE (the 65-count, the Python diagonal over 64 indices);
 ADMITTED (the relation, retention and protection of `boundarySetting`,
@@ -15,11 +18,46 @@ on:** Unit 45 (`World`, `step`, `supp`, `notes_inert`), Unit 48
 `interp_describe`), Unit 25 (`FidelityObstruction`,
 `obstruction_under_irrefl`), Unit 51 (`Setting`, A, F).
 
+</details>
+
 ## First pass
 
-There are 64 constitution descriptors and one fixed interpreter that executes them. A descriptor and the function interpreting descriptors have different types and roles.
+For the different state models, use the [model map](../change_lab/MODEL_MAP.md).
 
-The diagonal witness changes notes to differ from every coded step. That proves the stated difference of functions; the operational meaning of an uncoded role remains an open bridge.
+A code here is a card with six on/off choices. The **evaluator** is the
+rule that reads a card and runs the resulting step. Keep the card and
+the rule that reads it separate.
+
+At one particular input, the evaluator reads card 63 and processes a
+request to record note 0. Compare its output with a new rule:
+
+| Output | Notes |
+|---|---|
+| Card 63 run by the evaluator | `[0]` |
+| Run that card, then append note 999 | `[0, 999]` |
+
+The full records differ. At this input their other fields agree, and
+later guards do not read notes. A record difference has been proved;
+an accessible verdict difference has not.
+
+The **diagonal** repeats this construction against each card at its own
+indexed input. It supplies a function outside this finite list of
+functions. It does not identify that function with the evaluator.
+
+**Predict.** Must the diagonal and card 63 agree on operational fields
+at every other input?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. With 64 data the diagonal finds no card at index 64 and returns its
+input. Card 63 can still admit a fresh token 100. Their data then differ.
+Agreement at the matched input is not global agreement.
+
+</details>
+
+<details>
+<summary>Detailed statement and formal anchors (optional)</summary>
 
 ## Detailed claim and formal anchors
 
@@ -58,6 +96,8 @@ The denotational
 bridge is the OPEN label `openDenotationalBridge`; the identification
 of the boundary with a primitive difference is the retained conjecture
 `frontierConjecture`.
+
+</details>
 
 ## Question
 
@@ -476,9 +516,11 @@ theorem reversed_is_F : PrimitiveCore.F reversedSetting :=
 - That no self-interpreter exists, that the evaluator cannot be coded,
   or that self-evaluation is impossible. `tower_persists` says only
   that a finite list does not exhaust a function type, and its witness
-  differs from each code at the inert field alone
-  (`diag_supp_agrees_at_kernel`, and the Python check at all 64
-  indices). Audit finding 1: the identifier `tower_persists` and the
+  differs from each indexed code at its matched input by extending the
+  inert notes field (`diag_supp_agrees_at_kernel`, and the Python check
+  at all 64 indices). This is not global support agreement: beyond the
+  index range the diagonal returns its input, while a coded step may
+  still change data (`diag_support_differs_elsewhere` in the book). Audit finding 1: the identifier `tower_persists` and the
   phrase "every finite closure has a new top" promise a tower; the
   statement delivers extensional incompleteness. The paper and the
   ledger scope it exactly in prose; the name stays. Teach the
@@ -493,8 +535,9 @@ theorem reversed_is_F : PrimitiveCore.F reversedSetting :=
   its relation, retention and protection are definitions (audit
   finding 2; `reversed_is_F` shows the mirror-image declaration passes
   too). No theorem derives the relation from behaviour, and no verdict
-  changes when the endpoints are identified, since the only proved
-  difference is in `notes`.
+  change is derived from identifying the declared endpoints. The matched
+  diagonal witnesses differ only in `notes`; a missed function is not
+  thereby identified with the uncoded interpreter role.
 - Audit finding 3: `i2_universal_in_class` proves "the list is complete
   and the kernel is in it"; no universality property beyond the
   definition of `interpStep` is stated. "Universal" is a name.
@@ -541,14 +584,17 @@ the datum `i` to the result. Does the proof of `tower_persists` still go
 through as written? And does `diag_supp_agrees_at_kernel` still hold?
 Say what each answer means for the word "extensional".
 
-## Answer
+<details>
+<summary>Student exercise answer</summary>
 
 The proof as written breaks at `hlen`: it compares `notes` lengths, and
 the modified diagonal leaves `notes` alone. A proof could be repaired by
-comparing `data` lengths instead, since `(ev c (indexWorld i) (.note 0)).data`
-has length `i` (a note event adds no datum) and the modified diagonal's
-has length `i + 1`; the structure of the argument is the same. So I1
-survives the change. But `diag_supp_agrees_at_kernel` fails: `data` is
+comparing the two output data lengths instead. Put
+`u = ev c (indexWorld i) (.note 0)`. Appending one datum gives
+`u.data.length + 1`, which cannot equal `u.data.length`
+(`data_append_differs` in the book). For the arbitrary evaluation map
+in I1, a note-shaped input does not guarantee that `u.data.length = i`;
+that additional claim is unnecessary. So the length argument repairs I1. But `diag_supp_agrees_at_kernel` fails: `data` is
 part of `supp`, so the modified diagonal and the kernel disagree on the
 support at index 63. That change would make the missed function differ
 from the code it shadows in a field a guard reads, and a later `require`
@@ -558,6 +604,8 @@ says why: it wants the theorem to carry *only* extensional content and
 to make no operational claim it has not earned. The exercise shows the
 choice is a choice; an operational version of I1 would need to be
 stated and proved separately, and the module does not do that.
+
+</details>
 
 ## Verification
 

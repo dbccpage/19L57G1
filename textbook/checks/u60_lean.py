@@ -93,6 +93,12 @@ theorem scrambled_triangle_cancels :
   · exact d2_zero_unrestricted [2, 0, 1] [1]
   · exact d2_zero_unrestricted [2, 0, 1] [2]
 
+/-- Zero is coefficientwise: the unreduced list still has six terms. -/
+theorem nonempty_chain_zero_coefficients :
+    (pushN (bdN [0,1,2])).length = 6 ∧
+    ∀ target, coeffN target (pushN (bdN [0,1,2])) = 0 :=
+  ⟨rfl, d2_zero_unrestricted [0,1,2]⟩
+
 end Textbook.U60
 
 #print axioms Textbook.U60.support_dim2_is_1verts
@@ -104,6 +110,7 @@ end Textbook.U60
 #print axioms Textbook.U60.conj3_signless_fails
 #print axioms Textbook.U60.pairing_example_0123
 #print axioms Textbook.U60.scrambled_triangle_cancels
+#print axioms Textbook.U60.nonempty_chain_zero_coefficients
 #print axioms LadderGeneral.uniform_guarded_filler
 #print axioms LadderGeneral.shell_refuses_general
 #print axioms LadderGeneral.shell_no_self_fill
@@ -133,6 +140,7 @@ end Textbook.U60
 
 EXPECTED = {
     "Textbook.U60.support_dim2_is_1verts": NONE,
+    "Textbook.U60.nonempty_chain_zero_coefficients": BOTH,
     "Textbook.U60.conj1_vacuous_signless": NONE,
     "Textbook.U60.conj2_vacuous_signless": NONE,
     "Textbook.U60.repaired_dim2_signless_fails": NONE,

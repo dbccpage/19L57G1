@@ -4,16 +4,46 @@
 
 ## First pass
 
-Imagine two points exchanged by a swap. A choice that treats both presentations alike must still choose after the swap.
+Here we choose an **ordered pair**: first endpoint, then second.
+The two-point equality observer permits `(false, true)` and
+`(true, false)` as nonzero pairs.
 
-If the chosen point must also be unchanged by the swap, neither point works: each is moved to the other.
+A relabeling swaps `false` and `true`. It preserves this observer's
+comparison rule and transports the ordered pairs as follows:
 
-Separate the carrier, the allowed relabelings, and the required kind of choice before reading the general obstruction.
+| Chosen pair | Transported pair |
+|---|---|
+| `(false, true)` | `(true, false)` |
+| `(true, false)` | `(false, true)` |
+
+A choice respecting that self-relabeling would need to return a pair
+unchanged by the transport. Neither row provides one.
+
+**Predict.** Does this prove that no pair can be chosen at all, or that
+the unordered pair of both points changes under the swap?
+
+<details>
+<summary>Check your prediction</summary>
+
+Neither. We can explicitly choose `(false, true)`; that choice fails
+the symmetry requirement. The unordered pair of both points stays the
+same, but it is a different kind of output. The theorem concerns the
+specified ordered-pair selection and permitted relabelings.
+
+</details>
+
+The later four-point example has fixed admissible pairs. Symmetry
+blocks a choice only under the stated family and output requirements.
+
+<details>
+<summary>Detailed statement and formal anchors (optional)</summary>
 
 ## Detailed claim and formal anchors
 
 `CL-PN-NATURAL-SELECTION`, `CL-PN-HETEROGENEOUS-TRANSPORT` (`FROZEN` / `VERIFIED_FINITE` / `OPEN`) — `lean4/Derivation/PresentationNaturality.lean`
 **Prerequisites**: Unit 44 (`DiffInterface`: `DiffObs`, `ZeroRel`, `kernelObs`), Unit 69 (`ContactKernel`: `NonZeroPair`, `boolEqObs`, `swapObs`, `no_equivariant_pair_valued_map`)
+
+</details>
 
 ## Question
 
@@ -292,9 +322,12 @@ theorem twIso_fixes_card4PairSwap :
 
 On `card4Obs` (`Card4 = {e1, e2, e3, e4}` with equality as zero relation), `twIso` swaps `e1 ↔ e2` and fixes `e3` and `e4`. Using `Textbook.U70.twIso_moves_e1_e2` and `Textbook.U70.twIso_fixes_card4PairSwap`, list all admissible pairs `p : NonZeroPair card4Obs` that are fixed by `twIso.mapPair`, and explain why `fun _ => card4MovedPair` is a valid raw section in `Sec (autoFamily card4Obs twIso)` that fails `IsNatural`.
 
-## Answer
+<details>
+<summary>Student exercise answer</summary>
 
 An admissible pair `(x, y)` of `card4Obs` satisfies `x ≠ y` (there are $4 \times 3 = 12$ such pairs). For `twIso.mapPair` to fix `(x, y)`, we need `(tw x, tw y) = (x, y)`, meaning both `x` and `y` must be fixed points of `tw`. Since `tw` moves `e1` and `e2` (`tw e1 = e2`, `tw e2 = e1`) and fixes only `e3` and `e4`, the only off-diagonal pairs fixed by `twIso.mapPair` are `card4Pair = (e3, e4)` (`twIso_fixes_card4Pair`) and its transpose `card4PairSwap = (e4, e3)` (`Textbook.U70.twIso_fixes_card4PairSwap`). The constant section `fun _ => card4MovedPair` at `(e1, e2)` is a well-typed raw section in `Sec (autoFamily card4Obs twIso)` because `e1 ≠ e2`, but `twIso.mapPair card4MovedPair = (e2, e1) ≠ (e1, e2)` (`Textbook.U70.twIso_moves_e1_e2`), so it fails `IsNatural`.
+
+</details>
 
 ## Verification
 

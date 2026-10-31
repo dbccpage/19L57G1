@@ -39,82 +39,28 @@ def load_module_from(dir_path: Path, mod_name: str = "model"):
             sys.modules[mod_name] = saved
 
 
+# Reuse the sealed Python owners rather than maintaining a second transition.
+ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(ROOT / "code"))
+from derivation.represented import World, mark_ok, obstructed, quiescent as quiescent_b, wf as wf_world  # noqa: E402
+from derivation.completion import interp_step as native_interp_step  # noqa: E402
+
+
 @dataclass(frozen=True)
 class ConstitutionDesc:
     dedupAdmit: bool
     guardRequire: bool
     guardAccept: bool
-    guardBudget: bool
-    guardAug: bool
-    guardRefuse: bool
-
-
-@dataclass(frozen=True)
-class World:
-    data: tuple[int, ...]
-    views: tuple[tuple[int, ...], ...]
-    reqs: tuple[tuple[int, int], ...]
-    refusals: tuple[tuple[int, int], ...]
-    budget: int
-    augLicensed: bool
-    notes: tuple[int, ...]
-
-
-def sep_by_views(views: tuple[tuple[int, ...], ...], i: int, j: int) -> bool:
-    return any((i in v) != (j in v) for v in views)
-
-
-def quiescent_b(w: World) -> bool:
-    return all(sep_by_views(w.views, i, j) or (i, j) in w.refusals for i, j in w.reqs)
-
-
-def wf_world(w: World) -> bool:
-    n = len(w.data)
-    return all(i != j and i < n and j < n for i, j in w.reqs)
-
-
-def req_ok_b(w: World, i: int, j: int) -> bool:
-    n = len(w.data)
-    return i != j and i < n and j < n and (i, j) not in w.reqs
-
-
-def mark_ok_b(w: World, v: tuple[int, ...], p: int) -> bool:
-    if v not in w.views or p not in w.data or p in v:
-        return False
-    v_new = v + (p,)
-    new_views = tuple(v_new if u == v else u for u in w.views)
-    discharges = any(
-        not sep_by_views(w.views, i, j) and sep_by_views(new_views, i, j)
-        for i, j in w.reqs
-    )
-    breaks = any(
-        sep_by_views(w.views, i, j) and not sep_by_views(new_views, i, j)
-        for i, j in w.reqs
-    )
-    return discharges and not breaks
+    gateBudget: bool
+    gateLicense: bool
+    certRefusal: bool
 
 
 def interp_step(c: ConstitutionDesc, w: World, event: tuple) -> World:
-    kind = event[0]
-    if kind == "admitTok":
-        t = event[1]
-        if c.dedupAdmit and t in w.data:
-            return w
-        return replace(w, data=w.data + (t,))
-    if kind == "require":
-        i, j = event[1], event[2]
-        if c.guardRequire and not req_ok_b(w, i, j):
-            return w
-        return replace(w, reqs=w.reqs + ((i, j),))
-    if kind == "mark":
-        v, p = event[1], event[2]
-        ok_accept = (not c.guardAccept) or mark_ok_b(w, v, p)
-        ok_budget = (not c.guardBudget) or (w.budget > 0)
-        if ok_accept and ok_budget:
-            new_views = tuple((u + (p,) if u == v and p not in u else u) for u in w.views)
-            return replace(w, views=new_views, budget=max(0, w.budget - 1))
-        return w
-    raise ValueError(kind)
+    descriptor = (c.dedupAdmit, c.guardRequire, c.guardAccept,
+                  c.gateBudget, c.gateLicense, c.certRefusal)
+    event = ("admit", *event[1:]) if event[0] == "admitTok" else event
+    return native_interp_step(descriptor, w, event)
 
 
 def all_codes() -> list[ConstitutionDesc]:
@@ -135,14 +81,14 @@ def main() -> int:
     se3 = tt_model.self_evaluator_check(3)
     print(f"two_theorems diagonal_checks(D4, 5): {diag4}; self_evaluator 2,3: {[se2, se3]}")
 
-    genesis = World(data=(0,), views=(), reqs=(), refusals=(), budget=0, augLicensed=True, notes=())
+    genesis = World()
     acc_world = World(
         data=(0, 1),
         views=((0,),),
         reqs=((0, 1),),
         refusals=(),
         budget=1,
-        augLicensed=True,
+        aug_licensed=True,
         notes=(),
     )
 
@@ -151,6 +97,7 @@ def main() -> int:
     accept_bad = 0
     aligned_bad = 0
     dedup_bad = 0
+    mismatch_bad = 0
     for c in codes:
         w_req = interp_step(c, genesis, ("require", 0, 0))
         if quiescent_b(w_req) != c.guardRequire:
@@ -170,6 +117,11 @@ def main() -> int:
         if some_c_out != none_out:
             aligned_bad += 1
 
+        changed_code = replace(c, guardAccept=not c.guardAccept)
+        changed_output = interp_step(changed_code, acc_world, ("mark", (0,), 1))
+        if quiescent_b(changed_output) == quiescent_b(w_acc) or not wf_world(changed_output):
+            mismatch_bad += 1
+
         c_dedup = replace(c, dedupAdmit=not c.dedupAdmit)
         for w in (genesis, acc_world):
             for ev in (("admitTok", 0), ("admitTok", 2), ("require", 0, 0), ("mark", (0,), 1)):
@@ -181,8 +133,29 @@ def main() -> int:
         f"aligned_bad={aligned_bad}, dedup_bad={dedup_bad}"
     )
 
+    refused = World(data=(10, 20), reqs=((0, 1),), refusals=((0, 1),))
+    positional = World(data=(10, 20, 30), views=((0,),), reqs=((1, 2),), budget=1)
+    full = ConstitutionDesc(True, True, True, True, True, True)
+    positional_output = interp_step(full, positional, ("mark", (0,), 1))
+    duplicate_output = interp_step(replace(full, guardAccept=False),
+        World(data=(10, 20), views=((0,),), budget=1), ("mark", (0,), 0))
+    exhausted = World(data=(10, 20, 30), views=((0,),),
+        reqs=((0, 1), (0, 2), (1, 2)), budget=0, aug_licensed=False)
+    source_scope = (
+        genesis.data == ()
+        and not quiescent_b(refused)
+        and mark_ok(positional, (0,), 1)
+        and positional_output.views == ((1, 0),)
+        and duplicate_output.views == ((0, 0),)
+        and obstructed(exhausted, (1, 2))
+        and obstructed(replace(exhausted, budget=7, aug_licensed=True), (1, 2))
+    )
+    print(f"source-scope regressions: {source_scope}; changed-code witnesses rejected: {mismatch_bad}")
+
     ok = (
-        imports_ok
+        source_scope
+        and mismatch_bad == 0
+        and imports_ok
         and diag4["never_member"] is True
         and se2 is True
         and se3 is True

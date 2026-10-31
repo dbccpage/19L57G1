@@ -16,6 +16,14 @@ certify exhaustive declaration coverage or beginner comprehension. See
 current findings, eight book-Lean reports, and the distinction between a
 recorded prerequisite graph and complete conceptual preparation.
 
+**Evidence and reality extension (2026-10-31).** The
+[Reasoning-lab continuation](EVIDENCE_READING_REVIEW_2026-10-31.md)
+supplies four lessons, fictional trial records, partial-answer/scope
+checks, a prediction desk, changed-example practice and an optional
+physical worksheet. An added book proof establishes logical
+incompatibility without assigning a physical cause. The route records
+no measurements or learning outcomes; browser layout remains unverified.
+
 **Early-chapter follow-up (2026-10-29).** The
 [Units 04–16 reading review](EARLY_READING_REVIEW_2026-10-29.md) adds
 thirteen concrete first passes and corrects selected scope errors about
@@ -87,6 +95,39 @@ interface example from the entire class, and proved negation from missing
 evidence. Six added book reports and a corrected graph-count example
 support the changes. The earlier refinement/licence distinction remains
 literal; supplied drivers and higher-cell rules remain explicit assumptions.
+
+**Replay, attachment, and boundary follow-up (2026-10-31).** The
+[Units 57–61 review](REPLAY_READING_REVIEW_2026-10-31.md) adds four worked
+openings and a domain-order prediction to the earlier compression lesson.
+Eight new book reports separate matched-input agreement from global
+agreement, controller-specific replay from an unrelated replay, endpoint
+bounds from distinctness, and zero coefficients from empty storage.
+The revised opening route now extends through Unit 61. Later core Units,
+per-declaration teaching coverage, and novice transfer remain open.
+
+**Protection and event-summary follow-up (2026-10-31).** The
+[Units 62–66 review](PROTECTION_READING_REVIEW_2026-10-31.md) adds four
+worked openings and a zero-table prediction. Seven added book reports
+separate protected stability, supplied growth, declared proposal cost,
+classification scope, common suffixes, and budget-write order. The
+concrete opening route extends through Unit 66; remaining chapters,
+per-declaration teaching, and novice transfer stay open.
+
+**Descent, selection, and renaming follow-up (2026-10-31).** The
+[Units 67–74 review](DESCENT_READING_REVIEW_2026-10-31.md) adds worked
+tables and eight prediction checkpoints through the last core Unit.
+Eight book reports check colour comparisons, asymmetric differences,
+ordered-pair swaps, repeated questions, loop transport, side choice,
+form references, and an unordered raw record's failed self-comparison.
+The opening sequence reaches Unit 74; this is selected semantic review,
+not certification of every declaration or of novice transfer.
+
+**Institution reading review (2026-10-31).** The
+[I00–I17 review](INSTITUTIONS_READING_REVIEW_2026-10-31.md) adds eighteen
+worked openings and checks selected claims about empty families, fiber
+direction, stationary steps, target agreement, residual pairs, and policy
+labels. I17 now consumes the existing transition owner instead of its
+divergent copy. Research proofs and receipts remain unchanged.
 
 ## Scope and method
 

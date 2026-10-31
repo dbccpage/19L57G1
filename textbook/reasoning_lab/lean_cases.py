@@ -14,6 +14,12 @@ theorem both_directions (P Q : Prop) : (P ↔ Q) ↔ ((P → Q) ∧ (Q → P)) :
 theorem no_automatic_reverse : (False → True) ∧ ¬ (True → False) :=
   ⟨fun h => False.elim h, fun h => h True.intro⟩
 
+/-- A model implication and two contradictory interpreted answers cannot all hold.
+This does not select which application premise is mistaken. -/
+theorem incompatible_application_bundle (P Q : Prop)
+    (rule : P → Q) (reportedP : P) (reportedNotQ : ¬ Q) : False :=
+  reportedNotQ (rule reportedP)
+
 theorem empty_domain (P : Nat → Prop) :
     (∀ x, x ∈ ([] : List Nat) → P x) ∧ ¬ (∃ x, x ∈ ([] : List Nat) ∧ P x) := by
   constructor
@@ -76,7 +82,7 @@ theorem no_recovery_on_full_domain : ¬ Compression.FactorsOn [0, 1, 2] blue rou
 end Textbook.ReasoningLab
 """
 
-NAMES = ["chain", "both_directions", "no_automatic_reverse", "empty_domain",
+NAMES = ["chain", "both_directions", "no_automatic_reverse", "incompatible_application_bundle", "empty_domain",
          "common_implies_individual", "recovery_preserves_equal", "round_blue_direction",
          "reverse_fails_at_b", "triangle_iff_not_round", "individual_without_common",
          "recover_on_smaller_domain", "no_recovery_on_full_domain"]

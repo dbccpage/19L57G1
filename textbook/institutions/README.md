@@ -12,9 +12,19 @@ forward. This part starts where the sealed `Compression` namespace hands a
 teaches what those trees proved about actors, institutions, information,
 knowledge, authorization, the cost of finding out what another actor can tell
 apart, uncollapse and recollapse across regimes, and the interpreter boundary
-at verdict level. It assumes part 1's Units 00 to 02: the mark, the external
-constructor, the three layers, and the rule that nothing enters the system
-without being derived or admitted at a price.
+at verdict level. Begin with the concrete first pass in each lesson. For a reader without
+mathematical preparation, the [First steps](../first_steps/README.md),
+[Reasoning lab](../reasoning_lab/README.md), and [Map lab](../map_lab/README.md)
+introduce tables, functions, witnesses, and recoverability. The
+[Number lab](../number_lab/README.md) prepares counts and powers before I13–I15.
+Part 1's Units 00–02 provide the source/admission boundary. Eighteen worked
+openings below connect that boundary to the research models; formal statements
+and source classifications are optional on a first pass.
+
+The [2026-10-31 institution reading review](../audit/INSTITUTIONS_READING_REVIEW_2026-10-31.md)
+records the selected scope corrections, all eighteen worked introductions,
+and the repaired I17 Python checker. This review does not certify every
+research proof, hosted layout, or reader comprehension.
 
 ## Sources
 
@@ -90,7 +100,9 @@ by every member; the family cannot tell them apart.
 
 ## The dependency graph
 
-Each unit depends on the units in its row and on nothing later.
+These are recorded unit dependencies. The list does not certify that
+every conceptual prerequisite has been taught; use the beginner routes
+above and the worked examples before the formal proof.
 
 | Unit | Needs |
 |---|---|
@@ -133,11 +145,11 @@ naming the claim-ledger row the unit teaches (`TT-nn` in
 | 01 | The family's representative merges exactly the data the family cannot tell apart | `Compression.pQ_exact` | derived | yes |
 | 02 | Knowing a claim is factoring through the representative; equivalently, equal signatures force equal values | `Institution.knows_iff_determined` | derived | yes |
 | 03 | Information counts signature classes; a known question adds none, an unknown question adds at least one | `Institution.knows_iff_information_eq` | derived | yes |
-| 04 | A family knows what no member knows, exactly when every pair the claim tells apart is told apart by some member and every member merges one; three data and two members are the least | `Inst.exceeds_iff`, `Inst.exceeds_three_two_resolution` | derived | yes |
+| 04 | A family knows what no member knows, exactly when every pair the claim tells apart is told apart by some member and every member merges one; for nonempty families three distinct data and two members are the least | `Inst.exceeds_iff`, `Inst.exceeds_three_two_resolution` | derived | yes |
 | 05 | Correspondence across members is an admission, and names are not | `Inst.correspondence_matters`, `Inst.knows_rename`, `Correspondence.sharp_pullback_iff` | derived | yes |
 | 06 | Degradation: known members are inert, a digest hides the exceeding, a lost member leaves a false consensus, and a member cannot locate its own guess | `Inst.aggregate_hides_exceeding`, `Inst.consensus_after_loss`, `Reading.own_guess_invisible` | derived | yes |
-| 07 | A chain of families longer than the carrier has a step at which nothing new is known, and nesting a subfamily is inert | `Chain.long_chain_stationary`, `Reading.nest_inert` | derived | yes |
-| 08 | Information is not determination, and determination is not truth; truth costs admitting the target | `Chain.determination_not_truth`, `Chain.truth_from_admitted_target` | derived | yes |
+| 07 | A finite extension chain longer than the fixed carrier has a stationary step, and nesting a subfamily is inert | `Chain.long_chain_stationary`, `Reading.nest_inert` | derived | yes |
+| 08 | Determination is not target agreement; target membership and agreement are separate hypotheses | `Chain.determination_not_truth`, `Chain.truth_from_admitted_target` | derived | yes |
 | 09 | Assert or demur: a demurral carries a witness and names the question that would settle it, and the demurred claim is always grounded | `Policy.demur_carries_witness`, `Policy.residual_answerable`, `Policy.demurred_known` | derived | yes |
 | 10 | A rule that authorizes only known claims refuses every residual, and authorization is not correctness | `Policy.scoped_sound_refuses_residual`, `Policy.authorization_not_correctness` | conditional | yes |
 | 11 | "Same" is never supported and "apart" is never refuted; identity is scoped to the family | `Policy.same_never_supported`, `Policy.scoped_identity_not_absolute` | derived | yes |

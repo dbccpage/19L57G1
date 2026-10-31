@@ -2,12 +2,14 @@
 import json
 from pathlib import Path
 import shutil
+import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
 
 from run_lab import SOURCE, check_population, check_recorded
 from build_results import render
+from textbook.reasoning_lab import evidence
 
 
 class ReasoningRecords(unittest.TestCase):
@@ -50,6 +52,56 @@ class ReasoningRecords(unittest.TestCase):
         with patch('run_lab.SOURCE', self.root):
             with self.assertRaisesRegex(ValueError, 'population table differs'):
                 check_population()
+
+    def test_fictional_records_cannot_be_published_as_measurements(self):
+        self.inject(lambda d: d['evidence'].update(physical_observations_recorded=12))
+
+    def test_repeat_disagreement_is_retained_in_the_packet(self):
+        self.inject(lambda d: d['evidence'].update(repeat_conflicts=[]))
+
+
+class EvidenceScope(unittest.TestCase):
+    @unittest.skipUnless(shutil.which('node'), 'Node is needed for the event-handler unit check')
+    def test_actual_evidence_event_handlers(self):
+        proc = subprocess.run(['node', str(SOURCE / 'test_evidence_controls.mjs')],
+                              capture_output=True, text=True)
+        self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+
+    def test_partial_answers_match_independent_boolean_completions(self):
+        self.assertEqual(evidence.check_evidence_population(), {
+            'partial_answer_pairs': 9, 'scoped_comparisons': 72,
+            'fictional_logs': 12, 'physical_observations_recorded': 0})
+
+    def test_question_mark_cannot_become_no(self):
+        with patch.dict(evidence.CODES, {'?': False}):
+            with self.assertRaises(AssertionError):
+                evidence.check_evidence_population()
+
+    def test_scope_and_protocol_cannot_be_silently_repaired(self):
+        original = evidence.classify
+        def widened(row):
+            return original({**row, 'card': 'K', 'protocol': 'P1', 'condition': 'front-desk'})
+        with patch.object(evidence, 'classify', widened):
+            with self.assertRaises(AssertionError):
+                evidence.check_evidence_population()
+
+    def test_dropping_the_counterexample_is_not_a_passing_update(self):
+        rows = [r for r in evidence.supplied_records() if r['id'] != 'new-N']
+        with patch.object(evidence, 'supplied_records', lambda: rows):
+            with self.assertRaises(AssertionError):
+                evidence.build_evidence_packet()
+
+    def test_repeats_are_compared_without_mutating_or_averaging_rows(self):
+        rows = evidence.supplied_records()
+        before = json.loads(json.dumps(rows))
+        self.assertEqual(evidence.repeat_conflicts(rows), [
+            {'records': ['new-N', 'repeat-N'], 'changed': ['crease']}])
+        self.assertEqual(rows, before)
+
+    def test_bad_codes_and_origin_fail_closed(self):
+        for updates in ({'origin': 'measured'}, {'dot': False}, {'crease': ''}, {'dot': 'unknown'}):
+            with self.subTest(updates=updates), self.assertRaises(ValueError):
+                evidence.classify({**evidence.supplied_records()[0], **updates})
 
 
 if __name__ == '__main__':

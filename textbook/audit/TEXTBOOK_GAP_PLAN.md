@@ -183,12 +183,51 @@ walkthrough. Changed-label practice has separate folded answers.
    count agreement from connectivity, and logical negation from ignorance.
    Six new book reports support these distinctions. Later chapters and
    dedicated research teaching remain open.
+   The [replay and boundary follow-up](REPLAY_READING_REVIEW_2026-10-31.md)
+   continues the consecutive opening route through Unit 61. Four worked
+   openings and a compression prediction distinguish notes from matched
+   support, own-controller replay from another replay, bounds from pair
+   distinctness, unreduced storage from coefficients, and representatives
+   from grouping. Eight added book reports verify these selected claims.
+   The remaining core Units and per-declaration semantic coverage stay open.
+   The [protection and event-summary follow-up](PROTECTION_READING_REVIEW_2026-10-31.md)
+   extends that opening route through Unit 66. Four worked examples and
+   a zero-table prediction distinguish update promises, observation
+   repair, separately supplied growth, raw profile comparisons, and
+   event-history information. Seven book reports support the selected
+   claims; obsolete names and omitted hypotheses in five curriculum rows
+   are corrected. Later core lessons and broader semantic coverage remain open.
+   The [descent, selection, and renaming follow-up](DESCENT_READING_REVIEW_2026-10-31.md)
+   brings this revised opening sequence through Unit 74. Eight prediction
+   checkpoints distinguish class answers, zero tests, ordered-pair
+   transport, duplicate questions, round trips, loops, side choice,
+   composition relations, and form references. Eight new book reports
+   support the examples. The common record's diagonal-zero hypothesis
+   and the finite numerical scope of Unit 71 are restored explicitly.
+   Full semantic teaching coverage, research integration, and novice
+   comprehension and transfer remain open.
 7. **Evidence and reality.** Add exercises in separating a definition,
    a deduction, a computation, and a measurement. Give a model prediction,
    identify an observation that could disagree with it, and explain what
    the disagreement would change. A theorem about an observer's tests
    establishes its formal conclusion under its assumptions; an empirical
    application additionally needs a declared measurement correspondence.
+   The [Reasoning-lab evidence continuation](EVIDENCE_READING_REVIEW_2026-10-31.md)
+   now supplies four short lessons, a declared paper-card protocol,
+   fictional raw logs, a mismatch and conflicting repeat, partial-answer
+   interpretation, changed-envelope practice, and an optional blank
+   physical worksheet. Its 72 finite comparisons and added axiom-free
+   logical proof do not establish actual measurements, a physical cause,
+   or novice transfer. Browser layout and the wider research bridges
+   remain open.
+
+## Institution teaching follow-up
+
+The [I00–I17 reading review](INSTITUTIONS_READING_REVIEW_2026-10-31.md)
+adds eighteen concrete openings and checks selected scope claims from the
+four existing institution research owners. It fixes the I17 book checker
+without changing those owners. This improves the existing Part 2 material;
+it does not add coverage of further research trees or establish reader mastery.
 
 ## First dedicated research extension
 

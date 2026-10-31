@@ -138,7 +138,17 @@ theorem closed_current_not_future :
     Nonempty (DirectionalResidual [0, 1, 2] div2 id) :=
   ⟨current_directional_residual_is_empty ⟨id, fun _ _ => rfl⟩, ⟨res_div2_id⟩⟩
 
+def bookP (x : Nat) : Nat := if x = 2 then 1 else 0
+def bookQ (x : Nat) : Nat := if x = 0 then 0 else 1
+
+theorem three_item_refinement_counts :
+    classCount [0,1,2] [bookP] = 2 ∧
+    classCount [0,1,2] [bookP,bookP] = 2 ∧
+    classCount [0,1,2] [bookP,bookQ] = 3 := by decide
+
 end Textbook.U71
+
+#print axioms Textbook.U71.three_item_refinement_counts
 
 #print axioms Textbook.U71.factorsOn_nil
 #print axioms Textbook.U71.const0_id_not_identical
@@ -176,6 +186,8 @@ end Textbook.U71
 """
 
 EXPECTED = {
+    "Textbook.U71.three_item_refinement_counts": NONE,
+
     "Textbook.U71.factorsOn_nil": NONE,
     "Textbook.U71.const0_id_not_identical": BOTH,
     "Textbook.U71.const0_id_not_factors": BOTH,

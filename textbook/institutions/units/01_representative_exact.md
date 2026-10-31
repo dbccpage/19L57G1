@@ -1,8 +1,16 @@
 # Unit 01. The representative merges exactly what the family cannot tell apart
 
-**Claim.** For data `x` and `x'` on the carrier, the family's
+**Claim.** On the supplied carrier, the first-match representative gives equal
+labels exactly to inputs with equal family signatures. The list order
+selects the labels; the theorem concerns the resulting groups.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** For data `x` and `x'` on the carrier, the family's
 representative gives them the same value exactly when the family cannot
 tell them apart: `pQ D Q x = pQ D Q x' ↔ SigEq Q x x'`.
+
 **Status:** derived. **Lean:** `Compression.pQ_exact`. **Sources:**
 `lean4/Derivation/Compression.lean` lines 223–264.
 
@@ -11,6 +19,36 @@ presentation can stand for the whole list without losing any distinction
 the list makes, and without adding one. That single presentation is what
 `two_theorems` calls the institution's `actor`, and Unit 02 defines
 knowledge through it.
+
+</details>
+
+## First pass
+
+One table reports 0 on cards A and B, and 1 on C. Its groups are
+{A,B} and {C}. Scan the supplied order A, B, C and keep the first card
+from each group:
+
+| Input | Representative | Original answer |
+|---|---|---|
+| A | A | 0 |
+| B | A | 0 |
+| C | C | 1 |
+
+The representative reports the same label on A and B, exactly because
+their original answers agree. Reordering the scan to B, A, C would
+choose B for that group. It would change the representative label,
+while keeping the same grouping.
+
+**Predict:** does this prove that every input outside the supplied list
+has also been represented faithfully?
+
+<details><summary>Check your prediction</summary>
+
+No. The theorem assumes that both compared inputs belong to the carrier.
+The function has a default outside the represented cases; the theorem
+does not turn that default into faithful coverage.
+
+</details>
 
 ## What you need first
 

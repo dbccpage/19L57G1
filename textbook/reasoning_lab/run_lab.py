@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[2]
 SOURCE = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 from textbook.first_steps.checks import check_encoding, model, observe  # noqa: E402
+from textbook.reasoning_lab.evidence import build_evidence_packet, check_evidence_population  # noqa: E402
 
 NAMES = ("A", "B", "C")
 QUESTIONS = ("blue?", "round?", "triangle?")
@@ -80,11 +81,12 @@ def build_packet():
     assert families["0_0"]["each_pair_has_some"] and not families["0_0"]["one_question_for_all"]
     pins = {}
     for name in ("textbook/first_steps/cards.json", "textbook/first_steps/checks.py",
-                 "code/derivation/model.py", "code/derivation/observe.py"):
+                 "code/derivation/model.py", "code/derivation/observe.py", "textbook/reasoning_lab/evidence.py"):
         pins[name] = hashlib.sha256((ROOT / name).read_text(encoding="utf-8").encode("utf-8")).hexdigest()
     return {"authority_effect": "None", "classification": "supplied teaching logic and finite calculations",
             "source_text_sha256": pins, "digest_mode": "UTF-8 source text with LF normalization",
             "cards": list(NAMES), "questions": list(QUESTIONS), "answers": ROWS,
+            "evidence": build_evidence_packet(),
             "claims": claims, "families": families,
             "recovery_blue_to_round": {str(mask): recovery(ROWS, domain, 0, 1) for mask, domain in enumerate(DOMAINS)}}
 
@@ -157,5 +159,6 @@ if __name__ == "__main__":
     if args.write:
         (SOURCE / "recorded_lab.json").write_text(json.dumps(build_packet(), indent=1, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
     print(check_recorded())
+    print(check_evidence_population())
     if args.population:
         print(check_population())

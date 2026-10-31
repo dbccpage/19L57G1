@@ -33,6 +33,20 @@ all three inputs separate would also be adequate; it would keep more
 distinctions than this example needs. The first-match rule below chooses
 representatives using the supplied order of the domain list.
 
+**Predict.** If the domain order changes from `[0, 1, 2]` to `[1, 0, 2]`,
+with the same kept answers, must the stored labels stay the same?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. In the second order, input 1 is the first member of the shared
+answer class, so both 0 and 1 receive label 1 instead of label 0.
+The grouping and recoverability are preserved; these representative
+labels depend on the supplied order. `first_match_order_changes_labels`
+checks the example with the question that returns 1 exactly at input 2.
+
+</details>
+
 <details>
 <summary>Formal source record and theorem summary</summary>
 
@@ -42,7 +56,7 @@ representatives using the supplied order of the domain list.
 | **Role** | Target-relative presentation compression (`lean4/Derivation/Compression.lean`, `code/derivation/compression.py`), imported downstream by `ObsDescent`, `ContactKernel`, `ClosureSymmetry`, `PresentationRelativity`, and `ResidualClosure`. |
 | **AuthorityEffect** | `None`. Neither `PrimitiveCore.Step` nor `DiffObs` appears in `Compression.lean`; the connection between presentations `p : Nat → Nat` and observer projections is established later in `ObsDescent` (Unit 67). |
 | **Source** | `lean4/Derivation/Compression.lean` (787 lines; 14 definitions, 38 theorems, 22 in `artifacts/lean_axioms.txt`); `code/derivation/compression.py` (509 lines); `code/run_compression.py` (117 lines); `artifacts/compression.json`; `textbook/audit/modules/Compression.md`. |
-| **Axioms** | 12 of the 22 artifact theorems use no axioms (`sigEq_iff_sigList`, `factor_unique_on_image`, `factor_not_unique_off_image`, `pQ_unique_on_image`, `descent_witness`, `enlarge_refines`, `splits_iff_new_separator`, `absolute_adequacy_iff_injective`, `refine_requires_separator`, `refinement_not_unique`, `refinement_tie`, `classCount_pos`; separately, all 3 book theorems in `Textbook.U61` use no axioms); 4 use `[Quot.sound]` (`factors_iff_fiberConstant`, `pQ_exact`, `pQ_adequate`, `pQ_coarsest`); 2 use `[propext]` (`dup_no_refine`, `postcompose_no_refine`); 4 use `[propext, Quot.sound]` (`refine_bounded`, `strict_split_increases`, `chain_bounded`, `strict_steps_lt`). |
+| **Axioms** | 12 of the 22 artifact theorems use no axioms (`sigEq_iff_sigList`, `factor_unique_on_image`, `factor_not_unique_off_image`, `pQ_unique_on_image`, `descent_witness`, `enlarge_refines`, `splits_iff_new_separator`, `absolute_adequacy_iff_injective`, `refine_requires_separator`, `refinement_not_unique`, `refinement_tie`, `classCount_pos`; separately, all 4 book theorems in `Textbook.U61` use no axioms); 4 use `[Quot.sound]` (`factors_iff_fiberConstant`, `pQ_exact`, `pQ_adequate`, `pQ_coarsest`); 2 use `[propext]` (`dup_no_refine`, `postcompose_no_refine`); 4 use `[propext, Quot.sound]` (`refine_bounded`, `strict_split_increases`, `chain_bounded`, `strict_steps_lt`). |
 
 
 ## Detailed claim and formal anchors
@@ -632,7 +646,8 @@ $ python textbook/checks/u61_compression.py
 Unit 61 Compression check: factorization_iff=True; quotient_exact_adequate_coarsest=True/True/True; descent_instances=37736; splits=10006; D4_counts=[1, 2, 2, 4]; failures=[]
 
 $ python textbook/checks/u61_lean.py
-Unit 61 Lean check: exit=0; axiom reports as expected: 25 of 25; failures: []
+Unit 61 Lean check: exit=0; axiom reports as expected: 26 of 26; failures: []
 ```
 
-**Count correction, 2026-10-28.** The artifact contains 12 axiom-free Compression reports, not 13. The three book theorems are a separate population.
+**Count correction, 2026-10-28.** The artifact contains 12 axiom-free Compression reports, not 13. The book theorems are a separate population; four are checked after the
+2026-10-31 domain-order example was added.

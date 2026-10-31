@@ -68,6 +68,7 @@ def main() -> int:
         and dem["violations"] == 0
         and len(res_ph) == 4
         and (x0, y0) not in res_after
+        and sorted(res_after) == [(1, 3), (3, 1)]
         and same_sig_on_residual is True
         and rc["nil_iff_violations"] == 0
         and rc["antitone_violations"] == 0

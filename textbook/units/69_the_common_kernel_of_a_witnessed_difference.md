@@ -1,23 +1,51 @@
 # Unit 69: The Common Kernel of a Witnessed Difference
 
-**Claim.** A witnessed difference records a difference map, a zero test, and a pair whose difference is nonzero. This common interface does not supply every law of an observer or native relation.
+**Claim.** A witnessed difference records a difference map, a zero test, a diagonal-zero law, and designated endpoints with a nonzero difference. This common interface does not supply every law of an observer or native relation.
 
 ## First pass
 
-Read the record as a checklist: a way to compare two items, a test for zero, and one pair that fails that zero test.
+Begin with a comparison that marks just one ordered pair:
 
-The record establishes that particular witnessed distinction. Symmetry, transitivity, and other stronger laws must be supplied separately.
+| First item | Second item | Difference value |
+|---|---|---|
+| `false` | `false` | 0 |
+| `false` | `true` | 1 |
+| `true` | `false` | 0 |
+| `true` | `true` | 0 |
 
-The lesson compares constructions into this common interface. Sharing the interface does not make the source constructions identical.
+Here 0 means zero and 1 means nonzero; the source encodes them as
+Boolean values. The **witnessed-difference record** supplies the
+comparison, its zero test, and designated endpoints. It also requires
+that comparing an item with itself gives zero, and that the designated
+pair gives a nonzero result. Both proof fields matter.
+
+**Predict.** Does recording the difference from `false` to `true` force
+a difference in the reverse direction?
+
+<details>
+<summary>Check your prediction</summary>
+
+No: the reverse entry is zero. This record supplies no symmetry law.
+Its diagonal-zero law does ensure that a designated nonzero pair has
+distinct endpoints. An observer needs further zero-symmetry and
+zero-transitivity laws. An observer also needs an actual nonzero pair
+to supply this record; an inhabited carrier alone is insufficient.
+
+</details>
+
+<details>
+<summary>Detailed statement and formal anchors (optional)</summary>
 
 ## Detailed claim and formal anchors
 
 `CL-PD2-CONTACT-KERNEL`, `CL-PD2-CONTACT-COUNTERMODELS`, `CL-PD2-CONTACT-ENTRY` (`FROZEN` / `VERIFIED_FINITE` / `CONDITIONAL` / `REFUTED` / `OPEN`) — `lean4/Derivation/ContactKernel.lean`, `code/run_primitive_contact.py`, `artifacts/primitive_contact.json`
 **Prerequisites**: Unit 44 (`DiffInterface`: `DiffObs`, `ZeroRel`), Unit 51 (`PrimitiveCore`: `Setting`, candidates `W`–`F`, `Cotrans`, `Located`, `located_of_decidable`, `imp_a_d`, `e_empty_iff_d`), Unit 52 (`PrimitiveCats`: `PtdRel`, `Hom`, `Initial`, `d2Obj`, `d2_initial`, `d2_map_injective`, `SymObj`, `IrreflObj`), Unit 53 (`PrimitiveContact`: `NativeKernel`), Unit 54 (`PrimitivePassage`: `preRetained`, `inducedSetting`, `obstP`, `kernel_enters_preretained`, `obst_requires_observation`), Unit 56 (`Apartness`: `triSymRel`, `symm_without_cotrans_breaks_trans`), Unit 67 (`ObsDescent`: `collapseAllObs`), Unit 68 (`ContactBridge`: `obsApart`)
 
+</details>
+
 ## Question
 
-Units 67 and 68 showed that the native difference programme and the arriving observer stratum (`DiffObs`) are incomparable at signature grade in one direction (`d2_not_obs_complement`) and reconstructible in the other (`ObsDescent`). What is the largest common structure that both a native candidate-`A` setting and an inhabited observer can realize, what additional data must an observer supply to produce one, and which of the observer's laws and the nine native candidate readings are absent from that common kernel?
+Units 67 and 68 showed that the native difference programme and the arriving observer stratum (`DiffObs`) are incomparable at signature grade in one direction (`d2_not_obs_complement`) and reconstructible in the other (`ObsDescent`). What declared common interface can a native candidate-`A` setting and an observer with a supplied nonzero pair realize, what additional data must an observer supply to produce one, and which of the observer's laws and the nine native candidate readings are absent from that common kernel?
 
 ## What we already possess
 
@@ -359,9 +387,12 @@ theorem toSetting_empty_stores {X R : Type} (K : WitnessedDiff X R) :
 
 Using `Textbook.U69.boolKernel_deltaOnto` and `Textbook.U69.unitValKernel_not_deltaOnto` as models, explain why every `VHom boolKernel K'` is completely determined by its carrier map `f : Bool → X'`, whereas `VHom unitValKernel boolKernel` admits two distinct morphisms sharing `f = id`. Which specific value in `Nat` lies outside the image of `unitValKernel.delta`, and how do the two morphisms in `vhom_not_unique` assign that value?
 
-## Answer
+<details>
+<summary>Student exercise answer</summary>
 
 Because `boolKernel.delta : Bool → Bool → Bool` takes both `false` (at `(false, false)`) and `true` (at `(false, true)`), `boolKernel` satisfies `DeltaOnto` (`Textbook.U69.boolKernel_deltaOnto`). By `vhom_unique_of_onto` (`Textbook.U69.boolKernel_vhom_unique`), any two morphisms `h₁, h₂ : VHom boolKernel K'` with `h₁.f = h₂.f` must agree on every `v : Bool` because `hᵢ.g v = K'.delta (hᵢ.f x) (hᵢ.f y)` at a pair `(x, y)` with `boolKernel.delta x y = v`. By contrast, `unitValKernel.delta : Bool → Bool → Nat` takes only the values `0` and `1`, so `2 : Nat` (and every `n ≥ 2`) lies outside its image (`Textbook.U69.unitValKernel_not_deltaOnto`). In `vhom_not_unique`, both morphisms use `f = id` and send `0 ↦ false` and `1 ↦ true`, but the first uses `g₁ := (· == 1)` (sending `2 ↦ false`) while the second uses `g₂ := (· != 0)` (sending `2 ↦ true`).
+
+</details>
 
 ## Verification
 

@@ -8,11 +8,38 @@
 
 ## First pass
 
-Orbit-constant means the chosen output is the same throughout an orbit. Equivariant means changing the input by a symmetry changes the output by that symmetry.
+First consider a swap of the two items `false` and `true`. A rule
+that always returns `false` picks the same side throughout the pair.
+Now compare two operations:
 
-Requiring both makes each chosen output a fixed point of every symmetry. With no common fixed point, such an endomap cannot exist.
+| Operation | Result |
+|---|---|
+| Swap the input, then apply the constant rule | `false` |
+| Apply the constant rule, then swap its output | `true` |
 
-The second half starts a separate question: a relation saying which composites are allowed does not by itself choose a unique composite. Read it after the selection example.
+The rule does not commute with the swap. **Equivariant** means these
+two operations agree; **orbit-constant** means the chosen output is
+the same for inputs related by the permitted symmetries.
+
+**Predict.** Would returning the input unchanged satisfy both conditions?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. It commutes with the swap but changes its output along the orbit.
+With an inhabited carrier, having both properties requires a common
+fixed point: an item unchanged by every permitted symmetry. The swap has none. The inhabitant hypothesis matters:
+on the empty carrier the conditions hold vacuously.
+
+</details>
+
+**A separate composition question.** A relation can allow both arrows
+`false` and `true` as composites of the same pair of arrows. Choosing
+`true` is then possible, but the relation has not determined it uniquely.
+Existence, uniqueness, selection, and associativity are separate questions.
+
+<details>
+<summary>Detailed statement and formal anchors (optional)</summary>
 
 ## Detailed claim and formal anchors
 
@@ -23,6 +50,8 @@ Consequently, for any fixed-point-free involution `B : Break` (`no_orbit_constan
 In the parked companion module `lean4/Derivation/Composing.lean`, a relational `Web` (`Composes : (a b c : Node) → Arr a b → Arr b c → Arr a c → Prop`) can fail totality (`composition_may_fail`), fail identity existence (`noneCompose_no_identity`), have non-unique composites (`composite_may_be_nonunique`) while still admitting a total composite-selection function (`selection_is_possible`), and fail both one-way and full relational associativity (`skew_not_relAssocLeft`, `skew_not_relAssoc`).
 
 Every theorem in both modules is axiom-free (`none`), and neither module defines a Layer 3 bridge to `Regime`, `DiffObs`, `PresIso`, `NonZeroPair`, or `HFamily`.
+
+</details>
 
 ## Question
 
@@ -295,7 +324,8 @@ The in-file self-audit comments in `Breaking.lean` and `Composing.lean` (and the
 
 ---
 
-## Answer
+<details>
+<summary>Student exercise answer</summary>
 
 1. For `s(b₁, b₂) = (false, b₂)` on `fourBreak`:
    - **`Represents fourBreak s` is True:** If `b₁ = false`, `s(false, b₂) = (false, b₂) = (b₁, b₂)`. If `b₁ = true`, `s(true, b₂) = (false, b₂) = (!true, b₂) = e(true, b₂)`.
@@ -308,6 +338,8 @@ The in-file self-audit comments in `Breaking.lean` and `Composing.lean` (and the
      - Thus `(true, true, true)` also witnesses failure of associativity (`LeftReach` reaches `false`, `RightReach` reaches `true`), just as `(true, false, true)` reaches `false` on the left (`u = true`, `w = false`) and `true` on the right (`v = false`, `w = true`).
 
 ---
+
+</details>
 
 ## Verification
 

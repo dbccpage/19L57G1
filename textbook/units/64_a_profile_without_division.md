@@ -24,10 +24,19 @@ We can compare without division. At the first position, multiply each
 entry by the other table's total: 2 × 10 = 4 × 5. At the second position,
 3 × 10 = 6 × 5. Both checks pass. The total itself was not preserved.
 
-Predict what happens with the empty table `(0, 0)`. Every cross product
-against it is zero, so the raw test passes against every table. That does
-not define fractional shares at total zero. The positive-total hypothesis
-is what makes the intended proportion comparison behave as expected.
+**Predict.** What happens to the raw cross-product test with the empty
+table `(0, 0)`? Can passing it establish equal fractional shares?
+
+<details>
+<summary>Check your prediction</summary>
+
+Every cross product against the zero table is zero, so the raw test
+passes against every table. Fractional shares at total zero remain
+undefined. In particular, `(1, 2)` and `(2, 1)` each pass against the zero
+table but fail against each other. `zero_middle_breaks_trans` checks this
+example. The positive-total hypotheses matter.
+
+</details>
 
 A separate signed-number example shows another kind of information loss.
 The inputs `(1, 1)` and `(1, −1)` have equal separate squares, but adding
@@ -402,7 +411,8 @@ Let `l = [0, 1]`, and consider the three weight assignments on `l`:
 
 ---
 
-## Answer
+<details>
+<summary>Student exercise answer</summary>
 
 1. **Totals:**
    - `total [0, 1] u = 1 + 2 = 3`,
@@ -419,6 +429,8 @@ Let `l = [0, 1]`, and consider the three weight assignments on `l`:
    - Their difference is `25 - 1 = 24 = 4 * (2 * 3)`, matching `sq_add_sub 2 3`.
 
 ---
+
+</details>
 
 ## Verification
 

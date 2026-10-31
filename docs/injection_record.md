@@ -826,3 +826,109 @@ reports `propext, Quot.sound` instead of the old count-only proof's empty
 set. No native theorem or boundary is changed, and no receipt is
 regenerated under an injection.
 
+
+## Institution reading review (2026-10-31)
+
+Eight process-local substitutions exercise the existing book checkers.
+Native and research sources and receipts are never mutated by these injections.
+
+| Check | Defect injected | Observed rejection |
+|---|---|---|
+| I04 | Force `exceeds` false for empty families | Main exits 1; empty-family constant-question exception is false |
+| I05 | Reverse the two functions in the fiber-constancy check | Main exits 1; named fiber-direction fixture is false |
+| I07 | Cap later three-member information at 2 | Main exits 1; worked chain changes from `1,1,2,3` to `1,1,2,2` |
+| I08 | Let a constant admitted target determine identity | Main exits 1; target-scope fixture is false |
+| I09 | Erase every residual once another member is added | Main exits 1; exact remaining-pair check rejects the empty list |
+| I17 | Count a refusal as satisfying an unmet requirement | Main exits 1; source-scope fixture is false |
+| I17 | Require mark position to be a token value | Main exits 1; arbitrary-token/position fixture is false |
+| I17 | Reverse output column order after a mark | Main exits 1; prepended-mark fixture is false |
+
+The six original checkers recover exit 0 after the temporary bindings are
+discarded. I17 consumes the existing transition owner rather than its old
+copied helper. These are finite regression checks; no new Lean theorem,
+research campaign closure, or empirical learning result is claimed.
+
+## Replay and boundary reading review (2026-10-31)
+
+Five temporary substitutions change book-Lean source strings in child
+processes. Each original file remains intact. Lean rejects each false
+statement, and its driver exits 1; the unmodified driver then recovers
+exit 0 with its expected reports.
+
+| Unit | Defect injected | Observed rejection and recovery |
+|---|---|---|
+| 57 | Equate diagonal and kernel support at the off-range fresh-admission input | `decide` rejects equality; original proves inequality |
+| 58 | Replace the simulation's own source replay by all-on replay in its general equation | Replay proof fails; original proves the controller-specific equation |
+| 59 | Assert the bounded collapsed self-pair passes `wfPair` | `decide` rejects the guard result; original proves boundedness and guard failure together |
+| 60 | Assert the triangle's unreduced composite list has length zero | Lean rejects the length equality; original proves six terms and zero coefficients |
+| 61 | Keep representative 0 after the domain starts with input 1 | Lean rejects the representative equality; original proves label 1 and preserved grouping |
+
+The five original drivers recover 180 exact reports. Eight are new:
+seven with `propext, Quot.sound` and one with no axioms. Sealed sources,
+research sources and results, and native receipts are unchanged.
+
+## Protection and event-summary reading review (2026-10-31)
+
+Seven temporary substitutions alter book-Lean strings only inside child
+processes. Each produces a Lean error and driver exit 1. All five
+unmodified chapter drivers then recover exit 0 with 164 exact reports.
+
+| Unit | Defect injected | Observed rejection and recovery |
+|---|---|---|
+| 62 | Make the checked refinement lose the protected separation of 1/2 | `decide` rejects the claimed Boolean; the original table proves preservation |
+| 63 | Make a separately supplied fresh admission leave genesis empty | `decide` rejects the list equality; original proves occurrence list `[7]` |
+| 64 | Infer transitivity through the zero-total middle table | Lean rejects the false profile comparison; original proves its negation |
+| 65 | Keep the halted genesis state inside `WFClass` | Lean rejects the liveness proof; original proves halt exits the class |
+| 65 | Make the class's out-of-bounds self-pair pass `wfPair` | `decide` rejects the guard result; original proves class membership and pair failure together |
+| 65 | Make the common admission suffix produce `[0]` in both branches | `decide` rejects the list equality; original produces `[0]` versus `[2,0]` |
+| 66 | Make reversed budget writes end at the same amount | `decide` rejects the budget equality; original proves final budgets 2 versus 1 |
+
+Seven added reports have six `propext, Quot.sound` sets and one empty
+set. Sealed sources, native receipts, and research results are unchanged.
+
+## Descent, selection, and renaming reading review (2026-10-31)
+
+Nine false variants alter book-Lean strings only inside child processes.
+Each produces a Lean error and driver exit 1. All eight original drivers
+then recover exit 0 with 302 exact reports.
+
+| Unit | Defect injected | Observed rejection and recovery |
+|---|---|---|
+| 67 | Allow the paired identity view to descend through the single Bool class | Lean rejects the stronger existence claim; original proves its negation |
+| 68 | Deny zero difference between the two equal-colour cards | Lean rejects the false comparison; original proves zero at 0/1 |
+| 69 | Force the reverse entry of the asymmetric kernel to be nonzero | `decide` rejects the table entry; original gives zero |
+| 70 | Make the ordered pair fixed by the swap | Lean rejects the pair equality; original exchanges the endpoints |
+| 71 | Make a duplicate of the old question create a third class | `decide` rejects the class count; original remains at two |
+| 72 | Make the locally reversible self-loop fix `false` | Lean rejects the loop value; original transports it to `true` |
+| 73 | Make the constant-side rule return the swapped output | Lean rejects the Boolean value; original shows failure to commute |
+| 74 | Keep the original arity table after exchanging form indices | `decide` rejects the arity list; original exchanges the arities |
+| 74 | Give the raw unordered one-requirement record a self-`Iso` | Lean rejects the existence claim; original proves no such object exists |
+
+The eight added report sets are five empty sets, two `propext`, and one
+`propext, Quot.sound`. Sealed sources, native receipts, research results,
+and the fixed vocabulary populations are unchanged.
+
+## Reasoning-lab evidence extension (2026-10-31)
+
+The authoring tests reject five packet/semantic mutations and four
+malformed-input variants. A separate child-process book-Lean mutation is
+also rejected; its unmodified driver recovers thirteen exact reports.
+None of these checks changes a native source or receipt.
+
+| Defect injected | Observed rejection |
+|---|---|
+| Publish twelve fictional rows as physical observations | Recorded-packet comparison rejects the changed count |
+| Delete the repeated-record conflict from the packet | Recorded-packet comparison rejects the missing conflict |
+| Decode ? as No | Independent Boolean-completion oracle disagrees with the classifier |
+| Replace domain, protocol and conditions to make a row fit | Independent scope oracle rejects the widened interpretation |
+| Drop `new-N`, the in-scope counterexample | Fixture totals and custody assertions fail |
+| Relabel a fixture origin as `measured` | Input validation rejects the provenance claim |
+| Supply a Boolean in place of a raw code | Strict string validation rejects the input |
+| Supply an empty raw answer | Nonempty-field validation rejects the input |
+| Supply the unrecognized string `unknown` as a raw answer | Legend validation rejects the code |
+| Replace the proof's contradictory `¬ Q` premise with compatible `Q` while still concluding False | Lean rejects the false general proposition's proof; original recovers |
+
+Fifteen authoring tests pass after temporary bindings/files are discarded.
+The added logical report has an empty axiom set. The desk's event-handler
+unit fixture checks twelve supplied cases; it is not browser rendering or
+an empirical measurement/comprehension test.

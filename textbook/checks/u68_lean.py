@@ -98,7 +98,20 @@ theorem colObs_empty_id_collision :
     ((DiffAnchor.colObs_zeroRel_iff_zeroP [] 0 1).mpr rfl)
     (by decide)
 
+def bookColor (x : Fin 3) : Bool := x.val == 2
+
+theorem color_bridge_table :
+    ZeroRel (kernelObs bookColor) 0 1 ∧
+    obsApart (kernelObs bookColor) 0 2 ∧
+    (∀ z : Fin 3, obsApart (kernelObs bookColor) 0 z ∨
+      obsApart (kernelObs bookColor) z 2) := by
+  change bookColor 0 = bookColor 1 ∧ bookColor 0 ≠ bookColor 2 ∧
+    (∀ z : Fin 3, bookColor 0 ≠ bookColor z ∨ bookColor z ≠ bookColor 2)
+  decide
+
 end Textbook.U68
+
+#print axioms Textbook.U68.color_bridge_table
 
 #print axioms Textbook.U68.obsApart_indist_trans
 #print axioms Textbook.U68.apartObs_refl_is_irrefl
@@ -136,6 +149,8 @@ end Textbook.U68
 """
 
 EXPECTED = {
+    "Textbook.U68.color_bridge_table": PROPEXT,
+
     "Textbook.U68.obsApart_indist_trans": NONE,
     "Textbook.U68.apartObs_refl_is_irrefl": NONE,
     "Textbook.U68.empty_stores_by_policy": NONE,

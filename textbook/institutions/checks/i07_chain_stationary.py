@@ -66,8 +66,15 @@ def main() -> int:
     nest = tt_model.nest_checks(D4, pool4, 2)
     print(f"two_theorems nest_checks on D=(0,1,2,3): {nest}")
 
+    constant = (0, 0, 0)
+    p = (0, 0, 1)
+    q = (0, 1, 1)
+    plateau_chain = ((), (constant,), (constant, p), (constant, p, q))
+    plateau_counts = [information(3, family) for family in plateau_chain]
+    print(f"a stationary step followed by later growth: {plateau_counts}")
     ok = (
-        cc["chains"] == 4000
+        plateau_counts == [1, 1, 2, 3]
+        and cc["chains"] == 4000
         and cc["violations"] == 0
         and cc["shorter_chain_without_stationary_step"] is True
         and stat_bad == 0

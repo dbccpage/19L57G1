@@ -2,6 +2,9 @@
 
 **Claim.** Form renaming transports the stated observations. The bridge from record relabeling to isomorphism requires ordered requirements; list equality, membership equality, and Python search results remain distinct.
 
+<details>
+<summary>Sources and classification (optional)</summary>
+
 **Status:** `FROZEN` / `CONDITIONAL` (ordered requirements `∀ q ∈ r.reqs, q.1 ≤ q.2` required for `relabel_iso`, `iso_of_relabel_eq`, `Iso.of_components`, and `isoRefl`)
 - **Lean:** `Derivation.renameForms_arity`, `Derivation.renameForms_gf`, `Derivation.collapsed_renameForms`, `Derivation.collapsed_renameDataForm`, `Derivation.Iso.symm`, `Derivation.Iso.collapsed_transport`, `Derivation.Iso.trans`, `Derivation.relabel_iso`, `Derivation.iso_of_relabel_eq`, `Derivation.Iso.of_components`
 - **Axioms:** Within `{propext, Quot.sound}` (`mapInstForm_gf` and `plug_mapCtxForm` are `none`; `Regime.ext'`, `permForms_getD`, `renameForms_arity`, `collapsed_congr`, `mapReq_eq_sortPair`, `sortPair_*`, `relabel_*` use `propext`; the remaining declarations use `{propext, Quot.sound}`)
@@ -9,13 +12,45 @@
 
 ---
 
+</details>
+
 ## First pass
 
-A form index names a relation shape; a datum index names an item. Renaming either index must also update every place that refers to it.
+A form has an index and an arity: how many arguments it expects.
+Start with form 0 taking one argument and form 1 taking two. Swap the
+two form indices:
 
-First check that a context remains well formed. Then check that plugging and derivability are preserved. Only then compare collapse.
+| Before renaming | After renaming |
+|---|---|
+| Form 0 expects one argument | Form 1 expects one argument |
+| Form 1 expects two arguments | Form 0 expects two arguments |
+| Instance `(0, [0])` | Instance `(1, [0])` |
+| Rule names form 0 | Rule names form 1 |
 
-The later bridge uses its ordered-requirement hypothesis. A bounded Python search and a Lean transport theorem have different scopes; a search budget refusal establishes no inequality.
+The argument datum 0 has stayed fixed; its form reference changed.
+The book's `form_swap_table` checks the whole arity, instance, and rule
+update.
+
+**Predict.** Can we swap just the instance's form tag and leave the
+arity table unchanged?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. The unchanged table would make form 1 expect two arguments, but
+the instance has only one. A consistent renaming updates every affected
+reference and the form table together.
+
+</details>
+
+Later comparisons need their own hypotheses. The declared `Iso` relation
+uses sorted requirements; raw unordered records can fail even self-comparison.
+Record equality, repeated list entries, and bounded Python search are
+also different checks. Running out of search budget supplies no proof
+that two records are non-isomorphic.
+
+<details>
+<summary>Detailed statement and formal anchors (optional)</summary>
 
 ## Detailed claim and formal anchors
 
@@ -25,7 +60,7 @@ Across the membership-based isomorphism relation `Minimality.Iso`, `Iso.symm` an
 
 Finally, `lean4/Derivation.lean` (62 direct module imports, 1 482 axiom reports) together with `lean4/ParkedAudit.lean` (12 parked modules, 48 axiom reports) and `ci/check_declaration_axioms.py` (which also audits `Type`-valued definitions such as `Iso.symm`, `Iso.trans`, `relabel_iso`, `iso_of_relabel_eq`, and `Iso.of_components`) account for all 75 modules in `lean4/Derivation/` and all 1 530 lines of `artifacts/lean_axioms.txt`.
 
--
+</details>
 
 ## Question
 
@@ -292,12 +327,15 @@ Consider the regime `r_unord` with `data = 3`, `forms = [1]`, `insts = [(0, [0])
 
 ---
 
-## Answer
+<details>
+<summary>Student exercise answer</summary>
 
 1. Under $\pi = \text{id}$, `relabel` maps each requirement $q \in r\_\text{unord}.\text{reqs}$ by `mapReq id q`, which by `mapReq_eq_sortPair` equals `sortPair (q.1, q.2)`. For $q = (2, 0)$, $\min(2, 0) = 0$ and $\max(2, 0) = 2$, so `(relabel r_unord id id).reqs = [(0, 2)]`.
 2. In `Iso r_unord (relabel r_unord id id)`, the field `reqs_bwd` requires that for every $q \in (relabel\ r\_\text{unord}\ \text{id}\ \text{id}).\text{reqs} = [(0, 2)]$, the sorted inverse image `sortPair (id q.1, id q.2) = sortPair (0, 2) = (0, 2)` belong to $r\_\text{unord}.\text{reqs} = [(2, 0)]$. Because $(0, 2) \neq (2, 0)$, `(0, 2) ∉ [(2, 0)]`, so `reqs_bwd` fails. This is why `relabel_iso`, `iso_of_relabel_eq`, and `Iso.of_components` require ordered requirement pairs `∀ q ∈ r.reqs, q.1 ≤ q.2` (as `Regime.wf` provides).
 
 ---
+
+</details>
 
 ## Verification
 

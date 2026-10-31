@@ -2,6 +2,9 @@
 
 **Claim.** Passing between an observer's zero relation and a positive apartness relation requires explicit laws. Some converse and round-trip results additionally require their own stated decidability hypotheses.
 
+<details>
+<summary>Sources and classification (optional)</summary>
+
 **Status:** FROZEN
 (free laws, representability crown, pricing schemas, passage placement,
 `DiffAnchor` corollaries); CONDITIONAL (candidate cells and round trips under
@@ -20,13 +23,44 @@ lines 39-73 and `lean4/Derivation/DiffAnchorCompat.lean` lines 1-17.
 (`IsApart`, `Indist`, `triSymRel`), Unit 67 (`ObsQuotient`,
 `obsQuotient_mk_eq_iff`, `DeltaConstant`).
 
+</details>
+
 ## First pass
 
-An observer says which differences count as zero. Its zero-complement says that a pair does not count as zero.
+Use the [Map lab](../map_lab/README.md) for views that group cards.
 
-A positive apartness relation has additional laws. Do not assume that taking a complement automatically supplies all of them.
+Give cards 0 and 1 the colour red, and card 2 the colour blue. Let
+**zero difference** mean equal colours. This observer identifies 0 with
+1, while distinguishing either from 2. It is not identifying their
+printed card numbers.
 
-Follow the two directions separately: observer to relation, then relation to observer. Record the decidability assumption used in each direction; the assumptions are not interchangeable.
+Define the **zero-complement** to mean that the colours are not equal.
+In this finite table we can decide each comparison:
+
+| Middle card | Differs from card 0? | Differs from card 2? |
+|---|---|---|
+| 0 | No | Yes |
+| 1 | No | Yes |
+| 2 | Yes | No |
+
+Whenever 0 and 2 differ, every middle card differs from at least one
+endpoint. This is the example of the law called **cotransitivity**.
+
+**Predict.** Does merely declaring an abstract zero test give us a
+procedure deciding every zero comparison?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. The general observer record supplies laws about its zero test,
+not that decision procedure. The theorem deriving cotransitivity of
+its complement explicitly assumes pointwise decidability of zero.
+The reverse construction and its round trip have separate hypotheses.
+
+</details>
+
+<details>
+<summary>Detailed statement and formal anchors (optional)</summary>
 
 ## Detailed claim and formal anchors
 
@@ -83,6 +117,8 @@ name collisions by the parked probe `DiffAnchorCompat`.
 Finally, a zero-pair
 separated by a view is equivalent to a `CollapseCollision` at the quotient
 projection (`pair_blocked_iff_collapse_collision`).
+
+</details>
 
 ## Question
 
@@ -578,7 +614,8 @@ Explain why `[∀ x y, Decidable (ZeroRel (apartObs r h) x y)]` is weaker than
 prices the gap between `Indist r x y` (or `¬¬ r x y`) and `r x y` across all
 observers.
 
-## Answer
+<details>
+<summary>Student exercise answer</summary>
 
 By definition of `apartObs r h`, `ZeroRel (apartObs r h) x y` is `¬ r x y`. So
 `Decidable (ZeroRel (apartObs r h) x y)` is `Decidable (¬ r x y)`, which lets
@@ -590,6 +627,8 @@ Having `Decidable (r x y)` gives `r x y ∨ ¬ r x y` directly, whereas
 that collapses double negation (`Indist (obsApart O) x y → ZeroRel O x y`) is
 priced by `stability_schema_iff_dne` at full double-negation elimination
 `∀ P : Prop, ¬¬ P → P`.
+
+</details>
 
 ## Verification
 

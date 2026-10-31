@@ -1,11 +1,19 @@
-# Unit 07. Long chains go stationary
+# Unit 07. A long extension chain has a stationary step
 
-**Claim.** Any extension chain of institutions on a nonempty carrier `D` that
+**Claim.** A sufficiently long finite extension chain on a fixed nonempty
+carrier has at least one step that adds no signature group. That
+stationary step need not prevent later additions from splitting groups.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** Any extension chain of institutions on a nonempty carrier `D` that
 contains more than `D.length` institutions has a stationary step at which
 information does not increase; at any stationary step every member of the newer
 institution was already known by the older one, so nothing new becomes known;
 and replacing a subfamily by its canonical representative (`pQ D Q'`) or keeping
 members already known by one fine member adds no information and no knowledge.
+
 **Status:** derived. **Lean:** `Chain.Extends`, `Chain.ExtChain`,
 `Chain.HasStationary`, `Chain.stationary_of_bound`,
 `Chain.long_chain_stationary`, `Chain.stationary_step_known`,
@@ -29,6 +37,35 @@ older family already knew, so the step changes knowledge of no claim at all.
 Finally, nesting a subfamily as its single representative `pQ D Q'` or pooling
 members that one member already knows (`participation_collapse`) leaves both
 knowledge and information unchanged.
+
+</details>
+
+## First pass
+
+Keep inputs 0, 1, and 2 fixed. Start with no tables, add a constant
+table, then [0,0,1], then [0,1,1]. The class counts are:
+
+| Stage | 0 | 1 | 2 | 3 |
+|---|---|---|---|---|
+| Information | 1 | 1 | 2 | 3 |
+
+The first addition is stationary: the constant table creates no new
+group. Later additions still increase information. A stationary step
+is not a promise that every later stage will be stationary.
+
+The theorem uses one fixed carrier and extensions that retain the old
+members. Its counting limit comes from the number of inputs available
+to form nonempty groups.
+
+**Predict:** can the same fixed-carrier count prove a bound when new
+inputs are admitted between stages?
+
+<details><summary>Check your prediction</summary>
+
+No. The bound then changes with the carrier. The theorem does not
+replace that changing process with a fixed finite list.
+
+</details>
 
 ## What you need first
 
@@ -278,6 +315,12 @@ fixed `D` does not apply.
   than `p`'s from the start.
 
 ## What it shows, and what it does not
+
+A stationary step need not end later growth. On three data, an
+extension chain can have class counts `1, 1, 2, 3`: the first
+addition stalls, while the next two add distinctions. The theorem
+locates at least one stationary step in the stated finite chain.
+
 
 It shows that any extension chain of institutions on a nonempty carrier `D` with
 `D.length < L.length` has at least one stationary step (`long_chain_stationary`),

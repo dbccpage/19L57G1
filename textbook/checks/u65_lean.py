@@ -47,7 +47,33 @@ theorem budget_exercise_check :
     Accepted (step s (.setBudget 1)) (.addCol [0]) = true := by
   decide
 
+theorem halt_leaves_class :
+    WFClass genesisP ∧ ¬ WFClass (step genesisP .halt) := by
+  constructor
+  · exact wf_of_replay [] rfl
+  · intro h
+    have hf := h.live
+    change true = false at hf
+    cases hf
+
+def outOfBoundsBook : PState :=
+  { genesisP with wit := [(99,99)], prot := [(99,99)] }
+
+theorem class_does_not_check_bounds :
+    WFClass outOfBoundsBook ∧ wfPair outOfBoundsBook 99 99 = false := by
+  constructor
+  · exact ⟨rfl, fun _ hp => hp⟩
+  · decide
+
+theorem admission_suffix_table :
+    (replayP [.admitOcc 0, .admitOcc 0] genesisP).occ = [0] ∧
+    (replayP [.admitOcc 2, .admitOcc 0] genesisP).occ = [2,0] := by decide
+
 end Textbook.U65
+
+#print axioms Textbook.U65.halt_leaves_class
+#print axioms Textbook.U65.class_does_not_check_bounds
+#print axioms Textbook.U65.admission_suffix_table
 
 #print axioms Textbook.U65.gainedPairs_colS_nil
 #print axioms Textbook.U65.gainedPairs_refineS_nil
@@ -87,6 +113,10 @@ end Textbook.U65
 """
 
 EXPECTED = {
+    "Textbook.U65.halt_leaves_class": BOTH,
+    "Textbook.U65.class_does_not_check_bounds": NONE,
+    "Textbook.U65.admission_suffix_table": BOTH,
+
     "Textbook.U65.gainedPairs_colS_nil": BOTH,
     "Textbook.U65.gainedPairs_refineS_nil": BOTH,
     "Textbook.U65.budget_exercise_check": BOTH,

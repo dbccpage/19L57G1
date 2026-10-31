@@ -54,7 +54,40 @@ theorem rSingle_rDup_collapsed_iff {d e : Nat} (hd : d < 2) (he : e < 2) :
     collapsed rSingle d e ↔ collapsed rDup d e :=
   (Iso.collapsed_transport isoSingleDup hd he).symm
 
+def bookSwap : Nat → Nat | 0 => 1 | 1 => 0 | n => n
+def twoFormsBook : Regime where
+  data := 2
+  forms := [1,2]
+  insts := [(0,[0]),(1,[0,1])]
+  rules := [0]
+  reqs := [(0,1)]
+
+theorem form_swap_table :
+    (renameForms bookSwap bookSwap twoFormsBook).forms = [2,1] ∧
+    (renameForms bookSwap bookSwap twoFormsBook).insts = [(1,[0]),(0,[0,1])] ∧
+    (renameForms bookSwap bookSwap twoFormsBook).rules = [1] := by decide
+
+def unorderedBook : Regime where
+  data := 3
+  forms := []
+  insts := []
+  rules := []
+  reqs := [(2,0)]
+
+theorem unordered_no_self_iso : ¬ Nonempty (Iso unorderedBook unorderedBook) := by
+  rintro ⟨h⟩
+  have hm := h.reqs_fwd (2,0) (by simp [unorderedBook])
+  have he : sortPair (h.dmap 2,h.dmap 0) = (2,0) := by simpa [unorderedBook] using hm
+  have hs : (sortPair (h.dmap 2,h.dmap 0)).1 ≤ (sortPair (h.dmap 2,h.dmap 0)).2 := by
+    unfold sortPair
+    split <;> simp_all <;> omega
+  rw [he] at hs
+  omega
+
 end Textbook.U74
+
+#print axioms Textbook.U74.form_swap_table
+#print axioms Textbook.U74.unordered_no_self_iso
 
 #print axioms Textbook.U74.sortPair_unordered
 #print axioms Textbook.U74.rSingle_rDup_lengths_ne
@@ -112,6 +145,9 @@ end Textbook.U74
 """
 
 EXPECTED = {
+    "Textbook.U74.form_swap_table": PROPEXT,
+    "Textbook.U74.unordered_no_self_iso": BOTH,
+
     "Textbook.U74.sortPair_unordered": NONE,
     "Textbook.U74.rSingle_rDup_lengths_ne": NONE,
     "Textbook.U74.isoSingleDup": BOTH,

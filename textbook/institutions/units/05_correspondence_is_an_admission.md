@@ -1,13 +1,23 @@
 # Unit 05. The shared carrier is an admission
 
-**Claim.** Re-indexing one member's data by a permutation can destroy what a
+**Claim.** Combining members requires an explicit correspondence between their
+inputs. A common invertible relabeling preserves knowledge; changing
+one member's alignment can change it. A correspondence may merge only
+pairs the intended observed answer also merges.
+
+<details>
+<summary>Detailed statement, sources, and classification (optional)</summary>
+
+**Detailed statement.** Re-indexing one member's data by a permutation can destroy what a
 family knows, while applying one invertible renaming simultaneously to the
 carrier, every member, and the claim leaves knowledge unchanged. More
 generally, reading an observer or a family through a correspondence `f`
-transports sharpness along `f` without restriction, and forces `f` to be
-constant only on the fibers of the observed presentation—so injectivity
-(`Faithful`) is required exactly when the observed presentation is the
-identity.
+transports sharpness for the composed presentation along any `f`. If the
+pulled-back observer is sharp for `q`, then `q` is constant on the fibers
+of `f`: `f x = f y` forces `q x = q y` on the carrier. Identity is one
+case where this forces `f` to be injective; it is not the only possible
+observed presentation with that consequence.
+
 **Status:** derived. **Lean:** `Inst.correspondence_matters`,
 `Inst.knows_rename` (`actor_institution`); `Correspondence.Faithful`,
 `Correspondence.faithful_actor_iff`, `Correspondence.verdict_pullback`,
@@ -20,8 +30,7 @@ lines 200–245;
 `research/two_theorems/lean/ResearchTwoTheorems/Correspondence.lean` lines
 35–178.
 
-Unit 00 named three admissions at the base of the institutions spine, and the
-third was that every member's table is indexed by the same carrier `D`. Unit 04
+Unit 00 introduced the supplied tables and their common carrier `D`. Unit 04
 showed that `[p1, p2]` knows `q3` on `[0, 1, 2]` while neither member alone
 does. This unit shows what happens when that third admission is varied: if
 `p2` reads its data through a swap of `0` and `1` while `p1` and `q3` do not,
@@ -29,8 +38,36 @@ the family no longer knows `q3`. By contrast, if one renaming is applied across
 the carrier, every member, and the claim together, knowledge is unchanged. It
 then connects this to the fidelity contract of `two_theorems`: an unrestricted
 map can merge points before any observer evaluates them, and the exact
-condition forced on a correspondence by a sharp observation is fiber constancy
-with respect to the presentation observed.
+condition is that every pair merged by the correspondence must also
+be merged by the observed presentation. The reverse fiber condition is
+not what the theorem states.
+
+</details>
+
+## First pass
+
+The two members in I04 report [0,1,0] and [0,1,1]. Together they
+determine the question [0,0,1]. Their rows must refer to the same inputs.
+
+Swap only the second member's entries at 0 and 1. It now reports
+[1,0,1]. The combined answers at 0 and 2 both become [0,1], although
+the requested answer differs there. Recovery fails.
+
+Relabeling the entire setup consistently is different: move the carrier,
+both member tables, and the requested question together. Their agreements
+are preserved.
+
+**Predict:** if a correspondence merges two inputs, can a later observer
+recover a requested distinction between them?
+
+<details><summary>Check your prediction</summary>
+
+No. Equal correspondence outputs supply the same later input. Sharp
+observation of a question therefore requires the question to agree on
+each merged pair. It does not require the correspondence to be constant
+on the question's groups; that reverses the condition.
+
+</details>
 
 ## What you need first
 

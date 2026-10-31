@@ -2,23 +2,56 @@
 
 **Claim.** Protected separation is sufficient for stability across every event replay in the declared passage machine. Stability along a trace and membership in the protection store are separate conditions.
 
+<details>
+<summary>Sources and classification (optional)</summary>
+
 | field | value |
 |---|---|
 | **Mark** | `CONDITIONAL` for `sepP_append`, `sepP_refine`, `prot_mono`, `sep_preserved`, `protSep_persists`, `protSep_replays`, `protSep_trace_stable`, `trace_stable_restricted_stable`, `replay_halted`, `restricted_step_inert_unfunded`, `restricted_replay_inert_unfunded`, `separation_breakable`, `quiescent_iff_protected_separated`, `quiescence_is_protected_separation`, `quiescent_retained_protected_trace_stable`; `REFUTED` for the converse of sufficiency (`halted_stable_not_protected` and `Textbook.U62.reachable_halted_stable_not_protected`); `VERIFIED_FINITE` for `unfunded_restricted_stable_not_protected`, `unprotected_separation_unstable`, and `Textbook.U62.reachable_unfunded_restricted_but_not_trace_stable`; `OPEN` (`ADMITTED` as a `Prop` definition, unproved) for `openExactStabilityCharacterization`. |
 | **Role** | Audit-repaired trace-stability and quiescence analysis on `PrimitivePassage` (`lean4/Derivation/StableContent.lean`, `code/derivation/stable_content.py`), superseding the withdrawn draft claim `CL-PD2-STABLE-CONTENT` with `CL-PD2-TRACE-STABILITY`. |
 | **AuthorityEffect** | `None`. No state fields or transition rules are added to `PrimitivePassage.PState` or `PrimitivePassage.step`. |
 | **Source** | `lean4/Derivation/StableContent.lean` (582 lines; 11 definitions, 18 theorems); `code/derivation/stable_content.py` (227 lines); `artifacts/primitive_passage.json` (`stable_content` section); `textbook/audit/modules/StableContent.md`; `textbook/audit/probes/F1/sc_reachable_witness.lean`. |
-| **Axioms** | `[propext, Quot.sound]` on all 18 theorems in `StableContent` and both book theorems in `Textbook.U62`. |
+| **Axioms** | `[propext, Quot.sound]` on all 18 theorems in `StableContent` and the three book theorems in `Textbook.U62`. |
 
 ---
 
+</details>
+
 ## First pass
 
-Protection records a promise about a pair. An observation records which pairs the current views distinguish.
+For the event-by-event picture, start with the [Change lab](../change_lab/README.md).
 
-Protected separation combines the recorded protection with a currently observed distinction. The sufficiency theorem preserves that combination across every event replay in this machine.
+A column lists positions answering yes. With positions 0, 1, and 2,
+column `[1]` distinguishes 0 from 1 and also 1 from 2. Suppose the pair
+`(1, 2)` is recorded as protected, while `(0, 1)` is not.
 
-A distinction can also survive without being stored as protected. Survival alone does not put a pair into the protection store.
+A checked continuation funds an update, records and protects `(0, 2)`,
+then adds position 0 to the existing column:
+
+| Current column | Separates 0 and 1? | Separates protected 1 and 2? |
+|---|---|---|
+| `[1]` | Yes | Yes |
+| `[0, 1]` | No | Yes |
+
+The update can lose the unprotected distinction while preserving the
+protected one. Here protection activates a condition in the update guard.
+The theorem extends preservation of an already protected separation to
+every finite event history allowed by this machine.
+
+**Predict.** If the machine halts before this continuation, does the
+unprotected distinction between 0 and 1 survive later requests?
+
+<details>
+<summary>Check your prediction</summary>
+
+Yes. Every later request is inert on a halted state. Survival can have
+that explanation without the pair being protected. Protected separation
+is sufficient for stability; this halted example blocks its converse.
+
+</details>
+
+<details>
+<summary>Detailed statement and formal anchors (optional)</summary>
 
 ## Detailed claim and formal anchors
 
@@ -34,9 +67,11 @@ Whether `TraceStableSep` implies `protSep = true` on all live funded states is o
 
 On any declared state (`s.obs = some cols`), quiescence (`∀ i j, obstP s i j = false`) holds if and only if every retained protected pair is separated (`quiescent_iff_protected_separated`, `quiescence_is_protected_separation`), making every retained protected pair of a quiescent declared state trace-stable (`quiescent_retained_protected_trace_stable`).
 
+</details>
+
 ## Question
 
-In `PrimitivePassage` (Unit 51), a state `s : PState` with a declared observation `s.obs = some cols` separates two occurrence indices `(i, j)` when `sepP cols i j = true` (some column `c ∈ cols` contains `i` XOR `j`).
+In `PrimitivePassage` (Unit 54), a state `s : PState` with a declared observation `s.obs = some cols` separates two occurrence indices `(i, j)` when `sepP cols i j = true` (some column `c ∈ cols` contains `i` XOR `j`).
 
 1. If `(i, j)` is currently separated at `s`, is that separation preserved after every finite event sequence `h : List PEvent` replayed via `replayP h s` (`TraceStableSep s i j`), and what role does membership `(i, j) ∈ s.prot` play?
 2. Does `TraceStableSep s i j` imply that `(i, j)` is protected (`protSep s i j = true`), either across all `s : PState` or across genesis-reachable states?
@@ -46,7 +81,8 @@ In `PrimitivePassage` (Unit 51), a state `s : PState` with a declared observatio
 
 ## What we already possess
 
-From Unit 51 (`PrimitivePassage.lean`) and Unit 54 (`TransitionAlphabet.lean`):
+From Unit 54 (`PrimitivePassage.lean`), with a later cross-reference to
+Unit 65 (`TransitionAlphabet.lean`):
 
 - A passage state `s : PState` carries `occ : List Nat`, `asserted : List (Nat × Nat)`, `wit : List (Nat × Nat)`, `prot : List (Nat × Nat)`, `obs : Option (List (List Nat))`, `budget : Nat`, `licensed : Bool`, `refusals : List (Nat × Nat)`, and `halted : Bool`.
 - Two indices `(i, j)` are separated by a column list `cols` when `sepP cols i j = cols.any (fun c => sepCol c i j)` is `true`.
@@ -54,7 +90,7 @@ From Unit 51 (`PrimitivePassage.lean`) and Unit 54 (`TransitionAlphabet.lean`):
   1. some protected retained pair `(a, b) ∈ s.prot` is obstructed at `s` (`obstP s a b = true`) and becomes separated when `v` is replaced by `p :: v`, and
   2. **monotone protection preservation:** every protected pair `(a, b) ∈ s.prot` that is already separated by `cols` (`sepP cols a b = true`) remains separated after replacing every occurrence of `v` in `cols` by `p :: v`.
 - On a halted state (`s.halted = true`), every event `e : PEvent` is a no-op (`step_halted : s.halted = true → step s e = s`).
-- From Unit 54 (`TransitionAlphabet.internal_family_emits_budget_write`), the generated repair block `repairBlock` itself emits `.setBudget 1`, so excluding `.setBudget` is a syntactic filter on event lists rather than an internal/external ownership boundary.
+- From the later Unit 65 (`TransitionAlphabet.internal_family_emits_budget_write`), the generated repair block `repairBlock` itself emits `.setBudget 1`, so excluding `.setBudget` is a syntactic filter on event lists rather than an internal/external ownership boundary.
 
 ---
 
@@ -469,7 +505,8 @@ $$\mathrm{histLive} = [\mathrm{admitOcc}\;0,\; \mathrm{admitOcc}\;1,\; \mathrm{a
 
 ---
 
-## Answer
+<details>
+<summary>Student exercise answer</summary>
 
 1. **Fields and pair status of $s_{\mathrm{live}} = \mathrm{replayP}\;\mathrm{histLive}\;\mathrm{genesisP}$:**
    - The 9 fields of $s_{\mathrm{live}}$ are:
@@ -498,6 +535,8 @@ $$\mathrm{histLive} = [\mathrm{admitOcc}\;0,\; \mathrm{admitOcc}\;1,\; \mathrm{a
 
 ---
 
+</details>
+
 ## Verification
 
 Run both standalone verification scripts from the repository root:
@@ -507,5 +546,5 @@ $ python textbook/checks/u62_stable_content.py
 Unit 62 StableContent check: sufficiency_step=True; sufficiency_traces=True; quiescence_iff=True; reachable_live_obs=((1,),); broken_obs=((0, 1),); failures=[]
 
 $ python textbook/checks/u62_lean.py
-Unit 62 Lean check: exit=0; axiom reports as expected: 20 of 20; failures: []
+Unit 62 Lean check: exit=0; axiom reports as expected: 21 of 21; failures: []
 ```

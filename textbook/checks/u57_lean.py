@@ -107,6 +107,19 @@ theorem same_statement :
     (∃ f : World → Event → World, ∀ d ∈ allDescs, f ≠ interpStep d) :=
   i5_family_not_extensionally_complete
 
+/-- Matched-index agreement is not global support agreement. -/
+theorem diag_support_differs_elsewhere :
+    supp (diag allDescs interpStep (indexWorld 64) (.admitTok 100)) ≠
+      supp (interpStep kernelDesc (indexWorld 64) (.admitTok 100)) := by decide
+
+/-- Appending data changes any output, regardless of what its evaluator did. -/
+theorem data_append_differs (u : World) (n : Nat) :
+    { u with data := u.data ++ [n] } ≠ u := by
+  intro h
+  have hlen := congrArg (fun w : World => w.data.length) h
+  simp only [List.length_append, List.length_cons, List.length_nil] at hlen
+  omega
+
 end Textbook.U57
 
 #print axioms Textbook.U57.kernel_index
@@ -122,6 +135,8 @@ end Textbook.U57
 #print axioms Textbook.U57.constant_collapse_obstructed
 #print axioms Textbook.U57.isSome_keeps_apart
 #print axioms Textbook.U57.same_statement
+#print axioms Textbook.U57.diag_support_differs_elsewhere
+#print axioms Textbook.U57.data_append_differs
 #print axioms InterpreterBoundary.indexWorld_len
 #print axioms InterpreterBoundary.diag_hit
 #print axioms InterpreterBoundary.tower_persists
@@ -139,6 +154,8 @@ end Textbook.U57
 
 EXPECTED = {
     "Textbook.U57.kernel_index": PROPEXT,
+    "Textbook.U57.diag_support_differs_elsewhere": BOTH,
+    "Textbook.U57.data_append_differs": BOTH,
     "Textbook.U57.diag_notes_at_kernel": BOTH,
     "Textbook.U57.diag_supp_agrees_at_kernel": BOTH,
     "Textbook.U57.diag_ne_kernel": BOTH,

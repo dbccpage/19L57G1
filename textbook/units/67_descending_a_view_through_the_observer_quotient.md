@@ -2,6 +2,9 @@
 
 **Claim.** A view descends to an observer quotient exactly when it agrees on every pair the observer identifies. One identified pair with different view values blocks descent.
 
+<details>
+<summary>Sources and classification (optional)</summary>
+
 **Status:** FROZEN (the
 descent theorems and the dictionary); CONDITIONAL (`view_descends_pair_blocked`,
 on a compatible view and a blocking witness); REFUTED (descent of the
@@ -14,19 +17,42 @@ imports `DiffInterface`, `Compression`. **Axioms:** 37 reports in
 (`DiffObs`, `ZeroRel`, `ObsQuotient`, `obsQuotient_eq_of_zero`, `kernelObs`),
 Unit 61 (`FiberConstant`, `FactorsOn`, `factors_iff_fiberConstant`, `SigEq`).
 
+</details>
+
 ## First pass
 
-A quotient represents each group of identified items by one class.
-Descending a view means assigning an answer to the class that agrees with
-the original view on every member.
+The [Map lab](../map_lab/README.md) introduces class labels and recovery rules.
 
-Suppose the observer groups a and b together. A view with f(a) = f(b) can assign that shared answer to the class. A view with f(a) ≠ f(b) cannot.
+Suppose an observer groups the two items `false` and `true` into one
+class. A **view** gives an answer about an item. To **descend** means to
+give an answer using only the item's class, while preserving the view:
 
-For several classes, the view must agree within every class. For a pair of views, both components must pass this test. The formal sections extend this idea to difference maps and further quotients.
+| Item | Observer class | Constant view | Identity view |
+|---|---|---|---|
+| `false` | same class | `true` | `false` |
+| `true` | same class | `true` | `true` |
 
-The [Map lab](../map_lab/README.md) works this out with cards and arrows.
-The [reading guide](../reading_formal_statements.md) translates the symbols
-and explains why an abstract condition need not supply a decision procedure.
+The constant view descends: return `true` for that class. The identity
+view cannot descend: the same class would need two different answers.
+One such pair blocks recovery; agreement must hold within every class.
+
+**Predict.** Can the paired view `(constant answer, original item)`
+descend because its first component can?
+
+<details>
+<summary>Check your prediction</summary>
+
+No. Its second component still asks for different answers from the same
+class. `collapseAll_flagship` checks both the successful constant view
+and the blocked paired view. Both components must pass.
+
+</details>
+
+The [reading guide](../reading_formal_statements.md) separates such a
+mathematical condition from a general decision procedure.
+
+<details>
+<summary>Detailed statement and formal anchors (optional)</summary>
 
 ## Detailed claim and formal anchors
 
@@ -77,6 +103,8 @@ domain-relative factorization of Unit 61 quantified over every finite list
 domain `D : List Nat` (`classConstant_iff_fiberConstant_all`,
 `descend_iff_factorsOn_all`), and the quantifier `∀ D` cannot be
 dropped (`fiberConstant_fixed_D_not_classConstant`).
+
+</details>
 
 ## Question
 
@@ -566,7 +594,8 @@ what goes wrong if you try to repeat that two-line proof for `collapseAllObs`?
 Verify your answer against `kernelObs_deltaConstant` in
 `textbook/checks/u67_lean.py`.
 
-## Answer
+<details>
+<summary>Student exercise answer</summary>
 
 For `O = kernelObs view`, `O.delta x y` is defined as the pair
 `(view x, view y)` and `ZeroRel O x x'` is defined as `view x = view x'`. So
@@ -580,6 +609,8 @@ between values of a view, while `collapseAllObs.delta x y` is `x`. Knowing
 with which to rewrite `collapseAllObs.delta true true = true` into
 `collapseAllObs.delta false false = false`. That decoupling of `Zero` from
 `delta` is what a non-kernel `DiffObs` allows and what `kernelObs` forbids.
+
+</details>
 
 ## Verification
 
