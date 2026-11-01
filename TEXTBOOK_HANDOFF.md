@@ -30,12 +30,15 @@ answers; software checks do not measure a reader's intuition.
 | Canonical local textbook job | Five of five selected steps; 108 Python checks; 81 book-Lean drivers |
 | Interpreter and receipt custody | Python 3.14.7; pinned dependencies; clean source; identical start/end HEAD |
 | Published teaching Wiki before final status edits | a14e9cc12a8a52faf862e18e19610977bdc9b66b |
+| Final status/audit source | c5f30a956a6e63659ca2b85d80b9e9f1fb41abb2 |
+| Final published Wiki | cc4567351c9f5854871ef6afdfd0aa1292544100 |
 | main at release review | 14d23a98830a4e6916b0e50810f0bc6ca17a05cf |
 | PR | #296; OPEN, DRAFT, directly against main; unmerged |
 | Source workspace | `C:\Users\a343o\.codex\worktrees\institutions-reading-review\19L57G1` |
 | Wiki checkout | `C:\Users\a343o\.codex\worktrees\5ce4\19L57G1\artifacts2\wiki-review\wiki` |
 
-Final status-page publication has its own receipt under
+Final status-page publication passed: two selected pages and all 608 other
+Wiki files preserved; all 93 Unit/source checks passed. Its receipt is under
 `artifacts2/release-audit-2026-11-01/`. The final documentation checkpoint may
 advance the source branch; it does not change the checked mathematics,
 examples, videos or the scope of the d0386aee teaching receipt. Refresh remote
@@ -69,7 +72,7 @@ open-question and omission roles have explicit reasons and source identities.
 
 ## What remains
 
-There is no retained P1 textbook task after final publication verification.
+There is no retained P1 textbook task.
 The following boundaries are explicit:
 
 - **Author-controlled merge:** PR #296 remains draft and unmerged. The full
