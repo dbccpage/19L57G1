@@ -2,7 +2,15 @@
 
 **AuthorityEffect: None.** This is a source-placement index and a recorded
 prerequisite graph. It is not a certification that every declaration is
-explained or that every prerequisite is taught before use. It records:
+explained or that every prerequisite is taught before use.
+
+**2026-11-01 continuation:** the author requested deeper declaration coverage.
+[Batch 1](audit/DECLARATION_COVERAGE_BATCH_01_2026-11-01.md) reconciles a
+bounded 53-head sealed/research cluster with actual teaching and identifies
+five explanation/scope gaps. Its findings supplement the proposed placement
+below; they do not certify the other entries as taught.
+
+The existing index records:
 
 1. Every frozen module under `lean4/Derivation/` (all 75 modules: 62 directly
    imported by `lean4/Derivation.lean`, 63 in its transitive import closure,
