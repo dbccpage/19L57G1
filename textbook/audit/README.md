@@ -517,3 +517,8 @@ admission bounds, fresh-data comparisons, witnesses, relation models and
 recorded requests. Smaller reading chunks and grouped practice retain the
 exact hypotheses; book checks cover request invariance and a raw-record
 counterexample to dropping the instance-range condition.
+
+The [Units 17–22 review](REPAIR_READING_REVIEW_2026-11-01.md) separates
+request acceptance, successful replay, all-request validity, cost and
+reversible renaming. It adds a multi-request counterexample, general book
+cost-floor proofs, changed practice and a [current completion review](../completion_status.md).

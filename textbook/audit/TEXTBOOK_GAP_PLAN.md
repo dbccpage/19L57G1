@@ -2,6 +2,10 @@
 
 Date: 2026-10-28. AuthorityEffect: None.
 
+For the current release work and remaining requirements, use the
+[completion status](../completion_status.md). This plan retains historical
+proposals; its proposed reader timings are not achieved outcomes.
+
 ## The goal
 
 Enable a determined teenager with no prior philosophy or mathematics study
@@ -36,8 +40,8 @@ above record the earlier publication, not current open-PR status.
 | Institution lessons | 18 | A research curriculum exists for four named trees |
 | Sealed Lean modules | 75 | All 75 have coverage-matrix sections and assigned units |
 | Canonical research trees | 123 | Counted using `ci/research_index.py`'s actual population rule |
-| Trees with dedicated research lessons | 17 | Four institution trees, `standing_commitment`, three selected Boundary-lab introductions, `identification_dual`, `qm_bridge`, selected `native_bridge` claims, selected `native_structure` costs, selected P200 recording protocols, selected P201/P202 calibration/clock rules, selected P203 composite definitions, selected P204 valuation models, and selected X300 channel/process claims |
-| Other canonical trees | 106 | No dedicated lesson treatment is established by the current curriculum |
+| Trees with dedicated research lessons | 18 | Four institution trees, `standing_commitment`, three selected Boundary-lab introductions, `identification_dual`, `qm_bridge`, selected `native_bridge` claims, selected `native_structure` costs, selected P200 recording protocols, selected P201/P202 calibration/clock rules, selected P203 composite definitions, selected P204 valuation models, selected X300 channel/process claims, and selected X301 interpretation/report claims |
+| Other canonical trees | 105 | No dedicated lesson treatment is established by the current curriculum; placement as lesson, reference, open question or justified omission remains to be decided |
 | Manim overview scenes | 12 | Groups of lessons have short previews; individual concepts still need slower worked treatment |
 
 The research population includes parked work, frozen experiments, tooling,

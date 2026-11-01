@@ -105,6 +105,75 @@ theorem instance_count_tie :
     (Iso U0 BL → False) :=
   ⟨rfl, rfl, rfl, rfl, deltaU0_valid, deltaBL_valid, U0_not_iso_BL⟩
 
+theorem instanceCount_cons (a : Item) (rest : List Item) :
+    instanceCount (a :: rest) = instanceCount [a] + instanceCount rest := by
+  cases a <;> simp [instanceCount]
+
+theorem applyItem_no_instance_keeps_insts (r s : Regime) (it : Item)
+    (hz : instanceCount [it] = 0) (h : applyItem r it = some s) :
+    s.insts = r.insts := by
+  cases it with
+  | newDatum => cases Option.some.inj h; rfl
+  | newForm a =>
+      simp only [applyItem] at h
+      split at h
+      · cases Option.some.inj h; rfl
+      · cases h
+  | newInst f args => simp [instanceCount] at hz
+  | newRuleAll f =>
+      simp only [applyItem] at h
+      split at h
+      · cases Option.some.inj h; rfl
+      · cases h
+
+theorem applyDelta_no_instances_keeps_insts (δ : List Item) (r s : Regime)
+    (hz : instanceCount δ = 0) (h : applyDelta r δ = some s) :
+    s.insts = r.insts := by
+  induction δ generalizing r with
+  | nil => cases Option.some.inj h; rfl
+  | cons a rest ih =>
+      have hsum := instanceCount_cons a rest
+      have ha0 : instanceCount [a] = 0 := by omega
+      have hr0 : instanceCount rest = 0 := by omega
+      simp only [applyDelta, List.foldlM] at h
+      cases hs : applyItem r a with
+      | none => rw [hs] at h; cases h
+      | some r1 =>
+          rw [hs] at h
+          exact (ih r1 hr0 h).trans (applyItem_no_instance_keeps_insts r r1 a ha0 hs)
+
+theorem zero_instances_no_response (r : Regime) (hi : r.insts = [])
+    (δ : List Item) (hz : instanceCount δ = 0) (i j : Nat) :
+    ¬ validResponse r i j δ := by
+  intro ⟨s, hs, hsep, _⟩
+  exact no_insts_no_separation
+    ((applyDelta_no_instances_keeps_insts δ r s hz hs).trans hi) hsep
+
+theorem applyDelta_zero_keeps_bare (δ : List Item) (r s : Regime)
+    (hf : r.forms = []) (hi : r.insts = [])
+    (hz : aritySum δ = 0) (h : applyDelta r δ = some s) :
+    s.forms = [] ∧ s.insts = [] := by
+  induction δ generalizing r with
+  | nil => cases Option.some.inj h; exact ⟨hf, hi⟩
+  | cons a rest ih =>
+      have hsum := aritySum_cons a rest
+      have ha0 : aritySum [a] = 0 := by omega
+      have hr0 : aritySum rest = 0 := by omega
+      simp only [applyDelta, List.foldlM] at h
+      cases hs : applyItem r a with
+      | none => rw [hs] at h; cases h
+      | some r1 =>
+          rw [hs] at h
+          have h1 := applyItem_zero_keeps_bare r hf hi a ha0 r1 hs
+          exact ih r1 h1.1 h1.2 hr0 h
+
+theorem zero_arity_no_response (r : Regime) (hf : r.forms = [])
+    (hi : r.insts = []) (δ : List Item) (hz : aritySum δ = 0) (i j : Nat) :
+    ¬ validResponse r i j δ := by
+  intro ⟨s, hs, hsep, _⟩
+  exact no_insts_no_separation
+    (applyDelta_zero_keeps_bare δ r s hf hi hz hs).2 hsep
+
 end Textbook.U22
 
 #print axioms Textbook.U22.aritySum_cons
@@ -118,6 +187,12 @@ end Textbook.U22
 #print axioms Derivation.mu2_unique
 #print axioms Derivation.mu2_unique_F
 #print axioms Derivation.isoRefl
+#print axioms Textbook.U22.instanceCount_cons
+#print axioms Textbook.U22.applyItem_no_instance_keeps_insts
+#print axioms Textbook.U22.applyDelta_no_instances_keeps_insts
+#print axioms Textbook.U22.zero_instances_no_response
+#print axioms Textbook.U22.applyDelta_zero_keeps_bare
+#print axioms Textbook.U22.zero_arity_no_response
 """
 
 EXPECTED = {
@@ -132,6 +207,12 @@ EXPECTED = {
     "Derivation.mu2_unique": BOTH,
     "Derivation.mu2_unique_F": BOTH,
     "Derivation.isoRefl": BOTH,
+    "Textbook.U22.instanceCount_cons": PROPEXT,
+    "Textbook.U22.applyItem_no_instance_keeps_insts": PROPEXT,
+    "Textbook.U22.applyDelta_no_instances_keeps_insts": BOTH,
+    "Textbook.U22.zero_instances_no_response": BOTH,
+    "Textbook.U22.applyDelta_zero_keeps_bare": BOTH,
+    "Textbook.U22.zero_arity_no_response": BOTH,
 }
 
 if __name__ == "__main__":

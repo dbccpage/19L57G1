@@ -29,6 +29,13 @@ Units 11–16 distinguish stored tokens, preserved comparisons, relation
 models and recorded requests. Use their [three groups of questions](admission_practice.md)
 before the [separate answers](admission_answers.md).
 
+Units 17–22 distinguish accepted requests, valid repairs, cheapest plans
+and reversible renaming. Try their [grouped questions](repair_practice.md)
+before the [answers](repair_answers.md).
+
+For the author and reviewers, the [completion status](completion_status.md)
+separates existing content, checked claims and the remaining release work.
+
 The beginner routes develop one small idea at a time. The formal units
 group related definitions and theorems and can contain many results.
 Start with their concrete first pass, then read the definitions, hypotheses,

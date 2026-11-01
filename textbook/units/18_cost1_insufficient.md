@@ -31,11 +31,20 @@ is a sentence shape with a declared number of places. An **instance**
 fills those places with admitted data. Each addition counts as one
 item under the measure used here.
 
-**Predict:** can one item make a test distinguish 0 from 1?
-A form alone supplies a shape with no instance. An instance alone is
-refused because its form does not exist. A uniform rule also needs a
-form. A new datum supplies neither a form nor an instance. Doing
-nothing does not help either.
+| Plan from this starting ledger | What happens? |
+|---|---|
+| Add nothing | No distinguishing test |
+| Add a datum | Still no form or instance |
+| Add a form | A shape, but no admitted instance |
+| Add an instance | Rejected: its form is absent |
+| Add a uniform rule | Rejected: its form is absent |
+
+<details><summary>Predict: which one-item plan can distinguish 0 from 1 here?</summary>
+
+None. Every plan either fails its admission guard or leaves no instance.
+Under this model's derivability rules, that leaves the pair collapsed.
+
+</details>
 
 Thus zero or one item cannot answer this demand under these starting
 conditions. The next chapter supplies a two-item answer.
@@ -53,8 +62,8 @@ For a slower worked search with all tied plans visible, see the
 Unit 16 showed the demand is unmet. Now the system may be augmented. What
 is the least that must be admitted? Could a single admission do it: one
 new form, or one new datum, or one cleverly chosen instance? Genesis
-answers absolutely, over the whole grammar of items, not just within the
-enumerated bounds.
+answers over every item in the declared grammar, not just the finite
+collection checked by the Python search.
 
 ## What we already possess
 
@@ -81,21 +90,30 @@ admission events minus `supply` and `impose`: a delta is what the
 demands.
 
 A **valid response** to the demand `(i, j)` on `r` (lines 198-200) is a
-delta that applies, whose result separates `i` from `j`, and whose result
-still separates every pair previously in `r.reqs`.
+delta that passes three checks:
+
+1. Every item applies in order, so the delta has a final ledger.
+2. That ledger separates the chosen target `(i, j)`.
+3. That ledger also separates **every pair recorded in the starting
+   `r.reqs`**, whether or not that request was met before the repair.
+
+The third check is a requirement on the final state. It is not a claim
+that all those requests were already satisfied, or that separation was
+preserved at every intermediate step. Unit 19 gives a multi-request example.
 
 The **cost** `mu1` of a delta is its length (paper §3, definition 6). The
 theorem is about deltas of length at most one.
 
 ## Plain-language interpretation
 
-Separation needs a sentence that is true of one datum and not the other.
-A sentence needs a form to be a sentence *of*, and an instance to be
-*admitted*. A single item can supply at most one of these. A lone form
+Here separation needs one context with different **derivability** answers.
+Starting with no forms and no instances, a single item cannot supply both
+a form and an admitted instance. A lone form
 gives sentence shapes with nothing asserted; a lone instance has no shape
 to take and is refused at the door; a lone datum changes nothing about
 the existing pair (Unit 12); a lone rule has no form either. So the first
-possible answer costs two items: one form and one instance. Unit 19
+possible answer costs two items: one form and one instance. These model
+answers do not themselves establish truth about physical objects. Unit 19
 shows that two do suffice.
 
 The theorem is **absolute**: it does not say "within arity 2" or "within
@@ -103,6 +121,9 @@ the enumerated candidates". It quantifies over every item of the grammar,
 with any arity and any argument list. That is what the Lean adds beyond
 the Python enumeration, which is complete only within its declared
 bounds.
+
+<details>
+<summary>Programs and proof walkthroughs (optional)</summary>
 
 ## Pseudocode
 
@@ -258,6 +279,8 @@ theorem to `R2L` with `rfl, rfl` for the two emptiness hypotheses, and to
 **Axioms.** `propext` only: `simp` and `split` on the definitions, no
 `decide` on concrete lists.
 
+</details>
+
 ## What has been proved
 
 - On every form-less, instance-less regime, for every pair and every
@@ -323,7 +346,7 @@ the guard were weakened to allow instances on unknown forms?
 ## Answer
 
 <details>
-<summary>Worked answer</summary>
+<summary>Check the exercise (optional)</summary>
 
 `[.newForm 0]` does not apply: the guard is `1 ≤ 0`, false, so
 `applyItem` returns `none`. In the proof, the `newForm a` case does

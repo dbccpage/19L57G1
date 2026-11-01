@@ -129,6 +129,9 @@ theorem malformed_base_survives :
     stepE ⟨2, [], [], [], [(1, 0)]⟩ (.impose 0 1) =
       some ⟨2, [], [], [], [(1, 0), (0, 1)]⟩ := by decide
 
+theorem self_not_separable (r : Regime) (d : Nat) : ¬ separable r d d :=
+  fun ⟨_, _, h⟩ => h ⟨fun hx => hx, fun hx => hx⟩
+
 end Textbook.U17
 
 #print axioms Textbook.U17.impose_gives_R2L
@@ -143,6 +146,7 @@ end Textbook.U17
 #print axioms Textbook.U17.malformed_base_survives
 #print axioms Derivation.stepE
 #print axioms Derivation.insertNew
+#print axioms Textbook.U17.self_not_separable
 """
 
 EXPECTED = {
@@ -158,6 +162,7 @@ EXPECTED = {
     "Textbook.U17.malformed_base_survives": PROPEXT,
     "Derivation.stepE": PROPEXT,
     "Derivation.insertNew": PROPEXT,
+    "Textbook.U17.self_not_separable": PROPEXT,
 }
 
 if __name__ == "__main__":

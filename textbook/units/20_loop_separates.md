@@ -27,8 +27,13 @@ there in full).
 
 Keep two data and one two-place form. This time admit only
 `link(0, 0)`, with no uniform rule. Ask “is `link(□, 0)` derivable?”
-For 0 it gives the admitted instance. For 1 it gives `link(1, 0)`,
-which is not derivable. The question distinguishes the pair even though
+
+| Fill the square with | Result | Derivable? |
+|---|---|---|
+| 0 | `link(0,0)` | Yes |
+| 1 | `link(1,0)` | No |
+
+The question distinguishes the pair even though
 the admitted instance mentions only 0.
 
 A **self-loop** repeats one datum in both argument positions. This is
@@ -78,10 +83,11 @@ The paper calls this the self-loop realizing ⟨ARA⟩. It appears among the
 
 ## Plain-language interpretation
 
-Two people, one of whom is on record as having shaken their own hand.
-That record distinguishes them. It is a slightly odd way to distinguish
-two people. Here the demand is met by one positive derivability answer
-and one negative answer to the same question. Mentioning just one datum
+Imagine a record of numbered cards with only the entry “0 links to 0.”
+The fixed question “does this card link to 0?” has different lookup
+answers on 0 and 1. This is a toy record; no physical card relationship
+has been observed. Here the demand is met by one positive derivability
+answer and one negative answer to the same question. Mentioning just one datum
 is not sufficient in every regime: other instances or a uniform rule
 can make the other plugging derivable too. The example works because
 there is exactly this one instance and no rule.
@@ -93,6 +99,9 @@ A renaming is a bijection of data; it must send the link's instance
 there is `(0, [0, 0])`. That forces both 0 and 1 to go to 0, which is
 not a bijection. So the two are genuinely different answers to the same
 demand at the same cost. Unit 21 draws the consequence.
+
+<details>
+<summary>Programs and proof walkthroughs (optional)</summary>
 
 ## Pseudocode
 
@@ -206,6 +215,8 @@ contradicting the datum-inverse fields.
 `BL_not_iso_BD` (all decide concrete memberships); `propext` for the
 landing equation `applyDelta R2L deltaBD = some BD`.
 
+</details>
+
 ## What has been proved
 
 - `BD` separates 0 from 1 with the named witness (Genesis, derived).
@@ -247,10 +258,10 @@ two arguments happen to be the same index, one demand.
 
 **Phrases to read with care.**
 
-- "Not isomorphic" is relative to the implemented isomorphism, which
-  preserves instances exactly. A coarser notion (say, forgetting
-  argument multiplicity) would identify them; Genesis declares the notion
-  it uses.
+- “Not isomorphic” is relative to the declared maps, which preserve
+  instances in both directions and admit inverse maps on the data.
+  Replacing that notion requires specifying new preservation conditions;
+  no conclusion about an unspecified coarser comparison follows here.
 - "Realizes ⟨ARA⟩" is the metatheory's reading of `[0, 0]`.
 
 ## Student exercise
@@ -262,7 +273,7 @@ would you use, and what goes wrong?
 ## Answer
 
 <details>
-<summary>Worked answer</summary>
+<summary>Check the exercise (optional)</summary>
 
 Use `insts_fwd` on the loop's instance `(0, [0, 0])`: it must be carried
 to an instance of `BL`, that is to `(0, [0, 1])`, so `dmap 0 = 0` from

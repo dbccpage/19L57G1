@@ -66,6 +66,13 @@ their [answers](admission_answers.md). Keep each starting model explicit.
 
 ## Choose another toolkit when you need it
 
+Units 17–22 follow a recorded demand through repair, cost and renaming.
+Read the [changed repair questions](repair_practice.md) one group at a time
+before their [answers](repair_answers.md). Keep admission success, validity
+for all stored requests, and minimum cost separate. The
+[completion status](completion_status.md) records remaining editorial work;
+it adds no prerequisite to this reading path.
+
 | What you need next | Read this bounded part | Before it |
 |---|---|---|
 | Reading induction in a proof | [Reasoning 52–55](reasoning_lab/52_start_then_one_more.md) | Reasoning 00–07 and Number 00; later applications are not prerequisites |

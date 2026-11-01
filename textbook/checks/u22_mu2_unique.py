@@ -21,6 +21,7 @@ from derivation.candidates import (  # noqa: E402
 from derivation.engine import GENESIS_F, GENESIS_L, delta_label  # noqa: E402
 from derivation.iso import isomorphic  # noqa: E402
 from derivation.model import AdmissionError, Impose, replay, step  # noqa: E402
+from derivation.observe import separable  # noqa: E402
 
 
 def items(n_data: int, max_arity: int):
@@ -78,6 +79,16 @@ def main() -> int:
     results = [step(apply_delta(base, d), Impose(0, 1)) for d in alternatives]
     if costs != [(2, 1), (2, 1)] or isomorphic(*results):
         failures.append("instance-count tie")
+    if not ((2, 2) < (3, 0)) or not (sum((2, 2)) > sum((3, 0))):
+        failures.append("lexicographic cost differs from sum")
+    fbase = step(replay(GENESIS_F), Impose(1, 2))
+    fmarks = [apply_delta(fbase, (NewForm(1), NewInst(0, (d,)))) for d in range(3)]
+    flags = [separable(r, 1, 2) for r in fmarks]
+    if flags != [False, True, True] or not isomorphic(fmarks[1], fmarks[2]):
+        failures.append(("F marks on and outside requested pair", flags))
+    if any(len(r.data) != 3 or r.reqs != fbase.reqs for r in fmarks):
+        failures.append("F repair changed data count or requests")
+    print(f"reading F unary marks 0/1/2 separate target (1,2): {flags}; three data retained")
     print(f"instance-count costs: {costs}; same class: {isomorphic(*results)}; "
           f"lexicographic example: (2, 1) < (3, 0) = {(2, 1) < (3, 0)}")
 

@@ -18,6 +18,7 @@ from booklean import BOTH, NONE, PROPEXT, QUOT, main  # noqa: E402
 
 LEAN_SOURCE = """\
 import Derivation.Minimality
+import Derivation.Mention
 
 namespace Textbook.U19
 open Derivation
@@ -68,6 +69,33 @@ theorem BL_uniform_collapsed : collapsed { BL with rules := [0] } 0 1 := by
   have hr : c.form ∈ ([0] : List Nat) := by simp [hf]
   exact ⟨fun _ => Or.inr hr, fun _ => Or.inr hr⟩
 
+def pending : Regime := ⟨3, [], [], [], [(0, 1), (1, 2)]⟩
+def partialRepair : Regime := ⟨3, [1], [(0, [0])], [], [(0, 1), (1, 2)]⟩
+
+theorem partial_lands : applyDelta pending deltaU0 = some partialRepair := by decide
+
+theorem partial_target_separated : separable partialRepair 0 1 :=
+  ⟨⟨0, [none]⟩, by decide, by decide⟩
+
+theorem partial_other_collapsed : collapsed partialRepair 1 2 :=
+  (collapsed_append_unmentioning ⟨3, [1], [], [], [(0, 1), (1, 2)]⟩
+    [(0, [0])] 1 2 (by decide) (by decide)).mpr
+      (collapsed_of_no_insts _ rfl 1 2)
+
+theorem partial_response_invalid : ¬ validResponse pending 0 1 deltaU0 := by
+  intro ⟨s, hs, _, hall⟩
+  have heq : partialRepair = s := Option.some.inj (partial_lands.symm.trans hs)
+  subst s
+  exact separable_not_collapsed (hall (1, 2) (by decide)) partial_other_collapsed
+
+theorem middle_mark_meets_both : validResponse pending 0 1 deltaU1 := by
+  refine ⟨⟨3, [1], [(0, [1])], [], [(0, 1), (1, 2)]⟩, by decide,
+    ⟨⟨0, [none]⟩, by decide, by decide⟩, ?_⟩
+  intro q hq
+  have h : q = (0, 1) ∨ q = (1, 2) := by simpa [pending] using hq
+  rcases h with h | h <;> subst q <;>
+    exact ⟨⟨0, [none]⟩, by decide, by decide⟩
+
 end Textbook.U19
 
 #print axioms Textbook.U19.BL_witness_wf
@@ -84,6 +112,11 @@ end Textbook.U19
 #print axioms Derivation.BL_separable
 #print axioms Derivation.deltaBL_valid
 #print axioms Derivation.validResponse_R2L
+#print axioms Textbook.U19.partial_lands
+#print axioms Textbook.U19.partial_target_separated
+#print axioms Textbook.U19.partial_other_collapsed
+#print axioms Textbook.U19.partial_response_invalid
+#print axioms Textbook.U19.middle_mark_meets_both
 """
 
 EXPECTED = {
@@ -101,6 +134,11 @@ EXPECTED = {
     "Derivation.BL_separable": BOTH,
     "Derivation.deltaBL_valid": BOTH,
     "Derivation.validResponse_R2L": PROPEXT,
+    "Textbook.U19.partial_lands": PROPEXT,
+    "Textbook.U19.partial_target_separated": BOTH,
+    "Textbook.U19.partial_other_collapsed": BOTH,
+    "Textbook.U19.partial_response_invalid": BOTH,
+    "Textbook.U19.middle_mark_meets_both": BOTH,
 }
 
 if __name__ == "__main__":

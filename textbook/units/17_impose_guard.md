@@ -24,8 +24,14 @@ constructor; nothing derives it.
 
 There are two admitted data, at positions 0 and 1. A caller submits
 the request “tell 0 and 1 apart.” The request is accepted because
-both positions exist and the smaller comes first. Asking to separate
-0 from itself, reversing the pair, or naming position 2 is rejected.
+both positions exist and the smaller comes first.
+
+| Submitted pair | Accepted? | Reason |
+|---|---|---|
+| (0,1) | Yes | Both exist; smaller first |
+| (0,0) | No | Same position twice |
+| (1,0) | No | Wrong order |
+| (0,2) | No | Position 2 is absent |
 
 Acceptance records a task. It does not add a question that can tell
 the data apart, and it does not establish that the task is achievable.
@@ -78,19 +84,21 @@ this one line:
    under two spellings. An arbitrary raw `Regime` can already contain
    unsorted pairs; this guard does not remove them.
 
-The first consequence is the reason this unit's title says *irreflexive
-by guard*. The system is never asked to separate a datum from itself,
-not because a theorem forbids it, but because the constructor wrote a
-guard that refuses the request. That is an admission about the caller's
-language, and the book marks it admitted.
+The first consequence explains *irreflexive by guard*: this event records
+no self-demand. That is a declared choice of request language. Separately,
+the definition of separation makes self-separation impossible: any context
+gives the same answer when filled with the same datum twice. The book
+proves this second fact without using the request guard. A caller could
+instead record an impossible task; Genesis chooses to reject it at admission.
 
 ## Plain-language interpretation
 
 A demand form with two boxes, "first" and "second", that the clerk will
 only accept if the first number is smaller than the second and both
 numbers are on the register. The rule is sensible, and it is a rule the
-clerk was given. The system does not know *why* the same datum cannot be
-demanded against itself. It never sees the refused form.
+clerk was given. A rejected event returns no successor state; it does not
+insert a rejected-request entry. A separate caller may keep a refusal log,
+but that log is not a field of this regime.
 
 There is a point of method here for the whole book. Later theorems (for
 instance `isoRefl`, Unit 21) take as a hypothesis that every demand is
@@ -98,6 +106,9 @@ sorted. The hypothesis is dischargeable because of this guard, and the
 book proves that in Lean: every regime reached by replay from a regime
 with sorted demands has sorted demands. That is a **derived invariant of
 an admitted guard**, and the two words should stay apart.
+
+<details>
+<summary>Programs and proof walkthroughs (optional)</summary>
 
 ## Pseudocode
 
@@ -238,6 +249,8 @@ every demand of `R2L` sorted, and the only demand is `(0, 1)`.
 proofs by `simp`/`decide` on `stepE`; `propext, Quot.sound` for the
 `isoRefl` instance, which decides a concrete membership.
 
+</details>
+
 ## What has been proved
 
 - `impose d d` is rejected on every regime (book, derived).
@@ -259,11 +272,10 @@ proofs by `simp`/`decide` on `stepE`; `propext, Quot.sound` for the
   (§3, definition 7).
 - Anything about *meeting* a demand. The guard admits the demand; Units
   16 and 18 to 22 are about satisfying it.
-- Irreflexivity of anything inside the system. The guard is about the
-  caller's requests, written in the metatheory's indices. The object
-  language has no relation that could be reflexive or not; the question
-  of irreflexivity as a *law* belongs to the primitive-difference units
-  (23 to 26).
+- An irreflexivity law for every admitted binary form. Instances may
+  repeat an index: Unit 20's self-loop is permitted. The guard concerns
+  requests; the separate relation laws of Units 23–26 concern their
+  supplied relation models. Neither should be read into every form here.
 
 ## Outside the system
 
@@ -299,11 +311,11 @@ demands. Then: a history `[admitDatum, impose 0 1, admitDatum]`, from
 ## Answer
 
 <details>
-<summary>Worked answer</summary>
+<summary>Check the exercise (optional)</summary>
 
 Accepted pairs: `(0, 1)`, `(0, 2)`, `(1, 2)`, the pairs with `i < j < 3`.
-The derivation demands only `(1, 2)` (`R2F.reqs`), the pair of the two
-retained tokens; the genesis datum is never required of anything. The
+At this checkpoint the recorded demand is `(1, 2)` (`R2F.reqs`), the pair
+of the two retained tokens; no request names datum 0. The
 history is not admissible: after one `admitDatum` the regime has
 `data = 1`, so `impose 0 1` needs `1 < 1`, which fails, and `stepE`
 returns `none`; `replayE` then returns `none` for the whole history,
@@ -323,4 +335,4 @@ event pattern and classifies it as inadmissible.
 | Artifact | `artifacts/challenges.json`, `challenge3.L.reading = "L"` with target `(0, 1)`; the demand itself is not an artifact field |
 | Test | `tests/test_model.py` (admission errors); `tests/test_engine.py::test_challenge3_reading_l_classes` |
 | Check (Python) | `python textbook/checks/u17_impose_guard.py`: one accepted demand, seven refusals; repeated demand unchanged; malformed base not repaired; 111 111 histories, 2 883 admissible, 990 recorded demands all sorted; reading F accepts `(1, 2)` where reading L refuses it |
-| Check (book Lean) | `python textbook/checks/u17_lean.py`: ten book reports plus `stepE` and `insertNew` kernel-checked, Lean 4.33.0; `propext` throughout, `propext, Quot.sound` for `R2L_selfIso` |
+| Check (book Lean) | `python textbook/checks/u17_lean.py`: eleven book reports plus `stepE` and `insertNew` kernel-checked, Lean 4.33.0; `propext` for the guard/invariant proofs and `self_not_separable`, both listed axioms for `R2L_selfIso` |
