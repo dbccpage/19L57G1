@@ -110,7 +110,9 @@ does not apply to an arbitrary list of requests.
 Consider a **separate** starting ledger with three data, no forms or
 instances, and requests (0,1) and (1,2). Choose (0,1) as the target.
 
-| Two-item plan | Target (0,1) separated? | Stored pair (1,2) separated? |
+Each pair column says whether that pair is separated:
+
+| Two-item plan | Pair (0,1) | Pair (1,2) |
 |---|---|---|
 | Unary form, then `marked(0)` | Yes | No |
 | Unary form, then `marked(1)` | Yes | Yes |
