@@ -478,3 +478,9 @@ The [selected process route](CHANNEL_READING_REVIEW_2026-10-31.md) adds seven
 short lessons on conditional rows, composition, retained distinctions and
 reset/recovery. Separate changed practice precedes answers; supplied models
 and device evidence retain explicit boundaries.
+
+The [core entrance review](CORE_ENTRANCE_READING_REVIEW_2026-11-01.md)
+adds concrete openings to Units 00–03, separates source detail from the
+first reading, corrects lookup/admission/event scopes and supplies six
+changed tasks with separate answers. Original fenced quotations remain
+intact; no new theorem or research coverage is claimed.

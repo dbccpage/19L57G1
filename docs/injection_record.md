@@ -1149,3 +1149,14 @@ the wrong theorem; retained diagnostics locate it on
 `state_space_multiplicative`. Correcting that assignment widens no set.
 Research sources remain unchanged. These checks establish no physical
 or learner result.
+
+## Core entrance: event identity versus step outcome (2026-11-01 UTC)
+
+AuthorityEffect: None. In a disposable assembled copy of the Unit 03
+book source, change the distinct supply events 0 and 7 to equal events
+while retaining their equal step outcomes. Lean rejects the event-equality
+claim. Unmodified source recovers with thirteen exact reports: eleven
+with only `propext` and two empty. No native source or original quotation
+is mutated. This distinguishes equality of resulting ledgers from
+equality of the inputs or histories producing them, without certifying
+Python-to-Lean refinement, device behavior or learner understanding.

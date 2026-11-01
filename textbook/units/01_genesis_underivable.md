@@ -1,14 +1,74 @@
 # Unit 01. Nothing is derivable at genesis
 
 **Claim.** In the starting ledger, no judgment instance is derivable.
+
+<details><summary>Source and classification record (optional)</summary>
+
 **Status:** derived. **Lean:** `Derivation.genesis_underivable`
 (`lean4/Derivation/Inertia.lean`, line 21). **Axioms:** none.
 **Depends on (admitted):** `Inst`, `Regime`, `genesis`, `derivable`.
 
-This is the first theorem of Genesis and the smallest one. It is worth
-reading slowly, because every later proof uses the same three moves: unfold
-a definition, split into cases, and close each case because the data rule it
-out.
+This is the first theorem in the book's reading order. Its proof unfolds
+a definition, splits the two possible lookup cases and rules out each.
+Later proofs can require other methods; this example introduces these moves.
+
+</details>
+
+## Question
+
+What can two empty lookup lists establish under their supplied rule?
+
+## First pass
+
+A **ledger** is the model's current stored record. A **form** names a kind
+of statement; an **instance** is one particular candidate using a form
+and specified data. “Form 0 holds of datum 0” is a candidate instance.
+Writing it down does not admit it.
+
+### The two ways to get Yes
+
+The supplied lookup rule asks:
+
+1. Is this exact instance on the admitted-instance list?
+2. Is its form on the all-instances-rule list?
+
+If either answer is Yes, the instance is **derivable** in this model.
+The all-instances rule grants Yes to that form's instances; an individual
+entry grants Yes only to that entry. Here “derivable” names these two
+lookups, not every kind of reasoning you might do outside the model.
+
+At the chosen start, both lists are empty.
+
+| Lookup for any candidate instance | Starting list | Result |
+|---|---|---|
+| This exact instance admitted? | Empty | No |
+| Its form has the all-instances rule? | Empty | No |
+
+<details><summary>Predict: does changing the candidate's number make either lookup succeed?</summary>
+
+No. Neither empty list contains an entry for the new candidate either.
+The theorem checks the two lookup possibilities for an arbitrary candidate,
+so it does not need to test every number separately.
+
+</details>
+
+### Keep the conclusion attached to its question
+
+“No instance is derivable here” does not say that every statement about
+reality is false. It says that this chosen starting ledger gives no Yes
+under this particular rule. Later admissions can change a lookup's answer.
+
+A raw candidate can also name an unadmitted datum or have the wrong number
+of arguments. **Well formed** means satisfying the model's separate
+validity checks. The derivability lookup alone does not perform them;
+its formal definition below keeps that distinction explicit.
+
+Change the setup by admitting two data but no instance and no rule.
+The two lookup lists remain empty. Explain why adding data alone cannot
+make either lookup succeed. [Unit 02](02_underivable_of_empty.md) makes
+that wider claim and states its conditions.
+
+<details><summary>More detail: What you need first</summary>
 
 ## What you need first
 
@@ -66,8 +126,9 @@ class Regime:
 The comments on the Lean fields are this book's. Two differences between
 the versions matter later and not here: Lean keeps `data` as a bare count
 while Python keeps token strings, and Lean keeps lists while Python keeps
-sets. Lean makes its lists behave as sets by refusing duplicates on insertion
-(`insertNew`, Basic.lean line 25).
+sets. Lean's `insertNew` leaves a list unchanged when the proposed entry already
+belongs to it (Basic.lean line 25). That event helper does not reject the
+event or remove repetitions from an arbitrary manually supplied list.
 
 ### 3. The starting regime
 
@@ -126,9 +187,9 @@ logic beyond these two lookups. **Status:** admitted (paper §3 item 4).
 The Python checks the two halves in the other order. `or` does not care
 about order, so the two definitions agree.
 
-**A finite ledger, an unbounded extension.** Neither half looks at the
-instance's arguments. The right half asks only whether the instance's form
-number is in `rules`. So once a rule is admitted, `derivable` holds of
+**A finite ledger, an unbounded extension.** The left lookup compares the whole instance, including its arguments,
+against admitted entries. The right lookup asks only whether the instance's
+form number is in `rules`; that branch ignores its arguments. So once a rule is admitted, `derivable` holds of
 instances the ledger never admitted anything for. Take the well-formed
 regime
 
@@ -181,6 +242,10 @@ no-rules hypothesis cannot be dropped. If a later unit needs derivability
 restricted to admitted data, it introduces a separate, named predicate
 outside the seal; the sealed `derivable` stays as it is.
 
+</details>
+
+<details><summary>More detail: Where the theorem lives</summary>
+
 ## Where the theorem lives
 
 Three things must be kept apart before reading the theorem.
@@ -199,6 +264,10 @@ representation in which to investigate what the initial mark can and cannot
 establish.** The theorem needs no extra hypothesis, but it is a theorem about
 the chosen representation. It does not show that this representation was
 forced, and nothing later in the book shows that either.
+
+</details>
+
+<details><summary>More detail: The theorem</summary>
 
 ## The theorem
 
@@ -221,6 +290,10 @@ for an arbitrary `i`, by a proof that never looks at which instance it has;
 it is not a collection of separate checks. The quantifier is Lean's, not the
 system's: it ranges over a Lean type, and proving it puts no collection of
 instances into the system (see **Outside the system** below).
+
+</details>
+
+<details><summary>More detail: The proof, step by step</summary>
 
 ## The proof, step by step
 
@@ -261,6 +334,10 @@ form or which data `i` names. The emptiness of two lists did all the work.
 uses only computation and case analysis. This book did not rebuild Lean; it
 reads Genesis's committed report.
 
+</details>
+
+<details><summary>More detail: The same fact in Python</summary>
+
 ## The same fact in Python
 
 The Lean statement covers whatever instance is written down; a script can
@@ -278,6 +355,10 @@ python textbook/checks/u01_genesis_underivable.py
 Genesis's own test of the same point is `tests/test_engine.py::
 test_challenge0_inertia`, which checks that the list of derivable instances
 at Challenge 0 is empty.
+
+</details>
+
+<details><summary>More detail: Outside the system</summary>
 
 ## Outside the system
 
@@ -322,6 +403,10 @@ hypothesis, no axiom.
 - "However many data and forms it holds" (in Unit 02) means however many a
   finite history has admitted, never an unbounded supply.
 
+</details>
+
+<details><summary>More detail: What it shows, and what it does not</summary>
+
 ## What it shows, and what it does not
 
 It shows that the starting ledger supports no judgment instance: none is
@@ -348,6 +433,10 @@ It is a statement about one regime. Unit 02 proves the general version: any
 regime with no instances and no rules derives nothing, however many data and
 forms it holds.
 
+</details>
+
+<details><summary>More detail: Sources</summary>
+
 ## Sources
 
 | Item | Where |
@@ -362,3 +451,5 @@ forms it holds.
 | Check | `textbook/checks/u01_genesis_underivable.py` |
 | Check (rule extension) | `textbook/checks/u01_rule_extension.py`; uses `replay`, `AdmitForm`, `AdmitRuleAll` (`model.py`) and `contexts`, `plug` (`observe.py`) |
 | Context well-formedness | `lean4/Derivation/Basic.lean` line 106, `wfCtx` |
+
+</details>

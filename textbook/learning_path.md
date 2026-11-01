@@ -39,7 +39,9 @@ distinct. Try each route's changed practice before its answer guide.
 For the formal source development, use
 [Reading a formal statement](reading_formal_statements.md), then
 [Unit 00](units/00_mark_and_constructor.md). The [textbook hub](README.md)
-keeps Units 00–74 in source order. You can return to a concrete lab when
+keeps Units 00–74 in source order. After Unit 03, attempt the
+[six changed examples](core_start_practice.md) before their
+[separate answers](core_start_answers.md). You can return to a concrete lab when
 a definition needs an example; the research branches are not admission
 requirements for starting Unit 00.
 

@@ -5,6 +5,11 @@ part of it. Nothing here is an input to `prompt/`, `paper/`, `code/`,
 `lean4/Derivation/` or `artifacts/`, and nothing here changes them. Where a
 unit and the Lean disagree, the Lean wins.
 
+Units 00–03 now have short concrete openings before optional source,
+definition and proof details. After Unit 03, use the
+[changed-example practice](core_start_practice.md) before the
+[answer guide](core_start_answers.md).
+
 The beginner routes develop one small idea at a time. The formal units
 group related definitions and theorems and can contain many results.
 Start with their concrete first pass, then read the definitions, hypotheses,

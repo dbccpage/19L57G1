@@ -206,6 +206,13 @@ walkthrough. Changed-label practice has separate folded answers.
    and the finite numerical scope of Unit 71 are restored explicitly.
    Full semantic teaching coverage, research integration, and novice
    comprehension and transfer remain open.
+   The [entrance follow-up](CORE_ENTRANCE_READING_REVIEW_2026-11-01.md)
+   supplies concrete openings for Units 00–03, six changed tasks and
+   separate answers. Source, definition and proof details are optional
+   disclosures. It corrects whole-instance versus form-only lookups,
+   supply-event identity versus step outcomes, and Lean/Python admission
+   scopes. All 75 Units now have a concrete opening treatment; that does
+   not establish full semantic coverage or beginner outcomes.
 7. **Evidence and reality.** Add exercises in separating a definition,
    a deduction, a computation, and a measurement. Give a model prediction,
    identify an observation that could disagree with it, and explain what

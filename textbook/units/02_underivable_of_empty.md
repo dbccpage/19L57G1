@@ -2,7 +2,11 @@
 
 **Claim.** In any regime with no admitted instances and no admitted rules,
 no judgment instance is derivable, however many data, forms and demands the
-regime holds. **Status:** derived. **Lean:**
+regime holds.
+
+<details><summary>Source and classification record (optional)</summary>
+
+**Status:** derived. **Lean:**
 `Derivation.underivable_of_empty` (`lean4/Derivation/Inertia.lean`, line
 30). **Axioms:** none.
 **Depends on (admitted):** `Inst`, `Regime`, `derivable` (Unit 01).
@@ -11,6 +15,58 @@ Unit 01 proved this for one regime, `genesis`. This unit proves it for every
 regime whose two "source" fields are empty, and then shows that neither
 condition can be dropped. The proof uses one new move, rewriting with an
 equation, and that move is the whole difference between the two units.
+
+</details>
+
+## Question
+
+Can a ledger hold data and a demand while both derivability lookups fail?
+
+## First pass
+
+Keep Unit 01's two-lookup rule. Admit two data, numbered 0 and 1, and a
+form numbered 0 that takes one datum. Then impose the demand “distinguish
+0 from 1.” A form taking one datum is called **unary**.
+
+| Ledger field | What this setup holds |
+|---|---|
+| Data | Two admitted data |
+| Forms | One unary form |
+| Individual instances | None |
+| All-instances rules | None |
+| Demands | Distinguish 0 and 1 |
+
+<details><summary>Predict: is “form 0 holds of datum 1” derivable now?</summary>
+
+No. The individual-instance list and the all-instances-rule list are
+both empty. More data, a form and a demand do not supply an entry on
+either list. Asking for a distinction does not already establish it.
+
+</details>
+
+### Change one condition at a time
+
+Start two copies of this ledger. In one, admit just instance (0, [0]):
+that notation means form 0 applied to the single datum 0. In the other,
+admit the all-instances rule for form 0.
+
+| Changed ledger | Form 0 of datum 0 | Form 0 of datum 1 |
+|---|---|---|
+| Neither lookup list gets an entry | No | No |
+| Only instance (0, [0]) is admitted | Yes | No |
+| Only the form-0 rule is admitted | Yes | Yes |
+
+Unit 02's conclusion applies when **both** lists are empty. The second
+row drops the no-instances condition; the third drops the no-rules
+condition. The theorem does not promise its conclusion after either
+condition is dropped. Both queried instances in this table are well formed.
+
+Change the data labels without changing those two lists. Explain why the
+original empty-list conclusion still follows. Keep a question about
+which statements are derivable separate from what an event changes.
+[Unit 03](03_supply_no_op.md) asks the event question.
+
+<details><summary>More detail: What you need first</summary>
 
 ## What you need first
 
@@ -42,7 +98,9 @@ inst is derivable in r  if
 
 Read `derivable` once more with this unit's question in mind. It looks at
 exactly two fields of the regime, `insts` and `rules`. It never looks at
-`data`, `forms` or `reqs`. Everything in this unit follows from that.
+`data`, `forms` or `reqs`. The empty-source theorem depends only on
+those two lookup fields; the later reachability and validity examples
+also use their separately stated definitions.
 
 `genesis` (Unit 01) is not used by the theorem. It comes back below as one
 case of it.
@@ -65,20 +123,29 @@ supplies the fact Lean cannot work out.
 ### 3. A hypothesis is a premise, not an admission
 
 The theorem has two hypotheses, `hi : r.insts = []` and `hr : r.rules = []`.
-They are premises of an implication: "if `r` has no instances and no rules,
-then nothing is derivable in `r`". The theorem proves that implication with
-no premise left over, so it is **derived**, not **conditional**. The README's
-mark **conditional** is for a result proved only under a hypothesis admitted
-from outside and never discharged, such as irreflexivity in Unit 24; here
-nothing is admitted beyond the three definitions. To *use* the theorem on a particular regime you must supply
-proofs of the two premises for that regime. Each use pays that price
-separately (below: `genesis` and the Challenge 3 regime pay it with `rfl`).
+They are premises of an implication: “if `r` has no instances and no rules,
+then nothing is derivable in `r`.” The proof establishes the implication;
+it does not establish that every regime meets its premises.
+
+The book classifies this result as **derived** from its admitted definitions.
+Whatever a status label says, applying it to a particular regime still
+requires both premises for that regime. They are proof inputs, not events
+that erase the regime's fields. Below, `genesis` and the Challenge regime
+meet them by computation (`rfl`).
+
+</details>
+
+<details><summary>More detail: Where the theorem lives</summary>
 
 ## Where the theorem lives
 
 As in Unit 01: the theorem is proved inside the admitted representation, in
 Lean's metatheory, about the relation `derivable`. It is not derived from
 ⟨⟩, and it does not show that the representation was forced (Unit 00).
+
+</details>
+
+<details><summary>More detail: The theorem</summary>
 
 ## The theorem
 
@@ -120,6 +187,10 @@ regime comes next. The paper keeps the two apart: the derivability clause is
 observation about the declared grammar, not a proved theorem (`paper/paper.md`
 §4; ledger `CL-0-INERTIA`, scope stated 2026-09-08). This book follows the
 paper. The structural observation is Unit 04, marked admitted.
+
+</details>
+
+<details><summary>More detail: The proof, step by step</summary>
 
 ## The proof, step by step
 
@@ -169,6 +240,10 @@ axiom. To check its own Lean, the book compiled `Basic.lean` and
 `Inertia.lean` with Lean 4.33.0, the pinned toolchain, and that build
 printed the same report. It did not run Genesis's gates.
 
+</details>
+
+<details><summary>More detail: Two cases of the theorem</summary>
+
 ## Two cases of the theorem
 
 The book's own Lean below (**Lean (book)**, see the README) applies the
@@ -206,6 +281,10 @@ from datum 1. The theorem applies, so nothing is derivable in `R2L`. The
 demand changes what is *required* of the next step; it derives nothing by
 itself. Two admitted data do not derive anything either. **Status:**
 derived (book Lean).
+
+</details>
+
+<details><summary>More detail: Neither premise can be dropped</summary>
 
 ## Neither premise can be dropped
 
@@ -303,6 +382,10 @@ pointwise derivations, one per admitted instance. `hr` rules out the
 uniform rule, which on its own makes `derivable` hold of an unbounded set
 read in Lean.
 
+</details>
+
+<details><summary>More detail: The same fact in Python</summary>
+
 ## The same fact in Python
 
 The check runs Genesis's own model. It builds 43 regimes by Genesis's
@@ -331,6 +414,10 @@ and checks nothing.
 Genesis's ledger entry for the theorem cites the Lean proof and the
 Challenge 0 report (`tests/test_engine.py::test_challenge0_inertia`), which
 covers `genesis` only.
+
+</details>
+
+<details><summary>More detail: Outside the system</summary>
 
 ## Outside the system
 
@@ -372,6 +459,10 @@ histories are written out in full above.
 - "The rule reaches every instance of its form" is the metatheory's reading
   of `derivable` on a regime with a rule. The ledger stores one form number.
 
+</details>
+
+<details><summary>More detail: What it shows, and what it does not</summary>
+
 ## What it shows, and what it does not
 
 It shows that data, forms and imposed demands, in any number, derive
@@ -397,6 +488,10 @@ same, even when rules are admitted (Unit 10).
 
 It does not show that the representation is the right one (Unit 00).
 
+</details>
+
+<details><summary>More detail: Sources</summary>
+
 ## Sources
 
 | Item | Where |
@@ -413,3 +508,5 @@ It does not show that the representation is the right one (Unit 00).
 | Test | `tests/test_engine.py::test_challenge0_inertia` (Challenge 0 only) |
 | Check | `textbook/checks/u02_underivable_of_empty.py` (Genesis Python) |
 | Check (book Lean) | `textbook/checks/u02_lean_witnesses.py` |
+
+</details>

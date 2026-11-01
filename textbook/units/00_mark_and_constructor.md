@@ -2,6 +2,9 @@
 
 **Claim.** Before any theorem can be proved about ⟨⟩, a formal language must
 be admitted from outside. The mark does not supply one.
+
+<details><summary>Source and classification record (optional)</summary>
+
 **Status:** admitted. **Lean:** none. **Sources:** `prompt/seed_prompt.md`
 §1; `paper/paper.md` §2 and §3.
 
@@ -9,6 +12,58 @@ This unit has no theorem. It sets out what the rest of the book takes for
 granted, so that every later theorem can be read for what it is: a precise
 result inside a chosen representation, not a result about why that
 representation was chosen.
+
+</details>
+
+## Question
+
+Does seeing a mark also give us rules for using it?
+
+## First pass
+
+Write `<>` on a card. For this book's starting point, treat that inscription
+as one opaque item: we are not allowed to infer an inside, a pair or an
+operation from how it looks.
+
+### A mark and a chosen rule
+
+Suppose we now choose a notebook with five fields: admitted data, forms,
+individual statements, rules and demands. That notebook design is a
+**representation**: a supplied way to describe a model. The mark did not
+choose those fields for us.
+
+Someone outside the described system chooses the representation. The
+book calls that role the **external constructor**. The reasoning tools
+used to describe and check the model are its **metatheory**. These words
+name our setup; they do not introduce an observer inside the notebook.
+
+<details><summary>Predict: does the space inside the brackets make the notebook empty?</summary>
+
+No. The starting notebook is empty because we chose all its admission
+fields to be empty. The inscription's appearance supplies no such rule.
+
+</details>
+
+### Two uses of “admit”
+
+We **admit a definition** when we supply the model's language and rules.
+Within that chosen model, an **admission event** can add a datum or another
+allowed entry. Defining the notebook is different from putting a datum in it.
+
+A theorem then proves something under those definitions and its stated
+premises. A successful proof does not show that the definitions were the
+only possible choice or that a physical device follows them.
+
+Change the inscription to a star but keep its required opaque treatment.
+Its shape still supplies no pairing rule. A formal claim about renaming
+an entire model would need its own definitions and proof.
+
+Before continuing, explain which came from the inscription and which we
+supplied: the five fields, their starting contents and the lookup rule.
+The source discussion below records exactly what the seed supplies.
+Continue to [Unit 01](01_genesis_underivable.md).
+
+<details><summary>More detail: The mark</summary>
 
 ## The mark
 
@@ -21,10 +76,10 @@ The seed gives exactly one object-language inscription:
 and instructs that it be treated "as one opaque atomic datum"
 (`prompt/seed_prompt.md` §1). The book writes it ⟨⟩.
 
-**Why this mark.** Any mark would do. The seed needed some inscription to
-start from, and `<>` is the one it wrote. Replacing it with `*` or `x`
-would change nothing below, because nothing below is allowed to look inside
-it.
+**Why this mark.** The seed supplies `<>` as an opaque inscription. Its
+typography licenses no internal operation. Replacing a displayed symbol
+while retaining that reading is a notational choice; an invariance claim
+about an entire renamed formal model would need its own statement and proof.
 
 **The notation is arbitrary.** To a reader, `<>` shows two glyphs, an
 opening and a closing, and an empty space between them. The seed forbids
@@ -39,6 +94,10 @@ looks empty does not make the starting state empty, and that it looks like a
 pair of brackets does not give the system a notion of pairing. Unit 01's
 empty ledger is empty because nothing has been admitted, not because ⟨⟩
 "means nothing".
+
+</details>
+
+<details><summary>More detail: The external constructor</summary>
 
 ## The external constructor
 
@@ -64,6 +123,10 @@ The seed also names a second external role: a caller who presents challenges
 these "metatheoretic interventions", not object-language conclusions
 (`prompt/seed_prompt.md` §3). They too come from outside.
 
+</details>
+
+<details><summary>More detail: The three layers</summary>
+
 ## The three layers
 
 Every theorem in this book sits in the third of three layers:
@@ -78,6 +141,10 @@ hypotheses, and still say nothing about whether layer 2 was the necessary
 choice. That is not a defect of Lean or of Genesis. It is the boundary the
 programme investigates: how little must be admitted before anything can be
 established, and what each admission buys.
+
+</details>
+
+<details><summary>More detail: Outside the system</summary>
 
 ## Outside the system
 
@@ -96,6 +163,10 @@ inside the system, and the system gets no viewpoint from it. Whatever the
 system later holds arrives by named admission events, one at a time, each
 with its price (README, **No imports from nowhere**).
 
+</details>
+
+<details><summary>More detail: What this unit establishes, and what it does not</summary>
+
 ## What this unit establishes, and what it does not
 
 It establishes no mathematical fact. It fixes the reading of every later
@@ -112,6 +183,10 @@ token identity in the metatheory and counts data without naming them
 tests and by the erasure bridge (ledger entry `CL-TOKEN-ERASURE`). It is not
 a derivation of the representation from the mark.
 
+</details>
+
+<details><summary>More detail: Sources</summary>
+
 ## Sources
 
 | Item | Where |
@@ -121,3 +196,5 @@ a derivation of the representation from the mark.
 | Declared metatheory | `paper/paper.md` §1, §2 |
 | Admitted definitions | `paper/paper.md` §3; `lean4/Derivation/Basic.lean` |
 | Token erasure bridge | `paper/paper_claim_ledger.md`, `CL-TOKEN-ERASURE` |
+
+</details>
