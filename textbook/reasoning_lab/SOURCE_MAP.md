@@ -261,7 +261,7 @@ three exactly `propext`, 28 exactly `propext, Quot.sound`.
 Lessons 52–55 add arithmetic, start/step contrasts, a restated supply-history
 argument and a bounded-measure application. [The source guide](INDUCTION_SOURCES.md)
 names the eight book statements and three selected compiled owner reports.
-The combined driver now checks 190 reports: 154 empty, five exactly
+The portion through induction checks 190 reports: 154 empty, five exactly
 `propext`, 31 exactly `propext, Quot.sound`. This adds no research tree.
 
 ## Selected X301 interpretation route

@@ -17,9 +17,12 @@ supplied book examples. None is derived from the opaque mark or from trials.
 The selected compiled native supply and counting reports comprise one
 exactly `propext` and two exactly `propext, Quot.sound`. The eight book
 reports comprise six empty sets, one exactly `propext` and one exactly
-`propext, Quot.sound`. Combined Reasoning has 190 reports: 154 empty,
+`propext, Quot.sound`. The logic-through-induction portion has 190 reports: 154 empty,
 five `propext`, 31 both. These are selected reports, not a replacement
 for the native source census or the full repository gate contract.
+
+The later [interpretation route](SEMANTICS_SOURCES.md) brings the combined
+Reasoning driver to 198 reports; this induction selection stays unchanged.
 
 The source counting comment uses “rounds” for a bound whose formal L
 counts states. The textbook follows the proposition: at most B + 1

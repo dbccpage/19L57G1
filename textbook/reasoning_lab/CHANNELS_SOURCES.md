@@ -70,5 +70,6 @@ changes the model. The physical worksheet remains optional and blank.
 No learning speed, mastery, device validation or measured frequency follows
 from software receipts. AuthorityEffect: None.
 
-The later [induction toolkit](INDUCTION_SOURCES.md) brings the combined
-Reasoning driver to 190 reports; this channel selection stays unchanged.
+The later [induction toolkit](INDUCTION_SOURCES.md) brings the portion
+through induction to 190 reports. The [interpretation route](SEMANTICS_SOURCES.md)
+brings the current combined driver to 198; this channel selection stays unchanged.
