@@ -5,6 +5,10 @@ part of it. Nothing here is an input to `prompt/`, `paper/`, `code/`,
 `lean4/Derivation/` or `artifacts/`, and nothing here changes them. Where a
 unit and the Lean disagree, the Lean wins.
 
+On the Wiki, each Unit opens with the complete lesson. Use its First pass
+link for the concrete example; the Act video, general reading prompts and
+source-edition record are folded after the lesson.
+
 Units 00–03 now have short concrete openings before optional source,
 definition and proof details. After Unit 03, use the
 [changed-example practice](core_start_practice.md) before the

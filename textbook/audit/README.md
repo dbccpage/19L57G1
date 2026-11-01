@@ -484,3 +484,9 @@ adds concrete openings to Units 00–03, separates source detail from the
 first reading, corrects lookup/admission/event scopes and supplies six
 changed tasks with separate answers. Original fenced quotations remain
 intact; no new theorem or research coverage is claimed.
+
+The [shared lesson-layout review](LESSON_LAYOUT_REVIEW_2026-11-01.md)
+puts complete lesson text before optional videos and reading prompts on
+all 93 Unit pages. It adds full-text/source-blob custody checks to the
+existing Wiki verifier, preserving every Unit source file. This changes
+reading order on the page, not mathematical claims or learning evidence.

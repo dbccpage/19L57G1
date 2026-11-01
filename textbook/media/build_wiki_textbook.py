@@ -1,5 +1,5 @@
-"""Build the customer-facing Genesis Textbook Wiki pages with short video previews,
-interactive GFM stepping-stone widgets, and embedded <=15s Manim animations.
+"""Build Genesis Textbook Wiki pages with complete lessons first, followed by
+optional reading prompts, source records and <=15s Manim videos.
 
 AuthorityEffect: None. Mirrors textbook/ and research tree metadata into
 19L57G1.wiki.git without altering any sealed derivation file. Follows Claim
@@ -246,6 +246,13 @@ def rewrite_links_for_wiki(
                    for piece in pieces)
 
 
+def first_pass_anchor(raw_md: str) -> str:
+    headings = re.findall(r'^## (First pass[^\n]*)$', raw_md, re.MULTILINE)
+    if len(headings) != 1:
+        raise ValueError('Expected one First pass heading')
+    return '#' + re.sub(r'[^\w -]', '', headings[0].lower()).replace(' ', '-')
+
+
 def build_unit_wiki_page(
     unit_idx: int,
     total_units: int,
@@ -258,166 +265,72 @@ def build_unit_wiki_page(
     commit_short: str,
     is_part2: bool = False,
 ) -> str:
-    meta = extract_header_meta(raw_md)
     act_slug, act_title, _ = (
         act_for_part2(unit_idx) if is_part2 else act_for_part1(unit_idx)
     )
-
-    q_sec = extract_section(raw_md, r"(Question|The mark|What you need first)")
-    proved_sec = extract_section(
-        raw_md, r"(What has been proved|What it shows|What this unit establishes)"
-    )
-    not_proved_sec = extract_section(raw_md, r"^(What has not been proved|Outside the system)")
-    outside_sec = extract_section(raw_md, r"Outside the system")
-    plain_sec = extract_section(
-        raw_md,
-        r"(First pass|Plain-language interpretation|The proof, step by step|The external constructor)",
-    )
-    ex_sec = extract_section(raw_md, r"Student exercise")
-    ans_sec = extract_section(raw_md, r"Answer")
-
-    bite_q = first_sentences(q_sec or meta["claim"], 32)
-    bite_mech = first_sentences(plain_sec or meta["claim"], 32)
-    bite_proved = first_sentences(meta["claim"], 34)
-    bite_limits = first_sentences(
-        not_proved_sec
-        or outside_sec
-        or "Scoped to the declared definitions and finite ledger; does not establish claims outside the admitted representation.",
-        32,
-    )
-
-    filled = max(1, round((unit_idx + 1) / max(1, total_units) * 12))
-    bar_str = "█" * filled + "░" * (12 - filled)
-    part_label = "Part 2 (Institutions)" if is_part2 else "Part 1 (Frozen Derivation)"
+    part_label = "Part 2 · Institutions" if is_part2 else "Part 1 · Derivation"
     unit_code = f"I{unit_idx:02d}" if is_part2 else f"U{unit_idx:02d}"
-
-    nav_prev = (
-        f"[◀ {prev_link[0]}]({prev_link[1]})"
-        if prev_link
-        else "[◀ Start Here](textbook_start_here)"
-    )
-    nav_next = (
-        f"[{next_link[0]} ▶]({next_link[1]})"
-        if next_link
-        else "[Part 2: Institutions ▶](textbook_institutions)"
-    )
-
-    if ex_sec and ans_sec:
-        pred_prompt = first_sentences(ex_sec, 42)
-        pred_reveal = "Read the worked answer in the complete lesson below; it includes the reasoning and qualifications."
-    else:
-        pred_prompt = f"Before reading the proof of `{unit_code}`, ask: does `{meta['title']}` follow from the mark ⟨⟩ alone, or does it depend on the admitted representation and hypotheses listed below?"
-        pred_reveal = "Check the complete claim and classification below. A definition is an admission; a theorem depends on its stated hypotheses."
-
+    source_dir = "textbook/institutions/units" if is_part2 else "textbook/units"
+    unit_map = part2_map if is_part2 else part1_map
+    names = [name for name in unit_map if re.match(rf"^{unit_idx:02d}_", name)]
+    if len(names) != 1:
+        raise ValueError(f"Expected one source file for {unit_code}, got {names}")
+    source_url = f"{blob_base}/{source_dir}/{names[0]}"
+    first_pass = first_pass_anchor(raw_md)
+    nav_prev = f"[◀ {prev_link[0]}]({prev_link[1]})" if prev_link else "[◀ Start Here](textbook_start_here)"
+    nav_next = f"[{next_link[0]} ▶]({next_link[1]})" if next_link else "[Textbook Hub ▶](textbook_overview)"
+    navigation = f"{nav_prev} · [Reading path](textbook_learning_path) · [Read the notation](textbook_reading_formal) · [Textbook Hub](textbook_overview) · {nav_next}"
     rewritten_body = rewrite_links_for_wiki(
-        raw_md, part1_map, part2_map, blob_base, is_part2,
-        "textbook/institutions/units" if is_part2 else "textbook/units",
+        raw_md, part1_map, part2_map, blob_base, is_part2, source_dir,
     )
-
     return f"""<!-- markdownlint-disable MD041 MD033 -->
 
-{nav_prev} · [🏠 Textbook Hub](textbook_overview) · [🚀 Start Here](textbook_start_here) · [Read the notation](textbook_reading_formal) · [🎬 15s Videos](textbook_video_15s) · [🗺️ Coverage Map](textbook_coverage) · [🌲 Research Trees](textbook_research_trees) · {nav_next}
+{navigation}
 
-`{part_label}` · **{act_title}** · Progress: `[{bar_str}]` (`{unit_idx + 1} / {total_units}`) · `AuthorityEffect: None`
+`{part_label}` · `{unit_code}` · Lesson {unit_idx + 1} of {total_units}
 
----
-
-> [!IMPORTANT]
-> ### Short preview (`{unit_code}`)
-> **Core idea:** {bite_proved}
->
-> - **Classification:** Read the complete unit's status and hypotheses below.
-> - **Formal sources:** Read the complete unit's Lean anchors below.
-> - **Key point:** {bite_proved}
-
----
-
-## 🎬 Act overview (`<= 15.0s`)
-
-This video previews several lessons. Pause it as needed; the complete definition and worked examples are below.
-
-![{act_title} — 15s Manim Visual]({RAW_WIKI_MEDIA}/{act_slug}.gif)
-
-**[▶ Watch / Download High-Resolution 15s MP4 Video]({RAW_WIKI_MEDIA}/{act_slug}.mp4)** · *Duration verified `<= 15.0s` via `ffprobe` · Built with Manim 0.19.2*
-
-| Reading step | Unit guide |
-| :--- | :--- |
-| **1. Setup** | **Starting question:** {bite_q} |
-| **2. Move** | **Mechanism:** {bite_mech} |
-| **3. Result** | **Established:** {bite_proved} |
-| **4. Boundary** | **Scope limit:** {bite_limits} |
-
----
-
-## Practice before the formal details
-
-<details>
-<summary><b>Step 1 · Make a prediction before reading</b></summary>
-
-<br>
-
-**Challenge:** {pred_prompt}
-
-<details>
-<summary><b>Read the answer guide</b></summary>
-
-<br>
-
-> **Answer guide:** {pred_reveal}
-
-</details>
-
-</details>
-
-<details>
-<summary><b>Step 2 · Four reading prompts (take the time you need)</b></summary>
-
-<br>
-
-| Reading prompt | Short reminder |
-| :--- | :--- |
-| **1. The question** | {bite_q} |
-| **2. The move** | {bite_mech} |
-| **3. What holds** | {bite_proved} |
-| **4. Where it stops** | {bite_limits} |
-
-</details>
-
-<details>
-<summary><b>🗺️ Step 3 · Visual Dependency & Scope Flowchart (Click to Expand)</b></summary>
-
-<br>
-
-```mermaid
-flowchart LR
-    A["Admitted Ledger & Prerequisites<br/>({unit_code})"] --> B["Study the Python and Lean sources"]
-    B --> C["Classification and hypotheses: see complete unit"]
-    C --> D["Boundary: the unit's stated carrier and hypotheses<br/>(AuthorityEffect: None)"]
-```
-
-</details>
-
-<details>
-<summary><b>🛡️ Step 4 · Claim-Hygiene Boundaries (What This Supports vs. What It Does Not)</b></summary>
-
-<br>
-
-1. **What it supports:** {bite_proved}
-2. **What it does not support:** {bite_limits}
-3. **Complete statement:** Read the claim, classification, and hypotheses in the mirrored unit below. Source snapshot: `{commit_short}`. Generation does not rerun the unit's checks.
-4. **Next test / unit needed:** Proceed to {nav_next} or run the unit's Python and Lean check scripts in [`textbook/`]({blob_base}/textbook).
-
-</details>
-
----
-
-## 📖 Complete Textbook Unit (Unabridged Mirror)
+Start with the [First pass]({first_pass}). The lesson states its definitions, conditions and limits.
 
 {rewritten_body}
 
 ---
 
-{nav_prev} · [🏠 Textbook Hub](textbook_overview) · [🚀 Start Here](textbook_start_here) · [Read the notation](textbook_reading_formal) · [🎬 15s Videos](textbook_video_15s) · [🗺️ Coverage Map](textbook_coverage) · [🌲 Research Trees](textbook_research_trees) · {nav_next}
+<details>
+<summary>Act video (optional)</summary>
+
+**{act_title}**
+
+This video previews several lessons. Pause it as needed and use the worked examples above for this Unit's conditions and reasoning.
+
+![{act_title} — 15s Manim Visual]({RAW_WIKI_MEDIA}/{act_slug}.gif)
+
+[Watch or download the MP4]({RAW_WIKI_MEDIA}/{act_slug}.mp4) · Verified duration at most 15 seconds · [All Act videos](textbook_video_15s)
+
+</details>
+
+<details>
+<summary>Questions to use while reading (optional)</summary>
+
+1. What are the inputs and the question in this lesson?
+2. Which definitions or rules were supplied?
+3. Which conditions are needed for the stated conclusion?
+4. Can you explain the worked example, then change one part?
+5. What evidence supports the claim, and what remains unestablished?
+
+</details>
+
+<details>
+<summary>Source edition and checks (optional)</summary>
+
+This page preserves the complete lesson from [source edition `{commit_short}`]({source_url}). The lesson names its definitions, proof sources and local checks. Publishing a page does not run those checks.
+
+[Coverage map](textbook_coverage) · [Research trees](textbook_research_trees) · `AuthorityEffect: None`
+
+</details>
+
+---
+
+{navigation}
 """
 
 

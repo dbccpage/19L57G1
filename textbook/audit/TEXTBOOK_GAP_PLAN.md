@@ -213,6 +213,13 @@ walkthrough. Changed-label practice has separate folded answers.
    supply-event identity versus step outcomes, and Lean/Python admission
    scopes. All 75 Units now have a concrete opening treatment; that does
    not establish full semantic coverage or beginner outcomes.
+   The [shared Wiki layout review](LESSON_LAYOUT_REVIEW_2026-11-01.md)
+   removes repeated generated previews before each Unit and places its
+   complete lesson ahead of optional Act media and general reading prompts.
+   All 93 prior pages match the earlier renderer exactly; all Unit source
+   files remain unchanged. The existing verifier now checks complete Unit
+   text, exact pinned source blobs and folded-video placement. This improves
+   access to the worked examples without establishing novice outcomes.
 7. **Evidence and reality.** Add exercises in separating a definition,
    a deduction, a computation, and a measurement. Give a model prediction,
    identify an observation that could disagree with it, and explain what

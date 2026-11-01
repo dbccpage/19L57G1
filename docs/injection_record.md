@@ -1160,3 +1160,16 @@ with only `propext` and two empty. No native source or original quotation
 is mutated. This distinguishes equality of resulting ledgers from
 equality of the inputs or histories producing them, without certifying
 Python-to-Lean refinement, device behavior or learner understanding.
+
+## Shared Unit layout and source custody (2026-11-01 UTC)
+
+AuthorityEffect: None. Seven temporary generated-page defects are rejected
+by the existing Wiki verification path's new Unit checks: remove a scope
+sentence; move the video before the lesson; open it by default; change
+the GIF target; break the First pass jump; invent an unavailable source pin; or use a real older
+pin whose source differs from the displayed lesson. Original scratch
+pages recover after each case. The thirteen-test Wiki suite passes,
+including a population check over all 93 Units and their 601 source
+fenced blocks. No source Unit, sealed file or native receipt is mutated.
+Full-text/source custody and page order do not establish mathematical
+scope beyond the source or a measured learner outcome.

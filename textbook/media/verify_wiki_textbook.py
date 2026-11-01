@@ -27,6 +27,7 @@ from growth_lab_wiki import growth_lab_errors
 from boundary_lab_wiki import boundary_lab_errors
 from identification_lab_wiki import identification_lab_errors
 from number_lab_wiki import number_lab_errors
+from unit_page_custody import unit_lesson_errors
 
 DEFAULT_REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 DEFAULT_WIKI_ROOT = Path(
@@ -147,6 +148,12 @@ def verify_wiki(
     print(
         f"PASS: All {len(expected_u_stems)} Part 1 pages and {len(expected_i_stems)} Part 2 pages exist and are linked in _Sidebar.md"
     )
+
+    unit_errors = unit_lesson_errors(repo_root, wiki_root)
+    if unit_errors:
+        print('FAIL: ' + '; '.join(unit_errors), file=sys.stderr)
+        return 1
+    print('PASS: complete Unit text, exact source blobs and folded-video placement verified.')
 
     # 3. Check textbook_research_trees.md accounts for all research trees on main
     res_trees_page = wiki_root / "textbook_research_trees.md"
