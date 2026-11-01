@@ -23,7 +23,9 @@ for the native source census or the full repository gate contract.
 
 The source counting comment uses “rounds” for a bound whose formal L
 counts states. The textbook follows the proposition: at most B + 1
-states and B transitions between them. The stated argument requires strict increase, a nonnegative measure
+states and B transitions between them. `stationary_run` uses the explicitly
+finite Boolean Off/On carrier and an identity update. The stated argument
+requires strict increase, a nonnegative measure
 and a fixed ceiling. Native source and comments remain
 unchanged. Unit 11's changing token-store invariant is a separate theorem;
 its initial-store, event and successful-replay premises remain necessary.

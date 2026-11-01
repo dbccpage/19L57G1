@@ -16,7 +16,8 @@ One counterexample changes the initial count, another changes the update,
 and a delayed rule agrees through any chosen cutoff before failing later.
 The history example permits a nonempty initial ledger and different supply
 tokens. The bound example counts states separately from transitions and
-keeps its fixed-data/new-demand conditions. A stationary procedure shows
+keeps its fixed-data/new-demand conditions. A stationary procedure on the
+explicitly finite Boolean Off/On carrier shows
 why a finite carrier alone is not a termination argument.
 
 The visible proof-toolkit entry follows the core 00–07 practice exit;

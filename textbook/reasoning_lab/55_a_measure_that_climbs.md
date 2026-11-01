@@ -29,9 +29,10 @@ This general bound can be loose when the starting measure is already positive.
 
 <details><summary>Predict: does a finite set of possible states make every repeated procedure stop?</summary>
 
-No. A procedure can keep returning the same state. Its measure then
-stays fixed, so it does not meet the strict-increase premise.
-In this example, imposing an already recorded request leaves the count fixed.
+No. Use the two allowed lamp values Off and On, with the rule “keep the
+current value.” Starting at Off, this procedure stays Off after any number
+of updates. Its measure stays fixed, so the strict-increase premise fails.
+Likewise, imposing an already recorded request leaves the request count fixed.
 
 </details>
 

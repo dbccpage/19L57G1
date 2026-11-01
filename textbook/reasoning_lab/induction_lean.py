@@ -52,7 +52,7 @@ theorem no_infinite_strict_bounded (f : Nat → Nat) (B : Nat)
   have hL : B+2≤B+1 := strict_bounded_length f (B+2) B (fun i _ => strict i) (fun i _ => bound i)
   exact Nat.not_succ_le_self (B+1) hL
 
-theorem stationary_run (n : Nat) : iterate (fun x : Nat => x) n 0=0 := by
+theorem stationary_run (n : Nat) : iterate (fun x : Bool => x) n false=false := by
   induction n with
   | zero => rfl
   | succ n ih => exact ih

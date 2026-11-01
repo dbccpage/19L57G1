@@ -31,6 +31,10 @@ def check_examples():
     assert count_after(1,2,0)==1 and count_after(1,2,0)!=0
     assert [delayed(3,n) for n in range(5)]==[0,2,4,6,9]
     assert (not False) is True  # Off at the start does not preserve Off under a flip.
+    off=False
+    for _ in range(20):
+        off=(lambda current:current)(off)
+        assert off is False  # The two-value carrier also permits repetition.
     base=model.replay([model.AdmitDatum('kept'),model.AdmitForm(1),model.AdmitInst(0,(0,))])
     assert model.replay([model.Supply('m'),model.Supply('n')],base)==base
     assert model.replay([model.Supply('m'),model.AdmitDatum('new')],base)!=base
