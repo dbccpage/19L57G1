@@ -44,6 +44,10 @@ The [induction toolkit](reasoning_lab/52_start_then_one_more.md) supplies
 four short lessons for the proofs in Units 03, 11 and 28, after Number 00
 and core Reasoning. It separates a start case, a preserving step, finite
 samples and a fixed-ceiling argument, with separate changed practice.
+The optional [meaning and reports route](reasoning_lab/56_a_claim_needs_an_interpretation.md)
+adds six short X301 lessons on interpretation, domains, truth scores,
+changed inputs, panel agreement and checksum scope. It keeps model truth
+and observations separate and supplies changed questions before answers.
 The [`Reasoning lab`](reasoning_lab/README.md) supplies the next toolkit:
 rules, functions, if-then claims, witnesses, counterexamples, and hypotheses.
 Its [evidence continuation](reasoning_lab/08_from_a_model_to_a_trial.md)

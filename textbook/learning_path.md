@@ -68,6 +68,7 @@ application in every lab.
 
 | Question | Application | Needed tools |
 |---|---|---|
+| What gives a claim meaning, and what does agreement establish? | [Reasoning 56–61](reasoning_lab/56_a_claim_needs_an_interpretation.md) | Core reasoning; Number 09 before fractional truth scores |
 | How does a target differ from its stored reading? | [Reasoning 12–17](reasoning_lab/12_target_and_record.md) | Core reasoning; Number 00–02 before the share comparisons |
 | What does a changed unit do to a number? | [Reasoning 18–23](reasoning_lab/18_one_length_two_numbers.md) | Number 00–02 and 09–12 |
 | What do stored clocks and future comparisons count? | [Reasoning 24–29](reasoning_lab/24_count_updates_and_ticks.md) | The calibration route and fraction toolkit |

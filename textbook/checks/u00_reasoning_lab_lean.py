@@ -18,6 +18,7 @@ from textbook.reasoning_lab.valuations_lean import expected_reports as valuation
 from textbook.number_lab.fractions_lean import expected_reports as fraction_reports  # noqa: E402
 from textbook.reasoning_lab.channels_lean import expected_reports as channel_reports  # noqa: E402
 from textbook.reasoning_lab.induction_lean import expected_reports as induction_reports  # noqa: E402
+from textbook.reasoning_lab.semantics_lean import expected_reports as semantics_reports  # noqa: E402
 
 if __name__ == "__main__":
     expected = {"Textbook.ReasoningLab." + name: NONE for name in NAMES}
@@ -32,4 +33,5 @@ if __name__ == "__main__":
     expected.update(fraction_reports())
     expected.update(channel_reports())
     expected.update(induction_reports())
+    expected.update(semantics_reports())
     raise SystemExit(main(SOURCE, expected, "ReasoningLab"))

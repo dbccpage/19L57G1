@@ -237,3 +237,15 @@ not another browser application or research tree. Six computational tasks
 are checked; the seventh practice question asks for application reasoning
 and is not an observed reader result. Source and false-claim receipts are
 retained separately in the audit's evidence directory.
+
+## Interpretation and reports continuation
+
+Run `python textbook/reasoning_lab/semantics.py` and the existing Reasoning
+wrappers. A separate `-I` process isolates X301's bare module names and
+checks six source text pins. Finite examples cover 24 assignments, 64
+model/domain pairs, 96 panel/menu contexts and 25 score pairs. Seven
+changed computational tasks are checked; the eighth is a protocol question.
+The Lean assembly includes the unchanged whole X301 body and eight selected
+reports, for 198 combined: 160 empty, five `propext`, 33 both. The initial
+two wrong empty-set expectations remain in the local evidence before their
+exact correction. No gate family, native receipt or vocabulary pin changes.

@@ -495,3 +495,8 @@ The [induction prerequisite review](INDUCTION_READING_REVIEW_2026-11-01.md)
 adds four small proof-method lessons, counterexamples and separate practice
 answers. It connects existing history and round-bound arguments without
 adding a research tree or changing sealed sources.
+
+The [selected interpretation review](SEMANTICS_READING_REVIEW_2026-11-01.md)
+adds six short X301 lessons on formula meaning, domains, truth scores,
+interventions, panel policy and checksum scope. It records implementation
+differences and preserves the distinction between calculations and observations.

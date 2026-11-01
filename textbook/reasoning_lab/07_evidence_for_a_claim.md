@@ -53,4 +53,8 @@ for a declared protocol, fictional raw logs, a conflicting repeat,
 uncertainty, and an optional physical worksheet. The worked example
 keeps calculations on supplied logs separate from actual observations.
 
+For a separate model of expressions and their interpretations, return
+later to [56. A claim needs an interpretation](56_a_claim_needs_an_interpretation.md).
+It distinguishes model evaluation, changed inputs, panel reports and receipts.
+
 AuthorityEffect: None. No physical measurement or learning outcome is claimed.

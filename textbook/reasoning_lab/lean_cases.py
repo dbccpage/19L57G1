@@ -116,3 +116,7 @@ SOURCE += '\n'+CHANNEL_SOURCE
 
 from .induction_lean import SOURCE as INDUCTION_SOURCE
 SOURCE += '\n'+INDUCTION_SOURCE
+
+from .semantics_lean import build_checks as semantics_checks
+SEMANTICS_SOURCE,SEMANTICS_NAMES=semantics_checks()
+SOURCE += '\n'+SEMANTICS_SOURCE

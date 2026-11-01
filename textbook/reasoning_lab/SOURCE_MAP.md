@@ -263,3 +263,13 @@ argument and a bounded-measure application. [The source guide](INDUCTION_SOURCES
 names the eight book statements and three selected compiled owner reports.
 The combined driver now checks 190 reports: 154 empty, five exactly
 `propext`, 31 exactly `propext, Quot.sound`. This adds no research tree.
+
+## Selected X301 interpretation route
+
+Lessons 56–61 consume X301 read-only and keep supplied model semantics,
+intervention menus, panel policy and checksums distinct. The
+[source guide](SEMANTICS_SOURCES.md) records malformed-input and callback
+limits and the Python/Lean differences. Eight owner reports add six
+empty sets and two exactly `propext, Quot.sound`, bringing the combined
+driver to 198: 160 empty, five `propext`, 33 both. No new book theorem,
+physical trial or general refinement is claimed.

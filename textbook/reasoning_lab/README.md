@@ -213,6 +213,28 @@ before the [separate answers](CHANNELS_ANSWERS.md). Optional
 
 </details>
 
+<details><summary>Later application: meaning, changes and reports (56–61)</summary>
+
+Use core Reasoning 00–07; read Number 09 before the truth-score lesson
+if fractions are unfamiliar. The other applications and induction route
+are not prerequisites. This selected X301 route supplies its interpretation.
+
+| Lesson | One question |
+|---|---|
+| [56. A claim needs an interpretation](56_a_claim_needs_an_interpretation.md) | Which model and assignment give the expression its answer? |
+| [57. Name the domain](57_name_the_domain.md) | Does an empty or smaller domain answer the intended question? |
+| [58. Read the score rule](58_read_the_score_rule.md) | What does negation do to a score of one half? |
+| [59. Change and compare](59_change_and_compare.md) | Did an intervention change the answer or disprove an earlier claim? |
+| [60. Agreement and the guard](60_agreement_and_the_guard.md) | What do panel agreement and step refusal each establish? |
+| [61. A receipt has a scope](61_a_receipt_has_a_scope.md) | Does a valid checksum establish a verdict's truth? |
+
+Try the eight [changed questions](SEMANTICS_PRACTICE.md) before the
+[separate answers](SEMANTICS_ANSWERS.md). Optional
+[source details](SEMANTICS_SOURCES.md) retain implementation and callback
+limits. No physical trial or independent observer evidence is supplied.
+
+</details>
+
 The [source map](SOURCE_MAP.md) separates teaching logic from native
 models; [DEVELOPMENT.md](DEVELOPMENT.md) explains reproduction.
 

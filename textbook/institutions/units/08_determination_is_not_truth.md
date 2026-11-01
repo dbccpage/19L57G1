@@ -74,6 +74,11 @@ separate evidence outside this model of tables.
 
 </details>
 
+For a separate worked model of formula evaluation and panel reports, see
+[Reasoning 56–61](../../reasoning_lab/56_a_claim_needs_an_interpretation.md).
+That optional X301 route uses its own definitions; it is not a proved
+translation of this institution model.
+
 ## What you need first
 
 Use I02’s recovery rule and I03’s class count. This unit adds a separately supplied target and a rule comparing the report with it.
