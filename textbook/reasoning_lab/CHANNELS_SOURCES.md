@@ -50,7 +50,7 @@ results check flip/reset order, equal balanced outputs with different
 channels, equal-record processing, recovery only on reachable values,
 and a retained copy. This is not a general Python-to-Lean refinement.
 
-The combined Reasoning driver has 179 reports: 148 empty, three exactly
+The logic-through-channels portion has 179 reports: 148 empty, three exactly
 `propext`, 28 exactly `propext, Quot.sound`. Earlier 155-report counts
 describe the logic-through-fractions portion. Source pins use UTF-8/LF
 text hashes in [channels.json](channels.json).
@@ -69,3 +69,6 @@ Consulting the world label, another copy or a correlated hidden setting
 changes the model. The physical worksheet remains optional and blank.
 No learning speed, mastery, device validation or measured frequency follows
 from software receipts. AuthorityEffect: None.
+
+The later [induction toolkit](INDUCTION_SOURCES.md) brings the combined
+Reasoning driver to 190 reports; this channel selection stays unchanged.

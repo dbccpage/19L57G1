@@ -220,6 +220,11 @@ walkthrough. Changed-label practice has separate folded answers.
    files remain unchanged. The existing verifier now checks complete Unit
    text, exact pinned source blobs and folded-video placement. This improves
    access to the worked examples without establishing novice outcomes.
+   The [induction prerequisite](INDUCTION_READING_REVIEW_2026-11-01.md)
+   adds four lessons on start/step cases, finite histories and strict bounded
+   measures. It supplies the method used in Units 03, 11 and 28 without
+   requiring the later instrument/probability branches. Seven practice
+   questions retain separate answers and a model/device boundary.
 7. **Evidence and reality.** Add exercises in separating a definition,
    a deduction, a computation, and a measurement. Give a model prediction,
    identify an observation that could disagree with it, and explain what

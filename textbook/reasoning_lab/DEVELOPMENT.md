@@ -217,7 +217,7 @@ Run `python textbook/reasoning_lab/channels.py --population`,
 `python -m unittest textbook.reasoning_lab.test_channels`,
 `node textbook/reasoning_lab/test_channel_controls.mjs`, and the existing
 Reasoning Lean wrapper. `channels.py --write` rebuilds only its JSON/HTML.
-The wrappers add 24 strict reports (17 owner, seven book), for 179 total:
+The wrappers add 24 strict reports (17 owner, seven book), for 179 through this portion:
 148 empty, three exactly `propext`, 28 exactly `propext, Quot.sound`.
 The initial two misassigned native axiom expectations are retained and
 corrected against actual reports without widening either set.
@@ -225,3 +225,15 @@ Eighteen new authoring tests bring the Reasoning suite to 112.
 Actual handlers check 72 order and 18 record predictions, gates, wrong
 feedback and resets. Published phone and keyboard checks are separate.
 The seventh folded branch preserves the core 00–07 practice exit.
+
+## Induction prerequisite toolkit
+
+Run `python textbook/reasoning_lab/induction.py`,
+`python -m unittest textbook.reasoning_lab.test_induction` and the existing
+Reasoning Lean wrapper. The combined driver checks 190 exact reports:
+154 empty, five `propext`, 31 `propext, Quot.sound`. Nine added authoring
+tests bring the Reasoning suite to 121. The route adds written lessons,
+not another browser application or research tree. Six computational tasks
+are checked; the seventh practice question asks for application reasoning
+and is not an observed reader result. Source and false-claim receipts are
+retained separately in the audit's evidence directory.

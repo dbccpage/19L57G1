@@ -1173,3 +1173,15 @@ including a population check over all 93 Units and their 601 source
 fenced blocks. No source Unit, sealed file or native receipt is mutated.
 Full-text/source custody and page order do not establish mathematical
 scope beyond the source or a measured learner outcome.
+
+## Induction prerequisites (2026-11-01 UTC)
+
+AuthorityEffect: None. Three disposable assembled Lean variants reject
+a count formula that omits its initial value, a strict-bound argument
+weakened to nondecrease, and a false next value inferred from four matching
+samples of a delayed rule. Unmodified source recovers with eleven selected
+reports: six empty, two exactly `propext`, three exactly `propext, Quot.sound`.
+Combined Reasoning checks 190. Native replay controls retain empty histories
+from nonempty bases, supply/admission distinctions, repeated requests and
+changed ceilings. No source Unit quotation or sealed file is mutated.
+These checks supply no physical observation or learner result.

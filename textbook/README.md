@@ -40,6 +40,10 @@ No previous mathematics or philosophy is assumed.
 Use the [reading path](learning_path.md) for a core sequence, places to
 pause and prerequisites for later applications. The first Reasoning pass
 is Lessons 00–07, not every application listed in that lab.
+The [induction toolkit](reasoning_lab/52_start_then_one_more.md) supplies
+four short lessons for the proofs in Units 03, 11 and 28, after Number 00
+and core Reasoning. It separates a start case, a preserving step, finite
+samples and a fixed-ceiling argument, with separate changed practice.
 The [`Reasoning lab`](reasoning_lab/README.md) supplies the next toolkit:
 rules, functions, if-then claims, witnesses, counterexamples, and hypotheses.
 Its [evidence continuation](reasoning_lab/08_from_a_model_to_a_trial.md)

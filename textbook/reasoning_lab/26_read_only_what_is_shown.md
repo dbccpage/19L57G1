@@ -51,3 +51,6 @@ separates a finite comparison from the general definition.
 Next: [how far the record looks](27_how_far_the_record_looks.md).
 
 AuthorityEffect: None. Selected readout and transition; no physical identity claim.
+
+For the proof method, use the [induction toolkit](52_start_then_one_more.md).
+The method still needs this particular update's preservation premise.

@@ -50,6 +50,7 @@ requirements for starting Unit 00.
 
 | What you need next | Read this bounded part | Before it |
 |---|---|---|
+| Reading induction in a proof | [Reasoning 52–55](reasoning_lab/52_start_then_one_more.md) | Reasoning 00–07 and Number 00; later applications are not prerequisites |
 | Groups and recoverable answers | [Map Lessons 00–07](map_lab/00_follow_a_map.md) | First steps and Reasoning 00–07 |
 | Graphs, walks and boundaries | [Path Lessons 00–06](path_lab/00_points_and_connections.md) | Reasoning 00–07 |
 | Counts, shares and fraction arithmetic | [Number 00–02](number_lab/00_count_and_multiply.md), then [09–12](number_lab/09_equal_pieces.md) | Core reasoning; no map theory required |

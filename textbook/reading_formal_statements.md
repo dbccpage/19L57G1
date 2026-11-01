@@ -128,6 +128,15 @@ The arrow is used in function types and in implications. Its surrounding
 types tell you which reading is intended. See the [Reasoning lab](reasoning_lab/README.md)
 for witnesses, counterexamples, and quantifier order.
 
+## When a proof says “by induction”
+
+The [four-lesson proof toolkit](reasoning_lab/52_start_then_one_more.md)
+teaches the start case, preserving step and finite-list argument on small
+examples. Use it before the induction details in Units 03, 11 or 28.
+A list of successful tests and an argument for every count have different
+scopes. The [separate practice](reasoning_lab/INDUCTION_PRACTICE.md) changes
+the starting state, rule, event kind and ceiling.
+
 ## 6. Move from a familiar example to its formal owner
 
 | Concrete route | Suggested next source reading |

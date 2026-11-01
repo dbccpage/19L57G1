@@ -12,6 +12,7 @@ from textbook.reasoning_lab import composites  # noqa: E402
 
 from textbook.reasoning_lab import valuations  # noqa: E402
 from textbook.reasoning_lab import channels  # noqa: E402
+from textbook.reasoning_lab import induction  # noqa: E402
 
 if __name__ == "__main__":
     print(check_recorded())
@@ -29,3 +30,5 @@ if __name__ == "__main__":
     print({'bounded_valuation_cases':valuations.check_population()})
     print(channels.check_recorded())
     print({'bounded_channel_cases':channels.check_population()})
+    print(induction.check_examples())
+    print({'bounded_induction_examples':induction.check_population()})

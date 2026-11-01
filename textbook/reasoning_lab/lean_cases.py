@@ -2,6 +2,8 @@
 
 SOURCE = r"""
 import Derivation.Compression
+import Derivation.Inertia
+import Derivation.Counting
 
 namespace Textbook.ReasoningLab
 
@@ -111,3 +113,6 @@ SOURCE += '\n'+FRACTION_SOURCE
 from .channels_lean import build_checks as channel_checks
 CHANNEL_SOURCE,CHANNEL_NAMES=channel_checks()
 SOURCE += '\n'+CHANNEL_SOURCE
+
+from .induction_lean import SOURCE as INDUCTION_SOURCE
+SOURCE += '\n'+INDUCTION_SOURCE

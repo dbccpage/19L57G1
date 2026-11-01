@@ -33,6 +33,25 @@ After Lesson 07, attempt the [packet practice](PRACTICE.md) before its
 when you can give a counterexample and carry a claim's conditions.
 For a different question, use the [reading path](../learning_path.md).
 
+## Proof toolkit: when a Unit uses induction
+
+Return here when you want to understand a proof about every count or
+history length. Use Reasoning 00–07 and [Number 00](../number_lab/00_count_and_multiply.md)
+first; the later instrument and probability routes are not prerequisites.
+
+| Lesson | One question |
+|---|---|
+| [52. Start, then one more](52_start_then_one_more.md) | Why can two proof jobs cover every whole-number count? |
+| [53. Keep both proof jobs](53_keep_both_proof_jobs.md) | What fails when the start or preserving step is missing? |
+| [54. An empty history, then one more event](54_empty_history_one_more_event.md) | How does a proof cover every supply-only history? |
+| [55. A measure that climbs](55_a_measure_that_climbs.md) | When does a ceiling bound rounds rather than just stored values? |
+
+Try the [seven changed questions](INDUCTION_PRACTICE.md) before the
+[separate answers](INDUCTION_ANSWERS.md). Optional
+[source details](INDUCTION_SOURCES.md) keep arithmetic examples, native
+replay checks and general Lean statements separate. Lesson numbering
+retains publication history; 08–51 are not prerequisites for this toolkit.
+
 ## Return for an application
 
 Open the branch you want to study. Start with the fraction toolkit before

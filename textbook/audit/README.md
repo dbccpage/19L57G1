@@ -490,3 +490,8 @@ puts complete lesson text before optional videos and reading prompts on
 all 93 Unit pages. It adds full-text/source-blob custody checks to the
 existing Wiki verifier, preserving every Unit source file. This changes
 reading order on the page, not mathematical claims or learning evidence.
+
+The [induction prerequisite review](INDUCTION_READING_REVIEW_2026-11-01.md)
+adds four small proof-method lessons, counterexamples and separate practice
+answers. It connects existing history and round-bound arguments without
+adding a research tree or changing sealed sources.

@@ -18,6 +18,8 @@ Quot.sound`. **Depends on:** `TRegime`, `TEvent`, `stepT`, `replayT`,
 
 ## First pass
 
+For a short explanation of the method, use [Reasoning 52–54](../reasoning_lab/52_start_then_one_more.md). Its start and step cases explain why finite samples and an induction proof have different scopes.
+
 Start with an empty store. Admit token A three times under the
 token-aware rule. The store is `[A]`, because repeats designate
 the existing entry. Supplying another token without admitting it

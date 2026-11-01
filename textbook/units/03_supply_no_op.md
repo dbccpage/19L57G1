@@ -25,6 +25,8 @@ Does recording a supply also put its token in the admitted-data ledger?
 
 ## First pass
 
+For the first induction argument, use [Reasoning 52–54](../reasoning_lab/52_start_then_one_more.md): start case, preserving step and empty/nonempty histories.
+
 An **event history** lists the inputs passed to the model. **Replay**
 applies those events in order to a starting ledger. The history and the
 ledger it produces are different records.
