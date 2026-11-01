@@ -58,6 +58,19 @@ theorem one_inst_separates : separable U1 0 1 := U1_separable
 /-- So `U1` is a regime whose instance list is not empty, as it must be. -/
 theorem U1_has_inst : U1.insts ≠ [] := by decide
 
+theorem separation_needs_instance (r : Regime) (d e : Nat)
+    (h : separable r d e) : r.insts ≠ [] := by
+  intro hi
+  exact separable_not_collapsed h (collapsed_of_no_insts r hi d e)
+
+theorem uniform_rule_can_mask_instance :
+    separable U1 0 1 ∧ collapsed { U1 with rules := [0] } 0 1 := by
+  constructor
+  · exact U1_separable
+  · intro c hwf
+    have hf : c.form = 0 := Nat.eq_zero_of_le_zero (Nat.le_of_lt_succ hwf.1)
+    constructor <;> intro _ <;> exact Or.inr (by simp [plug, hf])
+
 end Textbook.U10
 
 #print axioms Textbook.U10.collapsed_of_no_insts'
@@ -69,6 +82,8 @@ end Textbook.U10
 #print axioms Derivation.collapsed_of_no_insts
 #print axioms Derivation.R2L_collapsed
 #print axioms Derivation.R2F_collapsed
+#print axioms Textbook.U10.separation_needs_instance
+#print axioms Textbook.U10.uniform_rule_can_mask_instance
 """
 
 EXPECTED = {n: PROPEXT for n in (
@@ -80,6 +95,8 @@ EXPECTED = {n: PROPEXT for n in (
 EXPECTED["Textbook.U10.ruled_both_derivable"] = BOTH
 EXPECTED["Textbook.U10.one_inst_separates"] = BOTH
 EXPECTED["Textbook.U10.U1_has_inst"] = NONE
+EXPECTED["Textbook.U10.separation_needs_instance"] = PROPEXT
+EXPECTED["Textbook.U10.uniform_rule_can_mask_instance"] = BOTH
 
 if __name__ == "__main__":
     raise SystemExit(main(LEAN_SOURCE, EXPECTED, "U10"))

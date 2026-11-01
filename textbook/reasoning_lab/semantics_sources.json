@@ -1,0 +1,8 @@
+{
+  "formulas.py": "91fdfb76e38e29f828168768003e80f0b24cd48cfd73c6b18caad0e05f2f2e03",
+  "intervention.py": "cf972dec57e8a0884c5ddb35063dd7914b5760b3c818cd6cdd9b0bfc224bb84f",
+  "lean/FormalSemantics.lean": "d6156aa1c0187251617095017970cf4d92d92f13d485190dd63bbfa133d1e9e4",
+  "model.py": "8d45aeb46ede1a7f9504a887b45812b5771d8b27d45ccc22d54f8fd38c3957f2",
+  "panel.py": "5a290962b3a5fbdefe965b1cfb7ca0dfd0787d7fbac1669a25a9b1dc3dc1ebf3",
+  "valuation.py": "154e9c74ef834e8db7caf5faf1ef2ac291190ecdc91570162a954d27efac1de8"
+}

@@ -2,7 +2,8 @@
 
 Checks:
   1. `run_length_le`, `run_consistent`, and `run_congr` on `range(4)` across
-     adaptive protocols and all partitions `p, p'`;
+     one adaptive protocol, all 15 partition representatives `p, p'`, and
+     budgets 0..4 (1,125 ordered actor-pair/budget comparisons);
   2. `finite_question_space` and `encoding_checks` from `two_theorems/model.py`
      on `D = (0, 1, 2, 3)` and `D = (0, 1, 2)`.
 The proofs for every carrier are the Lean. AuthorityEffect: None.

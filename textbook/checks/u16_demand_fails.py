@@ -26,6 +26,7 @@ from derivation.engine import (  # noqa: E402
 from derivation.model import (  # noqa: E402
     AdmitDatum,
     AdmitForm,
+    AdmitInst,
     AdmitRuleAll,
     Impose,
     replay,
@@ -60,6 +61,16 @@ def main() -> int:
             failures.append(("python base carries no demand", name))
         if demanded.reqs != frozenset({(i, j)}):
             failures.append(("impose", name, demanded.reqs))
+        if not satisfies(r) or separable(demanded, i, j):
+            failures.append(("empty requests versus separation", name))
+        if (demanded.data, demanded.forms, demanded.insts, demanded.rules) != (
+                r.data, r.forms, r.insts, r.rules):
+            failures.append(("recording changed more than requests", name))
+        if step(demanded, Impose(i, j)) != demanded:
+            failures.append(("duplicate request", name))
+        repaired = step(step(demanded, AdmitForm(1)), AdmitInst(0, (j,)))
+        if repaired.reqs != demanded.reqs or not satisfies(repaired):
+            failures.append(("repair retaining request", name))
 
     # 2. Genesis's own report and artifact say the same.
     for reading in (READING_L, READING_F):
@@ -77,9 +88,9 @@ def main() -> int:
             or claims["CL-3-FAIL-CURRENT"] != {"L": False, "F": False}):
         failures.append("artifact")
 
-    # 3. Forms and rules do not help; only an instance would (Unit 10).
-    # Every instance-free regime with 2..4 data, any forms up to arity 2
-    # and any rules fails every demand it could carry.
+    # 3. Instance-free controls: data counts 2..4, form tables of length
+    # 0..2 over arities 1..2, and rule prefixes of each form table.
+    # These 51 base ledgers give 170 demand-bearing cases, not all regimes.
     count = 0
     for n in (2, 3, 4):
         for forms in itertools.chain.from_iterable(

@@ -1,10 +1,11 @@
 """Unit 07 check: token erasure, the Python side.
 
 Genesis's Python keeps tokens and dedups on them; Lean's Regime keeps a
-count. The proof that the two agree is Erasure.erase_replay (Lean). This
-script runs the Python half: erasing a history (turning each duplicate
-admission into a supply) never changes the replay, and the data count is
-the number of distinct admitted tokens. Sample computation.
+count. The simulation theorem relates two Lean models, not Python source.
+This script checks Python replay from the empty base before/after replacing
+duplicate datum admissions by supplies. It retains Python's string labels.
+The helper below does not implement arbitrary-base translation or refusal
+cutting. Sample computation; not a general Python-to-Lean refinement.
 AuthorityEffect: None.
 Run from the repository root: python textbook/checks/u07_erasure.py
 """
@@ -18,6 +19,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "code"))
 
 from derivation.engine import GENESIS_F, GENESIS_L  # noqa: E402
 from derivation.model import (  # noqa: E402
+    AdmissionError,
     AdmitDatum,
     AdmitForm,
     AdmitInst,
@@ -31,8 +33,9 @@ TOKENS = ("<>", "<a>", "<ab>")
 
 
 def erase_history(h: list[Event]) -> list[Event]:
-    """Gloss of Erasure.eraseHistory: a duplicate admission becomes a
-    supply; everything else is kept. Threads the admitted tokens."""
+    """Empty-start Python history helper, retaining string-labelled events.
+    A repeated datum admission becomes supply. No refusal cut is attempted.
+    This is not the complete native Lean state/event translation."""
     seen: set[str] = set()
     out: list[Event] = []
     for e in h:
@@ -85,6 +88,24 @@ def main() -> int:
     print(f"erased: {[type(e).__name__ + ('(' + e.token + ')' if isinstance(e, (Supply, AdmitDatum)) else '') for e in er]}")
     if replay(h) != replay(er) or not isinstance(er[1], Supply):
         failures.append("dup with structure")
+
+    # A nonempty base exposes the empty-start helper's classification limit.
+    base = replay([AdmitDatum("<a>")])
+    repeated = [AdmitDatum("<a>")]
+    if not isinstance(erase_history(repeated)[0], AdmitDatum) or replay(repeated, base) != base:
+        failures.append("empty-start helper scope contrast")
+    # Its full event list is retained after an invalid demand; native Lean's
+    # eraseHistory instead cuts there. Both Python replays raise on that demand.
+    refused = [AdmitDatum("<a>"), Impose(0, 1), AdmitDatum("<ab>")]
+    if len(erase_history(refused)) != 3:
+        failures.append("helper unexpectedly cuts refusal")
+    for history in (refused, erase_history(refused)):
+        try:
+            replay(history)
+            failures.append("later admission rescued an earlier invalid demand")
+        except AdmissionError:
+            pass
+    print("extra scope controls: nonempty base and refusal behavior checked separately")
 
     print(f"failures: {failures}")
     return 1 if failures else 0

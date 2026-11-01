@@ -932,3 +932,256 @@ Fifteen authoring tests pass after temporary bindings/files are discarded.
 The added logical report has an empty axiom set. The desk's event-handler
 unit fixture checks twelve supplied cases; it is not browser rendering or
 an empirical measurement/comprehension test.
+
+## Map-lab native-path continuation (2026-10-31)
+
+Seven temporary packet mutations are rejected by recomputation from the
+actual owners. A child-process Lean source mutation is also rejected.
+No sealed/research source, frozen receipt or vocabulary population changes.
+
+| Defect injected | Observed rejection |
+|---|---|
+| Infer two native observations from the two budget codes | Packet comparison rejects the invented reading count |
+| Accept the wrong-label halt row because another path joins its endpoints | Packet comparison retains the failed event equation |
+| Accept locally valid but disconnected rows as a history | Packet comparison retains the adjacency rejection |
+| Reuse the first translated write after two flips | Packet comparison rejects final budget 1; actual replay returns 0 |
+| Reject the inert repeated occurrence admission as no step | Packet comparison retains its valid actual-step record |
+| Label the supplied event recipe as derived | Packet comparison rejects the classification change |
+| Publish 126 formal histories as physical observations | Packet comparison rejects the false observation count |
+| Change the book's two-flip budget equality from 0 to 1 | Lean rejects the false equality; the unmodified driver checks 290 exact reports |
+
+Twenty authoring tests pass. The event-handler fixture checks 252
+history/reader selections and seven traces; it supplies no browser-layout
+or novice-comprehension result. The twenty added Lean reports have fourteen
+`propext, Quot.sound` sets, one `propext`, and five empty sets.
+
+## Path-lab cost continuation (2026-10-31)
+
+Eight temporary packet mutations and one temporary diagram mutation are
+rejected by source-backed recomputation. A generated child-process Lean
+mutation is also rejected. No native source or receipt is changed.
+
+| Defect injected | Observed rejection |
+|---|---|
+| Replace the budget loop's signed total 0 by 2 | Packet comparison distinguishes signed change from change count |
+| Promote the closed state-change cost to exact | Packet comparison retains the nonzero-loop obstruction |
+| Infer non-closedness from that nonzero loop | Packet comparison retains the proved closedness result |
+| Declare the live halt/license orders commuting | Packet comparison retains their different full end states |
+| Count the repeated budget write as two state changes | Packet comparison retains the inert second write |
+| Give the empty history a nonzero signed cost | Packet comparison retains its zero sum |
+| Supply a potential for edge costs 1/1/−1 | Packet comparison rejects the nonzero triangle-loop table |
+| Count the formal comparisons as physical observations | Packet comparison rejects the observation count |
+| Change the diagram's change-count total from 2 to 0 | Figure comparison rejects the false label |
+| Change the assembled `Closed writes ∧ ¬ Exact writes` conclusion to `Closed writes ∧ Exact writes` | Lean rejects the false conjunction; the unmodified wrapper checks 184 exact reports |
+
+Twenty-two authoring tests pass. The actual handler fixture checks 168
+history/cost selections and 432 square selections; it supplies no browser
+or learning outcome. All twenty added Lean reports have exactly
+`propext, Quot.sound`.
+
+## Reasoning-lab operational-protocol continuation (2026-10-31)
+
+Eleven packet mutations, one stale desk, and two assembled child-process
+Lean mutations are rejected. Original sources and receipts are unchanged;
+the unmodified reasoning wrapper checks 45 exact reports.
+
+| Defect injected | Observed rejection |
+|---|---|
+| Refresh A's stored mark merely by advancing its target | Packet comparison retains the old mark |
+| Infer equal targets from coarse matching marks | Packet comparison retains the distinct targets |
+| Commute a non-disturbing readout with a change of the same target | Packet comparison retains the record difference |
+| Treat equal diagnostic counters as restoring commutation | Packet comparison retains the unequal records |
+| Make every overlapping pair fail | Packet comparison retains the identity-operation control |
+| Promote footprint labels to behavior proofs | Packet comparison retains the false-metadata counterexample |
+| Promote the instrument flag to target preservation | Packet comparison retains the aliased-destination counterexample |
+| Infer no target change from a zero diagnostic | Packet comparison retains the zero-price change |
+| Relabel the formal carrier as six bounded fields | Packet comparison rejects the wrong scope |
+| Count supplied preparations as physical observations | Packet comparison rejects the false count |
+| Change B's shares merely because pair agreement changed | Packet comparison retains the pointwise unchanged B marks |
+| Alter the standalone protocol desk without rebuilding it | Exact renderer comparison rejects the stale desk |
+| Replace the book's same-target noncommutation conclusion with commutation | Lean rejects the false proof; original counterexample recovers |
+| Replace target inequality with equality in the coarse-probe exhibit | Lean rejects the false equality; original exhibit recovers |
+
+Thirty authoring tests pass. The new handler fixture checks 192 record and
+72 order predictions. The 32 added reports have 29 empty axiom sets, one
+`propext` set and two `propext, Quot.sound` sets. Browser rendering and
+learning evidence are separate from those checks.
+
+## Reasoning-lab calibration continuation (2026-10-31)
+
+Four packet mutations, one stale desk and two assembled child-process
+Lean variants are rejected. Original research sources and receipts are
+unchanged. The unmodified selected P201/book source recovers with eleven
+exact reports; the combined reasoning driver checks 56.
+
+| Defect injected | Observed rejection |
+|---|---|
+| Make a larger standard increase X's written number | Packet comparison retains 6 U → 3 W |
+| Divide unequal-standard raw readings as 6/18 | Packet comparison retains the common-scale ratio 2/3 |
+| Treat the same-ratio doubled pair as unchanged magnitude | Packet comparison retains magnitude 24 instead of 12 |
+| Count supplied conversions as physical observations | Packet comparison retains zero observations |
+| Alter the calibration HTML without rebuilding it | Exact renderer comparison rejects the stale desk |
+| Replace the book's 6 ≠ 12 boundary with 6 = 12 | Lean's decide rejects the false proposition |
+| Pass a duration quantity to the length ratio operand | Lean rejects the argument's type mismatch |
+
+Thirteen added authoring tests pass. Native malformed-standard and
+wrong-scale controls remain visible while the book-side premises refuse
+them. The actual handler fixture checks 63 conversion and 36 comparison
+predictions. The eleven added reports have nine empty axiom sets and two
+exactly `propext, Quot.sound`. Browser rendering and learning evidence
+are separate checks.
+
+## Reasoning-lab clock/future-reading continuation (2026-10-31)
+
+Five temporary packet variants, one stale desk and two assembled
+child-process Lean variants are rejected. Originals remain unchanged;
+the selected P202/book source recovers with sixteen exact reports and
+the combined reasoning driver checks 72.
+
+| Defect injected | Observed rejection |
+|---|---|
+| Replace Python's three-step ratio 3 with Lean's ratio 2 | Packet comparison retains the pulse-rule counterexample |
+| Let empty agreement predict the next lamp | Packet comparison retains the horizon-zero distinction |
+| Extend three matching countdown samples to the next index | Packet comparison retains next lamps 1/0 |
+| Assign ratio 2 to a zero-update interval | Packet comparison retains zero-divisor refusal |
+| Count supplied clock runs as physical observations | Packet comparison retains zero observations |
+| Alter the clock HTML without rebuilding | Exact renderer comparison rejects the stale desk |
+| Replace hidden-clock state inequality by complete-state equality | Lean rejects the altered conclusion |
+| Replace the countdown next-lamp inequality by equality | Lean rejects the false next-reading claim |
+
+Fifteen added authoring tests pass. Actual handlers check 196 clock and
+eight countdown predictions, including wrong choices, gates, resets,
+zero intervals and empty comparisons. The sixteen added reports have
+ten empty axiom sets and six exactly `propext, Quot.sound`. The initial
+elaboration attempt is retained separately; expected axiom sets were
+not relaxed. Browser rendering and learner evidence remain separate.
+
+
+## Reasoning-lab composite-system continuation (2026-10-31)
+
+AuthorityEffect: None. Disposable packet copies, a stale desk copy and
+assembled child-process Lean strings exercise nine false promotions.
+Native research source, receipt and vocabulary populations stay unchanged.
+
+| Injected defect | Rejection |
+|---|---|
+| Promote balanced share equality to unchanged paired marks | Exact packet comparison rejects the false row count |
+| Erase relay order's effect on the B comparison | Exact packet comparison rejects the false distance |
+| Treat graph construction as executed relay | Exact packet comparison rejects an execution count of one |
+| Certify an undeclared read from its graph label | Exact packet comparison retains the missing edge |
+| Remove the edge induced by a constant multi-write | Exact packet comparison retains the declared edge convention |
+| Count supplied contexts as physical observations | Exact packet comparison retains zero observations |
+| Alter the desk without rebuilding | Renderer comparison rejects the stale HTML |
+| Replace the relay-order inequality by equality | Lean rejects the altered general conclusion |
+| Replace different paired lists by literal equality | Lean rejects the false concrete conclusion |
+
+Eighteen added authoring tests pass; the full Reasoning suite has 76.
+Actual handlers check 300 share and sixty graph predictions, including
+wrong answers, gates and resets. Unmodified P203 source and book claims
+recover with 42 empty axiom reports; the combined driver checks 114.
+Native read-label, shallow-mutation, observer-map and empty-population
+controls are separately retained counterexamples, not repaired research.
+Browser rendering and learner evidence remain separate obligations.
+
+
+## Reasoning-lab valuation continuation (2026-10-31)
+
+AuthorityEffect: None. Disposable packet/desk copies and assembled child
+Lean sources reject nine false promotions. Research owners and receipts
+stay unchanged; the original strict axiom populations are retained.
+
+| Injected defect | Rejection |
+|---|---|
+| Replace multiply-and-add 5/8 by 3/4 | Packet comparison rejects the wrong valuation |
+| Replace the full-branch half by a selected-branch one | Packet comparison retains the distinct comparisons |
+| Assign conditional zero to an impossible branch | Packet comparison retains undefined |
+| Erase distinct square recipe weights | Packet comparison retains both recipes |
+| Promote normalized Nat weights to arbitrary fractions | Packet comparison retains the endpoint restriction |
+| Count supplied contexts as measurements | Packet comparison retains zero observations |
+| Alter HTML without rebuilding | Renderer comparison rejects the stale desk |
+| Promote equivalent fractions to literal record equality | Lean rejects the false equality |
+| Retain the endpoint conclusion with normalization changed to two | Lean rejects the altered premise/conclusion claim |
+
+Eighteen added authoring tests pass; the full Reasoning suite has 94.
+Actual handlers check 140 pairing and 168 branch predictions, including
+gates, wrong answers and resets. Two initial book proof attempts exposed
+a missing equivalence decision procedure and unwanted Classical.choice.
+Explicit constructive steps recover the original expected sets, without
+adopting either failure. Unmodified selected source recovers with 34
+reports; the combined driver checks 148. Rendering and learner evidence
+remain separate from these finite/model checks.
+
+
+## Fraction prerequisites and reading path (2026-10-31)
+
+AuthorityEffect: None. Two assembled child-process Lean strings reject
+false general fraction claims, with no mutation of native source:
+
+| Injected defect | Rejection |
+|---|---|
+| Add one extra numerator unit to common-denominator addition | Lean rejects the altered identity |
+| Make a positive-denominator QVal have denominator zero | Lean rejects the false equality |
+
+Unmodified source recovers with seven new reports: four empty sets and
+three exactly `propext, Quot.sound`. The combined Reasoning driver checks
+155; the existing Number readout driver keeps its 37-report population.
+Exact arithmetic also retains 252 zero-divisor refusals in its declared
+pair population. Existing Number Wiki stale-page/asset controls are
+preserved; their source page census is deliberately updated to 21 after
+adding seven Markdown pages. The five tests recover. No reading-time,
+mastery, transfer or physical result is inferred.
+
+## Selected channel/process continuation (2026-10-31)
+
+AuthorityEffect: None. Six disposable packet variants reject a false
+flip/reset swap, erased reverse rows, a new distinction from equal
+stored answers, one-preparation channel identification, removal of the
+native float-helper limitation and model contexts counted as observations.
+One altered desk is refused. Actual handlers retain both prediction gates,
+wrong feedback, resets and hiding results after changed predictions.
+
+Two separately assembled child-process Lean variants reject equality
+of flip/reset orders and equal channels inferred from balanced outputs.
+Unmodified source recovers with 24 added reports: 21 empty, one exactly
+`propext`, two exactly `propext, Quot.sound`. Combined Reasoning checks
+179 reports. Initial owner expectations placed the `propext` report on
+the wrong theorem; retained diagnostics locate it on
+`state_space_multiplicative`. Correcting that assignment widens no set.
+Research sources remain unchanged. These checks establish no physical
+or learner result.
+
+## Core entrance: event identity versus step outcome (2026-11-01 UTC)
+
+AuthorityEffect: None. In a disposable assembled copy of the Unit 03
+book source, change the distinct supply events 0 and 7 to equal events
+while retaining their equal step outcomes. Lean rejects the event-equality
+claim. Unmodified source recovers with thirteen exact reports: eleven
+with only `propext` and two empty. No native source or original quotation
+is mutated. This distinguishes equality of resulting ledgers from
+equality of the inputs or histories producing them, without certifying
+Python-to-Lean refinement, device behavior or learner understanding.
+
+## Shared Unit layout and source custody (2026-11-01 UTC)
+
+AuthorityEffect: None. Eight temporary generated-page defects are rejected
+by the existing Wiki verification path's new Unit checks: remove a scope
+sentence; move the video before the lesson; open it by default; change
+the GIF target; introduce an ordinary or prefixed fragment shortcut; invent an unavailable source pin; or use a real older
+pin whose source differs from the displayed lesson. Original scratch
+pages recover after each case. The thirteen-test Wiki suite passes,
+including a population check over all 93 Units and their 601 source
+fenced blocks. No source Unit, sealed file or native receipt is mutated.
+Full-text/source custody and page order do not establish mathematical
+scope beyond the source or a measured learner outcome.
+
+## Induction prerequisites (2026-11-01 UTC)
+
+AuthorityEffect: None. Three disposable assembled Lean variants reject
+a count formula that omits its initial value, a strict-bound argument
+weakened to nondecrease, and a false next value inferred from four matching
+samples of a delayed rule. Unmodified source recovers with eleven selected
+reports: six empty, two exactly `propext`, three exactly `propext, Quot.sound`.
+Combined Reasoning checks 190. Native replay controls retain empty histories
+from nonempty bases, supply/admission distinctions, repeated requests and
+changed ceilings. No source Unit quotation or sealed file is mutated.
+These checks supply no physical observation or learner result.

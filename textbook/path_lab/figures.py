@@ -54,4 +54,6 @@ def render_figures(packet):
             text(220, 375, "Reference arrows do not restrict traversal direction.", 15)
         text(220, 405, "Supplied diagram; placement is not a measured distance.", 14)
         outputs[name] = "\n".join(pieces + ["</svg>"]) + "\n"
+    from .cost_figures import render_cost_figures
+    outputs.update(render_cost_figures(packet))
     return outputs

@@ -2,7 +2,8 @@
 
 Checks:
   1. `demurred_check(3)` from `actor_institution/model.py`: `demurred` is always
-     known and is total iff the claim is known;
+     known and demurs nowhere iff the claim is known. It is always a total
+     function. The 160 cases use partition-subset families and partition reports;
   2. `residual_answerable` and `evidence_is_not_a_digest` on `residuals_parity_half`;
   3. `residual_checks` and `grounding_checks` from `two_theorems/model.py`.
 The proofs for every carrier are the Lean. AuthorityEffect: None.

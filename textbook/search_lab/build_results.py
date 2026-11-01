@@ -4,11 +4,12 @@ import argparse
 import json
 
 
-def render(source: Path, links: dict[str, str] | None = None) -> str:
-    html = (source / "results.template.html").read_text(encoding="utf-8")
+def render(source: Path, links: dict[str, str] | None = None, *,
+           template_name: str = 'results.template.html', packet_name: str = 'recorded_lab.json') -> str:
+    html = (source / template_name).read_text(encoding="utf-8")
     if html.count("__LAB_PACKET__") != 1:
         raise ValueError("Expected one data marker; refusing an incomplete results desk")
-    data = json.loads((source / "recorded_lab.json").read_text(encoding="utf-8"))
+    data = json.loads((source / packet_name).read_text(encoding="utf-8"))
     literal = json.dumps(data, ensure_ascii=True, separators=(",", ":")).replace("<", "\\u003c")
     html = html.replace("__LAB_PACKET__", literal)
     for name, target in (links or {}).items():
@@ -16,8 +17,9 @@ def render(source: Path, links: dict[str, str] | None = None) -> str:
     return html
 
 
-def build(source: Path, output: Path, links: dict[str, str] | None = None) -> None:
-    html = render(source, links)
+def build(source: Path, output: Path, links: dict[str, str] | None = None, *,
+          template_name: str = 'results.template.html', packet_name: str = 'recorded_lab.json') -> None:
+    html = render(source, links, template_name=template_name, packet_name=packet_name)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(html, encoding="utf-8", newline="\n")
 

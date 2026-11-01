@@ -25,5 +25,163 @@
    next-step function to the demand conditions. The generic tag's
    definition alone supplies only the stated stopping condition.
 
+This completes the core answers. Continue to
+[Unit 00](units/00_mark_and_constructor.md).
+
+<details>
+<summary>Optional: institution exercises after the named later Units</summary>
+
+## Institution foundations I00–I03
+
+10. In J,K,L,M order, the representatives are J,K,J,K. In M,L,K,J scan
+    order, the group {J,L} chooses L and {K,M} chooses M, so the values on
+    J,K,L,M become L,M,L,M. The groups do not change. Renaming the two
+    p-values injectively keeps their equalities and the representatives.
+11. Set g(4)=5 and g(6)=7. After changing L's answer, J and L require
+    g(4)=5 and g(4)=12, which are incompatible. Choosing the lookup using
+    original input identity gives it information the stated task withholds.
+12. Under `[p,r]`, J has [4,8] and L has [4,9]. Under `[r,p]` they have
+    [8,4] and [9,4]. All four combined signatures differ, so no two
+    distinct inputs merge. Repeating p lengthens each signature without
+    changing which pairs agree.
+13. The counts are 2,2,4,2. Table p cannot recover r: J/L share p=4 but
+    differ in r. Table r cannot recover p: J/K share r=8 but differ in p.
+    The two equal counts describe different groups. Appending q preserves
+    p's groups because q is recoverable from p; appending r splits them.
+    The theorem retains the old family and adds the specified new table.
+14. Four empty signatures give one distinct signature. An empty carrier
+    gives no signatures and zero classes. For J,J,K,L,M with the empty
+    family, five empty signatures still give one class. With `[p]`, that
+    repeated-input carrier has five entries and two classes.
+15. Specify which physical inputs, measurement procedure and conditions
+    correspond to these rows, and how readings receive the declared
+    labels. Collect results that could reveal a disagreement with the
+    proposed correspondence. Calculating the invented table supplies no
+    such observations by itself.
+
+## Combined reports and loss I04–I07
+
+16. Send [0,0]→0, [0,1]→1, [1,0]→1 and [1,1]→0. For p alone, J/K
+    have the same available value and different requested values. For r,
+    J/L do. The separating member may depend on the pair; the full lookup
+    uses both answers, while each member has a failure pair of its own.
+17. The changed r is `[0,0,1,1]`, the same table as p. J/K now share
+    signature [0,0] but require different q-values. Moving the entire rows
+    together instead preserves their answer associations and recoverability.
+18. L and M pass the pulled-back view. It merges exactly p's groups, so
+    it is sharp for p. It fails for q on J/K, and for identity on J/K too.
+    The correspondence is not faithful because it merges distinct inputs.
+    With no later views all inputs merge; even sharpness for p fails.
+19. Appending c gives count 4 and still recovers q, retaining the original
+    members. Replacing by c gives count 1 and loses q. Replacing by the
+    full representative `[J,K,L,M]` gives count 4 and preserves q, but
+    that table alone does not record the original members. Removing r
+    leaves p, with count 2 and no recovery of q. A separate copy of the
+    original family could retain it; the replacement table does not supply one.
+20. J/K conflict. A lookup receiving only their shared p-value 0 cannot
+    distinguish them, while the reader given both full tables can name
+    the pair. After adding h, L/M still share p=1 and h=0 but require
+    q=1 and q=0. Resolving the first pair does not resolve every conflict.
+21. Counts are 1,1,2,4,4 across five stages and four comparisons. The
+    first and fourth comparisons are stationary; the first is followed
+    by growth. All four comparisons retain the previous members.
+    Replacing `[p]` by `[r]` drops p and does not meet that hypothesis.
+    Both counts are 2, but r cannot recover p on J/L, while p knows itself.
+
+## Targets, policies and identity I08–I11
+
+22. q is recoverable with 0→2 and 1→4. The agreement table `[1,1,0]`
+    conflicts on 0/2 under the old presentation. Adding t separates that
+    pair, making the agreement table recoverable. It still has a 0 at
+    input 2, so q still disagrees there.
+23. The three supplied decoders each give `[0,0,0,1]`. There are three
+    reports, one individual grouping, and two combined groups. The decoded
+    assessment disagrees with the target at L. No probability, sampling
+    or reliability model has been supplied, so the report count establishes
+    none of those statistical conclusions.
+24. J/K conflict; L/M are settled with original answer 0. The fallback
+    is `[0,0,1,1]`, defined everywhere and recoverable, while the original
+    report is not. After adding the indicator, every group is settled and
+    the fallback is `[1,4,1,1]`. Subtract 1 from each positive mark to
+    decode `[0,3,0,0]`. Before that change, the zero marks supplied no answer.
+25. Refuse-all returns No/No/No. Known-only returns Yes/Yes/No. Requiring
+    both known and target agreement returns Yes/No/No. Scoped soundness
+    forbids approval of unknown reports; it does not require approval of
+    every known one. The largest rule approves constant 1, which disagrees
+    everywhere with the supplied zero target.
+26. Initially both questions are unresolved. Appending the indicator is
+    an extension: same is refuted and apart supported. Removing it gives
+    unresolved/unresolved and is not an extension. J/J gives unresolved
+    for both questions under this declared mapping; equality J=J remains true.
+27. For example, differently encoded copies of `[0,0,1,1]` all recover
+    the same assessment but can disagree with target `[0,1,1,1]` at K.
+    Repetition does not establish correctness. Specify how actual device
+    inputs, reading conditions, output labels and target readings correspond
+    to the tables, then retain observations capable of challenging that
+    correspondence. Likewise, recoverable-report approval supplies no
+    physical validation, and current test agreement supplies no proof of
+    literal identity. Other reasoned counterexamples can answer the task.
+
+## Acquisition, changing views and interpreters I12–I17
+
+28. Both two-step records are `(0,1,false),(0,2,true)`. The third question
+    is 2/3, answered Different; the protocol then stops, so five allowed
+    steps still give three entries. `[4,8,4,8]` gives the same record
+    but merges 1/3; the first actor splits that unasked pair. Storing
+    only D=`[0,1]` gives `[(0,4),(1,8)]`. Decoding returns 0 at 2, so
+    the original Equal answer on 0/2 becomes Different. Equality bits
+    do not recover the original labels 4,8,9.
+29. `[0,1,0,3]` gives Different on each asked pair while merging 0/2.
+    Different answers on adjacent pairs do not force Different on the
+    endpoints. Equal is transitive for one fixed function, so the second
+    record implies Equal on 0/2. The all-different run leaves an
+    unasked merge possible and supplies the worst-case lower bound;
+    the equality-chain case need not ask every pair.
+30. In order 0/1,0/2,0/3,1/2,1/3,2/3: Equal, Different, Different,
+    Different, Different, Different. Row views are `{0,1}`, `{0,1}`,
+    `{2}`, `{3}`. Views `{2}` and `{3}` give patterns 00,10,01 for
+    the three classes, hence a sharp two-view code after six complete
+    probes. A partial `sameT` sees no direct Equal entry for 0/2 and
+    returns false. Its row views `{0,1}`, `{0,1,2}`, `{1,2}` split
+    equal values of a constant actor. Equivalence closure instead
+    joins all three inputs, giving a sharp one-class observer.
+31. No: constant and all-different actors remain possible. The exact
+    three-class promise leaves only singleton groups, needing zero
+    probes, whereas the proposal gives `3·2/2 + 0·2 = 3`. Unrestricted
+    `Fixes` has no promise parameter and remains false on the empty
+    record. The contradictory record has no consistent actor; its
+    universal condition is vacuously true. A successful discovery also
+    needs a consistent candidate, as actual protocol runs provide.
+32. The new single view `{0,2}` merges protected 0/2 but separates 1/2.
+    Target separation does not rescue the broken protection, so this
+    is not valid. Appending the view while retaining `{2}` preserves
+    the 0/2 separation. The renamed original view is `{0}`: raw 0/1
+    appear separated, but original 0/1 correspond to 2/1 and remain
+    merged. The map determines which pairs may be compared.
+33. With the guard on the mark is rejected, view `{0}` remains,
+    quiescence is true and `WF` true. With it off the view list becomes
+    `[1,0]`, as a set `{0,1}`; quiescence is false and `WF` still true.
+    The requirement endpoints are still distinct, in-range positions.
+    At matching carried and fixed codes the roles agree. With the
+    relaxed code carried, the reflective role executes that changed
+    code while the fixed guarded role still rejects the mark.
+34. No: every Lawful function agrees with that entry on support.
+    Notes are outside that projection. `WF` checks the recorded-pair
+    condition and does not assert global agreement with the kernel.
+    In the theorem the witness code can depend on the fixed step.
+    A universal code differing from every step is impossible: choose
+    the step implemented by that very code.
+35. For example, two Boolean views encode three classes by 00,10,01,
+    yet on three inputs an all-different actor and a suitable unasked-pair
+    merge can have identical two-probe records. Encoding capacity does
+    not supply the unknown grouping. For a physical device, specify
+    inputs, readout procedure, stable operating conditions and equality
+    criteria, and retain observations that could challenge that proposed
+    correspondence. Invented rows and successful software calculations
+    alone supply zero physical observations. Other reasoned answers
+    can address the guard/protection claim using the preceding example.
+
+</details>
+
 AuthorityEffect: None. Passing these written tasks would be reader evidence;
 software validation of the examples alone is not a comprehension result.

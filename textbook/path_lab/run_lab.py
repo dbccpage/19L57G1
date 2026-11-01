@@ -15,6 +15,7 @@ SOURCE = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "code"))
 from derivation import attachment_ladder as cells, boundary_cancellation as boundary  # noqa: E402
+from textbook.path_lab.costs import build_costs, check_cost_population, PINS  # noqa: E402
 
 VERTICES = (0, 1, 2, 3)
 EDGES = ((0, 1), (1, 2), (0, 2), (2, 3), (0, 3))
@@ -150,12 +151,12 @@ def build_packet():
     assert boundary.coeff_n((1, 2), boundary.push_n(opposite)) == 0
     assert normalized(boundary.push_n(opposite)) == [(1, (0, 1)), (-1, (0, 2)), (1, (1, 3)), (-1, (2, 3))]
     pins = {name: hashlib.sha256((ROOT / name).read_text(encoding="utf-8").encode("utf-8")).hexdigest()
-            for name in ("code/derivation/attachment_ladder.py", "code/derivation/boundary_cancellation.py")}
+            for name in ("code/derivation/attachment_ladder.py", "code/derivation/boundary_cancellation.py", *PINS)}
     return plain({"authority_effect": "None", "classification": "supplied teaching graph and cell calculus",
                   "source_text_sha256": pins, "digest_mode": "UTF-8 source text with LF normalization",
                   "vertices": ["A", "B", "C", "D"], "edges": EDGES, "faces": FACES, "walks": WALKS,
                   "face_cases": faces, "walk_cases": walks, "comparisons": comparisons,
-                  "raw_boundary_words": raw_words, "practice_same_sign": boundary.push_n(practice),
+                  "raw_boundary_words": raw_words, "costs":build_costs(), "practice_same_sign": boundary.push_n(practice),
                   "practice_opposite_sign": boundary.push_n(opposite)})
 
 
@@ -181,6 +182,7 @@ def check_recorded(directory=SOURCE):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--write", action="store_true")
+    parser.add_argument("--population", action="store_true")
     args = parser.parse_args()
     if args.write:
         packet = build_packet()
@@ -190,3 +192,5 @@ if __name__ == "__main__":
         for name, svg in render_figures(packet).items():
             (SOURCE / "figures" / name).write_text(svg, encoding="utf-8", newline="\n")
     print(check_recorded())
+    if args.population:
+        print({'bounded_native_cost_histories':check_cost_population()})

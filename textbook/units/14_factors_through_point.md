@@ -2,9 +2,9 @@
 
 **Claim.** The selection of two elements `a`, `b` of a carrier factors
 through the one-point carrier exactly when `a = b`. So candidate A3 for
-"primitive difference", non-factorization through a point, is nothing
-other than the metatheory's own inequality `a ≠ b`, re-expressed once
-functions are admitted.
+"primitive difference", non-factorization through a point, is proved
+equivalent to the metatheory's inequality `a ≠ b`. The result concerns
+this supplied one-point condition.
 
 <details>
 <summary>Source and classification record (optional on a first reading)</summary>
@@ -23,11 +23,24 @@ Imagine one fixed lookup cell containing A. Reading it twice gives
 A both times. Could the same fixed cell satisfy “return A” and
 “return B” when A and B are unequal? It cannot.
 
-The source writes this as a function from a one-point input type.
+This is a separate fixed-function setting, not a replayed ledger update.
+The source writes it as a function from a one-point input type.
 There is only one input, so the function has only one output value.
 That output can equal both chosen values exactly when those values
-are equal. Predict what changes if both requested values are A:
-the constant output A works.
+are equal.
+
+| Required values | Can one fixed output meet both? |
+|---|---|
+| A and A | Yes: choose A |
+| A and a different B | No |
+
+<details><summary>Predict: can reading the same fixed cell twice produce unequal values?</summary>
+
+No. The model supplies one input and one fixed function. A changing
+cell, a second input or an update between reads would require a different
+specified procedure.
+
+</details>
 
 The theorem restates metatheoretic equality using a function. It
 does not put a new asserted relation into the regime. The
@@ -36,11 +49,10 @@ this unit isolates the special one-input case.
 
 ## Question
 
-Units 01 to 13 were about regimes. The derivation now steps back and asks
-a question the regime model presupposed: what is the *weakest* formal
-object that deserves the name "difference"? `PrimDiff.lean` sets up five
-candidate readings (A1 to A5; `paper/primitive_difference.md` §S1) and
-measures each by the metatheory it needs. This unit is about A3: "`a` and
+The earlier Units studied regimes and token-aware histories. The separate
+`PrimDiff.lean` setting compares supplied candidate readings A1–A5,
+including an A1i variant (`paper/primitive_difference.md` §S1), and records
+their mathematical assumptions. This unit is about A3: "`a` and
 `b` are different when picking them out does not factor through a single
 point." That sounds structural. Is it anything more than `a ≠ b`?
 
@@ -81,14 +93,14 @@ metatheory's equality in the language of maps. That is why the paper
 concludes "A3 is therefore not a primitive: it is the metatheory's own
 identity, re-expressed" (§S1).
 
-This matters for the programme because the metatheory's `≠` is precisely
-what the seed denies the object language (Unit 00). If A3 were a genuine
-primitive, the system could have difference for free by admitting maps.
 The equivalence shows that the chosen A3 criterion already uses
 metatheoretic equality of values. It supplies no new asserted difference
 inside the regime. The price of using A3 as the criterion is that
 pre-existing metatheoretic identity (Unit 15 shows the
 converse gap: having `≠` outside asserts nothing inside).
+
+<details>
+<summary>Programs and proof walkthroughs (optional)</summary>
 
 ## Pseudocode
 
@@ -182,6 +194,8 @@ introduction of an existential; no case analysis on a concrete list, no
 function extensionality (`funext`), which is why it alone reports
 `Quot.sound`; the theorem does not need it.
 
+</details>
+
 ## What has been proved
 
 - For every type and every two elements, factoring through the point is
@@ -198,11 +212,11 @@ function extensionality (`funext`), which is why it alone reports
 
 ## What has not been proved
 
-- That inequality is *available to the object language*. The theorem is
-  about the metatheory's `=` on a Lean type. The system of Units 01 to 13
-  has no equality on its data at all (Unit 08: it has collapse and
-  separability, which are behavioral). A3 is a metatheoretic notion
-  through and through.
+- That this theorem supplies an object-language equality judgment. It
+  uses equality on a Lean type. The regime representation already uses
+  numerical indices and equality in its guards and lookups; that does
+  not automatically add an equality form or inference rule among the
+  derivable instances. Such a judgment needs its own supplied interpretation.
 - That A3 is useless. It is the right notion when the metatheory is the
   object of study; the paper keeps it as the A3 column of the implication
   matrix (§S2) and uses it as the target of `irrefl_witness_ne` (Unit 24).
@@ -229,8 +243,10 @@ must say which admissions supply the carrier and the maps.
 
 - "Picking out `a` and `b`" is a gloss for the two equations; the system
   does no picking.
-- "A3 is not a primitive" means: it costs the metatheory's identity, and
-  buys exactly that. It is not a claim that `≠` is worthless.
+- “A3 is not a primitive” is the paper's assessment of this criterion:
+  its equations already use metatheoretic equality, and the theorem
+  proves equivalence with inequality. No numerical cost measure is
+  defined by that phrase.
 
 ## Student exercise
 
@@ -238,6 +254,9 @@ On the carrier `Fin 3` (elements 0, 1, 2), list every map out of the
 point, say for which pairs `(a, b)` the selection factors, and state what
 `A3_is_ne 1 2` says. Then: does `factors_through_point_iff` need the
 carrier to be finite, non-empty, or decidable?
+
+<details>
+<summary>Check the exercise (optional)</summary>
 
 ## Answer
 
@@ -249,6 +268,8 @@ value is both. `A3_is_ne 1 2` says: "there is no `p : Unit → Fin 3` with
 none of the three properties: `α` is any type, possibly empty (then the
 equivalence is vacuous on no elements), possibly infinite, with no
 decidability assumed; the proof never decides anything.
+
+</details>
 
 ## Verification
 

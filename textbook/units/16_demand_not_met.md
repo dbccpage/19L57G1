@@ -26,18 +26,33 @@ reason the rest of Part I exists.
 
 ## First pass
 
-Write a request: “distinguish ⟨A⟩ from ⟨AB⟩.” The current ledger
-has two admitted data but no form for asking a distinguishing question.
-Recording the request does not add a form or an instance, so the
-request is not yet met.
+Start with reading L's two admitted data, 0 and 1, and no forms, instances,
+rules or requests. The caller asks to distinguish the pair.
+
+| Ledger version | Request recorded? | Pair separable? |
+|---|---|---|
+| Starting ledger | No | No |
+| After recording (0,1) | Yes | No |
+| After a suitable repair | Yes | Yes |
+
+Recording the request adds no observation support. For the displayed
+repair, admit a unary form marked and then the instance `marked(1)`.
+The context `marked(_)` now answers No on 0 and Yes on 1; the request stays
+recorded. This is a permitted model history, not a physical observation.
 
 This is stronger than a search giving up: the source proves that
 every available context agrees, and in these starting ledgers there
 are no well-formed contexts at all. A separating witness cannot
 exist in the **current** state.
 
-Predict whether this forbids a later repair. It does not. Adding
-a form and a suitable instance can make separation possible, as
+<details><summary>Predict: does the proof of failure in the current ledger forbid that later repair?</summary>
+
+No. The proof concerns the current state. The later admissions change
+its forms and instances, so they change the input to the comparison.
+
+</details>
+
+Adding a form and a suitable instance can make separation possible, as
 the [Search lab](../search_lab/README.md) works through. A demand,
 current satisfaction, and permission for future changes are distinct
 questions.
@@ -67,6 +82,23 @@ the event `impose i j` (Unit 17). It says what the caller wants, not what
 the system can do. Whether the system *meets* the demand is a separate
 question: it does so exactly when `separable r i j`.
 
+### No requests and an unmet request are different checks
+
+Python's `satisfies` asks whether every **recorded** request is met. With
+an empty request collection it returns True: it contains no failing
+request. The separate chosen-pair check can still return False. After
+recording (0,1), `satisfies` returns False until that pair is separated.
+The Lean state `R2L` already includes the request; Python's base reading-L
+history does not. The first two rows of the table keep those checkpoints distinct.
+
+### Recording and responding
+
+Changing only `reqs` leaves all current context answers, collapse and
+separability unchanged. The added book statements prove that field-level
+fact for arbitrary requirement lists. A separately supplied policy may
+read a request and choose later events; those events can change the
+observation fields. Recording the request alone does not execute that policy.
+
 Genesis answers it by contraposition. It does not search for a witness
 and fail to find one; it proves there is none. `R2L_collapsed` says
 every well-formed context agrees on 0 and 1. `separable_not_collapsed`
@@ -79,7 +111,8 @@ after inspecting an empty list of contexts.
 
 ## Plain-language interpretation
 
-The outside says: "these two are different, show me." The system's whole
+The caller asks for a context that gives different answers on the pair.
+This regime's current
 vocabulary for differences is contexts over admitted forms. It has no
 forms, so it has no sentences, so it cannot show anything. The failure is
 not a shortfall of effort; it is a shortfall of language. That is exactly
@@ -92,6 +125,9 @@ indices 0 and 1 are different, and Lean proves `0 ≠ 1` in one step
 (book Lean `indices_differ`). And it is not a ban: nothing forbids a
 later admission that separates the pair. The regime is behind the
 demand, not against it.
+
+<details>
+<summary>Programs and proof walkthroughs (optional)</summary>
 
 ## Pseudocode
 
@@ -210,6 +246,8 @@ No classical axiom is used; the axiom report shows only `propext` and
 failure theorems; `propext, Quot.sound` where `decide` checks a concrete
 membership (`demand_recorded_L`) or the decidable instance is used.
 
+</details>
+
 ## What has been proved
 
 - `collapsed R2L 0 1` and `collapsed R2F d d'` for all `d, d'` (Genesis,
@@ -223,15 +261,17 @@ membership (`demand_recorded_L`) or the decidable instance is used.
 
 ## What has not been proved
 
-- That the demand *cannot* be met. The next units show it can, at a cost
-  of two items.
-- That the two data are "really" different. The metatheory knows they
-  are, by index and by token; the system does not. Nothing in this unit
-  carries the metatheory's `0 ≠ 1` across (Unit 15 is the general form of
-  that gap).
-- Anything about the pairs reading F does not demand. They are collapsed
-  too (`R2F_all_pairs`), but no requirement names them, and the
-  derivation never asks the system to separate them.
+- A permanent inability to meet the demand. The displayed two-event
+  repair produces the unary witness. Later minimality claims use their
+  own addition grammar and counting rule.
+- An admitted inequality judgment or a physical interpretation of the
+  two data. Their indices are unequal in the metatheory. That fact alone
+  supplies no distinguishing context or new derivable instance (compare
+  Unit 15's separate relation countermodel).
+- A requirement to separate all three pairs in reading F. The book proves
+  they are all currently collapsed (`R2F_all_pairs`); the recorded request
+  at this checkpoint names only (1,2). Current collapse and a request
+  to repair it are different facts.
 
 ## Outside the system
 
@@ -242,10 +282,11 @@ membership (`demand_recorded_L`) or the decidable instance is used.
 | `Decidable.of_not_not` | from no separating witness to collapse, as in Unit 09 | used on the individual decidable equivalence of two derivability answers, not on the whole context quantifier |
 | `READING_L.target` in Python | the demand, kept outside the base regime | a modelling choice of the Python side; the Lean regime records it inside |
 
-**What the system holds.** Two (or three) data and a demand. No form,
-no instance, no rule, no context. The demand is a constraint the outside
-has placed; the system has not acknowledged it, cannot read it, and has
-no state that mentions it except the `reqs` entry itself.
+**What the ledger holds.** Two (or three) data and a recorded request,
+with no form, instance or rule. The context and derivability definitions
+do not read `reqs`. A program can inspect that field, but its policy and
+any resulting admission history need separate definitions. The stored
+request alone supplies no distinguishing context.
 
 **Phrases to read with care.**
 
@@ -262,6 +303,9 @@ the caller demanded `(0, 2)`: ⟨⟩ against ⟨AB⟩. Is that demand admissible
 by the guard of Unit 17? Is it met? Which theorem decides it, and with
 which arguments?
 
+<details>
+<summary>Check the exercise (optional)</summary>
+
 ## Answer
 
 `impose 0 2` on `R2F` is admissible: `0 < 2` and `2 < 3`. It is not met:
@@ -270,6 +314,11 @@ turns that into `¬ separable R2F 0 2`. The general theorem covers every
 pair because `R2F_collapsed` quantifies over `d` and `d'`; no new proof
 is needed for a new demand. The Python check confirms it on the
 reading-F regime: `collapsed_pairs` lists all three pairs.
+
+</details>
+
+Try the [twelve changed questions](../admission_practice.md) in three small groups
+before their [separate answers](../admission_answers.md).
 
 ## Verification
 
@@ -281,5 +330,5 @@ reading-F regime: `collapsed_pairs` lists all three pairs.
 | Ledger | `paper/paper_claim_ledger.md`, `CL-3-FAIL-CURRENT` (with the 2026-08-18 axiom correction), `CL-2-COLLAPSED` |
 | Artifact | `artifacts/challenges.json`, `challenge3.L.current_regime_satisfies = false`, `witness = null`, and the same for `F`; `artifacts/claims.json`, `CL-3-FAIL-CURRENT = {L: false, F: false}` |
 | Test | `tests/test_engine.py::test_challenge3_reading_l_classes` (`current_regime_satisfies is False`, `witness is None`) |
-| Check (Python) | `python textbook/checks/u16_demand_fails.py`: both readings, no contexts, no witness, demand unmet; artifact and claims agree; 170 instance-free regimes with a demand imposed, none satisfied |
-| Check (book Lean) | `python textbook/checks/u16_lean.py`: nine book theorems plus three Genesis theorems kernel-checked, Lean 4.33.0; `propext` throughout, `propext, Quot.sound` for `decide` and for the decidable converse, `indices_differ` axiom-free |
+| Check (Python) | `python textbook/checks/u16_demand_fails.py`: both readings, no contexts, no witness, demand unmet; artifact and claims agree; 51 instance-free base ledgers using rule prefixes, giving 170 demand-bearing cases, none satisfied; empty requests, duplicate recording and repair retaining the request checked separately |
+| Check (book Lean) | `python textbook/checks/u16_lean.py`: twelve book theorems plus four Genesis theorems kernel-checked, Lean 4.33.0; `propext` throughout, `propext, Quot.sound` for `decide` and for the decidable converse, `indices_differ` axiom-free. The two request-field invariance statements and the repair replay use only `propext`; native `U1_separable` uses both listed axioms |

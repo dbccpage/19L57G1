@@ -24,11 +24,28 @@ If every datum admission had carried A, Unit 11 would have limited
 the final store to one entry. So an admission of a different token
 must occur somewhere in that finite history.
 
-Predict which event can provide it: `supply(B)` or `admit(B)`?
-Supply alone changes no admitted data. The required event is a
+<details><summary>Predict: can supplying B without admitting it provide the second entry?</summary>
+
+No. Supply alone changes no admitted data. The required event is a
 datum admission with a token different from the chosen reference.
+
+</details>
+
 The grammar does not require an earlier supply event for admission;
 the seed's prescribed presentation order is a separate matter.
+
+For a fixed history admitting A and B, the reference token changes which
+events count as witnesses:
+
+| Reference token | A suitable admission in the history |
+|---|---|
+| A | Admit B |
+| B | Admit A |
+| C, absent from the store | Admit A or admit B |
+
+The reference is a chosen parameter. The conclusion does not identify a
+unique event or assert that the witness was the chronologically second
+admission. It establishes that some matching event belongs to the history.
 
 The proof uses a decidable check on each entry of the finite history
 to locate a failing single-token condition. This explicit bounded-list
@@ -79,8 +96,12 @@ not grow from the first.
 The paper's provenance table records this as: carrier of size 2, "not
 derivable from one inscription", mechanism "a second distinct external
 token, or a declared occurrence-admission discipline". The theorem covers
-the first route completely and says nothing about the second, which lives
-outside `stepT`.
+successful empty-start histories under the first discipline. The occurrence
+discipline lives outside `stepT`. These are provenance claims relative to
+supplied mathematical rules, not a theorem about how physical objects originate.
+
+<details>
+<summary>Programs and proof walkthroughs (optional)</summary>
 
 ## Pseudocode
 
@@ -240,6 +261,8 @@ single-token for `t0`.
 inherited from Unit 11's bound and from the decision over the concrete
 history. The helper reports none.
 
+</details>
+
 ## What has been proved
 
 - From the empty state, any history ending with two or more tokens
@@ -281,13 +304,13 @@ history. The helper reports none.
 | `omega` | one arithmetic contradiction | metatheory automation; replaceable by `Nat.le_trans` and `decide` |
 | `propext`, `Quot.sound` | inherited | inside the declared boundary |
 
-**What the system holds.** The token store with two entries, and nothing
-that says which came first or which is "the second": the store is a list
-in the metatheory, and `TRegime.erase` forgets it (Unit 07; Units 26 and
-later return to admission order under `order_erased_at_object_level`).
-The token `t0` and the witness event are metatheoretic objects. The
-system did not "notice" a second token; the metatheory proved that one
-was supplied.
+**What the representations hold.** The token-aware store is an ordered
+list: it keeps labels in first-admission order. The history separately
+records events, including repeats and supplies. Erasure removes that
+label list and keeps its length and structural fields. The reference
+`t0` and the event chosen by the proof are not extra fields in the ledger.
+The theorem establishes an admission event with a different label; it
+does not establish a new object-language observation of token identity.
 
 **Phrases to read with care.**
 
@@ -305,6 +328,9 @@ Apply the theorem to the history `[.admitDatum 3, .admitDatum 3,
 which event does the proof's walk return, and would it return a different
 event for `t0 = 5`?
 
+<details>
+<summary>Check the exercise (optional)</summary>
+
 ## Answer
 
 The store is `[3, 5, 7]`: the first admission appends 3, the second
@@ -315,6 +341,8 @@ returns it with `tok = 5 ≠ 3`. For `t0 = 5` the first failure is the very
 first event, `admitDatum 3`, so the witness is that one with `3 ≠ 5`. (The
 admission of 7 is also a witness in both cases, but the walk stops at the
 first.)
+
+</details>
 
 ## Verification
 

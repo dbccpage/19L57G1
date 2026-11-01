@@ -1,8 +1,10 @@
 """Unit 11 check: same and apart outcomes.
 
 Checks:
-  1. `outcome_check(3)` from `actor_institution/model.py` (2187 pairs across
-     all subsets of partitions of `range(3)`): `same` is never `supported`,
+  1. outcome_check(3): 243 subset/extension pairs times nine ordered input
+     pairs = 2187 counted comparisons. One ordering per partition subset;
+     no repeated members. Additionally, 192 distinct-pair extension searches.
+     `same` is never `supported`,
      `apart` is never `refuted`, `supported`/`refuted` persist under extension,
      and for `x != y` some extension refutes `same`;
   2. `scoped_identity_not_absolute`: `sameRel([], 0, 1)` is True while

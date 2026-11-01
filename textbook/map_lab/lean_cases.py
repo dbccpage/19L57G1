@@ -1,5 +1,6 @@
 """Native-definition map instances and quotient examples; AuthorityEffect: None."""
 from .run_lab import FAMILIES, TARGETS, build_packet
+from .native_paths_lean import build_native_checks
 
 
 def ls(values, item=str):
@@ -120,4 +121,5 @@ end Textbook.MapLab
               "ObsDescent.descend_iff_factorsOn_all", "ObsDescent.fiberConstant_fixed_D_not_classConstant"]
     names += native
     lines += ["#print axioms " + n for n in names]
-    return "\n\n".join(lines) + "\n", names
+    native_source, native_names = build_native_checks()
+    return "import Derivation.TraceAlgebra\nimport Derivation.ObsDescent\n" + native_source + "\n\n" + "\n\n".join(lines).replace('import Derivation.ObsDescent', '') + "\n", names + list(native_names)

@@ -1,0 +1,42 @@
+{
+  "P200OperationalProtocols.asymmetric_observation_divergence": [],
+  "P200OperationalProtocols.causal_signaling_divergence": [],
+  "P200OperationalProtocols.coincidence_iff": [
+    "propext",
+    "Quot.sound"
+  ],
+  "P200OperationalProtocols.disturbing_readout_fails_commute": [],
+  "P200OperationalProtocols.inter_observer_agreement": [],
+  "P200OperationalProtocols.inter_observer_coincidence": [
+    "propext",
+    "Quot.sound"
+  ],
+  "P200OperationalProtocols.prepare_product_records": [],
+  "P200OperationalProtocols.prepare_symmetric_eq": [],
+  "P200OperationalProtocols.readout1_preserves_l1": [],
+  "P200OperationalProtocols.readout1_preserves_r2": [],
+  "P200OperationalProtocols.readout1_readout2_comm": [],
+  "P200OperationalProtocols.readout1_stepL2_commutation": [],
+  "P200OperationalProtocols.readout1_swap": [],
+  "P200OperationalProtocols.readout2_stepM_commutation": [],
+  "P200OperationalProtocols.readout2_swap": [],
+  "P200OperationalProtocols.readout_replayL1_commutation": [],
+  "P200OperationalProtocols.readout_step_commutation": [],
+  "P200OperationalProtocols.record1_preserves_target": [],
+  "P200OperationalProtocols.spacelike_marginal_invariance": [],
+  "P200OperationalProtocols.spacelike_non_signaling": [],
+  "P200OperationalProtocols.spacelike_sequence_non_signaling": [],
+  "P200OperationalProtocols.swap_involutive": [],
+  "P200OperationalProtocols.swap_symmetric_eq": [],
+  "Textbook.Protocols.agreement_iff_under_injective_probe": [],
+  "Textbook.Protocols.coarse_agreement_not_identity": [],
+  "Textbook.Protocols.different_probes_break_agreement": [],
+  "Textbook.Protocols.disturbance_counter_not_repair": [],
+  "Textbook.Protocols.overlap_can_commute": [],
+  "Textbook.Protocols.readout_same_target_not_commutes": [
+    "propext"
+  ],
+  "Textbook.Protocols.relay_needs_readout": [],
+  "Textbook.Protocols.remote_record_list": [],
+  "Textbook.Protocols.stale_after_change": []
+}

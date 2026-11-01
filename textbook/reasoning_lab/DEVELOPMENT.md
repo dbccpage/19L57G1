@@ -65,3 +65,211 @@ Also check the evidence selector, raw-row display, prediction gating,
 reset after case changes, uncertainty cases, protocol mismatch, and the
 retained repeat. The optional physical worksheet is blank; no readings
 or participant scores may be inferred from generating it.
+
+For the operational continuation, run:
+
+```text
+python textbook/reasoning_lab/protocols.py --population
+python -m unittest discover -s textbook/reasoning_lab -p "test*.py"
+node textbook/reasoning_lab/test_protocol_controls.mjs
+```
+
+An intentional reviewed update uses `protocols.py --write`. It writes
+only the new `protocols.json` and `protocols.html`; the shared renderer
+accepts those explicit names while existing desks keep their defaults.
+The original claim/evidence packet and desk retain their content.
+The existing canonical reasoning wrappers check both packets and the
+added exact research/book proofs, giving 45 axiom reports overall.
+Never alter the expected sets to accept a failed proof or an extra axiom.
+
+Thirty authoring tests cover the old and new routes. The new event-handler
+fixture exercises 192 record predictions and 72 order predictions,
+including gates, wrong feedback, shared setup resets and ensemble counts.
+It supplies no browser-rendering or accessibility evidence.
+
+In a real browser, check copying/constant/parity probes, stale and
+overwritten records, same-target order dependence, disjoint updates,
+disturbing readouts, the identity control, relay order, and both record
+selections. Check prediction focus, narrow tables and arrow-key scrolling.
+Keep model rows separate from physical observations and measured learning.
+
+For the calibration continuation, run:
+
+```text
+python textbook/reasoning_lab/calibration.py --population
+python -m unittest textbook.reasoning_lab.test_calibration
+node textbook/reasoning_lab/test_calibration_controls.mjs
+```
+
+An intentional reviewed update uses `calibration.py --write`, which
+writes only `calibration.json` and `calibration.html`. The shared builder
+also supports this third explicitly named desk; older packets and desks
+retain their content. Preview `calibration.html` through the same local
+server. The reasoning wrappers check this packet and its bounded
+population; the logic/P200/P201 portion contributes 56 exact reports,
+before the P202 continuation below extends the combined driver.
+
+Thirteen added authoring tests cover premise failures, mixed units,
+zero numerator versus divisor, four false packet variants, stale desk
+rejection and the actual handlers. The handler fixture exercises all
+63 conversion predictions and 36 ratio/refusal predictions. None of
+these fixtures supplies browser-layout evidence or a reader score.
+
+In a browser, check both prediction gates, incorrect feedback, zero,
+the 9/2 conversion, mixed-standard ratios, both refusals, same-ratio
+changed magnitudes, resets, keyboard focus and table scrolling at a
+phone width. Check the published reading/practice/answer links. The
+blank worksheet remains blank; invented numbers are not observations.
+
+For the clock/future-reading continuation:
+
+```text
+python textbook/reasoning_lab/clocks.py --population
+python -m unittest textbook.reasoning_lab.test_clocks
+node textbook/reasoning_lab/test_clock_controls.mjs
+```
+
+An intentional reviewed update uses `clocks.py --write`, writing only
+`clocks.json` and `clocks.html`. Preview through the same server or the
+published link. Earlier desks stay unchanged. Existing wrappers check
+the clock packet/populations; the logic-through-clock portion contributes
+72 reports before the composite continuation below.
+
+Fifteen added authoring tests and two separate assembled Lean negative
+variants exercise the boundaries. Actual handlers check 196 clock and
+eight countdown predictions, not browser layout or learner outcomes.
+The logic-through-clock authoring portion has 58 tests.
+
+In a browser, compare both rules/starts, zero/one/odd intervals, the
+difference from the pulse starting index, all countdown horizons, both gates, wrong
+feedback and resets. Check table focus and arrow-key scrolling at phone
+width and published practice/answer links. Never count model updates
+as measured durations.
+
+
+For the composite-system continuation:
+
+```powershell
+python textbook/reasoning_lab/composites.py --population
+python -m unittest textbook.reasoning_lab.test_composites
+node textbook/reasoning_lab/test_composite_controls.mjs
+python textbook/checks/u00_reasoning_lab_lean.py
+```
+
+A reviewed `composites.py --write` updates only its JSON and HTML. The
+existing wrappers check this packet, its declared populations and the
+logic-through-composite portion of 114 exact reports. The whole native Lean body stays unchanged;
+33 explicit owner reports and nine book reports add 42 empty axiom sets.
+Eighteen added authoring tests bring that portion of the Reasoning suite to 76.
+The handler fixture checks 300 share and sixty graph choices. Two
+separate assembled false Lean conclusions are rejected before recovery.
+
+In the published browser, compare list/readout/relay order, equal shares
+with different paired marks, constant probes, joint-write edges and an
+undeclared read. Check both gates, wrong feedback, all context resets,
+phone table focus and arrow scrolling. Keep rendering, supplied lists,
+physical observations and beginner outcomes separate.
+
+
+For the valuation continuation:
+
+```powershell
+python textbook/reasoning_lab/valuations.py --population
+python -m unittest textbook.reasoning_lab.test_valuations
+node textbook/reasoning_lab/test_valuation_controls.mjs
+python textbook/checks/u00_reasoning_lab_lean.py
+```
+
+A reviewed `valuations.py --write` updates only its JSON/HTML. Existing
+wrappers check its populations; the logic-through-valuation portion
+contributes 148 exact reports before the fraction additions below. P204's
+whole Lean body stays unchanged; 25 owner and nine book reports add
+23 empty sets and eleven exactly `propext, Quot.sound`. Failed initial
+proof/axiom attempts are retained separately, without widening the sets.
+Use UTF-8 output when capturing Lean diagnostics on Windows.
+
+Eighteen added authoring tests bring the Reasoning suite to 94. Actual
+handlers exercise 140 pairing and 168 branch predictions. Six false
+packet variants, one stale desk and two assembled false Lean statements
+are rejected; unmodified source recovers. Published UI checks remain
+separate: exercise the contexts, both gates, zero-chance branch, wrong
+feedback, resets and phone-width keyboard scrolling. No fixture produces
+measured device frequencies or learner scores.
+
+
+For the arithmetic prerequisite branch, run
+`python textbook/number_lab/fraction_toolkit.py` and the existing
+`python textbook/checks/u00_reasoning_lab_lean.py`. Seven book reports
+use the already included QVal body, bringing the combined population to
+155: 127 empty, two exactly `propext`, 26 exactly `propext, Quot.sound`.
+The two assembled false fraction variants are retained separately from
+recovery; their targets and scope are in the injection record.
+
+The core 00–07/practice exit and six initially folded applications are
+reading guidance, not a measured reading-time or mastery claim. Existing
+Reasoning packets, all six desks and the 94-test authoring population
+are unchanged. The reading path lists bounded prerequisites rather than
+requiring all later applications before returning to core practice.
+
+## Process continuation
+
+Run `python textbook/reasoning_lab/channels.py --population`,
+`python -m unittest textbook.reasoning_lab.test_channels`,
+`node textbook/reasoning_lab/test_channel_controls.mjs`, and the existing
+Reasoning Lean wrapper. `channels.py --write` rebuilds only its JSON/HTML.
+The wrappers add 24 strict reports (17 owner, seven book), for 179 through this portion:
+148 empty, three exactly `propext`, 28 exactly `propext, Quot.sound`.
+The initial two misassigned native axiom expectations are retained and
+corrected against actual reports without widening either set.
+Eighteen new authoring tests bring the Reasoning suite to 112.
+Actual handlers check 72 order and 18 record predictions, gates, wrong
+feedback and resets. Published phone and keyboard checks are separate.
+The seventh folded branch preserves the core 00–07 practice exit.
+
+## Induction prerequisite toolkit
+
+Run `python textbook/reasoning_lab/induction.py`,
+`python -m unittest textbook.reasoning_lab.test_induction` and the existing
+Reasoning Lean wrapper. The combined driver checks 190 exact reports:
+154 empty, five `propext`, 31 `propext, Quot.sound`. Nine added authoring
+tests bring the Reasoning suite to 121. The route adds written lessons,
+not another browser application or research tree. Six computational tasks
+are checked; the seventh practice question asks for application reasoning
+and is not an observed reader result. Source and false-claim receipts are
+retained separately in the audit's evidence directory.
+
+## Interpretation and reports continuation
+
+Run `python textbook/reasoning_lab/semantics.py` and the existing Reasoning
+wrappers. A separate `-I` process isolates X301's bare module names and
+checks six source text pins. Finite examples cover 24 assignments, 64
+model/domain pairs, 96 panel/menu contexts and 25 score pairs. Seven
+changed computational tasks are checked; the eighth is a protocol question.
+The Lean assembly includes the unchanged whole X301 body and eight selected
+reports, for 198 combined: 160 empty, five `propext`, 33 both. The initial
+two wrong empty-set expectations remain in the local evidence before their
+exact correction. No gate family, native receipt or vocabulary pin changes.
+
+## Supports and withdrawal continuation
+
+Run `python textbook/checks/u00_revision.py` and
+`python textbook/checks/u00_revision_lean.py`. The first checks the three
+lessons, nine computational practice questions and all 128 conflict families
+on three hypothesis names at 27 positive cost assignments (3,456 notebooks).
+It compares an independent subset oracle and replays tied candidates.
+The second assembles unchanged X302 source for eighteen exact native reports:
+seventeen empty and one exactly `propext`. These checks are discovered by
+the canonical textbook job without changing its family definitions.
+No new browser application, video or research receipt is generated.
+
+## Bounded memory and permission continuation
+
+Run `python textbook/checks/u00_agency.py`,
+`python textbook/checks/u00_agency_lean.py` and
+`python -m unittest textbook.reasoning_lab.test_agency`. An isolated worker
+checks 36 FIFO cases and 2,304 one-step controller cases (672 successes,
+1,632 refusals), plus named lifecycle, license and contract-boundary controls.
+The unchanged separate Lean body supplies sixteen exact reports, each
+`propext, Quot.sound`. Twenty-three normalized source pins preserve the
+selected source identity. Both wrappers are discovered by the canonical
+textbook job. No new browser desk, video or native research receipt is needed.

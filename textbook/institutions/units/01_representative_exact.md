@@ -24,19 +24,19 @@ knowledge through it.
 
 ## First pass
 
-One table reports 0 on cards A and B, and 1 on C. Its groups are
-{A,B} and {C}. Scan the supplied order A, B, C and keep the first card
+Use I00's first table: it reports 0 on cards A and C, and 1 on B. Its
+groups are {A,C} and {B}. Scan the supplied order A, B, C and keep the first card
 from each group:
 
 | Input | Representative | Original answer |
 |---|---|---|
 | A | A | 0 |
-| B | A | 0 |
-| C | C | 1 |
+| B | B | 1 |
+| C | A | 0 |
 
-The representative reports the same label on A and B, exactly because
-their original answers agree. Reordering the scan to B, A, C would
-choose B for that group. It would change the representative label,
+The representative reports the same label on A and C, exactly because
+their original answers agree. Reordering the scan to C, B, A would
+choose C for that group. It would change the representative label,
 while keeping the same grouping.
 
 **Predict:** does this prove that every input outside the supplied list
@@ -45,8 +45,8 @@ has also been represented faithfully?
 <details><summary>Check your prediction</summary>
 
 No. The theorem assumes that both compared inputs belong to the carrier.
-The function has a default outside the represented cases; the theorem
-does not turn that default into faithful coverage.
+An outside input might match an existing signature, or the search might
+fail and use its default. Neither case extends the theorem's coverage.
 
 </details>
 
@@ -54,7 +54,16 @@ does not turn that default into faithful coverage.
 
 Unit 00: `sigList`, `SigEq`, `sigEq_iff_sigList`.
 
+The representative chooses an **input as a label** for a whole signature
+group. For the first table, the original answers are `[0,1,0]` and the
+representative labels happen also to be `[0,1,0]`. These have different
+jobs. Changing the original answers to `[7,9,7]` leaves the groups and
+first-input labels unchanged. A label need not be the answer it represents.
+
 ### 1. First match
+
+<details>
+<summary>Lean source: pick (optional)</summary>
 
 ```lean
 -- Lean (Genesis), lean4/Derivation/Compression.lean lines 109–113
@@ -64,6 +73,8 @@ def pick (D : List Nat) (P : Nat → Bool) : Option Nat :=
   | [] => none
   | a :: t => if P a then some a else pick t P
 ```
+
+</details>
 
 `pick` walks the carrier from the front and returns the first datum that
 passes the test `P`, as `some a`; if none passes, `none`. Three facts
@@ -81,6 +92,9 @@ pick [1, 3]    (is_even)  =  none
 
 ### 2. The representative
 
+<details>
+<summary>Lean source: pQ (optional)</summary>
+
 ```lean
 -- Lean (Genesis), lean4/Derivation/Compression.lean lines 223–225
 def pQ (D : List Nat) (Q : List (Nat → Nat)) : Nat → Nat :=
@@ -88,13 +102,21 @@ def pQ (D : List Nat) (Q : List (Nat → Nat)) : Nat → Nat :=
     (pick D (fun z => decide (sigList Q z = sigList Q x))).getD 0
 ```
 
+</details>
+
 The representative of `x` is the first datum of the carrier whose
-signature equals the signature of `x`. `decide (… = …)` turns the
+signature equals the signature of `x`. There are three steps: find x's
+signature, scan the carrier in its declared order, and return the first
+input with that signature.
+
+`decide (… = …)` turns the
 equality of two lists into the `true` or `false` that `pick` needs.
 `.getD 0` unwraps the `Option`: `some a` becomes `a`, and `none` becomes
 `0`. On the carrier, `none` never happens, because `x` itself has the
-signature of `x`; the `0` is there only because Lean requires a value at
-every number (see Outside the system).
+signature of `x`. If the search does return `none`, the default supplies
+a value so that the function is defined at every natural number.
+The numeral 0 alone does not reveal whether it was picked or used as a
+fallback; the on-carrier theorem supplies that distinction.
 
 The docstring above the definition (lines 213–222) states the scope
 exactly: `pQ` is adequate for `Q` and factors through every `Q`-adequate
@@ -121,6 +143,9 @@ with Q = (p1) alone, signatures 0, 1, 0:
 
 ### 3. What the representative carries
 
+<details>
+<summary>Lean source: pQ_spec (optional)</summary>
+
 ```lean
 -- Lean (Genesis), lean4/Derivation/Compression.lean lines 227–245
 /-- On `D`, the representative is in `D` and carries the point's
@@ -144,6 +169,8 @@ theorem pQ_spec (D : List Nat) (Q : List (Nat → Nat)) (x : Nat)
     exact of_decide_eq_true (pick_holds D _ r hr)
 ```
 
+</details>
+
 Read: for `x` on the carrier, its representative is on the carrier and
 has the same signature as `x`. The proof: `x` passes its own test
 (`decide_eq_true rfl`: the signature of `x` equals itself), so
@@ -154,6 +181,9 @@ and `pick_holds` says `r` passed the test, that is, its signature equals
 the signature of `x`.
 
 ## The theorem
+
+<details>
+<summary>Lean source: pQ_exact (optional)</summary>
 
 ```lean
 -- Lean (Genesis), lean4/Derivation/Compression.lean lines 247–264
@@ -177,12 +207,19 @@ theorem pQ_exact (D : List Nat) (Q : List (Nat → Nat)) :
     rw [hs]
 ```
 
+</details>
+
 Read it aloud: "for every datum `x` on the carrier and every datum `x'`
 on the carrier, the representative merges `x` and `x'` exactly when every
 member of the family gives `x` and `x'` the same value." A *fiber* of a
 presentation is a set of data it gives one value to; a *signature class*
 is a set of data with one signature. The docstring says the two
 collections of sets coincide.
+
+Equal signatures start the same first-match search and return the same input. Conversely, equal representative inputs have one signature; each selected input carries the signature it represents. Therefore the original signatures agree too.
+
+<details>
+<summary>Detailed proof steps (optional)</summary>
 
 ## The proof, step by step
 
@@ -230,14 +267,17 @@ That is the whole proof: the representative is defined through the
 signature, so equal signatures give the same first match (Step 10), and
 the same first match carries one signature (Step 6).
 
+</details>
+
 ## The same fact in Python
 
 `model.representative` is the same first-match search, written as a loop.
-The check compares it with equality of signatures on every pair of data,
-for every carrier `range(n)` with `n ≤ 4` and every family of at most two
-partitions of it: 2098 pairs, no disagreement. That is an exhaustive check
-within its bound and a sample outside it; the proof for every carrier and
-every family is the Lean above.
+The check compares it with equality of signatures on every pair of data
+for `range(n)`, `1 ≤ n ≤ 4`. Its families are the empty family, each
+single partition, and one ordering of each pair of distinct partitions:
+2098 pairs, no disagreement. It does not enumerate all ordered lists or
+repeated members, and does not check outside those carriers. The Lean
+theorem covers arbitrary carrier lists and families.
 
 ```
 python textbook/institutions/checks/i01_representative.py
@@ -267,8 +307,8 @@ is a function, a family is a list, the carrier is shared). One convention,
 not an admission: the representative of a class is the *first* datum of
 the class in carrier order. Any other choice of one datum per class would
 give the same fibers, and the theorem is about fibers. The choice of the
-first is what makes the representative a computation rather than a
-selection.
+first supplies a deterministic list-search rule. Other explicitly
+specified choices could also be computable; this source uses the first.
 
 **Phrases to read with care.**
 

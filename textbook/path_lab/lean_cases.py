@@ -1,5 +1,6 @@
 """Finite book instances against the actual cell calculus; AuthorityEffect: None."""
 from .run_lab import EDGES, FACES, WALKS, build_packet
+from .costs_lean import build_cost_checks
 
 
 def ls(items, item=str):
@@ -57,4 +58,5 @@ def build_checks():
               "BoundaryCancellation.d2_zero_unrestricted", "BoundaryCancellation.signless_countermodel"]
     names += native
     source += ["#print axioms " + name for name in names]
-    return "\n\n".join(source) + "\n", names
+    cost_source,cost_names=build_cost_checks()
+    return "import Derivation.TraceAlgebra\nimport Derivation.BoundaryCancellation\n"+cost_source+"\n\n"+"\n\n".join(source).replace('import Derivation.BoundaryCancellation','')+"\n",names+list(cost_names)

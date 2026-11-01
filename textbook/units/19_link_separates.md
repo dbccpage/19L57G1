@@ -42,16 +42,20 @@ Adding the form and the instance costs two items. Unit 18 rules out
 cheaper answers on this starting regime, so this answer is cheapest
 under item count. It need not be the only cheapest answer.
 
-**Change:** admit the uniform rule for this form. Both rows now derive,
-and all the form's contexts agree on the pair. More derivable instances
-can remove a distinction. The admission guard permits this event; the
-separate response-validity test rejects it as a way to meet the demand.
+<details><summary>Predict: does adding the uniform rule preserve this distinction?</summary>
+
+No. Both rows then derive, and every context of this form agrees on the
+pair. More derivable answers can remove a distinction. Admission permits
+the event; the separate response-validity check rejects it as a repair
+for this demand.
+
+</details>
 
 ## Question
 
 Unit 18 says two items are the least that could work. Do two items work?
-What, concretely, is the first sentence the system can hold that is true
-of one datum and false of the other, and what does it realize of the
+What, concretely, can give different derivability answers on the two
+data, and how does the paper interpret it in relation to the
 caller's ⟨ARB⟩?
 
 ## What we already possess
@@ -85,16 +89,42 @@ the proof *is* this context together with the two checks, and Lean's
 
 The system has been given a two-place sentence shape and one sentence in
 it: "0 links to 1". Ask "does ⟨ ⟩ link to 1?" with each datum in the
-blank. For 0 the answer is yes; for 1 it is no. That question is the
-first thing the system can do that treats the two data differently. The
-difference was not in the data, which are still opaque; it was admitted,
-as a form and an instance, by the responder.
+blank. For 0 the derivability answer is Yes; for 1 it is No. This supplied
+context treats the two indices differently under the declared observation
+rule. The responder added its form and instance; the initial two-data
+ledger supplied no separating context. This is one minimum-cost response,
+not a uniquely prescribed first response.
 
 This regime realizes the caller's ⟨ARB⟩, with ⟨A⟩ as 0, ⟨AB⟩ as 1 and the
 form as R. But read "realizes" carefully: the form is not named R, the
 instance is not oriented by anything the system knows, and the mirror
 image `(0, [1, 0])` is an equally valid response (the Python check shows
 it). The orientation lives in the metatheory's choice of argument order.
+
+### One target and all recorded requests
+
+For `R2L`, the stored request and the chosen target are both (0,1), so
+one separating witness discharges both parts of validity. That shortcut
+does not apply to an arbitrary list of requests.
+
+Consider a **separate** starting ledger with three data, no forms or
+instances, and requests (0,1) and (1,2). Choose (0,1) as the target.
+
+Each pair column says whether that pair is separated:
+
+| Two-item plan | Pair (0,1) | Pair (1,2) |
+|---|---|---|
+| Unary form, then `marked(0)` | Yes | No |
+| Unary form, then `marked(1)` | Yes | Yes |
+
+Both plans replay successfully. The first is not a valid response: on
+1 and 2 its only context answers No/No. The second meets both requests:
+the context answers No/Yes on (0,1) and Yes/No on (1,2). Neither request
+was met in the initial form-less ledger. The added book proofs check
+these facts; validity requires meeting all stored requests in the result.
+
+<details>
+<summary>Programs and proof walkthroughs (optional)</summary>
 
 ## Pseudocode
 
@@ -203,7 +233,8 @@ held, its forward direction would carry derivability of the link across
 to `(0, [1, 1])`, which is refuted.
 
 `validResponse_R2L` discharges the third conjunct of `validResponse`,
-that every demand already in `R2L.reqs` stays separated. `R2L.reqs` is
+that every demand already in `R2L.reqs` is separated in the result. The
+initial pair was collapsed. `R2L.reqs` is
 `[(0, 1)]`, so `hq : q ∈ [(0, 1)]` forces `q = (0, 1)` by the two cases
 of list membership (`head`, or `tail` into the empty list, impossible),
 and `hsep` answers.
@@ -215,6 +246,8 @@ and `hsep` answers.
 `propext` alone for the equation `applyDelta R2L deltaBL = some BL`,
 which `decide` proves without `Quot.sound`; the helper
 `validResponse_R2L` uses only `propext`.
+
+</details>
 
 ## What has been proved
 
@@ -262,9 +295,10 @@ one demand. That is all. The witness context, the profiles and the word
 
 **Phrases to read with care.**
 
-- "Links 0 to 1" imports direction from the argument order. The system
-  has a list `[0, 1]`; what it does not have is any way to compare it
-  with `[1, 0]` except as a different list.
+- “Links 0 to 1” names the ordered instance `[0,1]`. Reversing its
+  arguments gives a different list; a particular context can distinguish
+  their derivability in this regime. No physical direction or named
+  relationship follows without an interpretation.
 - "Separable" is the declared sense of Unit 08. Other senses (two tokens,
   two indices) were available to the metatheory all along and are not
   what was demanded.
@@ -279,7 +313,7 @@ response.
 ## Answer
 
 <details>
-<summary>Worked answer</summary>
+<summary>Check the exercise (optional)</summary>
 
 With instance `(0, [1, 0])`: plug 0 gives `(0, [0, 1])`, not admitted;
 plug 1 gives `(0, [1, 1])`, not admitted; the context is no longer a
@@ -303,4 +337,4 @@ under the swap of data: they are one class.
 | Artifact | `artifacts/challenges.json`, `challenge3.L.mu1.iso_classes`, label `form2+inst2`, class size 2 |
 | Test | `tests/test_candidates.py::test_c3_cost1_all_fail_and_min_is_two` (6 minima: "2 unary marks + 4 binary variants"); `tests/test_engine.py::test_challenge3_reading_l_classes` |
 | Check (Python) | `python textbook/checks/u19_link.py`: five contexts with both pluggings printed, two witnesses, `witness()` equal to Lean's; profiles; demand satisfied; both link deltas valid; a form alone does not separate; adding the uniform rule retains the instance and removes separation |
-| Check (book Lean) | `python textbook/checks/u19_lean.py`: eleven book reports plus three Genesis theorems kernel-checked, Lean 4.33.0; `BL_uniform_collapsed` and concrete membership checks use `propext, Quot.sound`, the landing equation and helper use `propext`, `BL_plug0` is axiom-free |
+| Check (book Lean) | `python textbook/checks/u19_lean.py`: sixteen book reports plus three Genesis theorems kernel-checked, Lean 4.33.0. Five added reports check the multi-request example: `partial_lands` uses `propext`; target separation, the other pair's collapse, invalidity and the middle-mark repair use both `propext, Quot.sound`. Original reports retain their exact axiom sets |

@@ -14,6 +14,7 @@ SOURCE = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "code"))
 from derivation import compression as native  # noqa: E402
+from textbook.map_lab.native_paths import build_paths, check_paths_population, PINS  # noqa: E402
 
 BLUE = (1, 1, 0, 0)
 TRIANGLE = (0, 1, 1, 0)
@@ -106,13 +107,13 @@ def build_packet():
     some_match = lambda a, b: any(q[a] == q[b] for q in (BLUE, TRIANGLE))
     assert some_match(0, 1) and some_match(1, 2) and not some_match(0, 2)
     pins = {name: hashlib.sha256((ROOT / name).read_text(encoding="utf-8").encode("utf-8")).hexdigest()
-            for name in ("code/derivation/compression.py", "textbook/first_steps/cards.json")}
+            for name in ("code/derivation/compression.py", "textbook/first_steps/cards.json", *PINS)}
     return plain({"authority_effect": "None", "classification": "supplied four-card finite map model",
                   "source_text_sha256": pins, "digest_mode": "UTF-8 source text with LF normalization",
                   "cards": ["A", "B", "C", "D"], "blue": BLUE, "triangle": TRIANGLE,
                   "family_names": ["no questions", "blue only", "triangle only", "both questions"],
                   "target_names": ["blue?", "triangle?", "(blue?, triangle?)", "always Yes"],
-                  "cases": cases, "controls": controls,
+                  "cases": cases, "controls": controls, "native_paths": build_paths(),
                   "some_agreement_counterexample": [0, 1, 2]})
 
 
@@ -165,3 +166,4 @@ if __name__ == "__main__":
     print(check_recorded())
     if args.population:
         print({"additional_finite_factorization_cases": check_population()})
+        print({"two_state_translation_histories": check_paths_population()})

@@ -31,6 +31,8 @@ pairs `i < j` below the datum count (Unit 17); collapse and separation
 
 ## First pass
 
+Use [Reasoning 52–55](../reasoning_lab/52_start_then_one_more.md) for the induction method and the distinction between states, rounds and a fixed ceiling.
+
 Three admitted data, 0, 1, and 2, permit just three different
 small-first demands: `(0, 1)`, `(0, 2)`, and `(1, 2)`.
 They are possible requests; they need not all be on the books already.

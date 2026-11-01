@@ -34,6 +34,9 @@ def build_change_lab(repo, wiki, commit):
         for folder, target in (("first_steps", "textbook_first_steps"), ("search_lab", "textbook_search_lab"), ("path_lab", "textbook_path_lab")):
             text = text.replace(f"](../{folder}/README.md)", f"]({target})")
         text = text.replace("](results.html)", f"]({DESK})")
+        for filename, target in (("reading_formal_statements.md", "textbook_reading_formal"),
+                                 ("learning_path.md", "textbook_learning_path")):
+            text = text.replace(f"](../{filename})", f"]({target})")
         prefix = f"[Genesis Wiki](Home) · [Change lab](textbook_change_lab) · [Passage desk]({DESK})\n\n"
         suffix = f"\n\n---\n\nSource snapshot: [`{commit[:12]}`](https://github.com/dbccpage/19L57G1/blob/{commit}/textbook/change_lab/{name}). Teaching apparatus; `AuthorityEffect: None`.\n"
         (wiki / (slug + ".md")).write_text(prefix + text + suffix, encoding="utf-8", newline="\n")

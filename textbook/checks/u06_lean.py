@@ -62,6 +62,17 @@ theorem order_kept :
       ≠ replayT [.admitDatum 2, .admitDatum 1] tgenesis := by
   decide
 
+theorem same_outcome_different_events (t : TRegime) (tok : Nat) (h : tok ∈ t.tokens) :
+    stepT t (.admitDatum tok) = stepT t (.supply tok) ∧
+    (TEvent.admitDatum tok) ≠ TEvent.supply tok := by
+  constructor
+  · simp [stepT, h]
+  · intro heq; cases heq
+
+theorem raw_duplicates_are_not_cleaned :
+    stepT ⟨[1,1], [], [], [], []⟩ (.admitDatum 1) =
+      some ⟨[1,1], [], [], [], []⟩ := by decide
+
 end Textbook.U06
 
 #print axioms Textbook.U06.readmit_designates
@@ -72,6 +83,8 @@ end Textbook.U06
 #print axioms Textbook.U06.erased_history_of_twice
 #print axioms Textbook.U06.order_kept
 #print axioms Derivation.stepT
+#print axioms Textbook.U06.same_outcome_different_events
+#print axioms Textbook.U06.raw_duplicates_are_not_cleaned
 """
 
 EXPECTED = {
@@ -83,6 +96,8 @@ EXPECTED = {
     "Textbook.U06.erased_history_of_twice": BOTH,
     "Textbook.U06.order_kept": BOTH,
     "Derivation.stepT": BOTH,
+    "Textbook.U06.same_outcome_different_events": BOTH,
+    "Textbook.U06.raw_duplicates_are_not_cleaned": BOTH,
 }
 _ = NONE
 

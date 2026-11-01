@@ -5,6 +5,37 @@ part of it. Nothing here is an input to `prompt/`, `paper/`, `code/`,
 `lean4/Derivation/` or `artifacts/`, and nothing here changes them. Where a
 unit and the Lean disagree, the Lean wins.
 
+On the Wiki, each Unit opens with the complete lesson. Begin with its First pass
+example; the Act video, general reading prompts and
+source-edition record are folded after the lesson.
+
+Units 00–03 now have short concrete openings before optional source,
+definition and proof details. After Unit 03, use the
+[changed-example practice](core_start_practice.md) before the
+[answer guide](core_start_answers.md).
+
+Units 04–07 continue with event selection, two supplied readings,
+re-admission and state-dependent erasure. Their concrete openings precede
+optional program/proof walkthroughs. After Unit 07, try the
+[eight changed questions](state_history_practice.md) before the
+[separate answers](state_history_answers.md).
+
+Units 08–10 turn one test into a profile comparison, explain a witness
+and a complete finite search, and show why a uniform rule can remove a
+distinction. Try their [eight changed questions](context_practice.md)
+before the [answers](context_answers.md).
+
+Units 11–16 distinguish stored tokens, preserved comparisons, relation
+models and recorded requests. Use their [three groups of questions](admission_practice.md)
+before the [separate answers](admission_answers.md).
+
+Units 17–22 distinguish accepted requests, valid repairs, cheapest plans
+and reversible renaming. Try their [grouped questions](repair_practice.md)
+before the [answers](repair_answers.md).
+
+For the author and reviewers, the [completion status](completion_status.md)
+separates existing content, checked claims and the remaining release work.
+
 The beginner routes develop one small idea at a time. The formal units
 group related definitions and theorems and can contain many results.
 Start with their concrete first pass, then read the definitions, hypotheses,
@@ -28,12 +59,27 @@ For a concrete example before the formal development, begin with
 [`First steps: three cards, two questions`](first_steps/README.md): five
 short lessons, a prediction-first explorer, and separate practice answers.
 No previous mathematics or philosophy is assumed.
+Use the [reading path](learning_path.md) for a core sequence, places to
+pause and prerequisites for later applications. The first Reasoning pass
+is Lessons 00–07, not every application listed in that lab.
+The [induction toolkit](reasoning_lab/52_start_then_one_more.md) supplies
+four short lessons for the proofs in Units 03, 11 and 28, after Number 00
+and core Reasoning. It separates a start case, a preserving step, finite
+samples and a fixed-ceiling argument, with separate changed practice.
+The optional [meaning and reports route](reasoning_lab/56_a_claim_needs_an_interpretation.md)
+adds six short X301 lessons on interpretation, domains, truth scores,
+changed inputs, panel agreement and checksum scope. It keeps model truth
+and observations separate and supplies changed questions before answers.
 The [`Reasoning lab`](reasoning_lab/README.md) supplies the next toolkit:
 rules, functions, if-then claims, witnesses, counterexamples, and hypotheses.
 Its [evidence continuation](reasoning_lab/08_from_a_model_to_a_trial.md)
 adds a protocol, explicitly fictional trial logs, conflicting repeats,
 uncertain readings, and an optional physical worksheet. It separates
 calculations on supplied records from observations actually collected.
+The [operational recording continuation](reasoning_lab/12_target_and_record.md)
+then introduces a separate P200 model: targets, stored marks, actual read/
+write dependencies, observer agreement and explicit message updates.
+Its protocol desk distinguishes model calculations from device evidence.
 Continue with the [`Search lab`](search_lab/README.md) for a complete
 worked demand, candidate search, price comparison, protection example,
 and portable event replay.
@@ -45,6 +91,10 @@ points, connections, walks, signed counts, faces, and cancelling boundaries.
 The [`Map lab`](map_lab/README.md) then follows original cards through
 class labels to requested answers, including blocked recovery, paired
 questions, representative order, and uniqueness on the observed image.
+Its [changing-source continuation](map_lab/08_states_and_events.md)
+adds actual steps, replay, state encodings, observation preservation and
+mislabelled-history checks from selected `native_bridge` research. Distinct
+codes and correct step squares can still lose the requested observation.
 The [`Growth lab`](growth_lab/README.md) then enters the research
 `standing_commitment` tree: which pairs remain unresolved, when arrivals
 create demands, and why assumed service is different from a proved repair.
@@ -60,6 +110,11 @@ The [`Number lab`](number_lab/README.md) teaches totals, shares, zero,
 signed steps, squares, and coordinate addition before selected finite
 readout examples. It connects Unit 64's arithmetic to an introduction
 to `qm_bridge`, keeping its supplied formula and open rows explicit.
+After that toolkit and the Map-lab continuation, the
+[Path-lab cost route](path_lab/07_two_cost_questions.md) introduces
+signed path costs, potentials, return loops and commuting squares. It
+explains the source's closed but non-exact state-change count and keeps
+the earlier face calculus separate from native event histories.
 
 New readers can then read [`START_HERE.md`](START_HERE.md) (see also the
 short spoken introduction in [`video_script_15s.md`](video_script_15s.md)).
@@ -96,6 +151,36 @@ and reader mastery remain separate work.
 The [institution review](audit/INSTITUTIONS_READING_REVIEW_2026-10-31.md)
 covers the material after Act X: eighteen worked openings for I00–I17,
 selected theorem-scope corrections, and a repaired Python transition check.
+The [I00–I03 definition follow-up](audit/INSTITUTION_FOUNDATIONS_READING_REVIEW_2026-10-31.md)
+follows one table through the definitions, separates reported answers from
+representative labels and lookup rules, and breaks class counting into
+three steps. Quoted sources remain in optional disclosures.
+The [I04–I07 follow-up](audit/INSTITUTION_ALIGNMENT_READING_REVIEW_2026-10-31.md)
+continues through combined reports, input alignment, loss and stationary
+steps, with necessary-condition counterexamples and changed-table practice.
+The [I08–I11 follow-up](audit/INSTITUTION_POLICY_READING_REVIEW_2026-10-31.md)
+then separates target comparisons, partial fallback encodings, approval
+rules and current test agreement from literal identity.
+The [I12–I17 continuation](audit/INSTITUTION_ACQUISITION_READING_REVIEW_2026-10-31.md)
+then separates equality probes from numeric table storage, complete
+tables from partial records, promises from unrestricted fixing, retained
+views from changed regimes, and carried guard codes from aligned steps.
+Eight changed-example tasks have separate answers.
+The [calibration continuation](audit/CALIBRATION_READING_REVIEW_2026-10-31.md)
+adds six short lessons to the Reasoning lab, with predictions about
+number/standard records, mixed-unit ratios, shared errors and device
+correspondence. P201 supplies selected definitions. The separate
+[clock/future-reading continuation](audit/CLOCKS_READING_REVIEW_2026-10-31.md)
+adds six lessons comparing pulse/uniform rules, elapsed changes, readout
+equivalence and finite prediction, with an explicit countdown contrast.
+The [composite-system route](audit/COMPOSITE_READING_REVIEW_2026-10-31.md)
+adds seven lessons on joining records, local changes, declared graphs,
+relay order, outcome shares and symmetry. It keeps actual dependencies
+and physical correspondence explicit.
+The [valuation route](audit/VALUATION_READING_REVIEW_2026-10-31.md) adds
+eight lessons on preparation chances, responses, mixing, recipe ambiguity
+and complete branch sums, with a separate interactive desk. It keeps
+model probabilities and observations distinct.
 
 ## Status marks
 
@@ -376,3 +461,8 @@ Constitution, Initiality, Horizon, PrimitiveCore, PrimitiveCats, PrimitiveContac
 |---|---|---|
 | 1 | `textbook/units/` | the sealed derivation, from the mark forward (Units 00–74 in the contents table above) |
 | 2 | `textbook/institutions/` | actors, institutions, information, knowledge, authorization, acquisition, uncollapse/recollapse, and the verdict-level interpreter boundary: the research trees `actor_institution` (#284), `two_theorems` (#277), `uncollapse` (#275), and `interpreter_verdict` (#278), outside the seal, with their own README and contents table (`Units 00–17`) |
+
+The [selected process route](audit/CHANNEL_READING_REVIEW_2026-10-31.md) adds seven
+short lessons on conditional rows, composition, retained distinctions and
+reset/recovery. Separate changed practice precedes answers; supplied models
+and device evidence retain explicit boundaries.

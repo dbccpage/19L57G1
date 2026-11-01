@@ -3,8 +3,9 @@
 Checks:
   1. `correspondence_matters`: `[p1, p2]` knows `q3` on `range(3)`, while
      re-indexing `p2` by swapping 0 and 1 breaks `knows`;
-  2. `knows_rename`: over all permutations of `range(3)`, all families of at
-     most two partitions, and all partitions as the claim, simultaneous
+  2. `knows_rename`: all permutations of range(3), with empty/singleton
+     families and one ordering of each distinct partition pair, and every
+     partition as the claim. Not all ordered lists or repeated members. Simultaneous
      renaming leaves `knows` unchanged;
   3. `correspondence_checks` from `two_theorems`: faithfulness of the constant
      map, `faithful_actor_iff`, `sharp_pullback_iff`, and

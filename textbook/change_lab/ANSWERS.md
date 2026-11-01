@@ -37,3 +37,6 @@ correspondence. Actual sensor behavior, error rates, and authority are
 not established by the passage's supplied columns or Boolean switch.
 
 AuthorityEffect: None. These answers concern the stated exercise.
+
+Continue to [reading formal statements](../reading_formal_statements.md)
+for the core route into Unit 00.

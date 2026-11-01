@@ -18,21 +18,36 @@ Quot.sound`. **Depends on:** `TRegime`, `TEvent`, `stepT`, `replayT`,
 
 ## First pass
 
-Start with an empty store. Admit token A three times under the
-token-aware rule. The store is `[A]`, because repeats designate
-the existing entry. Supplying another token without admitting it
-does not create a second datum either.
+For a short explanation of the method, use [Reasoning 52–54](../reasoning_lab/52_start_then_one_more.md). Its start and step cases explain why finite samples and an induction proof have different scopes.
+
+Follow one history from an empty token store:
+
+| Next event | Store after the event |
+|---|---|
+| Admit A | [A] |
+| Supply B | [A] |
+| Admit A again | [A] |
+| Admit a one-place form | [A] |
+
+Every **datum admission** used A. The supply of B and the form admission
+are allowed by that condition: neither admits another datum.
 
 The invariant is simple: the store is empty or contains only `[A]`.
 Each permitted successful step preserves that shape when every datum
 admission uses A. A stored property that remains true after each
 step is called an invariant.
 
-Predict whether the bound applies to an empty history starting from
-`[A,B]`. It does not: the result still has two entries. The theorem
-requires a starting store already empty or exactly `[A]`. A seven-event
-search supplies only bounded evidence; the induction proof covers
-arbitrary successful history lengths under those hypotheses.
+<details><summary>Predict: does the bound apply to an empty history starting from [A,B]?</summary>
+
+No. The result still has two entries. The theorem requires an initial
+store that is empty or exactly [A]. It also requires successful replay
+and the condition on every datum admission. Other fields may change
+while this token-store property is preserved.
+
+</details>
+
+A seven-event search supplies bounded reachability evidence. The induction
+proof covers arbitrary successful history lengths under the stated conditions.
 
 ## Question
 
@@ -86,17 +101,18 @@ event that is not a datum admission satisfies it for free, because the
 
 ## Plain-language interpretation
 
-One inscription, presented and admitted again and again, is still one
-inscription. Genesis's admission rule treats the second admission of a
-present token as pointing at the existing datum (Unit 06), so no repetition
-adds to the ledger. Nothing else in the grammar adds a datum. So a carrier
-of size two cannot come from ⟨⟩ alone. In the paper's phrase: "two-ness is
-externally purchased". Either a second, different token is supplied from
-outside (Unit 13 proves this is required), or a different admission
+With the permitted starting store and this token-deduplicating rule,
+repeated datum admissions of one label cannot give two entries. Other
+event kinds do not add tokens. In the paper's phrase, “two-ness is
+externally purchased”: a different token must enter through an admission
+(Unit 13), or a different admission
 discipline is declared, one in which repeated admissions are told apart by
 their position in the history. That second route is a declared import of
 metatheoretic position, flagged as such in `paper/bridge_provenance.md`
 §B4; it is not a derivation from the mark.
+
+<details>
+<summary>Programs and proof walkthroughs (optional)</summary>
 
 ## Pseudocode
 
@@ -157,9 +173,11 @@ twice gives two entries. Genesis declares this as an alternative discipline
 and prices it (paper §B4); it is not the rule the sealed derivation uses.
 
 `scenario_report("single_dedup", ["<>"], 7, False)`: a breadth-first search
-(`bridge.py` lines 108-142) over every admissible history of at most seven
-events from the single-token alphabet (supply, admit, one binary form,
-every binary instance over at most two indices). It reaches 20 states, the
+(`bridge.py` lines 108-142) records reachable states and their shortest
+event counts within seven events, using the single-token alphabet (supply,
+admit, one binary form, and binary instances over at most two indices).
+It deduplicates already seen states; it does not list every history.
+It reaches 20 states, the
 largest carrier is 1, and no two-datum state is reached within that search (`None`).
 The all-length bound comes from the separate Lean theorem, not from
 the seven-event search result.
@@ -302,10 +320,12 @@ which goes through `Quot.sound`. The definitions `SingleTok` and
 (SingleTok t0 e)` instance at line 114, report no axioms at all, because
 that instance is built by pattern matching, not by list membership.
 
+</details>
+
 ## What has been proved
 
-- Under single-token admission, the token store is always `[]` or `[t0]`
-  (Genesis, derived).
+- Starting with `[]` or `[t0]`, successful steps whose datum admissions
+  all carry `t0` preserve that token-store shape (Genesis, derived).
 - Hence any single-token history, from any state satisfying the
   invariant, leaves at most one datum (Genesis, derived).
 - The bound is reached: one admission gives exactly one (book Lean
@@ -321,9 +341,9 @@ that instance is built by pattern matching, not by list membership.
 - That a second token is *required* for two data. That is the
   contrapositive, witness-producing theorem `second_token_required`
   (Unit 13); this unit proves only the bound.
-- Anything about the erased state. The theorem is about `TRegime.tokens`;
-  the erased `Regime.data` count equals its length (Unit 07,
-  `TRegime.erase`), but that equality is a separate fact.
+- A bound on the number of events or on every structural field. The theorem
+  bounds token-list length. By the definition of `TRegime.erase`, this
+  length is also the erased data count. It is not the history length.
 - That no admission discipline yields two data from one token. The
   occurrence discipline does, by design; Genesis prices it as an import
   of metatheoretic position rather than forbidding it.
@@ -342,9 +362,10 @@ that instance is built by pattern matching, not by list membership.
 
 **What the representations hold.** The token-aware state stores a
 finite token list and its structural fields. The event history is a
-separate metatheory record, not another field in that state. It does not hold the token `t0` as a name: the token is
-metatheoretic (Unit 06), and the theorem is a metatheoretic statement about
-every history that reuses one of them.
+separate record. `t0` is the theorem's reference parameter, not a
+distinguished-reference field in the state. An admitted token does appear
+in the stored list; erasure removes those labels and retains their count.
+That storage does not itself add a token-reading judgment to the object language.
 
 **Price of the two escapes.** A different token can enter through a datum-admission event
 (Unit 13). That theorem does not require an earlier `Supply` event;
@@ -368,6 +389,9 @@ the final token store, and what does the theorem guarantee about it? Then
 change the last event to `.admitDatum 7`: which hypothesis fails, and what
 is the store now?
 
+<details>
+<summary>Check the exercise (optional)</summary>
+
 ## Answer
 
 Every event is `SingleTok 5`: the supply and the form admission satisfy it
@@ -379,6 +403,8 @@ the end, `SingleTok 5 (.admitDatum 7)` is false (it would require `7 = 5`),
 so `hall` fails and the theorem says nothing; the store becomes `[5, 7]`,
 length two. (The check script's `two_tokens_escape` is the same point with
 tokens 0 and 1.)
+
+</details>
 
 ## Verification
 

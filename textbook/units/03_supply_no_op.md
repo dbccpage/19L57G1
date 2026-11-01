@@ -1,7 +1,11 @@
 # Unit 03. Supplying a token changes nothing
 
 **Claim.** For every regime `r` and every token `t`, the supply event
-`.supply t` leaves `r` exactly as it was. **Status:** derived. **Lean:**
+`.supply t` leaves `r` exactly as it was.
+
+<details><summary>Source and classification record (optional)</summary>
+
+**Status:** derived. **Lean:**
 `Derivation.supply_no_op` (`lean4/Derivation/Inertia.lean`, line 17).
 **Axioms:** `propext`, inherited from the definition of `stepE`, not from
 the proof (see **Axioms**, below).
@@ -12,6 +16,63 @@ different question: what does an *event* do to a regime? It takes the
 simplest event, the supply of a token, and proves that it does nothing. The
 proof is one word, `rfl`, and the unit's work is to say why one word is
 enough, what it covers, and where its single axiom comes from.
+
+</details>
+
+## Question
+
+Does recording a supply also put its token in the admitted-data ledger?
+
+## First pass
+
+For the first induction argument, use [Reasoning 52–54](../reasoning_lab/52_start_then_one_more.md): start case, preserving step and empty/nonempty histories.
+
+An **event history** lists the inputs passed to the model. **Replay**
+applies those events in order to a starting ledger. The history and the
+ledger it produces are different records.
+
+### Follow three events
+
+Use the token-aware Python model, starting empty. Its data field keeps
+admitted token strings. A **supply** records a presented token but leaves
+the ledger unchanged. A datum-admission event runs a different rule.
+
+| Event just recorded | Admitted token strings afterwards |
+|---|---|
+| Supply “x” | Empty |
+| Admit datum “x” | [“x”] |
+| Supply “y” | [“x”] |
+
+<details><summary>Predict: does “y” now belong to the admitted-data ledger?</summary>
+
+No. The history records its supply; the ledger still contains only “x”.
+Supplying and admitting are separate event kinds under these definitions.
+
+</details>
+
+### Keep the two models separate
+
+Python's datum-admission event takes a token. A fresh token extends its
+admitted list; an already admitted token leaves that list unchanged.
+Token-erased Lean instead keeps a datum count: its `admitDatum` event
+has no token argument and always increases that count by one. Both
+models' supply cases leave their ledger fixed.
+
+For the Lean supply theorem, different token arguments give the same
+step result. The event values and an external history can still retain
+different token arguments. Equal final ledgers do not identify histories.
+
+Change the example by admitting “x” again in Python. Its admitted list
+stays [“x”]. This does not make every admission a supply, or change
+Lean's different count-increasing event. The formal details below explain
+the actual erasure bridge used in [Unit 07](07_erasure.md).
+
+Try the six [changed questions](../core_start_practice.md) before the
+[separate answers](../core_start_answers.md). Then continue to
+[Unit 04](04_no_forced_successor.md) to distinguish an available event
+kind from a supplied policy that chooses events.
+
+<details><summary>More detail: What you need first</summary>
 
 ## What you need first
 
@@ -134,6 +195,10 @@ its consequences, not in the theorem.
 
 **Status:** admitted.
 
+</details>
+
+<details><summary>More detail: Where the theorem lives</summary>
+
 ## Where the theorem lives
 
 As in Units 01 and 02: the theorem is proved inside the admitted
@@ -141,6 +206,10 @@ representation, in Lean's metatheory, about the function `stepE`. It says
 what that function does on supply events. It is not derived from ⟨⟩, and
 it does not show that "supply" is the right name for an event that does
 nothing (Unit 00).
+
+</details>
+
+<details><summary>More detail: The theorem</summary>
 
 ## The theorem
 
@@ -160,6 +229,10 @@ the system's (see **Outside the system**).
 What the statement does not ask for: no well-formedness of `r`, no
 condition on `t`. It covers every value of type `Regime`, and every token
 number, whether or not a datum was ever admitted from it.
+
+</details>
+
+<details><summary>More detail: The proof, step by step</summary>
 
 ## The proof, step by step
 
@@ -236,10 +309,14 @@ did not run Genesis's gates.
 `stepE`) and in `Regime.wf` (through `List.getD`), which those statements
 mention. Unit 02 now says so, with a dated note.
 
+</details>
+
+<details><summary>More detail: Consequences in the book's Lean</summary>
+
 ## Consequences in the book's Lean
 
-The book's own Lean below (**Lean (book)**, see the README) draws five
-consequences and one contrast. It was kernel-checked against Genesis's
+The book's own Lean below (**Lean (book)**, see the README) draws the
+following replay and admission consequences and contrast. It was kernel-checked against Genesis's
 compiled `Derivation` library with Lean 4.33.0 by
 `textbook/checks/u03_lean_witnesses.py`; it is not part of Genesis's build
 or its axiom report. **Status of each:** derived (book Lean). Each reported
@@ -287,14 +364,19 @@ theorem historyF_without_supplies :
   decide
 ```
 
-**The token is idle.** `supply_token_irrelevant`: supplying token 0 and
-supplying token 7 give the same outcome, by `rfl`. Nothing in the Lean model
-can tell two supplies apart by their tokens.
+**The token does not affect this step.** `supply_token_irrelevant` says
+that token 0 and token 7 give the same `stepE` outcome, by `rfl`. The
+`Event` values and histories can still retain different token arguments.
+Equality of step results does not equate the events that produced them. The added book theorem
+`different_supplies_same_step` checks different supply events 0 and 7
+with equal `stepE` results for every regime. Its sole reported axiom
+is `propext`, inherited through `stepE`. The updated script checks thirteen
+reports: eleven exactly `propext` and two empty sets, including its probes.
 
 **Supply is not admission.** `supply_no_op` alone does not show that supply
 and admission differ; it needs a contrast. `admitDatum_changes` is that
-contrast: for every regime, admitting a datum gives a regime with one more
-datum, so never the regime it started from. The proof: if the two were
+contrast in token-erased Lean: for every regime, `admitDatum` gives a
+regime with one more datum, so never the regime it started from. The proof: if the two were
 equal, their `data` fields would be equal (`congrArg Regime.data`, after
 `Option.some.inj` strips the `some`), so `r.data + 1 = r.data`, which
 `Nat.succ_ne_self` refutes. Genesis records the bridge "supply is
@@ -361,6 +443,10 @@ Genesis's regimes is made with it. Its only job is the axiom report: the
 probe and its `rfl` theorem report no axioms, so the supply case and the
 proof contribute none.
 
+</details>
+
+<details><summary>More detail: The same fact in Python</summary>
+
 ## The same fact in Python
 
 Genesis's Python `step` has the same first case:
@@ -417,12 +503,19 @@ The first script:
 5. Replays `[AdmitDatum("x")]`, with no supply, and finds one admitted
    datum.
 
-All of that is sample computation, not proof. The proof is the Lean.
+These are finite checks of the native Python implementation. The Lean
+proofs establish their stated claims about the token-erased Lean model.
+Unit 07 checks an erasure simulation between two Lean models; it does
+not supply a general proof that the Python source implements Lean.
 
 Genesis's own tests: `tests/test_model.py::test_supply_is_not_admission`
 (`step(EMPTY, Supply(...)) == EMPTY` for two tokens) and
 `tests/test_engine.py::test_challenge0_inertia` (`supply_changes_state` is
 false at Challenge 0).
+
+</details>
+
+<details><summary>More detail: Outside the system</summary>
 
 ## Outside the system
 
@@ -470,12 +563,17 @@ in the metatheory, not events in any Genesis history.
 - "Every token" means every value of Lean's `Nat` (or, in Python, every
   string). It is not a supply of tokens the system has.
 
+</details>
+
+<details><summary>More detail: What it shows, and what it does not</summary>
+
 ## What it shows, and what it does not
 
 It shows that a supply event never changes a regime and is never refused,
 whatever the regime and whatever the token. With `admitDatum_changes` it
-shows that supply and admission are different events: one always leaves
-the regime as it is, the other never does. With the replay consequences it
+shows that in token-erased Lean supply always leaves the regime fixed
+while `admitDatum` always changes its count. Python has a different
+datum-admission case: repeated admitted tokens leave its regime fixed. With the replay consequences it
 shows that every supply can be removed from any history without changing
 where the history leads, so everything in a Genesis ledger was put there by
 an admission or an imposed demand.
@@ -497,6 +595,10 @@ deduplication of admissions, not on this theorem.
 
 It does not show that the representation is the right one (Unit 00).
 
+</details>
+
+<details><summary>More detail: Sources</summary>
+
 ## Sources
 
 | Item | Where |
@@ -514,3 +616,5 @@ It does not show that the representation is the right one (Unit 00).
 | Tests | `tests/test_model.py::test_supply_is_not_admission`; `tests/test_engine.py::test_challenge0_inertia` |
 | Check | `textbook/checks/u03_supply_no_op.py` (Genesis Python) |
 | Check (book Lean) | `textbook/checks/u03_lean_witnesses.py` |
+
+</details>

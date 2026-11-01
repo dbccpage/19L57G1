@@ -152,6 +152,37 @@ theorem separation_preserved_fresh (r : Regime) (d d' : Nat)
   | none => trivial
   | some x => exact Nat.lt_succ_of_lt hold
 
+theorem plug_args_in_range (r : Regime) (c : Ctx) (d : Nat)
+    (hc : wfCtx r c) (hd : d < r.data) :
+    ∀ a ∈ (plug c d).2, a < r.data := by
+  intro a ha
+  obtain ⟨s, hs, heq⟩ := List.mem_map.mp ha
+  cases s with
+  | none => cases heq; exact hd
+  | some x => cases heq; exact hc.2.2.2 (some x) hs
+
+def latent : Regime := ⟨2, [2], [(0, [2,0])], [], []⟩
+
+theorem latent_violates_range :
+    ¬ (∀ p ∈ latent.insts, ∀ a ∈ p.2, a < latent.data) := by decide
+
+theorem latent_old_collapsed : collapsed latent 0 1 := by
+  intro c hc
+  have no_answer : ∀ d, d < latent.data → ¬ derivable latent (plug c d) := by
+    intro d hd hder
+    cases hder with
+    | inl hm =>
+      have heq : plug c d = (0, [2,0]) := List.mem_singleton.mp hm
+      have hmem : 2 ∈ (plug c d).2 := by rw [heq]; decide
+      have hbad : 2 < 2 := plug_args_in_range latent c d hc hd 2 hmem
+      exact Nat.lt_irrefl 2 hbad
+    | inr hr => cases hr
+  exact ⟨fun h => False.elim (no_answer 0 (by decide) h),
+         fun h => False.elim (no_answer 1 (by decide) h)⟩
+
+theorem latent_after_separates : separable { latent with data := 3 } 0 1 :=
+  ⟨⟨0, [some 2, none]⟩, by decide, by decide⟩
+
 end Textbook.U12
 
 #print axioms Textbook.U12.fresh_steps
@@ -178,6 +209,10 @@ end Textbook.U12
 #print axioms Derivation.mem_plug_of_hole
 #print axioms Derivation.exists_out_of_range_slot
 #print axioms Derivation.not_mem_of_arg_out_of_range
+#print axioms Textbook.U12.plug_args_in_range
+#print axioms Textbook.U12.latent_violates_range
+#print axioms Textbook.U12.latent_old_collapsed
+#print axioms Textbook.U12.latent_after_separates
 """
 
 EXPECTED = {
@@ -205,6 +240,10 @@ EXPECTED = {
     "Derivation.mem_plug_of_hole": BOTH,
     "Derivation.exists_out_of_range_slot": PROPEXT,
     "Derivation.not_mem_of_arg_out_of_range": NONE,
+    "Textbook.U12.plug_args_in_range": BOTH,
+    "Textbook.U12.latent_violates_range": NONE,
+    "Textbook.U12.latent_old_collapsed": BOTH,
+    "Textbook.U12.latent_after_separates": BOTH,
 }
 
 if __name__ == "__main__":

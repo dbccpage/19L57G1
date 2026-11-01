@@ -2,6 +2,10 @@
 
 Date: 2026-10-28. AuthorityEffect: None.
 
+For the current release work and remaining requirements, use the
+[completion status](../completion_status.md). This plan retains historical
+proposals; its proposed reader timings are not achieved outcomes.
+
 ## The goal
 
 Enable a determined teenager with no prior philosophy or mathematics study
@@ -36,8 +40,8 @@ above record the earlier publication, not current open-PR status.
 | Institution lessons | 18 | A research curriculum exists for four named trees |
 | Sealed Lean modules | 75 | All 75 have coverage-matrix sections and assigned units |
 | Canonical research trees | 123 | Counted using `ci/research_index.py`'s actual population rule |
-| Trees with dedicated research lessons | 10 | Four institution trees, `standing_commitment`, three selected Boundary-lab introductions, `identification_dual`, and `qm_bridge` |
-| Other canonical trees | 113 | No dedicated lesson treatment is established by the current curriculum |
+| Trees with dedicated research lessons | 18 | Four institution trees, `standing_commitment`, three selected Boundary-lab introductions, `identification_dual`, `qm_bridge`, selected `native_bridge` claims, selected `native_structure` costs, selected P200 recording protocols, selected P201/P202 calibration/clock rules, selected P203 composite definitions, selected P204 valuation models, selected X300 channel/process claims, and selected X301 interpretation/report claims |
+| Other canonical trees | 105 | No dedicated lesson treatment is established by the current curriculum; placement as lesson, reference, open question or justified omission remains to be decided |
 | Manim overview scenes | 12 | Groups of lessons have short previews; individual concepts still need slower worked treatment |
 
 The research population includes parked work, frozen experiments, tooling,
@@ -206,6 +210,25 @@ walkthrough. Changed-label practice has separate folded answers.
    and the finite numerical scope of Unit 71 are restored explicitly.
    Full semantic teaching coverage, research integration, and novice
    comprehension and transfer remain open.
+   The [entrance follow-up](CORE_ENTRANCE_READING_REVIEW_2026-11-01.md)
+   supplies concrete openings for Units 00–03, six changed tasks and
+   separate answers. Source, definition and proof details are optional
+   disclosures. It corrects whole-instance versus form-only lookups,
+   supply-event identity versus step outcomes, and Lean/Python admission
+   scopes. All 75 Units now have a concrete opening treatment; that does
+   not establish full semantic coverage or beginner outcomes.
+   The [shared Wiki layout review](LESSON_LAYOUT_REVIEW_2026-11-01.md)
+   removes repeated generated previews before each Unit and places its
+   complete lesson ahead of optional Act media and general reading prompts.
+   All 93 prior pages match the earlier renderer exactly; all Unit source
+   files remain unchanged. The existing verifier now checks complete Unit
+   text, exact pinned source blobs and folded-video placement. This improves
+   access to the worked examples without establishing novice outcomes.
+   The [induction prerequisite](INDUCTION_READING_REVIEW_2026-11-01.md)
+   adds four lessons on start/step cases, finite histories and strict bounded
+   measures. It supplies the method used in Units 03, 11 and 28 without
+   requiring the later instrument/probability branches. Seven practice
+   questions retain separate answers and a model/device boundary.
 7. **Evidence and reality.** Add exercises in separating a definition,
    a deduction, a computation, and a measurement. Give a model prediction,
    identify an observation that could disagree with it, and explain what
@@ -218,8 +241,9 @@ walkthrough. Changed-label practice has separate folded answers.
    interpretation, changed-envelope practice, and an optional blank
    physical worksheet. Its 72 finite comparisons and added axiom-free
    logical proof do not establish actual measurements, a physical cause,
-   or novice transfer. Browser layout and the wider research bridges
-   remain open.
+   or novice transfer. Subsequent hosted checks covered the twelve exercise
+   cases and a sampled phone-width result panel; full accessibility and
+   the wider research bridges remain open.
 
 ## Institution teaching follow-up
 
@@ -261,7 +285,59 @@ or discharge the requested independent encoding review. Unit 64's
 new first pass and six-part claim replace the dense opening. Its
 pseudocode now separates a bounded test from the all-integer theorem,
 using the zero-only box as a counterexample to the former inference.
-The dedicated introductory tree count is now ten, leaving 113 without
+The [Map-lab changing-source continuation](NATIVE_PATH_READING_REVIEW_2026-10-31.md)
+adds six short lessons for selected `native_bridge` claims: actual-step
+paths, state-threaded translation, injective codes, faithful observations,
+and labels versus actual event equations. Its seven traces include locally
+valid but disconnected rows; the book supplies an adjacency gate matching
+the native Lean type. Event selection and later read-back rows remain open.
+The [Path-lab cost continuation](PATH_COST_READING_REVIEW_2026-10-31.md)
+adds six lessons for selected `native_structure` claims, covering signed
+costs, potentials, full-state loops, commuting squares and verified swaps.
+Its diagram and dual-cost desk separate closedness from exactness without
+claiming a physical conservation law. The native action/charge questions
+and the separate conservation carrier remain outside this introduction.
+The [Reasoning-lab protocol continuation](OPERATIONAL_PROTOCOL_READING_REVIEW_2026-10-31.md)
+adds six lessons for selected P200 claims: separate targets and records,
+read/write dependencies, probe agreement, configured diagnostics and
+actual relay updates. Its bounded input checks remain separate from the
+formal carrier's unbounded natural-number fields and from measurements.
+The separate [P201 continuation](CALIBRATION_READING_REVIEW_2026-10-31.md)
+now adds six calibration lessons: number/standard pairs, kind labels,
+mixed-standard ratios, lost magnitude, caller premises and physical
+correspondence. The separate [clock/future-reading route](CLOCKS_READING_REVIEW_2026-10-31.md)
+now teaches selected P202 definitions, elapsed increments, differing source
+schedules and bounded/all-future inference. It adds no physical clock
+validation or Python/Lean bridge.
+The [P203 composite route](COMPOSITE_READING_REVIEW_2026-10-31.md) now
+adds seven lessons on disjoint records, regrouping, local updates, graph
+declarations, execution order, outcome shares and symmetry. It states
+the actual callback and proof limits; physical device claims stay open.
+The [P204 valuation route](VALUATION_READING_REVIEW_2026-10-31.md) adds
+eight lessons on chances, responses, mixtures, allowed-family dependence,
+complete branch sums and conditional chances. It retains native Nat
+limits and uses rational Python examples without inventing a general bridge.
+The [reading-path follow-up](READING_PATH_REVIEW_2026-10-31.md) makes the
+core and later applications explicit, and adds four fraction-operation
+lessons with separate practice/answers before calibration and valuation
+work. This addresses an inspected prerequisite gap; the proposed order
+and learning outcomes still require reader evidence.
+The [I00–I03 definition follow-up](INSTITUTION_FOUNDATIONS_READING_REVIEW_2026-10-31.md)
+then returns to the formal route: one continuing table, separate input/
+output/lookup roles, three-step class counting, folded source proofs and
+six changed-example practice tasks. This improves four Units' definitions
+without certifying the remaining paragraphs of the textbook.
+The [I04–I07 follow-up](INSTITUTION_ALIGNMENT_READING_REVIEW_2026-10-31.md)
+continues the definition-level pass through combined reports, alignment,
+loss and stationary steps, with six further changed-example tasks.
+The [I08–I11 follow-up](INSTITUTION_POLICY_READING_REVIEW_2026-10-31.md)
+adds worked target, fallback, approval and pair-policy distinctions and
+six changed examples. The [I12–I17 continuation](INSTITUTION_ACQUISITION_READING_REVIEW_2026-10-31.md)
+adds eight further tasks and works through probing, table encoding,
+fixing under promises, regime updates and carried guard codes. These
+selected deeper definition passes reach I17; they do not certify every
+research claim or paragraph of Part 2.
+The dedicated introductory tree count is now fourteen, leaving 109 without
 such treatment. Directory counts guide discovery;
 they do not set a requirement for equally sized modules for every tree.
 Comprehension, transfer, and retention remain unmeasured.
@@ -450,3 +526,8 @@ For the current route's commands and verification reach, see
 [../first_steps/DEVELOPMENT.md](../first_steps/DEVELOPMENT.md). The whole
 teaching goal remains open until the later curriculum and reader evidence
 exist.
+
+The [X300 process continuation](CHANNEL_READING_REVIEW_2026-10-31.md) adds
+a selected seventeenth tree introduction: conditional rows, composition,
+post-processing and reset/recovery. General quantitative information,
+physical cost claims and beginner outcome evidence remain open.

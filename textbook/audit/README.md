@@ -5,6 +5,33 @@ in the sealed derivation and authorizes nothing. Every verdict below is a
 reading of `lean4/Derivation/` as it stands, checked against the artifact,
 the paper and the ledger, and reproducible from the files named.
 
+The [123-tree placement decision](RESEARCH_PLACEMENT_2026-11-01.md) distinguishes
+twenty selected introductions,
+advanced references, open-question roles and standalone omissions. It is an
+editorial decision, not a new research-validation receipt. The current
+[remaining-issues register](../../TEXTBOOK_REMAINING_ISSUES.md) identifies the
+closed editorial work and the remaining conditional evidence boundaries.
+
+The [release audit](RELEASE_AUDIT_2026-11-01.md) reconciles the full teaching
+requirements with selected reviews, current canonical checks, source custody
+and named live samples. It closes the editorial release without claiming
+measured novice speed or exhaustive declaration teaching.
+
+The [bounded-memory/permission review](AGENCY_READING_REVIEW_2026-11-01.md)
+records Reasoning 65–67, changed practice, 2,304 controller cases, 36 memory
+cases and sixteen fresh reports from the separate Lean toy. It retains the
+computed-key, pure-action and empirical-metadata boundaries.
+
+The [support/withdrawal review](REVISION_READING_REVIEW_2026-11-01.md) records
+Reasoning 62–64, changed lamp practice, 3,456 finite notebooks and eighteen
+fresh native Lean reports. It retains the difference between recorded
+conflicts, all possible derivations and truth about the world.
+
+The [core-route reading](CORE_ROUTE_READING_REVIEW_2026-11-01.md) covers
+29 numbered lessons, 45 core tasks and the formal entrance. It repairs
+continuation links, folds later exercises and narrows an admission-cost
+claim. This is editorial review, not measured beginner learning.
+
 **Later reading review (2026-10-28).** The historical inventory below is
 a line-regex report, not a comment-aware declaration census. A subsequent
 [source/compiled reconciliation](DECLARATION_REVIEW_2026-10-28.md) finds
@@ -22,7 +49,67 @@ supplies four lessons, fictional trial records, partial-answer/scope
 checks, a prediction desk, changed-example practice and an optional
 physical worksheet. An added book proof establishes logical
 incompatibility without assigning a physical cause. The route records
-no measurements or learning outcomes; browser layout remains unverified.
+no measurements or learning outcomes. Subsequent hosted checks covered all
+twelve cases and a sampled phone-width panel; PR #295 records their scope.
+
+**Native-path teaching extension (2026-10-31).** The
+[Map-lab continuation](NATIVE_PATH_READING_REVIEW_2026-10-31.md) adds six
+lessons on states, histories, translations, observation preservation and
+actual-step validation. It keeps the Python helper's row checks separate
+from the additional adjacency gate and the indexed Lean trace. The new
+research introduction supplies no physical or novice learning result.
+
+**Path-cost teaching extension (2026-10-31).** The
+[Path-lab continuation](PATH_COST_READING_REVIEW_2026-10-31.md) adds six
+lessons on two cost questions, potentials, full-state return loops,
+commuting squares and verified swaps. It teaches the proved closed but
+non-exact state-change cost without inferring a physical conservation law.
+
+**Operational-protocol teaching extension (2026-10-31).** The
+[Reasoning-lab application](OPERATIONAL_PROTOCOL_READING_REVIEW_2026-10-31.md)
+adds six lessons on target/record separation, actual read/write dependencies,
+probe agreement and explicit relay updates. It corrects the finite-carrier
+reading of P200 and keeps configured diagnostics separate from measured
+effects. The original claim/evidence route is preserved.
+
+**Institution definition follow-up (2026-10-31).** The
+[I00–I03 second reading pass](INSTITUTION_FOUNDATIONS_READING_REVIEW_2026-10-31.md)
+keeps one table through signatures, representatives, recovery and class
+counts. It separates input and output roles, corrects selected scope
+overstatements, and adds changed-example practice with separate answers.
+Quoted sources remain intact in optional disclosures.
+The [I04–I07 continuation](INSTITUTION_ALIGNMENT_READING_REVIEW_2026-10-31.md)
+adds smaller definitions and counterexamples for combined reports,
+correspondence, member loss and stationary steps. It corrects selected
+semantic and finite-population overstatements while preserving owner records.
+The [I08–I11 continuation](INSTITUTION_POLICY_READING_REVIEW_2026-10-31.md)
+clarifies target comparisons, fallback totality and encoding, one-way
+approval conditions and pair-policy labels, with six new practice tasks.
+The [I12–I17 continuation](INSTITUTION_ACQUISITION_READING_REVIEW_2026-10-31.md)
+completes this selected definition pass through Part 2. Worked records
+separate probing from tabulation, complete tables from direct partial
+lookup, consistency from vacuous fixing, and WF from support agreement.
+Eight new tasks have separate answers; the Act XII preview is corrected.
+The [P201 calibration continuation](CALIBRATION_READING_REVIEW_2026-10-31.md)
+then adds six number/standard lessons and an interactive desk. It keeps
+caller-checked calibration premises, selected Lean algebra, native API
+limits and physical correspondence distinct.
+The [P202 clock/future-reading continuation](CLOCKS_READING_REVIEW_2026-10-31.md)
+then adds six lessons, preserving the different source schedules and
+separating the native all-future readout theorem from finite comparisons
+and a supplied countdown countermodel.
+The [P203 composite-system route](COMPOSITE_READING_REVIEW_2026-10-31.md)
+adds seven lessons, distinguishing regrouping from independence, actual
+dependencies from footprint labels, graph availability from relay
+execution, and equal shares from unchanged paired readings.
+The [P204 valuation route](VALUATION_READING_REVIEW_2026-10-31.md) adds
+eight chance/response lessons and an interactive desk. It distinguishes
+native Nat algebra from Python rational probabilities, value equivalence
+from literal equality, and complete sums from conditioning on one branch.
+The [reading-order and fraction follow-up](READING_PATH_REVIEW_2026-10-31.md)
+then separates the core 00–07/practice route from later applications,
+adds a direct prerequisite guide and supplies four missing fraction lessons
+with changed practice. Mathematical checks do not establish reader mastery.
 
 **Early-chapter follow-up (2026-10-29).** The
 [Units 04–16 reading review](EARLY_READING_REVIEW_2026-10-29.md) adds
@@ -413,3 +500,52 @@ dependency graph is built from the §10 prerequisites.
 **Availability note, 2026-10-28.** The log named in the historical receipt above is not tracked in this checkout. Its recorded outcomes remain historical reports; the missing log is not linked as downloadable evidence. A fresh build produces a separate local receipt.
 
 **Census correction, 2026-10-28.** Direct imports and the transitive import closure are different populations. The local parked-module checker reports 63 modules in the root closure and 12 parked, totaling 75; the earlier statement of 13 parked modules was incorrect.
+
+The [selected process route](CHANNEL_READING_REVIEW_2026-10-31.md) adds seven
+short lessons on conditional rows, composition, retained distinctions and
+reset/recovery. Separate changed practice precedes answers; supplied models
+and device evidence retain explicit boundaries.
+
+The [core entrance review](CORE_ENTRANCE_READING_REVIEW_2026-11-01.md)
+adds concrete openings to Units 00–03, separates source detail from the
+first reading, corrects lookup/admission/event scopes and supplies six
+changed tasks with separate answers. Original fenced quotations remain
+intact; no new theorem or research coverage is claimed.
+
+The [shared lesson-layout review](LESSON_LAYOUT_REVIEW_2026-11-01.md)
+puts complete lesson text before optional videos and reading prompts on
+all 93 Unit pages. It adds full-text/source-blob custody checks to the
+existing Wiki verifier, preserving every Unit source file. This changes
+reading order on the page, not mathematical claims or learning evidence.
+
+The [induction prerequisite review](INDUCTION_READING_REVIEW_2026-11-01.md)
+adds four small proof-method lessons, counterexamples and separate practice
+answers. It connects existing history and round-bound arguments without
+adding a research tree or changing sealed sources.
+
+The [selected interpretation review](SEMANTICS_READING_REVIEW_2026-11-01.md)
+adds six short X301 lessons on formula meaning, domains, truth scores,
+interventions, panel policy and checksum scope. It records implementation
+differences and preserves the distinction between calculations and observations.
+
+The [Units 04–07 review](STATE_HISTORY_READING_REVIEW_2026-11-01.md) separates
+event selection, stored state, event identity and actual-base translation.
+It adds smaller reading chunks and changed practice while preserving the
+original quotations and narrowing the Python-helper and order claims.
+
+The [Units 08–10 review](CONTEXT_READING_REVIEW_2026-11-01.md) follows one
+context through plugging, profile membership, separation and complete
+finite search. A new book search proof closes the witness-extraction gap
+for the native grammar; the reading keeps model answers and observations
+separate and retains the original quoted source blocks.
+
+The [Units 11–16 review](ADMISSION_READING_REVIEW_2026-11-01.md) separates
+admission bounds, fresh-data comparisons, witnesses, relation models and
+recorded requests. Smaller reading chunks and grouped practice retain the
+exact hypotheses; book checks cover request invariance and a raw-record
+counterexample to dropping the instance-range condition.
+
+The [Units 17–22 review](REPAIR_READING_REVIEW_2026-11-01.md) separates
+request acceptance, successful replay, all-request validity, cost and
+reversible renaming. It adds a multi-request counterexample, general book
+cost-floor proofs, changed practice and a [current completion review](../completion_status.md).

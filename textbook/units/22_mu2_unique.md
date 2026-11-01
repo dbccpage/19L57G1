@@ -25,7 +25,7 @@ minimum is `(2, 1)` and is unique up to isomorphism.
 
 ## First pass
 
-Keep the same responses, but change the price rule. First compare item
+In reading L, keep the same responses, but change the price rule. First compare item
 counts. Only if those tie, compare the total number of places in newly
 admitted forms. This is **lexicographic order**: first number first.
 
@@ -71,10 +71,18 @@ yardstick, does a unique answer appear, and what does it take to prove
 
 ## New concept: a lexicographic cost, and a proof by exhausting shapes
 
+### Compare the two cost components
+
 `aritySum` adds the arities of the `newForm` items in a delta and ignores
 everything else. `mu2` is the pair `(length, aritySum)`, smaller first
 component first. So `(2, 1)` beats `(2, 2)`: among two-item deltas, the
 one admitting less form structure wins.
+
+This is not addition of the two numbers. Compare (2,2) and (3,0): the
+former wins because 2 is smaller than 3, even though 2+2 exceeds 3+0.
+Only a tie in item count lets the second component decide.
+
+### Classify the cheapest shape
 
 `mu2_unique` takes *any* two items `a`, `b` such that `[a, b]` is valid
 and `aritySum [a, b] ≤ 1`, and produces an isomorphism from the result
@@ -87,19 +95,37 @@ arity bound forces the form to be unary, well-formedness forces the
 instance onto that form with one argument, and the argument is datum 0
 or datum 1: `U0` or `U1`, each isomorphic to `U0`.
 
+### Keep the two readings distinct
+
+| Reading | Admitted positions | Which unary marks meet its request? |
+|---|---|---|
+| L, request (0,1) | 0 and 1 | Mark 0 or mark 1 |
+| F, request (1,2) | 0, 1 and 2 | Mark 1 or mark 2 |
+
+In F, marking only 0 gives the same No answer on both requested data.
+It is admitted successfully, but it is not a valid response to (1,2).
+Swapping 1 and 2 while fixing 0 exchanges the two successful marks;
+they give one minimum class in that reading. The native F proof checks
+this extra case explicitly.
+
 ## Plain-language interpretation
 
 The yardstick changed, and with it the verdict: "yes, unique". The
 paper is careful to say which question that answers. Uniqueness is
 *measure-relative*. The declared metatheory chose `mu1` and `mu2`;
 neither was derived from the demand or from the system. Under one, the
-system's next shape is open; under the other, it is the one-place mark.
+set of minimum-cost classes includes different shapes; under the other,
+all cheapest results have the one-place-mark shape. Neither measure
+executes an admission or chooses which literal datum to mark.
 
 What the proof earns is the word *every*. The Python enumeration finds
 one class within its bounds; the Lean quantifies over any two items of
 the grammar, any arity, any argument list, and shows the live case has
 no room to vary. That is the difference between "we looked and found
 one" and "there is one".
+
+<details>
+<summary>Programs and proof walkthroughs (optional)</summary>
 
 ## Pseudocode
 
@@ -283,9 +309,19 @@ four-way case split like Unit 18's); apply that twice; the final regime
 has no instance, so it cannot separate. This is book Lean, outside the
 frozen inventory, and the audit record for `Minimality` notes the gap.
 
+The added `zero_arity_no_response` extends this check to any finite delta
+on a form-less, instance-less starting ledger. Zero total new-form arity
+keeps both fields empty after successful replay. This covers reading F's
+(2,0) exclusion too. Separately, `zero_instances_no_response` shows that
+no delta admitting zero new instances can separate a pair when starting
+with no instances. Those list-induction proofs support the alternative
+instance-count exercise below; they do not assume an arity bound.
+
 **Axioms.** `propext, Quot.sound` for `mu2_unique`, `mu2_unique_F`,
 `isoRefl` and the book theorems that use `omega` or `decide`; `propext`
 for `aritySum_cons` and `applyItem_zero_keeps_bare`.
+
+</details>
 
 ## What has been proved
 
@@ -328,8 +364,9 @@ for `aritySum_cons` and `applyItem_zero_keeps_bare`.
 | `match args, hargs1` | reading a one-element list | metatheory pattern matching |
 | `Nonempty (Iso s U0)` | "unique up to isomorphism" | metatheory existence of a relabelling |
 
-**What the system holds.** After the `mu2`-minimal response: two data,
-one unary form, one instance marking one of them, one demand. The
+**What the ledger holds.** After a `mu2`-minimal response, reading L has
+two data and reading F has three. Each has one unary form, one instance
+marking a member of its requested pair, and its original request. The
 system does not hold the measure and did not choose this shape; the
 responder did, under a yardstick the metatheory declared.
 
@@ -348,7 +385,7 @@ without a new enumeration.
 ## Answer
 
 <details>
-<summary>Worked answer</summary>
+<summary>Check the exercise (optional)</summary>
 
 No. The mark and link from Unit 21 are already enough to decide this:
 both are valid, both contain two items and one new instance, and their
@@ -364,6 +401,9 @@ examines these particular measures.
 
 </details>
 
+Try the [twelve changed repair questions](../repair_practice.md) in three groups
+before their [separate answers](../repair_answers.md).
+
 ## Verification
 
 | Item | Where |
@@ -375,4 +415,4 @@ examines these particular measures.
 | Artifact | `artifacts/challenges.json`, `challenge3.{L,F}.mu2.minimum_cost = [2, 1]`, `valid_deltas_at_minimum = 2`, one class `form1+inst1`; `artifacts/claims.json`, `CL-3-UNIQUE-MU2 = {L: 1, F: 1}` |
 | Test | `tests/test_candidates.py::test_c3_mu2_minimum_is_unary_mark` |
 | Check (Python) | `python textbook/checks/u22_mu2_unique.py`: `mu2` minimum `(2, 1)` with two isomorphic marks in both readings; comparisons include the recorded demand; over a 3-arity slice, two valid deltas of arity sum ≤ 1 and none of sum 0; the instance-count cost leaves mark and link tied; `(2, 1)` beats `(3, 0)` |
-| Check (book Lean) | `python textbook/checks/u22_lean.py`: eight book reports plus three Genesis theorems kernel-checked, Lean 4.33.0, including `no_arity_zero_response` and `instance_count_tie`; `propext, Quot.sound` for those two and the class witness, `propext` for the cost equations and general zero-cost preservation lemma |
+| Check (book Lean) | `python textbook/checks/u22_lean.py`: fourteen book reports plus three Genesis theorems kernel-checked, Lean 4.33.0. Six added reports prove instance-count splitting, one-step instance preservation, and arbitrary-delta preservation/no-response results for zero new instances or zero new-form arity. The first two use exactly `propext`; the four list-induction results use `propext, Quot.sound`. Original exact axiom sets are retained |

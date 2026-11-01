@@ -1,4 +1,4 @@
-# Path lab: when does a closed route bound a face?
+# Path lab: connections, boundaries, and path costs
 
 Begin after the [Reasoning lab](../reasoning_lab/README.md). This route
 introduces points, connections, routes, signed counts, and faces before
@@ -22,6 +22,28 @@ Use the [path desk](results.html) to remove connections, request faces,
 and inspect routes. Predict before revealing the resulting face records
 or endpoint counts. Its pictures select recorded finite calculations.
 The complete written lessons remain usable without it.
+
+## Follow the cost of an event history
+
+After the [Number lab's signed-step toolkit](../number_lab/03_signed_steps.md)
+and the [changing-source introduction](../map_lab/08_states_and_events.md),
+continue into selected `native_structure` research. These lessons use the
+passage machine explicitly; they do not identify its events with the
+earlier vertex/face calculus.
+
+| Lesson | One question |
+|---|---|
+| [07. Two cost questions](07_two_cost_questions.md) | Do signed change and the number of changes count the same thing? |
+| [08. Give states a potential](08_give_states_a_potential.md) | Can one number per state explain each step cost? |
+| [09. Test a return loop](09_test_a_return_loop.md) | Can one loop rule out every potential? |
+| [10. Check a commuting square](10_check_a_commuting_square.md) | When do two event orders actually have the same end? |
+| [11. Local agreement and global values](11_local_agreement_and_global_values.md) | Does closed imply exact under these definitions? |
+| [12. Which path changes are allowed?](12_which_path_changes_are_allowed.md) | Can exchanging events erase a return loop? |
+
+Use the [cost and square desk](results.html#cost-panel), then attempt the
+[changed-cost practice](COST_PRACTICE.md) before the [answers](COST_ANSWERS.md).
+The word cost names a supplied numerical rule; no physical work,
+payment or conservation law is inferred from it.
 
 Try the [practice](PRACTICE.md) before the separate [answers](ANSWERS.md).
 The [source map](SOURCE_MAP.md) names the actual cell and boundary owners;

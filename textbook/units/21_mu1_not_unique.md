@@ -77,9 +77,29 @@ could grow?
 
 ## New concept: isomorphism of regimes
 
-Two regimes are **isomorphic** when there is a relabelling of data and a
-relabelling of forms under which they agree. Genesis makes this a
-structure, `Iso r s`, with four functions and preservation conditions
+### Follow a reversible renaming
+
+Two regimes are **isomorphic** when reversible relabellings of their data
+and forms carry the declared records to one another. Reversible means
+that another map undoes the relabelling: no two old positions merge.
+
+For the two unary marks, swap 0 and 1:
+
+| Before the swap | After the swap |
+|---|---|
+| Datum 0 | Datum 1 |
+| Datum 1 | Datum 0 |
+| Instance `marked(0)` | Instance `marked(1)` |
+| Request (0,1) | Request (0,1), after sorting |
+
+Doing the same swap again restores every entry. The form still has one
+place. A different renaming may rename forms too, but it must preserve
+their arities, instances, rules and requests in both directions. A map
+that merges 0 and 1 cannot be undone and is not such a renaming.
+
+<details><summary>Exact isomorphism fields (optional)</summary>
+
+Genesis makes this a structure, `Iso r s`, with four functions and preservation conditions
 (Minimality lines 176-197):
 
 | Fields | Say |
@@ -95,6 +115,8 @@ Presentation tokens are not in the Lean model at all, so an isomorphism
 never sees them; the Python side forgets them explicitly
 (`test_tokens_are_forgotten`). This is the paper's definition 8, and it is
 *declared*: it is what Genesis means by "the same up to renaming".
+
+</details>
 
 Two consequences used here. **Reflexivity:** every regime whose demands
 are written small-first is isomorphic to itself by the identity
@@ -112,8 +134,9 @@ are different answers, and both are as short as an answer can be.
 
 That is the paper's result: *under `mu1`, minimality does not pick out a
 unique structure*. The system's growth is underdetermined by the demand
-plus the cost. What chooses between the mark and the link is not inside
-the system, and not inside the cost either. Unit 22 shows that another
+plus the cost. This theorem supplies no selector for tied responses;
+the bare ledger has no preference field. A separate policy may choose
+later admissions (Unit 04). Unit 22 shows that another
 declared measure leaves only one minimum class. It still does not
 select a literal response or cause an admission.
 
@@ -123,6 +146,9 @@ infinite: a `k`-ary mark is a valid two-item answer for every `k ≥ 1`,
 and marks of different arity are pairwise non-isomorphic
 (`markK_pairwise_noniso`). Any finite table of tied minima is complete
 only relative to an arity bound.
+
+<details>
+<summary>Programs and proof walkthroughs (optional)</summary>
 
 ## Pseudocode
 
@@ -287,6 +313,8 @@ bookkeeping artefact of which datum got marked.
 concrete lists. `isoSymm` reports both because it rewrites with list
 lemmas; `markK_pairwise_noniso` reports `propext` only.
 
+</details>
+
 ## What has been proved
 
 - The eight conjuncts above (Genesis, derived, reading L).
@@ -310,9 +338,9 @@ lemmas; `markK_pairwise_noniso` reports `propext` only.
   it.
 - That `mu1` is the right cost. Unit 22 changes the measure and the
   answer changes.
-- That anything inside the system chooses between the mark and the link.
-  Nothing does. The demand is met by either, and the system has no
-  preference.
+- A selection rule between the mark and link. Both meet this demand at
+  the same item cost. A policy, tie-break rule or actual admission history
+  would be additional supplied information; this theorem defines none.
 
 ## Outside the system
 
@@ -346,7 +374,7 @@ applies, and say which field of `Iso` is read first.
 ## Answer
 
 <details>
-<summary>Worked answer</summary>
+<summary>Check the exercise (optional)</summary>
 
 The arity argument applies: `U0` has a unary form, `BD` a binary one, and
 `U0_not_iso_BD` (Minimality lines 259-267) is word for word

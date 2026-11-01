@@ -1,7 +1,8 @@
 """Unit 04 check: a family knows what no member knows.
 
-Two exhaustive checks on range(n), n <= 4, families of at most three
-distinct partitions, every partition as the claim:
+Two finite enumerations on range(n), 1 <= n <= 4: the empty family and
+one ordering of each subset of at most three distinct partitions, with
+every partition as the claim. Not all ordered lists or repeated members:
   1. `exceeds` agrees with the two clauses of `Inst.exceeds_iff` (every
      pair the claim tells apart is told apart by some member; every member
      merges some pair the claim tells apart);

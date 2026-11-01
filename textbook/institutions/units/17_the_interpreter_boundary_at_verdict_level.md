@@ -63,8 +63,8 @@ precisely delimit their scope:
 - `Diagonal.lean` (`two_theorems`) replaces the `notes`-writing diagonal with
   `opDiag`, which modifies the represented support `data` (`tower_persists_operational`),
   and then shows in Lean that `opDiag` is not `Lawful` (`opDiag_not_lawful`: it appends
-  a datum on `.note 0`, which `step` never does), and that a `Lawful` function
-  escapes a catalogue iff no code in the catalogue is `Lawful`
+  a datum on `.note 0`, which `step` never does), and gives the explicit
+  per-entry support-difference witness criterion for lawful escape
   (`lawful_escape_iff`, `lawful_no_escape`).
 - `ResearchInterpreterVerdict.lean` (`interpreter_verdict`) moves to the
   reflective type `RWorld := ConstitutionDesc × World`, where the two laws
@@ -91,13 +91,15 @@ diagonal and lawful-escape results have their own explicit hypotheses.
 **Further formal anchors.**
 
 On reflective worlds `RWorld := ConstitutionDesc × World`, the two
-sealed laws `Interprets` and `Quotes` uniquely fix the reflective step `rstep`
+supplied research-model laws `Interprets` and `Quotes` uniquely fix the reflective step `rstep`
 at every point without function extensionality (`lawful_unique_at`), whereas any
 step function `s : World → Event → World` lifted to `RWorld` ignores the carried
 code and disagrees with `rstep` on quiescence at `genesis` under `.require 0 0`
 (`quiescent_reads_guard`, `interp_not_step`) and at the well-formed reached
-world `accWorld` under `.mark [0] 1` with both outcomes well-formed
-(`quiescent_reads_accept`, `interp_not_step_wf`, `vsep_uncoded_wf`). Identifying
+world `accWorld` under `.mark [0] 1` with the interpreter output
+well-formed (`quiescent_reads_accept`, `interp_not_step_wf`). The coded-pair
+witness has both outputs well-formed (`vsep_uncoded_wf`); no such guarantee
+is made about an arbitrary s's output. Identifying
 the uncoded role `none` with any coded member `some d` or lifted step function
 changes a quiescence verdict (`identification_changes_quiescence`), while at an
 aligned world `(d, w)` carrying `d` itself the coded member `some d` and the
@@ -107,8 +109,8 @@ when a kernel guard fails (`codes_agree_of_guardsPass`,
 `codes_separated_needs_guard`). Alongside this, on `World → Event → World` the
 support-level diagonal `opDiag` misses every finite catalogue on represented
 support (`tower_persists_operational`) by violating the declared transition
-(`opDiag_not_lawful`), and a `Lawful` function escapes a catalogue iff no code
-in the catalogue is `Lawful` (`lawful_escape_iff`, `lawful_no_escape`).
+(`opDiag_not_lawful`), and lawful escape has an explicit support-difference witness for each
+catalogue entry (`lawful_escape_iff`, `lawful_no_escape`).
 
 </details>
 
@@ -137,7 +139,22 @@ The lesson keeps those results separate from the open denotational bridge.
 
 </details>
 
+After this Unit, try the
+[acquisition, changing-view and interpreter practice](../../reading_formal_practice.md#acquisition-changing-views-and-interpreters-i12i17)
+before opening its separate answer page.
+
+Quoted proofs below sometimes use `...` for omitted lines. Those
+excerpts are not runnable Lean; the cited owner files contain the full proofs.
+
 ## What you need first
+
+Recall the represented-world model from the Change lab and I16’s
+difference between changing an existing view and appending a view.
+Here, first read a guard as a supplied Yes/No setting that changes
+whether an event is accepted. The optional names identify its owners.
+
+<details>
+<summary>Prerequisite source names (optional)</summary>
 
 From the sealed Genesis spine (`lean4/Derivation/NoOutside.lean`,
 `Constitution.lean`, `InterpreterBoundary.lean`, `PrimitiveCore.lean`):
@@ -153,7 +170,90 @@ From the sealed Genesis spine (`lean4/Derivation/NoOutside.lean`,
   all 6 to `true`, and `interp_describe` shows `interpStep kernelDesc w e =
   step w e`.
 
+
+</details>
+
+### Name the two comparisons
+
+A represented world records input tokens, Yes/No views, protected pairs,
+refusals, a budget, a licence flag and notes. Views and requirements use
+input positions. A reflective world additionally carries a six-bit guard
+code. A fixed coded role uses its chosen code; the reflective role reads
+the code carried by the world. The tag `none` is assigned that reflective
+role by the supplied model laws. Its spelling alone derives no interpreter.
+
+Compare fixed code A with the reflective role. At a world carrying A,
+both execute A and give exactly the same result. At a world carrying B,
+the reflective role executes B instead. A difference there compares
+different guard settings, not a function with itself on the same input.
+
+### Work one guard example
+
+The reached world `accWorld` has two inputs 0,1, one view `{0}`, protected
+pair 0/1 and enough budget for the mark. Try adding input 1 to that view:
+
+| Acceptance guard | Resulting view | Pair 0/1 separated? | Quiescent? |
+|---|---|---|---|
+| On | `{0}` | Yes | Yes |
+| Off | `{0,1}` | No | No |
+
+The guarded code rejects this mark; the relaxed code accepts it.
+Quiescent means every protected pair is currently separated. A refusal
+record does not settle an unresolved pair. Neither quiescence nor a
+guarded acceptance is a measurement of empirical correctness.
+
+Both output worlds satisfy `WF`: their recorded pair still has distinct,
+in-range endpoints. `WF` does not require that pair to be separated.
+Thus a well-formed world can have an unmet requirement. For an arbitrary
+comparison function s, `interp_not_step_wf` guarantees the chosen
+interpreter output is well-formed; it makes no such guarantee about s’s
+arbitrary output. The two *coded* outputs in `vsep_uncoded_wf` are both
+well-formed.
+
+### Keep the quantifiers in order
+
+For each fixed step function s that ignores the carried code, a code
+can be chosen whose guard verdict differs from s at the witness.
+The chosen code may depend on s. The theorem does not give one fixed
+code that differs from every s; taking s to be that code’s own step
+would immediately defeat such a claim.
+
+Distinct descriptors need not give distinct quiescence verdicts.
+Changing the deduplication bit can change a stored list while leaving
+this particular verdict unchanged. The separation relation `VSep`
+asks for a verdict difference at some world/event, rather than mere
+inequality of records.
+
+### What the operational diagonal changes
+
+A finite catalogue lists coded step functions. At a world whose input
+count selects a catalogue entry, `opDiag` runs that entry and appends
+one extra datum. Its result therefore differs from the selected entry
+on represented support. The witness world may depend on the entry.
+
+Here **support** includes all world fields except notes. **Lawful**
+requires agreement with the declared kernel step on that support at
+every world and event. Notes may still differ. This is a different
+condition from `WF` and from the reflective laws `Interprets`/`Quotes`.
+For a nonempty catalogue, the diagonal violates it by appending a datum
+under a note event. The kernel’s note event keeps the data unchanged.
+
+The constructive lawful-escape criterion requires, for each catalogue
+entry, a particular world/event where it differs from the kernel on
+support. Then the kernel step itself escapes the catalogue. If even
+one entry agrees with the kernel everywhere on support, no Lawful
+function can escape it. This states the witness condition directly;
+it does not silently replace it with a general “not equal implies a
+known differing input” principle.
+
+The result is about this supplied catalogue, support projection and
+transition rule. It does not prove that an arbitrary physical observer
+escapes every description, or close the open semantic bridge.
+
 ### 1. The operational diagonal and `Lawful` step functions (`two_theorems`)
+
+<details>
+<summary>Quoted source 1 (optional)</summary>
 
 ```lean
 -- Lean (research), research/two_theorems/lean/ResearchTwoTheorems/Diagonal.lean lines 107–142
@@ -173,6 +273,8 @@ def Lawful (f : World → Event → World) : Prop :=
 theorem step_lawful : Lawful step := fun _ _ => rfl
 ```
 
+</details>
+
 At a world `w` whose `w.data.length` indexes a code `c` in `cs`, `opDiag cs ev w e`
 runs `ev c w e` and appends `0` to `data`, so its support `supp` differs from
 `ev c w e` (`tower_persists_operational`). A function `f : World → Event → World`
@@ -180,6 +282,9 @@ is `Lawful` when it agrees with the sealed transition `step` on `supp` at every
 world and event.
 
 ### 2. Reflective worlds and the two laws (`interpreter_verdict`)
+
+<details>
+<summary>Quoted source 2 (optional)</summary>
 
 ```lean
 -- Lean (research), research/interpreter_verdict/lean/ResearchInterpreterVerdict.lean lines 208–247, 291–299
@@ -214,6 +319,8 @@ def VSep (x y : Option ConstitutionDesc) : Prop :=
     quiescentB (meaning x p e).2 ≠ quiescentB (meaning y p e).2
 ```
 
+</details>
+
 On `RWorld := ConstitutionDesc × World`, a coded member `some d` runs `d`
 ignoring the carried code (`liftStep (interpStep d)`), while the uncoded role
 `none` runs `rstep`, the unique reflective step satisfying both `Interprets`
@@ -225,6 +332,9 @@ at some `(p, e)`.
 
 First, why `opDiag` is not `Lawful`, and when a `Lawful` function escapes a
 catalogue:
+
+<details>
+<summary>Quoted source 3 (optional)</summary>
 
 ```lean
 -- Lean (research), research/two_theorems/lean/ResearchTwoTheorems/Diagonal.lean lines 161–200
@@ -242,8 +352,13 @@ theorem lawful_no_escape {C : Type} (cs : List C)
     ¬ ∀ c ∈ cs, ∃ w e, supp (f w e) ≠ supp (ev c w e) := by ...
 ```
 
+</details>
+
 Second, verdict separation at `genesis`, `VSep`, and identification changes
 quiescence:
+
+<details>
+<summary>Quoted source 4 (optional)</summary>
 
 ```lean
 -- Lean (research), research/interpreter_verdict/lean/ResearchInterpreterVerdict.lean lines 136–180, 319–320, 387–396, 431–432
@@ -277,8 +392,13 @@ theorem coded_pair_not_vsep (d : ConstitutionDesc) :
     ¬ VSep (some d) (some (flipDedup d)) := by ...
 ```
 
+</details>
+
 Third, alignment, kernel guards, and the well-formedness-preserving witness at
 `accWorld`:
+
+<details>
+<summary>Quoted source 5 (optional)</summary>
 
 ```lean
 -- Lean (research), the same file, lines 534–627, 654–660, 674–676, 706–770
@@ -331,7 +451,19 @@ theorem vsep_uncoded_wf (d : ConstitutionDesc) :
         quiescentB (interpStep d w e) ≠ quiescentB (interpStep c w e) := by ...
 ```
 
-## The proof, step by step
+</details>
+
+## Why the claims work
+
+The two supplied reflective laws fix the carried code and the world
+output, so they fix the resulting pair. At matching codes the roles
+therefore agree. At the acceptance witness, switching one guard changes
+whether a protected distinction survives. The separate diagonal adds
+a datum to force a support difference, and the note-event witness shows
+why that function violates Lawful. Each result retains its own premises.
+
+<details>
+<summary>Detailed proof steps (optional)</summary>
 
 **Step 1. `opDiag_not_lawful` and `lawful_escape_iff`.**
 At `indexWorld 0` (where `data = []`) and `.note 0`, `step` leaves `data`
@@ -378,23 +510,30 @@ with `guardAccept = true` rejects the mark and stays quiescent (`quiescentB =
 true`); a code with `guardAccept = false` adds `1` to `[0]`, collapsing `(0, 1)`
 and making `quiescentB = false` (`quiescent_reads_accept`), while both output
 worlds satisfy `WF` (`accWorld_outputs_wf`). Flipping `guardAccept` therefore
-separates `interpStep` from every `s` (`interp_not_step_wf`) and `none` from
-`some d` (`vsep_uncoded_wf`) with all worlds well-formed.
+provides the coded-pair witness for `none` versus `some d`
+(`vsep_uncoded_wf`) with both outputs well-formed. For each arbitrary
+comparison function s, `interp_not_step_wf` chooses a guard based on s's
+verdict; only the chosen interpreter output is guaranteed well-formed.
+
+</details>
 
 ## The same fact in Python
 
 The check verifies:
 
-1. Pin and import parity for `research/interpreter_verdict/model.py` (`consumed_modules`
-   vs `lean_imports`).
+1. Import-list parity for `research/interpreter_verdict/model.py`
+   (`consumed_modules` vs `lean_imports`); snapshot hashes and custody
+   receipts are not revalidated by this comparison.
 2. `diagonal_checks` and `self_evaluator_check` from `two_theorems/model.py`.
 3. A direct finite Python check over all `2^6 = 64` codes `c ∈ ConstitutionDesc`:
    - at `genesis` under `require(0, 0)`, `quiescentB(interpStep(c, genesis,
      require(0, 0))) == c.guardRequire`;
    - at `accWorld` under `mark([0], 1)`, `quiescentB(interpStep(c, accWorld,
      mark([0], 1))) == c.guardAccept` and `WF` holds for all 64 output worlds;
-   - at every aligned pair `(d, w)`, `meaning(some(d), (d, w), e) ==
-     meaning(none, (d, w), e)`;
+   - at the one aligned `accWorld`/mark example for each code, the checker
+     constructs the same native transition on both sides. This is a
+     definitional sanity check, not exhaustive coverage of reflective
+     worlds or an independent test of arbitrary meaning functions;
    - for all 64 codes, the finite deduplication comparison uses the four
      listed events and two sample worlds. The general result is the Lean
      theorem `coded_pair_not_vsep`. The acceptance-bit comparison separates
@@ -467,9 +606,12 @@ aligned states, `V11`), that two codes can differ on quiescence only when
 `guardsPass w e = false` (`codes_separated_needs_guard`, `V9`), and that `VSep`
 is strictly coarser than `≠` (`coded_pair_not_vsep`, `V8`).
 
-It shows that `opDiag` escapes finite catalogues on `supp` by violating `Lawful`
-(`opDiag_not_lawful`), and that a `Lawful` function escapes a catalogue iff the
-catalogue contains no `Lawful` code (`lawful_escape_iff`).
+For a nonempty catalogue, `opDiag` escapes on `supp` by violating
+`Lawful` (`opDiag_not_lawful`). The constructive lawful-escape criterion
+is a support-difference witness from the kernel for each entry
+(`lawful_escape_iff`); an entry agreeing with the kernel everywhere
+blocks every Lawful escape. Empty-catalogue escape is vacuous and does
+not imply that `opDiag` on an empty catalogue violates Lawful.
 
 It does not close `PrimitiveCore.Bl` (`Bl` in `interpreter_verdict/CLAIMS.md`)
 or `openDenotationalBridge` (`TT-18o` in `two_theorems/CLAIMS.md`); both remain

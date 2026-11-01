@@ -32,9 +32,20 @@ The source uses the two Boolean values as position labels: A is
 false claim and the other a true claim. The empty relation separately
 answers false on every ordered pair.
 
-Predict whether adding a rule that forbids self-arrows would create
-the A-to-B arrow. It would not; a restriction does not itself assert
-a pair. This countermodel refutes the proposed implication from
+| Question about A and B | Answer in this model |
+|---|---|
+| Are the two positions unequal? | Yes |
+| Does the supplied relation assert A-to-B? | No |
+
+<details><summary>Predict: does requiring no self-arrows create the A-to-B arrow?</summary>
+
+No. That law restricts which relations are allowed. The empty relation
+already obeys it and still asserts no pair. A restriction alone does
+not choose a nonempty relation.
+
+</details>
+
+This countermodel refutes the proposed implication from
 outside inequality to an asserted relation. It does not deny that
 we could separately admit such a relation.
 
@@ -58,8 +69,9 @@ with two elements.
 
 ## New concept: a countermodel is a theorem
 
-To refute "A3 implies A1" one does not argue in prose; one exhibits a
-structure where A3 holds and A1 fails, and proves both facts. The Lean
+A **countermodel** specifies a structure in which a proposed implication's
+hypothesis holds and its conclusion fails. Checking one such structure
+refutes the universal implication. Here the Lean
 statement is an existential: *there is* a relation on `Bool` such that the
 pair is not asserted and the points are unequal. The witness is the empty
 relation. The book marks such a result **derived**: it is proved in Lean
@@ -70,19 +82,18 @@ The paper's §S8 keeps an index of these countermodels. This one is the row
 
 ## Plain-language interpretation
 
-You, outside, can see that two marks on the page are two. The page says
-nothing. Seeing is not writing. Unless a sentence asserting the difference
-is admitted, the system holds no difference, however plain it is to the
-onlooker. This is the mirror image of Unit 14: there, admitting maps
-imports the metatheory's identity; here, having the metatheory's identity
-imports no assertion. The two readings of "different" are, in the paper's
-word, **orthogonal**: neither implies the other (§S2, "Reading"). Unit 23
-proves the other half, that an asserted pair does not give inequality
-(`selfdiff_consistent`).
+Keep the carrier and the relation as separate supplied objects. The carrier
+has two unequal values. The chosen relation gives no asserted pair between
+them. Computing that the values differ does not change the relation's
+definition. Unit 14's fixed-map theorem supplies no relation update either.
 
-For the derivation this is the formal shape of the finitude rule's
-"silent observer" clause (README, **No imports from nowhere**): the
-observer's knowledge that `a ≠ b` is not a state of the system.
+This proves one failed implication: inequality alone does not imply an
+asserted pair. Unit 23 proves the other direction also fails without an
+extra law: an asserted self-pair can have equal endpoints. The two
+countermodels need their own checks; this Unit establishes only the first.
+
+<details>
+<summary>Programs and proof walkthroughs (optional)</summary>
 
 ## Pseudocode
 
@@ -166,6 +177,8 @@ The proof is one anonymous constructor `⟨_, _, _⟩` with three parts.
 **Axioms.** None. The witness is a lambda, the two proofs are an identity
 function and a generated constructor-distinctness principle.
 
+</details>
+
 ## What has been proved
 
 - A3 does not imply A1: on `Bool`, the empty relation has `false ≠ true`
@@ -188,8 +201,10 @@ function and a generated constructor-distinctness principle.
   A1 plus `Irrefl` gives A3 (`irrefl_witness_ne`, Unit 24). The paper
   isolates it as "the unique studied axiom that ties them" (§S2).
 - Anything about the regime model. `PrimDiff.lean` imports none of it.
-  The regime analogue of this unit is Unit 10: data the metatheory tells
-  apart by token are collapsed inside until an instance mentions them.
+  Unit 10 gives a related, separately defined regime result: with no
+  instances all admitted pairs are collapsed. Mentioning a target in an
+  instance is not by itself sufficient to separate it; a uniform rule
+  may mask the distinction, as the Unit 10 example shows.
 
 ## Outside the system
 
@@ -222,6 +237,9 @@ relation irreflexive? Now at the designated pair `(0, 2)`: which of A1,
 A1i, A3 hold? Which implication from the paper's §S2 table does each
 designated pair illustrate?
 
+<details>
+<summary>Check the exercise (optional)</summary>
+
 ## Answer
 
 At `(0, 1)`: A3 holds (`0 ≠ 1`); A1 fails (`(0, 1)` is not asserted); the
@@ -231,6 +249,8 @@ At `(0, 2)`: A1 holds, the relation is irreflexive so A1i holds, and A3
 holds (`0 ≠ 2`). This illustrates `A1i → A3` (Unit 24), not a
 countermodel. Neither designated pair gives A1 without A3; for that one
 needs an asserted pair on the diagonal (Unit 23).
+
+</details>
 
 ## Verification
 

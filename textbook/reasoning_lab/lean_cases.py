@@ -2,6 +2,8 @@
 
 SOURCE = r"""
 import Derivation.Compression
+import Derivation.Inertia
+import Derivation.Counting
 
 namespace Textbook.ReasoningLab
 
@@ -87,3 +89,34 @@ NAMES = ["chain", "both_directions", "no_automatic_reverse", "incompatible_appli
          "reverse_fails_at_b", "triangle_iff_not_round", "individual_without_common",
          "recover_on_smaller_domain", "no_recovery_on_full_domain"]
 SOURCE += "\n" + "\n".join("#print axioms Textbook.ReasoningLab." + name for name in NAMES) + "\n"
+from .protocols_lean import build_checks
+PROTOCOL_SOURCE,PROTOCOL_NAMES=build_checks()
+SOURCE += '\n'+PROTOCOL_SOURCE
+from .calibration_lean import build_checks as calibration_checks
+CALIBRATION_SOURCE,CALIBRATION_NAMES=calibration_checks()
+SOURCE += '\n'+CALIBRATION_SOURCE
+from .clocks_lean import build_checks as clock_checks
+CLOCK_SOURCE,CLOCK_NAMES=clock_checks()
+SOURCE += '\n'+CLOCK_SOURCE
+
+from .composites_lean import build_checks as composite_checks
+COMPOSITE_SOURCE,COMPOSITE_NAMES=composite_checks()
+SOURCE += '\n'+COMPOSITE_SOURCE
+
+from .valuations_lean import build_checks as valuation_checks
+VALUATION_SOURCE,VALUATION_NAMES=valuation_checks()
+SOURCE += '\n'+VALUATION_SOURCE
+
+from textbook.number_lab.fractions_lean import SOURCE as FRACTION_SOURCE
+SOURCE += '\n'+FRACTION_SOURCE
+
+from .channels_lean import build_checks as channel_checks
+CHANNEL_SOURCE,CHANNEL_NAMES=channel_checks()
+SOURCE += '\n'+CHANNEL_SOURCE
+
+from .induction_lean import SOURCE as INDUCTION_SOURCE
+SOURCE += '\n'+INDUCTION_SOURCE
+
+from .semantics_lean import build_checks as semantics_checks
+SEMANTICS_SOURCE,SEMANTICS_NAMES=semantics_checks()
+SOURCE += '\n'+SEMANTICS_SOURCE

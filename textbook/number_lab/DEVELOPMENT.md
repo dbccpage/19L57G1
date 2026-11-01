@@ -36,3 +36,18 @@ The full textbook job and the repository's twelve local gate families
 are distinct checks. Keep their receipt scopes explicit. Reader feedback
 supports readability but does not establish scored novice transfer or
 retention.
+
+
+For the fraction branch, run `python textbook/number_lab/fraction_toolkit.py`.
+The existing `u64_number_lab.py` now checks those named examples and finite
+populations alongside the original packet. Seven added book identities
+are checked by `python textbook/checks/u00_reasoning_lab_lean.py`, using
+the QVal body already consumed there. The Number readout driver stays
+at 37 reports; the combined Reasoning driver has 155. Two assembled false
+fraction conclusions fail and unmodified source recovers.
+
+The existing Number Wiki authoring tests now expect 21 pages, with direct
+core/prerequisite and fraction-practice links. The old packet and all five
+figures are unchanged. Published hub disclosures, lesson examples, keyboard
+use and narrow layout are checked separately; no new browser application
+or synthetic learning result is added.

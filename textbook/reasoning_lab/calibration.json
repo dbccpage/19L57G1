@@ -1,0 +1,343 @@
+{
+ "authority_effect": "None",
+ "classification": "supplied nonnegative rational calibration examples",
+ "comparisons": [
+  {
+   "answer": "2/3",
+   "first": {
+    "kind": "LENGTH",
+    "magnitude": "12",
+    "number": "6",
+    "standard": "U",
+    "standard_size": "2"
+   },
+   "name": "Both readings use U",
+   "reason": null,
+   "second": {
+    "kind": "LENGTH",
+    "magnitude": "18",
+    "number": "9",
+    "standard": "U",
+    "standard_size": "2"
+   }
+  },
+  {
+   "answer": "2/3",
+   "first": {
+    "kind": "LENGTH",
+    "magnitude": "12",
+    "number": "6",
+    "standard": "U",
+    "standard_size": "2"
+   },
+   "name": "X uses U; Y uses the smaller V",
+   "reason": null,
+   "second": {
+    "kind": "LENGTH",
+    "magnitude": "18",
+    "number": "18",
+    "standard": "V",
+    "standard_size": "1"
+   }
+  },
+  {
+   "answer": "0",
+   "first": {
+    "kind": "LENGTH",
+    "magnitude": "0",
+    "number": "0",
+    "standard": "U",
+    "standard_size": "2"
+   },
+   "name": "The first length is zero",
+   "reason": null,
+   "second": {
+    "kind": "LENGTH",
+    "magnitude": "18",
+    "number": "9",
+    "standard": "U",
+    "standard_size": "2"
+   }
+  },
+  {
+   "answer": "refuse",
+   "first": {
+    "kind": "LENGTH",
+    "magnitude": "12",
+    "number": "6",
+    "standard": "U",
+    "standard_size": "2"
+   },
+   "name": "The dividing length is zero",
+   "reason": "Refusal: division by zero magnitude",
+   "second": {
+    "kind": "LENGTH",
+    "magnitude": "0",
+    "number": "0",
+    "standard": "U",
+    "standard_size": "2"
+   }
+  },
+  {
+   "answer": "refuse",
+   "first": {
+    "kind": "LENGTH",
+    "magnitude": "12",
+    "number": "6",
+    "standard": "U",
+    "standard_size": "2"
+   },
+   "name": "Length compared with duration",
+   "reason": "Refusal: dimension mismatch between LENGTH and DURATION",
+   "second": {
+    "kind": "DURATION",
+    "magnitude": "18",
+    "number": "9",
+    "standard": "T",
+    "standard_size": "2"
+   }
+  },
+  {
+   "answer": "2/3",
+   "first": {
+    "kind": "LENGTH",
+    "magnitude": "24",
+    "number": "12",
+    "standard": "U",
+    "standard_size": "2"
+   },
+   "name": "Both model lengths are doubled",
+   "reason": null,
+   "second": {
+    "kind": "LENGTH",
+    "magnitude": "36",
+    "number": "18",
+    "standard": "U",
+    "standard_size": "2"
+   }
+  }
+ ],
+ "conversion_answers": [
+  "0",
+  "3",
+  "9/2",
+  "6",
+  "9",
+  "12",
+  "18"
+ ],
+ "conversions": {
+  "0_0": {
+   "after": {
+    "kind": "LENGTH",
+    "magnitude": "12",
+    "number": "12",
+    "standard": "V",
+    "standard_size": "1"
+   },
+   "answer": "12",
+   "before": {
+    "kind": "LENGTH",
+    "magnitude": "12",
+    "number": "6",
+    "standard": "U",
+    "standard_size": "2"
+   },
+   "object": "X",
+   "scale": "1/2"
+  },
+  "0_1": {
+   "after": {
+    "kind": "LENGTH",
+    "magnitude": "12",
+    "number": "6",
+    "standard": "U",
+    "standard_size": "2"
+   },
+   "answer": "6",
+   "before": {
+    "kind": "LENGTH",
+    "magnitude": "12",
+    "number": "6",
+    "standard": "U",
+    "standard_size": "2"
+   },
+   "object": "X",
+   "scale": "1"
+  },
+  "0_2": {
+   "after": {
+    "kind": "LENGTH",
+    "magnitude": "12",
+    "number": "3",
+    "standard": "W",
+    "standard_size": "4"
+   },
+   "answer": "3",
+   "before": {
+    "kind": "LENGTH",
+    "magnitude": "12",
+    "number": "6",
+    "standard": "U",
+    "standard_size": "2"
+   },
+   "object": "X",
+   "scale": "2"
+  },
+  "1_0": {
+   "after": {
+    "kind": "LENGTH",
+    "magnitude": "18",
+    "number": "18",
+    "standard": "V",
+    "standard_size": "1"
+   },
+   "answer": "18",
+   "before": {
+    "kind": "LENGTH",
+    "magnitude": "18",
+    "number": "9",
+    "standard": "U",
+    "standard_size": "2"
+   },
+   "object": "Y",
+   "scale": "1/2"
+  },
+  "1_1": {
+   "after": {
+    "kind": "LENGTH",
+    "magnitude": "18",
+    "number": "9",
+    "standard": "U",
+    "standard_size": "2"
+   },
+   "answer": "9",
+   "before": {
+    "kind": "LENGTH",
+    "magnitude": "18",
+    "number": "9",
+    "standard": "U",
+    "standard_size": "2"
+   },
+   "object": "Y",
+   "scale": "1"
+  },
+  "1_2": {
+   "after": {
+    "kind": "LENGTH",
+    "magnitude": "18",
+    "number": "9/2",
+    "standard": "W",
+    "standard_size": "4"
+   },
+   "answer": "9/2",
+   "before": {
+    "kind": "LENGTH",
+    "magnitude": "18",
+    "number": "9",
+    "standard": "U",
+    "standard_size": "2"
+   },
+   "object": "Y",
+   "scale": "2"
+  },
+  "2_0": {
+   "after": {
+    "kind": "LENGTH",
+    "magnitude": "0",
+    "number": "0",
+    "standard": "V",
+    "standard_size": "1"
+   },
+   "answer": "0",
+   "before": {
+    "kind": "LENGTH",
+    "magnitude": "0",
+    "number": "0",
+    "standard": "U",
+    "standard_size": "2"
+   },
+   "object": "zero length",
+   "scale": "1/2"
+  },
+  "2_1": {
+   "after": {
+    "kind": "LENGTH",
+    "magnitude": "0",
+    "number": "0",
+    "standard": "U",
+    "standard_size": "2"
+   },
+   "answer": "0",
+   "before": {
+    "kind": "LENGTH",
+    "magnitude": "0",
+    "number": "0",
+    "standard": "U",
+    "standard_size": "2"
+   },
+   "object": "zero length",
+   "scale": "1"
+  },
+  "2_2": {
+   "after": {
+    "kind": "LENGTH",
+    "magnitude": "0",
+    "number": "0",
+    "standard": "W",
+    "standard_size": "4"
+   },
+   "answer": "0",
+   "before": {
+    "kind": "LENGTH",
+    "magnitude": "0",
+    "number": "0",
+    "standard": "U",
+    "standard_size": "2"
+   },
+   "object": "zero length",
+   "scale": "2"
+  }
+ },
+ "digest_mode": "UTF-8/LF source text",
+ "formal_scope": "Lean Quantity has Nat numerator and positive Nat denominator; Python Fraction is broader",
+ "native_limits": {
+  "book_checks_refuse_these_inputs": true,
+  "python_signed_fractions_exceed_lean_nat_quantity": true,
+  "raw_kind_mismatch_accepted": true,
+  "raw_wrong_scale_changes_magnitude": true,
+  "raw_zero_standard_error": "ZeroDivisionError"
+ },
+ "objects": [
+  "X",
+  "Y",
+  "zero length"
+ ],
+ "physical_observations": 0,
+ "practice": {
+  "changed_conversion": "5/2",
+  "larger_same_ratio": "1/2",
+  "mixed_standard_ratio": "1/2"
+ },
+ "source_text_sha256": {
+  "research/p201_relational_spacetime/CLAIMS.md": "1db3e0523763987264d7b71b69ec669c1b9025db242b7c24c41e8ed57fc9f069",
+  "research/p201_relational_spacetime/README.md": "9a49e107913f202e5c3c7f108656b2009515fff95c87f0f59d736d3299fee625",
+  "research/p201_relational_spacetime/lean/RelationalSpacetime.lean": "e0b726d562b6307b722dac6bad5031b3242ecb4271f1bf7e51f2732b955ccccb",
+  "research/p201_relational_spacetime/relational_spacetime.py": "054a1032f848a2f589d2ac2621aadf82238b804f1f8f262f41feb8170ad4a059",
+  "textbook/reasoning_lab/calibration.py": "2003d2b85ecab38e438bdcc24d4f501095fd077e49e4e36b78c44a975a02e6f7"
+ },
+ "standards": [
+  {
+   "name": "V",
+   "size": "1"
+  },
+  {
+   "name": "U",
+   "size": "2"
+  },
+  {
+   "name": "W",
+   "size": "4"
+  }
+ ]
+}

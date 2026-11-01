@@ -89,14 +89,72 @@ declared finite model.
 
 </details>
 
+Quoted proofs below sometimes use `...` for omitted lines. Those
+excerpts are not runnable Lean; the cited owner files contain the full proofs.
+
 ## What you need first
+
+Use I12’s transcripts and I13’s worst-case lower bound. Recall I05’s
+Yes/No views and the difference between a necessary condition and an
+exact match. Here, acquiring a grouping and encoding a known grouping
+count different operations.
+
+<details>
+<summary>Prerequisite source names (optional)</summary>
 
 Unit 01 (`pQ`, `pQ_exact`), Unit 02 (`Knows`, `knows_iff_determined`), Unit 03
 (`classCount`, `count_le_of_determines`), Unit 12 (`Transcript`, `Protocol`,
 `entry`, `run`), and Unit 13 (`allPairs`, `mem_allPairs`,
 `no_acquisition_in_fewer_steps`, `Consistent`).
 
+
+</details>
+
+### What a sharp observer must get right
+
+For an actor `[7,7,9]` on 0,1,2, compare three observers:
+
+| Held views | Splits 0/1? | Splits 0/2? | What fails? |
+|---|---|---|---|
+| No views | No | No | Misses an actor distinction |
+| `{0}` and `{1}` | Yes | Yes | Splits an actor’s equal pair |
+| `{2}` | No | Yes | Neither; this observer is sharp |
+
+**Sufficient** means the observer misses none of the actor’s distinctions.
+It may split additional pairs. **Consistent** means it adds no false
+distinction. It may miss distinctions. **Sharp** requires both, on every
+pair in D. These are tests of grouping agreement, not physical accuracy.
+
+### Read a complete table, then encode its groups
+
+For `[7,7,9]`, ask 0/1, 0/2, 1/2 and record Equal, Different, Different.
+The row views of the complete table are `{0,1}`, `{0,1}`, `{2}`. Duplicate
+views are permitted. These three views are sharp, but not the shortest
+representation: the single view `{2}` already gives the two groups.
+
+For three classes, two views can supply patterns 00, 01 and 10. Each
+view contributes one Yes/No place in a pattern. One view offers only
+two patterns; two offer four. This counts stored views, whereas the
+three-input worst-case discovery bound counts pair questions. It does
+not price computation, table storage, instruments or elapsed time.
+
+With no classes (an empty D), or one class, no views are needed. The
+usual “round log₂ k upward” description is for k≥1; it gives zero at
+k=1 and must not be applied to log₂ 0.
+
+### A partial table is not a complete table
+
+The defined `sameT` checks a direct Equal entry or identical input
+indices. It does not calculate transitive closure. Given only
+`(0,1,true)` and `(1,2,true)`, `sameT` still returns false on 0/2.
+For the constant actor `[7,7,7]`, `tableE` built from this partial record
+can therefore split equal values. Its sharpness theorem assumes the
+complete transcript `fullT`; I15 separately studies equivalence closure.
+
 ### 1. Sharpness, sufficiency, and the binary-code observer (`two_theorems`)
+
+<details>
+<summary>Quoted source 1 (optional)</summary>
 
 ```lean
 -- Lean (research), research/two_theorems/lean/ResearchTwoTheorems/Observer.lean lines 132–133, 438–439, 518–526
@@ -110,6 +168,11 @@ theorem sharp_observable_iff (D : List Nat) (p : Presentation) (m : Nat) :
     (∃ E : Evaluator, E.length = m ∧ Sharp D E p) ↔
       classCount D [p] ≤ 2 ^ m := by ...
 ```
+
+</details>
+
+<details>
+<summary>Quoted source 2 (optional)</summary>
 
 ```lean
 -- Lean (research), research/two_theorems/lean/ResearchTwoTheorems/Sufficiency.lean lines 44–45, 65–67, 114–125, 213–215
@@ -135,6 +198,8 @@ theorem sharpObserver_congr (D : List Nat) (p p' : Presentation) (m : Nat)
     sharpObserver D p m = sharpObserver D p' m := by ...
 ```
 
+</details>
+
 `Sharp D E p` holds iff `E`'s views neither merge what `p` splits (`Sufficient`)
 nor split what `p` merges (`Consistent`). Neither half implies the other
 (`sufficient_not_sharp`, `consistent_not_sufficient`, lines 82–96). An `m`-view
@@ -142,6 +207,9 @@ observer can be sharp for at most `2 ^ m` classes, and when `classCount D [p] �
 2 ^ m`, `sharpObserver D p m` cuts `D` by the `m` binary bits of `fiberIdx D p`.
 
 ### 2. Scripted probing and the complete table (`actor_institution`)
+
+<details>
+<summary>Quoted source 3 (optional)</summary>
 
 ```lean
 -- Lean (research), research/actor_institution/lean/ResearchActorInstitution/Acquisition.lean lines 451–454, 476, 490–493, 527–528
@@ -161,6 +229,8 @@ def tableE (n : Nat) (T : Transcript) : Evaluator :=
   (List.range n).map (fun a => (List.range n).filter (fun b => sameT T a b))
 ```
 
+</details>
+
 `scripted L` asks the pairs in `L` in order by indexing at `T.length`. On
 `L = allPairs n`, after `(allPairs n).length` steps it produces `fullT n p`
 (`run_complete`). From `T`, `sameT T a b` reads off whether `a = b` or `T`
@@ -169,6 +239,9 @@ datum `a ∈ List.range n` containing all `b ∈ List.range n` with
 `sameT T a b = true`.
 
 ## The theorems
+
+<details>
+<summary>Quoted source 4 (optional)</summary>
 
 ```lean
 -- Lean (research), research/actor_institution/lean/ResearchActorInstitution/Acquisition.lean lines 495–496, 535–579, 603–630
@@ -209,7 +282,19 @@ theorem log_views (n : Nat) (p : Nat → Nat) (m : Nat) (h : classCount (List.ra
   exact sharp_congr (sharpObserver_sharp _ _ m hc) hk
 ```
 
-## The proof, step by step
+</details>
+
+## Why the claims work
+
+The complete record includes every distinct pair, and equality handles
+self-pairs. Its row for an input contains exactly that input’s class,
+so those rows merge precisely the actor’s equal pairs. I13 supplies the
+matching worst-case lower bound. After discovery, give each class a
+different binary pattern: enough pattern places yield a sharp observer.
+Using those patterns assumes the grouping has already been acquired or supplied.
+
+<details>
+<summary>Detailed proof steps (optional)</summary>
 
 **Step 1. `run_scripted` and `sameT_full`.**
 By induction on `j ≤ L.length`, `run (scripted L) p j = (L.take j).map (entry p)`.
@@ -239,6 +324,8 @@ therefore the same `classCount` (`classCount_congr`). Applying
 of length `m` (`logE_length`), which is sharp for `acquired n (fullT n p)` and
 hence by `sharp_congr` sharp for `p` (`log_views`).
 
+</details>
+
 ## The same fact in Python
 
 The check verifies:
@@ -250,8 +337,13 @@ The check verifies:
 2. `sufficiency_checks` and `sharp_fixes_partition_check` from
    `two_theorems/model.py` on `D = (0, 1, 2)` and `D = (0, 1, 2, 3)`:
    `sharp(D, E, p)` matches `sufficient(D, E, p) and consistent(D, E, p)` across
-   all `3699` `(E, p)` pairs (`0` violations), both one-sided witnesses exist,
-   and `sharpObserver` depends only on `p`'s partition (`0` violations).
+   67,480 `(E, p)` cases (216 for three inputs/one view, 1,728 for
+   three inputs/two views, and 65,536 for four inputs/two views) (`0` violations), both one-sided witnesses exist,
+   and the separately reported sharp-pair and same-partition comparisons
+   have zero violations. Each m-view population enumerates all ordered
+   m-tuples of subsets, including repeated/empty views; actors range over
+   all `n^n` tables into labels `0..n−1`. This does not enumerate all
+   unbounded numeric label assignments.
 3. **Countermodel to query-model overgeneralization (stronger query oracle):** on
    `range(4)`, while pairwise equality queries require `6` probes in the worst
    case (`fullT`), a fiber-reveal oracle that returns the equivalence class of a

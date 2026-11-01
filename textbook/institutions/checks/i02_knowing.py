@@ -1,7 +1,9 @@
 """Unit 02 check: knowing as factoring agrees with the signature test.
 
-Exhaustive over range(n) for n <= 4, every family of at most two
-partitions, and every partition as the claim: `model.knows` (equal
+Enumerates range(n), 1 <= n <= 4, with the empty family, each single
+partition and one ordering of each pair of distinct partitions, and every
+partition as the claim. Not all ordered lists or repeated members.
+`model.knows` (equal
 signatures force equal values) agrees with "the claim factors through the
 representative" (the claim's value at x is its value at the representative
 of x). That is `Institution.knows_iff_determined` on these carriers; the

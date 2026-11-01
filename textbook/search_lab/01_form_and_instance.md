@@ -42,7 +42,7 @@ fails on both entries. `G(_,B)` is the witness that works here.
 
 - A form without a recorded instance supplies no successful test here.
 - An instance on a form that has not been admitted is refused as
-  ill-formed: the admission kernel reports `unknown form 0`.
+  ill-formed: the admission check reports `unknown form 0`.
 - A rule saying that every tuple succeeds on the same new form makes
   every test on that form succeed for both entries. It does not separate them.
 

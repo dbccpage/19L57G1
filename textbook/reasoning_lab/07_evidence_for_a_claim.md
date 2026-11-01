@@ -43,9 +43,18 @@ Write one definition, one conclusion from the card table, and one claim
 about a physical device that still needs evidence. Name a possible
 observation that would challenge the last claim.
 
-Continue with [08. From a model row to a trial](08_from_a_model_to_a_trial.md)
+This completes the core Reasoning route. Attempt the
+[packet practice](PRACTICE.md) before its separate [answers](ANSWERS.md).
+Then continue to the [Search lab](../search_lab/README.md), or choose
+another question in the [reading path](../learning_path.md).
+
+For an optional application, use [08. From a model row to a trial](08_from_a_model_to_a_trial.md)
 for a declared protocol, fictional raw logs, a conflicting repeat,
 uncertainty, and an optional physical worksheet. The worked example
 keeps calculations on supplied logs separate from actual observations.
+
+For a separate model of expressions and their interpretations, return
+later to [56. A claim needs an interpretation](56_a_claim_needs_an_interpretation.md).
+It distinguishes model evaluation, changed inputs, panel reports and receipts.
 
 AuthorityEffect: None. No physical measurement or learning outcome is claimed.

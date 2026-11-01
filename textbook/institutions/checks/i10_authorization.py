@@ -1,11 +1,12 @@
 """Unit 10 check: scoped authorization and the five-link chain.
 
 Checks:
-  1. Over all families `Q` of at most two partitions of `range(3)` and all
-     claims `s : range(3) -> range(3)`: `knows(3, Q, s)` holds iff
+  1. On range(3), empty/singleton families and one ordering of each distinct
+     partition pair, with all 27 report tables: knows(3, Q, s) holds iff
      `residuals(3, Q, s)` is empty (`scoped_sound_refuses_residual` for
      `knowsB`), and `knows` authorizes both `(0, 0, 0)` and `(1, 1, 1)` on
-     every `Q` (`authorization_not_correctness`);
+     every selected Q (authorization_not_correctness). Not all ordered lists
+     or arbitrary scoped-sound rules;
   2. `reports_do_not_certify` and `grounded_here_not_there` from
      `two_theorems/model.py`.
 The proofs for every carrier are the Lean. AuthorityEffect: None.

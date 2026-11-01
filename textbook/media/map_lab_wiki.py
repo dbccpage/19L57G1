@@ -30,9 +30,14 @@ def build_map_lab(repo, wiki, commit):
         text = (source / name).read_text(encoding="utf-8")
         for filename, target in page_map(source).items():
             text = text.replace(f"]({filename})", f"]({target})")
-        for folder in ("first_steps", "reasoning_lab", "path_lab", "growth_lab"):
+        for folder in ("first_steps", "reasoning_lab", "path_lab", "growth_lab", "change_lab"):
             text = text.replace(f"](../{folder}/README.md)", f"](textbook_{folder})")
+            for sibling in (repo / 'textbook' / folder).glob('*.md'):
+                if sibling.name != 'README.md':
+                    text = text.replace(f"](../{folder}/{sibling.name})",
+                                        f"](textbook_{folder}_{sibling.stem.lower()})")
         text = text.replace("](results.html)", f"]({DESK})")
+        text = text.replace("](results.html#", f"]({DESK}#")
         text = text.replace("](figures/", "](" + RAW + "figures/")
         prefix = f"[Genesis Wiki](Home) · [Map lab](textbook_map_lab) · [Map desk]({DESK})\n\n"
         suffix = f"\n\n---\n\nSource snapshot: [`{commit[:12]}`](https://github.com/dbccpage/19L57G1/blob/{commit}/textbook/map_lab/{name}). Teaching apparatus; `AuthorityEffect: None`.\n"

@@ -4,7 +4,7 @@ AuthorityEffect: None. Run from the repository root. The checks do not
 write sealed sources, derivation artifacts, or research receipts.
 
 ```text
-python textbook/path_lab/run_lab.py
+python textbook/path_lab/run_lab.py --population
 python textbook/checks/u60_path_lab.py
 python textbook/checks/u60_path_lab_lean.py
 python -m unittest discover -s textbook/path_lab -p test_lab.py
@@ -49,3 +49,23 @@ signs, all-zero second boundaries, the all-positive control, raw repeated
 lists, keyboard controls, and phone layout. Check stale published copies
 and a false generated Lean equality, restoring original bytes between
 injections. Reader testing remains separate from software validation.
+
+The same commands now include the selected native cost continuation:
+84 history records, 432 ordered event comparisons, 27 three-point cost
+tables, and 3,108 additional histories. The existing Lean wrapper
+re-elaborates three exact research bodies and checks twenty added reports,
+giving 184 reports overall. `costs_axioms.json` pins the expected sets.
+Never change those sets to accept an unexpected axiom or a failed proof.
+
+`node textbook/path_lab/test_cost_controls.mjs` executes the actual new
+handlers in a minimal DOM across 168 history/cost selections and 432
+square selections. It checks both prediction gates, incorrect feedback,
+and reset of both panels when their shared start changes. It does not
+check browser layout, keyboard input or accessibility.
+
+In a browser, compare both costs, inert repeats, the empty history,
+the two budget-loop totals, both halt/license orders from live and halted
+starts, and a noncommuting square with a zero signed-budget difference.
+Check narrow tables, Tab focus and arrow-key scrolling. Inspect the
+budget-loop diagram at its intrinsic size. Keep raw event order and
+the selected cost question visible; do not silently change the premise.

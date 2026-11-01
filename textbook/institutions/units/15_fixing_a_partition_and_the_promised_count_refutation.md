@@ -86,13 +86,68 @@ family; the same zero-probe argument no longer applies.
 
 </details>
 
+Quoted proofs below sometimes use `...` for omitted lines. Those
+excerpts are not runnable Lean; the cited owner files contain the full proofs.
+
 ## What you need first
+
+Use I12’s records, I13’s two compatible possibilities and I14’s sharp
+observer. A promise is an additional assumption restricting the possible
+actors; it must be stated before interpreting the answers.
+
+<details>
+<summary>Prerequisite source names (optional)</summary>
 
 Unit 03 (`classCount`, `dedupL`, `memB`), Unit 12 (`Transcript`, `Protocol`,
 `run`, `Consistent`), Unit 13 (`merge`), and Unit 14 (`Sharp`,
 `sharp_fixes_partition`).
 
+
+</details>
+
+### Fixing means leaving one grouping possible
+
+On 0,1, the empty record permits `[7,7]` and `[7,9]`, so it does not fix
+the grouping. Recording `(0,1,true)` permits many numeric labels but
+only the one-group partition. Recording `(0,1,false)` permits only the
+two-group partition. Fixing the partition does not recover the numeric labels.
+
+`Fixes D T` itself has no promise parameter: it compares all actors
+consistent with T. Restricting candidates to exactly two classes makes
+the empty record decisive for that promised problem, while unrestricted
+`Fixes [0,1] []` remains false. These statements have different premises.
+
+### A contradictory record is not a successful discovery
+
+Consider `(0,1,true)`, `(1,2,true)`, `(0,2,false)`. No fixed function can
+give those three answers: its equality is transitive. The definition of
+`Fixes` then holds vacuously, since there are no two consistent actors
+that could disagree. Before calling a record informative, also establish
+that at least one candidate actor is consistent with it. A real run in
+I12 has that witness: the actor used in the run.
+
+The Python closure construction joins inputs linked by Equal answers,
+including chains. For the consistent partial record `(0,1,true)`,
+`(1,2,true)`, it gives one class and a sharp observer of the constant
+actor. For the contradictory record above, it still joins all three,
+but that does not repair the incompatible Different answer.
+
+### An empty observer and an empty record have different roles
+
+`[]` as a transcript means no questions recorded. `[]` as an evaluator
+means no views held, so no pair is separated. `[[0]]` as an evaluator
+means one view containing input 0; it separates 0/1. The brackets name
+different types here, rather than an unexplained change of meaning.
+
+The supplied `probe01` always asks 0/1. Running it for one step asks
+once; running longer repeats the question. The two-case rule is proved
+at that one-step record, not as an error-checking policy for arbitrary
+hand-written or contradictory records.
+
 ### 1. The two-actor family on `List.range 2`
+
+<details>
+<summary>Quoted source 1 (optional)</summary>
 
 ```lean
 -- Lean (research), research/actor_institution/lean/ResearchActorInstitution/Acquisition.lean lines 428–446
@@ -114,11 +169,16 @@ theorem probe01_transcripts :
   decide
 ```
 
+</details>
+
 On `List.range 2 = [0, 1]`, `probe01` asks `(0, 1)` at step `1`. The identity
 answers `false`, so `admit01` returns `[[0]]`, which separates `0` and `1`;
 `merge 0 1` answers `true`, so `admit01` returns `[]`, which merges `0` and `1`.
 
 ### 2. Fixing the partition (`Fixes`)
+
+<details>
+<summary>Quoted source 2 (optional)</summary>
 
 ```lean
 -- Lean (research), the same file, lines 636–638
@@ -129,8 +189,13 @@ def Fixes (D : List Nat) (T : Transcript) : Prop :=
     ∀ x, x ∈ D → ∀ y, y ∈ D → (p x = p y ↔ p' x = p' y)
 ```
 
+</details>
+
 `Fixes D T` says that any two actors `p, p'` consistent with `T` carve the
 exact same partition on `D`.
+
+<details>
+<summary>Quoted source 3 (optional)</summary>
 
 ```python
 # Python (research), research/actor_institution/model.py lines 308–311
@@ -140,7 +205,12 @@ def fixes(n: int, T: Transcript, parts: list[Presentation]) -> bool:
     return all((p[x] == p[y]) == (q[x] == q[y]) for p in cons for q in cons for x in range(n) for y in range(n))
 ```
 
+</details>
+
 ## The theorems
+
+<details>
+<summary>Quoted source 4 (optional)</summary>
 
 ```lean
 -- Lean (research), research/actor_institution/lean/ResearchActorInstitution/Acquisition.lean lines 642–707
@@ -166,7 +236,19 @@ theorem exact_promise_zero_probes_two (p : Nat → Nat) (hN : classCount [0, 1] 
 theorem proposal_count_two : 2 * (2 - 1) / 2 + (2 - 2) * (2 - 1) = 1 := by decide
 ```
 
-## The proof, step by step
+</details>
+
+## Why the claims work
+
+If one observer is sharp for every candidate, all those candidates
+share its grouping; hence the record fixes that grouping. With no
+record and no promise, the constant and all-different actors disagree.
+With exactly two classes on two inputs promised, separation is known
+from the promise itself. The proposed formula charges one probe there,
+so that one valid counterexample refutes its general exact-count reading.
+
+<details>
+<summary>Detailed proof steps (optional)</summary>
 
 **Step 1. `acquires_implies_fixes` and `empty_transcript_fixes_nothing`.**
 Suppose `E` is sharp for every `p` consistent with `T`. For any two consistent
@@ -190,16 +272,22 @@ the one-view evaluator `[[0]]`, `verdictB [[0]] x y` is `false` on `(0, 0)` and
 holds without running any protocol (`0` probes), whereas `proposal_count_two`
 evaluates `2 * (2 - 1) / 2 + (2 - 2) * (2 - 1)` to `1`.
 
+</details>
+
 ## The same fact in Python
 
 The check runs `fixes_converse_check(n)` for `n = 1..4` and
 `acquisition_values(5)` from `actor_institution/model.py`:
 
-1. Across all `3^0 + 3^1 + 3^3 + 3^6 = 760` transcripts on `n = 1..4`, whenever
+1. Across `3^0 + 3^1 + 3^3 + 3^6 = 760` fixed-order partial pair tables
+   on `n = 1..4`, whenever
    a transcript `T` is consistent with at least one actor and satisfies
    `fixes(n, T, parts)`, the equivalence-closure evaluator
    `closure_evaluator(n, T)` is sharp for every consistent actor (`0`
-   violations, `AI-18c`).
+   violations, `AI-18c`). Each unordered distinct pair has three choices:
+   absent, Equal or Different, with at most one entry in a fixed order.
+   The population includes impossible records and counts them separately;
+   it excludes repeats, other orders, self-pairs and off-carrier probes.
 2. Under the "at most `N` classes" promise (`at_most`), the minimax game value
    equals `proposal_count(n, N) = N(N - 1)//2 + (n - N)*(N - 1)` for every
    `1 ≤ N ≤ n ≤ 5` (`at_most_mismatches == []`, `AI-19c`).
@@ -239,8 +327,11 @@ leaves only one partition on `D`, so the probe cost drops to `0`.
   every consistent actor—is checked exhaustively in Python for `n ≤ 4`
   (`AI-18c`) and remains an open Lean target (`AI-18o`).
 - "The promised-count formula `N(N - 1)/2 + (n - N)(N - 1)`." Under "exactly `N`
-  classes" it is refuted at every `n = N ≥ 2` (`exact_promise_zero_probes_two`,
-  `AI-19`). Under "at most `N` classes" it holds in the Python minimax game for
+  classes" the two-point theorem refutes its general validity. The finite
+  Python check also finds mismatches at n=N=3,4,5 (`AI-19`). For general
+  n=N≥2, the elementary argument is that n classes on n points leave only
+  singleton groups, requiring no probes, while the proposed count is
+  positive. That argument is not an additional general Lean result here. Under "at most `N` classes" it holds in the Python minimax game for
   all `1 ≤ N ≤ n ≤ 5` (`AI-19c`) and remains an open Lean target (`AI-19o`).
 
 ## What it shows, and what it does not

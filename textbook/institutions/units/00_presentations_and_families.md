@@ -43,6 +43,10 @@ A signature is the row of answers for one card, in family order. The
 first table merges A with C; the second merges B with C. Their combined
 signatures distinguish all three cards.
 
+Keep this table for I00–I03. In the numbered source examples, A is input
+0, B is input 1, and C is input 2. The table values are reported answers;
+they are separate from the numbers naming the inputs.
+
 This part calls a presentation an actor and a family an institution.
 Those are names for these mathematical objects. No person or organization
 has yet been modeled.
@@ -64,7 +68,15 @@ an admitted definition is). This part begins where part 1's representation
 has already admitted data numbers: a datum is a number, and a finite list
 of numbers is a **carrier** `D`.
 
+For the example, the carrier is `[0,1,2]`: the inputs we have agreed to
+read. A **function** gives one output for each input. A presentation is
+such a function; its displayed table lists only the outputs on this carrier.
+It contains no rule for collecting measurements from a device.
+
 ### 1. A presentation
+
+<details>
+<summary>Lean source: sigList (optional)</summary>
 
 ```lean
 -- Lean (Genesis), lean4/Derivation/Compression.lean lines 60–67
@@ -77,6 +89,8 @@ list of answers, in family order.  The family is represented data. -/
 def sigList (Q : List (Nat → Nat)) (x : Nat) : List Nat :=
   Q.map (fun q => q x)
 ```
+
+</details>
 
 The type `Nat → Nat` is the type of a presentation: a function that takes a
 data number and returns a value number. The sealed file never names the
@@ -97,13 +111,17 @@ TOLD APART by p (the Lean says: separated)
 ```
 
 Why a function. Genesis's representation admits data as numbers and keeps
-their names in the metatheory (part 1, Unit 00). A presentation is the
-least structure that can *say something about* data: for each datum, one
-value. It says nothing about why the value is what it is. The research
+their names in the metatheory (part 1, Unit 00). This model supplies a
+function to report one value for each datum. It says nothing about why
+the value is what it is. No minimality theorem selects this definition.
+The research
 brief calls such a function an **actor**: a presentation of admitted
 distinctions, the distinctions being which pairs of data it tells apart.
 
 ### 2. A family
+
+<details>
+<summary>Lean source: Institution, actor (optional)</summary>
 
 ```lean
 -- Lean (research), research/two_theorems/lean/ResearchTwoTheorems/Institution.lean lines 55–59
@@ -113,6 +131,8 @@ abbrev Institution := List (Nat → Nat)
 /-- The institution as one actor: Genesis's joint presentation. -/
 def actor (D : List Nat) (Q : Institution) : Nat → Nat := pQ D Q
 ```
+
+</details>
 
 A family is a list. `abbrev` means the name is a pure abbreviation: Lean
 sees `List (Nat → Nat)` wherever `Institution` is written, so every sealed
@@ -141,7 +161,16 @@ all members at once, Unit 01). The brief's "institution is a family of
 presentations with retention, comparison and combination" is attached to
 exactly these three list operations.
 
+Order and repetition are part of the list. With family `[p1,p2]`, C's
+signature is `[0,1]`; with `[p2,p1]`, it is `[1,0]`. That changes the
+written signature, while preserving which input pairs have equal
+signatures. Repeating p1 adds a repeated answer, without separating any
+previously merged pair.
+
 ### 3. A signature, and agreement
+
+<details>
+<summary>Lean source: SigEq (optional)</summary>
 
 ```lean
 -- Lean (Genesis), lean4/Derivation/Compression.lean lines 69–72
@@ -150,6 +179,8 @@ family. -/
 def SigEq (Q : List (Nat → Nat)) (x x' : Nat) : Prop :=
   ∀ q, q ∈ Q → q x = q x'
 ```
+
+</details>
 
 `sigList Q x` (quoted above) is the list of the members' values at `x`,
 in family order: the datum's **signature**. `SigEq Q x x'` says every
@@ -193,6 +224,9 @@ prints this table from the tree's own definitions.
 
 ## A first theorem: agreement is equality of signatures
 
+<details>
+<summary>Lean source: sigEq_iff_sigList (optional)</summary>
+
 ```lean
 -- Lean (Genesis), lean4/Derivation/Compression.lean lines 74–90
 /-- Family agreement is exactly signature equality. -/
@@ -214,10 +248,17 @@ theorem sigEq_iff_sigList (Q : List (Nat → Nat)) (x x' : Nat) :
       | tail _ hm => exact ih.mpr h2 q' hm
 ```
 
+</details>
+
 **Status:** derived. It says the two ways of writing "the family cannot
 tell `x` from `x'`" agree: member by member (`SigEq`) and as one list
 (`sigList`). Every later unit switches between the two freely because of
 this theorem.
+
+Compare two answer lists entry by entry. Equal lists give equal answers from every member. Conversely, if every member gives the same answer on the two inputs, each corresponding entry agrees, so the lists are equal. The empty family gives two empty lists.
+
+<details>
+<summary>Detailed proof steps (optional)</summary>
 
 **The proof, step by step.**
 
@@ -227,7 +268,7 @@ theorem is proved for the empty family, and then for `q :: T` assuming it
 for `T`. The assumption is named `ih`.
 
 **Step 2. The empty family.** `SigEq [] x x'` says "every member of the
-empty list agrees", which holds for no reason at all: there is no member.
+empty list agrees". There is no member that could violate this condition.
 `sigList [] x = sigList [] x'` is `[] = []`, true by `rfl`. Left to right:
 given anything, `rfl`. Right to left: given equality of the empty lists and
 a supposed member `q` with `hq : q ∈ []`, `cases hq` finds no way a member
@@ -250,6 +291,8 @@ q :: T`. `cases hq'`: either `q'` is the head `q`, and `h1` is the answer,
 or `q'` is in the tail `T`, and `ih.mpr h2` gives agreement on every member
 of `T`, applied to `q'`.
 
+</details>
+
 ## The same fact in Python
 
 `model.sig` computes the signature as a tuple. Equal signatures are the
@@ -271,9 +314,11 @@ as the other.
 
 `Nat → Nat` has no bound: a presentation is defined at every number, and
 at numbers naming no admitted datum. That is a property of Lean. The
-system holds a presentation only as its table on the carrier, and every
-theorem of this part reads presentations on the carrier only (`x ∈ D`).
-Off the carrier nothing is claimed.
+table interpretation uses its values on the carrier. Carrier-relative
+results such as `pQ_exact` explicitly assume `x ∈ D`. The earlier
+`sigEq_iff_sigList` has no carrier parameter: it equates two descriptions
+of agreement for arbitrary natural-number inputs. That logical identity
+does not admit additional inputs into the represented carrier.
 
 **What the system holds.** A carrier, a finite list of data numbers; a
 family, a finite list of tables on it; nothing else. No collection of "all
@@ -291,10 +336,13 @@ function, and it puts no totality into the system.
    list membership. Unit 06 shows a repeated member changes nothing that
    the family knows.
 3. *A shared carrier.* Every member is read on the same `D`: datum 0 of
-   `p1` is datum 0 of `p2`. This is an admission of **correspondence**, and
-   Unit 05 shows that without it the family knows nothing of what Unit 04
-   says it knows. Nothing in a presentation says which of another
-   presentation's data is "the same datum".
+   `p1` is datum 0 of `p2`. This supplies an alignment of the inputs. The
+   combined signature uses that alignment to decide which answers share
+   a row. Changing it can change the distinctions of Unit 04; Unit 05
+   examines supplied correspondences. This is not a theorem that every
+   changed alignment destroys all knowledge: constant answers, for
+   example, remain recoverable. A presentation alone does not identify
+   which of another presentation's inputs denotes the same datum.
 
 **Phrases to read with care.**
 
@@ -317,8 +365,8 @@ It shows that the two readings of "cannot tell apart" agree
 
 It does not show that these are the right definitions of actor and
 institution. They are chosen. The research brief proposed the words; the
-trees attached them to the least structure that supports the theorems of
-Units 01 to 15; and whether a richer notion of institution (one with
+trees attached them to functions and lists and proved results about those
+objects. Whether a richer notion of institution (one with
 members that act, or that learn) is needed is open, and outside this part.
 
 It does not show that the carrier is shared. That is admitted, and it is

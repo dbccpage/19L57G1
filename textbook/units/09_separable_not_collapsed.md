@@ -17,20 +17,42 @@ on which collapse would have to hold.
 ## First pass
 
 Suppose somebody claims every available question gives the same
-answer for 0 and 1. You show `marked(_)`, which is derivable on 0
-and not on 1. That one question refutes the all-agreement claim.
+answer for 0 and 1. You show Unit 08's `marked(_)`, which is derivable
+on 1 and not on 0. That one question refutes the all-agreement claim.
 No further search is needed once this witness is supplied.
 
-Now suppose a search stops without showing a witness. Does that
-establish agreement? Only if the search actually covered every allowed
-question, or a proof rules out every witness. Stopping early is not
-the same evidence.
+<details><summary>Predict: does checking two tests without finding a difference establish collapse?</summary>
 
-The displayed general proofs establish that collapse means no
-separating witness exists. They do not display a general constructive
-procedure extracting a witness from a negated collapse statement.
-The Python check searches the full finite context lists of its
-declared test regimes.
+Only if those tests cover every allowed context, or another proof rules
+out all remaining witnesses. Stopping after two tests from a longer list
+does not establish the all-agreement claim.
+
+</details>
+
+## Follow a complete small search
+
+Use a separate model with data 0 and 1, a two-place form linked, only
+`linked(0,1)` admitted, and no uniform rule. Here are all five contexts;
+every hole receives the tested datum.
+
+| Test slots | On 0 | On 1 |
+|---|---|---|
+| `(_,_)` | No | No |
+| `(_,0)` | No | No |
+| `(_,1)` | Yes | No |
+| `(0,_)` | No | Yes |
+| `(1,_)` | No | No |
+
+The first two rows agree. The third is a witness, so search can stop
+there when its task is to find one. Checking every row would also find
+the fourth witness. Different valid witnesses establish the same
+separability claim; the definition does not require a unique witness.
+
+If no row differs, the conclusion needs the whole allowed list. The new
+book-Lean search proves both that its enumeration covers every well-formed
+context and that its returned answer has the stated meaning. This adds a
+general constructive search for the native finite-context grammar. The
+Python forty-regime check remains separate implementation evidence.
 
 ## Question
 
@@ -70,14 +92,50 @@ and point at the stencil: collapse promised it would treat them alike, and
 it does not. One of the claims is false. Since the stencil is in hand, it
 is collapse that fails.
 
-The book proves a different converse: **no separating witness exists
+The book first proves a different converse: **no separating witness exists
 implies every context agrees**. Together with the first theorem, this
 gives `collapsed ↔ ¬ separable`. That displayed proof does not by itself
 turn `¬ collapsed` into a positive witness. Doing that constructively
 requires an additional argument, such as a proved complete finite
 context search. Deciding each individual context is not that whole-search
-argument. The Python check explicitly exhausts the contexts of its
-finite test regimes.
+argument. The separate book search now supplies the missing enumeration
+and correctness proofs for this grammar. It does not rely on an arbitrary
+early cutoff or on a test pass over forty sample regimes.
+
+## What the proved search returns
+
+`firstWitness r d e` builds a finite list of contexts for the supplied
+ledger, then checks their answers in order. A returned context is
+well formed and distinguishes the two inputs. A return of `none` means
+every well-formed context agrees: exactly `collapsed r d e`.
+
+The completeness proof lists each admitted form index and every slot
+list of its required length. Each slot is a hole or an in-range filled
+index; the well-formedness filter keeps the actual tests. This covers an
+arbitrary ledger's native `wfCtx` predicate, not just the five-row example.
+The scan proof then connects the entire list to the all-context claim.
+
+Consequently `¬ collapsed r d e → separable r d e` has a separate
+constructive book proof. This result uses the finite grammar and decidable
+derivability tests. It is not a principle extracting witnesses from every
+negated universal claim. The enumeration can be large; no speed bound is
+claimed. The native predicates themselves accept any natural-number
+inputs; an application to admitted data still checks their range.
+
+<details><summary>Finite-search proof and source names (optional)</summary>
+
+[The book source](../checks/context_search_lean.py) defines `slotChoices`,
+`slotLists`, `allContexts`, `scan` and `firstWitness`. It proves
+`allContexts_sound`, `allContexts_complete`, `firstWitness_some_sound`,
+`firstWitness_none_iff_collapsed` and `separable_of_not_collapsed`, with
+supporting list lemmas. All nine added reports use exactly `propext,
+Quot.sound`. Native sealed sources are unchanged. This is a proof over
+the Lean definitions, not over the Python source or physical measurements.
+
+</details>
+
+<details>
+<summary>Programs and proof walkthroughs (optional)</summary>
 
 ## Pseudocode
 
@@ -234,7 +292,12 @@ its own proof.
 **Axioms.** `separable_not_collapsed` reports `propext`, inherited from
 the definitions. The book's per-context decision also reaches
 `Quot.sound`, even when the regime is an arbitrary parameter. The eight
-reports comprise three `propext` and five `{propext, Quot.sound}` sets.
+original reports comprise three `propext` and five `{propext, Quot.sound}`
+sets. The finite-search continuation adds nine reports, each exactly
+`propext, Quot.sound`: seventeen combined reports, three `propext` and
+fourteen both. It adds no `Classical.choice` dependency.
+
+</details>
 
 ## What has been proved
 
@@ -244,18 +307,18 @@ reports comprise three `propext` and five `{propext, Quot.sound}` sets.
 - Precisely, `collapsed ↔ ¬ separable`; negating this gives
   `¬ collapsed ↔ ¬¬ separable` (book Lean). This last statement is not
   a displayed witness-extraction theorem.
+- The separately defined finite search is sound and complete for native
+  contexts, and supplies `¬ collapsed → separable` constructively (book).
 
 ## What has not been proved
 
 - Which pairs are separable in any given regime. That is decided case by
   case (Unit 10 for regimes with no instances; Units 18-22 for the first
   regimes that separate anything).
-- A general witness-extraction theorem `¬ collapsed → separable`
-  is not supplied by these displayed proofs. The per-context membership
-  test is decidable, and the current grammar has finite well-formed
-  context spaces, but a constructive extraction proof must connect
-  enumeration with that grammar. The forty-regime Python check is
-  scoped evidence, not that general proof.
+- That the Lean search verifies Python's implementation, physical observations,
+  or a different context grammar. Those need their own connections. The
+  forty-regime Python check is scoped computational evidence; the general
+  search proof concerns the explicitly enumerated native Lean contexts.
 
 ## Outside the system
 
@@ -283,18 +346,23 @@ metatheory's two descriptions of it.
 Why does Genesis state `separable` with `∃` rather than defining it as
 `¬ collapsed`? Give one consequence for proofs.
 
+<details>
+<summary>Check the exercise (optional)</summary>
+
 ## Answer
 
 With `∃`, every proof of separability must present a context, and that
-context can be opened and used, as this theorem does. Defined as
-`¬ collapsed`, a proof could in principle establish separability without
-naming a witness, by refuting collapse indirectly, and a later proof could
-not extract one from it. The book's `collapsed_of_not_separable` proves `¬ separable → collapsed`;
-it does not alone prove `¬ collapsed → separable`. A finite exhaustive
-search can exhibit a witness in the tested regimes. The explicit
+context can be opened and used, as this theorem does. A negation-only
+definition would not by itself supply a context. The original
+`collapsed_of_not_separable` proof gives `¬ separable → collapsed`;
+it does not alone give `¬ collapsed → separable`. The new finite search
+does supply a witness for this grammar, with an additional completeness
+proof. The explicit
 witness form is the one used in the named later separation proofs (`U0_separable`,
 `BL_separable`, `BD_separable`, `markK_separable` all begin with a
 concrete context).
+
+</details>
 
 ## Verification
 
@@ -304,4 +372,4 @@ concrete context).
 | Axiom report | `artifacts/lean_axioms.txt`: `separable_not_collapsed` `[propext]`; `U1_separable` `[propext, Quot.sound]` |
 | Paper | `paper/paper.md` §3 item 5 (profile, collapse, internal separability) |
 | Check (Python) | `python textbook/checks/u09_witness.py`: 40 regimes (two data, one form of arity 1 or 2, every instance subset, rule or not); 16 separable with a verified witness, 24 collapsed with no differing context; `separable` equals "witness exists" equals "not in `collapsed_pairs`" on every one |
-| Check (book Lean) | `python textbook/checks/u09_lean.py`: six book theorems plus `separable_not_collapsed` and `U1_separable`, eight reports in total: three `propext`, five `{propext, Quot.sound}` |
+| Check (book Lean) | `python textbook/checks/u09_lean.py`: the original eight reports plus nine finite-search reports; seventeen total: three `propext`, fourteen `{propext, Quot.sound}` |

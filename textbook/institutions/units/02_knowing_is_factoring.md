@@ -26,12 +26,12 @@ Unit 08 is about truth and Unit 09 about asserting.
 
 ## First pass
 
-A presentation reports [0,0,1] on inputs [0,1,2]. A lookup using
-that presentation receives the same stored label for inputs 0 and 1.
+Keep I00's first presentation, [0,1,0] on inputs [0,1,2]. A lookup using
+that presentation receives the same stored label for inputs 0 and 2.
 
 | Requested answer table | Recoverable? | Reason |
 |---|---|---|
-| [7,7,9] | Yes | Label 0 gives 7; label 1 gives 9 |
+| [7,9,7] | Yes | Label 0 gives 7; label 1 gives 9 |
 | [7,8,9] | No | Label 0 would need two different answers |
 
 Factors through means this recoverability condition. Knows applies it
@@ -52,7 +52,15 @@ with a target is a separate question introduced in I08.
 
 Unit 00 (`SigEq`) and Unit 01 (`pQ`, `pQ_exact`, `pick`).
 
+Keep the roles separate: `p` is the available presentation, `q` is the
+requested answer table, and `g` is one lookup receiving only p's output.
+The same g must work for every input on the carrier. It cannot inspect
+the original input to decide which answer to return.
+
 ### 1. Factoring
+
+<details>
+<summary>Lean source: FiberConstant, FactorsOn (optional)</summary>
 
 ```lean
 -- Lean (Genesis), lean4/Derivation/Compression.lean lines 99–105
@@ -65,11 +73,25 @@ def FactorsOn (D : List Nat) (p q : Nat → Nat) : Prop :=
   ∃ g : Nat → Nat, ∀ x, x ∈ D → g (p x) = q x
 ```
 
-`q` *factors through* `p` when there is a function `g` that recovers `q`
-from `p` on the carrier: look up the value of `p`, apply `g`, and you have
-the value of `q`. `q` is *fiber-constant* for `p` when `p` merging two
-data forces `q` to merge them. The two are the same thing, and the sealed
-file proves it:
+</details>
+
+There are two ways to ask whether the lookup can work.
+
+**Build a lookup.** `q` *factors through* `p` if one function g recovers
+q from p on the carrier. In the successful table above, g(0)=7 and
+g(1)=9 work for all three inputs. Values of g on unused labels are not
+fixed by this requirement.
+
+**Look for a conflict.** A **fiber** is a group of inputs with the same
+p-value. `q` is *fiber-constant* for `p` when q gives the same answer
+throughout each such group. In the failed table, inputs 0 and 2 would
+require both g(0)=7 and g(0)=9. One function cannot do both.
+
+On the finite carrier, the two conditions are equivalent. The sealed
+proof constructs a lookup when no such conflict exists:
+
+<details>
+<summary>Lean source: factors_iff_fiberConstant (optional)</summary>
 
 ```lean
 -- Lean (Genesis), lean4/Derivation/Compression.lean lines 171–189
@@ -94,6 +116,8 @@ theorem factors_iff_fiberConstant (D : List Nat) (p q : Nat → Nat) :
     exact hfc r hrD x hx hpr
 ```
 
+</details>
+
 Left to right: given `g` with `g (p x) = q x` on the carrier, if `p x =
 p x'` then `q x = g (p x) = g (p x') = q x'` (the three rewrites). Right
 to left is the constructive half: define `g y` to be the value of `q` at
@@ -109,12 +133,17 @@ q factors through p  <=>  q is a function of p's value  <=>  p merges x, x'  imp
 
 ### 2. Knowing
 
+<details>
+<summary>Lean source: Knows (optional)</summary>
+
 ```lean
 -- Lean (research), research/two_theorems/lean/ResearchTwoTheorems/Institution.lean lines 65–67
 /-- The institution knows `q` on `D`: `q` factors through its actor. -/
 def Knows (D : List Nat) (Q : Institution) (q : Nat → Nat) : Prop :=
   FactorsOn D (pQ D Q) q
 ```
+
+</details>
 
 The family knows `q` when `q` factors through the representative. By
 Unit 01 the representative's fibers are the signature classes, so the
@@ -139,6 +168,9 @@ with Q = (p1) alone:   0 and 2 share a signature, so the family knows q  iff  q(
 
 ## The theorem
 
+<details>
+<summary>Lean source: knows_iff_determined (optional)</summary>
+
 ```lean
 -- Lean (research), research/two_theorems/lean/ResearchTwoTheorems/Institution.lean lines 71–80
 theorem knows_iff_determined (D : List Nat) (Q : Institution) (q : Nat → Nat) :
@@ -153,10 +185,17 @@ theorem knows_iff_determined (D : List Nat) (Q : Institution) (q : Nat → Nat) 
     exact h x hx y hy ((pQ_exact D Q x hx y hy).mp hp)
 ```
 
+</details>
+
 Read: "the family knows `q` exactly when, for any two data on the carrier
 that every member gives the same value, `q` gives them the same value."
 The right-hand side is what `two_theorems` calls *signature
 determination*: the signature determines the value of `q`.
+
+I01 identifies equal representative labels with equal signatures on the carrier. I02 can therefore replace one condition by the other when checking whether the requested answers agree. Both directions use that same identification.
+
+<details>
+<summary>Detailed proof steps (optional)</summary>
 
 ## The proof, step by step
 
@@ -188,13 +227,21 @@ that "known" can be checked pair by pair on the carrier, with no function
 `g` to find: if a claim never splits a signature class, the `g` exists,
 and the sealed proof builds it.
 
+</details>
+
 ## The same fact in Python
 
-The check defines factoring directly, as "the claim's value at `x` equals
-its value at the representative of `x`" (that is the `g` of the sealed
-proof, evaluated), and compares it with `model.knows` for every carrier
-`range(n)`, `n ≤ 4`, every family of at most two partitions and every
-partition as the claim: 1905 cases, no disagreement, 1187 of them known.
+The check tests whether the claim's value at `x` equals its value at the
+representative of `x`. For this particular first-input representative,
+that condition gives the witness g(r)=q(r). It is not a test for factoring
+through an arbitrary presentation p: for that task, p's output label
+need not be a representative input.
+
+It compares this condition with `model.knows` on `range(n)`, `1 ≤ n ≤ 4`,
+using the empty family, each single partition, and one ordering of each
+pair of distinct partitions, with every partition as the claim:
+1905 cases, no disagreement, 1187 of them known. These cases do not
+enumerate all ordered lists or repetitions.
 
 ```
 python textbook/institutions/checks/i02_knowing.py

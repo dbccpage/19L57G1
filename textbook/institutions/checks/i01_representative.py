@@ -1,7 +1,9 @@
 """Unit 01 check: the representative merges exactly the equal signatures.
 
-Exhaustive over every carrier range(n) for n <= 4 and every family of at
-most two partitions of it: `representative(x) == representative(y)` holds
+Enumerates range(n), 1 <= n <= 4, with the empty family, each single
+partition and one ordering of each pair of distinct partitions. It does
+not enumerate all ordered lists or repeated members.
+`representative(x) == representative(y)` holds
 exactly when the signatures of x and y agree. That is the content of
 `Compression.pQ_exact` on these carriers; the proof for every carrier is
 the Lean. AuthorityEffect: None.

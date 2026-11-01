@@ -37,6 +37,12 @@ open Derivation
 theorem supply_token_irrelevant (r : Regime) (t u : Nat) :
     stepE r (.supply t) = stepE r (.supply u) := rfl
 
+/-- Equal resulting ledgers do not identify the supplied event. -/
+theorem different_supplies_same_step (r : Regime) :
+    (Event.supply 0 ≠ Event.supply 7) ∧
+    stepE r (.supply 0) = stepE r (.supply 7) := by
+  exact ⟨by decide, rfl⟩
+
 /-- Admission is different: admitting a datum always changes the regime. -/
 theorem admitDatum_changes (r : Regime) : stepE r .admitDatum ≠ some r := by
   intro h
@@ -90,6 +96,7 @@ theorem probe_supply_no_op (r : Regime) (t : Nat) :
 end Textbook.U03
 
 #print axioms Textbook.U03.supply_token_irrelevant
+#print axioms Textbook.U03.different_supplies_same_step
 #print axioms Textbook.U03.admitDatum_changes
 #print axioms Textbook.U03.admit_without_supply
 #print axioms Textbook.U03.replay_supply_cons
@@ -107,6 +114,7 @@ P = "depends on axioms: [propext]"
 NONE = "does not depend on any axioms"
 EXPECTED = {
     "Textbook.U03.supply_token_irrelevant": P,
+    "Textbook.U03.different_supplies_same_step": P,
     "Textbook.U03.admitDatum_changes": P,
     "Textbook.U03.admit_without_supply": P,
     "Textbook.U03.replay_supply_cons": P,

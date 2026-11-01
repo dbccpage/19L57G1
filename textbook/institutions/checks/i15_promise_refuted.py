@@ -2,7 +2,8 @@
 
 Checks:
   1. `fixes_converse_check(n)` for `n = 1..4` from `actor_institution/model.py`
-     (`0` violations across all 760 transcripts);
+     (`0` violations across 760 fixed-order partial pair tables, with
+     absent/Equal/Different for each unordered pair, no repeats);
   2. `acquisition_values(5)` from `actor_institution/model.py`:
      - under the "at most N classes" reading (`at_most`), the minimax game
        value matches `N(N-1)//2 + (n-N)*(N-1)` for all `1 <= N <= n <= 5`

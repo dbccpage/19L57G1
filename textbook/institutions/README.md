@@ -26,6 +26,28 @@ records the selected scope corrections, all eighteen worked introductions,
 and the repaired I17 Python checker. This review does not certify every
 research proof, hosted layout, or reader comprehension.
 
+The [I00–I03 definition follow-up](../audit/INSTITUTION_FOUNDATIONS_READING_REVIEW_2026-10-31.md)
+keeps one table through signatures, representatives, lookup rules and
+class counts. It separates those roles, folds source proofs after visible
+explanations, and adds six [changed-example tasks](../reading_formal_practice.md#institution-foundations-i00i03)
+with [separate answers](../reading_formal_answers.md#institution-foundations-i00i03).
+The review states the remaining semantic and learner-evidence limits.
+The [I04–I07 follow-up](../audit/INSTITUTION_ALIGNMENT_READING_REVIEW_2026-10-31.md)
+then separates combined lookup, input alignment, correspondence and
+observer requirements, append versus replacement, and stationary steps.
+Its six [practice tasks](../reading_formal_practice.md#combined-reports-and-loss-i04i07)
+have [separate answers](../reading_formal_answers.md#combined-reports-and-loss-i04i07).
+The [I08–I11 follow-up](../audit/INSTITUTION_POLICY_READING_REVIEW_2026-10-31.md)
+separates target agreement, encoded fallback reports, approval conditions
+and pair-policy labels. Six [practice tasks](../reading_formal_practice.md#targets-policies-and-identity-i08i11)
+have [separate answers](../reading_formal_answers.md#targets-policies-and-identity-i08i11).
+The [I12–I17 continuation](../audit/INSTITUTION_ACQUISITION_READING_REVIEW_2026-10-31.md)
+adds smaller acquisition, regime-update and interpreter definitions,
+corrects finite populations and makes consistency, promises, alignment
+and support-witness conditions explicit. Eight further
+[practice tasks](../reading_formal_practice.md#acquisition-changing-views-and-interpreters-i12i17)
+have [separate answers](../reading_formal_answers.md#acquisition-changing-views-and-interpreters-i12i17).
+
 ## Sources
 
 | Code | Where | Revision |

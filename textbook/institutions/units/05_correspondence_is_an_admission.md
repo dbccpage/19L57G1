@@ -37,10 +37,11 @@ does. This unit shows what happens when that third admission is varied: if
 the family no longer knows `q3`. By contrast, if one renaming is applied across
 the carrier, every member, and the claim together, knowledge is unchanged. It
 then connects this to the fidelity contract of `two_theorems`: an unrestricted
-map can merge points before any observer evaluates them, and the exact
-condition is that every pair merged by the correspondence must also
-be merged by the observed presentation. The reverse fiber condition is
-not what the theorem states.
+map can merge points before any observer evaluates them. One necessary
+condition for sharp observation is that every pair merged by the
+correspondence must also be merged by the observed presentation. The
+observer must additionally supply the intended distinctions. The reverse
+fiber condition is not what the theorem states.
 
 </details>
 
@@ -71,14 +72,33 @@ on the question's groups; that reverses the condition.
 
 ## What you need first
 
-Unit 00 (`SigEq`, `FiberConstant`, `FiberIdentityOn`), Unit 01 (`pQ`,
-`pQ_exact`), Unit 02 (`Knows`, `knows_iff_determined`), and Unit 04 (`p1`,
-`p2`, `q3`). From the sealed Genesis spine (`lean4/Derivation/Represented.lean`),
-an `Evaluator` is a list of views (`List (List Nat)`), `sepB c x y` tests
-whether view `c` contains one of `x, y` and not the other, and
-`verdictB E x y` tests whether some view in `E` separates `x` and `y`.
+Use I00’s signatures, I01’s representative, I02’s recovery rule and I04’s two-member example. We will define the new observer and correspondence terms below.
+
+<details>
+<summary>Prerequisite source names (optional)</summary>
+
+Unit 00 (`SigEq`), Unit 01 (`pQ`, `pQ_exact`), Unit 02 (`FiberConstant`,
+`Knows`, `knows_iff_determined`), and Unit 04 (`p1`, `p2`, `q3`).
+
+</details>
+
+An **observer** here is a supplied list of yes/no tests called **views**.
+A view lists the inputs on which its answer is yes. It separates two
+inputs when exactly one belongs to that list. An observer separates a
+pair when at least one of its views does. The source names are
+`Evaluator`, `sepB`, and `verdictB`, from sealed `Represented.lean`.
+These definitions describe tests on supplied numbers, with no physical
+instrument or measurement procedure attached.
+
+**Sharp for q** means that the observer merges exactly the input pairs
+whose q-values agree. It must retain every distinction q makes and add
+none. We can therefore ask separately what the correspondence preserves
+and what the later views distinguish.
 
 ### 1. Re-indexing one member
+
+<details>
+<summary>Lean source: swap01 (optional)</summary>
 
 ```lean
 -- Lean (research), research/actor_institution/lean/ResearchActorInstitution/Institution.lean lines 200–201
@@ -86,12 +106,22 @@ whether view `c` contains one of `x, y` and not the other, and
 def swap01 : Nat → Nat := fun x => if x = 0 then 1 else if x = 1 then 0 else x
 ```
 
+</details>
+
 `swap01` exchanges `0` and `1` and leaves `2` fixed. Composing `p2` with
 `swap01` produces the table `(p2 1, p2 0, p2 2) = (1, 0, 1)` on `[0, 1, 2]`:
 the same multiset of values as `p2 = (0, 1, 1)`, but aligned differently
 against `p1` and `q3`.
 
 ### 2. Faithful correspondences and pullback observers
+
+A **correspondence** f sends each original input to the input a later
+test receives. Calling it **faithful on D** means different inputs in D
+never become the same later input. It says nothing yet about how useful
+the later tests are.
+
+<details>
+<summary>Lean source: Faithful, collapsed_of_merged, constant_collapses_all (optional)</summary>
 
 ```lean
 -- Lean (research), research/two_theorems/lean/ResearchTwoTheorems/Correspondence.lean lines 35–48, 72–73, 99–100
@@ -108,6 +138,8 @@ theorem constant_collapses_all (E : Evaluator) (x y : Nat) :
   verdict_irrefl E 0
 ```
 
+</details>
+
 A map `f : Nat → Nat` is `Faithful` on `D` when it merges no two data of `D`.
 If `f` merges `x` and `y` (`f x = f y`), then every observer `E` returns
 `verdictB E (f x) (f y) = false` (`collapsed_of_merged`), because no view can
@@ -115,6 +147,9 @@ separate a datum from itself (`verdict_irrefl`). In particular, the constant
 map `fun _ => 0` collapses every pair under every observer
 (`constant_collapses_all`) and is not faithful on `[0, 1]`
 (`constant_not_faithful`, lines 51–53).
+
+<details>
+<summary>Lean source: pullback, verdict_pullback (optional)</summary>
 
 ```lean
 -- Lean (research), the same file, lines 99–100, 121–126
@@ -129,9 +164,28 @@ theorem verdict_pullback (D : List Nat) (f : Nat → Nat) (E : Evaluator) {x y :
   exact congrArg (List.any E) (funext fun c => sep_pullback c hx hy)
 ```
 
-Given an observer `E` on the image of `f`, `pullback D f E` pulls each view
-`c ∈ E` back to the data `x ∈ D` whose image `f x` lies in `c`. On `D`, its
-verdict on `x, y` is `E`'s verdict on `f x, f y` (`verdict_pullback`).
+</details>
+
+To **pull back** a view, list the original inputs whose f-values pass
+that view. Suppose f sends inputs 0,1,2 to 4,4,9, and the later view is
+`[9]`. Only input 2 passes, so its pulled-back view is `[2]`.
+
+This works one view at a time. `pullback D f E` collects the resulting
+original-input views. Its verdict on x,y agrees with E's verdict on
+f(x),f(y), for x,y in D (`verdict_pullback`).
+
+### 3. A necessary condition is not the whole procedure
+
+In that example, let q report `[0,0,1]`. The map merges 0 with 1, which
+q also merges. The later view `[9]` is enough to observe q sharply,
+even though f is not faithful on all three inputs.
+
+Remove every later view. The same f still merges only pairs q merges,
+but the empty observer now also merges 0 with 2, where q differs.
+Sharpness fails. Even a faithful map followed by an empty observer would
+fail to observe a nonconstant q sharply. Preserving an available
+distinction and actually using a test that detects it are different
+requirements.
 
 ```python
 # Python (research), research/two_theorems/model.py lines 524–531
@@ -149,6 +203,9 @@ def pullback(D: Carrier, f: Presentation, E: Evaluator) -> Evaluator:
 
 First, the contrast between re-indexing one member and renaming the whole
 institution:
+
+<details>
+<summary>Lean source: correspondence_matters, knows_rename (optional)</summary>
 
 ```lean
 -- Lean (research), research/actor_institution/lean/ResearchActorInstitution/Institution.lean lines 209–245
@@ -188,9 +245,14 @@ theorem knows_rename {σ τ : Nat → Nat} (hστ : ∀ x, σ (τ x) = x)
     exact h2
 ```
 
+</details>
+
 Second, the fidelity contract for an institution's representative and for
 pulled-back observers (`Sharp D E p` means `∀ x ∈ D, ∀ y ∈ D, verdictB E x y =
 false ↔ p x = p y`):
+
+<details>
+<summary>Lean source: faithful_actor_iff, sharp_pullback_iff, fiberConstant_of_sharp_pullback, faithful_of_sharp_identity (optional)</summary>
 
 ```lean
 -- Lean (research), research/two_theorems/lean/ResearchTwoTheorems/Correspondence.lean lines 72–79, 131–161
@@ -230,6 +292,13 @@ theorem faithful_of_sharp_identity (D : List Nat) (f : Nat → Nat) (E : Evaluat
   fiberConstant_of_sharp_pullback D f E (fun x => x) h
 ```
 
+</details>
+
+A consistent renaming preserves the same answer rows when its read-back rule recovers each old input. A correspondence that merges inputs supplies the same later input for both, so no later view can separate that pair. The observer must still distinguish all pairs required by the chosen q.
+
+<details>
+<summary>Detailed proof steps (optional)</summary>
+
 ## The proof, step by step
 
 **Step 1. `correspondence_matters` by `decide`.** On `[0, 1, 2]`, `p1` is
@@ -253,6 +322,11 @@ determination along `τ` and `σ`:
   agrees on `τ x` and `τ y` simplifies by `hστ` to `SigEq Q x y`, so `h` yields
   `q x = q y`, which is `q (σ (τ x)) = q (σ (τ y))`.
 
+The printed theorem needs only `σ (τ x) = x`: old inputs can be renamed
+and read back. It does not require the reverse equation on every natural
+number. For example, τ(x)=x+10 and σ(y)=y−10 (natural-number subtraction)
+read back every old input, although σ also sends 0 through 9 to 0.
+
 **Step 3. `faithful_actor_iff`.** By Unit 02 (`knows_iff_determined`), the
 institution `Q` knows the identity `fun x => x` on `D` iff `SigEq Q x y → x = y`
 for all `x, y ∈ D`. By Unit 01 (`pQ_exact`), `pQ D Q x = pQ D Q y ↔ SigEq Q x y`.
@@ -273,14 +347,17 @@ sharpness for `q` forces `q x = q y`. That is `FiberConstant D f q`. Specializin
 `q` to `fun x => x` gives `faithful_of_sharp_identity` (and with `hf : Faithful D f`,
 `sharp_identity_pullback` on lines 165–177 gives the converse for the identity).
 
+</details>
+
 ## The same fact in Python
 
 The check verifies three things:
 
 1. `correspondence_matters`: on `range(3)`, `(P1, P2)` knows `Q3`, while
    replacing `P2` by `(P2[1], P2[0], P2[2])` breaks `Knows`.
-2. `knows_rename`: over all 6 permutations of `range(3)`, all families of at
-   most 2 partitions, and all partitions as the claim, permuting the carrier,
+2. `knows_rename`: over all 6 permutations of `range(3)`, the empty
+   family, each singleton and one ordering of each distinct partition pair,
+   and every partition as the claim, permuting the carrier,
    every member, and the claim together leaves `knows` unchanged.
 3. `correspondence_checks`: on `D = (0, 1, 2)` from `two_theorems`, the
    constant map is not faithful and collapses all pairs, `faithful(D, pQ)`
@@ -318,10 +395,10 @@ through `f` requires `f` to be faithful (`TT-20`, `TT-21`).
 
 **Phrases to read with care.**
 
-- "Correspondence matters." It means that permuting one member's index relative
-  to the others changes the joint signature `SigEq` and therefore changes what
-  the family knows. Uniform renaming of the entire setup (`knows_rename`)
-  changes nothing.
+- "Correspondence matters." The displayed one-member permutation changes
+  the joint groups and loses the stated question. Not every one-member
+  permutation must change recoverability. Consistent renaming preserves
+  the knowledge relation when the theorem's read-back condition holds.
 - "Faithful correspondence." `Faithful D f` is injectivity of `f` restricted to
   `D`. It is required when observing the identity `fun x => x` sharply through
   `f`, and is not required when observing a coarser presentation `p` whose
@@ -339,6 +416,8 @@ representative `pQ D Q`, and a pulled-back observer `pullback D f E`:
 `pQ D Q` is faithful on `D` iff `Q` knows the identity on `D`; sharpness
 transports along every `f` without assuming fidelity; and sharp observation of
 `q` through `f` forces `FiberConstant D f q`.
+The last implication is a necessary condition. It does not establish
+sharpness for an arbitrary supplied observer satisfying no further condition.
 
 It does not show how to discover whether two members in the wild share a
 carrier alignment without already having a joint observation or an admitted

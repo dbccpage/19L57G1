@@ -12,9 +12,10 @@ knows) leaves both information and knowledge unchanged; a member is essential
 exactly when the remaining members do not know it; an aggregate hides whether
 it arose from one fine member or from a family that exceeds its members; losing
 a member can turn a separated pair into unanimous agreement while losing
-knowledge; and a member that guesses a report beyond its own partition cannot
-locate the pair on which it guessed, whereas the family locates it exactly when
-another member splits that pair.
+knowledge; and every answer determined by one member merges the pairs
+that member merges. A family separates a specified such pair exactly
+when another member separates it. This does not forbid an external
+reader with both full tables from finding a conflicting pair.
 
 **Status:** derived. **Lean:** `Inst.information_congr_mem`,
 `Inst.aggregates_inert`, `Inst.aggregates_inert_knows`, `Inst.essential_iff`,
@@ -32,12 +33,12 @@ unchanged (`information_append_of_knows`), while appending an unknown one
 strictly increases it (`information_lt_of_not_knows`). This unit extends that
 single-step fact to arbitrary lists of summaries or digests, characterizes when
 removing a member loses information, and exhibits two structural blind spots of
-aggregates and member loss: an aggregate erases the provenance of exceeding,
+aggregates and member loss: an aggregate alone does not identify the source family's assembly,
 and losing the sole separating member creates unanimity on a merged pair while
 destroying knowledge. It then connects this to a member's guess (`Guess D p s`):
 a report `s` that `[p]` does not know splits some pair that `p` merges, and no
-quantity computed from `p` alone can tell that pair apart, whereas a second
-member in the family can.
+quantity determined by `p` alone can tell that pair apart. A second
+member helps on this pair only if it gives different values there.
 
 </details>
 
@@ -47,8 +48,8 @@ Return to I04's two members and question [0,0,1]. Both members
 together determine it. Repeat the first member's table: the answer
 signatures get longer, but their groups stay the same.
 
-Now remove the first member. The remaining table [0,1,1] merges inputs
-1 and 2, whose requested answers differ. The family loses that knowledge.
+Now remove the second member. The remaining table [0,1,0] merges inputs
+0 and 2, whose requested answers differ. The family loses that knowledge.
 
 A full representative of the original family can preserve all its
 distinctions in one table. That summary does not tell us whether its
@@ -67,15 +68,41 @@ adds none; these are different operations with different conclusions.
 
 ## What you need first
 
-Unit 01 (`pQ`), Unit 02 (`Knows`, `knows_iff_determined`, `knows_mono`,
-`known_extension_inert`), Unit 03 (`information`, `information_mono`,
+Use I01’s full representative, I02’s recovery rule, I03’s class count and I04’s two-member example. The main question is which groups and recoverable answers remain after each operation.
+
+<details>
+<summary>Prerequisite source names (optional)</summary>
+
+Unit 01 (`pQ`), Unit 02 (`Knows`, `knows_iff_determined`),
+Unit 03 (`known_extension_inert`, `information`, `information_mono`,
 `information_append_of_knows`, `information_lt_of_not_knows`,
 `not_knows_iff_witness`), and Unit 04 (`Exceeds`, `p1`, `p2`, `q3`). From
 `two_theorems` (`Institution.lean` lines 250–252 and `Reading.lean` lines
 356–366), `parity` is `x % 2`, `half` is `x / 2`, and `Grounded D Q s` is the
 synonym `Knows D Q s` when `s` is read as a report (studied in full in Unit 09).
 
+</details>
+
+Start with the difference between **appending** a summary and **replacing**
+the family by it. Appending retains the old tables. Replacing can discard
+them. With I04's family and question `[0,0,1]`:
+
+| Operation | Class count | Requested table recoverable? |
+|---|---|---|
+| Keep both members | 3 | Yes |
+| Append constant `[7,7,7]` | 3 | Yes |
+| Replace both by their full representative `[0,1,2]` | 3 | Yes |
+| Replace both by the constant | 1 | No |
+| Remove the second member | 2 | No |
+
+The full representative preserves the combined groups. Its table alone
+does not record how those groups were assembled. Appending it while
+retaining the members does not erase the retained member tables.
+
 ### 1. Set congruence of information
+
+<details>
+<summary>Lean source: information_congr_mem (optional)</summary>
 
 ```lean
 -- Lean (research), research/actor_institution/lean/ResearchActorInstitution/Institution.lean lines 250–253
@@ -86,6 +113,8 @@ theorem information_congr_mem {D : List Nat} {Q Q' : Institution}
     (information_mono (fun p hp => (h p).mpr hp))
 ```
 
+</details>
+
 Because `information_mono` (Unit 03) uses only list membership `p ∈ Q → p ∈ Q'`,
 two families with the same set of members have the same information regardless
 of order or multiplicity. In particular, duplicating a member changes nothing
@@ -93,6 +122,9 @@ of order or multiplicity. In particular, duplicating a member changes nothing
 information D (p :: Q)`).
 
 ### 2. A member's guess
+
+<details>
+<summary>Lean source: Guess, guess_iff_witness (optional)</summary>
 
 ```lean
 -- Lean (research), research/two_theorems/lean/ResearchTwoTheorems/Reading.lean lines 476–487
@@ -110,13 +142,36 @@ theorem guess_iff_witness (D : List Nat) (p s : Nat → Nat) :
       fun r hr => by rw [List.mem_singleton.mp hr]; exact hp, hne⟩
 ```
 
+</details>
+
 A report `s` is a `Guess` by member `p` on `D` when `[p]` does not know `s`,
 which by Unit 03's witness theorem means `p` merges some pair `x, y ∈ D` that
 `s` splits (`guess_iff_witness`).
 
+For p1 and q3, inputs 0 and 2 both give p1-value 0, but q3 gives 0 and 1.
+Any lookup receiving only p1's value gets the same input in both cases,
+so it cannot distinguish those two original inputs. An external reader
+given the full p1 and q3 tables can still name 0/2 as the conflicting pair.
+The theorem limits answers determined by p1; it does not erase access to
+the separately supplied report table.
+
+Adding p2 separates this pair; adding another copy of p1 does not.
+Separating one conflict is a statement about that pair. Recovering the
+whole report additionally requires that no conflict remain elsewhere.
+
 ## The theorems
 
-First, the inertness of aggregates and the criterion for an essential member:
+An **essential member**, in this information-count sense, is one whose
+removal lowers the count. The criterion below tests the remaining family:
+if it already recovers that member's table, removal loses no group.
+Otherwise, restoring the member splits at least one group.
+
+The first source excerpt gives that criterion and aggregate invariance.
+The displayed `...` in its last proof omits source lines; it is not
+executable Lean syntax. Open the cited owner file for the full proof.
+
+<details>
+<summary>Lean source: aggregates_inert, aggregates_inert_knows, essential_iff (optional)</summary>
 
 ```lean
 -- Lean (research), research/actor_institution/lean/ResearchActorInstitution/Institution.lean lines 258–323
@@ -170,7 +225,12 @@ theorem essential_iff (D : List Nat) (Q1 Q2 : Institution) (p : Nat → Nat) :
     exact information_lt_of_not_knows hn
 ```
 
-Second, provenance loss in the aggregate and false unanimity after member loss:
+</details>
+
+Second, what a representative omits, and agreement after member loss:
+
+<details>
+<summary>Lean source: aggregate_hides_exceeding, consensus_after_loss (optional)</summary>
 
 ```lean
 -- Lean (research), the same file, lines 343–360
@@ -189,7 +249,16 @@ theorem consensus_after_loss :
   decide
 ```
 
-Third, who can locate a member's guess:
+</details>
+
+Third, which available reports distinguish a specified witness pair:
+
+The later four-input source example uses two simple tables: parity gives
+0 on even inputs and 1 on odd inputs; half gives 0 on inputs 0/1 and 1
+on 2/3. `Grounded` means that the family recovers the supplied report.
+
+<details>
+<summary>Lean source: own_guess_invisible, guess_visible_iff, shared_guess, guess_witness (optional)</summary>
 
 ```lean
 -- Lean (research), research/two_theorems/lean/ResearchTwoTheorems/Reading.lean lines 491–539
@@ -221,6 +290,13 @@ theorem guess_witness :
   unfold Guess Grounded
   decide
 ```
+
+</details>
+
+An appended known table does not split any existing group; repeating that argument handles a supplied list of known tables. A removed member is essential exactly when restoring it splits a group. A lookup receiving one member value gives the same answer on any pair that member merges.
+
+<details>
+<summary>Detailed proof steps (optional)</summary>
 
 ## The proof, step by step
 
@@ -255,13 +331,18 @@ which walks `Q.all`), and since `p x = p y`, any such `r` is distinct from `p`
 (`guess_visible_iff`). If instead `SigEq Q x y` holds while `s x ≠ s y`, the
 pair `x, y` witnesses `¬ Grounded D Q s` (`shared_guess`).
 
+</details>
+
 ## The same fact in Python
 
 The check verifies:
 
-1. `aggregates_inert` and `essential_iff` exhaustively on `range(3)` over all
-   families of at most 2 partitions and all partitions as the added/removed
-   member.
+1. `aggregates_inert` and `essential_iff` on `range(3)`, using the empty
+   family, each singleton and one ordering of each distinct partition pair.
+   It appends the list of every known partition once, then checks count
+   and knowledge of the five partition questions. For essentiality, it
+   appends each possible single partition. It does not enumerate arbitrary
+   lists of aggregates or all deletion positions; the Lean theorem does.
 2. `aggregate_hides_exceeding` and `consensus_after_loss` from
    `actor_institution/model.py`.
 3. `guess_checks` on `D = (0, 1, 2, 3)` from `two_theorems/model.py`: `half`
@@ -290,7 +371,8 @@ guess is a report table `s` satisfying `¬ Knows D [p] s`.
 **Admissions relied on, and their price.** Unit 00's three admissions. Because
 `pQ D Q` records only which carrier points share a signature and not which
 members separated them, collapsing a family into its representative `pQ D Q`
-throws away member-level provenance (`AI-05`). And because `SigEq Q x y`
+retains no member-level provenance in that table alone (`AI-05`). This
+does not delete any history or member tables kept separately. And because `SigEq Q x y`
 quantifies only over the current list `Q`, shrinking `Q` weakens the separation
 condition and can create agreement by omission (`AI-06`).
 
@@ -318,9 +400,11 @@ two-member exceeding family (`[parity, half]`) from a single fine member
 (`[id]`), and that dropping an essential member produces unanimity on the pairs
 only that member split.
 
-It shows that a member cannot detect on which pair its own report overclaimed
-(`own_guess_invisible`), and that the family detects the pair iff another
-member splits it (`guess_visible_iff`).
+It shows that any answer known by a member merges each pair that member
+merges (`own_guess_invisible`). A family separates a specified such pair
+iff another member separates it (`guess_visible_iff`). This does not
+assert that finding a witness from separately supplied full tables is
+impossible, or assign correctness relative to a physical target.
 
 It does not model why a member might emit an ungrounded report `s` or how a
 family chooses which members to retain or drop.

@@ -3,12 +3,21 @@
 AuthorityEffect: None. Audit snapshot: 2026-10-28, main `e0faff5a55823181a8bd84fa30800e558e9432c0`.
 
 Population: all 123 trees returned by `ci.research_index.group_trees(tracked_research_files(root))`.
+Teaching additions below include the selected X301, X302 and X303 routes of 2026-11-01;
+the source-tree inventory snapshot remains the one named above.
 Dedicated teaching now includes the four institutions trees, the Growth
 lab's introductory treatment of `standing_commitment`, and the Boundary
 lab's selected lessons for `boundary_seed`, `side_free`, and
 `oriented_boundary`, plus the Same-record lab's selected introduction to
-`identification_dual`, and the Number lab's selected `qm_bridge` lessons.
-The other 113
+`identification_dual`, and the Number lab's selected `qm_bridge` lessons, plus the Map lab's
+selected `native_bridge` continuation and the Path lab's selected
+`native_structure` cost continuation, plus the Reasoning lab's selected
+P200 recording-protocol continuation, selected P201/P202 calibration/clock
+lessons, the selected P203 composite-system route, and the selected P204
+valuation route, plus the selected X300 channel/process lessons and X301
+interpretation/report lessons, X302 support/withdrawal lessons and X303
+bounded-memory/permission lessons.
+Twenty trees now have selected dedicated introductions. The other 103
 have no dedicated research curriculum established by this audit. The
 Growth lab's comparison with `two_sided_commitment` is a scoped reference,
 not a complete treatment of that tree. The Boundary lab is also a selected
@@ -19,9 +28,14 @@ the model's physical correspondence and later open rows remain unproved.
 A source mention alone is not teaching.
 Group assignments below are proposed curriculum organization; they assert no mathematical bridge or research validation.
 
+The [editorial placement decision](RESEARCH_PLACEMENT_2026-11-01.md) now assigns
+a role and reason to every tree. This table still records actual dedicated
+treatment: X302 and X303 now have selected introductions,
+and a reference or omission decision is not new teaching coverage.
+
 | Proposed teaching group | Tree | Current dedicated treatment | Source entry |
 |---|---|---|---|
-| Boundary, orientation, and commitment | `boundary_seed` | [Boundary lab: selected introduction](../boundary_lab/00_start_before_the_marks.md) | [research/boundary_seed/CLAIM_LEDGER.md](../../research/boundary_seed/CLAIM_LEDGER.md) |
+| Boundary, orientation, and commitment | `boundary_seed` | [Boundary lab: selected introduction](../boundary_lab/00_start_before_the_marks.md) | [research/boundary_seed/claim_ledger.md](../../research/boundary_seed/claim_ledger.md) |
 | Boundary, orientation, and commitment | `identification_dual` | [Same-record lab: selected introduction](../identification_lab/README.md) | [research/identification_dual/STATUS.md](../../research/identification_dual/STATUS.md) |
 | Boundary, orientation, and commitment | `oriented_boundary` | [Boundary lab: selected introduction](../boundary_lab/02_compare_two_answers.md) | [research/oriented_boundary/CLAIM_LEDGER.md](../../research/oriented_boundary/CLAIM_LEDGER.md) |
 | Boundary, orientation, and commitment | `seventh_constructor` | Not yet established | [research/seventh_constructor/FINDINGS.md](../../research/seventh_constructor/FINDINGS.md) |
@@ -54,8 +68,8 @@ Group assignments below are proposed curriculum organization; they assert no mat
 | Native paths, structure, conservation, and adapters | `conservation_ladder` | Not yet established | [research/conservation_ladder/CLAIMS.md](../../research/conservation_ladder/CLAIMS.md) |
 | Native paths, structure, conservation, and adapters | `described_replay` | Not yet established | [research/described_replay/STATUS.md](../../research/described_replay/STATUS.md) |
 | Native paths, structure, conservation, and adapters | `domain_adapters` | Not yet established | [research/domain_adapters/CLAIMS.md](../../research/domain_adapters/CLAIMS.md) |
-| Native paths, structure, conservation, and adapters | `native_bridge` | Not yet established | [research/native_bridge/CLAIMS.md](../../research/native_bridge/CLAIMS.md) |
-| Native paths, structure, conservation, and adapters | `native_structure` | Not yet established | [research/native_structure/CLAIMS.md](../../research/native_structure/CLAIMS.md) |
+| Native paths, structure, conservation, and adapters | `native_bridge` | [Map lab: actual paths and faithful observations](../map_lab/08_states_and_events.md) | [research/native_bridge/CLAIMS.md](../../research/native_bridge/CLAIMS.md) |
+| Native paths, structure, conservation, and adapters | `native_structure` | [Path lab: costs, loops and verified swaps](../path_lab/07_two_cost_questions.md) | [research/native_structure/CLAIMS.md](../../research/native_structure/CLAIMS.md) |
 | Native paths, structure, conservation, and adapters | `represented_execution` | Not yet established | [research/represented_execution/CLAIMS.md](../../research/represented_execution/CLAIMS.md) |
 | Native paths, structure, conservation, and adapters | `setting_translation` | Not yet established | [research/setting_translation/CLAIMS.md](../../research/setting_translation/CLAIMS.md) |
 | Native paths, structure, conservation, and adapters | `target_a_execution` | Not yet established | [research/target_a_execution/CLAIMS.md](../../research/target_a_execution/CLAIMS.md) |
@@ -106,10 +120,10 @@ Group assignments below are proposed curriculum organization; they assert no mat
 | Observation, costs, growth, and limits | `thinghood` | Not yet established | [research/thinghood/STATUS.md](../../research/thinghood/STATUS.md) |
 | Observation, costs, growth, and limits | `twin_pricing` | Not yet established | [research/twin_pricing/FINDINGS.md](../../research/twin_pricing/FINDINGS.md) |
 | Observation, costs, growth, and limits | `unboundedness` | Not yet established | [research/unboundedness/CLAIMS.md](../../research/unboundedness/CLAIMS.md) |
-| Operational physics, information, semantics, and agency | `p200_operational_protocols` | Not yet established | [research/p200_operational_protocols/CLAIMS.md](../../research/p200_operational_protocols/CLAIMS.md) |
-| Operational physics, information, semantics, and agency | `p201_relational_spacetime` | Not yet established | [research/p201_relational_spacetime/CLAIMS.md](../../research/p201_relational_spacetime/CLAIMS.md) |
-| Operational physics, information, semantics, and agency | `p203_composite_systems` | Not yet established | [research/p203_composite_systems/CLAIMS.md](../../research/p203_composite_systems/CLAIMS.md) |
-| Operational physics, information, semantics, and agency | `p204_operational_valuations` | Not yet established | [research/p204_operational_valuations/CLAIMS.md](../../research/p204_operational_valuations/CLAIMS.md) |
+| Operational physics, information, semantics, and agency | `p200_operational_protocols` | [Reasoning lab: targets, records and update order](../reasoning_lab/12_target_and_record.md) | [research/p200_operational_protocols/CLAIMS.md](../../research/p200_operational_protocols/CLAIMS.md) |
+| Operational physics, information, semantics, and agency | `p201_relational_spacetime` | [Reasoning lab: numbers, standards and calibration conditions](../reasoning_lab/18_one_length_two_numbers.md); [selected P202 clock/readout route](../reasoning_lab/24_count_updates_and_ticks.md) with differing source rules | [research/p201_relational_spacetime/CLAIMS.md](../../research/p201_relational_spacetime/CLAIMS.md) |
+| Operational physics, information, semantics, and agency | `p203_composite_systems` | [selected composite-system route](../reasoning_lab/30_join_records_keep_names.md) | [research/p203_composite_systems/CLAIMS.md](../../research/p203_composite_systems/CLAIMS.md) |
+| Operational physics, information, semantics, and agency | `p204_operational_valuations` | [selected valuation route](../reasoning_lab/37_chances_and_responses.md) | [research/p204_operational_valuations/CLAIMS.md](../../research/p204_operational_valuations/CLAIMS.md) |
 | Operational physics, information, semantics, and agency | `p208a_path_interference` | Not yet established | [research/p208a_path_interference/CLAIMS.md](../../research/p208a_path_interference/CLAIMS.md) |
 | Operational physics, information, semantics, and agency | `p208b_contextuality_nonlocality` | Not yet established | [research/p208b_contextuality_nonlocality/CLAIMS.md](../../research/p208b_contextuality_nonlocality/CLAIMS.md) |
 | Operational physics, information, semantics, and agency | `p208c_commutator_tomography` | Not yet established | [research/p208c_commutator_tomography/CLAIMS.md](../../research/p208c_commutator_tomography/CLAIMS.md) |
@@ -117,12 +131,12 @@ Group assignments below are proposed curriculum organization; they assert no mat
 | Operational physics, information, semantics, and agency | `p209b_clifford_symplectic` | Not yet established | [research/p209b_clifford_symplectic/CLAIMS.md](../../research/p209b_clifford_symplectic/CLAIMS.md) |
 | Operational physics, information, semantics, and agency | `p209c_stabilizer_codes` | Not yet established | [research/p209c_stabilizer_codes/CLAIMS.md](../../research/p209c_stabilizer_codes/CLAIMS.md) |
 | Operational physics, information, semantics, and agency | `p209d_nonclassical_horizons` | Not yet established | [research/p209d_nonclassical_horizons/CLAIMS.md](../../research/p209d_nonclassical_horizons/CLAIMS.md) |
-| Operational physics, information, semantics, and agency | `x300_observer_information` | Not yet established | [research/x300_observer_information/CLAIMS.md](../../research/x300_observer_information/CLAIMS.md) |
-| Operational physics, information, semantics, and agency | `x301_formal_semantics` | Not yet established | [research/x301_formal_semantics/CLAIMS.md](../../research/x301_formal_semantics/CLAIMS.md) |
-| Operational physics, information, semantics, and agency | `x302_operational_reasoning` | Not yet established | [research/x302_operational_reasoning/CLAIMS.md](../../research/x302_operational_reasoning/CLAIMS.md) |
-| Operational physics, information, semantics, and agency | `x303_bounded_agency` | Not yet established | [research/x303_bounded_agency/CLAIMS.md](../../research/x303_bounded_agency/CLAIMS.md) |
+| Operational physics, information, semantics, and agency | `x300_observer_information` | [selected process route](../reasoning_lab/45_each_input_gets_a_row.md) | [research/x300_observer_information/CLAIMS.md](../../research/x300_observer_information/CLAIMS.md) |
+| Operational physics, information, semantics, and agency | `x301_formal_semantics` | [Reasoning 56–61: selected interpretation/report introduction](../reasoning_lab/56_a_claim_needs_an_interpretation.md) | [research/x301_formal_semantics/CLAIMS.md](../../research/x301_formal_semantics/CLAIMS.md) |
+| Operational physics, information, semantics, and agency | `x302_operational_reasoning` | [Reasoning 62–64: selected support/withdrawal introduction](../reasoning_lab/62_keep_the_support.md) | [research/x302_operational_reasoning/CLAIMS.md](../../research/x302_operational_reasoning/CLAIMS.md) |
+| Operational physics, information, semantics, and agency | `x303_bounded_agency` | [Reasoning 65–67: selected memory/permission introduction](../reasoning_lab/65_memory_has_a_horizon.md) | [research/x303_bounded_agency/CLAIMS.md](../../research/x303_bounded_agency/CLAIMS.md) |
 | Operational physics, information, semantics, and agency | `x310_vertical_integration` | Not yet established | [research/x310_vertical_integration/CLAIMS.md](../../research/x310_vertical_integration/CLAIMS.md) |
-| Second derivation and its rungs | `second` | Not yet established | [research/second/CLAIM_LEDGER.md](../../research/second/CLAIM_LEDGER.md) |
+| Second derivation and its rungs | `second` | Not yet established | [research/second/claim_ledger.md](../../research/second/claim_ledger.md) |
 | Second derivation and its rungs | `second_class` | Not yet established | [research/second_class/STATUS.md](../../research/second_class/STATUS.md) |
 | Second derivation and its rungs | `second_duration` | Not yet established | [research/second_duration/STATUS.md](../../research/second_duration/STATUS.md) |
 | Second derivation and its rungs | `second_engine` | Not yet established | [research/second_engine/STATUS.md](../../research/second_engine/STATUS.md) |
@@ -140,7 +154,7 @@ Group assignments below are proposed curriculum organization; they assert no mat
 | Source custody and research tooling | `blind_restart` | Not yet established | [research/blind_restart/STATUS.md](../../research/blind_restart/STATUS.md) |
 | Source custody and research tooling | `estate_honesty` | Not yet established | [research/estate_honesty/CLAIMS.md](../../research/estate_honesty/CLAIMS.md) |
 | Source custody and research tooling | `evidence_graph` | Not yet established | [research/evidence_graph/CLAIMS.md](../../research/evidence_graph/CLAIMS.md) |
-| Source custody and research tooling | `genesis_continuation` | Not yet established | [research/genesis_continuation/CLAIMS.md](../../research/genesis_continuation/CLAIMS.md) |
+| Source custody and research tooling | `genesis_continuation` | Not yet established | [research/genesis_continuation/claims.md](../../research/genesis_continuation/claims.md) |
 | Source custody and research tooling | `portable_interface` | Not yet established | [research/portable_interface/INTERFACE.md](../../research/portable_interface/INTERFACE.md) |
 | Source custody and research tooling | `post_seal_walk` | Not yet established | [research/post_seal_walk/README.md](../../research/post_seal_walk/README.md) |
 | Source custody and research tooling | `redheffer` | Not yet established | [research/redheffer/CLAIMS.md](../../research/redheffer/CLAIMS.md) |

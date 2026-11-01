@@ -1,11 +1,13 @@
 """Unit 16 check: uncollapse, recollapse, and families of regimes.
 
 Checks:
-  1. `research/uncollapse/model.py` pin and import parity (`consumed_modules`
+  1. `research/uncollapse/model.py` declared-module/import parity (`consumed_modules`
      vs `lean_imports`);
   2. `bridge_checks` and `recollapse_witness` from `two_theorems/model.py`
      (`recollapse_changes_views`, `separable_unadmitted`);
-  3. Finite regime witnesses from `ResearchUncollapse.lean`:
+  3. Separation comparisons on manually constructed endpoints from
+     `ResearchUncollapse.lean`, not executions of applyDelta/validResponse
+     (the four-field Regime mirror has no requirements):
      `uncollapse_by_delta`, `mention_not_sufficient`, `recollapse_by_rule`,
      `recollapse_by_instance`, `recollapse_breaks_requirement`,
      `family_index_dependence`, and `family_index_repaired`.

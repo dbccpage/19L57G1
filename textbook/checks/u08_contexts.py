@@ -85,6 +85,22 @@ def main() -> int:
                     failures.append(("complement", i, j))
     print("separable == not collapsed on every pair of four regimes")
 
+    # Changed practice: distinguish plugging from the context-validity guard.
+    ternary = replay([AdmitDatum("A"), AdmitDatum("B"), AdmitForm(3)])
+    c = (0, (None, 0, None))
+    if c not in contexts(ternary) or plug(c, 1) != (0, (1, 0, 1)):
+        failures.append("changed multi-hole plugging")
+    binary = replay([AdmitDatum("A"), AdmitDatum("B"), AdmitForm(2)])
+    ruled_binary = replay([AdmitDatum("A"), AdmitDatum("B"), AdmitForm(2), AdmitRuleAll(0)])
+    for state in (binary, ruled_binary):
+        if ((0, (None, 2)) in contexts(state) or (0, (0, 1)) in contexts(state)
+                or (0, (None, None)) not in contexts(state)):
+            failures.append("rule changed context-validity conditions")
+    changed_mark = replay([AdmitDatum("A"), AdmitDatum("B"), AdmitForm(1), AdmitInst(0, (0,))])
+    if (profile(changed_mark, 0) != frozenset({(0, (None,))}) or profile(changed_mark, 1)
+            or witness(changed_mark, 0, 1) != (0, (None,))):
+        failures.append("changed unary profile")
+
     print(f"failures: {failures}")
     return 1 if failures else 0
 

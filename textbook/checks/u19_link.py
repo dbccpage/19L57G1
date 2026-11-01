@@ -23,7 +23,7 @@ from derivation.candidates import (  # noqa: E402
     response_valid_naive,
 )
 from derivation.engine import GENESIS_L  # noqa: E402
-from derivation.model import AdmitRuleAll, Impose, replay, step  # noqa: E402
+from derivation.model import AdmitDatum, AdmitRuleAll, Impose, replay, step  # noqa: E402
 from derivation.observe import (  # noqa: E402
     contexts,
     derivable,
@@ -88,6 +88,22 @@ def main() -> int:
           f"separable={separable(uniform, 0, 1)}; valid response={still_valid}")
     if uniform.insts != bl.insts or separable(uniform, 0, 1) or still_valid:
         failures.append("uniform rule counterexample")
+
+    # A separate three-datum example: validity must meet both stored requests.
+    pending = replay([AdmitDatum(t) for t in ("A", "B", "C")]
+                     + [Impose(0, 1), Impose(1, 2)])
+    for marked, expected in ((0, (True, False)), (1, (True, True))):
+        plan = (NewForm(1), NewInst(0, (marked,)))
+        result = apply_delta(pending, plan)
+        pairs = (separable(result, 0, 1), separable(result, 1, 2))
+        slow = response_valid_naive(pending, (0, 1), plan)
+        fast = response_valid_fast(NodeView.of(pending), (0, 1), plan)
+        if pairs != expected or slow != all(expected) or fast != slow:
+            failures.append(("all stored requests", marked, pairs, slow, fast))
+        print(f"three-data mark {marked}: pair answers {pairs}, valid={slow}, "
+              f"requests retained={result.reqs == pending.reqs}")
+        if result.reqs != pending.reqs:
+            failures.append("repair changed the request set")
 
     print(f"failures: {failures}")
     return 1 if failures else 0
