@@ -11,7 +11,8 @@ between model results and observations about reality.
 
 **Review consolidation is now recorded in [the remaining-issues register](TEXTBOOK_REMAINING_ISSUES.md).
 Research placement and the core-route reading are recorded there too. EXT-01 and EXT-02 are now delivered. Next task: PUB-01,
-the final course/source and publication verification.
+the final course/source and publication verification. The canonical textbook
+job has already passed at the teaching source below; reuse that receipt.
 Do not start another small
 chapter-polishing cycle or another laboratory.**
 Reuse work already checked. Fix substantive errors and prerequisite gaps first;
@@ -26,21 +27,21 @@ for other readers, a reading-speed guarantee or a delayed-retention study.
 ## Exact resumption state
 
 These pins were verified before the final documentation checkpoint. The latest
-publication adds a selected X302 introduction; it does not extend
-the older full mathematical receipts to the new source commit.
+publication adds the selected X303 introduction and has its own canonical
+textbook receipt. Earlier receipts retain their separately stated source scopes.
 
 | Item | Verified state |
 |---|---|
 | Repository | `dbccpage/19L57G1` |
 | Working branch | `codex/native-path-reading` |
-| Last full textbook-job source | `26c06c086421776e31f2301f254c570dfb6ef472` |
-| Latest published teaching source | `b39af739424a9e0a08d50a33bae46b1332139186` |
+| Last full textbook-job source | `d0386aee976e9dc46eec6cb6548ca8376faee0d3` |
+| Latest published teaching source | `d0386aee976e9dc46eec6cb6548ca8376faee0d3` |
 | `main` | `14d23a98830a4e6916b0e50810f0bc6ca17a05cf` |
-| Published Wiki commit | `477c44b438bcf10e42385b5cec9fc0a4fea97bbb` |
+| Published Wiki commit | `a14e9cc12a8a52faf862e18e19610977bdc9b66b` |
 | Working PR | #296, OPEN, DRAFT, unmerged, directly against `main` |
 | Workspace | `C:\Users\a343o\.codex\worktrees\institutions-reading-review\19L57G1` |
 | Existing Wiki checkout | `C:\Users\a343o\.codex\worktrees\5ce4\19L57G1\artifacts2\wiki-review\wiki` |
-| Last batch | Reasoning 62–64: supports, conflicts and withdrawal; changed practice/answers |
+| Last batch | Reasoning 65–67: bounded memory and permission; changed practice/answers; current completion status |
 
 The latest batch finished; it leaves no pending render, build or publication
 job to resume. Refresh Git/PR/Wiki state before the next write. Preserve unrelated
@@ -183,6 +184,40 @@ and `publication.json`. The portable archive includes these small receipts,
 the source guide, updated inventory, this handoff and the remaining-issues
 register. Next: EXT-02, then PUB-01. The goal remains active.
 
+### Latest X303 publication and canonical job
+
+Teaching source `d0386aee976e9dc46eec6cb6548ca8376faee0d3` passed all
+five canonical local textbook steps under pinned Python 3.14.7, with 108
+Python checks and 81 book-Lean drivers. The receipt confirms the same HEAD
+at start/end, clean source and unchanged package pins. The full twelve-family
+merge contract is still separate and has not run.
+
+That source was published at Wiki `a14e9cc12a8a52faf862e18e19610977bdc9b66b`:
+eleven selected pages, six new, 610 tracked files total. All 599 unselected
+files, all 93 complete Unit bodies/source pins, 601 original quotation blocks,
+author-edited pages and every existing media file are preserved. Generated
+and published checks verify 3,198/3,195 internal links. The raw published
+verifier still reports only the seventeen known SVG checkout line-ending
+differences; all 28 SVG Git blobs match source.
+
+Focused checks: 36 memory cases; 2,304 controller cases (672 successes,
+1,632 refusals); nine computational practice questions; sixteen exact
+separate-model Lean reports; 123 Reasoning authoring tests; fourteen Wiki
+tests; both vocabulary firewall checks; unchanged prose census. Source
+limits include trusted cached keys, pure callbacks, omitted custom fields,
+metadata versus observation and the distinct unit-cost Lean carrier.
+
+Local receipts are under `artifacts2/agency-reading-2026-11-01/`, including
+`textbook_gates.json`, `textbook_gates.log`, `controls.json`, `lean.log`,
+`authoring_tests.log`, `wiki_tests.log`, `firewall.log` and `publication.json`.
+They and the current documents are included in the portable archive.
+
+**Next PUB-01 work:** inspect the newly published branch navigation and
+relevant rendered samples; finish the requirement-by-requirement release
+audit against the current evidence. Reuse this canonical receipt unless
+teaching/check source changes. Both electives are delivered. Do not invent
+another lesson batch, repeat unchanged proofs or rerender preserved videos.
+
 ## Repository and publication rules
 
 - Read [AGENTS.md](AGENTS.md) and [CLAUDE.md](CLAUDE.md). They remain authoritative.
@@ -217,7 +252,8 @@ tools. Do not install or rebuild a toolchain without an actual need.
 
 > Read TEXTBOOK_HANDOFF.md and the repository contract. Verify the current branch,
 > PR and Wiki heads. Read TEXTBOOK_REMAINING_ISSUES.md and continue PUB-01.
-> EXT-01, EXT-02, PATH-01 and their checks are already recorded.
+> EXT-01, EXT-02, PATH-01 and the canonical textbook job are already recorded.
+> Reuse the d0386aee teaching receipt; finish rendered samples and the release audit.
 > Reuse completed work; focus on substantive errors and prerequisites. Do not start
 > another polishing cycle, new laboratory or expensive unchanged-content test run.
 > Keep the original beginner-textbook goal intact, publish authorized corrections,
