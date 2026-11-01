@@ -100,3 +100,7 @@ SOURCE += '\n'+CLOCK_SOURCE
 from .composites_lean import build_checks as composite_checks
 COMPOSITE_SOURCE,COMPOSITE_NAMES=composite_checks()
 SOURCE += '\n'+COMPOSITE_SOURCE
+
+from .valuations_lean import build_checks as valuation_checks
+VALUATION_SOURCE,VALUATION_NAMES=valuation_checks()
+SOURCE += '\n'+VALUATION_SOURCE

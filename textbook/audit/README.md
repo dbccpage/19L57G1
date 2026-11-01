@@ -75,6 +75,10 @@ The [P203 composite-system route](COMPOSITE_READING_REVIEW_2026-10-31.md)
 adds seven lessons, distinguishing regrouping from independence, actual
 dependencies from footprint labels, graph availability from relay
 execution, and equal shares from unchanged paired readings.
+The [P204 valuation route](VALUATION_READING_REVIEW_2026-10-31.md) adds
+eight chance/response lessons and an interactive desk. It distinguishes
+native Nat algebra from Python rational probabilities, value equivalence
+from literal equality, and complete sums from conditioning on one branch.
 
 **Early-chapter follow-up (2026-10-29).** The
 [Units 04–16 reading review](EARLY_READING_REVIEW_2026-10-29.md) adds

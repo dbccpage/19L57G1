@@ -135,6 +135,10 @@ The [composite-system route](audit/COMPOSITE_READING_REVIEW_2026-10-31.md)
 adds seven lessons on joining records, local changes, declared graphs,
 relay order, outcome shares and symmetry. It keeps actual dependencies
 and physical correspondence explicit.
+The [valuation route](audit/VALUATION_READING_REVIEW_2026-10-31.md) adds
+eight lessons on preparation chances, responses, mixing, recipe ambiguity
+and complete branch sums, with a separate interactive desk. It keeps
+model probabilities and observations distinct.
 
 ## Status marks
 

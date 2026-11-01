@@ -1082,3 +1082,31 @@ recover with 42 empty axiom reports; the combined driver checks 114.
 Native read-label, shallow-mutation, observer-map and empty-population
 controls are separately retained counterexamples, not repaired research.
 Browser rendering and learner evidence remain separate obligations.
+
+
+## Reasoning-lab valuation continuation (2026-10-31)
+
+AuthorityEffect: None. Disposable packet/desk copies and assembled child
+Lean sources reject nine false promotions. Research owners and receipts
+stay unchanged; the original strict axiom populations are retained.
+
+| Injected defect | Rejection |
+|---|---|
+| Replace multiply-and-add 5/8 by 3/4 | Packet comparison rejects the wrong valuation |
+| Replace the full-branch half by a selected-branch one | Packet comparison retains the distinct comparisons |
+| Assign conditional zero to an impossible branch | Packet comparison retains undefined |
+| Erase distinct square recipe weights | Packet comparison retains both recipes |
+| Promote normalized Nat weights to arbitrary fractions | Packet comparison retains the endpoint restriction |
+| Count supplied contexts as measurements | Packet comparison retains zero observations |
+| Alter HTML without rebuilding | Renderer comparison rejects the stale desk |
+| Promote equivalent fractions to literal record equality | Lean rejects the false equality |
+| Retain the endpoint conclusion with normalization changed to two | Lean rejects the altered premise/conclusion claim |
+
+Eighteen added authoring tests pass; the full Reasoning suite has 94.
+Actual handlers check 140 pairing and 168 branch predictions, including
+gates, wrong answers and resets. Two initial book proof attempts exposed
+a missing equivalence decision procedure and unwanted Classical.choice.
+Explicit constructive steps recover the original expected sets, without
+adopting either failure. Unmodified selected source recovers with 34
+reports; the combined driver checks 148. Rendering and learner evidence
+remain separate from these finite/model checks.

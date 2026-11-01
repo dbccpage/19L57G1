@@ -222,3 +222,14 @@ and observer premises. It adds 33 unchanged explicit owner theorems and
 nine book reports, all axiom-free. With the preceding 72-report portion,
 the combined driver checks 114. No graph or distribution theorem in Lean,
 physical validation or Python-to-Lean refinement is inferred.
+
+## Valuation continuation: Lessons 37–44
+
+The [P204 source guide](VALUATIONS_SOURCES.md) distinguishes normalized
+rational preparations/effects from native Nat algebra, value equivalence
+from record equality, unique indicator weights from ambiguous corner
+recipes, and full branch sums from conditional selection. Twenty-five
+unchanged explicit owner theorems and nine book results add 34 reports:
+23 empty axiom sets and eleven exactly `propext, Quot.sound`. With the
+preceding 114-report portion, the combined driver checks 148. No physical
+probability law or general rational Python/Lean bridge is inferred.

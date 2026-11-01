@@ -112,6 +112,28 @@ Use the separate [composite desk](composites.html), then the changed
 [practice](COMPOSITES_PRACTICE.md) and [answers](COMPOSITES_ANSWERS.md).
 Optional [source details](COMPOSITES_SOURCES.md) retain the precise scope.
 
+## Give chances and responses their separate roles
+
+This selected P204 route starts with two-outcome tables. It distinguishes
+preparation chances, conditional response rules, mixing procedures,
+allowed recipe families, complete branch sums and conditional selection.
+
+| Lesson | One question |
+|---|---|
+| [37. Chances and responses answer different questions](37_chances_and_responses.md) | Which weights must sum to one? |
+| [38. Multiply, then add](38_multiply_then_add.md) | How does each outcome contribute to Yes? |
+| [39. Mix recipes and keep the choice procedure](39_mix_recipes_keep_the_choice.md) | Are the recipe and response choices independent or coordinated? |
+| [40. Recover the indicator weights](40_recover_indicator_weights.md) | Which specified candidate weights are unique? |
+| [41. Two recipes, one table](41_two_recipes_one_table.md) | Can different allowed recipes give the same preparation table? |
+| [42. Keep every branch](42_keep_every_branch.md) | Which sum uses a complete partition? |
+| [43. Sum out A before reading B](43_sum_out_a_before_reading_b.md) | Does keeping one branch ask the marginal question? |
+| [44. From chance tables to observations](44_from_chances_to_observations.md) | What evidence connects supplied chances to device counts? |
+
+Use the [valuation desk](valuations.html), then changed
+[practice](VALUATIONS_PRACTICE.md) and separate [answers](VALUATIONS_ANSWERS.md).
+The optional [source guide](VALUATIONS_SOURCES.md) keeps Python rational
+probabilities, native Lean Nat results and added book arithmetic distinct.
+
 Then try the original [practice](PRACTICE.md) before opening its [answers](ANSWERS.md).
 For the evidence route, use the changed [envelope example](EVIDENCE_PRACTICE.md)
 before its separate [answer guide](EVIDENCE_ANSWERS.md).

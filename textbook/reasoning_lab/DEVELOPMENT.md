@@ -158,9 +158,9 @@ python textbook/checks/u00_reasoning_lab_lean.py
 
 A reviewed `composites.py --write` updates only its JSON and HTML. The
 existing wrappers check this packet, its declared populations and the
-combined 114 exact reports. The whole native Lean body stays unchanged;
+logic-through-composite portion of 114 exact reports. The whole native Lean body stays unchanged;
 33 explicit owner reports and nine book reports add 42 empty axiom sets.
-Eighteen added authoring tests bring the full Reasoning suite to 76.
+Eighteen added authoring tests bring that portion of the Reasoning suite to 76.
 The handler fixture checks 300 share and sixty graph choices. Two
 separate assembled false Lean conclusions are rejected before recovery.
 
@@ -169,3 +169,28 @@ with different paired marks, constant probes, joint-write edges and an
 undeclared read. Check both gates, wrong feedback, all context resets,
 phone table focus and arrow scrolling. Keep rendering, supplied lists,
 physical observations and beginner outcomes separate.
+
+
+For the valuation continuation:
+
+```powershell
+python textbook/reasoning_lab/valuations.py --population
+python -m unittest textbook.reasoning_lab.test_valuations
+node textbook/reasoning_lab/test_valuation_controls.mjs
+python textbook/checks/u00_reasoning_lab_lean.py
+```
+
+A reviewed `valuations.py --write` updates only its JSON/HTML. Existing
+wrappers check its populations and 148 combined exact reports. P204's
+whole Lean body stays unchanged; 25 owner and nine book reports add
+23 empty sets and eleven exactly `propext, Quot.sound`. Failed initial
+proof/axiom attempts are retained separately, without widening the sets.
+Use UTF-8 output when capturing Lean diagnostics on Windows.
+
+Eighteen added authoring tests bring the Reasoning suite to 94. Actual
+handlers exercise 140 pairing and 168 branch predictions. Six false
+packet variants, one stale desk and two assembled false Lean statements
+are rejected; unmodified source recovers. Published UI checks remain
+separate: exercise the contexts, both gates, zero-chance branch, wrong
+feedback, resets and phone-width keyboard scrolling. No fixture produces
+measured device frequencies or learner scores.

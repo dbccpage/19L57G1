@@ -1,0 +1,1963 @@
+{
+  "authority_effect": "None",
+  "classification": "supplied P204 finite probability models",
+  "physical_observations": 0,
+  "preparations": [
+    "Always outcome 0",
+    "Always outcome 1",
+    "Outcome 0 has share 3/4",
+    "Equal shares",
+    "Outcome 0 has share 1/4"
+  ],
+  "responses": [
+    "Always yes",
+    "Always no",
+    "Yes only on outcome 0",
+    "Half response on 0; full response on 1"
+  ],
+  "joints": [
+    "Matching 00/11 equally",
+    "Opposite 01/10 equally",
+    "All four pairs equally",
+    "Matching 00/11 with shares 3/4 and 1/4"
+  ],
+  "partitions": [
+    "A reveals its outcome",
+    "A has graded branches",
+    "One certain branch and one impossible branch"
+  ],
+  "b_responses": [
+    "B yes only on 0",
+    "B half response on 0; full response on 1"
+  ],
+  "answers": [
+    "0",
+    "1/4",
+    "1/2",
+    "5/8",
+    "3/4",
+    "7/8",
+    "1"
+  ],
+  "cases": {
+    "0_0": {
+      "preparation": 0,
+      "response": 0,
+      "rows": [
+        {
+          "outcome": 0,
+          "share": "1",
+          "response": "1",
+          "contribution": "1"
+        },
+        {
+          "outcome": 1,
+          "share": "0",
+          "response": "1",
+          "contribution": "0"
+        }
+      ],
+      "answer": "1",
+      "complement": "0"
+    },
+    "0_1": {
+      "preparation": 0,
+      "response": 1,
+      "rows": [
+        {
+          "outcome": 0,
+          "share": "1",
+          "response": "0",
+          "contribution": "0"
+        },
+        {
+          "outcome": 1,
+          "share": "0",
+          "response": "0",
+          "contribution": "0"
+        }
+      ],
+      "answer": "0",
+      "complement": "1"
+    },
+    "0_2": {
+      "preparation": 0,
+      "response": 2,
+      "rows": [
+        {
+          "outcome": 0,
+          "share": "1",
+          "response": "1",
+          "contribution": "1"
+        },
+        {
+          "outcome": 1,
+          "share": "0",
+          "response": "0",
+          "contribution": "0"
+        }
+      ],
+      "answer": "1",
+      "complement": "0"
+    },
+    "0_3": {
+      "preparation": 0,
+      "response": 3,
+      "rows": [
+        {
+          "outcome": 0,
+          "share": "1",
+          "response": "1/2",
+          "contribution": "1/2"
+        },
+        {
+          "outcome": 1,
+          "share": "0",
+          "response": "1",
+          "contribution": "0"
+        }
+      ],
+      "answer": "1/2",
+      "complement": "1/2"
+    },
+    "1_0": {
+      "preparation": 1,
+      "response": 0,
+      "rows": [
+        {
+          "outcome": 0,
+          "share": "0",
+          "response": "1",
+          "contribution": "0"
+        },
+        {
+          "outcome": 1,
+          "share": "1",
+          "response": "1",
+          "contribution": "1"
+        }
+      ],
+      "answer": "1",
+      "complement": "0"
+    },
+    "1_1": {
+      "preparation": 1,
+      "response": 1,
+      "rows": [
+        {
+          "outcome": 0,
+          "share": "0",
+          "response": "0",
+          "contribution": "0"
+        },
+        {
+          "outcome": 1,
+          "share": "1",
+          "response": "0",
+          "contribution": "0"
+        }
+      ],
+      "answer": "0",
+      "complement": "1"
+    },
+    "1_2": {
+      "preparation": 1,
+      "response": 2,
+      "rows": [
+        {
+          "outcome": 0,
+          "share": "0",
+          "response": "1",
+          "contribution": "0"
+        },
+        {
+          "outcome": 1,
+          "share": "1",
+          "response": "0",
+          "contribution": "0"
+        }
+      ],
+      "answer": "0",
+      "complement": "1"
+    },
+    "1_3": {
+      "preparation": 1,
+      "response": 3,
+      "rows": [
+        {
+          "outcome": 0,
+          "share": "0",
+          "response": "1/2",
+          "contribution": "0"
+        },
+        {
+          "outcome": 1,
+          "share": "1",
+          "response": "1",
+          "contribution": "1"
+        }
+      ],
+      "answer": "1",
+      "complement": "0"
+    },
+    "2_0": {
+      "preparation": 2,
+      "response": 0,
+      "rows": [
+        {
+          "outcome": 0,
+          "share": "3/4",
+          "response": "1",
+          "contribution": "3/4"
+        },
+        {
+          "outcome": 1,
+          "share": "1/4",
+          "response": "1",
+          "contribution": "1/4"
+        }
+      ],
+      "answer": "1",
+      "complement": "0"
+    },
+    "2_1": {
+      "preparation": 2,
+      "response": 1,
+      "rows": [
+        {
+          "outcome": 0,
+          "share": "3/4",
+          "response": "0",
+          "contribution": "0"
+        },
+        {
+          "outcome": 1,
+          "share": "1/4",
+          "response": "0",
+          "contribution": "0"
+        }
+      ],
+      "answer": "0",
+      "complement": "1"
+    },
+    "2_2": {
+      "preparation": 2,
+      "response": 2,
+      "rows": [
+        {
+          "outcome": 0,
+          "share": "3/4",
+          "response": "1",
+          "contribution": "3/4"
+        },
+        {
+          "outcome": 1,
+          "share": "1/4",
+          "response": "0",
+          "contribution": "0"
+        }
+      ],
+      "answer": "3/4",
+      "complement": "1/4"
+    },
+    "2_3": {
+      "preparation": 2,
+      "response": 3,
+      "rows": [
+        {
+          "outcome": 0,
+          "share": "3/4",
+          "response": "1/2",
+          "contribution": "3/8"
+        },
+        {
+          "outcome": 1,
+          "share": "1/4",
+          "response": "1",
+          "contribution": "1/4"
+        }
+      ],
+      "answer": "5/8",
+      "complement": "3/8"
+    },
+    "3_0": {
+      "preparation": 3,
+      "response": 0,
+      "rows": [
+        {
+          "outcome": 0,
+          "share": "1/2",
+          "response": "1",
+          "contribution": "1/2"
+        },
+        {
+          "outcome": 1,
+          "share": "1/2",
+          "response": "1",
+          "contribution": "1/2"
+        }
+      ],
+      "answer": "1",
+      "complement": "0"
+    },
+    "3_1": {
+      "preparation": 3,
+      "response": 1,
+      "rows": [
+        {
+          "outcome": 0,
+          "share": "1/2",
+          "response": "0",
+          "contribution": "0"
+        },
+        {
+          "outcome": 1,
+          "share": "1/2",
+          "response": "0",
+          "contribution": "0"
+        }
+      ],
+      "answer": "0",
+      "complement": "1"
+    },
+    "3_2": {
+      "preparation": 3,
+      "response": 2,
+      "rows": [
+        {
+          "outcome": 0,
+          "share": "1/2",
+          "response": "1",
+          "contribution": "1/2"
+        },
+        {
+          "outcome": 1,
+          "share": "1/2",
+          "response": "0",
+          "contribution": "0"
+        }
+      ],
+      "answer": "1/2",
+      "complement": "1/2"
+    },
+    "3_3": {
+      "preparation": 3,
+      "response": 3,
+      "rows": [
+        {
+          "outcome": 0,
+          "share": "1/2",
+          "response": "1/2",
+          "contribution": "1/4"
+        },
+        {
+          "outcome": 1,
+          "share": "1/2",
+          "response": "1",
+          "contribution": "1/2"
+        }
+      ],
+      "answer": "3/4",
+      "complement": "1/4"
+    },
+    "4_0": {
+      "preparation": 4,
+      "response": 0,
+      "rows": [
+        {
+          "outcome": 0,
+          "share": "1/4",
+          "response": "1",
+          "contribution": "1/4"
+        },
+        {
+          "outcome": 1,
+          "share": "3/4",
+          "response": "1",
+          "contribution": "3/4"
+        }
+      ],
+      "answer": "1",
+      "complement": "0"
+    },
+    "4_1": {
+      "preparation": 4,
+      "response": 1,
+      "rows": [
+        {
+          "outcome": 0,
+          "share": "1/4",
+          "response": "0",
+          "contribution": "0"
+        },
+        {
+          "outcome": 1,
+          "share": "3/4",
+          "response": "0",
+          "contribution": "0"
+        }
+      ],
+      "answer": "0",
+      "complement": "1"
+    },
+    "4_2": {
+      "preparation": 4,
+      "response": 2,
+      "rows": [
+        {
+          "outcome": 0,
+          "share": "1/4",
+          "response": "1",
+          "contribution": "1/4"
+        },
+        {
+          "outcome": 1,
+          "share": "3/4",
+          "response": "0",
+          "contribution": "0"
+        }
+      ],
+      "answer": "1/4",
+      "complement": "3/4"
+    },
+    "4_3": {
+      "preparation": 4,
+      "response": 3,
+      "rows": [
+        {
+          "outcome": 0,
+          "share": "1/4",
+          "response": "1/2",
+          "contribution": "1/8"
+        },
+        {
+          "outcome": 1,
+          "share": "3/4",
+          "response": "1",
+          "contribution": "3/4"
+        }
+      ],
+      "answer": "7/8",
+      "complement": "1/8"
+    }
+  },
+  "branches": {
+    "0_0_0": {
+      "joint": 0,
+      "partition": 0,
+      "response": 0,
+      "joint_rows": [
+        {
+          "a": 0,
+          "b": 0,
+          "share": "1/2"
+        },
+        {
+          "a": 0,
+          "b": 1,
+          "share": "0"
+        },
+        {
+          "a": 1,
+          "b": 0,
+          "share": "0"
+        },
+        {
+          "a": 1,
+          "b": 1,
+          "share": "1/2"
+        }
+      ],
+      "rows": [
+        {
+          "branch": 0,
+          "a_weights": [
+            "1",
+            "0"
+          ],
+          "chance": "1/2",
+          "joint_yes": "1/2",
+          "conditional": "1"
+        },
+        {
+          "branch": 1,
+          "a_weights": [
+            "0",
+            "1"
+          ],
+          "chance": "1/2",
+          "joint_yes": "0",
+          "conditional": "0"
+        }
+      ],
+      "marginal": [
+        "1/2",
+        "1/2"
+      ],
+      "answer": "1/2",
+      "unit_eval": "1/2"
+    },
+    "0_0_1": {
+      "joint": 0,
+      "partition": 0,
+      "response": 1,
+      "joint_rows": [
+        {
+          "a": 0,
+          "b": 0,
+          "share": "1/2"
+        },
+        {
+          "a": 0,
+          "b": 1,
+          "share": "0"
+        },
+        {
+          "a": 1,
+          "b": 0,
+          "share": "0"
+        },
+        {
+          "a": 1,
+          "b": 1,
+          "share": "1/2"
+        }
+      ],
+      "rows": [
+        {
+          "branch": 0,
+          "a_weights": [
+            "1",
+            "0"
+          ],
+          "chance": "1/2",
+          "joint_yes": "1/4",
+          "conditional": "1/2"
+        },
+        {
+          "branch": 1,
+          "a_weights": [
+            "0",
+            "1"
+          ],
+          "chance": "1/2",
+          "joint_yes": "1/2",
+          "conditional": "1"
+        }
+      ],
+      "marginal": [
+        "1/2",
+        "1/2"
+      ],
+      "answer": "3/4",
+      "unit_eval": "3/4"
+    },
+    "0_1_0": {
+      "joint": 0,
+      "partition": 1,
+      "response": 0,
+      "joint_rows": [
+        {
+          "a": 0,
+          "b": 0,
+          "share": "1/2"
+        },
+        {
+          "a": 0,
+          "b": 1,
+          "share": "0"
+        },
+        {
+          "a": 1,
+          "b": 0,
+          "share": "0"
+        },
+        {
+          "a": 1,
+          "b": 1,
+          "share": "1/2"
+        }
+      ],
+      "rows": [
+        {
+          "branch": 0,
+          "a_weights": [
+            "1/4",
+            "3/4"
+          ],
+          "chance": "1/2",
+          "joint_yes": "1/8",
+          "conditional": "1/4"
+        },
+        {
+          "branch": 1,
+          "a_weights": [
+            "3/4",
+            "1/4"
+          ],
+          "chance": "1/2",
+          "joint_yes": "3/8",
+          "conditional": "3/4"
+        }
+      ],
+      "marginal": [
+        "1/2",
+        "1/2"
+      ],
+      "answer": "1/2",
+      "unit_eval": "1/2"
+    },
+    "0_1_1": {
+      "joint": 0,
+      "partition": 1,
+      "response": 1,
+      "joint_rows": [
+        {
+          "a": 0,
+          "b": 0,
+          "share": "1/2"
+        },
+        {
+          "a": 0,
+          "b": 1,
+          "share": "0"
+        },
+        {
+          "a": 1,
+          "b": 0,
+          "share": "0"
+        },
+        {
+          "a": 1,
+          "b": 1,
+          "share": "1/2"
+        }
+      ],
+      "rows": [
+        {
+          "branch": 0,
+          "a_weights": [
+            "1/4",
+            "3/4"
+          ],
+          "chance": "1/2",
+          "joint_yes": "7/16",
+          "conditional": "7/8"
+        },
+        {
+          "branch": 1,
+          "a_weights": [
+            "3/4",
+            "1/4"
+          ],
+          "chance": "1/2",
+          "joint_yes": "5/16",
+          "conditional": "5/8"
+        }
+      ],
+      "marginal": [
+        "1/2",
+        "1/2"
+      ],
+      "answer": "3/4",
+      "unit_eval": "3/4"
+    },
+    "0_2_0": {
+      "joint": 0,
+      "partition": 2,
+      "response": 0,
+      "joint_rows": [
+        {
+          "a": 0,
+          "b": 0,
+          "share": "1/2"
+        },
+        {
+          "a": 0,
+          "b": 1,
+          "share": "0"
+        },
+        {
+          "a": 1,
+          "b": 0,
+          "share": "0"
+        },
+        {
+          "a": 1,
+          "b": 1,
+          "share": "1/2"
+        }
+      ],
+      "rows": [
+        {
+          "branch": 0,
+          "a_weights": [
+            "1",
+            "1"
+          ],
+          "chance": "1",
+          "joint_yes": "1/2",
+          "conditional": "1/2"
+        },
+        {
+          "branch": 1,
+          "a_weights": [
+            "0",
+            "0"
+          ],
+          "chance": "0",
+          "joint_yes": "0",
+          "conditional": "undefined"
+        }
+      ],
+      "marginal": [
+        "1/2",
+        "1/2"
+      ],
+      "answer": "1/2",
+      "unit_eval": "1/2"
+    },
+    "0_2_1": {
+      "joint": 0,
+      "partition": 2,
+      "response": 1,
+      "joint_rows": [
+        {
+          "a": 0,
+          "b": 0,
+          "share": "1/2"
+        },
+        {
+          "a": 0,
+          "b": 1,
+          "share": "0"
+        },
+        {
+          "a": 1,
+          "b": 0,
+          "share": "0"
+        },
+        {
+          "a": 1,
+          "b": 1,
+          "share": "1/2"
+        }
+      ],
+      "rows": [
+        {
+          "branch": 0,
+          "a_weights": [
+            "1",
+            "1"
+          ],
+          "chance": "1",
+          "joint_yes": "3/4",
+          "conditional": "3/4"
+        },
+        {
+          "branch": 1,
+          "a_weights": [
+            "0",
+            "0"
+          ],
+          "chance": "0",
+          "joint_yes": "0",
+          "conditional": "undefined"
+        }
+      ],
+      "marginal": [
+        "1/2",
+        "1/2"
+      ],
+      "answer": "3/4",
+      "unit_eval": "3/4"
+    },
+    "1_0_0": {
+      "joint": 1,
+      "partition": 0,
+      "response": 0,
+      "joint_rows": [
+        {
+          "a": 0,
+          "b": 0,
+          "share": "0"
+        },
+        {
+          "a": 0,
+          "b": 1,
+          "share": "1/2"
+        },
+        {
+          "a": 1,
+          "b": 0,
+          "share": "1/2"
+        },
+        {
+          "a": 1,
+          "b": 1,
+          "share": "0"
+        }
+      ],
+      "rows": [
+        {
+          "branch": 0,
+          "a_weights": [
+            "1",
+            "0"
+          ],
+          "chance": "1/2",
+          "joint_yes": "0",
+          "conditional": "0"
+        },
+        {
+          "branch": 1,
+          "a_weights": [
+            "0",
+            "1"
+          ],
+          "chance": "1/2",
+          "joint_yes": "1/2",
+          "conditional": "1"
+        }
+      ],
+      "marginal": [
+        "1/2",
+        "1/2"
+      ],
+      "answer": "1/2",
+      "unit_eval": "1/2"
+    },
+    "1_0_1": {
+      "joint": 1,
+      "partition": 0,
+      "response": 1,
+      "joint_rows": [
+        {
+          "a": 0,
+          "b": 0,
+          "share": "0"
+        },
+        {
+          "a": 0,
+          "b": 1,
+          "share": "1/2"
+        },
+        {
+          "a": 1,
+          "b": 0,
+          "share": "1/2"
+        },
+        {
+          "a": 1,
+          "b": 1,
+          "share": "0"
+        }
+      ],
+      "rows": [
+        {
+          "branch": 0,
+          "a_weights": [
+            "1",
+            "0"
+          ],
+          "chance": "1/2",
+          "joint_yes": "1/2",
+          "conditional": "1"
+        },
+        {
+          "branch": 1,
+          "a_weights": [
+            "0",
+            "1"
+          ],
+          "chance": "1/2",
+          "joint_yes": "1/4",
+          "conditional": "1/2"
+        }
+      ],
+      "marginal": [
+        "1/2",
+        "1/2"
+      ],
+      "answer": "3/4",
+      "unit_eval": "3/4"
+    },
+    "1_1_0": {
+      "joint": 1,
+      "partition": 1,
+      "response": 0,
+      "joint_rows": [
+        {
+          "a": 0,
+          "b": 0,
+          "share": "0"
+        },
+        {
+          "a": 0,
+          "b": 1,
+          "share": "1/2"
+        },
+        {
+          "a": 1,
+          "b": 0,
+          "share": "1/2"
+        },
+        {
+          "a": 1,
+          "b": 1,
+          "share": "0"
+        }
+      ],
+      "rows": [
+        {
+          "branch": 0,
+          "a_weights": [
+            "1/4",
+            "3/4"
+          ],
+          "chance": "1/2",
+          "joint_yes": "3/8",
+          "conditional": "3/4"
+        },
+        {
+          "branch": 1,
+          "a_weights": [
+            "3/4",
+            "1/4"
+          ],
+          "chance": "1/2",
+          "joint_yes": "1/8",
+          "conditional": "1/4"
+        }
+      ],
+      "marginal": [
+        "1/2",
+        "1/2"
+      ],
+      "answer": "1/2",
+      "unit_eval": "1/2"
+    },
+    "1_1_1": {
+      "joint": 1,
+      "partition": 1,
+      "response": 1,
+      "joint_rows": [
+        {
+          "a": 0,
+          "b": 0,
+          "share": "0"
+        },
+        {
+          "a": 0,
+          "b": 1,
+          "share": "1/2"
+        },
+        {
+          "a": 1,
+          "b": 0,
+          "share": "1/2"
+        },
+        {
+          "a": 1,
+          "b": 1,
+          "share": "0"
+        }
+      ],
+      "rows": [
+        {
+          "branch": 0,
+          "a_weights": [
+            "1/4",
+            "3/4"
+          ],
+          "chance": "1/2",
+          "joint_yes": "5/16",
+          "conditional": "5/8"
+        },
+        {
+          "branch": 1,
+          "a_weights": [
+            "3/4",
+            "1/4"
+          ],
+          "chance": "1/2",
+          "joint_yes": "7/16",
+          "conditional": "7/8"
+        }
+      ],
+      "marginal": [
+        "1/2",
+        "1/2"
+      ],
+      "answer": "3/4",
+      "unit_eval": "3/4"
+    },
+    "1_2_0": {
+      "joint": 1,
+      "partition": 2,
+      "response": 0,
+      "joint_rows": [
+        {
+          "a": 0,
+          "b": 0,
+          "share": "0"
+        },
+        {
+          "a": 0,
+          "b": 1,
+          "share": "1/2"
+        },
+        {
+          "a": 1,
+          "b": 0,
+          "share": "1/2"
+        },
+        {
+          "a": 1,
+          "b": 1,
+          "share": "0"
+        }
+      ],
+      "rows": [
+        {
+          "branch": 0,
+          "a_weights": [
+            "1",
+            "1"
+          ],
+          "chance": "1",
+          "joint_yes": "1/2",
+          "conditional": "1/2"
+        },
+        {
+          "branch": 1,
+          "a_weights": [
+            "0",
+            "0"
+          ],
+          "chance": "0",
+          "joint_yes": "0",
+          "conditional": "undefined"
+        }
+      ],
+      "marginal": [
+        "1/2",
+        "1/2"
+      ],
+      "answer": "1/2",
+      "unit_eval": "1/2"
+    },
+    "1_2_1": {
+      "joint": 1,
+      "partition": 2,
+      "response": 1,
+      "joint_rows": [
+        {
+          "a": 0,
+          "b": 0,
+          "share": "0"
+        },
+        {
+          "a": 0,
+          "b": 1,
+          "share": "1/2"
+        },
+        {
+          "a": 1,
+          "b": 0,
+          "share": "1/2"
+        },
+        {
+          "a": 1,
+          "b": 1,
+          "share": "0"
+        }
+      ],
+      "rows": [
+        {
+          "branch": 0,
+          "a_weights": [
+            "1",
+            "1"
+          ],
+          "chance": "1",
+          "joint_yes": "3/4",
+          "conditional": "3/4"
+        },
+        {
+          "branch": 1,
+          "a_weights": [
+            "0",
+            "0"
+          ],
+          "chance": "0",
+          "joint_yes": "0",
+          "conditional": "undefined"
+        }
+      ],
+      "marginal": [
+        "1/2",
+        "1/2"
+      ],
+      "answer": "3/4",
+      "unit_eval": "3/4"
+    },
+    "2_0_0": {
+      "joint": 2,
+      "partition": 0,
+      "response": 0,
+      "joint_rows": [
+        {
+          "a": 0,
+          "b": 0,
+          "share": "1/4"
+        },
+        {
+          "a": 0,
+          "b": 1,
+          "share": "1/4"
+        },
+        {
+          "a": 1,
+          "b": 0,
+          "share": "1/4"
+        },
+        {
+          "a": 1,
+          "b": 1,
+          "share": "1/4"
+        }
+      ],
+      "rows": [
+        {
+          "branch": 0,
+          "a_weights": [
+            "1",
+            "0"
+          ],
+          "chance": "1/2",
+          "joint_yes": "1/4",
+          "conditional": "1/2"
+        },
+        {
+          "branch": 1,
+          "a_weights": [
+            "0",
+            "1"
+          ],
+          "chance": "1/2",
+          "joint_yes": "1/4",
+          "conditional": "1/2"
+        }
+      ],
+      "marginal": [
+        "1/2",
+        "1/2"
+      ],
+      "answer": "1/2",
+      "unit_eval": "1/2"
+    },
+    "2_0_1": {
+      "joint": 2,
+      "partition": 0,
+      "response": 1,
+      "joint_rows": [
+        {
+          "a": 0,
+          "b": 0,
+          "share": "1/4"
+        },
+        {
+          "a": 0,
+          "b": 1,
+          "share": "1/4"
+        },
+        {
+          "a": 1,
+          "b": 0,
+          "share": "1/4"
+        },
+        {
+          "a": 1,
+          "b": 1,
+          "share": "1/4"
+        }
+      ],
+      "rows": [
+        {
+          "branch": 0,
+          "a_weights": [
+            "1",
+            "0"
+          ],
+          "chance": "1/2",
+          "joint_yes": "3/8",
+          "conditional": "3/4"
+        },
+        {
+          "branch": 1,
+          "a_weights": [
+            "0",
+            "1"
+          ],
+          "chance": "1/2",
+          "joint_yes": "3/8",
+          "conditional": "3/4"
+        }
+      ],
+      "marginal": [
+        "1/2",
+        "1/2"
+      ],
+      "answer": "3/4",
+      "unit_eval": "3/4"
+    },
+    "2_1_0": {
+      "joint": 2,
+      "partition": 1,
+      "response": 0,
+      "joint_rows": [
+        {
+          "a": 0,
+          "b": 0,
+          "share": "1/4"
+        },
+        {
+          "a": 0,
+          "b": 1,
+          "share": "1/4"
+        },
+        {
+          "a": 1,
+          "b": 0,
+          "share": "1/4"
+        },
+        {
+          "a": 1,
+          "b": 1,
+          "share": "1/4"
+        }
+      ],
+      "rows": [
+        {
+          "branch": 0,
+          "a_weights": [
+            "1/4",
+            "3/4"
+          ],
+          "chance": "1/2",
+          "joint_yes": "1/4",
+          "conditional": "1/2"
+        },
+        {
+          "branch": 1,
+          "a_weights": [
+            "3/4",
+            "1/4"
+          ],
+          "chance": "1/2",
+          "joint_yes": "1/4",
+          "conditional": "1/2"
+        }
+      ],
+      "marginal": [
+        "1/2",
+        "1/2"
+      ],
+      "answer": "1/2",
+      "unit_eval": "1/2"
+    },
+    "2_1_1": {
+      "joint": 2,
+      "partition": 1,
+      "response": 1,
+      "joint_rows": [
+        {
+          "a": 0,
+          "b": 0,
+          "share": "1/4"
+        },
+        {
+          "a": 0,
+          "b": 1,
+          "share": "1/4"
+        },
+        {
+          "a": 1,
+          "b": 0,
+          "share": "1/4"
+        },
+        {
+          "a": 1,
+          "b": 1,
+          "share": "1/4"
+        }
+      ],
+      "rows": [
+        {
+          "branch": 0,
+          "a_weights": [
+            "1/4",
+            "3/4"
+          ],
+          "chance": "1/2",
+          "joint_yes": "3/8",
+          "conditional": "3/4"
+        },
+        {
+          "branch": 1,
+          "a_weights": [
+            "3/4",
+            "1/4"
+          ],
+          "chance": "1/2",
+          "joint_yes": "3/8",
+          "conditional": "3/4"
+        }
+      ],
+      "marginal": [
+        "1/2",
+        "1/2"
+      ],
+      "answer": "3/4",
+      "unit_eval": "3/4"
+    },
+    "2_2_0": {
+      "joint": 2,
+      "partition": 2,
+      "response": 0,
+      "joint_rows": [
+        {
+          "a": 0,
+          "b": 0,
+          "share": "1/4"
+        },
+        {
+          "a": 0,
+          "b": 1,
+          "share": "1/4"
+        },
+        {
+          "a": 1,
+          "b": 0,
+          "share": "1/4"
+        },
+        {
+          "a": 1,
+          "b": 1,
+          "share": "1/4"
+        }
+      ],
+      "rows": [
+        {
+          "branch": 0,
+          "a_weights": [
+            "1",
+            "1"
+          ],
+          "chance": "1",
+          "joint_yes": "1/2",
+          "conditional": "1/2"
+        },
+        {
+          "branch": 1,
+          "a_weights": [
+            "0",
+            "0"
+          ],
+          "chance": "0",
+          "joint_yes": "0",
+          "conditional": "undefined"
+        }
+      ],
+      "marginal": [
+        "1/2",
+        "1/2"
+      ],
+      "answer": "1/2",
+      "unit_eval": "1/2"
+    },
+    "2_2_1": {
+      "joint": 2,
+      "partition": 2,
+      "response": 1,
+      "joint_rows": [
+        {
+          "a": 0,
+          "b": 0,
+          "share": "1/4"
+        },
+        {
+          "a": 0,
+          "b": 1,
+          "share": "1/4"
+        },
+        {
+          "a": 1,
+          "b": 0,
+          "share": "1/4"
+        },
+        {
+          "a": 1,
+          "b": 1,
+          "share": "1/4"
+        }
+      ],
+      "rows": [
+        {
+          "branch": 0,
+          "a_weights": [
+            "1",
+            "1"
+          ],
+          "chance": "1",
+          "joint_yes": "3/4",
+          "conditional": "3/4"
+        },
+        {
+          "branch": 1,
+          "a_weights": [
+            "0",
+            "0"
+          ],
+          "chance": "0",
+          "joint_yes": "0",
+          "conditional": "undefined"
+        }
+      ],
+      "marginal": [
+        "1/2",
+        "1/2"
+      ],
+      "answer": "3/4",
+      "unit_eval": "3/4"
+    },
+    "3_0_0": {
+      "joint": 3,
+      "partition": 0,
+      "response": 0,
+      "joint_rows": [
+        {
+          "a": 0,
+          "b": 0,
+          "share": "3/4"
+        },
+        {
+          "a": 0,
+          "b": 1,
+          "share": "0"
+        },
+        {
+          "a": 1,
+          "b": 0,
+          "share": "0"
+        },
+        {
+          "a": 1,
+          "b": 1,
+          "share": "1/4"
+        }
+      ],
+      "rows": [
+        {
+          "branch": 0,
+          "a_weights": [
+            "1",
+            "0"
+          ],
+          "chance": "3/4",
+          "joint_yes": "3/4",
+          "conditional": "1"
+        },
+        {
+          "branch": 1,
+          "a_weights": [
+            "0",
+            "1"
+          ],
+          "chance": "1/4",
+          "joint_yes": "0",
+          "conditional": "0"
+        }
+      ],
+      "marginal": [
+        "3/4",
+        "1/4"
+      ],
+      "answer": "3/4",
+      "unit_eval": "3/4"
+    },
+    "3_0_1": {
+      "joint": 3,
+      "partition": 0,
+      "response": 1,
+      "joint_rows": [
+        {
+          "a": 0,
+          "b": 0,
+          "share": "3/4"
+        },
+        {
+          "a": 0,
+          "b": 1,
+          "share": "0"
+        },
+        {
+          "a": 1,
+          "b": 0,
+          "share": "0"
+        },
+        {
+          "a": 1,
+          "b": 1,
+          "share": "1/4"
+        }
+      ],
+      "rows": [
+        {
+          "branch": 0,
+          "a_weights": [
+            "1",
+            "0"
+          ],
+          "chance": "3/4",
+          "joint_yes": "3/8",
+          "conditional": "1/2"
+        },
+        {
+          "branch": 1,
+          "a_weights": [
+            "0",
+            "1"
+          ],
+          "chance": "1/4",
+          "joint_yes": "1/4",
+          "conditional": "1"
+        }
+      ],
+      "marginal": [
+        "3/4",
+        "1/4"
+      ],
+      "answer": "5/8",
+      "unit_eval": "5/8"
+    },
+    "3_1_0": {
+      "joint": 3,
+      "partition": 1,
+      "response": 0,
+      "joint_rows": [
+        {
+          "a": 0,
+          "b": 0,
+          "share": "3/4"
+        },
+        {
+          "a": 0,
+          "b": 1,
+          "share": "0"
+        },
+        {
+          "a": 1,
+          "b": 0,
+          "share": "0"
+        },
+        {
+          "a": 1,
+          "b": 1,
+          "share": "1/4"
+        }
+      ],
+      "rows": [
+        {
+          "branch": 0,
+          "a_weights": [
+            "1/4",
+            "3/4"
+          ],
+          "chance": "3/8",
+          "joint_yes": "3/16",
+          "conditional": "1/2"
+        },
+        {
+          "branch": 1,
+          "a_weights": [
+            "3/4",
+            "1/4"
+          ],
+          "chance": "5/8",
+          "joint_yes": "9/16",
+          "conditional": "9/10"
+        }
+      ],
+      "marginal": [
+        "3/4",
+        "1/4"
+      ],
+      "answer": "3/4",
+      "unit_eval": "3/4"
+    },
+    "3_1_1": {
+      "joint": 3,
+      "partition": 1,
+      "response": 1,
+      "joint_rows": [
+        {
+          "a": 0,
+          "b": 0,
+          "share": "3/4"
+        },
+        {
+          "a": 0,
+          "b": 1,
+          "share": "0"
+        },
+        {
+          "a": 1,
+          "b": 0,
+          "share": "0"
+        },
+        {
+          "a": 1,
+          "b": 1,
+          "share": "1/4"
+        }
+      ],
+      "rows": [
+        {
+          "branch": 0,
+          "a_weights": [
+            "1/4",
+            "3/4"
+          ],
+          "chance": "3/8",
+          "joint_yes": "9/32",
+          "conditional": "3/4"
+        },
+        {
+          "branch": 1,
+          "a_weights": [
+            "3/4",
+            "1/4"
+          ],
+          "chance": "5/8",
+          "joint_yes": "11/32",
+          "conditional": "11/20"
+        }
+      ],
+      "marginal": [
+        "3/4",
+        "1/4"
+      ],
+      "answer": "5/8",
+      "unit_eval": "5/8"
+    },
+    "3_2_0": {
+      "joint": 3,
+      "partition": 2,
+      "response": 0,
+      "joint_rows": [
+        {
+          "a": 0,
+          "b": 0,
+          "share": "3/4"
+        },
+        {
+          "a": 0,
+          "b": 1,
+          "share": "0"
+        },
+        {
+          "a": 1,
+          "b": 0,
+          "share": "0"
+        },
+        {
+          "a": 1,
+          "b": 1,
+          "share": "1/4"
+        }
+      ],
+      "rows": [
+        {
+          "branch": 0,
+          "a_weights": [
+            "1",
+            "1"
+          ],
+          "chance": "1",
+          "joint_yes": "3/4",
+          "conditional": "3/4"
+        },
+        {
+          "branch": 1,
+          "a_weights": [
+            "0",
+            "0"
+          ],
+          "chance": "0",
+          "joint_yes": "0",
+          "conditional": "undefined"
+        }
+      ],
+      "marginal": [
+        "3/4",
+        "1/4"
+      ],
+      "answer": "3/4",
+      "unit_eval": "3/4"
+    },
+    "3_2_1": {
+      "joint": 3,
+      "partition": 2,
+      "response": 1,
+      "joint_rows": [
+        {
+          "a": 0,
+          "b": 0,
+          "share": "3/4"
+        },
+        {
+          "a": 0,
+          "b": 1,
+          "share": "0"
+        },
+        {
+          "a": 1,
+          "b": 0,
+          "share": "0"
+        },
+        {
+          "a": 1,
+          "b": 1,
+          "share": "1/4"
+        }
+      ],
+      "rows": [
+        {
+          "branch": 0,
+          "a_weights": [
+            "1",
+            "1"
+          ],
+          "chance": "1",
+          "joint_yes": "5/8",
+          "conditional": "5/8"
+        },
+        {
+          "branch": 1,
+          "a_weights": [
+            "0",
+            "0"
+          ],
+          "chance": "0",
+          "joint_yes": "0",
+          "conditional": "undefined"
+        }
+      ],
+      "marginal": [
+        "3/4",
+        "1/4"
+      ],
+      "answer": "5/8",
+      "unit_eval": "5/8"
+    }
+  },
+  "mixtures": {
+    "binary_mixtures": [
+      {
+        "state_first": "0",
+        "effect_first": "0",
+        "answer": "1"
+      },
+      {
+        "state_first": "0",
+        "effect_first": "1/4",
+        "answer": "3/4"
+      },
+      {
+        "state_first": "0",
+        "effect_first": "1/2",
+        "answer": "1/2"
+      },
+      {
+        "state_first": "0",
+        "effect_first": "3/4",
+        "answer": "1/4"
+      },
+      {
+        "state_first": "0",
+        "effect_first": "1",
+        "answer": "0"
+      },
+      {
+        "state_first": "1/4",
+        "effect_first": "0",
+        "answer": "3/4"
+      },
+      {
+        "state_first": "1/4",
+        "effect_first": "1/4",
+        "answer": "5/8"
+      },
+      {
+        "state_first": "1/4",
+        "effect_first": "1/2",
+        "answer": "1/2"
+      },
+      {
+        "state_first": "1/4",
+        "effect_first": "3/4",
+        "answer": "3/8"
+      },
+      {
+        "state_first": "1/4",
+        "effect_first": "1",
+        "answer": "1/4"
+      },
+      {
+        "state_first": "1/2",
+        "effect_first": "0",
+        "answer": "1/2"
+      },
+      {
+        "state_first": "1/2",
+        "effect_first": "1/4",
+        "answer": "1/2"
+      },
+      {
+        "state_first": "1/2",
+        "effect_first": "1/2",
+        "answer": "1/2"
+      },
+      {
+        "state_first": "1/2",
+        "effect_first": "3/4",
+        "answer": "1/2"
+      },
+      {
+        "state_first": "1/2",
+        "effect_first": "1",
+        "answer": "1/2"
+      },
+      {
+        "state_first": "3/4",
+        "effect_first": "0",
+        "answer": "1/4"
+      },
+      {
+        "state_first": "3/4",
+        "effect_first": "1/4",
+        "answer": "3/8"
+      },
+      {
+        "state_first": "3/4",
+        "effect_first": "1/2",
+        "answer": "1/2"
+      },
+      {
+        "state_first": "3/4",
+        "effect_first": "3/4",
+        "answer": "5/8"
+      },
+      {
+        "state_first": "3/4",
+        "effect_first": "1",
+        "answer": "3/4"
+      },
+      {
+        "state_first": "1",
+        "effect_first": "0",
+        "answer": "0"
+      },
+      {
+        "state_first": "1",
+        "effect_first": "1/4",
+        "answer": "1/4"
+      },
+      {
+        "state_first": "1",
+        "effect_first": "1/2",
+        "answer": "1/2"
+      },
+      {
+        "state_first": "1",
+        "effect_first": "3/4",
+        "answer": "3/4"
+      },
+      {
+        "state_first": "1",
+        "effect_first": "1",
+        "answer": "1"
+      }
+    ],
+    "independent_half_half": "1/2",
+    "coordinated_matching": "1",
+    "square_vertices": [
+      [
+        "1/2",
+        "0",
+        "1/2",
+        "0"
+      ],
+      [
+        "0",
+        "1/2",
+        "1/2",
+        "0"
+      ],
+      [
+        "0",
+        "1/2",
+        "0",
+        "1/2"
+      ],
+      [
+        "1/2",
+        "0",
+        "0",
+        "1/2"
+      ]
+    ],
+    "square_weights": [
+      [
+        "1/2",
+        "0",
+        "1/2",
+        "0"
+      ],
+      [
+        "0",
+        "1/2",
+        "0",
+        "1/2"
+      ]
+    ],
+    "square_center": [
+      "1/4",
+      "1/4",
+      "1/4",
+      "1/4"
+    ]
+  },
+  "native_limits": {
+    "extra_keys_ignored_by_native_constructors": true,
+    "bool_is_native_int": true,
+    "outcome_order_is_part_of_space_identity": true,
+    "incomplete_partition_refused": true,
+    "raw_marginal_can_ignore_zero_mass_extra_outcomes": true,
+    "lean_binary_Nat_normalized_weights_are_endpoints": true
+  },
+  "practice": {
+    "changed_tasks_checked": 8,
+    "physical_observations": 0
+  },
+  "source_text_sha256": {
+    "research/p204_operational_valuations/valuations.py": "f1932dcb9dd7f0400e4d291c24bd4cd10b2956e34d546b4b30d0e515c96c2f6e",
+    "research/p204_operational_valuations/lean/OperationalValuations.lean": "db5035c5eca898e483468b20c45270a7fc6a92c85b4d6eba3a881b7efab3b777",
+    "research/p204_operational_valuations/README.md": "72fb45328bb238ead552c6133e30f7f73d4adb4fda2f7ffe4b466192458e6582",
+    "research/p204_operational_valuations/CLAIMS.md": "0ccad47f86fb09c94217d78d00136d0fc69ecda7c5aa9ff93024c3435fef15af",
+    "textbook/reasoning_lab/valuations.py": "80958924293e23b6700a4433c7cea999a4737dab494de9511d59dd933a7417a2"
+  },
+  "digest_mode": "UTF-8/LF source text"
+}

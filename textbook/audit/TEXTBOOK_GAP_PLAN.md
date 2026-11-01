@@ -36,8 +36,8 @@ above record the earlier publication, not current open-PR status.
 | Institution lessons | 18 | A research curriculum exists for four named trees |
 | Sealed Lean modules | 75 | All 75 have coverage-matrix sections and assigned units |
 | Canonical research trees | 123 | Counted using `ci/research_index.py`'s actual population rule |
-| Trees with dedicated research lessons | 15 | Four institution trees, `standing_commitment`, three selected Boundary-lab introductions, `identification_dual`, `qm_bridge`, selected `native_bridge` claims, selected `native_structure` costs, selected P200 recording protocols, selected P201/P202 calibration/clock rules, and selected P203 composite definitions |
-| Other canonical trees | 108 | No dedicated lesson treatment is established by the current curriculum |
+| Trees with dedicated research lessons | 16 | Four institution trees, `standing_commitment`, three selected Boundary-lab introductions, `identification_dual`, `qm_bridge`, selected `native_bridge` claims, selected `native_structure` costs, selected P200 recording protocols, selected P201/P202 calibration/clock rules, selected P203 composite definitions, and selected P204 valuation models |
+| Other canonical trees | 107 | No dedicated lesson treatment is established by the current curriculum |
 | Manim overview scenes | 12 | Groups of lessons have short previews; individual concepts still need slower worked treatment |
 
 The research population includes parked work, frozen experiments, tooling,
@@ -290,6 +290,10 @@ The [P203 composite route](COMPOSITE_READING_REVIEW_2026-10-31.md) now
 adds seven lessons on disjoint records, regrouping, local updates, graph
 declarations, execution order, outcome shares and symmetry. It states
 the actual callback and proof limits; physical device claims stay open.
+The [P204 valuation route](VALUATION_READING_REVIEW_2026-10-31.md) adds
+eight lessons on chances, responses, mixtures, allowed-family dependence,
+complete branch sums and conditional chances. It retains native Nat
+limits and uses rational Python examples without inventing a general bridge.
 The [I00–I03 definition follow-up](INSTITUTION_FOUNDATIONS_READING_REVIEW_2026-10-31.md)
 then returns to the formal route: one continuing table, separate input/
 output/lookup roles, three-step class counting, folded source proofs and

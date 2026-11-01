@@ -14,6 +14,7 @@ PROTOCOL_DESK = 'https://htmlpreview.github.io/?'+RAW+'protocols.html'
 CALIBRATION_DESK = 'https://htmlpreview.github.io/?'+RAW+'calibration.html'
 CLOCK_DESK = 'https://htmlpreview.github.io/?'+RAW+'clocks.html'
 COMPOSITE_DESK = 'https://htmlpreview.github.io/?'+RAW+'composites.html'
+VALUATION_DESK = 'https://htmlpreview.github.io/?'+RAW+'valuations.html'
 
 
 def page_map(source):
@@ -24,7 +25,7 @@ def page_map(source):
 def links(source):
     return {**{name: "https://github.com/dbccpage/19L57G1/wiki/" + slug for name, slug in page_map(source).items()},
             "recorded_lab.json": RAW + "recorded_lab.json",'protocols.json':RAW+'protocols.json',
-            'calibration.json':RAW+'calibration.json','clocks.json':RAW+'clocks.json','composites.json':RAW+'composites.json'}
+            'calibration.json':RAW+'calibration.json','clocks.json':RAW+'clocks.json','composites.json':RAW+'composites.json','valuations.json':RAW+'valuations.json'}
 
 
 def build_reasoning_lab(repo, wiki, commit):
@@ -45,6 +46,7 @@ def build_reasoning_lab(repo, wiki, commit):
         text = text.replace("](calibration.html)",f"]({CALIBRATION_DESK})")
         text = text.replace("](clocks.html)",f"]({CLOCK_DESK})")
         text = text.replace("](composites.html)",f"]({COMPOSITE_DESK})")
+        text = text.replace("](valuations.html)",f"]({VALUATION_DESK})")
         prefix = f"[Genesis Wiki](Home) · [Reasoning lab](textbook_reasoning_lab) · [Claim desk]({DESK})\n\n"
         suffix = f"\n\n---\n\nSource snapshot: [`{commit[:12]}`](https://github.com/dbccpage/19L57G1/blob/{commit}/textbook/reasoning_lab/{name}). Teaching apparatus; `AuthorityEffect: None`.\n"
         (wiki / (slug + ".md")).write_text(prefix + text + suffix, encoding="utf-8", newline="\n")
@@ -60,6 +62,8 @@ def build_reasoning_lab(repo, wiki, commit):
     build(source,assets/'clocks.html',links(source),template_name='clocks.template.html',packet_name='clocks.json')
     shutil.copyfile(source/'composites.json',assets/'composites.json')
     build(source,assets/'composites.html',links(source),template_name='composites.template.html',packet_name='composites.json')
+    shutil.copyfile(source/'valuations.json',assets/'valuations.json')
+    build(source,assets/'valuations.html',links(source),template_name='valuations.template.html',packet_name='valuations.json')
     sidebar = wiki / "_Sidebar.md"
     text = sidebar.read_text(encoding="utf-8")
     entry = "- [Reasoning lab: rules, witnesses, and conditions](textbook_reasoning_lab)"
@@ -84,7 +88,7 @@ def reasoning_lab_errors(repo, wiki):
         return []
     errors = ["missing reasoning-lab page: " + slug for slug in page_map(source).values()
               if not (wiki / (slug + ".md")).is_file()]
-    for name in ("recorded_lab.json", "results.html",'protocols.json','protocols.html','calibration.json','calibration.html','clocks.json','clocks.html','composites.json','composites.html'):
+    for name in ("recorded_lab.json", "results.html",'protocols.json','protocols.html','calibration.json','calibration.html','clocks.json','clocks.html','composites.json','composites.html','valuations.json','valuations.html'):
         path = wiki / "media/reasoning_lab" / name
         if not path.is_file():
             errors.append("missing reasoning-lab asset: " + name)
@@ -95,7 +99,7 @@ def reasoning_lab_errors(repo, wiki):
             expected = (render(source,links(source),
                         template_name=name.replace('.html','.template.html'),
                         packet_name=name.replace('.html','.json'))
-                        if name in ('protocols.html','calibration.html','clocks.html','composites.html')
+                        if name in ('protocols.html','calibration.html','clocks.html','composites.html','valuations.html')
                         else render(source,links(source)))
             if path.read_text(encoding="utf-8") != expected:
                 errors.append("stale reasoning-lab desk or links")

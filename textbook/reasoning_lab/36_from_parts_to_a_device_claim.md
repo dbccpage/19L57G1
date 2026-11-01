@@ -54,4 +54,7 @@ Try the [changed practice](COMPOSITES_PRACTICE.md) before the separate
 [answers](COMPOSITES_ANSWERS.md). Optional [source details](COMPOSITES_SOURCES.md)
 state which native definitions, book proofs and finite checks support this route.
 
+Continue with [chances and response rules](37_chances_and_responses.md)
+in the separate P204 model.
+
 AuthorityEffect: None. Blank optional worksheet; zero physical or learner observations.
