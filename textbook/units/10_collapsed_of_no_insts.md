@@ -18,12 +18,26 @@ tests. Their internal datum indices remain distinct.
 
 ## First pass
 
-With no forms, there are no questions to distinguish two data.
-Add the one-place form marked, but no instance: both answers are
-not derivable. Now add a uniform rule saying marked holds for every
-datum. Predict whether 0 and 1 become distinguishable.
+With no forms, there are no context tests. Now supply two data, 0 and 1,
+and the one-place form marked. Compare these separate ledgers:
 
-They do not. Both answers change to derivable, so they still agree.
+| Admitted support for marked | On 0 | On 1 |
+|---|---|---|
+| No instance and no rule | No | No |
+| Uniform rule, no instance | Yes | Yes |
+| Only the instance marked(1) | No | Yes |
+| That instance and the uniform rule | Yes | Yes |
+
+Each row is its own model, not a history that removes admissions.
+
+<details><summary>Predict: does adding the uniform rule to the third row preserve its separating test?</summary>
+
+No. It gives the fourth row: both answers become Yes. Adding derivable
+answers can remove a disagreement. More derivable instances need not
+mean more separation.
+
+</details>
+
 A blanket rule changes what can be derived without favoring one datum.
 With no instances, the same reasoning works for every form and every pair.
 
@@ -67,13 +81,17 @@ Holding a stencil over any datum gives a sentence that is not in the book:
 same answer for all. Now add a rule: "every sentence of this stencil's
 shape is granted." Holding it over any datum now gives a granted sentence:
 again the same answer for all. Rules are blanket grants; they do not single
-out. What singles out is a written sentence naming a particular datum, and
-there are none.
+out. An individual instance can supply a disagreement, but only if the
+other plugging remains nonderivable. Under a uniform rule on that form,
+both are already derivable.
 
 For the derivation this is the collapse that Challenge 3 will demand be
 broken. It is also the fact behind the paper's countermodel in §6:
 admitting a fresh datum is a real change of state and yet leaves the
 collapsed pair collapsed (Unit 12).
+
+<details>
+<summary>Programs and proof walkthroughs (optional)</summary>
 
 ## Pseudocode
 
@@ -226,6 +244,8 @@ report `propext`, inherited from the definitions. The ledger notes that an
 earlier version recorded the two instantiations as axiom-free and was
 corrected on 2026-08-18 against the artifact (`CL-2-COLLAPSED`).
 
+</details>
+
 ## What has been proved
 
 - Every regime with no instances has every pair of data collapsed, forms
@@ -233,12 +253,16 @@ corrected on 2026-08-18 against the artifact (`CL-2-COLLAPSED`).
 - Both Challenge-2 regimes are totally collapsed (Genesis, derived).
 - A uniform rule makes the context derivable for both data and separates
   nothing; one instance separates (book Lean, derived on examples).
+- Separation requires a nonempty instance list in this grammar. Having
+  an instance is not sufficient: the book's mask example starts separated
+  and becomes collapsed when a uniform rule is added.
 
 ## What has not been proved
 
-- That instances are the *only* thing that can ever separate. In this
-  grammar, yes: derivability has two disjuncts and the rule disjunct is
-  uniform. A grammar with other inference would need its own theorem.
+- That an arbitrary admitted instance guarantees separation, or that every
+  grammar needs individual instances. Necessity here uses this derivability
+  rule and the no-instance theorem. A grammar with other inference needs
+  its own argument.
 - That the collapse is a defect. It is the declared starting situation:
   nothing has been said about particular data, so nothing distinguishes
   them. Challenge 3 turns it into a demand (Unit 17).
@@ -271,9 +295,15 @@ adding forms and rules alone would not change that.
 
 ## Student exercise
 
+After these three Units, try the [changed context practice](../context_practice.md)
+before its [separate answers](../context_answers.md).
+
 Regime: three data, forms `[2]`, the rule on form 0, no instances. How
 many well-formed contexts are there, what is each datum's profile, and
 which pairs are collapsed?
+
+<details>
+<summary>Check the exercise (optional)</summary>
 
 ## Answer
 
@@ -282,6 +312,8 @@ of form 0 is derivable, so each datum's profile is the full set of 7
 contexts, and all three profiles are equal. All three pairs, `(0, 1)`,
 `(0, 2)`, `(1, 2)`, are collapsed, by `collapsed_of_no_insts` with
 `hi := rfl`. (The check script includes this regime among its 76.)
+
+</details>
 
 ## Verification
 
@@ -293,4 +325,4 @@ contexts, and all three profiles are equal. All three pairs, `(0, 1)`,
 | Ledger | `paper/paper_claim_ledger.md`, `CL-1-SUPPLY-NOT-ADMISSION`, `CL-2-COLLAPSED` (with the 2026-08-18 axiom correction) |
 | Artifact | `artifacts/challenges.json`, `challenge2` (observational classes = 1) |
 | Check (Python) | `python textbook/checks/u10_no_insts.py`: 76 instance-free regimes, 76 pairs, all collapsed, at most one profile each; `GENESIS_L` one collapsed pair, `GENESIS_F` three; one instance separates |
-| Check (book Lean) | `python textbook/checks/u10_lean.py`: six book theorems plus the three Genesis theorems kernel-checked, Lean 4.33.0; `propext` throughout, `propext, Quot.sound` where `decide` touches a concrete list, `U1_has_inst` no axioms |
+| Check (book Lean) | `python textbook/checks/u10_lean.py`: eight book statements plus three native reports; eleven total. `U1_has_inst` is axiom-free; `separation_needs_instance` uses `propext`; the rule-mask example uses `propext, Quot.sound`. |

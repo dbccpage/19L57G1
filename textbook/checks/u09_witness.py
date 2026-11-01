@@ -52,6 +52,26 @@ def main() -> int:
     print(f"regimes: {regimes}; separable (witness found): {sep}; collapsed: {regimes - sep}")
     print("separable <=> witness exists <=> not collapsed, on every one")
 
+    # The complete five-row example, including two agreeing rows before a witness.
+    rows = ((None, None), (None, 0), (None, 1), (0, None), (1, None))
+    binary = replay([AdmitDatum("A"), AdmitDatum("B"), AdmitForm(2), AdmitInst(0, (0, 1))])
+    if contexts(binary) != tuple((0, row) for row in rows):
+        failures.append("five-row context list")
+    answers = [(derivable(binary, plug((0, row), 0)), derivable(binary, plug((0, row), 1))) for row in rows]
+    if answers != [(False, False), (False, False), (True, False), (False, True), (False, False)]:
+        failures.append("five-row answer table")
+    if any(a != b for a, b in answers[:2]) or witness(binary, 0, 1) != (0, (None, 1)):
+        failures.append("early stop before witness")
+    reverse = replay([AdmitDatum("A"), AdmitDatum("B"), AdmitForm(2), AdmitInst(0, (1, 0))])
+    if witness(reverse, 0, 1) != (0, (None, 0)):
+        failures.append("changed binary witness")
+    two_forms = replay([AdmitDatum("A"), AdmitDatum("B"), AdmitForm(1), AdmitForm(1), AdmitInst(1, (1,))])
+    first_form = [c for c in contexts(two_forms) if c[0] == 0]
+    if (any(derivable(two_forms, plug(c, 0)) != derivable(two_forms, plug(c, 1)) for c in first_form)
+            or witness(two_forms, 0, 1) != (1, (None,))):
+        failures.append("omitted form hides witness")
+    print("five-row table and changed/incomplete-search controls checked separately")
+
     # The rule never separates: every regime with the rule is collapsed.
     print(f"failures: {failures}")
     return 1 if failures else 0

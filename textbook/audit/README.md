@@ -505,3 +505,9 @@ The [Units 04–07 review](STATE_HISTORY_READING_REVIEW_2026-11-01.md) separates
 event selection, stored state, event identity and actual-base translation.
 It adds smaller reading chunks and changed practice while preserving the
 original quotations and narrowing the Python-helper and order claims.
+
+The [Units 08–10 review](CONTEXT_READING_REVIEW_2026-11-01.md) follows one
+context through plugging, profile membership, separation and complete
+finite search. A new book search proof closes the witness-extraction gap
+for the native grammar; the reading keeps model answers and observations
+separate and retains the original quoted source blocks.

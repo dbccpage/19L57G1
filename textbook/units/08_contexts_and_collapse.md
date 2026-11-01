@@ -15,21 +15,30 @@ the definitions (through `List.getD`). **Depends on:** `Regime`, `Inst`
 
 ## First pass
 
-Use two data, 0 and 1, and a one-place form called marked. The context
-`marked(_)` leaves a hole. With only `marked(0)` admitted and no uniform
-rule, plugging in 0 is derivable and plugging in 1 is not. That question
-witnesses their separation.
+Use two data, 0 and 1, and a one-place form called marked. A **one-place**
+form takes one datum as its argument. Admit only `marked(1)` and no
+uniform rule. The context `marked(_)` leaves that place empty.
+
+| Datum put in the hole | Completed instance | Derivable? |
+|---|---|---|
+| 0 | marked(0) | No |
+| 1 | marked(1) | Yes |
+
+The same test gives different answers. That context is a **witness**:
+a particular test establishing separation in this ledger.
 
 A profile collects every well-formed question giving a derivable
 answer for one datum. Equal profiles mean equal answers to those
 questions; the indices can still be distinct. Not derivable here is
 not a negative physical measurement.
 
-Predict the result for a two-place context `linked(_,_)`. Both holes
-receive the **same** tested datum: 0 gives `linked(0,0)`, not a pair
-of independently chosen data. A fully filled record has no hole and
-is not a context test. The formal well-formedness conditions below
-separate available tests from arbitrary raw records.
+<details><summary>Predict: does plugging 0 into linked(_,_) let the second hole receive 1?</summary>
+
+No. Every hole receives the same tested datum, so the result is
+`linked(0,0)`. To keep 1 in the second place, start with `linked(_,1)`.
+A fully filled tuple has no hole and does not count as a context test.
+
+</details>
 
 ## Detailed claim and formal anchors
 
@@ -66,15 +75,35 @@ Each slot is a datum index or a **hole**, written `none`. To be
 **well formed**, the form must be admitted, its arity must match the slot
 count, filled slots must name admitted data, and at least one hole must
 remain. Raw records failing these checks do not count as available tests.
-At least one slot must be a hole. **Plugging** a datum into a context
+**Plugging** a datum into a context
 fills every hole with that datum, producing an instance. A context is a
 question the system can be asked about any datum: "is this instance, with
 you in the holes, derivable?"
+
+These context checks inspect the filled slots. They do not check the
+datum later put in the holes. In our comparisons, 0 and 1 are admitted
+data. The Lean predicates accept any natural-number arguments, so a
+claim about admitted data must carry that range condition separately.
+
+### List the tests before counting them
+
+For a separate model with two data and one two-place form linked, the
+allowed slot patterns are `(_,_)`, `(_,0)`, `(_,1)`, `(0,_)`, and `(1,_)`.
+There is one pattern with two holes and four with exactly one hole: five
+tests. The four completely filled patterns are instances, not contexts.
+This is why two independent choices for the holes would be a different test rule.
 
 ### Profile: collect the successful tests
 
 The **profile** of a datum is the set of well-formed contexts whose
 plugging with it is derivable.
+
+Think of it as a collection of successful test names: include a test
+exactly when its answer is Yes. Repeating a name does not change membership.
+Answers of **No** are left out of the profile; they do not become extra
+negative facts.
+Lean's `collapsed` definition compares all answers directly; it does not
+add a profile field to the ledger.
 
 ### Collapse: all available tests agree
 
@@ -87,8 +116,10 @@ They are **separable**
 when some well-formed context answers differently; that context is the
 **witness**.
 
-The definitions are *behavioral*: separability is about what is derivable,
-never about tokens, order, or any property the metatheory can see.
+At this fixed ledger, these definitions compare derivability answers.
+Token spelling is not an input to that comparison. Structural arguments
+and admitted instances can matter; no general invariance under changing
+admission order or changing the ledger follows from the word “behavioral.”
 
 ## Plain-language interpretation
 
@@ -98,10 +129,15 @@ either derives that sentence or does not. Two data are told apart when
 some stencil gives a derived sentence for one and not for the other. If
 every stencil treats them the same, they have the same observable profile at that stage. Their admitted indices can still be distinct.
 
-This is the only sense of "different" the derivation ever grants the
-system. The paper calls it "behavioral separation by positive
-derivability" (`paper/paper.md` §3 item 5, §7.1). "Positive" means a
-context counts only by being derivable, never by failing to be.
+This Unit uses the declared sense “behavioral separation by positive
+derivability” (`paper/paper.md` §3 item 5, §7.1). A profile records the
+tests with derivable answers. Separation compares membership in those
+profiles: one plugging is derivable and the other is not. The second
+answer is part of the comparison; it is not an admitted negative judgment
+or a physical measurement. Two No answers agree and do not separate.
+
+<details>
+<summary>Programs and proof walkthroughs (optional)</summary>
 
 ## Pseudocode
 
@@ -270,8 +306,9 @@ below the number of forms; the slot count equals that form's arity
 (`r.forms.getD c.form 0` reads the arity, with 0 as a default that never
 applies once the first condition holds); `none ∈ c.slots` says some slot
 is a hole; and every filled slot names a datum below the count (`slotOk`,
-lines 92-94, is `True` on a hole and `x < n` on `some x`). These match
-Python's enumeration exactly, and the paper says so (§3 item 3).
+lines 92-94, is `True` on a hole and `x < n` on `some x`). These are the
+conditions used by Python's enumeration on its declared finite states.
+This Unit does not prove a general theorem over the Python source.
 
 **`collapsed`.** `∀ c : Ctx, wfCtx r c → (... ↔ ...)`: for every context
 (Lean quantifies over all `Ctx`, including ill-formed ones, and the
@@ -298,6 +335,8 @@ reports `propext, Quot.sound`, because deciding list membership uses a
 library procedure that carries `Quot.sound`. Genesis's own `U1_separable`
 reports the same pair (`artifacts/lean_axioms.txt`).
 
+</details>
+
 ## What has been proved
 
 Nothing general in this unit: it introduces definitions. The book's Lean
@@ -307,9 +346,9 @@ specific small regimes.
 
 ## What has not been proved
 
-- That this is the right sense of "telling apart". It is the declared
-  sense. Other senses exist (negative information, token comparison,
-  counting), and the derivation uses none of them.
+- That this is the only useful sense of “telling apart.” This Unit fixes
+  one definition. Other model interfaces need their own definitions and
+  results; they do not inherit this one from sharing a word.
 - That contexts exist at all in the Challenge regimes. They do not: with
   no forms there are no contexts (`contexts` yields nothing), so every
   pair is collapsed for want of a question to ask (Unit 10).
@@ -330,11 +369,10 @@ specific small regimes.
 "collapsed" and "separable" are the metatheory's descriptions of what the
 ledger derives. Nothing is added to the ledger by defining them.
 
-**Admissions and their price.** The definition of separability is the
-largest single admission of the programme after the regime itself: every
-later "minimum", "witness" and "obstruction" is relative to it. Its price
-is that a system which could distinguish data some other way would not
-count as doing so here.
+**Scope of the chosen definition.** Later claims about separating this
+pair must use the declared contexts, plugging rule and derivability
+answers. A different observation channel changes the question. No
+numerical price or ranking of this definition's importance is proved here.
 
 **Phrases to read with care.**
 
@@ -343,14 +381,18 @@ count as doing so here.
   other. The system sees no tokens.
 - "A context observes" is a figure of speech. A context is a list; the
   metatheory evaluates derivability.
-- "Negative information" (a context that *fails* for both) is not a
-  witness. Only positive derivability counts, by definition.
+- Two failed derivations do not witness separation: the two answers agree.
+  A witness needs a disagreement, with one derivable plugging and one
+  nonderivable plugging under the stated decision rules.
 
 ## Student exercise
 
 In the regime `⟨2, [2], [(0, [0, 1])], [], []⟩` (two data, one binary form,
 one instance linking datum 0 to datum 1), list the well-formed contexts and
 find a witness that 0 and 1 are separable.
+
+<details>
+<summary>Check the exercise (optional)</summary>
 
 ## Answer
 
@@ -365,6 +407,8 @@ context is a witness. (Genesis uses exactly this witness in
 witness: `(0, [0, 0])` is not admitted, `(0, [0, 1])` is. `⟨0, [none, none]⟩`
 is not a witness: both pluggings, `(0, [0, 0])` and `(0, [1, 1])`, are
 underivable.
+
+</details>
 
 ## Verification
 

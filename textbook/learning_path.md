@@ -52,6 +52,13 @@ before the [separate answers](state_history_answers.md). Carry the actual
 starting ledger when translating an event; equal final ledgers need not
 have equal histories.
 
+Units 08–10 next compare context answers. Trace a plugging, find a
+particular disagreement, and distinguish a complete search from an early
+stop. Use the [changed context questions](context_practice.md) before
+their [answers](context_answers.md). The new book search supplies a
+soundness/completeness proof for the native Lean context grammar;
+Python checks and physical observations retain separate scopes.
+
 ## Choose another toolkit when you need it
 
 | What you need next | Read this bounded part | Before it |

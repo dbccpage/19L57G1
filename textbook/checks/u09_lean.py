@@ -87,5 +87,9 @@ EXPECTED = {
     "Derivation.U1_separable": BOTH,
 }
 
+from context_search_lean import SOURCE as SEARCH_SOURCE, REPORTS as SEARCH_REPORTS
+LEAN_SOURCE += '\n' + SEARCH_SOURCE
+EXPECTED.update(SEARCH_REPORTS)
+
 if __name__ == "__main__":
     raise SystemExit(main(LEAN_SOURCE, EXPECTED, "U09"))

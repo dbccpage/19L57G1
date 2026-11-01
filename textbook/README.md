@@ -20,6 +20,11 @@ optional program/proof walkthroughs. After Unit 07, try the
 [eight changed questions](state_history_practice.md) before the
 [separate answers](state_history_answers.md).
 
+Units 08–10 turn one test into a profile comparison, explain a witness
+and a complete finite search, and show why a uniform rule can remove a
+distinction. Try their [eight changed questions](context_practice.md)
+before the [answers](context_answers.md).
+
 The beginner routes develop one small idea at a time. The formal units
 group related definitions and theorems and can contain many results.
 Start with their concrete first pass, then read the definitions, hypotheses,

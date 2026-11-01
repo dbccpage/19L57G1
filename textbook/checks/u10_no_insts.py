@@ -63,6 +63,17 @@ def main() -> int:
     if profiles(ruled) != profiles(ruled_inst) or collapsed_pairs(ruled_inst) != ((0, 1),):
         failures.append("an instance is not sufficient under a uniform rule")
     print("one redundant instance under a uniform rule leaves the pair collapsed")
+    no_forms = replay([AdmitDatum("A"), AdmitDatum("B")])
+    form_only = step(no_forms, AdmitForm(1))
+    all_marked = step(form_only, AdmitRuleAll(0))
+    if profiles(no_forms) != (frozenset(), frozenset()) or profiles(form_only) != profiles(no_forms):
+        failures.append("empty profiles contrast")
+    full = frozenset({(0, (None,))})
+    if profiles(all_marked) != (full, full):
+        failures.append("full profiles contrast")
+    masked = step(r1, AdmitRuleAll(0))
+    if collapsed_pairs(r1) or collapsed_pairs(masked) != ((0, 1),):
+        failures.append("uniform-rule addition did not mask the existing separation")
 
     print(f"failures: {failures}")
     return 1 if failures else 0
