@@ -26,7 +26,7 @@ for other readers, a reading-speed guarantee or a delayed-retention study.
 ## Exact resumption state
 
 These pins were verified before the final documentation checkpoint. The latest
-publication changes navigation and a scoped prose claim; it does not extend
+publication adds a selected X302 introduction; it does not extend
 the older full mathematical receipts to the new source commit.
 
 | Item | Verified state |
@@ -34,13 +34,13 @@ the older full mathematical receipts to the new source commit.
 | Repository | `dbccpage/19L57G1` |
 | Working branch | `codex/native-path-reading` |
 | Last full textbook-job source | `26c06c086421776e31f2301f254c570dfb6ef472` |
-| Latest published navigation/scope source | `7896a0e7f3b974232fd38662af266539f10355d0` |
+| Latest published teaching source | `b39af739424a9e0a08d50a33bae46b1332139186` |
 | `main` | `14d23a98830a4e6916b0e50810f0bc6ca17a05cf` |
-| Published Wiki commit | `476fdddad6e9da64fd555b2821626b53ec97fd9b` |
+| Published Wiki commit | `477c44b438bcf10e42385b5cec9fc0a4fea97bbb` |
 | Working PR | #296, OPEN, DRAFT, unmerged, directly against `main` |
 | Workspace | `C:\Users\a343o\.codex\worktrees\institutions-reading-review\19L57G1` |
 | Existing Wiki checkout | `C:\Users\a343o\.codex\worktrees\5ce4\19L57G1\artifacts2\wiki-review\wiki` |
-| Last batch | Core-route exits, optional advanced exercises and Unit 00 admission-cost scope |
+| Last batch | Reasoning 62–64: supports, conflicts and withdrawal; changed practice/answers |
 
 The latest batch finished; it leaves no pending render, build or publication
 job to resume. Refresh Git/PR/Wiki state before the next write. Preserve unrelated
@@ -155,6 +155,29 @@ No unchanged theorem or video build was rerun. Initial sandbox temp failures
 and the expected precommit source-pin failure are distinct from the successful
 committed-source run. Local receipt: `artifacts2/core-route-2026-11-01/publication.json`.
 The portable ZIP includes this receipt and the latest handoff/register.
+
+### Latest X302 publication
+
+Source `b39af739424a9e0a08d50a33bae46b1332139186` was published at Wiki
+`477c44b438bcf10e42385b5cec9fc0a4fea97bbb`. Ten selected pages (six new)
+bring the Wiki to 604 tracked files. All 594 unselected files are preserved.
+The source pins, complete Unit bodies, original 601 quotation blocks,
+author-edited pages and every existing media file remain intact.
+
+Focused checks: 3,456 finite notebooks, 3,771 returned candidate replays,
+nine computational practice tasks, eighteen exact native Lean reports and
+fourteen Wiki tests. The two vocabulary firewall checks pass and the prose
+census is unchanged. Generated/published Wiki link checks cover 3,156/3,153
+internal links; the raw published verifier retains only the seventeen known
+SVG checkout line-ending differences, with all 28 SVG Git blobs verified.
+No unchanged full textbook job or video render was rerun. The new Python/Lean
+wrappers are discovered by the canonical job for the final release check.
+
+Local evidence: `artifacts2/revision-reading-2026-11-01/`, including
+`controls.json`, `lean.log`, `wiki_tests.log`, `prose.log`, `firewall.log`
+and `publication.json`. The portable archive includes these small receipts,
+the source guide, updated inventory, this handoff and the remaining-issues
+register. Next: EXT-02, then PUB-01. The goal remains active.
 
 ## Repository and publication rules
 
