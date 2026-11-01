@@ -50,3 +50,7 @@ that would matter in a real application, and one conclusion the formal
 result alone does not establish about that application.
 
 AuthorityEffect: None. Formal consequences and empirical correspondences remain separate.
+
+Try the [practice](PRACTICE.md) and check the [answers](ANSWERS.md), then
+continue to [reading formal statements](../reading_formal_statements.md).
+The [reading path](../learning_path.md) identifies optional branches.

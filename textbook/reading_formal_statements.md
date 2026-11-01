@@ -139,6 +139,16 @@ the starting state, rule, event kind and ceiling.
 
 ## 6. Move from a familiar example to its formal owner
 
+For the core route, try questions 1–9 of the
+[practice](reading_formal_practice.md), then check the
+[answers](reading_formal_answers.md). Continue to
+[Unit 00: a mark and a constructor](units/00_mark_and_constructor.md).
+The institution exercises on those pages are optional later work with
+their own prerequisites.
+
+<details>
+<summary>Optional: follow a particular example to its later formal owner</summary>
+
 | Concrete route | Suggested next source reading |
 |---|---|
 | First steps | Units 08–10: the declared tests and their answers |
@@ -162,6 +172,8 @@ For the worked material, open the [Map lab](map_lab/README.md),
 [Unit 67](units/67_descending_a_view_through_the_observer_quotient.md).
 Try the [practice](reading_formal_practice.md) before its
 [answers](reading_formal_answers.md).
+
+</details>
 
 AuthorityEffect: None. The table is supplied teaching data. The interface
 example is checked by `textbook/checks/u44_observer_spec_lean.py`, outside

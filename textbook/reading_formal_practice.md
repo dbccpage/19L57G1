@@ -32,6 +32,12 @@ Supply this new table:
 9. A generic driver returns `closed` when its supplied next-step function
    returns `none`. Does the tag by itself establish that no active demand remains?
 
+This completes the core practice. Check the [answers](reading_formal_answers.md),
+then continue to [Unit 00](units/00_mark_and_constructor.md).
+
+<details>
+<summary>Optional: institution exercises after the named later Units</summary>
+
 ## Institution foundations I00–I03
 
 Use a new four-input example, after reading
@@ -198,6 +204,8 @@ Predict the result, name the assumptions, then consult the separate answers.
     distinction.” Choose one claim, construct a changed counterexample
     or identify the missing evidence, and state what would need to be
     observed or specified for a conclusion about the actual device.
+
+</details>
 
 AuthorityEffect: None. Labels, codes, requested values, and domain choices
 are supplied. Explain every answer from the stated task and assumptions.

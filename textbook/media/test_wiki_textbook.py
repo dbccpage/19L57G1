@@ -129,6 +129,20 @@ class WikiTextbookTests(unittest.TestCase):
         self.assertIn('](BLOB/textbook/map_lab/REVIEW_2026-10-28.md)',result)
         self.assertIn('](BLOB/textbook/map_lab/run_lab.py)',result)
 
+    def test_change_route_publishes_its_core_exit(self):
+        from change_lab_wiki import build_change_lab
+        root = Path(__file__).resolve().parents[2]
+        with tempfile.TemporaryDirectory() as temporary:
+            wiki = Path(temporary)
+            for name in ('Home.md', '_Sidebar.md'):
+                (wiki / name).write_text('', encoding='utf-8')
+            build_change_lab(root, wiki, 'a' * 40)
+            for slug in ('textbook_change_lab', 'textbook_change_lab_07_keep_the_model_in_view', 'textbook_change_lab_answers'):
+                page = (wiki / (slug + '.md')).read_text(encoding='utf-8')
+                self.assertIn('](textbook_reading_formal)', page)
+                self.assertNotIn('](../reading_formal_statements.md)', page)
+            self.assertIn('](textbook_learning_path)', (wiki / 'textbook_change_lab.md').read_text(encoding='utf-8'))
+
     def test_unit71_book_example_runs(self):
         root = Path(__file__).resolve().parents[2]
         lesson = next((root / "textbook/units").glob("71_*.md")).read_text(encoding="utf-8")

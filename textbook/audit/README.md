@@ -10,7 +10,12 @@ the existing eighteen selected introductions, two bounded planned electives,
 advanced references, open-question roles and standalone omissions. It is an
 editorial decision, not a new research-validation receipt. The current
 [remaining-issues register](../../TEXTBOOK_REMAINING_ISSUES.md) identifies the
-next work: the core-route reading and those two retained additions.
+next work: those two retained additions.
+
+The [core-route reading](CORE_ROUTE_READING_REVIEW_2026-11-01.md) covers
+29 numbered lessons, 45 core tasks and the formal entrance. It repairs
+continuation links, folds later exercises and narrows an admission-cost
+claim. This is editorial review, not measured beginner learning.
 
 **Later reading review (2026-10-28).** The historical inventory below is
 a line-regex report, not a comment-aware declaration census. A subsequent

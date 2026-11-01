@@ -8,7 +8,7 @@ This table assigns teaching roles, not mathematical grades. Owner entry summarie
 
 The beginner foundation uses the sealed-development examples and the existing First steps, Reasoning, Search and Change routes. A research tree is not a prerequisite merely because it exists. The eighteen selected research introductions remain available, with two bounded elective additions identified below. Advanced mathematics, tooling and separate derivation histories stay accessible as references. An open-question role preserves the named unresolved boundary; it does not label every result of that tree unproved. An omission removes a standalone chapter, not the source or its inventory entry.
 
-No research tree is newly assigned to the required entrance. This is a pedagogical decision about dependencies, not a claim that the core route is complete: PATH-01 still has to inspect that route end to end. It does not remove any existing lesson or narrow the overall beginner-textbook goal.
+No research tree is newly assigned to the required entrance. This is a pedagogical decision about dependencies, not a claim that the core route is complete: the separate PATH-01 review records its selected-route reading. It does not remove any existing lesson or narrow the overall beginner-textbook goal.
 
 ## Decision totals
 
@@ -163,4 +163,4 @@ Existing capability coverage is retained: distinction/recovery in First steps an
 
 ## Next work
 
-RES-01 is complete at this editorial-placement scope. Continue PATH-01, then implement EXT-01/EXT-02 with the prerequisite transitions actually needed. Do not reopen all 123 trees or extend source-owner claims by inference from these role labels. Preserve open questions, exact hypotheses and existing source custody.
+RES-01 is complete at this editorial-placement scope. PATH-01 is now recorded separately; implement EXT-01/EXT-02 with the prerequisite transitions actually needed. Do not reopen all 123 trees or extend source-owner claims by inference from these role labels. Preserve open questions, exact hypotheses and existing source custody.

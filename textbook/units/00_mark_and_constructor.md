@@ -159,9 +159,11 @@ reading L (Unit 05).
 **What the outside does not bring with it.** Admitting a metatheory does not
 admit its totalities into the system. Lean has unbounded types such as
 `Nat`; the system gets none of them. The constructor is not an observer
-inside the system, and the system gets no viewpoint from it. Whatever the
-system later holds arrives by named admission events, one at a time, each
-with its price (README, **No imports from nowhere**).
+inside the system, and the system gets no viewpoint from it. Later ledger
+contents enter through the model's declared admission rules and events
+(README, **No imports from nowhere**). A numerical price requires a named
+cost measure. Calling a metatheoretic definition “admitted” does not by
+itself assign such a price.
 
 </details>
 

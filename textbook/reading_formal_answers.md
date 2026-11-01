@@ -25,6 +25,12 @@
    next-step function to the demand conditions. The generic tag's
    definition alone supplies only the stated stopping condition.
 
+This completes the core answers. Continue to
+[Unit 00](units/00_mark_and_constructor.md).
+
+<details>
+<summary>Optional: institution exercises after the named later Units</summary>
+
 ## Institution foundations I00–I03
 
 10. In J,K,L,M order, the representatives are J,K,J,K. In M,L,K,J scan
@@ -174,6 +180,8 @@
     correspondence. Invented rows and successful software calculations
     alone supply zero physical observations. Other reasoned answers
     can address the guard/protection claim using the preceding example.
+
+</details>
 
 AuthorityEffect: None. Passing these written tasks would be reader evidence;
 software validation of the examples alone is not a comprehension result.
