@@ -10,9 +10,8 @@
     "open_question": 8,
     "justified_omission": 7
   },
-  "existing_selected_introductions": 18,
+  "existing_selected_introductions": 19,
   "planned_bounded_introductions": [
-    "EXT-01",
     "EXT-02"
   ],
   "trees": [
@@ -1097,13 +1096,13 @@
     {
       "tree": "x302_operational_reasoning",
       "disposition": "elective_introduction",
-      "treatment_state": "planned_bounded",
-      "reason": "Add one elective worked example of support dependencies, conflicting hypotheses and retraction; consistency and minimum cost do not establish truth.",
-      "existing_treatment": "Not yet established",
+      "treatment_state": "existing_selected",
+      "reason": "Retain the selected support/conflict/retraction introduction; consistency and the declared cost policy do not establish truth.",
+      "existing_treatment": "[Reasoning 62–64: supports, conflicts and withdrawal](../reasoning_lab/62_keep_the_support.md)",
       "source_entry": "research/x302_operational_reasoning/CLAIMS.md",
       "source_blob": "df100bdccf23e4de90c647182ab74966f9bf980f",
       "source_checkout_sha256": "d08ceeb88992bfad1b7bccb68ae2ab045de32944ce59ca12d4ad05973b04106c",
-      "planned_gap": "EXT-01"
+      "planned_gap": null
     },
     {
       "tree": "x303_bounded_agency",

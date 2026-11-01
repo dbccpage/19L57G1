@@ -6,7 +6,7 @@ This table assigns teaching roles, not mathematical grades. Owner entry summarie
 
 ## Selection rule
 
-The beginner foundation uses the sealed-development examples and the existing First steps, Reasoning, Search and Change routes. A research tree is not a prerequisite merely because it exists. The eighteen selected research introductions remain available, with two bounded elective additions identified below. Advanced mathematics, tooling and separate derivation histories stay accessible as references. An open-question role preserves the named unresolved boundary; it does not label every result of that tree unproved. An omission removes a standalone chapter, not the source or its inventory entry.
+The beginner foundation uses the sealed-development examples and the existing First steps, Reasoning, Search and Change routes. A research tree is not a prerequisite merely because it exists. The original eighteen selected research introductions remain available; X302 now has its bounded introduction and X303 remains planned. Advanced mathematics, tooling and separate derivation histories stay accessible as references. An open-question role preserves the named unresolved boundary; it does not label every result of that tree unproved. An omission removes a standalone chapter, not the source or its inventory entry.
 
 No research tree is newly assigned to the required entrance. This is a pedagogical decision about dependencies, not a claim that the core route is complete: the separate PATH-01 review records its selected-route reading. It does not remove any existing lesson or narrow the overall beginner-textbook goal.
 
@@ -20,11 +20,11 @@ No research tree is newly assigned to the required entrance. This is a pedagogic
 | open_question | 8 |
 | justified_omission | 7 |
 
-The twenty elective entries consist of eighteen existing selected introductions and two planned introductions. The other 103 entries receive explicit reference, open-question or omission decisions; they are not 103 automatically required chapters.
+The twenty elective entries consist of nineteen existing selected introductions and one planned introduction. The other 103 entries receive explicit reference, open-question or omission decisions; they are not 103 automatically required chapters.
 
 ## Two bounded additions to the retained textbook
 
-These are elective for readers but remain explicit unfinished editorial work. They should be short additions to the existing Reasoning/Change continuation, not new laboratories or research campaigns.
+These are elective for readers. EXT-01 is now delivered; EXT-02 remains explicit unfinished editorial work. They should be short additions to the existing Reasoning/Change continuation, not new laboratories or research campaigns.
 
 | ID / source | Need and prerequisites | Acceptance boundary |
 |---|---|---|
@@ -135,7 +135,7 @@ Existing capability coverage is retained: distinction/recovery in First steps an
 | [`p209d_nonclassical_horizons`](../../research/p209d_nonclassical_horizons/CLAIMS.md) | reference | Advanced layer/carrier comparison; retain as an optional source reference after the existing Boundary/Path introductions, with its own model and limits. |
 | [`x300_observer_information`](../../research/x300_observer_information/CLAIMS.md) | elective_introduction | Retain the existing selected introduction and its source guide; this placement does not extend its proved or computational scope. Existing: [selected process route](../reasoning_lab/45_each_input_gets_a_row.md). |
 | [`x301_formal_semantics`](../../research/x301_formal_semantics/CLAIMS.md) | elective_introduction | Retain the existing selected introduction and its source guide; this placement does not extend its proved or computational scope. Existing: [Reasoning 56–61: selected interpretation/report introduction](../reasoning_lab/56_a_claim_needs_an_interpretation.md). |
-| [`x302_operational_reasoning`](../../research/x302_operational_reasoning/CLAIMS.md) | elective_introduction | Add one elective worked example of support dependencies, conflicting hypotheses and retraction; consistency and minimum cost do not establish truth. Planned: EXT-01. |
+| [`x302_operational_reasoning`](../../research/x302_operational_reasoning/CLAIMS.md) | elective_introduction | Delivered in Reasoning 62–64: support dependencies, conflicting hypotheses and retraction; consistency and minimum cost do not establish truth. |
 | [`x303_bounded_agency`](../../research/x303_bounded_agency/CLAIMS.md) | elective_introduction | Add one elective worked example of a finite memory horizon, refusal and licensed action; keep recorded empirical-reference flags separate from tested correspondence. Planned: EXT-02. |
 | [`x310_vertical_integration`](../../research/x310_vertical_integration/CLAIMS.md) | reference | A harness across sibling packages is integration reference; partial codecs and metadata are not proof of a general bridge. |
 | [`second`](../../research/second/claim_ledger.md) | reference | Separate seed and continuation history; use as research casebook reference, preserving the owner's bounded results, open claims and unfrozen root status. |
@@ -163,4 +163,4 @@ Existing capability coverage is retained: distinction/recovery in First steps an
 
 ## Next work
 
-RES-01 is complete at this editorial-placement scope. PATH-01 is now recorded separately; implement EXT-01/EXT-02 with the prerequisite transitions actually needed. Do not reopen all 123 trees or extend source-owner claims by inference from these role labels. Preserve open questions, exact hypotheses and existing source custody.
+RES-01 is complete at this editorial-placement scope. PATH-01 is now recorded separately; EXT-01 is delivered in Reasoning 62–64. Implement EXT-02 with the prerequisite transitions actually needed. Do not reopen all 123 trees or extend source-owner claims by inference from these role labels. Preserve open questions, exact hypotheses and existing source custody.

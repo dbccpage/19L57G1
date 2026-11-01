@@ -6,11 +6,16 @@ reading of `lean4/Derivation/` as it stands, checked against the artifact,
 the paper and the ledger, and reproducible from the files named.
 
 The [123-tree placement decision](RESEARCH_PLACEMENT_2026-11-01.md) distinguishes
-the existing eighteen selected introductions, two bounded planned electives,
+nineteen selected introductions, one bounded planned elective,
 advanced references, open-question roles and standalone omissions. It is an
 editorial decision, not a new research-validation receipt. The current
 [remaining-issues register](../../TEXTBOOK_REMAINING_ISSUES.md) identifies the
-next work: those two retained additions.
+next work: the remaining X303 addition.
+
+The [support/withdrawal review](REVISION_READING_REVIEW_2026-11-01.md) records
+Reasoning 62–64, changed lamp practice, 3,456 finite notebooks and eighteen
+fresh native Lean reports. It retains the difference between recorded
+conflicts, all possible derivations and truth about the world.
 
 The [core-route reading](CORE_ROUTE_READING_REVIEW_2026-11-01.md) covers
 29 numbered lessons, 45 core tasks and the formal entrance. It repairs

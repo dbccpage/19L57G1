@@ -235,6 +235,26 @@ limits. No physical trial or independent observer evidence is supplied.
 
 </details>
 
+<details><summary>Later application: supports, conflicts and withdrawal (62–64)</summary>
+
+Use core Reasoning 00–07 first. The other applications are not prerequisites.
+This selected X302 route follows a supplied notebook through a conflict;
+it does not assume its surviving claims are true of the world.
+
+| Lesson | One question |
+|---|---|
+| [62. Keep the support with the claim](62_keep_the_support.md) | Which assumptions did this particular derivation use? |
+| [63. Withdraw a support](63_withdraw_a_support.md) | Which downstream records lose their support? |
+| [64. Choose without claiming truth](64_choose_without_claiming_truth.md) | What does the declared minimum rule actually select? |
+
+Try the ten [changed questions](REVISION_PRACTICE.md) before the
+[separate answers](REVISION_ANSWERS.md). Optional
+[source details](REVISION_SOURCES.md) separate recorded conflicts,
+conditional Lean theorems and real observations. Return to the
+[reading path](../learning_path.md) afterward.
+
+</details>
+
 The [source map](SOURCE_MAP.md) separates teaching logic from native
 models; [DEVELOPMENT.md](DEVELOPMENT.md) explains reproduction.
 

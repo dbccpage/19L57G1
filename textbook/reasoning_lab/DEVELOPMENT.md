@@ -249,3 +249,15 @@ The Lean assembly includes the unchanged whole X301 body and eight selected
 reports, for 198 combined: 160 empty, five `propext`, 33 both. The initial
 two wrong empty-set expectations remain in the local evidence before their
 exact correction. No gate family, native receipt or vocabulary pin changes.
+
+## Supports and withdrawal continuation
+
+Run `python textbook/checks/u00_revision.py` and
+`python textbook/checks/u00_revision_lean.py`. The first checks the three
+lessons, nine computational practice questions and all 128 conflict families
+on three hypothesis names at 27 positive cost assignments (3,456 notebooks).
+It compares an independent subset oracle and replays tied candidates.
+The second assembles unchanged X302 source for eighteen exact native reports:
+seventeen empty and one exactly `propext`. These checks are discovered by
+the canonical textbook job without changing its family definitions.
+No new browser application, video or research receipt is generated.
