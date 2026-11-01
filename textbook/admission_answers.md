@@ -1,4 +1,4 @@
-# Units 11â€“16: answers
+# Units 11–16: answers
 
 Attempt one group of [practice questions](admission_practice.md) first.
 
