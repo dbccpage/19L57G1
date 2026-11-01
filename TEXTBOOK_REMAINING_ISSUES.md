@@ -60,7 +60,7 @@ also covers all eighteen Part 2 openings. Reuse these rather than rebuild them.
 | FIX-01 | P1 / CLOSED for identified route defects | The concrete PATH-01 defects are resolved in its linked review; reopen only for a newly identified defect | Repair issues discovered by RES-01 or PATH-01, ranked by wrong claims, unusable examples and missing prerequisites. Batch ordinary grammar fixes with them | Each discovered issue has a source pointer, resolution and relevant check; no known reader blocker remains |
 | EXT-01 | P1 / DONE, selected introduction | [Reasoning 62–64 review](textbook/audit/REVISION_READING_REVIEW_2026-11-01.md): worked dependency chain, conflict/retraction choices, changed practice/answers and exact source limits | Reuse its finite controls and eighteen fresh native Lean reports; no full Python refinement is claimed | Supports, cascade effects, tied alternatives and the consistency-versus-truth boundary are explicit and checked |
 | EXT-02 | P1 / DONE, selected introduction | [Reasoning 65–67 review](textbook/audit/AGENCY_READING_REVIEW_2026-11-01.md): finite memory, projection/envelope/license steps, unchanged refusal under stated action assumptions, changed practice and exact source limits | Reuse its 2,304 controller cases, 36 memory cases and sixteen fresh Lean reports; retain the separate model scopes | The horizon, eviction, projected-state/license check and unchanged refusal state are explained; metadata is not promoted to observation evidence |
-| PUB-01 | P1 / READY — NEXT | Canonical textbook job now passes at d0386aee (108 Python / 81 Lean); eleven pages are published from it. Final rendered samples and goal/evidence reconciliation remain | Reuse the current receipt and publication preservation; inspect new branch/navigation samples and finish the release audit. Rerun only for changed teaching/check source | Public pages, examples, links and source pins agree; scope of checks and unresolved mathematics is stated accurately |
+| PUB-01 | P1 / CLOSED after final status publication | [Release audit](textbook/audit/RELEASE_AUDIT_2026-11-01.md): exact canonical receipt, publication preservation, named live keyboard/phone samples and requirement/evidence reconciliation | Retain the final publication receipt and portable archive. Reopen only for a concrete new defect or source change | Public pages, examples, links and source pins agree; scope of checks and unresolved mathematics is stated accurately |
 | COV-02 | P2 / CONDITIONAL | Source placement still groups declarations and proposes omissions; the index explicitly does not certify complete semantic teaching | If a release claims exhaustive declaration coverage, reconcile the retained entries and classify theorem scope separately from finite computation. Otherwise retain the explicit source-index limitation | The release claim matches its evidence; no demand to teach every auxiliary theorem is invented |
 | LEARN-01 | P3 / OPTIONAL evidence | Author acceptance is recorded; no independent timed or delayed-transfer study is recorded | Preserve that distinction. Do not ask again for a participant or invent measured outcomes | No unobserved reader result is claimed; any stronger future learning claim has its own evidence |
 
@@ -69,22 +69,20 @@ on making the additional coverage claim. P3 is useful evidence, not a new
 participant requirement. The research's open mathematical conjectures remain
 open; finishing a textbook does not require proving them.
 
-## Do next, with a definite stopping point
+## Release disposition
 
-RES-01 is complete at its editorial scope; the [123-tree table](textbook/audit/research_placement.json)
-records each role, reason, source entry and source identity. PATH-01 and its
-identified repairs are complete at the recorded editorial scope. EXT-01 and EXT-02 are complete at their selected-introduction scopes. Start
-**PUB-01**, the final course/source and publication verification. The retained
-electives remain optional for readers. No new research-tree-specific prerequisite is imposed on
-the entrance by placement alone; preserve the recorded model boundaries.
+All retained P1 editorial/content work is complete. The final status-only
+publication and its preservation receipt close PUB-01. The release audit
+records the exact evidence and limits; it does not claim an independent
+reader trial or exhaustive per-declaration teaching.
 
-Preserve the previously checked
-early examples, diagrams, videos and all original quoted source blocks. Run
-checks appropriate to actual changes; no fresh Lean build or video render is
-needed simply to maintain this register.
+There is no instruction to start another lesson batch. Preserve the canonical
+d0386aee receipt, complete Unit/source custody, original quotations, author
+pages and corrected media. Future changes should begin with a specific defect,
+changed source or author request, rather than repeat the completed reviews.
 
-The historical completion page's first two packages—Units 17–22 publication and
-review consolidation—are now done at their stated scopes. This register is the
-current next-action list. The full goal remains active until the retained
-course and publication requirements have been satisfied; no completion
-percentage or learner-speed claim is asserted.
+COV-02 remains conditional on a stronger exhaustive-coverage claim. LEARN-01
+remains optional evidence for stronger learning claims. The author controls
+merging; the full twelve-family local contract is separate and has not run.
+Open mathematical questions remain open. These boundaries do not become
+new unwritten textbook chapters or a new participant requirement.

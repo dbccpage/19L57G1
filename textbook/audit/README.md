@@ -10,7 +10,12 @@ twenty selected introductions,
 advanced references, open-question roles and standalone omissions. It is an
 editorial decision, not a new research-validation receipt. The current
 [remaining-issues register](../../TEXTBOOK_REMAINING_ISSUES.md) identifies the
-next work: final course/source and publication verification.
+closed editorial work and the remaining conditional evidence boundaries.
+
+The [release audit](RELEASE_AUDIT_2026-11-01.md) reconciles the full teaching
+requirements with selected reviews, current canonical checks, source custody
+and named live samples. It closes the editorial release without claiming
+measured novice speed or exhaustive declaration teaching.
 
 The [bounded-memory/permission review](AGENCY_READING_REVIEW_2026-11-01.md)
 records Reasoning 65–67, changed practice, 2,304 controller cases, 36 memory
