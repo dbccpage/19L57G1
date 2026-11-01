@@ -31,4 +31,6 @@ Change the middle table to `(4, 6)`. The first comparison passes, but
 the second already fails. The zero-total exception had hidden that
 difference. A hypothesis can be the part that makes an inference work.
 
-Next: [signed steps](03_signed_steps.md).
+For fraction arithmetic, continue to [09. Equal pieces](09_equal_pieces.md).
+For the separate signed-step branch, use [03. Signed steps](03_signed_steps.md).
+The [reading path](../learning_path.md) explains when each is useful.

@@ -1,8 +1,9 @@
 # 18. One length, two numbers
 
-Start with the Number lab’s [shares and fractions](../number_lab/README.md)
-if halves or division are unfamiliar. This continuation supplies a new
-calibration model; it is not derived from the earlier cards or seed.
+Before this application, use the [fraction toolkit, Number 09–12](../number_lab/09_equal_pieces.md)
+if adding, multiplying or dividing fractions is unfamiliar.
+
+This continuation supplies a new calibration model; it is not derived from the earlier cards or seed.
 
 Imagine a model strip X of length 12 small steps. A unit U spans two
 steps. A larger unit W spans four. These lengths are supplied facts of

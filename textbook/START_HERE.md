@@ -5,6 +5,12 @@ Python, or Lean. Begin with [three cards and two questions](first_steps/README.m
 Predict an answer before revealing it. The formal chapters become easier
 when you can already explain one small example.
 
+For a concrete sequence with places to stop, use the
+[reading path](learning_path.md). Its first route is First steps, then
+Reasoning 00–07 and practice, then Search and Change. The later
+applications have separate prerequisites; the fraction branch can be
+studied before numerical applications.
+
 ## 1. What can this record tell us?
 
 Imagine a lost-property desk whose record says only whether an item is
@@ -92,6 +98,10 @@ a particular recorded link need not forbid all self-links in the grammar.
 Each later theorem names the extra rule, if any, that its conclusion needs.
 
 ## 5. Choose the next question you want to understand
+
+The [reading path](learning_path.md) names the bounded lesson ranges
+needed for each branch. A link to a whole lab does not require finishing
+all of its later continuations before moving on.
 
 | Question | Concrete route |
 |---|---|

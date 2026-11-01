@@ -2,7 +2,7 @@
 
 Supply two possible outcomes, 0 and 1. A preparation assigns them chances
 3/4 and 1/4. If fractions are unfamiliar, begin with the
-[Number lab](../number_lab/README.md).
+[fraction toolkit, Number 09–12](../number_lab/09_equal_pieces.md).
 
 Now supply a Yes response rule: if outcome 0 occurs, its Yes chance is
 1/2; if outcome 1 occurs, its Yes chance is 1.

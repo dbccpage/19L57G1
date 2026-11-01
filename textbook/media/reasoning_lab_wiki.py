@@ -47,6 +47,7 @@ def build_reasoning_lab(repo, wiki, commit):
         text = text.replace("](clocks.html)",f"]({CLOCK_DESK})")
         text = text.replace("](composites.html)",f"]({COMPOSITE_DESK})")
         text = text.replace("](valuations.html)",f"]({VALUATION_DESK})")
+        text = text.replace("](../learning_path.md)","](textbook_learning_path)")
         prefix = f"[Genesis Wiki](Home) · [Reasoning lab](textbook_reasoning_lab) · [Claim desk]({DESK})\n\n"
         suffix = f"\n\n---\n\nSource snapshot: [`{commit[:12]}`](https://github.com/dbccpage/19L57G1/blob/{commit}/textbook/reasoning_lab/{name}). Teaching apparatus; `AuthorityEffect: None`.\n"
         (wiki / (slug + ".md")).write_text(prefix + text + suffix, encoding="utf-8", newline="\n")

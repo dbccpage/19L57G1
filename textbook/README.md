@@ -28,6 +28,9 @@ For a concrete example before the formal development, begin with
 [`First steps: three cards, two questions`](first_steps/README.md): five
 short lessons, a prediction-first explorer, and separate practice answers.
 No previous mathematics or philosophy is assumed.
+Use the [reading path](learning_path.md) for a core sequence, places to
+pause and prerequisites for later applications. The first Reasoning pass
+is Lessons 00–07, not every application listed in that lab.
 The [`Reasoning lab`](reasoning_lab/README.md) supplies the next toolkit:
 rules, functions, if-then claims, witnesses, counterexamples, and hypotheses.
 Its [evidence continuation](reasoning_lab/08_from_a_model_to_a_trial.md)

@@ -79,6 +79,10 @@ The [P204 valuation route](VALUATION_READING_REVIEW_2026-10-31.md) adds
 eight chance/response lessons and an interactive desk. It distinguishes
 native Nat algebra from Python rational probabilities, value equivalence
 from literal equality, and complete sums from conditioning on one branch.
+The [reading-order and fraction follow-up](READING_PATH_REVIEW_2026-10-31.md)
+then separates the core 00–07/practice route from later applications,
+adds a direct prerequisite guide and supplies four missing fraction lessons
+with changed practice. Mathematical checks do not establish reader mastery.
 
 **Early-chapter follow-up (2026-10-29).** The
 [Units 04–16 reading review](EARLY_READING_REVIEW_2026-10-29.md) adds

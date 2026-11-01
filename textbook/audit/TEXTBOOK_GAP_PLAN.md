@@ -294,6 +294,11 @@ The [P204 valuation route](VALUATION_READING_REVIEW_2026-10-31.md) adds
 eight lessons on chances, responses, mixtures, allowed-family dependence,
 complete branch sums and conditional chances. It retains native Nat
 limits and uses rational Python examples without inventing a general bridge.
+The [reading-path follow-up](READING_PATH_REVIEW_2026-10-31.md) makes the
+core and later applications explicit, and adds four fraction-operation
+lessons with separate practice/answers before calibration and valuation
+work. This addresses an inspected prerequisite gap; the proposed order
+and learning outcomes still require reader evidence.
 The [I00–I03 definition follow-up](INSTITUTION_FOUNDATIONS_READING_REVIEW_2026-10-31.md)
 then returns to the formal route: one continuing table, separate input/
 output/lookup roles, three-step class counting, folded source proofs and

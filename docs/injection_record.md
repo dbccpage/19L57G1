@@ -1110,3 +1110,23 @@ Explicit constructive steps recover the original expected sets, without
 adopting either failure. Unmodified selected source recovers with 34
 reports; the combined driver checks 148. Rendering and learner evidence
 remain separate from these finite/model checks.
+
+
+## Fraction prerequisites and reading path (2026-10-31)
+
+AuthorityEffect: None. Two assembled child-process Lean strings reject
+false general fraction claims, with no mutation of native source:
+
+| Injected defect | Rejection |
+|---|---|
+| Add one extra numerator unit to common-denominator addition | Lean rejects the altered identity |
+| Make a positive-denominator QVal have denominator zero | Lean rejects the false equality |
+
+Unmodified source recovers with seven new reports: four empty sets and
+three exactly `propext, Quot.sound`. The combined Reasoning driver checks
+155; the existing Number readout driver keeps its 37-report population.
+Exact arithmetic also retains 252 zero-divisor refusals in its declared
+pair population. Existing Number Wiki stale-page/asset controls are
+preserved; their source page census is deliberately updated to 21 after
+adding seven Markdown pages. The five tests recover. No reading-time,
+mastery, transfer or physical result is inferred.

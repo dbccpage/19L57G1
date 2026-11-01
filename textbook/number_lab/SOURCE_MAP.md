@@ -95,3 +95,15 @@ results. A digest pins input text; it is not a proof of its meaning.
 The figures visualize those results. Neither a computation nor a kernel
 check establishes a measurement connection, beginner comprehension,
 unfamiliar-example transfer, or delayed retention.
+
+
+## Fraction branch: Lessons 09–12
+
+The [fraction toolkit](FRACTIONS_SOURCES.md) supplies the missing
+addition, multiplication and division steps after Number 00–02. It
+includes four lessons, six changed tasks and separate answers. Its
+seven book reports are checked through the existing Reasoning driver,
+which already consumes the exact QVal definition; the original 37-report
+Number readout population above remains unchanged. A supplied positive-
+divisor quotient is a book operation, not a native API claim. Arithmetic
+checks, proof scope and reader evidence remain separate.

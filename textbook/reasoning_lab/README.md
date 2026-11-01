@@ -7,6 +7,12 @@ No previous logic or mathematical notation is needed here.
 We will read a rule, try it on a case, and identify exactly what would
 make it fail. A small change in a sentence can change what it claims.
 
+## First visit: Lessons 00–07
+
+Begin with these eight lessons. Stop after Lesson 07, try the packet
+practice, and choose your next route. The later applications below have
+their own prerequisites and are not required for that first pass.
+
 | Lesson | One question |
 |---|---|
 | [00. A rule and a record](00_rule_and_record.md) | Does listing an answer explain why it follows? |
@@ -17,19 +23,40 @@ make it fail. A small change in a sentence can change what it claims.
 | [05. Does the witness depend on the pair?](05_order_of_questions.md) | Is one test per pair the same as one test for all pairs? |
 | [06. Carry the hypotheses](06_carry_the_hypotheses.md) | What changes when a result's conditions are missing? |
 | [07. Match evidence to a claim](07_evidence_for_a_claim.md) | Does a table calculation tell us how a sensor behaves? |
+
+Use the [claim desk](results.html) to predict the conditional, witness
+and recovery results. The complete written lessons work without it.
+The desk's fictional-log section belongs to the optional evidence route.
+
+After Lesson 07, attempt the [packet practice](PRACTICE.md) before its
+[answers](ANSWERS.md). Continue to the [Search lab](../search_lab/README.md)
+when you can give a counterexample and carry a claim's conditions.
+For a different question, use the [reading path](../learning_path.md).
+
+## Return for an application
+
+Open the branch you want to study. Start with the fraction toolkit before
+unit conversions or probability calculations; the reading path names the
+specific prerequisite lessons.
+
+<details><summary>Optional application: evidence and trial records (08–11)</summary>
+
+| Lesson | One question |
+|---|---|
 | [08. From a model row to a trial](08_from_a_model_to_a_trial.md) | What procedure connects an answer code to an observation? |
 | [09. What a disagreement changes](09_what_a_disagreement_changes.md) | Which application premises cannot all hold? |
 | [10. Repeats, uncertainty, and scope](10_repeats_uncertainty_and_scope.md) | What do we retain when readings conflict or remain unclear? |
 | [11. Try one physical check](11_try_a_physical_check.md) | What would I actually record, and what would remain unmeasured? |
 
-Use the [claim desk](results.html) to change the question, direction, and
-declared card list. Make a prediction before revealing the checked rows.
-The complete lessons remain usable without the desk.
-Its fourth section classifies twelve **fictional** trial logs. It takes
-no measurements. The optional worksheet leaves space for separately
-recorded observations if you choose to perform it.
+These lessons supply a declared protocol, twelve fictional trial logs,
+partial readings and an optional blank physical worksheet. Use the changed
+[envelope practice](EVIDENCE_PRACTICE.md) before its separate
+[answers](EVIDENCE_ANSWERS.md). Studying the examples requires no experiment;
+observations exist only if an activity is actually performed.
 
-## Apply the toolkit to an instrument model
+</details>
+
+<details><summary>Later application: targets and stored readings (12–17)</summary>
 
 This optional continuation supplies a new model with separate targets,
 stored records, a message box and a configured counter. It uses selected
@@ -51,7 +78,9 @@ unchanged. Try the [new protocol practice](PROTOCOL_PRACTICE.md) before
 the [answers](PROTOCOL_ANSWERS.md). These are supplied model calculations;
 no physical observations or learner scores are generated.
 
-## Give the recorded number its unit
+</details>
+
+<details><summary>Later application: units and calibration (18–23)</summary>
 
 After the [Number lab](../number_lab/README.md), this optional continuation
 uses selected P201 definitions for nonnegative rational quantities. No
@@ -73,7 +102,9 @@ The [source guide](CALIBRATION_SOURCES.md) separates native operations,
 book-side premise checks and selected Lean claims. The clock model is
 outside this selected continuation.
 
-## Compare clocks and future readings
+</details>
+
+<details><summary>Later application: clocks and future readings (24–29)</summary>
 
 This continuation keeps the source's Python pulse and Lean uniform
 rules separate. It introduces a declared countdown contrast for finite
@@ -92,7 +123,9 @@ Use the separate [clock desk](clocks.html), [practice](CLOCKS_PRACTICE.md)
 and [answers](CLOCKS_ANSWERS.md). The [source guide](CLOCKS_SOURCES.md)
 keeps native proofs, finite executions and the countdown explicit.
 
-## Combine parts without losing the conditions
+</details>
+
+<details><summary>Later application: combining systems (30–36)</summary>
 
 This selected P203 route uses named records and explicit procedures.
 It keeps regrouping, preparation shares, actual dependencies, declared
@@ -112,7 +145,9 @@ Use the separate [composite desk](composites.html), then the changed
 [practice](COMPOSITES_PRACTICE.md) and [answers](COMPOSITES_ANSWERS.md).
 Optional [source details](COMPOSITES_SOURCES.md) retain the precise scope.
 
-## Give chances and responses their separate roles
+</details>
+
+<details><summary>Later application: chances and responses (37–44)</summary>
 
 This selected P204 route starts with two-outcome tables. It distinguishes
 preparation chances, conditional response rules, mixing procedures,
@@ -134,14 +169,10 @@ Use the [valuation desk](valuations.html), then changed
 The optional [source guide](VALUATIONS_SOURCES.md) keeps Python rational
 probabilities, native Lean Nat results and added book arithmetic distinct.
 
-Then try the original [practice](PRACTICE.md) before opening its [answers](ANSWERS.md).
-For the evidence route, use the changed [envelope example](EVIDENCE_PRACTICE.md)
-before its separate [answer guide](EVIDENCE_ANSWERS.md).
-The [source map](SOURCE_MAP.md) separates the teaching logic from native
-definitions; [DEVELOPMENT.md](DEVELOPMENT.md) explains reproduction.
-Continue to the [Search lab](../search_lab/README.md) when you can name a
-claim's conditions and give a counterexample to its failed reverse.
+</details>
 
-AuthorityEffect: None. The cards, tables, logic, and checking apparatus
-are supplied teaching material outside the sealed derivation. Learning
-time, comprehension, and transfer still require novice testing.
+The [source map](SOURCE_MAP.md) separates teaching logic from native
+models; [DEVELOPMENT.md](DEVELOPMENT.md) explains reproduction.
+
+AuthorityEffect: None. Supplied teaching material outside the sealed
+derivation. Reading time, understanding and transfer require reader evidence.

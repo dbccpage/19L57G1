@@ -13,7 +13,7 @@ class NumberWikiTests(unittest.TestCase):
         self.repo = Path(__file__).resolve().parents[2]
         (self.wiki/'_Sidebar.md').write_text('- [Same-record lab: equal profiles, distinct positions](textbook_identification_lab)\n', encoding='utf-8')
         (self.wiki/'Home.md').write_text('> **Match answers without merging things:** Same-record lab\n', encoding='utf-8')
-        self.assertEqual(build_number_lab(self.repo, self.wiki, 'a'*40), 14)
+        self.assertEqual(build_number_lab(self.repo, self.wiki, 'a'*40), 21)
         self.assertEqual(number_lab_errors(self.repo, self.wiki), [])
 
     def corrupt(self, name, text, message):
@@ -39,7 +39,9 @@ class NumberWikiTests(unittest.TestCase):
 
     def test_prerequisites_unit_and_answers_reach_wiki(self):
         body = (self.wiki/'textbook_number_lab.md').read_text(encoding='utf-8')
-        for slug in ('first_steps', 'reasoning_lab', 'map_lab', 'u64_a_profile_without_division', 'number_lab_answers'):
+        for slug in ('first_steps', 'reasoning_lab_00_rule_and_record', 'map_lab_00_follow_a_map',
+                     'u64_a_profile_without_division', 'number_lab_answers', 'learning_path',
+                     'number_lab_fractions_practice', 'number_lab_fractions_answers'):
             self.assertIn(f'](textbook_{slug})', body)
         self.assertNotIn('](../', body)
 

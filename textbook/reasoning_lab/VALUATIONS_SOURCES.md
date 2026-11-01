@@ -107,10 +107,12 @@ beginner comprehension. Published rendering is checked separately.
 The full native Lean text is re-elaborated unchanged. Reports cover all
 25 explicit native theorems, with seventeen empty sets and eight exactly
 `propext, Quot.sound`. Nine book reports add six empty sets and three
-exactly `propext, Quot.sound`. The combined Reasoning driver checks 148
+exactly `propext, Quot.sound`. The logic-through-valuation portion contributes 148
 reports: 123 empty sets, two `propext`, 23 `propext, Quot.sound`.
 The native 85-theorem compiled census includes generated declarations
-and remains a separate historical receipt. No native receipt is rebuilt.
+and remains a separate historical receipt. No native receipt is rebuilt. The later
+[fraction prerequisite toolkit](../number_lab/FRACTIONS_SOURCES.md) adds
+seven book reports; the combined driver then checks 155.
 
 Initial book attempts failed to synthesize a decision procedure for the
 defined equivalence, and an automated tactic introduced Classical.choice.

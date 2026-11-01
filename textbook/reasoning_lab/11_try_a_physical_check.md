@@ -48,5 +48,9 @@ add the correction and its reason. A repeat is another row.
 If you did not perform the activity, write **not performed**. That is
 more informative than treating an imagined outcome as a measurement.
 
+Return to the [core practice](PRACTICE.md), continue to the
+[Search lab](../search_lab/README.md), or choose another application in
+the [reading path](../learning_path.md).
+
 AuthorityEffect: None. This worksheet records no observations by itself
 and is not an assessment of your learning.

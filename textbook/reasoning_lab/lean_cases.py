@@ -104,3 +104,6 @@ SOURCE += '\n'+COMPOSITE_SOURCE
 from .valuations_lean import build_checks as valuation_checks
 VALUATION_SOURCE,VALUATION_NAMES=valuation_checks()
 SOURCE += '\n'+VALUATION_SOURCE
+
+from textbook.number_lab.fractions_lean import SOURCE as FRACTION_SOURCE
+SOURCE += '\n'+FRACTION_SOURCE

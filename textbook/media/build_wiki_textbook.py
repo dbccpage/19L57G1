@@ -39,6 +39,7 @@ RAW_WIKI_MEDIA = "https://raw.githubusercontent.com/wiki/dbccpage/19L57G1/media/
 BEGINNER_ROUTES = ('first_steps', 'reasoning_lab', 'search_lab', 'change_lab',
                    'path_lab', 'map_lab', 'growth_lab', 'boundary_lab', 'identification_lab', 'number_lab')
 READING_GUIDES = {
+    'learning_path.md': 'textbook_learning_path',
     'reading_formal_statements.md': 'textbook_reading_formal',
     'reading_formal_practice.md': 'textbook_reading_formal_practice',
     'reading_formal_answers.md': 'textbook_reading_formal_answers',

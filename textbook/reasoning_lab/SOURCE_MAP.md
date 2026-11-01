@@ -233,3 +233,14 @@ unchanged explicit owner theorems and nine book results add 34 reports:
 23 empty axiom sets and eleven exactly `propext, Quot.sound`. With the
 preceding 114-report portion, the combined driver checks 148. No physical
 probability law or general rational Python/Lean bridge is inferred.
+
+
+## Core route and supplied fraction prerequisites
+
+The [reading path](../learning_path.md) makes 00–07 the first Reasoning
+pass and retains the evidence and later model routes as applications.
+The Number lab's [fraction source guide](../number_lab/FRACTIONS_SOURCES.md)
+adds seven book statements to the already consumed QVal body. With the
+preceding 148-report portion, the combined driver has 155: 127 empty,
+two `propext`, 26 `propext, Quot.sound`. The Number lab's separate
+37-report readout driver is unchanged. No new research tree is introduced.

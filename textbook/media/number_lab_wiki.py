@@ -19,6 +19,10 @@ def page_text(source, name, commit):
         body = body.replace(f']({filename})', f']({slug})')
     for folder in ('first_steps', 'reasoning_lab', 'map_lab'):
         body = body.replace(f'](../{folder}/README.md)', f'](textbook_{folder})')
+        for sibling in (source.parent/folder).glob('*.md'):
+            if sibling.name!='README.md':
+                body=body.replace(f'](../{folder}/{sibling.name})',f'](textbook_{folder}_{sibling.stem.lower()})')
+    body=body.replace('](../learning_path.md)','](textbook_learning_path)')
     body = body.replace('](../units/64_a_profile_without_division.md)',
                         '](textbook_u64_a_profile_without_division)')
     body = body.replace('](figures/', ']('+RAW+'figures/')

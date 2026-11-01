@@ -181,7 +181,8 @@ python textbook/checks/u00_reasoning_lab_lean.py
 ```
 
 A reviewed `valuations.py --write` updates only its JSON/HTML. Existing
-wrappers check its populations and 148 combined exact reports. P204's
+wrappers check its populations; the logic-through-valuation portion
+contributes 148 exact reports before the fraction additions below. P204's
 whole Lean body stays unchanged; 25 owner and nine book reports add
 23 empty sets and eleven exactly `propext, Quot.sound`. Failed initial
 proof/axiom attempts are retained separately, without widening the sets.
@@ -194,3 +195,18 @@ are rejected; unmodified source recovers. Published UI checks remain
 separate: exercise the contexts, both gates, zero-chance branch, wrong
 feedback, resets and phone-width keyboard scrolling. No fixture produces
 measured device frequencies or learner scores.
+
+
+For the arithmetic prerequisite branch, run
+`python textbook/number_lab/fraction_toolkit.py` and the existing
+`python textbook/checks/u00_reasoning_lab_lean.py`. Seven book reports
+use the already included QVal body, bringing the combined population to
+155: 127 empty, two exactly `propext`, 26 exactly `propext, Quot.sound`.
+The two assembled false fraction variants are retained separately from
+recovery; their targets and scope are in the injection record.
+
+The core 00–07/practice exit and six initially folded applications are
+reading guidance, not a measured reading-time or mastery claim. Existing
+Reasoning packets, all six desks and the 94-test authoring population
+are unchanged. The reading path lists bounded prerequisites rather than
+requiring all later applications before returning to core practice.
