@@ -48,9 +48,9 @@ every theorem, the proof checker or a claim about a physical device.
 
 The thirteen-test Wiki authoring suite passes. Its new population check
 visits all 93 Units and checks full text once, before optional media, with
-the exact original fenced-block population. Seven disposable page faults
+the exact original fenced-block population. Eight disposable page faults
 are refused: dropping a scope sentence, moving a video before the lesson,
-opening the video by default, changing its GIF destination, breaking the First pass jump, inventing an
+opening the video by default, changing its GIF destination, breaking the First pass jump, removing its GitHub heading-ID prefix, inventing an
 unavailable source commit, and naming a real older commit whose source
 differs from the displayed lesson. Unchanged pages recover after each fault.
 The checks use scratch output; no source Unit is mutated.
@@ -69,3 +69,9 @@ desks and figures remain unchanged. No new video is rendered for this
 layout change. Complete semantic coverage, general accessibility and
 observed beginner comprehension, transfer and retention remain open.
 This review is not full twelve-family merge clearance; the author merges.
+
+The first live phone check found that the unprefixed fragment changed the
+address without reaching the heading. The published GitHub DOM names the
+anchor with `user-content-`; the jump now targets that actual ID, including
+the two extended headings. The initial publication and its receipts are
+retained separately from this correction and subsequent live verification.

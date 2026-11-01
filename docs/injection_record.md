@@ -1163,10 +1163,10 @@ Python-to-Lean refinement, device behavior or learner understanding.
 
 ## Shared Unit layout and source custody (2026-11-01 UTC)
 
-AuthorityEffect: None. Seven temporary generated-page defects are rejected
+AuthorityEffect: None. Eight temporary generated-page defects are rejected
 by the existing Wiki verification path's new Unit checks: remove a scope
 sentence; move the video before the lesson; open it by default; change
-the GIF target; break the First pass jump; invent an unavailable source pin; or use a real older
+the GIF target; break the First pass jump; omit its GitHub heading-ID prefix; invent an unavailable source pin; or use a real older
 pin whose source differs from the displayed lesson. Original scratch
 pages recover after each case. The thirteen-test Wiki suite passes,
 including a population check over all 93 Units and their 601 source

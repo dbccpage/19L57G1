@@ -250,7 +250,8 @@ def first_pass_anchor(raw_md: str) -> str:
     headings = re.findall(r'^## (First pass[^\n]*)$', raw_md, re.MULTILINE)
     if len(headings) != 1:
         raise ValueError('Expected one First pass heading')
-    return '#' + re.sub(r'[^\w -]', '', headings[0].lower()).replace(' ', '-')
+    # GitHub's rendered heading anchor uses this actual DOM ID.
+    return '#user-content-' + re.sub(r'[^\w -]', '', headings[0].lower()).replace(' ', '-')
 
 
 def build_unit_wiki_page(
