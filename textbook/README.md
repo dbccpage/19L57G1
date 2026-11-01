@@ -14,6 +14,12 @@ definition and proof details. After Unit 03, use the
 [changed-example practice](core_start_practice.md) before the
 [answer guide](core_start_answers.md).
 
+Units 04–07 continue with event selection, two supplied readings,
+re-admission and state-dependent erasure. Their concrete openings precede
+optional program/proof walkthroughs. After Unit 07, try the
+[eight changed questions](state_history_practice.md) before the
+[separate answers](state_history_answers.md).
+
 The beginner routes develop one small idea at a time. The formal units
 group related definitions and theorems and can contain many results.
 Start with their concrete first pass, then read the definitions, hypotheses,

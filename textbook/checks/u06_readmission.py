@@ -8,6 +8,7 @@ Run from the repository root: python textbook/checks/u06_readmission.py
 from __future__ import annotations
 
 import itertools
+from dataclasses import replace
 import sys
 from pathlib import Path
 
@@ -67,6 +68,14 @@ def main() -> int:
     print(f"naive count of admission events: {naive}; Genesis data count: {len(r.data)}")
     if naive != 2 or len(r.data) != 1:
         failures.append("naive")
+    # Equal effects do not equate constructors or recover an event history.
+    base = replay([AdmitDatum("<ab>")])
+    supply, readmit = Supply("<ab>"), AdmitDatum("<ab>")
+    if supply == readmit or step(base, supply) != step(base, readmit):
+        failures.append("event identity conflated with state equality")
+    raw = replace(EMPTY, data=("<a>", "<a>"))
+    if step(raw, AdmitDatum("<a>")) is not raw or len(raw.data) != 2:
+        failures.append("raw duplicate list was unexpectedly cleaned")
 
     print(f"EMPTY.data = {EMPTY.data}; failures: {failures}")
     return 1 if failures else 0

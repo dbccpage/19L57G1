@@ -18,14 +18,25 @@ made Unit 05's sub-readings converge.
 
 ## First pass
 
-Start with no admitted tokens. Admit ⟨A⟩ once, then admit exactly
-the same token again. Under the token-aware rule, the store stays
-`[⟨A⟩]`: the second event points to the existing entry.
+Start with an empty token store. The rule checks whether a supplied
+token is already listed before deciding whether to append it.
 
-Predict the result if the second token is ⟨AB⟩ instead. It is new,
-so the store becomes `[⟨A⟩,⟨AB⟩]`. The token comparison is made by
-the external representation; it is not a newly admitted question
-about characters inside the object language.
+| Store before | Event | Store after |
+|---|---|---|
+| Empty | Admit A | [A] |
+| [A] | Admit A again | [A] |
+| [A] | Admit AB | [A, AB] |
+
+<details><summary>Predict: does the unchanged second row mean that no event occurred?</summary>
+
+No. The history contains a second admission event; the store remains
+unchanged. Supplying A would also leave this store unchanged, but supply
+and admission are different event values.
+
+</details>
+
+The representation compares token labels. That operation does not add
+an object-language question about the token's characters.
 
 The counting model needs a translation: two bare `admitDatum` events
 would both increment its count. Unit 07 replaces a repeated token
@@ -51,11 +62,16 @@ or does the second admission mean "that one, again"?
 
 ## New concept: designation, and a token-aware model
 
-**Designation** is pointing at something already there, without changing
-it. Genesis's convention: an `AdmitDatum(token)` whose token is already in
-the ledger designates the existing datum; the ledger is returned as it is.
+Here **designation** names the convention of treating a repeated token as
+an existing entry. `AdmitDatum(token)` returns the ledger unchanged when
+the token is already present. It does not create a new entry or store a
+new pointer saying which entry was mentioned. The event can still be
+retained in a separate history.
 The paper calls the rule "dedup on presentation identity, a declared
 metatheoretic convention" (`paper/paper.md` §3 item 2).
+
+<details>
+<summary>Token-aware Lean record and event types (optional)</summary>
 
 To state this in Lean, Genesis has a second state type, `TRegime`, whose
 data field is a *list of tokens* instead of a count, and a second step
@@ -82,19 +98,23 @@ inductive TEvent where
 deriving Repr, DecidableEq
 ```
 
+</details>
+
 ## Plain-language interpretation
 
-A guest list. When a name is called out that is already on the list, the
-host does not write it a second time; the call refers to the guest already
-listed. Whether two calls of the same name mean one guest or two is not
-something the list can decide by itself. The host decided it: one guest.
-Genesis's host is the metatheory, and the decision is written in the
-`AdmitDatum` docstring and in `stepT`.
+A guest-list analogy helps with the update: a repeated label is not
+written twice. It does not establish that two people with that label
+are one physical person. That would need additional identifying evidence.
+The textbook uses the analogy only for the declared list rule.
 
-What the decision rests on is **presentation identity**: two tokens are
-"the same" when the metatheory says the strings are equal. The system never
-compares tokens. It only ever receives the outcome: the ledger unchanged,
-or one datum longer.
+The convention uses **presentation identity**: equality of the supplied
+labels in the representation. Python compares strings; `stepT` compares
+natural-number labels. The token-aware representation performs that
+comparison. Its erased `Regime` keeps only a count and structural fields,
+so it cannot repeat the token comparison from those fields alone.
+
+<details>
+<summary>Programs and proof walkthroughs (optional)</summary>
 
 ## Pseudocode
 
@@ -152,8 +172,9 @@ strings in the ledger's data tuple. `in` is Python's membership test; on a
 tuple of strings it compares each string for equality. This comparison is
 the metatheory's: Python compares the characters.
 
-`return r`: when the token is present, hand back the ledger unchanged. The
-same object, not a copy. That is designation.
+`return r`: when the token is present, hand back the same Python object.
+The mathematical unchanged-state claim is equality of ledgers; Python
+object identity is an additional implementation fact checked here.
 
 `return Regime(r.data + (e.token,), ...)`: otherwise build a new ledger
 whose data tuple is the old one with the token appended, `+` joining two
@@ -243,15 +264,18 @@ counting model sees it.
 
 **`order_kept`.** Admitting 1 then 2 gives tokens `[1, 2]`; 2 then 1 gives
 `[2, 1]`. Different lists, different states; `decide` proves `≠`. The
-token-aware state remembers admission order. Whether the *system* can see
-that order is a different question, answered no in Unit 11
-(`Bridge.order_erased_at_object_level`).
+token-aware state remembers admission order. The separate fixed example
+`Bridge.order_erased_at_object_level` erases the two admission-only
+histories to the same state. It does not prove that arbitrarily reordering
+histories with structural events preserves their outcomes.
 
 **Axioms.** Every statement that mentions `stepT` reports `propext` and
 `Quot.sound`. The membership test `tok ∈ t.tokens` is decided by a
 standard-library procedure on lists whose correctness proof uses both.
 Both are inside Genesis's declared boundary `{propext, Quot.sound}`;
 nothing here reaches `Classical.choice`.
+
+</details>
 
 ## What has been proved
 
@@ -267,19 +291,21 @@ nothing here reaches `Classical.choice`.
   declared. A model that admitted a repeated token as a second datum is
   coherent too; Genesis did not choose it, and says so in the docstring.
   Under that other model Unit 05's sub-readings would not converge.
-- That the system can tell a re-admission from a supply. It cannot: on a
-  ledger holding the token, `step(r, AdmitDatum(t))` and
-  `step(r, Supply(t))` return the same ledger (checked below), and
-  Unit 07's erasure maps the re-admission *to* a supply.
-- That "the same token" is an internal fact. Token equality is the
-  metatheory's string comparison. The system receives only its effect.
+- That an observer restricted to the resulting ledger can recover whether
+  this event was supply or re-admission. On a ledger holding the token,
+  both return the same ledger. Their constructors and retained histories
+  still differ. Giving an observer the event log adds another input.
+- That matching token labels identifies a physical object. The labels
+  are compared by the representation: strings in Python, numbers in Lean.
+  No character-reading judgment or physical identity test is supplied by
+  the erased model.
 
 ## Outside the system
 
 | Lean | Used for | Status |
 |---|---|---|
 | `List Nat`, `∈`, `++` | the token list and its membership test | metatheory data and decision procedure |
-| `Nat` tokens | names for ⟨⟩, ⟨A⟩, ⟨AB⟩ | metatheory labels, never compared inside the system |
+| `Nat` tokens | names for ⟨⟩, ⟨A⟩, ⟨AB⟩ | labels compared by `stepT`, absent from erased `Regime` |
 | `(t : TRegime) (tok : Nat)` | the two general theorems | metatheory quantifiers |
 | `propext`, `Quot.sound` | inherited through `stepT` | inside the declared boundary |
 
@@ -290,15 +316,18 @@ No object-language judgment for reading a token's characters is admitted.
 Do not identify the stored representation with the observations defined
 on its erased ledger.
 
-**Admissions and their price.** The convention is an admission at the
-level of the model's grammar. Its price: every claim about "how many data"
-is a claim about distinct presentations, and a reader who meant
-"how many admission events" must count the history instead.
+**Counts need a starting-state condition.** From an empty token store,
+admission-only replay keeps distinct labels in first-admission order.
+Counting data then differs from counting admission events. A raw
+`TRegime` value can already contain duplicates: re-admitting a token does
+not clean that starting list. For example, [A, A] stays [A, A]. Its
+erasure counts two entries, not one distinct label. The definition of
+`TRegime` alone supplies no duplicate-free invariant.
 
 **Phrases to read with care.**
 
-- "The system recognises ⟨A⟩ when it comes back" imports recognition. The
-  metatheory compares strings; the system is handed an unchanged ledger.
+- "The system recognises ⟨A⟩" needs a model level. Python and `stepT`
+  compare supplied labels; the erased ledger does not store those labels.
 - "Re-admission is idempotent" is true of `stepT` and false of `stepE`,
   which never sees a token. Say which model.
 - "Designation" names what the second admission *does* under the
@@ -310,6 +339,9 @@ Change one line of the gloss so that a repeated token becomes a second
 datum. Then say what `replay([AdmitDatum("<a>"), AdmitDatum("<a>")]).data`
 would be, and whether `historyL_replays` (Unit 05) would still be true of
 reading L's history.
+
+<details>
+<summary>Check the exercise (optional)</summary>
 
 ## Answer
 
@@ -328,6 +360,8 @@ would end with three data, ⟨A⟩, ⟨A⟩, ⟨AB⟩, and the question "is ⟨A
 admitted at Challenge 1?" would stay open instead of dissolving. That is
 the whole effect of the convention on the derivation so far.
 
+</details>
+
 ## Verification
 
 | Item | Where |
@@ -337,4 +371,10 @@ the whole effect of the convention on the derivation so far.
 | Ledger | `paper/paper_claim_ledger.md`, `CL-TOKEN-ERASURE` (Python: `test_admit_datum_dedups_on_presentation_identity`) |
 | Genesis test | `tests/test_model.py` lines 34-36 |
 | Check (Python) | `python textbook/checks/u06_readmission.py`: twice is once; the same object is returned; all 121 admission histories of length ≤ 4 over three tokens give the distinct tokens in first-admission order; two orders are two regimes of equal count; re-admission equals supply on a full ledger |
-| Check (book Lean) | `python textbook/checks/u06_lean.py`: seven book theorems kernel-checked against the compiled library, Lean 4.33.0; `stepT` and every statement mentioning it report `propext, Quot.sound`; `erased_model_counts` reports `propext` |
+| Check (book Lean) | `python textbook/checks/u06_lean.py`: nine book statements plus native `stepT`; ten exact reports comprise one `propext` (`erased_model_counts`) and nine `propext, Quot.sound` |
+
+The updated book driver adds `same_outcome_different_events` and
+`raw_duplicates_are_not_cleaned`. Both report exactly `propext, Quot.sound`.
+The driver now checks nine book statements plus native `stepT`: ten
+reports, one `propext` and nine both. These added statements make the
+event-identity and raw-starting-list limits explicit.

@@ -22,14 +22,22 @@ steps back and asks what kinds of change exist at all.
 
 ## First pass
 
-Give the replay function a notebook and an empty event list. It returns
-the same notebook. Now hand it an admission event; the notebook may change.
-The caller supplied that event.
+Start with an empty notebook. Replay means applying the events handed to
+the function, in order. Keep the supplied input separate from its result:
 
-Predict what happens if we write a separate policy that always chooses
-an admission. The policy can use one of the existing six event kinds;
-it does not need a seventh kind. Its choice is an added instruction,
-not a choice proved to come from the notebook.
+| Input supplied to replay | Resulting notebook |
+|---|---|
+| No events | Still empty |
+| Supply the token A | Still empty |
+| Admit the token A | A is listed |
+
+<details><summary>Predict: can a separate policy always choose an admission without adding a seventh event kind?</summary>
+
+Yes. A policy is a rule for choosing an input. It can choose one of the
+existing six kinds. The choice is an added instruction; closing the list
+of event kinds does not prevent such a policy.
+
+</details>
 
 The event grammar tells us which inputs are permitted. It does not
 by itself choose an input. This unit's structural claim is about the
@@ -49,8 +57,10 @@ next ledger? Or does every change need someone outside to supply an event?
 - `replayE h r` applies a list of events in order (Unit 03).
 - A supply event changes nothing: `supply_no_op` (Unit 03).
 
-Nothing else has been admitted. In particular, nothing called "time",
-"the next state", "a rule of evolution" or "a transition" has been admitted.
+`stepE` already describes an event-indexed transition. What these replay
+definitions do not supply is a clock or policy selecting the next event
+from a current ledger. The type of the event input and the rule selecting
+that input are different parts of a model.
 
 ## New concept: a closed grammar
 
@@ -59,6 +69,9 @@ asked to do. Genesis's grammar of changes is the six constructors of
 `Event`. The word **closed** means that every event value has one of these six kinds.
 It does not prevent a separately written policy from choosing events of
 those kinds. A policy and a new event constructor are different additions.
+
+<details>
+<summary>Lean constructor list (optional)</summary>
 
 In Lean, an `inductive` type is closed by definition. When you write
 
@@ -76,12 +89,16 @@ you are telling Lean: every value of type `Event` was built by exactly one
 of these six lines, and Lean will let a proof split into exactly these six
 cases and no others.
 
-The second part of the concept is about **who calls `stepE`**. Look at its
-type: `stepE (r : Regime) : Event → Option Regime`. It needs an event as
-input. There is no function in `Basic.lean` or `Inertia.lean` of type
-`Regime → Regime` or `Regime → Option Regime` that takes a ledger alone and
-returns a changed one. The events come from the history, a list written by
-someone outside the model (Unit 03, **Where the supply is recorded**).
+</details>
+
+## Applying an event and choosing an event
+
+`stepE (r : Regime) : Event → Option Regime` needs an event as input.
+`replayE` obtains those inputs from a supplied history. Neither definition
+selects the history. A separate program could choose an event using the
+ledger and call `stepE`; the programmer would then have supplied a policy.
+A function's type alone would not tell us whether that policy was justified
+by the seed. Unit 03 explains where the history is recorded.
 
 ## Plain-language interpretation
 
@@ -91,11 +108,14 @@ the next one. Give it an empty history and it returns the starting
 notebook unchanged. The paper calls this **inertia** (`paper/paper.md` §4).
 There is no elapsed-time model here, so this is not a physical law.
 
-That is a fact about this notebook, the one Genesis chose. A different
-model could add a seventh kind of entry, or a clock that writes entries on
-its own. Nothing in this unit says such a model is wrong. It says that
-Genesis did not admit one, so nothing in Genesis can be "the system
-deciding to move".
+This is a fact about the specified replay interface. An extension could
+add a clock and a selection policy while using the same six event kinds.
+Another extension could add a new kind. Each choice needs its own
+definition and evidence; closure of `Event` rules out neither kind of
+extension. This unit establishes no claim about physical self-motion.
+
+<details>
+<summary>Programs and proof walkthroughs (optional)</summary>
 
 ## Pseudocode
 
@@ -168,9 +188,9 @@ base. The loop body never runs, so the result is `EMPTY`.
 `print(replay([]) == EMPTY)`: `==` compares two values for equality and
 gives `True` or `False`; `print` displays it. The output is `True`.
 
-What this example shows: with no events, Genesis's own replay returns the
-starting ledger unchanged. It does not show that no model could ever
-evolve by itself. It shows that this one does not.
+The example checks empty replay at `EMPTY`. The book's Lean result below
+covers every starting `Regime`. Neither the example nor that result is
+a theorem forbidding other policies or autonomous physical systems.
 
 ## Lean 4
 
@@ -262,6 +282,8 @@ supply step, `supply_no_op`). So `h` is really `some r = some s`.
 `.symm` turns it into `s = r`. That is exactly what `hne` denies, so
 applying `hne` to it gives `False`. Done.
 
+</details>
+
 ## What has been proved
 
 In Genesis: nothing new in this unit. `supply_no_op` (Unit 03) is the one
@@ -309,9 +331,9 @@ metatheory's record (Unit 03).
 - "Every event is one of six kinds" is a statement about Lean's type
   `Event`, made in the metatheory. The system holds events only as they
   are applied to it, one at a time; it does not hold the type.
-- "The system does nothing by itself" imports a self that could act. Read
-  instead: no function in the model maps a ledger to a different ledger
-  without an event argument.
+- "The system does nothing by itself" can suggest a claim about agency.
+  Read the narrower interface statement: `stepE` applies an input event,
+  and `replayE` takes its events from a supplied history.
 - "Inertia" is the paper's word for this; it is not a physical law and
   nothing here is about motion.
 
@@ -327,6 +349,9 @@ def next_ledger(r):
 and says: "Now the ledger has a successor; the system forces admission of a
 fresh datum." Is this a successor forced *by the system*? Point to the
 event.
+
+<details>
+<summary>Check the exercise (optional)</summary>
 
 ## Answer
 
@@ -344,6 +369,8 @@ classified the same way.
 A second point: if the token `"fresh"` is already admitted in `r`, the
 Python `step` returns `r` unchanged (re-admission designates, Unit 06). So
 even the policy does not always change the ledger.
+
+</details>
 
 ## Verification
 

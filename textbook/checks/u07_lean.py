@@ -73,6 +73,15 @@ theorem poison_cut :
     eraseHistory tgenesis [.admitDatum 1, .impose 0 1, .admitDatum 2] = [.admitDatum, .impose 0 1] := by
   decide
 
+theorem supply_label_is_retained (t : TRegime) (tok : Nat) :
+    eraseEvent t (.supply tok) = .supply tok := rfl
+
+theorem translation_needs_the_actual_base :
+    eraseEvent tgenesis (.admitDatum 1) = .admitDatum ∧
+    eraseEvent ⟨[1], [], [], [], []⟩ (.admitDatum 1) = .supply 1 ∧
+    (stepT ⟨[1], [], [], [], []⟩ (.admitDatum 1)).map TRegime.erase ≠
+      stepE ⟨1, [], [], [], []⟩ .admitDatum := by decide
+
 end Textbook.U07
 
 #print axioms Textbook.U07.tL_erases
@@ -85,6 +94,8 @@ end Textbook.U07
 #print axioms Textbook.U07.poison_cut
 #print axioms Derivation.erase_step
 #print axioms Derivation.erase_replay
+#print axioms Textbook.U07.supply_label_is_retained
+#print axioms Textbook.U07.translation_needs_the_actual_base
 """
 
 EXPECTED = {
@@ -98,6 +109,8 @@ EXPECTED = {
     "Textbook.U07.poison_cut": BOTH,
     "Derivation.erase_step": BOTH,
     "Derivation.erase_replay": BOTH,
+    "Textbook.U07.supply_label_is_retained": BOTH,
+    "Textbook.U07.translation_needs_the_actual_base": BOTH,
 }
 _ = PROPEXT
 

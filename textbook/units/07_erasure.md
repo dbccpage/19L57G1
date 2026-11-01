@@ -1,11 +1,14 @@
 # Unit 07. Forgetting the tokens: the erasure bridge
 
-**Claim.** Replaying a token-aware history (tokens kept, re-admissions
-designate) and then forgetting the tokens gives the same ledger as
-replaying the *erased* history in the counting model, where each
-re-admission has first been turned into a bare supply. This is a sound abstraction between two Lean models for state claims
-expressed through that erasure. Python implements the token-aware policy;
-its connection to Lean is tested separately, not proved by this theorem.
+**Claim.** Two Lean replay computations agree after the specified
+translation. A successful token-aware replay, followed by state erasure,
+gives the counting-model result of the translated history. A refused
+replay gives `none` on both sides. Translation uses the actual starting
+store and turns repeated token admissions into supplies.
+
+This transports state claims expressed through erasure. Python implements
+the token-aware policy, but its connection to Lean is tested separately;
+this theorem is not a proof over Python source.
 
 <details>
 <summary>Source and classification record (optional on a first reading)</summary>
@@ -20,14 +23,27 @@ its connection to Lean is tested separately, not proved by this theorem.
 
 ## First pass
 
-A named store receives ⟨A⟩, ⟨A⟩ again, then ⟨AB⟩. Its counts after
-the three events are 1, 1, and 2. A tally clerk who blindly counts
-all three admissions would get 3.
+A named store starts empty and receives A, A again, then AB:
 
-Translate the duplicate admission into a supply event, which changes
-nothing. The tally clerk now follows `admit, supply, admit` and gets
-the same count 2. Whether an event is a duplicate depends on the
-store at that point, so the translation must follow the history in order.
+| Token event | Store after | Tally event |
+|---|---|---|
+| Admit A | [A] | Bare admission |
+| Admit A again | [A] | Supply A |
+| Admit AB | [A, AB] | Bare admission |
+
+The counts after those events are 1, 1 and 2 on both sides.
+
+<details><summary>Predict: if the starting store already contains A, should the first event still translate to a bare admission?</summary>
+
+No. It now repeats an existing token and translates to supply A.
+Blindly translating it as a bare admission would increase the count
+from one to two, while the named store still has one entry.
+
+</details>
+
+The translation must use the actual starting store and then follow the
+accepted events in order. Counting all written admissions would give
+three in the empty-start example, instead of the correct two entries.
 
 The Lean theorem compares two Lean models using this translation,
 including refusals. It transports properties expressed through the
@@ -37,8 +53,8 @@ Checks against Python are separate executable evidence.
 ## Question
 
 Unit 06 left a gap. Python and `stepT` keep tokens and dedup; the Lean
-`Regime` that every theorem from Unit 08 on is about keeps only a count and
-counts every `admitDatum`. Which claims does the Lean erasure theorem transport, and what still
+`Regime` used in the following collapse results keeps a count and
+counts every bare `admitDatum`. Which claims does the Lean erasure theorem transport, and what still
 needs checking before relating them to Python?
 
 ## What we already possess
@@ -55,15 +71,26 @@ needs checking before relating them to Python?
 An **erasure map** forgets part of a state. Here `TRegime.erase` keeps
 the four structural fields and replaces the token list by its length:
 
+<details>
+<summary>Lean state erasure definition (optional)</summary>
+
 ```lean
 -- Lean (Genesis), lean4/Derivation/Erasure.lean lines 62-63
 def TRegime.erase (t : TRegime) : Regime :=
   ⟨t.tokens.length, t.forms, t.insts, t.rules, t.reqs⟩
 ```
 
-Events are erased too, but *relative to the current state*: an admission
-of a token already present becomes a supply (which does nothing in either
-model); every other event is copied with its token dropped.
+</details>
+
+## Translate the event using the current store
+
+An admission of an existing token becomes supply of that token. A fresh
+admission becomes bare `admitDatum`. Supply keeps its token argument;
+the other four event kinds keep their structural arguments. “Erasure”
+does not mean deleting every label from every event.
+
+<details>
+<summary>Lean event translation definition (optional)</summary>
 
 ```lean
 -- Lean (Genesis), lean4/Derivation/Erasure.lean lines 68-75
@@ -77,13 +104,19 @@ def eraseEvent (t : TRegime) : TEvent → Event
   | .impose i j => .impose i j
 ```
 
-A **simulation** is a statement of the form: take a step in the detailed
-model, then erase, and you get the same thing as erasing first and taking
-the corresponding step in the coarse model. Drawn as a square, both paths
-round it agree. `erase_step` is the square for one event; `erase_replay`
-is the square for a whole history, which needs the history erased with the
-state threaded through it (`eraseHistory`), because whether an admission is
-a duplicate depends on what came before.
+</details>
+
+## Compare two routes to the answer
+
+A **simulation** here compares two routes. First route: take a detailed
+step, then erase its result. Second route: erase the starting state,
+translate the event using that starting state, and apply the translated
+step. `erase_step` proves their results agree, including refusal.
+
+For a history, `erase_replay` repeats this comparison. After a successful
+step, translation continues using the updated store. After refusal, the
+translated history includes that refused event and stops. A later event
+does not repair an earlier failed replay.
 
 ## Plain-language interpretation
 
@@ -91,15 +124,27 @@ Two clerks keep the same guest list. One writes names; the other only
 keeps a tally. When a name is called that the first clerk already has, the
 first clerk does nothing, and tells the second clerk "that was nobody
 new", which the second clerk treats as a non-event. With that one
-translation rule, the tally always equals the number of names. The theorem
-is that promise, kept for every possible sequence of calls, including ones
-that are refused halfway.
+translation rule and the same starting count, successful replay gives
+the same count on both sides. Both replays return refusal if a guard
+fails. This is equality of their declared results, not a claim that a
+refused replay still returns a final ledger.
 
 The promise transports a counting-state property through the stated
 erasure. It does not transport arbitrary token-sensitive properties.
 It is a bridge between two *Lean* models. The step from the Lean token-aware model to the actual
 Python program is not a theorem; it is tested (`CL-TOKEN-ERASURE`, and the
 check below).
+
+## Reading the compact gloss
+
+The compact gloss below abbreviates two details. Existing supply events
+keep their token argument. On replay results, “erase” means apply the
+state erasure inside `some`; `none` remains `none`. The formal Lean
+statement spells this out using `Option.map`. It preserves the four
+structural fields as well as the count; it does not retain token names.
+
+<details>
+<summary>Programs and proof walkthroughs (optional)</summary>
 
 ## Pseudocode
 
@@ -116,10 +161,11 @@ THEOREM: erase(replayT(h, s)) = replayE(erase_history(s, h), erase(s))
 
 ## Python
 
-Genesis's Python has no erasure function: it is the token-aware side. The
-check script writes the gloss of `eraseHistory` in Python and verifies that
-erasing a history never changes what Genesis's `replay` returns, and that
-the data count equals the number of distinct admitted tokens.
+Genesis's Python replay remains token-aware. The book helper below only
+replaces repeated datum admissions by supplies; it still returns Python
+events with string labels. Its `seen` set starts empty, matching the
+empty starting ledger used in this check. It is not the complete Lean
+state/event translation and has no starting-state parameter or refusal cut.
 
 ```python
 # Python (book), textbook/checks/u07_erasure.py
@@ -179,10 +225,13 @@ The example: two admissions of ⟨A⟩ then one of ⟨AB⟩. Erased, the middle
 one is a supply. Both histories replay to the two-datum ledger, so the
 comparison prints `True`, and the data count is 2.
 
-What this shows: for these histories Python's own dedup agrees with the
-erased history. The check script runs all 781 histories of length at most
-four over five event atoms. That is a sample, not the theorem; the theorem
-is the Lean below.
+For these histories Python's own dedup agrees with the helper-transformed
+history. The check script runs all 781 histories of length at most four
+over three admission tokens, one supply and one valid form admission,
+all from the empty ledger. Every event in that population is accepted.
+A separate structured example adds an instance and demand. These checks
+do not exercise refusal cutting or arbitrary starting states. The general
+simulation theorem below concerns the two Lean models.
 
 ## Lean 4
 
@@ -315,6 +364,8 @@ with a repeat and shows the repeat becomes `.supply 1`.
 (`artifacts/lean_axioms.txt`): `propext` through `stepE`, `Quot.sound`
 through `stepT`'s membership test (Unit 06).
 
+</details>
+
 ## What has been proved
 
 - One token-aware step, erased, equals one counting-model step of the
@@ -332,10 +383,12 @@ through `stepT`'s membership test (Unit 06).
   connected to the token-aware model by the executable checks named under
   Python, not by any proof over the Python source" (`CL-TOKEN-ERASURE`).
   The check script is one more such executable check.
-- That the erasure loses nothing of interest. It loses the tokens and
-  their order. Unit 11 shows the loss is exactly what the object level
-  cannot see anyway (`Bridge.order_erased_at_object_level`), and the paper
-  records a second bridge, membership extensionality (`Ext.lean`), for
+- That the erasure loses nothing of interest. It removes token names and
+  their order while retaining structural indices and their facts. The
+  fixed `Bridge.order_erased_at_object_level` example has only two fresh
+  admissions and no structural facts. It does not establish preservation
+  under every reordering. The paper records a second bridge, membership
+  extensionality (`Ext.lean`), for
   the fact that Python's collections are sets while Lean's are deduplicated
   lists. That second bridge is taught where its theorems are used.
 - That every exported claim factors through the observables the bridges
@@ -363,17 +416,24 @@ bridge is a theorem about that convention.
 - "Lean mirrors Python" is not claimed. The paper's words are "a sound
   abstraction of the token-aware model, not a claim of literal mirroring"
   (`Erasure.lean` header).
-- "Tokens are forgotten" means forgotten by the counting model. The
-  metatheory keeps them (Unit 00); the system never had them.
-- "The two models agree" means: on the admitted state after any history.
-  It says nothing about intermediate representations such as list order,
-  which the second bridge handles.
+- "Tokens are forgotten" means removed from the erased state. The
+  token-aware representation and supplied history can retain them.
+- "The two models agree" means the replay results agree after applying
+  the specified state and history translations, from the same base.
+  It does not assert equality of the two representations or preservation
+  of arbitrary token-sensitive questions.
 
 ## Student exercise
+
+After these four Units, try the [changed state/history practice](../state_history_practice.md)
+before its [separate answers](../state_history_answers.md).
 
 Take the history `[admit 1, admit 2, admit 1, impose 0 1]` from the empty
 token-aware state. Write its erased history, its erased final state, and
 check the square by hand.
+
+<details>
+<summary>Check the exercise (optional)</summary>
 
 ## Answer
 
@@ -390,6 +450,8 @@ Counting side: two admissions give count 2, the supply does nothing,
 The square commutes. (The book Lean's `simulation_on_dup` checks a close
 variant by `decide`.)
 
+</details>
+
 ## Verification
 
 | Item | Where |
@@ -399,4 +461,11 @@ variant by `decide`.)
 | Paper | `paper/paper.md` §2, "Erasure simulation" **[theorem]**, and the endpoint statement of 2026-09-08 |
 | Ledger | `paper/paper_claim_ledger.md`, `CL-TOKEN-ERASURE` (both components; the 2026-08-18 narrowing) |
 | Check (Python) | `python textbook/checks/u07_erasure.py`: 781 histories of length ≤ 4 over five atoms, erased replay equals replay and data count equals distinct admitted tokens; `GENESIS_L` and `GENESIS_F` are fixed by erasure; a duplicate followed by structure |
-| Check (book Lean) | `python textbook/checks/u07_lean.py`: eight book theorems plus `erase_step` and `erase_replay` kernel-checked, Lean 4.33.0; all report `propext, Quot.sound` |
+| Check (book Lean) | `python textbook/checks/u07_lean.py`: ten book statements plus native `erase_step` and `erase_replay`; all twelve exact reports are `propext, Quot.sound` |
+
+The updated driver adds `supply_label_is_retained` and
+`translation_needs_the_actual_base`, for ten book statements plus two
+native reports. All twelve report exactly `propext, Quot.sound` because
+the native definitions carry those dependencies, including in the supply
+case. The added counterexample checks why the actual base is necessary;
+the existing refusal witnesses check where the translated history cuts.

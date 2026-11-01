@@ -78,6 +78,9 @@ def main() -> int:
         failures.append(("artifact", conv))
 
     # 6. Reading L and reading F do not converge: <> stays admitted in F.
+    changed_request = replay(GENESIS_F + (Impose(0, 2),))
+    if tuple(changed_request.data[i] for i in (0, 2)) != ("<>", "<ab>") or "<>" in rl.data:
+        failures.append("changed request lost its reading-relative endpoints")
     print(f"L and F converge: {rl == rf} (they do not; the question stays open)")
 
     print(f"failures: {failures}")

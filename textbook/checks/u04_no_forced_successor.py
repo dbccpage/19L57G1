@@ -90,6 +90,9 @@ def main() -> int:
     if once.data != ("fixed",) or supplied_policy(once) != once:
         failures.append("supplied-policy example")
     print("supplied policy uses an existing kind; its repeated fixed admission designates")
+    nonempty = replay([AdmitDatum("<a>")])
+    if replay([], nonempty) != nonempty or replay([Supply("<ab>")], nonempty) != nonempty:
+        failures.append("empty history or supply changed the nonempty base")
 
     print(f"failures: {failures}")
     return 1 if failures else 0

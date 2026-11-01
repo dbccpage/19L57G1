@@ -30,14 +30,17 @@ initial instructions give different position tables:
 | 2 | not admitted | ⟨AB⟩ |
 
 To request a distinction between ⟨A⟩ and ⟨AB⟩, use `(0,1)` in L
-and `(1,2)` in F. Predict what goes wrong if the numbers are copied
-without translating them.
+and `(1,2)` in F.
+
+<details><summary>Predict: what goes wrong if the position numbers are copied without translating them?</summary>
 
 `(1,2)` is refused in L because position 2 is absent. `(0,1)` is
 accepted in F, but selects a different pair. Well-formed syntax is
 not the same as selecting what the caller intended. Replaying both
 histories verifies their results; it does not settle which reading
 the original instruction intended.
+
+</details>
 
 ## Question
 
@@ -60,21 +63,27 @@ what does a careful derivation do?
 
 ## New concept: an underdetermined text, carried as two readings
 
-A text **underdetermines** a question when two careful readers can follow
-it and reach different states. Genesis's rule for such a case is not to
-pick. It records both readings as histories and proves facts about each.
-A reading is eliminated only by a proof that it is incoherent, and no such
-proof exists here.
+Here **underdetermined** means that the supplied wording leaves an
+admission choice unsettled. The derivation records two interpretations
+and checks their consequences separately. Successful replay establishes
+what each chosen history does; it does not prove which interpretation
+the author of the instruction intended. Neither reading is eliminated here.
 
-**Reading L** (strict admission): only an explicit act of retention admits.
+### Reading L: require explicit retention
+
+Only an explicit act of retention admits.
 Challenge 0 presents ⟨⟩ and retains nothing; Challenge 1 supplies ⟨A⟩ and
 retains nothing; Challenge 2 "supplies and retains" ⟨A⟩ and ⟨AB⟩, so those
 two are admitted. The ledger at Challenge 2 holds two data.
 
-**Reading F** (possession admission): the one initial inscription is
+### Reading F: count the initial inscription
+
+The one initial inscription is
 admitted at genesis, because the seed says it *is* the object language's
 inscription. Supplied inscriptions are admitted on retention, as in L. The
 ledger at Challenge 2 holds three data: ⟨⟩, ⟨A⟩, ⟨AB⟩.
+
+### A later agreement can settle one difference
 
 There is a smaller question nested inside Challenge 1: is ⟨A⟩ admitted when
 it is merely supplied? Genesis carries both **sub-readings** too, and shows
@@ -82,6 +91,9 @@ by computation that they converge: once Challenge 2 retains ⟨A⟩, admitting
 it a second time changes nothing (re-admission designates, Unit 06). So
 that question dissolves. The question about ⟨⟩ does not dissolve, because
 nothing later retains ⟨⟩.
+
+<details>
+<summary>How fixed replay examples are checked (optional)</summary>
 
 A second new concept is the proof tactic `decide`. The replay statements
 here concern fixed lists and states. A decision procedure computes their
@@ -92,6 +104,8 @@ no free variables in its expected type, and an available decision
 procedure. Even a decidable statement needs a different proof if its
 decision procedure cannot establish the requested result. The procedure
 and the definitions can have library dependencies, recorded below.
+
+</details>
 
 ## Plain-language interpretation
 
@@ -109,6 +123,9 @@ ledger. In reading L they are data 0 and 1; in reading F they are data 1
 and 2. The intended pair needs different indices in the two readings.
 The F pair `(1,2)` is out of range in L. The L pair `(0,1)` is valid in F,
 but names ⟨⟩ and ⟨A⟩ instead. Valid indices can still select the wrong pair.
+
+<details>
+<summary>Programs and proof walkthroughs (optional)</summary>
 
 ## Pseudocode
 
@@ -310,6 +327,8 @@ Genesis's declared axiom boundary.
 genesis on the left. The left ends at `[0, 1, 2]`, the right at `[1, 2]`.
 They differ, and `decide` proves the `≠`.
 
+</details>
+
 ## What has been proved
 
 - Each reading's recorded history replays exactly to its Challenge-3
@@ -327,11 +346,12 @@ They differ, and `decide` proves the `≠`.
   by convergence) and carries both readings for ⟨⟩ throughout
   (`paper/paper.md` §5; ledger `CL-1-READING-CONVERGENCE` and the
   dual-reading entry). This unit's status is **open** for that reason.
-- That the two readings lead to different *answers* later. The named initial-collapse and first-cost results are proved for both (`R2L_collapsed` and `R2F_collapsed`,
-  `cost1_insufficient` and `cost1_insufficient_F`, and so on). The readings
-  differ in bookkeeping, and the derivation shows the bookkeeping does not
-  change the minimum cost or the collapse results. It does change the
-  indices in every demand.
+- That every later answer agrees between readings. The named initial-collapse
+  and first-cost results are proved for both (`R2L_collapsed` and
+  `R2F_collapsed`, `cost1_insufficient` and `cost1_insufficient_F`). These
+  particular results do not establish agreement for every possible query
+  or extension. Corresponding claims must retain their chosen domain,
+  demand and translated indices.
 - That "admitted at genesis" means anything beyond "counted in `data`". In
   reading F the ledger counts ⟨⟩, but ⟨⟩ is as collapsed and as inert as
   any other datum (Unit 16).
@@ -348,10 +368,11 @@ They differ, and `decide` proves the `≠`.
 demand. Under F: three data and one demand. Under neither does it hold a
 reason for the choice.
 
-**Admissions and their price.** Reading F admits one more datum than
-reading L. The price is paid in every later index: each demand, each
-instance argument, each witness context is shifted by one. Nothing else is
-bought: the extra datum has no instances and separates nothing.
+**One more admitted datum.** At these recorded checkpoints, F has an
+extra initial entry. Matching A and AB between the readings shifts their
+positions by one. This is an indexing difference, not a separately defined
+cost measure or a proof that every later structure is obtained by shifting
+all indices. The initial extra datum has no recorded instance separating it.
 
 **Phrases to read with care.**
 
@@ -370,6 +391,9 @@ Reading F's history admits ⟨⟩ *after* its supply. Write a third history,
 same regime as F. Then say whether the question "is ⟨⟩ admitted?" is
 affected.
 
+<details>
+<summary>Check the exercise (optional)</summary>
+
 ## Answer
 
 ```python
@@ -381,11 +405,16 @@ replay(F_FIRST) == replay(GENESIS_F)   # True
 Supplies change nothing (Unit 03), so moving an admission across a supply
 changes nothing, and F-first reaches the same ledger as F. The question is
 not affected: F-first is still reading F, since it admits ⟨⟩. Moving the
-supply does not touch whether the admission happens. (In Genesis's own
-model, `supply` must come first: the seed presents ⟨⟩ before anything. So
-F-first is not a history Genesis records; it is a check that order among
-supplies is irrelevant to the admitted state, which is the content of
-`Bridge.order_erased_at_object_level`, Unit 11.)
+supply does not touch whether the admission happens. F-first is accepted
+by the replay grammar, which requires no preceding supply for an admission.
+It changes the seed's recorded presentation order, so it is not a history
+Genesis records. Its equality with F follows
+from supply being a no-op. `Bridge.order_erased_at_object_level` is a
+different fixed example: it reverses two fresh admissions, includes no
+structural facts, and compares their erased results. It is not a general
+theorem about arbitrary history permutations.
+
+</details>
 
 ## Verification
 

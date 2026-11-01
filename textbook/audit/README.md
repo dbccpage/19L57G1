@@ -500,3 +500,8 @@ The [selected interpretation review](SEMANTICS_READING_REVIEW_2026-11-01.md)
 adds six short X301 lessons on formula meaning, domains, truth scores,
 interventions, panel policy and checksum scope. It records implementation
 differences and preserves the distinction between calculations and observations.
+
+The [Units 04–07 review](STATE_HISTORY_READING_REVIEW_2026-11-01.md) separates
+event selection, stored state, event identity and actual-base translation.
+It adds smaller reading chunks and changed practice while preserving the
+original quotations and narrowing the Python-helper and order claims.

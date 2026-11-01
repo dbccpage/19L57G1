@@ -46,6 +46,12 @@ lesson and its First pass example; the optional Act video follows it. After Unit
 a definition needs an example; the research branches are not admission
 requirements for starting Unit 00.
 
+Continue through Units 04–07 for policies, the two readings and token
+erasure. Try the [eight state/history questions](state_history_practice.md)
+before the [separate answers](state_history_answers.md). Carry the actual
+starting ledger when translating an event; equal final ledgers need not
+have equal histories.
+
 ## Choose another toolkit when you need it
 
 | What you need next | Read this bounded part | Before it |
