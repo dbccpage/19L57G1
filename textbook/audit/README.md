@@ -511,3 +511,9 @@ context through plugging, profile membership, separation and complete
 finite search. A new book search proof closes the witness-extraction gap
 for the native grammar; the reading keeps model answers and observations
 separate and retains the original quoted source blocks.
+
+The [Units 11–16 review](ADMISSION_READING_REVIEW_2026-11-01.md) separates
+admission bounds, fresh-data comparisons, witnesses, relation models and
+recorded requests. Smaller reading chunks and grouped practice retain the
+exact hypotheses; book checks cover request invariance and a raw-record
+counterexample to dropping the instance-range condition.

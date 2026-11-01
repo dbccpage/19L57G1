@@ -21,6 +21,7 @@ from derivation.model import (  # noqa: E402
     AdmitForm,
     AdmitInst,
     AdmitRuleAll,
+    AdmissionError,
     Event,
     Regime,
     replay,
@@ -120,6 +121,21 @@ def main() -> int:
     print("marking target 1 changes pair (0,1); marking only 2 does not")
     if (len(contexts(bl)), len(contexts(bl3))) != (5, 7):
         failures.append("binary fresh-datum contexts should grow from five to seven")
+
+    # A raw record can violate the range hypothesis of the preservation theorem.
+    latent = Regime(data=("A", "B"), forms=(2,),
+                    insts=frozenset({(0, (2, 0))}),
+                    rules=frozenset(), reqs=frozenset())
+    if separable(latent, 0, 1) or not separable(step(latent, AdmitDatum("C")), 0, 1):
+        failures.append("latent out-of-range instance counterexample")
+    try:
+        step(replay([AdmitDatum("A"), AdmitDatum("B"), AdmitForm(2)]),
+             AdmitInst(0, (2, 0)))
+    except AdmissionError:
+        pass
+    else:
+        failures.append("invalid instance admitted through the guarded API")
+    print("raw out-of-range instance changes an old pair; guarded admission rejects it")
 
     # 4. The committed artifact agrees with a fresh computation.
     rep = challenge2_report()["readings"]

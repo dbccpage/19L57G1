@@ -25,6 +25,10 @@ and a complete finite search, and show why a uniform rule can remove a
 distinction. Try their [eight changed questions](context_practice.md)
 before the [answers](context_answers.md).
 
+Units 11–16 distinguish stored tokens, preserved comparisons, relation
+models and recorded requests. Use their [three groups of questions](admission_practice.md)
+before the [separate answers](admission_answers.md).
+
 The beginner routes develop one small idea at a time. The formal units
 group related definitions and theorems and can contain many results.
 Start with their concrete first pass, then read the definitions, hypotheses,

@@ -1,7 +1,7 @@
 # Unit 12. A fresh datum preserves old comparisons
 
-**Claim.** Admitting a fresh datum is a real change of state, and yet the
-pair that was collapsed before is collapsed after. More generally, in any
+**Claim.** In the instance-free example, a fresh datum changes the state
+while an old collapsed pair stays collapsed. More generally, in any
 regime whose instances stay inside its data, admitting a fresh datum leaves
 the collapse status of every existing pair exactly as it was, in both
 directions.
@@ -25,10 +25,25 @@ Quot.sound` for the second. **Depends on:** `stepE` (Unit 04),
 ## First pass
 
 Use one unary form marked, no uniform rule, and just the instances
-`marked(0)` and `marked(1)`. The two data have equal profiles. Add
-an unmarked newcomer, 2, without changing the instances. The old
-pair still agrees, but the newcomer differs from both: the number
-of observable classes can rise from one to two.
+`marked(0)` and `marked(1)`. Admit a new datum 2 without adding an instance.
+
+The answers to `marked(_)` are:
+
+| Stage | On 0 | On 1 | On 2 |
+|---|---|---|---|
+| Before the admission | Yes | Yes | Not admitted |
+| After the admission | Yes | Yes | No |
+
+The old pair still agrees. The newcomer has a different profile, so the
+number of observable classes rises from one to two.
+
+<details><summary>Predict: does preserving the old pair require the total class count to stay fixed?</summary>
+
+No. The theorem preserves comparisons between old data. It leaves the
+new datum's comparisons open. In this example the old class stays
+together, while the newcomer forms another class.
+
+</details>
 
 The theorem preserves **old comparisons**, not every measure of
 expressive capacity. In the instance-free starting example, all three
@@ -87,6 +102,22 @@ the regime "does not separate; it only fails twice".
 
 ## Plain-language interpretation
 
+### Why the instance-range condition matters
+
+Suppose a deliberately invalid raw record has data count two but already
+stores `linked(2,0)`. That instance mentions an index not yet admitted.
+Before growth, a context cannot fix a slot to 2; after the count becomes
+three, `linked(2,_)` is allowed and answers Yes on 0, No on 1.
+
+The old pair was collapsed before and is separated after. This does not
+refute the stated theorem: the raw record violates its instance-range
+hypothesis and cannot be built by admitting that instance while only
+0 and 1 exist. The added book countermodel checks both the violation and
+the changed comparison. A type of raw records alone does not certify
+that every value satisfies the model's admission guards.
+
+### State change and comparison change
+
 Two words in the notebook, no sentences about either. Add a third word.
 Nothing has been said about it, and nothing said about the first two has
 changed, so they remain as alike as before. The third word is a real entry
@@ -104,6 +135,9 @@ look like is a separate question, and the theorem does not speak to it. In
 `R2L` plus a datum, the new datum is collapsed with both old ones (Unit 10
 again); in the link regime `BL` plus a datum, the new datum is separable
 from both old ones, because the old instance mentions them and not it.
+
+<details>
+<summary>Programs and proof walkthroughs (optional)</summary>
 
 ## Pseudocode
 
@@ -295,6 +329,8 @@ so the same plugged answers still disagree. This one-way result needs
 no instance-range hypothesis. The stronger collapse biconditional needs
 the source's range condition to control genuinely new contexts.
 
+</details>
+
 ## What has been proved
 
 - Admitting a datum to `R2L` changes the state and leaves `(0, 1)`
@@ -351,10 +387,12 @@ stored context list.
 - "Expressive power" is the paper's phrase for the number of observational
   classes. It is a metatheoretic count over profiles, not a capacity the
   system possesses.
-- "A name it cannot use" is a gloss. The system does not hold names; the
-  token stays in the metatheory (Unit 06).
-- "Fails twice" means both plugs are underivable. It is not an event in the
-  system; nothing was tried.
+- “A name it cannot use” needs a representation level. The erased ledger
+  stores a count; a token-aware representation can retain labels. No
+  token-reading judgment follows from that storage alone.
+- “Fails twice” in the range argument means neither plug is an admitted
+  instance. A uniform rule may still derive both. The complete derivability
+  answers agree in either case; no physical trial is reported.
 
 ## Student exercise
 
@@ -363,6 +401,9 @@ the instance "datum 1 is marked"; this is `U1` without its demand). Datum 0
 and datum 1 are separable (Unit 09). Admit a fresh datum. Is `(0, 1)` still
 separable, and by which theorem? Is the fresh datum 2 separable from datum
 0? From datum 1? Give the witnessing context or the reason there is none.
+
+<details>
+<summary>Check the exercise (optional)</summary>
 
 ## Answer
 
@@ -379,6 +420,8 @@ have the shape `⟨0, [none]⟩` (arity 1 forces a single slot, which must be
 the hole), and plugging 0 or 2 gives a non-instance either way. So `(0, 2)`
 is collapsed. (The check script's family includes this regime.)
 
+</details>
+
 ## Verification
 
 | Item | Where |
@@ -390,4 +433,4 @@ is collapsed. (The check script's family includes this regime.)
 | Artifact | `artifacts/challenges.json`, `challenge2.readings.{L,F}.expressive_increase_over_challenge0: false`, `observational_classes: 1` |
 | Test | `tests/test_engine.py::test_challenge2_collapse_and_no_expressive_increase`; `tests/test_candidates.py::test_pruned_cost2_contains_every_valid_full_delta` (the pruning R1 licenses, checked against the unpruned space) |
 | Check (Python) | `python textbook/checks/u12_fresh_datum.py`: the counterexample on reading L; 354 well-formed regimes, 866 old pairs all keeping their status; fresh-datum pairs 530 separable and 426 collapsed; `BL3`; artifact flags reproduced |
-| Check (book Lean) | `python textbook/checks/u12_lean.py`: eighteen book theorems plus six Genesis theorems, 24 reports. Six new book statements cover unary-context shape, two marked data, new distinctions, avoidance scope, and direct preservation of a witness. The shape and direct-witness proofs use only `propext`; the other four use `{propext, Quot.sound}`. The original axiom-free examples remain unchanged |
+| Check (book Lean) | `python textbook/checks/u12_lean.py`: Twenty-two book theorems plus six Genesis theorems, 28 reports. Six new book statements cover unary-context shape, two marked data, new distinctions, avoidance scope, and direct preservation of a witness. The shape and direct-witness proofs use only `propext`; the other four use `{propext, Quot.sound}`. Four further reports check plugged-argument range and the invalid raw-record counterexample: `latent_violates_range` is axiom-free; the range, old-collapse and later-separation proofs use `{propext, Quot.sound}`. The original axiom-free examples remain unchanged |

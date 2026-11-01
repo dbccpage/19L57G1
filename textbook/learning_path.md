@@ -59,6 +59,11 @@ their [answers](context_answers.md). The new book search supplies a
 soundness/completeness proof for the native Lean context grammar;
 Python checks and physical observations retain separate scopes.
 
+Units 11–16 then distinguish the single-token bound, fresh-data comparisons,
+admission witnesses, separate relation models and requests. Try the
+[twelve changed questions](admission_practice.md) one group at a time before
+their [answers](admission_answers.md). Keep each starting model explicit.
+
 ## Choose another toolkit when you need it
 
 | What you need next | Read this bounded part | Before it |

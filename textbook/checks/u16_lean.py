@@ -61,6 +61,15 @@ theorem R2F_all_pairs :
     collapsed R2F 0 1 ∧ collapsed R2F 0 2 ∧ collapsed R2F 1 2 :=
   ⟨R2F_collapsed 0 1, R2F_collapsed 0 2, R2F_collapsed 1 2⟩
 
+theorem reqs_preserve_separation (r : Regime) (qs : List (Nat × Nat)) (d e : Nat) :
+    separable { r with reqs := qs } d e ↔ separable r d e := Iff.rfl
+
+theorem reqs_preserve_collapse (r : Regime) (qs : List (Nat × Nat)) (d e : Nat) :
+    collapsed { r with reqs := qs } d e ↔ collapsed r d e := Iff.rfl
+
+theorem repair_after_demand :
+    replayE [.admitForm 1, .admitInst 0 [1]] R2L = some U1 := by decide
+
 end Textbook.U16
 
 #print axioms Textbook.U16.demand_recorded_L
@@ -75,6 +84,10 @@ end Textbook.U16
 #print axioms Derivation.R2L_collapsed
 #print axioms Derivation.R2F_collapsed
 #print axioms Derivation.separable_not_collapsed
+#print axioms Textbook.U16.reqs_preserve_separation
+#print axioms Textbook.U16.reqs_preserve_collapse
+#print axioms Textbook.U16.repair_after_demand
+#print axioms Derivation.U1_separable
 """
 
 EXPECTED = {
@@ -90,6 +103,10 @@ EXPECTED = {
     "Derivation.R2L_collapsed": PROPEXT,
     "Derivation.R2F_collapsed": PROPEXT,
     "Derivation.separable_not_collapsed": PROPEXT,
+    "Textbook.U16.reqs_preserve_separation": PROPEXT,
+    "Textbook.U16.reqs_preserve_collapse": PROPEXT,
+    "Textbook.U16.repair_after_demand": PROPEXT,
+    "Derivation.U1_separable": BOTH,
 }
 
 if __name__ == "__main__":
