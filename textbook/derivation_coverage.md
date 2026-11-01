@@ -349,17 +349,18 @@ sealed derivation.
 
 ## 5. Complete Per-Module Declaration Coverage Matrix (All 75 Frozen Modules)
 
-For each of the 75 modules in `lean4/Derivation/`, the tables below list
-every definition, structure, inductive, abbreviation, and theorem with its
-line number, status mark, axiom footprint, and coverage role:
+For the 75 modules in `lean4/Derivation/`, the historical tables below
+propose declaration placement and record selected source locations, status
+marks and axiom information. Grouped names and ellipses remain; these tables
+are not an independently verified exhaustive declaration or teaching census:
 
-- **Substantive lesson (`S`)**: Taught directly in the listed textbook unit(s).
-- **Auxiliary dependency (`A`)**: Documented helper lemma or structural
-  plumbing supporting the unit's main theorems; full details in the module's
-  audit record (`textbook/audit/modules/<Module>.md`).
-- **Omission note**: Any theorem or lemma not given a standalone exposition
-  in the unit prose is accounted for in the module's omission justification
-  below its table.
+- **Substantive lesson (`S`)**: Proposed main-lesson placement in the listed
+  unit(s); the label alone does not establish that the claim is fully taught.
+- **Auxiliary dependency (`A`)**: Proposed supporting material; consult the
+  module audit record (`textbook/audit/modules/<Module>.md`) for its recorded scope.
+- **Omission note**: A proposed reason for omitting the named items from
+  standalone exposition. Such notes do not certify that every unlisted
+  declaration has received an individual teaching decision.
 
 ### 5.1 `Apartness` (`lean4/Derivation/Apartness.lean`) — Root-imported — `Unit 56`
 

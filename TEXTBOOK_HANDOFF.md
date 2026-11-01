@@ -9,8 +9,9 @@ textbook for a determined teenager with no assumed philosophy or mathematics
 background. Use concrete examples, explicit assumptions and clear boundaries
 between model results and observations about reality.
 
-**Next task: consolidate the existing reviews into one prioritized remaining-issues
-list. Do not start another small chapter-polishing cycle or another laboratory.**
+**Review consolidation is now recorded in [the remaining-issues register](TEXTBOOK_REMAINING_ISSUES.md).
+Next task: RES-01, research-placement decisions. Do not start another small
+chapter-polishing cycle or another laboratory.**
 Reuse work already checked. Fix substantive errors and prerequisite gaps first;
 batch ordinary grammar corrections with those fixes. Do not spend effort
 repeatedly changing acceptable wording or rechecking unchanged material.
@@ -80,7 +81,7 @@ or receive justified omissions.
 | ID | Status | Depends on | Concrete next deliverable | Finished when |
 |---|---|---|---|---|
 | H0 | DONE | — | Preserve this handoff and published state | Document is available from the working branch; pins and receipt scope are explicit |
-| R1 | NEXT | H0 | One remaining-issues list, drawing on existing audits for Units 23–74 and Institutions 00–17 and carrying forward completed 00–22 work | Each retained lesson/topic has a disposition: existing review sufficient, concrete defect to repair, or specifically identified review gap; genuine reader blockers ranked first |
+| R1 | DONE, selected-review scope | H0 | [Remaining-issues register](TEXTBOOK_REMAINING_ISSUES.md), covering all 93 Units with reusable review evidence and a prioritized gap list | No whole-book semantic certification is implied; use the register's explicit next actions |
 | R2 | TODO | R1 | Repair the identified wrong claims, broken examples and prerequisite jumps; include ordinary grammar corrections in those batches | Each issue has a source-grounded resolution and appropriate example/proof/check; no unresolved blocker is hidden by prose |
 | R3 | TODO | R1 | Research-placement decisions using the existing 123-tree inventory | Each tree has a teaching disposition and reason: core, elective introduction, reference, open question, or justified omission; no scope inflation into teaching every tree |
 | R4 | TODO | R2, R3 | End-to-end reading of the chosen core route and its changed-example practice | Required terms are explained before use; examples and answers agree; optional branches stay optional; model/observation boundaries remain explicit |
@@ -163,9 +164,9 @@ tools. Do not install or rebuild a toolchain without an actual need.
 ## Suggested resumption prompt
 
 > Read TEXTBOOK_HANDOFF.md and the repository contract. Verify the current branch,
-> PR and Wiki heads. Continue R1: consolidate the tracked dated reviews into one
-> prioritized remaining-issues list. Reuse completed work; focus on substantive
-> errors, missing prerequisites and research-placement decisions. Do not start
+> PR and Wiki heads. Read TEXTBOOK_REMAINING_ISSUES.md and continue RES-01:
+> classify research placement and identify genuinely missing core explanations.
+> Reuse completed work; focus on substantive errors and prerequisites. Do not start
 > another polishing cycle, new laboratory or expensive unchanged-content test run.
 > Keep the original beginner-textbook goal intact, publish authorized corrections,
 > and leave merging to the author.
