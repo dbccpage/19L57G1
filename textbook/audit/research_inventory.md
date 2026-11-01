@@ -12,8 +12,8 @@ selected `native_bridge` continuation and the Path lab's selected
 `native_structure` cost continuation, plus the Reasoning lab's selected
 P200 recording-protocol continuation, selected P201/P202 calibration/clock
 lessons, the selected P203 composite-system route, and the selected P204
-valuation route.
-Sixteen trees now have selected dedicated introductions. The other 107
+valuation route, plus the selected X300 channel/process lessons.
+Seventeen trees now have selected dedicated introductions. The other 106
 have no dedicated research curriculum established by this audit. The
 Growth lab's comparison with `two_sided_commitment` is a scoped reference,
 not a complete treatment of that tree. The Boundary lab is also a selected
@@ -122,7 +122,7 @@ Group assignments below are proposed curriculum organization; they assert no mat
 | Operational physics, information, semantics, and agency | `p209b_clifford_symplectic` | Not yet established | [research/p209b_clifford_symplectic/CLAIMS.md](../../research/p209b_clifford_symplectic/CLAIMS.md) |
 | Operational physics, information, semantics, and agency | `p209c_stabilizer_codes` | Not yet established | [research/p209c_stabilizer_codes/CLAIMS.md](../../research/p209c_stabilizer_codes/CLAIMS.md) |
 | Operational physics, information, semantics, and agency | `p209d_nonclassical_horizons` | Not yet established | [research/p209d_nonclassical_horizons/CLAIMS.md](../../research/p209d_nonclassical_horizons/CLAIMS.md) |
-| Operational physics, information, semantics, and agency | `x300_observer_information` | Not yet established | [research/x300_observer_information/CLAIMS.md](../../research/x300_observer_information/CLAIMS.md) |
+| Operational physics, information, semantics, and agency | `x300_observer_information` | [selected process route](../reasoning_lab/45_each_input_gets_a_row.md) | [research/x300_observer_information/CLAIMS.md](../../research/x300_observer_information/CLAIMS.md) |
 | Operational physics, information, semantics, and agency | `x301_formal_semantics` | Not yet established | [research/x301_formal_semantics/CLAIMS.md](../../research/x301_formal_semantics/CLAIMS.md) |
 | Operational physics, information, semantics, and agency | `x302_operational_reasoning` | Not yet established | [research/x302_operational_reasoning/CLAIMS.md](../../research/x302_operational_reasoning/CLAIMS.md) |
 | Operational physics, information, semantics, and agency | `x303_bounded_agency` | Not yet established | [research/x303_bounded_agency/CLAIMS.md](../../research/x303_bounded_agency/CLAIMS.md) |

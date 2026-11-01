@@ -422,3 +422,8 @@ Constitution, Initiality, Horizon, PrimitiveCore, PrimitiveCats, PrimitiveContac
 |---|---|---|
 | 1 | `textbook/units/` | the sealed derivation, from the mark forward (Units 00–74 in the contents table above) |
 | 2 | `textbook/institutions/` | actors, institutions, information, knowledge, authorization, acquisition, uncollapse/recollapse, and the verdict-level interpreter boundary: the research trees `actor_institution` (#284), `two_theorems` (#277), `uncollapse` (#275), and `interpreter_verdict` (#278), outside the seal, with their own README and contents table (`Units 00–17`) |
+
+The [selected process route](audit/CHANNEL_READING_REVIEW_2026-10-31.md) adds seven
+short lessons on conditional rows, composition, retained distinctions and
+reset/recovery. Separate changed practice precedes answers; supplied models
+and device evidence retain explicit boundaries.

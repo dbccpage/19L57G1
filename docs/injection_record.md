@@ -1130,3 +1130,22 @@ pair population. Existing Number Wiki stale-page/asset controls are
 preserved; their source page census is deliberately updated to 21 after
 adding seven Markdown pages. The five tests recover. No reading-time,
 mastery, transfer or physical result is inferred.
+
+## Selected channel/process continuation (2026-10-31)
+
+AuthorityEffect: None. Six disposable packet variants reject a false
+flip/reset swap, erased reverse rows, a new distinction from equal
+stored answers, one-preparation channel identification, removal of the
+native float-helper limitation and model contexts counted as observations.
+One altered desk is refused. Actual handlers retain both prediction gates,
+wrong feedback, resets and hiding results after changed predictions.
+
+Two separately assembled child-process Lean variants reject equality
+of flip/reset orders and equal channels inferred from balanced outputs.
+Unmodified source recovers with 24 added reports: 21 empty, one exactly
+`propext`, two exactly `propext, Quot.sound`. Combined Reasoning checks
+179 reports. Initial owner expectations placed the `propext` report on
+the wrong theorem; retained diagnostics locate it on
+`state_space_multiplicative`. Correcting that assignment widens no set.
+Research sources remain unchanged. These checks establish no physical
+or learner result.

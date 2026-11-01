@@ -112,7 +112,8 @@ reports: 123 empty sets, two `propext`, 23 `propext, Quot.sound`.
 The native 85-theorem compiled census includes generated declarations
 and remains a separate historical receipt. No native receipt is rebuilt. The later
 [fraction prerequisite toolkit](../number_lab/FRACTIONS_SOURCES.md) adds
-seven book reports; the combined driver then checks 155.
+seven book reports; the logic-through-fractions portion then checks 155. The later
+[process route](CHANNELS_SOURCES.md) brings the combined driver to 179.
 
 Initial book attempts failed to synthesize a decision procedure for the
 defined equivalence, and an automated tactic introduced Classical.choice.

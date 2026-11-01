@@ -473,3 +473,8 @@ dependency graph is built from the §10 prerequisites.
 **Availability note, 2026-10-28.** The log named in the historical receipt above is not tracked in this checkout. Its recorded outcomes remain historical reports; the missing log is not linked as downloadable evidence. A fresh build produces a separate local receipt.
 
 **Census correction, 2026-10-28.** Direct imports and the transitive import closure are different populations. The local parked-module checker reports 63 modules in the root closure and 12 parked, totaling 75; the earlier statement of 13 parked modules was incorrect.
+
+The [selected process route](CHANNEL_READING_REVIEW_2026-10-31.md) adds seven
+short lessons on conditional rows, composition, retained distinctions and
+reset/recovery. Separate changed practice precedes answers; supplied models
+and device evidence retain explicit boundaries.

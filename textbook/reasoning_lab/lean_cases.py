@@ -107,3 +107,7 @@ SOURCE += '\n'+VALUATION_SOURCE
 
 from textbook.number_lab.fractions_lean import SOURCE as FRACTION_SOURCE
 SOURCE += '\n'+FRACTION_SOURCE
+
+from .channels_lean import build_checks as channel_checks
+CHANNEL_SOURCE,CHANNEL_NAMES=channel_checks()
+SOURCE += '\n'+CHANNEL_SOURCE

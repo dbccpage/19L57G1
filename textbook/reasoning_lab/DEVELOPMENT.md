@@ -210,3 +210,18 @@ reading guidance, not a measured reading-time or mastery claim. Existing
 Reasoning packets, all six desks and the 94-test authoring population
 are unchanged. The reading path lists bounded prerequisites rather than
 requiring all later applications before returning to core practice.
+
+## Process continuation
+
+Run `python textbook/reasoning_lab/channels.py --population`,
+`python -m unittest textbook.reasoning_lab.test_channels`,
+`node textbook/reasoning_lab/test_channel_controls.mjs`, and the existing
+Reasoning Lean wrapper. `channels.py --write` rebuilds only its JSON/HTML.
+The wrappers add 24 strict reports (17 owner, seven book), for 179 total:
+148 empty, three exactly `propext`, 28 exactly `propext, Quot.sound`.
+The initial two misassigned native axiom expectations are retained and
+corrected against actual reports without widening either set.
+Eighteen new authoring tests bring the Reasoning suite to 112.
+Actual handlers check 72 order and 18 record predictions, gates, wrong
+feedback and resets. Published phone and keyboard checks are separate.
+The seventh folded branch preserves the core 00–07 practice exit.

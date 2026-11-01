@@ -53,3 +53,6 @@ separates Python rational probabilities, native Lean arithmetic and
 the added book statements.
 
 AuthorityEffect: None. Blank optional worksheet; zero measured trials or learner scores.
+
+An optional next route starts with [45. Each input gets a row](45_each_input_gets_a_row.md).
+It supplies explicit update rules that the valuation API itself does not define.

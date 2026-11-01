@@ -36,8 +36,8 @@ above record the earlier publication, not current open-PR status.
 | Institution lessons | 18 | A research curriculum exists for four named trees |
 | Sealed Lean modules | 75 | All 75 have coverage-matrix sections and assigned units |
 | Canonical research trees | 123 | Counted using `ci/research_index.py`'s actual population rule |
-| Trees with dedicated research lessons | 16 | Four institution trees, `standing_commitment`, three selected Boundary-lab introductions, `identification_dual`, `qm_bridge`, selected `native_bridge` claims, selected `native_structure` costs, selected P200 recording protocols, selected P201/P202 calibration/clock rules, selected P203 composite definitions, and selected P204 valuation models |
-| Other canonical trees | 107 | No dedicated lesson treatment is established by the current curriculum |
+| Trees with dedicated research lessons | 17 | Four institution trees, `standing_commitment`, three selected Boundary-lab introductions, `identification_dual`, `qm_bridge`, selected `native_bridge` claims, selected `native_structure` costs, selected P200 recording protocols, selected P201/P202 calibration/clock rules, selected P203 composite definitions, selected P204 valuation models, and selected X300 channel/process claims |
+| Other canonical trees | 106 | No dedicated lesson treatment is established by the current curriculum |
 | Manim overview scenes | 12 | Groups of lessons have short previews; individual concepts still need slower worked treatment |
 
 The research population includes parked work, frozen experiments, tooling,
@@ -503,3 +503,8 @@ For the current route's commands and verification reach, see
 [../first_steps/DEVELOPMENT.md](../first_steps/DEVELOPMENT.md). The whole
 teaching goal remains open until the later curriculum and reader evidence
 exist.
+
+The [X300 process continuation](CHANNEL_READING_REVIEW_2026-10-31.md) adds
+a selected seventeenth tree introduction: conditional rows, composition,
+post-processing and reset/recovery. General quantitative information,
+physical cost claims and beginner outcome evidence remain open.

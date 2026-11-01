@@ -16,6 +16,7 @@ from textbook.reasoning_lab.composites_lean import expected_reports as composite
 from textbook.reasoning_lab.valuations_lean import expected_reports as valuation_reports  # noqa: E402
 
 from textbook.number_lab.fractions_lean import expected_reports as fraction_reports  # noqa: E402
+from textbook.reasoning_lab.channels_lean import expected_reports as channel_reports  # noqa: E402
 
 if __name__ == "__main__":
     expected = {"Textbook.ReasoningLab." + name: NONE for name in NAMES}
@@ -28,4 +29,5 @@ if __name__ == "__main__":
     expected.update(composite_reports())
     expected.update(valuation_reports())
     expected.update(fraction_reports())
+    expected.update(channel_reports())
     raise SystemExit(main(SOURCE, expected, "ReasoningLab"))

@@ -69,6 +69,7 @@ application in every lab.
 | What do stored clocks and future comparisons count? | [Reasoning 24–29](reasoning_lab/24_count_updates_and_ticks.md) | The calibration route and fraction toolkit |
 | What survives joining systems or changing one part? | [Reasoning 30–36](reasoning_lab/30_join_records_keep_names.md) | Core reasoning, protocol route, fraction toolkit |
 | How do preparation chances and responses combine? | [Reasoning 37–44](reasoning_lab/37_chances_and_responses.md) | Fraction toolkit; composite route for joint/marginal comparisons |
+| What does a process preserve or lose? | [Reasoning 45–51](reasoning_lab/45_each_input_gets_a_row.md) | Fraction toolkit, Reasoning 37–38 and core function/recovery lessons |
 | How does a proposed rule meet actual records? | [Reasoning 08–11](reasoning_lab/08_from_a_model_to_a_trial.md) | Core reasoning; physical activity is optional |
 
 The [Reasoning hub](reasoning_lab/README.md) keeps all branches available.

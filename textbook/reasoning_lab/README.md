@@ -171,6 +171,29 @@ probabilities, native Lean Nat results and added book arithmetic distinct.
 
 </details>
 
+
+<details><summary>Later application: processes and information loss (45–51)</summary>
+
+Use the fraction toolkit and Reasoning 37–38 before this selected X300
+route. It separates process rows, execution order, output chances, stored
+distinctions and recovery from retained information.
+
+| Lesson | One question |
+|---|---|
+| [45. Each input gets a row](45_each_input_gets_a_row.md) | Which chances sum across inputs, and which across outputs? |
+| [46. Follow the middle value](46_follow_the_middle_value.md) | Which paths lead through each middle value? |
+| [47. Brackets and order](47_brackets_and_order.md) | Does changing brackets authorize a swap? |
+| [48. One output table can hide a difference](48_one_output_table.md) | Does one preparation identify the process? |
+| [49. Process only the stored answer](49_only_the_stored_answer.md) | What can a function of only the record recover? |
+| [50. Reset and recovery](50_reset_and_recovery.md) | Which final components does recovery receive? |
+| [51. From rows to a device claim](51_from_rows_to_a_device_claim.md) | What evidence connects conditional rows to devices? |
+
+Use the [process desk](channels.html), then seven [changed questions](CHANNELS_PRACTICE.md)
+before the [separate answers](CHANNELS_ANSWERS.md). Optional
+[source details](CHANNELS_SOURCES.md) retain Python/Lean and physical-claim boundaries.
+
+</details>
+
 The [source map](SOURCE_MAP.md) separates teaching logic from native
 models; [DEVELOPMENT.md](DEVELOPMENT.md) explains reproduction.
 

@@ -15,6 +15,7 @@ CALIBRATION_DESK = 'https://htmlpreview.github.io/?'+RAW+'calibration.html'
 CLOCK_DESK = 'https://htmlpreview.github.io/?'+RAW+'clocks.html'
 COMPOSITE_DESK = 'https://htmlpreview.github.io/?'+RAW+'composites.html'
 VALUATION_DESK = 'https://htmlpreview.github.io/?'+RAW+'valuations.html'
+CHANNEL_DESK = 'https://htmlpreview.github.io/?'+RAW+'channels.html'
 
 
 def page_map(source):
@@ -25,7 +26,7 @@ def page_map(source):
 def links(source):
     return {**{name: "https://github.com/dbccpage/19L57G1/wiki/" + slug for name, slug in page_map(source).items()},
             "recorded_lab.json": RAW + "recorded_lab.json",'protocols.json':RAW+'protocols.json',
-            'calibration.json':RAW+'calibration.json','clocks.json':RAW+'clocks.json','composites.json':RAW+'composites.json','valuations.json':RAW+'valuations.json'}
+            'calibration.json':RAW+'calibration.json','clocks.json':RAW+'clocks.json','composites.json':RAW+'composites.json','valuations.json':RAW+'valuations.json','channels.json':RAW+'channels.json'}
 
 
 def build_reasoning_lab(repo, wiki, commit):
@@ -47,6 +48,8 @@ def build_reasoning_lab(repo, wiki, commit):
         text = text.replace("](clocks.html)",f"]({CLOCK_DESK})")
         text = text.replace("](composites.html)",f"]({COMPOSITE_DESK})")
         text = text.replace("](valuations.html)",f"]({VALUATION_DESK})")
+        text = text.replace("](channels.html)",f"]({CHANNEL_DESK})")
+        text = text.replace("](channels.json)",f"]({RAW}channels.json)")
         text = text.replace("](../learning_path.md)","](textbook_learning_path)")
         prefix = f"[Genesis Wiki](Home) · [Reasoning lab](textbook_reasoning_lab) · [Claim desk]({DESK})\n\n"
         suffix = f"\n\n---\n\nSource snapshot: [`{commit[:12]}`](https://github.com/dbccpage/19L57G1/blob/{commit}/textbook/reasoning_lab/{name}). Teaching apparatus; `AuthorityEffect: None`.\n"
@@ -65,6 +68,8 @@ def build_reasoning_lab(repo, wiki, commit):
     build(source,assets/'composites.html',links(source),template_name='composites.template.html',packet_name='composites.json')
     shutil.copyfile(source/'valuations.json',assets/'valuations.json')
     build(source,assets/'valuations.html',links(source),template_name='valuations.template.html',packet_name='valuations.json')
+    shutil.copyfile(source/'channels.json',assets/'channels.json')
+    build(source,assets/'channels.html',links(source),template_name='channels.template.html',packet_name='channels.json')
     sidebar = wiki / "_Sidebar.md"
     text = sidebar.read_text(encoding="utf-8")
     entry = "- [Reasoning lab: rules, witnesses, and conditions](textbook_reasoning_lab)"
@@ -89,7 +94,7 @@ def reasoning_lab_errors(repo, wiki):
         return []
     errors = ["missing reasoning-lab page: " + slug for slug in page_map(source).values()
               if not (wiki / (slug + ".md")).is_file()]
-    for name in ("recorded_lab.json", "results.html",'protocols.json','protocols.html','calibration.json','calibration.html','clocks.json','clocks.html','composites.json','composites.html','valuations.json','valuations.html'):
+    for name in ("recorded_lab.json", "results.html",'protocols.json','protocols.html','calibration.json','calibration.html','clocks.json','clocks.html','composites.json','composites.html','valuations.json','valuations.html','channels.json','channels.html'):
         path = wiki / "media/reasoning_lab" / name
         if not path.is_file():
             errors.append("missing reasoning-lab asset: " + name)
@@ -100,7 +105,7 @@ def reasoning_lab_errors(repo, wiki):
             expected = (render(source,links(source),
                         template_name=name.replace('.html','.template.html'),
                         packet_name=name.replace('.html','.json'))
-                        if name in ('protocols.html','calibration.html','clocks.html','composites.html','valuations.html')
+                        if name in ('protocols.html','calibration.html','clocks.html','composites.html','valuations.html','channels.html')
                         else render(source,links(source)))
             if path.read_text(encoding="utf-8") != expected:
                 errors.append("stale reasoning-lab desk or links")

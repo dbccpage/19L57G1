@@ -241,6 +241,17 @@ The [reading path](../learning_path.md) makes 00–07 the first Reasoning
 pass and retains the evidence and later model routes as applications.
 The Number lab's [fraction source guide](../number_lab/FRACTIONS_SOURCES.md)
 adds seven book statements to the already consumed QVal body. With the
-preceding 148-report portion, the combined driver has 155: 127 empty,
+preceding 148-report portion, the logic-through-fractions portion has 155: 127 empty,
 two `propext`, 26 `propext, Quot.sound`. The Number lab's separate
 37-report readout driver is unchanged. No new research tree is introduced.
+
+## Selected X300 process route
+
+Lessons 45–51 consume `research/x300_observer_information` read-only.
+[The source guide](CHANNELS_SOURCES.md) separates exact Python conditional
+rows, deterministic native Lean claims and book binary row algebra.
+Owner sources and receipts are unchanged; general quantitative information
+and physical erasure-cost claims are outside this selection.
+
+The process continuation adds 24 reports for 179 combined: 148 empty,
+three exactly `propext`, 28 exactly `propext, Quot.sound`.

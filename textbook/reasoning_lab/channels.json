@@ -1,0 +1,2426 @@
+{
+  "authority_effect": "None",
+  "classification": "supplied X300 channel and deterministic readout examples",
+  "physical_observations": 0,
+  "channel_names": [
+    "Keep the value",
+    "Flip 0 and 1",
+    "Reset to 0",
+    "Forget into equal chances",
+    "Copy with one-quarter flip",
+    "Keep 0; randomize 1"
+  ],
+  "pairs": [
+    [
+      "A",
+      "B"
+    ],
+    [
+      "A",
+      "C"
+    ],
+    [
+      "B",
+      "C"
+    ]
+  ],
+  "postprocessors": [
+    "Keep the stored answer",
+    "Flip the stored answer",
+    "Reset the stored answer to 0"
+  ],
+  "orders": {
+    "0_0": {
+      "first": 0,
+      "second": 0,
+      "first_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "1"
+        ]
+      ],
+      "second_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "1"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "1"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "1"
+        ]
+      ],
+      "answer": "yes",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "1"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "3/4",
+          "second_then_first_p0": "3/4"
+        }
+      ]
+    },
+    "0_1": {
+      "first": 0,
+      "second": 1,
+      "first_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "1"
+        ]
+      ],
+      "second_rows": [
+        [
+          "0",
+          "1"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "0",
+          "1"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "0",
+          "1"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "answer": "yes",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "0",
+          "second_then_first_p0": "0"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "1/4",
+          "second_then_first_p0": "1/4"
+        }
+      ]
+    },
+    "0_2": {
+      "first": 0,
+      "second": 2,
+      "first_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "1"
+        ]
+      ],
+      "second_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "answer": "yes",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "1"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "1"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "1"
+        }
+      ]
+    },
+    "0_3": {
+      "first": 0,
+      "second": 3,
+      "first_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "1"
+        ]
+      ],
+      "second_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "answer": "yes",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        }
+      ]
+    },
+    "0_4": {
+      "first": 0,
+      "second": 4,
+      "first_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "1"
+        ]
+      ],
+      "second_rows": [
+        [
+          "3/4",
+          "1/4"
+        ],
+        [
+          "1/4",
+          "3/4"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "3/4",
+          "1/4"
+        ],
+        [
+          "1/4",
+          "3/4"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "3/4",
+          "1/4"
+        ],
+        [
+          "1/4",
+          "3/4"
+        ]
+      ],
+      "answer": "yes",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "3/4",
+          "second_then_first_p0": "3/4"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "5/8",
+          "second_then_first_p0": "5/8"
+        }
+      ]
+    },
+    "0_5": {
+      "first": 0,
+      "second": 5,
+      "first_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "1"
+        ]
+      ],
+      "second_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "answer": "yes",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "1"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "3/4",
+          "second_then_first_p0": "3/4"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "7/8",
+          "second_then_first_p0": "7/8"
+        }
+      ]
+    },
+    "1_0": {
+      "first": 1,
+      "second": 0,
+      "first_rows": [
+        [
+          "0",
+          "1"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "second_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "1"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "0",
+          "1"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "0",
+          "1"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "answer": "yes",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "0",
+          "second_then_first_p0": "0"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "1/4",
+          "second_then_first_p0": "1/4"
+        }
+      ]
+    },
+    "1_1": {
+      "first": 1,
+      "second": 1,
+      "first_rows": [
+        [
+          "0",
+          "1"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "second_rows": [
+        [
+          "0",
+          "1"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "1"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "1"
+        ]
+      ],
+      "answer": "yes",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "1"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "3/4",
+          "second_then_first_p0": "3/4"
+        }
+      ]
+    },
+    "1_2": {
+      "first": 1,
+      "second": 2,
+      "first_rows": [
+        [
+          "0",
+          "1"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "second_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "0",
+          "1"
+        ],
+        [
+          "0",
+          "1"
+        ]
+      ],
+      "answer": "no",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "0"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "0"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "0"
+        }
+      ]
+    },
+    "1_3": {
+      "first": 1,
+      "second": 3,
+      "first_rows": [
+        [
+          "0",
+          "1"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "second_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "answer": "yes",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        }
+      ]
+    },
+    "1_4": {
+      "first": 1,
+      "second": 4,
+      "first_rows": [
+        [
+          "0",
+          "1"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "second_rows": [
+        [
+          "3/4",
+          "1/4"
+        ],
+        [
+          "1/4",
+          "3/4"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "1/4",
+          "3/4"
+        ],
+        [
+          "3/4",
+          "1/4"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "1/4",
+          "3/4"
+        ],
+        [
+          "3/4",
+          "1/4"
+        ]
+      ],
+      "answer": "yes",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "1/4",
+          "second_then_first_p0": "1/4"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "3/8",
+          "second_then_first_p0": "3/8"
+        }
+      ]
+    },
+    "1_5": {
+      "first": 1,
+      "second": 5,
+      "first_rows": [
+        [
+          "0",
+          "1"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "second_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "0",
+          "1"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "answer": "no",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "0"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "3/4",
+          "second_then_first_p0": "1/4"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "5/8",
+          "second_then_first_p0": "1/8"
+        }
+      ]
+    },
+    "2_0": {
+      "first": 2,
+      "second": 0,
+      "first_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "second_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "1"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "answer": "yes",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "1"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "1"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "1"
+        }
+      ]
+    },
+    "2_1": {
+      "first": 2,
+      "second": 1,
+      "first_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "second_rows": [
+        [
+          "0",
+          "1"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "0",
+          "1"
+        ],
+        [
+          "0",
+          "1"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "answer": "no",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "0",
+          "second_then_first_p0": "1"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "0",
+          "second_then_first_p0": "1"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "0",
+          "second_then_first_p0": "1"
+        }
+      ]
+    },
+    "2_2": {
+      "first": 2,
+      "second": 2,
+      "first_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "second_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "answer": "yes",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "1"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "1"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "1"
+        }
+      ]
+    },
+    "2_3": {
+      "first": 2,
+      "second": 3,
+      "first_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "second_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "answer": "no",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1"
+        }
+      ]
+    },
+    "2_4": {
+      "first": 2,
+      "second": 4,
+      "first_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "second_rows": [
+        [
+          "3/4",
+          "1/4"
+        ],
+        [
+          "1/4",
+          "3/4"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "3/4",
+          "1/4"
+        ],
+        [
+          "3/4",
+          "1/4"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "answer": "no",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "3/4",
+          "second_then_first_p0": "1"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "3/4",
+          "second_then_first_p0": "1"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "3/4",
+          "second_then_first_p0": "1"
+        }
+      ]
+    },
+    "2_5": {
+      "first": 2,
+      "second": 5,
+      "first_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "second_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "answer": "yes",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "1"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "1"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "1"
+        }
+      ]
+    },
+    "3_0": {
+      "first": 3,
+      "second": 0,
+      "first_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "second_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "1"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "answer": "yes",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        }
+      ]
+    },
+    "3_1": {
+      "first": 3,
+      "second": 1,
+      "first_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "second_rows": [
+        [
+          "0",
+          "1"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "answer": "yes",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        }
+      ]
+    },
+    "3_2": {
+      "first": 3,
+      "second": 2,
+      "first_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "second_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "answer": "no",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "1/2"
+        }
+      ]
+    },
+    "3_3": {
+      "first": 3,
+      "second": 3,
+      "first_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "second_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "answer": "yes",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        }
+      ]
+    },
+    "3_4": {
+      "first": 3,
+      "second": 4,
+      "first_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "second_rows": [
+        [
+          "3/4",
+          "1/4"
+        ],
+        [
+          "1/4",
+          "3/4"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "answer": "yes",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        }
+      ]
+    },
+    "3_5": {
+      "first": 3,
+      "second": 5,
+      "first_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "second_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "3/4",
+          "1/4"
+        ],
+        [
+          "3/4",
+          "1/4"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "answer": "no",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "3/4",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "3/4",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "3/4",
+          "second_then_first_p0": "1/2"
+        }
+      ]
+    },
+    "4_0": {
+      "first": 4,
+      "second": 0,
+      "first_rows": [
+        [
+          "3/4",
+          "1/4"
+        ],
+        [
+          "1/4",
+          "3/4"
+        ]
+      ],
+      "second_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "1"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "3/4",
+          "1/4"
+        ],
+        [
+          "1/4",
+          "3/4"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "3/4",
+          "1/4"
+        ],
+        [
+          "1/4",
+          "3/4"
+        ]
+      ],
+      "answer": "yes",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "3/4",
+          "second_then_first_p0": "3/4"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "5/8",
+          "second_then_first_p0": "5/8"
+        }
+      ]
+    },
+    "4_1": {
+      "first": 4,
+      "second": 1,
+      "first_rows": [
+        [
+          "3/4",
+          "1/4"
+        ],
+        [
+          "1/4",
+          "3/4"
+        ]
+      ],
+      "second_rows": [
+        [
+          "0",
+          "1"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "1/4",
+          "3/4"
+        ],
+        [
+          "3/4",
+          "1/4"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "1/4",
+          "3/4"
+        ],
+        [
+          "3/4",
+          "1/4"
+        ]
+      ],
+      "answer": "yes",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "1/4",
+          "second_then_first_p0": "1/4"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "3/8",
+          "second_then_first_p0": "3/8"
+        }
+      ]
+    },
+    "4_2": {
+      "first": 4,
+      "second": 2,
+      "first_rows": [
+        [
+          "3/4",
+          "1/4"
+        ],
+        [
+          "1/4",
+          "3/4"
+        ]
+      ],
+      "second_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "3/4",
+          "1/4"
+        ],
+        [
+          "3/4",
+          "1/4"
+        ]
+      ],
+      "answer": "no",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "3/4"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "3/4"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "3/4"
+        }
+      ]
+    },
+    "4_3": {
+      "first": 4,
+      "second": 3,
+      "first_rows": [
+        [
+          "3/4",
+          "1/4"
+        ],
+        [
+          "1/4",
+          "3/4"
+        ]
+      ],
+      "second_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "answer": "yes",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        }
+      ]
+    },
+    "4_4": {
+      "first": 4,
+      "second": 4,
+      "first_rows": [
+        [
+          "3/4",
+          "1/4"
+        ],
+        [
+          "1/4",
+          "3/4"
+        ]
+      ],
+      "second_rows": [
+        [
+          "3/4",
+          "1/4"
+        ],
+        [
+          "1/4",
+          "3/4"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "5/8",
+          "3/8"
+        ],
+        [
+          "3/8",
+          "5/8"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "5/8",
+          "3/8"
+        ],
+        [
+          "3/8",
+          "5/8"
+        ]
+      ],
+      "answer": "yes",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "5/8",
+          "second_then_first_p0": "5/8"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "9/16",
+          "second_then_first_p0": "9/16"
+        }
+      ]
+    },
+    "4_5": {
+      "first": 4,
+      "second": 5,
+      "first_rows": [
+        [
+          "3/4",
+          "1/4"
+        ],
+        [
+          "1/4",
+          "3/4"
+        ]
+      ],
+      "second_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "7/8",
+          "1/8"
+        ],
+        [
+          "5/8",
+          "3/8"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "3/4",
+          "1/4"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "answer": "no",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "7/8",
+          "second_then_first_p0": "3/4"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "3/4",
+          "second_then_first_p0": "5/8"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "13/16",
+          "second_then_first_p0": "11/16"
+        }
+      ]
+    },
+    "5_0": {
+      "first": 5,
+      "second": 0,
+      "first_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "second_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "1"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "answer": "yes",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "1"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "3/4",
+          "second_then_first_p0": "3/4"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "7/8",
+          "second_then_first_p0": "7/8"
+        }
+      ]
+    },
+    "5_1": {
+      "first": 5,
+      "second": 1,
+      "first_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "second_rows": [
+        [
+          "0",
+          "1"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "0",
+          "1"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "answer": "no",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "0",
+          "second_then_first_p0": "1/2"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "1/4",
+          "second_then_first_p0": "3/4"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "1/8",
+          "second_then_first_p0": "5/8"
+        }
+      ]
+    },
+    "5_2": {
+      "first": 5,
+      "second": 2,
+      "first_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "second_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0"
+        ]
+      ],
+      "answer": "yes",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "1"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "1"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "1"
+        }
+      ]
+    },
+    "5_3": {
+      "first": 5,
+      "second": 3,
+      "first_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "second_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "1/2",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "3/4",
+          "1/4"
+        ],
+        [
+          "3/4",
+          "1/4"
+        ]
+      ],
+      "answer": "no",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "3/4"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "3/4"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "1/2",
+          "second_then_first_p0": "3/4"
+        }
+      ]
+    },
+    "5_4": {
+      "first": 5,
+      "second": 4,
+      "first_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "second_rows": [
+        [
+          "3/4",
+          "1/4"
+        ],
+        [
+          "1/4",
+          "3/4"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "3/4",
+          "1/4"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "7/8",
+          "1/8"
+        ],
+        [
+          "5/8",
+          "3/8"
+        ]
+      ],
+      "answer": "no",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "3/4",
+          "second_then_first_p0": "7/8"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "5/8",
+          "second_then_first_p0": "3/4"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "11/16",
+          "second_then_first_p0": "13/16"
+        }
+      ]
+    },
+    "5_5": {
+      "first": 5,
+      "second": 5,
+      "first_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "second_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "forward_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "3/4",
+          "1/4"
+        ]
+      ],
+      "reverse_rows": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "3/4",
+          "1/4"
+        ]
+      ],
+      "answer": "yes",
+      "preparations": [
+        {
+          "input_p0": "1",
+          "first_then_second_p0": "1",
+          "second_then_first_p0": "1"
+        },
+        {
+          "input_p0": "1/2",
+          "first_then_second_p0": "7/8",
+          "second_then_first_p0": "7/8"
+        },
+        {
+          "input_p0": "3/4",
+          "first_then_second_p0": "15/16",
+          "second_then_first_p0": "15/16"
+        }
+      ]
+    }
+  },
+  "records": {
+    "0_0": {
+      "pair": 0,
+      "post": 0,
+      "left": "A",
+      "right": "B",
+      "stored": [
+        0,
+        0
+      ],
+      "processed": [
+        0,
+        0
+      ],
+      "answer": "no"
+    },
+    "0_1": {
+      "pair": 0,
+      "post": 1,
+      "left": "A",
+      "right": "B",
+      "stored": [
+        0,
+        0
+      ],
+      "processed": [
+        1,
+        1
+      ],
+      "answer": "no"
+    },
+    "0_2": {
+      "pair": 0,
+      "post": 2,
+      "left": "A",
+      "right": "B",
+      "stored": [
+        0,
+        0
+      ],
+      "processed": [
+        0,
+        0
+      ],
+      "answer": "no"
+    },
+    "1_0": {
+      "pair": 1,
+      "post": 0,
+      "left": "A",
+      "right": "C",
+      "stored": [
+        0,
+        1
+      ],
+      "processed": [
+        0,
+        1
+      ],
+      "answer": "yes"
+    },
+    "1_1": {
+      "pair": 1,
+      "post": 1,
+      "left": "A",
+      "right": "C",
+      "stored": [
+        0,
+        1
+      ],
+      "processed": [
+        1,
+        0
+      ],
+      "answer": "yes"
+    },
+    "1_2": {
+      "pair": 1,
+      "post": 2,
+      "left": "A",
+      "right": "C",
+      "stored": [
+        0,
+        1
+      ],
+      "processed": [
+        0,
+        0
+      ],
+      "answer": "no"
+    },
+    "2_0": {
+      "pair": 2,
+      "post": 0,
+      "left": "B",
+      "right": "C",
+      "stored": [
+        0,
+        1
+      ],
+      "processed": [
+        0,
+        1
+      ],
+      "answer": "yes"
+    },
+    "2_1": {
+      "pair": 2,
+      "post": 1,
+      "left": "B",
+      "right": "C",
+      "stored": [
+        0,
+        1
+      ],
+      "processed": [
+        1,
+        0
+      ],
+      "answer": "yes"
+    },
+    "2_2": {
+      "pair": 2,
+      "post": 2,
+      "left": "B",
+      "right": "C",
+      "stored": [
+        0,
+        1
+      ],
+      "processed": [
+        0,
+        0
+      ],
+      "answer": "no"
+    }
+  },
+  "native_limits": {
+    "unnormalized_rows_refused": true,
+    "direct_float_rows_refused": true,
+    "native_binary_helper_accepts_exact_binary_float_value": true,
+    "input_alphabet_parameter_is_not_an_exact_whitelist": true,
+    "support_omits_zero_entries_and_unknown_prob_returns_zero": true,
+    "composition_requires_all_positive_intermediate_outputs": true,
+    "one_preparation_does_not_identify_channel": true,
+    "world_side_information_is_not_readout_only_processing": true
+  },
+  "practice": {
+    "changed_tasks_checked": 7,
+    "physical_observations": 0
+  },
+  "source_text_sha256": {
+    "research/x300_observer_information/information.py": "3ff1afdff80b087633d7324ffc82cd0a56a259d7266f2a161f14994f16db2f44",
+    "research/x300_observer_information/lean/ObserverInformation.lean": "d30138cbd9aec3dbba40195f18b7f702afe9eb9dc3898f7d65ade7d9ccde3b95",
+    "research/x300_observer_information/README.md": "ef5e9a374ef8ef0ceb79255b41e6de471ed04226651e00e1e7d2a16dc121b230",
+    "research/x300_observer_information/CLAIMS.md": "bc4a1babb9306820d895e610f4afc68d0955d8e32382a65fdc638589738744ec",
+    "textbook/reasoning_lab/channels.py": "5969aeabda9443ce9919ea696fea5879c32f4ec462c6cddfdaeb13dfefd36c29"
+  },
+  "digest_mode": "UTF-8/LF source text",
+  "quantitative_information_metrics": "not used in this selected route"
+}
