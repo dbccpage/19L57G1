@@ -56,5 +56,8 @@ Try the [changed practice](CLOCKS_PRACTICE.md) before its
 [answers](CLOCKS_ANSWERS.md). The [source guide](CLOCKS_SOURCES.md)
 states exactly which owner and book claims were checked.
 
+Continue to [combine named parts](30_join_records_keep_names.md) for the
+separate P203 model of local changes, connections and readouts.
+
 AuthorityEffect: None. Blank optional worksheet; zero measured durations
 or beginner learning scores.

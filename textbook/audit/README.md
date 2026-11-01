@@ -71,6 +71,10 @@ The [P202 clock/future-reading continuation](CLOCKS_READING_REVIEW_2026-10-31.md
 then adds six lessons, preserving the different source schedules and
 separating the native all-future readout theorem from finite comparisons
 and a supplied countdown countermodel.
+The [P203 composite-system route](COMPOSITE_READING_REVIEW_2026-10-31.md)
+adds seven lessons, distinguishing regrouping from independence, actual
+dependencies from footprint labels, graph availability from relay
+execution, and equal shares from unchanged paired readings.
 
 **Early-chapter follow-up (2026-10-29).** The
 [Units 04–16 reading review](EARLY_READING_REVIEW_2026-10-29.md) adds

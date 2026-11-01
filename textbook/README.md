@@ -131,6 +131,10 @@ correspondence. P201 supplies selected definitions. The separate
 [clock/future-reading continuation](audit/CLOCKS_READING_REVIEW_2026-10-31.md)
 adds six lessons comparing pulse/uniform rules, elapsed changes, readout
 equivalence and finite prediction, with an explicit countdown contrast.
+The [composite-system route](audit/COMPOSITE_READING_REVIEW_2026-10-31.md)
+adds seven lessons on joining records, local changes, declared graphs,
+relay order, outcome shares and symmetry. It keeps actual dependencies
+and physical correspondence explicit.
 
 ## Status marks
 

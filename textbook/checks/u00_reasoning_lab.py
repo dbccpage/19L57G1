@@ -8,6 +8,8 @@ from textbook.reasoning_lab import protocols  # noqa: E402
 from textbook.reasoning_lab import calibration  # noqa: E402
 from textbook.reasoning_lab import clocks  # noqa: E402
 
+from textbook.reasoning_lab import composites  # noqa: E402
+
 if __name__ == "__main__":
     print(check_recorded())
     print(check_evidence_population())
@@ -18,3 +20,5 @@ if __name__ == "__main__":
     print({'bounded_calibration_cases':calibration.check_population()})
     print(clocks.check_recorded())
     print({'bounded_clock_cases':clocks.check_population()})
+    print(composites.check_recorded())
+    print({'bounded_composite_cases':composites.check_population()})

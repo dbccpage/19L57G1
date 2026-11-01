@@ -96,3 +96,7 @@ SOURCE += '\n'+CALIBRATION_SOURCE
 from .clocks_lean import build_checks as clock_checks
 CLOCK_SOURCE,CLOCK_NAMES=clock_checks()
 SOURCE += '\n'+CLOCK_SOURCE
+
+from .composites_lean import build_checks as composite_checks
+COMPOSITE_SOURCE,COMPOSITE_NAMES=composite_checks()
+SOURCE += '\n'+COMPOSITE_SOURCE

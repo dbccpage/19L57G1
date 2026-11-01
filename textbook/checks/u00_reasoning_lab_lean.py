@@ -11,6 +11,8 @@ from textbook.reasoning_lab.protocols_lean import expected_reports  # noqa: E402
 from textbook.reasoning_lab.calibration_lean import expected_reports as calibration_reports  # noqa: E402
 from textbook.reasoning_lab.clocks_lean import expected_reports as clock_reports  # noqa: E402
 
+from textbook.reasoning_lab.composites_lean import expected_reports as composite_reports  # noqa: E402
+
 if __name__ == "__main__":
     expected = {"Textbook.ReasoningLab." + name: NONE for name in NAMES}
     expected["Textbook.ReasoningLab.recover_on_smaller_domain"] = PROPEXT
@@ -19,4 +21,5 @@ if __name__ == "__main__":
     expected.update(expected_reports())
     expected.update(calibration_reports())
     expected.update(clock_reports())
+    expected.update(composite_reports())
     raise SystemExit(main(SOURCE, expected, "ReasoningLab"))

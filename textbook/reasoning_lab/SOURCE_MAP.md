@@ -213,3 +213,12 @@ The distinct [clock/future-reading route](CLOCKS_SOURCES.md) now supplies
 Lessons 24–29. Its P202 scope and countdown contrast add sixteen
 reports; the combined driver checks 72. No general bridge between
 the Python pulse and Lean uniform schedules is asserted.
+
+## Composite-system continuation: Lessons 30–36
+
+The [P203 source guide](COMPOSITES_SOURCES.md) separates named merging,
+product regrouping, actual local changes, metadata graphs, exact shares
+and observer premises. It adds 33 unchanged explicit owner theorems and
+nine book reports, all axiom-free. With the preceding 72-report portion,
+the combined driver checks 114. No graph or distribution theorem in Lean,
+physical validation or Python-to-Lean refinement is inferred.

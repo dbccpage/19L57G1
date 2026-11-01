@@ -132,15 +132,40 @@ node textbook/reasoning_lab/test_clock_controls.mjs
 An intentional reviewed update uses `clocks.py --write`, writing only
 `clocks.json` and `clocks.html`. Preview through the same server or the
 published link. Earlier desks stay unchanged. Existing wrappers check
-the new packet/populations and 72 exact Lean reports across four scopes.
+the clock packet/populations; the logic-through-clock portion contributes
+72 reports before the composite continuation below.
 
 Fifteen added authoring tests and two separate assembled Lean negative
 variants exercise the boundaries. Actual handlers check 196 clock and
 eight countdown predictions, not browser layout or learner outcomes.
-The complete Reasoning-lab authoring suite now has 58 tests.
+The logic-through-clock authoring portion has 58 tests.
 
 In a browser, compare both rules/starts, zero/one/odd intervals, the
 difference from the pulse starting index, all countdown horizons, both gates, wrong
 feedback and resets. Check table focus and arrow-key scrolling at phone
 width and published practice/answer links. Never count model updates
 as measured durations.
+
+
+For the composite-system continuation:
+
+```powershell
+python textbook/reasoning_lab/composites.py --population
+python -m unittest textbook.reasoning_lab.test_composites
+node textbook/reasoning_lab/test_composite_controls.mjs
+python textbook/checks/u00_reasoning_lab_lean.py
+```
+
+A reviewed `composites.py --write` updates only its JSON and HTML. The
+existing wrappers check this packet, its declared populations and the
+combined 114 exact reports. The whole native Lean body stays unchanged;
+33 explicit owner reports and nine book reports add 42 empty axiom sets.
+Eighteen added authoring tests bring the full Reasoning suite to 76.
+The handler fixture checks 300 share and sixty graph choices. Two
+separate assembled false Lean conclusions are rejected before recovery.
+
+In the published browser, compare list/readout/relay order, equal shares
+with different paired marks, constant probes, joint-write edges and an
+undeclared read. Check both gates, wrong feedback, all context resets,
+phone table focus and arrow scrolling. Keep rendering, supplied lists,
+physical observations and beginner outcomes separate.

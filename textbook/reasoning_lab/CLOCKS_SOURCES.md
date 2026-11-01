@@ -117,7 +117,9 @@ and zero changes, offsets, countdown and bounded shift.
 
 The sixteen added axiom sets comprise ten empty sets and six exactly
 `propext, Quot.sound`. With the preceding logic/P200/P201 portions the
-existing driver checks 72 reports. This is selected source/book evidence,
+logic-through-clock portion contributes 72 reports. The later
+[composite continuation](COMPOSITES_SOURCES.md) brings the combined driver
+to 114. This is selected source/book evidence,
 not the owner’s seven-theorem inventory or a replacement research receipt.
 Source-text hashes use UTF-8/LF normalization in `clocks.json`.
 

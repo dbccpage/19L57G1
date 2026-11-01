@@ -92,6 +92,26 @@ Use the separate [clock desk](clocks.html), [practice](CLOCKS_PRACTICE.md)
 and [answers](CLOCKS_ANSWERS.md). The [source guide](CLOCKS_SOURCES.md)
 keeps native proofs, finite executions and the countdown explicit.
 
+## Combine parts without losing the conditions
+
+This selected P203 route uses named records and explicit procedures.
+It keeps regrouping, preparation shares, actual dependencies, declared
+graphs and executed relays distinct.
+
+| Lesson | One question |
+|---|---|
+| [30. Join records and keep their names](30_join_records_keep_names.md) | What does a disjoint merge keep, and when does it refuse? |
+| [31. Regroup without losing a part](31_regroup_without_losing_parts.md) | Does changing brackets establish independence? |
+| [32. What makes a change local?](32_what_makes_a_change_local.md) | Which actual dependencies preserve B? |
+| [33. A connection is not an executed message](33_connection_and_execution.md) | Has listing a relay copied anything? |
+| [34. Equal shares can hide changed rows](34_equal_shares_changed_rows.md) | Can each reading change while shares agree? |
+| [35. Symmetry of which object?](35_symmetry_of_which_object.md) | Which graph, value or procedure property survives a renaming? |
+| [36. From parts to a device claim](36_from_parts_to_a_device_claim.md) | What comparison would connect the model to devices? |
+
+Use the separate [composite desk](composites.html), then the changed
+[practice](COMPOSITES_PRACTICE.md) and [answers](COMPOSITES_ANSWERS.md).
+Optional [source details](COMPOSITES_SOURCES.md) retain the precise scope.
+
 Then try the original [practice](PRACTICE.md) before opening its [answers](ANSWERS.md).
 For the evidence route, use the changed [envelope example](EVIDENCE_PRACTICE.md)
 before its separate [answer guide](EVIDENCE_ANSWERS.md).

@@ -1055,3 +1055,30 @@ zero intervals and empty comparisons. The sixteen added reports have
 ten empty axiom sets and six exactly `propext, Quot.sound`. The initial
 elaboration attempt is retained separately; expected axiom sets were
 not relaxed. Browser rendering and learner evidence remain separate.
+
+
+## Reasoning-lab composite-system continuation (2026-10-31)
+
+AuthorityEffect: None. Disposable packet copies, a stale desk copy and
+assembled child-process Lean strings exercise nine false promotions.
+Native research source, receipt and vocabulary populations stay unchanged.
+
+| Injected defect | Rejection |
+|---|---|
+| Promote balanced share equality to unchanged paired marks | Exact packet comparison rejects the false row count |
+| Erase relay order's effect on the B comparison | Exact packet comparison rejects the false distance |
+| Treat graph construction as executed relay | Exact packet comparison rejects an execution count of one |
+| Certify an undeclared read from its graph label | Exact packet comparison retains the missing edge |
+| Remove the edge induced by a constant multi-write | Exact packet comparison retains the declared edge convention |
+| Count supplied contexts as physical observations | Exact packet comparison retains zero observations |
+| Alter the desk without rebuilding | Renderer comparison rejects the stale HTML |
+| Replace the relay-order inequality by equality | Lean rejects the altered general conclusion |
+| Replace different paired lists by literal equality | Lean rejects the false concrete conclusion |
+
+Eighteen added authoring tests pass; the full Reasoning suite has 76.
+Actual handlers check 300 share and sixty graph predictions, including
+wrong answers, gates and resets. Unmodified P203 source and book claims
+recover with 42 empty axiom reports; the combined driver checks 114.
+Native read-label, shallow-mutation, observer-map and empty-population
+controls are separately retained counterexamples, not repaired research.
+Browser rendering and learner evidence remain separate obligations.
