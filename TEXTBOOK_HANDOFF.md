@@ -25,23 +25,24 @@ for other readers, a reading-speed guarantee or a delayed-retention study.
 
 ## Exact resumption state
 
-These pins were verified immediately before this documentation-only handoff.
-The handoff commit advances the source branch; it does not change the published
-teaching edition or extend the earlier test receipts to a new commit.
+These pins were verified before the final documentation checkpoint. The latest
+publication changes navigation and a scoped prose claim; it does not extend
+the older full mathematical receipts to the new source commit.
 
 | Item | Verified state |
 |---|---|
 | Repository | `dbccpage/19L57G1` |
 | Working branch | `codex/native-path-reading` |
-| Last validated/published teaching source | `26c06c086421776e31f2301f254c570dfb6ef472` |
+| Last full textbook-job source | `26c06c086421776e31f2301f254c570dfb6ef472` |
+| Latest published navigation/scope source | `7896a0e7f3b974232fd38662af266539f10355d0` |
 | `main` | `14d23a98830a4e6916b0e50810f0bc6ca17a05cf` |
-| Published Wiki commit | `71ff97f288f55775e9e2d36c2b185b539d6dd52b` |
+| Published Wiki commit | `476fdddad6e9da64fd555b2821626b53ec97fd9b` |
 | Working PR | #296, OPEN, DRAFT, unmerged, directly against `main` |
 | Workspace | `C:\Users\a343o\.codex\worktrees\institutions-reading-review\19L57G1` |
 | Existing Wiki checkout | `C:\Users\a343o\.codex\worktrees\5ce4\19L57G1\artifacts2\wiki-review\wiki` |
-| Last teaching batch | Units 17–22, practice/answers, completion audit and phone-table fix |
+| Last batch | Core-route exits, optional advanced exercises and Unit 00 admission-cost scope |
 
-The teaching batch finished; it leaves no pending render, build or publication
+The latest batch finished; it leaves no pending render, build or publication
 job to resume. Refresh Git/PR/Wiki state before the next write. Preserve unrelated
 dirty work. The author merges; do not merge or open a stacked PR.
 
@@ -70,7 +71,7 @@ semantic coverage of every source declaration or measured novice learning.
 | New repair proofs | Multi-request example proves target-only repair can be invalid; general zero-new-instance and zero-new-form-arity results support cost floors | `textbook/checks/u17_lean.py`, `u19_lean.py`, `u22_lean.py`; no sealed source changed |
 | Videos | Twelve corrected Manim MP4/GIF pairs published; wrapping, reserved regions and transition cleanup address overlap; 90 settled states and sampled frames reviewed | [Video review](textbook/media/REVIEW_2026-10-28.md); not a claim about every interpolation frame |
 | Wiki | Complete lesson before optional video; all 93 Unit bodies tied to their own source pins; original 601 quoted code blocks preserved; selected desktop/phone navigation checked | `textbook/media/build_wiki_textbook.py`, `unit_page_custody.py`; latest receipts below |
-| Research inventory | 123 canonical trees inventoried; 18 have selected dedicated introductions; 105 have no dedicated treatment established by that inventory | [Research inventory](textbook/audit/research_inventory.md) |
+| Research placement | All 123 trees classified: 20 electives (18 existing, two planned), 88 references, eight open-question roles and seven standalone omissions | [Placement decisions](textbook/audit/RESEARCH_PLACEMENT_2026-11-01.md), companion JSON |
 | Completion audit | Existing content, remaining requirements and an ordered closure plan are now public | [Completion status](textbook/completion_status.md) |
 
 Eighteen introductions are not eighteen fully taught research trees. The other
@@ -136,6 +137,20 @@ Latest evidence is under `artifacts2/repair-reading-2026-11-01/`, especially:
 handoff archive is delivered with this document. Preserve it if moving machines;
 otherwise retain the exact source pins and rerun needed checks. Do not copy all
 scratch builds or caches. Earlier dated source reviews remain tracked and portable.
+
+### Latest core-route publication
+
+Source `7896a0e7f3b974232fd38662af266539f10355d0` was published at Wiki
+`476fdddad6e9da64fd555b2821626b53ec97fd9b`. Fourteen Wiki tests pass,
+including the new generated Change-exit check. Generated and published Wiki
+links and all 93 complete Unit/source checks pass, with the same 17 known SVG
+checkout line-ending differences separately checked against source Git blobs.
+All 601 original Unit quotation blocks and 589 unselected Wiki files are
+preserved, including author pages and every video. The prose census is unchanged.
+No unchanged theorem or video build was rerun. Initial sandbox temp failures
+and the expected precommit source-pin failure are distinct from the successful
+committed-source run. Local receipt: `artifacts2/core-route-2026-11-01/publication.json`.
+The portable ZIP includes this receipt and the latest handoff/register.
 
 ## Repository and publication rules
 
