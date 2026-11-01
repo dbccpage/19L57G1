@@ -27,9 +27,14 @@ the model's physical correspondence and later open rows remain unproved.
 A source mention alone is not teaching.
 Group assignments below are proposed curriculum organization; they assert no mathematical bridge or research validation.
 
+The [editorial placement decision](RESEARCH_PLACEMENT_2026-11-01.md) now assigns
+a role and reason to every tree. This table still records actual dedicated
+treatment: the two newly planned elective introductions have not been written,
+and a reference or omission decision is not new teaching coverage.
+
 | Proposed teaching group | Tree | Current dedicated treatment | Source entry |
 |---|---|---|---|
-| Boundary, orientation, and commitment | `boundary_seed` | [Boundary lab: selected introduction](../boundary_lab/00_start_before_the_marks.md) | [research/boundary_seed/CLAIM_LEDGER.md](../../research/boundary_seed/CLAIM_LEDGER.md) |
+| Boundary, orientation, and commitment | `boundary_seed` | [Boundary lab: selected introduction](../boundary_lab/00_start_before_the_marks.md) | [research/boundary_seed/claim_ledger.md](../../research/boundary_seed/claim_ledger.md) |
 | Boundary, orientation, and commitment | `identification_dual` | [Same-record lab: selected introduction](../identification_lab/README.md) | [research/identification_dual/STATUS.md](../../research/identification_dual/STATUS.md) |
 | Boundary, orientation, and commitment | `oriented_boundary` | [Boundary lab: selected introduction](../boundary_lab/02_compare_two_answers.md) | [research/oriented_boundary/CLAIM_LEDGER.md](../../research/oriented_boundary/CLAIM_LEDGER.md) |
 | Boundary, orientation, and commitment | `seventh_constructor` | Not yet established | [research/seventh_constructor/FINDINGS.md](../../research/seventh_constructor/FINDINGS.md) |
@@ -130,7 +135,7 @@ Group assignments below are proposed curriculum organization; they assert no mat
 | Operational physics, information, semantics, and agency | `x302_operational_reasoning` | Not yet established | [research/x302_operational_reasoning/CLAIMS.md](../../research/x302_operational_reasoning/CLAIMS.md) |
 | Operational physics, information, semantics, and agency | `x303_bounded_agency` | Not yet established | [research/x303_bounded_agency/CLAIMS.md](../../research/x303_bounded_agency/CLAIMS.md) |
 | Operational physics, information, semantics, and agency | `x310_vertical_integration` | Not yet established | [research/x310_vertical_integration/CLAIMS.md](../../research/x310_vertical_integration/CLAIMS.md) |
-| Second derivation and its rungs | `second` | Not yet established | [research/second/CLAIM_LEDGER.md](../../research/second/CLAIM_LEDGER.md) |
+| Second derivation and its rungs | `second` | Not yet established | [research/second/claim_ledger.md](../../research/second/claim_ledger.md) |
 | Second derivation and its rungs | `second_class` | Not yet established | [research/second_class/STATUS.md](../../research/second_class/STATUS.md) |
 | Second derivation and its rungs | `second_duration` | Not yet established | [research/second_duration/STATUS.md](../../research/second_duration/STATUS.md) |
 | Second derivation and its rungs | `second_engine` | Not yet established | [research/second_engine/STATUS.md](../../research/second_engine/STATUS.md) |
@@ -148,7 +153,7 @@ Group assignments below are proposed curriculum organization; they assert no mat
 | Source custody and research tooling | `blind_restart` | Not yet established | [research/blind_restart/STATUS.md](../../research/blind_restart/STATUS.md) |
 | Source custody and research tooling | `estate_honesty` | Not yet established | [research/estate_honesty/CLAIMS.md](../../research/estate_honesty/CLAIMS.md) |
 | Source custody and research tooling | `evidence_graph` | Not yet established | [research/evidence_graph/CLAIMS.md](../../research/evidence_graph/CLAIMS.md) |
-| Source custody and research tooling | `genesis_continuation` | Not yet established | [research/genesis_continuation/CLAIMS.md](../../research/genesis_continuation/CLAIMS.md) |
+| Source custody and research tooling | `genesis_continuation` | Not yet established | [research/genesis_continuation/claims.md](../../research/genesis_continuation/claims.md) |
 | Source custody and research tooling | `portable_interface` | Not yet established | [research/portable_interface/INTERFACE.md](../../research/portable_interface/INTERFACE.md) |
 | Source custody and research tooling | `post_seal_walk` | Not yet established | [research/post_seal_walk/README.md](../../research/post_seal_walk/README.md) |
 | Source custody and research tooling | `redheffer` | Not yet established | [research/redheffer/CLAIMS.md](../../research/redheffer/CLAIMS.md) |

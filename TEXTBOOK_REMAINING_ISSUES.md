@@ -55,10 +55,12 @@ also covers all eighteen Part 2 openings. Reuse these rather than rebuild them.
 | ID | Priority / status | Actual gap and evidence | Next action | Close when |
 |---|---|---|---|---|
 | COV-01 | P1 / CLOSED in this revision | Coverage matrix section 5 still said every declaration and omission was accounted for, contradicting its opening limitation and grouped/ellipsis entries | Correct section 5 and its S/A/omission descriptions to identify proposed placement | Source and published coverage page stop making the unsupported exhaustive claim |
-| RES-01 | P1 / NEXT | The research inventory contains 105 “Not yet established” teaching entries; that describes missing treatment, not a decision that a chapter is needed | Classify all 123 trees using teaching purpose: core, elective introduction, reference, open question, or justified omission. Preserve scope limits for the existing 18 introductions | Each tree has a disposition and short reason; genuinely needed lesson additions are a bounded explicit list |
+| RES-01 | P1 / DONE, editorial scope | [Research placement](textbook/audit/RESEARCH_PLACEMENT_2026-11-01.md) assigns all 123 trees: 20 elective introductions (18 existing, two planned), 88 references, eight open-question roles and seven standalone omissions | Retain the source boundaries and implement only the two explicitly retained additions below | Placement decisions are complete; this is not a new research verification or a claim the two additions are written |
 | PATH-01 | P1 / READY | Existing route reviews and named page samples do not record a final end-to-end reading of the selected course | Follow First steps → Reasoning 00–07/practice → Search → Change → formal-reading entrance. Check required terms, changed examples and answers; follow only the tool branches needed by the selected continuation | Each required transition has its prerequisite and return path; concrete breaks are fixed and recorded |
 | FIX-01 | P1 / WAITING for identified defects | Future defects must be concrete, not a generic claim that every later Unit needs another review | Repair issues discovered by RES-01 or PATH-01, ranked by wrong claims, unusable examples and missing prerequisites. Batch ordinary grammar fixes with them | Each discovered issue has a source pointer, resolution and relevant check; no known reader blocker remains |
-| PUB-01 | P1 / WAITING for RES-01, PATH-01 and FIX-01 | Latest teaching receipts are pinned to a particular source; a final revised course needs its own publication record | Verify changed artifacts, preserve author pages/unchanged media, and publish the final selected edition | Public pages, examples, links and source pins agree; scope of checks and unresolved mathematics is stated accurately |
+| EXT-01 | P1 / READY after PATH-01 | The retained X302 elective lacks a worked support-dependency/conflict-retraction example; existing Reasoning 09 addresses a mismatch without that mechanism | Add one short elective continuation, changed practice and separate answers using the actual owner's supplied rules | Supports, cascade effects, tied alternatives and the consistency-versus-truth boundary are explicit and checked |
+| EXT-02 | P1 / READY after PATH-01 | The retained X303 elective lacks a worked finite-memory/refusal/licensed-action example | Add one short elective continuation after the existing Change/interpretation prerequisites | The horizon, eviction, projected-state/license check and unchanged refusal state are explained; metadata is not promoted to observation evidence |
+| PUB-01 | P1 / WAITING for PATH-01, FIX-01, EXT-01 and EXT-02 | Latest teaching receipts are pinned to a particular source; a final revised course needs its own publication record | Verify changed artifacts, preserve author pages/unchanged media, and publish the final selected edition | Public pages, examples, links and source pins agree; scope of checks and unresolved mathematics is stated accurately |
 | COV-02 | P2 / CONDITIONAL | Source placement still groups declarations and proposes omissions; the index explicitly does not certify complete semantic teaching | If a release claims exhaustive declaration coverage, reconcile the retained entries and classify theorem scope separately from finite computation. Otherwise retain the explicit source-index limitation | The release claim matches its evidence; no demand to teach every auxiliary theorem is invented |
 | LEARN-01 | P3 / OPTIONAL evidence | Author acceptance is recorded; no independent timed or delayed-transfer study is recorded | Preserve that distinction. Do not ask again for a participant or invent measured outcomes | No unobserved reader result is claimed; any stronger future learning claim has its own evidence |
 
@@ -69,14 +71,14 @@ open; finishing a textbook does not require proving them.
 
 ## Do next, with a definite stopping point
 
-Start **RES-01** from [the existing inventory](textbook/audit/research_inventory.md).
-Produce a compact placement table and a finite list of genuinely missing core
-explanations. Use owner summaries and existing lessons before investigating
-implementation detail. Group similar reference-only decisions where justified,
-while retaining an entry for each tree. Do not begin writing new courses during
-that classification pass.
+RES-01 is complete at its editorial scope; the [123-tree table](textbook/audit/research_placement.json)
+records each role, reason, source entry and source identity. Start **PATH-01**
+with the existing core route, then implement the two retained electives
+EXT-01/EXT-02. They are optional for readers but explicit unfinished work in
+this release plan. No new research-tree-specific prerequisite is imposed on
+the entrance by placement alone; the route reading must still find actual gaps.
 
-PATH-01 can then use that bounded selection. Preserve the previously checked
+Preserve the previously checked
 early examples, diagrams, videos and all original quoted source blocks. Run
 checks appropriate to actual changes; no fresh Lean build or video render is
 needed simply to maintain this register.

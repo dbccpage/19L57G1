@@ -10,7 +10,8 @@ background. Use concrete examples, explicit assumptions and clear boundaries
 between model results and observations about reality.
 
 **Review consolidation is now recorded in [the remaining-issues register](TEXTBOOK_REMAINING_ISSUES.md).
-Next task: RES-01, research-placement decisions. Do not start another small
+Research placement is now recorded there too. Next task: PATH-01, the core-route reading.
+Do not start another small
 chapter-polishing cycle or another laboratory.**
 Reuse work already checked. Fix substantive errors and prerequisite gaps first;
 batch ordinary grammar corrections with those fixes. Do not spend effort
@@ -83,7 +84,7 @@ or receive justified omissions.
 | H0 | DONE | — | Preserve this handoff and published state | Document is available from the working branch; pins and receipt scope are explicit |
 | R1 | DONE, selected-review scope | H0 | [Remaining-issues register](TEXTBOOK_REMAINING_ISSUES.md), covering all 93 Units with reusable review evidence and a prioritized gap list | No whole-book semantic certification is implied; use the register's explicit next actions |
 | R2 | TODO | R1 | Repair the identified wrong claims, broken examples and prerequisite jumps; include ordinary grammar corrections in those batches | Each issue has a source-grounded resolution and appropriate example/proof/check; no unresolved blocker is hidden by prose |
-| R3 | TODO | R1 | Research-placement decisions using the existing 123-tree inventory | Each tree has a teaching disposition and reason: core, elective introduction, reference, open question, or justified omission; no scope inflation into teaching every tree |
+| R3 | DONE, editorial scope | R1 | [123-tree placement](textbook/audit/RESEARCH_PLACEMENT_2026-11-01.md), with source identities and a bounded two-introduction gap list | Existing 18 introductions retained; 88 references, eight open-question roles and seven standalone omissions; EXT-01/EXT-02 remain to be written |
 | R4 | TODO | R2, R3 | End-to-end reading of the chosen core route and its changed-example practice | Required terms are explained before use; examples and answers agree; optional branches stay optional; model/observation boundaries remain explicit |
 | P1 | TODO | R4 | Final source/Wiki publication verification and concise release status | Changed pages/assets are published from verified sources; links, source pins and relevant layouts work; remaining mathematical questions are labelled open |
 | M1 | AUTHOR CONTROLLED | Separate merge decision | Full local merge contract, then author review/merge | Twelve gate families actually run locally before asking for merge; no absent hosted check is treated as a defect |
@@ -164,8 +165,8 @@ tools. Do not install or rebuild a toolchain without an actual need.
 ## Suggested resumption prompt
 
 > Read TEXTBOOK_HANDOFF.md and the repository contract. Verify the current branch,
-> PR and Wiki heads. Read TEXTBOOK_REMAINING_ISSUES.md and continue RES-01:
-> classify research placement and identify genuinely missing core explanations.
+> PR and Wiki heads. Read TEXTBOOK_REMAINING_ISSUES.md and continue PATH-01:
+> follow the selected core route end to end, then address EXT-01 and EXT-02.
 > Reuse completed work; focus on substantive errors and prerequisites. Do not start
 > another polishing cycle, new laboratory or expensive unchanged-content test run.
 > Keep the original beginner-textbook goal intact, publish authorized corrections,
