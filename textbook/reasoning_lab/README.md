@@ -255,6 +255,26 @@ conditional Lean theorems and real observations. Return to the
 
 </details>
 
+<details><summary>Later application: bounded memory and permission (65–67)</summary>
+
+Use the Change lab and Reasoning 56 and 59–61 first. One-candidate examples
+need no fractional scores. This selected X303 route supplies its envelope
+and authorization policy; its records are not physical observations.
+
+| Lesson | One question |
+|---|---|
+| [65. Memory has a horizon](65_memory_has_a_horizon.md) | Does evicting a record undo its event? |
+| [66. Project before permission](66_project_before_permission.md) | Can an affordable proposal still fail an envelope or license check? |
+| [67. Read a refusal](67_read_a_refusal.md) | Which state and records remain when an attempt is refused? |
+
+Try the ten [changed questions](AGENCY_PRACTICE.md) before the
+[separate answers](AGENCY_ANSWERS.md). Optional
+[source details](AGENCY_SOURCES.md) state the action/key assumptions and
+the separate Lean model's scope. Return to the
+[reading path](../learning_path.md) afterward.
+
+</details>
+
 The [source map](SOURCE_MAP.md) separates teaching logic from native
 models; [DEVELOPMENT.md](DEVELOPMENT.md) explains reproduction.
 

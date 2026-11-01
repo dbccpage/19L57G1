@@ -261,3 +261,15 @@ The second assembles unchanged X302 source for eighteen exact native reports:
 seventeen empty and one exactly `propext`. These checks are discovered by
 the canonical textbook job without changing its family definitions.
 No new browser application, video or research receipt is generated.
+
+## Bounded memory and permission continuation
+
+Run `python textbook/checks/u00_agency.py`,
+`python textbook/checks/u00_agency_lean.py` and
+`python -m unittest textbook.reasoning_lab.test_agency`. An isolated worker
+checks 36 FIFO cases and 2,304 one-step controller cases (672 successes,
+1,632 refusals), plus named lifecycle, license and contract-boundary controls.
+The unchanged separate Lean body supplies sixteen exact reports, each
+`propext, Quot.sound`. Twenty-three normalized source pins preserve the
+selected source identity. Both wrappers are discovered by the canonical
+textbook job. No new browser desk, video or native research receipt is needed.

@@ -37,7 +37,7 @@ def build_reasoning_lab(repo, wiki, commit):
         text = (source / name).read_text(encoding="utf-8")
         for filename, target in page_map(source).items():
             text = text.replace(f"]({filename})", f"]({target})")
-        for folder in ("first_steps", "search_lab", "number_lab", "map_lab"):
+        for folder in ("first_steps", "search_lab", "number_lab", "map_lab", "change_lab"):
             text = text.replace(f"](../{folder}/README.md)", f"](textbook_{folder})")
             for sibling in (repo/'textbook'/folder).glob('*.md'):
                 if sibling.name!='README.md':

@@ -10,10 +10,8 @@
     "open_question": 8,
     "justified_omission": 7
   },
-  "existing_selected_introductions": 19,
-  "planned_bounded_introductions": [
-    "EXT-02"
-  ],
+  "existing_selected_introductions": 20,
+  "planned_bounded_introductions": [],
   "trees": [
     {
       "tree": "boundary_seed",
@@ -1107,13 +1105,13 @@
     {
       "tree": "x303_bounded_agency",
       "disposition": "elective_introduction",
-      "treatment_state": "planned_bounded",
-      "reason": "Add one elective worked example of a finite memory horizon, refusal and licensed action; keep recorded empirical-reference flags separate from tested correspondence.",
-      "existing_treatment": "Not yet established",
+      "treatment_state": "existing_selected",
+      "reason": "Retain the selected memory/refusal/licensed-application introduction; keep cached-key assumptions, pure actions, metadata and the separate Lean carrier explicit.",
+      "existing_treatment": "[Reasoning 65–67: bounded memory and permission](../reasoning_lab/65_memory_has_a_horizon.md)",
       "source_entry": "research/x303_bounded_agency/CLAIMS.md",
       "source_blob": "66546d0ca07b17bca3b5260a35a2d39aa6e588eb",
       "source_checkout_sha256": "199b2e8ce6c2eb61e306da50e0accab6c12d2b2f95c290dd3242c9e6c4683cb1",
-      "planned_gap": "EXT-02"
+      "planned_gap": null
     },
     {
       "tree": "x310_vertical_integration",

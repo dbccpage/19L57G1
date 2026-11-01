@@ -3,7 +3,7 @@
 AuthorityEffect: None. Audit snapshot: 2026-10-28, main `e0faff5a55823181a8bd84fa30800e558e9432c0`.
 
 Population: all 123 trees returned by `ci.research_index.group_trees(tracked_research_files(root))`.
-Teaching additions below include the selected X301 and X302 routes of 2026-11-01;
+Teaching additions below include the selected X301, X302 and X303 routes of 2026-11-01;
 the source-tree inventory snapshot remains the one named above.
 Dedicated teaching now includes the four institutions trees, the Growth
 lab's introductory treatment of `standing_commitment`, and the Boundary
@@ -15,8 +15,9 @@ selected `native_bridge` continuation and the Path lab's selected
 P200 recording-protocol continuation, selected P201/P202 calibration/clock
 lessons, the selected P203 composite-system route, and the selected P204
 valuation route, plus the selected X300 channel/process lessons and X301
-interpretation/report lessons and X302 support/withdrawal lessons.
-Nineteen trees now have selected dedicated introductions. The other 104
+interpretation/report lessons, X302 support/withdrawal lessons and X303
+bounded-memory/permission lessons.
+Twenty trees now have selected dedicated introductions. The other 103
 have no dedicated research curriculum established by this audit. The
 Growth lab's comparison with `two_sided_commitment` is a scoped reference,
 not a complete treatment of that tree. The Boundary lab is also a selected
@@ -29,7 +30,7 @@ Group assignments below are proposed curriculum organization; they assert no mat
 
 The [editorial placement decision](RESEARCH_PLACEMENT_2026-11-01.md) now assigns
 a role and reason to every tree. This table still records actual dedicated
-treatment: X302 now has a selected introduction; the planned X303 elective is unwritten,
+treatment: X302 and X303 now have selected introductions,
 and a reference or omission decision is not new teaching coverage.
 
 | Proposed teaching group | Tree | Current dedicated treatment | Source entry |
@@ -133,7 +134,7 @@ and a reference or omission decision is not new teaching coverage.
 | Operational physics, information, semantics, and agency | `x300_observer_information` | [selected process route](../reasoning_lab/45_each_input_gets_a_row.md) | [research/x300_observer_information/CLAIMS.md](../../research/x300_observer_information/CLAIMS.md) |
 | Operational physics, information, semantics, and agency | `x301_formal_semantics` | [Reasoning 56–61: selected interpretation/report introduction](../reasoning_lab/56_a_claim_needs_an_interpretation.md) | [research/x301_formal_semantics/CLAIMS.md](../../research/x301_formal_semantics/CLAIMS.md) |
 | Operational physics, information, semantics, and agency | `x302_operational_reasoning` | [Reasoning 62–64: selected support/withdrawal introduction](../reasoning_lab/62_keep_the_support.md) | [research/x302_operational_reasoning/CLAIMS.md](../../research/x302_operational_reasoning/CLAIMS.md) |
-| Operational physics, information, semantics, and agency | `x303_bounded_agency` | Not yet established | [research/x303_bounded_agency/CLAIMS.md](../../research/x303_bounded_agency/CLAIMS.md) |
+| Operational physics, information, semantics, and agency | `x303_bounded_agency` | [Reasoning 65–67: selected memory/permission introduction](../reasoning_lab/65_memory_has_a_horizon.md) | [research/x303_bounded_agency/CLAIMS.md](../../research/x303_bounded_agency/CLAIMS.md) |
 | Operational physics, information, semantics, and agency | `x310_vertical_integration` | Not yet established | [research/x310_vertical_integration/CLAIMS.md](../../research/x310_vertical_integration/CLAIMS.md) |
 | Second derivation and its rungs | `second` | Not yet established | [research/second/claim_ledger.md](../../research/second/claim_ledger.md) |
 | Second derivation and its rungs | `second_class` | Not yet established | [research/second_class/STATUS.md](../../research/second_class/STATUS.md) |

@@ -10,8 +10,8 @@ background. Use concrete examples, explicit assumptions and clear boundaries
 between model results and observations about reality.
 
 **Review consolidation is now recorded in [the remaining-issues register](TEXTBOOK_REMAINING_ISSUES.md).
-Research placement and the core-route reading are recorded there too. EXT-01 is now delivered. Next task: EXT-02,
-the bounded-memory/refusal/licensed-action elective.
+Research placement and the core-route reading are recorded there too. EXT-01 and EXT-02 are now delivered. Next task: PUB-01,
+the final course/source and publication verification.
 Do not start another small
 chapter-polishing cycle or another laboratory.**
 Reuse work already checked. Fix substantive errors and prerequisite gaps first;
@@ -71,11 +71,11 @@ semantic coverage of every source declaration or measured novice learning.
 | New repair proofs | Multi-request example proves target-only repair can be invalid; general zero-new-instance and zero-new-form-arity results support cost floors | `textbook/checks/u17_lean.py`, `u19_lean.py`, `u22_lean.py`; no sealed source changed |
 | Videos | Twelve corrected Manim MP4/GIF pairs published; wrapping, reserved regions and transition cleanup address overlap; 90 settled states and sampled frames reviewed | [Video review](textbook/media/REVIEW_2026-10-28.md); not a claim about every interpolation frame |
 | Wiki | Complete lesson before optional video; all 93 Unit bodies tied to their own source pins; original 601 quoted code blocks preserved; selected desktop/phone navigation checked | `textbook/media/build_wiki_textbook.py`, `unit_page_custody.py`; latest receipts below |
-| Research placement | All 123 trees classified: 20 electives (19 existing, one planned), 88 references, eight open-question roles and seven standalone omissions | [Placement decisions](textbook/audit/RESEARCH_PLACEMENT_2026-11-01.md), companion JSON |
+| Research placement | All 123 trees classified: 20 existing selected electives, 88 references, eight open-question roles and seven standalone omissions | [Placement decisions](textbook/audit/RESEARCH_PLACEMENT_2026-11-01.md), companion JSON |
 | Completion audit | Existing content, remaining requirements and an ordered closure plan are now public | [Completion status](textbook/completion_status.md) |
 
-Nineteen introductions are not nineteen fully taught research trees. The other
-104 trees are **not automatically 104 missing chapters**: tooling, historical
+Twenty introductions are not twenty fully taught research trees. The other
+103 trees are **not automatically 103 missing chapters**: tooling, historical
 experiments, duplicate developments and open questions may belong in references
 or receive justified omissions.
 
@@ -87,6 +87,10 @@ The [X302 continuation review](textbook/audit/REVISION_READING_REVIEW_2026-11-01
 records three new short lessons and ten changed questions, with finite native
 controls and eighteen fresh Lean reports. It is a selected introduction.
 
+The [X303 continuation review](textbook/audit/AGENCY_READING_REVIEW_2026-11-01.md)
+records three short lessons and changed practice, with 2,304 controller cases,
+36 memory cases and sixteen fresh separate-model Lean reports.
+
 ## Remaining work, with dependencies and stopping conditions
 
 | ID | Status | Depends on | Concrete next deliverable | Finished when |
@@ -94,9 +98,9 @@ controls and eighteen fresh Lean reports. It is a selected introduction.
 | H0 | DONE | — | Preserve this handoff and published state | Document is available from the working branch; pins and receipt scope are explicit |
 | R1 | DONE, selected-review scope | H0 | [Remaining-issues register](TEXTBOOK_REMAINING_ISSUES.md), covering all 93 Units with reusable review evidence and a prioritized gap list | No whole-book semantic certification is implied; use the register's explicit next actions |
 | R2 | DONE for identified route defects | R1 | Repair the identified wrong claims, broken examples and prerequisite jumps; include ordinary grammar corrections in those batches | Each issue has a source-grounded resolution and appropriate example/proof/check; no unresolved blocker is hidden by prose |
-| R3 | DONE, editorial scope | R1 | [123-tree placement](textbook/audit/RESEARCH_PLACEMENT_2026-11-01.md), with source identities and a bounded two-introduction gap list | Nineteen selected introductions, 88 references, eight open-question roles and seven standalone omissions; EXT-02 remains to be written |
+| R3 | DONE, editorial scope | R1 | [123-tree placement](textbook/audit/RESEARCH_PLACEMENT_2026-11-01.md), with source identities and a bounded two-introduction gap list | Twenty selected introductions, 88 references, eight open-question roles and seven standalone omissions; neither bounded addition remains unwritten |
 | R4 | DONE, selected core-route scope | R2, R3 | [Core-route reading](textbook/audit/CORE_ROUTE_READING_REVIEW_2026-11-01.md): 29 lessons, 45 tasks and formal entrance | Required terms are explained before use; examples and answers agree; optional branches stay optional; model/observation boundaries remain explicit |
-| P1 | TODO | R4, EXT-02 | Final source/Wiki publication verification and concise release status | Changed pages/assets are published from verified sources; links, source pins and relevant layouts work; remaining mathematical questions are labelled open |
+| P1 | READY | R4, EXT-01, EXT-02 | Final source/Wiki publication verification and concise release status | Changed pages/assets are published from verified sources; links, source pins and relevant layouts work; remaining mathematical questions are labelled open |
 | M1 | AUTHOR CONTROLLED | Separate merge decision | Full local merge contract, then author review/merge | Twelve gate families actually run locally before asking for merge; no absent hosted check is treated as a defect |
 
 R2 and R3 can be organized independently after R1; they do not require new
@@ -212,8 +216,8 @@ tools. Do not install or rebuild a toolchain without an actual need.
 ## Suggested resumption prompt
 
 > Read TEXTBOOK_HANDOFF.md and the repository contract. Verify the current branch,
-> PR and Wiki heads. Read TEXTBOOK_REMAINING_ISSUES.md and continue EXT-02.
-> EXT-01, PATH-01 and their checks are already recorded.
+> PR and Wiki heads. Read TEXTBOOK_REMAINING_ISSUES.md and continue PUB-01.
+> EXT-01, EXT-02, PATH-01 and their checks are already recorded.
 > Reuse completed work; focus on substantive errors and prerequisites. Do not start
 > another polishing cycle, new laboratory or expensive unchanged-content test run.
 > Keep the original beginner-textbook goal intact, publish authorized corrections,

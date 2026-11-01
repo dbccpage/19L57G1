@@ -6,11 +6,16 @@ reading of `lean4/Derivation/` as it stands, checked against the artifact,
 the paper and the ledger, and reproducible from the files named.
 
 The [123-tree placement decision](RESEARCH_PLACEMENT_2026-11-01.md) distinguishes
-nineteen selected introductions, one bounded planned elective,
+twenty selected introductions,
 advanced references, open-question roles and standalone omissions. It is an
 editorial decision, not a new research-validation receipt. The current
 [remaining-issues register](../../TEXTBOOK_REMAINING_ISSUES.md) identifies the
-next work: the remaining X303 addition.
+next work: final course/source and publication verification.
+
+The [bounded-memory/permission review](AGENCY_READING_REVIEW_2026-11-01.md)
+records Reasoning 65–67, changed practice, 2,304 controller cases, 36 memory
+cases and sixteen fresh reports from the separate Lean toy. It retains the
+computed-key, pure-action and empirical-metadata boundaries.
 
 The [support/withdrawal review](REVISION_READING_REVIEW_2026-11-01.md) records
 Reasoning 62–64, changed lamp practice, 3,456 finite notebooks and eighteen
