@@ -1,0 +1,919 @@
+{
+  "authority_effect": "None",
+  "date": "2026-11-01",
+  "source_snapshot": "1c9ad34b834671d0d71a26c7d3ce539d29fa551a",
+  "scope": {
+    "sealed_file": "lean4/Derivation/PresentationNaturality.lean",
+    "sealed_head_start_line_ranges": [
+      [
+        222,
+        290
+      ],
+      [
+        497,
+        550
+      ]
+    ],
+    "research_file": "research/natural_sections/lean/NaturalSections.lean",
+    "research_file_complete_source_head_scan": true,
+    "source_heads": 53,
+    "sealed_heads": 12,
+    "research_heads": 41,
+    "compiled_reconciliation_rerun": false,
+    "full_tree_semantic_coverage": false
+  },
+  "source_pins": {
+    "lean4/Derivation/PresentationNaturality.lean": {
+      "git_blob": "ef4d76c7a07d38966150923691d1a0bba65bde68",
+      "raw_sha256": "f014274ca0af29e6dee6b0b2ad8d7ba749bc0ec04190f8353c58906eda50d8ea"
+    },
+    "research/natural_sections/lean/NaturalSections.lean": {
+      "git_blob": "21401be9eb5c18d3f98788cfcf30283f4620afe9",
+      "raw_sha256": "593ad3ee7f548284c844e96833bb94b82a8fb41b00848943552dc98d6fac34be"
+    }
+  },
+  "disposition_counts": {
+    "reuse": 13,
+    "expand_existing": 5,
+    "auxiliary_reference": 22,
+    "add_example": 13
+  },
+  "rows": [
+    {
+      "source": "lean4/Derivation/PresentationNaturality.lean",
+      "line": 222,
+      "kind": "structure",
+      "name": "PresentationNaturality.Family",
+      "disposition": "reuse",
+      "role": "Declared comparisons, one ordered pair at each object, and the one-object fixed-pair obstruction.",
+      "gap_ids": [],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#new-concept",
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#plain-language-interpretation"
+      ]
+    },
+    {
+      "source": "lean4/Derivation/PresentationNaturality.lean",
+      "line": 232,
+      "kind": "def",
+      "name": "PresentationNaturality.Sec",
+      "disposition": "reuse",
+      "role": "Declared comparisons, one ordered pair at each object, and the one-object fixed-pair obstruction.",
+      "gap_ids": [],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#new-concept",
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#plain-language-interpretation"
+      ]
+    },
+    {
+      "source": "lean4/Derivation/PresentationNaturality.lean",
+      "line": 236,
+      "kind": "def",
+      "name": "PresentationNaturality.IsNatural",
+      "disposition": "reuse",
+      "role": "Declared comparisons, one ordered pair at each object, and the one-object fixed-pair obstruction.",
+      "gap_ids": [],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#new-concept",
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#plain-language-interpretation"
+      ]
+    },
+    {
+      "source": "lean4/Derivation/PresentationNaturality.lean",
+      "line": 242,
+      "kind": "def",
+      "name": "PresentationNaturality.autoFamily",
+      "disposition": "reuse",
+      "role": "Declared comparisons, one ordered pair at each object, and the one-object fixed-pair obstruction.",
+      "gap_ids": [],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#new-concept",
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#plain-language-interpretation"
+      ]
+    },
+    {
+      "source": "lean4/Derivation/PresentationNaturality.lean",
+      "line": 272,
+      "kind": "theorem",
+      "name": "PresentationNaturality.no_natural_section_of_fixed_point_free",
+      "disposition": "reuse",
+      "role": "Declared comparisons, one ordered pair at each object, and the one-object fixed-pair obstruction.",
+      "gap_ids": [],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#new-concept",
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#plain-language-interpretation"
+      ]
+    },
+    {
+      "source": "lean4/Derivation/PresentationNaturality.lean",
+      "line": 282,
+      "kind": "theorem",
+      "name": "PresentationNaturality.fixed_pair_of_natural_section",
+      "disposition": "reuse",
+      "role": "Declared comparisons, one ordered pair at each object, and the one-object fixed-pair obstruction.",
+      "gap_ids": [],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#new-concept",
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#plain-language-interpretation"
+      ]
+    },
+    {
+      "source": "lean4/Derivation/PresentationNaturality.lean",
+      "line": 497,
+      "kind": "structure",
+      "name": "PresentationNaturality.HFamily",
+      "disposition": "expand_existing",
+      "role": "Variable carriers and arrow-by-arrow agreement are defined; add an example with connecting arrows.",
+      "gap_ids": [
+        "DC-02",
+        "DC-05"
+      ],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#new-concept",
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#what-has-not-been-proved"
+      ]
+    },
+    {
+      "source": "lean4/Derivation/PresentationNaturality.lean",
+      "line": 505,
+      "kind": "def",
+      "name": "PresentationNaturality.HSec",
+      "disposition": "expand_existing",
+      "role": "Variable carriers and arrow-by-arrow agreement are defined; add an example with connecting arrows.",
+      "gap_ids": [
+        "DC-02",
+        "DC-05"
+      ],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#new-concept",
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#what-has-not-been-proved"
+      ]
+    },
+    {
+      "source": "lean4/Derivation/PresentationNaturality.lean",
+      "line": 507,
+      "kind": "def",
+      "name": "PresentationNaturality.HIsNatural",
+      "disposition": "expand_existing",
+      "role": "Variable carriers and arrow-by-arrow agreement are defined; add an example with connecting arrows.",
+      "gap_ids": [
+        "DC-02",
+        "DC-05"
+      ],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#new-concept",
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#what-has-not-been-proved"
+      ]
+    },
+    {
+      "source": "lean4/Derivation/PresentationNaturality.lean",
+      "line": 517,
+      "kind": "theorem",
+      "name": "PresentationNaturality.no_natural_section_of_endo",
+      "disposition": "expand_existing",
+      "role": "Variable carriers and arrow-by-arrow agreement are defined; add an example with connecting arrows.",
+      "gap_ids": [
+        "DC-02",
+        "DC-05"
+      ],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#new-concept",
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#what-has-not-been-proved"
+      ]
+    },
+    {
+      "source": "lean4/Derivation/PresentationNaturality.lean",
+      "line": 525,
+      "kind": "def",
+      "name": "PresentationNaturality.hAutoFamily",
+      "disposition": "reuse",
+      "role": "One-object interface bridge, not a general flat-to-indexed embedding.",
+      "gap_ids": [],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#new-concept",
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#what-has-not-been-proved"
+      ]
+    },
+    {
+      "source": "lean4/Derivation/PresentationNaturality.lean",
+      "line": 538,
+      "kind": "theorem",
+      "name": "PresentationNaturality.hAuto_iff_auto",
+      "disposition": "reuse",
+      "role": "One-object interface bridge, not a general flat-to-indexed embedding.",
+      "gap_ids": [],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#new-concept",
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#what-has-not-been-proved"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 43,
+      "kind": "theorem",
+      "name": "NaturalSections.natural_section_of_fixed_pair",
+      "disposition": "reuse",
+      "role": "The book already proves the one-object equivalence; retain the separate research provenance.",
+      "gap_ids": [],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#plain-language-interpretation",
+        "textbook/checks/u70_lean.py"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 52,
+      "kind": "theorem",
+      "name": "NaturalSections.natural_section_iff_fixed_pair",
+      "disposition": "reuse",
+      "role": "The book already proves the one-object equivalence; retain the separate research provenance.",
+      "gap_ids": [],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#plain-language-interpretation",
+        "textbook/checks/u70_lean.py"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 60,
+      "kind": "theorem",
+      "name": "NaturalSections.hnatural_section_iff_fixed_pair",
+      "disposition": "reuse",
+      "role": "The book already proves the one-object equivalence; retain the separate research provenance.",
+      "gap_ids": [],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#plain-language-interpretation",
+        "textbook/checks/u70_lean.py"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 68,
+      "kind": "theorem",
+      "name": "NaturalSections.fixed_pair_iff_two_fixed_points",
+      "disposition": "expand_existing",
+      "role": "Both endpoints must be fixed and distinguished: existing technical explanation needs a concrete checklist.",
+      "gap_ids": [
+        "DC-01"
+      ],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#student-exercise",
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#python"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 88,
+      "kind": "def",
+      "name": "NaturalSections.cyc",
+      "disposition": "auxiliary_reference",
+      "role": "Construction/inverse or exclusion proof supporting the one-fixed-point and blind-observer examples; no separate lesson for each helper.",
+      "gap_ids": [
+        "DC-01"
+      ],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#python"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 94,
+      "kind": "def",
+      "name": "NaturalSections.cycInv",
+      "disposition": "auxiliary_reference",
+      "role": "Construction/inverse or exclusion proof supporting the one-fixed-point and blind-observer examples; no separate lesson for each helper.",
+      "gap_ids": [
+        "DC-01"
+      ],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#python"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 100,
+      "kind": "theorem",
+      "name": "NaturalSections.cyc_cycInv",
+      "disposition": "auxiliary_reference",
+      "role": "Construction/inverse or exclusion proof supporting the one-fixed-point and blind-observer examples; no separate lesson for each helper.",
+      "gap_ids": [
+        "DC-01"
+      ],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#python"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 103,
+      "kind": "theorem",
+      "name": "NaturalSections.cycInv_cyc",
+      "disposition": "auxiliary_reference",
+      "role": "Construction/inverse or exclusion proof supporting the one-fixed-point and blind-observer examples; no separate lesson for each helper.",
+      "gap_ids": [
+        "DC-01"
+      ],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#python"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 106,
+      "kind": "def",
+      "name": "NaturalSections.cycBij",
+      "disposition": "auxiliary_reference",
+      "role": "Construction/inverse or exclusion proof supporting the one-fixed-point and blind-observer examples; no separate lesson for each helper.",
+      "gap_ids": [
+        "DC-01"
+      ],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#python"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 112,
+      "kind": "def",
+      "name": "NaturalSections.cycPairBij",
+      "disposition": "auxiliary_reference",
+      "role": "Construction/inverse or exclusion proof supporting the one-fixed-point and blind-observer examples; no separate lesson for each helper.",
+      "gap_ids": [
+        "DC-01"
+      ],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#python"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 123,
+      "kind": "def",
+      "name": "NaturalSections.cycIso",
+      "disposition": "auxiliary_reference",
+      "role": "Construction/inverse or exclusion proof supporting the one-fixed-point and blind-observer examples; no separate lesson for each helper.",
+      "gap_ids": [
+        "DC-01"
+      ],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#python"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 133,
+      "kind": "theorem",
+      "name": "NaturalSections.cyc_fixes_e1",
+      "disposition": "auxiliary_reference",
+      "role": "Construction/inverse or exclusion proof supporting the one-fixed-point and blind-observer examples; no separate lesson for each helper.",
+      "gap_ids": [
+        "DC-01"
+      ],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#python"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 135,
+      "kind": "theorem",
+      "name": "NaturalSections.cyc_fixes_only_e1",
+      "disposition": "auxiliary_reference",
+      "role": "Construction/inverse or exclusion proof supporting the one-fixed-point and blind-observer examples; no separate lesson for each helper.",
+      "gap_ids": [
+        "DC-01"
+      ],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#python"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 140,
+      "kind": "theorem",
+      "name": "NaturalSections.cycIso_fixed_pair_free",
+      "disposition": "auxiliary_reference",
+      "role": "Construction/inverse or exclusion proof supporting the one-fixed-point and blind-observer examples; no separate lesson for each helper.",
+      "gap_ids": [
+        "DC-01"
+      ],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#python"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 151,
+      "kind": "theorem",
+      "name": "NaturalSections.fixed_point_without_natural_section",
+      "disposition": "add_example",
+      "role": "Place the one-fixed-point and blind-observer cases beside the existing positive example.",
+      "gap_ids": [
+        "DC-01"
+      ],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#first-pass",
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#student-exercise"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 160,
+      "kind": "def",
+      "name": "NaturalSections.blindObs",
+      "disposition": "add_example",
+      "role": "Place the one-fixed-point and blind-observer cases beside the existing positive example.",
+      "gap_ids": [
+        "DC-01"
+      ],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#first-pass",
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#student-exercise"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 162,
+      "kind": "theorem",
+      "name": "NaturalSections.blindObs_no_admissible_pair",
+      "disposition": "auxiliary_reference",
+      "role": "Construction/inverse or exclusion proof supporting the one-fixed-point and blind-observer examples; no separate lesson for each helper.",
+      "gap_ids": [
+        "DC-01"
+      ],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#python"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 168,
+      "kind": "theorem",
+      "name": "NaturalSections.identity_fixes_everything_no_section",
+      "disposition": "add_example",
+      "role": "Place the one-fixed-point and blind-observer cases beside the existing positive example.",
+      "gap_ids": [
+        "DC-01"
+      ],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#first-pass",
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#student-exercise"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 186,
+      "kind": "inductive",
+      "name": "NaturalSections.Step",
+      "disposition": "add_example",
+      "role": "Follow the chosen pair along an explicitly supplied sequence of forward/backward comparisons.",
+      "gap_ids": [
+        "DC-02",
+        "DC-04"
+      ],
+      "teaching_evidence": [
+        "textbook/path_lab/01_follow_a_walk.md",
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#new-concept",
+        "textbook/units/72_round_trip_coherence_quotient_retention_and_the_fidelity_closure.md#student-exercise"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 191,
+      "kind": "inductive",
+      "name": "NaturalSections.Walk",
+      "disposition": "add_example",
+      "role": "Follow the chosen pair along an explicitly supplied sequence of forward/backward comparisons.",
+      "gap_ids": [
+        "DC-02",
+        "DC-04"
+      ],
+      "teaching_evidence": [
+        "textbook/path_lab/01_follow_a_walk.md",
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#new-concept",
+        "textbook/units/72_round_trip_coherence_quotient_retention_and_the_fidelity_closure.md#student-exercise"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 197,
+      "kind": "def",
+      "name": "NaturalSections.Step.transport",
+      "disposition": "add_example",
+      "role": "Follow the chosen pair along an explicitly supplied sequence of forward/backward comparisons.",
+      "gap_ids": [
+        "DC-02",
+        "DC-04"
+      ],
+      "teaching_evidence": [
+        "textbook/path_lab/01_follow_a_walk.md",
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#new-concept",
+        "textbook/units/72_round_trip_coherence_quotient_retention_and_the_fidelity_closure.md#student-exercise"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 202,
+      "kind": "def",
+      "name": "NaturalSections.Step.inv",
+      "disposition": "auxiliary_reference",
+      "role": "Inverse, concatenation and cancellation laws justify the walk construction; show the role, retain proofs in the source guide.",
+      "gap_ids": [
+        "DC-04"
+      ],
+      "teaching_evidence": [
+        "textbook/path_lab/01_follow_a_walk.md"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 206,
+      "kind": "theorem",
+      "name": "NaturalSections.Step.inv_transport",
+      "disposition": "auxiliary_reference",
+      "role": "Inverse, concatenation and cancellation laws justify the walk construction; show the role, retain proofs in the source guide.",
+      "gap_ids": [
+        "DC-04"
+      ],
+      "teaching_evidence": [
+        "textbook/path_lab/01_follow_a_walk.md"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 212,
+      "kind": "theorem",
+      "name": "NaturalSections.Step.transport_inv",
+      "disposition": "auxiliary_reference",
+      "role": "Inverse, concatenation and cancellation laws justify the walk construction; show the role, retain proofs in the source guide.",
+      "gap_ids": [
+        "DC-04"
+      ],
+      "teaching_evidence": [
+        "textbook/path_lab/01_follow_a_walk.md"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 218,
+      "kind": "def",
+      "name": "NaturalSections.Walk.transport",
+      "disposition": "add_example",
+      "role": "Follow the chosen pair along an explicitly supplied sequence of forward/backward comparisons.",
+      "gap_ids": [
+        "DC-02",
+        "DC-04"
+      ],
+      "teaching_evidence": [
+        "textbook/path_lab/01_follow_a_walk.md",
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#new-concept",
+        "textbook/units/72_round_trip_coherence_quotient_retention_and_the_fidelity_closure.md#student-exercise"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 223,
+      "kind": "def",
+      "name": "NaturalSections.Walk.append",
+      "disposition": "auxiliary_reference",
+      "role": "Inverse, concatenation and cancellation laws justify the walk construction; show the role, retain proofs in the source guide.",
+      "gap_ids": [
+        "DC-04"
+      ],
+      "teaching_evidence": [
+        "textbook/path_lab/01_follow_a_walk.md"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 228,
+      "kind": "def",
+      "name": "NaturalSections.Walk.reverse",
+      "disposition": "auxiliary_reference",
+      "role": "Inverse, concatenation and cancellation laws justify the walk construction; show the role, retain proofs in the source guide.",
+      "gap_ids": [
+        "DC-04"
+      ],
+      "teaching_evidence": [
+        "textbook/path_lab/01_follow_a_walk.md"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 232,
+      "kind": "theorem",
+      "name": "NaturalSections.Walk.transport_append",
+      "disposition": "auxiliary_reference",
+      "role": "Inverse, concatenation and cancellation laws justify the walk construction; show the role, retain proofs in the source guide.",
+      "gap_ids": [
+        "DC-04"
+      ],
+      "teaching_evidence": [
+        "textbook/path_lab/01_follow_a_walk.md"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 239,
+      "kind": "theorem",
+      "name": "NaturalSections.Walk.reverse_transport_transport",
+      "disposition": "auxiliary_reference",
+      "role": "Inverse, concatenation and cancellation laws justify the walk construction; show the role, retain proofs in the source guide.",
+      "gap_ids": [
+        "DC-04"
+      ],
+      "teaching_evidence": [
+        "textbook/path_lab/01_follow_a_walk.md"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 249,
+      "kind": "theorem",
+      "name": "NaturalSections.Walk.transport_reverse_transport",
+      "disposition": "auxiliary_reference",
+      "role": "Inverse, concatenation and cancellation laws justify the walk construction; show the role, retain proofs in the source guide.",
+      "gap_ids": [
+        "DC-04"
+      ],
+      "teaching_evidence": [
+        "textbook/path_lab/01_follow_a_walk.md"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 262,
+      "kind": "theorem",
+      "name": "NaturalSections.Step.transport_of_natural",
+      "disposition": "auxiliary_reference",
+      "role": "Inverse, concatenation and cancellation laws justify the walk construction; show the role, retain proofs in the source guide.",
+      "gap_ids": [
+        "DC-04"
+      ],
+      "teaching_evidence": [
+        "textbook/path_lab/01_follow_a_walk.md"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 274,
+      "kind": "theorem",
+      "name": "NaturalSections.Walk.transport_of_natural",
+      "disposition": "add_example",
+      "role": "Follow the chosen pair along an explicitly supplied sequence of forward/backward comparisons.",
+      "gap_ids": [
+        "DC-02",
+        "DC-04"
+      ],
+      "teaching_evidence": [
+        "textbook/path_lab/01_follow_a_walk.md",
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#new-concept",
+        "textbook/units/72_round_trip_coherence_quotient_retention_and_the_fidelity_closure.md#student-exercise"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 290,
+      "kind": "structure",
+      "name": "NaturalSections.Forest",
+      "disposition": "add_example",
+      "role": "Supply base choices and routes, propagate one common candidate and check all generators; state the extra shared-base hypothesis of the loop form.",
+      "gap_ids": [
+        "DC-03",
+        "DC-04",
+        "DC-05"
+      ],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#what-has-not-been-proved",
+        "textbook/units/72_round_trip_coherence_quotient_retention_and_the_fidelity_closure.md#what-has-not-been-proved"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 296,
+      "kind": "def",
+      "name": "NaturalSections.Forest.gen",
+      "disposition": "add_example",
+      "role": "Supply base choices and routes, propagate one common candidate and check all generators; state the extra shared-base hypothesis of the loop form.",
+      "gap_ids": [
+        "DC-03",
+        "DC-04",
+        "DC-05"
+      ],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#what-has-not-been-proved",
+        "textbook/units/72_round_trip_coherence_quotient_retention_and_the_fidelity_closure.md#what-has-not-been-proved"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 302,
+      "kind": "def",
+      "name": "NaturalSections.Forest.spread",
+      "disposition": "add_example",
+      "role": "Supply base choices and routes, propagate one common candidate and check all generators; state the extra shared-base hypothesis of the loop form.",
+      "gap_ids": [
+        "DC-03",
+        "DC-04",
+        "DC-05"
+      ],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#what-has-not-been-proved",
+        "textbook/units/72_round_trip_coherence_quotient_retention_and_the_fidelity_closure.md#what-has-not-been-proved"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 305,
+      "kind": "theorem",
+      "name": "NaturalSections.Forest.gen_transport",
+      "disposition": "auxiliary_reference",
+      "role": "Proof rewrites supporting generator/closed-loop equivalence, not additional beginner concepts.",
+      "gap_ids": [
+        "DC-04"
+      ],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#new-concept"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 318,
+      "kind": "theorem",
+      "name": "NaturalSections.natural_section_iff_generators",
+      "disposition": "add_example",
+      "role": "Supply base choices and routes, propagate one common candidate and check all generators; state the extra shared-base hypothesis of the loop form.",
+      "gap_ids": [
+        "DC-03",
+        "DC-04",
+        "DC-05"
+      ],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#what-has-not-been-proved",
+        "textbook/units/72_round_trip_coherence_quotient_retention_and_the_fidelity_closure.md#what-has-not-been-proved"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 334,
+      "kind": "theorem",
+      "name": "NaturalSections.walk_maps_of_closed_fixed",
+      "disposition": "auxiliary_reference",
+      "role": "Proof rewrites supporting generator/closed-loop equivalence, not additional beginner concepts.",
+      "gap_ids": [
+        "DC-04"
+      ],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#new-concept"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 345,
+      "kind": "theorem",
+      "name": "NaturalSections.natural_section_iff_holonomy",
+      "disposition": "add_example",
+      "role": "Supply base choices and routes, propagate one common candidate and check all generators; state the extra shared-base hypothesis of the loop form.",
+      "gap_ids": [
+        "DC-03",
+        "DC-04",
+        "DC-05"
+      ],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#what-has-not-been-proved",
+        "textbook/units/72_round_trip_coherence_quotient_retention_and_the_fidelity_closure.md#what-has-not-been-proved"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 358,
+      "kind": "def",
+      "name": "NaturalSections.trivialForest",
+      "disposition": "reuse",
+      "role": "Specializes the research criterion to the already taught one-object case; source consistency check, not a new chapter.",
+      "gap_ids": [],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#plain-language-interpretation"
+      ]
+    },
+    {
+      "source": "research/natural_sections/lean/NaturalSections.lean",
+      "line": 365,
+      "kind": "theorem",
+      "name": "NaturalSections.one_object_recovered",
+      "disposition": "reuse",
+      "role": "Specializes the research criterion to the already taught one-object case; source consistency check, not a new chapter.",
+      "gap_ids": [],
+      "teaching_evidence": [
+        "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md#plain-language-interpretation"
+      ]
+    }
+  ],
+  "next_batches": [
+    {
+      "id": "B01",
+      "status": "done",
+      "estimate_minutes": 60,
+      "depends_on": [],
+      "gap_ids": [
+        "DC-01",
+        "DC-02",
+        "DC-03",
+        "DC-04",
+        "DC-05"
+      ],
+      "deliverable": "Bounded source/teaching crosswalk and follow-up plan"
+    },
+    {
+      "id": "B02",
+      "status": "pending",
+      "estimate_minutes": [
+        45,
+        60
+      ],
+      "depends_on": [
+        "B01"
+      ],
+      "gap_ids": [
+        "DC-01",
+        "DC-05"
+      ],
+      "deliverable": "Fixed-point checklist, changed practice and scoped research handoff"
+    },
+    {
+      "id": "B03",
+      "status": "pending",
+      "estimate_minutes": [
+        45,
+        60
+      ],
+      "depends_on": [
+        "B02"
+      ],
+      "gap_ids": [
+        "DC-02",
+        "DC-03"
+      ],
+      "deliverable": "Two-desk comparison and common-choice examples"
+    },
+    {
+      "id": "B04",
+      "status": "pending",
+      "estimate_minutes": [
+        45,
+        60
+      ],
+      "depends_on": [
+        "B03"
+      ],
+      "gap_ids": [
+        "DC-04"
+      ],
+      "deliverable": "Base-route and loop-consistency example with exact hypotheses"
+    },
+    {
+      "id": "B05",
+      "status": "pending",
+      "estimate_minutes": 60,
+      "depends_on": [
+        "B01"
+      ],
+      "gap_ids": [],
+      "deliverable": "Next bounded audit: eleven QuotientRetention source heads and Unit 72"
+    }
+  ],
+  "reviewed_context_pins": {
+    "textbook/units/70_can_a_pair_be_chosen_in_a_way_every_relabelling_respects.md": {
+      "git_blob": "14cff0485887840008024f8ad4743e3a5b8e4c6c",
+      "raw_sha256": "7464e5cb5a02a67b78c244b51bca4c85b0f20cb0f833f8a5e5922c9067765475"
+    },
+    "textbook/units/72_round_trip_coherence_quotient_retention_and_the_fidelity_closure.md": {
+      "git_blob": "136310896adb4ee6fa3d1c083b0f471de1f42311",
+      "raw_sha256": "bae1d6c3015595f590d19d3f8e3d6739589adf3094686f44ba240506f5f9837c"
+    },
+    "textbook/checks/u70_lean.py": {
+      "git_blob": "73c9ee3450cfafc6f761c13bbbc3d33740705680",
+      "raw_sha256": "35440e79eccc0b42f85bacea1538b147fb5411bc9ad980ebbafd31a71a33e217"
+    },
+    "textbook/checks/u70_presentation_naturality.py": {
+      "git_blob": "15cb97184d48e58d67f8818c01bc6e58cd8bee27",
+      "raw_sha256": "df496195fe09ad0e3408ac127f43abcd221911e00d792e8ed723543e80c02dbb"
+    },
+    "textbook/path_lab/01_follow_a_walk.md": {
+      "git_blob": "88d4f3a9e074d326ab6d7113d56c99f116c1aee5",
+      "raw_sha256": "c4b5542b461ca0c70095d81c3a8a92df43cc6a521c44b3e7fba1cbfc6cb3c9c5"
+    },
+    "textbook/map_lab/README.md": {
+      "git_blob": "c12c76bb85022f96438ada2b5b43408c449bfad3",
+      "raw_sha256": "7555359c92115a87ed46eea83e529b6033bae899e2c8b735f096a76e997213d7"
+    },
+    "textbook/audit/DESCENT_READING_REVIEW_2026-10-31.md": {
+      "git_blob": "d55f3c6a7908fd183a6f58df3f9d5656584ef533",
+      "raw_sha256": "d9e502e9ff02208540f7c637fbc7323af8c33b0c2b483b2419ccd10099151aa6"
+    },
+    "research/natural_sections/STATUS.md": {
+      "git_blob": "0901a2fc6ac10bd8957be700d447699646707d4b",
+      "raw_sha256": "f81677e907f7fdf255c36f3b4f453325f5b00d6923b7de5bdaef26eab082c379"
+    }
+  }
+}
