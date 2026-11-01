@@ -37,11 +37,11 @@ every hole receives the tested datum.
 
 | Test slots | On 0 | On 1 |
 |---|---|---|
-| (_,_) | No | No |
-| (_,0) | No | No |
-| (_,1) | Yes | No |
-| (0,_) | No | Yes |
-| (1,_) | No | No |
+| `(_,_)` | No | No |
+| `(_,0)` | No | No |
+| `(_,1)` | Yes | No |
+| `(0,_)` | No | Yes |
+| `(1,_)` | No | No |
 
 The first two rows agree. The third is a witness, so search can stop
 there when its task is to find one. Checking every row would also find
