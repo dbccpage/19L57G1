@@ -246,12 +246,11 @@ def rewrite_links_for_wiki(
                    for piece in pieces)
 
 
-def first_pass_anchor(raw_md: str) -> str:
+def first_pass_heading(raw_md: str) -> str:
     headings = re.findall(r'^## (First pass[^\n]*)$', raw_md, re.MULTILINE)
     if len(headings) != 1:
         raise ValueError('Expected one First pass heading')
-    # GitHub's rendered heading anchor uses this actual DOM ID.
-    return '#user-content-' + re.sub(r'[^\w -]', '', headings[0].lower()).replace(' ', '-')
+    return headings[0]
 
 
 def build_unit_wiki_page(
@@ -277,7 +276,7 @@ def build_unit_wiki_page(
     if len(names) != 1:
         raise ValueError(f"Expected one source file for {unit_code}, got {names}")
     source_url = f"{blob_base}/{source_dir}/{names[0]}"
-    first_pass = first_pass_anchor(raw_md)
+    first_pass_heading(raw_md)
     nav_prev = f"[◀ {prev_link[0]}]({prev_link[1]})" if prev_link else "[◀ Start Here](textbook_start_here)"
     nav_next = f"[{next_link[0]} ▶]({next_link[1]})" if next_link else "[Textbook Hub ▶](textbook_overview)"
     navigation = f"{nav_prev} · [Reading path](textbook_learning_path) · [Read the notation](textbook_reading_formal) · [Textbook Hub](textbook_overview) · {nav_next}"
@@ -290,7 +289,7 @@ def build_unit_wiki_page(
 
 `{part_label}` · `{unit_code}` · Lesson {unit_idx + 1} of {total_units}
 
-Start with the [First pass]({first_pass}). The lesson states its definitions, conditions and limits.
+Begin with the **First pass** example below. The lesson states its definitions, conditions and limits.
 
 {rewritten_body}
 

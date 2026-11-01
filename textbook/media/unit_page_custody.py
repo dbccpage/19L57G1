@@ -9,7 +9,7 @@ VIDEO = '<details>\n<summary>Act video (optional)</summary>'
 
 def unit_lesson_errors(repo: Path, wiki: Path) -> list[str]:
     # Import at call time: build/verify entry points already own these helpers.
-    from build_wiki_textbook import act_for_part1, act_for_part2, first_pass_anchor, rewrite_links_for_wiki
+    from build_wiki_textbook import act_for_part1, act_for_part2, first_pass_heading, rewrite_links_for_wiki
     folders = [('textbook/units', 'u'), ('textbook/institutions/units', 'i')]
     groups = [sorted((repo / folder).glob('*.md')) for folder, _ in folders]
     maps = [{p.name: 'textbook_' + prefix + p.stem for p in files}
@@ -47,12 +47,11 @@ def unit_lesson_errors(repo: Path, wiki: Path) -> list[str]:
             if video < end or text.count(VIDEO) != 1:
                 errors.append('Unit lesson must precede its folded video: ' + page)
             try:
-                jump = first_pass_anchor(raw)
+                first_pass_heading(raw)
             except ValueError:
                 errors.append('missing or ambiguous Unit First pass target: ' + page)
-            else:
-                if '](' + jump + ')' not in text[:start]:
-                    errors.append('missing Unit First pass jump: ' + page)
+            if re.search(r'\]\(#', text[:start]):
+                errors.append('unverified Unit fragment shortcut: ' + page)
             video_end = text.find('</details>', video)
             act, _, _ = (act_for_part2(int(source.name[:2])) if part
                          else act_for_part1(int(source.name[:2])))

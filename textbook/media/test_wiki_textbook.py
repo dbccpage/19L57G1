@@ -36,10 +36,7 @@ class WikiTextbookTests(unittest.TestCase):
                 self.assertEqual(Counter(re.findall(r'```.*?```', page, re.S)),
                                  Counter(re.findall(r'```.*?```', raw, re.S)), p.name)
                 self.assertNotIn('Short preview (', page)
-                if not part and p.name.startswith('37_'):
-                    self.assertIn('](#user-content-first-pass-two-dots-and-two-separate-questions)', page)
-                if not part and p.name.startswith('71_'):
-                    self.assertIn('](#user-content-first-pass-compare-the-groups-then-the-labels)', page)
+                self.assertNotRegex(page[:page.index(expected)], r'\]\(#')
                 checked += 1
         self.assertEqual(checked, 93)
 
@@ -62,8 +59,8 @@ class WikiTextbookTests(unittest.TestCase):
                 'video before lesson': (video + original.replace(video, '', 1), 'precede its folded video'),
                 'open video': (original.replace(VIDEO, VIDEO.replace('<details>', '<details open>')), 'folded video'),
                 'missing GIF': (original.replace('act00_pre_genesis_mark.gif', 'wrong.gif'), 'Act media link'),
-                'wrong First pass jump': (original.replace('](#user-content-first-pass)', '](#first-pass-absent)'), 'First pass jump'),
-                'unprefixed GitHub target': (original.replace('](#user-content-first-pass)', '](#first-pass)'), 'First pass jump'),
+                'unprefixed fragment shortcut': ('[First pass](#first-pass)\n' + original, 'fragment shortcut'),
+                'prefixed fragment shortcut': ('[First pass](#user-content-first-pass)\n' + original, 'fragment shortcut'),
                 'unavailable source pin': (swap_pin('0'*40), 'unavailable Unit source blob'),
                 'real pin with different source': (swap_pin('e492b100aaa298e886a690e7fec955480c10d817'), 'source pin differs'),
             }

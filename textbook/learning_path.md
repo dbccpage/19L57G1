@@ -39,8 +39,8 @@ distinct. Try each route's changed practice before its answer guide.
 For the formal source development, use
 [Reading a formal statement](reading_formal_statements.md), then
 [Unit 00](units/00_mark_and_constructor.md). The [textbook hub](README.md)
-keeps Units 00–74 in source order. Each Wiki Unit links directly to its
-First pass; its optional Act video follows the complete lesson. After Unit 03, attempt the
+keeps Units 00–74 in source order. Each Wiki Unit begins with the complete
+lesson and its First pass example; the optional Act video follows it. After Unit 03, attempt the
 [six changed examples](core_start_practice.md) before their
 [separate answers](core_start_answers.md). You can return to a concrete lab when
 a definition needs an example; the research branches are not admission

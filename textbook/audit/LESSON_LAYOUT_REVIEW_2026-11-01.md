@@ -12,7 +12,7 @@ The stock prediction also asked about “the proof” on Units whose principal
 contribution is a supplied definition rather than a theorem.
 
 The shared renderer now places the complete lesson after short navigation
-and a direct First pass link. The Act video, five general reading questions
+and a First pass reading instruction. The Act video, five general reading questions
 and source-edition record are separate disclosures after the lesson.
 There is no generated mathematical summary or generic dependency diagram.
 The source lesson retains its own predictions, examples, classifications,
@@ -35,22 +35,22 @@ The existing Wiki verifier now checks each complete Unit body against its
 source, rather than checking only that the page and sidebar link exist.
 Relative links are resolved using that page's own source edition. The
 full body must occur once before its folded Act video; both expected media
-links and a First pass target must be present. The source-edition link
+links and a unique First pass heading must be present. The source-edition link
 names the exact file and full commit, with a matching twelve-digit label.
 
 A Git batch read retrieves every pinned file. UTF-8 source text is
 compared with line endings normalized to LF; a plausible URL alone does
 not establish custody. A missing object, mismatched source text or absent
-pin fails. Units 37 and 71 have longer First pass headings; their jumps
-use the full heading anchors rather than assuming `#first-pass`. These
-two targets receive explicit population-test checks. This verifies source text and placement, not the meaning of
+pin fails. A generated fragment shortcut before the lesson is also
+refused. This verifies source text and placement, not the meaning of
 every theorem, the proof checker or a claim about a physical device.
 
 The thirteen-test Wiki authoring suite passes. Its new population check
 visits all 93 Units and checks full text once, before optional media, with
 the exact original fenced-block population. Eight disposable page faults
 are refused: dropping a scope sentence, moving a video before the lesson,
-opening the video by default, changing its GIF destination, breaking the First pass jump, removing its GitHub heading-ID prefix, inventing an
+opening the video by default, changing its GIF destination, introducing either of two unverified fragment
+shortcuts, inventing an
 unavailable source commit, and naming a real older commit whose source
 differs from the displayed lesson. Unchanged pages recover after each fault.
 The checks use scratch output; no source Unit is mutated.
@@ -70,8 +70,10 @@ layout change. Complete semantic coverage, general accessibility and
 observed beginner comprehension, transfer and retention remain open.
 This review is not full twelve-family merge clearance; the author merges.
 
-The first live phone check found that the unprefixed fragment changed the
-address without reaching the heading. The published GitHub DOM names the
-anchor with `user-content-`; the jump now targets that actual ID, including
-the two extended headings. The initial publication and its receipts are
-retained separately from this correction and subsequent live verification.
+Live phone checks found that same-page fragments changed the address
+without reliably moving the heading into view in the in-app browser.
+Both the ordinary and actual GitHub heading-ID forms were tried. The
+final layout therefore uses a plain First pass reading instruction and
+begins with the lesson itself; it requires no generated scroll shortcut.
+The initial publication, attempted fragment correction and their receipts
+are retained separately from the final publication and its UI samples.
