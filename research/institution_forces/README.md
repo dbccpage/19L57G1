@@ -12,8 +12,8 @@ Every consumed name (`Institution`, `Knows`, `knows_iff_determined`,
 as merged.
 
 Question (the operator's work packages WP0 and the Lean half of WP4, plan of
-2026-11-06, approved by the author the same day): settle the vocabulary
-shared with a companion repository (`CROSSWALK.md`), prove the lemma that
+2026-11-06, approved by the author the same day): fix the finite core
+vocabulary used by the plan, prove the lemma that
 makes "an actor is a family of presentations" and "an actor is one
 presentation" agree (L0), and prove the three results the plan's
 institution design rests on: robustness against replaced seats (L1), when a
@@ -144,7 +144,7 @@ and whether it carries a price.
 
 ```
 research/institution_forces/
-  README.md  CLAIMS.md  AUDIT.md  CROSSWALK.md  RECEIPT.md
+  README.md  CLAIMS.md  AUDIT.md  RECEIPT.md
   TREE_CONTRACT.json  SOURCE_MANIFEST.json  input.json
   model.py  tests/test_model.py  verify.py
   lean/lakefile.toml  lean/lean-toolchain  lean/lake-manifest.json

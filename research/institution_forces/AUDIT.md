@@ -50,4 +50,4 @@ silent outside its bound: four points, Boolean seats, at most three seats.
 | A target `t` as a seat | `Staleness.target_member_preserves`; AI-09 | price: one seat, as in AI-09 ("the price of truth is admitting the target") |
 | `ScopedSound` (a rule authorizes only known claims) | AI-13, not used here | **unpriced**. Its only price is its name. The plan's WP0 asked that it be priced or recorded as unpriced; it is recorded here as unpriced (IF-17o) |
 | The probe grammar of acquisition | AI-16, not used here | 1 per probe (AI) |
-| A mandate or jurisdiction grant | not represented in this tree or in AI | — (`CROSSWALK.md`, authorization row) |
+| A mandate or jurisdiction grant | not represented in this tree or in AI | — (kept outside this repository; no external citation here) |
