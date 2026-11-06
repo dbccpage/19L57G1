@@ -5,6 +5,13 @@ in the sealed derivation and authorizes nothing. Every verdict below is a
 reading of `lean4/Derivation/` as it stands, checked against the artifact,
 the paper and the ledger, and reproducible from the files named.
 
+**Author-requested coverage continuation (2026-11-01).**
+[Batch 1](DECLARATION_COVERAGE_BATCH_01_2026-11-01.md) gives individual
+dispositions for twelve sealed source heads and all 41 heads of the selected
+`NaturalSections.lean` research file. Its JSON crosswalk and hour-sized
+follow-up graph identify five explanation/scope gaps. This is a bounded
+teaching audit, not complete declaration coverage or a new proof receipt.
+
 The [123-tree placement decision](RESEARCH_PLACEMENT_2026-11-01.md) distinguishes
 twenty selected introductions,
 advanced references, open-question roles and standalone omissions. It is an

@@ -2,6 +2,23 @@
 
 2026-11-01. AuthorityEffect: None. Continue from [the handoff](TEXTBOOK_HANDOFF.md).
 
+## Author-requested continuation after the release
+
+PR 296 passed all 137 local merge steps and merged as
+`1c9ad34b834671d0d71a26c7d3ce539d29fa551a`. That supersedes the pre-merge
+full-contract-not-run statement in the release disposition below.
+
+The author has now requested the deeper coverage work previously conditional
+under COV-02. [Batch 1](textbook/audit/DECLARATION_COVERAGE_BATCH_01_2026-11-01.md)
+is complete at its bounded identification scope: twelve sealed source heads
+and 41 research heads, each with a disposition. DC-01–05 identify concrete
+explanation/scope gaps, including Unit 70's sealed-versus-research OPEN wording.
+The JSON graph proposes B02–04 as 45–60 minute teaching batches and B05 as the
+next bounded audit. These new items are not delivered lessons and do not
+reopen every completed P1 release task or claim exhaustive teaching coverage.
+The table below preserves the earlier release triage; use the new crosswalk
+for this continuation. LEARN-01 remains optional; no participant is requested.
+
 ## Triage result
 
 All 93 formal Units have **existing selected semantic/readability reviews**.
