@@ -1,0 +1,23 @@
+name = "institution_forces"
+version = "0.1.0"
+defaultTargets = ["ResearchInstitutionForces"]
+
+# The sealed derivation package, consumed read-only.
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+# The two-theorems tree (institutions, knowledge, information), consumed
+# read-only rather than re-proved.
+[[require]]
+name = "two_theorems"
+path = "../../two_theorems/lean"
+
+# The actor_institution tree (exceeding, correspondence, truth targets),
+# consumed read-only rather than re-proved.
+[[require]]
+name = "actor_institution"
+path = "../../actor_institution/lean"
+
+[[lean_lib]]
+name = "ResearchInstitutionForces"

@@ -91,6 +91,7 @@ Lean layout. The first and last also have explicit build-recipe entries.
 | `identification_dual` | local receipt only |  |
 | `ignition` | local receipt only |  |
 | `instance_demand` | local receipt only |  |
+| `institution_forces` | local receipt only |  |
 | `internal_syntax_logic` | local receipt only |  |
 | `interpreter_verdict` | local receipt only |  |
 | `iso_sound` | local receipt only |  |
