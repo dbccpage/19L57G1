@@ -46,11 +46,22 @@ questions and targets are the 16 Boolean tables.
 | IF-13c | VERIFIED_FINITE | L3 for every institution of the bound, every choice of ballot maps from the seat's two values to three ballot values (nine per seat) and every Boolean question: 48109840 cases, no violation, 10465788 strict losses. Sincere ballots on each Boolean question, 69904 cases: each is a function of its seat, they and every tally of them know no more than the seats, and they lose the question in 2928 cases, every one of them a case where the family knows it and no single seat does. | `model.l3_check`, `tests/test_model.py::test_l3_ballot_compression` |
 | IF-14 | PROVED_THEOREM | The re-review rule. A decision needs re-review on removal, on relabelling, on carrier extension and on a newly admitted target, and never on an added seat alone: the last is IF-06, and each of the others breaks a decision on a named witness. | `Staleness.add_preserves`; `ResearchActorInstitution.Inst.consensus_after_loss` (AI-06), `Staleness.relabel_can_break`, `ResearchActorInstitution.Inst.correspondence_matters` (AI-04), `Staleness.extension_breaks`, `Staleness.decision_holds_target_fails` |
 | IF-15o | OPEN | Robustness against capture of sources rather than seats. The count of IF-03 is per seat; when several seats copy one source, the relevant count is of separating sources, which needs an admitted map from seats to sources. No such map is defined here. | not in Lean |
-| IF-16o | OPEN | L2 (b) for bijective relabellings only: the exact condition under which every bijective relabelling of the seats `R` preserves a decision. IF-07 quantifies over every replacement; IF-08 shows the bijective case differs. | not in Lean |
+| IF-16o | OPEN | L2 (b) for bijective relabellings only: the exact condition under which every bijective relabelling of the seats `R` preserves a decision. IF-07 quantifies over every replacement; IF-08 shows the bijective case differs: there the count condition is sufficient and not necessary. A seat injective on the carrier is a second kind of counterexample to necessity, since every bijective relabelling of it stays injective. | not in Lean |
 | IF-17o | OPEN | A price for the admission `ScopedSound` of AI-13, which this tree does not use. The plan asked that it be priced or recorded as unpriced; it is recorded unpriced in `AUDIT.md`, and no price is derived. | `AUDIT.md`, Admissions |
 | inputs | VERIFIED_FINITE | The pinned consumed research modules are exactly the outside imports of every module of `lean/`, and their files exist. Unchanged contents are not checked: no digests are pinned. | `tests/test_model.py::test_imports_are_the_pinned_research_modules`, `tests/test_model.py::test_consumed_modules_exist` |
 | reach | VERIFIED_FINITE | Every `theorem` of the four modules is named in the axiom report and in `TREE_CONTRACT.json`, in file order, with no duplicate: 59 names. | `model.theorem_names`, `tests/test_model.py::test_axiom_report_covers_every_theorem_and_matches_contract` |
 | fast form | VERIFIED_FINITE | The bitmask form of knowledge used by the heavier checks agrees with the definition read directly, on every carrier for every family of at most two seats and on the full carrier for every family of three: 135424 cases, no violation. | `model.fast_form_check`, `tests/test_model.py::test_fast_form_agrees_with_the_definition` |
+
+Cross-check, reported and not reproduced here. The coordinating session
+reported on 2026-11-06 that an exhaustive Rust check in the engine repository
+(its pull request 1509; 4369 institutions and 16 questions on `[0, 1, 2, 3]`)
+finds L1, L2 (a), L2 (c) and L3 holding, and narrows two of the plan's
+statements in the same way as this ledger: L2 (b) is exact for removal and for
+relabelling by arbitrary maps (IF-07) and only sufficient for bijective
+relabellings (IF-08, IF-08r, IF-16o); L2 (d) leaves `Knows` unchanged only for
+a target that is not seated, and a seated target can only enlarge what is
+known (IF-10). That check is not a receipt of this tree: its command, tool
+versions and exit status were not seen here, and no row above cites it.
 
 Lean reach: exactly the 59 theorems named in `TREE_CONTRACT.json`, which are
 every `theorem` of the four modules. Definitions and the two inductive
