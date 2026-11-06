@@ -1,0 +1,12 @@
+{
+  "source_revision": "1c9ad34b834671d0d71a26c7d3ce539d29fa551a",
+  "consumed_modules": [
+    "Derivation.Compression"
+  ],
+  "source_revision_note": "The commit of main this tree was first built against. Not verified: the Lean dependencies are the working tree's ../../../lean4, ../../two_theorems/lean and ../../actor_institution/lean, and no digest of the consumed modules is pinned here, so the tests check that the modules exist, not that they are unchanged. Derivation.Compression is consumed through the two research trees; no module here imports it directly.",
+  "consumed_research_modules": {
+    "ResearchActorInstitution.Chain": "research/actor_institution/lean/ResearchActorInstitution/Chain.lean",
+    "ResearchActorInstitution.Institution": "research/actor_institution/lean/ResearchActorInstitution/Institution.lean",
+    "ResearchTwoTheorems.Institution": "research/two_theorems/lean/ResearchTwoTheorems/Institution.lean"
+  }
+}
