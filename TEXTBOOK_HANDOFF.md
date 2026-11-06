@@ -2,7 +2,26 @@
 
 Updated: 2026-11-01. AuthorityEffect: None.
 
-## Current status
+## Current continuation: declaration coverage
+
+After the release checkpoint below, the author authorized and PR 296 completed
+all 137 local merge steps at `bfd20e69192db219391507c4ee0b2ef7a7b67a66`.
+It was marked ready and merged as
+`1c9ad34b834671d0d71a26c7d3ce539d29fa551a`; its tree equals the tested tree.
+The earlier draft/unmerged and full-contract-not-run statements below are
+historical release-checkpoint statements, superseded by this note.
+
+The author then requested a first hour-sized declaration-coverage batch.
+[Batch 1](textbook/audit/DECLARATION_COVERAGE_BATCH_01_2026-11-01.md) is complete
+as an identification audit: 53 source heads, five explanation/scope gaps,
+six checked finite teaching examples and a linked JSON crosswalk/task graph.
+It adds no lessons or new mathematical results and makes no exhaustive claim.
+Next proposed batch: B02, the fixed-point checklist and precise research
+handoff in Unit 70 (45–60 minutes). No new participant request is pending.
+The completed release review remains reusable; this is explicitly requested
+new work, rather than a restart of all chapter reviews.
+
+## Release checkpoint before PR 296 merged (historical)
 
 The requested editorial and publication work is complete. The final
 status-page verification is recorded below. The book retains all 75 derivation
