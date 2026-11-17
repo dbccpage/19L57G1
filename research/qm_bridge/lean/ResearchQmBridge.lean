@@ -2,3 +2,4 @@ import ResearchQmBridge.Residual
 import ResearchQmBridge.Gauss
 import ResearchQmBridge.Multiplicity
 import ResearchQmBridge.Instance
+import ResearchQmBridge.Parity

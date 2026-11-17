@@ -3,6 +3,13 @@
  "packages":
  [{"type": "path",
    "scope": "",
+   "name": "actor_institution",
+   "manifestFile": "lake-manifest.json",
+   "inherited": false,
+   "dir": "../../actor_institution/lean",
+   "configFile": "lakefile.toml"},
+  {"type": "path",
+   "scope": "",
    "name": "two_theorems",
    "manifestFile": "lake-manifest.json",
    "inherited": false,

@@ -27,6 +27,20 @@
     "ResearchQmBridge.Multiplicity.finite_order_suffices",
     "ResearchQmBridge.Instance.instance_information",
     "ResearchQmBridge.Instance.instance_not_knows",
-    "ResearchQmBridge.Instance.instance_challenge"
+    "ResearchQmBridge.Instance.instance_challenge",
+    "ResearchQmBridge.Parity.incidence",
+    "ResearchQmBridge.Parity.shared_global",
+    "ResearchQmBridge.Parity.shared_iff_one_presentation",
+    "ResearchQmBridge.Parity.targets_even",
+    "ResearchQmBridge.Parity.no_global_assignment",
+    "ResearchQmBridge.Parity.exhaustive_no_assignment",
+    "ResearchQmBridge.Parity.exhaustive_no_global",
+    "ResearchQmBridge.Parity.global_iff_even",
+    "ResearchQmBridge.Parity.dropValue_meets",
+    "ResearchQmBridge.Parity.drop_one_context",
+    "ResearchQmBridge.Parity.mismatch_at_every_point",
+    "ResearchQmBridge.Parity.contextValue_meets",
+    "ResearchQmBridge.Parity.context_indexed_exists",
+    "ResearchQmBridge.Parity.contextValue_breaks_one"
   ]
 }

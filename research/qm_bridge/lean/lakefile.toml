@@ -10,5 +10,9 @@ path = "../../../lean4"
 name = "two_theorems"
 path = "../../two_theorems/lean"
 
+[[require]]
+name = "actor_institution"
+path = "../../actor_institution/lean"
+
 [[lean_lib]]
 name = "ResearchQmBridge"
