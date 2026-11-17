@@ -5,17 +5,20 @@ AuthorityEffect: None.
 A research tree outside the sealed derivation.  It consumes the merged
 `research/two_theorems` package read-only (`Institution`, `Knows`,
 `information`, `know_or_witness`, `information_lt_of_not_knows`,
-`knows_iff_information_eq`) and the sealed `Derivation.Compression` through
-it.  It adds nothing to `lean4/`, edits nothing in `two_theorems`, and proves
-its statements in core Lean 4.33 with no library beyond those two packages.
+`knows_iff_information_eq`), the merged `research/actor_institution`
+package read-only (`Chain.Corr`, for B2), and the sealed
+`Derivation.Compression` through them.  It adds nothing to `lean4/`, edits
+nothing in `two_theorems` or `actor_institution`, and proves its statements
+in core Lean 4.33 with no library beyond those packages.
 Every `#print axioms` report named in `TREE_CONTRACT.json` lies within
 `{propext, Quot.sound}`; no proof uses a choice principle
-(`python verify.py --check`, 22 named declarations).
+(`python verify.py --check`, 36 named declarations).
 
 This tree is milestone M2 of the 18-month plan approved by the author on
-2026-10-28 (sub-theorem B1, clauses (i) to (iii)).  It proves nothing about
-nature.  It states which structure a finite challenge forces relative to
-named admissions, and which it does not.
+2026-10-28 (sub-theorem B1, clauses (i) to (iii)), and B2 clauses (i) to
+(iii) (milestone M3 of that plan, item M1 of the execution plan of
+2026-11-17).  It proves nothing about nature.  It states which structure a
+finite challenge forces relative to named admissions, and which it does not.
 
 ## Supplied vocabulary
 
@@ -105,6 +108,49 @@ structure does not appear in the definitions used to state the challenge.
   invariance, which A_amp states; it assumes nothing about which readout.
 - Outstanding: the plan asks for this audit to be repeated by a reviewer
   who did not write the proofs.  That review has not happened.
+
+## B2: the parity square (`Parity.lean`)
+
+Admissions and challenge for this row:
+
+| name | kind | what it is |
+|---|---|---|
+| R_ctx | externally imposed challenge | a 3 × 3 square, six contexts (three rows, three columns), a parity target per context: even on every row and on the first two columns, odd on the last column |
+| A_par | admitted at a price | an outcome `±1` is a natural number read through its parity, so a context's product is `-1` exactly when its sum is odd; `{0, 1}` values are used where a witness is built, and B2(i) needs no bound |
+| Corr | the actor-institution correspondence, used as it stands | `ResearchActorInstitution.Chain.Corr D q t`: `q` and `t` agree on the carrier. A shared entry is one outcome when its row copy and its column copy correspond |
+
+A table gives one presentation per context and entry (`Table`).  `Meets`
+asks each context's parity at every carrier point; `Shared` asks the nine
+correspondences; a global table (one presentation per entry) is shared by
+construction, and `shared_iff_one_presentation` says `Shared` is exactly
+"each entry has one presentation".
+
+- **B2(i)** (`no_global_assignment`, QB-17): no table on a nonempty carrier
+  meets the square and is shared.  The proof counts parities: each entry
+  sits in two contexts, so the six context sums add to an even number, and
+  the targets add to one.  `exhaustive_no_global` (QB-18) proves the same
+  through all `2⁹` `{0, 1}` assignments.
+- **B2(ii)** (`drop_one_context`, QB-20): for each of the six contexts a
+  global `{0, 1}` table meets the other five on every carrier.
+- **B2(iii)** (`mismatch_at_every_point`, `context_indexed_exists`, QB-21):
+  every table meeting the square breaks a correspondence at every carrier
+  point, and context-indexed tables meeting it exist.  Within outcomes that
+  are presentations on one carrier, dropping the correspondence is
+  necessary and enough.
+- **B2(iv)** stays OPEN (QB-23o).
+
+Encoding audit for B2.  `Meets`, `Shared` and `Bits` mention a carrier, a
+target `p`, presentations and `Corr`; none of them states that an
+assignment is missing.  `global_iff_even` (QB-19) proves that the same
+definitions have a global table for every target whose six values add to an
+even number, so the answer of B2(i) comes from the square's odd target, not
+from the definitions.  `incidence` checks that each entry lies in its row
+and its column and in no other context.  This audit was written by the
+author of the proofs; the plan's independent reviewer has not done it.
+
+Not claimed for B2: minimality over any class of squares in Lean beyond
+this one (the grid check of QB-22 is VERIFIED_FINITE up to 3 × 3); anything
+about the operator realization.
 
 ## Outside the system
 

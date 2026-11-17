@@ -23,3 +23,17 @@ import ResearchQmBridge
 #print axioms ResearchQmBridge.Instance.instance_information
 #print axioms ResearchQmBridge.Instance.instance_not_knows
 #print axioms ResearchQmBridge.Instance.instance_challenge
+#print axioms ResearchQmBridge.Parity.incidence
+#print axioms ResearchQmBridge.Parity.shared_global
+#print axioms ResearchQmBridge.Parity.shared_iff_one_presentation
+#print axioms ResearchQmBridge.Parity.targets_even
+#print axioms ResearchQmBridge.Parity.no_global_assignment
+#print axioms ResearchQmBridge.Parity.exhaustive_no_assignment
+#print axioms ResearchQmBridge.Parity.exhaustive_no_global
+#print axioms ResearchQmBridge.Parity.global_iff_even
+#print axioms ResearchQmBridge.Parity.dropValue_meets
+#print axioms ResearchQmBridge.Parity.drop_one_context
+#print axioms ResearchQmBridge.Parity.mismatch_at_every_point
+#print axioms ResearchQmBridge.Parity.contextValue_meets
+#print axioms ResearchQmBridge.Parity.context_indexed_exists
+#print axioms ResearchQmBridge.Parity.contextValue_breaks_one
