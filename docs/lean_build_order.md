@@ -312,7 +312,7 @@ Invoke-InDir 'research/symmetry_floor/lean' 'lean' @('SymmetryFloor.lean')
 | 19 | `research/two_theorems/lean` | `two_theorems` | `derivation` | 1 | yes | none |
 | 20 | `research/actor_institution/lean` | `actor_institution` | `derivation`, `two_theorems` | 2 | yes | none |
 | 21 | `research/institution_forces/lean` | `institution_forces` | `derivation`, `two_theorems`, `actor_institution` | 3 | yes | none |
-| 22 | `research/qm_bridge/lean` | `qm_bridge` | `derivation`, `two_theorems` | 2 | yes | none |
+| 22 | `research/qm_bridge/lean` | `qm_bridge` | `derivation`, `two_theorems`, `actor_institution` | 3 | yes | none |
 | 23 | `research/alpha_engine/lean` | `harness` | `derivation` | 1 | yes | none |
 | 24 | `research/endogenous_continuum/lean` | `endogenous_continuum` | `derivation` | 1 | yes | none |
 | 25 | `research/endogenous_demand/lean` | `endogenous_demand` | `derivation` | 1 | yes | none |
